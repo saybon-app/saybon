@@ -1,25 +1,33 @@
-/* ==========================================
-   SAYBON PREMIUM GLASS DASHBOARD
-========================================== */
+/* =========================================
+   SAYBON PREMIUM DASHBOARD — FINAL STABLE
+========================================= */
 
-body {
+/* RESET */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
+  padding: 0;
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #0f172a 0%, #050a18 80%);
+  background: radial-gradient(circle at top, #0f172a 0%, #050a18 70%);
   color: white;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* ================= WRAPPER ================= */
+/* WRAPPER */
 
 .dashboard {
-  max-width: 1200px;
+  max-width: 1150px;
   margin: 0 auto;
-  padding: 40px 40px 30px;
+  padding: 40px 24px 30px 24px;
 }
 
-/* ================= HEADER ================= */
+/* =========================================
+   HEADER
+========================================= */
 
 .dashboard-header {
   text-align: center;
@@ -27,30 +35,28 @@ body {
 }
 
 .dashboard-header h1 {
-  font-size: 38px;
+  font-size: 40px;
   font-weight: 800;
   letter-spacing: 1px;
-  margin: 0;
 
-  background: linear-gradient(90deg,#7dd3fc,#a78bfa,#f472b6);
+  background: linear-gradient(90deg, #6c8cff, #b66cff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 18px rgba(120,140,255,0.35);
 
   animation: headerGlow 4s ease-in-out infinite alternate;
 }
 
-@keyframes headerGlow {
-  from { filter: drop-shadow(0 0 6px rgba(167,139,250,0.4)); }
-  to   { filter: drop-shadow(0 0 18px rgba(244,114,182,0.7)); }
-}
-
 .dashboard-header p {
   margin-top: 8px;
+  opacity: 0.75;
   font-size: 14px;
-  opacity: 0.8;
 }
 
-/* ================= GRID ================= */
+/* =========================================
+   GRID
+========================================= */
 
 .dashboard-grid {
   display: grid;
@@ -58,12 +64,14 @@ body {
   gap: 18px;
 }
 
-/* ================= GLASS CARDS ================= */
+/* =========================================
+   CARDS — SMALLER + STRONG OVERRIDE
+========================================= */
 
-.card {
+.dashboard-grid .card {
   position: relative;
-  aspect-ratio: 16 / 9;
-  padding: 18px;
+  height: 150px !important;
+  padding: 18px 20px;
   border-radius: 20px;
   cursor: pointer;
   overflow: hidden;
@@ -72,97 +80,138 @@ body {
   flex-direction: column;
   justify-content: center;
 
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(16px);
+
   box-shadow:
-    inset 0 0 25px rgba(255,255,255,0.08),
-    0 10px 25px rgba(0,0,0,0.5);
+    inset 0 0 20px rgba(255,255,255,0.08),
+    0 8px 20px rgba(0,0,0,0.45);
 
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* ---- Glass shimmer sweep ---- */
+/* TACTILE PRESS */
 
-.card::before {
+.dashboard-grid .card:active {
+  transform: scale(0.96);
+  box-shadow:
+    inset 0 6px 18px rgba(0,0,0,0.6),
+    0 3px 10px rgba(0,0,0,0.4);
+}
+
+/* SHIMMER SWEEP */
+
+.dashboard-grid .card::after {
   content: "";
   position: absolute;
-  top: -150%;
-  left: -50%;
-  width: 200%;
+  top: -100%;
+  left: -40%;
+  width: 60%;
   height: 300%;
   background: linear-gradient(
     120deg,
-    rgba(255,255,255,0.15) 0%,
-    rgba(255,255,255,0.4) 40%,
-    rgba(255,255,255,0.15) 80%
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent
   );
   transform: rotate(25deg);
-  animation: shimmer 8s linear infinite;
+  animation: shimmer 6s infinite;
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%) rotate(25deg); }
-  100% { transform: translateX(100%) rotate(25deg); }
-}
-
-/* ---- Press inward tactile feel ---- */
-
-.card:active {
-  transform: scale(0.96);
-  box-shadow:
-    inset 0 6px 20px rgba(0,0,0,0.6),
-    inset 0 -6px 20px rgba(255,255,255,0.1);
-}
-
-/* ================= CARD TEXT ================= */
+/* =========================================
+   CARD CONTENT
+========================================= */
 
 .card h3 {
-  font-size: 18px;
-  margin: 0 0 6px;
+  font-size: 20px;
   font-weight: 700;
+  margin: 0 0 6px 0;
 }
 
 .card span {
-  font-size: 12px;
-  opacity: 0.9;
+  font-size: 13px;
+  opacity: 0.85;
 }
 
-/* ================= GRADIENTS (FLOWING) ================= */
+/* =========================================
+   GRADIENTS (Using Image Shade Families)
+========================================= */
 
 .levels {
-  background: linear-gradient(135deg,#ff4db8,#ff7adf,#c084fc);
+  background: linear-gradient(135deg, #ff4fbc, #c44cff, #7a5cff);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
 
 .talkletics {
-  background: linear-gradient(135deg,#facc15,#f59e0b,#fde047);
+  background: linear-gradient(135deg, #ffd34f, #ffb347, #f59e0b);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
 
 .music {
-  background: linear-gradient(135deg,#fb923c,#f97316,#fdba74);
+  background: linear-gradient(135deg, #ff934f, #ff6b3d, #ff8c42);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
 
 .delf {
-  background: linear-gradient(135deg,#38bdf8,#0ea5e9,#7dd3fc);
+  background: linear-gradient(135deg, #4cc9f0, #3aa0ff, #3f8cff);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
 
 .translation {
-  background: linear-gradient(135deg,#34d399,#10b981,#6ee7b7);
+  background: linear-gradient(135deg, #4ade80, #22c55e, #16a34a);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
 
 .chat {
-  background: linear-gradient(135deg,#3b82f6,#2563eb,#60a5fa);
+  background: linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8);
   background-size: 200% 200%;
-  animation: gradientFlow 12s ease infinite;
+  animation: gradientFlow 10s ease infinite;
 }
+
+/* =========================================
+   FOOTER BUTTONS (SHORT + PREMIUM)
+========================================= */
+
+.dashboard-footer {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dashboard-footer button {
+  padding: 6px 22px;
+  height: 34px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+
+  font-family: "Georgia", serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+
+  background: linear-gradient(135deg, #6c8cff, #b66cff);
+  color: white;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.35),
+    inset 0 1px 2px rgba(255,255,255,0.25);
+
+  transition: transform 0.15s ease;
+}
+
+.dashboard-footer button:active {
+  transform: scale(0.94);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
 
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
@@ -170,69 +219,43 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ================= FOOTER ================= */
-
-.dashboard-footer {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 25px;
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(300%) rotate(25deg); }
 }
 
-.dashboard-footer button {
-  padding: 8px 24px;
-  font-size: 13px;
-  font-family: "Georgia", serif;
-  border-radius: 22px;
-  border: none;
-  cursor: pointer;
-
-  background: linear-gradient(90deg,#a78bfa,#f472b6);
-  color: white;
-
-  box-shadow:
-    0 5px 14px rgba(167,139,250,0.4);
-
-  transition: transform 0.15s ease;
+@keyframes headerGlow {
+  from { text-shadow: 0 0 10px rgba(120,140,255,0.2); }
+  to   { text-shadow: 0 0 25px rgba(140,160,255,0.5); }
 }
 
-.dashboard-footer button:hover {
-  transform: translateY(-2px);
-}
+/* =========================================
+   MOBILE
+========================================= */
 
-/* ================= MOBILE ================= */
-
-@media (max-width: 900px) {
+@media (max-width: 768px) {
 
   body {
     overflow-y: auto;
   }
 
   .dashboard {
-    padding: 30px 20px 40px;
+    padding: 25px 18px;
   }
 
   .dashboard-header h1 {
-    font-size: 20px; /* keeps LEARNER 📌 DASHBOARD on one line */
+    font-size: 22px;
   }
 
   .dashboard-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
   }
 
-  .card {
-    aspect-ratio: auto;
-    min-height: 110px;
+  .dashboard-grid .card {
+    height: 120px !important;
   }
 
   .dashboard-footer {
-    flex-direction: column;
-    align-items: center;
+    margin-top: 20px;
   }
-
-  .dashboard-footer button {
-    width: 90%;
-  }
-
 }
