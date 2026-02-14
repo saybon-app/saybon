@@ -1,291 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LEARNER DASHBOARD — SayBon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEARNER DASHBOARD — SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
-<style>
-
-/* ================= BASE ================= */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #0f172a 0%, #020617 80%);
-  color: white;
-  min-height: 100vh;
-  overflow-y: auto;     /* MOBILE SCROLL FIX */
-}
-
-.dashboard {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-}
-
-/* ================= HEADER ================= */
-
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 18px;
-}
-
-.dashboard-header h1 {
-  font-size: 20px;
-  font-weight: 800;
-  white-space: nowrap;
-  letter-spacing: 0.5px;
-
-  /* subtle glow */
-  text-shadow:
-    0 0 6px rgba(120,150,255,0.4),
-    0 0 14px rgba(120,150,255,0.3);
-}
-
-.dashboard-header p {
-  font-size: 12px;
-  opacity: 0.65;
-  margin-top: 4px;
-}
-
-/* Desktop Header */
-@media (min-width: 900px) {
-  .dashboard-header h1 {
-    font-size: 32px;
-    white-space: normal;
-  }
-}
-
-/* ================= GRID ================= */
-
-.dashboard-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width: 900px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-
-/* ================= CARD BASE ================= */
-
-.card {
-  position: relative;
-  border-radius: 22px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  backdrop-filter: blur(20px);
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.25s ease;
-
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.3),
-    0 12px 30px rgba(0,0,0,0.5);
-}
-
-/* Press inward effect */
-.card:active {
-  transform: scale(0.97);
-  box-shadow:
-    inset 0 4px 10px rgba(0,0,0,0.6),
-    0 6px 12px rgba(0,0,0,0.4);
-}
-
-/* Hover lift */
-.card:hover {
-  transform: translateY(-4px);
-}
-
-/* Shimmer Sweep */
-.card::before {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: -40%;
-  width: 60%;
-  height: 300%;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.0) 0%,
-    rgba(255,255,255,0.25) 50%,
-    rgba(255,255,255,0.0) 100%
-  );
-  transform: rotate(25deg);
-  animation: shimmer 6s infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -60%; }
-  100% { left: 120%; }
-}
-
-.card .emoji {
-  font-size: 22px;
-  margin-bottom: 8px;
-}
-
-.card h3 {
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.card span {
-  font-size: 12px;
-  opacity: 0.9;
-  margin-top: 3px;
-}
-
-/* ================= ANIMATED GRADIENTS ================= */
-
-@keyframes flow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.levels {
-  background: linear-gradient(135deg, #ff6fa9, #ff2e88, #d81b60);
-  background-size: 200% 200%;
-  animation: flow 8s ease infinite;
-}
-
-.talkletics {
-  background: linear-gradient(135deg, #f7d046, #f1c40f, #c9a000);
-  background-size: 200% 200%;
-  animation: flow 9s ease infinite;
-}
-
-.music {
-  background: linear-gradient(135deg, #ffb347, #ff7f11, #ff9f43);
-  background-size: 200% 200%;
-  animation: flow 7s ease infinite;
-}
-
-.delf {
-  background: linear-gradient(135deg, #7ed6df, #22a6b3, #74b9ff);
-  background-size: 200% 200%;
-  animation: flow 10s ease infinite;
-}
-
-.translation {
-  background: linear-gradient(135deg, #6ab04c, #2ecc71, #badc58);
-  background-size: 200% 200%;
-  animation: flow 8s ease infinite;
-}
-
-.chat {
-  background: linear-gradient(135deg, #74b9ff, #0984e3, #6c5ce7);
-  background-size: 200% 200%;
-  animation: flow 9s ease infinite;
-}
-
-/* ================= FOOTER ================= */
-
-.dashboard-footer {
-  display: flex;
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.dashboard-footer button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 16px;
-  border: none;
-  font-family: "Playfair Display", serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #8e44ad, #6c5ce7);
-  cursor: pointer;
-  transition: 0.2s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
-
-.dashboard-footer button:hover {
-  transform: translateY(-2px);
-}
-
-.dashboard-footer button:active {
-  transform: scale(0.96);
-}
-
-</style>
+  <!-- External CSS ONLY -->
+  <link rel="stylesheet" href="/css/dashboard.css" />
 </head>
 
 <body>
 
 <div class="dashboard">
 
-<header class="dashboard-header">
-  <h1>LEARNER 📌 DASHBOARD</h1>
-  <p>Your French journey at a glance</p>
-</header>
+  <!-- ================= HEADER ================= -->
 
-<main class="dashboard-grid">
+  <header class="dashboard-header">
+    <h1>LEARNER 📌 DASHBOARD</h1>
+    <p>Your French journey at a glance</p>
+  </header>
 
-  <div class="card levels" onclick="goLevels()">
-    <div class="emoji">🎓</div>
-    <h3>Levels</h3>
-    <span>A0 → C1 structured path</span>
+  <!-- ================= GRID ================= -->
+
+  <main class="dashboard-grid">
+
+    <div class="card levels" onclick="goLevels()">
+      <div class="emoji">🎓</div>
+      <h3>Levels</h3>
+      <span>A0 → C1 structured path</span>
+    </div>
+
+    <div class="card talkletics" onclick="goTalkletics()">
+      <div class="emoji">🧩</div>
+      <h3>Talkletics</h3>
+      <span>Skill building games</span>
+    </div>
+
+    <div class="card music" onclick="goMusic()">
+      <div class="emoji">🎵</div>
+      <h3>Music</h3>
+      <span>Learn with rhythm</span>
+    </div>
+
+    <div class="card delf" onclick="goDelf()">
+      <div class="emoji">📄</div>
+      <h3>DELF Prep</h3>
+      <span>Mock exams</span>
+    </div>
+
+    <div class="card translation" onclick="goTranslation()">
+      <div class="emoji">🌍</div>
+      <h3>Translation</h3>
+      <span>Clients & translators</span>
+    </div>
+
+    <div class="card chat" onclick="goChat()">
+      <div class="emoji">💬</div>
+      <h3>Chat Room</h3>
+      <span>Community space</span>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+
+  <div class="dashboard-footer">
+    <button onclick="goFeedback()">Feedback ✍🏽 Enquiries</button>
+    <button onclick="goSupport()">Support 💚 SayBon</button>
+    <button onclick="goHome()">Home</button>
   </div>
 
-  <div class="card talkletics" onclick="goTalkletics()">
-    <div class="emoji">🧩</div>
-    <h3>Talkletics</h3>
-    <span>Skill building games</span>
-  </div>
-
-  <div class="card music" onclick="goMusic()">
-    <div class="emoji">🎵</div>
-    <h3>Music</h3>
-    <span>Learn with rhythm</span>
-  </div>
-
-  <div class="card delf" onclick="goDelf()">
-    <div class="emoji">📄</div>
-    <h3>DELF Prep</h3>
-    <span>Mock exams</span>
-  </div>
-
-  <div class="card translation" onclick="goTranslation()">
-    <div class="emoji">🌍</div>
-    <h3>Translation</h3>
-    <span>Clients & translators</span>
-  </div>
-
-  <div class="card chat" onclick="goChat()">
-    <div class="emoji">💬</div>
-    <h3>Chat Room</h3>
-    <span>Community space</span>
-  </div>
-
-</main>
-
-<div class="dashboard-footer">
-  <button onclick="goFeedback()">Feedback ✍🏽Enquiries</button>
-  <button onclick="goSupport()">Support 💚SayBon</button>
-  <button onclick="goHome()">🔙 Home</button>
 </div>
 
-</div>
+<!-- ================= NAVIGATION ================= -->
 
 <script>
 function goLevels(){ window.location.href="/levels/"; }
