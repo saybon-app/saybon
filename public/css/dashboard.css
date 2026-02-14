@@ -172,3 +172,31 @@ body {
 .dashboard-footer button:hover {
   background: rgba(255,255,255,0.2);
 }
+/* ================= DESKTOP FIX ================= */
+
+@media (min-width: 900px) {
+
+  .dashboard {
+    padding: 40px 60px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    min-height: 160px;      /* shorter */
+    padding: 20px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card span {
+    font-size: 13px;
+  }
+
+} 
+
