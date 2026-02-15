@@ -7,7 +7,7 @@
 
 <title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,9 +16,8 @@
 body{
 
 margin:0;
-background:#f9fafb;
+background:#f8fafc;
 color:#0f172a;
-
 font-family:Inter;
 
 }
@@ -27,7 +26,28 @@ font-family:Inter;
 
 max-width:900px;
 margin:auto;
-padding:60px 24px;
+padding:50px 20px;
+position:relative;
+
+}
+
+
+/* ================= QR ================= */
+
+.qr{
+
+position:absolute;
+right:20px;
+top:20px;
+text-align:center;
+font-size:12px;
+color:#64748b;
+
+}
+
+.qr img{
+
+width:90px;
 
 }
 
@@ -37,16 +57,15 @@ padding:60px 24px;
 .header{
 
 text-align:center;
-margin-bottom:60px;
+margin-bottom:50px;
 
 }
 
 .header h1{
 
 font-family:Playfair Display;
-font-size:38px;
-font-weight:600;
-margin-bottom:12px;
+font-size:36px;
+margin-bottom:10px;
 
 }
 
@@ -64,58 +83,53 @@ font-size:17px;
 
 display:flex;
 justify-content:center;
-gap:40px;
+gap:30px;
 margin-top:25px;
-color:#64748b;
-font-size:15px;
 
 }
 
+.trust-item{
 
-/* ================= CARDS ================= */
-
-.section{
-
-margin-top:50px;
-
-}
-
-.card{
-
-background:white;
-padding:32px;
-border-radius:14px;
-
-border:1px solid #e5e7eb;
-
-margin-bottom:20px;
+text-align:center;
+font-size:14px;
+color:#475569;
 
 }
 
-.card h2{
+.badge{
 
-font-size:20px;
+display:inline-block;
+
+padding:3px 8px;
+
+background:#065f46;
+
+color:white;
+
+border-radius:6px;
+
+font-size:11px;
+
 margin-bottom:6px;
 
 }
 
 
-.price{
+/* ================= WHY ================= */
 
-font-size:32px;
-font-weight:600;
+.why{
 
-color:#065f46;
+background:#f1f5f9;
 
-margin-bottom:10px;
+padding:25px;
 
-}
+border-radius:12px;
 
+margin-top:40px;
 
-.meta{
+color:#475569;
 
-color:#64748b;
-line-height:1.6;
+font-size:15px;
 
 }
 
@@ -133,51 +147,39 @@ text-align:center;
 
 border:1px dashed #cbd5e1;
 
-padding:35px;
+padding:30px;
 
 border-radius:12px;
 
+background:white;
+
 cursor:pointer;
 
-background:white;
-
-}
-
-.upload-box:hover{
-
-background:#f8fafc;
-
 }
 
 
-/* ================= RESULT ================= */
+/* ================= QUOTE ================= */
 
-.result{
+.quote-card{
 
-margin-top:40px;
+margin-top:30px;
 
-display:none;
+background:#ecfdf5;
 
-}
-
-.quote{
-
-background:white;
-
-border:1px solid #e5e7eb;
+border:1px solid #a7f3d0;
 
 padding:25px;
 
 border-radius:12px;
 
-margin-top:15px;
+display:none;
 
 }
 
+.price{
 
-.quote h3{
-
-margin-top:0;
+font-size:20px;
+font-weight:600;
 
 }
 
@@ -186,16 +188,17 @@ margin-top:0;
 
 @media(max-width:600px){
 
-.header h1{
-
-font-size:28px;
-
-}
-
 .trust{
 
 flex-direction:column;
-gap:8px;
+gap:15px;
+
+}
+
+.qr{
+
+position:static;
+margin-bottom:20px;
 
 }
 
@@ -212,6 +215,18 @@ gap:8px;
 <div class="container">
 
 
+<!-- QR -->
+
+<div class="qr">
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://saybonapp.com/translation/request.html">
+
+Share
+
+</div>
+
+
+
 <!-- HEADER -->
 
 <div class="header">
@@ -220,74 +235,68 @@ gap:8px;
 
 <p>
 
-Professional human translation.
-
-Fast. Secure. Trusted.
+Professional human translation. Fast. Secure. Trusted.
 
 </p>
 
 
 <div class="trust">
 
-<span>Human translators</span>
 
-<span>Secure storage</span>
+<div class="trust-item">
 
-<span>Trusted by professionals</span>
+<div class="badge">CERTIFIED</div>
+
+Human Translators
+
+</div>
+
+
+<div class="trust-item">
+
+<div class="badge">CERTIFIED</div>
+
+Secure Storage
+
+</div>
+
+
+<div class="trust-item">
+
+<div class="badge">CERTIFIED</div>
+
+Trusted by Professionals
 
 </div>
 
 
 </div>
 
+</div>
 
 
-<!-- STANDARD -->
 
-<div class="section">
+<!-- WHY SAYBON -->
 
+<div class="why">
 
-<div class="card">
+Why SayBon
 
-<h2>Standard</h2>
+<br><br>
 
-<div class="price">$0.025 / word</div>
-
-<div class="meta">
-
-Up to 2,000 words — 24 hours
+Carefully vetted translators.
 
 <br>
 
-2,000–5,000 words — 48 hours
-
-</div>
-
-</div>
-
-
-
-<!-- EXPRESS -->
-
-<div class="card">
-
-<h2>Express</h2>
-
-<div class="price">$0.05 / word</div>
-
-<div class="meta">
-
-Up to 1,500 words — 6–12 hours
+Human-level accuracy.
 
 <br>
 
-1,500–3,000 words — 12–24 hours
+Confidential handling.
 
-</div>
+<br>
 
-</div>
-
-
+Trusted for academic, legal, and business translation.
 
 </div>
 
@@ -297,8 +306,7 @@ Up to 1,500 words — 6–12 hours
 
 <div class="upload">
 
-
-<h2>Upload document for exact quote</h2>
+<h2>Upload document for instant quote</h2>
 
 
 <input type="file" id="fileInput" hidden>
@@ -308,29 +316,33 @@ Up to 1,500 words — 6–12 hours
 
 onclick="fileInput.click()">
 
-Upload document
-
-</div>
-
-
-
-<div class="result" id="result">
-
-
-<div id="stats"></div>
-
-
-<div class="quote" id="standardQuote"></div>
-
-
-<div class="quote" id="expressQuote"></div>
-
+Upload Document
 
 </div>
 
 
 </div>
 
+
+
+<!-- QUOTE -->
+
+<div class="quote-card" id="quoteCard">
+
+
+<div id="wordCount"></div>
+
+
+<br>
+
+
+<div class="price" id="standard"></div>
+
+
+<div class="price" id="express"></div>
+
+
+</div>
 
 
 </div>
@@ -340,69 +352,40 @@ Upload document
 <script>
 
 
-let wordCount=0;
-
-
-
 fileInput.onchange=async e=>{
 
 const file=e.target.files[0];
 
 const text=await file.text();
 
-wordCount=text.split(/\s+/).length;
+const words=text.split(/\s+/).length;
 
-showQuote();
+
+quoteCard.style.display="block";
+
+
+wordCount.innerHTML=
+
+"<strong>"+words+" words</strong>";
+
+
+
+standard.innerHTML=
+
+"Standard: $"+(words*0.025).toFixed(2)+
+
+" • 24–48 hrs";
+
+
+
+express.innerHTML=
+
+"Express: $"+(words*0.05).toFixed(2)+
+
+" • 6–24 hrs";
+
 
 };
-
-
-
-function showQuote(){
-
-result.style.display="block";
-
-
-
-stats.innerHTML=`
-
-${wordCount} words
-
-`;
-
-
-
-standardQuote.innerHTML=`
-
-<h3>Standard</h3>
-
-$${(wordCount*0.025).toFixed(2)}
-
-<br>
-
-${wordCount<=2000?"24 hours":"48 hours"}
-
-`;
-
-
-
-expressQuote.innerHTML=`
-
-<h3>Express</h3>
-
-$${(wordCount*0.05).toFixed(2)}
-
-<br>
-
-${wordCount<=1500?"6–12 hours":"12–24 hours"}
-
-`;
-
-
-
-}
-
-
 
 </script>
 
