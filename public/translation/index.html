@@ -19,145 +19,150 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: #0c111a;
+  background: #0f172a;
   color: #e5e7eb;
   min-height: 100vh;
 }
 
-/* Subtle vertical light effect */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.02),
-    rgba(255,255,255,0.04),
-    rgba(255,255,255,0.02)
-  );
-  opacity: 0.4;
-  pointer-events: none;
-}
+/* ================= LAYOUT ================= */
 
-/* ================= WRAPPER ================= */
-
-.container {
-  max-width: 1100px;
+.wrapper {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 24px 60px;
+  padding: 80px 40px;
 }
 
-/* ================= HEADER ================= */
-
-.header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.header h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 46px;
-  font-weight: 600;
-  color: #f8fafc;
-  margin-bottom: 18px;
-}
-
-.header p {
-  max-width: 720px;
-  margin: 0 auto;
-  font-size: 17px;
-  line-height: 1.6;
-  color: #9ca3af;
-}
-
-/* ================= GRID ================= */
-
-.services {
+.split {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
 }
 
-/* ================= CARD ================= */
+/* ================= TEXT SIDE ================= */
 
-.service-card {
-  background: #141b26;
-  padding: 48px 40px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: all 0.25s ease;
-}
-
-.service-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(162,173,30,0.4);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-}
-
-.service-card h2 {
-  font-size: 24px;
-  margin-bottom: 16px;
-  font-weight: 700;
+.content h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 24px;
   color: #ffffff;
 }
 
-.service-card p {
-  font-size: 15px;
+.content p.lead {
+  font-size: 18px;
   line-height: 1.6;
-  color: #a1a1aa;
-  margin-bottom: 28px;
+  color: #9ca3af;
+  margin-bottom: 40px;
 }
 
-/* ================= BUTTON ================= */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 
-.service-card button {
+.card {
+  background: #1e293b;
+  padding: 32px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+
+.card button {
   background: #A2AD1E;
-  color: #0c111a;
+  color: #0f172a;
   border: none;
-  padding: 10px 28px;
+  padding: 10px 26px;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
 }
 
-.service-card button:hover {
+.card button:hover {
   background: #b8c423;
 }
 
-/* ================= BACK ================= */
+/* ================= IMAGE SIDE ================= */
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+
+/* ================= BACK LINK ================= */
 
 .back {
-  margin-top: 70px;
-  text-align: center;
+  margin-top: 60px;
 }
 
 .back a {
   text-decoration: none;
   font-size: 14px;
-  color: #9ca3af;
+  color: #94a3b8;
 }
 
 .back a:hover {
-  color: #ffffff;
+  color: white;
 }
 
 /* ================= MOBILE ================= */
 
 @media (max-width: 900px) {
 
-  .services {
-    grid-template-columns: 1fr;
-    gap: 30px;
+  .wrapper {
+    padding: 40px 20px;
   }
 
-  .header h1 {
+  .split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* IMAGE FIRST ON MOBILE */
+  .image-container {
+    order: -1;
+  }
+
+  .image-container img {
+    max-width: 100%;
+  }
+
+  .content h1 {
     font-size: 32px;
   }
 
-  .container {
-    padding-top: 50px;
+  .content p.lead {
+    font-size: 16px;
   }
+
 }
 
 </style>
@@ -165,40 +170,53 @@ body::before {
 
 <body>
 
-<div class="container">
+<div class="wrapper">
 
-  <div class="header">
-    <h1>SayBon Translation Services</h1>
-    <p>
-      Professional French ↔ English translation delivered with accuracy,
-      cultural intelligence, and rigorously vetted language experts.
-    </p>
-  </div>
+  <div class="split">
 
-  <div class="services">
+    <!-- LEFT SIDE CONTENT -->
+    <div class="content">
 
-    <div class="service-card" onclick="goRequest()">
-      <h2>Request a Translation</h2>
-      <p>
-        Submit your documents for professional handling by experienced,
-        verified translators.
+      <h1>SayBon Translation Services</h1>
+
+      <p class="lead">
+        Professional French ↔ English translation delivered with accuracy,
+        cultural intelligence, and rigorously vetted language experts.
       </p>
-      <button>Request Service</button>
+
+      <div class="cards">
+
+        <div class="card">
+          <h2>Request a Translation</h2>
+          <p>
+            Submit your documents for high-quality translation handled by
+            experienced and verified professionals.
+          </p>
+          <button onclick="goRequest()">Request Service</button>
+        </div>
+
+        <div class="card">
+          <h2>Join Our Verified Translator Network</h2>
+          <p>
+            Already certified? Submit your credentials and demonstrate your
+            competence to be approved for SayBon client assignments.
+          </p>
+          <button onclick="goApply()">Apply for Verification</button>
+        </div>
+
+      </div>
+
+      <div class="back">
+        <a href="/dashboard/">← Back to Dashboard</a>
+      </div>
+
     </div>
 
-    <div class="service-card" onclick="goApply()">
-      <h2>Join Our Verified Translator Network</h2>
-      <p>
-        Already certified? Submit your credentials and demonstrate your
-        competence to qualify for SayBon client assignments.
-      </p>
-      <button>Apply for Verification</button>
+    <!-- RIGHT SIDE IMAGE -->
+    <div class="image-container">
+      <img src="/assets/images/translation-hero.jpg" alt="SayBon Translation Professional">
     </div>
 
-  </div>
-
-  <div class="back">
-    <a href="/dashboard/">← Back to Dashboard</a>
   </div>
 
 </div>
