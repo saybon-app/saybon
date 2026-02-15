@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Request Translation — SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,90 +17,151 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: #0f172a;
-  color: #111827;
-  padding: 60px 20px;
+  background: #f6f8fb;
+  color: #1e293b;
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
-  background: white;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  padding: 60px 24px;
 }
 
-h1 {
-  font-size: 32px;
+.hero {
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 38px;
   font-weight: 800;
-  margin-bottom: 10px;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
 }
 
-.subtitle {
-  color: #6b7280;
+.hero p {
+  font-size: 15px;
+  color: #64748b;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.badges {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #e2e8f0;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.upload-box {
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
   margin-bottom: 30px;
+  background: #f8fafc;
+}
+
+.upload-box input {
+  margin-top: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.full {
+  grid-column: span 2;
 }
 
 label {
+  font-size: 13px;
   font-weight: 600;
   display: block;
   margin-bottom: 6px;
+  color: #475569;
 }
 
 input, select, textarea {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-family: inherit;
   font-size: 14px;
 }
 
 textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 90px;
 }
 
-.price-box {
-  background: #f3f4f6;
-  padding: 18px;
-  border-radius: 14px;
-  margin-bottom: 20px;
+.pricing {
+  margin-top: 25px;
+  padding: 20px;
+  background: #f1f5f9;
+  border-radius: 12px;
 }
 
-.price-box strong {
-  font-size: 18px;
+.pricing p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.price-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 button {
-  background: linear-gradient(135deg, #111827, #374151);
-  color: white;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  margin-top: 25px;
   width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
   font-size: 15px;
-  transition: 0.2s ease;
+  cursor: pointer;
+  background: #0f172a;
+  color: white;
+  transition: 0.2s;
 }
 
 button:hover {
-  transform: translateY(-2px);
+  background: #1e293b;
 }
 
-.note {
-  font-size: 13px;
-  color: #6b7280;
-  margin-top: 8px;
+.status {
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 25px;
+@media(max-width: 900px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .full {
+    grid-column: span 1;
   }
 }
+
 </style>
 </head>
 
@@ -107,118 +169,148 @@ button:hover {
 
 <div class="container">
 
-<h1>Request Translation</h1>
-<p class="subtitle">Professional human translation. Fast. Accurate. Reliable.</p>
+  <div class="hero">
+    <h1>Request a Professional Translation</h1>
+    <p>
+      Secure, confidential French ↔ English translation delivered with accuracy,
+      cultural intelligence, and rigorously vetted language experts.
+    </p>
 
-<form id="requestForm">
+    <div class="badges">
+      <div class="badge">100% Confidential</div>
+      <div class="badge">Vetted Professionals</div>
+      <div class="badge">Standard & Express Options</div>
+    </div>
+  </div>
 
-<label>Your Email</label>
-<input type="email" id="email" required />
+  <div class="card">
 
-<label>Service Type</label>
-<select id="service">
-  <option value="standard">Standard — $0.025 / word</option>
-  <option value="express">Express — $0.05 / word</option>
-</select>
+    <div class="upload-box">
+      <strong>Upload Your Document</strong>
+      <div>
+        <input type="file" id="fileInput" />
+      </div>
+      <div id="uploadStatus" class="status"></div>
+    </div>
 
-<label>Paste Your Text</label>
-<textarea id="textInput" placeholder="Paste text here or upload document..."></textarea>
+    <div class="form-grid">
 
-<label>Or Upload Document</label>
-<input type="file" id="fileUpload" />
+      <div>
+        <label>Service Speed</label>
+        <select id="serviceType">
+          <option value="0.025">Standard — $0.025 / word</option>
+          <option value="0.05">Express — $0.05 / word</option>
+        </select>
+      </div>
 
-<div class="price-box">
-  Words: <strong id="wordCount">0</strong><br>
-  Estimated Price: <strong>$<span id="price">0.00</span></strong>
+      <div>
+        <label>Word Count</label>
+        <input type="number" id="wordCount" placeholder="Enter word count">
+      </div>
+
+      <div>
+        <label>Source Language</label>
+        <select>
+          <option>French</option>
+          <option>English</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Target Language</label>
+        <select>
+          <option>English</option>
+          <option>French</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label>Additional Notes</label>
+        <textarea placeholder="Any specific instructions..."></textarea>
+      </div>
+
+    </div>
+
+    <div class="pricing">
+      <p>Estimated Price</p>
+      <div class="price-amount" id="priceDisplay">$0.00</div>
+    </div>
+
+    <button id="submitBtn">Submit Translation Request</button>
+
+  </div>
+
 </div>
 
-<button type="submit">Submit Request</button>
-
-<p class="note">Files are securely stored. Payment link will be sent after review.</p>
-
-</form>
-
-</div>
-
+<!-- FIREBASE PRODUCTION SCRIPT -->
 <script type="module">
 
-// =======================
-// FIREBASE CONFIG
-// =======================
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
   authDomain: "saybon-3e3c2.firebaseapp.com",
   projectId: "saybon-3e3c2",
-  storageBucket: "saybon-3e3c2.appspot.com",
+  storageBucket: "saybon-3e3c2.firebasestorage.app",
   messagingSenderId: "75085012344",
   appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const auth = getAuth(app);
 const storage = getStorage(app);
 
-// =======================
-// WORD COUNTER + PRICING
-// =======================
+const fileInput = document.getElementById("fileInput");
+const uploadStatus = document.getElementById("uploadStatus");
+const wordCount = document.getElementById("wordCount");
+const serviceType = document.getElementById("serviceType");
+const priceDisplay = document.getElementById("priceDisplay");
 
-const textInput = document.getElementById("textInput");
-const service = document.getElementById("service");
-const wordCountEl = document.getElementById("wordCount");
-const priceEl = document.getElementById("price");
+let currentUser = null;
 
+// AUTH CHECK
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    sessionStorage.setItem("saybon_next", "/translation/request.html");
+    window.location.href = "/loader.html";
+  } else {
+    currentUser = user;
+  }
+});
+
+// WORD COUNT PRICE CALC
 function updatePrice() {
-  const words = textInput.value.trim().split(/\s+/).filter(w => w.length > 0);
-  const count = words.length;
-  wordCountEl.textContent = count;
-
-  const rate = service.value === "express" ? 0.05 : 0.025;
-  const total = count * rate;
-
-  priceEl.textContent = total.toFixed(2);
+  const words = parseInt(wordCount.value) || 0;
+  const rate = parseFloat(serviceType.value);
+  const total = words * rate;
+  priceDisplay.innerText = "$" + total.toFixed(2);
 }
 
-textInput.addEventListener("input", updatePrice);
-service.addEventListener("change", updatePrice);
+wordCount.addEventListener("input", updatePrice);
+serviceType.addEventListener("change", updatePrice);
 
-// =======================
-// FORM SUBMIT
-// =======================
+// FILE UPLOAD
+fileInput.addEventListener("change", async (e) => {
+  if (!currentUser) return;
 
-document.getElementById("requestForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  const file = e.target.files[0];
+  if (!file) return;
 
-  const email = document.getElementById("email").value;
-  const text = textInput.value;
-  const serviceType = service.value;
-  const file = document.getElementById("fileUpload").files[0];
+  uploadStatus.innerText = "Uploading securely...";
 
-  let fileURL = null;
+  const fileRef = ref(
+    storage,
+    `translations/${currentUser.uid}/${Date.now()}-${file.name}`
+  );
 
-  if (file) {
-    const fileRef = ref(storage, "translation_requests/" + Date.now() + "_" + file.name);
+  try {
     await uploadBytes(fileRef, file);
-    fileURL = await getDownloadURL(fileRef);
+    uploadStatus.innerText = "Upload successful ✔";
+  } catch (err) {
+    uploadStatus.innerText = "Upload failed ❌";
   }
-
-  await addDoc(collection(db, "translation_requests"), {
-    email,
-    text,
-    serviceType,
-    wordCount: wordCountEl.textContent,
-    price: priceEl.textContent,
-    fileURL,
-    createdAt: new Date()
-  });
-
-  alert("Request submitted successfully!");
-  e.target.reset();
-  updatePrice();
 });
 
 </script>
