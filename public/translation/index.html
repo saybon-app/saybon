@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= BASE ================= */
+/* ===== RESET ===== */
 
 * {
   box-sizing: border-box;
@@ -18,92 +18,84 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+  background: #0b1220;
+  color: #e2e8f0;
 }
 
-/* ================= LAYOUT ================= */
+/* ===== LAYOUT ===== */
 
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 100px 60px;
 }
 
 .split {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 80px;
   align-items: center;
 }
 
-/* ================= TEXT SIDE ================= */
+/* ===== LEFT SIDE ===== */
 
 .content h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 48px;
+  font-size: 44px;
   font-weight: 600;
-  margin-bottom: 24px;
-  color: #ffffff;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
 }
 
 .content p.lead {
   font-size: 18px;
-  line-height: 1.6;
-  color: #9ca3af;
-  margin-bottom: 40px;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin-bottom: 70px;
+  max-width: 520px;
 }
 
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+/* SERVICE BLOCK */
+
+.service {
+  margin-bottom: 60px;
 }
 
-.card {
-  background: #1e293b;
-  padding: 32px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-.card h2 {
-  font-size: 22px;
-  margin-bottom: 12px;
-  color: #ffffff;
-}
-
-.card p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #cbd5e1;
-  margin-bottom: 20px;
-}
-
-.card button {
-  background: #A2AD1E;
-  color: #0f172a;
-  border: none;
-  padding: 10px 26px;
-  border-radius: 6px;
+.service h2 {
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.service p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+/* BUTTON — CLEAN + PROFESSIONAL */
+
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  color: #e2e8f0;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.card button:hover {
-  background: #b8c423;
+.btn:hover {
+  background: #1e293b;
+  border-color: #475569;
 }
 
-/* ================= IMAGE SIDE ================= */
+/* ===== IMAGE ===== */
 
 .image-container {
   display: flex;
@@ -113,56 +105,54 @@ body {
 .image-container img {
   width: 100%;
   max-width: 520px;
-  border-radius: 18px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+  border-radius: 14px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
 }
 
-/* ================= BACK LINK ================= */
+/* ===== BACK LINK ===== */
 
 .back {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .back a {
   text-decoration: none;
   font-size: 14px;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .back a:hover {
-  color: white;
+  color: #e2e8f0;
 }
 
-/* ================= MOBILE ================= */
+/* ===== MOBILE ===== */
 
 @media (max-width: 900px) {
 
   .wrapper {
-    padding: 40px 20px;
+    padding: 50px 24px;
   }
 
   .split {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
 
-  /* IMAGE FIRST ON MOBILE */
   .image-container {
     order: -1;
   }
 
-  .image-container img {
-    max-width: 100%;
-  }
-
   .content h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   .content p.lead {
-    font-size: 16px;
+    margin-bottom: 40px;
   }
 
+  .service {
+    margin-bottom: 40px;
+  }
 }
 
 </style>
@@ -174,36 +164,32 @@ body {
 
   <div class="split">
 
-    <!-- LEFT SIDE CONTENT -->
+    <!-- LEFT SIDE -->
     <div class="content">
 
       <h1>SayBon Translation Services</h1>
 
       <p class="lead">
-        Professional French ↔ English translation delivered with accuracy,
+        Professional French ↔ English translation delivered with precision,
         cultural intelligence, and rigorously vetted language experts.
       </p>
 
-      <div class="cards">
+      <div class="service">
+        <h2>Request a Translation</h2>
+        <p>
+          Submit your documents for high-quality translation handled by
+          experienced and verified professionals.
+        </p>
+        <button class="btn" onclick="goRequest()">Request Service</button>
+      </div>
 
-        <div class="card">
-          <h2>Request a Translation</h2>
-          <p>
-            Submit your documents for high-quality translation handled by
-            experienced and verified professionals.
-          </p>
-          <button onclick="goRequest()">Request Service</button>
-        </div>
-
-        <div class="card">
-          <h2>Join Our Verified Translator Network</h2>
-          <p>
-            Already certified? Submit your credentials and demonstrate your
-            competence to be approved for SayBon client assignments.
-          </p>
-          <button onclick="goApply()">Apply for Verification</button>
-        </div>
-
+      <div class="service">
+        <h2>Join Our Verified Translator Network</h2>
+        <p>
+          Already certified? Submit your credentials and demonstrate your
+          competence to be approved for SayBon client assignments.
+        </p>
+        <button class="btn" onclick="goApply()">Apply for Verification</button>
       </div>
 
       <div class="back">
@@ -212,7 +198,7 @@ body {
 
     </div>
 
-    <!-- RIGHT SIDE IMAGE -->
+    <!-- RIGHT SIDE -->
     <div class="image-container">
       <img src="/assets/images/translation-hero.jpg" alt="SayBon Translation Professional">
     </div>
