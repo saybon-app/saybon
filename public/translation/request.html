@@ -1,158 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 /* ================= BASE ================= */
 
 body{
-font-family:Inter;
+
 margin:0;
-background:#f8fafc;
+background:#f9fafb;
 color:#0f172a;
+
+font-family:Inter;
+
 }
 
 .container{
-max-width:1100px;
+
+max-width:900px;
 margin:auto;
-padding:60px 20px;
+padding:60px 24px;
+
 }
 
-/* ================= HERO ================= */
 
-.hero{
+/* ================= HEADER ================= */
+
+.header{
+
 text-align:center;
 margin-bottom:60px;
+
 }
 
-.hero h1{
-font-size:42px;
-font-weight:800;
-margin-bottom:10px;
+.header h1{
+
+font-family:Playfair Display;
+font-size:38px;
+font-weight:600;
+margin-bottom:12px;
+
 }
 
-.hero p{
-font-size:18px;
+.header p{
+
 color:#64748b;
+font-size:17px;
+
 }
 
-/* ================= TRUST BAR ================= */
+
+/* ================= TRUST ================= */
 
 .trust{
+
 display:flex;
 justify-content:center;
 gap:40px;
-margin-top:20px;
-color:#475569;
-font-weight:500;
+margin-top:25px;
+color:#64748b;
+font-size:15px;
+
 }
 
-/* ================= SERVICE CARDS ================= */
 
-.services{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:30px;
+/* ================= CARDS ================= */
+
+.section{
+
 margin-top:50px;
+
 }
 
 .card{
+
 background:white;
-padding:30px;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+padding:32px;
+border-radius:14px;
+
+border:1px solid #e5e7eb;
+
+margin-bottom:20px;
+
 }
 
 .card h2{
-margin-top:0;
+
+font-size:20px;
+margin-bottom:6px;
+
 }
+
 
 .price{
+
 font-size:32px;
-font-weight:800;
-color:#0f766e;
+font-weight:600;
+
+color:#065f46;
+
+margin-bottom:10px;
+
 }
 
-.timeline{
-margin-top:10px;
-color:#475569;
+
+.meta{
+
+color:#64748b;
+line-height:1.6;
+
 }
 
-/* ================= TRUST SECTION ================= */
-
-.trust-section{
-margin-top:60px;
-background:white;
-padding:40px;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.trust-section h3{
-margin-top:0;
-}
 
 /* ================= UPLOAD ================= */
 
-.upload-section{
-margin-top:60px;
-background:white;
-padding:40px;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+.upload{
+
+margin-top:50px;
 text-align:center;
+
 }
 
 .upload-box{
-border:2px dashed #cbd5e1;
-padding:40px;
+
+border:1px dashed #cbd5e1;
+
+padding:35px;
+
 border-radius:12px;
+
 cursor:pointer;
-margin-top:20px;
+
+background:white;
+
 }
 
 .upload-box:hover{
-background:#f1f5f9;
+
+background:#f8fafc;
+
 }
+
 
 /* ================= RESULT ================= */
 
 .result{
-display:none;
+
 margin-top:40px;
+
+display:none;
+
 }
 
 .quote{
-border:1px solid #e2e8f0;
-padding:20px;
+
+background:white;
+
+border:1px solid #e5e7eb;
+
+padding:25px;
+
 border-radius:12px;
-margin-top:12px;
+
+margin-top:15px;
+
 }
 
+
 .quote h3{
+
 margin-top:0;
+
 }
+
 
 /* ================= MOBILE ================= */
 
-@media(max-width:800px){
+@media(max-width:600px){
 
-.services{
-grid-template-columns:1fr;
+.header h1{
+
+font-size:28px;
+
 }
 
-.hero h1{
-font-size:28px;
+.trust{
+
+flex-direction:column;
+gap:8px;
+
 }
 
 }
@@ -160,40 +204,47 @@ font-size:28px;
 </style>
 
 </head>
+
+
 <body>
 
 
 <div class="container">
 
 
-<!-- ================= HERO ================= -->
+<!-- HEADER -->
 
-<div class="hero">
+<div class="header">
 
 <h1>SayBon Translation Services</h1>
 
 <p>
 
-Professional human translation. Fast. Secure. Trusted.
+Professional human translation.
+
+Fast. Secure. Trusted.
 
 </p>
 
+
 <div class="trust">
 
-<div>✔ Human translators</div>
+<span>Human translators</span>
 
-<div>✔ Secure storage</div>
+<span>Secure storage</span>
 
-<div>✔ Trusted by professionals</div>
-
-</div>
+<span>Trusted by professionals</span>
 
 </div>
 
 
-<!-- ================= SERVICE CARDS ================= -->
+</div>
 
-<div class="services">
+
+
+<!-- STANDARD -->
+
+<div class="section">
 
 
 <div class="card">
@@ -202,19 +253,21 @@ Professional human translation. Fast. Secure. Trusted.
 
 <div class="price">$0.025 / word</div>
 
-<div class="timeline">
+<div class="meta">
 
-Up to 2,000 words → 24 hours
+Up to 2,000 words — 24 hours
 
 <br>
 
-2,000–5,000 words → 48 hours
+2,000–5,000 words — 48 hours
 
 </div>
 
 </div>
 
 
+
+<!-- EXPRESS -->
 
 <div class="card">
 
@@ -222,98 +275,65 @@ Up to 2,000 words → 24 hours
 
 <div class="price">$0.05 / word</div>
 
-<div class="timeline">
+<div class="meta">
 
-Up to 1,500 words → 6–12 hours
+Up to 1,500 words — 6–12 hours
 
 <br>
 
-1,500–3,000 words → 12–24 hours
+1,500–3,000 words — 12–24 hours
 
 </div>
 
 </div>
 
 
-</div>
-
-
-
-<!-- ================= TRUST SECTION ================= -->
-
-<div class="trust-section">
-
-<h3>Why SayBon</h3>
-
-<p>
-
-All translations are performed by vetted professional translators.
-
-</p>
-
-<p>
-
-Your files are securely stored and handled confidentially.
-
-</p>
-
-<p>
-
-Transparent pricing. No hidden fees.
-
-</p>
 
 </div>
 
 
 
-<!-- ================= UPLOAD SECTION ================= -->
+<!-- UPLOAD -->
 
-<div class="upload-section">
+<div class="upload">
 
 
-<h2>Upload your document to get exact quote</h2>
+<h2>Upload document for exact quote</h2>
 
 
 <input type="file" id="fileInput" hidden>
 
 
-<div class="upload-box" onclick="fileInput.click()">
+<div class="upload-box"
 
-Upload Document
+onclick="fileInput.click()">
 
-<br><br>
-
-PDF • DOCX • TXT
+Upload document
 
 </div>
 
 
 
-<div id="result" class="result">
-
-
-<h2>Instant Quote</h2>
+<div class="result" id="result">
 
 
 <div id="stats"></div>
 
 
-<div id="standardQuote" class="quote"></div>
+<div class="quote" id="standardQuote"></div>
 
 
-<div id="expressQuote" class="quote"></div>
-
-
-</div>
+<div class="quote" id="expressQuote"></div>
 
 
 </div>
 
 
-
 </div>
 
+
+
+</div>
 
 
 
@@ -328,87 +348,25 @@ fileInput.onchange=async e=>{
 
 const file=e.target.files[0];
 
-detectWords(file);
+const text=await file.text();
+
+wordCount=text.split(/\s+/).length;
+
+showQuote();
 
 };
 
 
 
-async function detectWords(file){
-
-let text="";
-
-
-
-if(file.name.endsWith(".txt")){
-
-text=await file.text();
-
-}
-
-
-
-if(file.name.endsWith(".docx")){
-
-const result=await mammoth.extractRawText({
-
-arrayBuffer:await file.arrayBuffer()
-
-});
-
-text=result.value;
-
-}
-
-
-
-if(file.name.endsWith(".pdf")){
-
-const pdf=await pdfjsLib.getDocument(
-
-await file.arrayBuffer()
-
-).promise;
-
-
-
-for(let i=1;i<=pdf.numPages;i++){
-
-const page=await pdf.getPage(i);
-
-const content=await page.getTextContent();
-
-text+=content.items.map(i=>i.str).join(" ");
-
-}
-
-}
-
-
-
-wordCount=text.trim().split(/\s+/).length;
-
-
-
-showQuote();
-
-}
-
-
-
 function showQuote(){
-
 
 result.style.display="block";
 
 
+
 stats.innerHTML=`
 
-Words: ${wordCount}
-
-<br>
-
-Pages: ${Math.ceil(wordCount/300)}
+${wordCount} words
 
 `;
 
@@ -416,13 +374,11 @@ Pages: ${Math.ceil(wordCount/300)}
 
 standardQuote.innerHTML=`
 
-<h3>Standard Price</h3>
+<h3>Standard</h3>
 
 $${(wordCount*0.025).toFixed(2)}
 
 <br>
-
-Delivery:
 
 ${wordCount<=2000?"24 hours":"48 hours"}
 
@@ -432,15 +388,13 @@ ${wordCount<=2000?"24 hours":"48 hours"}
 
 expressQuote.innerHTML=`
 
-<h3>Express Price</h3>
+<h3>Express</h3>
 
 $${(wordCount*0.05).toFixed(2)}
 
 <br>
 
-Delivery:
-
-${wordCount<=1500?"6-12 hours":"12-24 hours"}
+${wordCount<=1500?"6–12 hours":"12–24 hours"}
 
 `;
 
