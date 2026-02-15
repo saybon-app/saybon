@@ -5,12 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Request Translation — SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-/* ================= BASE ================= */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,158 +16,90 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: linear-gradient(to bottom, #f8fafc, #eef2f7);
-  color: #0f172a;
+  background: #0f172a;
+  color: #111827;
+  padding: 60px 20px;
 }
 
 .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 60px 24px;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* ================= HERO ================= */
-
-.hero {
-  margin-bottom: 50px;
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
-.hero h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 40px;
-  margin-bottom: 16px;
-}
-
-.hero p {
-  font-size: 18px;
-  color: #475569;
-  margin-bottom: 24px;
-  max-width: 650px;
-}
-
-/* ================= TRUST BADGES ================= */
-
-.trust-badges {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 14px;
-  color: #334155;
+.subtitle {
+  color: #6b7280;
   margin-bottom: 30px;
 }
 
-.trust-badges span {
-  background: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-}
-
-/* ================= UPLOAD ================= */
-
-.upload-box {
-  border: 2px dashed #cbd5e1;
-  padding: 40px;
-  border-radius: 12px;
-  background: white;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.upload-box input {
-  margin-top: 15px;
-}
-
-.upload-box p {
-  color: #64748b;
-  font-size: 14px;
-}
-
-/* ================= FORM ================= */
-
-.form-section {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 40px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-size: 14px;
+label {
+  font-weight: 600;
+  display: block;
   margin-bottom: 6px;
-  color: #334155;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
+input, select, textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
   font-size: 14px;
 }
 
-.form-group textarea {
-  grid-column: span 2;
-  min-height: 100px;
+textarea {
+  resize: vertical;
+  min-height: 150px;
 }
 
-/* ================= PRICING ================= */
-
-.pricing-info {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 30px;
-  line-height: 1.6;
+.price-box {
+  background: #f3f4f6;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 20px;
 }
 
-/* ================= BUTTON ================= */
+.price-box strong {
+  font-size: 18px;
+}
 
-.submit-btn {
-  background: #0E7C66;
+button {
+  background: linear-gradient(135deg, #111827, #374151);
   color: white;
   border: none;
-  padding: 16px 40px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 600;
   cursor: pointer;
+  width: 100%;
+  font-size: 15px;
   transition: 0.2s ease;
 }
 
-.submit-btn:hover {
-  background: #0b6352;
+button:hover {
+  transform: translateY(-2px);
 }
 
-/* ================= MOBILE ================= */
+.note {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 8px;
+}
 
 @media (max-width: 768px) {
-
-  .hero h1 {
-    font-size: 28px;
+  .container {
+    padding: 25px;
   }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form-group textarea {
-    grid-column: span 1;
-  }
-
 }
-
 </style>
 </head>
 
@@ -178,73 +107,121 @@ body {
 
 <div class="container">
 
-  <section class="hero">
-    <h1>Request a Professional Translation</h1>
-    <p>
-      Secure, confidential French ↔ English translation delivered with accuracy,
-      cultural intelligence, and rigorously vetted language experts.
-    </p>
+<h1>Request Translation</h1>
+<p class="subtitle">Professional human translation. Fast. Accurate. Reliable.</p>
 
-    <div class="trust-badges">
-      <span>✓ 100% Confidential</span>
-      <span>✓ Certified & Vetted Translators</span>
-      <span>✓ Fast Turnaround (24–72 hrs typical)</span>
-    </div>
-  </section>
+<form id="requestForm">
 
-  <section class="upload-box">
-    <h3>Upload Your Document</h3>
-    <p>Drag & drop your file here or upload below.</p>
-    <input type="file" />
-    <p>Supported formats: PDF, DOCX, TXT</p>
-  </section>
+<label>Your Email</label>
+<input type="email" id="email" required />
 
-  <section class="form-section">
-    <div class="form-grid">
+<label>Service Type</label>
+<select id="service">
+  <option value="standard">Standard — $0.025 / word</option>
+  <option value="express">Express — $0.05 / word</option>
+</select>
 
-      <div class="form-group">
-        <label>Source Language</label>
-        <select>
-          <option>French</option>
-          <option>English</option>
-        </select>
-      </div>
+<label>Paste Your Text</label>
+<textarea id="textInput" placeholder="Paste text here or upload document..."></textarea>
 
-      <div class="form-group">
-        <label>Target Language</label>
-        <select>
-          <option>English</option>
-          <option>French</option>
-        </select>
-      </div>
+<label>Or Upload Document</label>
+<input type="file" id="fileUpload" />
 
-      <div class="form-group">
-        <label>Document Type</label>
-        <input type="text" placeholder="e.g. Legal, Academic, Business">
-      </div>
+<div class="price-box">
+  Words: <strong id="wordCount">0</strong><br>
+  Estimated Price: <strong>$<span id="price">0.00</span></strong>
+</div>
 
-      <div class="form-group">
-        <label>Preferred Deadline</label>
-        <input type="date">
-      </div>
+<button type="submit">Submit Request</button>
 
-      <div class="form-group">
-        <label>Additional Notes</label>
-        <textarea placeholder="Any specific instructions..."></textarea>
-      </div>
+<p class="note">Files are securely stored. Payment link will be sent after review.</p>
 
-    </div>
-  </section>
-
-  <div class="pricing-info">
-    Pricing is based on word count, complexity, and turnaround time.
-    You will receive a transparent quote before any work begins.
-    No hidden charges.
-  </div>
-
-  <button class="submit-btn">Request Quote</button>
+</form>
 
 </div>
+
+<script type="module">
+
+// =======================
+// FIREBASE CONFIG
+// =======================
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+  authDomain: "saybon-3e3c2.firebaseapp.com",
+  projectId: "saybon-3e3c2",
+  storageBucket: "saybon-3e3c2.appspot.com",
+  messagingSenderId: "75085012344",
+  appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// =======================
+// WORD COUNTER + PRICING
+// =======================
+
+const textInput = document.getElementById("textInput");
+const service = document.getElementById("service");
+const wordCountEl = document.getElementById("wordCount");
+const priceEl = document.getElementById("price");
+
+function updatePrice() {
+  const words = textInput.value.trim().split(/\s+/).filter(w => w.length > 0);
+  const count = words.length;
+  wordCountEl.textContent = count;
+
+  const rate = service.value === "express" ? 0.05 : 0.025;
+  const total = count * rate;
+
+  priceEl.textContent = total.toFixed(2);
+}
+
+textInput.addEventListener("input", updatePrice);
+service.addEventListener("change", updatePrice);
+
+// =======================
+// FORM SUBMIT
+// =======================
+
+document.getElementById("requestForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const text = textInput.value;
+  const serviceType = service.value;
+  const file = document.getElementById("fileUpload").files[0];
+
+  let fileURL = null;
+
+  if (file) {
+    const fileRef = ref(storage, "translation_requests/" + Date.now() + "_" + file.name);
+    await uploadBytes(fileRef, file);
+    fileURL = await getDownloadURL(fileRef);
+  }
+
+  await addDoc(collection(db, "translation_requests"), {
+    email,
+    text,
+    serviceType,
+    wordCount: wordCountEl.textContent,
+    price: priceEl.textContent,
+    fileURL,
+    createdAt: new Date()
+  });
+
+  alert("Request submitted successfully!");
+  e.target.reset();
+  updatePrice();
+});
+
+</script>
 
 </body>
 </html>
