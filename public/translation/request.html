@@ -1,319 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Request Translation — SayBon</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
 <style>
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+body{
+font-family:Inter;
+background:#f8fafc;
+margin:0;
+padding:40px;
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  background: #f6f8fb;
-  color: #1e293b;
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:16px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
 }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 60px 24px;
+h1{
+font-size:28px;
+margin-bottom:8px;
 }
 
-.hero {
-  margin-bottom: 40px;
+.subtitle{
+color:#64748b;
+margin-bottom:30px;
 }
 
-.hero h1 {
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 14px;
+.upload{
+border:2px dashed #cbd5e1;
+padding:40px;
+text-align:center;
+border-radius:12px;
+cursor:pointer;
 }
 
-.hero p {
-  font-size: 15px;
-  color: #64748b;
-  max-width: 600px;
-  line-height: 1.6;
+.upload:hover{
+background:#f1f5f9;
 }
 
-.badges {
-  margin-top: 18px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.result{
+margin-top:30px;
+display:none;
 }
 
-.badge {
-  background: #e2e8f0;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
+.price-card{
+border:1px solid #e2e8f0;
+padding:20px;
+border-radius:12px;
+margin-top:12px;
+cursor:pointer;
 }
 
-.card {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+.price-card:hover{
+border-color:#0f766e;
+background:#f0fdfa;
 }
 
-.upload-box {
-  border: 2px dashed #cbd5e1;
-  border-radius: 16px;
-  padding: 40px;
-  text-align: center;
-  margin-bottom: 30px;
-  background: #f8fafc;
+.price{
+font-size:24px;
+font-weight:700;
 }
 
-.upload-box input {
-  margin-top: 15px;
+.timeline{
+color:#64748b;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+button{
+margin-top:20px;
+padding:14px 28px;
+border:none;
+background:#0f766e;
+color:white;
+font-weight:600;
+border-radius:8px;
+cursor:pointer;
 }
 
-.full {
-  grid-column: span 2;
-}
-
-label {
-  font-size: 13px;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 6px;
-  color: #475569;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #cbd5e1;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 90px;
-}
-
-.pricing {
-  margin-top: 25px;
-  padding: 20px;
-  background: #f1f5f9;
-  border-radius: 12px;
-}
-
-.pricing p {
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.price-amount {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-button {
-  margin-top: 25px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  background: #0f172a;
-  color: white;
-  transition: 0.2s;
-}
-
-button:hover {
-  background: #1e293b;
-}
-
-.status {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-@media(max-width: 900px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-  .full {
-    grid-column: span 1;
-  }
+button:hover{
+background:#115e59;
 }
 
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
-  <div class="hero">
-    <h1>Request a Professional Translation</h1>
-    <p>
-      Secure, confidential French ↔ English translation delivered with accuracy,
-      cultural intelligence, and rigorously vetted language experts.
-    </p>
+<h1>Request Translation</h1>
 
-    <div class="badges">
-      <div class="badge">100% Confidential</div>
-      <div class="badge">Vetted Professionals</div>
-      <div class="badge">Standard & Express Options</div>
-    </div>
-  </div>
+<div class="subtitle">
+Upload your document to receive instant quote and delivery timeline.
+</div>
 
-  <div class="card">
 
-    <div class="upload-box">
-      <strong>Upload Your Document</strong>
-      <div>
-        <input type="file" id="fileInput" />
-      </div>
-      <div id="uploadStatus" class="status"></div>
-    </div>
+<input type="file" id="fileInput" hidden>
 
-    <div class="form-grid">
+<div class="upload" onclick="fileInput.click()">
 
-      <div>
-        <label>Service Speed</label>
-        <select id="serviceType">
-          <option value="0.025">Standard — $0.025 / word</option>
-          <option value="0.05">Express — $0.05 / word</option>
-        </select>
-      </div>
+Upload Document
 
-      <div>
-        <label>Word Count</label>
-        <input type="number" id="wordCount" placeholder="Enter word count">
-      </div>
+<br><br>
 
-      <div>
-        <label>Source Language</label>
-        <select>
-          <option>French</option>
-          <option>English</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Target Language</label>
-        <select>
-          <option>English</option>
-          <option>French</option>
-        </select>
-      </div>
-
-      <div class="full">
-        <label>Additional Notes</label>
-        <textarea placeholder="Any specific instructions..."></textarea>
-      </div>
-
-    </div>
-
-    <div class="pricing">
-      <p>Estimated Price</p>
-      <div class="price-amount" id="priceDisplay">$0.00</div>
-    </div>
-
-    <button id="submitBtn">Submit Translation Request</button>
-
-  </div>
+PDF • DOCX • TXT
 
 </div>
 
-<!-- FIREBASE PRODUCTION SCRIPT -->
+
+<div class="result" id="result">
+
+<h2>Document Analysis</h2>
+
+<div id="stats"></div>
+
+
+<div id="standard" class="price-card"></div>
+
+<div id="express" class="price-card"></div>
+
+<button onclick="proceed()">Continue to Payment</button>
+
+</div>
+
+
+</div>
+
+
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+import {
+getStorage,
+ref,
+uploadBytes
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-  authDomain: "saybon-3e3c2.firebaseapp.com",
-  projectId: "saybon-3e3c2",
-  storageBucket: "saybon-3e3c2.firebasestorage.app",
-  messagingSenderId: "75085012344",
-  appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+
+apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+
+authDomain: "saybon-3e3c2.firebaseapp.com",
+
+projectId: "saybon-3e3c2",
+
+storageBucket: "saybon-3e3c2.firebasestorage.app",
+
+messagingSenderId: "75085012344",
+
+appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const storage = getStorage(app);
 
-const fileInput = document.getElementById("fileInput");
-const uploadStatus = document.getElementById("uploadStatus");
-const wordCount = document.getElementById("wordCount");
-const serviceType = document.getElementById("serviceType");
-const priceDisplay = document.getElementById("priceDisplay");
 
-let currentUser = null;
+const app=initializeApp(firebaseConfig);
 
-// AUTH CHECK
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    sessionStorage.setItem("saybon_next", "/translation/request.html");
-    window.location.href = "/loader.html";
-  } else {
-    currentUser = user;
-  }
-});
+const storage=getStorage(app);
 
-// WORD COUNT PRICE CALC
-function updatePrice() {
-  const words = parseInt(wordCount.value) || 0;
-  const rate = parseFloat(serviceType.value);
-  const total = words * rate;
-  priceDisplay.innerText = "$" + total.toFixed(2);
+
+
+let selectedFile;
+
+let wordCount;
+
+let selectedSpeed="standard";
+
+
+
+fileInput.onchange=async e=>{
+
+selectedFile=e.target.files[0];
+
+uploadFile();
+
+detectWords(selectedFile);
+
+};
+
+
+
+async function uploadFile(){
+
+const storageRef=ref(storage,"translations/"+Date.now()+"_"+selectedFile.name);
+
+await uploadBytes(storageRef,selectedFile);
+
 }
 
-wordCount.addEventListener("input", updatePrice);
-serviceType.addEventListener("change", updatePrice);
 
-// FILE UPLOAD
-fileInput.addEventListener("change", async (e) => {
-  if (!currentUser) return;
 
-  const file = e.target.files[0];
-  if (!file) return;
+async function detectWords(file){
 
-  uploadStatus.innerText = "Uploading securely...";
+let text="";
 
-  const fileRef = ref(
-    storage,
-    `translations/${currentUser.uid}/${Date.now()}-${file.name}`
-  );
 
-  try {
-    await uploadBytes(fileRef, file);
-    uploadStatus.innerText = "Upload successful ✔";
-  } catch (err) {
-    uploadStatus.innerText = "Upload failed ❌";
-  }
-});
+
+if(file.name.endsWith(".txt")){
+
+text=await file.text();
+
+}
+
+
+
+if(file.name.endsWith(".docx")){
+
+const arrayBuffer=await file.arrayBuffer();
+
+const result=await mammoth.extractRawText({arrayBuffer});
+
+text=result.value;
+
+}
+
+
+
+if(file.name.endsWith(".pdf")){
+
+const pdf=await pdfjsLib.getDocument(await file.arrayBuffer()).promise;
+
+for(let i=1;i<=pdf.numPages;i++){
+
+const page=await pdf.getPage(i);
+
+const content=await page.getTextContent();
+
+text+=content.items.map(i=>i.str).join(" ");
+
+}
+
+}
+
+
+
+wordCount=text.trim().split(/\s+/).length;
+
+
+
+showQuote();
+
+}
+
+
+
+function showQuote(){
+
+result.style.display="block";
+
+
+
+stats.innerHTML=`
+
+Words: ${wordCount}
+
+<br>
+
+Pages: ${Math.ceil(wordCount/300)}
+
+`;
+
+
+
+const standardPrice=(wordCount*0.025).toFixed(2);
+
+const expressPrice=(wordCount*0.05).toFixed(2);
+
+
+
+standard.innerHTML=`
+
+<h3>Standard</h3>
+
+<div class="price">$${standardPrice}</div>
+
+<div class="timeline">
+
+Delivery:
+
+${wordCount<=2000?"24 hours":"48 hours"}
+
+</div>
+
+`;
+
+
+
+express.innerHTML=`
+
+<h3>Express</h3>
+
+<div class="price">$${expressPrice}</div>
+
+<div class="timeline">
+
+Delivery:
+
+${wordCount<=1500?"6-12 hours":"12-24 hours"}
+
+</div>
+
+`;
+
+
+
+standard.onclick=()=>{
+
+selectedSpeed="standard";
+
+};
+
+
+
+express.onclick=()=>{
+
+selectedSpeed="express";
+
+};
+
+}
+
+
+
+function proceed(){
+
+alert("Payment integration ready next");
+
+}
+
+
 
 </script>
 
+
+
 </body>
+
 </html>
