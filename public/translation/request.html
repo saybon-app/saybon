@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,220 +11,255 @@
 
 <style>
 
-body{
+/* BASE */
 
+body{
 margin:0;
-font-family:Inter, sans-serif;
+font-family:Inter,sans-serif;
 background:#f8fafc;
 color:#0f172a;
-
 }
 
+
+/* CONTAINER */
 
 .container{
-
-max-width:1100px;
+max-width:1050px;
 margin:auto;
-padding:40px 20px;
-
+padding:34px 18px;
 }
 
 
-.header{
+/* HEADER */
 
+.header{
 display:flex;
 justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-
+align-items:flex-start;
+margin-bottom:22px;
 }
 
 
 .header h1{
-
-font-size:28px;
+font-size:26px;
 font-weight:600;
-
+margin:0;
 }
 
+
+/* QR */
 
 .qr{
-
-width:80px;
-
-}
-
-
-/* GRID */
-
-.grid{
-
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:24px;
-
-}
-
-
-.card{
-
+width:68px;
+padding:6px;
 background:white;
-border-radius:14px;
-padding:26px;
-box-shadow:0 10px 30px rgba(0,0,0,0.06);
-
+border-radius:12px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 
 /* TRUST */
 
 .trust{
-
 display:flex;
-gap:18px;
-margin-bottom:20px;
-
+gap:16px;
+margin-top:14px;
+margin-bottom:22px;
+flex-wrap:wrap;
 }
 
 
 .trust-item{
-
 display:flex;
 align-items:center;
-gap:10px;
-
+gap:8px;
+font-size:14px;
+color:#334155;
 }
 
 
 .badge{
-
-width:12px;
-height:12px;
+width:10px;
+height:10px;
 background:#10b981;
 border-radius:50%;
+}
 
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+
+/* CARD */
+
+.card{
+background:white;
+border-radius:12px;
+padding:22px;
+box-shadow:0 8px 26px rgba(0,0,0,0.05);
 }
 
 
 /* PRICING */
 
 .pricing{
-
-background:#ecfeff;
-border:1px solid #67e8f9;
-
+background:#f0fdfa;
+border:1px solid #5eead4;
 }
 
 
 .plan{
-
-margin-bottom:18px;
-
+margin-bottom:14px;
 }
 
 
 .plan-title{
-
 font-weight:600;
 display:flex;
 justify-content:space-between;
-
+font-size:15px;
 }
 
 
 .standard{
-
 color:#047857;
-
 }
 
 
 .express{
-
 color:#b91c1c;
-
 }
 
 
-ul{
-
-margin-top:8px;
+.pricing ul{
+margin-top:6px;
 padding-left:18px;
-
+font-size:14px;
+color:#475569;
 }
 
 
-/* UPLOAD */
-
-.upload{
-
-border:2px dashed #cbd5e1;
-padding:30px;
-text-align:center;
-cursor:pointer;
-
-}
-
-
-.upload:hover{
-
-background:#f1f5f9;
-
-}
-
-
-/* QUOTE */
-
-.quote{
-
-margin-top:20px;
-font-size:18px;
-font-weight:600;
-
-}
-
-
-/* BUTTON */
-
-button{
-
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:10px;
-background:#0f172a;
-color:white;
-font-size:16px;
-cursor:pointer;
-
-}
-
-
-button:hover{
-
-opacity:.9;
-
+.pricing div{
+font-size:14px;
+color:#475569;
 }
 
 
 /* WHY */
 
 .why{
-
-opacity:.6;
-
+opacity:.65;
+font-size:14px;
 }
 
 
-/* MOBILE */
+/* UPLOAD */
+
+.upload{
+border:2px dashed #cbd5e1;
+padding:24px;
+text-align:center;
+cursor:pointer;
+border-radius:10px;
+font-size:14px;
+color:#475569;
+}
+
+
+.upload:hover{
+background:#f1f5f9;
+}
+
+
+/* QUOTE */
+
+.quote{
+margin-top:16px;
+font-size:16px;
+font-weight:600;
+}
+
+
+/* BUTTON */
+
+button{
+margin-top:16px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#0f172a;
+color:white;
+font-size:15px;
+cursor:pointer;
+}
+
+
+button:hover{
+opacity:.9;
+}
+
+
+
+/* MOBILE OPTIMIZATION */
 
 @media(max-width:900px){
 
+.container{
+padding:22px 14px;
+}
+
+
+.header h1{
+font-size:22px;
+}
+
+
+.qr{
+width:56px;
+}
+
+
+.trust-item{
+font-size:13px;
+}
+
+
 .grid{
-
 grid-template-columns:1fr;
+gap:16px;
+}
 
+
+.card{
+padding:18px;
+}
+
+
+.plan-title{
+font-size:14px;
+}
+
+
+.pricing ul,
+.pricing div{
+font-size:13px;
+}
+
+
+.quote{
+font-size:15px;
+}
+
+
+button{
+font-size:14px;
+padding:11px;
 }
 
 }
@@ -231,50 +267,48 @@ grid-template-columns:1fr;
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
 
+<!-- HEADER -->
+
 <div class="header">
 
 <h1>SayBon Translation Services</h1>
 
-<img src="../assets/images/qr.png" class="qr">
+<img src="../assets/images/translation-qr.png" class="qr">
 
 </div>
 
 
+
+<!-- TRUST -->
 
 <div class="trust">
 
 <div class="trust-item">
-
 <div class="badge"></div>
-
-<span>Human translated</span>
-
+Human translated
 </div>
 
 <div class="trust-item">
-
 <div class="badge"></div>
-
-<span>Certification-ready quality</span>
-
+Certification-ready quality
 </div>
 
 <div class="trust-item">
-
 <div class="badge"></div>
-
-<span>Confidential & secure</span>
-
+Confidential & secure
 </div>
 
 </div>
 
 
+
+<!-- GRID -->
 
 <div class="grid">
 
@@ -286,7 +320,6 @@ grid-template-columns:1fr;
 
 
 <div class="card pricing">
-
 
 <h3>Pricing & Delivery</h3>
 
@@ -311,7 +344,7 @@ Standard
 
 </ul>
 
-<div>Best for most documents.</div>
+<div>Best for most documents</div>
 
 </div>
 
@@ -339,7 +372,7 @@ Express
 
 </ul>
 
-<div>Priority professional delivery.</div>
+<div>Priority professional delivery</div>
 
 </div>
 
@@ -356,7 +389,7 @@ Express
 
 Professional translators vetted for certification-level work.
 
-Accurate, confidential, and trusted.
+Accurate, confidential, and trusted by professionals.
 
 </p>
 
@@ -381,7 +414,7 @@ Accurate, confidential, and trusted.
 
 <div class="upload" onclick="fileInput.click()">
 
-Click to upload
+Click to upload your document
 
 </div>
 
@@ -403,9 +436,7 @@ Continue →
 </div>
 
 
-
 </div>
-
 
 
 </div>
@@ -415,24 +446,20 @@ Continue →
 <script type="module">
 
 
-import { initializeApp } from
+import { initializeApp }
 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
 import {
 
 getStorage,
-
 ref,
-
 uploadBytes
 
 }
 
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 
 
@@ -456,29 +483,24 @@ const app=initializeApp(firebaseConfig);
 const storage=getStorage(app);
 
 
-let wordCount=0;
-
 let file;
+
+let wordCount=0;
 
 
 
 fileInput.onchange=e=>{
 
-
 file=e.target.files[0];
 
-
 wordCount=Math.floor(file.size/6);
-
 
 const standard=(wordCount*0.025).toFixed(2);
 
 const express=(wordCount*0.05).toFixed(2);
 
 
-quote.innerHTML=
-
-`
+quote.innerHTML=`
 
 ${wordCount} words
 
@@ -492,31 +514,24 @@ Express: $${express}
 
 `;
 
-
 };
 
 
 
 window.uploadFile=async()=>{
 
-
 if(!file)return alert("Upload file first");
-
 
 const storageRef=ref(storage,"translations/"+file.name);
 
-
 await uploadBytes(storageRef,file);
 
-
 alert("Uploaded successfully");
-
 
 };
 
 
 </script>
-
 
 
 </body>
