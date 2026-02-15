@@ -22,7 +22,7 @@ if (findLevel) {
 // ================================
 if (startScratch) {
   startScratch.addEventListener("click", () => {
-    sessionStorage.setItem("saybon_next", "/login.html");
+    sessionStorage.setItem("saybon_next", "/auth/login.html");
     window.location.href = "/loader.html";
   });
 }
