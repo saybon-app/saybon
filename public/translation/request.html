@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request Translation — SayBon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BASE ================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(to bottom, #f8fafc, #eef2f7);
+  color: #0f172a;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  margin-bottom: 50px;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #475569;
+  margin-bottom: 24px;
+  max-width: 650px;
+}
+
+/* ================= TRUST BADGES ================= */
+
+.trust-badges {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 30px;
+}
+
+.trust-badges span {
+  background: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-box {
+  border: 2px dashed #cbd5e1;
+  padding: 40px;
+  border-radius: 12px;
+  background: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.upload-box input {
+  margin-top: 15px;
+}
+
+.upload-box p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ================= FORM ================= */
+
+.form-section {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 40px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #334155;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  grid-column: span 2;
+  min-height: 100px;
+}
+
+/* ================= PRICING ================= */
+
+.pricing-info {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* ================= BUTTON ================= */
+
+.submit-btn {
+  background: #0E7C66;
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #0b6352;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group textarea {
+    grid-column: span 1;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>Request a Professional Translation</h1>
+    <p>
+      Secure, confidential French ↔ English translation delivered with accuracy,
+      cultural intelligence, and rigorously vetted language experts.
+    </p>
+
+    <div class="trust-badges">
+      <span>✓ 100% Confidential</span>
+      <span>✓ Certified & Vetted Translators</span>
+      <span>✓ Fast Turnaround (24–72 hrs typical)</span>
+    </div>
+  </section>
+
+  <section class="upload-box">
+    <h3>Upload Your Document</h3>
+    <p>Drag & drop your file here or upload below.</p>
+    <input type="file" />
+    <p>Supported formats: PDF, DOCX, TXT</p>
+  </section>
+
+  <section class="form-section">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Source Language</label>
+        <select>
+          <option>French</option>
+          <option>English</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Target Language</label>
+        <select>
+          <option>English</option>
+          <option>French</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Document Type</label>
+        <input type="text" placeholder="e.g. Legal, Academic, Business">
+      </div>
+
+      <div class="form-group">
+        <label>Preferred Deadline</label>
+        <input type="date">
+      </div>
+
+      <div class="form-group">
+        <label>Additional Notes</label>
+        <textarea placeholder="Any specific instructions..."></textarea>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="pricing-info">
+    Pricing is based on word count, complexity, and turnaround time.
+    You will receive a transparent quote before any work begins.
+    No hidden charges.
+  </div>
+
+  <button class="submit-btn">Request Quote</button>
+
+</div>
+
+</body>
+</html>
