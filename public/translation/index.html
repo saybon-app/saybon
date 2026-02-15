@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -19,9 +19,24 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #0f172a 0%, #050a18 70%);
-  color: white;
+  background: #0c111a;
+  color: #e5e7eb;
   min-height: 100vh;
+}
+
+/* Subtle vertical light effect */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
+  );
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 /* ================= WRAPPER ================= */
@@ -29,35 +44,30 @@ body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 60px 24px 40px;
+  padding: 80px 24px 60px;
 }
 
 /* ================= HEADER ================= */
 
 .header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .header h1 {
-  font-size: 42px;
-  font-weight: 800;
-  letter-spacing: 1px;
-
-  background: linear-gradient(90deg, #A2AD1E, #009B77);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  text-shadow: 0 0 25px rgba(162,173,30,0.25);
+  font-family: "Playfair Display", serif;
+  font-size: 46px;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 18px;
 }
 
 .header p {
-  margin-top: 14px;
-  font-size: 16px;
-  opacity: 0.75;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #9ca3af;
 }
 
 /* ================= GRID ================= */
@@ -65,133 +75,89 @@ body {
 .services {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
+  gap: 40px;
 }
 
 /* ================= CARD ================= */
 
 .service-card {
-  position: relative;
-  padding: 40px 36px;
-  border-radius: 24px;
-  cursor: pointer;
-  overflow: hidden;
-
-  backdrop-filter: blur(18px);
-
-  background: linear-gradient(
-    135deg,
-    rgba(162,173,30,0.25),
-    rgba(0,155,119,0.25)
-  );
-
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.05),
-    0 18px 40px rgba(0,0,0,0.45);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.service-card::after {
-  content: "";
-  position: absolute;
-  top: -120%;
-  left: -40%;
-  width: 60%;
-  height: 300%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.18),
-    transparent
-  );
-  transform: rotate(25deg);
-  animation: shimmer 7s infinite;
+  background: #141b26;
+  padding: 48px 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.25s ease;
 }
 
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.08),
-    0 25px 55px rgba(0,0,0,0.55);
-}
-
-.service-card:active {
-  transform: scale(0.97);
+  border-color: rgba(162,173,30,0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
 }
 
 .service-card h2 {
   font-size: 24px;
+  margin-bottom: 16px;
   font-weight: 700;
-  margin-bottom: 14px;
+  color: #ffffff;
 }
 
 .service-card p {
   font-size: 15px;
-  opacity: 0.85;
-  margin-bottom: 26px;
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin-bottom: 28px;
 }
+
+/* ================= BUTTON ================= */
 
 .service-card button {
-  padding: 10px 26px;
-  border-radius: 30px;
+  background: #A2AD1E;
+  color: #0c111a;
   border: none;
-  cursor: pointer;
-
+  padding: 10px 28px;
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 14px;
-
-  background: linear-gradient(135deg, #A2AD1E, #009B77);
-  color: white;
-
-  box-shadow:
-    0 6px 18px rgba(0,0,0,0.4),
-    inset 0 1px 3px rgba(255,255,255,0.25);
-
-  transition: transform 0.15s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.service-card button:active {
-  transform: scale(0.95);
+.service-card button:hover {
+  background: #b8c423;
 }
 
 /* ================= BACK ================= */
 
 .back {
-  margin-top: 50px;
+  margin-top: 70px;
   text-align: center;
 }
 
 .back a {
   text-decoration: none;
   font-size: 14px;
-  opacity: 0.7;
-  color: white;
+  color: #9ca3af;
 }
 
 .back a:hover {
-  opacity: 1;
+  color: #ffffff;
 }
 
-/* ================= ANIMATION ================= */
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) rotate(25deg); }
-  100% { transform: translateX(300%) rotate(25deg); }
-}
-
-/* ================= RESPONSIVE ================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 900px) {
 
   .services {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .header h1 {
-    font-size: 30px;
+    font-size: 32px;
   }
 
+  .container {
+    padding-top: 50px;
+  }
 }
 
 </style>
@@ -211,22 +177,20 @@ body {
 
   <div class="services">
 
-    <!-- CLIENT SIDE -->
     <div class="service-card" onclick="goRequest()">
       <h2>Request a Translation</h2>
       <p>
-        Submit documents for high-quality translation handled by
-        experienced and verified professionals.
+        Submit your documents for professional handling by experienced,
+        verified translators.
       </p>
       <button>Request Service</button>
     </div>
 
-    <!-- TRANSLATOR SIDE -->
     <div class="service-card" onclick="goApply()">
       <h2>Join Our Verified Translator Network</h2>
       <p>
         Already certified? Submit your credentials and demonstrate your
-        competence to be approved for SayBon client work.
+        competence to qualify for SayBon client assignments.
       </p>
       <button>Apply for Verification</button>
     </div>
