@@ -49,7 +49,7 @@ async function extractText(filePath, originalName) {
 // TEXT CHUNKER (prevents overload)
 // -----------------------------
 
-function splitText(text, maxLength = 3000) {
+function splitText(text, maxLength = 1500) {
 
   const chunks = [];
 
