@@ -110,15 +110,17 @@ app.post("/api/translate", upload.single("file"), async (req, res) => {
 
   catch (error) {
 
-    console.error(error);
+  console.error("FULL ERROR:", error);
 
-    res.status(500).json({
+  res.status(500).json({
 
-      error: "Translation failed",
+    error: error.message,
 
-    });
+    details: error.response?.data || null
 
-  }
+  });
+
+}
 
 });
 
