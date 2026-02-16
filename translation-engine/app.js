@@ -5,14 +5,9 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
-app.use(express.json());
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-const PORT = process.env.PORT || 3000;
-
-
-// ROOT TEST ROUTE
 app.get("/", (req, res) => {
 
   res.send("SayBon Translation Engine is running");
@@ -20,7 +15,6 @@ app.get("/", (req, res) => {
 });
 
 
-// TRANSLATE ROUTE
 app.post("/api/translate", upload.single("file"), async (req, res) => {
 
   try {
@@ -33,21 +27,17 @@ app.post("/api/translate", upload.single("file"), async (req, res) => {
 
     }
 
-    const text = req.file.buffer.toString("utf8");
+    const text = req.file.buffer.toString();
 
-
-    // TEMP translation simulation
-    const translation = "TRANSLATED:\n\n" + text;
-
+    const translation = text;
 
     res.json({
       translation
     });
 
   }
-  catch (error) {
 
-    console.error(error);
+  catch (err) {
 
     res.status(500).json({
       error: "Translation failed"
@@ -58,9 +48,11 @@ app.post("/api/translate", upload.single("file"), async (req, res) => {
 });
 
 
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
   console.log("Server running on port " + PORT);
 
 });
+
