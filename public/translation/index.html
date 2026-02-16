@@ -55,6 +55,8 @@ margin-bottom: 70px;
 max-width: 520px;
 }
 
+/* SERVICE BLOCK */
+
 .service {
 margin-bottom: 60px;
 }
@@ -72,6 +74,8 @@ color: #94a3b8;
 margin-bottom: 20px;
 max-width: 500px;
 }
+
+/* BUTTON */
 
 .btn {
 display: inline-block;
@@ -91,6 +95,8 @@ background: #1e293b;
 border-color: #475569;
 }
 
+/* IMAGE */
+
 .image-container {
 display: flex;
 justify-content: center;
@@ -102,6 +108,8 @@ max-width: 520px;
 border-radius: 14px;
 box-shadow: 0 30px 60px rgba(0,0,0,0.6);
 }
+
+/* BACK LINK */
 
 .back {
 margin-top: 80px;
@@ -117,73 +125,34 @@ color: #64748b;
 color: #e2e8f0;
 }
 
-/* ===== TRANSLATOR PANEL — NO DESIGN INTERFERENCE ===== */
-
-#translatorPool {
-
-display:none;
-
-margin-top:60px;
-
-border-top:1px solid #334155;
-
-padding-top:40px;
-
-}
-
-.job {
-
-margin-top:30px;
-
-padding:20px;
-
-border:1px solid #334155;
-
-border-radius:8px;
-
-}
-
-.job textarea {
-
-width:100%;
-
-height:180px;
-
-margin-top:15px;
-
-background:#020617;
-
-color:white;
-
-border:1px solid #334155;
-
-padding:10px;
-
-}
-
-.nda {
-
-margin-top:15px;
-
-color:#f87171;
-
-font-size:13px;
-
-}
+/* MOBILE */
 
 @media (max-width: 900px) {
 
-.wrapper {padding: 50px 24px;}
+.wrapper {
+padding: 50px 24px;
+}
 
-.split {grid-template-columns: 1fr;gap: 50px;}
+.split {
+grid-template-columns: 1fr;
+gap: 50px;
+}
 
-.image-container {order: -1;}
+.image-container {
+order: -1;
+}
 
-.content h1 {font-size: 30px;}
+.content h1 {
+font-size: 30px;
+}
 
-.content p.lead {margin-bottom: 40px;}
+.content p.lead {
+margin-bottom: 40px;
+}
 
-.service {margin-bottom: 40px;}
+.service {
+margin-bottom: 40px;
+}
 
 }
 
@@ -215,9 +184,7 @@ experienced and verified professionals.
 </p>
 
 <button class="btn" onclick="goRequest()">
-
 Request Translation Services
-
 </button>
 
 </div>
@@ -232,21 +199,9 @@ Already certified? Submit your credentials and demonstrate your
 competence to be approved for SayBon client assignments.
 </p>
 
-<button class="btn" onclick="goApply()">
-
+<button class="btn" onclick="openTranslatorDashboard()">
 For Translators Only
-
 </button>
-
-
-<br><br>
-
-<button class="btn" onclick="toggleTranslatorPool()">
-
-Translator Login
-
-</button>
-
 
 </div>
 
@@ -269,23 +224,10 @@ Translator Login
 
 </div>
 
-
-<!-- TRANSLATOR JOB PANEL -->
-
-<div id="translatorPool">
-
-<h2>Available Translation Jobs</h2>
-
-<div id="jobs"></div>
-
-</div>
-
-
 </div>
 
 
 <script>
-
 
 function goRequest(){
 
@@ -294,180 +236,13 @@ window.location.href="/translation/request.html";
 }
 
 
-function goApply(){
+// ✅ THIS NOW OPENS TRANSLATOR DASHBOARD
 
-window.location.href="/translation/apply.html";
+function openTranslatorDashboard(){
 
-}
-
-
-// OPEN TRANSLATOR PANEL
-
-
-function toggleTranslatorPool(){
-
-const panel=
-
-document.getElementById("translatorPool")
-
-panel.style.display=
-
-panel.style.display==="block"?"none":"block"
-
-loadJobs()
+window.location.href="/translation/join/dashboard.html";
 
 }
-
-
-// LOAD JOBS
-
-
-async function loadJobs(){
-
-const res=
-
-await fetch("http://localhost:4000/jobs")
-
-const data=
-
-await res.json()
-
-const container=
-
-document.getElementById("jobs")
-
-container.innerHTML=""
-
-data.jobs.forEach(job=>{
-
-const div=document.createElement("div")
-
-div.className="job"
-
-div.innerHTML=`
-
-<b>Payment:</b> $${job.payment}<br>
-
-<b>Deadline:</b> ${job.deadline}<br>
-
-<div class="nda">
-
-NDA Protected. Unauthorized sharing prohibited.
-
-</div>
-
-<textarea id="text-${job.id}">
-
-${job.phase1}
-
-</textarea>
-
-<br><br>
-
-<label>
-
-<input type="checkbox" id="cert-${job.id}">
-
-I certify I worked on this
-
-</label>
-
-<br><br>
-
-<button class="btn" onclick="acceptJob('${job.id}')">
-
-Accept
-
-</button>
-
-<button class="btn" onclick="submitJob('${job.id}')">
-
-Submit
-
-</button>
-
-`
-
-container.appendChild(div)
-
-})
-
-}
-
-
-// ACCEPT
-
-
-async function acceptJob(id){
-
-await fetch(
-
-"http://localhost:4000/jobs/"+id+"/accept",
-
-{method:"POST"}
-
-)
-
-alert("Job accepted")
-
-}
-
-
-// SUBMIT
-
-
-async function submitJob(id){
-
-const text=
-
-document.getElementById("text-"+id).value
-
-const cert=
-
-document.getElementById("cert-"+id).checked
-
-if(!cert){
-
-alert("Certification required")
-
-return
-
-}
-
-const res=
-
-await fetch(
-
-"http://localhost:4000/jobs/"+id+"/submit",
-
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-translation:text
-
-})
-
-}
-
-)
-
-const data=
-
-await res.json()
-
-alert(data.message)
-
-}
-
 
 </script>
 
