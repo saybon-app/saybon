@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translator Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:#0b1220;
+color:#e2e8f0;
+font-family:Manrope;
+margin:0;
+}
+
+.wrapper{
+max-width:1100px;
+margin:auto;
+padding:60px 30px;
+}
+
+h1{
+font-size:28px;
+margin-bottom:30px;
+}
+
+.job{
+
+background:#111827;
+padding:25px;
+border-radius:10px;
+margin-bottom:25px;
+border:1px solid #1f2937;
+
+}
+
+.label{
+
+font-size:13px;
+color:#94a3b8;
+margin-bottom:6px;
+
+}
+
+.phase{
+
+background:#2563eb;
+display:inline-block;
+padding:4px 10px;
+border-radius:6px;
+font-size:12px;
+margin-bottom:15px;
+
+}
+
+.payment{
+
+color:#10b981;
+font-weight:600;
+margin-bottom:10px;
+
+}
+
+.timeline{
+
+color:#f59e0b;
+font-size:14px;
+margin-bottom:15px;
+
+}
+
+textarea{
+
+width:100%;
+height:200px;
+background:#020617;
+color:white;
+border:1px solid #334155;
+border-radius:6px;
+padding:10px;
+margin-top:10px;
+
+}
+
+button{
+
+margin-top:15px;
+padding:10px 20px;
+background:#2563eb;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#1d4ed8;
+
+}
+
+.small{
+
+font-size:13px;
+color:#94a3b8;
+margin-top:10px;
+
+}
+
+.accepted{
+
+color:#10b981;
+
+}
+
+.closed{
+
+color:#ef4444;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="wrapper">
+
+
+<h1>Translator Dashboard</h1>
+
+
+<div id="jobs"></div>
+
+
+</div>
+
+
+<script>
+
+
+const API="http://localhost:4000";
+
+
+
+async function loadJobs(){
+
+const res=await fetch(API+"/jobs");
+
+const data=await res.json();
+
+const container=document.getElementById("jobs");
+
+container.innerHTML="";
+
+
+data.jobs.forEach(job=>{
+
+
+const div=document.createElement("div");
+
+div.className="job";
+
+
+div.innerHTML=`
+
+<div class="phase">Phase 1</div>
+
+<div class="label">Job ID</div>
+<div>${job.id}</div>
+
+
+<div class="payment">
+Translator Payment: $120
+</div>
+
+
+<div class="timeline">
+Deadline: 24 hours
+</div>
+
+
+
+<div class="label">
+Phase 1 Translation
+</div>
+
+<textarea readonly>
+${job.phase1}
+</textarea>
+
+
+
+<div class="small">
+
+NDA Required • 85% pass mark required •
+First accepted submission receives full payment
+
+</div>
+
+
+
+<button onclick="accept('${job.id}')">
+Accept Job
+</button>
+
+
+
+<button onclick="submit('${job.id}')">
+Submit Translation
+</button>
+
+
+
+<textarea id="submit_${job.id}" placeholder="Edit translation here..."></textarea>
+
+
+`;
+
+container.appendChild(div);
+
+
+});
+
+
+}
+
+
+
+async function accept(id){
+
+await fetch(API+"/accept",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+jobId:id,
+translator:"demo"
+
+})
+
+});
+
+alert("Job accepted");
+
+
+loadJobs();
+
+}
+
+
+
+async function submit(id){
+
+const text=document.getElementById("submit_"+id).value;
+
+
+await fetch(API+"/submit",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+jobId:id,
+
+translator:"demo",
+
+text
+
+})
+
+});
+
+
+alert("Submitted");
+
+
+loadJobs();
+
+}
+
+
+
+loadJobs();
+
+
+</script>
+
+
+</body>
+</html>
