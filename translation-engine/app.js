@@ -5,39 +5,62 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ storage: multer.memoryStorage() });
 
+const PORT = process.env.PORT || 3000;
+
+
+// ROOT TEST ROUTE
 app.get("/", (req, res) => {
+
   res.send("SayBon Translation Engine is running");
+
 });
 
+
+// TRANSLATE ROUTE
 app.post("/api/translate", upload.single("file"), async (req, res) => {
 
   try {
 
     if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
+
+      return res.status(400).json({
+        error: "No file uploaded"
+      });
+
     }
 
-    // fake translation test
+    const text = req.file.buffer.toString("utf8");
+
+
+    // TEMP translation simulation
+    const translation = "TRANSLATED:\n\n" + text;
+
+
     res.json({
-      translation: "Translation successful. Engine is working."
+      translation
     });
 
-  } catch (err) {
+  }
+  catch (error) {
+
+    console.error(error);
 
     res.status(500).json({
-      error: err.message
+      error: "Translation failed"
     });
 
   }
 
 });
 
-const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
-  console.log("Engine running on port " + PORT);
-});
 
+  console.log("Server running on port " + PORT);
+
+});
