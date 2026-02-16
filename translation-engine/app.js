@@ -13,22 +13,7 @@ const app = express();
 
 app.use(cors());
 
-
-// -----------------------------
-// FILE UPLOAD CONFIG
-// -----------------------------
-
-const upload = multer({
-  dest: "uploads/",
-  limits: {
-    fileSize: 20 * 1024 * 1024, // 20MB limit
-  },
-});
-
-
-// -----------------------------
-// OPENAI INIT
-// -----------------------------
+const upload = multer({ dest: "uploads/" });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -41,29 +26,18 @@ const openai = new OpenAI({
 
 async function extractText(filePath, originalName) {
 
-  const lower = originalName.toLowerCase();
-
-  if (lower.endsWith(".txt")) {
-
+  if (originalName.endsWith(".txt")) {
     return fs.readFileSync(filePath, "utf8");
-
   }
 
-  if (lower.endsWith(".pdf")) {
-
+  if (originalName.endsWith(".pdf")) {
     const data = await pdfParse(fs.readFileSync(filePath));
     return data.text;
-
   }
 
-  if (lower.endsWith(".docx")) {
-
-    const result = await mammoth.extractRawText({
-      path: filePath,
-    });
-
+  if (originalName.endsWith(".docx")) {
+    const result = await mammoth.extractRawText({ path: filePath });
     return result.value;
-
   }
 
   throw new Error("Unsupported file type");
@@ -72,53 +46,18 @@ async function extractText(filePath, originalName) {
 
 
 // -----------------------------
-// SAFE CHUNK TRANSLATION ENGINE
+// TEXT CHUNKER (prevents overload)
 // -----------------------------
 
-async function translateText(text) {
-
-  const MAX_CHARS = 4000;
+function splitText(text, maxLength = 3000) {
 
   const chunks = [];
 
-  for (let i = 0; i < text.length; i += MAX_CHARS) {
-
-    chunks.push(text.slice(i, i + MAX_CHARS));
-
+  for (let i = 0; i < text.length; i += maxLength) {
+    chunks.push(text.substring(i, i + maxLength));
   }
 
-  let finalTranslation = "";
-
-  for (const chunk of chunks) {
-
-    const completion =
-      await openai.chat.completions.create({
-
-        model: "gpt-4o-mini",
-
-        messages: [
-
-          {
-            role: "system",
-            content:
-              "Translate the following text to French only. Preserve formatting exactly.",
-          },
-
-          {
-            role: "user",
-            content: chunk,
-          },
-
-        ],
-
-      });
-
-    finalTranslation +=
-      completion.choices[0].message.content;
-
-  }
-
-  return finalTranslation;
+  return chunks;
 
 }
 
@@ -127,105 +66,102 @@ async function translateText(text) {
 // TRANSLATE ROUTE
 // -----------------------------
 
-app.post(
-  "/api/translate",
-  upload.single("file"),
-  async (req, res) => {
+app.post("/api/translate", upload.single("file"), async (req, res) => {
 
-    let filePath = null;
+  try {
 
-    try {
-
-      if (!req.file) {
-
-        return res.status(400).json({
-          error: "No file uploaded",
-        });
-
-      }
-
-      filePath = req.file.path;
-
-      const text =
-        await extractText(
-          filePath,
-          req.file.originalname
-        );
-
-
-      if (!text || text.trim() === "") {
-
-        throw new Error(
-          "File contains no readable text"
-        );
-
-      }
-
-
-      const translation =
-        await translateText(text);
-
-
-      res.json({
-
-        translation: translation,
-
+    if (!req.file) {
+      return res.status(400).json({
+        error: "No file uploaded",
       });
-
     }
 
-    catch (error) {
+    const text = await extractText(
+      req.file.path,
+      req.file.originalname
+    );
 
-      console.error("FULL ERROR:", error);
 
-      res.status(500).json({
+    const chunks = splitText(text);
 
-        error: error.message,
+let fullTranslation = "";
 
-        details:
-          error.response?.data || null,
+for (const chunk of chunks) {
 
-      });
+  const completion =
+    await openai.chat.completions.create({
 
-    }
+      model: "gpt-4o-mini",
 
-    finally {
+      temperature: 0,
 
-      // cleanup uploaded file
+      messages: [
 
-      if (filePath && fs.existsSync(filePath)) {
+        {
+          role: "system",
+          content:
+            `You are an elite legal translator.
 
-        fs.unlinkSync(filePath);
+Translate EVERYTHING to French.
 
-      }
+Rules:
 
-    }
+- Output ONLY French
+- Never output English
+- Preserve formatting
+- Preserve line breaks
+- Preserve structure
+- Translate fully
+- Never skip anything
+
+French translation:`,
+        },
+
+        {
+          role: "user",
+          content: chunk,
+        },
+
+      ],
+
+    });
+
+  fullTranslation += completion.choices[0].message.content + "\n";
+
+}
+
+    res.json({
+
+      translation: fullTranslation,
+
+    });
+
 
   }
-);
 
+  catch (error) {
 
-// -----------------------------
-// HEALTH CHECK ROUTE
-// -----------------------------
+    console.error("FULL ERROR:", error);
 
-app.get("/", (req, res) => {
+    res.status(500).json({
 
-  res.send("SayBon Translation Engine Running");
+      error: error.message,
+
+      details: error.response?.data || null
+
+    });
+
+  }
 
 });
 
 
-// -----------------------------
-// START SERVER
 // -----------------------------
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
-  console.log(
-    "SayBon Translation Engine running on port " + PORT
-  );
+  console.log("Server running on port " + PORT);
 
 });
