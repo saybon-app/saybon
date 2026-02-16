@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node translation-engine/app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.18.2",
