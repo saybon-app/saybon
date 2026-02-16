@@ -10,9 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 
-// -----------------------------
-// ROOT PAGE
-// -----------------------------
+// =====================================
+// ROOT
+// =====================================
 
 app.get("/", (req, res) => {
 
@@ -21,16 +21,16 @@ res.send("SayBon Production Backend Running");
 });
 
 
-// -----------------------------
-// JOB STORAGE
-// -----------------------------
+// =====================================
+// STORAGE
+// =====================================
 
 const jobs = [];
 
 
-// -----------------------------
+// =====================================
 // OPENAI
-// -----------------------------
+// =====================================
 
 const openai = new OpenAI({
 apiKey: process.env.OPENAI_API_KEY,
@@ -38,9 +38,9 @@ apiKey: process.env.OPENAI_API_KEY,
 
 
 
-// =====================================================
-// CREATE JOB
-// =====================================================
+// =====================================
+// CREATE JOB (PHASE 1 ENGINE)
+// =====================================
 
 app.post("/upload", async (req, res) => {
 
@@ -57,10 +57,6 @@ error: "No text provided"
 }
 
 
-// -----------------------------
-// PHASE 1 TRANSLATION
-// -----------------------------
-
 const completion =
 await openai.chat.completions.create({
 
@@ -70,8 +66,7 @@ messages: [
 
 {
 role: "system",
-content:
-"Translate to French. This is Phase 1. Preserve formatting."
+content: "Translate to French professionally"
 },
 
 {
@@ -88,13 +83,9 @@ const phase1 =
 completion.choices[0].message.content;
 
 
-// -----------------------------
-// CREATE JOB OBJECT
-// -----------------------------
-
 const job = {
 
-id: Date.now().toString(),
+id: Date.now(),
 
 originalText: text,
 
@@ -106,11 +97,9 @@ accepted: [],
 
 submissions: [],
 
-created: Date.now(),
+winner: null,
 
-deadline: Date.now() + 24*60*60*1000,
-
-payment: 120
+created: Date.now()
 
 };
 
@@ -121,7 +110,6 @@ jobs.push(job);
 res.json({
 
 success: true,
-
 job
 
 });
@@ -144,10 +132,9 @@ error: error.message
 
 
 
-
-// =====================================================
-// VIEW JOBS
-// =====================================================
+// =====================================
+// GET JOBS
+// =====================================
 
 app.get("/jobs", (req, res) => {
 
@@ -162,76 +149,65 @@ jobs
 
 
 
-// =====================================================
+// =====================================
 // ACCEPT JOB
-// =====================================================
+// =====================================
 
 app.post("/accept", (req, res) => {
 
 const { jobId, translator } = req.body;
 
+const job =
+jobs.find(j => j.id == jobId);
 
-const job = jobs.find(j => j.id === jobId);
-
-
-if(!job){
+if (!job) {
 
 return res.status(404).json({
-error:"Job not found"
+error: "Job not found"
 });
 
 }
 
 
-// LIMIT TO 3
+if (job.accepted.length >= 3) {
 
-if(job.accepted.length >=3){
+job.status = "CLOSED";
 
 return res.json({
-
-error:"Job already closed"
-
+error: "Job already closed"
 });
 
 }
 
 
-// PREVENT DUPLICATE
-
-if(job.accepted.find(t=>t.name===translator)){
+if (job.accepted.includes(translator)) {
 
 return res.json({
-
-error:"Already accepted"
-
+error: "Already accepted"
 });
 
 }
 
-
-// ADD TRANSLATOR
 
 job.accepted.push({
 
-name:translator,
+name: translator,
 
-acceptedAt:Date.now()
+time: Date.now()
 
 });
 
 
-// CLOSE JOB IF 3
+if (job.accepted.length >= 3) {
 
-if(job.accepted.length===3){
-
-job.status="IN_PROGRESS";
+job.status = "IN_PROGRESS";
 
 }
 
 
 res.json({
 
-success:true
+success: true
 
 });
 
@@ -240,142 +216,189 @@ success:true
 
 
 
-
-// =====================================================
+// =====================================
 // SUBMIT TRANSLATION
-// =====================================================
+// =====================================
 
-app.post("/submit", (req, res) => {
+app.post("/submit", async (req, res) => {
+
+try {
 
 const {
-
 jobId,
-
 translator,
-
-text,
-
-ndaSigned=true
-
+translation,
+ndaSigned
 } = req.body;
 
 
-const job = jobs.find(j => j.id === jobId);
+const job =
+jobs.find(j => j.id == jobId);
 
 
-if(!job){
-
+if (!job)
 return res.status(404).json({
-error:"Job not found"
+error: "Job not found"
 });
 
-}
 
 
-// NDA REQUIRED
-
-if(!ndaSigned){
-
-return res.json({
-
-error:"NDA required"
-
+if (!ndaSigned)
+return res.status(400).json({
+error: "NDA must be signed"
 });
 
-}
 
-
-// FIND ACCEPT RECORD
 
 const accepted =
-job.accepted.find(t=>t.name===translator);
+job.accepted.find(
+t => t.name == translator
+);
 
 
-if(!accepted){
+if (!accepted)
+return res.status(400).json({
+error: "Not accepted"
+});
 
-return res.json({
 
-error:"Translator did not accept job"
+
+// =====================================
+// Anti cheat timing
+// =====================================
+
+const timeSpent =
+Date.now() - accepted.time;
+
+
+if (timeSpent < 60000)
+return res.status(400).json({
+error: "Submission too fast"
+});
+
+
+
+// =====================================
+// QUALITY CHECK
+// =====================================
+
+const qualityCheck =
+await openai.chat.completions.create({
+
+model: "gpt-4o-mini",
+
+messages: [
+
+{
+role: "system",
+content:
+"Score this translation from 0 to 100 and reply with number only"
+},
+
+{
+role: "user",
+content:
+
+"Original:\n" +
+job.originalText +
+
+"\n\nTranslation:\n" +
+translation
+
+}
+
+]
 
 });
 
-}
 
-
-// MINIMUM TIME CHECK
-// prevents instant submit fraud
-
-const minTime=2*60*1000;
-
-
-if(Date.now()-accepted.acceptedAt < minTime){
-
-return res.json({
-
-error:"Submission too fast. Rejected."
-
-});
-
-}
+const score =
+parseInt(
+qualityCheck
+.choices[0]
+.message
+.content
+);
 
 
 
-// DETERMINE POSITION
-
-let position="bonus";
-
-
-if(job.submissions.length===0){
-
-position="winner";
-
-job.status="COMPLETED";
-
-}
-
-else if(job.submissions.length===1){
-
-position="second";
-
-}
-
-else{
-
-position="third";
-
-}
-
-
-
-
-job.submissions.push({
+const submission = {
 
 translator,
 
-text,
+translation,
 
-time:Date.now(),
+score,
 
-position,
+time: Date.now(),
 
-payment:
+accepted: score >= 85
 
-position==="winner" ? job.payment :
+};
 
-position==="second" ? job.payment*0.3 :
 
-job.payment*0.2
+job.submissions.push(submission);
 
-});
+
+
+// =====================================
+// WINNER LOGIC
+// =====================================
+
+if (submission.accepted && !job.winner) {
+
+job.winner = translator;
+
+job.status = "COMPLETED";
+
+}
 
 
 
 res.json({
 
-success:true,
+success: true,
 
-position
+score,
 
+accepted: submission.accepted,
+
+winner: job.winner
+
+});
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+res.status(500).json({
+error: error.message
+});
+
+}
+
+});
+
+
+
+// =====================================
+// GET JOB DETAILS
+// =====================================
+
+app.get("/job/:id", (req, res) => {
+
+const job =
+jobs.find(
+j => j.id == req.params.id
+);
+
+
+res.json({
+job
 });
 
 });
@@ -383,15 +406,16 @@ position
 
 
 
-// =====================================================
-// START SERVER
-// =====================================================
+// =====================================
+// SERVER
+// =====================================
 
 const PORT = 4000;
 
-
 app.listen(PORT, () => {
 
-console.log("SayBon Production Running");
+console.log(
+"SayBon Translator System Running"
+);
 
 });
