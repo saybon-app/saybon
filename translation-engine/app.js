@@ -97,8 +97,8 @@ app.post("/translate", upload.single("file"), async (req, res) => {
 
 
 
-app.listen(3000, () => {
+const PORT = process.env.PORT || 3000;
 
-  console.log("SayBon Engine running on port 3000");
-
+app.listen(PORT, () => {
+  console.log("SayBon Engine running on port " + PORT);
 });
