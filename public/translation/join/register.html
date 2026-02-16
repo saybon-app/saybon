@@ -1,0 +1,457 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — SayBon Translator Pool</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:"Manrope",sans-serif;
+background:#0b1220;
+color:#e2e8f0;
+padding:60px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+h1{
+margin-bottom:40px;
+}
+
+label{
+display:block;
+margin-top:20px;
+margin-bottom:6px;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+background:#111827;
+border:1px solid #374151;
+border-radius:6px;
+color:white;
+}
+
+textarea{
+height:200px;
+}
+
+button{
+margin-top:30px;
+padding:14px 28px;
+background:transparent;
+border:1px solid #334155;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1e293b;
+}
+
+.timer{
+margin-top:20px;
+color:#22c55e;
+font-weight:600;
+}
+
+.test-box{
+background:#111827;
+padding:20px;
+border-radius:6px;
+margin-top:20px;
+}
+
+.nda{
+
+margin-top:40px;
+
+background:#020617;
+
+padding:30px;
+
+border-radius:8px;
+
+line-height:1.7;
+
+}
+
+.nda h2{
+
+margin-bottom:20px;
+
+}
+
+.nda strong{
+
+color:white;
+
+}
+
+.checkbox{
+
+margin-top:20px;
+
+display:flex;
+
+gap:10px;
+
+align-items:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+
+<h1>Register to Join SayBon Translator Pool</h1>
+
+
+<form id="form">
+
+
+<label>Full Name</label>
+<input required id="name">
+
+
+<label>Email</label>
+<input required type="email" id="email">
+
+
+<label>Phone</label>
+<input required id="phone">
+
+
+<label>Country</label>
+<input required id="country">
+
+
+<label>Upload National ID</label>
+<input required type="file" id="idCard">
+
+
+<label>Upload Certifications</label>
+<input required type="file" id="certs">
+
+
+
+<div class="test-box">
+
+
+<h3>Translation Test</h3>
+
+
+<p>
+
+Translate this into French:
+
+</p>
+
+
+<p id="testText">
+
+Global economic instability continues to reshape international trade relationships. Governments must balance national interests with global cooperation to ensure long-term prosperity.
+
+</p>
+
+
+<div class="timer" id="timer">
+
+Time Remaining: 30:00
+
+</div>
+
+
+<label>Your Translation</label>
+
+<textarea required id="translation"></textarea>
+
+
+</div>
+
+
+
+
+<!-- NDA -->
+
+<div class="nda">
+
+
+<h2>SAYBON TRANSLATOR CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT</h2>
+
+
+<p>
+
+By registering as a SayBon translator and accepting translation jobs,
+you agree to the following legally binding terms:
+
+</p>
+
+
+<p><strong>CONFIDENTIALITY</strong></p>
+
+<p>
+
+All documents provided through SayBon are strictly confidential.
+
+</p>
+
+
+<p>You agree that you will NOT:</p>
+
+<p>
+
+• Share the document with any third party<br>
+
+• Store the document outside the SayBon platform<br>
+
+• Copy or distribute the document<br>
+
+• Use the document for personal or external purposes
+
+</p>
+
+
+
+<p><strong>ACCESS LIMITATION</strong></p>
+
+<p>
+
+Access is granted solely for the purpose of reviewing and improving the translation.
+
+</p>
+
+
+
+<p><strong>DATA SECURITY</strong></p>
+
+<p>
+
+You must not retain copies of documents after submission.
+
+</p>
+
+
+
+<p><strong>CERTIFICATION</strong></p>
+
+<p>
+
+By submitting work, you certify that:
+
+</p>
+
+
+<p>
+
+• You have personally reviewed the document<br>
+
+• You have maintained confidentiality<br>
+
+• You have complied fully with this agreement
+
+</p>
+
+
+
+<p><strong>VIOLATIONS</strong></p>
+
+<p>
+
+Violation of this agreement may result in:
+
+</p>
+
+
+<p>
+
+• Immediate removal from SayBon<br>
+
+• Forfeiture of earnings<br>
+
+• Permanent account termination<br>
+
+• Legal action where applicable
+
+</p>
+
+
+
+<p><strong>ACKNOWLEDGEMENT</strong></p>
+
+<p>
+
+By accepting translation work on SayBon, you confirm that you understand and agree to this confidentiality agreement.
+
+</p>
+
+
+<p>
+
+Effective Date: Automatically recorded<br>
+
+Translator Identity: Automatically recorded
+
+</p>
+
+
+
+<div class="checkbox">
+
+<input type="checkbox" id="agree">
+
+<label>I agree to this NDA and confidentiality agreement</label>
+
+</div>
+
+
+</div>
+
+
+
+
+<button type="submit">
+
+Submit Application
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+<script>
+
+
+// TIMER
+
+let time = 1800;
+
+
+setInterval(()=>{
+
+
+time--;
+
+
+let min=Math.floor(time/60);
+
+let sec=time%60;
+
+
+document.getElementById("timer").innerText=
+
+"Time Remaining: "+min+":"+sec;
+
+
+if(time<=0){
+
+alert("Time up");
+
+location.reload();
+
+}
+
+
+},1000);
+
+
+
+
+
+// SUBMIT
+
+
+document.getElementById("form").onsubmit=async(e)=>{
+
+
+e.preventDefault();
+
+
+
+
+if(!agree.checked){
+
+alert("You must accept NDA");
+
+return;
+
+}
+
+
+
+
+const data={
+
+name:name.value,
+
+email:email.value,
+
+phone:phone.value,
+
+country:country.value,
+
+translation:translation.value,
+
+ndaAccepted:true,
+
+ndaTimestamp:Date.now()
+
+};
+
+
+
+await fetch(
+
+"https://saybon-production.up.railway.app/translator/register",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(data)
+
+});
+
+
+alert("Application submitted successfully");
+
+
+location.href="dashboard.html";
+
+
+};
+
+
+
+</script>
+
+
+</body>
+
+</html>
