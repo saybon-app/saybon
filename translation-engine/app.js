@@ -13,7 +13,22 @@ const app = express();
 
 app.use(cors());
 
-const upload = multer({ dest: "uploads/" });
+
+// -----------------------------
+// FILE UPLOAD CONFIG
+// -----------------------------
+
+const upload = multer({
+  dest: "uploads/",
+  limits: {
+    fileSize: 20 * 1024 * 1024, // 20MB limit
+  },
+});
+
+
+// -----------------------------
+// OPENAI INIT
+// -----------------------------
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -26,22 +41,27 @@ const openai = new OpenAI({
 
 async function extractText(filePath, originalName) {
 
-  if (originalName.endsWith(".txt")) {
+  const lower = originalName.toLowerCase();
+
+  if (lower.endsWith(".txt")) {
 
     return fs.readFileSync(filePath, "utf8");
 
   }
 
-  if (originalName.endsWith(".pdf")) {
+  if (lower.endsWith(".pdf")) {
 
     const data = await pdfParse(fs.readFileSync(filePath));
     return data.text;
 
   }
 
-  if (originalName.endsWith(".docx")) {
+  if (lower.endsWith(".docx")) {
 
-    const result = await mammoth.extractRawText({ path: filePath });
+    const result = await mammoth.extractRawText({
+      path: filePath,
+    });
+
     return result.value;
 
   }
@@ -52,28 +72,24 @@ async function extractText(filePath, originalName) {
 
 
 // -----------------------------
-// TRANSLATE ROUTE
+// SAFE CHUNK TRANSLATION ENGINE
 // -----------------------------
 
-app.post("/api/translate", upload.single("file"), async (req, res) => {
+async function translateText(text) {
 
-  try {
+  const MAX_CHARS = 4000;
 
-    if (!req.file) {
+  const chunks = [];
 
-      return res.status(400).json({
-        error: "No file uploaded",
-      });
+  for (let i = 0; i < text.length; i += MAX_CHARS) {
 
-    }
+    chunks.push(text.slice(i, i + MAX_CHARS));
 
-    const text = await extractText(
-      req.file.path,
-      req.file.originalname
-    );
+  }
 
+  let finalTranslation = "";
 
-    // ✅ CORRECT OPENAI CALL
+  for (const chunk of chunks) {
 
     const completion =
       await openai.chat.completions.create({
@@ -85,52 +101,131 @@ app.post("/api/translate", upload.single("file"), async (req, res) => {
           {
             role: "system",
             content:
-              "Translate the following text to French only.",
+              "Translate the following text to French only. Preserve formatting exactly.",
           },
 
           {
             role: "user",
-            content: text,
+            content: chunk,
           },
 
         ],
 
       });
 
-
-    res.json({
-
-      translation:
-        completion.choices[0].message.content,
-
-    });
-
+    finalTranslation +=
+      completion.choices[0].message.content;
 
   }
 
-  catch (error) {
-
-  console.error("FULL ERROR:", error);
-
-  res.status(500).json({
-
-    error: error.message,
-
-    details: error.response?.data || null
-
-  });
+  return finalTranslation;
 
 }
+
+
+// -----------------------------
+// TRANSLATE ROUTE
+// -----------------------------
+
+app.post(
+  "/api/translate",
+  upload.single("file"),
+  async (req, res) => {
+
+    let filePath = null;
+
+    try {
+
+      if (!req.file) {
+
+        return res.status(400).json({
+          error: "No file uploaded",
+        });
+
+      }
+
+      filePath = req.file.path;
+
+      const text =
+        await extractText(
+          filePath,
+          req.file.originalname
+        );
+
+
+      if (!text || text.trim() === "") {
+
+        throw new Error(
+          "File contains no readable text"
+        );
+
+      }
+
+
+      const translation =
+        await translateText(text);
+
+
+      res.json({
+
+        translation: translation,
+
+      });
+
+    }
+
+    catch (error) {
+
+      console.error("FULL ERROR:", error);
+
+      res.status(500).json({
+
+        error: error.message,
+
+        details:
+          error.response?.data || null,
+
+      });
+
+    }
+
+    finally {
+
+      // cleanup uploaded file
+
+      if (filePath && fs.existsSync(filePath)) {
+
+        fs.unlinkSync(filePath);
+
+      }
+
+    }
+
+  }
+);
+
+
+// -----------------------------
+// HEALTH CHECK ROUTE
+// -----------------------------
+
+app.get("/", (req, res) => {
+
+  res.send("SayBon Translation Engine Running");
 
 });
 
 
+// -----------------------------
+// START SERVER
 // -----------------------------
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
-  console.log("Server running on port " + PORT);
+  console.log(
+    "SayBon Translation Engine running on port " + PORT
+  );
 
 });
