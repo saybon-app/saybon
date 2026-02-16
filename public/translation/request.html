@@ -354,7 +354,6 @@ const standard=(wordCount*0.025).toFixed(2);
 const express=(wordCount*0.05).toFixed(2);
 
 quote.innerHTML=
-
 wordCount+" words<br><br>"+
 "Standard: $"+standard+"<br>"+
 "Express: $"+express;
@@ -384,7 +383,7 @@ formData.append("file",file);
 try{
 
 const response=await fetch(
-"http://localhost:3000/api/translate",
+"https://saybon-production.up.railway.app/translate",
 {
 method:"POST",
 body:formData
