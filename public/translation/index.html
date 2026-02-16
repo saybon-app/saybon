@@ -9,120 +9,274 @@
 
 <style>
 
-/* KEEP ALL YOUR EXISTING STYLE */
+/* ===== RESET ===== */
 
-* {box-sizing:border-box;margin:0;padding:0;}
-
-body {
-font-family:"Manrope",sans-serif;
-background:#0b1220;
-color:#e2e8f0;
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
+body {
+font-family: "Manrope", sans-serif;
+background: #0b1220;
+color: #e2e8f0;
+}
+
+/* ===== LAYOUT ===== */
+
 .wrapper {
-max-width:1200px;
-margin:auto;
-padding:100px 60px;
+max-width: 1200px;
+margin: 0 auto;
+padding: 100px 60px;
 }
 
 .split {
-display:grid;
-grid-template-columns:1.05fr 1fr;
-gap:80px;
-align-items:center;
+display: grid;
+grid-template-columns: 1.05fr 1fr;
+gap: 80px;
+align-items: center;
+}
+
+/* ===== LEFT SIDE ===== */
+
+.content h1 {
+font-size: 44px;
+font-weight: 600;
+margin-bottom: 28px;
+letter-spacing: -0.5px;
+}
+
+.content p.lead {
+font-size: 18px;
+line-height: 1.7;
+color: #94a3b8;
+margin-bottom: 70px;
+max-width: 520px;
+}
+
+.service {
+margin-bottom: 60px;
+}
+
+.service h2 {
+font-size: 20px;
+font-weight: 600;
+margin-bottom: 12px;
+}
+
+.service p {
+font-size: 15px;
+line-height: 1.7;
+color: #94a3b8;
+margin-bottom: 20px;
+max-width: 500px;
 }
 
 .btn {
-padding:10px 22px;
-border:1px solid #334155;
-border-radius:6px;
-background:transparent;
-color:#e2e8f0;
-cursor:pointer;
-margin-right:10px;
+display: inline-block;
+padding: 10px 22px;
+border: 1px solid #334155;
+border-radius: 6px;
+font-size: 14px;
+font-weight: 500;
+background: transparent;
+color: #e2e8f0;
+cursor: pointer;
+transition: all 0.2s ease;
 }
 
 .btn:hover {
-background:#1e293b;
+background: #1e293b;
+border-color: #475569;
 }
 
-/* TRANSLATOR PANEL */
+.image-container {
+display: flex;
+justify-content: center;
+}
 
-#translatorPanel {
+.image-container img {
+width: 100%;
+max-width: 520px;
+border-radius: 14px;
+box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.back {
+margin-top: 80px;
+}
+
+.back a {
+text-decoration: none;
+font-size: 14px;
+color: #64748b;
+}
+
+.back a:hover {
+color: #e2e8f0;
+}
+
+/* ===== TRANSLATOR PANEL — NO DESIGN INTERFERENCE ===== */
+
+#translatorPool {
 
 display:none;
-margin-top:60px;
-padding:30px;
 
-background:#020617;
-border:1px solid #334155;
-border-radius:10px;
+margin-top:60px;
+
+border-top:1px solid #334155;
+
+padding-top:40px;
 
 }
 
 .job {
 
-margin-top:25px;
+margin-top:30px;
+
 padding:20px;
 
-border:1px solid #475569;
+border:1px solid #334155;
+
 border-radius:8px;
 
 }
 
-textarea {
+.job textarea {
 
 width:100%;
-height:200px;
+
+height:180px;
+
+margin-top:15px;
 
 background:#020617;
-color:#e2e8f0;
+
+color:white;
 
 border:1px solid #334155;
+
 padding:10px;
 
 }
 
-/* NDA BOX */
-
 .nda {
 
 margin-top:15px;
-padding:15px;
 
-background:#020617;
-border:1px solid #ef4444;
-border-radius:8px;
+color:#f87171;
+
+font-size:13px;
+
+}
+
+@media (max-width: 900px) {
+
+.wrapper {padding: 50px 24px;}
+
+.split {grid-template-columns: 1fr;gap: 50px;}
+
+.image-container {order: -1;}
+
+.content h1 {font-size: 30px;}
+
+.content p.lead {margin-bottom: 40px;}
+
+.service {margin-bottom: 40px;}
 
 }
 
 </style>
 </head>
-<body>
 
+<body>
 
 <div class="wrapper">
 
+<div class="split">
+
+<div class="content">
 
 <h1>SayBon Translation Services</h1>
 
+<p class="lead">
+Professional French ↔ English translation delivered with precision,
+cultural intelligence, and rigorously vetted language experts.
+</p>
 
-<button class="btn"
-onclick="togglePanel()">
+<div class="service">
 
-Translator Pool Login
+<h2>Request a Translation</h2>
+
+<p>
+Submit your documents for high-quality translation handled by
+experienced and verified professionals.
+</p>
+
+<button class="btn" onclick="goRequest()">
+
+Request Translation Services
+
+</button>
+
+</div>
+
+
+<div class="service">
+
+<h2>Join Our Verified Translator Network</h2>
+
+<p>
+Already certified? Submit your credentials and demonstrate your
+competence to be approved for SayBon client assignments.
+</p>
+
+<button class="btn" onclick="goApply()">
+
+Register to join our pool of Translators
 
 </button>
 
 
-<div id="translatorPanel">
+<br><br>
+
+<button class="btn" onclick="toggleTranslatorPool()">
+
+Translator Login
+
+</button>
 
 
-<h2>Available Jobs</h2>
+</div>
 
+
+<div class="back">
+
+<a href="/dashboard/">← Back to Dashboard</a>
+
+</div>
+
+</div>
+
+
+<div class="image-container">
+
+<img src="/assets/images/translation-hero.jpg">
+
+</div>
+
+
+</div>
+
+
+<!-- TRANSLATOR JOB PANEL -->
+
+<div id="translatorPool">
+
+<h2>Available Translation Jobs</h2>
 
 <div id="jobs"></div>
-
 
 </div>
 
@@ -133,12 +287,31 @@ Translator Pool Login
 <script>
 
 
-function togglePanel(){
+function goRequest(){
+
+window.location.href="/translation/request.html";
+
+}
+
+
+function goApply(){
+
+window.location.href="/translation/apply.html";
+
+}
+
+
+// OPEN TRANSLATOR PANEL
+
+
+function toggleTranslatorPool(){
 
 const panel=
-document.getElementById("translatorPanel")
+
+document.getElementById("translatorPool")
 
 panel.style.display=
+
 panel.style.display==="block"?"none":"block"
 
 loadJobs()
@@ -146,78 +319,42 @@ loadJobs()
 }
 
 
+// LOAD JOBS
+
 
 async function loadJobs(){
 
 const res=
+
 await fetch("http://localhost:4000/jobs")
 
 const data=
+
 await res.json()
 
 const container=
+
 document.getElementById("jobs")
 
 container.innerHTML=""
 
-
-
 data.jobs.forEach(job=>{
 
-
-const div=
-document.createElement("div")
+const div=document.createElement("div")
 
 div.className="job"
 
+div.innerHTML=`
 
-div.innerHTML=
+<b>Payment:</b> $${job.payment}<br>
 
-`
-
-<h3>Job ID: ${job.id}</h3>
-
-
-<p><b>Translator Payment:</b> $${job.payment}</p>
-
-
-<p><b>Bonus:</b> 2nd & 3rd translators receive bonus payment</p>
-
-
-<p><b>Deadline:</b> ${job.deadline}</p>
-
-
-<p><b>Status:</b> ${job.status}</p>
-
+<b>Deadline:</b> ${job.deadline}<br>
 
 <div class="nda">
 
-<b>CONFIDENTIALITY AGREEMENT</b>
-
-<br><br>
-
-This document is protected under SayBon NDA.
-
-Unauthorized copying, saving, screenshotting or disclosure
-
-may result in permanent ban and legal action.
-
-<br><br>
-
-<label>
-
-<input type="checkbox"
-id="nda-${job.id}">
-
-I agree to NDA
-
-</label>
+NDA Protected. Unauthorized sharing prohibited.
 
 </div>
-
-
-<br>
-
 
 <textarea id="text-${job.id}">
 
@@ -225,66 +362,43 @@ ${job.phase1}
 
 </textarea>
 
-
 <br><br>
-
 
 <label>
 
-<input type="checkbox"
-id="cert-${job.id}">
+<input type="checkbox" id="cert-${job.id}">
 
-I certify I personally worked on this translation
+I certify I worked on this
 
 </label>
 
-
 <br><br>
 
+<button class="btn" onclick="acceptJob('${job.id}')">
 
-<button class="btn"
-onclick="accept('${job.id}')">
-
-Accept Job
+Accept
 
 </button>
 
+<button class="btn" onclick="submitJob('${job.id}')">
 
-
-<button class="btn"
-onclick="submit('${job.id}')">
-
-Submit Translation
+Submit
 
 </button>
-
 
 `
-
 
 container.appendChild(div)
 
 })
 
-
 }
 
 
-
-async function accept(id){
-
-const nda=
-document.getElementById("nda-"+id)
+// ACCEPT
 
 
-if(!nda.checked){
-
-alert("You must accept NDA")
-
-return
-
-}
-
+async function acceptJob(id){
 
 await fetch(
 
@@ -294,46 +408,31 @@ await fetch(
 
 )
 
-alert("Job Accepted")
-
-
-loadJobs()
+alert("Job accepted")
 
 }
 
 
-
-async function submit(id){
-
-
-const nda=
-document.getElementById("nda-"+id)
-
-const cert=
-document.getElementById("cert-"+id)
+// SUBMIT
 
 
-if(!nda.checked){
-
-alert("NDA Required")
-return
-
-}
-
-
-if(!cert.checked){
-
-alert("Certification Required")
-return
-
-}
-
-
+async function submitJob(id){
 
 const text=
+
 document.getElementById("text-"+id).value
 
+const cert=
 
+document.getElementById("cert-"+id).checked
+
+if(!cert){
+
+alert("Certification required")
+
+return
+
+}
 
 const res=
 
@@ -346,12 +445,12 @@ await fetch(
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
-body:
-
-JSON.stringify({
+body:JSON.stringify({
 
 translation:text
 
@@ -361,22 +460,16 @@ translation:text
 
 )
 
-
-
 const data=
+
 await res.json()
 
-
 alert(data.message)
-
-
-loadJobs()
 
 }
 
 
 </script>
-
 
 </body>
 </html>
