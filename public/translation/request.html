@@ -1,192 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Services</title>
+<title>Request Translation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-margin:0;
-font-family:Inter, sans-serif;
-background:#f8fafc;
-color:#0f172a;
+font-family:"Manrope",sans-serif;
+background:#0b1220;
+color:#e2e8f0;
+padding:60px;
 }
 
 .container{
-max-width:1100px;
+max-width:700px;
 margin:auto;
-padding:40px 20px;
 }
 
-.header{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-margin-bottom:20px;
-}
-
-.header h1{
-font-size:26px;
-font-weight:600;
-margin:0;
-}
-
-.qr{
-width:80px;
-height:80px;
-padding:6px;
-background:white;
-border-radius:10px;
-box-shadow:0 4px 14px rgba(0,0,0,.08);
-}
-
-.trust{
-display:flex;
-gap:18px;
-margin-bottom:20px;
-flex-wrap:wrap;
-}
-
-.trust-item{
-display:flex;
-align-items:center;
-gap:8px;
-font-size:14px;
-}
-
-.badge{
-width:10px;
-height:10px;
-background:#10b981;
-border-radius:50%;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:22px;
-}
-
-.card{
-background:white;
-border-radius:14px;
-padding:22px;
-box-shadow:0 8px 24px rgba(0,0,0,.05);
-}
-
-.pricing{
-background:#f0fdfa;
-border:1px solid #5eead4;
-}
-
-.plan{
-margin-bottom:16px;
-}
-
-.plan-title{
-font-weight:600;
-display:flex;
-justify-content:space-between;
-}
-
-.standard{
-color:#047857;
-}
-
-.express{
-color:#b91c1c;
-}
-
-ul{
-margin:6px 0;
-padding-left:18px;
-font-size:14px;
-}
-
-.plan div{
-font-size:14px;
-}
-
-.why{
-opacity:.6;
-font-size:14px;
-}
-
-.upload{
-border:2px dashed #cbd5e1;
-padding:22px;
-text-align:center;
-cursor:pointer;
-border-radius:10px;
-font-size:14px;
-}
-
-.upload:hover{
-background:#f1f5f9;
-}
-
-.quote{
-margin-top:18px;
-font-size:16px;
-font-weight:600;
-}
-
-.result{
-margin-top:15px;
+textarea{
+width:100%;
+height:200px;
+background:#020617;
+border:1px solid #334155;
+border-radius:8px;
 padding:15px;
-border-radius:10px;
-background:#f1f5f9;
-font-size:14px;
-white-space:pre-wrap;
-display:none;
+color:white;
+font-size:15px;
+resize:none;
 }
 
 button{
-margin-top:18px;
-width:100%;
-padding:13px;
+margin-top:20px;
+padding:12px 24px;
+background:#2563eb;
 border:none;
-border-radius:10px;
-background:#0f172a;
 color:white;
-font-size:15px;
+border-radius:6px;
 cursor:pointer;
 }
 
 button:hover{
-opacity:.9;
+background:#1d4ed8;
 }
 
-@media(max-width:900px){
+/* Accent helper */
 
-.container{
-padding:26px 16px;
+.accent-bar{
+
+margin-top:10px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:6px;
+
 }
 
-.header h1{
-font-size:22px;
+.accent-btn{
+
+background:#020617;
+
+border:1px solid #334155;
+
+padding:6px 10px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+font-size:14px;
+
 }
 
-.qr{
-width:65px;
-height:65px;
+.accent-btn:hover{
+
+background:#1e293b;
+
 }
 
-.grid{
-grid-template-columns:1fr;
-}
+.status{
 
-.card{
-padding:18px;
-}
+margin-top:20px;
+
+font-size:14px;
+
+color:#94a3b8;
 
 }
 
@@ -198,210 +102,125 @@ padding:18px;
 
 <div class="container">
 
-<div class="header">
+<h2>Submit Text for Translation</h2>
 
-<h1>SayBon Translation Services</h1>
 
-<div id="qr" class="qr"></div>
+<textarea id="text" placeholder="Paste your text here..."></textarea>
 
-</div>
 
-<div class="trust">
+<!-- FRENCH ACCENTS HELPER -->
 
-<div class="trust-item">
-<div class="badge"></div>
-Human translated
-</div>
+<div class="accent-bar">
 
-<div class="trust-item">
-<div class="badge"></div>
-Certification-ready quality
-</div>
+<span class="accent-btn" onclick="insertAccent('é')">é</span>
 
-<div class="trust-item">
-<div class="badge"></div>
-Confidential & secure
-</div>
+<span class="accent-btn" onclick="insertAccent('è')">è</span>
 
-</div>
+<span class="accent-btn" onclick="insertAccent('ê')">ê</span>
 
-<div class="grid">
+<span class="accent-btn" onclick="insertAccent('ë')">ë</span>
 
-<div>
+<span class="accent-btn" onclick="insertAccent('à')">à</span>
 
-<div class="card pricing">
+<span class="accent-btn" onclick="insertAccent('â')">â</span>
 
-<h3>Pricing & Delivery</h3>
+<span class="accent-btn" onclick="insertAccent('î')">î</span>
 
-<div class="plan">
+<span class="accent-btn" onclick="insertAccent('ï')">ï</span>
 
-<div class="plan-title standard">
-Standard
-<span>$0.025 / word</span>
-</div>
+<span class="accent-btn" onclick="insertAccent('ô')">ô</span>
 
-<div>Delivery: 24–48 hours</div>
+<span class="accent-btn" onclick="insertAccent('ù')">ù</span>
 
-<ul>
-<li>Up to 2,000 words → 24 hours</li>
-<li>2,000–5,000 words → 48 hours</li>
-</ul>
+<span class="accent-btn" onclick="insertAccent('û')">û</span>
 
-<div>Best for most documents.</div>
+<span class="accent-btn" onclick="insertAccent('ç')">ç</span>
+
+<span class="accent-btn" onclick="insertAccent('œ')">œ</span>
+
+<span class="accent-btn" onclick="insertAccent('æ')">æ</span>
 
 </div>
 
-<hr>
 
-<div class="plan">
+<button onclick="submitText()">Submit</button>
 
-<div class="plan-title express">
-Express
-<span>$0.05 / word</span>
-</div>
-
-<div>Delivery: 6–24 hours</div>
-
-<ul>
-<li>Up to 1,500 words → 6–12 hours</li>
-<li>1,500–3,000 words → 12–24 hours</li>
-</ul>
-
-<div>Priority professional delivery.</div>
+<div class="status" id="status"></div>
 
 </div>
 
-</div>
 
-<div class="card why">
 
-<h3>Why SayBon</h3>
+<script>
 
-<p>
-Professional human translators vetted for high-accuracy work.
-Secure handling. Trusted quality.
-</p>
 
-</div>
+function insertAccent(char){
 
-</div>
+const textarea=document.getElementById("text");
 
-<div class="card">
+const start=textarea.selectionStart;
 
-<h3>Upload document</h3>
+const end=textarea.selectionEnd;
 
-<input type="file" id="fileInput" hidden>
+const text=textarea.value;
 
-<div class="upload" onclick="fileInput.click()">
-Click to upload document
-</div>
+textarea.value=text.substring(0,start)+char+text.substring(end);
 
-<div class="quote" id="quote">
-Waiting for document...
-</div>
+textarea.focus();
 
-<div class="result" id="result"></div>
+textarea.selectionStart=textarea.selectionEnd=start+1;
 
-<button onclick="uploadFile()">
-Continue →
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-const firebaseConfig={
-
-apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-authDomain:"saybon-3e3c2.firebaseapp.com",
-projectId:"saybon-3e3c2",
-storageBucket:"saybon-3e3c2.firebasestorage.app",
-appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-
-};
-
-const app=initializeApp(firebaseConfig);
-const storage=getStorage(app);
-
-let file;
-
-const fileInput=document.getElementById("fileInput");
-const quote=document.getElementById("quote");
-const resultBox=document.getElementById("result");
-
-fileInput.onchange=e=>{
-
-file=e.target.files[0];
-
-const words=Math.floor(file.size/6);
-
-quote.innerHTML=
-
-words+" words<br><br>"+
-"Standard: $"+(words*0.025).toFixed(2)+"<br>"+
-"Express: $"+(words*0.05).toFixed(2);
-
-};
-
-window.uploadFile=async()=>{
-
-if(!file){
-alert("Upload file first");
-return;
 }
 
-quote.innerHTML="Uploading...";
 
-await uploadBytes(ref(storage,"translations/"+file.name),file);
 
-const text=await file.text();
 
-quote.innerHTML="Creating Phase 1 Translation...";
+async function submitText(){
+
+const text=document.getElementById("text").value;
+
+const status=document.getElementById("status");
+
+status.innerText="Submitting...";
+
 
 const response=await fetch(
 
-"https://saybon-production.up.railway.app",
+"https://saybon-production.up.railway.app/upload",
 
 {
+
 method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({ text })
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({text})
+
 }
 
 );
+
 
 const data=await response.json();
 
 if(data.success){
 
-quote.innerHTML="Translation Ready ✓";
-
-resultBox.style.display="block";
-
-resultBox.innerHTML=data.job.phase1;
-
-}else{
-
-quote.innerHTML="Error creating translation";
+status.innerText="Translation job created successfully.";
 
 }
 
-};
+else{
 
-new QRCode(document.getElementById("qr"),{
+status.innerText="Error creating job.";
 
-text:"https://saybonapp.com/translation/",
-width:65,
-height:65
+}
 
-});
+}
+
 
 </script>
 
