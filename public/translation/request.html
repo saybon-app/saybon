@@ -7,42 +7,33 @@
 
 <title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 
 body{
 font-family:Manrope;
 background:#f1f5f9;
-margin:0;
 display:flex;
 justify-content:center;
 padding:40px 15px;
-color:#0f172a;
 }
-
-
-/* MAIN WRAPPER */
 
 .wrapper{
 
-width:100%;
 max-width:520px;
+width:100%;
 background:white;
-border-radius:18px;
 padding:30px;
-box-shadow:
-0 10px 30px rgba(0,0,0,0.08);
-
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 position:relative;
 
 }
 
-
-
-/* QR */
-
-.qr{
+#qrcode{
 
 position:absolute;
 top:20px;
@@ -50,33 +41,16 @@ left:20px;
 
 }
 
-.qr img{
-
-width:70px;
-
-}
-
-
-
-/* HEADER */
-
 h1{
 
+margin-top:60px;
 font-size:26px;
-font-weight:600;
-margin-top:40px;
-margin-bottom:20px;
 
 }
-
-
-
-/* TRUST */
 
 .trust{
 
 display:flex;
-flex-wrap:wrap;
 gap:15px;
 font-size:14px;
 color:#64748b;
@@ -95,23 +69,12 @@ margin-right:6px;
 
 }
 
-
-
-/* PRICING CARD */
-
-.pricing{
+.card{
 
 border:1px solid #e2e8f0;
 padding:20px;
 border-radius:14px;
-margin-bottom:25px;
-
-}
-
-.pricing h2{
-
-font-size:18px;
-margin-bottom:15px;
+margin-bottom:20px;
 
 }
 
@@ -119,7 +82,7 @@ margin-bottom:15px;
 
 display:flex;
 justify-content:space-between;
-margin-bottom:12px;
+margin-bottom:8px;
 
 }
 
@@ -137,26 +100,22 @@ font-weight:600;
 
 }
 
-.small{
+.timeline{
 
 font-size:13px;
-color:#64748b;
+color:#475569;
+margin-top:10px;
 
 }
 
-
-
-/* UPLOAD */
-
-.upload button{
+button{
 
 width:100%;
 padding:14px;
-background:#0f172a;
-color:white;
 border:none;
 border-radius:10px;
-font-size:15px;
+background:#0f172a;
+color:white;
 cursor:pointer;
 
 }
@@ -167,16 +126,12 @@ display:none;
 
 }
 
-
-
-/* QUOTE */
-
 .quote{
 
 display:none;
 margin-top:20px;
 background:#ecfeff;
-padding:20px;
+padding:15px;
 border-radius:12px;
 
 }
@@ -184,23 +139,9 @@ border-radius:12px;
 .submit{
 
 display:none;
-margin-top:15px;
+margin-top:10px;
 
 }
-
-.submit button{
-
-width:100%;
-padding:14px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:10px;
-font-size:15px;
-cursor:pointer;
-
-}
-
 
 </style>
 
@@ -211,100 +152,74 @@ cursor:pointer;
 
 <div class="wrapper">
 
-
-<div class="qr">
-
-<img src="/assets/images/saybon-qr.png">
-
-</div>
-
+<div id="qrcode"></div>
 
 
 <h1>SayBon Translation Services</h1>
-
 
 
 <div class="trust">
 
 <div><span class="dot"></span>Human translated</div>
 
-<div><span class="dot"></span>Certification-ready quality</div>
+<div><span class="dot"></span>Certification-ready</div>
 
 <div><span class="dot"></span>Confidential & secure</div>
 
 </div>
 
 
+<div class="card">
 
-<div class="pricing">
-
-<h2>Pricing & Delivery</h2>
+<h3>Pricing & Delivery</h3>
 
 
 <div class="row">
 
-<div>
-
 <div class="standard">Standard</div>
-
-<div class="small">
-
-Delivery: 24–48 hrs
-
-</div>
-
-</div>
 
 <div class="standard">$0.025 / word</div>
 
 </div>
 
 
-
 <div class="row">
 
-<div>
-
 <div class="express">Express</div>
-
-<div class="small">
-
-Delivery: 6–24 hrs
-
-</div>
-
-</div>
 
 <div class="express">$0.05 / word</div>
 
 </div>
 
 
+<div class="timeline">
+
+Standard timelines:<br>
+
+0-300 words: 1-3 hrs<br>
+300-1000 words: 3-8 hrs<br>
+1000-3000 words: 8-24 hrs<br>
+3000-5000 words: 24-48 hrs<br>
+5000+ words: 48-72 hrs
+
+</div>
+
+
 </div>
 
 
 
-<div class="upload">
-
 <input type="file" id="file">
 
-<button onclick="chooseFile()">
+<button onclick="pickFile()">
 
 Upload Document to Get Quote
 
 </button>
 
-</div>
 
 
-
-<div class="quote" id="quoteBox">
-
-<h3>Quote</h3>
-
-<div id="quoteText"></div>
-
-</div>
+<div class="quote" id="quoteBox"></div>
 
 
 
@@ -319,117 +234,95 @@ Continue to Submit Job
 </div>
 
 
+
 </div>
 
 
 <script>
 
 
-let fileText=""
-let wordCount=0
-let price=0
-let delivery=""
+new QRCode(
 
-
-function chooseFile(){
-
-document.getElementById("file").click()
-
-}
-
-
-
-document.getElementById("file")
-.addEventListener("change", async function(){
-
-
-const file=this.files[0]
-
-if(!file)return
-
-
-fileText=await file.text()
-
-
-wordCount=fileText.trim().split(/\s+/).length
-
-
-price=(wordCount*0.025).toFixed(2)
-
-
-
-/* DELIVERY LOGIC */
-
-if(wordCount<=2000)
-
-delivery="24 hours"
-
-else if(wordCount<=5000)
-
-delivery="48 hours"
-
-else
-
-delivery="3–4 days"
-
-
-
-document.getElementById("quoteBox")
-.style.display="block"
-
-
-document.getElementById("submitBox")
-.style.display="block"
-
-
-
-document.getElementById("quoteText")
-.innerHTML=
-
-"Word Count: <b>"+wordCount+"</b><br><br>"+
-
-"Price: <b>$"+price+"</b><br><br>"+
-
-"Estimated Delivery: <b>"+delivery+"</b>"
-
-
-})
-
-
-
-async function submitJob(){
-
-
-await fetch(
-
-"https://saybon-production.up.railway.app/upload",
+document.getElementById("qrcode"),
 
 {
 
-method:"POST",
+text:"https://saybonapp.com",
 
-headers:{
+width:70,
 
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-text:fileText
-
-})
-
-})
-
-
-alert("Job submitted successfully")
-
-
-window.location.href="/dashboard/"
-
+height:70
 
 }
+
+)
+
+
+
+let words=0
+
+let price=0
+
+let delivery=""
+
+
+function pickFile(){
+
+file.click()
+
+}
+
+
+file.onchange=async function(){
+
+let text=await this.files[0].text()
+
+words=text.trim().split(/\s+/).length
+
+price=(words*0.025).toFixed(2)
+
+
+
+if(words<=300) delivery="1-3 hrs"
+
+else if(words<=1000) delivery="3-8 hrs"
+
+else if(words<=3000) delivery="8-24 hrs"
+
+else if(words<=5000) delivery="24-48 hrs"
+
+else delivery="48-72 hrs"
+
+
+
+quoteBox.style.display="block"
+
+submitBox.style.display="block"
+
+
+
+quoteBox.innerHTML=
+
+`
+
+Word count: <b>${words}</b><br><br>
+
+Price: <b>$${price}</b><br><br>
+
+Delivery: <b>${delivery}</b>
+
+`
+
+}
+
+
+
+function submitJob(){
+
+alert("Job Submitted")
+
+}
+
 
 
 </script>
