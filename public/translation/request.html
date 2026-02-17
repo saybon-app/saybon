@@ -314,15 +314,8 @@ Continue →
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-getStorage,
-ref,
-uploadBytes
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig={
 
@@ -338,7 +331,6 @@ const app=initializeApp(firebaseConfig);
 const storage=getStorage(app);
 
 let file;
-let wordCount=0;
 
 const fileInput=document.getElementById("fileInput");
 const quote=document.getElementById("quote");
@@ -348,68 +340,56 @@ fileInput.onchange=e=>{
 
 file=e.target.files[0];
 
-wordCount=Math.floor(file.size/6);
-
-const standard=(wordCount*0.025).toFixed(2);
-const express=(wordCount*0.05).toFixed(2);
+const words=Math.floor(file.size/6);
 
 quote.innerHTML=
-wordCount+" words<br><br>"+
-"Standard: $"+standard+"<br>"+
-"Express: $"+express;
+
+words+" words<br><br>"+
+"Standard: $"+(words*0.025).toFixed(2)+"<br>"+
+"Express: $"+(words*0.05).toFixed(2);
 
 };
 
 window.uploadFile=async()=>{
 
 if(!file){
-
 alert("Upload file first");
 return;
-
 }
 
 quote.innerHTML="Uploading...";
 
-const storageRef=ref(storage,"translations/"+file.name);
+await uploadBytes(ref(storage,"translations/"+file.name),file);
 
-await uploadBytes(storageRef,file);
+const text=await file.text();
 
-quote.innerHTML="AI Translating...";
-
-const formData=new FormData();
-formData.append("file",file);
-
-try{
+quote.innerHTML="Creating Phase 1 Translation...";
 
 const response=await fetch(
-"https://saybon-production.up.railway.app/translate",
+
+"https://saybon-production.up.railway.app",
+
 {
 method:"POST",
-body:formData
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({ text })
 }
+
 );
 
-const result=await response.json();
+const data=await response.json();
 
-if(result.translation){
+if(data.success){
 
 quote.innerHTML="Translation Ready ✓";
 
 resultBox.style.display="block";
-resultBox.innerHTML=result.translation;
 
-}
-else{
+resultBox.innerHTML=data.job.phase1;
 
-quote.innerHTML="Translation failed";
+}else{
 
-}
-
-}
-catch{
-
-quote.innerHTML="Engine not reachable";
+quote.innerHTML="Error creating translation";
 
 }
 
@@ -418,14 +398,8 @@ quote.innerHTML="Engine not reachable";
 new QRCode(document.getElementById("qr"),{
 
 text:"https://saybonapp.com/translation/",
-
 width:65,
-height:65,
-
-colorDark:"#0f172a",
-colorLight:"#ffffff",
-
-correctLevel:QRCode.CorrectLevel.H
+height:65
 
 });
 
