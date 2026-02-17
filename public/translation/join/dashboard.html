@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayBon Translators</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -10,84 +11,99 @@
 <style>
 
 body{
-margin:0;
-font-family:"Manrope",sans-serif;
+font-family:Manrope;
 background:#0b1220;
 color:#e2e8f0;
+margin:0;
 }
 
 .header{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:24px 40px;
+padding:20px 40px;
 border-bottom:1px solid #1e293b;
+
 }
 
 .logo{
-font-weight:500;
+
 font-size:18px;
+font-weight:600;
+
 }
 
 .actions button{
-background:transparent;
-border:1px solid #334155;
-color:#e2e8f0;
-padding:8px 18px;
-border-radius:6px;
+
 margin-left:10px;
+padding:10px 18px;
+border-radius:6px;
+border:1px solid #334155;
+background:transparent;
+color:white;
 cursor:pointer;
-font-size:14px;
+
 }
 
 .actions button:hover{
+
 background:#1e293b;
+
 }
 
-.main{
+.container{
+
+padding:60px;
 display:flex;
 justify-content:center;
-align-items:center;
-padding:80px 20px;
+
 }
 
 .card{
+
 background:white;
 color:black;
-padding:55px;
-width:720px;
-border-radius:14px;
-box-shadow:0 25px 60px rgba(0,0,0,.45);
+padding:30px;
+border-radius:12px;
+width:600px;
+box-shadow:0 30px 60px rgba(0,0,0,0.5);
+
 }
 
-/* SMALLER FONT */
-
 .card h2{
-margin-bottom:22px;
-font-weight:500;
-font-size:20px;
+
+margin-top:0;
+font-size:18px;
+
 }
 
 .card p{
-margin-bottom:14px;
-font-weight:300;
+
+font-size:13px;
 line-height:1.6;
-font-size:13.5px;
-color:#111827;
+
 }
 
-.section{
-margin-top:28px;
+.job{
+
+background:#020617;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
+
 }
 
-.section-title{
-font-weight:500;
-margin-bottom:8px;
-font-size:14px;
-}
+.job button{
 
-.highlight{
-font-weight:500;
+margin-top:10px;
+padding:10px 20px;
+background:#2563eb;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+
 }
 
 </style>
@@ -95,194 +111,161 @@ font-weight:500;
 
 <body>
 
-
 <div class="header">
 
 <div class="logo">
-SayBon Translators
-</div>
 
+SayBon Translators
+
+</div>
 
 <div class="actions">
 
 <button onclick="location.href='register.html'">
+
 Register to Join Our Pool
+
 </button>
 
 <button onclick="login()">
+
 Access Jobs
+
 </button>
 
 </div>
 
 </div>
 
-
-
-<div class="main">
+<div class="container">
 
 <div class="card">
 
 <h2>
+
 Translator Information
+
 </h2>
 
-
 <p>
-SayBon provides professional translation opportunities to a select network of verified translators.
-</p>
 
+SayBon translators are carefully selected professionals trusted to handle confidential multilingual content.
 
-<p>
-Translators are assigned official client translation projects across business, legal, academic, and technical domains.
-</p>
-
-
-
-<div class="section">
-
-<div class="section-title">
-How assignments work
-</div>
-
-<p>
-When a new translation project becomes available, it appears in your dashboard with full project details, compensation, and deadline.
 </p>
 
 <p>
-The first <span class="highlight">three translators</span> to accept the assignment secure participation in that project.
+
+Once approved, you receive a unique secure passkey to access translation assignments.
+
 </p>
 
 <p>
-Once three translators accept, the assignment closes automatically.
-</p>
 
-</div>
+Each assignment is offered to three translators simultaneously.
 
+The first translator to deliver the highest quality translation earns the payment.
 
-
-<div class="section">
-
-<div class="section-title">
-Compensation structure
-</div>
-
-<p>
-Each assignment displays the exact translator payment before acceptance.
 </p>
 
 <p>
-The first translator whose submission meets SayBon quality standards receives the <span class="highlight">full payment.</span>
+
+All work must be completed inside the secure SayBon editor.
+
 </p>
-
-<p>
-The second and third qualified translators receive a <span class="highlight">partial performance bonus.</span>
-</p>
-
-<p>
-Payment eligibility depends entirely on quality approval.
-</p>
-
-</div>
-
-
-
-<div class="section">
-
-<div class="section-title">
-Quality standards
-</div>
-
-<p>
-All submitted translations undergo professional review and scoring.
-</p>
-
-<p>
-Submissions must achieve a minimum quality score of <span class="highlight">85%</span> to qualify for payment.
-</p>
-
-<p>
-Submissions that fail to meet quality standards are rejected.
-</p>
-
-<p>
-Consistent performance ensures continued access to SayBon projects.
-</p>
-
-</div>
-
-
-
-<div class="section">
-
-<div class="section-title">
-Confidentiality
-</div>
-
-<p>
-All projects are confidential and must be completed exclusively within the SayBon platform.
-</p>
-
-<p>
-Unauthorized copying, sharing, or external storage is strictly prohibited.
-</p>
-
-</div>
-
-
-
-<div class="section">
-
-<div class="section-title">
-Access
-</div>
-
-<p>
-Only approved translators receive secure access credentials.
-</p>
-
-<p>
-If you are not yet registered, you must complete registration and verification.
-</p>
-
-</div>
-
-
 
 </div>
 
 </div>
 
+<div class="container" id="jobs">
 
+</div>
 
 <script>
 
+let translator=null;
+
+
 function login(){
 
-let key = prompt("Enter your translator passkey");
+const passkey=prompt("Enter your translator passkey");
 
-if(!key){
+if(!passkey) return;
 
-return;
+translator=passkey;
+
+loadJobs();
+
+}
+
+
+async function loadJobs(){
+
+const res=await fetch("https://saybon-production.up.railway.app/jobs");
+
+const data=await res.json();
+
+const container=document.getElementById("jobs");
+
+container.innerHTML="";
+
+data.jobs.forEach(job=>{
+
+if(job.status==="OPEN" || job.status==="IN_PROGRESS"){
+
+const div=document.createElement("div");
+
+div.className="job";
+
+div.innerHTML=`
+
+<h3>Job ID: ${job.id}</h3>
+
+<p>Status: ${job.status}</p>
+
+<button onclick="accept(${job.id})">
+
+Accept Job
+
+</button>
+
+`;
+
+container.appendChild(div);
 
 }
 
-/* temporary example */
-
-if(key==="SAYBON123"){
-
-alert("Access granted");
-
-}else{
-
-alert("Invalid passkey");
+});
 
 }
+
+
+async function accept(id){
+
+await fetch("https://saybon-production.up.railway.app/accept",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+jobId:id,
+
+translator
+
+})
+
+});
+
+location.href="editor.html?job="+id+"&translator="+translator;
 
 }
 
 </script>
-
 
 </body>
 </html>

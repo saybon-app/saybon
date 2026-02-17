@@ -3,499 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayBon Translation Request</title>
 
-<title>SayBon Secure Translation Editor</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 font-family:Manrope;
-background:#020617;
-color:white;
+background:#0b1220;
+color:#e2e8f0;
 margin:0;
-padding:40px;
 }
-
-
-/* CONTAINER */
 
 .container{
-
-max-width:900px;
+max-width:700px;
 margin:auto;
-
+padding:40px 20px;
+position:relative;
 }
 
-
-/* HEADER */
-
-.header{
-
-margin-bottom:20px;
-
+.qr{
+position:absolute;
+top:20px;
+left:20px;
+width:60px;
 }
 
-.header h2{
-
+h1{
+text-align:center;
 font-weight:500;
-
+margin-top:60px;
 }
 
-
-/* EDITOR */
-
-textarea{
-
-width:100%;
-height:320px;
-
-background:black;
-
-color:white;
-
-border:1px solid #334155;
-
+.badge{
+background:#111827;
+padding:15px;
 border-radius:10px;
-
-padding:20px;
-
-font-size:16px;
-
-outline:none;
-
-resize:none;
-
-}
-
-
-/* CERTIFY */
-
-.certify{
-
-margin-top:15px;
-
+margin-top:30px;
 font-size:14px;
-
-color:#94a3b8;
-
 }
 
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:12px;
+margin-top:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
 
-/* BUTTON */
+.card h3{
+margin-top:0;
+font-size:16px;
+}
+
+.quote-card{
+border:2px solid #3b82f6;
+}
 
 button{
-
-margin-top:20px;
-
 width:100%;
-
 padding:14px;
-
-background:#2563eb;
-
 border:none;
-
 border-radius:8px;
+margin-top:15px;
+font-size:15px;
+cursor:pointer;
+}
 
+.upload{
+background:#3b82f6;
 color:white;
+}
 
+.continue{
+background:#16a34a;
+color:white;
+display:none;
+}
+
+.quote-result{
+margin-top:15px;
 font-size:16px;
-
-cursor:pointer;
-
+font-weight:500;
 }
-
-
-/* KEYBOARD */
-
-.keyboard{
-
-position:fixed;
-
-bottom:20px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:black;
-
-padding:10px;
-
-border-radius:10px;
-
-border:1px solid #334155;
-
-display:none;
-
-}
-
-
-.key{
-
-display:inline-block;
-
-padding:10px 14px;
-
-margin:4px;
-
-border:1px solid #334155;
-
-border-radius:6px;
-
-cursor:pointer;
-
-}
-
-
-.key:hover{
-
-background:#2563eb;
-
-}
-
-
-/* OVERLAY */
-
-.overlay{
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-right:0;
-
-bottom:0;
-
-background:black;
-
-display:none;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:24px;
-
-}
-
 
 </style>
-
 </head>
 
 <body>
 
-<div class="overlay" id="overlay">
+<div class="container">
 
-Screen capture disabled
+<img src="/assets/images/qr.png" class="qr">
+
+<h1>Professional Translation Services</h1>
+
+
+<div class="badge">
+
+✔ Trusted by global institutions  
+<br>
+✔ Human verified accuracy  
+<br>
+✔ Confidential and secure  
 
 </div>
 
 
-<div class="container">
+<div class="card">
 
-<div class="header">
-
-<h2>Secure Translation Editor</h2>
+<h3>Why choose SayBon</h3>
 
 <p>
 
-Complete your translation below.
-
-All activity is monitored.
+Our translators undergo rigorous vetting, quality scoring, and competitive selection to ensure professional-grade results.
 
 </p>
 
 </div>
 
 
-<textarea id="editor"></textarea>
 
+<div class="card quote-card">
 
-<div class="certify">
+<h3>Get Your Instant Quote</h3>
 
-<input type="checkbox" id="nda">
+<input type="file" id="file">
 
-I certify this translation was completed personally and confidentially.
+<button class="upload" onclick="getQuote()">
 
-</div>
-
-
-<button onclick="submit()">
-
-Submit Translation
+Upload Document to Get Quote
 
 </button>
 
+<div id="quote" class="quote-result"></div>
+
+<button id="continueBtn" class="continue" onclick="submitJob()">
+
+Continue to Submit Job
+
+</button>
 
 </div>
 
-
-
-<!-- KEYBOARD -->
-
-<div class="keyboard" id="keyboard">
-
-<span class="key">é</span>
-
-<span class="key">è</span>
-
-<span class="key">ê</span>
-
-<span class="key">à</span>
-
-<span class="key">ç</span>
-
-<span class="key">ù</span>
-
-<span class="key">ô</span>
-
-<span class="key">î</span>
-
 </div>
-
 
 
 
 <script>
 
+let price=0;
 
-const editor = document.getElementById("editor");
+function getQuote(){
 
-const keyboard = document.getElementById("keyboard");
+const file=document.getElementById("file").files[0];
 
+if(!file)return;
 
+const words=file.size/6;
 
-/* =======================
-SECURITY LOCKS
-======================= */
+price=(words*0.08).toFixed(2);
 
+document.getElementById("quote").innerHTML=
 
-/* DISABLE COPY */
+"Quote: $"+price;
 
-editor.oncopy = e => e.preventDefault();
-
-editor.oncut = e => e.preventDefault();
-
-editor.onpaste = e => e.preventDefault();
-
-
-
-/* DISABLE RIGHT CLICK */
-
-document.oncontextmenu = e => e.preventDefault();
-
-
-
-/* DISABLE SELECT */
-
-document.onselectstart = e => e.preventDefault();
-
-
-
-/* DISABLE DEV TOOLS */
-
-document.onkeydown = function(e){
-
-if(
-
-e.key=="F12" ||
-
-(e.ctrlKey && e.shiftKey && e.key=="I") ||
-
-(e.ctrlKey && e.key=="u")
-
-){
-
-return false;
-
-}
-
-};
-
-
-
-/* SCREENSHOT PROTECTION */
-
-document.addEventListener("visibilitychange",()=>{
-
-if(document.hidden){
-
-document.getElementById("overlay").style.display="flex";
-
-}
-
-else{
-
-document.getElementById("overlay").style.display="none";
-
-}
-
-});
-
-
-
-/* =======================
-ACCENT KEYBOARD
-======================= */
-
-
-editor.addEventListener("focus",()=>{
-
-keyboard.style.display="block";
-
-});
-
-
-document.querySelectorAll(".key")
-
-.forEach(key=>{
-
-key.onclick=()=>{
-
-insert(key.innerText);
-
-};
-
-});
-
-
-
-function insert(text){
-
-const start = editor.selectionStart;
-
-editor.value =
-
-editor.value.slice(0,start)
-
-+ text +
-
-editor.value.slice(start);
+document.getElementById("continueBtn").style.display="block";
 
 }
 
 
 
-/* =======================
-AUTO ACCENT
-======================= */
+async function submitJob(){
 
+const file=document.getElementById("file").files[0];
 
-const dict = {
+const text=await file.text();
 
-francais:"français",
-
-etre:"être",
-
-deja:"déjà",
-
-eleve:"élève"
-
-};
-
-
-
-editor.addEventListener("input",()=>{
-
-let words = editor.value.split(" ");
-
-let last = words.pop();
-
-if(dict[last]){
-
-words.push(dict[last]);
-
-editor.value = words.join(" ");
-
-}
-
-});
-
-
-
-/* =======================
-TRACK WORK TIME
-======================= */
-
-
-let startTime = Date.now();
-
-
-
-/* =======================
-SUBMIT
-======================= */
-
-
-async function submit(){
-
-
-if(!nda.checked){
-
-alert("You must certify");
-
-return;
-
-}
-
-
-
-let workTime = Date.now() - startTime;
-
-
-if(workTime < 60000){
-
-alert("Work time too short");
-
-return;
-
-}
-
-
-
-await fetch(
-
-"https://saybon-production.up.railway.app/submit",
-
-{
+await fetch("/upload",{
 
 method:"POST",
 
 headers:{
 
 "Content-Type":"application/json"
-
 },
 
 body:JSON.stringify({
 
-translator:"demo",
-
-translation:editor.value,
-
-ndaSigned:true,
-
-jobId:1
+text:text
 
 })
 
 });
 
-
-
-alert("Submitted");
-
+alert("Job submitted successfully");
 
 }
 
-
 </script>
+
 
 </body>
 </html>
