@@ -1,184 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register — SayBon Translator Pool</title>
+<title>Register Translator</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
 
 body{
 
 font-family:"Manrope",sans-serif;
 background:#0b1220;
-color:#e2e8f0;
+color:white;
+margin:0;
+padding:40px;
 
 }
 
-.wrapper{
+.container{
 
-max-width:900px;
+max-width:700px;
 margin:auto;
-padding:60px 24px;
 
 }
 
-h1{
-
-font-size:32px;
-margin-bottom:10px;
-
-}
-
-.subtitle{
-
-color:#94a3b8;
-margin-bottom:40px;
-
-}
-
-form{
-
-display:flex;
-flex-direction:column;
-gap:22px;
-
-}
-
-label{
-
-font-size:14px;
-margin-bottom:6px;
-display:block;
-
-}
-
-input, textarea{
+input,textarea{
 
 width:100%;
 padding:12px;
+margin-bottom:20px;
 border-radius:6px;
 border:1px solid #334155;
 background:#020617;
 color:white;
-font-family:inherit;
-
-}
-
-textarea{
-
-min-height:140px;
-resize:vertical;
-
-}
-
-.file{
-
-padding:10px;
-background:#020617;
-border:1px dashed #334155;
-border-radius:6px;
-
-}
-
-.test-box{
-
-background:#020617;
-border:1px solid #334155;
-padding:20px;
-border-radius:8px;
-
-}
-
-.test-text{
-
-font-size:14px;
-color:#94a3b8;
-margin-bottom:12px;
-
-}
-
-.timer{
-
-font-size:14px;
-color:#f87171;
-margin-bottom:10px;
-
-}
-
-.nda{
-
-background:#020617;
-padding:20px;
-border-radius:8px;
-border:1px solid #334155;
-font-size:13px;
-line-height:1.6;
-color:#94a3b8;
-max-height:300px;
-overflow:auto;
-
-}
-
-.checkbox{
-
-display:flex;
-gap:10px;
-align-items:center;
-margin-top:10px;
-
-}
-
-.checkbox input{
-
-width:auto;
 
 }
 
 button{
 
+width:100%;
 padding:14px;
-border:none;
-border-radius:6px;
-background:#334155;
-color:#64748b;
-font-size:15px;
-cursor:not-allowed;
-transition:.2s;
-
-}
-
-button.enabled{
-
 background:#2563eb;
+border:none;
 color:white;
+border-radius:6px;
 cursor:pointer;
 
 }
 
-.error{
+button:disabled{
 
-color:#f87171;
-font-size:12px;
-display:none;
+background:#334155;
 
 }
 
-.success{
+.timer{
 
-background:#064e3b;
-padding:15px;
-border-radius:6px;
-margin-top:20px;
+color:red;
+margin-bottom:10px;
+
+}
+
+
+.overlay{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+
 display:none;
+align-items:center;
+justify-content:center;
+
+}
+
+
+.card{
+
+background:white;
+color:black;
+padding:40px;
+border-radius:10px;
 
 }
 
@@ -188,167 +96,75 @@ display:none;
 
 <body>
 
-<div class="wrapper">
 
-<h1>Register to Join SayBon Translator Pool</h1>
-
-<div class="subtitle">
-Complete all fields. Only qualified translators will be approved.
-</div>
-
-<form id="form">
-
-<div>
-
-<label>Full Name</label>
-
-<input type="text" id="name">
-
-<div class="error" id="nameError">Required</div>
-
-</div>
+<div class="container">
 
 
-<div>
-
-<label>Email</label>
-
-<input type="email" id="email">
-
-<div class="error" id="emailError">Required</div>
-
-</div>
+<h2>Translator Registration</h2>
 
 
-<div>
+<input id="name" placeholder="Full Name" required>
 
-<label>Phone</label>
+<input id="email" placeholder="Email" required>
 
-<input type="text" id="phone">
-
-<div class="error" id="phoneError">Required</div>
-
-</div>
+<input type="file" required>
 
 
-<div>
-
-<label>Country</label>
-
-<input type="text" id="country">
-
-<div class="error" id="countryError">Required</div>
-
-</div>
+<h3>
+Translation Test
+</h3>
 
 
-<div>
+<p>
+Global cooperation is essential for economic stability and cultural understanding.
+</p>
 
-<label>Languages (example: English, French)</label>
-
-<input type="text" id="languages">
-
-<div class="error" id="languagesError">Required</div>
-
-</div>
-
-
-<div>
-
-<label>Upload Certification</label>
-
-<input type="file" class="file" id="cert">
-
-<div class="error" id="certError">Required</div>
-
-</div>
-
-
-<div>
-
-<label>Upload National ID</label>
-
-<input type="file" class="file" id="idcard">
-
-<div class="error" id="idError">Required</div>
-
-</div>
-
-
-
-<div class="test-box">
-
-<div class="test-text">
-
-Translate into French:
-
-<br><br>
-
-"Global cooperation is essential for economic stability and cultural understanding."
-
-</div>
 
 <div class="timer" id="timer">
-
-Time remaining: 02:00
-
+Time remaining: 01:30
 </div>
+
 
 <textarea id="translation"></textarea>
 
-<div class="error" id="translationError">
 
-Translation required
+<label>
 
-</div>
+<input type="checkbox" id="nda">
 
-</div>
+I agree to NDA
 
+</label>
 
-
-<div class="nda">
-
-<b>SAYBON TRANSLATOR CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT</b>
 
 <br><br>
 
-All documents are strictly confidential.
 
-Violation may result in termination, forfeiture of earnings and legal action.
-
-</div>
-
-
-<div class="checkbox">
-
-<input type="checkbox" id="agree">
-
-<label>I agree to the NDA</label>
-
-</div>
-
-<div class="error" id="agreeError">
-
-You must agree
-
-</div>
-
-
-<button type="button" id="submit">
+<button id="submit" disabled onclick="submitForm()">
 
 Submit Registration
 
 </button>
 
 
-<div class="success" id="success">
-
-Registration submitted. Review in progress.
-
 </div>
 
 
-</form>
+
+<div class="overlay" id="overlay">
+
+<div class="card">
+
+<h3>
+Registration Received
+</h3>
+
+<p>
+Your application is under review.
+Decision will be sent to your email.
+</p>
+
+</div>
 
 </div>
 
@@ -356,147 +172,72 @@ Registration submitted. Review in progress.
 
 <script>
 
-let time=120;
 
-let started=false;
+let seconds=90;
 
-const timer=document.getElementById("timer");
 
-const translation=document.getElementById("translation");
+let timer=setInterval(()=>{
 
-translation.onclick=function(){
+seconds--;
 
-if(started)return;
+let m=Math.floor(seconds/60);
 
-started=true;
+let s=seconds%60;
 
-const interval=setInterval(()=>{
+document.getElementById("timer").innerText=
 
-time--;
+"Time remaining: "+m+":"+s;
 
-let m=Math.floor(time/60);
+if(seconds<=0){
 
-let s=time%60;
-
-timer.innerText="Time remaining: "+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
-
-if(time<=0){
-
-clearInterval(interval);
-
-translation.disabled=true;
+clearInterval(timer);
 
 }
 
 },1000);
 
-};
 
 
-const fields=["name","email","phone","country","languages"];
+document.querySelectorAll("input,textarea").forEach(el=>{
 
-const submit=document.getElementById("submit");
+el.addEventListener("input",validate);
+
+});
 
 
 function validate(){
 
-let valid=true;
+let valid=
 
-fields.forEach(f=>{
-
-const val=document.getElementById(f).value;
-
-const err=document.getElementById(f+"Error");
-
-if(!val){
-
-err.style.display="block";
-
-valid=false;
-
-}else{
-
-err.style.display="none";
-
-}
-
-});
+name.value &&
+email.value &&
+translation.value &&
+nda.checked;
 
 
-if(!cert.files.length){
-
-certError.style.display="block";
-
-valid=false;
-
-}else certError.style.display="none";
-
-
-if(!idcard.files.length){
-
-idError.style.display="block";
-
-valid=false;
-
-}else idError.style.display="none";
-
-
-if(!translation.value){
-
-translationError.style.display="block";
-
-valid=false;
-
-}else translationError.style.display="none";
-
-
-if(!agree.checked){
-
-agreeError.style.display="block";
-
-valid=false;
-
-}else agreeError.style.display="none";
-
-
-if(valid){
-
-submit.classList.add("enabled");
-
-submit.disabled=false;
-
-}else{
-
-submit.classList.remove("enabled");
-
-submit.disabled=true;
-
-}
+submit.disabled=!valid;
 
 }
 
 
-document.querySelectorAll("input, textarea").forEach(e=>{
 
-e.oninput=validate;
+function submitForm(){
 
-});
+overlay.style.display="flex";
 
+setTimeout(()=>{
 
-submit.onclick=function(){
+location.href="dashboard.html";
 
-validate();
+},5000);
 
-if(!submit.classList.contains("enabled"))return;
+}
 
-document.getElementById("success").style.display="block";
-
-};
-
-
-submit.disabled=true;
 
 </script>
 
+
+
 </body>
+
 </html>
