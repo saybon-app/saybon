@@ -484,30 +484,34 @@ height:80
 
 async function getQuote(){
 
-
-const file =
-document.getElementById("file").files[0];
+try{
 
 
-if(!file){
+const fileInput =
+document.getElementById("file");
 
-alert("Upload document");
+
+if(!fileInput || fileInput.files.length === 0){
+
+alert("Please choose a document first");
 
 return;
 
 }
 
 
+const file = fileInput.files[0];
 
-const formData =
-new FormData();
+
+
+const formData = new FormData();
 
 formData.append("file", file);
 
 
 
-const res =
-await fetch(
+
+const res = await fetch(
 
 "https://saybon-production.up.railway.app/request",
 
@@ -522,12 +526,30 @@ body:formData
 );
 
 
-const data =
-await res.json();
+
+if(!res.ok){
+
+throw new Error("Server error");
+
+}
 
 
-const job =
-data.job;
+
+const data = await res.json();
+
+
+
+
+if(!data || !data.job){
+
+throw new Error("Invalid server response");
+
+}
+
+
+
+const job = data.job;
+
 
 
 
@@ -551,7 +573,7 @@ Word count:
 <h4>Standard Quote</h4>
 
 Price:
-$${job.standardPrice.toFixed(2)}
+$${Number(job.standardPrice).toFixed(2)}
 
 <br>
 
@@ -566,7 +588,7 @@ ${job.standardTime}
 <h4>Express Quote</h4>
 
 Price:
-$${job.expressPrice.toFixed(2)}
+$${Number(job.expressPrice).toFixed(2)}
 
 <br>
 
@@ -580,6 +602,16 @@ ${job.expressTime}
 
 
 document.getElementById("submitBtn").style.display="block";
+
+
+}
+catch(error){
+
+console.error(error);
+
+alert("Upload failed. Please try again.");
+
+}
 
 }
 
