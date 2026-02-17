@@ -4,6 +4,12 @@ const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
 
+const multer = require("multer");
+const fs = require("fs");
+
+const pdfParse = require("pdf-parse");
+const mammoth = require("mammoth");
+
 const app = express();
 
 app.use(cors());
@@ -11,123 +17,145 @@ app.use(express.json());
 
 
 
-// =====================================
-// ROOT
-// =====================================
+/* STORAGE */
 
-app.get("/", (req, res) => {
+const upload = multer({
+dest:"uploads/"
+});
 
-res.send("SayBon Translator System Running");
+
+
+/* ROOT */
+
+app.get("/", (req,res)=>{
+
+res.send("SayBon Backend Running");
 
 });
 
 
 
-// =====================================
-// STORAGE
-// =====================================
+/* DATABASE */
 
 const jobs = [];
 
-const translators = [];
 
 
-
-// =====================================
-// OPENAI
-// =====================================
+/* OPENAI */
 
 const openai = new OpenAI({
 
-apiKey: process.env.OPENAI_API_KEY,
+apiKey:process.env.OPENAI_API_KEY
 
 });
 
 
 
-// =====================================
-// CREATE JOB
-// =====================================
+/* WORD COUNT FUNCTION */
 
-app.post("/upload", async (req, res) => {
+async function getWordCount(path, type){
 
-try {
+try{
 
-const { text } = req.body;
+if(type.includes("pdf")){
 
-if (!text) {
+const data = await pdfParse(
 
-return res.status(400).json({
+fs.readFileSync(path)
 
-error: "No text provided"
+);
 
-});
+return data.text.split(/\s+/).length;
 
 }
 
 
-const completion =
-await openai.chat.completions.create({
+if(type.includes("word")){
 
-model: "gpt-4o-mini",
+const result = await mammoth.extractRawText({
 
-messages: [
-
-{
-
-role: "system",
-
-content:
-
-"Translate to French professionally"
-
-},
-
-{
-
-role: "user",
-
-content: text
-
-}
-
-]
+path
 
 });
 
+return result.value.split(/\s+/).length;
 
-const phase1 =
-completion.choices[0].message.content;
+}
+
+
+return 0;
+
+}
+
+catch{
+
+return 0;
+
+}
+
+}
+
+
+
+/* CREATE JOB FROM UPLOAD */
+
+app.post("/request",
+
+upload.single("file"),
+
+async(req,res)=>{
+
+
+try{
+
+
+const file = req.file;
+
+
+const words = await getWordCount(
+
+file.path,
+
+file.mimetype
+
+);
+
+
+
+const price = words * 0.025;
 
 
 
 const job = {
 
-id: Date.now(),
 
-originalText: text,
+id:Date.now(),
 
-phase1,
+file:file.filename,
 
-status: "OPEN",
+words,
 
-accepted: [],
+price,
 
-submissions: [],
+status:"OPEN",
 
-winner: null,
+accepted:[],
 
-created: Date.now()
+submissions:[],
+
+winner:null
 
 };
+
 
 
 jobs.push(job);
 
 
+
 res.json({
 
-success: true,
+success:true,
 
 job
 
@@ -136,27 +164,25 @@ job
 
 }
 
-catch(error){
 
-console.log(error);
+catch(e){
 
 res.status(500).json({
 
-error: error.message
+error:e.message
 
 });
 
 }
 
+
 });
 
 
 
-// =====================================
-// GET JOBS
-// =====================================
+/* GET JOBS */
 
-app.get("/jobs", (req,res)=>{
+app.get("/jobs",(req,res)=>{
 
 res.json({
 
@@ -168,54 +194,37 @@ jobs
 
 
 
-// =====================================
-// ACCEPT JOB
-// =====================================
+/* ACCEPT */
 
 app.post("/accept",(req,res)=>{
 
-const {
 
-jobId,
-
-translator
-
-} = req.body;
+const {jobId, translator} = req.body;
 
 
-const job =
-jobs.find(j=>j.id==jobId);
+const job = jobs.find(
+
+j=>j.id==jobId
+
+);
 
 
 if(!job)
+
 return res.status(404).json({
 
-error:"Job not found"
+error:"Not found"
 
 });
 
 
-if(job.accepted.length>=3){
+if(job.accepted.length>=3)
 
 return res.json({
 
-error:"Job already taken"
+error:"Closed"
 
 });
-
-}
-
-
-if(job.accepted.find(t=>t.name==translator)){
-
-return res.json({
-
-error:"Already accepted"
-
-});
-
-}
-
 
 
 job.accepted.push({
@@ -227,11 +236,9 @@ time:Date.now()
 });
 
 
-if(job.accepted.length==3){
+if(job.accepted.length==3)
 
 job.status="IN_PROGRESS";
-
-}
 
 
 res.json({
@@ -240,15 +247,15 @@ success:true
 
 });
 
+
 });
 
 
 
-// =====================================
-// SUBMIT TRANSLATION
-// =====================================
+/* SUBMIT */
 
-app.post("/submit", async (req,res)=>{
+app.post("/submit", async(req,res)=>{
+
 
 try{
 
@@ -267,20 +274,25 @@ ndaSigned
 
 
 
-const job =
-jobs.find(j=>j.id==jobId);
+const job = jobs.find(
+
+j=>j.id==jobId
+
+);
 
 
 
 if(!job)
+
 return res.status(404).json({
 
-error:"Job not found"
+error:"Not found"
 
 });
 
 
 if(!ndaSigned)
+
 return res.status(400).json({
 
 error:"NDA required"
@@ -288,37 +300,7 @@ error:"NDA required"
 });
 
 
-
-const accepted =
-job.accepted.find(t=>t.name==translator);
-
-
-if(!accepted)
-return res.status(400).json({
-
-error:"Not accepted"
-
-});
-
-
-
-const timeSpent =
-Date.now()-accepted.time;
-
-
-if(timeSpent<60000)
-return res.status(400).json({
-
-error:"Submission too fast"
-
-});
-
-
-
-// AI QUALITY CHECK
-
-const check =
-await openai.chat.completions.create({
+const quality = await openai.chat.completions.create({
 
 model:"gpt-4o-mini",
 
@@ -328,9 +310,7 @@ messages:[
 
 role:"system",
 
-content:
-
-"Score translation from 0 to 100. Reply number only."
+content:"Score translation 0-100 number only"
 
 },
 
@@ -340,9 +320,9 @@ role:"user",
 
 content:
 
-"Original:\n"+job.originalText+
+"Original words:"+job.words+
 
-"\n\nTranslation:\n"+translation
+"\n\nTranslation:"+translation
 
 }
 
@@ -351,36 +331,30 @@ content:
 });
 
 
-const score =
-parseInt(
+const score = parseInt(
 
-check.choices[0].message.content
+quality.choices[0].message.content
 
 );
 
 
 
-const submission={
+const submission = {
 
 translator,
 
 translation,
 
-score,
-
-time:Date.now(),
-
-accepted:score>=85
+score
 
 };
-
 
 
 job.submissions.push(submission);
 
 
 
-if(submission.accepted && !job.winner){
+if(score>=85 && !job.winner){
 
 job.winner=translator;
 
@@ -389,14 +363,9 @@ job.status="COMPLETED";
 }
 
 
-
 res.json({
 
-success:true,
-
 score,
-
-accepted:submission.accepted,
 
 winner:job.winner
 
@@ -405,245 +374,28 @@ winner:job.winner
 
 }
 
-catch(error){
+
+catch(e){
 
 res.status(500).json({
 
-error:error.message
+error:e.message
 
 });
 
 }
 
-});
-
-
-
-// =====================================
-// GET JOB DETAILS
-// =====================================
-
-app.get("/job/:id",(req,res)=>{
-
-const job =
-jobs.find(j=>j.id==req.params.id);
-
-res.json({
-
-job
-
-});
 
 });
 
 
 
-// =====================================
-// REGISTER TRANSLATOR
-// =====================================
+/* SERVER */
 
-app.post("/api/register",(req,res)=>{
-
-const translator={
-
-id:Date.now(),
-
-...req.body,
-
-status:"PENDING",
-
-created:Date.now()
-
-};
-
-
-translators.push(translator);
-
-
-res.json({
-
-success:true,
-
-message:"Registration received"
-
-});
-
-});
-
-
-
-// =====================================
-// VIEW TRANSLATORS
-// =====================================
-
-app.get("/api/translators",(req,res)=>{
-
-res.json({
-
-translators
-
-});
-
-});
-
-
-
-// =====================================
-// AI EVALUATE TRANSLATOR
-// =====================================
-
-app.post("/api/admin/evaluate", async (req,res)=>{
-
-try{
-
-
-const { translator } = req.body;
-
-
-const evaluation =
-await openai.chat.completions.create({
-
-model:"gpt-4o",
-
-messages:[
-
-{
-
-role:"system",
-
-content:
-
-`
-You are a professional translation examiner.
-
-Score translator from 0 to 100.
-
-Grade:
-
-Accuracy
-Fluency
-Speed
-Professional readiness
-Risk level
-
-Return full detailed report.
-
-`
-
-},
-
-{
-
-role:"user",
-
-content:
-
-JSON.stringify(translator)
-
-}
-
-]
-
-});
-
-
-res.json({
-
-report:
-evaluation.choices[0].message.content
-
-});
-
-
-}
-
-catch(error){
-
-res.status(500).json({
-
-error:error.message
-
-});
-
-}
-
-});
-
-
-
-// =====================================
-// APPROVE TRANSLATOR
-// =====================================
-
-app.post("/api/admin/approve",(req,res)=>{
-
-
-const {
-
-translatorId
-
-}=req.body;
-
-
-
-const translator=
-translators.find(
-
-t=>t.id==translatorId
-
-);
-
-
-
-if(!translator)
-return res.json({
-
-error:"Not found"
-
-});
-
-
-
-translator.status="APPROVED";
-
-translator.passcode=
-
-Math.random()
-
-.toString(36)
-
-.substring(2,8)
-
-.toUpperCase();
-
-
-
-res.json({
-
-success:true,
-
-passcode:translator.passcode
-
-});
-
-
-
-});
-
-
-
-// =====================================
-// SERVER
-// =====================================
-
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT,()=>{
 
-console.log(
-
-"SayBon Translator Backend Running"
-
-);
+console.log("SayBon Production Running");
 
 });
