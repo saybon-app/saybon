@@ -5,8 +5,6 @@ const cors = require("cors");
 const OpenAI = require("openai");
 
 const multer = require("multer");
-const fs = require("fs");
-
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
 
@@ -15,138 +13,182 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-
-/* STORAGE */
-
-const upload = multer({
-dest:"uploads/"
-});
+const upload = multer();
 
 
 
-/* ROOT */
+/* =====================================
+ROOT
+===================================== */
 
-app.get("/", (req,res)=>{
+app.get("/", (req, res) => {
 
-res.send("SayBon Backend Running");
+res.send("SayBon Production Backend Running");
 
 });
 
 
 
-/* DATABASE */
+/* =====================================
+STORAGE
+===================================== */
 
 const jobs = [];
 
 
 
-/* OPENAI */
+/* =====================================
+OPENAI
+===================================== */
 
 const openai = new OpenAI({
 
-apiKey:process.env.OPENAI_API_KEY
+apiKey: process.env.OPENAI_API_KEY,
 
 });
 
 
 
-/* WORD COUNT FUNCTION */
+/* =====================================
+REQUEST QUOTE (FILE UPLOAD)
+===================================== */
 
-async function getWordCount(path, type){
+app.post("/request", upload.single("file"), async (req, res) => {
 
 try{
 
-if(type.includes("pdf")){
+if(!req.file){
 
-const data = await pdfParse(
-
-fs.readFileSync(path)
-
-);
-
-return data.text.split(/\s+/).length;
-
-}
-
-
-if(type.includes("word")){
-
-const result = await mammoth.extractRawText({
-
-path
-
+return res.status(400).json({
+error:"No file uploaded"
 });
 
-return result.value.split(/\s+/).length;
+}
+
+
+let text = "";
+
+
+/* PDF */
+
+if(req.file.originalname.endsWith(".pdf")){
+
+const data =
+await pdfParse(req.file.buffer);
+
+text = data.text;
 
 }
 
 
-return 0;
+/* DOCX */
+
+else if(req.file.originalname.endsWith(".docx")){
+
+const result =
+await mammoth.extractRawText({
+buffer:req.file.buffer
+});
+
+text = result.value;
 
 }
 
-catch{
 
-return 0;
+/* TXT */
+
+else{
+
+text =
+req.file.buffer.toString();
 
 }
 
+
+
+/* WORD COUNT */
+
+const words =
+text.trim().split(/\s+/).length;
+
+
+
+/* PRICES */
+
+const standardPrice =
+words * 0.025;
+
+const expressPrice =
+words * 0.05;
+
+
+
+/* DELIVERY TIME */
+
+function getStandardTime(words){
+
+if(words <= 300)
+return "1–3 hrs";
+
+if(words <= 1000)
+return "3–6 hrs";
+
+if(words <= 3000)
+return "6–12 hrs";
+
+return "12–24 hrs";
+
+}
+
+
+function getExpressTime(words){
+
+if(words <= 300)
+return "30–60 mins";
+
+if(words <= 1000)
+return "1–3 hrs";
+
+if(words <= 3000)
+return "3–6 hrs";
+
+return "6–12 hrs";
+
 }
 
 
 
-/* CREATE JOB FROM UPLOAD */
-
-app.post("/request",
-
-upload.single("file"),
-
-async(req,res)=>{
-
-
-try{
-
-
-const file = req.file;
-
-
-const words = await getWordCount(
-
-file.path,
-
-file.mimetype
-
-);
-
-
-
-const price = words * 0.025;
-
-
+/* CREATE JOB */
 
 const job = {
 
+id: Date.now(),
 
-id:Date.now(),
-
-file:file.filename,
+originalText: text,
 
 words,
 
-price,
+standardPrice,
 
-status:"OPEN",
+expressPrice,
+
+standardTime:
+getStandardTime(words),
+
+expressTime:
+getExpressTime(words),
+
+status:"QUOTE",
 
 accepted:[],
 
 submissions:[],
 
-winner:null
+winner:null,
+
+created:Date.now()
 
 };
-
 
 
 jobs.push(job);
@@ -163,26 +205,25 @@ job
 
 
 }
+catch(error){
 
-
-catch(e){
+console.log(error);
 
 res.status(500).json({
-
-error:e.message
-
+error:error.message
 });
 
 }
 
-
 });
 
 
 
-/* GET JOBS */
+/* =====================================
+GET JOBS
+===================================== */
 
-app.get("/jobs",(req,res)=>{
+app.get("/jobs", (req, res) => {
 
 res.json({
 
@@ -194,37 +235,34 @@ jobs
 
 
 
-/* ACCEPT */
+/* =====================================
+ACCEPT JOB
+===================================== */
 
-app.post("/accept",(req,res)=>{
+app.post("/accept", (req, res) => {
 
+const { jobId, translator } = req.body;
 
-const {jobId, translator} = req.body;
-
-
-const job = jobs.find(
-
-j=>j.id==jobId
-
-);
+const job =
+jobs.find(j => j.id == jobId);
 
 
-if(!job)
+if(!job){
 
 return res.status(404).json({
-
-error:"Not found"
-
+error:"Job not found"
 });
 
+}
 
-if(job.accepted.length>=3)
+
+if(job.accepted.length >= 3){
 
 return res.json({
-
-error:"Closed"
-
+error:"Already full"
 });
+
+}
 
 
 job.accepted.push({
@@ -236,8 +274,6 @@ time:Date.now()
 });
 
 
-if(job.accepted.length==3)
-
 job.status="IN_PROGRESS";
 
 
@@ -247,82 +283,75 @@ success:true
 
 });
 
-
 });
 
 
 
-/* SUBMIT */
+/* =====================================
+SUBMIT TRANSLATION
+===================================== */
 
-app.post("/submit", async(req,res)=>{
-
+app.post("/submit", async (req, res) => {
 
 try{
-
 
 const {
 
 jobId,
-
 translator,
-
 translation,
-
 ndaSigned
 
 } = req.body;
 
 
-
-const job = jobs.find(
-
-j=>j.id==jobId
-
-);
+const job =
+jobs.find(j => j.id == jobId);
 
 
-
-if(!job)
+if(!job){
 
 return res.status(404).json({
-
-error:"Not found"
-
+error:"Job not found"
 });
 
+}
 
-if(!ndaSigned)
+
+if(!ndaSigned){
 
 return res.status(400).json({
-
 error:"NDA required"
-
 });
 
+}
 
-const quality = await openai.chat.completions.create({
+
+
+/* QUALITY CHECK */
+
+const quality =
+await openai.chat.completions.create({
 
 model:"gpt-4o-mini",
 
 messages:[
 
 {
-
 role:"system",
-
-content:"Score translation 0-100 number only"
-
+content:
+"Score translation 0 to 100. Reply number only."
 },
 
 {
-
 role:"user",
-
 content:
 
-"Original words:"+job.words+
+"Original:\n"+
+job.originalText+
 
-"\n\nTranslation:"+translation
+"\n\nTranslation:\n"+
+translation
 
 }
 
@@ -331,10 +360,10 @@ content:
 });
 
 
-const score = parseInt(
-
-quality.choices[0].message.content
-
+const score =
+parseInt(
+quality.choices[0]
+.message.content
 );
 
 
@@ -345,7 +374,11 @@ translator,
 
 translation,
 
-score
+score,
+
+time:Date.now(),
+
+accepted:score>=85
 
 };
 
@@ -354,18 +387,25 @@ job.submissions.push(submission);
 
 
 
-if(score>=85 && !job.winner){
+/* WINNER */
 
-job.winner=translator;
+if(submission.accepted && !job.winner){
+
+job.winner = translator;
 
 job.status="COMPLETED";
 
 }
 
 
+
 res.json({
 
+success:true,
+
 score,
+
+accepted:submission.accepted,
 
 winner:job.winner
 
@@ -373,29 +413,54 @@ winner:job.winner
 
 
 }
+catch(error){
 
-
-catch(e){
+console.log(error);
 
 res.status(500).json({
-
-error:e.message
-
+error:error.message
 });
 
 }
 
+});
+
+
+
+/* =====================================
+GET JOB DETAILS
+===================================== */
+
+app.get("/job/:id", (req, res) => {
+
+const job =
+jobs.find(j => j.id == req.params.id);
+
+
+res.json({
+
+job
+
+});
 
 });
 
 
 
-/* SERVER */
+/* =====================================
+SERVER
+===================================== */
 
-const PORT = process.env.PORT || 4000;
+const PORT =
+process.env.PORT || 4000;
 
-app.listen(PORT,()=>{
 
-console.log("SayBon Production Running");
+app.listen(PORT, () => {
+
+console.log(
+
+"SayBon Production Running on port " + PORT
+
+);
 
 });
