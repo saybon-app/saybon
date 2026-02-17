@@ -16,137 +16,440 @@ padding:0;
 }
 
 body{
+
 font-family:"Manrope",sans-serif;
 background:#0b1220;
 color:#e2e8f0;
-}
-
-.wrapper{
-max-width:900px;
-margin:auto;
-padding:100px 40px;
-}
-
-h1{
-font-size:38px;
-margin-bottom:60px;
-}
-
-.card{
-
-background:#111827;
-
-padding:40px;
-
-border-radius:12px;
-
-margin-bottom:30px;
-
-border:1px solid #1f2937;
 
 }
 
-.card h2{
-margin-bottom:10px;
+/* HEADER */
+
+.header{
+
+padding:30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #1e293b;
+
 }
 
-.card p{
-color:#94a3b8;
-margin-bottom:20px;
+.logo{
+
+font-size:20px;
+font-weight:600;
+
 }
 
-.btn{
+.actions{
 
-display:inline-block;
+display:flex;
+gap:10px;
 
-padding:12px 26px;
+}
 
+button{
+
+padding:10px 18px;
 border-radius:6px;
-
 border:1px solid #334155;
-
 background:transparent;
-
-color:white;
-
+color:#e2e8f0;
 cursor:pointer;
 
-font-size:15px;
-
 }
 
-.btn:hover{
+button:hover{
 
 background:#1e293b;
 
 }
 
+
+/* LOGIN */
+
+.login{
+
+max-width:400px;
+margin:80px auto;
+display:none;
+
+}
+
+.login input{
+
+width:100%;
+padding:12px;
+margin-bottom:10px;
+background:#020617;
+border:1px solid #334155;
+border-radius:6px;
+color:white;
+
+}
+
+
+/* JOBS */
+
+.container{
+
+max-width:1000px;
+margin:auto;
+padding:40px 20px;
+
+}
+
+.job{
+
+background:#020617;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+border:1px solid #1e293b;
+
+}
+
+.job h3{
+
+margin-bottom:10px;
+
+}
+
+.meta{
+
+color:#94a3b8;
+font-size:13px;
+margin-bottom:10px;
+
+}
+
+.phase{
+
+background:#1e293b;
+padding:15px;
+border-radius:6px;
+margin:10px 0;
+white-space:pre-wrap;
+
+}
+
+textarea{
+
+width:100%;
+height:160px;
+margin-top:10px;
+background:#020617;
+border:1px solid #334155;
+border-radius:6px;
+color:white;
+padding:12px;
+
+}
+
+.submit{
+
+margin-top:10px;
+background:#2563eb;
+border:none;
+
+}
+
+.locked{
+
+color:#64748b;
+border-color:#1e293b;
+cursor:not-allowed;
+
+}
+
+
+/* NDA */
+
+.nda{
+
+margin-top:10px;
+font-size:12px;
+color:#64748b;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
 </style>
+
 </head>
 
-<body>
+<body oncopy="return false" oncut="return false" onpaste="return false">
 
 
-<div class="wrapper">
 
+<div class="header">
 
-<h1>Translator Dashboard</h1>
+<div class="logo">
 
+SayBon Translators
 
-<div class="card">
+</div>
 
-<h2>Register to Join Our Pool</h2>
+<div class="actions">
 
-<p>
-Apply to become a verified SayBon translator.
-Submit your credentials, national ID, and complete the translation test.
-</p>
+<button onclick="register()">
 
-<button class="btn" onclick="register()">
 Register to Join Our Pool
+
 </button>
 
+<button onclick="showLogin()">
 
-</div>
-
-
-
-<div class="card">
-
-<h2>Access Jobs</h2>
-
-<p>
-Already approved?
-Enter your translator passkey to access available translation jobs.
-</p>
-
-<button class="btn" onclick="login()">
 Access Jobs
+
 </button>
 
+</div>
 
 </div>
 
 
+
+<div class="login" id="login">
+
+<input type="password" id="passkey" placeholder="Enter your passkey">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
 </div>
+
+
+
+<div class="container hidden" id="jobs">
+
+</div>
+
 
 
 <script>
 
+
+let translatorId=null;
+
+
+
 function register(){
 
-window.location.href="/translation/join/register.html"
+location.href="/translation/register.html";
 
 }
+
+
+
+function showLogin(){
+
+document.getElementById("login").style.display="block";
+
+}
+
+
 
 function login(){
 
-window.location.href="/translation/join/login.html"
+const key=document.getElementById("passkey").value;
+
+
+if(!key){
+
+alert("Enter passkey");
+
+return;
 
 }
+
+
+translatorId=key;
+
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("jobs").classList.remove("hidden");
+
+
+loadJobs();
+
+}
+
+
+
+async function loadJobs(){
+
+const res=await fetch(
+
+"https://your-backend-url/jobs"
+
+);
+
+
+const data=await res.json();
+
+
+const container=document.getElementById("jobs");
+
+
+container.innerHTML="";
+
+
+data.jobs.forEach(job=>{
+
+
+const div=document.createElement("div");
+
+div.className="job";
+
+
+const payout=(job.originalText.length/6*0.025).toFixed(2);
+
+const bonus=(payout*0.2).toFixed(2);
+
+
+div.innerHTML=`
+
+<h3>Translation Job</h3>
+
+<div class="meta">
+
+Payment: $${payout}
+
+<br>
+
+Bonus (2nd/3rd): $${bonus}
+
+<br>
+
+Deadline: 24 hours
+
+</div>
+
+
+<div class="phase">
+
+${job.phase1}
+
+</div>
+
+
+<textarea placeholder="Submit your improved translation"></textarea>
+
+
+<button class="submit">
+
+Submit Translation
+
+</button>
+
+
+<div class="nda">
+
+You certify this work is yours and confidential.
+
+</div>
+
+`;
+
+
+const btn=div.querySelector("button");
+
+const textarea=div.querySelector("textarea");
+
+
+btn.onclick=()=>submit(job.id,textarea.value,btn);
+
+
+container.appendChild(div);
+
+});
+
+
+}
+
+
+
+async function submit(id,text,btn){
+
+if(!text){
+
+alert("Enter translation");
+
+return;
+
+}
+
+
+btn.innerText="Submitting...";
+
+
+await fetch(
+
+"https://your-backend-url/submit",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+jobId:id,
+
+translatorId,
+
+text
+
+})
+
+});
+
+
+btn.innerText="Submitted";
+
+btn.classList.add("locked");
+
+btn.disabled=true;
+
+}
+
+
+
+/* DISABLE SCREENSHOT EASY METHODS */
+
+document.onkeydown=function(e){
+
+if(e.key=="PrintScreen"){
+
+alert("Screenshots disabled");
+
+return false;
+
+}
+
+};
+
 
 </script>
 
 
+
 </body>
+
 </html>
