@@ -13,112 +13,143 @@
 
 body{
 font-family:Manrope;
-background:#f8fafc;
+background:#f1f5f9;
 margin:0;
+display:flex;
+justify-content:center;
+padding:40px 15px;
 color:#0f172a;
 }
+
+
+/* MAIN WRAPPER */
+
+.wrapper{
+
+width:100%;
+max-width:520px;
+background:white;
+border-radius:18px;
+padding:30px;
+box-shadow:
+0 10px 30px rgba(0,0,0,0.08);
+
+position:relative;
+
+}
+
 
 
 /* QR */
 
 .qr{
+
 position:absolute;
 top:20px;
 left:20px;
+
 }
 
 .qr img{
-width:65px;
+
+width:70px;
+
 }
+
 
 
 /* HEADER */
 
-.header{
-padding:80px 25px 20px 25px;
-}
+h1{
 
-.header h1{
 font-size:26px;
 font-weight:600;
-margin-bottom:15px;
+margin-top:40px;
+margin-bottom:20px;
+
 }
+
 
 
 /* TRUST */
 
 .trust{
+
 display:flex;
-gap:20px;
+flex-wrap:wrap;
+gap:15px;
 font-size:14px;
 color:#64748b;
+margin-bottom:25px;
+
 }
 
 .dot{
+
 width:7px;
 height:7px;
 background:#10b981;
 border-radius:50%;
 display:inline-block;
 margin-right:6px;
+
 }
 
 
-/* CONTAINER */
 
-.container{
-padding:25px;
-}
-
-
-/* PRICING */
+/* PRICING CARD */
 
 .pricing{
-background:white;
-border-radius:14px;
-padding:25px;
+
 border:1px solid #e2e8f0;
-box-shadow:0 4px 10px rgba(0,0,0,0.04);
+padding:20px;
+border-radius:14px;
+margin-bottom:25px;
+
 }
 
 .pricing h2{
+
 font-size:18px;
-margin-bottom:20px;
+margin-bottom:15px;
+
 }
 
 .row{
+
 display:flex;
 justify-content:space-between;
-margin-bottom:15px;
+margin-bottom:12px;
+
 }
 
 .standard{
+
 color:#059669;
 font-weight:600;
+
 }
 
 .express{
+
 color:#dc2626;
 font-weight:600;
-}
 
-.price{
-font-weight:600;
 }
 
 .small{
+
 font-size:13px;
 color:#64748b;
+
 }
+
 
 
 /* UPLOAD */
 
-.upload{
-margin-top:30px;
-}
-
 .upload button{
+
 width:100%;
 padding:14px;
 background:#0f172a;
@@ -127,29 +158,38 @@ border:none;
 border-radius:10px;
 font-size:15px;
 cursor:pointer;
+
 }
 
-.upload input{
+input{
+
 display:none;
+
 }
+
 
 
 /* QUOTE */
 
 .quote{
-margin-top:20px;
+
 display:none;
+margin-top:20px;
 background:#ecfeff;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
+
 }
 
 .submit{
+
 display:none;
 margin-top:15px;
+
 }
 
 .submit button{
+
 width:100%;
 padding:14px;
 background:#2563eb;
@@ -158,55 +198,48 @@ border:none;
 border-radius:10px;
 font-size:15px;
 cursor:pointer;
+
 }
+
 
 </style>
 
 </head>
 
-
 <body>
 
 
+<div class="wrapper">
+
+
 <div class="qr">
+
 <img src="/assets/images/saybon-qr.png">
+
 </div>
 
 
-
-<div class="header">
 
 <h1>SayBon Translation Services</h1>
 
+
+
 <div class="trust">
 
-<div>
-<span class="dot"></span>
-Human translated
-</div>
+<div><span class="dot"></span>Human translated</div>
 
-<div>
-<span class="dot"></span>
-Certification-ready quality
-</div>
+<div><span class="dot"></span>Certification-ready quality</div>
 
-<div>
-<span class="dot"></span>
-Confidential & secure
-</div>
+<div><span class="dot"></span>Confidential & secure</div>
 
 </div>
 
-</div>
-
-
-
-<div class="container">
 
 
 <div class="pricing">
 
 <h2>Pricing & Delivery</h2>
+
 
 <div class="row">
 
@@ -215,14 +248,17 @@ Confidential & secure
 <div class="standard">Standard</div>
 
 <div class="small">
-Delivery: 24–48 hours
-</div>
+
+Delivery: 24–48 hrs
 
 </div>
 
-<div class="price">$0.025 / word</div>
+</div>
+
+<div class="standard">$0.025 / word</div>
 
 </div>
+
 
 
 <div class="row">
@@ -232,14 +268,17 @@ Delivery: 24–48 hours
 <div class="express">Express</div>
 
 <div class="small">
-Delivery: 6–24 hours
-</div>
+
+Delivery: 6–24 hrs
 
 </div>
 
-<div class="price express">$0.05 / word</div>
+</div>
+
+<div class="express">$0.05 / word</div>
 
 </div>
+
 
 </div>
 
@@ -249,7 +288,7 @@ Delivery: 6–24 hours
 
 <input type="file" id="file">
 
-<button onclick="selectFile()">
+<button onclick="chooseFile()">
 
 Upload Document to Get Quote
 
@@ -259,7 +298,7 @@ Upload Document to Get Quote
 
 
 
-<div class="quote" id="quote">
+<div class="quote" id="quoteBox">
 
 <h3>Quote</h3>
 
@@ -269,7 +308,7 @@ Upload Document to Get Quote
 
 
 
-<div class="submit" id="submit">
+<div class="submit" id="submitBox">
 
 <button onclick="submitJob()">
 
@@ -280,9 +319,7 @@ Continue to Submit Job
 </div>
 
 
-
 </div>
-
 
 
 <script>
@@ -291,10 +328,10 @@ Continue to Submit Job
 let fileText=""
 let wordCount=0
 let price=0
+let delivery=""
 
 
-
-function selectFile(){
+function chooseFile(){
 
 document.getElementById("file").click()
 
@@ -302,45 +339,68 @@ document.getElementById("file").click()
 
 
 
-document.getElementById("file").addEventListener("change", async function(){
+document.getElementById("file")
+.addEventListener("change", async function(){
+
 
 const file=this.files[0]
 
 if(!file)return
 
 
-const text=await file.text()
-
-fileText=text
+fileText=await file.text()
 
 
-wordCount=text.split(/\s+/).length
+wordCount=fileText.trim().split(/\s+/).length
 
 
 price=(wordCount*0.025).toFixed(2)
 
 
-document.getElementById("quote").style.display="block"
 
-document.getElementById("submit").style.display="block"
+/* DELIVERY LOGIC */
+
+if(wordCount<=2000)
+
+delivery="24 hours"
+
+else if(wordCount<=5000)
+
+delivery="48 hours"
+
+else
+
+delivery="3–4 days"
 
 
-document.getElementById("quoteText").innerHTML=
 
-"Words: "+wordCount+"<br>"+
-"Price: $"+price+"<br>"+
-"Delivery: 24-48 hours"
+document.getElementById("quoteBox")
+.style.display="block"
+
+
+document.getElementById("submitBox")
+.style.display="block"
+
+
+
+document.getElementById("quoteText")
+.innerHTML=
+
+"Word Count: <b>"+wordCount+"</b><br><br>"+
+
+"Price: <b>$"+price+"</b><br><br>"+
+
+"Estimated Delivery: <b>"+delivery+"</b>"
 
 
 })
 
 
 
-
 async function submitJob(){
 
 
-const response=await fetch(
+await fetch(
 
 "https://saybon-production.up.railway.app/upload",
 
@@ -349,7 +409,9 @@ const response=await fetch(
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 body:JSON.stringify({
@@ -361,11 +423,6 @@ text:fileText
 })
 
 
-
-const result=await response.json()
-
-
-
 alert("Job submitted successfully")
 
 
@@ -375,9 +432,7 @@ window.location.href="/dashboard/"
 }
 
 
-
 </script>
-
 
 
 </body>
