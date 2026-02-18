@@ -24,7 +24,7 @@ ROOT ROUTE
 */
 app.get("/", (req, res) => {
 
-res.send("SayBon Translator Backend Running");
+  res.send("SayBon Translator Backend Running");
 
 });
 
@@ -35,7 +35,7 @@ UPLOAD SETUP
 */
 const upload = multer({
 
-dest: "uploads/"
+  dest: "uploads/"
 
 });
 
@@ -46,29 +46,29 @@ FILE PARSING FUNCTION
 */
 async function extractText(filePath, mimetype) {
 
-if (mimetype === "application/pdf") {
+  if (mimetype === "application/pdf") {
 
-const data = await pdfParse(fs.readFileSync(filePath));
-return data.text;
+    const data = await pdfParse(fs.readFileSync(filePath));
+    return data.text;
 
-}
+  }
 
-if (
-mimetype ===
-"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-) {
+  if (
+    mimetype ===
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ) {
 
-const result = await mammoth.extractRawText({
+    const result = await mammoth.extractRawText({
 
-path: filePath
+      path: filePath
 
-});
+    });
 
-return result.value;
+    return result.value;
 
-}
+  }
 
-return fs.readFileSync(filePath, "utf8");
+  return fs.readFileSync(filePath, "utf8");
 
 }
 
@@ -79,57 +79,57 @@ REQUEST ENDPOINT
 */
 app.post("/request", upload.single("file"), async (req, res) => {
 
-try {
+  try {
 
-if (!req.file) {
+    if (!req.file) {
 
-return res.status(400).json({
+      return res.status(400).json({
 
-error: "No file uploaded"
+        error: "No file uploaded"
 
-});
+      });
 
-}
+    }
 
-const text = await extractText(
+    const text = await extractText(
 
-req.file.path,
-req.file.mimetype
-);
+      req.file.path,
+      req.file.mimetype
+    );
 
-const words = text.trim().split(/\s+/).length;
-
-
-
-/*
-PRICING
-*/
-
-const standardPrice = words * 0.03;
-const expressPrice = words * 0.05;
+    const words = text.trim().split(/\s+/).length;
 
 
 
-res.json({
+    /*
+    PRICING
+    */
 
-success: true,
-words,
-standardPrice,
-expressPrice
+    const standardPrice = words * 0.03;
+    const expressPrice = words * 0.05;
 
-});
 
-} catch (error) {
 
-console.log(error);
+    res.json({
 
-res.status(500).json({
+      success: true,
+      words,
+      standardPrice,
+      expressPrice
 
-error: "Parsing failed"
+    });
 
-});
+  } catch (error) {
 
-}
+    console.log(error);
+
+    res.status(500).json({
+
+      error: "Parsing failed"
+
+    });
+
+  }
 
 });
 
@@ -138,8 +138,9 @@ error: "Parsing failed"
 /*
 START SERVER
 */
-app.listen(PORT, () => {
 
-console.log("Server running on port " + PORT);
+app.listen(PORT, "0.0.0.0", () => {
+
+  console.log(`SayBon Translator running on port ${PORT}`);
 
 });
