@@ -1,162 +1,145 @@
 ﻿const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
+
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-/* ROOT ROUTE — REQUIRED FOR RAILWAY */
 
+// VERY IMPORTANT FOR RAILWAY
+const PORT = process.env.PORT || 3000;
+
+
+
+/*
+ROOT ROUTE
+*/
 app.get("/", (req, res) => {
 
-    res.send("SayBon Translator Backend Running");
+res.send("SayBon Translator Backend Running");
 
 });
 
 
-/* MULTER SETUP */
 
+/*
+UPLOAD SETUP
+*/
 const upload = multer({
-    dest: "uploads/"
+
+dest: "uploads/"
+
 });
 
 
-/* WORD COUNT FUNCTION */
 
-function countWords(text){
+/*
+FILE PARSING FUNCTION
+*/
+async function extractText(filePath, mimetype) {
 
-    return text
-        .replace(/\s+/g, " ")
-        .trim()
-        .split(" ")
-        .length;
+if (mimetype === "application/pdf") {
+
+const data = await pdfParse(fs.readFileSync(filePath));
+return data.text;
+
+}
+
+if (
+mimetype ===
+"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+) {
+
+const result = await mammoth.extractRawText({
+
+path: filePath
+
+});
+
+return result.value;
+
+}
+
+return fs.readFileSync(filePath, "utf8");
 
 }
 
 
-/* DELIVERY TIME CALCULATOR */
 
-function getDelivery(words, speed){
-
-    if(speed === "standard"){
-
-        if(words <= 300) return "1–3 hrs";
-        if(words <= 1000) return "3–6 hrs";
-        if(words <= 3000) return "6–12 hrs";
-        if(words <= 5000) return "12–24 hrs";
-
-    }
-
-    if(speed === "express"){
-
-        if(words <= 300) return "30–60 mins";
-        if(words <= 1000) return "1–3 hrs";
-        if(words <= 3000) return "3–6 hrs";
-        if(words <= 5000) return "6–12 hrs";
-
-    }
-
-}
-
-
-/* REQUEST ENDPOINT */
-
+/*
+REQUEST ENDPOINT
+*/
 app.post("/request", upload.single("file"), async (req, res) => {
 
-    try{
+try {
 
-        const filePath = req.file.path;
+if (!req.file) {
 
-        let text = "";
+return res.status(400).json({
 
-        if(req.file.mimetype === "application/pdf"){
+error: "No file uploaded"
 
-            const dataBuffer = fs.readFileSync(filePath);
+});
 
-            const pdf = await pdfParse(dataBuffer);
+}
 
-            text = pdf.text;
+const text = await extractText(
 
-        }
+req.file.path,
+req.file.mimetype
+);
 
-        else if(
-            req.file.mimetype.includes("word")
-        ){
-
-            const result =
-            await mammoth.extractRawText({
-                path: filePath
-            });
-
-            text = result.value;
-
-        }
-
-        else{
-
-            text = fs.readFileSync(filePath, "utf8");
-
-        }
+const words = text.trim().split(/\s+/).length;
 
 
-        const words = countWords(text);
 
-        const standardPrice = words * 0.025;
-        const expressPrice = words * 0.05;
+/*
+PRICING
+*/
 
-
-        res.json({
-
-            job:{
-
-                words,
-
-                standardPrice,
-
-                expressPrice,
-
-                standardTime:
-                getDelivery(words,"standard"),
-
-                expressTime:
-                getDelivery(words,"express")
-
-            }
-
-        });
+const standardPrice = words * 0.03;
+const expressPrice = words * 0.05;
 
 
-    }
 
-    catch(error){
+res.json({
 
-        console.log(error);
+success: true,
+words,
+standardPrice,
+expressPrice
 
-        res.status(500).json({
-            error:"Parsing failed"
-        });
+});
 
-    }
+} catch (error) {
+
+console.log(error);
+
+res.status(500).json({
+
+error: "Parsing failed"
+
+});
+
+}
 
 });
 
 
 
-/* CRITICAL — THIS FIXES RAILWAY */
-
-const PORT =
-process.env.PORT || 4000;
-
-
+/*
+START SERVER
+*/
 app.listen(PORT, () => {
 
-    console.log(
-        "Server running on port " + PORT
-    );
+console.log("Server running on port " + PORT);
 
 });
