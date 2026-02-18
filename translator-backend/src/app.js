@@ -1,11 +1,11 @@
-﻿require("dotenv").config();
-
-const express = require("express");
+﻿const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
+
+const fs = require("fs");
 
 const app = express();
 
@@ -13,16 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 
-// STORAGE
 
-const storage = multer.memoryStorage();
-
-const upload = multer({
-storage: storage
-});
-
-
-// ROOT
+/* ROOT ROUTE — FIXES "Cannot GET /" */
 
 app.get("/", (req, res) => {
 
@@ -32,74 +24,112 @@ res.send("SayBon Translator System Running");
 
 
 
+/* MULTER SETUP */
 
-// WORD COUNT FUNCTION
+const upload = multer({
+
+dest: "uploads/"
+
+});
+
+
+
+/* WORD COUNT FUNCTION */
 
 function countWords(text){
 
 return text
+.replace(/\s+/g," ")
 .trim()
-.split(/\s+/)
+.split(" ")
+.filter(word => word.length > 0)
 .length;
 
 }
 
 
 
+/* DELIVERY TIME CALCULATOR */
 
-// DELIVERY CALCULATOR
+function getDeliveryTimes(words){
 
-function getDelivery(words){
+let standard = "";
+let express = "";
+
+
+/* STANDARD */
 
 if(words <= 300){
 
-return {
-
-standard:"1–3 hrs",
-express:"30–60 mins"
-
-};
+standard = "1–3 hrs";
 
 }
+else if(words <= 1000){
 
-if(words <= 1000){
-
-return {
-
-standard:"3–6 hrs",
-express:"1–3 hrs"
-
-};
+standard = "3–6 hrs";
 
 }
+else if(words <= 3000){
 
-if(words <= 3000){
-
-return {
-
-standard:"6–12 hrs",
-express:"3–6 hrs"
-
-};
+standard = "6–12 hrs";
 
 }
+else if(words <= 5000){
 
-return {
+standard = "12–24 hrs";
 
-standard:"12–24 hrs",
-express:"6–12 hrs"
+}
+else{
 
-};
+standard = "24–48 hrs";
 
 }
 
 
 
+/* EXPRESS */
 
-// REQUEST ENDPOINT
+if(words <= 300){
 
-app.post("/request", upload.single("file"), async (req,res)=>{
+express = "30–60 mins";
 
+}
+else if(words <= 1000){
+
+express = "1–3 hrs";
+
+}
+else if(words <= 3000){
+
+express = "3–6 hrs";
+
+}
+else if(words <= 5000){
+
+express = "6–12 hrs";
+
+}
+else{
+
+express = "12–24 hrs";
+
+}
+
+
+return {
+
+standard,
+express
+
+};
+
+}
+
+
+
+/* REQUEST ENDPOINT */
+
+app.post("/request", upload.single("file"), async (req, res) => {
 
 try{
 
@@ -108,42 +138,43 @@ if(!req.file){
 
 return res.status(400).json({
 
-error:"No file uploaded"
+error: "No file uploaded"
 
 });
 
 }
 
 
+const filePath = req.file.path;
+
+const ext = req.file.originalname.split(".").pop().toLowerCase();
+
+
 let text = "";
 
 
 
-// PDF
+/* PDF */
 
-if(req.file.mimetype === "application/pdf"){
+if(ext === "pdf"){
 
-const data = await pdfParse(req.file.buffer);
+const dataBuffer = fs.readFileSync(filePath);
 
-text = data.text;
+const pdfData = await pdfParse(dataBuffer);
+
+text = pdfData.text;
 
 }
 
 
 
-// DOCX
+/* DOCX */
 
-else if(
+else if(ext === "docx"){
 
-req.file.mimetype ===
-"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+const result = await mammoth.extractRawText({
 
-){
-
-const result =
-await mammoth.extractRawText({
-
-buffer:req.file.buffer
+path: filePath
 
 });
 
@@ -153,42 +184,59 @@ text = result.value;
 
 
 
-// TXT
+/* TXT */
 
-else{
+else if(ext === "txt"){
 
-text =
-req.file.buffer.toString();
+text = fs.readFileSync(filePath,"utf8");
 
 }
 
 
 
+else{
 
-const words =
-countWords(text);
+return res.status(400).json({
 
+error: "Unsupported file type"
 
+});
 
-const standardPrice =
-words * 0.025;
-
-const expressPrice =
-words * 0.05;
+}
 
 
 
-const delivery =
-getDelivery(words);
+/* WORD COUNT */
+
+const words = countWords(text);
 
 
 
+/* PRICING */
+
+const standardPrice = words * 0.025;
+
+const expressPrice = words * 0.05;
+
+
+
+/* DELIVERY */
+
+const times = getDeliveryTimes(words);
+
+
+
+/* DELETE FILE AFTER PROCESS */
+
+fs.unlinkSync(filePath);
+
+
+
+/* RESPONSE */
 
 res.json({
 
-success:true,
-
-job:{
+job: {
 
 words,
 
@@ -196,15 +244,13 @@ standardPrice,
 
 expressPrice,
 
-standardTime:delivery.standard,
+standardTime: times.standard,
 
-expressTime:delivery.express
+expressTime: times.express
 
 }
 
 });
-
-
 
 
 }
@@ -214,7 +260,7 @@ console.log(error);
 
 res.status(500).json({
 
-error:error.message
+error: "Processing failed"
 
 });
 
@@ -225,22 +271,13 @@ error:error.message
 
 
 
+/* START SERVER */
+
+const PORT = process.env.PORT || 4000;
 
 
-// SERVER
+app.listen(PORT, () => {
 
-const PORT =
-process.env.PORT || 4000;
-
-
-
-app.listen(PORT, ()=>{
-
-console.log(
-
-"SayBon Translator System Running on port",
-PORT
-
-);
+console.log("Server running on port " + PORT);
 
 });
