@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 
-/* ROOT ROUTE — FIXES "Cannot GET /" */
+/* ROOT ROUTE */
 
 app.get("/", (req, res) => {
 
@@ -24,7 +24,7 @@ res.send("SayBon Translator System Running");
 
 
 
-/* MULTER SETUP */
+/* MULTER */
 
 const upload = multer({
 
@@ -36,141 +36,20 @@ dest: "uploads/"
 
 /* WORD COUNT FUNCTION */
 
-function countWords(text){
+async function extractText(filePath, mime){
 
-return text
-.replace(/\s+/g," ")
-.trim()
-.split(" ")
-.filter(word => word.length > 0)
-.length;
+if(mime === "application/pdf"){
 
-}
+const buffer = fs.readFileSync(filePath);
 
+const data = await pdfParse(buffer);
 
-
-/* DELIVERY TIME CALCULATOR */
-
-function getDeliveryTimes(words){
-
-let standard = "";
-let express = "";
-
-
-/* STANDARD */
-
-if(words <= 300){
-
-standard = "1–3 hrs";
-
-}
-else if(words <= 1000){
-
-standard = "3–6 hrs";
-
-}
-else if(words <= 3000){
-
-standard = "6–12 hrs";
-
-}
-else if(words <= 5000){
-
-standard = "12–24 hrs";
-
-}
-else{
-
-standard = "24–48 hrs";
+return data.text;
 
 }
 
 
-
-/* EXPRESS */
-
-if(words <= 300){
-
-express = "30–60 mins";
-
-}
-else if(words <= 1000){
-
-express = "1–3 hrs";
-
-}
-else if(words <= 3000){
-
-express = "3–6 hrs";
-
-}
-else if(words <= 5000){
-
-express = "6–12 hrs";
-
-}
-else{
-
-express = "12–24 hrs";
-
-}
-
-
-return {
-
-standard,
-express
-
-};
-
-}
-
-
-
-/* REQUEST ENDPOINT */
-
-app.post("/request", upload.single("file"), async (req, res) => {
-
-try{
-
-
-if(!req.file){
-
-return res.status(400).json({
-
-error: "No file uploaded"
-
-});
-
-}
-
-
-const filePath = req.file.path;
-
-const ext = req.file.originalname.split(".").pop().toLowerCase();
-
-
-let text = "";
-
-
-
-/* PDF */
-
-if(ext === "pdf"){
-
-const dataBuffer = fs.readFileSync(filePath);
-
-const pdfData = await pdfParse(dataBuffer);
-
-text = pdfData.text;
-
-}
-
-
-
-/* DOCX */
-
-else if(ext === "docx"){
+if(mime === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
 
 const result = await mammoth.extractRawText({
 
@@ -178,65 +57,76 @@ path: filePath
 
 });
 
-text = result.value;
+return result.value;
+
+}
+
+
+return fs.readFileSync(filePath,"utf8");
 
 }
 
 
 
-/* TXT */
+/* DELIVERY TIME */
 
-else if(ext === "txt"){
+function getDelivery(words,type){
 
-text = fs.readFileSync(filePath,"utf8");
+if(type==="standard"){
+
+if(words<=300) return "1–3 hrs";
+
+if(words<=1000) return "3–6 hrs";
+
+if(words<=3000) return "6–12 hrs";
+
+return "12–24 hrs";
+
+}
+
+
+if(type==="express"){
+
+if(words<=300) return "30–60 mins";
+
+if(words<=1000) return "1–3 hrs";
+
+if(words<=3000) return "3–6 hrs";
+
+return "6–12 hrs";
+
+}
 
 }
 
 
 
-else{
+/* REQUEST ENDPOINT */
 
-return res.status(400).json({
+app.post("/request", upload.single("file"), async (req,res)=>{
 
-error: "Unsupported file type"
+try{
 
-});
+const text = await extractText(
 
-}
+req.file.path,
 
+req.file.mimetype
 
-
-/* WORD COUNT */
-
-const words = countWords(text);
+);
 
 
+const words = text.trim().split(/\s+/).length;
 
-/* PRICING */
 
 const standardPrice = words * 0.025;
 
 const expressPrice = words * 0.05;
 
 
-
-/* DELIVERY */
-
-const times = getDeliveryTimes(words);
-
-
-
-/* DELETE FILE AFTER PROCESS */
-
-fs.unlinkSync(filePath);
-
-
-
-/* RESPONSE */
-
 res.json({
 
-job: {
+job:{
 
 words,
 
@@ -244,40 +134,42 @@ standardPrice,
 
 expressPrice,
 
-standardTime: times.standard,
+standardTime:
 
-expressTime: times.express
+getDelivery(words,"standard"),
+
+expressTime:
+
+getDelivery(words,"express")
 
 }
 
 });
 
 
-}
-catch(error){
 
-console.log(error);
+}catch(e){
+
+console.log(e);
 
 res.status(500).json({
 
-error: "Processing failed"
+error:"Processing failed"
 
 });
 
 }
 
-
 });
 
 
 
-/* START SERVER */
+/* IMPORTANT — THIS FIXES RAILWAY */
 
 const PORT = process.env.PORT || 4000;
 
+app.listen(PORT,()=>{
 
-app.listen(PORT, () => {
-
-console.log("Server running on port " + PORT);
+console.log("Server running on port",PORT);
 
 });
