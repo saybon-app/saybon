@@ -2,8 +2,8 @@
 
 const express = require("express");
 const cors = require("cors");
-
 const multer = require("multer");
+
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
 
@@ -13,40 +13,93 @@ app.use(cors());
 app.use(express.json());
 
 
+// STORAGE
 
-/* =========================
-   MULTER CONFIG
-========================= */
+const storage = multer.memoryStorage();
 
 const upload = multer({
+storage: storage
+});
 
-storage: multer.memoryStorage(),
 
-limits:{
-fileSize: 10 * 1024 * 1024
+// ROOT
+
+app.get("/", (req, res) => {
+
+res.send("SayBon Translator System Running");
+
+});
+
+
+
+
+// WORD COUNT FUNCTION
+
+function countWords(text){
+
+return text
+.trim()
+.split(/\s+/)
+.length;
+
 }
 
-});
 
 
 
-/* =========================
-   ROOT
-========================= */
+// DELIVERY CALCULATOR
 
-app.get("/", (req,res)=>{
+function getDelivery(words){
 
-res.send("SayBon Backend Running");
+if(words <= 300){
 
-});
+return {
+
+standard:"1–3 hrs",
+express:"30–60 mins"
+
+};
+
+}
+
+if(words <= 1000){
+
+return {
+
+standard:"3–6 hrs",
+express:"1–3 hrs"
+
+};
+
+}
+
+if(words <= 3000){
+
+return {
+
+standard:"6–12 hrs",
+express:"3–6 hrs"
+
+};
+
+}
+
+return {
+
+standard:"12–24 hrs",
+express:"6–12 hrs"
+
+};
+
+}
 
 
 
-/* =========================
-   REQUEST QUOTE
-========================= */
+
+// REQUEST ENDPOINT
 
 app.post("/request", upload.single("file"), async (req,res)=>{
+
 
 try{
 
@@ -54,7 +107,9 @@ try{
 if(!req.file){
 
 return res.status(400).json({
-error:"NO_FILE"
+
+error:"No file uploaded"
+
 });
 
 }
@@ -63,10 +118,8 @@ error:"NO_FILE"
 let text = "";
 
 
-/* =========================
-   READ FILE
-========================= */
 
+// PDF
 
 if(req.file.mimetype === "application/pdf"){
 
@@ -76,6 +129,9 @@ text = data.text;
 
 }
 
+
+
+// DOCX
 
 else if(
 
@@ -96,96 +152,35 @@ text = result.value;
 }
 
 
+
+// TXT
+
 else{
 
-text = req.file.buffer.toString();
+text =
+req.file.buffer.toString();
 
 }
 
 
 
-/* =========================
-   WORD COUNT
-========================= */
-
 
 const words =
-text.trim().split(/\s+/).length;
+countWords(text);
 
-
-
-/* =========================
-   PRICING
-========================= */
 
 
 const standardPrice =
 words * 0.025;
-
 
 const expressPrice =
 words * 0.05;
 
 
 
-/* =========================
-   TIME CALC
-========================= */
+const delivery =
+getDelivery(words);
 
-
-function standardTime(words){
-
-if(words<=300)
-return "1–3 hrs";
-
-if(words<=1000)
-return "3–6 hrs";
-
-if(words<=3000)
-return "6–12 hrs";
-
-return "12–24 hrs";
-
-}
-
-
-function expressTime(words){
-
-if(words<=300)
-return "30–60 mins";
-
-if(words<=1000)
-return "1–3 hrs";
-
-if(words<=3000)
-return "3–6 hrs";
-
-return "6–12 hrs";
-
-}
-
-
-
-/* =========================
-   RESPONSE
-========================= */
-
-
-const job = {
-
-words,
-
-standardPrice,
-
-expressPrice,
-
-standardTime:
-standardTime(words),
-
-expressTime:
-expressTime(words)
-
-};
 
 
 
@@ -193,19 +188,33 @@ res.json({
 
 success:true,
 
-job
+job:{
+
+words,
+
+standardPrice,
+
+expressPrice,
+
+standardTime:delivery.standard,
+
+expressTime:delivery.express
+
+}
 
 });
 
 
-}
-catch(err){
 
-console.log(err);
+
+}
+catch(error){
+
+console.log(error);
 
 res.status(500).json({
 
-error:"SERVER_ERROR"
+error:error.message
 
 });
 
@@ -216,18 +225,22 @@ error:"SERVER_ERROR"
 
 
 
-/* =========================
-   SERVER
-========================= */
 
+
+// SERVER
 
 const PORT =
 process.env.PORT || 4000;
 
 
+
 app.listen(PORT, ()=>{
 
-console.log("Server running");
+console.log(
+
+"SayBon Translator System Running on port",
+PORT
+
+);
 
 });
-
