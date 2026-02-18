@@ -6,6 +6,6 @@
   },
 
   "deploy": {
-    "startCommand": "node src/app.js"
+    "startCommand": "node app.js"
   }
 }
