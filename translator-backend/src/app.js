@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 
-// VERY IMPORTANT FOR RAILWAY
+// IMPORTANT: Render uses process.env.PORT
 const PORT = process.env.PORT || 3000;
 
 
@@ -46,29 +46,38 @@ FILE PARSING FUNCTION
 */
 async function extractText(filePath, mimetype) {
 
-  if (mimetype === "application/pdf") {
+  try {
 
-    const data = await pdfParse(fs.readFileSync(filePath));
-    return data.text;
+    if (mimetype === "application/pdf") {
+
+      const data = await pdfParse(fs.readFileSync(filePath));
+      return data.text;
+
+    }
+
+    if (
+      mimetype ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+
+      const result = await mammoth.extractRawText({
+
+        path: filePath
+
+      });
+
+      return result.value;
+
+    }
+
+    return fs.readFileSync(filePath, "utf8");
+
+  } catch (error) {
+
+    console.log("Extraction error:", error);
+    return "";
 
   }
-
-  if (
-    mimetype ===
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  ) {
-
-    const result = await mammoth.extractRawText({
-
-      path: filePath
-
-    });
-
-    return result.value;
-
-  }
-
-  return fs.readFileSync(filePath, "utf8");
 
 }
 
@@ -95,6 +104,7 @@ app.post("/request", upload.single("file"), async (req, res) => {
 
       req.file.path,
       req.file.mimetype
+
     );
 
     const words = text.trim().split(/\s+/).length;
@@ -136,10 +146,9 @@ app.post("/request", upload.single("file"), async (req, res) => {
 
 
 /*
-START SERVER
+START SERVER — RENDER VERSION
 */
-
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
 
   console.log(`SayBon Translator running on port ${PORT}`);
 
