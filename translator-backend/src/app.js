@@ -1,10 +1,8 @@
 ﻿const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-
 const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
-
 const fs = require("fs");
 
 const app = express();
@@ -12,164 +10,153 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-
-/* ROOT ROUTE */
+/* ROOT ROUTE — REQUIRED FOR RAILWAY */
 
 app.get("/", (req, res) => {
 
-res.send("SayBon Translator System Running");
+    res.send("SayBon Translator Backend Running");
 
 });
 
 
-
-/* MULTER */
+/* MULTER SETUP */
 
 const upload = multer({
-
-dest: "uploads/"
-
+    dest: "uploads/"
 });
-
 
 
 /* WORD COUNT FUNCTION */
 
-async function extractText(filePath, mime){
+function countWords(text){
 
-if(mime === "application/pdf"){
-
-const buffer = fs.readFileSync(filePath);
-
-const data = await pdfParse(buffer);
-
-return data.text;
+    return text
+        .replace(/\s+/g, " ")
+        .trim()
+        .split(" ")
+        .length;
 
 }
 
 
-if(mime === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+/* DELIVERY TIME CALCULATOR */
 
-const result = await mammoth.extractRawText({
+function getDelivery(words, speed){
 
-path: filePath
+    if(speed === "standard"){
 
-});
+        if(words <= 300) return "1–3 hrs";
+        if(words <= 1000) return "3–6 hrs";
+        if(words <= 3000) return "6–12 hrs";
+        if(words <= 5000) return "12–24 hrs";
 
-return result.value;
+    }
 
-}
+    if(speed === "express"){
 
+        if(words <= 300) return "30–60 mins";
+        if(words <= 1000) return "1–3 hrs";
+        if(words <= 3000) return "3–6 hrs";
+        if(words <= 5000) return "6–12 hrs";
 
-return fs.readFileSync(filePath,"utf8");
-
-}
-
-
-
-/* DELIVERY TIME */
-
-function getDelivery(words,type){
-
-if(type==="standard"){
-
-if(words<=300) return "1–3 hrs";
-
-if(words<=1000) return "3–6 hrs";
-
-if(words<=3000) return "6–12 hrs";
-
-return "12–24 hrs";
+    }
 
 }
-
-
-if(type==="express"){
-
-if(words<=300) return "30–60 mins";
-
-if(words<=1000) return "1–3 hrs";
-
-if(words<=3000) return "3–6 hrs";
-
-return "6–12 hrs";
-
-}
-
-}
-
 
 
 /* REQUEST ENDPOINT */
 
-app.post("/request", upload.single("file"), async (req,res)=>{
+app.post("/request", upload.single("file"), async (req, res) => {
 
-try{
+    try{
 
-const text = await extractText(
+        const filePath = req.file.path;
 
-req.file.path,
+        let text = "";
 
-req.file.mimetype
+        if(req.file.mimetype === "application/pdf"){
 
-);
+            const dataBuffer = fs.readFileSync(filePath);
+
+            const pdf = await pdfParse(dataBuffer);
+
+            text = pdf.text;
+
+        }
+
+        else if(
+            req.file.mimetype.includes("word")
+        ){
+
+            const result =
+            await mammoth.extractRawText({
+                path: filePath
+            });
+
+            text = result.value;
+
+        }
+
+        else{
+
+            text = fs.readFileSync(filePath, "utf8");
+
+        }
 
 
-const words = text.trim().split(/\s+/).length;
+        const words = countWords(text);
+
+        const standardPrice = words * 0.025;
+        const expressPrice = words * 0.05;
 
 
-const standardPrice = words * 0.025;
+        res.json({
 
-const expressPrice = words * 0.05;
+            job:{
+
+                words,
+
+                standardPrice,
+
+                expressPrice,
+
+                standardTime:
+                getDelivery(words,"standard"),
+
+                expressTime:
+                getDelivery(words,"express")
+
+            }
+
+        });
 
 
-res.json({
+    }
 
-job:{
+    catch(error){
 
-words,
+        console.log(error);
 
-standardPrice,
+        res.status(500).json({
+            error:"Parsing failed"
+        });
 
-expressPrice,
-
-standardTime:
-
-getDelivery(words,"standard"),
-
-expressTime:
-
-getDelivery(words,"express")
-
-}
+    }
 
 });
 
 
 
-}catch(e){
+/* CRITICAL — THIS FIXES RAILWAY */
 
-console.log(e);
-
-res.status(500).json({
-
-error:"Processing failed"
-
-});
-
-}
-
-});
+const PORT =
+process.env.PORT || 4000;
 
 
+app.listen(PORT, () => {
 
-/* IMPORTANT — THIS FIXES RAILWAY */
-
-const PORT = process.env.PORT || 4000;
-
-app.listen(PORT,()=>{
-
-console.log("Server running on port",PORT);
+    console.log(
+        "Server running on port " + PORT
+    );
 
 });
