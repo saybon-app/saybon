@@ -3,46 +3,30 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Payment</title>
 
+<!-- Stripe -->
 <script src="https://js.stripe.com/v3/"></script>
+
+<!-- Paystack -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
+
 
 <style>
 
 body{
 
 margin:0;
-padding:0;
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
 
-font-family:
--apple-system,
-BlinkMacSystemFont,
-Segoe UI,
-Roboto;
-
-background:
-linear-gradient(
-180deg,
-#f1f5f9,
-#e0e7ff
-);
+background:linear-gradient(180deg,#eef2ff,#f8fafc);
 
 display:flex;
 justify-content:center;
-
-}
-
-
-/* CARD */
-
-.container{
-
-max-width:600px;
-width:100%;
-padding:40px 20px;
+align-items:center;
+height:100vh;
 
 }
 
@@ -51,24 +35,22 @@ padding:40px 20px;
 
 background:white;
 
+padding:35px;
+
 border-radius:16px;
 
-padding:30px;
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
 
-box-shadow:
-0 20px 60px rgba(0,0,0,0.15);
+width:420px;
+
+text-align:center;
 
 }
 
 
-/* HEADER */
-
 h1{
 
-margin:0;
-margin-bottom:10px;
-
-font-size:28px;
+margin-bottom:5px;
 
 }
 
@@ -76,16 +58,15 @@ font-size:28px;
 .sub{
 
 color:#64748b;
+font-size:14px;
 margin-bottom:25px;
 
 }
 
 
-/* SUMMARY */
+.amountBox{
 
-.summary{
-
-background:#f8fafc;
+background:#f1f5f9;
 
 padding:20px;
 
@@ -96,88 +77,77 @@ margin-bottom:25px;
 }
 
 
-.price{
+.amount{
 
-font-size:28px;
+font-size:32px;
 font-weight:bold;
-margin-top:10px;
+
+margin-top:5px;
 
 }
 
 
-/* SMALLER BUTTONS */
-
-.payBtn{
+button{
 
 width:100%;
 
 padding:12px;
 
-border-radius:10px;
-
 border:none;
+
+border-radius:10px;
 
 font-size:15px;
 
-margin-top:12px;
-
 cursor:pointer;
+
+margin-top:12px;
 
 transition:0.2s;
 
 }
 
 
-/* STRIPE */
+/* Stripe button */
 
 .stripe{
 
-background:
-linear-gradient(
-145deg,
-#635bff,
-#4338ca
-);
+background:linear-gradient(145deg,#2563eb,#1d4ed8);
 
 color:white;
 
 box-shadow:
-0 4px 0 #312e81,
-0 10px 20px rgba(0,0,0,0.2);
+0 6px 12px rgba(0,0,0,0.15),
+inset 0 -2px 4px rgba(0,0,0,0.2);
 
 }
 
 
 .stripe:hover{
 
-transform:translateY(1px);
+transform:translateY(-2px);
 
 }
 
 
-/* PAYSTACK */
+/* Paystack button */
 
 .paystack{
 
-background:
-linear-gradient(
-145deg,
-#00c3a3,
-#059669
-);
+background:linear-gradient(145deg,#10b981,#059669);
 
 color:white;
 
 box-shadow:
-0 4px 0 #065f46,
-0 10px 20px rgba(0,0,0,0.2);
+0 6px 12px rgba(0,0,0,0.15),
+inset 0 -2px 4px rgba(0,0,0,0.2);
 
 }
 
 
 .paystack:hover{
 
-transform:translateY(1px);
+transform:translateY(-2px);
 
 }
 
@@ -185,20 +155,21 @@ transform:translateY(1px);
 .secure{
 
 margin-top:20px;
-font-size:13px;
+font-size:12px;
 color:#64748b;
 
 }
 
 </style>
 
+
 </head>
 <body>
 
 
-<div class="container">
 
 <div class="card">
+
 
 <h1>Complete Payment</h1>
 
@@ -209,23 +180,22 @@ Secure checkout powered by Stripe & Paystack
 </div>
 
 
-<div class="summary">
+
+<div class="amountBox">
 
 Service:
-<b id="type">Loading...</b>
 
-<div class="price">
+<div class="amount" id="amount">
 
-$<span id="amount">0.00</span>
-
-</div>
+$0.00
 
 </div>
 
+</div>
 
 
-<button class="payBtn stripe"
-onclick="payWithStripe()">
+
+<button class="stripe" onclick="payStripe()">
 
 Pay with Card (Stripe)
 
@@ -233,8 +203,7 @@ Pay with Card (Stripe)
 
 
 
-<button class="payBtn paystack"
-onclick="payWithPaystack()">
+<button class="paystack" onclick="payPaystack()">
 
 Pay with Mobile Money / Bank (Paystack)
 
@@ -251,89 +220,119 @@ Pay with Mobile Money / Bank (Paystack)
 
 </div>
 
-</div>
 
 
 
 <script>
 
 
-/*
-FIXED PARAM READING
-*/
-
-const params = new URLSearchParams(window.location.search);
-
-const amount = params.get("amount") || "0";
-
-const type = params.get("type") || "Translation";
+/* =========================================
+LOAD PAYMENT DATA FROM REQUEST PAGE
+========================================= */
 
 
-document.getElementById("amount").innerText =
-Number(amount).toFixed(2);
+const paymentData = JSON.parse(
 
-document.getElementById("type").innerText =
-type;
+localStorage.getItem("saybon_payment")
 
-
-
-/* STRIPE */
-
-async function payWithStripe(){
-
-const res = await fetch(
-
-"https://saybon-backend.onrender.com/create-stripe-payment",
-
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-amount:amount,
-type:type
-
-})
-
-});
+);
 
 
-const data = await res.json();
+let amount = 0;
 
-window.location = data.url;
+
+if(paymentData){
+
+amount = paymentData.price;
+
+document.getElementById("amount").innerHTML =
+
+"$" + Number(amount).toFixed(2);
 
 }
 
 
 
-/* PAYSTACK */
+/* =========================================
+STRIPE CONFIG
+pk_live_51T1FloJoEwCiVdJNyh6goTKNXpeNEhxPlN85Eu7QGJab8Ztkiba1TAdhab3nGPjKBb608Zym61XearWWCUji4jN000HfV9XkDe========================================= */
 
-function payWithPaystack(){
 
-let handler = PaystackPop.setup({
+const stripe = Stripe("pk_live_51T1FloJoEwCiVdJNyh6goTKNXpeNEhxPlN85Eu7QGJab8Ztkiba1TAdhab3nGPjKBb608Zym61XearWWCUji4jN000HfV9XkDe");
 
-key:"pk_live_REPLACE_THIS",
 
-email:"customer@saybonapp.com",
 
-amount:amount * 100,
+function payStripe(){
 
-currency:"USD",
 
-callback:function(response){
+stripe.redirectToCheckout({
 
-alert("Payment successful");
+lineItems:[{
 
-window.location="success.html";
+price_data:{
+
+currency:"usd",
+
+product_data:{
+name:"SayBon Translation (" + paymentData.type + ")"
+},
+
+unit_amount:Math.round(amount*100)
 
 },
 
-onClose:function(){
+quantity:1
+
+}],
+
+mode:"payment",
+
+successUrl:
+
+"https://saybonapp.com/success.html",
+
+cancelUrl:
+
+"https://saybonapp.com/translation/payment.html"
+
+});
+
+}
+
+
+
+/* =========================================
+PAYSTACK CONFIG
+pk_live_adbd997a6cb7382da7c9e3e77c0ca487b93d73ab
+========================================= */
+
+
+const PAYSTACK_KEY = "pk_live_adbd997a6cb7382da7c9e3e77c0ca487b93d73ab";
+
+
+
+function payPaystack(){
+
+
+let handler = PaystackPop.setup({
+
+key: PAYSTACK_KEY,
+
+email: "customer@saybonapp.com",
+
+amount: Math.round(amount * 100),
+
+currency: "USD",
+
+callback: function(response){
+
+window.location.href =
+
+"https://saybonapp.com/success.html";
+
+},
+
+onClose: function(){
 
 alert("Payment cancelled");
 
@@ -350,5 +349,6 @@ handler.openIframe();
 </script>
 
 
+
 </body>
-</html>
+</html> 
