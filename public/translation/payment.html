@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Payment</title>
 
+
+<!-- Stripe -->
 <script src="https://js.stripe.com/v3/"></script>
 
+<!-- Paystack -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 
@@ -15,17 +19,38 @@
 
 body{
 
-font-family:-apple-system;
+margin:0;
+padding:0;
 
-background:#f1f5f9;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+Segoe UI,
+Roboto;
+
+background:
+linear-gradient(
+180deg,
+#f8fafc,
+#eef2ff
+);
 
 display:flex;
-
 justify-content:center;
 
-padding-top:80px;
+}
+
+
+
+.container{
+
+width:100%;
+max-width:600px;
+
+padding:40px 20px;
 
 }
+
 
 
 .card{
@@ -34,34 +59,58 @@ background:white;
 
 padding:30px;
 
-border-radius:12px;
+border-radius:14px;
 
-width:400px;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+box-shadow:
+0 10px 30px rgba(0,0,0,0.08);
 
 }
 
 
-button{
+
+h1{
+
+margin:0;
+margin-bottom:20px;
+
+}
+
+
+
+.summary{
+
+background:#f8fafc;
+
+padding:15px;
+
+border-radius:10px;
+
+margin-bottom:25px;
+
+}
+
+
+
+.payBtn{
 
 width:100%;
 
 padding:14px;
 
-margin-top:15px;
-
 border:none;
 
 border-radius:8px;
 
-color:white;
+margin-top:10px;
 
 font-size:16px;
 
 cursor:pointer;
 
+color:white;
+
 }
+
 
 
 .stripe{
@@ -71,6 +120,7 @@ background:#635bff;
 }
 
 
+
 .paystack{
 
 background:#00c3f7;
@@ -78,146 +128,205 @@ background:#00c3f7;
 }
 
 
+
 </style>
 
 
 </head>
-
 <body>
+
+
+
+<div class="container">
 
 
 <div class="card">
 
 
-<h2>Complete Payment</h2>
+<h1>Complete Payment</h1>
 
 
-<div id="summary"></div>
+<div id="summary" class="summary">
+
+Loading...
+
+</div>
+
 
 
 <button
-
-class="stripe"
-
-onclick="payStripe()"
-
->
+class="payBtn stripe"
+onclick="payStripe()">
 
 Pay with Card (Stripe)
 
 </button>
 
 
+
 <button
-
-class="paystack"
-
-onclick="payPaystack()"
-
->
+class="payBtn paystack"
+onclick="payPaystack()">
 
 Pay with Paystack
 
 </button>
 
 
+
 </div>
+
+
+</div>
+
 
 
 <script>
 
 
-const data =
+/*
+LOAD JOB
+*/
 
-JSON.parse(
 
-localStorage.getItem(
+const job = JSON.parse(
 
-"saybon_payment"
-
-)
+localStorage.getItem("saybon_payment")
 
 );
 
 
 
-document.getElementById(
-
-"summary"
-
-).innerHTML =
+document.getElementById("summary").innerHTML =
 
 `
 
-Words:
-
-${data.words}
+Type: ${job.type}
 
 <br><br>
 
-Standard:
+Words: ${job.words}
 
-$${data.standard}
+<br><br>
 
-<br>
+Delivery: ${job.time}
 
-Express:
+<br><br>
 
-$${data.express}
+<b>Total: $${job.price}</b>
 
 `;
 
 
 
-/* STRIPE */
+/*
+STRIPE
+*/
 
-async function payStripe(){
+
+function payStripe(){
 
 
-alert(
+const stripe = Stripe(
 
-"Stripe integration ready"
+"pk_live_REPLACE_WITH_YOUR_KEY"
 
 );
 
 
-/* next step = stripe checkout session */
+
+fetch(
+
+"https://saybon-backend.onrender.com/create-stripe-session",
+
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+amount:job.price,
+type:job.type,
+words:job.words
+
+})
+
+}
+
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+stripe.redirectToCheckout({
+
+sessionId:data.id
+
+});
+
+});
+
 
 }
 
 
 
-/* PAYSTACK */
+
+/*
+PAYSTACK
+*/
+
 
 function payPaystack(){
 
 
-const handler =
+let handler = PaystackPop.setup({
 
-PaystackPop.setup({
 
 key:
 
-"YOUR_PAYSTACK_PUBLIC_KEY",
+"pk_live_REPLACE_WITH_YOUR_KEY",
+
 
 email:
 
-"user@email.com",
+"user@saybonapp.com",
+
 
 amount:
 
-data.standard * 100,
+job.price * 100,
 
 
-callback:function(){
+currency:
 
-alert(
+"USD",
 
-"Payment Complete"
 
-);
+callback:
+
+function(response){
+
+window.location.href =
+
+"/translation/success.html";
+
+},
+
+
+onClose:
+
+function(){
+
+alert("Payment cancelled");
 
 }
+
 
 });
 
@@ -228,9 +337,10 @@ handler.openIframe();
 }
 
 
+
 </script>
 
 
-</body>
 
+</body>
 </html>
