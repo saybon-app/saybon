@@ -1,177 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>SayBon Translation Request</title>
+<title>SayBon Payment</title>
 
+<script src="https://js.stripe.com/v3/"></script>
 
-<!-- QR Generator -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 
 
 <style>
 
 body{
 
-margin:0;
-padding:0;
+font-family:-apple-system;
 
-font-family:
--apple-system,
-BlinkMacSystemFont,
-Segoe UI,
-Roboto;
-
-background:
-
-linear-gradient(
-180deg,
-#f8fafc,
-#eef2ff
-);
+background:#f1f5f9;
 
 display:flex;
+
 justify-content:center;
 
-}
-
-
-/* MAIN CARD */
-
-.container{
-
-width:100%;
-max-width:700px;
-
-padding:40px 20px;
+padding-top:80px;
 
 }
 
-
-/* WHITE CARD */
 
 .card{
 
 background:white;
 
-border-radius:14px;
-
 padding:30px;
 
-box-shadow:
+border-radius:12px;
 
-0 10px 30px
-rgba(0,0,0,0.08);
+width:400px;
 
-}
-
-
-/* QR */
-
-#qrcode{
-
-margin-bottom:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 
 }
 
-
-/* HEADER */
-
-h1{
-
-margin:0;
-margin-bottom:10px;
-
-font-size:26px;
-
-}
-
-
-/* TRUST BADGES */
-
-.trust{
-
-color:#64748b;
-
-font-size:14px;
-
-margin-bottom:25px;
-
-}
-
-
-/* PRICING */
-
-.priceCard{
-
-border:1px solid #e2e8f0;
-
-border-radius:10px;
-
-padding:20px;
-
-margin-bottom:25px;
-
-}
-
-
-.priceTitle{
-
-font-weight:bold;
-
-margin-bottom:15px;
-
-font-size:18px;
-
-}
-
-
-/* TABLE */
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-font-size:14px;
-
-}
-
-
-td{
-
-padding:6px 0;
-
-}
-
-
-/* STANDARD */
-
-.standard{
-
-color:#16a34a;
-
-font-weight:bold;
-
-}
-
-
-/* EXPRESS */
-
-.express{
-
-color:#dc2626;
-
-font-weight:bold;
-
-}
-
-
-/* BUTTON */
 
 button{
 
@@ -179,17 +49,11 @@ width:100%;
 
 padding:14px;
 
+margin-top:15px;
+
 border:none;
 
 border-radius:8px;
-
-background:
-
-linear-gradient(
-90deg,
-#2563eb,
-#4f46e5
-);
 
 color:white;
 
@@ -197,393 +61,176 @@ font-size:16px;
 
 cursor:pointer;
 
-margin-top:10px;
+}
+
+
+.stripe{
+
+background:#635bff;
 
 }
 
 
-button:hover{
+.paystack{
 
-opacity:0.9;
-
-}
-
-
-/* QUOTE */
-
-#quote{
-
-margin-top:20px;
-
-padding:15px;
-
-background:#f8fafc;
-
-border-radius:10px;
-
-display:none;
+background:#00c3f7;
 
 }
 
-
-/* QUOTE BOX */
-
-.quoteBox{
-
-margin-top:15px;
-
-padding:12px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-transition:0.2s;
-
-}
-
-
-.quoteBox:hover{
-
-transform:scale(1.02);
-
-background:#f1f5f9;
-
-}
-
-
-.standardBox{
-
-border:2px solid #16a34a;
-
-}
-
-
-.expressBox{
-
-border:2px solid #dc2626;
-
-}
-
-
-/* tiny instruction */
-
-.selectText{
-
-font-size:12px;
-color:#64748b;
-margin-top:10px;
-
-}
 
 </style>
 
 
 </head>
+
 <body>
-
-
-<div class="container">
 
 
 <div class="card">
 
 
-<!-- QR -->
-<div id="qrcode"></div>
+<h2>Complete Payment</h2>
 
 
-
-<h1>SayBon Translation Services</h1>
-
-
-<div class="trust">
-
-Human translated • Secure • Confidential
-
-</div>
+<div id="summary"></div>
 
 
+<button
 
-<div class="priceCard">
+class="stripe"
 
+onclick="payStripe()"
 
-<div class="priceTitle">
+>
 
-Pricing & Delivery
+Pay with Card (Stripe)
 
-</div>
-
-
-<table>
-
-
-<tr>
-<td class="standard">
-Standard — $0.025 / word
-</td>
-</tr>
-
-
-<tr>
-<td>0–300 words: 1–3 hrs</td>
-</tr>
-
-<tr>
-<td>300–1000 words: 3–6 hrs</td>
-</tr>
-
-<tr>
-<td>1000–3000 words: 6–12 hrs</td>
-</tr>
-
-<tr>
-<td>3000–5000 words: 12–24 hrs</td>
-</tr>
-
-
-<tr><td style="height:10px"></td></tr>
-
-
-<tr>
-<td class="express">
-Express — $0.05 / word
-</td>
-</tr>
-
-
-<tr>
-<td>0–300 words: 30–60 mins</td>
-</tr>
-
-<tr>
-<td>300–1000 words: 1–3 hrs</td>
-</tr>
-
-<tr>
-<td>1000–3000 words: 3–6 hrs</td>
-</tr>
-
-<tr>
-<td>3000–5000 words: 6–12 hrs</td>
-</tr>
-
-
-</table>
-
-
-</div>
-
-
-
-<input type="file" id="file">
-
-
-<button onclick="getQuote()">
-Upload Document To Get Quote
 </button>
 
 
+<button
 
-<div id="quote"></div>
+class="paystack"
+
+onclick="payPaystack()"
+
+>
+
+Pay with Paystack
+
+</button>
 
 
-<div id="selectText" class="selectText" style="display:none">
-Select Standard or Express to continue
 </div>
-
-
-
-</div>
-
-</div>
-
 
 
 <script>
 
 
-new QRCode(
-document.getElementById("qrcode"),
-{
-text:
-"https://saybonapp.com/translation/request.html",
+const data =
 
-width:80,
-height:80
-}
-);
+JSON.parse(
 
+localStorage.getItem(
 
+"saybon_payment"
 
-
-function getDelivery(words,type){
-
-if(type==="standard"){
-
-if(words<=300)return"1–3 hrs";
-if(words<=1000)return"3–6 hrs";
-if(words<=3000)return"6–12 hrs";
-return"12–24 hrs";
-
-}
-
-if(type==="express"){
-
-if(words<=300)return"30–60 mins";
-if(words<=1000)return"1–3 hrs";
-if(words<=3000)return"3–6 hrs";
-return"6–12 hrs";
-
-}
-
-}
-
-
-
-
-async function getQuote(){
-
-try{
-
-
-const fileInput=document.getElementById("file");
-
-if(!fileInput.files.length){
-
-alert("Please choose a document first");
-return;
-
-}
-
-
-const file=fileInput.files[0];
-
-
-const formData=new FormData();
-formData.append("file",file);
-
-
-
-const res=await fetch(
-
-"https://saybon-backend.onrender.com/request",
-
-{
-method:"POST",
-body:formData
-}
+)
 
 );
 
 
 
-const data=await res.json();
+document.getElementById(
 
+"summary"
 
-
-const words=data.words;
-
-
-const standardPrice=(words*0.025).toFixed(2);
-
-const expressPrice=(words*0.05).toFixed(2);
-
-
-
-const standardTime=getDelivery(words,"standard");
-
-const expressTime=getDelivery(words,"express");
-
-
-
-document.getElementById("quote").style.display="block";
-
-document.getElementById("selectText").style.display="block";
-
-
-
-document.getElementById("quote").innerHTML=
+).innerHTML =
 
 `
 
-<h3>Quote</h3>
+Words:
 
-Word count:
-<b>${words}</b>
+${data.words}
 
+<br><br>
 
-<div class="quoteBox standardBox"
+Standard:
 
-onclick="goPayment('standard',${standardPrice},${words},'${standardTime}')">
-
-<h4>Standard Quote</h4>
-
-Price:
-$${standardPrice}
+$${data.standard}
 
 <br>
 
-Delivery:
-${standardTime}
+Express:
 
-</div>
-
-
-<div class="quoteBox expressBox"
-
-onclick="goPayment('express',${expressPrice},${words},'${expressTime}')">
-
-<h4>Express Quote</h4>
-
-Price:
-$${expressPrice}
-
-<br>
-
-Delivery:
-${expressTime}
-
-</div>
+$${data.express}
 
 `;
 
 
 
-}
-catch(error){
+/* STRIPE */
 
-alert("Upload failed");
-
-}
-
-}
+async function payStripe(){
 
 
+alert(
+
+"Stripe integration ready"
+
+);
 
 
-function goPayment(type,price,words,time){
-
-localStorage.setItem("saybon_payment",
-
-JSON.stringify({
-
-type,
-price,
-words,
-time
-
-}));
-
-
-window.location.href="/translation/payment.html";
+/* next step = stripe checkout session */
 
 }
 
+
+
+/* PAYSTACK */
+
+function payPaystack(){
+
+
+const handler =
+
+PaystackPop.setup({
+
+key:
+
+"YOUR_PAYSTACK_PUBLIC_KEY",
+
+email:
+
+"user@email.com",
+
+amount:
+
+data.standard * 100,
+
+
+callback:function(){
+
+alert(
+
+"Payment Complete"
+
+);
+
+}
+
+});
+
+
+handler.openIframe();
+
+
+}
 
 
 </script>
 
 
 </body>
+
 </html>

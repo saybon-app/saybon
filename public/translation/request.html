@@ -236,6 +236,19 @@ padding:12px;
 
 border-radius:8px;
 
+cursor:pointer;
+
+transition:0.2s;
+
+}
+
+
+.quoteBox:hover{
+
+transform:scale(1.02);
+
+background:#f1f5f9;
+
 }
 
 
@@ -249,6 +262,17 @@ border:2px solid #16a34a;
 .expressBox{
 
 border:2px solid #dc2626;
+
+}
+
+
+/* tiny instruction */
+
+.selectText{
+
+font-size:12px;
+color:#64748b;
+margin-top:10px;
 
 }
 
@@ -270,8 +294,6 @@ border:2px solid #dc2626;
 
 
 
-<!-- HEADER -->
-
 <h1>SayBon Translation Services</h1>
 
 
@@ -283,8 +305,6 @@ Human translated • Secure • Confidential
 
 
 
-<!-- PRICING CARD -->
-
 <div class="priceCard">
 
 
@@ -295,124 +315,57 @@ Pricing & Delivery
 </div>
 
 
-
 <table>
 
 
 <tr>
-
 <td class="standard">
-
 Standard — $0.025 / word
-
 </td>
-
 </tr>
 
 
 <tr>
-
-<td>
-
-0–300 words: 1–3 hrs
-
-</td>
-
+<td>0–300 words: 1–3 hrs</td>
 </tr>
 
 <tr>
-
-<td>
-
-300–1000 words: 3–6 hrs
-
-</td>
-
+<td>300–1000 words: 3–6 hrs</td>
 </tr>
 
 <tr>
-
-<td>
-
-1000–3000 words: 6–12 hrs
-
-</td>
-
+<td>1000–3000 words: 6–12 hrs</td>
 </tr>
 
 <tr>
-
-<td>
-
-3000–5000 words: 12–24 hrs
-
-</td>
-
+<td>3000–5000 words: 12–24 hrs</td>
 </tr>
 
 
+<tr><td style="height:10px"></td></tr>
 
 
 <tr>
-
-<td style="height:10px">
-
-</td>
-
-</tr>
-
-
-
-
-<tr>
-
 <td class="express">
-
 Express — $0.05 / word
-
 </td>
-
 </tr>
 
 
 <tr>
-
-<td>
-
-0–300 words: 30–60 mins
-
-</td>
-
+<td>0–300 words: 30–60 mins</td>
 </tr>
 
 <tr>
-
-<td>
-
-300–1000 words: 1–3 hrs
-
-</td>
-
+<td>300–1000 words: 1–3 hrs</td>
 </tr>
 
 <tr>
-
-<td>
-
-1000–3000 words: 3–6 hrs
-
-</td>
-
+<td>1000–3000 words: 3–6 hrs</td>
 </tr>
 
 <tr>
-
-<td>
-
-3000–5000 words: 6–12 hrs
-
-</td>
-
+<td>3000–5000 words: 6–12 hrs</td>
 </tr>
 
 
@@ -427,9 +380,7 @@ Express — $0.05 / word
 
 
 <button onclick="getQuote()">
-
 Upload Document To Get Quote
-
 </button>
 
 
@@ -437,16 +388,9 @@ Upload Document To Get Quote
 <div id="quote"></div>
 
 
-
-<button
-id="submitBtn"
-style="display:none"
-onclick="submitJob()"
->
-
-Continue To Submit Job
-
-</button>
+<div id="selectText" class="selectText" style="display:none">
+Select Standard or Express to continue
+</div>
 
 
 
@@ -473,24 +417,28 @@ height:80
 
 
 
-function getStandardTime(words){
+function getDelivery(words,type){
 
-if(words <= 300) return "1–3 hrs";
-if(words <= 1000) return "3–6 hrs";
-if(words <= 3000) return "6–12 hrs";
-return "12–24 hrs";
+if(type==="standard"){
+
+if(words<=300)return"1–3 hrs";
+if(words<=1000)return"3–6 hrs";
+if(words<=3000)return"6–12 hrs";
+return"12–24 hrs";
+
+}
+
+if(type==="express"){
+
+if(words<=300)return"30–60 mins";
+if(words<=1000)return"1–3 hrs";
+if(words<=3000)return"3–6 hrs";
+return"6–12 hrs";
 
 }
 
-
-function getExpressTime(words){
-
-if(words <= 300) return "30–60 mins";
-if(words <= 1000) return "1–3 hrs";
-if(words <= 3000) return "3–6 hrs";
-return "6–12 hrs";
-
 }
+
 
 
 
@@ -499,95 +447,63 @@ async function getQuote(){
 try{
 
 
-const fileInput =
-document.getElementById("file");
+const fileInput=document.getElementById("file");
 
-
-if(!fileInput || fileInput.files.length === 0){
+if(!fileInput.files.length){
 
 alert("Please choose a document first");
-
 return;
 
 }
 
 
-const file = fileInput.files[0];
+const file=fileInput.files[0];
+
+
+const formData=new FormData();
+formData.append("file",file);
 
 
 
-const formData = new FormData();
-
-formData.append("file", file);
-
-
-
-
-const res = await fetch(
+const res=await fetch(
 
 "https://saybon-backend.onrender.com/request",
 
 {
-
 method:"POST",
-
 body:formData
-
 }
 
 );
 
 
 
-if(!res.ok){
-
-throw new Error("Server error");
-
-}
+const data=await res.json();
 
 
 
-const data = await res.json();
+const words=data.words;
+
+
+const standardPrice=(words*0.025).toFixed(2);
+
+const expressPrice=(words*0.05).toFixed(2);
 
 
 
+const standardTime=getDelivery(words,"standard");
 
-if(!data || !data.words){
-
-throw new Error("Invalid server response");
-
-}
-
-
-
-const words = data.words;
-
-
-
-const standardPrice =
-(words * 0.025).toFixed(2);
-
-
-const expressPrice =
-(words * 0.05).toFixed(2);
-
-
-const standardTime =
-getStandardTime(words);
-
-
-const expressTime =
-getExpressTime(words);
-
-
+const expressTime=getDelivery(words,"express");
 
 
 
 document.getElementById("quote").style.display="block";
 
+document.getElementById("selectText").style.display="block";
 
 
-document.getElementById("quote").innerHTML =
+
+document.getElementById("quote").innerHTML=
 
 `
 
@@ -597,7 +513,9 @@ Word count:
 <b>${words}</b>
 
 
-<div class="quoteBox standardBox">
+<div class="quoteBox standardBox"
+
+onclick="goPayment('standard',${standardPrice},${words},'${standardTime}')">
 
 <h4>Standard Quote</h4>
 
@@ -612,7 +530,9 @@ ${standardTime}
 </div>
 
 
-<div class="quoteBox expressBox">
+<div class="quoteBox expressBox"
+
+onclick="goPayment('express',${expressPrice},${words},'${expressTime}')">
 
 <h4>Express Quote</h4>
 
@@ -630,15 +550,10 @@ ${expressTime}
 
 
 
-document.getElementById("submitBtn").style.display="block";
-
-
 }
 catch(error){
 
-console.error(error);
-
-alert("Upload failed. Please try again.");
+alert("Upload failed");
 
 }
 
@@ -646,11 +561,26 @@ alert("Upload failed. Please try again.");
 
 
 
-function submitJob(){
 
-window.location.href = "/translation/payment.html";
+function goPayment(type,price,words,time){
+
+localStorage.setItem("saybon_payment",
+
+JSON.stringify({
+
+type,
+price,
+words,
+time
+
+}));
+
+
+window.location.href="/translation/payment.html";
 
 }
+
+
 
 </script>
 
