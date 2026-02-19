@@ -96,8 +96,6 @@ margin-bottom:25px;
 }
 
 
-/* PRICE */
-
 .price{
 
 font-size:28px;
@@ -107,21 +105,21 @@ margin-top:10px;
 }
 
 
-/* BUTTON BASE */
+/* SMALLER BUTTONS */
 
 .payBtn{
 
 width:100%;
 
-padding:16px;
+padding:12px;
 
-border-radius:12px;
+border-radius:10px;
 
 border:none;
 
-font-size:16px;
+font-size:15px;
 
-margin-top:15px;
+margin-top:12px;
 
 cursor:pointer;
 
@@ -144,21 +142,15 @@ linear-gradient(
 color:white;
 
 box-shadow:
-
-0 6px 0 #312e81,
-0 12px 30px rgba(0,0,0,0.2);
+0 4px 0 #312e81,
+0 10px 20px rgba(0,0,0,0.2);
 
 }
 
 
 .stripe:hover{
 
-transform:translateY(2px);
-
-box-shadow:
-
-0 3px 0 #312e81,
-0 6px 15px rgba(0,0,0,0.2);
+transform:translateY(1px);
 
 }
 
@@ -168,7 +160,6 @@ box-shadow:
 .paystack{
 
 background:
-
 linear-gradient(
 145deg,
 #00c3a3,
@@ -178,21 +169,15 @@ linear-gradient(
 color:white;
 
 box-shadow:
-
-0 6px 0 #065f46,
-0 12px 30px rgba(0,0,0,0.2);
+0 4px 0 #065f46,
+0 10px 20px rgba(0,0,0,0.2);
 
 }
 
 
 .paystack:hover{
 
-transform:translateY(2px);
-
-box-shadow:
-
-0 3px 0 #065f46,
-0 6px 15px rgba(0,0,0,0.2);
+transform:translateY(1px);
 
 }
 
@@ -213,9 +198,7 @@ color:#64748b;
 
 <div class="container">
 
-
 <div class="card">
-
 
 <h1>Complete Payment</h1>
 
@@ -229,11 +212,11 @@ Secure checkout powered by Stripe & Paystack
 <div class="summary">
 
 Service:
-<b id="type"></b>
+<b id="type">Loading...</b>
 
 <div class="price">
 
-$<span id="amount"></span>
+$<span id="amount">0.00</span>
 
 </div>
 
@@ -275,25 +258,28 @@ Pay with Mobile Money / Bank (Paystack)
 <script>
 
 
-/* LOAD DATA */
+/*
+FIXED PARAM READING
+*/
 
 const params = new URLSearchParams(window.location.search);
 
-const amount = params.get("amount");
+const amount = params.get("amount") || "0";
 
-const type = params.get("type");
+const type = params.get("type") || "Translation";
 
 
-document.getElementById("amount").innerText = amount;
+document.getElementById("amount").innerText =
+Number(amount).toFixed(2);
 
-document.getElementById("type").innerText = type;
+document.getElementById("type").innerText =
+type;
 
 
 
 /* STRIPE */
 
 async function payWithStripe(){
-
 
 const res = await fetch(
 
@@ -319,9 +305,7 @@ type:type
 
 const data = await res.json();
 
-
 window.location = data.url;
-
 
 }
 
@@ -331,9 +315,7 @@ window.location = data.url;
 
 function payWithPaystack(){
 
-
 let handler = PaystackPop.setup({
-
 
 key:"pk_live_REPLACE_THIS",
 
@@ -351,22 +333,18 @@ window.location="success.html";
 
 },
 
-
 onClose:function(){
 
 alert("Payment cancelled");
 
 }
 
-
 });
 
 
 handler.openIframe();
 
-
 }
-
 
 
 </script>
