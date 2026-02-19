@@ -1,7 +1,13 @@
 const express = require("express");
-const multer = require("multer");
-const pdfParse = require("pdf-parse");
 const cors = require("cors");
+const multer = require("multer");
+
+const pdfParse = require("pdf-parse");
+const mammoth = require("mammoth");
+
+const fs = require("fs");
+const path = require("path");
+
 require("dotenv").config();
 
 const app = express();
@@ -9,50 +15,172 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const upload = multer({ storage: multer.memoryStorage() });
 
+// REQUIRED FOR RENDER
+const PORT = process.env.PORT || 3000;
+
+
+
+/*
+ROOT ROUTE
+*/
 app.get("/", (req, res) => {
-  res.send("SayBon Backend Running");
+
+  res.send("SayBon Translator Backend Running");
+
 });
 
+
+
+/*
+UPLOAD SETUP
+*/
+const upload = multer({
+
+  dest: "uploads/"
+
+});
+
+
+
+/*
+TEXT EXTRACTION FUNCTION
+*/
+async function extractText(filePath, mimetype) {
+
+  try {
+
+    // PDF
+    if (mimetype === "application/pdf") {
+
+      const data = await pdfParse(fs.readFileSync(filePath));
+      return data.text;
+
+    }
+
+
+    // DOCX
+    if (
+      mimetype ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+
+      const result = await mammoth.extractRawText({
+
+        path: filePath
+
+      });
+
+      return result.value;
+
+    }
+
+
+    // TXT and others
+    return fs.readFileSync(filePath, "utf8");
+
+  }
+
+  catch (error) {
+
+    console.log("Extraction error:", error);
+    throw error;
+
+  }
+
+}
+
+
+
+/*
+REQUEST ENDPOINT
+*/
 app.post("/request", upload.single("file"), async (req, res) => {
+
   try {
 
     if (!req.file) {
+
       return res.status(400).json({
+
         success: false,
         message: "No file uploaded"
+
       });
+
     }
 
-    const pdfData = await pdfParse(req.file.buffer);
 
-    const words = pdfData.text.trim().split(/\s+/).length;
+    const text = await extractText(
 
-    const standardPrice = words * 0.12;
-    const expressPrice = words * 0.18;
+      req.file.path,
+      req.file.mimetype
+
+    );
+
+
+    if (!text || text.trim().length === 0) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "File contains no readable text"
+
+      });
+
+    }
+
+
+
+    const words = text.trim().split(/\s+/).length;
+
+
+
+    /*
+    PRICING
+    */
+
+    const standardPrice = Number((words * 0.12).toFixed(2));
+
+    const expressPrice = Number((words * 0.18).toFixed(2));
+
+
 
     res.json({
+
       success: true,
       words,
       standardPrice,
       expressPrice
+
     });
 
-  } catch (error) {
 
-    console.error(error);
+
+  }
+
+  catch (error) {
+
+    console.log(error);
 
     res.status(500).json({
+
       success: false,
       message: "Server error"
+
     });
 
   }
+
 });
 
-const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
+
+/*
+START SERVER
+*/
+app.listen(PORT, "0.0.0.0", () => {
+
+  console.log(`SayBon Translator running on port ${PORT}`);
+
 });
