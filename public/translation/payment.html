@@ -3,17 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Payment</title>
 
-
-<!-- Stripe -->
 <script src="https://js.stripe.com/v3/"></script>
-
-<!-- Paystack -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
-
 
 <style>
 
@@ -31,8 +26,8 @@ Roboto;
 background:
 linear-gradient(
 180deg,
-#f8fafc,
-#eef2ff
+#f1f5f9,
+#e0e7ff
 );
 
 display:flex;
@@ -41,47 +36,58 @@ justify-content:center;
 }
 
 
+/* CARD */
 
 .container{
 
-width:100%;
 max-width:600px;
-
+width:100%;
 padding:40px 20px;
 
 }
-
 
 
 .card{
 
 background:white;
 
+border-radius:16px;
+
 padding:30px;
 
-border-radius:14px;
-
 box-shadow:
-0 10px 30px rgba(0,0,0,0.08);
+0 20px 60px rgba(0,0,0,0.15);
 
 }
 
 
+/* HEADER */
 
 h1{
 
 margin:0;
-margin-bottom:20px;
+margin-bottom:10px;
+
+font-size:28px;
 
 }
 
 
+.sub{
+
+color:#64748b;
+margin-bottom:25px;
+
+}
+
+
+/* SUMMARY */
 
 .summary{
 
 background:#f8fafc;
 
-padding:15px;
+padding:20px;
 
 border-radius:10px;
 
@@ -90,51 +96,119 @@ margin-bottom:25px;
 }
 
 
+/* PRICE */
+
+.price{
+
+font-size:28px;
+font-weight:bold;
+margin-top:10px;
+
+}
+
+
+/* BUTTON BASE */
 
 .payBtn{
 
 width:100%;
 
-padding:14px;
+padding:16px;
+
+border-radius:12px;
 
 border:none;
 
-border-radius:8px;
-
-margin-top:10px;
-
 font-size:16px;
+
+margin-top:15px;
 
 cursor:pointer;
 
-color:white;
+transition:0.2s;
 
 }
 
 
+/* STRIPE */
 
 .stripe{
 
-background:#635bff;
+background:
+linear-gradient(
+145deg,
+#635bff,
+#4338ca
+);
+
+color:white;
+
+box-shadow:
+
+0 6px 0 #312e81,
+0 12px 30px rgba(0,0,0,0.2);
 
 }
 
 
+.stripe:hover{
+
+transform:translateY(2px);
+
+box-shadow:
+
+0 3px 0 #312e81,
+0 6px 15px rgba(0,0,0,0.2);
+
+}
+
+
+/* PAYSTACK */
 
 .paystack{
 
-background:#00c3f7;
+background:
+
+linear-gradient(
+145deg,
+#00c3a3,
+#059669
+);
+
+color:white;
+
+box-shadow:
+
+0 6px 0 #065f46,
+0 12px 30px rgba(0,0,0,0.2);
 
 }
 
 
+.paystack:hover{
+
+transform:translateY(2px);
+
+box-shadow:
+
+0 3px 0 #065f46,
+0 6px 15px rgba(0,0,0,0.2);
+
+}
+
+
+.secure{
+
+margin-top:20px;
+font-size:13px;
+color:#64748b;
+
+}
 
 </style>
 
-
 </head>
 <body>
-
 
 
 <div class="container">
@@ -145,18 +219,30 @@ background:#00c3f7;
 
 <h1>Complete Payment</h1>
 
+<div class="sub">
 
-<div id="summary" class="summary">
+Secure checkout powered by Stripe & Paystack
 
-Loading...
+</div>
+
+
+<div class="summary">
+
+Service:
+<b id="type"></b>
+
+<div class="price">
+
+$<span id="amount"></span>
+
+</div>
 
 </div>
 
 
 
-<button
-class="payBtn stripe"
-onclick="payStripe()">
+<button class="payBtn stripe"
+onclick="payWithStripe()">
 
 Pay with Card (Stripe)
 
@@ -164,18 +250,23 @@ Pay with Card (Stripe)
 
 
 
-<button
-class="payBtn paystack"
-onclick="payPaystack()">
+<button class="payBtn paystack"
+onclick="payWithPaystack()">
 
-Pay with Paystack
+Pay with Mobile Money / Bank (Paystack)
 
 </button>
 
 
 
+<div class="secure">
+
+256-bit encryption • Secure • Confidential
+
 </div>
 
+
+</div>
 
 </div>
 
@@ -184,60 +275,29 @@ Pay with Paystack
 <script>
 
 
-/*
-LOAD JOB
-*/
+/* LOAD DATA */
+
+const params = new URLSearchParams(window.location.search);
+
+const amount = params.get("amount");
+
+const type = params.get("type");
 
 
-const job = JSON.parse(
+document.getElementById("amount").innerText = amount;
 
-localStorage.getItem("saybon_payment")
-
-);
-
-
-
-document.getElementById("summary").innerHTML =
-
-`
-
-Type: ${job.type}
-
-<br><br>
-
-Words: ${job.words}
-
-<br><br>
-
-Delivery: ${job.time}
-
-<br><br>
-
-<b>Total: $${job.price}</b>
-
-`;
+document.getElementById("type").innerText = type;
 
 
 
-/*
-STRIPE
-*/
+/* STRIPE */
+
+async function payWithStripe(){
 
 
-function payStripe(){
+const res = await fetch(
 
-
-const stripe = Stripe(
-
-"pk_live_REPLACE_WITH_YOUR_KEY"
-
-);
-
-
-
-fetch(
-
-"https://saybon-backend.onrender.com/create-stripe-session",
+"https://saybon-backend.onrender.com/create-stripe-payment",
 
 {
 
@@ -249,79 +309,50 @@ headers:{
 
 body:JSON.stringify({
 
-amount:job.price,
-type:job.type,
-words:job.words
+amount:amount,
+type:type
 
 })
 
-}
-
-)
-
-.then(res=>res.json())
-
-.then(data=>{
-
-stripe.redirectToCheckout({
-
-sessionId:data.id
-
 });
 
-});
+
+const data = await res.json();
+
+
+window.location = data.url;
 
 
 }
 
 
 
+/* PAYSTACK */
 
-/*
-PAYSTACK
-*/
-
-
-function payPaystack(){
+function payWithPaystack(){
 
 
 let handler = PaystackPop.setup({
 
 
-key:
+key:"pk_live_REPLACE_THIS",
 
-"pk_live_REPLACE_WITH_YOUR_KEY",
+email:"customer@saybonapp.com",
 
+amount:amount * 100,
 
-email:
+currency:"USD",
 
-"user@saybonapp.com",
+callback:function(response){
 
+alert("Payment successful");
 
-amount:
-
-job.price * 100,
-
-
-currency:
-
-"USD",
-
-
-callback:
-
-function(response){
-
-window.location.href =
-
-"/translation/success.html";
+window.location="success.html";
 
 },
 
 
-onClose:
-
-function(){
+onClose:function(){
 
 alert("Payment cancelled");
 
@@ -339,7 +370,6 @@ handler.openIframe();
 
 
 </script>
-
 
 
 </body>
