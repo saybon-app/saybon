@@ -303,7 +303,7 @@ Pricing & Delivery
 
 <td class="standard">
 
-Standard — $0.12 / word
+Standard — $0.025 / word
 
 </td>
 
@@ -312,9 +312,104 @@ Standard — $0.12 / word
 
 <tr>
 
+<td>
+
+0–300 words: 1–3 hrs
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+300–1000 words: 3–6 hrs
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+1000–3000 words: 6–12 hrs
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+3000–5000 words: 12–24 hrs
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td style="height:10px">
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
 <td class="express">
 
-Express — $0.18 / word
+Express — $0.05 / word
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+
+0–300 words: 30–60 mins
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+300–1000 words: 1–3 hrs
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+1000–3000 words: 3–6 hrs
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+3000–5000 words: 6–12 hrs
 
 </td>
 
@@ -369,13 +464,14 @@ Continue To Submit Job
 <script>
 
 
-/* QR */
+/* GENERATE QR */
 
 new QRCode(
 document.getElementById("qrcode"),
 {
 text:
 "https://saybonapp.com/translation/request.html",
+
 width:80,
 height:80
 }
@@ -395,7 +491,7 @@ const fileInput =
 document.getElementById("file");
 
 
-if(fileInput.files.length === 0){
+if(!fileInput || fileInput.files.length === 0){
 
 alert("Please choose a document first");
 
@@ -431,13 +527,22 @@ body:formData
 
 
 
+if(!res.ok){
+
+throw new Error("Server error");
+
+}
+
+
+
 const data = await res.json();
 
 
 
-if(!data.success){
 
-throw new Error("Server error");
+if(!data || !data.success){
+
+throw new Error("Invalid server response");
 
 }
 
@@ -464,7 +569,12 @@ Word count:
 <h4>Standard Quote</h4>
 
 Price:
-$${data.standardPrice}
+$${Number(data.standardPrice).toFixed(2)}
+
+<br>
+
+Delivery:
+Processing after submission
 
 </div>
 
@@ -474,7 +584,12 @@ $${data.standardPrice}
 <h4>Express Quote</h4>
 
 Price:
-$${data.expressPrice}
+$${Number(data.expressPrice).toFixed(2)}
+
+<br>
+
+Delivery:
+Processing after submission
 
 </div>
 
@@ -490,7 +605,7 @@ catch(error){
 
 console.error(error);
 
-alert("Upload failed");
+alert("Upload failed. Please try again.");
 
 }
 
@@ -512,4 +627,3 @@ alert("Job submitted successfully");
 
 </body>
 </html>
-
