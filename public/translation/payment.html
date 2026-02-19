@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>SayBon Payment</title>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+
+<style>
+
+body{
+
+font-family:-apple-system;
+
+background:#f1f5f9;
+
+display:flex;
+
+justify-content:center;
+
+padding-top:80px;
+
+}
+
+
+.card{
+
+background:white;
+
+padding:30px;
+
+border-radius:12px;
+
+width:400px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
+}
+
+
+button{
+
+width:100%;
+
+padding:14px;
+
+margin-top:15px;
+
+border:none;
+
+border-radius:8px;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+
+.stripe{
+
+background:#635bff;
+
+}
+
+
+.paystack{
+
+background:#00c3f7;
+
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="card">
+
+
+<h2>Complete Payment</h2>
+
+
+<div id="summary"></div>
+
+
+<button
+
+class="stripe"
+
+onclick="payStripe()"
+
+>
+
+Pay with Card (Stripe)
+
+</button>
+
+
+<button
+
+class="paystack"
+
+onclick="payPaystack()"
+
+>
+
+Pay with Paystack
+
+</button>
+
+
+</div>
+
+
+<script>
+
+
+const data =
+
+JSON.parse(
+
+localStorage.getItem(
+
+"saybon_payment"
+
+)
+
+);
+
+
+
+document.getElementById(
+
+"summary"
+
+).innerHTML =
+
+`
+
+Words:
+
+${data.words}
+
+<br><br>
+
+Standard:
+
+$${data.standard}
+
+<br>
+
+Express:
+
+$${data.express}
+
+`;
+
+
+
+/* STRIPE */
+
+async function payStripe(){
+
+
+alert(
+
+"Stripe integration ready"
+
+);
+
+
+/* next step = stripe checkout session */
+
+}
+
+
+
+/* PAYSTACK */
+
+function payPaystack(){
+
+
+const handler =
+
+PaystackPop.setup({
+
+key:
+
+"YOUR_PAYSTACK_PUBLIC_KEY",
+
+email:
+
+"user@email.com",
+
+amount:
+
+data.standard * 100,
+
+
+callback:function(){
+
+alert(
+
+"Payment Complete"
+
+);
+
+}
+
+});
+
+
+handler.openIframe();
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
