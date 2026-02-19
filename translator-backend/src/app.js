@@ -8,13 +8,15 @@ const mammoth = require("mammoth");
 const fs = require("fs");
 const path = require("path");
 
+require("dotenv").config();
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
 
-// IMPORTANT: Render uses process.env.PORT
+// REQUIRED FOR RENDER
 const PORT = process.env.PORT || 3000;
 
 
@@ -42,12 +44,13 @@ const upload = multer({
 
 
 /*
-FILE PARSING FUNCTION
+TEXT EXTRACTION FUNCTION
 */
 async function extractText(filePath, mimetype) {
 
   try {
 
+    // PDF
     if (mimetype === "application/pdf") {
 
       const data = await pdfParse(fs.readFileSync(filePath));
@@ -55,6 +58,8 @@ async function extractText(filePath, mimetype) {
 
     }
 
+
+    // DOCX
     if (
       mimetype ===
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -70,12 +75,16 @@ async function extractText(filePath, mimetype) {
 
     }
 
+
+    // TXT and others
     return fs.readFileSync(filePath, "utf8");
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.log("Extraction error:", error);
-    return "";
+    throw error;
 
   }
 
@@ -94,11 +103,13 @@ app.post("/request", upload.single("file"), async (req, res) => {
 
       return res.status(400).json({
 
-        error: "No file uploaded"
+        success: false,
+        message: "No file uploaded"
 
       });
 
     }
+
 
     const text = await extractText(
 
@@ -106,6 +117,20 @@ app.post("/request", upload.single("file"), async (req, res) => {
       req.file.mimetype
 
     );
+
+
+    if (!text || text.trim().length === 0) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "File contains no readable text"
+
+      });
+
+    }
+
+
 
     const words = text.trim().split(/\s+/).length;
 
@@ -115,8 +140,9 @@ app.post("/request", upload.single("file"), async (req, res) => {
     PRICING
     */
 
-    const standardPrice = words * 0.03;
-    const expressPrice = words * 0.05;
+    const standardPrice = Number((words * 0.12).toFixed(2));
+
+    const expressPrice = Number((words * 0.18).toFixed(2));
 
 
 
@@ -129,13 +155,18 @@ app.post("/request", upload.single("file"), async (req, res) => {
 
     });
 
-  } catch (error) {
+
+
+  }
+
+  catch (error) {
 
     console.log(error);
 
     res.status(500).json({
 
-      error: "Parsing failed"
+      success: false,
+      message: "Server error"
 
     });
 
@@ -146,9 +177,9 @@ app.post("/request", upload.single("file"), async (req, res) => {
 
 
 /*
-START SERVER — RENDER VERSION
+START SERVER
 */
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
   console.log(`SayBon Translator running on port ${PORT}`);
 
