@@ -1,141 +1,186 @@
-﻿
-require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-const fs = require("fs");
 
-const OpenAI = require("openai");
+const pdfParse = require("pdf-parse");
+const mammoth = require("mammoth");
+
+const fs = require("fs");
+const path = require("path");
+
+require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const upload = multer({ dest: "uploads/" });
 
-const openai = new OpenAI({
- apiKey: process.env.OPENAI_API_KEY,
-});
-
-
-let jobs = [];
+// REQUIRED FOR RENDER
+const PORT = process.env.PORT || 3000;
 
 
 
-// ----------------------------
-// PHASE 1 TRANSLATION
-// ----------------------------
-
-app.post("/phase1/upload", upload.single("file"), async (req, res) => {
-
- try {
-
-  const text = fs.readFileSync(req.file.path, "utf8");
-
-  const completion = await openai.chat.completions.create({
-
-   model: "gpt-4o-mini",
-
-   messages: [
-
-    {
-     role: "system",
-     content:
-      "Translate to French professionally.",
-    },
-
-    {
-     role: "user",
-     content: text,
-    },
-
-   ],
-
-  });
-
-  const translation =
-   completion.choices[0].message.content;
-
-
-  const job = {
-
-   id: Date.now(),
-
-   phase1Result: translation,
-
-   status: "OPEN",
-
-   translators: [],
-
-   created: new Date(),
-
-   payout: 50,
-
-   deadlineHours: 24,
-
-  };
-
-
-  jobs.push(job);
-
-
-  res.json({
-
-   message: "Phase 1 complete",
-
-   job,
-
-  });
-
- } catch (err) {
-
-  console.log(err);
-
-  res.status(500).json({
-
-   error: err.message,
-
-  });
-
- }
-
-});
-
-
-
-// ----------------------------
-// GET JOBS FOR TRANSLATORS
-// ----------------------------
-
-app.get("/translator/jobs", (req, res) => {
-
- res.json(jobs);
-
-});
-
-
-
-
-// ----------------------------
-
+/*
+ROOT ROUTE
+*/
 app.get("/", (req, res) => {
 
- res.send("SayBon Backend Running");
+  res.send("SayBon Translator Backend Running");
 
 });
 
 
 
-const PORT = process.env.PORT || 4000;
+/*
+UPLOAD SETUP
+*/
+const upload = multer({
 
-
-app.listen(PORT, () => {
-
- console.log("Server running on port " + PORT);
+  dest: "uploads/"
 
 });
 
 
 
+/*
+TEXT EXTRACTION FUNCTION
+*/
+async function extractText(filePath, mimetype) {
+
+  try {
+
+    // PDF
+    if (mimetype === "application/pdf") {
+
+      const data = await pdfParse(fs.readFileSync(filePath));
+      return data.text;
+
+    }
+
+
+    // DOCX
+    if (
+      mimetype ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+
+      const result = await mammoth.extractRawText({
+
+        path: filePath
+
+      });
+
+      return result.value;
+
+    }
+
+
+    // TXT and others
+    return fs.readFileSync(filePath, "utf8");
+
+  }
+
+  catch (error) {
+
+    console.log("Extraction error:", error);
+    throw error;
+
+  }
+
+}
+
+
+
+/*
+REQUEST ENDPOINT
+*/
+app.post("/request", upload.single("file"), async (req, res) => {
+
+  try {
+
+    if (!req.file) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "No file uploaded"
+
+      });
+
+    }
+
+
+    const text = await extractText(
+
+      req.file.path,
+      req.file.mimetype
+
+    );
+
+
+    if (!text || text.trim().length === 0) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "File contains no readable text"
+
+      });
+
+    }
+
+
+
+    const words = text.trim().split(/\s+/).length;
+
+
+
+    /*
+    PRICING
+    */
+
+    const standardPrice = Number((words * 0.12).toFixed(2));
+
+    const expressPrice = Number((words * 0.18).toFixed(2));
+
+
+
+    res.json({
+
+      success: true,
+      words,
+      standardPrice,
+      expressPrice
+
+    });
+
+
+
+  }
+
+  catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+
+      success: false,
+      message: "Server error"
+
+    });
+
+  }
+
+});
+
+
+
+/*
+START SERVER
+*/
+app.listen(PORT, "0.0.0.0", () => {
+
+  console.log(`SayBon Translator running on port ${PORT}`);
+
+});
