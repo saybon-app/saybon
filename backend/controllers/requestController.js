@@ -1,6 +1,7 @@
-import { extractText } from "../services/fileParser.js";
+import pdf from "pdf-parse";
 
-export async function requestQuote(req,res){
+
+export const handleRequest = async (req, res) => {
 
 try{
 
@@ -8,28 +9,39 @@ if(!req.file){
 
 return res.status(400).json({
 success:false,
-error:"No file uploaded"
+message:"No file uploaded"
 });
 
 }
 
-const text=await extractText(req.file);
 
-const words=text.trim().split(/\s+/).length;
+const data = await pdf(req.file.buffer);
+
+const words = data.text
+.trim()
+.split(/\s+/)
+.length;
+
 
 res.json({
+
 success:true,
-words
+words:words
+
 });
 
-}catch(error){
+}
+catch(error){
 
 console.log(error);
 
 res.status(500).json({
-success:false
+
+success:false,
+message:"Parsing failed"
+
 });
 
 }
 
-}
+};

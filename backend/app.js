@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import requestRoute from "./routes/request.js";
+import requestRoutes from "./routes/requestRoutes.js";
 import stripeRoute from "./routes/stripeRoutes.js";
 
 
@@ -55,7 +55,7 @@ ROUTES
 
 // Translation quote endpoint
 
-app.use("/request", requestRoute);
+app.use("/request", requestRoutes);
 
 
 // Stripe checkout endpoint
