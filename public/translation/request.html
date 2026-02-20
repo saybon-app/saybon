@@ -250,30 +250,14 @@ const formData=new FormData();
 formData.append("file",fileInput.files[0]);
 
 const res=await fetch(
-
 "https://saybon-backend.onrender.com/request",
-
 {
 method:"POST",
 body:formData
 }
 );
 
-if(!res.ok){
-
-const text=await res.text();
-
-throw new Error(text);
-
-}
-
 const data=await res.json();
-
-if(!data.success){
-
-throw new Error("Backend rejected upload");
-
-}
 
 const words=data.words;
 
@@ -296,7 +280,7 @@ Word count:
 <b>${words}</b>
 
 <div class="quoteBox standardBox"
-onclick="goPayment('Standard','${standardPrice}','${words}','${standardTime}')">
+onclick="pay('${standardPrice}')">
 
 <h4>Standard Quote</h4>
 
@@ -311,7 +295,7 @@ ${standardTime}
 </div>
 
 <div class="quoteBox expressBox"
-onclick="goPayment('Express','${expressPrice}','${words}','${expressTime}')">
+onclick="pay('${expressPrice}')">
 
 <h4>Express Quote</h4>
 
@@ -330,8 +314,6 @@ ${expressTime}
 }
 catch(error){
 
-console.error(error);
-
 alert("Upload failed");
 
 }
@@ -339,21 +321,46 @@ alert("Upload failed");
 }
 
 
-function goPayment(type,price,words,time){
 
-window.location.href=
+async function pay(price){
 
-"/translation/payment.html"
+try{
 
-+ "?type=" + encodeURIComponent(type)
+const res=await fetch(
 
-+ "&amount=" + encodeURIComponent(price)
+"https://saybon-backend.onrender.com/stripe/create-stripe-session",
 
-+ "&words=" + encodeURIComponent(words)
+{
 
-+ "&delivery=" + encodeURIComponent(time);
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+amount:Math.round(price*100)
+
+})
 
 }
+
+);
+
+const data=await res.json();
+
+window.location.href=data.url;
+
+}
+catch(error){
+
+alert("Payment failed");
+
+}
+
+}
+
 
 </script>
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Admin Unlock</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#0f172a;
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
+color:white;
+}
+
+.card{
+background:#020617;
+padding:30px;
+border-radius:14px;
+width:320px;
+text-align:center;
+box-shadow:0 0 30px rgba(0,0,0,0.6);
+}
+
+h2{
+margin:0 0 20px 0;
+}
+
+input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:none;
+margin-bottom:15px;
+font-size:16px;
+text-align:center;
+letter-spacing:2px;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:linear-gradient(90deg,#06b6d4,#3b82f6);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+#error{
+margin-top:15px;
+color:#ef4444;
+display:none;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h2>SayBon Admin</h2>
+
+<input
+id="code"
+placeholder="Enter Admin Code"
+autocomplete="off"
+>
+
+<button onclick="unlock()">
+Unlock
+</button>
+
+<div id="error">
+Access Denied
+</div>
+
+</div>
+
+<script>
+
+const ADMIN_CODE = "s96a3y2b8o1n";
+
+
+function unlock(){
+
+const entered =
+document.getElementById("code").value.trim();
+
+
+if(entered === ADMIN_CODE){
+
+localStorage.setItem(
+"saybon_admin",
+"granted"
+);
+
+window.location.href =
+"/admin/dashboard.html";
+
+}
+
+else{
+
+document.getElementById("error").style.display = "block";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
