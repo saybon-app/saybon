@@ -54,7 +54,7 @@ margin-bottom:25px;
 background:#f1f5f9;
 padding:20px;
 border-radius:10px;
-margin-bottom:25px;
+margin-bottom:15px;
 
 }
 
@@ -63,6 +63,16 @@ margin-bottom:25px;
 font-size:32px;
 font-weight:bold;
 margin-top:5px;
+
+}
+
+select{
+
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #cbd5e1;
 
 }
 
@@ -90,12 +100,6 @@ inset 0 -2px 4px rgba(0,0,0,0.2);
 
 }
 
-.stripe:hover{
-
-transform:translateY(-2px);
-
-}
-
 .paystack{
 
 background:linear-gradient(145deg,#10b981,#059669);
@@ -104,12 +108,6 @@ color:white;
 box-shadow:
 0 6px 12px rgba(0,0,0,0.15),
 inset 0 -2px 4px rgba(0,0,0,0.2);
-
-}
-
-.paystack:hover{
-
-transform:translateY(-2px);
 
 }
 
@@ -149,6 +147,19 @@ $0.00
 
 </div>
 
+
+<select id="currencySelect" onchange="updateCurrency()">
+
+<option value="USD">USD ($)</option>
+
+<option value="GHS">GHS (₵)</option>
+
+<option value="EUR">EUR (€)</option>
+
+<option value="GBP">GBP (£)</option>
+
+</select>
+
 </div>
 
 
@@ -183,48 +194,85 @@ Pay with Mobile Money / Bank (Paystack)
 <script>
 
 
-/* =========================================
+/*
 LOAD PAYMENT DATA
-========================================= */
+*/
 
-const paymentData = JSON.parse(
-
-localStorage.getItem("saybon_payment")
-
-);
+const paymentData =
+JSON.parse(localStorage.getItem("saybon_payment"));
 
 
-let amount = 0;
-let type = "Translation";
-let currency = "USD";
+let baseAmount =
+paymentData ? Number(paymentData.price) : 0;
 
 
-if(paymentData){
+let currency="USD";
 
-amount = Number(paymentData.price);
-type = paymentData.type;
 
-document.getElementById("amount").innerHTML =
+/*
+Conversion rates
+*/
 
-"$" + amount.toFixed(2);
+const rates={
 
-}else{
+USD:1,
 
-alert("Payment session expired");
+GHS:15,
+
+EUR:0.92,
+
+GBP:0.78
+
+};
+
+
+
+function updateCurrency(){
+
+currency=
+document.getElementById("currencySelect").value;
+
+const converted=
+baseAmount*rates[currency];
+
+
+document.getElementById("amount").innerHTML=
+
+currencySymbol(currency)+
+converted.toFixed(2);
 
 }
 
 
+function currencySymbol(cur){
 
-/* =========================================
+if(cur==="USD") return "$";
+
+if(cur==="GHS") return "₵";
+
+if(cur==="EUR") return "€";
+
+if(cur==="GBP") return "£";
+
+}
+
+
+updateCurrency();
+
+
+
+/*
 STRIPE PAYMENT
-========================================= */
+*/
 
 async function payStripe(){
 
-try{
+const amount=
+baseAmount*rates[currency];
 
-const res = await fetch(
+
+const res=
+await fetch(
 
 "https://saybon-backend.onrender.com/create-stripe-session",
 
@@ -239,8 +287,10 @@ headers:{
 body:JSON.stringify({
 
 amount,
-type,
-currency
+
+currency,
+
+type:"Translation"
 
 })
 
@@ -249,39 +299,28 @@ currency
 );
 
 
-const data = await res.json();
+const data=
+await res.json();
 
 
-if(data.url){
-
-window.location.href = data.url;
-
-}else{
-
-alert("Stripe failed");
-
-}
-
-}
-catch(error){
-
-alert("Stripe error");
-
-}
+window.location.href=data.url;
 
 }
 
 
 
-/* =========================================
+/*
 PAYSTACK PAYMENT
-========================================= */
+*/
 
 async function payPaystack(){
 
-try{
+const amount=
+baseAmount*rates[currency];
 
-const res = await fetch(
+
+const res=
+await fetch(
 
 "https://saybon-backend.onrender.com/create-paystack-session",
 
@@ -296,7 +335,9 @@ headers:{
 body:JSON.stringify({
 
 amount,
+
 currency,
+
 email:"customer@saybonapp.com"
 
 })
@@ -306,25 +347,11 @@ email:"customer@saybonapp.com"
 );
 
 
-const data = await res.json();
+const data=
+await res.json();
 
 
-if(data.url){
-
-window.location.href = data.url;
-
-}else{
-
-alert("Paystack failed");
-
-}
-
-}
-catch(error){
-
-alert("Paystack error");
-
-}
+window.location.href=data.url;
 
 }
 
