@@ -108,8 +108,8 @@ display:none;
 
 .quoteBox{
 margin-top:15px;
-padding:12px;
-border-radius:8px;
+padding:15px;
+border-radius:10px;
 cursor:pointer;
 transition:0.2s;
 }
@@ -136,7 +136,6 @@ margin-top:10px;
 </style>
 
 </head>
-
 <body>
 
 <div class="container">
@@ -148,9 +147,7 @@ margin-top:10px;
 <h1>SayBon Translation Services</h1>
 
 <div class="trust">
-
 Human translated • Secure • Confidential
-
 </div>
 
 
@@ -162,18 +159,29 @@ Pricing & Delivery
 
 </div>
 
+
 <table>
 
-<tr><td class="standard">Standard — $0.025 / word</td></tr>
+<tr>
+<td class="standard">
+Standard — $0.025 / word
+</td>
+</tr>
 
 <tr><td>0–300 words: 1–3 hrs</td></tr>
 <tr><td>300–1000 words: 3–6 hrs</td></tr>
 <tr><td>1000–3000 words: 6–12 hrs</td></tr>
 <tr><td>3000–5000 words: 12–24 hrs</td></tr>
 
+
 <tr><td style="height:10px"></td></tr>
 
-<tr><td class="express">Express — $0.05 / word</td></tr>
+
+<tr>
+<td class="express">
+Express — $0.05 / word
+</td>
+</tr>
 
 <tr><td>0–300 words: 30–60 mins</td></tr>
 <tr><td>300–1000 words: 1–3 hrs</td></tr>
@@ -185,7 +193,9 @@ Pricing & Delivery
 </div>
 
 
+
 <input type="file" id="file" required>
+
 
 <button onclick="getQuote()">
 
@@ -196,21 +206,28 @@ Upload Document To Get Quote
 
 <div id="quote"></div>
 
+
 <div id="selectText" class="selectText" style="display:none">
 
 Select Standard or Express to continue
 
 </div>
 
-</div>
 
 </div>
+</div>
+
 
 
 <script>
 
 
-/* QR */
+
+/*
+============================
+QR CODE
+============================
+*/
 
 new QRCode(
 
@@ -221,7 +238,6 @@ document.getElementById("qrcode"),
 text:"https://saybonapp.com/translation/request.html",
 
 width:80,
-
 height:80
 
 }
@@ -230,7 +246,12 @@ height:80
 
 
 
-/* Delivery */
+
+/*
+============================
+DELIVERY TIME
+============================
+*/
 
 function getDelivery(words,type){
 
@@ -263,29 +284,35 @@ return"6–12 hrs";
 
 
 
-/* Quote */
+
+/*
+============================
+GET QUOTE
+============================
+*/
+
 
 async function getQuote(){
 
-try{
+
+const fileInput=document.getElementById("file");
 
 
-const file=document.getElementById("file").files[0];
+if(!fileInput.files.length){
 
-
-if(!file){
-
-alert("Please select file");
+alert("Please choose document");
 
 return;
 
 }
 
 
+try{
+
+
 const formData=new FormData();
 
-formData.append("file",file);
-
+formData.append("file",fileInput.files[0]);
 
 
 const res=await fetch(
@@ -311,14 +338,13 @@ throw new Error("Upload failed");
 }
 
 
-
 const data=await res.json();
 
 
 
 if(!data.success){
 
-throw new Error("Processing failed");
+throw new Error("Backend error");
 
 }
 
@@ -328,9 +354,15 @@ const words=data.words;
 
 
 
-const standard=(words*0.025).toFixed(2);
+const standardPrice=(words*0.025).toFixed(2);
 
-const express=(words*0.05).toFixed(2);
+const expressPrice=(words*0.05).toFixed(2);
+
+
+
+const standardTime=getDelivery(words,"standard");
+
+const expressTime=getDelivery(words,"express");
 
 
 
@@ -347,104 +379,101 @@ document.getElementById("quote").innerHTML=`
 Word count: <b>${words}</b>
 
 
+
 <div class="quoteBox standardBox"
 
-onclick="pay(${standard})">
+onclick="goPayment(
+
+'Standard',
+
+'${standardPrice}',
+
+'${words}',
+
+'${standardTime}'
+
+)">
 
 <h4>Standard</h4>
 
-$${standard}
+Price: $${standardPrice}
 
 <br>
 
-${getDelivery(words,"standard")}
+Delivery: ${standardTime}
 
 </div>
 
 
+
 <div class="quoteBox expressBox"
 
-onclick="pay(${express})">
+onclick="goPayment(
+
+'Express',
+
+'${expressPrice}',
+
+'${words}',
+
+'${expressTime}'
+
+)">
 
 <h4>Express</h4>
 
-$${express}
+Price: $${expressPrice}
 
 <br>
 
-${getDelivery(words,"express")}
+Delivery: ${expressTime}
 
 </div>
 
 `;
 
 
+
 }
 
-catch(e){
+
+catch(error){
+
+console.error(error);
 
 alert("Upload failed");
 
 }
 
-}
-
-
-
-/* STRIPE PAYMENT */
-
-async function pay(price){
-
-try{
-
-
-const res=await fetch(
-
-"https://saybon-backend.onrender.com/create-stripe-session",
-
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-amount:Math.round(price*100)
-
-})
-
-}
-
-);
-
-
-
-const data=await res.json();
-
-
-
-if(!data.url){
-
-throw new Error();
 
 }
 
 
-window.location.href=data.url;
 
 
-}
 
-catch{
+/*
+============================
+GO PAYMENT
+============================
+*/
 
-alert("Payment failed");
 
-}
+function goPayment(type,price,words,time){
+
+
+window.location.href=
+
+"/translation/payment.html"
+
++"?type="+encodeURIComponent(type)
+
++"&amount="+encodeURIComponent(price)
+
++"&words="+encodeURIComponent(words)
+
++"&delivery="+encodeURIComponent(time);
+
 
 }
 
@@ -454,5 +483,4 @@ alert("Payment failed");
 
 
 </body>
-
 </html>

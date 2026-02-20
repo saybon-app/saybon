@@ -7,6 +7,8 @@
 
 <title>SayBon Payment</title>
 
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
 <style>
 
 body{
@@ -20,131 +22,43 @@ height:100vh;
 }
 
 .card{
-
 background:white;
-padding:35px;
-border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,0.12);
-width:420px;
+padding:30px;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+width:400px;
 text-align:center;
-
 }
 
-h1{
-margin-bottom:5px;
-}
-
-.sub{
-color:#64748b;
-font-size:14px;
-margin-bottom:25px;
-}
-
-.amountBox{
-
-background:#f1f5f9;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-
-}
-
-.amount{
-
-font-size:32px;
-font-weight:bold;
+h2{
 margin-bottom:10px;
-
 }
 
-select{
-
-padding:8px;
-border-radius:8px;
-border:1px solid #cbd5e1;
-font-size:14px;
-
+.price{
+font-size:28px;
+font-weight:bold;
+margin-bottom:20px;
 }
-
 
 button{
 
 width:100%;
-padding:13px;
+padding:14px;
 border:none;
-border-radius:10px;
-font-size:15px;
+border-radius:8px;
+margin-top:10px;
+font-size:16px;
 cursor:pointer;
-margin-top:12px;
-transition:all 0.15s ease;
+color:white;
 
 }
-
-
-/* Stripe */
 
 .stripe{
-
-background:linear-gradient(145deg,#2563eb,#1d4ed8);
-color:white;
-
-box-shadow:
-0 6px 12px rgba(0,0,0,0.2);
-
+background:linear-gradient(90deg,#635bff,#7a73ff);
 }
-
-.stripe:hover{
-
-transform:translateY(-2px);
-box-shadow:
-0 10px 18px rgba(0,0,0,0.25);
-
-}
-
-.stripe:active{
-
-transform:translateY(2px);
-box-shadow:
-0 3px 6px rgba(0,0,0,0.2);
-
-}
-
-
-/* Paystack */
 
 .paystack{
-
-background:linear-gradient(145deg,#10b981,#059669);
-color:white;
-
-box-shadow:
-0 6px 12px rgba(0,0,0,0.2);
-
-}
-
-.paystack:hover{
-
-transform:translateY(-2px);
-box-shadow:
-0 10px 18px rgba(0,0,0,0.25);
-
-}
-
-.paystack:active{
-
-transform:translateY(2px);
-box-shadow:
-0 3px 6px rgba(0,0,0,0.2);
-
-}
-
-
-.secure{
-
-margin-top:18px;
-font-size:12px;
-color:#64748b;
-
+background:linear-gradient(90deg,#00c3f7,#00a8e8);
 }
 
 </style>
@@ -153,42 +67,13 @@ color:#64748b;
 <body>
 
 
-
 <div class="card">
 
+<h2>Complete Payment</h2>
 
-<h1>Complete Payment</h1>
+<div id="summary"></div>
 
-<div class="sub">
-
-Secure checkout powered by Stripe & Paystack
-
-</div>
-
-
-
-<div class="amountBox">
-
-Service Amount
-
-<div class="amount" id="amount">$0.00</div>
-
-
-<select id="currency" onchange="changeCurrency()">
-
-<option value="USD">$ USD</option>
-
-<option value="GHS">₵ GHS</option>
-
-<option value="EUR">€ EUR</option>
-
-<option value="GBP">£ GBP</option>
-
-</select>
-
-
-</div>
-
+<div class="price" id="price"></div>
 
 
 <button class="stripe" onclick="payStripe()">
@@ -198,20 +83,11 @@ Pay with Card (Stripe)
 </button>
 
 
-
 <button class="paystack" onclick="payPaystack()">
 
-Pay with Mobile Money / Bank
+Pay with Paystack
 
 </button>
-
-
-
-<div class="secure">
-
-256-bit encryption • Secure • Confidential
-
-</div>
 
 
 </div>
@@ -221,76 +97,45 @@ Pay with Mobile Money / Bank
 <script>
 
 
-/* ===============================
-LOAD PAYMENT DATA
-=============================== */
+/*
+===========================
+GET URL PARAMS
+===========================
+*/
 
-const paymentData =
-JSON.parse(localStorage.getItem("saybon_payment"));
+const params=new URLSearchParams(window.location.search);
 
+const type=params.get("type");
 
-let baseAmount = paymentData ? Number(paymentData.price) : 0;
+const amount=params.get("amount");
 
-let selectedCurrency="USD";
+const words=params.get("words");
 
-
-const rates={
-
-USD:1,
-GHS:15,
-EUR:0.92,
-GBP:0.78
-
-};
+const delivery=params.get("delivery");
 
 
+document.getElementById("summary").innerHTML=`
 
-function updateDisplay(){
+${type} Translation<br>
+${words} words<br>
+Delivery: ${delivery}
 
-const converted =
-baseAmount * rates[selectedCurrency];
+`;
 
-
-let symbol="$";
-
-if(selectedCurrency==="GHS") symbol="₵";
-if(selectedCurrency==="EUR") symbol="€";
-if(selectedCurrency==="GBP") symbol="£";
-
-
-document.getElementById("amount").innerHTML=
-symbol + converted.toFixed(2);
-
-}
+document.getElementById("price").innerHTML="$"+amount;
 
 
 
-function changeCurrency(){
+/*
+===========================
+STRIPE PAYMENT
+===========================
+*/
 
-selectedCurrency=
-document.getElementById("currency").value;
-
-updateDisplay();
-
-}
-
-
-
-updateDisplay();
-
-
-
-/* ===============================
-STRIPE
-=============================== */
 
 async function payStripe(){
 
 try{
-
-const btn=document.querySelector(".stripe");
-
-btn.innerHTML="Processing...";
 
 const res=await fetch(
 
@@ -306,12 +151,7 @@ headers:{
 
 body:JSON.stringify({
 
-amount:
-baseAmount * rates[selectedCurrency],
-
-currency:selectedCurrency,
-
-type:paymentData.type
+amount:Math.round(amount*100)
 
 })
 
@@ -323,17 +163,8 @@ type:paymentData.type
 const data=await res.json();
 
 
-if(data.url){
-
 window.location.href=data.url;
 
-}else{
-
-alert("Stripe failed");
-
-btn.innerHTML="Pay with Card (Stripe)";
-
-}
 
 }
 catch{
@@ -346,75 +177,49 @@ alert("Stripe failed");
 
 
 
-/* ===============================
-PAYSTACK
-=============================== */
-
-async function payPaystack(){
-
-try{
-
-const btn=document.querySelector(".paystack");
-
-btn.innerHTML="Processing...";
+/*
+===========================
+PAYSTACK PAYMENT
+===========================
+*/
 
 
-const res=await fetch(
 
-"https://saybon-backend.onrender.com/create-paystack-session",
+function payPaystack(){
 
-{
 
-method:"POST",
+const handler=PaystackPop.setup({
 
-headers:{
-"Content-Type":"application/json"
+key:"pk_live_xxxxxxxxxxxxxx",
+
+email:"customer@saybonapp.com",
+
+amount:Math.round(amount*100),
+
+currency:"USD",
+
+callback:function(response){
+
+window.location.href="/translation/success.html";
+
 },
 
-body:JSON.stringify({
+onClose:function(){
 
-amount:
-baseAmount * rates[selectedCurrency],
-
-currency:selectedCurrency,
-
-email:"customer@saybonapp.com"
-
-})
+alert("Payment cancelled");
 
 }
 
-);
+});
 
 
-const data=await res.json();
-
-
-if(data.url){
-
-window.location.href=data.url;
-
-}else{
-
-alert("Paystack failed");
-
-btn.innerHTML="Pay with Mobile Money / Bank";
-
-}
-
-}
-catch{
-
-alert("Paystack failed");
-
-}
+handler.openIframe();
 
 }
 
 
 
 </script>
-
 
 
 </body>
