@@ -1,161 +1,127 @@
-﻿import express from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import Stripe from "stripe";
-import fetch from "node-fetch";
-import multer from "multer";
+
+import requestRoute from "./routes/request.js";
+import stripeRoute from "./routes/stripeRoutes.js";
+
+
+/*
+========================================
+INIT
+========================================
+*/
 
 dotenv.config();
 
 const app = express();
 
+
+
+/*
+========================================
+MIDDLEWARE
+========================================
+*/
+
 app.use(cors());
+
 app.use(express.json());
 
-const upload = multer();
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
+app.use(express.urlencoded({ extended: true }));
 
 
 
-app.get("/", (req,res)=>{
+/*
+========================================
+HEALTH CHECK
+========================================
+*/
 
-res.send("SayBon Backend Running");
+app.get("/", (req, res) => {
 
-});
-
-
-
-app.post("/create-stripe-session", async (req,res)=>{
-
-try{
-
-const { amount, currency } = req.body;
-
-const session = await stripe.checkout.sessions.create({
-
-payment_method_types:["card"],
-
-mode:"payment",
-
-line_items:[{
-
-price_data:{
-
-currency: currency || "usd",
-
-product_data:{
-name:"SayBon Translation"
-},
-
-unit_amount: Math.round(amount*100)
-
-},
-
-quantity:1
-
-}],
-
-success_url:
-
-"https://saybonapp.com/success.html",
-
-cancel_url:
-
-"https://saybonapp.com/translation/payment.html"
-
-});
-
-res.json({
-
-url:session.url
-
-});
-
-}catch(e){
-
-res.status(500).json({
-
-error:e.message
-
-});
-
-}
+    res.send("SayBon Backend Running");
 
 });
 
 
 
-app.post("/create-paystack-session", async (req,res)=>{
+/*
+========================================
+ROUTES
+========================================
+*/
 
-try{
 
-const { amount, email, currency } = req.body;
+// Translation quote endpoint
 
-const response = await fetch(
+app.use("/request", requestRoute);
 
-"https://api.paystack.co/transaction/initialize",
 
-{
+// Stripe checkout endpoint
 
-method:"POST",
+app.use("/create-stripe-session", stripeRoute);
 
-headers:{
 
-Authorization:
 
-`Bearer ${PAYSTACK_SECRET_KEY}`,
 
-"Content-Type":"application/json"
+/*
+========================================
+404 HANDLER
+========================================
+*/
 
-},
+app.use((req, res) => {
 
-body: JSON.stringify({
+    res.status(404).json({
 
-email: email || "customer@saybonapp.com",
+        success: false,
 
-amount: Math.round(amount*100),
+        message: "Endpoint not found"
 
-currency: currency || "GHS",
-
-callback_url:
-
-"https://saybonapp.com/success.html"
-
-})
-
-}
-
-);
-
-const data = await response.json();
-
-res.json({
-
-url:data.data.authorization_url
-
-});
-
-}catch(e){
-
-res.status(500).json({
-
-error:e.message
-
-});
-
-}
+    });
 
 });
 
 
+
+/*
+========================================
+ERROR HANDLER
+========================================
+*/
+
+app.use((error, req, res, next) => {
+
+    console.error(error);
+
+    res.status(500).json({
+
+        success: false,
+
+        message: "Server error"
+
+    });
+
+});
+
+
+
+/*
+========================================
+SERVER
+========================================
+*/
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, ()=>{
 
-console.log("SayBon backend running");
+app.listen(PORT, () => {
+
+    console.log(
+
+        "SayBon backend running on port " + PORT
+
+    );
 
 });
