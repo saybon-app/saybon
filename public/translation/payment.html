@@ -23,19 +23,17 @@ height:100vh;
 
 }
 
-
 .card{
 
 background:white;
-padding:30px;
+padding:35px;
 border-radius:16px;
 box-shadow:0 15px 40px rgba(0,0,0,0.12);
 
-width:380px;
+width:420px;
 text-align:center;
 
 }
-
 
 h1{
 
@@ -43,65 +41,43 @@ margin-bottom:5px;
 
 }
 
-
 .sub{
 
 color:#64748b;
 font-size:14px;
-margin-bottom:20px;
+margin-bottom:25px;
 
 }
-
 
 .amountBox{
 
 background:#f1f5f9;
-padding:18px;
+padding:20px;
 border-radius:10px;
-margin-bottom:20px;
+margin-bottom:25px;
 
 }
 
-
 .amount{
 
-font-size:28px;
+font-size:32px;
 font-weight:bold;
 margin-top:5px;
 
 }
 
-
-select{
-
-width:100%;
-padding:8px;
-border-radius:6px;
-margin-top:10px;
-
-}
-
-
 button{
 
-width:85%;
-padding:10px;
-
+width:100%;
+padding:12px;
 border:none;
 border-radius:10px;
-
-font-size:14px;
-
+font-size:15px;
 cursor:pointer;
-
 margin-top:12px;
-
 transition:0.2s;
 
 }
-
-
-/* Stripe */
 
 .stripe{
 
@@ -114,15 +90,11 @@ inset 0 -2px 4px rgba(0,0,0,0.2);
 
 }
 
-
 .stripe:hover{
 
 transform:translateY(-2px);
 
 }
-
-
-/* Paystack */
 
 .paystack{
 
@@ -135,24 +107,21 @@ inset 0 -2px 4px rgba(0,0,0,0.2);
 
 }
 
-
 .paystack:hover{
 
 transform:translateY(-2px);
 
 }
 
-
 .secure{
 
-margin-top:15px;
+margin-top:20px;
 font-size:12px;
 color:#64748b;
 
 }
 
 </style>
-
 
 </head>
 <body>
@@ -170,26 +139,15 @@ Secure checkout powered by Stripe & Paystack
 </div>
 
 
-
 <div class="amountBox">
 
 Service:
 
-<div class="amount" id="amount">$0.00</div>
+<div class="amount" id="amount">
 
+$0.00
 
-<select id="currency" onchange="updateCurrency()">
-
-<option value="USD">USD</option>
-
-<option value="GHS">GHS</option>
-
-<option value="EUR">EUR</option>
-
-<option value="GBP">GBP</option>
-
-</select>
-
+</div>
 
 </div>
 
@@ -197,7 +155,7 @@ Service:
 
 <button class="stripe" onclick="payStripe()">
 
-Pay with Card
+Pay with Card (Stripe)
 
 </button>
 
@@ -205,7 +163,7 @@ Pay with Card
 
 <button class="paystack" onclick="payPaystack()">
 
-Pay with Mobile Money / Bank
+Pay with Mobile Money / Bank (Paystack)
 
 </button>
 
@@ -229,7 +187,6 @@ Pay with Mobile Money / Bank
 LOAD PAYMENT DATA
 ========================================= */
 
-
 const paymentData = JSON.parse(
 
 localStorage.getItem("saybon_payment")
@@ -237,47 +194,25 @@ localStorage.getItem("saybon_payment")
 );
 
 
-let baseAmount = paymentData?.price || 0;
-
+let amount = 0;
+let type = "Translation";
 let currency = "USD";
 
 
-/* conversion rates */
+if(paymentData){
 
-const rates = {
-
-USD:1,
-
-GHS:15.5,
-
-EUR:0.92,
-
-GBP:0.78
-
-};
-
-
-function updateCurrency(){
-
-currency = document.getElementById("currency").value;
-
-displayAmount();
-
-}
-
-
-function displayAmount(){
-
-const converted = baseAmount * rates[currency];
+amount = Number(paymentData.price);
+type = paymentData.type;
 
 document.getElementById("amount").innerHTML =
 
-currency + " " + converted.toFixed(2);
+"$" + amount.toFixed(2);
+
+}else{
+
+alert("Payment session expired");
 
 }
-
-
-displayAmount();
 
 
 
@@ -285,11 +220,9 @@ displayAmount();
 STRIPE PAYMENT
 ========================================= */
 
-
 async function payStripe(){
 
-const converted = baseAmount * rates[currency];
-
+try{
 
 const res = await fetch(
 
@@ -305,11 +238,9 @@ headers:{
 
 body:JSON.stringify({
 
-amount:converted,
-
-type:paymentData.type,
-
-currency:currency.toLowerCase()
+amount,
+type,
+currency
 
 })
 
@@ -321,7 +252,22 @@ currency:currency.toLowerCase()
 const data = await res.json();
 
 
+if(data.url){
+
 window.location.href = data.url;
+
+}else{
+
+alert("Stripe failed");
+
+}
+
+}
+catch(error){
+
+alert("Stripe error");
+
+}
 
 }
 
@@ -331,11 +277,9 @@ window.location.href = data.url;
 PAYSTACK PAYMENT
 ========================================= */
 
-
 async function payPaystack(){
 
-const converted = baseAmount * rates[currency];
-
+try{
 
 const res = await fetch(
 
@@ -351,10 +295,8 @@ headers:{
 
 body:JSON.stringify({
 
-amount:converted,
-
-currency:currency,
-
+amount,
+currency,
 email:"customer@saybonapp.com"
 
 })
@@ -367,7 +309,22 @@ email:"customer@saybonapp.com"
 const data = await res.json();
 
 
+if(data.url){
+
 window.location.href = data.url;
+
+}else{
+
+alert("Paystack failed");
+
+}
+
+}
+catch(error){
+
+alert("Paystack error");
+
+}
 
 }
 
