@@ -136,6 +136,7 @@ margin-top:10px;
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
@@ -147,22 +148,23 @@ margin-top:10px;
 <h1>SayBon Translation Services</h1>
 
 <div class="trust">
+
 Human translated • Secure • Confidential
+
 </div>
+
 
 <div class="priceCard">
 
 <div class="priceTitle">
+
 Pricing & Delivery
+
 </div>
 
 <table>
 
-<tr>
-<td class="standard">
-Standard — $0.025 / word
-</td>
-</tr>
+<tr><td class="standard">Standard — $0.025 / word</td></tr>
 
 <tr><td>0–300 words: 1–3 hrs</td></tr>
 <tr><td>300–1000 words: 3–6 hrs</td></tr>
@@ -171,11 +173,7 @@ Standard — $0.025 / word
 
 <tr><td style="height:10px"></td></tr>
 
-<tr>
-<td class="express">
-Express — $0.05 / word
-</td>
-</tr>
+<tr><td class="express">Express — $0.05 / word</td></tr>
 
 <tr><td>0–300 words: 30–60 mins</td></tr>
 <tr><td>300–1000 words: 1–3 hrs</td></tr>
@@ -186,133 +184,204 @@ Express — $0.05 / word
 
 </div>
 
+
 <input type="file" id="file" required>
 
 <button onclick="getQuote()">
+
 Upload Document To Get Quote
+
 </button>
+
 
 <div id="quote"></div>
 
 <div id="selectText" class="selectText" style="display:none">
+
 Select Standard or Express to continue
+
 </div>
 
 </div>
+
 </div>
+
 
 <script>
 
+
+/* QR */
+
 new QRCode(
+
 document.getElementById("qrcode"),
+
 {
+
 text:"https://saybonapp.com/translation/request.html",
+
 width:80,
+
 height:80
+
 }
+
 );
 
+
+
+/* Delivery */
 
 function getDelivery(words,type){
 
 if(type==="standard"){
+
 if(words<=300)return"1–3 hrs";
+
 if(words<=1000)return"3–6 hrs";
+
 if(words<=3000)return"6–12 hrs";
+
 return"12–24 hrs";
+
 }
+
 
 if(type==="express"){
+
 if(words<=300)return"30–60 mins";
+
 if(words<=1000)return"1–3 hrs";
+
 if(words<=3000)return"3–6 hrs";
+
 return"6–12 hrs";
-}
 
 }
 
+}
+
+
+
+/* Quote */
 
 async function getQuote(){
 
-const fileInput=document.getElementById("file");
+try{
 
-if(!fileInput.files.length){
 
-alert("Please choose a document first");
+const file=document.getElementById("file").files[0];
+
+
+if(!file){
+
+alert("Please select file");
+
 return;
 
 }
 
-try{
 
 const formData=new FormData();
 
-formData.append("file",fileInput.files[0]);
+formData.append("file",file);
+
+
 
 const res=await fetch(
+
 "https://saybon-backend.onrender.com/request",
+
 {
+
 method:"POST",
+
 body:formData
+
 }
+
 );
+
+
+
+if(!res.ok){
+
+throw new Error("Upload failed");
+
+}
+
+
 
 const data=await res.json();
 
+
+
+if(!data.success){
+
+throw new Error("Processing failed");
+
+}
+
+
+
 const words=data.words;
 
-const standardPrice=(words*0.025).toFixed(2);
-const expressPrice=(words*0.05).toFixed(2);
 
-const standardTime=getDelivery(words,"standard");
-const expressTime=getDelivery(words,"express");
+
+const standard=(words*0.025).toFixed(2);
+
+const express=(words*0.05).toFixed(2);
+
+
 
 document.getElementById("quote").style.display="block";
+
 document.getElementById("selectText").style.display="block";
 
-document.getElementById("quote").innerHTML=
 
-`
+
+document.getElementById("quote").innerHTML=`
 
 <h3>Quote</h3>
 
-Word count:
-<b>${words}</b>
+Word count: <b>${words}</b>
+
 
 <div class="quoteBox standardBox"
-onclick="pay('${standardPrice}')">
 
-<h4>Standard Quote</h4>
+onclick="pay(${standard})">
 
-Price:
-$${standardPrice}
+<h4>Standard</h4>
+
+$${standard}
 
 <br>
 
-Delivery:
-${standardTime}
+${getDelivery(words,"standard")}
 
 </div>
 
+
 <div class="quoteBox expressBox"
-onclick="pay('${expressPrice}')">
 
-<h4>Express Quote</h4>
+onclick="pay(${express})">
 
-Price:
-$${expressPrice}
+<h4>Express</h4>
+
+$${express}
 
 <br>
 
-Delivery:
-${expressTime}
+${getDelivery(words,"express")}
 
 </div>
 
 `;
 
+
 }
-catch(error){
+
+catch(e){
 
 alert("Upload failed");
 
@@ -322,20 +391,25 @@ alert("Upload failed");
 
 
 
+/* STRIPE PAYMENT */
+
 async function pay(price){
 
 try{
 
+
 const res=await fetch(
 
-"https://saybon-backend.onrender.com/stripe/create-stripe-session",
+"https://saybon-backend.onrender.com/create-stripe-session",
 
 {
 
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 body:JSON.stringify({
@@ -348,12 +422,25 @@ amount:Math.round(price*100)
 
 );
 
+
+
 const data=await res.json();
+
+
+
+if(!data.url){
+
+throw new Error();
+
+}
+
 
 window.location.href=data.url;
 
+
 }
-catch(error){
+
+catch{
 
 alert("Payment failed");
 
@@ -362,7 +449,10 @@ alert("Payment failed");
 }
 
 
+
 </script>
 
+
 </body>
+
 </html>
