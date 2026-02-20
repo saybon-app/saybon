@@ -7,20 +7,18 @@
 
 <title>SayBon Payment</title>
 
+<script src="https://js.stripe.com/v3/"></script>
+
 <style>
 
 body{
-
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
-
 background:linear-gradient(180deg,#eef2ff,#f8fafc);
-
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-
 }
 
 .card{
@@ -29,32 +27,8 @@ background:white;
 padding:35px;
 border-radius:16px;
 box-shadow:0 15px 40px rgba(0,0,0,0.12);
-
 width:420px;
 text-align:center;
-
-}
-
-h1{
-
-margin-bottom:5px;
-
-}
-
-.sub{
-
-color:#64748b;
-font-size:14px;
-margin-bottom:25px;
-
-}
-
-.amountBox{
-
-background:#f1f5f9;
-padding:20px;
-border-radius:10px;
-margin-bottom:15px;
 
 }
 
@@ -62,32 +36,28 @@ margin-bottom:15px;
 
 font-size:32px;
 font-weight:bold;
-margin-top:5px;
-
-}
-
-select{
-
-width:100%;
-padding:10px;
 margin-top:10px;
-border-radius:8px;
-border:1px solid #cbd5e1;
 
 }
+
+
+/* BUTTON BASE */
 
 button{
 
 width:100%;
-padding:12px;
+padding:14px;
 border:none;
-border-radius:10px;
-font-size:15px;
+border-radius:12px;
+font-size:16px;
 cursor:pointer;
-margin-top:12px;
-transition:0.2s;
+margin-top:15px;
+transition:all 0.15s ease;
 
 }
+
+
+/* STRIPE */
 
 .stripe{
 
@@ -95,10 +65,13 @@ background:linear-gradient(145deg,#2563eb,#1d4ed8);
 color:white;
 
 box-shadow:
-0 6px 12px rgba(0,0,0,0.15),
-inset 0 -2px 4px rgba(0,0,0,0.2);
+0 6px 0 #1e40af,
+0 6px 12px rgba(0,0,0,0.2);
 
 }
+
+
+/* PAYSTACK */
 
 .paystack{
 
@@ -106,10 +79,32 @@ background:linear-gradient(145deg,#10b981,#059669);
 color:white;
 
 box-shadow:
-0 6px 12px rgba(0,0,0,0.15),
-inset 0 -2px 4px rgba(0,0,0,0.2);
+0 6px 0 #047857,
+0 6px 12px rgba(0,0,0,0.2);
 
 }
+
+
+/* HOVER */
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+
+/* CLICK */
+
+button:active{
+
+transform:translateY(4px);
+
+box-shadow:
+0 2px 0 rgba(0,0,0,0.2);
+
+}
+
 
 .secure{
 
@@ -125,48 +120,21 @@ color:#64748b;
 <body>
 
 
+
 <div class="card">
 
-
-<h1>Complete Payment</h1>
-
-<div class="sub">
-
-Secure checkout powered by Stripe & Paystack
-
-</div>
-
-
-<div class="amountBox">
-
-Service:
+<h2>Complete Payment</h2>
 
 <div class="amount" id="amount">
 
-$0.00
+Loading...
 
 </div>
-
-
-<select id="currencySelect" onchange="updateCurrency()">
-
-<option value="USD">USD ($)</option>
-
-<option value="GHS">GHS (₵)</option>
-
-<option value="EUR">EUR (€)</option>
-
-<option value="GBP">GBP (£)</option>
-
-</select>
-
-</div>
-
 
 
 <button class="stripe" onclick="payStripe()">
 
-Pay with Card (Stripe)
+Pay with Card
 
 </button>
 
@@ -174,10 +142,9 @@ Pay with Card (Stripe)
 
 <button class="paystack" onclick="payPaystack()">
 
-Pay with Mobile Money / Bank (Paystack)
+Pay with Mobile Money / Bank
 
 </button>
-
 
 
 <div class="secure">
@@ -194,166 +161,84 @@ Pay with Mobile Money / Bank (Paystack)
 <script>
 
 
-/*
-LOAD PAYMENT DATA
-*/
+/* LOAD PAYMENT DATA */
 
-const paymentData =
-JSON.parse(localStorage.getItem("saybon_payment"));
-
-
-let baseAmount =
-paymentData ? Number(paymentData.price) : 0;
-
-
-let currency="USD";
-
-
-/*
-Conversion rates
-*/
-
-const rates={
-
-USD:1,
-
-GHS:15,
-
-EUR:0.92,
-
-GBP:0.78
-
-};
-
-
-
-function updateCurrency(){
-
-currency=
-document.getElementById("currencySelect").value;
-
-const converted=
-baseAmount*rates[currency];
-
-
-document.getElementById("amount").innerHTML=
-
-currencySymbol(currency)+
-converted.toFixed(2);
-
-}
-
-
-function currencySymbol(cur){
-
-if(cur==="USD") return "$";
-
-if(cur==="GHS") return "₵";
-
-if(cur==="EUR") return "€";
-
-if(cur==="GBP") return "£";
-
-}
-
-
-updateCurrency();
-
-
-
-/*
-STRIPE PAYMENT
-*/
-
-async function payStripe(){
-
-const amount=
-baseAmount*rates[currency];
-
-
-const res=
-await fetch(
-
-"https://saybon-backend.onrender.com/create-stripe-session",
-
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-amount,
-
-currency,
-
-type:"Translation"
-
-})
-
-}
-
+const paymentData = JSON.parse(
+localStorage.getItem("saybon_payment")
 );
 
 
-const data=
-await res.json();
+let amount = paymentData.price;
+
+document.getElementById("amount").innerHTML =
+"$" + amount;
 
 
-window.location.href=data.url;
+
+
+/* STRIPE PAYMENT */
+
+async function payStripe(){
+
+const res = await fetch(
+"https://saybon-backend.onrender.com/create-stripe-session",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+
+amount:amount,
+
+type:paymentData.type,
+
+currency:"usd"
+
+})
+});
+
+const data = await res.json();
+
+
+window.location.href = data.url;
+
 
 }
 
 
 
-/*
-PAYSTACK PAYMENT
-*/
+
+/* PAYSTACK PAYMENT */
 
 async function payPaystack(){
 
-const amount=
-baseAmount*rates[currency];
-
-
-const res=
-await fetch(
-
+const res = await fetch(
 "https://saybon-backend.onrender.com/create-paystack-session",
-
 {
-
 method:"POST",
-
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify({
 
-amount,
+amount:amount,
 
-currency,
+currency:"GHS",
 
 email:"customer@saybonapp.com"
 
 })
+});
+
+const data = await res.json();
+
+
+window.location.href = data.url;
+
 
 }
 
-);
-
-
-const data=
-await res.json();
-
-
-window.location.href=data.url;
-
-}
 
 
 </script>
