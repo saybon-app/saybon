@@ -1,9 +1,9 @@
 ﻿import express from "express";
 import cors from "cors";
-import multer from "multer";
-import Stripe from "stripe";
 import dotenv from "dotenv";
+import Stripe from "stripe";
 import fetch from "node-fetch";
+import multer from "multer";
 
 dotenv.config();
 
@@ -16,11 +16,9 @@ const upload = multer();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
 
-/* =================================
-HEALTH CHECK
-================================= */
 
 app.get("/", (req,res)=>{
 
@@ -30,44 +28,11 @@ res.send("SayBon Backend Running");
 
 
 
-/* =================================
-TRANSLATION QUOTE
-================================= */
-
-app.post("/request", upload.single("file"), async (req, res) => {
-
-try{
-
-const text = req.file.buffer.toString("utf8");
-
-const words = text.split(/\s+/).length;
-
-res.json({
-success:true,
-words
-});
-
-}catch{
-
-res.status(500).json({
-success:false
-});
-
-}
-
-});
-
-
-
-/* =================================
-CREATE STRIPE SESSION
-================================= */
-
 app.post("/create-stripe-session", async (req,res)=>{
 
 try{
 
-const { amount, type } = req.body;
+const { amount, currency } = req.body;
 
 const session = await stripe.checkout.sessions.create({
 
@@ -79,13 +44,13 @@ line_items:[{
 
 price_data:{
 
-currency:"usd",
+currency: currency || "usd",
 
 product_data:{
-name:`SayBon Translation (${type})`
+name:"SayBon Translation"
 },
 
-unit_amount:Math.round(amount*100)
+unit_amount: Math.round(amount*100)
 
 },
 
@@ -94,21 +59,27 @@ quantity:1
 }],
 
 success_url:
+
 "https://saybonapp.com/success.html",
 
 cancel_url:
+
 "https://saybonapp.com/translation/payment.html"
 
 });
 
 res.json({
+
 url:session.url
+
 });
 
 }catch(e){
 
 res.status(500).json({
+
 error:e.message
+
 });
 
 }
@@ -117,15 +88,11 @@ error:e.message
 
 
 
-/* =================================
-CREATE PAYSTACK SESSION
-================================= */
-
 app.post("/create-paystack-session", async (req,res)=>{
 
 try{
 
-const { amount, email } = req.body;
+const { amount, email, currency } = req.body;
 
 const response = await fetch(
 
@@ -137,19 +104,24 @@ method:"POST",
 
 headers:{
 
-Authorization:`Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+Authorization:
+
+`Bearer ${PAYSTACK_SECRET_KEY}`,
 
 "Content-Type":"application/json"
 
 },
 
-body:JSON.stringify({
+body: JSON.stringify({
 
-email:email || "customer@saybonapp.com",
+email: email || "customer@saybonapp.com",
 
-amount:Math.round(amount*100),
+amount: Math.round(amount*100),
+
+currency: currency || "GHS",
 
 callback_url:
+
 "https://saybonapp.com/success.html"
 
 })
@@ -180,14 +152,10 @@ error:e.message
 
 
 
-/* =================================
-START SERVER
-================================= */
-
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
 
-console.log("Server running on port", PORT);
+console.log("SayBon backend running");
 
 });
