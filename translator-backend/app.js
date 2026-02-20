@@ -1,186 +1,113 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
+import express from "express";
+import cors from "cors";
+import multer from "multer";
+import Stripe from "stripe";
+import dotenv from "dotenv";
 
-const pdfParse = require("pdf-parse");
-const mammoth = require("mammoth");
-
-const fs = require("fs");
-const path = require("path");
-
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+const upload = multer();
 
-// REQUIRED FOR RENDER
-const PORT = process.env.PORT || 3000;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 
+/* =================================
+TRANSLATION QUOTE
+================================= */
 
-/*
-ROOT ROUTE
-*/
-app.get("/", (req, res) => {
+app.post("/request", upload.single("file"), async (req, res) => {
 
-  res.send("SayBon Translator Backend Running");
+try{
 
+const text = req.file.buffer.toString("utf8");
+
+const words = text.split(/\s+/).length;
+
+res.json({
+success:true,
+words
 });
 
+}catch{
 
-
-/*
-UPLOAD SETUP
-*/
-const upload = multer({
-
-  dest: "uploads/"
-
+res.status(500).json({
+success:false
 });
-
-
-
-/*
-TEXT EXTRACTION FUNCTION
-*/
-async function extractText(filePath, mimetype) {
-
-  try {
-
-    // PDF
-    if (mimetype === "application/pdf") {
-
-      const data = await pdfParse(fs.readFileSync(filePath));
-      return data.text;
-
-    }
-
-
-    // DOCX
-    if (
-      mimetype ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ) {
-
-      const result = await mammoth.extractRawText({
-
-        path: filePath
-
-      });
-
-      return result.value;
-
-    }
-
-
-    // TXT and others
-    return fs.readFileSync(filePath, "utf8");
-
-  }
-
-  catch (error) {
-
-    console.log("Extraction error:", error);
-    throw error;
-
-  }
 
 }
 
+});
 
 
-/*
-REQUEST ENDPOINT
-*/
-app.post("/request", upload.single("file"), async (req, res) => {
+/* =================================
+CREATE STRIPE SESSION
+================================= */
 
-  try {
+app.post("/create-stripe-session", async (req,res)=>{
 
-    if (!req.file) {
+try{
 
-      return res.status(400).json({
+const { amount, type } = req.body;
 
-        success: false,
-        message: "No file uploaded"
+const session = await stripe.checkout.sessions.create({
 
-      });
+payment_method_types:["card"],
 
-    }
+mode:"payment",
 
+line_items:[{
 
-    const text = await extractText(
+price_data:{
 
-      req.file.path,
-      req.file.mimetype
+currency:"usd",
 
-    );
+product_data:{
+name:`SayBon Translation (${type})`
+},
 
+unit_amount:Math.round(amount*100)
 
-    if (!text || text.trim().length === 0) {
+},
 
-      return res.status(400).json({
+quantity:1
 
-        success: false,
-        message: "File contains no readable text"
+}],
 
-      });
+success_url:
 
-    }
+"https://saybonapp.com/success.html",
 
+cancel_url:
 
-
-    const words = text.trim().split(/\s+/).length;
-
-
-
-    /*
-    PRICING
-    */
-
-    const standardPrice = Number((words * 0.12).toFixed(2));
-
-    const expressPrice = Number((words * 0.18).toFixed(2));
-
-
-
-    res.json({
-
-      success: true,
-      words,
-      standardPrice,
-      expressPrice
-
-    });
-
-
-
-  }
-
-  catch (error) {
-
-    console.log(error);
-
-    res.status(500).json({
-
-      success: false,
-      message: "Server error"
-
-    });
-
-  }
+"https://saybonapp.com/translation/payment.html"
 
 });
 
 
+res.json({
 
-/*
-START SERVER
-*/
-app.listen(PORT, "0.0.0.0", () => {
+url:session.url
 
-  console.log(`SayBon Translator running on port ${PORT}`);
+});
+
+}catch(e){
+
+res.status(500).json({
+error:e.message
+});
+
+}
+
+});
+
+
+app.listen(3000, ()=>{
+
+console.log("Server running");
 
 });
