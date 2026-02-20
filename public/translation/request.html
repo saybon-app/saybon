@@ -7,307 +7,154 @@
 
 <title>SayBon Translation Request</title>
 
-
-<!-- QR Generator -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 
 <style>
 
 body{
-
 margin:0;
 padding:0;
-
-font-family:
--apple-system,
-BlinkMacSystemFont,
-Segoe UI,
-Roboto;
-
-background:
-
-linear-gradient(
-180deg,
-#f8fafc,
-#eef2ff
-);
-
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
+background:linear-gradient(180deg,#f8fafc,#eef2ff);
 display:flex;
 justify-content:center;
-
 }
-
-
-/* MAIN CARD */
 
 .container{
-
 width:100%;
 max-width:700px;
-
 padding:40px 20px;
-
 }
-
-
-/* WHITE CARD */
 
 .card{
-
 background:white;
-
 border-radius:14px;
-
 padding:30px;
-
-box-shadow:
-
-0 10px 30px
-rgba(0,0,0,0.08);
-
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
-
-
-/* QR */
 
 #qrcode{
-
 margin-bottom:15px;
-
 }
-
-
-/* HEADER */
 
 h1{
-
 margin:0;
 margin-bottom:10px;
-
 font-size:26px;
-
 }
-
-
-/* TRUST BADGES */
 
 .trust{
-
 color:#64748b;
-
 font-size:14px;
-
 margin-bottom:25px;
-
 }
-
-
-/* PRICING */
 
 .priceCard{
-
 border:1px solid #e2e8f0;
-
 border-radius:10px;
-
 padding:20px;
-
 margin-bottom:25px;
-
 }
-
 
 .priceTitle{
-
 font-weight:bold;
-
 margin-bottom:15px;
-
 font-size:18px;
-
 }
-
-
-/* TABLE */
 
 table{
-
 width:100%;
-
 border-collapse:collapse;
-
 font-size:14px;
-
 }
-
 
 td{
-
 padding:6px 0;
-
 }
-
-
-/* STANDARD */
 
 .standard{
-
 color:#16a34a;
-
 font-weight:bold;
-
 }
-
-
-/* EXPRESS */
 
 .express{
-
 color:#dc2626;
-
 font-weight:bold;
-
 }
-
-
-/* BUTTON */
 
 button{
-
 width:100%;
-
 padding:14px;
-
 border:none;
-
 border-radius:8px;
-
-background:
-
-linear-gradient(
-90deg,
-#2563eb,
-#4f46e5
-);
-
+background:linear-gradient(90deg,#2563eb,#4f46e5);
 color:white;
-
 font-size:16px;
-
 cursor:pointer;
-
 margin-top:10px;
-
 }
-
 
 button:hover{
-
 opacity:0.9;
-
 }
-
-
-/* QUOTE */
 
 #quote{
-
 margin-top:20px;
-
 padding:15px;
-
 background:#f8fafc;
-
 border-radius:10px;
-
 display:none;
-
 }
-
-
-/* QUOTE BOX */
 
 .quoteBox{
-
 margin-top:15px;
-
 padding:12px;
-
 border-radius:8px;
-
 cursor:pointer;
-
 transition:0.2s;
-
 }
-
 
 .quoteBox:hover{
-
 transform:scale(1.02);
-
 background:#f1f5f9;
-
 }
-
 
 .standardBox{
-
 border:2px solid #16a34a;
-
 }
-
 
 .expressBox{
-
 border:2px solid #dc2626;
-
 }
 
-
-/* tiny instruction */
-
 .selectText{
-
 font-size:12px;
 color:#64748b;
 margin-top:10px;
-
 }
 
 </style>
 
-
 </head>
 <body>
 
-
 <div class="container">
-
 
 <div class="card">
 
-
 <div id="qrcode"></div>
 
-
 <h1>SayBon Translation Services</h1>
-
 
 <div class="trust">
 Human translated • Secure • Confidential
 </div>
 
-
-
 <div class="priceCard">
-
 
 <div class="priceTitle">
 Pricing & Delivery
 </div>
-
 
 <table>
 
@@ -339,31 +186,22 @@ Express — $0.05 / word
 
 </div>
 
-
-
-<input type="file" id="file">
-
+<input type="file" id="file" required>
 
 <button onclick="getQuote()">
 Upload Document To Get Quote
 </button>
 
-
 <div id="quote"></div>
-
 
 <div id="selectText" class="selectText" style="display:none">
 Select Standard or Express to continue
 </div>
 
-
 </div>
 </div>
-
-
 
 <script>
-
 
 new QRCode(
 document.getElementById("qrcode"),
@@ -373,7 +211,6 @@ width:80,
 height:80
 }
 );
-
 
 
 function getDelivery(words,type){
@@ -395,10 +232,7 @@ return"6–12 hrs";
 }
 
 
-
 async function getQuote(){
-
-try{
 
 const fileInput=document.getElementById("file");
 
@@ -409,22 +243,37 @@ return;
 
 }
 
-const file=fileInput.files[0];
+try{
 
 const formData=new FormData();
-formData.append("file",file);
 
+formData.append("file",fileInput.files[0]);
 
 const res=await fetch(
+
 "https://saybon-backend.onrender.com/request",
+
 {
 method:"POST",
 body:formData
 }
 );
 
+if(!res.ok){
+
+const text=await res.text();
+
+throw new Error(text);
+
+}
 
 const data=await res.json();
+
+if(!data.success){
+
+throw new Error("Backend rejected upload");
+
+}
 
 const words=data.words;
 
@@ -434,10 +283,8 @@ const expressPrice=(words*0.05).toFixed(2);
 const standardTime=getDelivery(words,"standard");
 const expressTime=getDelivery(words,"express");
 
-
 document.getElementById("quote").style.display="block";
 document.getElementById("selectText").style.display="block";
-
 
 document.getElementById("quote").innerHTML=
 
@@ -447,7 +294,6 @@ document.getElementById("quote").innerHTML=
 
 Word count:
 <b>${words}</b>
-
 
 <div class="quoteBox standardBox"
 onclick="goPayment('Standard','${standardPrice}','${words}','${standardTime}')">
@@ -463,7 +309,6 @@ Delivery:
 ${standardTime}
 
 </div>
-
 
 <div class="quoteBox expressBox"
 onclick="goPayment('Express','${expressPrice}','${words}','${expressTime}')">
@@ -484,14 +329,15 @@ ${expressTime}
 
 }
 catch(error){
+
+console.error(error);
+
 alert("Upload failed");
-}
 
 }
 
+}
 
-
-/* ✅ FIXED FUNCTION */
 
 function goPayment(type,price,words,time){
 
@@ -509,10 +355,7 @@ window.location.href=
 
 }
 
-
-
 </script>
-
 
 </body>
 </html>
