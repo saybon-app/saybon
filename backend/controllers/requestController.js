@@ -1,44 +1,40 @@
-import pdf from "pdf-parse";
+import {extractText} from "../services/fileParser.js";
+import {countWords} from "../utils/wordCounter.js";
 
 
-export const handleRequest = async (req, res) => {
+export const uploadRequest = async(req,res)=>{
+
 
 try{
 
-if(!req.file){
 
-return res.status(400).json({
-success:false,
-message:"No file uploaded"
-});
+const file = req.file;
 
-}
+const text = await extractText(file.path);
 
+const words = countWords(text);
 
-const data = await pdf(req.file.buffer);
-
-const words = data.text
-.trim()
-.split(/\s+/)
-.length;
+const price = words * 0.025;
 
 
 res.json({
 
 success:true,
-words:words
+
+words,
+
+price
 
 });
 
-}
-catch(error){
 
-console.log(error);
+}catch(e){
+
+console.log(e);
 
 res.status(500).json({
 
-success:false,
-message:"Parsing failed"
+success:false
 
 });
 

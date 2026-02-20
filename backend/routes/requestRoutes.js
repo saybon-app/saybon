@@ -1,19 +1,20 @@
 import express from "express";
 import multer from "multer";
-import { handleRequest } from "../controllers/requestController.js";
+
+import {uploadRequest} from "../controllers/requestController.js";
+
 
 const router = express.Router();
 
+
 const upload = multer({
-  storage: multer.memoryStorage()
+
+dest:"uploads/"
+
 });
 
 
-/*
-POST /request
-This is the exact endpoint your frontend calls
-*/
-router.post("/", upload.single("file"), handleRequest);
+router.post("/", upload.single("file"), uploadRequest);
 
 
 export default router;

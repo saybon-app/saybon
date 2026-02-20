@@ -1,24 +1,24 @@
 import fetch from "node-fetch";
-import dotenv from "dotenv";
 
-dotenv.config();
 
-export const createPaystackSession = async (req, res) => {
+export const initializePayment = async (req,res)=>{
 
 try{
 
-const { amount, email } = req.body;
 
-if(!amount){
+const {
 
-return res.status(400).json({
+email,
 
-success:false,
-message:"Amount required"
+amount,
 
-});
+words,
 
-}
+filename
+
+}=req.body;
+
+
 
 const response = await fetch(
 
@@ -30,7 +30,9 @@ method:"POST",
 
 headers:{
 
-Authorization:`Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+Authorization:
+
+`Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
 
 "Content-Type":"application/json"
 
@@ -38,13 +40,21 @@ Authorization:`Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
 
 body:JSON.stringify({
 
-email: email || "pay@saybonapp.com",
+email,
 
-amount: Math.round(amount*100),
+amount:amount*100,
 
 callback_url:
 
-"https://saybonapp.com/success.html"
+`${process.env.FRONTEND_URL}/translation/success.html`,
+
+metadata:{
+
+words,
+
+filename
+
+}
 
 })
 
@@ -52,25 +62,65 @@ callback_url:
 
 );
 
-const data = await response.json();
+
+const data=await response.json();
+
 
 res.json({
 
 success:true,
-url:data.data.authorization_url
+
+payment_url:
+
+data.data.authorization_url
+
+});
+
+
+}catch(error){
+
+res.json({
+
+success:false
 
 });
 
 }
-catch(error){
 
-res.status(500).json({
+};
 
-success:false,
-message:error.message
 
-});
+
+
+export const verifyPayment = async (req,res)=>{
+
+
+const reference=req.params.reference;
+
+
+const response=await fetch(
+
+`https://api.paystack.co/transaction/verify/${reference}`,
+
+{
+
+headers:{
+
+Authorization:
+
+`Bearer ${process.env.PAYSTACK_SECRET_KEY}`
 
 }
+
+}
+
+);
+
+
+const data=await response.json();
+
+
+res.json(data);
+
 
 };

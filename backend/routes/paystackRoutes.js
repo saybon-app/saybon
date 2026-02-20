@@ -1,14 +1,22 @@
 import express from "express";
 
-import { createPaystackSession }
+import {
+
+initializePayment,
+
+verifyPayment
+
+}
+
 from "../controllers/paystackController.js";
 
-const router = express.Router();
 
-router.post("/",
+const router=express.Router();
 
-createPaystackSession
 
-);
+router.post("/",initializePayment);
+
+router.get("/verify/:reference",verifyPayment);
+
 
 export default router;

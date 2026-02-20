@@ -1,44 +1,32 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
-const pdf = require("pdf-parse");
-
 import mammoth from "mammoth";
+import pdf from "pdf-parse";
+import fs from "fs";
+
+export const extractText = async(filePath)=>{
 
 
-export async function extractText(file){
-
-const name = file.originalname.toLowerCase();
+const buffer = fs.readFileSync(filePath);
 
 
-/* PDF */
+if(filePath.endsWith(".docx")){
 
-if(name.endsWith(".pdf")){
+const result = await mammoth.extractRawText({buffer});
 
-const data = await pdf(file.buffer);
-
-return data.text;
-
-}
-
-
-/* DOCX */
-
-if(name.endsWith(".docx")){
-
-const data = await mammoth.extractRawText({
-
-buffer:file.buffer
-
-});
-
-return data.value;
+return result.value;
 
 }
 
 
-/* TXT */
+if(filePath.endsWith(".pdf")){
 
-return file.buffer.toString("utf8");
+const result = await pdf(buffer);
+
+return result.text;
+
+}
+
+
+throw new Error("Unsupported file");
+
 
 }

@@ -1,9 +1,40 @@
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 
+/*
+========================================
+LOAD ENV FIRST (ABSOLUTE TOP)
+========================================
+*/
+
+dotenv.config({ path: "./.env" });
+
+if (!process.env.STRIPE_SECRET_KEY) {
+
+console.error("❌ STRIPE_SECRET_KEY missing from .env");
+
+}
+
+if (!process.env.PAYSTACK_SECRET_KEY) {
+
+console.error("❌ PAYSTACK_SECRET_KEY missing from .env");
+
+}
+
+
+/*
+========================================
+IMPORTS
+========================================
+*/
+
+import express from "express";
+import cors from "cors";
+
 import requestRoutes from "./routes/requestRoutes.js";
-import stripeRoute from "./routes/stripeRoutes.js";
+import stripeRoutes from "./routes/stripeRoutes.js";
+// future ready
+// import paystackRoutes from "./routes/paystackRoutes.js";
+// import adminRoutes from "./routes/adminRoutes.js";
 
 
 /*
@@ -12,10 +43,7 @@ INIT
 ========================================
 */
 
-dotenv.config();
-
 const app = express();
-
 
 
 /*
@@ -24,12 +52,19 @@ MIDDLEWARE
 ========================================
 */
 
-app.use(cors());
+app.use(cors({
+
+origin: "*",
+
+methods: ["GET","POST"],
+
+allowedHeaders: ["Content-Type"]
+
+}));
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
-
 
 
 /*
@@ -40,10 +75,9 @@ HEALTH CHECK
 
 app.get("/", (req, res) => {
 
-    res.send("SayBon Backend Running");
+res.send("SayBon Backend Running");
 
 });
-
 
 
 /*
@@ -52,16 +86,41 @@ ROUTES
 ========================================
 */
 
+/*
 
-// Translation quote endpoint
+FRONTEND CALLS:
+
+POST
+
+https://saybon-backend.onrender.com/request
+
+*/
 
 app.use("/request", requestRoutes);
 
 
-// Stripe checkout endpoint
+/*
 
-app.use("/create-stripe-session", stripeRoute);
+FRONTEND CALLS:
 
+POST
+
+https://saybon-backend.onrender.com/stripe/create-stripe-session
+
+*/
+
+app.use("/stripe", stripeRoutes);
+
+
+/*
+
+FUTURE READY
+
+*/
+
+// app.use("/paystack", paystackRoutes);
+
+// app.use("/admin", adminRoutes);
 
 
 
@@ -73,38 +132,36 @@ app.use("/create-stripe-session", stripeRoute);
 
 app.use((req, res) => {
 
-    res.status(404).json({
+res.status(404).json({
 
-        success: false,
+success: false,
 
-        message: "Endpoint not found"
+message: "Endpoint not found"
 
-    });
+});
 
 });
 
 
-
 /*
 ========================================
-ERROR HANDLER
+GLOBAL ERROR HANDLER
 ========================================
 */
 
 app.use((error, req, res, next) => {
 
-    console.error(error);
+console.error("SERVER ERROR:", error);
 
-    res.status(500).json({
+res.status(500).json({
 
-        success: false,
+success: false,
 
-        message: "Server error"
-
-    });
+message: "Server error"
 
 });
 
+});
 
 
 /*
@@ -118,10 +175,16 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
-    console.log(
+console.log("");
 
-        "SayBon backend running on port " + PORT
+console.log("================================");
 
-    );
+console.log("🚀 SayBon Backend Running");
+
+console.log("🌍 Port:", PORT);
+
+console.log("================================");
+
+console.log("");
 
 });

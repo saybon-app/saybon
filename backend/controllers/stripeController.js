@@ -3,81 +3,39 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-/*
-========================================
-INIT STRIPE
-========================================
-*/
+if (!stripeSecretKey) {
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    console.error("❌ STRIPE_SECRET_KEY missing from .env");
 
+    process.exit(1);
 
+}
 
-/*
-========================================
-CREATE STRIPE SESSION
-========================================
-*/
+const stripe = new Stripe(stripeSecretKey);
+
 
 export const createStripeSession = async (req, res) => {
 
     try {
 
-        const { amount, type, currency } = req.body;
-
-
-        /*
-        ================================
-        VALIDATION
-        ================================
-        */
+        const { amount } = req.body;
 
         if (!amount) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message: "Amount required"
-
             });
 
         }
 
-
-
-        /*
-        ================================
-        FORMAT
-        ================================
-        */
-
-        const formattedAmount = Math.round(Number(amount) * 100);
-
-
-        const selectedCurrency = currency
-            ? currency.toLowerCase()
-            : "usd";
-
-
-
-        /*
-        ================================
-        CREATE SESSION
-        ================================
-        */
-
         const session = await stripe.checkout.sessions.create({
 
+            payment_method_types: ["card"],
+
             mode: "payment",
-
-            payment_method_types: [
-
-                "card"
-
-            ],
-
 
             line_items: [
 
@@ -85,26 +43,17 @@ export const createStripeSession = async (req, res) => {
 
                     price_data: {
 
-                        currency: selectedCurrency,
-
+                        currency: "usd",
 
                         product_data: {
 
-                            name:
-
-                                "SayBon Translation (" +
-
-                                type +
-
-                                ")"
+                            name: "SayBon Translation"
 
                         },
 
-
-                        unit_amount: formattedAmount
+                        unit_amount: amount
 
                     },
-
 
                     quantity: 1
 
@@ -112,27 +61,12 @@ export const createStripeSession = async (req, res) => {
 
             ],
 
+            success_url: "https://saybonapp.com/success",
 
-
-            success_url:
-
-                "https://saybonapp.com/success.html",
-
-
-
-            cancel_url:
-
-                "https://saybonapp.com/translation/payment.html"
+            cancel_url: "https://saybonapp.com/cancel"
 
         });
 
-
-
-        /*
-        ================================
-        RETURN URL
-        ================================
-        */
 
         res.json({
 
@@ -144,19 +78,15 @@ export const createStripeSession = async (req, res) => {
 
     }
 
-
-
     catch (error) {
 
-
-        console.log(error);
-
+        console.error(error);
 
         res.status(500).json({
 
             success: false,
 
-            message: error.message
+            message: "Stripe error"
 
         });
 
