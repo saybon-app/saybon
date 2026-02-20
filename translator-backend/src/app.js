@@ -1,8 +1,8 @@
 ﻿import express from "express";
 import cors from "cors";
 import multer from "multer";
-import dotenv from "dotenv";
 import Stripe from "stripe";
+import dotenv from "dotenv";
 import fetch from "node-fetch";
 
 dotenv.config();
@@ -14,54 +14,43 @@ app.use(express.json());
 
 const upload = multer();
 
-
-/* =========================================
-CONFIG
-========================================= */
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
 
-/* =========================================
-TRANSLATION QUOTE ENDPOINT
-========================================= */
+/* =================================
+HEALTH CHECK
+================================= */
+
+app.get("/", (req,res)=>{
+
+res.send("SayBon Backend Running");
+
+});
+
+
+
+/* =================================
+TRANSLATION QUOTE
+================================= */
 
 app.post("/request", upload.single("file"), async (req, res) => {
 
 try{
 
-if(!req.file){
-
-return res.status(400).json({
-success:false,
-message:"No file uploaded"
-});
-
-}
-
 const text = req.file.buffer.toString("utf8");
 
-const words = text.trim().split(/\s+/).length;
+const words = text.split(/\s+/).length;
 
 res.json({
-
 success:true,
-
 words
-
 });
 
-}
-catch(error){
+}catch{
 
 res.status(500).json({
-
-success:false,
-
-message:"Server error"
-
+success:false
 });
 
 }
@@ -69,23 +58,16 @@ message:"Server error"
 });
 
 
-/* =========================================
-STRIPE PAYMENT SESSION
-========================================= */
+
+/* =================================
+CREATE STRIPE SESSION
+================================= */
 
 app.post("/create-stripe-session", async (req,res)=>{
 
 try{
 
-const { amount, type, currency } = req.body;
-
-if(!amount){
-
-return res.status(400).json({
-error:"Amount required"
-});
-
-}
+const { amount, type } = req.body;
 
 const session = await stripe.checkout.sessions.create({
 
@@ -97,12 +79,10 @@ line_items:[{
 
 price_data:{
 
-currency: currency || "usd",
+currency:"usd",
 
 product_data:{
-
 name:`SayBon Translation (${type})`
-
 },
 
 unit_amount:Math.round(amount*100)
@@ -114,29 +94,21 @@ quantity:1
 }],
 
 success_url:
-
 "https://saybonapp.com/success.html",
 
 cancel_url:
-
 "https://saybonapp.com/translation/payment.html"
 
 });
 
-
 res.json({
-
 url:session.url
-
 });
 
-}
-catch(error){
+}catch(e){
 
 res.status(500).json({
-
-error:error.message
-
+error:e.message
 });
 
 }
@@ -144,23 +116,16 @@ error:error.message
 });
 
 
-/* =========================================
-PAYSTACK PAYMENT INITIALIZE
-========================================= */
+
+/* =================================
+CREATE PAYSTACK SESSION
+================================= */
 
 app.post("/create-paystack-session", async (req,res)=>{
 
 try{
 
-const { amount, email, currency } = req.body;
-
-if(!amount){
-
-return res.status(400).json({
-error:"Amount required"
-});
-
-}
+const { amount, email } = req.body;
 
 const response = await fetch(
 
@@ -172,7 +137,7 @@ method:"POST",
 
 headers:{
 
-Authorization:`Bearer ${PAYSTACK_SECRET_KEY}`,
+Authorization:`Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
 
 "Content-Type":"application/json"
 
@@ -180,14 +145,11 @@ Authorization:`Bearer ${PAYSTACK_SECRET_KEY}`,
 
 body:JSON.stringify({
 
-email: email || "customer@saybonapp.com",
+email:email || "customer@saybonapp.com",
 
-amount: Math.round(amount*100),
-
-currency: currency || "USD",
+amount:Math.round(amount*100),
 
 callback_url:
-
 "https://saybonapp.com/success.html"
 
 })
@@ -204,12 +166,11 @@ url:data.data.authorization_url
 
 });
 
-}
-catch(error){
+}catch(e){
 
 res.status(500).json({
 
-error:error.message
+error:e.message
 
 });
 
@@ -218,25 +179,15 @@ error:error.message
 });
 
 
-/* =========================================
-HEALTH CHECK
-========================================= */
 
-app.get("/", (req,res)=>{
-
-res.send("SayBon Backend Running");
-
-});
-
-
-/* =========================================
+/* =================================
 START SERVER
-========================================= */
+================================= */
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
 
-console.log("SayBon backend running on port " + PORT);
+console.log("Server running on port", PORT);
 
-}); I’ll
+});
