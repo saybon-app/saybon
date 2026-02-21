@@ -1,547 +1,494 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SayBon Translation Services</title>
 
-  <!-- Keep global vibe -->
-  <link rel="stylesheet" href="/css/global.css" />
-
   <style>
     :root{
-      --bg1:#eef2ff;
-      --bg2:#f8fafc;
-
-      --glass: rgba(255,255,255,0.72);
-      --glass2: rgba(255,255,255,0.62);
-      --stroke: rgba(255,255,255,0.55);
-      --shadow: 0 25px 60px rgba(0,0,0,0.15);
-
-      --ink: rgba(15,23,42,0.88);
-      --muted: rgba(15,23,42,0.58);
-
-      --blue1:#2563eb;
-      --blue2:#4f46e5;
-
-      --green:#16a34a;
-      --red:#dc2626;
+      --bg1:#d9e6f3;
+      --bg2:#c7d8ee;
+      --card: rgba(255,255,255,0.68);
+      --card2: rgba(255,255,255,0.58);
+      --stroke: rgba(40,70,120,0.18);
+      --deepText: rgba(18, 35, 70, 0.90);
+      --muted: rgba(18, 35, 70, 0.62);
+      --blue1:#2f6fff;
+      --blue2:#2457d9;
+      --shadow: 0 14px 40px rgba(0,0,0,0.18);
+      --shadow2: 0 10px 25px rgba(0,0,0,0.14);
+      --radius: 22px;
     }
 
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui;
-      background: radial-gradient(1200px 700px at 25% 20%, #ffffff 0%, var(--bg1) 40%, var(--bg2) 100%);
-      color: var(--ink);
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--deepText);
+      background: radial-gradient(1200px 600px at 30% 15%, #ffffff 0%, rgba(255,255,255,0.35) 35%, rgba(255,255,255,0) 70%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
       min-height:100vh;
+      display:flex;
+      justify-content:center;
     }
 
     .page{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 48px 18px 80px;
+      width: min(980px, 92vw);
+      padding: 34px 0 60px;
     }
 
-    .hero{
+    h1{
+      margin: 0 0 6px;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: 0.2px;
+      font-weight: 900;
       text-align:center;
-      margin-bottom: 18px;
+      text-shadow: 0 2px 0 rgba(255,255,255,0.6);
     }
 
-    /* Bold ONLY the title (per your rule) */
-    .hero h1{
-      margin:0;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      font-size: clamp(34px, 4vw, 46px);
-      color: rgba(2,6,23,0.86);
-    }
-
-    .hero p{
-      margin: 8px 0 0;
-      font-weight: 400;
-      font-size: 14px;
+    .sub{
+      text-align:center;
+      margin: 0 0 22px;
       color: var(--muted);
-      letter-spacing: 0.2px;
+      font-weight: 600;
     }
 
-    .stage{
-      margin-top: 26px;
-      padding: 26px;
-      border-radius: 22px;
-      background: var(--glass);
+    .outerCard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,255,255,0.55));
       border: 1px solid var(--stroke);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      padding: 22px;
+      position: relative;
+      overflow:hidden;
+    }
+
+    .outerCard::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 400px at 15% 15%, rgba(47,111,255,0.20), rgba(47,111,255,0) 60%),
+                  radial-gradient(700px 500px at 80% 25%, rgba(255,210,70,0.12), rgba(255,210,70,0) 60%);
+      pointer-events:none;
     }
 
     .grid{
+      position: relative;
       display:grid;
       grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    .card{
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.55);
-      border-radius: 18px;
-      padding: 18px 18px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
-    }
-
-    /* Visible hover/click reactions like homepage */
-    .card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 22px 55px rgba(0,0,0,0.14);
-      border-color: rgba(79,70,229,0.28);
-      filter: saturate(1.02);
-    }
-    .card:active{
-      transform: translateY(0px) scale(0.995);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.12);
-    }
-
-    .cardTitle{
-      font-weight: 650; /* bold but not crazy bold */
-      font-size: 16px;
-      margin: 0 0 10px;
-      color: rgba(2,6,23,0.82);
-      letter-spacing: 0.15px;
-    }
-
-    .pricing{
-      line-height: 1.45;
-      font-size: 13px;
-      color: rgba(15,23,42,0.72);
-    }
-
-    .pricing .section{
-      margin-top: 10px;
-    }
-
-    .pricing .label{
-      font-weight: 650; /* bold but not crazy */
-      color: rgba(2,6,23,0.78);
-    }
-
-    .pricing .rate{
-      font-weight: 650;
-      color: rgba(2,6,23,0.72);
-    }
-
-    .pricing ul{
-      margin: 8px 0 0 0;
-      padding-left: 18px;
-    }
-
-    .pricing li{
-      margin: 6px 0;
-    }
-
-    .stdHead{
-      color: rgba(22,163,74,0.88);
-    }
-    .expHead{
-      color: rgba(220,38,38,0.88);
-    }
-
-    /* Upload row */
-    .uploadRow{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin-top: 14px;
-    }
-
-    /* Make file input look like a dark glass 3D button */
-    .fileWrap{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(2,6,23,0.35);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-    }
-
-    .fileWrap:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.26);
-      filter: saturate(1.05);
-    }
-    .fileWrap:active{
-      transform: translateY(0px) scale(0.995);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
-    }
-
-    .fileWrap label{
-      font-weight: 650;
-      letter-spacing: 0.3px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.92);
-      user-select:none;
-    }
-
-    input[type="file"]{
-      max-width: 320px;
-      color: rgba(255,255,255,0.88);
-      font-size: 13px;
-    }
-
-    .cta{
-      width: 100%;
-      margin-top: 16px;
-      border: 0;
-      border-radius: 16px;
-      padding: 16px 18px;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      color: rgba(255,255,255,0.92);
-      background: linear-gradient(90deg, rgba(37,99,235,0.92), rgba(79,70,229,0.92));
-      box-shadow: 0 18px 44px rgba(37,99,235,0.22);
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-    }
-    .cta:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 24px 58px rgba(79,70,229,0.26);
-      filter: saturate(1.05);
-    }
-    .cta:active{
-      transform: translateY(0px) scale(0.995);
-      box-shadow: 0 14px 36px rgba(79,70,229,0.22);
-    }
-
-    .hint{
-      margin-top: 10px;
-      text-align:center;
-      font-size: 13px;
-      color: rgba(15,23,42,0.55);
-    }
-
-    .error{
-      margin-top: 10px;
-      text-align:center;
-      font-size: 13px;
-      color: rgba(220,38,38,0.78);
-    }
-
-    /* Quote section */
-    .quoteSection{
-      margin-top: 18px;
-      display:none;
-    }
-
-    .quoteSection h3{
-      margin: 0 0 8px;
-      font-weight: 700;
-      font-size: 18px;
-      color: rgba(2,6,23,0.78);
-    }
-
-    .wordCount{
-      margin: 0 0 12px;
-      font-size: 14px;
-      color: rgba(15,23,42,0.62);
-    }
-
-    .quoteGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .quoteCard{
-      border-radius: 18px;
-      padding: 16px 16px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.55);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      cursor:pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease;
-    }
-
-    .quoteCard:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 22px 55px rgba(0,0,0,0.14);
-      filter: saturate(1.06);
-    }
-
-    .quoteCard:active{
-      transform: translateY(0px) scale(0.995);
-      box-shadow: 0 14px 34px rgba(0,0,0,0.12);
-    }
-
-    .quoteCard.standard{
-      border-color: rgba(22,163,74,0.55);
-    }
-    .quoteCard.express{
-      border-color: rgba(220,38,38,0.55);
-    }
-
-    .quoteTitle{
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: 0.2px;
-      margin: 0 0 8px;
-      /* deeper + more fun but not cheesy */
-      color: rgba(2,6,23,0.78);
-    }
-
-    .quoteLine{
-      margin: 5px 0;
-      font-size: 15px;
-      color: rgba(2,6,23,0.70);
-      font-weight: 650;
-    }
-
-    .quoteSub{
-      margin: 5px 0 0;
-      font-size: 14px;
-      color: rgba(15,23,42,0.60);
-      font-weight: 600;
+      gap: 16px;
+      align-items:start;
     }
 
     @media (min-width: 860px){
       .grid{
-        grid-template-columns: 1.15fr 0.85fr;
-        align-items:start;
+        grid-template-columns: 520px 1fr;
       }
-      .quoteGrid{
-        grid-template-columns: 1fr;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: var(--shadow2);
+      padding: 18px 18px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transform: translateZ(0);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, filter 160ms ease;
+    }
+
+    /* Homepage-like hover reaction */
+    .card:hover{
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 18px 46px rgba(0,0,0,0.20);
+      border-color: rgba(47,111,255,0.32);
+      filter: saturate(1.02);
+    }
+
+    .pricingTitle{
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 800; /* bold but not crazy */
+      letter-spacing: 0.2px;
+    }
+
+    .sectionHead{
+      margin: 10px 0 8px;
+      font-weight: 800; /* bold but not crazy */
+      color: rgba(18,35,70,0.88);
+    }
+
+    .rate{
+      font-weight: 800;
+      color: rgba(18,35,70,0.88);
+    }
+
+    .list{
+      margin: 6px 0 10px 18px;
+      padding: 0;
+      color: rgba(18,35,70,0.74);
+      font-weight: 650;
+      line-height: 1.55;
+      font-size: 14px; /* reasonable */
+    }
+
+    .divider{
+      height: 10px;
+    }
+
+    .controls{
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .fileRow{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Hide native input */
+    input[type="file"]{
+      position:absolute;
+      left:-9999px;
+      width:1px;height:1px;
+      opacity:0;
+    }
+
+    .chooseBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(10, 18, 35, 0.55);
+      color: rgba(255,255,255,0.95);
+      cursor:pointer;
+      user-select:none;
+      font-weight: 850;
+      letter-spacing: 0.2px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.16);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, filter 160ms ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .chooseBtn:hover{
+      transform: translateY(-2px);
+      filter: saturate(1.06);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .chooseBtn:active{
+      transform: translateY(0px) scale(0.99);
+      box-shadow: 0 9px 18px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .fileName{
+      color: rgba(18,35,70,0.70);
+      font-weight: 700;
+      font-size: 13px;
+      max-width: 420px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cta{
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 15px 18px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      font-size: 16px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.96);
+      background: linear-gradient(180deg, var(--blue1), var(--blue2));
+      box-shadow: 0 14px 28px rgba(36,87,217,0.25), inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+    }
+
+    .cta:hover{
+      transform: translateY(-2px);
+      filter: saturate(1.05);
+      box-shadow: 0 18px 34px rgba(36,87,217,0.28), inset 0 1px 0 rgba(255,255,255,0.20);
+    }
+
+    .cta:active{
+      transform: translateY(0px) scale(0.99);
+      box-shadow: 0 12px 22px rgba(36,87,217,0.22), inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+
+    .hint{
+      text-align:center;
+      color: rgba(18,35,70,0.60);
+      font-weight: 650;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .error{
+      text-align:center;
+      color: rgba(170, 25, 65, 0.82);
+      font-weight: 750;
+      font-size: 13px;
+      margin-top: 6px;
+      min-height: 18px;
+    }
+
+    .quoteWrap{
+      margin-top: 16px;
+      display:none;
+      gap: 12px;
+    }
+
+    .quoteHeader{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .quoteTitle{
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    .wordCount{
+      font-weight: 850;
+      color: rgba(18,35,70,0.80);
+    }
+
+    .quoteCards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 700px){
+      .quoteCards{
+        grid-template-columns: 1fr 1fr;
       }
+    }
+
+    .quoteCard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,255,255,0.60));
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(40,70,120,0.16);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .quoteCard:hover{
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      border-color: rgba(47,111,255,0.30);
+    }
+
+    .quoteCard.standard{
+      border-color: rgba(20, 140, 90, 0.30);
+    }
+
+    .quoteCard.express{
+      border-color: rgba(190, 40, 80, 0.30);
+    }
+
+    .quoteHead{
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+      color: rgba(18,35,70,0.92); /* deeper */
+      margin-bottom: 8px;
+    }
+
+    .quoteMeta{
+      color: rgba(18,35,70,0.80); /* deeper */
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .pill{
+      display:inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(47,111,255,0.10);
+      border: 1px solid rgba(47,111,255,0.14);
+      color: rgba(18,35,70,0.78);
+      font-weight: 800;
+      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
   <div class="page">
-    <div class="hero">
-      <h1>SayBon Translation Services</h1>
-      <p>Human translated · Secure · Confidential</p>
-    </div>
+    <h1>SayBon Translation Services</h1>
+    <p class="sub">Human translated ◆ Secure ◆ Confidential</p>
 
-    <div class="stage">
+    <div class="outerCard">
       <div class="grid">
-        <!-- Pricing -->
+
+        <!-- LEFT: Pricing card -->
         <div class="card" id="pricingCard">
-          <div class="cardTitle">Pricing &amp; Delivery</div>
+          <div class="pricingTitle">Pricing &amp; Delivery</div>
 
-          <div class="pricing">
-            <div class="section">
-              <span class="label stdHead">Standard</span>
-              <span class="rate">— 0.025 / word</span>
+          <div class="sectionHead">Standard — <span class="rate">0.025</span> / word</div>
+          <ul class="list">
+            <li>0–300 words: 1–3 hrs</li>
+            <li>300–1000 words: 3–6 hrs</li>
+            <li>1000–3000 words: 6–12 hrs</li>
+            <li>3000–5000 words: 12–24 hrs</li>
+          </ul>
 
-              <ul>
-                <li>0–300 words: 1–3 hrs</li>
-                <li>300–1000 words: 3–6 hrs</li>
-                <li>1000–3000 words: 6–12 hrs</li>
-                <li>3000–5000 words: 12–24 hrs</li>
-              </ul>
+          <div class="divider"></div>
+
+          <div class="sectionHead">Express — <span class="rate">0.05</span> / word</div>
+          <ul class="list">
+            <li>0–300 words: 30–60 mins</li>
+            <li>300–1000 words: 1–3 hrs</li>
+            <li>1000–3000 words: 3–6 hrs</li>
+            <li>3000–5000 words: 6–12 hrs</li>
+          </ul>
+
+          <div class="controls">
+            <div class="fileRow">
+              <label class="chooseBtn" for="fileInput">Choose File</label>
+              <input id="fileInput" type="file" accept=".txt,.pdf,.docx" />
+              <div class="fileName" id="fileName">No file chosen</div>
             </div>
 
-            <div class="section">
-              <span class="label expHead">Express</span>
-              <span class="rate">— 0.05 / word</span>
-
-              <ul>
-                <li>0–300 words: 30–60 mins</li>
-                <li>300–1000 words: 1–3 hrs</li>
-                <li>1000–3000 words: 3–6 hrs</li>
-                <li>3000–5000 words: 6–12 hrs</li>
-              </ul>
-            </div>
+            <button class="cta" id="uploadBtn">Upload Document To Get Quote</button>
+            <div class="hint">Click Standard or Express to proceed to payment.</div>
+            <div class="error" id="errorText"></div>
           </div>
-
-          <div class="uploadRow">
-            <div class="fileWrap">
-              <label for="fileInput">Choose File</label>
-              <input id="fileInput" type="file" />
-            </div>
-          </div>
-
-          <button class="cta" id="quoteBtn" type="button">Upload Document To Get Quote</button>
-
-          <div class="hint">Click Standard or Express to proceed to payment.</div>
-          <div class="error" id="errorText" style="display:none;"></div>
         </div>
 
-        <!-- Quote -->
-        <div class="card quoteSection" id="quoteSection">
-          <h3>Quote</h3>
-          <p class="wordCount" id="wordCountText">Word count: —</p>
+        <!-- RIGHT: empty space (keeps layout vibe consistent with your current design) -->
+        <div></div>
 
-          <div class="quoteGrid">
-            <div class="quoteCard standard" id="standardCard" role="button" tabindex="0">
-              <div class="quoteTitle">Standard Quote</div>
-              <div class="quoteLine" id="standardPrice">Price: —</div>
-              <div class="quoteSub" id="standardDelivery">Delivery: —</div>
-            </div>
+      </div>
 
-            <div class="quoteCard express" id="expressCard" role="button" tabindex="0">
-              <div class="quoteTitle">Express Quote</div>
-              <div class="quoteLine" id="expressPrice">Price: —</div>
-              <div class="quoteSub" id="expressDelivery">Delivery: —</div>
-            </div>
+      <!-- Quote section -->
+      <div class="quoteWrap" id="quoteWrap">
+        <div class="quoteHeader">
+          <div class="quoteTitle">Quote</div>
+          <div class="wordCount">Word count: <span class="pill" id="wordCount">0</span></div>
+        </div>
+
+        <div class="quoteCards">
+          <div class="quoteCard standard" id="standardCard" role="button" tabindex="0">
+            <div class="quoteHead">Standard Quote</div>
+            <div class="quoteMeta">Price: <span id="standardPrice">$0.00</span></div>
+            <div class="quoteMeta">Delivery: <span id="standardDelivery">—</span></div>
+          </div>
+
+          <div class="quoteCard express" id="expressCard" role="button" tabindex="0">
+            <div class="quoteHead">Express Quote</div>
+            <div class="quoteMeta">Price: <span id="expressPrice">$0.00</span></div>
+            <div class="quoteMeta">Delivery: <span id="expressDelivery">—</span></div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <script>
-    // IMPORTANT: must be HTTPS (otherwise browser blocks it on saybonapp.com)
-    const BACKEND_REQUEST_URL = "https://saybon-backend.onrender.com/request";
+<script>
+  const BACKEND_URL = "https://saybon-backend.onrender.com/request";
 
-    const fileInput = document.getElementById("fileInput");
-    const quoteBtn = document.getElementById("quoteBtn");
-    const errorText = document.getElementById("errorText");
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const errorText = document.getElementById("errorText");
 
-    const quoteSection = document.getElementById("quoteSection");
-    const wordCountText = document.getElementById("wordCountText");
+  const quoteWrap = document.getElementById("quoteWrap");
+  const wordCountEl = document.getElementById("wordCount");
+  const standardPriceEl = document.getElementById("standardPrice");
+  const expressPriceEl = document.getElementById("expressPrice");
+  const standardDeliveryEl = document.getElementById("standardDelivery");
+  const expressDeliveryEl = document.getElementById("expressDelivery");
 
-    const standardCard = document.getElementById("standardCard");
-    const expressCard = document.getElementById("expressCard");
-    const standardPrice = document.getElementById("standardPrice");
-    const expressPrice = document.getElementById("expressPrice");
-    const standardDelivery = document.getElementById("standardDelivery");
-    const expressDelivery = document.getElementById("expressDelivery");
+  const RATE_STANDARD = 0.025;
+  const RATE_EXPRESS = 0.05;
 
-    let lastQuote = null;
+  function fmtMoney(n){
+    return "$" + Number(n).toFixed(2);
+  }
 
-    function showError(msg){
-      errorText.style.display = "block";
-      errorText.textContent = msg;
-    }
-
-    function clearError(){
-      errorText.style.display = "none";
-      errorText.textContent = "";
-    }
-
-    function standardTimeline(words){
-      if (words <= 300) return "1–3 hrs";
-      if (words <= 1000) return "3–6 hrs";
-      if (words <= 3000) return "6–12 hrs";
-      if (words <= 5000) return "12–24 hrs";
-      return "Custom timeline after review";
-    }
-
-    function expressTimeline(words){
+  function deliveryFor(words, isExpress){
+    // Must match the table
+    if (isExpress){
       if (words <= 300) return "30–60 mins";
       if (words <= 1000) return "1–3 hrs";
       if (words <= 3000) return "3–6 hrs";
-      if (words <= 5000) return "6–12 hrs";
-      return "Custom timeline after review";
+      return "6–12 hrs";
+    } else {
+      if (words <= 300) return "1–3 hrs";
+      if (words <= 1000) return "3–6 hrs";
+      if (words <= 3000) return "6–12 hrs";
+      return "12–24 hrs";
+    }
+  }
+
+  fileInput.addEventListener("change", () => {
+    errorText.textContent = "";
+    const f = fileInput.files && fileInput.files[0];
+    fileName.textContent = f ? f.name : "No file chosen";
+  });
+
+  uploadBtn.addEventListener("click", async () => {
+    errorText.textContent = "";
+
+    const f = fileInput.files && fileInput.files[0];
+    if (!f){
+      errorText.textContent = "Please choose a file first.";
+      return;
     }
 
-    function money(n){
-      return Number(n).toFixed(2);
-    }
+    try{
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = "Uploading...";
 
-    function goToPayment(type){
-      if (!lastQuote) return;
-      const amount = type === "standard" ? lastQuote.standardAmount : lastQuote.expressAmount;
-      const delivery = type === "standard" ? lastQuote.standardDelivery : lastQuote.expressDelivery;
+      const fd = new FormData();
+      fd.append("file", f);
 
-      const url =
-        "/translation/payment.html" +
-        "?type=" + encodeURIComponent(type) +
-        "&amount=" + encodeURIComponent(money(amount)) +
-        "&words=" + encodeURIComponent(String(lastQuote.words)) +
-        "&delivery=" + encodeURIComponent(delivery);
+      const r = await fetch(BACKEND_URL, { method: "POST", body: fd });
+      const data = await r.json().catch(() => ({}));
 
-      window.location.href = url;
-    }
-
-    async function getQuote(){
-      clearError();
-
-      const file = fileInput.files && fileInput.files[0];
-      if (!file){
-        showError("Please choose a file first.");
-        return;
+      if (!r.ok || !data || data.success !== true){
+        throw new Error(data && data.message ? data.message : "Failed to get quote.");
       }
 
-      quoteBtn.disabled = true;
-      quoteBtn.textContent = "Getting Quote…";
+      const words = Number(data.words || 0);
 
-      try{
-        const formData = new FormData();
-        formData.append("file", file);
+      wordCountEl.textContent = String(words);
+      standardPriceEl.textContent = fmtMoney(words * RATE_STANDARD);
+      expressPriceEl.textContent = fmtMoney(words * RATE_EXPRESS);
 
-        const res = await fetch(BACKEND_REQUEST_URL, {
-          method: "POST",
-          body: formData
-        });
+      standardDeliveryEl.textContent = deliveryFor(words, false);
+      expressDeliveryEl.textContent = deliveryFor(words, true);
 
-        if (!res.ok){
-          const t = await res.text().catch(()=> "");
-          throw new Error("Backend error (" + res.status + "). " + (t || ""));
-        }
+      quoteWrap.style.display = "block";
+      quoteWrap.scrollIntoView({ behavior: "smooth", block: "start" });
 
-        const data = await res.json();
-
-        // Accept multiple shapes to avoid breaking:
-        const words =
-          Number(data.words ?? data.wordCount ?? data.count ?? 0);
-
-        if (!Number.isFinite(words) || words <= 0){
-          throw new Error("Could not read word count from uploaded file.");
-        }
-
-        const stdAmount = words * 0.025;
-        const expAmount = words * 0.05;
-
-        lastQuote = {
-          words,
-          standardAmount: stdAmount,
-          expressAmount: expAmount,
-          standardDelivery: standardTimeline(words),
-          expressDelivery: expressTimeline(words)
-        };
-
-        quoteSection.style.display = "block";
-        wordCountText.textContent = "Word count: " + words;
-
-        standardPrice.textContent = "Price: $" + money(stdAmount);
-        expressPrice.textContent = "Price: $" + money(expAmount);
-
-        standardDelivery.textContent = "Delivery: " + lastQuote.standardDelivery;
-        expressDelivery.textContent = "Delivery: " + lastQuote.expressDelivery;
-
-        // Scroll the quote into view (smooth, not abrupt)
-        quoteSection.scrollIntoView({ behavior: "smooth", block: "start" });
-
-      }catch(err){
-        showError("Failed to get quote. Network/server error. Confirm backend is reachable.");
-        console.error(err);
-      }finally{
-        quoteBtn.disabled = false;
-        quoteBtn.textContent = "Upload Document To Get Quote";
-      }
+    } catch(err){
+      errorText.textContent = "Failed to get quote. Network/server error. Confirm backend is reachable.";
+      console.error(err);
+    } finally{
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = "Upload Document To Get Quote";
     }
+  });
+</script>
 
-    quoteBtn.addEventListener("click", getQuote);
-
-    standardCard.addEventListener("click", ()=> goToPayment("standard"));
-    expressCard.addEventListener("click", ()=> goToPayment("express"));
-
-    // Keyboard support
-    standardCard.addEventListener("keydown", (e)=>{ if (e.key === "Enter") goToPayment("standard"); });
-    expressCard.addEventListener("keydown", (e)=>{ if (e.key === "Enter") goToPayment("express"); });
-  </script>
 </body>
 </html>

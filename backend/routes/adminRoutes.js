@@ -2,54 +2,29 @@
 import multer from "multer";
 import fs from "fs";
 import path from "path";
-import { extractText } from "../services/fileParser.js";
-import { countWords } from "../utils/wordCounter.js";
+import { handleQuoteRequest } from "../controllers/requestController.js";
 
 const router = express.Router();
 
-// local temp upload (keeps original extension)
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => cb(null, "uploads"),
-    filename: (req, file, cb) => {
-      const ext = path.extname(file.originalname || "").toLowerCase();
-      cb(null, dmin_upload_);
-    },
-  }),
-  limits: { fileSize: 25 * 1024 * 1024 },
-});
+// Upload directory (Render supports /tmp)
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(process.cwd(), "uploads");
+if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
-router.post("/request", upload.single("file"), async (req, res) => {
-  const uploadedPath = req?.file?.path;
-
-  try {
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
-    }
-
-    const text = await extractText(req.file.path, req.file.originalname);
-    const words = countWords(text);
-
-    const standardPrice = Number((words * 0.025).toFixed(2));
-    const expressPrice = Number((words * 0.05).toFixed(2));
-
-    return res.json({
-      success: true,
-      words,
-      standardPrice,
-      expressPrice,
-    });
-  } catch (err) {
-    console.error("admin /request error:", err);
-    return res.status(500).json({ success: false, message: "Processing failed" });
-  } finally {
-    try {
-      if (uploadedPath && fs.existsSync(uploadedPath)) fs.unlinkSync(uploadedPath);
-    } catch (e) {
-      console.error("cleanup error:", e);
-    }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
+  filename: (req, file, cb) => {
+    const safe = (file.originalname || "upload")
+      .replace(/[^\w.\-]+/g, "_")
+      .slice(0, 120);
+    cb(null, `${Date.now()}_${safe}`);
   }
 });
 
-export default router;
+const upload = multer({
+  storage,
+  limits: { fileSize: 25 * 1024 * 1024 } // 25MB
+});
 
+router.post("/request", upload.single("file"), handleQuoteRequest);
+
+export default router;
