@@ -4,54 +4,88 @@ import mammoth from "mammoth";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
+const pdfParse = require("pdf-parse");
 
-/**
- * Extract raw text from an uploaded file path.
- * Supports: txt, pdf, docx
- */
-export async function extractText(filePath, mimeType = "", originalName = "") {
-  const ext = (path.extname(originalName || filePath || "") || "").toLowerCase();
 
-  // TXT (or unknown but mime says text)
-  if (ext === ".txt" || mimeType.startsWith("text/")) {
-    return await fs.readFile(filePath, "utf8");
-  }
+function normalizeText(input = "") {
 
-  // DOCX
-  if (ext === ".docx" || mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-    const result = await mammoth.extractRawText({ path: filePath });
-    return result?.value || "";
-  }
+  return String(input)
 
-  // PDF
-  if (ext === ".pdf" || mimeType === "application/pdf") {
-    // pdf-parse is CommonJS; ESM-safe import via createRequire
-    const pdfParse = require("pdf-parse");
-    const buffer = await fs.readFile(filePath);
-    const data = await pdfParse(buffer);
-    return data?.text || "";
-  }
+    .replace(/\r\n/g, " ")
 
-  // Fallback: try reading as utf8 text
-  try {
-    return await fs.readFile(filePath, "utf8");
-  } catch {
-    return "";
-  }
-}
+    .replace(/\n/g, " ")
 
-/**
- * Word counter that works reliably for normal docs.
- */
-export function countWords(text = "") {
-  const cleaned = String(text)
-    .replace(/\u00A0/g, " ")     // nbsp
     .replace(/\s+/g, " ")
+
     .trim();
 
-  if (!cleaned) return 0;
+}
 
-  // Count tokens that contain at least one letter/number
-  const tokens = cleaned.split(" ").filter(t => /[A-Za-z0-9]/.test(t));
-  return tokens.length;
+
+export function countWords(text) {
+
+  if (!text) return 0;
+
+  return normalizeText(text)
+
+    .split(" ")
+
+    .filter(Boolean).length;
+
+}
+
+
+
+export async function extractText(filePath, mimeType = "", originalName = "") {
+
+  const ext = path.extname(originalName || "").toLowerCase();
+
+  const buffer = await fs.readFile(filePath);
+
+
+
+  if (mimeType.includes("text") || ext === ".txt")
+
+    return buffer.toString("utf8");
+
+
+
+  if (mimeType.includes("pdf") || ext === ".pdf") {
+
+    const data = await pdfParse(buffer);
+
+    return data.text;
+
+  }
+
+
+
+  if (
+
+    mimeType.includes("word") ||
+
+    ext === ".docx"
+
+  ) {
+
+    const result = await mammoth.extractRawText({ buffer });
+
+    return result.value;
+
+  }
+
+
+
+  return buffer.toString("utf8");
+
+}
+
+
+
+export async function getWordCountFromFile(filePath, mimeType = "", originalName = "") {
+
+  const text = await extractText(filePath, mimeType, originalName);
+
+  return countWords(text);
+
 }
