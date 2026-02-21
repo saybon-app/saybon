@@ -1,4 +1,4 @@
-﻿import fs from "fs";
+import fs from "fs";
 import mammoth from "mammoth";
 import { createRequire } from "module";
 
