@@ -1,79 +1,73 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+  <title>SayBon — Easy Fun French</title>
 
-<title>SayBon</title>
-
-<style>
-
-body{
-
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-height:100vh;
-
-background:linear-gradient(180deg,#eef2ff,#f8fafc);
-
-}
-
-.card{
-
-background:white;
-
-padding:40px;
-
-border-radius:16px;
-
-box-shadow:0 15px 40px rgba(0,0,0,0.12);
-
-text-align:center;
-
-}
-
-button{
-
-padding:15px 25px;
-
-border:none;
-
-border-radius:10px;
-
-background:linear-gradient(90deg,#2563eb,#4f46e5);
-
-color:white;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-</style>
-
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/home.css" />
 </head>
 
 <body>
 
-<div class='card'>
+  <!-- AUDIO -->
+  <audio id="introAudio" preload="auto">
+    <source src="assets/sounds/intro-v2.mp3" type="audio/mpeg">
+  </audio>
 
-<h2>SayBon Translation Engine</h2>
+  <div class="app">
 
-<br>
+    <!-- LEFT (WHITE SIDE) -->
+    <section class="white-area">
 
-<button onclick=""window.location.href='/translation/request.html'"">
+      <!-- BIG TEACHER (ONLY THING ON WHITE SIDE) -->
+      <div class="teacher-wrap" id="teacher">
+        <img src="assets/images/teacher.png" class="teacher-img" />
+        <p class="tap-text">Tap 👆🏽</p>
+      </div>
 
-Open Translation
+    </section>
 
-</button>
+    <!-- RIGHT (GREEN SIDE) -->
+    <section class="green-area">
 
-</div>
+      <!-- 3D LOGO (BIGGER) -->
+      <div class="logo-wrap">
+        <img src="assets/images/logo.png" class="logo big-logo" />
+      </div>
+
+      <!-- MAIN BUTTONS -->
+      <div class="button-group">
+        <button id="startBtn" class="main-btn">Start</button>
+        <button id="loginBtn" class="main-btn">Login</button>
+      </div>
+
+      <!-- SETTINGS ICON -->
+      <button id="settingsBtn" class="settings-btn" aria-label="Settings">
+        ⚙️
+      </button>
+
+    </section>
+
+  </div>
+
+  <!-- OVERLAY (WHAT WE OFFER) -->
+  <div id="offerOverlay" class="offer-overlay hidden">
+    <div class="offer-card">
+      <h2 class="offer-title">What we offer</h2>
+      <div class="pills">
+        <div class="pill">French Lessons</div>
+        <div class="pill">Talkletics</div>
+        <div class="pill">DELF Prep</div>
+        <div class="pill">Translation</div>
+      </div>
+      <button id="closeOverlay" class="close-overlay">Close</button>
+    </div>
+  </div>
+
+  <script src="js/home.js"></script>
 
 </body>
 </html>
