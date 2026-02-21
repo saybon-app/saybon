@@ -14,7 +14,14 @@ function normalizeText(s) {
 
 export const extractText = async (filePath, originalName = "") => {
   const buffer = fs.readFileSync(filePath);
+
+  // Prefer original filename extension; fall back to saved filename extension
   const ext = path.extname(originalName || filePath).toLowerCase();
+
+  if (ext === ".txt") {
+    const txt = fs.readFileSync(filePath, "utf8");
+    return normalizeText(txt);
+  }
 
   if (ext === ".docx") {
     const result = await mammoth.extractRawText({ buffer });
@@ -26,10 +33,5 @@ export const extractText = async (filePath, originalName = "") => {
     return normalizeText(result.text);
   }
 
-  if (ext === ".txt") {
-    const txt = fs.readFileSync(filePath, "utf8");
-    return normalizeText(txt);
-  }
-
-  throw new Error("Unsupported file");
+  throw new Error("Unsupported file type");
 };
