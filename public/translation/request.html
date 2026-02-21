@@ -3,235 +3,549 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>SayBon Translation Request</title>
+  <title>SayBon Translation Services</title>
 
   <style>
+    :root{
+      --bg:#f3f6ff;
+      --panel:#ffffff;
+      --border:#d6dbe7;
+      --text:#0f172a;
+      --muted:#64748b;
+
+      --blue1:#1d4ed8;
+      --blue2:#2563eb;
+
+      --green:#16a34a;
+      --red:#dc2626;
+
+      --shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+      --shadowHover: 0 16px 34px rgba(15, 23, 42, 0.14);
+    }
+
+    *{ box-sizing:border-box; }
+
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
-      background:linear-gradient(180deg,#eef2ff,#f8fafc);
+      font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
       display:flex;
       justify-content:center;
-      min-height:100vh;
+      padding: 28px 16px;
     }
 
-    .container{
-      max-width:700px;
+    .wrap{
       width:100%;
-      padding:40px 20px;
+      max-width: 880px;
     }
 
-    .card{
-      background:white;
-      padding:30px;
-      border-radius:16px;
-      box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    .header{
+      text-align:center;
+      margin-bottom: 18px;
     }
 
-    h2{ margin:0 0 14px 0; }
+    .title{
+      font-size: 42px;
+      letter-spacing: 0.2px;
+      margin: 6px 0 6px 0;
+      font-weight: 800;
+    }
+
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .panel{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    /* Pricing & Delivery block (Photo A) */
+    .pricingBox{
+      border: 2px solid #cfd6e6;
+      border-radius: 10px;
+      padding: 16px 16px 12px 16px;
+      background: #fbfcff;
+      max-width: 520px;
+      margin: 0 auto 18px auto;
+    }
+
+    .pricingTitle{
+      font-size: 26px;
+      font-weight: 800;
+      margin: 2px 0 10px 0;
+    }
+
+    .serviceTitle{
+      font-size: 18px;
+      font-weight: 900;
+      margin: 10px 0 6px 0;
+    }
+
+    .serviceTitle.standard{ color: var(--green); }
+    .serviceTitle.express{ color: var(--red); }
+
+    .rates{
+      font-weight: 900;
+    }
+
+    .rows{
+      margin: 6px 0 12px 0;
+      padding-left: 18px;
+      color: #1f2937;
+      line-height: 1.8;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* File + button row */
+    .fileRow{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin: 8px 0 14px 0;
+    }
 
     input[type="file"]{
-      width:100%;
-      margin:10px 0 16px 0;
+      font-size: 14px;
+      padding: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: min(520px, 100%);
     }
 
-    button{
-      padding:12px 16px;
-      border:none;
-      border-radius:10px;
-      background:linear-gradient(90deg,#2563eb,#4f46e5);
-      color:white;
+    .primaryBtn{
+      width: min(520px, 100%);
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
       cursor:pointer;
-      font-weight:600;
-    }
-
-    button:disabled{
-      opacity:0.6;
-      cursor:not-allowed;
-    }
-
-    .muted{
-      color:#64748b;
-      font-size:14px;
-      margin-top:12px;
-    }
-
-    .pricing{
-      margin-top:18px;
-      display:none;
-    }
-
-    .quoteBox{
-      padding:14px 14px;
-      margin-top:12px;
-      border-radius:12px;
-      cursor:pointer;
+      background: linear-gradient(180deg, #2b6cff, #1e50d6);
+      box-shadow: 0 10px 18px rgba(37, 99, 235, 0.25);
+      transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
       user-select:none;
-      transition:transform 0.08s ease;
     }
 
-    .quoteBox:active{ transform:scale(0.99); }
-
-    .standard{ border:2px solid #16a34a; }
-    .express{ border:2px solid #dc2626; }
-
-    .row{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      font-weight:600;
+    .primaryBtn:hover{
+      filter: brightness(1.03);
+      box-shadow: 0 14px 22px rgba(37, 99, 235, 0.30);
     }
 
-    .small{
-      font-size:13px;
-      font-weight:500;
-      color:#475569;
-      margin-top:6px;
-      line-height:1.4;
+    .primaryBtn:active{
+      transform: translateY(1px) scale(0.995);
+      filter: brightness(0.98);
+    }
+
+    .primaryBtn:disabled{
+      opacity: 0.60;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    /* Quote section (Photo B) */
+    .quoteSection{
+      display:none;
+      margin-top: 18px;
+      padding: 18px;
+      background: #f7faff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .quoteTitle{
+      font-size: 22px;
+      font-weight: 900;
+      margin: 0 0 8px 0;
+    }
+
+    .wordCount{
+      margin: 0 0 14px 0;
+      font-size: 18px;
+      color: #1f2937;
+      font-weight: 700;
+    }
+
+    .wordCount b{
+      font-weight: 900;
+    }
+
+    .quoteCard{
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 14px 0;
+      cursor: pointer;
+      user-select:none;
+      transition: transform .08s ease, box-shadow .12s ease, border-color .12s ease;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .quoteCard:hover{
+      box-shadow: 0 14px 24px rgba(15, 23, 42, 0.10);
+      transform: translateY(-1px);
+    }
+
+    .quoteCard:active{
+      transform: translateY(0px) scale(0.995);
+    }
+
+    .quoteCard.standard{
+      border: 2px solid rgba(22, 163, 74, 0.55);
+    }
+
+    .quoteCard.express{
+      border: 2px solid rgba(220, 38, 38, 0.55);
+    }
+
+    .quoteCard.selected{
+      box-shadow: var(--shadowHover);
+      border-width: 3px;
+    }
+
+    .quoteHead{
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .quoteLine{
+      font-size: 16px;
+      color: #1f2937;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .continueBtn{
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
+      cursor:pointer;
+      background: linear-gradient(180deg, #2b6cff, #1e50d6);
+      box-shadow: 0 10px 18px rgba(37, 99, 235, 0.25);
+      transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
+      user-select:none;
+      margin-top: 10px;
+    }
+
+    .continueBtn:hover{
+      filter: brightness(1.03);
+      box-shadow: 0 14px 22px rgba(37, 99, 235, 0.30);
+    }
+
+    .continueBtn:active{
+      transform: translateY(1px) scale(0.995);
+      filter: brightness(0.98);
+    }
+
+    .continueBtn:disabled{
+      opacity: 0.55;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    .status{
+      text-align:center;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 10px;
     }
 
     .error{
-      margin-top:14px;
-      color:#b91c1c;
-      font-size:14px;
       display:none;
+      margin-top: 10px;
+      text-align:center;
+      color: #b91c1c;
+      font-weight: 800;
+    }
+
+    @media (max-width: 520px){
+      .title{ font-size: 32px; }
+      .subtitle{ font-size: 16px; }
+      .pricingTitle{ font-size: 22px; }
+      .primaryBtn,.continueBtn{ font-size: 16px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="card">
-      <h2>Upload Document</h2>
+  <div class="wrap">
+    <div class="header">
+      <div class="title">SayBon Translation Services</div>
+      <p class="subtitle">Human translated · Secure · Confidential</p>
+    </div>
 
-      <input type="file" id="fileInput" />
+    <div class="panel">
 
-      <button id="quoteBtn">Get Quote</button>
+      <!-- Photo A: Pricing & Delivery -->
+      <div class="pricingBox">
+        <div class="pricingTitle">Pricing &amp; Delivery</div>
 
-      <div class="muted" id="statusText">Select a file and tap “Get Quote”.</div>
-      <div class="error" id="errorText"></div>
+        <div class="serviceTitle standard">
+          Standard — <span class="rates">$0.025 / word</span>
+        </div>
+        <ul class="rows">
+          <li>0–300 words: 1–3 hrs</li>
+          <li>300–1000 words: 3–6 hrs</li>
+          <li>1000–3000 words: 6–12 hrs</li>
+          <li>3000–5000 words: 12–24 hrs</li>
+        </ul>
 
-      <div class="pricing" id="pricingSection">
-        <div class="muted">Word count: <span id="wordCount">0</span></div>
-
-        <div class="quoteBox standard" id="standardBox"></div>
-        <div class="quoteBox express" id="expressBox"></div>
+        <div class="serviceTitle express">
+          Express — <span class="rates">$0.05 / word</span>
+        </div>
+        <ul class="rows">
+          <li>0–300 words: 30–60 mins</li>
+          <li>300–1000 words: 1–3 hrs</li>
+          <li>1000–3000 words: 3–6 hrs</li>
+          <li>3000–5000 words: 6–12 hrs</li>
+        </ul>
       </div>
+
+      <!-- Upload + Get Quote -->
+      <div class="fileRow">
+        <input type="file" id="fileInput" />
+      </div>
+
+      <div class="fileRow">
+        <button id="quoteBtn" class="primaryBtn">Upload Document To Get Quote</button>
+      </div>
+
+      <div id="status" class="status">Choose a file, then click “Upload Document To Get Quote”.</div>
+      <div id="error" class="error"></div>
+
+      <!-- Photo B: Quote section -->
+      <div id="quoteSection" class="quoteSection">
+        <div class="quoteTitle">Quote</div>
+        <div class="wordCount">Word count: <b id="wordCount">0</b></div>
+
+        <div id="standardCard" class="quoteCard standard" role="button" tabindex="0" aria-label="Select Standard Quote">
+          <div class="quoteHead">Standard Quote</div>
+          <div class="quoteLine">Price: <span id="standardPrice">$0.00</span></div>
+          <div class="quoteLine">Delivery: <span id="standardDelivery">—</span></div>
+        </div>
+
+        <div id="expressCard" class="quoteCard express" role="button" tabindex="0" aria-label="Select Express Quote">
+          <div class="quoteHead">Express Quote</div>
+          <div class="quoteLine">Price: <span id="expressPrice">$0.00</span></div>
+          <div class="quoteLine">Delivery: <span id="expressDelivery">—</span></div>
+        </div>
+
+        <button id="continueBtn" class="continueBtn" disabled>Continue To Submit Job</button>
+      </div>
+
     </div>
   </div>
 
   <script>
-    // ✅ IMPORTANT:
-    // This is the endpoint your repo already references in requestTranslation.js
-    // Change this ONLY if your backend URL is different.
+    // Backend endpoint already present in your repo (public/translation/requestTranslation.js).
+    // Keeping the same default here for continuity.
     const API_URL = "https://saybon-backend.onrender.com/request";
 
     const fileInput = document.getElementById("fileInput");
     const quoteBtn = document.getElementById("quoteBtn");
-    const statusText = document.getElementById("statusText");
-    const errorText = document.getElementById("errorText");
 
-    const pricingSection = document.getElementById("pricingSection");
+    const statusEl = document.getElementById("status");
+    const errorEl = document.getElementById("error");
+
+    const quoteSection = document.getElementById("quoteSection");
     const wordCountEl = document.getElementById("wordCount");
-    const standardBox = document.getElementById("standardBox");
-    const expressBox = document.getElementById("expressBox");
+
+    const standardCard = document.getElementById("standardCard");
+    const expressCard = document.getElementById("expressCard");
+
+    const standardPriceEl = document.getElementById("standardPrice");
+    const expressPriceEl = document.getElementById("expressPrice");
+
+    const standardDeliveryEl = document.getElementById("standardDelivery");
+    const expressDeliveryEl = document.getElementById("expressDelivery");
+
+    const continueBtn = document.getElementById("continueBtn");
+
+    let latestQuote = null;
+    let selectedService = null;
 
     function showError(msg){
-      errorText.style.display = "block";
-      errorText.textContent = msg;
+      errorEl.style.display = "block";
+      errorEl.textContent = msg;
     }
 
     function clearError(){
-      errorText.style.display = "none";
-      errorText.textContent = "";
+      errorEl.style.display = "none";
+      errorEl.textContent = "";
     }
 
-    function goPay(type, amount){
-      // Payment page in your repo expects ?amount=
-      // We also include type for your own use if you want.
-      window.location.href =
+    function deliveryFor(words, service){
+      // Delivery timelines derived EXACTLY from the Pricing & Delivery table
+      const w = Number(words || 0);
+
+      if (service === "standard"){
+        if (w <= 300) return "1–3 hrs";
+        if (w <= 1000) return "3–6 hrs";
+        if (w <= 3000) return "6–12 hrs";
+        if (w <= 5000) return "12–24 hrs";
+        return "Processing after submission";
+      }
+
+      // express
+      if (w <= 300) return "30–60 mins";
+      if (w <= 1000) return "1–3 hrs";
+      if (w <= 3000) return "3–6 hrs";
+      if (w <= 5000) return "6–12 hrs";
+      return "Processing after submission";
+    }
+
+    function formatMoney(n){
+      const num = Number(n);
+      if (!isFinite(num)) return "$0.00";
+      return "$" + num.toFixed(2);
+    }
+
+    function clearSelection(){
+      selectedService = null;
+      standardCard.classList.remove("selected");
+      expressCard.classList.remove("selected");
+      continueBtn.disabled = true;
+    }
+
+    function selectService(service){
+      selectedService = service;
+
+      standardCard.classList.toggle("selected", service === "standard");
+      expressCard.classList.toggle("selected", service === "express");
+
+      continueBtn.disabled = false;
+    }
+
+    function openPayment(){
+      if (!latestQuote || !selectedService) return;
+
+      const words = latestQuote.words;
+      const price = selectedService === "standard"
+        ? latestQuote.standardPrice
+        : latestQuote.expressPrice;
+
+      const delivery = deliveryFor(words, selectedService);
+
+      // Send to your payment page. Keeping it simple and URL-safe.
+      // If your payment page expects different params, tell me and I’ll align it.
+      const url =
         "/translation/payment.html" +
-        "?type=" + encodeURIComponent(type) +
-        "&amount=" + encodeURIComponent(amount);
+        "?service=" + encodeURIComponent(selectedService) +
+        "&words=" + encodeURIComponent(String(words)) +
+        "&amount=" + encodeURIComponent(String(price)) +
+        "&delivery=" + encodeURIComponent(delivery);
+
+      window.location.href = url;
     }
 
     async function getQuote(){
       clearError();
+      clearSelection();
 
       const file = fileInput.files && fileInput.files[0];
       if (!file){
-        showError("Please select a file first.");
+        showError("Please choose a file first.");
         return;
       }
 
       quoteBtn.disabled = true;
-      statusText.textContent = "Getting quote...";
+      statusEl.textContent = "Uploading and calculating quote...";
 
       try{
-        const formData = new FormData();
-        formData.append("file", file);
+        const fd = new FormData();
+        fd.append("file", file);
 
         const res = await fetch(API_URL, {
           method: "POST",
-          body: formData
+          body: fd
         });
 
         const data = await res.json().catch(() => ({}));
 
         if (!res.ok){
           showError(data.message || "Request failed. Check backend endpoint.");
-          statusText.textContent = "Failed to get quote.";
+          statusEl.textContent = "Failed to get quote.";
           quoteBtn.disabled = false;
           return;
         }
 
-        // Your backend may return { words } only — we handle both cases.
+        // Expecting backend shape:
+        // { words, standardPrice, expressPrice }
+        // Fallback to table-based computation if prices are missing.
         const words = Number(data.words || 0);
 
-        // If backend provides prices, use them. Otherwise calculate locally.
-        const standardPrice = (data.standardPrice != null)
-          ? Number(data.standardPrice)
-          : Number((words * 0.025).toFixed(2));
+        let standardPrice = data.standardPrice;
+        let expressPrice = data.expressPrice;
 
-        const expressPrice = (data.expressPrice != null)
-          ? Number(data.expressPrice)
-          : Number((words * 0.05).toFixed(2));
+        if (standardPrice == null || expressPrice == null){
+          // Fallback: compute from displayed rates
+          standardPrice = Number((words * 0.025).toFixed(2));
+          expressPrice = Number((words * 0.05).toFixed(2));
+        } else {
+          standardPrice = Number(standardPrice);
+          expressPrice = Number(expressPrice);
+        }
+
+        latestQuote = {
+          words,
+          standardPrice,
+          expressPrice
+        };
 
         wordCountEl.textContent = String(words);
 
-        standardBox.innerHTML = `
-          <div class="row">
-            <span>Standard</span>
-            <span>$${standardPrice.toFixed(2)}</span>
-          </div>
-          <div class="small">Regular turnaround • Best value</div>
-        `;
-        standardBox.onclick = () => goPay("standard", standardPrice.toFixed(2));
+        standardPriceEl.textContent = formatMoney(standardPrice);
+        expressPriceEl.textContent = formatMoney(expressPrice);
 
-        expressBox.innerHTML = `
-          <div class="row">
-            <span>Express</span>
-            <span>$${expressPrice.toFixed(2)}</span>
-          </div>
-          <div class="small">Faster turnaround • Priority handling</div>
-        `;
-        expressBox.onclick = () => goPay("express", expressPrice.toFixed(2));
+        standardDeliveryEl.textContent = deliveryFor(words, "standard");
+        expressDeliveryEl.textContent = deliveryFor(words, "express");
 
-        pricingSection.style.display = "block";
-        statusText.textContent = "Choose a service to proceed to payment.";
+        quoteSection.style.display = "block";
+        statusEl.textContent = "Select Standard or Express, then continue.";
       }
-      catch(err){
+      catch (err){
         console.error(err);
         showError("Network/server error. Confirm backend is reachable.");
-        statusText.textContent = "Failed to get quote.";
+        statusEl.textContent = "Failed to get quote.";
       }
       finally{
         quoteBtn.disabled = false;
       }
     }
 
+    // Click behavior (Photo A → Photo B)
     quoteBtn.addEventListener("click", getQuote);
+
+    // Selection behavior
+    standardCard.addEventListener("click", () => selectService("standard"));
+    expressCard.addEventListener("click", () => selectService("express"));
+
+    // Keyboard accessibility
+    standardCard.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); selectService("standard"); }
+    });
+    expressCard.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); selectService("express"); }
+    });
+
+    // Continue
+    continueBtn.addEventListener("click", openPayment);
   </script>
 </body>
 </html>
