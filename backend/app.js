@@ -12,13 +12,13 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/", quoteRoute);
-
 app.get("/", (req,res)=>{
 
-res.send("SayBon Translation Backend Running");
+res.send("SayBon Backend Working");
 
 });
+
+app.use("/api", quoteRoute);
 
 const PORT = process.env.PORT || 10000;
 
