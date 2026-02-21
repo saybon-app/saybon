@@ -1,30 +1,31 @@
 ﻿import express from "express";
 import multer from "multer";
-import fs from "fs";
 import path from "path";
+import os from "os";
+import fs from "fs";
+
 import { handleQuoteRequest } from "../controllers/requestController.js";
 
 const router = express.Router();
 
-// Upload directory (Render supports /tmp)
-const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(process.cwd(), "uploads");
-if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+// Use /tmp on Render (safe + writable)
+const uploadDir = path.join(os.tmpdir(), "saybon_uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
+  destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const safe = (file.originalname || "upload")
-      .replace(/[^\w.\-]+/g, "_")
-      .slice(0, 120);
-    cb(null, `${Date.now()}_${safe}`);
-  }
+    const ext = path.extname(file.originalname || "");
+    const safeExt = ext || "";
+    const name = `upload_${Date.now()}_${Math.random().toString(16).slice(2)}${safeExt}`;
+    cb(null, name);
+  },
 });
 
-const upload = multer({
-  storage,
-  limits: { fileSize: 25 * 1024 * 1024 } // 25MB
-});
+const upload = multer({ storage });
 
+// Frontend calls:
+// POST https://saybon-backend.onrender.com/request  (field name: "file")
 router.post("/request", upload.single("file"), handleQuoteRequest);
 
 export default router;
