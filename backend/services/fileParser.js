@@ -1,4 +1,5 @@
 ﻿import fs from "fs";
+import mammoth from "mammoth";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
@@ -11,23 +12,24 @@ export async function extractText(filePath, mimeType) {
   }
 
   if (mimeType === "application/pdf") {
-
     const buffer = fs.readFileSync(filePath);
-
     const data = await pdfParse(buffer);
-
     return data.text;
   }
 
-  throw new Error("Unsupported file type");
+  if (
+    mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ) {
+    const result = await mammoth.extractRawText({ path: filePath });
+    return result.value;
+  }
 
+  throw new Error("Unsupported file type");
 }
 
 export function countWords(text) {
-
   return text
     .trim()
     .split(/\s+/)
     .filter(Boolean).length;
-
 }
