@@ -1,77 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SayBon — Easy Fun French</title>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1.0'>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/home.css" />
+<title>SayBon</title>
+
+<style>
+
+body{
+
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+background:linear-gradient(180deg,#eef2ff,#f8fafc);
+
+}
+
+.card{
+
+background:white;
+
+padding:40px;
+
+border-radius:16px;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
+
+text-align:center;
+
+}
+
+button{
+
+padding:15px 25px;
+
+border:none;
+
+border-radius:10px;
+
+background:linear-gradient(90deg,#2563eb,#4f46e5);
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-  <!-- AUDIO -->
-  <audio id="introAudio" preload="auto">
-    <source src="assets/sounds/intro-v2.mp3" type="audio/mpeg">
-  </audio>
+<div class='card'>
 
-  <div class="app">
+<h2>SayBon Translation Engine</h2>
 
-    <!-- LEFT (WHITE SIDE) -->
-    <section class="white-area">
+<br>
 
-      <!-- BIG TEACHER (ONLY THING ON WHITE SIDE) -->
-      <div class="teacher-wrap" id="teacher">
-        <img src="assets/images/teacher.png" class="teacher-img" />
-        <p class="tap-text">Tap 👆🏽</p>
-      </div>
+<button onclick=""window.location.href='/translation/request.html'"">
 
-    </section>
+Open Translation
 
-    <!-- RIGHT (GREEN SIDE) -->
-    <section class="green-area">
+</button>
 
-      <!-- 3D LOGO (BIGGER) -->
-      <div class="logo-wrap">
-        <img src="assets/images/logo.png" class="logo big-logo" />
-      </div>
-
-      <!-- ACTION BUTTONS (STACKED, GLASSY) -->
-      <div class="actions">
-        <button class="action-btn" id="startBtn">Get started</button>
-        <button class="action-btn secondary" id="loginBtn">Log in</button>
-      </div>
-
-      <!-- SETTINGS ICON (ADMIN ENTRY) -->
-      <button id="settingsBtn" class="settings-btn" aria-label="Admin settings">
-        ⚙️
-      </button>
-
-    </section>
-
-  </div>
-
-  <!-- OVERLAY (WRAPPED FOR CARPET ROLL) -->
-  <div id="offerOverlay" class="overlay hidden">
-
-    <div class="overlay-content">  <!-- REQUIRED WRAPPER FOR CARPET EFFECT -->
-
-      <h2>What we offer at SayBon</h2>
-
-      <div class="pill-list">
-        <div class="pill"><span>Speak French from your very first lesson</span></div>
-        <div class="pill"><span>Clear, fun CEFR-based learning</span></div>
-        <div class="pill"><span>Original music to help French stick naturally</span></div>
-        <div class="pill"><span>DELF prep + professional translation by experts</span></div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="js/home.js"></script>
+</div>
 
 </body>
 </html>

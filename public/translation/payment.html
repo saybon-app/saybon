@@ -1,141 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Payment</title>
-
-<script src="https://js.paystack.co/v1/inline.js"></script>
 
 <style>
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;
-background:linear-gradient(180deg,#eef2ff,#f8fafc);
+
+font-family:-apple-system;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 height:100vh;
+
+background:linear-gradient(180deg,#eef2ff,#f8fafc);
+
 }
 
 .card{
+
 background:white;
+
 padding:30px;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-width:400px;
+
+border-radius:16px;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
+
 text-align:center;
-}
 
-h2{
-margin-bottom:10px;
-}
-
-.price{
-font-size:28px;
-font-weight:bold;
-margin-bottom:20px;
 }
 
 button{
 
-width:100%;
-padding:14px;
+padding:12px;
+
 border:none;
-border-radius:8px;
-margin-top:10px;
-font-size:16px;
-cursor:pointer;
+
+border-radius:10px;
+
+background:linear-gradient(90deg,#2563eb,#4f46e5);
+
 color:white;
 
-}
+cursor:pointer;
 
-.stripe{
-background:linear-gradient(90deg,#635bff,#7a73ff);
-}
-
-.paystack{
-background:linear-gradient(90deg,#00c3f7,#00a8e8);
 }
 
 </style>
 
 </head>
-<body>
 
+<body>
 
 <div class="card">
 
 <h2>Complete Payment</h2>
 
-<div id="summary"></div>
+<div id="amount"></div>
 
-<div class="price" id="price"></div>
+<br>
 
+<button onclick="pay()">
 
-<button class="stripe" onclick="payStripe()">
-
-Pay with Card (Stripe)
-
-</button>
-
-
-<button class="paystack" onclick="payPaystack()">
-
-Pay with Paystack
+Pay Now
 
 </button>
-
 
 </div>
 
-
-
 <script>
-
-
-/*
-===========================
-GET URL PARAMS
-===========================
-*/
 
 const params=new URLSearchParams(window.location.search);
 
-const type=params.get("type");
-
 const amount=params.get("amount");
 
-const words=params.get("words");
+document.getElementById("amount").innerHTML=
 
-const delivery=params.get("delivery");
+"$"+amount;
 
-
-document.getElementById("summary").innerHTML=`
-
-${type} Translation<br>
-${words} words<br>
-Delivery: ${delivery}
-
-`;
-
-document.getElementById("price").innerHTML="$"+amount;
-
-
-
-/*
-===========================
-STRIPE PAYMENT
-===========================
-*/
-
-
-async function payStripe(){
-
-try{
+async function pay(){
 
 const res=await fetch(
 
@@ -159,68 +111,13 @@ amount:Math.round(amount*100)
 
 );
 
-
 const data=await res.json();
-
 
 window.location.href=data.url;
 
-
 }
-catch{
-
-alert("Stripe failed");
-
-}
-
-}
-
-
-
-/*
-===========================
-PAYSTACK PAYMENT
-===========================
-*/
-
-
-
-function payPaystack(){
-
-
-const handler=PaystackPop.setup({
-
-key:"pk_live_xxxxxxxxxxxxxx",
-
-email:"customer@saybonapp.com",
-
-amount:Math.round(amount*100),
-
-currency:"USD",
-
-callback:function(response){
-
-window.location.href="/translation/success.html";
-
-},
-
-onClose:function(){
-
-alert("Payment cancelled");
-
-}
-
-});
-
-
-handler.openIframe();
-
-}
-
-
 
 </script>
-
 
 </body>
 </html>

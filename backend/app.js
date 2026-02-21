@@ -5,186 +5,95 @@ import dotenv from "dotenv";
 LOAD ENV FIRST (ABSOLUTE TOP)
 ========================================
 */
-
 dotenv.config({ path: "./.env" });
 
 if (!process.env.STRIPE_SECRET_KEY) {
-
-console.error("❌ STRIPE_SECRET_KEY missing from .env");
-
+  console.error("❌ STRIPE_SECRET_KEY is missing from .env");
 }
-
-if (!process.env.PAYSTACK_SECRET_KEY) {
-
-console.error("❌ PAYSTACK_SECRET_KEY missing from .env");
-
-}
-
 
 /*
 ========================================
 IMPORTS
 ========================================
 */
-
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import requestRoutes from "./routes/requestRoutes.js";
 import stripeRoutes from "./routes/stripeRoutes.js";
-// future ready
-// import paystackRoutes from "./routes/paystackRoutes.js";
-// import adminRoutes from "./routes/adminRoutes.js";
-
 
 /*
 ========================================
 INIT
 ========================================
 */
-
 const app = express();
 
+/*
+========================================
+ABSOLUTE PATH HELPERS (ESM)
+========================================
+*/
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /*
 ========================================
 MIDDLEWARE
 ========================================
 */
-
-app.use(cors({
-
-origin: "*",
-
-methods: ["GET","POST"],
-
-allowedHeaders: ["Content-Type"]
-
-}));
-
+app.use(cors());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
+/*
+========================================
+SERVE STATIC FRONTEND (PUBLIC FOLDER)
+========================================
+*/
+const PUBLIC_DIR = path.join(__dirname, "..", "public");
+app.use(express.static(PUBLIC_DIR));
 
 /*
 ========================================
 HEALTH CHECK
 ========================================
 */
-
 app.get("/", (req, res) => {
-
-res.send("SayBon Backend Running");
-
+  res.send("SayBon Backend Running");
 });
 
-
 /*
 ========================================
-ROUTES
+API ROUTES
 ========================================
 */
-
-/*
-
-FRONTEND CALLS:
-
-POST
-
-https://saybon-backend.onrender.com/request
-
-*/
-
 app.use("/request", requestRoutes);
-
-
-/*
-
-FRONTEND CALLS:
-
-POST
-
-https://saybon-backend.onrender.com/stripe/create-stripe-session
-
-*/
-
 app.use("/stripe", stripeRoutes);
 
-
-/*
-
-FUTURE READY
-
-*/
-
-// app.use("/paystack", paystackRoutes);
-
-// app.use("/admin", adminRoutes);
-
-
-
 /*
 ========================================
-404 HANDLER
+404 (API + FILES)
 ========================================
 */
-
 app.use((req, res) => {
-
-res.status(404).json({
-
-success: false,
-
-message: "Endpoint not found"
-
+  res.status(404).json({
+    success: false,
+    message: "Endpoint not found",
+    path: req.originalUrl,
+  });
 });
-
-});
-
-
-/*
-========================================
-GLOBAL ERROR HANDLER
-========================================
-*/
-
-app.use((error, req, res, next) => {
-
-console.error("SERVER ERROR:", error);
-
-res.status(500).json({
-
-success: false,
-
-message: "Server error"
-
-});
-
-});
-
 
 /*
 ========================================
 SERVER
 ========================================
 */
-
 const PORT = process.env.PORT || 3000;
 
-
 app.listen(PORT, () => {
-
-console.log("");
-
-console.log("================================");
-
-console.log("🚀 SayBon Backend Running");
-
-console.log("🌍 Port:", PORT);
-
-console.log("================================");
-
-console.log("");
-
+  console.log("✅ SayBon backend running on port " + PORT);
+  console.log("✅ Serving public folder from: " + PUBLIC_DIR);
 });
