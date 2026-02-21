@@ -9,16 +9,17 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
+/* ROOT TEST ONLY */
 app.get("/", (req,res)=>{
 
-res.send("SayBon Backend Working");
+res.send("SayBon API ONLINE");
 
 });
 
-app.use("/api", quoteRoute);
+/* REAL API */
+app.use("/api/quote", quoteRoute);
 
 const PORT = process.env.PORT || 10000;
 
