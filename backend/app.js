@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -9,6 +9,8 @@ import adminRoutes from "./routes/adminRoutes.js";
 dotenv.config();
 
 const app = express();
+
+import quoteRoute from "./translation/routes/quoteRoute.js";
 
 // CORS
 const allowedOrigins = [
@@ -46,5 +48,6 @@ app.use("/paystack", paystackRoutes);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`? Server running on port ${PORT}`);
 });
+app.use("/",quoteRoute);
