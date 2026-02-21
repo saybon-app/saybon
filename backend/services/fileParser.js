@@ -8,32 +8,20 @@ const pdfParse = require("pdf-parse");
 
 
 function normalizeText(input = "") {
-
   return String(input)
-
     .replace(/\r\n/g, " ")
-
     .replace(/\n/g, " ")
-
     .replace(/\s+/g, " ")
-
     .trim();
-
 }
 
 
 export function countWords(text) {
-
   if (!text) return 0;
-
   return normalizeText(text)
-
     .split(" ")
-
     .filter(Boolean).length;
-
 }
-
 
 
 export async function extractText(filePath, mimeType = "", originalName = "") {
@@ -43,11 +31,8 @@ export async function extractText(filePath, mimeType = "", originalName = "") {
   const buffer = await fs.readFile(filePath);
 
 
-
   if (mimeType.includes("text") || ext === ".txt")
-
     return buffer.toString("utf8");
-
 
 
   if (mimeType.includes("pdf") || ext === ".pdf") {
@@ -59,14 +44,7 @@ export async function extractText(filePath, mimeType = "", originalName = "") {
   }
 
 
-
-  if (
-
-    mimeType.includes("word") ||
-
-    ext === ".docx"
-
-  ) {
+  if (mimeType.includes("word") || ext === ".docx") {
 
     const result = await mammoth.extractRawText({ buffer });
 
@@ -75,11 +53,9 @@ export async function extractText(filePath, mimeType = "", originalName = "") {
   }
 
 
-
   return buffer.toString("utf8");
 
 }
-
 
 
 export async function getWordCountFromFile(filePath, mimeType = "", originalName = "") {
