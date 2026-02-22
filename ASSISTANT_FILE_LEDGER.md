@@ -82,3 +82,7 @@ This version supersedes all previous request.html and request.css versions.
 - File: public/translation/request.html
 - Change: Injected mobile-only header CSS before </head> (force title + tagline to 1 line, reduce font sizes on small screens)
 - Notes: Desktop untouched. UTF-8 write.
+## 2026-02-22 20:21:38
+File: public/translation/request.html
+Change: Removed 'PRECISE' from subtitle line
+Reason: User requested cleaner premium positioning text
