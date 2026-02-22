@@ -89,3 +89,9 @@ Reason: User requested cleaner premium positioning text
 ## 2026-02-22 20:25:42
 File: public/translation/request.html
 Change: Reduced subtitle font size for perfect mobile single-line fit
+## 2026-02-22 21:18:47
+File: public/translation/request.html
+Change:
+- Switched subtitle to condensed luxury font
+- Center aligned entire header
+- Mobile subtitle forced to single line
