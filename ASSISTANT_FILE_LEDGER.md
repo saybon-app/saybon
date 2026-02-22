@@ -19,3 +19,12 @@ DO NOT edit manually unless you explicitly unlock it.
 - Notes:
   - Fixes “question marks/diamonds” by removing special glyphs and forcing UTF-8.
   - Page is locked to 1-screen (no scroll) until quote appears.
+## Update — Hero card + Always-scroll
+- Date: 2026-02-22
+- Files:
+  - public/translation/request.html (moved headline/topline into hero card)
+  - public/translation/request.css  (hero styling + better mobile typography)
+  - public/translation/requestTranslation.js (removed no-scroll locking; smooth scroll to quote)
+- Notes:
+  - Page is scrollable on both desktop + mobile.
+  - “Outside text clutter” resolved by hero container.

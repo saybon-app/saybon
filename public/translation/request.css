@@ -14,7 +14,6 @@
   --soft:#f6f7fb;
   --greyTop:#eeeeef;
   --good:#16a34a;
-  --warn:#b45309;
 }
 
 *{box-sizing:border-box}
@@ -27,12 +26,13 @@ body{
     radial-gradient(1200px 600px at 20% 10%, rgba(47,109,246,.12), transparent 60%),
     radial-gradient(900px 500px at 80% 0%, rgba(20,21,26,.06), transparent 55%),
     linear-gradient(180deg, var(--bg1), var(--bg2));
+  overflow:auto; /* ALWAYS SCROLLABLE */
 }
 
 .page{
   min-height:100vh;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
   padding:42px 22px;
 }
@@ -41,36 +41,58 @@ body{
   width:min(1160px, 100%);
 }
 
+/* ---------- Premium HERO (so no clutter outside cards) ---------- */
+.hero{
+  background: linear-gradient(180deg, #ffffff, #fbfbfd);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:26px 26px 22px;
+  margin-bottom:18px;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px -2px auto -2px;
+  height:92px;
+  background: radial-gradient(500px 160px at 18% 40%, rgba(47,109,246,.16), transparent 60%);
+  pointer-events:none;
+}
+
 .topline{
+  position:relative;
   display:flex;
-  justify-content:flex-start;
+  flex-wrap:wrap;
   align-items:center;
   gap:10px;
   font-size:12px;
   letter-spacing:.18em;
   text-transform:uppercase;
   color:var(--muted);
-  margin:0 0 12px 6px;
+  margin:0 0 12px 0;
 }
 .dot{
   width:5px;height:5px;border-radius:50%;
   background:rgba(20,21,26,.35);
 }
 
-.header{
-  margin:0 0 18px 6px;
-}
 .h1{
+  position:relative;
   margin:0;
   font-size:56px;
   line-height:1.05;
   letter-spacing:-.02em;
 }
 .sub{
+  position:relative;
   margin:10px 0 0;
   color:var(--muted);
   font-size:16px;
-  line-height:1.5;
+  line-height:1.55;
+  max-width: 68ch;
 }
 
 .grid{
@@ -257,10 +279,11 @@ body{
   font-size:12.5px;
   margin:10px 0 0;
   text-align:center;
+  padding:0 16px 18px;
 }
 
 .err{
-  margin-top:10px;
+  margin:0 18px 18px;
   color:#b42318;
   font-size:12.5px;
   text-align:center;
@@ -302,11 +325,7 @@ body{
 }
 .ul li{ margin:6px 0; }
 
-.lockedNoScroll{
-  height:100vh;
-  overflow:hidden;
-}
-
+/* Quote card */
 .quoteWrap{
   margin-top:18px;
   display:none;
@@ -391,10 +410,12 @@ body{
 }
 
 @media (max-width: 980px){
-  .h1{ font-size:44px; }
+  .page{ padding:22px 14px; }
+  .hero{ padding:20px 18px 18px; }
+  .h1{ font-size:36px; }
+  .sub{ font-size:14.5px; }
   .grid{ grid-template-columns: 1fr; }
   .uBody{ grid-template-columns: 1fr; }
   .fname{ max-width: 70vw; }
   .quoteGrid{ grid-template-columns: 1fr; }
-  .page{ padding:28px 16px; }
 }

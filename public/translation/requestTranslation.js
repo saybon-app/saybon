@@ -1,6 +1,7 @@
 ﻿/* SayBon Translation Request - Premium UI controller
    - Calls backend: POST https://saybon-backend.onrender.com/api/quote (multipart: file)
-   - Shows Quote card and makes page scrollable only after quote appears
+   - Shows Quote card after upload
+   - Page is ALWAYS scrollable (desktop + mobile)
 */
 
 const API_BASE = "https://saybon-backend.onrender.com";
@@ -112,19 +113,10 @@ function deliveryFor(service, words){
     return "12–24 hrs";
   }
 
-  // express
   if (w <= 300) return "30–60 mins";
   if (w <= 1000) return "1–3 hrs";
   if (w <= 3000) return "3–6 hrs";
   return "6–12 hrs";
-}
-
-function lockScroll(lock){
-  if (lock){
-    document.body.classList.add("lockedNoScroll");
-  } else {
-    document.body.classList.remove("lockedNoScroll");
-  }
 }
 
 function showQuote(q){
@@ -138,13 +130,11 @@ function showQuote(q){
   expressDeliveryEl.textContent = deliveryFor("express", q.wordCount);
 
   quoteWrap.style.display = "block";
-  lockScroll(false);
 }
 
 function hideQuote(){
   lastQuote = null;
   quoteWrap.style.display = "none";
-  lockScroll(true);
 }
 
 async function getQuote(){
@@ -174,9 +164,6 @@ async function getQuote(){
 
     const data = await res.json();
 
-    // Support both formats:
-    // A) { wordCount, standard, express }
-    // B) { wordCount, pricing: { standard, express }, delivery: {...} }
     const wordCount = Number(data.wordCount ?? data.words ?? 0);
 
     let standard = data.standard;
@@ -187,7 +174,6 @@ async function getQuote(){
       express = data.pricing.express;
     }
 
-    // Some backends return strings. Normalize to numbers.
     standard = Number(standard ?? 0);
     express = Number(express ?? 0);
 
@@ -196,6 +182,9 @@ async function getQuote(){
     }
 
     showQuote({ wordCount, standard, express });
+
+    // bring quote into view smoothly
+    quoteWrap.scrollIntoView({ behavior: "smooth", block: "start" });
 
   }catch(err){
     showError(err.message || "Failed to get quote. Please try again.");
@@ -206,7 +195,6 @@ async function getQuote(){
   }
 }
 
-/* Redirect to payment page (keeps your current behavior) */
 function goPay(service){
   if (!lastQuote) return;
 
@@ -222,7 +210,6 @@ function goPay(service){
   window.location.href = url.toString();
 }
 
-/* Events */
 pickBtn.addEventListener("click", () => fileInput.click());
 
 fileInput.addEventListener("change", (e) => {
@@ -238,7 +225,6 @@ uploadBtn.addEventListener("click", getQuote);
 optStandard.addEventListener("click", () => goPay("standard"));
 optExpress.addEventListener("click", () => goPay("express"));
 
-/* Drag & drop */
 ["dragenter","dragover"].forEach(evt => {
   drop.addEventListener(evt, (e) => {
     e.preventDefault();
@@ -261,7 +247,5 @@ drop.addEventListener("drop", (e) => {
   }
 });
 
-/* Init */
 setFile(null);
 hideQuote();
-lockScroll(true);
