@@ -247,3 +247,43 @@ Changes ONLY fonts inside pricing cards
 
 }
 
+/* ========================================
+SUBTEXT FINAL PREMIUM UPDATE
+Removes SECURE and makes font smaller
+======================================== */
+
+
+/* Sub header text */
+.sub-header {
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+    font-size: 12px;
+    letter-spacing: 1.8px;
+
+    color: #555;
+
+    margin-top: 6px;
+
+}
+
+
+/* mobile — even cleaner */
+@media (max-width:768px){
+
+.sub-header{
+
+    font-size: 10.5px;
+    letter-spacing: 1.4px;
+
+}
+
+}
+
