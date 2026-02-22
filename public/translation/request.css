@@ -1,244 +1,127 @@
 ﻿
-/* =====================================
-GLOBAL BACKGROUND
-===================================== */
-
-body{
+body {
 
 margin:0;
-
-font-family:Segoe UI, -apple-system, BlinkMacSystemFont;
-
-background:#A1D7D6;
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
+background:white;
+font-family:Inter,system-ui;
 
 }
 
 
-
-/* =====================================
-PAGE CONTAINER
-===================================== */
 
 .page{
 
-width:100%;
-
-max-width:1100px;
-
-padding:30px;
-
-box-sizing:border-box;
+padding:40px;
 
 }
 
 
-
-/* =====================================
-HEADER
-===================================== */
 
 .header{
 
 text-align:center;
-
-margin-bottom:25px;
+margin-bottom:30px;
 
 }
+
 
 
 .header h1{
 
+font-size:42px;
 margin:0;
 
-font-size:42px;
-
-font-weight:600;
-
 }
+
 
 
 .sub{
 
-font-size:12px;
-
+font-size:13px;
 letter-spacing:1px;
-
-opacity:0.7;
+opacity:.6;
 
 }
 
 
 
-/* =====================================
-GLASS CARD
-===================================== */
+.card{
 
-.glass-card{
-
-display:flex;
-
-gap:30px;
-
-width:100%;
-
-
-/* GLASS EFFECT */
-
-background:rgba(255,255,255,0.18);
-
-backdrop-filter:blur(25px);
-
--webkit-backdrop-filter:blur(25px);
-
-
-/* 3D EFFECT */
-
-box-shadow:
-
-0 25px 60px rgba(0,0,0,0.18),
-
-inset 0 1px 1px rgba(255,255,255,0.4),
-
-inset 0 -1px 1px rgba(0,0,0,0.05);
-
-
+background:#f3f6fb;
 border-radius:20px;
-
 padding:30px;
+box-shadow:0 20px 40px rgba(0,0,0,.1);
 
-box-sizing:border-box;
+}
+
+
+
+.grid{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
 
 }
 
 
 
-/* =====================================
-UPLOAD SIDE
-===================================== */
-
-.left{
-
-flex:1;
-
-}
-
-
-.upload-visual{
+.upload{
 
 text-align:center;
 
-border:2px dashed rgba(255,255,255,0.6);
-
-border-radius:15px;
-
-padding:25px;
-
 }
+
 
 
 .cloud{
 
-font-size:40px;
+width:80px;
+margin-bottom:10px;
 
 }
 
 
-.choose{
 
-display:inline-block;
+button{
 
-margin-top:15px;
-
-padding:12px 24px;
-
-border-radius:12px;
-
-background:rgba(255,255,255,0.3);
-
-backdrop-filter:blur(10px);
-
-cursor:pointer;
-
-transition:0.2s;
-
-}
-
-
-.choose:hover{
-
-transform:scale(1.05);
-
-}
-
-
-.choose input{
-
-display:none;
-
-}
-
-
-.uploadBtn{
-
-width:100%;
-
-margin-top:20px;
-
-padding:16px;
-
+padding:14px;
 border:none;
-
-border-radius:14px;
-
-background:rgba(0,0,0,0.7);
-
+border-radius:10px;
+background:#1d3557;
 color:white;
-
 cursor:pointer;
 
-transition:0.2s;
-
-}
-
-
-.uploadBtn:hover{
-
-transform:scale(1.02);
-
 }
 
 
 
-/* =====================================
-PRICE SIDE
-===================================== */
+button:hover{
 
-.right{
-
-flex:1;
+opacity:.8;
 
 }
 
 
-.price-card{
 
-background:rgba(255,255,255,0.25);
+.pricing{
 
-backdrop-filter:blur(15px);
+display:flex;
+flex-direction:column;
+gap:20px;
+
+}
+
+
+
+.price{
 
 padding:20px;
-
-border-radius:15px;
-
-margin-bottom:20px;
+border-radius:14px;
+background:white;
 
 }
+
 
 
 .standard{
@@ -246,6 +129,7 @@ margin-bottom:20px;
 border:2px solid green;
 
 }
+
 
 
 .express{
@@ -256,25 +140,15 @@ border:2px solid red;
 
 
 
-/* =====================================
-QUOTE CARD
-===================================== */
+.quote{
 
-.quoteCard{
-
-margin-top:30px;
-
-background:rgba(255,255,255,0.25);
-
-backdrop-filter:blur(15px);
-
-padding:25px;
-
-border-radius:18px;
-
-border:2px solid green;
+margin-top:20px;
+padding:20px;
+background:white;
+border-radius:14px;
 
 }
+
 
 
 .hidden{
@@ -285,17 +159,13 @@ display:none;
 
 
 
-/* =====================================
-MOBILE
-===================================== */
+/* MOBILE */
 
 @media(max-width:768px){
 
-.glass-card{
+.grid{
 
-flex-direction:column;
-
-padding:20px;
+grid-template-columns:1fr;
 
 }
 

@@ -3,17 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayBon Translation Services</title>
 
-<title>SayBon Translation Request</title>
+<style>
 
-<link rel="stylesheet" href="request.css">
+:root{
+--bg:#ffffff;
+--card:#eef3f7;
+--text:#1a1a1a;
+--green:#2e7d32;
+--red:#c62828;
+--blue:#2d4de0;
+}
 
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:30px 20px;
+}
+
+header{
+text-align:center;
+margin-bottom:30px;
+}
+
+header h1{
+margin:0;
+font-size:42px;
+}
+
+.sub{
+font-size:13px;
+letter-spacing:1px;
+white-space:nowrap;
+}
+
+.layout{
+display:flex;
+gap:30px;
+}
+
+.card{
+background:#eef3f7;
+padding:25px;
+border-radius:14px;
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.pricing{
+width:360px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.standard{
+border:2px solid #2e7d32;
+}
+
+.express{
+border:2px solid #c62828;
+}
+
+.upload{
+flex:1;
+text-align:center;
+}
+
+button{
+background:#2d4de0;
+color:white;
+border:none;
+padding:14px 25px;
+border-radius:8px;
+cursor:pointer;
+transition:.2s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 14px rgba(0,0,0,.2);
+}
+
+button:active{
+transform:translateY(1px);
+}
+
+.quote{
+display:none;
+margin-top:20px;
+animation:fadeIn .4s ease;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+@media(max-width:768px){
+
+.layout{
+flex-direction:column;
+}
+
+.pricing{
+order:1;
+width:100%;
+}
+
+.upload{
+order:2;
+}
+
+header h1{
+font-size:26px;
+}
+
+.sub{
+font-size:11px;
+}
+
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="page">
+<div class="container">
 
-<header class="header">
+<header>
 
 <h1>SayBon Translation Services</h1>
 
@@ -26,56 +163,67 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • SECURE • CONFIDENTIAL
 </header>
 
 
-<div class="glass-card">
+<div class="layout">
 
-<div class="left">
 
-<div class="upload-visual">
+<div class="card upload">
 
-<div class="cloud">☁</div>
+<div style="font-size:40px">☁️</div>
 
-<div class="drop-title">Drop file to upload</div>
+<div>Drop file to upload</div>
 
-<div class="formats">
-Supported: PDF, DOCX, TXT
-</div>
-
-<label class="choose">
-
-Choose File
+<div>Supported: PDF, DOCX, TXT</div>
 
 <input type="file" id="file">
 
-</label>
+<br><br>
 
-</div>
-
-<div id="fileName" class="file-display">
-
-No file selected
-
-</div>
-
-<button id="uploadBtn" class="uploadBtn">
+<button onclick="getQuote()">
 
 Upload Document To Get Quote
 
 </button>
 
+
+<div id="quote" class="card quote">
+
+<div id="wordCount"></div>
+
+<br>
+
+<button onclick="pay('standard')">
+
+Standard
+
+</button>
+
+<button onclick="pay('express')">
+
+Express
+
+</button>
+
+</div>
+
 </div>
 
 
-<div class="right">
 
-<div class="price-card standard">
+<div class="pricing">
 
-<h3>Standard — $0.025 / word</h3>
+
+<div class="card standard">
+
+<strong>Standard — $0.025 / word</strong>
 
 <ul>
 
 <li>0–300 words: 1–3 hrs</li>
+
 <li>300–1000 words: 3–6 hrs</li>
+
 <li>1000–3000 words: 6–12 hrs</li>
+
 <li>3000–5000 words: 12–24 hrs</li>
 
 </ul>
@@ -83,51 +231,76 @@ Upload Document To Get Quote
 </div>
 
 
-<div class="price-card express">
+<div class="card express">
 
-<h3>Express — $0.05 / word</h3>
+<strong>Express — $0.05 / word</strong>
 
 <ul>
 
 <li>0–300 words: 30–60 mins</li>
+
 <li>300–1000 words: 1–3 hrs</li>
+
 <li>1000–3000 words: 3–6 hrs</li>
+
 <li>3000–5000 words: 6–12 hrs</li>
 
 </ul>
 
 </div>
 
-</div>
-
-</div>
-
-
-<div id="quoteCard" class="quoteCard hidden">
-
-<h2>Your Quote</h2>
-
-<div id="quoteText"></div>
-
-<button id="standardBtn">
-
-Proceed with Standard
-
-</button>
-
-<button id="expressBtn">
-
-Proceed with Express
-
-</button>
 
 </div>
 
 
 </div>
 
-<script src="request.js"></script>
+
+</div>
+
+
+<script>
+
+async function getQuote(){
+
+const file=document.getElementById("file").files[0];
+
+const form=new FormData();
+
+form.append("file",file);
+
+const res=await fetch(
+
+"https://saybon-backend.onrender.com/api/quote",
+
+{
+
+method:"POST",
+
+body:form
+
+}
+
+);
+
+const data=await res.json();
+
+document.getElementById("quote").style.display="block";
+
+document.getElementById("wordCount").innerHTML=
+
+data.wordCount+" words";
+
+}
+
+function pay(type){
+
+location.href="payment.html?type="+type;
+
+}
+
+</script>
+
 
 </body>
 </html>
-
