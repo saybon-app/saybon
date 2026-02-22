@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SayBon Translation Services — Request a Quote</title>
   <link rel="stylesheet" href="/translation/request.css?v=3" />
+<!-- SAYBON_MOBILE_HEADER_FIX BEGIN -->
+<style>
+@media (max-width: 520px){
+  /* Reduce outer spacing on mobile */
+  .top, .hero, header, .titleWrap, .pageHeader, .headerCard{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Title: smaller + single line */
+  h1, h1.title{
+    font-size: 22px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  /* Tagline/subtitle: smaller + single line */
+  .sub, p.sub, .tagline, .subtitle{
+    font-size: 11px !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+}
+
+@media (max-width: 380px){
+  h1, h1.title{
+    font-size: 19px !important;
+    letter-spacing: -0.03em !important;
+  }
+  .sub, p.sub, .tagline, .subtitle{
+    font-size: 10px !important;
+    letter-spacing: 0.02em !important;
+  }
+}
+</style>
+<!-- SAYBON_MOBILE_HEADER_FIX END -->
 </head>
 
 <body>
@@ -140,3 +181,4 @@
   <script src="/translation/requestTranslation.js?v=2"></script>
 </body>
 </html>
+

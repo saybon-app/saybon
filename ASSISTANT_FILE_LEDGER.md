@@ -28,3 +28,57 @@ DO NOT edit manually unless you explicitly unlock it.
 - Notes:
   - Page is scrollable on both desktop + mobile.
   - “Outside text clutter” resolved by hero container.
+
+==================================================
+FILE LEDGER ENTRY
+==================================================
+
+Date: 2026-02-22
+Module: SayBon Translation Engine
+Update Type: UI Upgrade (Premium Request Page Polish)
+Status: LOCKED BASELINE
+
+FILES UPDATED:
+
+1. public/translation/request.html
+Purpose:
+- Floating hero header (no card background)
+- New luxury title typography
+- Tagline updated to:
+  "TRANSLATED BY EXPERTS • PRECISE • QUICK DELIVERY • SECURE • CONFIDENTIAL"
+- Removed "Professional human translation..." line
+- Upload left / Pricing right structure maintained
+- Quote card rim styling added
+- Payment flow preserved
+
+2. public/translation/request.css
+Purpose:
+- Floating header blend effect
+- Green rim (Standard)
+- Red rim (Express)
+- Quote card rim styling
+- Hover and click visual feedback added
+- Mobile one-line title and tagline enforcement
+- Scroll behavior fixed
+- Premium spacing and typography corrections
+
+NOTES:
+
+This version establishes the current PREMIUM REQUEST PAGE BASELINE.
+
+This baseline includes:
+
+• Hotel-grade upload interface
+• Floating luxury header
+• Premium interaction feedback
+• Mobile-fit layout
+• Quote-to-payment direct flow
+
+This version supersedes all previous request.html and request.css versions.
+
+==================================================
+
+## 2026-02-22 20:18:48
+- File: public/translation/request.html
+- Change: Injected mobile-only header CSS before </head> (force title + tagline to 1 line, reduce font sizes on small screens)
+- Notes: Desktop untouched. UTF-8 write.
