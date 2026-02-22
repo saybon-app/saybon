@@ -1,520 +1,133 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation</title>
+<title>SayBon Translation Request</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-
-body{
-
-margin:0;
-
-font-family:Inter;
-
-background:
-linear-gradient(
-135deg,
-#667eea,
-#764ba2,
-#f093fb,
-#f5576c
-);
-
-padding:40px;
-
-}
-
-
-.main{
-
-background:white;
-
-border-radius:20px;
-
-padding:40px;
-
-max-width:1100px;
-
-margin:auto;
-
-box-shadow:0 50px 100px rgba(0,0,0,0.2);
-
-}
-
-
-/* HEADER */
-
-.header{
-
-text-align:center;
-
-margin-bottom:30px;
-
-}
-
-.header h1{
-
-margin:0;
-
-font-size:32px;
-
-}
-
-.header p{
-
-font-size:12px;
-
-color:#555;
-
-letter-spacing:1px;
-
-}
-
-
-/* GRID */
-
-.grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:30px;
-
-}
-
-@media(max-width:900px){
-
-.grid{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-
-/* DROPZONE */
-
-.dropzone{
-
-border:2px dashed #ccc;
-
-border-radius:20px;
-
-padding:50px;
-
-text-align:center;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.dropzone.drag{
-
-background:#f0f4ff;
-
-border-color:#667eea;
-
-}
-
-
-.fileList{
-
-margin-top:20px;
-
-}
-
-
-.fileItem{
-
-background:#f7f7f7;
-
-padding:10px;
-
-border-radius:10px;
-
-margin-top:10px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-
-/* BUTTON */
-
-.btn{
-
-margin-top:20px;
-
-background:
-linear-gradient(
-90deg,
-#667eea,
-#764ba2
-);
-
-color:white;
-
-border:none;
-
-padding:14px 30px;
-
-border-radius:10px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.btn:hover{
-
-transform:translateY(-2px);
-
-}
-
-.btn:active{
-
-transform:scale(.96);
-
-}
-
-
-/* PRICES */
-
-.price{
-
-background:#fff;
-
-border-radius:14px;
-
-padding:20px;
-
-margin-bottom:20px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.standard{
-
-border:2px solid #16a34a;
-
-}
-
-.express{
-
-border:2px solid #dc2626;
-
-}
-
-.price:hover{
-
-transform:translateY(-4px);
-
-box-shadow:0 20px 40px rgba(0,0,0,0.2);
-
-}
-
-
-/* QUOTE */
-
-.quote{
-
-display:none;
-
-margin-top:30px;
-
-background:#fff;
-
-padding:20px;
-
-border-radius:14px;
-
-border:2px solid #667eea;
-
-animation:slide .4s;
-
-}
-
-@keyframes slide{
-
-from{
-
-opacity:0;
-
-transform:translateY(30px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:none;
-
-}
-
-}
-
-
-</style>
+<link rel="stylesheet" href="request.css">
 
 </head>
-
-
 <body>
 
+<div class="page">
 
-<div class="main">
-
-
-<div class="header">
+<header class="header">
 
 <h1>SayBon Translation Services</h1>
 
-<p>
+<div class="sub">
 
 TRANSLATED BY EXPERTS • QUICK DELIVERY • SECURE • CONFIDENTIAL
 
-</p>
+</div>
+
+</header>
+
+
+<div class="glass-card">
+
+<div class="left">
+
+<div class="upload-visual">
+
+<div class="cloud">☁</div>
+
+<div class="drop-title">Drop file to upload</div>
+
+<div class="formats">
+Supported: PDF, DOCX, TXT
+</div>
+
+<label class="choose">
+
+Choose File
+
+<input type="file" id="file">
+
+</label>
 
 </div>
 
+<div id="fileName" class="file-display">
 
-<div class="grid">
-
-
-<!-- LEFT -->
-
-<div>
-
-
-<div
-class="dropzone"
-id="dropzone"
-onclick="file.click()"
->
-
-Drop file to upload
-
-<input
-type="file"
-id="file"
-hidden
->
+No file selected
 
 </div>
 
-
-<div
-class="fileList"
-id="fileList"
-></div>
-
-
-<button
-class="btn"
-onclick="upload()"
->
+<button id="uploadBtn" class="uploadBtn">
 
 Upload Document To Get Quote
 
 </button>
 
+</div>
+
+
+<div class="right">
+
+<div class="price-card standard">
+
+<h3>Standard — $0.025 / word</h3>
+
+<ul>
+
+<li>0–300 words: 1–3 hrs</li>
+<li>300–1000 words: 3–6 hrs</li>
+<li>1000–3000 words: 6–12 hrs</li>
+<li>3000–5000 words: 12–24 hrs</li>
+
+</ul>
 
 </div>
 
 
+<div class="price-card express">
 
-<!-- RIGHT -->
+<h3>Express — $0.05 / word</h3>
 
-<div>
+<ul>
 
+<li>0–300 words: 30–60 mins</li>
+<li>300–1000 words: 1–3 hrs</li>
+<li>1000–3000 words: 3–6 hrs</li>
+<li>3000–5000 words: 6–12 hrs</li>
 
-<div
-class="price standard"
-onclick="pay('standard')"
->
+</ul>
 
-Standard — $0.025 / word
+</div>
+
+</div>
 
 </div>
 
 
-<div
-class="price express"
-onclick="pay('express')"
->
+<div id="quoteCard" class="quoteCard hidden">
 
-Express — $0.05 / word
+<h2>Your Quote</h2>
 
-</div>
+<div id="quoteText"></div>
 
+<button id="standardBtn">
 
-</div>
+Proceed with Standard
 
+</button>
 
-</div>
+<button id="expressBtn">
 
+Proceed with Express
 
-
-<div
-class="quote"
-id="quote"
->
-
-<h3>Quote</h3>
-
-<p id="quoteText"></p>
+</button>
 
 </div>
 
 
-
 </div>
 
-
-
-<script>
-
-
-let selectedFile
-
-
-
-file.onchange=()=>{
-
-selectedFile=file.files[0]
-
-showFile()
-
-}
-
-
-
-dropzone.ondragover=e=>{
-
-e.preventDefault()
-
-dropzone.classList.add("drag")
-
-}
-
-
-dropzone.ondragleave=()=>{
-
-dropzone.classList.remove("drag")
-
-}
-
-
-dropzone.ondrop=e=>{
-
-e.preventDefault()
-
-dropzone.classList.remove("drag")
-
-selectedFile=e.dataTransfer.files[0]
-
-showFile()
-
-}
-
-
-
-function showFile(){
-
-fileList.innerHTML=
-
-`
-
-<div class=fileItem>
-
-${selectedFile.name}
-
-<span onclick="remove()">✕</span>
-
-</div>
-
-`
-
-}
-
-
-
-function remove(){
-
-selectedFile=null
-
-fileList.innerHTML=""
-
-}
-
-
-
-async function upload(){
-
-
-let form=new FormData()
-
-form.append("file",selectedFile)
-
-
-let res=await fetch(
-
-"https://saybon-backend.onrender.com/api/quote",
-
-{
-
-method:"POST",
-
-body:form
-
-})
-
-
-let data=await res.json()
-
-
-quote.style.display="block"
-
-
-quoteText.innerHTML=
-
-"Standard: $"+data.standard+
-"<br>Express: $"+data.express
-
-}
-
-
-function pay(type){
-
-window.location="payment.html?type="+type
-
-}
-
-
-</script>
-
+<script src="request.js"></script>
 
 </body>
-
 </html>
 
