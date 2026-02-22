@@ -86,3 +86,6 @@ This version supersedes all previous request.html and request.css versions.
 File: public/translation/request.html
 Change: Removed 'PRECISE' from subtitle line
 Reason: User requested cleaner premium positioning text
+## 2026-02-22 20:25:42
+File: public/translation/request.html
+Change: Reduced subtitle font size for perfect mobile single-line fit
