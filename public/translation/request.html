@@ -1,374 +1,147 @@
-<!DOCTYPE html>
+ï»¿<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayBon Translation Services</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-
-font-family:Inter, sans-serif;
-background:#f8f6f2;
-color:#1a1a1a;
-
-height:100vh;
-overflow:hidden;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-}
-
-
-.wrapper{
-
-width:1200px;
-max-width:95%;
-
-height:700px;
-
-background:white;
-
-display:flex;
-
-box-shadow:0 40px 80px rgba(0,0,0,0.08);
-
-}
-
-
-.left{
-
-flex:1;
-
-padding:80px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-
-}
-
-
-.right{
-
-width:420px;
-
-background:#faf9f7;
-
-padding:60px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-
-border-left:1px solid #eee;
-
-}
-
-
-h1{
-
-font-family:Playfair Display;
-font-size:48px;
-font-weight:600;
-
-margin-bottom:20px;
-
-}
-
-
-.sub{
-
-color:#777;
-
-margin-bottom:60px;
-
-font-size:15px;
-
-letter-spacing:1px;
-
-}
-
-
-.section{
-
-margin-bottom:40px;
-
-}
-
-
-.section-title{
-
-font-weight:500;
-
-margin-bottom:10px;
-
-font-size:18px;
-
-}
-
-
-ul{
-
-list-style:none;
-
-color:#555;
-
-font-size:15px;
-
-}
-
-
-ul li{
-
-margin-bottom:6px;
-
-}
-
-
-.price{
-
-color:#bfa046;
-
-font-weight:500;
-
-}
-
-
-.upload-box{
-
-border:1px solid #ddd;
-
-padding:40px;
-
-text-align:center;
-
-margin-bottom:20px;
-
-background:white;
-
-}
-
-
-button{
-
-width:100%;
-
-padding:18px;
-
-border:none;
-
-background:#1a1a1a;
-
-color:white;
-
-font-size:15px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-button:hover{
-
-background:#bfa046;
-
-color:white;
-
-}
-
-
-.quote{
-
-margin-top:20px;
-
-font-size:16px;
-
-display:none;
-
-}
-
-
-.gold{
-
-color:#bfa046;
-
-font-weight:500;
-
-}
-
-
-@media(max-width:900px){
-
-.wrapper{
-
-flex-direction:column;
-
-height:auto;
-
-overflow:auto;
-
-}
-
-.right{
-
-width:100%;
-border-left:none;
-border-top:1px solid #eee;
-
-}
-
-body{
-
-height:auto;
-overflow:auto;
-
-}
-
-}
-
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SayBon Translation Services â€” Request a Quote</title>
+  <link rel="stylesheet" href="/translation/request.css?v=1" />
 </head>
 
-<body>
-
-<div class="wrapper">
-
-
-<div class="left">
-
-<h1>SayBon Translation Services</h1>
-
-<div class="sub">
-
-Human translated · Secure · Confidential
-
-</div>
-
-
-<div class="section">
-
-<div class="section-title">
-
-Standard <span class="price">$0.025 / word</span>
-
-</div>
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-
-<li>300–1000 words: 3–6 hrs</li>
-
-<li>1000–3000 words: 6–12 hrs</li>
-
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="section">
-
-<div class="section-title">
-
-Express <span class="price">$0.05 / word</span>
-
-</div>
-
-<ul>
-
-<li>0–300 words: 30–60 mins</li>
-
-<li>300–1000 words: 1–3 hrs</li>
-
-<li>1000–3000 words: 3–6 hrs</li>
-
-<li>3000–5000 words: 6–12 hrs</li>
-
-</ul>
-
-</div>
-
-
-</div>
-
-
-
-<div class="right">
-
-<div class="upload-box">
-
-<input type="file" id="file">
-
-</div>
-
-<button onclick="quote()">
-
-Upload Document To Get Quote
-
-</button>
-
-<div class="quote" id="quote">
-
-</div>
-
-</div>
-
-
-
-</div>
-
-
-
-<script>
-
-function quote(){
-
-let words=1200;
-
-let standard=(words*0.025).toFixed(2);
-
-let express=(words*0.05).toFixed(2);
-
-let box=document.getElementById("quote");
-
-box.style.display="block";
-
-box.innerHTML=
-
-"<div class='gold'>"+words+" words</div><br>"+
-
-"Standard: $"+standard+"<br>"+
-
-"Express: $"+express;
-
-document.body.style.overflow="auto";
-
-}
-
-</script>
-
-
-
+<body class="lockedNoScroll">
+  <div class="page">
+    <div class="shell">
+
+      <!-- Keep your exact headline info (no weird symbols) -->
+      <div class="topline">
+        <span>Human translated</span>
+        <span class="dot"></span>
+        <span>Secure</span>
+        <span class="dot"></span>
+        <span>Confidential</span>
+      </div>
+
+      <div class="header">
+        <h1 class="h1">SayBon Translation Services</h1>
+        <p class="sub">Professional human translation with precision, speed, and confidentiality.</p>
+      </div>
+
+      <div class="grid">
+
+        <!-- LEFT: Upload (template-style) -->
+        <section class="card uploadCard">
+          <div class="uploadTop">
+            <h2 class="uploadTopTitle">Upload your document</h2>
+            <p class="uploadTopText">
+              Drag and drop your file, or choose from your device. Weâ€™ll calculate your word count and generate a quote instantly.
+            </p>
+          </div>
+
+          <div class="uBody">
+            <div class="drop" id="dropzone">
+              <div class="cloud" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <path d="M7.5 18.2h9.2c2 0 3.6-1.6 3.6-3.6 0-1.8-1.3-3.3-3-3.6-.4-3-2.9-5.4-6-5.4-2.6 0-4.8 1.6-5.7 3.9C3.9 7.7 2.5 9.4 2.5 11.4c0 2.1 1.7 3.8 3.8 3.8h1.2" stroke="rgba(47,109,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M12 20v-7" stroke="rgba(47,109,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M9.2 15.7 12 12.9l2.8 2.8" stroke="rgba(47,109,246,.95)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <div class="dropTitle">Drop file to upload</div>
+              <p class="dropHint">Supported: PDF, DOCX, TXT<br/>Your file stays private.</p>
+
+              <button class="pickBtn" type="button" id="pickBtn">Choose File</button>
+              <input id="fileInput" type="file" style="display:none" />
+            </div>
+
+            <div class="fileList" id="fileList"></div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" id="uploadBtn" type="button" disabled>
+              Upload Document To Get Quote
+            </button>
+          </div>
+
+          <div class="smallNote">
+            When your quote appears, click <strong>Standard</strong> or <strong>Express</strong> to proceed to payment.
+          </div>
+
+          <div class="err" id="errBox">Error placeholder</div>
+        </section>
+
+        <!-- RIGHT: Pricing & Delivery (ALL your info preserved) -->
+        <aside class="card pricingCard cardPad">
+          <h2 class="title">Pricing & Delivery</h2>
+          <p class="muted">
+            Transparent rates based on word count. Choose Standard for best value, or Express for urgent work.
+          </p>
+
+          <div class="block">
+            <h3>Standard <span class="rate">â€” $0.025 / word</span></h3>
+            <ul class="ul">
+              <li>0â€“300 words: 1â€“3 hrs</li>
+              <li>300â€“1000 words: 3â€“6 hrs</li>
+              <li>1000â€“3000 words: 6â€“12 hrs</li>
+              <li>3000â€“5000 words: 12â€“24 hrs</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h3>Express <span class="rate">â€” $0.05 / word</span></h3>
+            <ul class="ul">
+              <li>0â€“300 words: 30â€“60 mins</li>
+              <li>300â€“1000 words: 1â€“3 hrs</li>
+              <li>1000â€“3000 words: 3â€“6 hrs</li>
+              <li>3000â€“5000 words: 6â€“12 hrs</li>
+            </ul>
+          </div>
+
+          <p class="muted" style="margin-top:14px">
+            Tip: For the smoothest experience, upload clear documents (not blurry screenshots).
+          </p>
+        </aside>
+
+      </div>
+
+      <!-- Quote appears ONLY after upload; then page becomes scrollable -->
+      <div class="quoteWrap" id="quoteWrap">
+        <div class="quoteCard">
+          <div class="quoteHead">
+            <h3 class="quoteHeadTitle">Your Quote</h3>
+            <div class="quoteHeadSub">Word count: <strong id="quoteWords">0</strong>. Select an option to continue.</div>
+          </div>
+
+          <div class="quoteBody">
+            <div class="quoteGrid">
+              <div class="qOpt" id="optStandard" role="button" tabindex="0" aria-label="Choose Standard quote">
+                <div class="qTop">
+                  <div class="qName">Standard Quote</div>
+                  <div class="qBadge">Best value</div>
+                </div>
+                <div class="qPrice" id="standardPrice">$0.00</div>
+                <div class="qMeta">Delivery: <strong id="standardDelivery">â€”</strong></div>
+              </div>
+
+              <div class="qOpt" id="optExpress" role="button" tabindex="0" aria-label="Choose Express quote">
+                <div class="qTop">
+                  <div class="qName">Express Quote</div>
+                  <div class="qBadge">Urgent</div>
+                </div>
+                <div class="qPrice" id="expressPrice">$0.00</div>
+                <div class="qMeta">Delivery: <strong id="expressDelivery">â€”</strong></div>
+              </div>
+            </div>
+
+            <div class="footerHint">
+              Clicking an option will take you directly to the payment page (as your current flow).
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/translation/requestTranslation.js?v=1"></script>
 </body>
-
 </html>
-
