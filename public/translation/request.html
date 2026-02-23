@@ -492,3 +492,169 @@ location.href=
 </body>
 </html>
 
+<script>
+
+const uploadBtn =
+document.getElementById("uploadBtn");
+
+const fileInput =
+document.getElementById("file");
+
+const quoteCard =
+document.getElementById("quoteCard");
+
+const wordCount =
+document.getElementById("wordCount");
+
+const standardBtn =
+document.getElementById("standardBtn");
+
+const expressBtn =
+document.getElementById("expressBtn");
+
+
+let loadingInterval;
+
+
+
+function startLoading(){
+
+let dots=0;
+
+loadingInterval=setInterval(()=>{
+
+dots=(dots+1)%4;
+
+uploadBtn.innerText=
+
+"Getting quote" + ".".repeat(dots);
+
+},400);
+
+}
+
+
+
+function stopLoading(){
+
+clearInterval(loadingInterval);
+
+uploadBtn.innerText=
+
+"Upload Document To Get Quote";
+
+uploadBtn.disabled=false;
+
+}
+
+
+
+uploadBtn.onclick=async()=>{
+
+
+const file=fileInput.files[0];
+
+
+if(!file){
+
+alert("Please select file");
+
+return;
+
+}
+
+
+uploadBtn.disabled=true;
+
+startLoading();
+
+
+
+try{
+
+
+const form=new FormData();
+
+form.append("file",file);
+
+
+const res=await fetch(
+
+"https://saybon-backend.onrender.com/api/quote",
+
+{
+
+method:"POST",
+
+body:form
+
+});
+
+
+if(!res.ok){
+
+throw new Error("Server error");
+
+}
+
+
+const data=await res.json();
+
+
+
+wordCount.innerHTML=
+
+data.wordCount+" words";
+
+
+
+standardBtn.innerHTML=
+
+"Standard — $"+data.standard;
+
+
+
+expressBtn.innerHTML=
+
+"Express — $"+data.express;
+
+
+
+quoteCard.classList.add("show");
+
+
+
+standardBtn.onclick=()=>{
+
+location.href=
+
+"/translation/payment.html?type=standard&amount="+data.standard;
+
+};
+
+
+
+expressBtn.onclick=()=>{
+
+location.href=
+
+"/translation/payment.html?type=express&amount="+data.express;
+
+};
+
+
+}
+catch(err){
+
+alert("Quote failed. Try again.");
+
+console.error(err);
+
+}
+
+
+stopLoading();
+
+};
+
+</script>
