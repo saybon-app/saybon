@@ -1,45 +1,211 @@
-﻿/* ============================================
-SayBon Translation Request
-FINAL LOCKED VERSION
-Quote Cards → Payment Integration
-============================================ */
+﻿/*
+========================================
+SAYBON REQUEST PAGE SCRIPT FINAL
+========================================
+*/
 
-const fileInput = document.getElementById("fileInput");
 const uploadBtn = document.getElementById("uploadBtn");
-const quoteArea = document.getElementById("quoteArea");
+const fileInput = document.getElementById("fileInput");
+const quoteCard = document.getElementById("quoteCard");
 
-let wordCount = 0;
+const wordCountText = document.getElementById("wordCount");
+const standardBtn = document.getElementById("standardQuoteBtn");
+const expressBtn = document.getElementById("expressQuoteBtn");
+
+let originalBtnText = "Upload Document To Get Quote";
 
 
-/* =============================
-WORD COUNT SIMULATION
-(Replace later with backend)
-============================= */
+/*
+========================================
+BUTTON LOADING ANIMATION
+========================================
+*/
 
-function calculateWords(file){
+let dots = 0;
+let loadingInterval;
 
-return new Promise(resolve=>{
+function startLoadingAnimation(){
 
-setTimeout(()=>{
+uploadBtn.disabled = true;
 
-resolve( Math.floor(Math.random()*4000)+50 );
+loadingInterval = setInterval(()=>{
 
-},1200);
+dots++;
 
-});
+if(dots>3) dots=1;
+
+uploadBtn.innerText =
+"Getting quote " + ".".repeat(dots);
+
+},400);
+
+}
+
+function stopLoadingAnimation(){
+
+clearInterval(loadingInterval);
+
+dots=0;
+
+uploadBtn.disabled=false;
 
 }
 
 
-/* =============================
-PRICING ENGINE
-============================= */
+
+/*
+========================================
+WORD COUNT SIMULATION / API
+========================================
+*/
+
+uploadBtn.onclick = async function(){
+
+if(!fileInput.files.length){
+
+alert("Select a file first");
+
+return;
+
+}
+
+startLoadingAnimation();
+
+
+/*
+SIMULATE BACKEND CALL
+Replace with real API if needed
+*/
+
+setTimeout(()=>{
+
+const words = Math.floor(Math.random()*4000)+10;
+
+showQuote(words);
+
+},1500);
+
+};
+
+
+
+/*
+========================================
+SHOW QUOTE CARD
+========================================
+*/
+
+function showQuote(words){
+
+stopLoadingAnimation();
+
+
+uploadBtn.innerText = "See quote 👇🏽";
+
+
+setTimeout(()=>{
+
+uploadBtn.innerText = originalBtnText;
+
+},5000);
+
+
+
+quoteCard.style.display="block";
+
+
+quoteCard.style.opacity="0";
+
+quoteCard.style.transform="translateY(20px)";
+
+
+setTimeout(()=>{
+
+quoteCard.style.transition="all .4s ease";
+
+quoteCard.style.opacity="1";
+
+quoteCard.style.transform="translateY(0)";
+
+},50);
+
+
+
+wordCountText.innerText = words + " words";
+
+
+
+/*
+CALCULATIONS
+*/
+
+const standardPrice =
+(words * 0.025).toFixed(2);
+
+const expressPrice =
+(words * 0.05).toFixed(2);
+
+
+
+const standardDelivery =
+getStandardDelivery(words);
+
+const expressDelivery =
+getExpressDelivery(words);
+
+
+
+standardBtn.innerHTML =
+"Standard — $" +
+standardPrice +
+"<br>" +
+standardDelivery;
+
+
+
+expressBtn.innerHTML =
+"Express — $" +
+expressPrice +
+"<br>" +
+expressDelivery;
+
+
+
+/*
+SAVE DATA FOR PAYMENT PAGE
+*/
+
+standardBtn.onclick = function(){
+
+saveAndGo(words,standardPrice,standardDelivery);
+
+};
+
+expressBtn.onclick = function(){
+
+saveAndGo(words,expressPrice,expressDelivery);
+
+};
+
+
+}
+
+
+
+/*
+========================================
+DELIVERY LOGIC
+========================================
+*/
 
 function getStandardDelivery(words){
 
 if(words<=300) return "1–3 hrs";
+
 if(words<=1000) return "3–6 hrs";
+
 if(words<=3000) return "6–12 hrs";
+
 return "12–24 hrs";
 
 }
@@ -47,206 +213,36 @@ return "12–24 hrs";
 function getExpressDelivery(words){
 
 if(words<=300) return "30–60 mins";
+
 if(words<=1000) return "1–3 hrs";
+
 if(words<=3000) return "3–6 hrs";
+
 return "6–12 hrs";
 
 }
 
-function getStandardPrice(words){
-
-return (words*0.025).toFixed(2);
-
-}
-
-function getExpressPrice(words){
-
-return (words*0.05).toFixed(2);
-
-}
 
 
-/* =============================
-SEND TO PAYMENT PAGE
-============================= */
+/*
+========================================
+SAVE AND GO PAYMENT
+========================================
+*/
 
-function goToPayment(type, words, price, delivery){
-
-const currency="USD";
+function saveAndGo(words,amount,delivery){
 
 localStorage.setItem("saybon_words",words);
-localStorage.setItem("saybon_amount",price);
+
+localStorage.setItem("saybon_amount",amount);
+
 localStorage.setItem("saybon_delivery",delivery);
-localStorage.setItem("saybon_currency",currency);
 
-window.location.href=
-`/translation/payment.html?words=${words}&amount=${price}&delivery=${encodeURIComponent(delivery)}&currency=${currency}`;
+localStorage.setItem("saybon_currency","USD");
+
+
+window.location.href="/translation/payment.html";
 
 }
 
-
-/* =============================
-BUILD QUOTE CARD
-============================= */
-
-function showQuote(words){
-
-const standardPrice=getStandardPrice(words);
-const expressPrice=getExpressPrice(words);
-
-const standardDelivery=getStandardDelivery(words);
-const expressDelivery=getExpressDelivery(words);
-
-
-quoteArea.innerHTML=`
-
-<div class="quoteWords">
-
-${words} words
-
-</div>
-
-
-<div class="quoteDirective">
-
-Select your preferred quote to proceed to payment
-
-</div>
-
-
-<div class="quoteCards">
-
-
-<div class="quoteCard standardCard">
-
-<div class="quoteTitle">
-
-Standard
-
-</div>
-
-<div class="quotePrice">
-
-USD ${standardPrice}
-
-</div>
-
-<div class="quoteDelivery">
-
-${standardDelivery}
-
-</div>
-
-</div>
-
-
-<div class="quoteCard expressCard">
-
-<div class="quoteTitle">
-
-Express
-
-</div>
-
-<div class="quotePrice">
-
-USD ${expressPrice}
-
-</div>
-
-<div class="quoteDelivery">
-
-${expressDelivery}
-
-</div>
-
-</div>
-
-
-</div>
-
-`;
-
-
-
-document.querySelector(".standardCard").onclick=()=>{
-
-goToPayment(
-
-"standard",
-
-words,
-
-standardPrice,
-
-standardDelivery
-
-);
-
-};
-
-
-
-document.querySelector(".expressCard").onclick=()=>{
-
-goToPayment(
-
-"express",
-
-words,
-
-expressPrice,
-
-expressDelivery
-
-);
-
-};
-
-
-}
-
-
-
-/* =============================
-UPLOAD BUTTON CLICK
-============================= */
-
-uploadBtn.onclick=async()=>{
-
-const file=fileInput.files[0];
-
-if(!file){
-
-alert("Please select a file");
-
-return;
-
-}
-
-
-uploadBtn.disabled=true;
-
-
-uploadBtn.innerHTML=`
-
-Getting quote
-
-<span class="loader"></span>
-
-`;
-
-
-wordCount=await calculateWords(file);
-
-
-uploadBtn.disabled=false;
-
-uploadBtn.innerHTML="Upload Document To Get Quote";
-
-
-showQuote(wordCount);
-
-
-};
 
