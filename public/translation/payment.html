@@ -1,110 +1,63 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
-
-<title>Payment</title>
-
-<style>
-
-body{
-
-font-family:-apple-system;
-
-background:linear-gradient(to bottom,#cfe8ff,#eaf4ff);
-
-text-align:center;
-
-padding:50px;
-
-}
-
-.card{
-
-background:white;
-
-padding:30px;
-
-border-radius:20px;
-
-display:inline-block;
-
-}
-
-button{
-
-padding:12px 20px;
-
-margin:10px;
-
-border:none;
-
-border-radius:10px;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-.stripe{
-
-background:#635bff;
-
-}
-
-.paystack{
-
-background:#00c3a6;
-
-}
-
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SayBon Payment</title>
+  <link rel="stylesheet" href="./payment.css" />
 </head>
 
 <body>
+  <main class="page">
+    <section class="payCard">
+      <header class="payHeader">
+        <div class="brand">SayBon</div>
+        <div class="title">Payment</div>
+      </header>
 
-<div class="card">
+      <div id="noData" class="noData" hidden>
+        <div class="noDataTitle">No payment data available.</div>
+        <div class="noDataText">Please return to the request page and select a quote option.</div>
+        <a class="btn btnSmall" href="./request.html">Back to Request</a>
+      </div>
 
-<h2>Payment</h2>
+      <div id="payBody" class="payBody" hidden>
+        <div class="rows">
+          <div class="row">
+            <div class="k">Words</div>
+            <div class="v" id="pWords">—</div>
+          </div>
+          <div class="row">
+            <div class="k">Delivery</div>
+            <div class="v" id="pDelivery">—</div>
+          </div>
 
-<div id="info"></div>
+          <div class="row">
+            <div class="k">Currency</div>
+            <div class="v">
+              <select id="pCurrency" class="select">
+                <option value="USD">USD</option>
+                <option value="GHS">GHS</option>
+              </select>
+            </div>
+          </div>
 
-<button class="stripe">
+          <div class="row">
+            <div class="k">Amount</div>
+            <div class="v amount" id="pAmount">—</div>
+          </div>
+        </div>
 
-Pay with Stripe
+        <div class="actions">
+          <button id="stripeBtn" class="btn btnStripe" type="button">Pay with Stripe</button>
+          <button id="paystackBtn" class="btn btnPaystack" type="button">Pay with Paystack</button>
+        </div>
 
-</button>
+        <div id="payMsg" class="payMsg" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
 
-<button class="paystack">
-
-Pay with Paystack
-
-</button>
-
-</div>
-
-<script>
-
-const data=JSON.parse(localStorage.getItem("paymentData"));
-
-document.getElementById("info").innerHTML=
-
-Words: 
-
-<br>
-
-Delivery: 
-
-<br>
-
-Amount: C:\SayBon\public\translation\request.html{data.amount}
-
-;
-
-</script>
-
+  <script src="./payment.js"></script>
 </body>
-
 </html>
-

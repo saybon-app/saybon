@@ -29,3 +29,12 @@ This ledger tracks every assistant-created/updated file so we can always referen
 - public/translation/payment.css (UPDATED)
 - public/translation/payment.js (UPDATED)
 
+
+## 2026-02-24 12:33:54 — LOCKED
+- public/translation/request.html (premium teal glass, no popups, quote cards as mini pricing cards, working payment routing)
+- public/translation/request.css
+- public/translation/request.js
+- public/translation/payment.html (premium teal glass, no popups, amount always renders)
+- public/translation/payment.css
+- public/translation/payment.js
+

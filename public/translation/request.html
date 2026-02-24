@@ -1,263 +1,108 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
-
-<title>SayBon Translation Services</title>
-
-<style>
-
-body{
-
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-
-background:linear-gradient(to bottom,#cfe8ff,#eaf4ff);
-
-text-align:center;
-
-padding:40px;
-
-}
-
-.card{
-
-background:white;
-
-padding:25px;
-
-border-radius:16px;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
-display:inline-block;
-
-}
-
-button{
-
-background:linear-gradient(45deg,#3b5bff,#5f7bff);
-
-border:none;
-
-color:white;
-
-padding:12px 20px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-button:hover{
-
-transform:scale(1.05);
-
-}
-
-.quoteCard{
-
-padding:15px;
-
-margin:10px;
-
-border-radius:12px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.quoteCard:hover{
-
-transform:scale(1.05);
-
-}
-
-.standard{
-
-border:2px solid green;
-
-}
-
-.express{
-
-border:2px solid red;
-
-}
-
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SayBon Translation Services</title>
+  <link rel="stylesheet" href="./request.css" />
 </head>
 
 <body>
-
-<h1>SayBon Translation Services</h1>
-
-<div class="card">
-
-<input type="file" id="file">
-
-<br><br>
-
-<button id="uploadBtn">
-
-Upload Document To Get Quote
-
-</button>
-
-<div id="quote"></div>
-
-</div>
-
-
-<script>
-
-
-const btn=document.getElementById("uploadBtn");
-
-btn.onclick=function(){
-
-const file=document.getElementById("file").files[0];
-
-if(!file){
-
-alert("Please select file");
-
-return;
-
-}
-
-
-showGetting();
-
-setTimeout(generateQuote,2000);
-
-};
-
-
-
-function showGetting(){
-
-let dots=0;
-
-btn.disabled=true;
-
-const interval=setInterval(()=>{
-
-dots++;
-
-if(dots>3)dots=0;
-
-btn.innerText="Getting Quote"+ ".".repeat(dots);
-
-},500);
-
-
-setTimeout(()=>{
-
-clearInterval(interval);
-
-btn.innerText="See Quote 👇🏽";
-
-},2000);
-
-
-setTimeout(()=>{
-
-btn.innerText="Upload Document To Get Quote";
-
-btn.disabled=false;
-
-},7000);
-
-}
-
-
-function generateQuote(){
-
-const words=1500;
-
-const standard=words*0.025;
-
-const express=words*0.05;
-
-
-document.getElementById("quote").innerHTML=
-
-<div>
-
- words
-
-</div>
-
-
-<div class="quoteCard standard"
-
-onclick="pay('standard',,,'6-12 hrs')">
-
-Standard
-
-<br>
-
-deploy{standard}
-
-<br>
-
-6-12 hrs
-
-</div>
-
-
-<div class="quoteCard express"
-
-onclick="pay('express',,,'3-6 hrs')">
-
-Express
-
-<br>
-
-deploy{express}
-
-<br>
-
-3-6 hrs
-
-</div>
-
-;
-
-}
-
-
-
-function pay(type,words,amount,time){
-
-localStorage.setItem("paymentData",
-
-JSON.stringify({
-
-type,
-
-words,
-
-amount,
-
-time
-
-}));
-
-window.location.href="payment.html";
-
-}
-
-
-
-</script>
-
+  <main class="page">
+    <!-- HEADER -->
+    <header class="hero">
+      <h1 class="heroTitle">SayBon Translation Services</h1>
+      <p class="heroSub">TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
+    </header>
+
+    <!-- LAYOUT -->
+    <section class="layout">
+      <!-- LEFT: UPLOAD -->
+      <section class="panel uploadPanel" aria-label="Upload your document">
+        <div class="panelHeader">
+          <h2 class="panelTitle">Upload your document</h2>
+          <p class="panelDesc">
+            Drag and drop your file, or choose from your device. We’ll calculate your word count and generate a quote instantly.
+          </p>
+        </div>
+
+        <div id="dropZone" class="dropZone" role="button" tabindex="0" aria-label="Drop file to upload">
+          <div class="dropIcon" aria-hidden="true">⬆️</div>
+          <div class="dropTitle">Drop file to upload</div>
+          <div class="dropMeta">
+            <span>Supported: PDF, DOCX, TXT</span>
+            <span class="dot">•</span>
+            <span>Your file stays private.</span>
+          </div>
+
+          <div class="dropActions">
+            <input id="fileInput" class="fileInput" type="file" accept=".pdf,.doc,.docx,.txt,application/pdf" />
+            <button id="chooseBtn" class="btn btnSmall" type="button">Choose File</button>
+          </div>
+
+          <div id="fileLine" class="fileLine" aria-live="polite">
+            <span class="fileBadge">No file selected</span>
+            <span id="fileName" class="fileName">Choose a document to continue</span>
+            <button id="clearFileBtn" class="clearBtn" type="button" aria-label="Clear file">×</button>
+          </div>
+        </div>
+
+        <button id="getQuoteBtn" class="btn btnPrimary" type="button">
+          Upload Document To Get Quote
+        </button>
+
+        <div id="inlineMsg" class="inlineMsg" aria-live="polite"></div>
+
+        <!-- QUOTE CARD (appears below) -->
+        <section id="quoteCard" class="quoteCard" aria-label="Your quote" hidden>
+          <div class="quoteTop">
+            <div class="quoteWords"><span id="wordCount">0</span> words</div>
+            <div class="quoteHint">Select the quote you prefer to proceed to payment.</div>
+          </div>
+
+          <div class="quoteOptions">
+            <button id="standardQuoteBtn" class="quoteOption quoteStandard" type="button">
+              <div class="qoTitle">Standard</div>
+              <div class="qoPrice" id="standardPrice">.00</div>
+              <div class="qoTime" id="standardTime">—</div>
+            </button>
+
+            <button id="expressQuoteBtn" class="quoteOption quoteExpress" type="button">
+              <div class="qoTitle">Express</div>
+              <div class="qoPrice" id="expressPrice">.00</div>
+              <div class="qoTime" id="expressTime">—</div>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!-- RIGHT: PRICING -->
+      <aside class="panel pricingPanel" aria-label="Pricing and delivery">
+        <div class="pricingGrid">
+          <div class="priceCard rimGreen">
+            <div class="pcTitle"><b>Standard</b> — <b>.025 / word</b></div>
+            <ul class="pcList">
+              <li>0–300 words: 1–3 hrs</li>
+              <li>300–1000 words: 3–6 hrs</li>
+              <li>1000–3000 words: 6–12 hrs</li>
+              <li>3000–5000 words: 12–24 hrs</li>
+            </ul>
+          </div>
+
+          <div class="priceCard rimRed">
+            <div class="pcTitle"><b>Express</b> — <b>.05 / word</b></div>
+            <ul class="pcList">
+              <li>0–300 words: 30–60 mins</li>
+              <li>300–1000 words: 1–3 hrs</li>
+              <li>1000–3000 words: 3–6 hrs</li>
+              <li>3000–5000 words: 6–12 hrs</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./request.js"></script>
 </body>
-
 </html>
-
