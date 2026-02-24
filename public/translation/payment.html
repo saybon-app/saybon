@@ -1,77 +1,94 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Payment</title>
+<title>Payment</title>
 
 <link rel="stylesheet" href="payment.css">
 
 </head>
+
 <body>
 
 
-<div class="payment-container">
 
-<h1>Payment</h1>
+<div class="paymentCard">
 
-<div class="payment-card">
 
-<div class="row">
-<span>Words</span>
-<span id="payWords">—</span>
+
+<h2>Payment</h2>
+
+
+
+<div>
+
+Words: <span id="words"></span>
+
 </div>
 
-<div class="row">
-<span>Delivery</span>
-<span id="payDelivery">—</span>
+
+
+<div>
+
+Delivery: <span id="delivery"></span>
+
 </div>
 
-<div class="row">
-<span>Currency</span>
+
+
+<div>
+
+Currency:
 
 <select id="currency">
 
-<option value="USD">USD</option>
-<option value="GHS">GHS</option>
+<option>USD</option>
+
+<option>GHS</option>
 
 </select>
 
 </div>
 
 
-<div class="row total">
 
-<span>Amount</span>
-<span id="payAmount">—</span>
+<div>
+
+Amount: $<span id="amount"></span>
 
 </div>
 
 
-<button id="stripeBtn">
+
+<button onclick="payStripe()">
 
 Pay with Stripe
 
 </button>
 
 
-<button id="paystackBtn">
+
+<button onclick="payPaystack()">
 
 Pay with Paystack
 
 </button>
 
 
-</div>
-
 
 </div>
+
 
 
 <script src="payment.js"></script>
 
 
+
 </body>
+
 </html>
