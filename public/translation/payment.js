@@ -1,18 +1,26 @@
 ﻿
 /*
 =====================================
-LOAD PAYMENT DATA
+RUN ONLY ON PAYMENT PAGE
 =====================================
 */
 
-const paymentRaw = localStorage.getItem("saybon_payment");
+if(!window.location.pathname.includes("payment.html")){
+
+throw new Error("Stop payment.js");
+
+}
 
 
 /*
 =====================================
-IF NO DATA — SILENTLY REDIRECT BACK
+LOAD DATA
 =====================================
 */
+
+const paymentRaw =
+localStorage.getItem("saybon_payment");
+
 
 if(!paymentRaw){
 
@@ -21,33 +29,24 @@ window.location.href="request.html";
 }
 
 
-
-/*
-=====================================
-PARSE DATA
-=====================================
-*/
-
 const payment = JSON.parse(paymentRaw);
 
 
 
 /*
 =====================================
-DISPLAY DATA
+DISPLAY
 =====================================
 */
 
 document.getElementById("words").innerText =
-payment.words || "-";
-
+payment.words;
 
 document.getElementById("delivery").innerText =
-payment.delivery || "-";
-
+payment.delivery;
 
 document.getElementById("amount").innerText =
-payment.amount || "-";
+payment.amount;
 
 
 
@@ -67,13 +66,7 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body:JSON.stringify({
-
-amount: payment.amount,
-
-currency: document.getElementById("currency").value
-
-})
+body:JSON.stringify(payment)
 
 })
 
@@ -105,13 +98,7 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body:JSON.stringify({
-
-amount: payment.amount,
-
-currency: document.getElementById("currency").value
-
-})
+body:JSON.stringify(payment)
 
 })
 
@@ -124,6 +111,4 @@ window.location.href=data.url;
 });
 
 }
-
-
 
