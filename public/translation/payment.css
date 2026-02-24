@@ -1,213 +1,75 @@
-﻿/* SayBon Payment UI (premium, clean) */
+﻿body {
 
-:root{
-  --card: rgba(255,255,255,0.92);
-  --shadow: 0 18px 50px rgba(0,0,0,0.12);
-  --ink: #101827;
-  --muted: rgba(16,24,39,0.62);
-  --line: rgba(16,24,39,0.12);
+font-family: system-ui;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 
-  --stripe: #3b5bfd;
-  --stripe2: #2e48db;
-
-  --paystack: #17b7b1;
-  --paystack2: #0ea39d;
 }
 
-body{
-  min-height: 100vh;
-  background: #ffffff;
+
+.payment-card {
+
+background:white;
+padding:40px;
+border-radius:15px;
+box-shadow:0 10px 40px rgba(0,0,0,.1);
+
+width:350px;
+
 }
 
-.paywrap{
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px 14px;
+
+.row {
+
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+
 }
 
-.paycard{
-  width: min(520px, 92vw);
-  background: var(--card);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 18px;
-  backdrop-filter: blur(10px);
-  animation: popIn 420ms ease both;
+
+.total {
+
+font-size:22px;
+font-weight:bold;
+
 }
 
-@keyframes popIn{
-  from{ transform: translateY(8px); opacity: 0; }
-  to{ transform: translateY(0); opacity: 1; }
+
+button {
+
+width:100%;
+padding:15px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+
 }
 
-.payhead{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 6px 6px 12px;
-  border-bottom: 1px solid var(--line);
+
+#stripeBtn {
+
+background:#635BFF;
+color:white;
+
 }
 
-.brand{
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--ink);
+
+#paystackBtn {
+
+background:#00C3A5;
+color:white;
+
 }
 
-.title{
-  font-weight: 800;
-  color: var(--ink);
-  opacity: 0.9;
-}
 
-.summary{
-  padding: 14px 6px 6px;
-}
+button:hover {
 
-.row{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-}
+opacity:.85;
 
-.k{
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
-
-.v{
-  font-size: 14px;
-  color: var(--ink);
-}
-
-.amount{
-  display:flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 14px 0 8px;
-  border-top: 1px dashed var(--line);
-  margin-top: 6px;
-}
-
-.big{
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-.currency{
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: rgba(255,255,255,0.75);
-  color: var(--ink);
-  outline: none;
-}
-
-.currency:focus{
-  border-color: rgba(59,91,253,0.45);
-  box-shadow: 0 0 0 4px rgba(59,91,253,0.12);
-}
-
-.actions{
-  padding: 10px 6px 0;
-  display: grid;
-  gap: 10px;
-}
-
-.btn{
-  width: 100%;
-  border: none;
-  border-radius: 14px;
-  padding: 14px 16px;
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap: 10px;
-  cursor: pointer;
-  transition: transform 120ms ease, filter 120ms ease, box-shadow 180ms ease, opacity 120ms ease;
-  position: relative;
-  user-select: none;
-}
-
-.btn:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.03);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.14);
-}
-
-.btn:active{
-  transform: translateY(1px) scale(0.99);
-  filter: brightness(0.98);
-}
-
-.btn[disabled]{
-  opacity: 0.6;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-.btn.stripe{
-  background: linear-gradient(180deg, var(--stripe), var(--stripe2));
-}
-
-.btn.paystack{
-  background: linear-gradient(180deg, var(--paystack), var(--paystack2));
-}
-
-.btnspin{
-  width: 0;
-  height: 0;
-}
-
-.btn.loading .btnspin{
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  border: 2px solid rgba(255,255,255,0.35);
-  border-top-color: rgba(255,255,255,1);
-  animation: spin 700ms linear infinite;
-}
-
-@keyframes spin{
-  to{ transform: rotate(360deg); }
-}
-
-.note{
-  padding: 12px 8px 2px;
-  font-size: 13px;
-  color: rgba(16,24,39,0.65);
-  text-align: center;
-}
-
-.error{
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255,55,95,0.08);
-  border: 1px solid rgba(255,55,95,0.18);
-  color: rgba(150,10,40,0.95);
-  display: none;
-  font-size: 13px;
-}
-
-.error.show{
-  display:block;
-}
-
-/* Mobile fit */
-@media (max-width: 420px){
-  .paycard{ padding: 16px; }
-  .big{ font-size: 18px; }
 }

@@ -1,71 +1,77 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SayBon • Payment</title>
 
-  <link rel="stylesheet" href="/css/global.css">
-  <link rel="stylesheet" href="/translation/payment.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Payment</title>
+
+<link rel="stylesheet" href="payment.css">
+
 </head>
-
 <body>
-  <main class="paywrap">
-    <section class="paycard" aria-label="Payment">
-      <div class="payhead">
-        <div class="brand">SayBon</div>
-        <div class="title">Payment</div>
-      </div>
 
-      <div class="summary">
-        <div class="row">
-          <div class="k">Words</div>
-          <div class="v" id="wordsText">—</div>
-        </div>
-        <div class="row">
-          <div class="k">Delivery</div>
-          <div class="v" id="deliveryText">—</div>
-        </div>
 
-        <div class="row">
-          <label class="k" for="currencySelect">Currency</label>
-          <div class="v">
-            <select id="currencySelect" class="currency">
-              <option value="USD">USD</option>
-              <option value="GHS">GHS</option>
-              <option value="GBP">GBP</option>
-              <option value="EUR">EUR</option>
-              <option value="NGN">NGN</option>
-            </select>
-          </div>
-        </div>
+<div class="payment-container">
 
-        <div class="amount">
-          <div class="k">Amount</div>
-          <div class="v big" id="amountText">—</div>
-        </div>
-      </div>
+<h1>Payment</h1>
 
-      <div class="actions">
-        <button id="stripeBtn" class="btn stripe" type="button">
-          <span class="btnlabel">Pay with Stripe</span>
-          <span class="btnspin" aria-hidden="true"></span>
-        </button>
+<div class="payment-card">
 
-        <button id="paystackBtn" class="btn paystack" type="button">
-          <span class="btnlabel">Pay with Paystack</span>
-          <span class="btnspin" aria-hidden="true"></span>
-        </button>
-      </div>
+<div class="row">
+<span>Words</span>
+<span id="payWords">—</span>
+</div>
 
-      <div class="note" id="hint">
-        Select a payment method to continue.
-      </div>
+<div class="row">
+<span>Delivery</span>
+<span id="payDelivery">—</span>
+</div>
 
-      <div class="error" id="errorBox" role="alert" aria-live="polite"></div>
-    </section>
-  </main>
+<div class="row">
+<span>Currency</span>
 
-  <script src="/translation/payment.js"></script>
+<select id="currency">
+
+<option value="USD">USD</option>
+<option value="GHS">GHS</option>
+
+</select>
+
+</div>
+
+
+<div class="row total">
+
+<span>Amount</span>
+<span id="payAmount">—</span>
+
+</div>
+
+
+<button id="stripeBtn">
+
+Pay with Stripe
+
+</button>
+
+
+<button id="paystackBtn">
+
+Pay with Paystack
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<script src="payment.js"></script>
+
+
 </body>
 </html>
