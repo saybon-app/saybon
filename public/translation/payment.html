@@ -1,123 +1,71 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SayBon • Payment</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>SayBon Payment</title>
-
-<style>
-
-body{
-
-font-family:-apple-system;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-height:100vh;
-
-background:linear-gradient(180deg,#eef2ff,#f8fafc);
-
-}
-
-.card{
-
-background:white;
-
-padding:30px;
-
-border-radius:16px;
-
-box-shadow:0 15px 40px rgba(0,0,0,0.12);
-
-text-align:center;
-
-}
-
-button{
-
-padding:12px;
-
-border:none;
-
-border-radius:10px;
-
-background:linear-gradient(90deg,#2563eb,#4f46e5);
-
-color:white;
-
-cursor:pointer;
-
-}
-
-</style>
-
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/translation/payment.css">
 </head>
 
 <body>
+  <main class="paywrap">
+    <section class="paycard" aria-label="Payment">
+      <div class="payhead">
+        <div class="brand">SayBon</div>
+        <div class="title">Payment</div>
+      </div>
 
-<div class="card">
+      <div class="summary">
+        <div class="row">
+          <div class="k">Words</div>
+          <div class="v" id="wordsText">—</div>
+        </div>
+        <div class="row">
+          <div class="k">Delivery</div>
+          <div class="v" id="deliveryText">—</div>
+        </div>
 
-<h2>Complete Payment</h2>
+        <div class="row">
+          <label class="k" for="currencySelect">Currency</label>
+          <div class="v">
+            <select id="currencySelect" class="currency">
+              <option value="USD">USD</option>
+              <option value="GHS">GHS</option>
+              <option value="GBP">GBP</option>
+              <option value="EUR">EUR</option>
+              <option value="NGN">NGN</option>
+            </select>
+          </div>
+        </div>
 
-<div id="amount"></div>
+        <div class="amount">
+          <div class="k">Amount</div>
+          <div class="v big" id="amountText">—</div>
+        </div>
+      </div>
 
-<br>
+      <div class="actions">
+        <button id="stripeBtn" class="btn stripe" type="button">
+          <span class="btnlabel">Pay with Stripe</span>
+          <span class="btnspin" aria-hidden="true"></span>
+        </button>
 
-<button onclick="pay()">
+        <button id="paystackBtn" class="btn paystack" type="button">
+          <span class="btnlabel">Pay with Paystack</span>
+          <span class="btnspin" aria-hidden="true"></span>
+        </button>
+      </div>
 
-Pay Now
+      <div class="note" id="hint">
+        Select a payment method to continue.
+      </div>
 
-</button>
+      <div class="error" id="errorBox" role="alert" aria-live="polite"></div>
+    </section>
+  </main>
 
-</div>
-
-<script>
-
-const params=new URLSearchParams(window.location.search);
-
-const amount=params.get("amount");
-
-document.getElementById("amount").innerHTML=
-
-"$"+amount;
-
-async function pay(){
-
-const res=await fetch(
-
-"https://saybon-backend.onrender.com/create-stripe-session",
-
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-amount:Math.round(amount*100)
-
-})
-
-}
-
-);
-
-const data=await res.json();
-
-window.location.href=data.url;
-
-}
-
-</script>
-
+  <script src="/translation/payment.js"></script>
 </body>
 </html>

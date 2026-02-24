@@ -15,3 +15,17 @@ This ledger tracks every assistant-created/updated file so we can always referen
 - Purpose: Drag/drop + file select + POST /api/quote + render quote + click Standard/Express => payment.html?amount=...
 - Notes: Keeps existing payment.html amount param behavior.
 
+
+## [LOCK] Request page — Quote card mini pricing cards (Standard/Express)
+- Date: 2026-02-23
+- File: public/translation/request.html
+- Change: Quote options are now mini versions of pricing cards (green rim / red rim), not blue buttons.
+- Shows: word count + exact price + delivery timeline for each option.
+- Behavior: Upload button shows "Getting quote…" with animated dots while fetching, always resets after response/error.
+- Interaction: Hover + active click feedback, smooth quote card entrance animation.
+
+## UPDATE - Payment page wired to backend (Stripe + Paystack)
+- public/translation/payment.html (UPDATED)
+- public/translation/payment.css (UPDATED)
+- public/translation/payment.js (UPDATED)
+

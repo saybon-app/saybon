@@ -1,660 +1,714 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayBon Translation Services</title>
-
-<style>
-
-/* PAGE TRANSITION SYSTEM (GLOBAL STANDARD) */
-
-body{
-opacity:0;
-transform:translateY(8px);
-animation:pageEnter .5s ease forwards;
-}
-
-@keyframes pageEnter{
-to{
-opacity:1;
-transform:none;
-}
-}
-
-
-/* BASE */
-
-body{
-
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
-background:white;
-color:#1d1d1f;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-}
-
-
-/* HEADER */
-
-.header{
-
-text-align:center;
-margin-top:40px;
-
-}
-
-.header h1{
-
-margin:0;
-font-size:42px;
-font-weight:700;
-
-}
-
-.sub{
-
-margin-top:6px;
-font-size:11px;
-letter-spacing:2px;
-color:#666;
-
-}
-
-
-/* LAYOUT */
-
-.container{
-
-margin-top:40px;
-
-display:flex;
-gap:40px;
-
-align-items:flex-start;
-
-}
-
-
-/* CARD BASE */
-
-.card{
-
-background:#eef3f7;
-border-radius:16px;
-
-padding:30px;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.08);
-
-}
-
-
-/* UPLOAD CARD */
-
-.upload{
-
-width:400px;
-text-align:center;
-
-}
-
-.uploadEmoji{
-
-font-size:40px;
-
-}
-
-
-button{
-
-background:#3b5bfd;
-color:white;
-
-border:none;
-border-radius:10px;
-
-padding:14px 26px;
-
-font-size:16px;
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-
-button:hover{
-
-transform:translateY(-2px);
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-
-}
-
-
-button:active{
-
-transform:scale(.97);
-
-}
-
-
-
-/* PRICING */
-
-.pricing{
-
-display:flex;
-flex-direction:column;
-gap:25px;
-
-}
-
-
-.priceCard{
-
-width:360px;
-
-border-radius:16px;
-
-padding:22px;
-
-background:#eef3f7;
-
-}
-
-
-.standard{
-
-border:2px solid #2e7d32;
-
-}
-
-
-.express{
-
-border:2px solid #c62828;
-
-}
-
-
-.priceCard h3{
-
-margin-top:0;
-font-weight:700;
-
-}
-
-.priceCard ul{
-
-padding-left:20px;
-
-font-size:14px;
-line-height:1.6;
-
-}
-
-
-
-
-/* QUOTE CARD */
-
-.quoteCard{
-
-margin-top:30px;
-
-opacity:0;
-transform:translateY(15px);
-
-transition:.4s;
-
-text-align:center;
-
-}
-
-
-.quoteCard.show{
-
-opacity:1;
-transform:none;
-
-}
-
-
-
-.quoteOptions{
-
-display:flex;
-gap:20px;
-justify-content:center;
-
-margin-top:20px;
-
-}
-
-
-.quoteBtn{
-
-padding:16px 28px;
-
-border-radius:12px;
-
-background:#3b5bfd;
-color:white;
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-
-.quoteBtn:hover{
-
-transform:translateY(-3px);
-
-box-shadow:0 10px 20px rgba(0,0,0,.2);
-
-}
-
-
-.quoteBtn:active{
-
-transform:scale(.96);
-
-}
-
-
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.container{
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-}
-
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SayBon Translation Services</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#DDECF1;         /* main big card color (keep) */
+      --panel2:#EAF4F7;        /* inner softer */
+      --ink:#111827;
+      --muted:#6B7280;
+
+      --std:#2E7D32;           /* green rim */
+      --exp:#B3261E;           /* red rim */
+
+      --shadow: 0 18px 50px rgba(10,20,30,.10);
+      --shadow2: 0 10px 28px rgba(10,20,30,.10);
+      --radius: 18px;
+      --radius2: 16px;
+
+      --btn:#2563EB;
+      --btnHover:#1D4ED8;
+      --btnActive:#1E40AF;
+
+      --line: rgba(17,24,39,.10);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--ink);
+      background: var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* subtle entry feel */
+    .page{
+      min-height:100vh;
+      padding: 22px 18px 34px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .wrap{
+      width: min(1080px, 100%);
+    }
+
+    .header{
+      text-align:center;
+      margin: 8px 0 14px;
+    }
+
+    .title{
+      margin: 0;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-weight: 800;
+      letter-spacing: .2px;
+      font-size: clamp(28px, 4.2vw, 44px);
+      line-height: 1.08;
+    }
+
+    .sub{
+      margin: 10px auto 0;
+      font-size: clamp(10px, 1.4vw, 12px);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(17,24,39,.65);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .cardShell{
+      background: var(--panel);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      border: 1px solid rgba(17,24,39,.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* right side: pricing cards */
+    .pricingCol{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+
+    .priceCard{
+      background: rgba(255,255,255,.35);
+      border-radius: var(--radius2);
+      padding: 16px 18px;
+      border: 2px solid rgba(17,24,39,.18);
+      box-shadow: var(--shadow2);
+    }
+
+    .priceCard.std{ border-color: rgba(46,125,50,.85); }
+    .priceCard.exp{ border-color: rgba(179,38,30,.85); }
+
+    .priceTitle{
+      margin: 0 0 10px;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    /* make body text lighter/smaller (your request) */
+    .priceList{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(17,24,39,.72);
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    /* prevent iOS auto-link underline/blue */
+    a, a:visited{ color: inherit; text-decoration: none; }
+    .priceList a{ text-decoration:none !important; color: inherit !important; }
+    .priceList{ -webkit-text-size-adjust: 100%; }
+    body{ -webkit-text-size-adjust: 100%; }
+
+    /* left side: upload */
+    .uploadCol{
+      background: rgba(255,255,255,.30);
+      border-radius: var(--radius);
+      border: 1px solid rgba(17,24,39,.10);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .uploadHead{
+      padding: 16px 18px 14px;
+      border-bottom: 1px solid rgba(17,24,39,.10);
+      background: rgba(255,255,255,.30);
+    }
+
+    .uploadHead h2{
+      margin: 0 0 6px;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -.01em;
+    }
+
+    .uploadHead p{
+      margin: 0;
+      color: rgba(17,24,39,.65);
+      line-height: 1.45;
+    }
+
+    .dropArea{
+      padding: 18px;
+    }
+
+    .dropBox{
+      background: rgba(255,255,255,.42);
+      border: 2px dashed rgba(17,24,39,.20);
+      border-radius: 18px;
+      padding: 18px;
+      text-align:center;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .dropBox.drag{
+      border-color: rgba(37,99,235,.55);
+      box-shadow: 0 10px 26px rgba(37,99,235,.18);
+      transform: translateY(-2px);
+    }
+
+    .cloudEmoji{
+      font-size: 34px;
+      line-height: 1;
+      display:inline-block;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.10));
+    }
+
+    .dropTitle{
+      margin: 6px 0 8px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .dropMeta{
+      margin: 0 0 14px;
+      color: rgba(17,24,39,.65);
+      line-height: 1.5;
+    }
+
+    .fileRow{
+      display:flex;
+      gap: 10px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    input[type="file"]{
+      max-width: 100%;
+    }
+
+    .chosen{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(17,24,39,.14);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: rgba(17,24,39,.70);
+      margin-top: 14px;
+    }
+
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(17,24,39,.18);
+      flex: 0 0 auto;
+    }
+
+    .btnPrimary{
+      width: 100%;
+      margin-top: 16px;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 14px;
+      background: var(--btn);
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: .01em;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(37,99,235,.22);
+      transition: transform .14s ease, box-shadow .14s ease, background .14s ease, filter .14s ease;
+      user-select:none;
+    }
+
+    .btnPrimary:hover{
+      background: var(--btnHover);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(37,99,235,.26);
+    }
+
+    .btnPrimary:active{
+      background: var(--btnActive);
+      transform: translateY(0px) scale(.99);
+      box-shadow: 0 10px 18px rgba(37,99,235,.18);
+    }
+
+    .btnPrimary[disabled]{
+      opacity: .65;
+      cursor: not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    .loadingDots{
+      display:inline-block;
+      width: 18px;
+      text-align:left;
+    }
+    .loadingDots::after{
+      content:"...";
+      animation: dots 1.1s infinite steps(4, end);
+    }
+    @keyframes dots{
+      0%{ content:""; }
+      25%{ content:"."; }
+      50%{ content:".."; }
+      75%{ content:"..."; }
+      100%{ content:""; }
+    }
+
+    /* Quote card */
+    .quoteWrap{
+      margin-top: 16px;
+      display:none;
+    }
+
+    .quoteCard{
+      background: rgba(255,255,255,.35);
+      border-radius: 22px;
+      border: 2px solid rgba(17,24,39,.12);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow:hidden;
+      transform: translateY(10px);
+      opacity: 0;
+      animation: riseIn .35s ease forwards;
+    }
+
+    @keyframes riseIn{
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .wc{
+      text-align:center;
+      font-weight: 900;
+      font-size: 22px;
+      margin: 6px 0 8px;
+    }
+
+    .directive{
+      text-align:center;
+      margin: 0 0 14px;
+      color: rgba(17,24,39,.60);
+      font-size: 12px;
+    }
+
+    .quoteOptions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    /* mini versions of pricing cards (LOCKED) */
+    .quoteOption{
+      background: rgba(255,255,255,.42);
+      border-radius: 16px;
+      padding: 14px 14px;
+      border: 2px solid rgba(17,24,39,.18);
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+      user-select:none;
+    }
+
+    .quoteOption.std{ border-color: rgba(46,125,50,.85); }
+    .quoteOption.exp{ border-color: rgba(179,38,30,.85); }
+
+    .quoteOption:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(10,20,30,.14);
+      filter: saturate(1.02);
+    }
+
+    .quoteOption:active{
+      transform: translateY(0px) scale(.99);
+      box-shadow: 0 10px 18px rgba(10,20,30,.10);
+    }
+
+    .qTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .qName{
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+
+    .qPrice{
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .qTime{
+      color: rgba(17,24,39,.70);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* Responsive: keep SAME design, just stack */
+    @media (max-width: 860px){
+      .grid{
+        grid-template-columns: 1fr;
+      }
+      /* mobile order: Header > Pricing > Upload (as you requested) */
+      .pricingCol{ order: 1; }
+      .uploadCol{ order: 2; }
+
+      .uploadHead h2{ font-size: 22px; }
+      .quoteOptions{ grid-template-columns: 1fr; }
+      .sub{
+        font-size: 10px;
+        letter-spacing: .18em;
+      }
+      .title{
+        font-size: 34px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-
-
-<div class="header">
-
-<h1>SayBon Translation Services</h1>
-
-<div class="sub">
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</div>
-
-</div>
-
-
-
-<div class="container">
-
-
-
-<div class="card upload">
-
-<div class="uploadEmoji">📤</div>
-
-<p>Drop file to upload<br>
-Supported: PDF, DOCX, TXT</p>
-
-
-<input type="file" id="file">
-
-
-<br><br>
-
-<button id="uploadBtn">
-
-Upload Document To Get Quote
-
-</button>
-
-
-
-<div class="quoteCard card" id="quoteCard">
-
-
-<div id="wordCount"></div>
-
-
-<div style="margin-top:8px;font-size:13px;color:#666">
-
-Select your preferred quote to proceed to payment
-
-</div>
-
-
-<div class="quoteOptions">
-
-<div class="quoteBtn" id="standardBtn"></div>
-
-<div class="quoteBtn" id="expressBtn"></div>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-
-<div class="pricing">
-
-<div class="priceCard standard">
-
-<h3>Standard — $0.025 / word</h3>
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-<li>300–1000 words: 3–6 hrs</li>
-<li>1000–3000 words: 6–12 hrs</li>
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="priceCard express">
-
-<h3>Express — $0.05 / word</h3>
-
-<ul>
-
-<li>0–300 words: 30–60 mins</li>
-<li>300–1000 words: 1–3 hrs</li>
-<li>1000–3000 words: 3–6 hrs</li>
-<li>3000–5000 words: 6–12 hrs</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<script>
-
-
-uploadBtn.onclick=async()=>{
-
-
-uploadBtn.innerText="Getting quote…";
-
-uploadBtn.disabled=true;
-
-
-const file=file.files[0];
-
-
-const form=new FormData();
-
-form.append("file",file);
-
-
-const res=await fetch(
-
-"https://saybon-backend.onrender.com/api/quote",
-
-{
-
-method:"POST",
-
-body:form
-
-});
-
-
-const data=await res.json();
-
-
-wordCount.innerHTML=
-
-data.wordCount+" words";
-
-
-standardBtn.innerHTML=
-
-"Standard — $"+data.standard;
-
-
-expressBtn.innerHTML=
-
-"Express — $"+data.express;
-
-
-
-quoteCard.classList.add("show");
-
-
-
-uploadBtn.innerText=
-
-"Upload Document To Get Quote";
-
-
-uploadBtn.disabled=false;
-
-
-
-standardBtn.onclick=()=>{
-
-location.href=
-
-"/translation/payment.html?type=standard&amount="+data.standard;
-
-};
-
-
-expressBtn.onclick=()=>{
-
-location.href=
-
-"/translation/payment.html?type=express&amount="+data.express;
-
-};
-
-
-};
-
-
-</script>
-
-
-
+  <div class="page">
+    <div class="wrap">
+
+      <div class="header">
+        <h1 class="title">SayBon Translation Services</h1>
+        <div class="sub">TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</div>
+      </div>
+
+      <div class="cardShell">
+        <div class="grid">
+
+          <!-- LEFT: Upload -->
+          <div class="uploadCol">
+            <div class="uploadHead">
+              <h2>Upload your document</h2>
+              <p>Drag and drop your file, or choose from your device. We’ll calculate your word count and generate a quote instantly.</p>
+            </div>
+
+            <div class="dropArea">
+              <div id="dropBox" class="dropBox">
+                <div class="cloudEmoji">☁️⬆️</div>
+                <div class="dropTitle">Drop file to upload</div>
+                <div class="dropMeta">
+                  Supported: <b>PDF</b>, <b>DOCX</b>, <b>TXT</b><br />
+                  Your file stays private.
+                </div>
+
+                <div class="fileRow">
+                  <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.txt" />
+                </div>
+
+                <div id="chosenWrap" class="chosen" style="display:none;">
+                  <div class="dot"></div>
+                  <div>
+                    <div id="chosenName" style="font-weight:900;color:rgba(17,24,39,.80)">No file selected</div>
+                    <div style="font-size:12px;color:rgba(17,24,39,.55)">Choose a document to continue</div>
+                  </div>
+                </div>
+
+                <button id="getQuoteBtn" class="btnPrimary" type="button">
+                  Upload Document To Get Quote
+                </button>
+              </div>
+
+              <!-- QUOTE CARD -->
+              <div id="quoteWrap" class="quoteWrap">
+                <div class="quoteCard">
+                  <div id="wcText" class="wc">0 words</div>
+                  <div class="directive">Select your preferred quote to proceed to payment</div>
+
+                  <div class="quoteOptions">
+                    <div id="stdOption" class="quoteOption std" role="button" tabindex="0">
+                      <div class="qTop">
+                        <div class="qName">Standard</div>
+                        <div id="stdPrice" class="qPrice">$0.00</div>
+                      </div>
+                      <div id="stdTime" class="qTime">Delivery: —</div>
+                    </div>
+
+                    <div id="expOption" class="quoteOption exp" role="button" tabindex="0">
+                      <div class="qTop">
+                        <div class="qName">Express</div>
+                        <div id="expPrice" class="qPrice">$0.00</div>
+                      </div>
+                      <div id="expTime" class="qTime">Delivery: —</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT: Pricing -->
+          <div class="pricingCol">
+            <div class="priceCard std">
+              <div class="priceTitle">Standard — $0.025 / word</div>
+              <ul class="priceList">
+                <li>0–300 words: 1–3 hrs</li>
+                <li>300–1000 words: 3–6 hrs</li>
+                <li>1000–3000 words: 6–12 hrs</li>
+                <li>3000–5000 words: 12–24 hrs</li>
+              </ul>
+            </div>
+
+            <div class="priceCard exp">
+              <div class="priceTitle">Express — $0.05 / word</div>
+              <ul class="priceList">
+                <li>0–300 words: 30–60 mins</li>
+                <li>300–1000 words: 1–3 hrs</li>
+                <li>1000–3000 words: 3–6 hrs</li>
+                <li>3000–5000 words: 6–12 hrs</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // CONFIG
+    // -----------------------------
+    const API_QUOTE = "https://saybon-backend.onrender.com/api/quote";
+    const PAYMENT_PAGE = "/translation/payment.html";
+
+    // -----------------------------
+    // ELEMENTS
+    // -----------------------------
+    const fileInput = document.getElementById("fileInput");
+    const dropBox = document.getElementById("dropBox");
+    const chosenWrap = document.getElementById("chosenWrap");
+    const chosenName = document.getElementById("chosenName");
+    const getQuoteBtn = document.getElementById("getQuoteBtn");
+
+    const quoteWrap = document.getElementById("quoteWrap");
+    const wcText = document.getElementById("wcText");
+    const stdPrice = document.getElementById("stdPrice");
+    const expPrice = document.getElementById("expPrice");
+    const stdTime = document.getElementById("stdTime");
+    const expTime = document.getElementById("expTime");
+    const stdOption = document.getElementById("stdOption");
+    const expOption = document.getElementById("expOption");
+
+    // -----------------------------
+    // STATE
+    // -----------------------------
+    let lastQuote = null;
+    const ORIGINAL_BTN_TEXT = "Upload Document To Get Quote";
+
+    // -----------------------------
+    // HELPERS
+    // -----------------------------
+    function fmtMoney(n){
+      const x = Number(n || 0);
+      return "$" + x.toFixed(2);
+    }
+
+    function timelineFor(wordCount, type){
+      const w = Number(wordCount || 0);
+
+      // table is the same as displayed
+      if(type === "standard"){
+        if(w <= 300) return "1–3 hrs";
+        if(w <= 1000) return "3–6 hrs";
+        if(w <= 3000) return "6–12 hrs";
+        if(w <= 5000) return "12–24 hrs";
+        // beyond table: keep consistent extension
+        return "24+ hrs";
+      }
+
+      // express
+      if(w <= 300) return "30–60 mins";
+      if(w <= 1000) return "1–3 hrs";
+      if(w <= 3000) return "3–6 hrs";
+      if(w <= 5000) return "6–12 hrs";
+      return "12+ hrs";
+    }
+
+    function setLoading(isLoading){
+      if(isLoading){
+        getQuoteBtn.disabled = true;
+        getQuoteBtn.innerHTML = 'Getting quote<span class="loadingDots"></span>';
+      } else {
+        getQuoteBtn.disabled = false;
+        getQuoteBtn.textContent = ORIGINAL_BTN_TEXT;
+      }
+    }
+
+    function showQuoteCard(){
+      quoteWrap.style.display = "block";
+    }
+
+    function hideQuoteCard(){
+      quoteWrap.style.display = "none";
+    }
+
+    function storeAndGo(choice){
+      // Persist for payment page to use
+      // (payment.html currently expects amount + maybe type)
+      const payload = {
+        choice, // "standard" | "express"
+        wordCount: lastQuote?.wordCount ?? 0,
+        standard: lastQuote?.standard ?? 0,
+        express: lastQuote?.express ?? 0,
+        standardTimeline: timelineFor(lastQuote?.wordCount ?? 0, "standard"),
+        expressTimeline: timelineFor(lastQuote?.wordCount ?? 0, "express")
+      };
+      localStorage.setItem("saybon_quote", JSON.stringify(payload));
+      window.location.href = PAYMENT_PAGE;
+    }
+
+    function bindClickable(el, fn){
+      el.addEventListener("click", fn);
+      el.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          fn();
+        }
+      });
+    }
+
+    // -----------------------------
+    // FILE UI
+    // -----------------------------
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files && fileInput.files[0];
+      if(!file){
+        chosenWrap.style.display = "none";
+        hideQuoteCard();
+        return;
+      }
+      chosenWrap.style.display = "flex";
+      chosenName.textContent = file.name;
+      hideQuoteCard();
+    });
+
+    // Drag and drop
+    ["dragenter","dragover"].forEach(evt => {
+      dropBox.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropBox.classList.add("drag");
+      });
+    });
+    ["dragleave","drop"].forEach(evt => {
+      dropBox.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropBox.classList.remove("drag");
+      });
+    });
+    dropBox.addEventListener("drop", (e) => {
+      const files = e.dataTransfer && e.dataTransfer.files;
+      if(files && files.length){
+        fileInput.files = files;
+        const file = fileInput.files[0];
+        chosenWrap.style.display = "flex";
+        chosenName.textContent = file.name;
+        hideQuoteCard();
+      }
+    });
+
+    // -----------------------------
+    // QUOTE FLOW
+    // -----------------------------
+    getQuoteBtn.addEventListener("click", async () => {
+      const file = fileInput.files && fileInput.files[0];
+      if(!file){
+        alert("Please choose a file first.");
+        return;
+      }
+
+      setLoading(true);
+      hideQuoteCard();
+
+      try{
+        const fd = new FormData();
+        fd.append("file", file);
+
+        const res = await fetch(API_QUOTE, {
+          method: "POST",
+          body: fd
+        });
+
+        if(!res.ok){
+          const t = await res.text().catch(() => "");
+          throw new Error("Quote request failed (" + res.status + "): " + (t || "Unknown error"));
+        }
+
+        const data = await res.json();
+
+        // expected shape: { wordCount, standard, express }
+        lastQuote = {
+          wordCount: Number(data.wordCount || 0),
+          standard: Number(data.standard || 0),
+          express: Number(data.express || 0)
+        };
+
+        wcText.textContent = `${lastQuote.wordCount} words`;
+
+        stdPrice.textContent = fmtMoney(lastQuote.standard);
+        expPrice.textContent = fmtMoney(lastQuote.express);
+
+        stdTime.textContent = "Delivery: " + timelineFor(lastQuote.wordCount, "standard");
+        expTime.textContent = "Delivery: " + timelineFor(lastQuote.wordCount, "express");
+
+        showQuoteCard();
+
+      } catch(err){
+        console.error(err);
+        alert(err.message || "Something went wrong while getting your quote.");
+      } finally{
+        // ALWAYS reset button (fixes perpetual “getting quote”)
+        setLoading(false);
+      }
+    });
+
+    // CLICKABLE QUOTE CARDS (no other buttons)
+    bindClickable(stdOption, () => storeAndGo("standard"));
+    bindClickable(expOption, () => storeAndGo("express"));
+
+  </script>
 </body>
 </html>
-
-<script>
-
-const uploadBtn =
-document.getElementById("uploadBtn");
-
-const fileInput =
-document.getElementById("file");
-
-const quoteCard =
-document.getElementById("quoteCard");
-
-const wordCount =
-document.getElementById("wordCount");
-
-const standardBtn =
-document.getElementById("standardBtn");
-
-const expressBtn =
-document.getElementById("expressBtn");
-
-
-let loadingInterval;
-
-
-
-function startLoading(){
-
-let dots=0;
-
-loadingInterval=setInterval(()=>{
-
-dots=(dots+1)%4;
-
-uploadBtn.innerText=
-
-"Getting quote" + ".".repeat(dots);
-
-},400);
-
-}
-
-
-
-function stopLoading(){
-
-clearInterval(loadingInterval);
-
-uploadBtn.innerText=
-
-"Upload Document To Get Quote";
-
-uploadBtn.disabled=false;
-
-}
-
-
-
-uploadBtn.onclick=async()=>{
-
-
-const file=fileInput.files[0];
-
-
-if(!file){
-
-alert("Please select file");
-
-return;
-
-}
-
-
-uploadBtn.disabled=true;
-
-startLoading();
-
-
-
-try{
-
-
-const form=new FormData();
-
-form.append("file",file);
-
-
-const res=await fetch(
-
-"https://saybon-backend.onrender.com/api/quote",
-
-{
-
-method:"POST",
-
-body:form
-
-});
-
-
-if(!res.ok){
-
-throw new Error("Server error");
-
-}
-
-
-const data=await res.json();
-
-
-
-wordCount.innerHTML=
-
-data.wordCount+" words";
-
-
-
-standardBtn.innerHTML=
-
-"Standard — $"+data.standard;
-
-
-
-expressBtn.innerHTML=
-
-"Express — $"+data.express;
-
-
-
-quoteCard.classList.add("show");
-
-
-
-standardBtn.onclick=()=>{
-
-location.href=
-
-"/translation/payment.html?type=standard&amount="+data.standard;
-
-};
-
-
-
-expressBtn.onclick=()=>{
-
-location.href=
-
-"/translation/payment.html?type=express&amount="+data.express;
-
-};
-
-
-}
-catch(err){
-
-alert("Quote failed. Try again.");
-
-console.error(err);
-
-}
-
-
-stopLoading();
-
-};
-
-</script>
