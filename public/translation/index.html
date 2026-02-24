@@ -1,250 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang='en'>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SayBon Translation Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-<style>
+<title>SayBon Translation</title>
 
-/* ===== RESET ===== */
+<link rel='stylesheet' href='translation.css'>
 
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-}
-
-body {
-font-family: "Manrope", sans-serif;
-background: #0b1220;
-color: #e2e8f0;
-}
-
-/* ===== LAYOUT ===== */
-
-.wrapper {
-max-width: 1200px;
-margin: 0 auto;
-padding: 100px 60px;
-}
-
-.split {
-display: grid;
-grid-template-columns: 1.05fr 1fr;
-gap: 80px;
-align-items: center;
-}
-
-/* ===== LEFT SIDE ===== */
-
-.content h1 {
-font-size: 44px;
-font-weight: 600;
-margin-bottom: 28px;
-letter-spacing: -0.5px;
-}
-
-.content p.lead {
-font-size: 18px;
-line-height: 1.7;
-color: #94a3b8;
-margin-bottom: 70px;
-max-width: 520px;
-}
-
-/* SERVICE BLOCK */
-
-.service {
-margin-bottom: 60px;
-}
-
-.service h2 {
-font-size: 20px;
-font-weight: 600;
-margin-bottom: 12px;
-}
-
-.service p {
-font-size: 15px;
-line-height: 1.7;
-color: #94a3b8;
-margin-bottom: 20px;
-max-width: 500px;
-}
-
-/* BUTTON */
-
-.btn {
-display: inline-block;
-padding: 10px 22px;
-border: 1px solid #334155;
-border-radius: 6px;
-font-size: 14px;
-font-weight: 500;
-background: transparent;
-color: #e2e8f0;
-cursor: pointer;
-transition: all 0.2s ease;
-}
-
-.btn:hover {
-background: #1e293b;
-border-color: #475569;
-}
-
-/* IMAGE */
-
-.image-container {
-display: flex;
-justify-content: center;
-}
-
-.image-container img {
-width: 100%;
-max-width: 520px;
-border-radius: 14px;
-box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-}
-
-/* BACK LINK */
-
-.back {
-margin-top: 80px;
-}
-
-.back a {
-text-decoration: none;
-font-size: 14px;
-color: #64748b;
-}
-
-.back a:hover {
-color: #e2e8f0;
-}
-
-/* MOBILE */
-
-@media (max-width: 900px) {
-
-.wrapper {
-padding: 50px 24px;
-}
-
-.split {
-grid-template-columns: 1fr;
-gap: 50px;
-}
-
-.image-container {
-order: -1;
-}
-
-.content h1 {
-font-size: 30px;
-}
-
-.content p.lead {
-margin-bottom: 40px;
-}
-
-.service {
-margin-bottom: 40px;
-}
-
-}
-
-</style>
 </head>
 
 <body>
 
-<div class="wrapper">
-
-<div class="split">
-
-<div class="content">
+<div class='page'>
 
 <h1>SayBon Translation Services</h1>
 
-<p class="lead">
-Professional French ↔ English translation delivered with precision,
-cultural intelligence, and rigorously vetted language experts.
-</p>
+<div class='subtitle'>
 
-<div class="service">
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
-<h2>Request a Translation</h2>
+</div>
 
-<p>
-Submit your documents for high-quality translation handled by
-experienced and verified professionals.
-</p>
 
-<button class="btn" onclick="goRequest()">
-Request Translation Services
+<!-- MAIN CARD -->
+
+<div class='glass-card'>
+
+<!-- UPLOAD -->
+
+<div class='upload-section'>
+
+<div class='upload-icon'>📤</div>
+
+<div class='upload-text'>
+
+Drop file to upload  
+Supported: PDF, DOCX, TXT
+
+</div>
+
+<input type='file' id='fileInput'>
+
+<button id='uploadBtn' onclick='generateQuote()'>
+
+Upload Document To Get Quote
+
 </button>
 
 </div>
 
 
-<div class="service">
+<!-- WORD COUNT -->
 
-<h2>Join Our Verified Translator Network</h2>
+<div id='quoteArea' class='hidden'>
 
-<p>
-Already certified? Submit your credentials and demonstrate your
-competence to be approved for SayBon client assignments.
-</p>
+<div class='word-count' id='wordCount'></div>
 
-<button class="btn" onclick="openTranslatorDashboard()">
-For Translators Only
+<div class='select-text'>
+
+Select your preferred quote to proceed to payment
+
+</div>
+
+
+<!-- QUOTE CARDS -->
+
+<div class='quote-container'>
+
+<div id='standardCard' class='quote-card standard' onclick='goPay("standard")'></div>
+
+<div id='expressCard' class='quote-card express' onclick='goPay("express")'></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div id='paymentArea' class='hidden'>
+
+<div class='payment-card'>
+
+<h2>Payment</h2>
+
+<div>Words: <span id='payWords'></span></div>
+
+<div>Delivery: <span id='payDelivery'></span></div>
+
+<div>
+
+Currency
+
+<select id='currency'>
+
+<option value='USD'>USD</option>
+
+<option value='GHS'>GHS</option>
+
+<option value='EUR'>EUR</option>
+
+</select>
+
+</div>
+
+<div>
+
+Amount: <span id='payAmount'></span>
+
+</div>
+
+
+<button class='stripe' onclick='payStripe()'>
+
+Pay with Stripe
+
+</button>
+
+<button class='paystack' onclick='payPaystack()'>
+
+Pay with Paystack
+
 </button>
 
 </div>
 
-
-<div class="back">
-
-<a href="/dashboard/">← Back to Dashboard</a>
-
 </div>
 
 </div>
 
-
-<div class="image-container">
-
-<img src="/assets/images/translation-hero.jpg">
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<script>
-
-function goRequest(){
-
-window.location.href="/translation/request.html";
-
-}
-
-
-// ✅ THIS NOW OPENS TRANSLATOR DASHBOARD
-
-function openTranslatorDashboard(){
-
-window.location.href="/translation/join/dashboard.html";
-
-}
-
-</script>
+<script src='translation.js'></script>
 
 </body>
+
 </html>
+
