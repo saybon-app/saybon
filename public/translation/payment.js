@@ -1,32 +1,24 @@
 ﻿/*
 ========================================
-SAYBON PAYMENT PAGE SCRIPT FINAL
+SAYBON PAYMENT PAGE SCRIPT FINAL FIX
+LEDGER INFUSED
 ========================================
 */
-
 
 const wordsText =
-document.getElementById("paymentWords");
-
-const deliveryText =
-document.getElementById("paymentDelivery");
+document.getElementById("wordsText");
 
 const amountText =
-document.getElementById("paymentAmount");
+document.getElementById("amountText");
 
-const currencyText =
-document.getElementById("paymentCurrency");
+const deliveryText =
+document.getElementById("deliveryText");
 
+const currencySelect =
+document.getElementById("currencySelect");
 
-
-/*
-========================================
-LOAD DATA
-========================================
-*/
 
 function loadPaymentData(){
-
 
 const words =
 localStorage.getItem("saybon_words");
@@ -38,18 +30,19 @@ const delivery =
 localStorage.getItem("saybon_delivery");
 
 const currency =
-localStorage.getItem("saybon_currency");
+localStorage.getItem("saybon_currency") || "USD";
 
 
 
-if(words){
+if(wordsText && words){
 
-wordsText.innerText = words;
+wordsText.innerText =
+words + " words";
 
 }
 
 
-if(amount){
+if(amountText && amount){
 
 amountText.innerText =
 currency + " " + amount;
@@ -57,24 +50,23 @@ currency + " " + amount;
 }
 
 
-if(delivery){
+if(deliveryText && delivery){
 
-deliveryText.innerText = delivery;
-
-}
-
-
-if(currency){
-
-currencyText.innerText = currency;
+deliveryText.innerText =
+delivery;
 
 }
 
 
+if(currencySelect && currency){
+
+currencySelect.value =
+currency;
+
 }
 
+}
 
 
 loadPaymentData();
-
 
