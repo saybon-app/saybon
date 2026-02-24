@@ -1,114 +1,27 @@
-﻿
-/*
-=====================================
-RUN ONLY ON PAYMENT PAGE
-=====================================
-*/
+﻿function loadPayment(){
 
-if(!window.location.pathname.includes("payment.html")){
+let data=sessionStorage.getItem("paymentData");
 
-throw new Error("Stop payment.js");
+if(!data){
+
+data=localStorage.getItem("paymentDataBackup");
 
 }
 
+if(!data){
 
-/*
-=====================================
-LOAD DATA
-=====================================
-*/
-
-const paymentRaw =
-localStorage.getItem("saybon_payment");
-
-
-if(!paymentRaw){
-
-window.location.href="request.html";
+return;
 
 }
 
+data=JSON.parse(data);
 
-const payment = JSON.parse(paymentRaw);
+document.getElementById("words").innerText=data.words;
 
+document.getElementById("delivery").innerText=data.delivery;
 
-
-/*
-=====================================
-DISPLAY
-=====================================
-*/
-
-document.getElementById("words").innerText =
-payment.words;
-
-document.getElementById("delivery").innerText =
-payment.delivery;
-
-document.getElementById("amount").innerText =
-payment.amount;
-
-
-
-/*
-=====================================
-STRIPE
-=====================================
-*/
-
-function payStripe(){
-
-fetch("https://saybon-backend.onrender.com/api/stripe/create-stripe-session",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(payment)
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-window.location.href=data.url;
-
-});
+document.getElementById("amount").innerText=data.amount;
 
 }
 
-
-
-/*
-=====================================
-PAYSTACK
-=====================================
-*/
-
-function payPaystack(){
-
-fetch("https://saybon-backend.onrender.com/api/paystack/initialize",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(payment)
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-window.location.href=data.url;
-
-});
-
-}
-
+loadPayment();
