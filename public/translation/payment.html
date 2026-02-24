@@ -1,92 +1,337 @@
 ﻿<!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Payment</title>
+<title>SayBon Payment</title>
 
-<link rel="stylesheet" href="payment.css">
+<style>
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
+background:#A1D7D6;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+
+.container{
+
+width:420px;
+max-width:92%;
+
+background:rgba(255,255,255,0.25);
+
+backdrop-filter:blur(25px);
+
+border-radius:20px;
+
+padding:35px;
+
+box-shadow:
+0 8px 32px rgba(0,0,0,0.15),
+inset 0 1px 0 rgba(255,255,255,0.5);
+
+animation:fadeUp .5s ease;
+
+}
+
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+.logo{
+
+font-size:22px;
+font-weight:700;
+margin-bottom:20px;
+
+}
+
+
+.row{
+
+margin-bottom:14px;
+font-size:15px;
+
+display:flex;
+justify-content:space-between;
+
+}
+
+
+select{
+
+padding:6px 10px;
+border-radius:6px;
+border:none;
+
+}
+
+
+.amount{
+
+font-size:22px;
+font-weight:700;
+margin-top:10px;
+margin-bottom:20px;
+
+}
+
+
+button{
+
+width:100%;
+padding:14px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:15px;
+
+font-weight:600;
+
+margin-top:10px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+.stripe{
+
+background:linear-gradient(135deg,#635BFF,#4F46E5);
+color:white;
+
+}
+
+
+.paystack{
+
+background:linear-gradient(135deg,#00C9A7,#00A693);
+color:white;
+
+}
+
+
+button:hover{
+
+transform:translateY(-2px);
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+}
+
+
+button:active{
+
+transform:scale(.98);
+
+}
+
+</style>
+
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
 
 </head>
+
 
 <body>
 
 
-
-<div class="paymentCard">
-
+<div class="container">
 
 
-<h2>Payment</h2>
+<div class="logo">
 
-
-
-<div>
-
-Words: <span id="words"></span>
+SayBon
 
 </div>
 
 
+<div class="row">
 
-<div>
+<div>Words</div>
 
-Delivery: <span id="delivery"></span>
+<div id="words"></div>
 
 </div>
 
 
+<div class="row">
 
-<div>
+<div>Delivery</div>
 
-Currency:
+<div id="delivery"></div>
+
+</div>
+
+
+<div class="row">
+
+<div>Currency</div>
 
 <select id="currency">
 
-<option>USD</option>
+<option value="USD">USD</option>
 
-<option>GHS</option>
+<option value="GHS">GHS</option>
 
 </select>
 
 </div>
 
 
+<div class="amount">
 
-<div>
+<span id="currencySymbol">$</span>
 
-Amount: $<span id="amount"></span>
+<span id="amount"></span>
 
 </div>
 
 
 
-<button onclick="payStripe()">
+<button class="stripe" onclick="payStripe()">
 
 Pay with Stripe
 
 </button>
 
 
-
-<button onclick="payPaystack()">
+<button class="paystack" onclick="payPaystack()">
 
 Pay with Paystack
 
 </button>
 
 
-
 </div>
 
 
+<script>
 
-<script src="payment.js"></script>
 
+let paymentData;
+
+
+function loadPayment(){
+
+paymentData=JSON.parse(sessionStorage.getItem("paymentData"));
+
+if(!paymentData){
+
+alert("No payment data");
+
+location.href="/translation/request.html";
+
+return;
+
+}
+
+
+document.getElementById("words").innerText=paymentData.words;
+
+document.getElementById("delivery").innerText=paymentData.delivery;
+
+document.getElementById("amount").innerText=paymentData.amount;
+
+}
+
+
+loadPayment();
+
+
+
+function payStripe(){
+
+
+var stripe=Stripe("pk_live_REPLACE_WITH_YOUR_PUBLIC_KEY");
+
+
+stripe.redirectToCheckout({
+
+lineItems:[{
+
+price_data:{
+
+currency:"usd",
+
+product_data:{name:"Translation"},
+
+unit_amount:paymentData.amount*100
+
+},
+
+quantity:1
+
+}],
+
+mode:"payment",
+
+successUrl:"https://saybonapp.com",
+
+cancelUrl:"https://saybonapp.com"
+
+});
+
+
+}
+
+
+
+function payPaystack(){
+
+
+var handler=PaystackPop.setup({
+
+key:"pk_live_REPLACE_WITH_YOUR_PUBLIC_KEY",
+
+email:"customer@saybon.com",
+
+amount:paymentData.amount*100,
+
+currency:"USD",
+
+callback:function(){
+
+window.location="/";
+
+}
+
+});
+
+
+handler.openIframe();
+
+
+}
+
+
+</script>
 
 
 </body>
