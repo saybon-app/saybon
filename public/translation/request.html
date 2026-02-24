@@ -7,127 +7,379 @@
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="request.css">
+<style>
+
+body{
+
+margin:0;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+
+background:#A1D7D6;
+
+padding:40px 20px;
+
+}
+
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+
+.header{
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+
+.title{
+
+font-size:34px;
+
+font-weight:700;
+
+}
+
+
+.subtitle{
+
+font-size:12px;
+
+letter-spacing:2px;
+
+opacity:.7;
+
+}
+
+
+.glass{
+
+background:rgba(255,255,255,0.25);
+
+backdrop-filter:blur(20px);
+
+border-radius:20px;
+
+padding:30px;
+
+box-shadow:
+
+0 8px 32px rgba(0,0,0,0.15),
+
+inset 0 1px 0 rgba(255,255,255,0.5);
+
+margin-bottom:25px;
+
+animation:fadeUp .5s ease;
+
+}
+
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+button{
+
+padding:12px 22px;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:600;
+
+cursor:pointer;
+
+background:linear-gradient(135deg,#635BFF,#4F46E5);
+
+color:white;
+
+transition:.2s;
+
+}
+
+
+button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+}
+
+
+button:active{
+
+transform:scale(.97);
+
+}
+
+
+.quoteCards{
+
+display:flex;
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+
+.quoteCard{
+
+flex:1;
+
+padding:18px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+background:rgba(255,255,255,.4);
+
+transition:.2s;
+
+}
+
+
+.quoteCard:hover{
+
+transform:translateY(-3px);
+
+}
+
+
+.standard{
+
+border:2px solid #2e7d32;
+
+}
+
+
+.express{
+
+border:2px solid #c62828;
+
+}
+
+
+.small{
+
+font-size:13px;
+
+opacity:.7;
+
+}
+
+
+</style>
 
 </head>
 
-<body>
 
+<body>
 
 
 <div class="container">
 
 
-<h1>SayBon Translation Services</h1>
+<div class="header">
 
-<div class="sub">
+<div class="title">
+
+SayBon Translation Services
+
+</div>
+
+<div class="subtitle">
 
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 </div>
 
+</div>
 
 
-<div class="mainGrid">
+<div class="glass">
 
 
+<div>
 
-<!-- LEFT -->
-
-<div class="uploadCard">
-
-<div class="cloud">📤</div>
-
-<div class="drop">
-
-Drop file to upload  
-Supported: PDF, DOCX, TXT
+📤 Drop file to upload
 
 </div>
 
 
-
-<input type="file" id="fileInput">
-
+<input type="file" id="file">
 
 
-<button id="uploadBtn" onclick="uploadFile()">
+<br><br>
+
+
+<button id="uploadBtn" onclick="getQuote()">
 
 Upload Document To Get Quote
 
 </button>
 
 
-
-</div>
-
-
-
-<!-- RIGHT -->
-
-<div class="priceColumn">
-
-
-
-<div class="priceCard standard">
-
-<h3>Standard — $0.025 / word</h3>
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-
-<li>300–1000 words: 3–6 hrs</li>
-
-<li>1000–3000 words: 6–12 hrs</li>
-
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="priceCard express">
-
-<h3>Express — $0.05 / word</h3>
-
-<ul>
-
-<li>0–300 words: 30–60 mins</li>
-
-<li>300–1000 words: 1–3 hrs</li>
-
-<li>1000–3000 words: 3–6 hrs</li>
-
-<li>3000–5000 words: 6–12 hrs</li>
-
-</ul>
-
-</div>
-
+<div id="quoteArea"></div>
 
 
 </div>
 
 
+</div>
+
+
+<script>
+
+
+function getQuote(){
+
+
+var btn=document.getElementById("uploadBtn");
+
+
+btn.innerText="Getting quote...";
+
+
+setTimeout(()=>{
+
+
+btn.innerText="See quote 👇🏽";
+
+
+showQuote();
+
+
+setTimeout(()=>{
+
+btn.innerText="Upload Document To Get Quote";
+
+},5000);
+
+
+},1500);
+
+
+}
+
+
+
+function showQuote(){
+
+
+var words=1200;
+
+
+var standardPrice=(words*.025).toFixed(2);
+
+
+var expressPrice=(words*.05).toFixed(2);
+
+
+var standardTime="6–12 hrs";
+
+
+var expressTime="3–6 hrs";
+
+
+document.getElementById("quoteArea").innerHTML=
+
+<div class='quoteCards'>
+
+
+<div class='quoteCard standard'
+
+onclick='selectQuote(,"",)'>
+
+
+<b>Standard</b>
+
+<div class='small'>deploy{standardPrice}</div>
+
+<div class='small'></div>
+
 
 </div>
 
 
+<div class='quoteCard express'
 
-<div id="quoteSection"></div>
+onclick='selectQuote(,"",)'>
 
+
+<b>Express</b>
+
+<div class='small'>deploy{expressPrice}</div>
+
+<div class='small'></div>
 
 
 </div>
 
 
+</div>
 
-<script src="request.js"></script>
 
+;
+
+
+}
+
+
+
+function selectQuote(words,delivery,amount){
+
+
+sessionStorage.setItem("paymentData",JSON.stringify({
+
+words,
+
+delivery,
+
+amount
+
+}));
+
+
+location.href="/translation/payment.html";
+
+
+}
+
+
+</script>
 
 
 </body>
+
 </html>
