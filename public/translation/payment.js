@@ -1,51 +1,129 @@
-﻿const payment=JSON.parse(
+﻿
+/*
+=====================================
+LOAD PAYMENT DATA
+=====================================
+*/
 
-localStorage.getItem("saybon_payment")
-
-);
+const paymentRaw = localStorage.getItem("saybon_payment");
 
 
+/*
+=====================================
+IF NO DATA — SILENTLY REDIRECT BACK
+=====================================
+*/
 
-if(!payment){
+if(!paymentRaw){
 
-alert("No payment data found");
+window.location.href="request.html";
 
 }
 
 
 
-document.getElementById("words").innerText=
+/*
+=====================================
+PARSE DATA
+=====================================
+*/
 
-payment.words;
-
-
-
-document.getElementById("delivery").innerText=
-
-payment.delivery;
+const payment = JSON.parse(paymentRaw);
 
 
 
-document.getElementById("amount").innerText=
+/*
+=====================================
+DISPLAY DATA
+=====================================
+*/
 
-payment.amount;
+document.getElementById("words").innerText =
+payment.words || "-";
 
 
+document.getElementById("delivery").innerText =
+payment.delivery || "-";
+
+
+document.getElementById("amount").innerText =
+payment.amount || "-";
+
+
+
+/*
+=====================================
+STRIPE
+=====================================
+*/
 
 function payStripe(){
 
-window.location.href=
+fetch("https://saybon-backend.onrender.com/api/stripe/create-stripe-session",{
 
-"https://saybon-backend.onrender.com/api/stripe/create-stripe-session";
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+amount: payment.amount,
+
+currency: document.getElementById("currency").value
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+window.location.href=data.url;
+
+});
 
 }
 
 
+
+/*
+=====================================
+PAYSTACK
+=====================================
+*/
 
 function payPaystack(){
 
-window.location.href=
+fetch("https://saybon-backend.onrender.com/api/paystack/initialize",{
 
-"https://saybon-backend.onrender.com/api/paystack/initialize";
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+amount: payment.amount,
+
+currency: document.getElementById("currency").value
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+window.location.href=data.url;
+
+});
 
 }
+
+
+
