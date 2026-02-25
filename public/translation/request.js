@@ -1,99 +1,53 @@
-﻿
-let file
+
+const fileInput = document.getElementById("fileInput");
+
+const quoteBtn = document.getElementById("quoteBtn");
+
+const quoteCards = document.getElementById("quoteCards");
 
 
-function chooseFile(){
-
-document.getElementById('fileInput').click()
-
-}
+quoteBtn.onclick = function(){
 
 
-document.getElementById('fileInput').addEventListener('change',function(){
-
-file=this.files[0]
-
-document.getElementById('fileName').innerText=file.name
-
-})
+const words = 800;
 
 
-function startQuote(){
+const standard = words * 0.025;
 
-if(!file){
-
-alert('Select file first')
-
-return
-
-}
-
-
-const btn=document.getElementById('uploadBtn')
-
-btn.innerText='Getting Quote ⏳'
-
-
-setTimeout(()=>{
-
-generateQuote()
-
-},2000)
-
-
-}
-
-
-function generateQuote(){
-
-
-let words=1200
-
-
-document.getElementById('wordCount').innerHTML=
-
-"<h3>"+words+" words</h3>"
-
-
-let standardPrice=(words*0.025).toFixed(2)
-
-let expressPrice=(words*0.05).toFixed(2)
-
-
-document.getElementById('quoteCards').innerHTML=
+const express = words * 0.05;
 
 
 
-<div class='quote-card'
+document.getElementById("standardPrice").innerText = "$" + standard;
 
-onclick="pay(,'standard')">
-
-Standard — public\translation\request.css{standardPrice}
-
-</div>
-
-
-<div class='quote-card'
-
-onclick="pay(,'express')">
-
-Express — public\translation\request.css{expressPrice}
-
-</div>
+document.getElementById("expressPrice").innerText = "$" + express;
 
 
 
+document.getElementById("standardTime").innerText = "3�6 hrs";
 
-}
+document.getElementById("expressTime").innerText = "1�3 hrs";
 
 
-function pay(amount,type){
+quoteCards.classList.remove("hidden");
 
-localStorage.setItem('amount',amount)
 
-localStorage.setItem('type',type)
 
-location.href='payment.html'
+};
 
-}
+
+
+document.getElementById("standardQuote").onclick = function(){
+
+window.location.href = "/translation/payment.html";
+
+};
+
+
+
+document.getElementById("expressQuote").onclick = function(){
+
+window.location.href = "/translation/payment.html";
+
+};
 

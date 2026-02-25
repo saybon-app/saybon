@@ -1,120 +1,160 @@
-﻿
-body{
 
-font-family:Arial;
-
-background:#f4f6f8;
+body {
 
 margin:0;
+font-family: system-ui;
+background: linear-gradient(to bottom, #eef1f4, #dfe5ea);
 
+}
+
+
+.page {
+
+max-width:1200px;
+margin:auto;
 padding:40px;
 
 }
 
 
+.title {
 
-.request-shell{
-
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:30px;
-
-max-width:1100px;
-
-margin:auto;
-
+font-size:40px;
 
 }
 
 
+.subtitle {
 
-.glass-panel{
+color:gray;
+margin-bottom:30px;
+
+}
 
 
-background:rgba(255,255,255,0.25);
+.layout {
 
-backdrop-filter:blur(14px);
+display:flex;
+gap:40px;
 
-border-radius:20px;
+}
+
+
+.glass-card {
+
+flex:1;
+
+background: rgba(255,255,255,0.6);
 
 padding:30px;
 
-height:420px;
+border-radius:20px;
 
+backdrop-filter: blur(20px);
 
-box-shadow:
-
-0 8px 32px rgba(0,0,0,0.15);
-
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 
 }
 
 
 
-.price-card{
+button {
 
+padding:15px 30px;
+border:none;
+border-radius:30px;
 
-padding:15px;
+background: linear-gradient(to right,#9fd3c7,#74c0b3);
 
-border-radius:12px;
+font-size:16px;
 
-margin-bottom:20px;
-
-
-}
-
-
-
-.standard{
-
-border:2px solid green;
-
-}
-
-
-
-.express{
-
-border:2px solid red;
-
-}
-
-
-
-.quote-card{
-
+cursor:pointer;
 
 margin-top:20px;
+
+}
+
+
+
+.price-card {
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+margin-top:20px;
+
+}
+
+
+
+.standard {
+
+border:3px solid green;
+
+}
+
+
+
+.express {
+
+border:3px solid red;
+
+}
+
+
+
+.quote-cards {
+
+margin-top:20px;
+
+display:flex;
+
+gap:20px;
+
+}
+
+
+
+.quote-card {
+
+flex:1;
 
 background:white;
 
 padding:15px;
 
-border-radius:10px;
-
-
-}
-
-
-button{
-
-
-padding:14px;
-
-margin-top:20px;
-
-border:none;
-
-border-radius:12px;
-
-background:#6dd5ed;
+border-radius:15px;
 
 cursor:pointer;
 
+transition:0.2s;
 
 }
 
+
+
+.quote-card:hover {
+
+transform:translateY(-5px);
+
+}
+
+
+
+.quote-card:active {
+
+transform:scale(0.95);
+
+}
+
+
+
+.hidden {
+
+display:none;
+
+}
 
