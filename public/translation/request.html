@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,84 +10,104 @@
 <link rel="stylesheet" href="request.css">
 
 </head>
+
 <body>
 
 <div class="page">
 
-<header>
-
 <h1>SayBon Translation Services</h1>
 
-<p class="tag">
-TRANSLATED BY EXPERTS ? QUICK DELIVERY ? CONFIDENTIAL
+<p class="subtitle">
+TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
 </p>
 
-</header>
+
+<div class="glass-container">
 
 
-<div class="layout">
+<!-- LEFT GLASS CARD -->
+
+<div class="glass-card left-card">
 
 
-<!-- LEFT GLASS -->
-
-<div class="glass left">
-
-<div class="uploadCard">
+<div class="upload-zone" id="uploadZone">
 
 <input type="file" id="fileInput" hidden>
 
-<button id="uploadBtn" class="glassBtn teal">
+<div class="upload-display">
+
+<button class="choose-btn" onclick="chooseFile()">
+Choose File
+</button>
+
+<span id="fileName">
+No file selected
+</span>
+
+</div>
+
+
+<button id="uploadBtn" class="upload-btn" onclick="startQuote()">
 
 Upload Document To Get Quote
 
 </button>
 
-<div id="wordCount" class="wordCount"></div>
 
-<div id="quoteArea"></div>
+<div id="wordCount"></div>
+
+<div id="quoteCards"></div>
+
 
 </div>
 
+
 </div>
 
 
 
-<!-- RIGHT GLASS -->
+<!-- RIGHT GLASS CARD -->
 
-<div class="glass right">
+<div class="glass-card right-card">
 
 
-<div class="priceCard standard">
+<div class="price-card standard">
 
-<h3>Standard — 0.025 / word</h3>
+<h3>Standard â€” 0.025 / word</h3>
 
 <ul>
 
-<li>0–300 words: 1–3 hrs</li>
-<li>300–1000 words: 3–6 hrs</li>
-<li>1000–3000 words: 6–12 hrs</li>
-<li>3000–5000 words: 12–24 hrs</li>
+<li>0â€“300 words: 1â€“3 hrs</li>
+
+<li>300â€“1000 words: 3â€“6 hrs</li>
+
+<li>1000â€“3000 words: 6â€“12 hrs</li>
+
+<li>3000â€“5000 words: 12â€“24 hrs</li>
 
 </ul>
 
 </div>
 
 
-<div class="priceCard express">
 
-<h3>Express — 0.05 / word</h3>
+<div class="price-card express">
+
+<h3>Express â€” 0.05 / word</h3>
 
 <ul>
 
-<li>0–300 words: 30–60 mins</li>
-<li>300–1000 words: 1–3 hrs</li>
-<li>1000–3000 words: 3–6 hrs</li>
-<li>3000–5000 words: 6–12 hrs</li>
+<li>0â€“300 words: 30â€“60 mins</li>
+
+<li>300â€“1000 words: 1â€“3 hrs</li>
+
+<li>1000â€“3000 words: 3â€“6 hrs</li>
+
+<li>3000â€“5000 words: 6â€“12 hrs</li>
 
 </ul>
 
 </div>
-
 
 
 </div>
@@ -100,5 +121,7 @@ Upload Document To Get Quote
 
 <script src="request.js"></script>
 
+
 </body>
+
 </html>
