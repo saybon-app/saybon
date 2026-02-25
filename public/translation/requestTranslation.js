@@ -1,4 +1,5 @@
-﻿/* =========================================================
+﻿console.log('[SayBon] requestTranslation.js loaded');
+/* =========================================================
    SayBon — Request Quote (Robust Renderer)
    - No design changes
    - Works even if IDs/classes change
@@ -231,3 +232,4 @@
     init();
   }
 })();
+
