@@ -1,99 +1,259 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="/css/request.css">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap');
+
+body{
+margin:0;
+font-family:Inter;
+background:linear-gradient(to bottom,#cfd9df,#e2ebf0);
+}
+
+.wrapper{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+}
+
+h1{
+font-family:Playfair Display;
+font-size:48px;
+text-align:center;
+margin-bottom:10px;
+}
+
+.sub{
+text-align:center;
+letter-spacing:3px;
+color:#555;
+margin-bottom:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+.glass{
+background:rgba(255,255,255,.25);
+border-radius:20px;
+padding:30px;
+backdrop-filter:blur(20px);
+box-shadow:
+0 8px 32px rgba(0,0,0,.15),
+inset 0 1px rgba(255,255,255,.6);
+}
+
+.uploadBox{
+text-align:center;
+}
+
+.fileInput{
+display:inline-block;
+padding:10px 20px;
+border-radius:10px;
+border:1px solid rgba(0,0,0,.25);
+box-shadow:
+inset 0 1px 2px rgba(0,0,0,.2),
+0 1px 1px rgba(255,255,255,.6);
+background:white;
+}
+
+.fileName{
+margin-left:12px;
+color:#333;
+}
+
+.uploadBtn{
+margin-top:20px;
+padding:15px 30px;
+border-radius:15px;
+border:none;
+cursor:pointer;
+font-size:16px;
+color:white;
+
+background:linear-gradient(
+145deg,
+#c8f1ea,
+#7fd3c5
+);
+
+box-shadow:
+0 6px 20px rgba(0,0,0,.25),
+inset 0 1px rgba(255,255,255,.8);
+
+text-shadow:
+0 1px 2px rgba(0,0,0,.4);
+
+transition:.2s;
+}
+
+.uploadBtn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.3);
+
+}
+
+.uploadBtn:active{
+
+transform:translateY(2px);
+
+box-shadow:
+0 4px 10px rgba(0,0,0,.3);
+
+}
+
+.priceStack{
+
+display:flex;
+flex-direction:column;
+gap:20px;
+
+}
+
+.priceCard{
+
+background:white;
+padding:20px;
+border-radius:15px;
+
+transition:.3s;
+
+}
+
+.priceCard:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.2);
+
+}
+
+.green{
+
+border:2px solid #3aa655;
+
+}
+
+.red{
+
+border:2px solid #cc4444;
+
+}
+
+.priceCard h3{
+
+margin:0 0 10px 0;
+
+font-family:Playfair Display;
+
+}
+
+.priceCard ul{
+
+margin:0;
+padding-left:18px;
+
+}
+
+.priceCard li{
+
+margin:6px 0;
+
+font-weight:300;
+
+color:#444;
+
+letter-spacing:.5px;
+
+}
+
+.priceCard a{
+
+text-decoration:none;
+color:inherit;
+pointer-events:none;
+
+}
+
+@media(max-width:900px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
 
 </head>
 
-
 <body>
 
+<div class="wrapper">
 
+<h1>SayBon Translation Services</h1>
 
-<div class="page">
+<div class="sub">
 
-
-<h1 class="title">
-SayBon Translation Services
-</h1>
-
-<div class="subtitle">
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
 </div>
 
+<div class="grid">
 
+<div class="glass uploadBox">
 
-<div class="glass-container">
-
-
-
-<!-- LEFT GLASS CARD -->
-
-<div class="glass-card left-card">
-
-
-
-<div class="upload-system">
-
-<input type="file" id="fileInput" hidden>
-
-<label for="fileInput" class="file-chooser">
+<label class="fileInput">
 
 Choose File
 
+<input type="file" id="file" hidden>
+
 </label>
 
-<span id="fileName">
+<span id="fileName" class="fileName">
 
 No file selected
 
 </span>
 
+<br>
 
-
-<button id="uploadBtn">
+<button class="uploadBtn" onclick="getQuote()" id="btn">
 
 Upload Document To Get Quote
 
 </button>
 
-</div>
-
-
-
-<div id="wordCountBox"></div>
-
-
-
-<div id="quoteBox"></div>
-
-
+<div id="quote"></div>
 
 </div>
 
 
+<div class="glass">
+
+<div class="priceStack">
 
 
-<!-- RIGHT GLASS CARD -->
+<div class="priceCard green">
 
-<div class="glass-card right-card">
-
-
-
-<div class="price-card standard">
-
-<div class="price-title">
-
-Standard — 0.025 / word
-
-</div>
-
+<h3>Standard — 0.025 / word</h3>
 
 <ul>
 
@@ -110,15 +270,9 @@ Standard — 0.025 / word
 </div>
 
 
+<div class="priceCard red">
 
-<div class="price-card express">
-
-<div class="price-title">
-
-Express — 0.05 / word
-
-</div>
-
+<h3>Express — 0.05 / word</h3>
 
 <ul>
 
@@ -135,23 +289,37 @@ Express — 0.05 / word
 </div>
 
 
+</div>
 
 </div>
 
-
+</div>
 
 </div>
 
+<script>
 
+file.onchange=()=>{
 
-</div>
+fileName.innerText=file.files[0].name;
 
+};
 
+function getQuote(){
 
-<script src="/js/request.js"></script>
+btn.innerText="Getting Quote ⏳";
 
+setTimeout(()=>{
 
+btn.innerText="Upload Document To Get Quote";
+
+quote.innerHTML="Quote Ready Below";
+
+},2000);
+
+}
+
+</script>
 
 </body>
-
 </html>
