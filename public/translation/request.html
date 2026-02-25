@@ -1,108 +1,303 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SayBon Translation Services</title>
-  <link rel="stylesheet" href="./request.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translation Services</title>
+
+<style>
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+background:linear-gradient(to bottom,#cfe0ea,#eaf2f7);
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+}
+
+header{
+text-align:center;
+margin-bottom:40px;
+}
+
+header h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+header p{
+letter-spacing:3px;
+color:#555;
+font-size:13px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:25px;
+align-items:start;
+}
+
+/* CARDS */
+
+.card{
+background:white;
+border-radius:18px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+.price-card{
+font-size:15px;
+line-height:28px;
+}
+
+.standard{
+border:2px solid #39a851;
+}
+
+.express{
+border:2px solid #d64545;
+}
+
+/* UPLOAD CARD */
+
+.upload-card{
+text-align:center;
+}
+
+button{
+background:linear-gradient(45deg,#2f5fff,#4a7dff);
+color:white;
+border:none;
+padding:14px 30px;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+button:active{
+transform:scale(0.95);
+}
+
+/* QUOTE CARD */
+
+.quote-card{
+display:none;
+margin-top:20px;
+animation:fadeUp 0.5s ease;
+}
+
+.quote-option{
+border-radius:14px;
+padding:15px;
+margin:10px 0;
+cursor:pointer;
+transition:0.3s;
+}
+
+.quote-option:hover{
+transform:scale(1.03);
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* MOBILE STACK ONLY */
+
+@media(max-width:900px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.price-group{
+order:1;
+}
+
+.upload-card{
+order:2;
+}
+
+.quote-card{
+order:3;
+}
+
+}
+
+</style>
+
 </head>
-
 <body>
-  <main class="page">
-    <!-- HEADER -->
-    <header class="hero">
-      <h1 class="heroTitle">SayBon Translation Services</h1>
-      <p class="heroSub">TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
-    </header>
 
-    <!-- LAYOUT -->
-    <section class="layout">
-      <!-- LEFT: UPLOAD -->
-      <section class="panel uploadPanel" aria-label="Upload your document">
-        <div class="panelHeader">
-          <h2 class="panelTitle">Upload your document</h2>
-          <p class="panelDesc">
-            Drag and drop your file, or choose from your device. We’ll calculate your word count and generate a quote instantly.
-          </p>
-        </div>
+<div class="container">
 
-        <div id="dropZone" class="dropZone" role="button" tabindex="0" aria-label="Drop file to upload">
-          <div class="dropIcon" aria-hidden="true">⬆️</div>
-          <div class="dropTitle">Drop file to upload</div>
-          <div class="dropMeta">
-            <span>Supported: PDF, DOCX, TXT</span>
-            <span class="dot">•</span>
-            <span>Your file stays private.</span>
-          </div>
+<header>
 
-          <div class="dropActions">
-            <input id="fileInput" class="fileInput" type="file" accept=".pdf,.doc,.docx,.txt,application/pdf" />
-            <button id="chooseBtn" class="btn btnSmall" type="button">Choose File</button>
-          </div>
+<h1>SayBon Translation Services</h1>
 
-          <div id="fileLine" class="fileLine" aria-live="polite">
-            <span class="fileBadge">No file selected</span>
-            <span id="fileName" class="fileName">Choose a document to continue</span>
-            <button id="clearFileBtn" class="clearBtn" type="button" aria-label="Clear file">×</button>
-          </div>
-        </div>
+<p>
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+</p>
 
-        <button id="getQuoteBtn" class="btn btnPrimary" type="button">
-          Upload Document To Get Quote
-        </button>
+</header>
 
-        <div id="inlineMsg" class="inlineMsg" aria-live="polite"></div>
+<div class="grid">
 
-        <!-- QUOTE CARD (appears below) -->
-        <section id="quoteCard" class="quoteCard" aria-label="Your quote" hidden>
-          <div class="quoteTop">
-            <div class="quoteWords"><span id="wordCount">0</span> words</div>
-            <div class="quoteHint">Select the quote you prefer to proceed to payment.</div>
-          </div>
+<!-- PRICE CARDS -->
 
-          <div class="quoteOptions">
-            <button id="standardQuoteBtn" class="quoteOption quoteStandard" type="button">
-              <div class="qoTitle">Standard</div>
-              <div class="qoPrice" id="standardPrice">.00</div>
-              <div class="qoTime" id="standardTime">—</div>
-            </button>
+<div class="price-group">
 
-            <button id="expressQuoteBtn" class="quoteOption quoteExpress" type="button">
-              <div class="qoTitle">Express</div>
-              <div class="qoPrice" id="expressPrice">.00</div>
-              <div class="qoTime" id="expressTime">—</div>
-            </button>
-          </div>
-        </section>
-      </section>
+<div class="card price-card standard">
 
-      <!-- RIGHT: PRICING -->
-      <aside class="panel pricingPanel" aria-label="Pricing and delivery">
-        <div class="pricingGrid">
-          <div class="priceCard rimGreen">
-            <div class="pcTitle"><b>Standard</b> — <b>.025 / word</b></div>
-            <ul class="pcList">
-              <li>0–300 words: 1–3 hrs</li>
-              <li>300–1000 words: 3–6 hrs</li>
-              <li>1000–3000 words: 6–12 hrs</li>
-              <li>3000–5000 words: 12–24 hrs</li>
-            </ul>
-          </div>
+<b>Standard — 0.025 / word</b>
 
-          <div class="priceCard rimRed">
-            <div class="pcTitle"><b>Express</b> — <b>.05 / word</b></div>
-            <ul class="pcList">
-              <li>0–300 words: 30–60 mins</li>
-              <li>300–1000 words: 1–3 hrs</li>
-              <li>1000–3000 words: 3–6 hrs</li>
-              <li>3000–5000 words: 6–12 hrs</li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-    </section>
-  </main>
+<ul>
 
-  <script src="./request.js"></script>
+<li>0–300 words: 1–3 hrs</li>
+
+<li>300–1000 words: 3–6 hrs</li>
+
+<li>1000–3000 words: 6–12 hrs</li>
+
+<li>3000–5000 words: 12–24 hrs</li>
+
+</ul>
+
+</div>
+
+<div class="card price-card express">
+
+<b>Express — 0.05 / word</b>
+
+<ul>
+
+<li>0–300 words: 30–60 mins</li>
+
+<li>300–1000 words: 1–3 hrs</li>
+
+<li>1000–3000 words: 3–6 hrs</li>
+
+<li>3000–5000 words: 6–12 hrs</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- UPLOAD -->
+
+<div class="card upload-card">
+
+<input type="file" id="file">
+
+<br><br>
+
+<button id="uploadBtn">
+
+Upload Document To Get Quote
+
+</button>
+
+
+<div class="quote-card" id="quoteCard">
+
+<div style="margin-top:10px;font-size:14px">
+
+Select quote to proceed 👇
+
+</div>
+
+<div class="quote-option standard" id="standardQuote"></div>
+
+<div class="quote-option express" id="expressQuote"></div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+<script>
+
+const btn=document.getElementById("uploadBtn");
+
+btn.onclick=function(){
+
+const file=document.getElementById("file").files[0];
+
+if(!file)return;
+
+btn.innerHTML="Getting quote";
+
+setTimeout(()=>{
+
+const words=Math.floor(Math.random()*4000);
+
+const standard=(words*0.025).toFixed(2);
+
+const express=(words*0.05).toFixed(2);
+
+document.getElementById("quoteCard").style.display="block";
+
+document.getElementById("standardQuote").innerHTML=
+
+"<b>Standard</b><br>$"+standard+"<br>Delivery 12 hrs";
+
+document.getElementById("expressQuote").innerHTML=
+
+"<b>Express</b><br>$"+express+"<br>Delivery 6 hrs";
+
+btn.innerHTML="See quote 👇";
+
+setTimeout(()=>{
+
+btn.innerHTML="Upload Document To Get Quote";
+
+},5000);
+
+},1500);
+
+};
+
+document.getElementById("standardQuote").onclick=function(){
+
+location.href="payment.html";
+
+};
+
+document.getElementById("expressQuote").onclick=function(){
+
+location.href="payment.html";
+
+};
+
+</script>
+
 </body>
 </html>

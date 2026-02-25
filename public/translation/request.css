@@ -1,374 +1,127 @@
-﻿:root{
-  --bg:#A1D7D6;
-  --glass: rgba(255,255,255,.38);
-  --glass2: rgba(255,255,255,.58);
-  --stroke: rgba(255,255,255,.55);
-  --shadow: 0 18px 45px rgba(0,0,0,.16);
-  --text:#0b1b2a;
-  --muted: rgba(11,27,42,.70);
-  --btn1:#2f55ff;
-  --btn2:#466dff;
-  --green:#2f7d32;
-  --red:#c62828;
-}
-
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-
+﻿
 body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  color:var(--text);
-  background: radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,.60), rgba(255,255,255,0) 55%),
-              radial-gradient(900px 600px at 85% 25%, rgba(255,255,255,.45), rgba(255,255,255,0) 50%),
-              linear-gradient(180deg, var(--bg), #ffffff 70%);
-  overflow-x:hidden;
+
+margin:0;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+
+background:linear-gradient(180deg,#cfe8f7,#eaf4fb);
+
 }
+
+
 
 .page{
-  width:min(1120px, 92vw);
-  margin: 0 auto;
-  padding: 34px 0 50px;
-  animation: fadeIn .35s ease-out both;
+
+max-width:1100px;
+
+margin:auto;
+
+padding:40px;
+
+text-align:center;
+
 }
 
-.hero{
-  text-align:center;
-  margin-bottom: 18px;
+
+
+.cards{
+
+display:flex;
+
+gap:30px;
+
+justify-content:center;
+
+align-items:stretch;
+
+flex-wrap:wrap;
+
 }
 
-.heroTitle{
-  margin:0;
-  font-size: clamp(28px, 4.2vw, 54px);
-  font-weight: 800;
-  letter-spacing: .3px;
+
+
+.upload-card,
+.pricing-card{
+
+width:320px;
+
+height:260px;
+
+background:white;
+
+border-radius:18px;
+
+padding:30px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
 }
 
-.heroSub{
-  margin: 8px 0 0;
-  font-size: clamp(10px, 1.25vw, 13px);
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: rgba(11,27,42,.65);
-  white-space: nowrap;
-  overflow:hidden;
-  text-overflow: ellipsis;
+
+
+.standard{
+
+border:2px solid green;
+
 }
 
-.layout{
-  display:grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: 18px;
-  align-items:start;
+
+.express{
+
+border:2px solid red;
+
 }
 
-.panel{
-  border-radius: 18px;
-  background: var(--glass);
-  border: 1px solid var(--stroke);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  overflow:hidden;
+
+
+#quoteBtn{
+
+background:linear-gradient(180deg,#4a7bff,#2f5bdb);
+
+border:none;
+
+color:white;
+
+padding:14px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+transition:all 0.2s;
+
 }
 
-.uploadPanel{ padding: 18px; }
-.pricingPanel{ padding: 18px; }
 
-.panelHeader{
-  padding: 10px 12px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.22);
-  border: 1px solid rgba(255,255,255,.40);
+
+#quoteBtn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+
 }
 
-.panelTitle{
-  margin:0;
-  font-size: 28px;
-  font-weight: 800;
+
+
+#quoteBtn:active{
+
+transform:scale(0.96);
+
 }
 
-.panelDesc{
-  margin:8px 0 0;
-  color: var(--muted);
-  line-height: 1.35;
+
+
+@media(max-width:768px){
+
+.cards{
+
+flex-direction:column;
+
+align-items:center;
+
 }
 
-.dropZone{
-  margin-top: 14px;
-  padding: 18px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.24);
-  border: 2px dashed rgba(11,27,42,.18);
-  text-align:center;
-  transition: transform .18s ease, border-color .18s ease, background .18s ease;
 }
 
-.dropZone:hover{
-  transform: translateY(-1px);
-  border-color: rgba(11,27,42,.26);
-  background: rgba(255,255,255,.30);
-}
-
-.dropZone.isDrag{
-  border-color: rgba(47,85,255,.55);
-  background: rgba(255,255,255,.38);
-  transform: translateY(-2px);
-}
-
-.dropIcon{
-  width: 58px;
-  height: 58px;
-  display:grid;
-  place-items:center;
-  margin: 0 auto 10px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.65);
-  box-shadow: 0 10px 22px rgba(0,0,0,.10);
-  font-size: 22px;
-}
-
-.dropTitle{
-  font-size: 22px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.dropMeta{
-  color: rgba(11,27,42,.68);
-  display:flex;
-  gap: 10px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.dot{ opacity:.7; }
-
-.dropActions{
-  margin-top: 14px;
-  display:flex;
-  justify-content:center;
-  gap: 10px;
-  align-items:center;
-}
-
-.fileInput{
-  display:none;
-}
-
-.fileLine{
-  margin-top: 14px;
-  padding: 12px 12px;
-  display:flex;
-  gap: 10px;
-  align-items:center;
-  justify-content:space-between;
-  border-radius: 14px;
-  background: rgba(255,255,255,.38);
-  border: 1px solid rgba(255,255,255,.55);
-}
-
-.fileBadge{
-  padding: 8px 10px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.72);
-  border: 1px solid rgba(11,27,42,.12);
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.fileName{
-  flex: 1;
-  text-align:left;
-  color: rgba(11,27,42,.70);
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-
-.clearBtn{
-  border: none;
-  background: transparent;
-  color: rgba(11,27,42,.65);
-  font-size: 20px;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  cursor:pointer;
-  transition: transform .12s ease, background .12s ease;
-}
-
-.clearBtn:hover{ background: rgba(255,255,255,.60); transform: scale(1.05); }
-.clearBtn:active{ transform: scale(.96); }
-
-.btn{
-  border:none;
-  cursor:pointer;
-  border-radius: 14px;
-  font-weight: 800;
-  transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
-  user-select:none;
-}
-
-.btn:disabled{
-  opacity:.75;
-  cursor:not-allowed;
-  transform:none !important;
-}
-
-.btnSmall{
-  padding: 10px 14px;
-  background: rgba(255,255,255,.75);
-  border: 1px solid rgba(11,27,42,.12);
-  color: var(--text);
-}
-
-.btnSmall:hover{ filter: brightness(1.02); transform: translateY(-1px); }
-.btnSmall:active{ transform: translateY(0px) scale(.98); }
-
-.btnPrimary{
-  margin-top: 14px;
-  width:100%;
-  padding: 16px 18px;
-  background: linear-gradient(90deg, var(--btn1), var(--btn2));
-  color:white;
-  box-shadow: 0 16px 28px rgba(47,85,255,.28);
-}
-
-.btnPrimary:hover{ transform: translateY(-1px); filter: brightness(1.02); }
-.btnPrimary:active{ transform: translateY(0px) scale(.985); }
-
-.inlineMsg{
-  margin-top: 10px;
-  min-height: 20px;
-  color: rgba(11,27,42,.70);
-  font-weight: 700;
-}
-
-.quoteCard{
-  margin-top: 14px;
-  padding: 16px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.32);
-  border: 1px solid rgba(255,255,255,.55);
-  box-shadow: 0 16px 30px rgba(0,0,0,.12);
-  animation: slideUp .30s ease-out both;
-}
-
-.quoteTop{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  align-items:center;
-  margin-bottom: 12px;
-}
-
-.quoteWords{
-  font-size: 26px;
-  font-weight: 900;
-}
-
-.quoteHint{
-  color: rgba(11,27,42,.68);
-  font-weight: 700;
-  text-align:center;
-}
-
-.quoteOptions{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.quoteOption{
-  text-align:left;
-  padding: 14px 14px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.40);
-  border: 2px solid transparent;
-  cursor:pointer;
-  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
-}
-
-.quoteOption:hover{ transform: translateY(-1px); filter: brightness(1.02); }
-.quoteOption:active{ transform: translateY(0px) scale(.985); }
-
-.quoteStandard{ border-color: rgba(47,125,50,.85); }
-.quoteExpress{ border-color: rgba(198,40,40,.85); }
-
-.qoTitle{
-  font-weight: 900;
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.qoPrice{
-  font-weight: 900;
-  font-size: 22px;
-  margin-bottom: 2px;
-}
-
-.qoTime{
-  color: rgba(11,27,42,.68);
-  font-weight: 800;
-}
-
-.pricingGrid{
-  display:grid;
-  gap: 14px;
-}
-
-.priceCard{
-  border-radius: 16px;
-  background: rgba(255,255,255,.30);
-  border: 2px solid rgba(11,27,42,.10);
-  padding: 14px 14px 12px;
-}
-
-.rimGreen{ border-color: rgba(47,125,50,.78); }
-.rimRed{ border-color: rgba(198,40,40,.78); }
-
-.pcTitle{
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.pcList{
-  margin:0;
-  padding-left: 18px;
-  color: rgba(11,27,42,.70);
-  font-weight: 650;
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-@keyframes slideUp{
-  from{ opacity:0; transform: translateY(10px); }
-  to{ opacity:1; transform: translateY(0); }
-}
-
-@keyframes fadeIn{
-  from{ opacity:0; transform: translateY(6px); }
-  to{ opacity:1; transform: translateY(0); }
-}
-
-/* MOBILE: Same design, just stacked: Header -> Pricing -> Upload */
-@media (max-width: 860px){
-  .layout{
-    grid-template-columns: 1fr;
-  }
-  .pricingPanel{ order: 1; }
-  .uploadPanel{ order: 2; }
-
-  .heroSub{
-    letter-spacing: .18em;
-    font-size: 10px;
-    white-space: nowrap;
-    overflow:hidden;
-    text-overflow: ellipsis;
-  }
-
-  .quoteOptions{
-    grid-template-columns: 1fr;
-  }
-}
