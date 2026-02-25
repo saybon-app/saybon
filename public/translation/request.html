@@ -1,67 +1,96 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SayBon Translation Services</title>
-    <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/translation//translation/request.css" />
-  </head>
+<head>
 
-  <body>
-    <main class="page">
-      <header class="hero">
-        <h1>SayBon Translation Services</h1>
-        <p class="hero-sub">TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
-      </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <section class="grid" aria-label="Translation quote request">
-        <!-- LEFT: Upload + Quote cards -->
-        <div class="glass-card" id="uploadCard">
-          <h2 class="panel-title">Human Translation</h2>
+<title>SayBon Translation Request</title>
 
-          <div class="file-row">
-            <label class="file-pill" for="fileInput">Choose File</label>
-            <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.txt" />
-            <div class="file-name" id="fileName">No file chosen</div>
-          </div>
+<link rel="stylesheet" href="/translation/request.css">
 
-          <button id="uploadBtn" class="primary-btn" type="button">
-            Upload Document To Get Quote
-          </button>
+</head>
+<body>
 
-          <div id="wordCountLine" class="wordcount" style="display: none"></div>
 
-          <div id="quoteCards" class="quote-stack" style="display: none" aria-label="Quote options"></div>
-        </div>
+<header class="header">
 
-        <!-- RIGHT: Pricing cards -->
-        <div class="glass-card" id="pricingCard">
-          <div class="pricing-stack">
-            <article class="price-card price-standard" id="priceStandard" aria-label="Standard pricing">
-              <h3>Standard - 0.025 / word</h3>
-              <ul>
-                <li><span>0-300 words</span><span>1-3 hrs</span></li>
-                <li><span>300-1000 words</span><span>3-6 hrs</span></li>
-                <li><span>1000-3000 words</span><span>6-12 hrs</span></li>
-                <li><span>3000-5000 words</span><span>12-24 hrs</span></li>
-              </ul>
-            </article>
+<h1>SayBon Translation Services</h1>
 
-            <article class="price-card price-express" id="priceExpress" aria-label="Express pricing">
-              <h3>Express - 0.05 / word</h3>
-              <ul>
-                <li><span>0-300 words</span><span>30-60 mins</span></li>
-                <li><span>300-1000 words</span><span>1-3 hrs</span></li>
-                <li><span>1000-3000 words</span><span>3-6 hrs</span></li>
-                <li><span>3000-5000 words</span><span>6-12 hrs</span></li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
+<p>
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+</p>
 
-    <script src="/translation/requestTranslation.js"></script>
-  </body>
+</header>
+
+
+
+<main class="container">
+
+
+<section class="upload-card glass">
+
+<input type="file" id="fileInput">
+
+<button id="quoteBtn">
+
+<span id="quoteText">
+
+Upload Document To Get Quote
+
+</span>
+
+</button>
+
+
+<div id="quoteResult"></div>
+
+
+</section>
+
+
+
+<section class="pricing-card glass">
+
+<div class="price-box standard">
+
+<h2>Standard — 0.025 / word</h2>
+
+<ul>
+
+<li>0–300 words: 1–3 hrs</li>
+<li>300–1000 words: 3–6 hrs</li>
+<li>1000–3000 words: 6–12 hrs</li>
+<li>3000–5000 words: 12–24 hrs</li>
+
+</ul>
+
+</div>
+
+
+<div class="price-box express">
+
+<h2>Express — 0.05 / word</h2>
+
+<ul>
+
+<li>0–300 words: 30–60 mins</li>
+<li>300–1000 words: 1–3 hrs</li>
+<li>1000–3000 words: 3–6 hrs</li>
+<li>3000–5000 words: 6–12 hrs</li>
+
+</ul>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<script src="/translation/request.js"></script>
+
+
+</body>
 </html>

@@ -1,137 +1,172 @@
 ﻿
-/* ===============================
-HEADER CENTER FIX
-=============================== */
-
-.hero{
-text-align:center;
-align-items:center;
-}
-
-/* Desktop title */
-.hero h1{
-
-font-size: clamp(28px,3vw,42px);
-white-space:nowrap;
-
-}
-
-/* subtitle */
-.hero-sub{
-
-white-space:nowrap;
-font-size:12px;
-letter-spacing:.18em;
-
-}
-
-/* ===============================
-UPLOAD BUTTON TEXT SHADOW
-=============================== */
-
-.primary-btn{
-
-text-shadow:
-
-0 1px 1px rgba(0,0,0,.35),
-0 2px 6px rgba(0,0,0,.25);
-
-}
-
-/* ===============================
-MOBILE FIX
-=============================== */
-
-@media(max-width:900px){
-
-.page{
-
-height:auto;
-padding:22px 14px;
-
-}
-
-/* stack cards */
-
-.grid{
-
-grid-template-columns:1fr;
-
-}
-
-/* title must fit ONE LINE */
-
-.hero h1{
-
-font-size:20px;
-white-space:nowrap;
-
-}
-
-/* subtitle ONE LINE */
-
-.hero-sub{
-
-font-size:9px;
-white-space:nowrap;
-
-}
-
-/* GLASS CARD FULL MOBILE STYLE */
-
-.glass-card{
-
-padding:18px;
-border-radius:22px;
-
-}
-
-/* button scale */
-
-.primary-btn{
-
-font-size:16px;
-padding:14px;
-
-}
-
-/* quote cards */
-
-.quote-card{
-
-padding:10px;
-
-}
-
-/* pricing cards */
-
-.price-card{
-
-padding:14px;
-
-}
-
-}
-
-/* ===============================
-PREVENT MOBILE FALLBACK LOOK
-=============================== */
-
 body{
 
-min-height:100vh;
+margin:0;
+font-family:Inter, sans-serif;
+
+background:
+linear-gradient(180deg,#e6edf4,#d8e2ec);
 
 }
 
-.grid{
 
-width:100%;
+.header{
+
+text-align:center;
+margin-top:40px;
+
+}
+
+
+.header h1{
+
+font-size:40px;
+font-weight:600;
 
 }
 
-.glass-card{
 
-width:100%;
+.header p{
+
+font-size:14px;
+opacity:.6;
 
 }
+
+
+.container{
+
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:40px;
+
+flex-wrap:wrap;
+
+}
+
+
+.glass{
+
+background:rgba(255,255,255,.4);
+
+border-radius:20px;
+
+padding:30px;
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+
+0 8px 30px rgba(0,0,0,.1),
+
+inset 0 1px rgba(255,255,255,.6);
+
+}
+
+
+.upload-card{
+
+width:400px;
+
+}
+
+
+.pricing-card{
+
+width:400px;
+
+display:flex;
+flex-direction:column;
+gap:20px;
+
+}
+
+
+.price-box{
+
+border-radius:15px;
+padding:20px;
+
+border:1px solid rgba(0,0,0,.1);
+
+transition:.3s;
+
+}
+
+
+.price-box:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+}
+
+
+.standard{
+
+border-color:#4CAF50;
+
+}
+
+
+.express{
+
+border-color:#e53935;
+
+}
+
+
+button{
+
+margin-top:20px;
+
+padding:15px;
+
+border:none;
+
+border-radius:30px;
+
+background:linear-gradient(90deg,#8fd3c9,#6bb8b0);
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+
+.quote-option{
+
+padding:15px;
+
+border-radius:15px;
+
+margin-top:10px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+.quote-option:hover{
+
+transform:scale(1.05);
+
+}
+
 

@@ -1,68 +1,62 @@
-
+﻿
 const btn = document.getElementById("quoteBtn");
 
-const cards = document.getElementById("quoteCards");
+const text = document.getElementById("quoteText");
+
+const result = document.getElementById("quoteResult");
 
 
-
-btn.onclick = async function(){
-
-
-btn.classList.add("loading");
-
-btn.innerHTML = "Getting Quote ?";
+btn.onclick = ()=>{
 
 
-await new Promise(r => setTimeout(r,1200));
+text.innerHTML="Getting Quote ⏳";
 
 
-
-const words = 1600;
-
-
-const standardPrice = (words*0.025).toFixed(2);
-
-const expressPrice = (words*0.05).toFixed(2);
+setTimeout(()=>{
 
 
+const words = 1200;
 
-document.getElementById("standardPrice").innerHTML = "$"+standardPrice;
+const standard = words*.025;
 
-document.getElementById("expressPrice").innerHTML = "$"+expressPrice;
-
-
-
-document.getElementById("standardTime").innerHTML = "6�12 hrs";
-
-document.getElementById("expressTime").innerHTML = "3�6 hrs";
+const express = words*.05;
 
 
+result.innerHTML=`
 
-cards.classList.remove("hidden");
+<div class="quote-option standard glass"
 
+onclick="location.href='/translation/payment.html?type=standard&price=${standard}'">
 
+Standard
 
-btn.innerHTML = "Upload Document To Get Quote";
+$${standard}
 
-btn.classList.remove("loading");
+6–12 hrs
 
-
-
-};
-
-
-
-document.getElementById("standardQuote").onclick=function(){
-
-window.location.href="/translation/payment.html";
-
-};
+</div>
 
 
+<div class="quote-option express glass"
 
-document.getElementById("expressQuote").onclick=function(){
+onclick="location.href='/translation/payment.html?type=express&price=${express}'">
 
-window.location.href="/translation/payment.html";
+Express
+
+$${express}
+
+3–6 hrs
+
+</div>
+
+`;
+
+
+text.innerHTML="Upload Document To Get Quote";
+
+
+},1500);
+
 
 };
 
