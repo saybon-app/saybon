@@ -1,171 +1,67 @@
-<!DOCTYPE html>
+ï»¿<!doctype html>
 <html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayBon Translation Services</title>
-
-<link rel="stylesheet" href="/translation/request.css">
-
-</head>
-
-<body>
-
-<div class="page">
-
-<h1 class="title">
-
-SayBon Translation Services
-
-</h1>
-
-
-<div class="subtitle">
-
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-
-</div>
-
-
-
-<div class="layout">
-
-
-
-<!-- LEFT CARD -->
-
-<div class="glass-card">
-
-
-
-<input type="file" id="fileInput">
-
-
-
-<button id="quoteBtn">
-
-Upload Document To Get Quote
-
-</button>
-
-
-
-<div id="quoteCards" class="quote-cards hidden">
-
-
-
-<div id="standardQuote" class="quote-card standard">
-
-<div class="quote-type">
-
-Standard
-
-</div>
-
-<div id="standardPrice" class="quote-price"></div>
-
-<div id="standardTime" class="quote-time"></div>
-
-</div>
-
-
-
-<div id="expressQuote" class="quote-card express">
-
-<div class="quote-type">
-
-Express
-
-</div>
-
-<div id="expressPrice" class="quote-price"></div>
-
-<div id="expressTime" class="quote-time"></div>
-
-</div>
-
-
-
-</div>
-
-</div>
-
-
-
-
-<!-- RIGHT CARD -->
-
-<div class="glass-card">
-
-
-
-<div class="price-card standard">
-
-<h3>
-
-Standard — 0.025 / word
-
-</h3>
-
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-
-<li>300–1000 words: 3–6 hrs</li>
-
-<li>1000–3000 words: 6–12 hrs</li>
-
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
-
-
-</div>
-
-
-
-
-<div class="price-card express">
-
-<h3>
-
-Express — 0.05 / word
-
-</h3>
-
-
-<ul>
-
-<li>0–300 words: 30–60 mins</li>
-
-<li>300–1000 words: 1–3 hrs</li>
-
-<li>1000–3000 words: 3–6 hrs</li>
-
-<li>3000–5000 words: 6–12 hrs</li>
-
-</ul>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-</div>
-
-
-
-<script src="/translation/request.js"></script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SayBon Translation Services</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/translation/request.css" />
+  </head>
+
+  <body>
+    <main class="page">
+      <header class="hero">
+        <h1>SayBon Translation Services</h1>
+        <p class="hero-sub">TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL</p>
+      </header>
+
+      <section class="grid" aria-label="Translation quote request">
+        <!-- LEFT: Upload + Quote cards -->
+        <div class="glass-card" id="uploadCard">
+          <h2 class="panel-title">Human Translation</h2>
+
+          <div class="file-row">
+            <label class="file-pill" for="fileInput">Choose File</label>
+            <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.txt" />
+            <div class="file-name" id="fileName">No file chosen</div>
+          </div>
+
+          <button id="uploadBtn" class="primary-btn" type="button">
+            Upload Document To Get Quote
+          </button>
+
+          <div id="wordCountLine" class="wordcount" style="display: none"></div>
+
+          <div id="quoteCards" class="quote-stack" style="display: none" aria-label="Quote options"></div>
+        </div>
+
+        <!-- RIGHT: Pricing cards -->
+        <div class="glass-card" id="pricingCard">
+          <div class="pricing-stack">
+            <article class="price-card price-standard" id="priceStandard" aria-label="Standard pricing">
+              <h3>Standard - 0.025 / word</h3>
+              <ul>
+                <li><span>0-300 words</span><span>1-3 hrs</span></li>
+                <li><span>300-1000 words</span><span>3-6 hrs</span></li>
+                <li><span>1000-3000 words</span><span>6-12 hrs</span></li>
+                <li><span>3000-5000 words</span><span>12-24 hrs</span></li>
+              </ul>
+            </article>
+
+            <article class="price-card price-express" id="priceExpress" aria-label="Express pricing">
+              <h3>Express - 0.05 / word</h3>
+              <ul>
+                <li><span>0-300 words</span><span>30-60 mins</span></li>
+                <li><span>300-1000 words</span><span>1-3 hrs</span></li>
+                <li><span>1000-3000 words</span><span>3-6 hrs</span></li>
+                <li><span>3000-5000 words</span><span>6-12 hrs</span></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/translation/requestTranslation.js"></script>
+  </body>
 </html>
-

@@ -1,235 +1,191 @@
-﻿console.log('[SayBon] requestTranslation.js loaded');
-/* =========================================================
-   SayBon — Request Quote (Robust Renderer)
-   - No design changes
-   - Works even if IDs/classes change
-   - Renders quote cards reliably
-========================================================= */
+﻿// SayBon Translation Request
+// - Computes word count (best-effort client-side)
+// - Shows word count line first
+// - Renders 2 quote option cards (Standard / Express) as clickable buttons
+// - Redirects to /translation/payment.html with query params
 
-(function () {
-  "use strict";
+(() => {
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const quoteCards = document.getElementById("quoteCards");
+  const wordCountLine = document.getElementById("wordCountLine");
 
-  const PRICING = {
-    standard: { rate: 0.025, tiers: [
-      { min: 0,    max: 300,  eta: "1–3 hrs" },
-      { min: 301,  max: 1000, eta: "3–6 hrs" },
-      { min: 1001, max: 3000, eta: "6–12 hrs" },
-      { min: 3001, max: 5000, eta: "12–24 hrs" },
-    ]},
-    express: { rate: 0.05, tiers: [
-      { min: 0,    max: 300,  eta: "30–60 mins" },
-      { min: 301,  max: 1000, eta: "1–3 hrs" },
-      { min: 1001, max: 3000, eta: "3–6 hrs" },
-      { min: 3001, max: 5000, eta: "6–12 hrs" },
-    ]},
+  if (!fileInput || !fileName || !uploadBtn || !quoteCards || !wordCountLine) {
+    // If markup is missing, fail silently (prevents breaking page rendering).
+    return;
+  }
+
+  // Pricing tiers are inclusive on the upper bound.
+  const STANDARD_RATE = 0.025;
+  const EXPRESS_RATE = 0.05;
+
+  const STANDARD_TIERS = [
+    { max: 300, timeline: "1-3 hrs" },
+    { max: 1000, timeline: "3-6 hrs" },
+    { max: 3000, timeline: "6-12 hrs" },
+    { max: 5000, timeline: "12-24 hrs" },
+  ];
+
+  const EXPRESS_TIERS = [
+    { max: 300, timeline: "30-60 mins" },
+    { max: 1000, timeline: "1-3 hrs" },
+    { max: 3000, timeline: "3-6 hrs" },
+    { max: 5000, timeline: "6-12 hrs" },
+  ];
+
+  const setButtonIdle = () => {
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = "Upload Document To Get Quote";
   };
 
-  function money(n) {
-    // keep clean formatting; adjust currency display on payment page if needed
-    return (Math.round((n + Number.EPSILON) * 100) / 100).toFixed(2);
-  }
+  const setButtonLoading = () => {
+    uploadBtn.disabled = true;
+    uploadBtn.innerHTML = `
+      <span class="btn-inline">
+        Getting quote
+        <span class="spinner-emoji" aria-hidden="true">\u23F3</span>
+      </span>
+    `;
+  };
 
-  function pickTier(tiers, words) {
+  const escapeHtml = (str) =>
+    String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files && fileInput.files[0];
+    fileName.textContent = file ? file.name : "No file chosen";
+
+    // Reset quote UI when choosing a new file.
+    wordCountLine.style.display = "none";
+    wordCountLine.textContent = "";
+    quoteCards.style.display = "none";
+    quoteCards.innerHTML = "";
+    setButtonIdle();
+  });
+
+  const getTierTimeline = (tiers, wordCount) => {
     for (const t of tiers) {
-      if (words >= t.min && words <= t.max) return t;
+      if (wordCount <= t.max) return t.timeline;
     }
-    // If beyond table, keep last tier messaging but still compute
-    return tiers[tiers.length - 1];
-  }
+    // If larger than our table, use the last tier as a safe fallback.
+    return tiers[tiers.length - 1].timeline;
+  };
 
-  function countWords(text) {
-    if (!text) return 0;
-    // Unicode-friendly word match
-    const m = text.trim().match(/[\p{L}\p{N}’']+/gu);
-    return m ? m.length : 0;
-  }
+  // Best-effort word counting for:
+  // - .txt (exact)
+  // - other formats: fallback estimate (keeps UI fast + reliable)
+  const countWordsFromText = (text) => {
+    const cleaned = String(text).replace(/\s+/g, " ").trim();
+    if (!cleaned) return 0;
+    return cleaned.split(" ").filter(Boolean).length;
+  };
 
-  function findUploadButton() {
-    return (
-      document.getElementById("uploadBtn") ||
-      document.querySelector('[data-action="get-quote"]') ||
-      Array.from(document.querySelectorAll("button, a"))
-        .find(el => (el.textContent || "").trim().toLowerCase() === "upload document to get quote")
-    );
-  }
+  const estimateWordsFallback = (file) => {
+    // Rough heuristic for non-text: keeps experience consistent.
+    const approx = Math.max(1, Math.round(file.size / 10));
+    return approx;
+  };
 
-  function findFileInput() {
-    return (
-      document.getElementById("fileInput") ||
-      document.querySelector('input[type="file"]') ||
-      document.querySelector('input[type="file"][name="file"]')
-    );
-  }
+  const countWords = async (file) => {
+    const ext = (file.name.split(".").pop() || "").toLowerCase();
 
-  function findQuoteMount(uploadBtn) {
-    return (
-      document.getElementById("quoteMount") ||
-      document.getElementById("quoteSection") ||
-      document.getElementById("pricingSection") ||
-      document.querySelector('[data-quote-mount="true"]') ||
-      // If you have "Quote Ready Below" text, mount right under its container
-      (function () {
-        const el = Array.from(document.querySelectorAll("*"))
-          .find(n => (n.textContent || "").trim() === "Quote Ready Below");
-        return el ? (el.parentElement || el) : null;
-      })() ||
-      // fallback: create mount right after the upload button
-      (function () {
-        if (!uploadBtn) return null;
-        const wrap = document.createElement("div");
-        wrap.id = "quoteMount";
-        wrap.style.marginTop = "14px";
-        uploadBtn.insertAdjacentElement("afterend", wrap);
-        return wrap;
-      })()
-    );
-  }
-
-  function setIfExists(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
-  }
-
-  function renderQuoteUI(mount, words, standardPrice, expressPrice, standardEta, expressEta) {
-    if (!mount) return;
-
-    // If mount was your "Quote Ready Below" container, clear it but keep container element
-    mount.innerHTML = "";
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "sb-quote-wrap";
-
-    // Word count line (minimal — your CSS can style if you want)
-    const meta = document.createElement("div");
-    meta.className = "sb-quote-meta";
-    meta.innerHTML = `<div class="sb-quote-words">Word count: <strong>${words}</strong></div>`;
-    wrapper.appendChild(meta);
-
-    // Cards
-    const cards = document.createElement("div");
-    cards.className = "sb-quote-cards";
-    cards.style.display = "grid";
-    cards.style.gap = "12px";
-    cards.style.marginTop = "12px";
-
-    const standardBtn = document.createElement("button");
-    standardBtn.type = "button";
-    standardBtn.className = "sb-quote-card sb-quote-standard";
-    standardBtn.setAttribute("data-service", "standard");
-    standardBtn.innerHTML = `
-      <div class="sb-quote-title">Standard Quote</div>
-      <div class="sb-quote-price">${money(standardPrice)}</div>
-      <div class="sb-quote-eta">${standardEta}</div>
-    `;
-
-    const expressBtn = document.createElement("button");
-    expressBtn.type = "button";
-    expressBtn.className = "sb-quote-card sb-quote-express";
-    expressBtn.setAttribute("data-service", "express");
-    expressBtn.innerHTML = `
-      <div class="sb-quote-title">Express Quote</div>
-      <div class="sb-quote-price">${money(expressPrice)}</div>
-      <div class="sb-quote-eta">${expressEta}</div>
-    `;
-
-    // Make them feel reactive without changing your CSS:
-    [standardBtn, expressBtn].forEach(b => {
-      b.style.cursor = "pointer";
-      b.style.border = "none";
-      b.style.background = "transparent";
-      b.addEventListener("mouseenter", () => b.style.transform = "translateY(-1px)");
-      b.addEventListener("mouseleave", () => b.style.transform = "");
-      b.addEventListener("mousedown", () => b.style.transform = "translateY(0px)");
-      b.addEventListener("mouseup", () => b.style.transform = "translateY(-1px)");
-    });
-
-    cards.appendChild(standardBtn);
-    cards.appendChild(expressBtn);
-
-    wrapper.appendChild(cards);
-    mount.appendChild(wrapper);
-
-    // navigation + persist quote for payment page
-    function go(service) {
-      const payload = {
-        service,
-        words,
-        price: service === "standard" ? money(standardPrice) : money(expressPrice),
-        eta: service === "standard" ? standardEta : expressEta
-      };
-      try { sessionStorage.setItem("sb_translation_quote", JSON.stringify(payload)); } catch (e) {}
-      const qs = new URLSearchParams(payload).toString();
-      window.location.href = `/translation/payment.html?${qs}`;
+    if (ext === "txt") {
+      const text = await file.text();
+      return countWordsFromText(text);
     }
 
-    standardBtn.addEventListener("click", () => go("standard"));
-    expressBtn.addEventListener("click", () => go("express"));
-  }
+    return estimateWordsFallback(file);
+  };
 
-  async function handleQuote() {
-    const fileInput = findFileInput();
-    const uploadBtn = findUploadButton();
+  const renderQuoteCards = ({ wordCount, standardPrice, expressPrice, standardTimeline, expressTimeline }) => {
+    quoteCards.innerHTML = "";
 
-    if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+    const makeCard = ({ kind, title, price, timeline }) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `quote-card ${kind}`;
+      btn.innerHTML = `
+        <h4>${escapeHtml(title)}</h4>
+        <div class="quote-meta">
+          <div class="quote-price">$${Number(price).toFixed(2)}</div>
+          <div class="quote-time">${escapeHtml(timeline)}</div>
+        </div>
+      `;
+
+      btn.addEventListener("click", () => {
+        const url = new URL("/translation/payment.html", window.location.origin);
+        url.searchParams.set("plan", kind);
+        url.searchParams.set("words", String(wordCount));
+        url.searchParams.set("price", String(Number(price).toFixed(2)));
+        url.searchParams.set("timeline", timeline);
+        window.location.href = url.toString();
+      });
+
+      return btn;
+    };
+
+    quoteCards.appendChild(
+      makeCard({
+        kind: "standard",
+        title: "Standard",
+        price: standardPrice,
+        timeline: standardTimeline,
+      })
+    );
+
+    quoteCards.appendChild(
+      makeCard({
+        kind: "express",
+        title: "Express",
+        price: expressPrice,
+        timeline: expressTimeline,
+      })
+    );
+
+    quoteCards.style.display = "grid";
+  };
+
+  uploadBtn.addEventListener("click", async () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) {
       alert("Please choose a file first.");
       return;
     }
 
-    const file = fileInput.files[0];
+    setButtonLoading();
 
-    // Read as text (your current test.txt scenario works perfectly)
-    const text = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result || ""));
-      reader.onerror = () => resolve("");
-      reader.readAsText(file);
-    });
+    try {
+      const wordCount = await countWords(file);
 
-    const words = countWords(text);
+      // Always show word count FIRST.
+      wordCountLine.textContent = `${wordCount.toLocaleString()} words detected`;
+      wordCountLine.style.display = "block";
 
-    const stTier = pickTier(PRICING.standard.tiers, words);
-    const exTier = pickTier(PRICING.express.tiers, words);
+      const standardTimeline = getTierTimeline(STANDARD_TIERS, wordCount);
+      const expressTimeline = getTierTimeline(EXPRESS_TIERS, wordCount);
 
-    const standardPrice = words * PRICING.standard.rate;
-    const expressPrice = words * PRICING.express.rate;
+      const standardPrice = wordCount * STANDARD_RATE;
+      const expressPrice = wordCount * EXPRESS_RATE;
 
-    // Fill old placeholders if they exist (no design changes)
-    setIfExists("wordCount", String(words));
-    setIfExists("standardPrice", money(standardPrice));
-    setIfExists("expressPrice", money(expressPrice));
-
-    const mount = findQuoteMount(uploadBtn);
-    renderQuoteUI(mount, words, standardPrice, expressPrice, stTier.eta, exTier.eta);
-
-    // If you still have a "Quote Ready Below" text element somewhere, leave it alone visually
-    // (your mount will now show the cards)
-  }
-
-  function init() {
-    const uploadBtn = findUploadButton();
-    const fileInput = findFileInput();
-
-    // if the upload button exists, use click (your intended behavior)
-    if (uploadBtn) {
-      uploadBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        handleQuote();
+      renderQuoteCards({
+        wordCount,
+        standardPrice,
+        expressPrice,
+        standardTimeline,
+        expressTimeline,
       });
+    } catch (err) {
+      console.error(err);
+      alert("Sorry — we couldn't read that file. Please try another file.");
+    } finally {
+      // Button returns to idle once quote options are ready.
+      setButtonIdle();
     }
-
-    // also allow auto-refresh quote when selecting a file (safe)
-    if (fileInput) {
-      fileInput.addEventListener("change", () => {
-        // do nothing if you strictly want button-only
-        // (keep this silent to avoid unexpected UI changes)
-      });
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  });
 })();
-
