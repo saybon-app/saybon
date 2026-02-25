@@ -7,22 +7,30 @@
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="request.css">
+<link rel="stylesheet" href="/css/request.css">
 
 </head>
 
+
 <body>
+
+
 
 <div class="page">
 
-<h1>SayBon Translation Services</h1>
 
-<p class="subtitle">
+<h1 class="title">
+SayBon Translation Services
+</h1>
+
+<div class="subtitle">
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</p>
+</div>
+
 
 
 <div class="glass-container">
+
 
 
 <!-- LEFT GLASS CARD -->
@@ -30,39 +38,45 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 <div class="glass-card left-card">
 
 
-<div class="upload-zone" id="uploadZone">
+
+<div class="upload-system">
 
 <input type="file" id="fileInput" hidden>
 
-<div class="upload-display">
+<label for="fileInput" class="file-chooser">
 
-<button class="choose-btn" onclick="chooseFile()">
 Choose File
-</button>
+
+</label>
 
 <span id="fileName">
+
 No file selected
+
 </span>
 
-</div>
 
 
-<button id="uploadBtn" class="upload-btn" onclick="startQuote()">
+<button id="uploadBtn">
 
 Upload Document To Get Quote
 
 </button>
 
+</div>
 
-<div id="wordCount"></div>
 
-<div id="quoteCards"></div>
+
+<div id="wordCountBox"></div>
+
+
+
+<div id="quoteBox"></div>
+
 
 
 </div>
 
-
-</div>
 
 
 
@@ -71,9 +85,15 @@ Upload Document To Get Quote
 <div class="glass-card right-card">
 
 
+
 <div class="price-card standard">
 
-<h3>Standard — 0.025 / word</h3>
+<div class="price-title">
+
+Standard — 0.025 / word
+
+</div>
+
 
 <ul>
 
@@ -93,7 +113,12 @@ Upload Document To Get Quote
 
 <div class="price-card express">
 
-<h3>Express — 0.05 / word</h3>
+<div class="price-title">
+
+Express — 0.05 / word
+
+</div>
+
 
 <ul>
 
@@ -110,16 +135,21 @@ Upload Document To Get Quote
 </div>
 
 
-</div>
-
 
 </div>
 
 
+
 </div>
 
 
-<script src="request.js"></script>
+
+</div>
+
+
+
+<script src="/js/request.js"></script>
+
 
 
 </body>
