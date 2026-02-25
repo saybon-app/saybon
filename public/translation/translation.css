@@ -1,173 +1,48 @@
-﻿
-body{
+﻿ /* =========================================
+    DESKTOP EXACT MOBILE REFERENCE MATCH
+    ========================================= */
 
-font-family:-apple-system;
-
-background:white;
-
-margin:0;
-
-text-align:center;
-
+.translation-main-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: stretch; /* THIS is key */
+    max-width: 1200px;
+    margin: auto;
 }
 
+.upload-glass-card,
+.pricing-glass-card {
 
-.page{
+    flex: 1;
+    min-height: 520px; /* force equal visual size */
 
-padding:40px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
 
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-
-.subtitle{
-
-font-size:12px;
-
-color:gray;
-
-letter-spacing:2px;
-
-margin-bottom:30px;
-
+/* Pricing cards remain inside */
+.pricing-glass-card {
+    justify-content: space-between;
 }
 
+/* MOBILE remains unchanged */
+@media (max-width: 900px) {
 
-.glass-card{
+.translation-main-container {
 
-background:#f4f8fb;
-
-padding:40px;
-
-border-radius:20px;
-
-max-width:600px;
-
-margin:auto;
-
+    flex-direction: column;
 }
 
-
-.upload-icon{
-
-font-size:40px;
-
 }
-
-
-.upload-text{
-
-margin:15px;
-
-}
-
-
-button{
-
-padding:15px 25px;
-
-border-radius:12px;
-
-border:none;
-
-margin:10px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-button:hover{
-
-transform:scale(1.05);
-
-}
-
-
-.quote-container{
-
-display:flex;
-
-justify-content:center;
-
-gap:20px;
-
-flex-wrap:wrap;
-
-margin-top:20px;
-
-}
-
-
-.quote-card{
-
-padding:20px;
-
-border-radius:15px;
-
-cursor:pointer;
-
-background:white;
-
-min-width:200px;
-
-}
-
-
-.standard{
-
-border:2px solid green;
-
-}
-
-
-.express{
-
-border:2px solid red;
-
-}
-
-
-.payment-card{
-
-background:#f4f8fb;
-
-padding:40px;
-
-border-radius:20px;
-
-max-width:400px;
-
-margin:auto;
-
-margin-top:40px;
-
-}
-
-
-.stripe{
-
-background:#635bff;
-
-color:white;
-
-}
-
-
-.paystack{
-
-background:#00c3a5;
-
-color:white;
-
-}
-
-
-.hidden{
-
-display:none;
-
-}
-
-
