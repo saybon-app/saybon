@@ -1,63 +1,54 @@
-﻿<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SayBon Payment</title>
-  <link rel="stylesheet" href="./payment.css" />
+
+<title>Payment</title>
+
+<link rel="stylesheet" href="payment.css">
+
 </head>
 
+
 <body>
-  <main class="page">
-    <section class="payCard">
-      <header class="payHeader">
-        <div class="brand">SayBon</div>
-        <div class="title">Payment</div>
-      </header>
 
-      <div id="noData" class="noData" hidden>
-        <div class="noDataTitle">No payment data available.</div>
-        <div class="noDataText">Please return to the request page and select a quote option.</div>
-        <a class="btn btnSmall" href="./request.html">Back to Request</a>
-      </div>
 
-      <div id="payBody" class="payBody" hidden>
-        <div class="rows">
-          <div class="row">
-            <div class="k">Words</div>
-            <div class="v" id="pWords">—</div>
-          </div>
-          <div class="row">
-            <div class="k">Delivery</div>
-            <div class="v" id="pDelivery">—</div>
-          </div>
+<div class="glass">
 
-          <div class="row">
-            <div class="k">Currency</div>
-            <div class="v">
-              <select id="pCurrency" class="select">
-                <option value="USD">USD</option>
-                <option value="GHS">GHS</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="k">Amount</div>
-            <div class="v amount" id="pAmount">—</div>
-          </div>
-        </div>
+<h2>Complete Payment</h2>
 
-        <div class="actions">
-          <button id="stripeBtn" class="btn btnStripe" type="button">Pay with Stripe</button>
-          <button id="paystackBtn" class="btn btnPaystack" type="button">Pay with Paystack</button>
-        </div>
 
-        <div id="payMsg" class="payMsg" aria-live="polite"></div>
-      </div>
-    </section>
-  </main>
+<div id="amount"></div>
 
-  <script src="./payment.js"></script>
+
+<button onclick="pay()">Pay Now</button>
+
+
+</div>
+
+
+
+<script>
+
+document.getElementById("amount").innerText=
+
+"$"+localStorage.getItem("amount");
+
+
+function pay(){
+
+alert("Payment flow here");
+
+}
+
+
+</script>
+
+
 </body>
+
+
 </html>
+

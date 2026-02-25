@@ -1,11 +1,9 @@
-﻿
+
 body{
 
 margin:0;
-
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-
-background:linear-gradient(180deg,#cfe8f7,#eaf4fb);
+font-family:Segoe UI;
+background:linear-gradient(#cfe0ef,#b8ccdd);
 
 }
 
@@ -13,11 +11,13 @@ background:linear-gradient(180deg,#cfe8f7,#eaf4fb);
 
 .page{
 
-max-width:1100px;
-
-margin:auto;
-
 padding:40px;
+
+}
+
+
+
+header{
 
 text-align:center;
 
@@ -25,36 +25,39 @@ text-align:center;
 
 
 
-.cards{
+.layout{
 
 display:flex;
-
-gap:30px;
-
+gap:40px;
 justify-content:center;
-
-align-items:stretch;
-
-flex-wrap:wrap;
+margin-top:40px;
 
 }
 
 
 
-.upload-card,
-.pricing-card{
+.glass{
 
-width:320px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(25px);
+border-radius:20px;
+padding:30px;
+width:380px;
 
-height:260px;
+box-shadow:
+
+0 10px 40px rgba(0,0,0,0.15);
+
+}
+
+
+
+.priceCard{
 
 background:white;
-
-border-radius:18px;
-
-padding:30px;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+border-radius:15px;
+padding:20px;
+margin-bottom:20px;
 
 }
 
@@ -62,30 +65,25 @@ box-shadow:0 10px 30px rgba(0,0,0,0.1);
 
 .standard{
 
-border:2px solid green;
+border:2px solid #35a853;
 
 }
+
 
 
 .express{
 
-border:2px solid red;
+border:2px solid #d93025;
 
 }
 
 
 
-#quoteBtn{
+.glassBtn{
 
-background:linear-gradient(180deg,#4a7bff,#2f5bdb);
-
+padding:18px;
+border-radius:15px;
 border:none;
-
-color:white;
-
-padding:14px;
-
-border-radius:10px;
 
 cursor:pointer;
 
@@ -95,19 +93,48 @@ transition:all 0.2s;
 
 
 
-#quoteBtn:hover{
+.glassBtn:hover{
 
-transform:translateY(-2px);
-
-box-shadow:0 10px 20px rgba(0,0,0,0.2);
+transform:translateY(-3px);
 
 }
 
 
 
-#quoteBtn:active{
+.glassBtn:active{
 
-transform:scale(0.96);
+transform:translateY(2px);
+
+}
+
+
+
+.teal{
+
+background:#9ad4cc;
+
+}
+
+
+
+.wordCount{
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+
+
+.quoteCard{
+
+margin-top:15px;
+padding:15px;
+
+border-radius:15px;
+
+cursor:pointer;
 
 }
 
@@ -115,10 +142,9 @@ transform:scale(0.96);
 
 @media(max-width:768px){
 
-.cards{
+.layout{
 
 flex-direction:column;
-
 align-items:center;
 
 }

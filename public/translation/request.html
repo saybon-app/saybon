@@ -2,271 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SayBon Translation Services</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+<title>SayBon Translation Services</title>
 
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-background:linear-gradient(to bottom,#c9d9e8,#b8ccdd);
-min-height:100vh;
-color:#1a1a1a;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
-}
-
-.header{
-text-align:center;
-margin-bottom:40px;
-}
-
-.header h1{
-font-size:36px;
-margin-bottom:10px;
-}
-
-.header p{
-letter-spacing:3px;
-color:#555;
-font-size:13px;
-}
-
-.layout{
-display:grid;
-grid-template-columns:1fr 1fr;
-grid-template-areas:
-
-"standard upload"
-"express upload";
-
-gap:25px;
-align-items:start;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-.standard{
-grid-area:standard;
-border:2px solid #4caf50;
-}
-
-.express{
-grid-area:express;
-border:2px solid #e53935;
-}
-
-.upload{
-grid-area:upload;
-border:none;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-}
-
-.card h3{
-margin-bottom:20px;
-font-size:20px;
-}
-
-.card ul{
-padding-left:20px;
-line-height:2;
-}
-
-.upload input{
-margin-bottom:20px;
-}
-
-.upload button{
-background:linear-gradient(180deg,#5d7df6,#3c5bdc);
-border:none;
-color:white;
-padding:16px 28px;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-transition:all .2s;
-box-shadow:0 6px 15px rgba(0,0,0,0.15);
-}
-
-.upload button:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 20px rgba(0,0,0,0.2);
-}
-
-.upload button:active{
-transform:scale(.97);
-}
-
-.quote{
-display:none;
-margin-top:25px;
-grid-column:1/-1;
-}
-
-.quote-card{
-background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-.quote-card button{
-margin-top:15px;
-padding:14px 24px;
-border:none;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-background:#4caf50;
-color:white;
-}
-
-@media(max-width:768px){
-
-.layout{
-grid-template-columns:1fr;
-grid-template-areas:
-"standard"
-"express"
-"upload";
-}
-
-.quote{
-grid-column:1;
-}
-
-}
-
-</style>
+<link rel="stylesheet" href="request.css">
 
 </head>
-
 <body>
 
-<div class="container">
+<div class="page">
 
-<div class="header">
+<header>
 
 <h1>SayBon Translation Services</h1>
 
-<p>TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
+<p class="tag">
+TRANSLATED BY EXPERTS ? QUICK DELIVERY ? CONFIDENTIAL
+</p>
 
-</div>
+</header>
+
 
 <div class="layout">
 
-<div class="card standard">
+
+<!-- LEFT GLASS -->
+
+<div class="glass left">
+
+<div class="uploadCard">
+
+<input type="file" id="fileInput" hidden>
+
+<button id="uploadBtn" class="glassBtn teal">
+
+Upload Document To Get Quote
+
+</button>
+
+<div id="wordCount" class="wordCount"></div>
+
+<div id="quoteArea"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- RIGHT GLASS -->
+
+<div class="glass right">
+
+
+<div class="priceCard standard">
 
 <h3>Standard — 0.025 / word</h3>
 
 <ul>
 
 <li>0–300 words: 1–3 hrs</li>
-
 <li>300–1000 words: 3–6 hrs</li>
-
 <li>1000–3000 words: 6–12 hrs</li>
-
 <li>3000–5000 words: 12–24 hrs</li>
 
 </ul>
 
 </div>
 
-<div class="card express">
+
+<div class="priceCard express">
 
 <h3>Express — 0.05 / word</h3>
 
 <ul>
 
 <li>0–300 words: 30–60 mins</li>
-
 <li>300–1000 words: 1–3 hrs</li>
-
 <li>1000–3000 words: 3–6 hrs</li>
-
 <li>3000–5000 words: 6–12 hrs</li>
 
 </ul>
 
 </div>
 
-<div class="card upload">
 
-<input type="file" id="file">
-
-<button onclick="generateQuote()">Upload Document To Get Quote</button>
 
 </div>
 
-<div class="quote" id="quote">
-
-<div class="quote-card">
-
-<h3>Your Quote is Ready</h3>
-
-<p id="quoteText"></p>
-
-<button onclick="goPayment()">Continue to Payment</button>
 
 </div>
 
-</div>
 
 </div>
 
-</div>
 
-<script>
-
-function generateQuote(){
-
-const file=document.getElementById("file").files[0];
-
-if(!file){
-
-alert("Please select a file");
-
-return;
-
-}
-
-const words=1000;
-
-const price=(words*0.025).toFixed(2);
-
-document.getElementById("quoteText").innerHTML=
-
-words+" words — $"+price;
-
-document.getElementById("quote").style.display="block";
-
-localStorage.setItem("amount",price);
-
-}
-
-function goPayment(){
-
-location.href="payment.html";
-
-}
-
-</script>
+<script src="request.js"></script>
 
 </body>
-
 </html>
