@@ -1,43 +1,141 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="./request.css?v=2">
 <meta charset="UTF-8">
 <title>SayBon Translation Request</title>
 
-<script src="requestTranslation.js" defer></script>
+<link rel="stylesheet" href="request.css">
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-<h1>Professional Human Translation</h1>
+<div class="request-shell">
 
-<label class="upload-box">
 
-<!-- FIXED ID -->
-<input type="file" id="file-upload" hidden>
+<!-- LEFT — UPLOAD CARD -->
 
-<div>
+<div class="glass-panel upload-panel">
 
-<p>Upload your document</p>
 
-<button type="button" id="get-quote-btn">
+<h2>Professional Human Translation</h2>
 
-Get Quote
+
+<input type="file" id="fileInput">
+
+
+<button id="getQuoteBtn">
+
+Upload Document To Get Quote
 
 </button>
 
-</div>
 
-</label>
+<div id="quoteResult"></div>
 
-<div id="quote-section"></div>
 
 </div>
+
+
+
+<!-- RIGHT — PRICING GLASS CARD -->
+
+<div class="glass-panel pricing-panel">
+
+
+<div class="price-card standard">
+
+<h3>Standard — 0.025 / word</h3>
+
+<ul>
+<li>0–300 words: 1–3 hrs</li>
+<li>300–1000 words: 3–6 hrs</li>
+<li>1000–3000 words: 6–12 hrs</li>
+<li>3000–5000 words: 12–24 hrs</li>
+</ul>
+
+</div>
+
+
+
+<div class="price-card express">
+
+<h3>Express — 0.05 / word</h3>
+
+<ul>
+<li>0–300 words: 30–60 mins</li>
+<li>300–1000 words: 1–3 hrs</li>
+<li>1000–3000 words: 3–6 hrs</li>
+<li>3000–5000 words: 6–12 hrs</li>
+</ul>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+document.getElementById("getQuoteBtn").onclick = function(){
+
+const file = document.getElementById("fileInput").files[0];
+
+
+if(!file){
+
+alert("Please upload file");
+
+return;
+
+}
+
+
+const words = Math.floor(file.size / 6);
+
+
+const standard = (words * 0.025).toFixed(2);
+
+const express = (words * 0.05).toFixed(2);
+
+
+document.getElementById("quoteResult").innerHTML = `
+
+
+<div class="quote-card">
+
+
+<p>${words} words detected</p>
+
+
+<p>Standard: $${standard}</p>
+
+
+<p>Express: $${express}</p>
+
+
+</div>
+
+
+`;
+
+
+};
+
+
+</script>
+
+
 
 </body>
-</html>
 
+</html>
 
