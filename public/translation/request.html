@@ -1,213 +1,89 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Inter:wght@300;400;500&display=swap');
-
 body{
-margin:0;
-font-family:Inter;
+
+font-family:Poppins;
 background:linear-gradient(to bottom,#cfd9df,#e2ebf0);
+margin:0;
+padding:40px;
+
 }
 
-.wrapper{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
+.header{
+
+text-align:center;
+
 }
 
-h1{
-font-family:Outfit;
+.header h1{
+
 font-size:48px;
-text-align:center;
-margin-bottom:10px;
+
 }
 
-.sub{
-text-align:center;
+.header p{
+
+font-size:14px;
 letter-spacing:3px;
-color:#555;
-margin-bottom:40px;
-}
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
 }
 
 .glass{
-background:rgba(255,255,255,.25);
-border-radius:20px;
-padding:30px;
+
+background:rgba(255,255,255,0.25);
 backdrop-filter:blur(20px);
-box-shadow:
-0 8px 32px rgba(0,0,0,.15),
-inset 0 1px rgba(255,255,255,.6);
-}
+padding:30px;
+border-radius:20px;
 
-.uploadBox{
-text-align:center;
-}
-
-.fileInput{
-display:inline-block;
-padding:10px 20px;
-border-radius:10px;
-border:1px solid rgba(0,0,0,.25);
-box-shadow:
-inset 0 1px 2px rgba(0,0,0,.2),
-0 1px 1px rgba(255,255,255,.6);
-background:white;
-}
-
-.fileName{
-margin-left:12px;
-color:#333;
 }
 
 .uploadBtn{
-margin-top:20px;
-padding:15px 30px;
-border-radius:15px;
+
+background:linear-gradient(145deg,#8fd3c8,#6fc3b2);
+color:white;
 border:none;
+padding:15px 30px;
+border-radius:12px;
 cursor:pointer;
 font-size:16px;
-color:white;
 
-background:linear-gradient(
-145deg,
-#c8f1ea,
-#7fd3c5
-);
-
-box-shadow:
-0 6px 20px rgba(0,0,0,.25),
-inset 0 1px rgba(255,255,255,.8);
-
-text-shadow:
-0 1px 2px rgba(0,0,0,.4);
-
-transition:.2s;
 }
 
 .uploadBtn:hover{
 
 transform:translateY(-2px);
 
-box-shadow:
-0 10px 30px rgba(0,0,0,.3);
-
 }
 
-.uploadBtn:active{
+.quoteCard{
 
-transform:translateY(2px);
-
-box-shadow:
-0 4px 10px rgba(0,0,0,.3);
-
-}
-
-.priceStack{
-
-display:flex;
-flex-direction:column;
-gap:20px;
-
-}
-
-.priceCard{
-
-background:white;
+margin-top:20px;
 padding:20px;
-border-radius:15px;
-
-transition:.3s;
-
-}
-
-.priceCard:hover{
-
-transform:translateY(-4px);
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.2);
+border-radius:12px;
+cursor:pointer;
 
 }
 
-.green{
+.standard{
 
-border:2px solid #3aa655;
-
-}
-
-.red{
-
-border:2px solid #cc4444;
+border:2px solid green;
 
 }
 
-.priceCard h3{
+.express{
 
-margin:0 0 10px 0;
-
-font-family:Outfit;
-
-}
-
-.priceCard ul{
-
-margin:0;
-padding-left:18px;
-
-}
-
-.priceCard li{
-
-margin:6px 0;
-
-font-weight:300;
-
-color:#444;
-
-letter-spacing:.5px;
-
-}
-
-.priceCard a{
-
-text-decoration:none;
-color:inherit;
-pointer-events:none;
-
-}
-
-@media(max-width:900px){
-
-h1{
-font-size:26px;
-white-space:nowrap;
-}
-
-.sub{
-font-size:11px;
-white-space:nowrap;
-letter-spacing:1px;
-}
-
-
-.grid{
-
-grid-template-columns:1fr;
-
-}
+border:2px solid red;
 
 }
 
@@ -217,122 +93,86 @@ grid-template-columns:1fr;
 
 <body>
 
-<div class="wrapper">
+<div class="header">
 
 <h1>SayBon Translation Services</h1>
 
-<div class="sub">
-
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+<p>TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
 
 </div>
 
-<div class="grid">
+<div class="glass">
 
-<div class="glass uploadBox">
+<input type="file" id="fileInput">
 
-<label class="fileInput">
+<br><br>
 
-Choose File
-
-<input type="file" id="file" hidden>
-
-</label>
-
-<span id="fileName" class="fileName">
-
-No file selected
-
-</span>
-
-<br>
-
-<button class="uploadBtn" onclick="getQuote()" id="btn">
+<button class="uploadBtn" onclick="getQuote()">
 
 Upload Document To Get Quote
 
 </button>
 
-<div id="quote"></div>
+<div id="quoteStatus"></div>
 
-</div>
-
-
-<div class="glass">
-
-<div class="priceStack">
-
-
-<div class="priceCard green">
-
-<h3>Standard — 0.025 / word</h3>
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-
-<li>300–1000 words: 3–6 hrs</li>
-
-<li>1000–3000 words: 6–12 hrs</li>
-
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
-
-</div>
-
-
-<div class="priceCard red">
-
-<h3>Express — 0.05 / word</h3>
-
-<ul>
-
-<li>0–300 words: 30–60 mins</li>
-
-<li>300–1000 words: 1–3 hrs</li>
-
-<li>1000–3000 words: 3–6 hrs</li>
-
-<li>3000–5000 words: 6–12 hrs</li>
-
-</ul>
-
-</div>
-
-
-</div>
-
-</div>
-
-</div>
+<div id="quoteCards"></div>
 
 </div>
 
 <script>
 
-file.onchange=()=>{
-
-fileName.innerText=file.files[0].name;
-
-};
-
 function getQuote(){
 
-btn.innerText="Getting Quote ⏳";
+let words=1000;
 
-setTimeout(()=>{
+let status=document.getElementById("quoteStatus");
 
-btn.innerText="Upload Document To Get Quote";
+status.innerHTML="Quote Ready Below";
 
-quote.innerHTML="Quote Ready Below";
+renderQuoteCards(words);
 
-},2000);
+}
+
+function renderQuoteCards(words){
+
+let container=document.getElementById("quoteCards");
+
+let standard=(words*0.025).toFixed(2);
+
+let express=(words*0.05).toFixed(2);
+
+container.innerHTML=
+
+<div class="quoteCard standard"
+
+onclick="goPay()">
+
+Standard: public/translation/request.html{standard}
+
+</div>
+
+<div class="quoteCard express"
+
+onclick="goPay()">
+
+Express: public/translation/request.html{express}
+
+</div>
+
+;
+
+}
+
+function goPay(amount){
+
+localStorage.setItem("amount",amount);
+
+window.location.href="/translation/payment.html";
 
 }
 
 </script>
 
 </body>
-</html>
 
+</html>
