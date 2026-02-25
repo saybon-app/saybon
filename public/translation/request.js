@@ -1,35 +1,50 @@
 
-const fileInput = document.getElementById("fileInput");
+const btn = document.getElementById("quoteBtn");
 
-const quoteBtn = document.getElementById("quoteBtn");
-
-const quoteCards = document.getElementById("quoteCards");
-
-
-quoteBtn.onclick = function(){
-
-
-const words = 800;
-
-
-const standard = words * 0.025;
-
-const express = words * 0.05;
+const cards = document.getElementById("quoteCards");
 
 
 
-document.getElementById("standardPrice").innerText = "$" + standard;
-
-document.getElementById("expressPrice").innerText = "$" + express;
+btn.onclick = async function(){
 
 
+btn.classList.add("loading");
 
-document.getElementById("standardTime").innerText = "3–6 hrs";
-
-document.getElementById("expressTime").innerText = "1–3 hrs";
+btn.innerHTML = "Getting Quote ?";
 
 
-quoteCards.classList.remove("hidden");
+await new Promise(r => setTimeout(r,1200));
+
+
+
+const words = 1600;
+
+
+const standardPrice = (words*0.025).toFixed(2);
+
+const expressPrice = (words*0.05).toFixed(2);
+
+
+
+document.getElementById("standardPrice").innerHTML = "$"+standardPrice;
+
+document.getElementById("expressPrice").innerHTML = "$"+expressPrice;
+
+
+
+document.getElementById("standardTime").innerHTML = "6–12 hrs";
+
+document.getElementById("expressTime").innerHTML = "3–6 hrs";
+
+
+
+cards.classList.remove("hidden");
+
+
+
+btn.innerHTML = "Upload Document To Get Quote";
+
+btn.classList.remove("loading");
 
 
 
@@ -37,17 +52,17 @@ quoteCards.classList.remove("hidden");
 
 
 
-document.getElementById("standardQuote").onclick = function(){
+document.getElementById("standardQuote").onclick=function(){
 
-window.location.href = "/translation/payment.html";
+window.location.href="/translation/payment.html";
 
 };
 
 
 
-document.getElementById("expressQuote").onclick = function(){
+document.getElementById("expressQuote").onclick=function(){
 
-window.location.href = "/translation/payment.html";
+window.location.href="/translation/payment.html";
 
 };
 
