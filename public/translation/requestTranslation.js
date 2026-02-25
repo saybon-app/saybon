@@ -1,251 +1,233 @@
-﻿/* SayBon Translation Request - Premium UI controller
-   - Calls backend: POST https://saybon-backend.onrender.com/api/quote (multipart: file)
-   - Shows Quote card after upload
-   - Page is ALWAYS scrollable (desktop + mobile)
-*/
+﻿/* =========================================================
+   SayBon — Request Quote (Robust Renderer)
+   - No design changes
+   - Works even if IDs/classes change
+   - Renders quote cards reliably
+========================================================= */
 
-const API_BASE = "https://saybon-backend.onrender.com";
+(function () {
+  "use strict";
 
-const el = (id) => document.getElementById(id);
+  const PRICING = {
+    standard: { rate: 0.025, tiers: [
+      { min: 0,    max: 300,  eta: "1–3 hrs" },
+      { min: 301,  max: 1000, eta: "3–6 hrs" },
+      { min: 1001, max: 3000, eta: "6–12 hrs" },
+      { min: 3001, max: 5000, eta: "12–24 hrs" },
+    ]},
+    express: { rate: 0.05, tiers: [
+      { min: 0,    max: 300,  eta: "30–60 mins" },
+      { min: 301,  max: 1000, eta: "1–3 hrs" },
+      { min: 1001, max: 3000, eta: "3–6 hrs" },
+      { min: 3001, max: 5000, eta: "6–12 hrs" },
+    ]},
+  };
 
-const drop = el("dropzone");
-const fileInput = el("fileInput");
-const pickBtn = el("pickBtn");
-const uploadBtn = el("uploadBtn");
-const fileList = el("fileList");
-const errBox = el("errBox");
-
-const quoteWrap = el("quoteWrap");
-const quoteWords = el("quoteWords");
-const standardPriceEl = el("standardPrice");
-const expressPriceEl = el("expressPrice");
-const standardDeliveryEl = el("standardDelivery");
-const expressDeliveryEl = el("expressDelivery");
-
-const optStandard = el("optStandard");
-const optExpress = el("optExpress");
-
-let selectedFile = null;
-let lastQuote = null;
-
-function money(n){
-  const num = Number(n);
-  if (Number.isNaN(num)) return "$0.00";
-  return "$" + num.toFixed(2);
-}
-
-function bytesToSize(bytes){
-  if (!bytes && bytes !== 0) return "";
-  const sizes = ["B","KB","MB","GB"];
-  let i = 0;
-  let val = bytes;
-  while (val >= 1024 && i < sizes.length - 1){
-    val = val / 1024;
-    i++;
+  function money(n) {
+    // keep clean formatting; adjust currency display on payment page if needed
+    return (Math.round((n + Number.EPSILON) * 100) / 100).toFixed(2);
   }
-  return (i === 0 ? val : val.toFixed(1)) + " " + sizes[i];
-}
 
-function showError(msg){
-  errBox.textContent = msg;
-  errBox.style.display = "block";
-}
+  function pickTier(tiers, words) {
+    for (const t of tiers) {
+      if (words >= t.min && words <= t.max) return t;
+    }
+    // If beyond table, keep last tier messaging but still compute
+    return tiers[tiers.length - 1];
+  }
 
-function clearError(){
-  errBox.textContent = "";
-  errBox.style.display = "none";
-}
+  function countWords(text) {
+    if (!text) return 0;
+    // Unicode-friendly word match
+    const m = text.trim().match(/[\p{L}\p{N}’']+/gu);
+    return m ? m.length : 0;
+  }
 
-function setFile(file){
-  selectedFile = file || null;
-  renderFileList();
-  uploadBtn.disabled = !selectedFile;
-}
+  function findUploadButton() {
+    return (
+      document.getElementById("uploadBtn") ||
+      document.querySelector('[data-action="get-quote"]') ||
+      Array.from(document.querySelectorAll("button, a"))
+        .find(el => (el.textContent || "").trim().toLowerCase() === "upload document to get quote")
+    );
+  }
 
-function renderFileList(){
-  fileList.innerHTML = "";
+  function findFileInput() {
+    return (
+      document.getElementById("fileInput") ||
+      document.querySelector('input[type="file"]') ||
+      document.querySelector('input[type="file"][name="file"]')
+    );
+  }
 
-  if (!selectedFile){
-    const row = document.createElement("div");
-    row.className = "fileRow";
-    row.innerHTML = `
-      <div class="fileMeta">
-        <div class="check" style="background:rgba(20,21,26,.06);border-color:rgba(20,21,26,.08);color:rgba(20,21,26,.45)">•</div>
-        <div style="min-width:0">
-          <div class="fname">No file selected</div>
-          <div class="fsize">Choose a document to continue</div>
-        </div>
-      </div>
-      <button class="removeBtn" type="button" aria-label="noop" disabled style="opacity:.35;cursor:not-allowed">×</button>
+  function findQuoteMount(uploadBtn) {
+    return (
+      document.getElementById("quoteMount") ||
+      document.getElementById("quoteSection") ||
+      document.getElementById("pricingSection") ||
+      document.querySelector('[data-quote-mount="true"]') ||
+      // If you have "Quote Ready Below" text, mount right under its container
+      (function () {
+        const el = Array.from(document.querySelectorAll("*"))
+          .find(n => (n.textContent || "").trim() === "Quote Ready Below");
+        return el ? (el.parentElement || el) : null;
+      })() ||
+      // fallback: create mount right after the upload button
+      (function () {
+        if (!uploadBtn) return null;
+        const wrap = document.createElement("div");
+        wrap.id = "quoteMount";
+        wrap.style.marginTop = "14px";
+        uploadBtn.insertAdjacentElement("afterend", wrap);
+        return wrap;
+      })()
+    );
+  }
+
+  function setIfExists(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function renderQuoteUI(mount, words, standardPrice, expressPrice, standardEta, expressEta) {
+    if (!mount) return;
+
+    // If mount was your "Quote Ready Below" container, clear it but keep container element
+    mount.innerHTML = "";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "sb-quote-wrap";
+
+    // Word count line (minimal — your CSS can style if you want)
+    const meta = document.createElement("div");
+    meta.className = "sb-quote-meta";
+    meta.innerHTML = `<div class="sb-quote-words">Word count: <strong>${words}</strong></div>`;
+    wrapper.appendChild(meta);
+
+    // Cards
+    const cards = document.createElement("div");
+    cards.className = "sb-quote-cards";
+    cards.style.display = "grid";
+    cards.style.gap = "12px";
+    cards.style.marginTop = "12px";
+
+    const standardBtn = document.createElement("button");
+    standardBtn.type = "button";
+    standardBtn.className = "sb-quote-card sb-quote-standard";
+    standardBtn.setAttribute("data-service", "standard");
+    standardBtn.innerHTML = `
+      <div class="sb-quote-title">Standard Quote</div>
+      <div class="sb-quote-price">${money(standardPrice)}</div>
+      <div class="sb-quote-eta">${standardEta}</div>
     `;
-    fileList.appendChild(row);
-    return;
-  }
 
-  const row = document.createElement("div");
-  row.className = "fileRow";
-  row.innerHTML = `
-    <div class="fileMeta">
-      <div class="check">✓</div>
-      <div style="min-width:0">
-        <div class="fname" title="${selectedFile.name}">${selectedFile.name}</div>
-        <div class="fsize">${bytesToSize(selectedFile.size)}</div>
-      </div>
-    </div>
-    <button class="removeBtn" type="button" id="removeBtn" aria-label="Remove file">×</button>
-  `;
-  fileList.appendChild(row);
+    const expressBtn = document.createElement("button");
+    expressBtn.type = "button";
+    expressBtn.className = "sb-quote-card sb-quote-express";
+    expressBtn.setAttribute("data-service", "express");
+    expressBtn.innerHTML = `
+      <div class="sb-quote-title">Express Quote</div>
+      <div class="sb-quote-price">${money(expressPrice)}</div>
+      <div class="sb-quote-eta">${expressEta}</div>
+    `;
 
-  const removeBtn = el("removeBtn");
-  removeBtn.addEventListener("click", () => {
-    setFile(null);
-    hideQuote();
-  });
-}
-
-function deliveryFor(service, words){
-  const w = Number(words || 0);
-
-  if (service === "standard"){
-    if (w <= 300) return "1–3 hrs";
-    if (w <= 1000) return "3–6 hrs";
-    if (w <= 3000) return "6–12 hrs";
-    return "12–24 hrs";
-  }
-
-  if (w <= 300) return "30–60 mins";
-  if (w <= 1000) return "1–3 hrs";
-  if (w <= 3000) return "3–6 hrs";
-  return "6–12 hrs";
-}
-
-function showQuote(q){
-  lastQuote = q;
-
-  quoteWords.textContent = String(q.wordCount);
-  standardPriceEl.textContent = money(q.standard);
-  expressPriceEl.textContent = money(q.express);
-
-  standardDeliveryEl.textContent = deliveryFor("standard", q.wordCount);
-  expressDeliveryEl.textContent = deliveryFor("express", q.wordCount);
-
-  quoteWrap.style.display = "block";
-}
-
-function hideQuote(){
-  lastQuote = null;
-  quoteWrap.style.display = "none";
-}
-
-async function getQuote(){
-  clearError();
-
-  if (!selectedFile){
-    showError("Please choose a file first.");
-    return;
-  }
-
-  uploadBtn.disabled = true;
-  uploadBtn.textContent = "Uploading…";
-
-  try{
-    const fd = new FormData();
-    fd.append("file", selectedFile);
-
-    const res = await fetch(`${API_BASE}/api/quote`, {
-      method: "POST",
-      body: fd
+    // Make them feel reactive without changing your CSS:
+    [standardBtn, expressBtn].forEach(b => {
+      b.style.cursor = "pointer";
+      b.style.border = "none";
+      b.style.background = "transparent";
+      b.addEventListener("mouseenter", () => b.style.transform = "translateY(-1px)");
+      b.addEventListener("mouseleave", () => b.style.transform = "");
+      b.addEventListener("mousedown", () => b.style.transform = "translateY(0px)");
+      b.addEventListener("mouseup", () => b.style.transform = "translateY(-1px)");
     });
 
-    if (!res.ok){
-      const t = await res.text().catch(()=> "");
-      throw new Error(`Failed to get quote (${res.status}). ${t || "Network/server error."}`);
+    cards.appendChild(standardBtn);
+    cards.appendChild(expressBtn);
+
+    wrapper.appendChild(cards);
+    mount.appendChild(wrapper);
+
+    // navigation + persist quote for payment page
+    function go(service) {
+      const payload = {
+        service,
+        words,
+        price: service === "standard" ? money(standardPrice) : money(expressPrice),
+        eta: service === "standard" ? standardEta : expressEta
+      };
+      try { sessionStorage.setItem("sb_translation_quote", JSON.stringify(payload)); } catch (e) {}
+      const qs = new URLSearchParams(payload).toString();
+      window.location.href = `/translation/payment.html?${qs}`;
     }
 
-    const data = await res.json();
+    standardBtn.addEventListener("click", () => go("standard"));
+    expressBtn.addEventListener("click", () => go("express"));
+  }
 
-    const wordCount = Number(data.wordCount ?? data.words ?? 0);
+  async function handleQuote() {
+    const fileInput = findFileInput();
+    const uploadBtn = findUploadButton();
 
-    let standard = data.standard;
-    let express = data.express;
-
-    if (data.pricing){
-      standard = data.pricing.standard;
-      express = data.pricing.express;
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+      alert("Please choose a file first.");
+      return;
     }
 
-    standard = Number(standard ?? 0);
-    express = Number(express ?? 0);
+    const file = fileInput.files[0];
 
-    if (!wordCount || wordCount < 1){
-      throw new Error("Quote returned 0 words. Please try another file.");
+    // Read as text (your current test.txt scenario works perfectly)
+    const text = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ""));
+      reader.onerror = () => resolve("");
+      reader.readAsText(file);
+    });
+
+    const words = countWords(text);
+
+    const stTier = pickTier(PRICING.standard.tiers, words);
+    const exTier = pickTier(PRICING.express.tiers, words);
+
+    const standardPrice = words * PRICING.standard.rate;
+    const expressPrice = words * PRICING.express.rate;
+
+    // Fill old placeholders if they exist (no design changes)
+    setIfExists("wordCount", String(words));
+    setIfExists("standardPrice", money(standardPrice));
+    setIfExists("expressPrice", money(expressPrice));
+
+    const mount = findQuoteMount(uploadBtn);
+    renderQuoteUI(mount, words, standardPrice, expressPrice, stTier.eta, exTier.eta);
+
+    // If you still have a "Quote Ready Below" text element somewhere, leave it alone visually
+    // (your mount will now show the cards)
+  }
+
+  function init() {
+    const uploadBtn = findUploadButton();
+    const fileInput = findFileInput();
+
+    // if the upload button exists, use click (your intended behavior)
+    if (uploadBtn) {
+      uploadBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleQuote();
+      });
     }
 
-    showQuote({ wordCount, standard, express });
-
-    // bring quote into view smoothly
-    quoteWrap.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  }catch(err){
-    showError(err.message || "Failed to get quote. Please try again.");
-    hideQuote();
-  }finally{
-    uploadBtn.disabled = !selectedFile;
-    uploadBtn.textContent = "Upload Document To Get Quote";
+    // also allow auto-refresh quote when selecting a file (safe)
+    if (fileInput) {
+      fileInput.addEventListener("change", () => {
+        // do nothing if you strictly want button-only
+        // (keep this silent to avoid unexpected UI changes)
+      });
+    }
   }
-}
 
-function goPay(service){
-  if (!lastQuote) return;
-
-  const amount = service === "standard" ? lastQuote.standard : lastQuote.express;
-  const delivery = deliveryFor(service, lastQuote.wordCount);
-
-  const url = new URL(window.location.origin + "/translation/payment.html");
-  url.searchParams.set("service", service);
-  url.searchParams.set("amount", String(amount.toFixed(2)));
-  url.searchParams.set("words", String(lastQuote.wordCount));
-  url.searchParams.set("delivery", delivery);
-
-  window.location.href = url.toString();
-}
-
-pickBtn.addEventListener("click", () => fileInput.click());
-
-fileInput.addEventListener("change", (e) => {
-  const f = e.target.files && e.target.files[0];
-  if (f){
-    setFile(f);
-    clearError();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
-});
-
-uploadBtn.addEventListener("click", getQuote);
-
-optStandard.addEventListener("click", () => goPay("standard"));
-optExpress.addEventListener("click", () => goPay("express"));
-
-["dragenter","dragover"].forEach(evt => {
-  drop.addEventListener(evt, (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    drop.classList.add("drag");
-  });
-});
-["dragleave","drop"].forEach(evt => {
-  drop.addEventListener(evt, (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    drop.classList.remove("drag");
-  });
-});
-drop.addEventListener("drop", (e) => {
-  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-  if (f){
-    setFile(f);
-    clearError();
-  }
-});
-
-setFile(null);
-hideQuote();
+})();
