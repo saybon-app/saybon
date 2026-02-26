@@ -6,355 +6,207 @@
 
 <title>SayBon Translation Services</title>
 
-
 <style>
 
-
-/* ============================================
-GLOBAL
-============================================ */
+:root{
+--glass: rgba(255,255,255,0.55);
+--border: rgba(255,255,255,0.7);
+--shadow: rgba(0,0,0,0.08);
+--text: #3a3a3a;
+--green: #21a366;
+--red: #d64545;
+--teal: #1f8a8a;
+}
 
 body{
 
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"SF Pro Text",
-"Segoe UI",
-sans-serif;
-
-background:
-linear-gradient(
-180deg,
-#eef1f6,
-#e3e7ee);
-
 margin:0;
-padding:0;
-
-color:#2e2e2e;
-
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;
+background:linear-gradient(to bottom,#e9f2ff,#ffffff);
+color:var(--text);
 }
 
+.wrapper{
+
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+}
 
 h1{
 
 text-align:center;
-
-margin-top:40px;
-
 font-weight:600;
-
 letter-spacing:2px;
-
-color:#2e2e2e;
-
+margin-bottom:8px;
+color:#444;
 }
 
-
-.subtitle{
+.sub{
 
 text-align:center;
-
-margin-top:10px;
-
+font-size:12px;
 letter-spacing:2px;
-
-font-size:13px;
-
-color:#555;
-
+margin-bottom:40px;
+color:#666;
+white-space:nowrap;
 }
 
-
-
-/* ============================================
-MAIN CONTAINER
-============================================ */
-
-.container{
+.row{
 
 display:flex;
-
+gap:30px;
 justify-content:center;
-
-gap:60px;
-
-margin-top:60px;
-
 flex-wrap:wrap;
-
 }
-
-
-
-/* ============================================
-GLASS CARD
-============================================ */
 
 .glass{
 
-width:420px;
-
-height:420px;
-
-background:
-rgba(255,255,255,0.45);
-
-border-radius:30px;
-
-backdrop-filter: blur(20px);
-
+background:var(--glass);
+border-radius:22px;
+padding:30px;
 box-shadow:
-0 10px 40px rgba(0,0,0,0.08);
-
-padding:40px;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:flex-start;
-
+0 8px 30px var(--shadow),
+inset 0 0 0 1px var(--border);
+backdrop-filter:blur(20px);
+-webkit-backdrop-filter:blur(20px);
 }
 
+.upload{
 
-
-/* ============================================
-UPLOAD SECTION
-============================================ */
-
-.upload-row{
-
-display:flex;
-
-gap:10px;
-
-align-items:center;
-
-margin-bottom:20px;
-
+width:420px;
 }
 
+.pricing{
+
+width:520px;
+}
+
+input[type=file]{
+
+margin-bottom:10px;
+}
 
 .upload-btn{
 
-background:
-rgba(0,128,128,0.85);
-
+display:inline-block;
+background:var(--teal);
 color:white;
-
 border:none;
-
-padding:12px 22px;
-
+padding:10px 26px;
 border-radius:12px;
-
 cursor:pointer;
-
 font-weight:500;
-
-backdrop-filter:blur(10px);
-
-box-shadow:
-0 4px 15px rgba(0,0,0,0.15);
-
+box-shadow:0 4px 14px rgba(0,0,0,0.2);
 }
 
+.wordcount{
 
-.upload-btn:hover{
-
-transform:scale(1.05);
-
+margin-top:20px;
+font-size:14px;
 }
-
-
-
-/* ============================================
-QUOTE CARDS
-============================================ */
 
 .quote{
 
-margin-top:20px;
-
-padding:12px;
-
+margin-top:10px;
+padding:14px;
 border-radius:10px;
-
-cursor:pointer;
-
+font-size:15px;
+background:white;
 }
-
 
 .standard{
 
-border:1px solid green;
-
+border:1px solid var(--green);
 }
-
 
 .express{
 
-border:1px solid red;
-
+border:1px solid var(--red);
 }
-
-
-
-/* ============================================
-TABLE
-============================================ */
 
 table{
 
 width:100%;
-
-height:100%;
-
 border-collapse:collapse;
-
-font-size:13px;
-
+font-size:14px;
 }
 
+th,td{
 
-td{
-
-border:1px solid #d0d0d0;
-
-padding:8px;
-
+border:1px solid #d9d9d9;
+padding:10px;
 text-align:left;
-
 }
 
+th:nth-child(2){
 
-th{
-
-border:1px solid #d0d0d0;
-
-padding:8px;
-
-text-align:left;
-
+color:var(--green);
 }
 
+th:nth-child(3){
 
-.standard-head{
-
-color:green;
-
-font-weight:600;
-
+color:var(--red);
 }
 
+@media(max-width:768px){
 
-.express-head{
+.sub{
 
-color:red;
-
-font-weight:600;
-
+font-size:9px;
 }
 
+.glass{
 
-
-/* ============================================
-MOBILE
-============================================ */
-
-@media(max-width:900px){
-
-.container{
-
-flex-direction:column-reverse;
-
-align-items:center;
-
+width:92% !important;
+max-width:520px;
+margin:auto;
 }
 
 }
-
 
 </style>
-
 </head>
-
 
 <body>
 
-
+<div class="wrapper">
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
-<div class="subtitle">
+<div class="sub">
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
+<div class="row">
 
-
-<div class="container">
-
-
-
-<!-- ============================================
-UPLOAD CARD
-============================================ -->
-
-
-<div class="glass">
-
-
-<div class="upload-row">
+<div class="glass upload">
 
 <input type="file" id="file">
 
-<button class="upload-btn"
-onclick="getQuote()">
+<br>
 
+<button class="upload-btn" onclick="process()">
 UPLOAD
-
 </button>
 
-</div>
+<div class="wordcount" id="count"></div>
 
+<div id="standard" class="quote standard"></div>
 
-
-<div id="quote"></div>
-
-
+<div id="express" class="quote express"></div>
 
 </div>
 
-
-
-
-<!-- ============================================
-PRICING CARD
-============================================ -->
-
-
-<div class="glass">
-
+<div class="glass pricing">
 
 <table>
 
-
 <tr>
-
 <th>WORD COUNT</th>
-
-<th class="standard-head">
-STANDARD 0.025 / word
-</th>
-
-<th class="express-head">
-EXPRESS 0.05 / word
-</th>
-
+<th>STANDARD 0.025 / word</th>
+<th>EXPRESS 0.05 / word</th>
 </tr>
-
 
 <tr>
 <td>1–300</td>
@@ -398,61 +250,47 @@ EXPRESS 0.05 / word
 <td>Custom</td>
 </tr>
 
-
 </table>
 
+</div>
 
 </div>
 
-
-
 </div>
-
-
-
-
 
 <script>
 
+function process(){
 
+const file=document.getElementById("file").files[0];
 
-function getQuote(){
+if(!file)return;
 
+const reader=new FileReader();
 
-let words=1000;
+reader.onload=function(e){
 
+const words=e.target.result.split(/\s+/).length;
 
-let standard=(words*0.025).toFixed(2);
+document.getElementById("count").innerHTML=
+"WORDS: "+words;
 
-let express=(words*0.05).toFixed(2);
+const standard=(words*0.025).toFixed(2);
+const express=(words*0.05).toFixed(2);
 
+document.getElementById("standard").innerHTML=
+"STANDARD $"+standard+" • timeline applies";
 
-document.getElementById("quote").innerHTML=`
+document.getElementById("express").innerHTML=
+"EXPRESS $"+express+" • timeline applies";
 
-<div class="quote standard">
+};
 
-STANDARD $${standard}
-
-</div>
-
-
-<div class="quote express">
-
-EXPRESS $${express}
-
-</div>
-
-`;
-
+reader.readAsText(file);
 
 }
 
-
-
 </script>
-
-
-
 
 </body>
 </html>
