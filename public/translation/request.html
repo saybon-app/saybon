@@ -1,128 +1,248 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAYBON TRANSLATION SERVICES</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 
 body{
+font-family:'Inter',sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#d8dee8);
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-background:linear-gradient(to bottom,#e9eef5,#d7dce3);
-color:#333;
+padding:40px;
+color:#3a3a3a;
 }
+
 
 h1{
 text-align:center;
-margin-top:40px;
-letter-spacing:2px;
-color:#444;
+letter-spacing:4px;
+font-weight:500;
+color:#3a3a3a;
+margin-bottom:10px;
 }
+
 
 .sub{
 text-align:center;
 font-size:13px;
-letter-spacing:2px;
-color:#666;
-margin-bottom:30px;
+letter-spacing:3px;
+margin-bottom:40px;
 }
 
+
 .container{
+
 display:flex;
 justify-content:center;
 gap:40px;
 flex-wrap:wrap;
+
 }
 
+
+/* TRUE VISIONOS GLASS */
+
 .glass{
-width:350px;
-height:350px;
-background:rgba(255,255,255,.25);
-backdrop-filter:blur(20px);
-border-radius:25px;
-padding:25px;
+
+width:420px;
+height:420px;
+
+background:
+
+linear-gradient(
+145deg,
+rgba(255,255,255,0.45),
+rgba(255,255,255,0.15)
+);
+
+border-radius:28px;
+
+backdrop-filter:blur(30px);
+
 box-shadow:
-0 8px 32px rgba(0,0,0,.15),
-inset 0 0 0 1px rgba(255,255,255,.4);
-transition:.3s;
+
+0 10px 40px rgba(0,0,0,0.15),
+inset 0 0 20px rgba(255,255,255,0.25);
+
+padding:30px;
+
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
+
+transition:all .3s ease;
+
 }
 
 .glass:hover{
-transform:translateY(-5px);
+
+transform:translateY(-6px);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,0.25),
+inset 0 0 30px rgba(255,255,255,0.4);
+
 }
 
+
+/* BUTTON */
+
 button{
-padding:12px 20px;
+
+background:linear-gradient(90deg,#5ec7b7,#3a7bff);
+
 border:none;
-border-radius:12px;
-background:linear-gradient(to right,#4facfe,#00f2fe);
+
+padding:14px;
+
+border-radius:14px;
+
 color:white;
+
+font-weight:500;
+
+letter-spacing:2px;
+
 cursor:pointer;
+
+transition:all .2s ease;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+
 }
 
 button:active{
-transform:scale(.95);
+
+transform:scale(.96);
+
 }
 
-.quote{
-margin-top:20px;
-}
 
-.qbtn{
-display:block;
-margin-top:10px;
-padding:10px;
-border-radius:10px;
+/* PRICE BOX */
+
+.pricebox{
+
+margin-top:12px;
+
+padding:12px;
+
+border-radius:12px;
+
+letter-spacing:2px;
+
+font-size:13px;
+
 cursor:pointer;
+
+transition:.2s;
+
 }
 
-.green{
-background:#eaffea;
-border:1px solid green;
+
+.pricebox:hover{
+
+transform:scale(1.03);
+
 }
 
-.red{
-background:#ffeaea;
-border:1px solid red;
+.pricebox:active{
+
+transform:scale(.96);
+
 }
 
-.pricecard{
-margin-top:10px;
-font-size:14px;
+
+.standard{
+
+border:1px solid #58a55c;
+
 }
 
-.pricecard div{
-margin-bottom:5px;
+
+.express{
+
+border:1px solid #d15c5c;
+
 }
 
-@media(max-width:800px){
+
+
+/* PRICE TABLE */
+
+.table{
+
+font-size:13px;
+
+letter-spacing:2px;
+
+margin-top:15px;
+
+line-height:26px;
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:900px){
 
 .container{
+
 flex-direction:column;
+
 align-items:center;
+
+}
+
+/* PRICING FIRST */
+
+.glass:nth-child(2){
+
+order:1;
+
+}
+
+.glass:nth-child(1){
+
+order:2;
+
 }
 
 }
+
 
 </style>
-
 </head>
 
 <body>
+
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
 <div class="sub">
 
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
 
 </div>
 
+
 <div class="container">
 
+
+<!-- UPLOAD CARD -->
 
 <div class="glass">
 
@@ -130,42 +250,47 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 <br><br>
 
-<button onclick="quote()">UPLOAD DOCUMENT TO GET QUOTE</button>
+<button onclick="quote()">
 
-<div id="result" class="quote"></div>
+UPLOAD DOCUMENT TO GET QUOTE
+
+</button>
+
+
+<div id="result"></div>
+
 
 </div>
 
+
+<!-- PRICE CARD -->
 
 <div class="glass">
 
-<div class="pricecard">
 
-<b>STANDARD — 0.025 / word</b>
+<div class="table">
 
-<div>1 – 300 : 1 – 3 hours</div>
-<div>301 – 1000 : 3 – 6 hours</div>
-<div>1001 – 3000 : 6 – 12 hours</div>
-<div>3001 – 6000 : 12 – 24 hours</div>
-<div>6001 – 10000 : 24 – 48 hours</div>
-<div>10001 – 20000 : 2 – 4 days</div>
-<div>20000+ : Custom timeline</div>
+<b>STANDARD â€” 0.025 / word</b><br>
 
-</div>
+1 â€“ 300 : 1 â€“ 3 hours<br>
+301 â€“ 1000 : 3 â€“ 6 hours<br>
+1001 â€“ 3000 : 6 â€“ 12 hours<br>
+3001 â€“ 6000 : 12 â€“ 24 hours<br>
+6001 â€“ 10000 : 24 â€“ 48 hours<br>
+10001 â€“ 20000 : 2 â€“ 4 days<br>
+20000+ : Custom timeline
 
-<br>
+<br><br>
 
-<div class="pricecard">
+<b>EXPRESS â€” 0.05 / word</b><br>
 
-<b>EXPRESS — 0.05 / word</b>
-
-<div>1 – 300 : 30 – 60 minutes</div>
-<div>301 – 1000 : 1 – 3 hours</div>
-<div>1001 – 3000 : 3 – 6 hours</div>
-<div>3001 – 6000 : 6 – 12 hours</div>
-<div>6001 – 10000 : 12 – 24 hours</div>
-<div>10001 – 20000 : 24 – 48 hours</div>
-<div>20000+ : Custom timeline</div>
+1 â€“ 300 : 30 â€“ 60 minutes<br>
+301 â€“ 1000 : 1 â€“ 3 hours<br>
+1001 â€“ 3000 : 3 â€“ 6 hours<br>
+3001 â€“ 6000 : 6 â€“ 12 hours<br>
+6001 â€“ 10000 : 12 â€“ 24 hours<br>
+10001 â€“ 20000 : 24 â€“ 48 hours<br>
+20000+ : Custom timeline
 
 </div>
 
@@ -176,70 +301,84 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 <script>
 
-function timeline(w){
 
-if(w<=300)return"1 – 3 hours";
-if(w<=1000)return"3 – 6 hours";
-if(w<=3000)return"6 – 12 hours";
-if(w<=6000)return"12 – 24 hours";
-if(w<=10000)return"24 – 48 hours";
-if(w<=20000)return"2 – 4 days";
+function standardTimeline(w){
 
-return"Custom timeline";
+if(w<=300)return"1 â€“ 3 hours";
+if(w<=1000)return"3 â€“ 6 hours";
+if(w<=3000)return"6 â€“ 12 hours";
+if(w<=6000)return"12 â€“ 24 hours";
+if(w<=10000)return"24 â€“ 48 hours";
+if(w<=20000)return"2 â€“ 4 days";
+return"Custom";
 
 }
 
-function xtimeline(w){
 
-if(w<=300)return"30 – 60 minutes";
-if(w<=1000)return"1 – 3 hours";
-if(w<=3000)return"3 – 6 hours";
-if(w<=6000)return"6 – 12 hours";
-if(w<=10000)return"12 – 24 hours";
-if(w<=20000)return"24 – 48 hours";
+function expressTimeline(w){
 
-return"Custom timeline";
+if(w<=300)return"30 â€“ 60 minutes";
+if(w<=1000)return"1 â€“ 3 hours";
+if(w<=3000)return"3 â€“ 6 hours";
+if(w<=6000)return"6 â€“ 12 hours";
+if(w<=10000)return"12 â€“ 24 hours";
+if(w<=20000)return"24 â€“ 48 hours";
+return"Custom";
 
 }
 
 
 function quote(){
 
-let file=document.getElementById("file").files[0];
+var file=document.getElementById("file").files[0];
 
-let reader=new FileReader();
+if(!file)return;
+
+var reader=new FileReader();
 
 reader.onload=function(){
 
-let words=reader.result.split(/\s+/).length;
+var words=this.result.split(/\s+/).length;
 
-let s=(words*.025).toFixed(2);
+var standard=(words*.025).toFixed(2);
+var express=(words*.05).toFixed(2);
 
-let e=(words*.05).toFixed(2);
 
-document.getElementById("result").innerHTML=
+document.getElementById("result").innerHTML=`
 
-"WORDS: "+words+
+<br>
 
-"<div class='qbtn green' onclick='pay(\"standard\","+s+",\""+timeline(words)+"\","+words+")'>STANDARD $"+s+" "+timeline(words)+"</div>"+
+WORDS: ${words}
 
-"<div class='qbtn red' onclick='pay(\"express\","+e+",\""+xtimeline(words)+"\","+words+")'>EXPRESS $"+e+" "+xtimeline(words)+"</div>";
+<div class="pricebox standard"
 
-};
+onclick="location.href='/translation/payment.html?price=${standard}&speed=standard'">
+
+STANDARD $${standard} â€¢ ${standardTimeline(words)}
+
+</div>
+
+
+<div class="pricebox express"
+
+onclick="location.href='/translation/payment.html?price=${express}&speed=express'">
+
+EXPRESS $${express} â€¢ ${expressTimeline(words)}
+
+</div>
+
+`;
+
+}
 
 reader.readAsText(file);
 
 }
 
 
-function pay(t,p,time,w){
-
-location.href="payment.html?type="+t+"&price="+p+"&time="+time+"&words="+w;
-
-}
-
 </script>
 
-</body>
 
+</body>
 </html>
+
