@@ -1,38 +1,127 @@
 ﻿<!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Payment</title>
+<title>SayBon Payment</title>
 
 <style>
 
 body{
 
-font-family:-apple-system;
-
-text-align:center;
-
-margin-top:100px;
-
-background:#f5f7fa;
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#3a3a3c;
 
 }
 
-.card{
 
-background:white;
+/* PERMANENT MOBILE FIX */
 
+*{
+-webkit-tap-highlight-color: transparent;
+}
+
+
+.container{
+
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+
+}
+
+
+.glass{
+
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(20px);
+border-radius:30px;
 padding:40px;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 
-border-radius:20px;
+}
 
-display:inline-block;
 
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
+/* TEXT */
+
+.title{
+
+font-size:22px;
+margin-bottom:20px;
+
+}
+
+
+.row{
+
+margin:10px 0;
+
+}
+
+
+/* CURRENCY SELECTOR */
+
+select{
+
+padding:8px;
+border-radius:10px;
+border:1px solid #ccc;
+
+}
+
+
+
+/* PAYMENT BUTTONS */
+
+.payBtn{
+
+width:100%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:15px;
+font-size:16px;
+cursor:pointer;
+color:white;
+
+}
+
+
+.stripe{
+
+background:#635bff;
+
+}
+
+
+.paystack{
+
+background:#00c3a3;
+
+}
+
+
+/* HOVER */
+
+.payBtn:hover{
+
+transform:translateY(-2px);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
+}
+
+
+/* CLICK */
+
+.payBtn:active{
+
+transform:translateY(2px);
 
 }
 
@@ -40,17 +129,73 @@ box-shadow:0 10px 20px rgba(0,0,0,0.1);
 
 </head>
 
+
 <body>
 
 
 
-<div class="card">
+<div class="container">
 
-<h2 id="plan"></h2>
+<div class="glass">
 
-<p id="words"></p>
 
-<p id="price"></p>
+<div class="title">
+
+TRANSLATION PAYMENT
+
+</div>
+
+
+
+<div class="row" id="plan"></div>
+
+<div class="row" id="words"></div>
+
+<div class="row" id="rate"></div>
+
+<div class="row" id="timeline"></div>
+
+<div class="row" id="total"></div>
+
+
+
+<div class="row">
+
+Currency:
+
+<select id="currency">
+
+<option value="USD">$ USD</option>
+
+<option value="GHS">₵ GHS</option>
+
+<option value="EUR">€ EUR</option>
+
+<option value="GBP">£ GBP</option>
+
+</select>
+
+</div>
+
+
+
+<button class="payBtn stripe" onclick="payStripe()">
+
+PAY WITH STRIPE
+
+</button>
+
+
+
+<button class="payBtn paystack" onclick="payPaystack()">
+
+PAY WITH PAYSTACK
+
+</button>
+
+
+
+</div>
 
 </div>
 
@@ -59,36 +204,103 @@ box-shadow:0 10px 20px rgba(0,0,0,0.1);
 <script>
 
 
-let params=new URLSearchParams(window.location.search);
+/* READ PARAMETERS */
+
+const params=new URLSearchParams(window.location.search);
+
+const plan=params.get("plan");
+
+const words=parseInt(params.get("words"));
 
 
-let plan=params.get("plan");
+/* RATES */
+
+const rate=plan=="standard"?0.025:0.05;
 
 
-let words=parseInt(params.get("words"));
+/* TIMELINE */
+
+function timelineStandard(words){
+
+if(words<=300) return "1–3 hrs";
+if(words<=1000) return "3–6 hrs";
+if(words<=3000) return "6–12 hrs";
+if(words<=6000) return "12–24 hrs";
+if(words<=10000) return "24–48 hrs";
+if(words<=20000) return "2–4 days";
+return "Custom";
+
+}
+
+function timelineExpress(words){
+
+if(words<=300) return "30–60 mins";
+if(words<=1000) return "1–3 hrs";
+if(words<=3000) return "3–6 hrs";
+if(words<=6000) return "6–12 hrs";
+if(words<=10000) return "12–24 hrs";
+if(words<=20000) return "24–48 hrs";
+return "Custom";
+
+}
 
 
-let rate=plan=="standard"?0.025:0.05;
+const timeline=
 
+plan=="standard"
+?timelineStandard(words)
+:timelineExpress(words);
+
+
+const total=(words*rate).toFixed(2);
+
+
+/* DISPLAY */
 
 document.getElementById("plan").innerText=
 
-plan.toUpperCase();
+"PLAN: "+plan.toUpperCase();
 
 
 document.getElementById("words").innerText=
 
-"Words: "+words;
+"WORDS: "+words;
 
 
-document.getElementById("price").innerText=
+document.getElementById("rate").innerText=
 
-"Price: $"+(words*rate).toFixed(2);
+"RATE: $"+rate+" per word";
+
+
+document.getElementById("timeline").innerText=
+
+"DELIVERY: "+timeline;
+
+
+document.getElementById("total").innerText=
+
+"TOTAL: $"+total;
+
+
+
+/* PAYMENT ACTIONS */
+
+function payStripe(){
+
+alert("Stripe integration next step");
+
+}
+
+
+function payPaystack(){
+
+alert("Paystack integration next step");
+
+}
 
 
 
 </script>
-
 
 
 </body>
