@@ -3,73 +3,44 @@
 <head>
 
 <meta charset="UTF-8">
-
 <title>SayBon Translation Services</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 <style>
 
 body{
-
 margin:0;
-
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
-
 background:linear-gradient(to bottom,#eef1f6,#e3e8f0);
-
 color:#333;
-
 }
-
 
 h1{
-
 text-align:center;
-
 margin-top:40px;
-
 letter-spacing:3px;
-
 font-weight:500;
-
 }
-
 
 .sub{
-
 text-align:center;
-
 letter-spacing:2px;
-
 font-size:12px;
-
 margin-bottom:40px;
-
 color:#666;
-
 }
-
 
 .container{
-
 display:flex;
-
 justify-content:center;
-
 gap:40px;
-
 flex-wrap:wrap;
-
 }
-
 
 
 .glass{
 
 width:420px;
-
 height:420px;
 
 border-radius:28px;
@@ -79,144 +50,72 @@ background:rgba(255,255,255,.25);
 backdrop-filter:blur(30px);
 
 box-shadow:
-
 0 8px 32px rgba(0,0,0,.15),
-
 inset 0 0 20px rgba(255,255,255,.3);
 
 padding:40px;
 
 display:flex;
-
 flex-direction:column;
-
-justify-content:flex-start;
+align-items:center;
+justify-content:center;
 
 }
 
 
 
-
-/* ============================================
-UPLOAD SECTION — SURGICAL
-============================================ */
+/* PRICE CARD CONTAINER */
 
 
-.upload-top{
+.price-wrap{
 
 display:flex;
+gap:20px;
 
+justify-content:center;
 align-items:center;
 
-gap:10px;
+}
 
-margin-bottom:20px;
+
+
+/* INDIVIDUAL PRICE CARDS */
+
+
+.price-card{
+
+width:170px;
+height:240px;
+
+border-radius:18px;
+
+background:white;
+
+padding:18px;
+
+font-size:12px;
+
+line-height:1.6;
+
+}
+
+
+.green{
+
+border:2px solid #2e7d32;
+
+}
+
+
+.red{
+
+border:2px solid #c62828;
 
 }
 
 
 
-.upload-btn{
-
-margin-top:10px;
-
-width:140px;
-
-height:42px;
-
-border-radius:14px;
-
-border:none;
-
-color:white;
-
-font-weight:500;
-
-letter-spacing:2px;
-
-cursor:pointer;
-
-background:rgba(0,0,0,.55);
-
-backdrop-filter:blur(10px);
-
-box-shadow:
-
-0 6px 18px rgba(0,0,0,.3),
-
-inset 0 1px 1px rgba(255,255,255,.2);
-
-transition:.2s;
-
-}
-
-
-.upload-btn:hover{
-
-transform:scale(1.05);
-
-}
-
-
-.upload-btn:active{
-
-transform:scale(.95);
-
-}
-
-
-
-
-/* ============================================
-TABLE — SURGICAL FIX
-============================================ */
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-font-size:14px;
-
-}
-
-
-th{
-
-text-align:center;
-
-padding-bottom:10px;
-
-}
-
-
-td{
-
-padding:6px 0;
-
-text-align:left;
-
-}
-
-
-
-
-th:nth-child(2){
-
-color:#2e7d32;
-
-}
-
-
-th:nth-child(3){
-
-color:#c62828;
-
-}
-
-
+/* MOBILE */
 
 
 @media(max-width:900px){
@@ -224,7 +123,6 @@ color:#c62828;
 .container{
 
 flex-direction:column-reverse;
-
 align-items:center;
 
 }
@@ -236,9 +134,7 @@ align-items:center;
 
 </head>
 
-
 <body>
-
 
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
@@ -250,141 +146,63 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
 
-
 <div class="container">
 
 
+<!-- UPLOAD GLASS -->
 
-<!-- UPLOAD CARD -->
+
+<div class="glass">
+
+UPLOAD SECTION
+
+</div>
+
+
+
+<!-- PRICE GLASS -->
 
 
 <div class="glass">
 
 
-<div class="upload-top">
+<div class="price-wrap">
 
 
-<input type="file">
+<div class="price-card green">
 
-<span>No file chosen</span>
+<b>STANDARD — 0.025 / word</b><br>
+
+1 – 300 : 1 – 3 hrs<br>
+301 – 1000 : 3 – 6 hrs<br>
+1001 – 3000 : 6 – 12 hrs<br>
+3001 – 6000 : 12 – 24 hrs<br>
+6001 – 10000 : 24 – 48 hrs<br>
+10001 – 20000 : 2 – 4 days<br>
+20000+ : Custom
 
 
 </div>
 
 
-<button class="upload-btn">
 
-UPLOAD 📮
+<div class="price-card red">
 
-</button>
+<b>EXPRESS — 0.05 / word</b><br>
+
+1 – 300 : 30 – 60 mins<br>
+301 – 1000 : 1 – 3 hrs<br>
+1001 – 3000 : 3 – 6 hrs<br>
+3001 – 6000 : 6 – 12 hrs<br>
+6001 – 10000 : 12 – 24 hrs<br>
+10001 – 20000 : 24 – 48 hrs<br>
+20000+ : Custom
 
 
 </div>
 
 
-
-
-
-<!-- PRICING CARD -->
-
-
-<div class="glass">
-
-
-
-<table>
-
-
-<tr>
-
-<th>WORD COUNT</th>
-
-<th>STANDARD<br>0.025 / word</th>
-
-<th>EXPRESS<br>0.05 / word</th>
-
-</tr>
-
-
-<tr>
-
-<td>1 – 300</td>
-
-<td>1 – 3 hrs</td>
-
-<td>30 – 60 mins</td>
-
-</tr>
-
-
-<tr>
-
-<td>301 – 1000</td>
-
-<td>3 – 6 hrs</td>
-
-<td>1 – 3 hrs</td>
-
-</tr>
-
-
-<tr>
-
-<td>1001 – 3000</td>
-
-<td>6 – 12 hrs</td>
-
-<td>3 – 6 hrs</td>
-
-</tr>
-
-
-<tr>
-
-<td>3001 – 6000</td>
-
-<td>12 – 24 hrs</td>
-
-<td>6 – 12 hrs</td>
-
-</tr>
-
-
-<tr>
-
-<td>6001 – 10000</td>
-
-<td>24 – 48 hrs</td>
-
-<td>12 – 24 hrs</td>
-
-</tr>
-
-
-<tr>
-
-<td>10001 – 20000</td>
-
-<td>2 – 4 days</td>
-
-<td>24 – 48 hrs</td>
-
-</tr>
-
-
-<tr>
-
-<td>20000+</td>
-
-<td>Custom</td>
-
-<td>Custom</td>
-
-</tr>
-
-
-</table>
-
+</div>
 
 
 </div>
@@ -392,7 +210,6 @@ UPLOAD 📮
 
 
 </div>
-
 
 
 </body>
