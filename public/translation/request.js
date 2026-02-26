@@ -1,22 +1,23 @@
-﻿
-async function getQuote(){
+﻿async function getQuote(){
 
 const file=document.getElementById("fileInput").files[0];
 
 if(!file){
 
-alert("Select file");
+alert("Please select a file");
 
 return;
 
 }
 
+
+// ============================================
+// REAL WORD COUNT
+// ============================================
+
 let words=0;
 
-
-// exact txt count
-
-if(file.name.endsWith(".txt")){
+if(file.name.toLowerCase().endsWith(".txt")){
 
 const text=await file.text();
 
@@ -31,58 +32,82 @@ words=Math.round(file.size/6);
 }
 
 
-document.getElementById("wordCount").innerHTML=
-
-words+" words detected";
-
+// ============================================
+// PRICE CALCULATION
+// ============================================
 
 const standardPrice=(words*0.025).toFixed(2);
 
 const expressPrice=(words*0.05).toFixed(2);
 
 
+// ============================================
+// REAL DELIVERY TIMELINE ENGINE
+// ============================================
 
-let standardTime="";
-let expressTime="";
+function getStandardTimeline(words){
 
+if(words<=300) return "1–3 hours";
 
-if(words<=300){
+if(words<=1000) return "3–6 hours";
 
-standardTime="1-3 hrs";
-expressTime="30-60 mins";
+if(words<=3000) return "6–12 hours";
 
-}
+if(words<=6000) return "12–24 hours";
 
-else if(words<=1000){
+if(words<=10000) return "24–48 hours";
 
-standardTime="3-6 hrs";
-expressTime="1-3 hrs";
+if(words<=20000) return "2–4 days";
 
-}
-
-else if(words<=3000){
-
-standardTime="6-12 hrs";
-expressTime="3-6 hrs";
-
-}
-
-else{
-
-standardTime="12-24 hrs";
-expressTime="6-12 hrs";
+return "Custom timeline";
 
 }
 
 
-document.getElementById("quote").innerHTML=
+function getExpressTimeline(words){
 
-`
+if(words<=300) return "30–60 minutes";
+
+if(words<=1000) return "1–3 hours";
+
+if(words<=3000) return "3–6 hours";
+
+if(words<=6000) return "6–12 hours";
+
+if(words<=10000) return "12–24 hours";
+
+if(words<=20000) return "24–48 hours";
+
+return "Custom timeline";
+
+}
+
+
+const standardTimeline=getStandardTimeline(words);
+
+const expressTimeline=getExpressTimeline(words);
+
+
+// ============================================
+// DISPLAY WORD COUNT
+// ============================================
+
+document.getElementById("wordCount").innerHTML=
+
+"<br>"+words+" words";
+
+
+// ============================================
+// DISPLAY QUOTE BUTTONS
+// ============================================
+
+document.getElementById("quote").innerHTML=`
+
 <br>
 
-<button onclick="location.href='/translation/payment.html?type=standard&price=${standardPrice}&words=${words}&delivery=${standardTime}'">
+<button onclick="location.href='/translation/payment.html?type=standard&price=${standardPrice}&words=${words}&delivery=${standardTimeline}'">
 
-STANDARD — $${standardPrice} — ${standardTime}
+STANDARD — $${standardPrice} — ${standardTimeline}
 
 </button>
 
@@ -90,13 +115,12 @@ STANDARD — $${standardPrice} — ${standardTime}
 <br><br>
 
 
-<button onclick="location.href='/translation/payment.html?type=express&price=${expressPrice}&words=${words}&delivery=${expressTime}'">
+<button onclick="location.href='/translation/payment.html?type=express&price=${expressPrice}&words=${words}&delivery=${expressTimeline}'">
 
-EXPRESS — $${expressPrice} — ${expressTime}
+EXPRESS — $${expressPrice} — ${expressTimeline}
 
 </button>
 
 `;
 
 }
-
