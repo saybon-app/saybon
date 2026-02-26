@@ -17,29 +17,30 @@ const res = await fetch("http://localhost:3000/api/stripe",{
 method:"POST",
 
 headers:{
-
 "Content-Type":"application/json"
-
 },
 
 body: JSON.stringify({
-
 amount,
-
 words,
-
 plan
-
 })
 
 });
 
 const data = await res.json();
 
-window.location = data.url;
+if(data.url){
+
+window.location.href = data.url;
+
+}else{
+
+alert("Stripe error");
 
 }
 
+}
 
 async function payPaystack(){
 
@@ -58,28 +59,21 @@ const res = await fetch("http://localhost:3000/api/paystack",{
 method:"POST",
 
 headers:{
-
 "Content-Type":"application/json"
-
 },
 
 body: JSON.stringify({
-
 amount,
-
 words,
-
 plan,
-
 email:"customer@email.com"
-
 })
 
 });
 
 const data = await res.json();
 
-window.location = data.url;
+window.location.href = data.url;
 
 }
 
