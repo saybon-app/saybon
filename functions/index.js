@@ -1,121 +1,97 @@
-﻿const functions = require("firebase-functions");
+﻿
+const functions = require("firebase-functions");
+
 const express = require("express");
+
 const cors = require("cors");
-const Stripe = require("stripe");
-const axios = require("axios");
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 
 const app = express();
 
-app.use(cors({ origin: true }));
+
+app.use(cors({origin:true}));
+
 app.use(express.json());
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 
-# ============================================
-# STRIPE ROUTE
-# ============================================
+app.post("/stripe", async (req,res)=>{
 
-app.post("/stripe", async (req, res) => {
-
-try {
-
-const { amount, currency } = req.body;
-
-const session = await stripe.checkout.sessions.create({
-
-payment_method_types: ["card"],
-
-line_items: [
-
-{
-
-price_data: {
-
-currency: currency,
-
-product_data: {
-
-name: "SayBon Translation Service"
-
-},
-
-unit_amount: amount
-
-},
-
-quantity: 1
-
-}
-
-],
-
-mode: "payment",
-
-success_url: "https://saybonapp.com/success.html",
-
-cancel_url: "https://saybonapp.com/translation/payment.html"
-
-});
-
-res.json({ url: session.url });
-
-}
-
-catch (error){
-
-console.error(error);
-
-res.status(500).send(error);
-
-}
-
-});
-
-
-# ============================================
-# PAYSTACK ROUTE
-# ============================================
-
-app.post("/paystack", async (req, res) => {
 
 try{
 
-const response = await axios.post(
 
-"https://api.paystack.co/transaction/initialize",
+const session = await stripe.checkout.sessions.create({
 
-req.body,
 
-{
+payment_method_types:["card"],
 
-headers: {
 
-Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+mode:"payment",
 
-"Content-Type": "application/json"
 
-}
+line_items:[{
 
-}
 
-);
+price_data:{
 
-res.json(response.data);
 
-}
+currency:req.body.currency||"usd",
 
-catch(error){
 
-console.error(error);
+product_data:{
 
-res.status(500).send(error);
 
-}
+name:"SayBon Translation"
+
+
+},
+
+
+unit_amount:req.body.amount
+
+
+},
+
+
+quantity:1
+
+
+}],
+
+
+success_url:"https://saybonapp.com/success.html",
+
+
+cancel_url:"https://saybonapp.com/cancel.html"
+
 
 });
 
 
-# ============================================
+res.json({url:session.url});
+
+
+}
+
+
+catch(error){
+
+
+console.log(error);
+
+
+res.status(500).json({error:error.message});
+
+
+}
+
+
+});
+
+
 
 exports.api = functions.https.onRequest(app);
+
