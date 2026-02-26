@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAYBON TRANSLATION SERVICES</title>
+
+<style>
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+background:linear-gradient(to bottom,#e9eef5,#d7dce3);
+color:#333;
+}
+
+h1{
+text-align:center;
+margin-top:40px;
+letter-spacing:2px;
+color:#444;
+}
+
+.sub{
+text-align:center;
+font-size:13px;
+letter-spacing:2px;
+color:#666;
+margin-bottom:30px;
+}
+
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.glass{
+width:350px;
+height:350px;
+background:rgba(255,255,255,.25);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:25px;
+box-shadow:
+0 8px 32px rgba(0,0,0,.15),
+inset 0 0 0 1px rgba(255,255,255,.4);
+transition:.3s;
+}
+
+.glass:hover{
+transform:translateY(-5px);
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:linear-gradient(to right,#4facfe,#00f2fe);
+color:white;
+cursor:pointer;
+}
+
+button:active{
+transform:scale(.95);
+}
+
+.quote{
+margin-top:20px;
+}
+
+.qbtn{
+display:block;
+margin-top:10px;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.green{
+background:#eaffea;
+border:1px solid green;
+}
+
+.red{
+background:#ffeaea;
+border:1px solid red;
+}
+
+.pricecard{
+margin-top:10px;
+font-size:14px;
+}
+
+.pricecard div{
+margin-bottom:5px;
+}
+
+@media(max-width:800px){
+
+.container{
+flex-direction:column;
+align-items:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>SAYBON TRANSLATION SERVICES</h1>
+
+<div class="sub">
+
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
+</div>
+
+<div class="container">
+
+
+<div class="glass">
+
+<input type="file" id="file">
+
+<br><br>
+
+<button onclick="quote()">UPLOAD DOCUMENT TO GET QUOTE</button>
+
+<div id="result" class="quote"></div>
+
+</div>
+
+
+<div class="glass">
+
+<div class="pricecard">
+
+<b>STANDARD — 0.025 / word</b>
+
+<div>1 – 300 : 1 – 3 hours</div>
+<div>301 – 1000 : 3 – 6 hours</div>
+<div>1001 – 3000 : 6 – 12 hours</div>
+<div>3001 – 6000 : 12 – 24 hours</div>
+<div>6001 – 10000 : 24 – 48 hours</div>
+<div>10001 – 20000 : 2 – 4 days</div>
+<div>20000+ : Custom timeline</div>
+
+</div>
+
+<br>
+
+<div class="pricecard">
+
+<b>EXPRESS — 0.05 / word</b>
+
+<div>1 – 300 : 30 – 60 minutes</div>
+<div>301 – 1000 : 1 – 3 hours</div>
+<div>1001 – 3000 : 3 – 6 hours</div>
+<div>3001 – 6000 : 6 – 12 hours</div>
+<div>6001 – 10000 : 12 – 24 hours</div>
+<div>10001 – 20000 : 24 – 48 hours</div>
+<div>20000+ : Custom timeline</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function timeline(w){
+
+if(w<=300)return"1 – 3 hours";
+if(w<=1000)return"3 – 6 hours";
+if(w<=3000)return"6 – 12 hours";
+if(w<=6000)return"12 – 24 hours";
+if(w<=10000)return"24 – 48 hours";
+if(w<=20000)return"2 – 4 days";
+
+return"Custom timeline";
+
+}
+
+function xtimeline(w){
+
+if(w<=300)return"30 – 60 minutes";
+if(w<=1000)return"1 – 3 hours";
+if(w<=3000)return"3 – 6 hours";
+if(w<=6000)return"6 – 12 hours";
+if(w<=10000)return"12 – 24 hours";
+if(w<=20000)return"24 – 48 hours";
+
+return"Custom timeline";
+
+}
+
+
+function quote(){
+
+let file=document.getElementById("file").files[0];
+
+let reader=new FileReader();
+
+reader.onload=function(){
+
+let words=reader.result.split(/\s+/).length;
+
+let s=(words*.025).toFixed(2);
+
+let e=(words*.05).toFixed(2);
+
+document.getElementById("result").innerHTML=
+
+"WORDS: "+words+
+
+"<div class='qbtn green' onclick='pay(\"standard\","+s+",\""+timeline(words)+"\","+words+")'>STANDARD $"+s+" "+timeline(words)+"</div>"+
+
+"<div class='qbtn red' onclick='pay(\"express\","+e+",\""+xtimeline(words)+"\","+words+")'>EXPRESS $"+e+" "+xtimeline(words)+"</div>";
+
+};
+
+reader.readAsText(file);
+
+}
+
+
+function pay(t,p,time,w){
+
+location.href="payment.html?type="+t+"&price="+p+"&time="+time+"&words="+w;
+
+}
+
+</script>
+
+</body>
+
+</html>

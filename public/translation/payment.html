@@ -1,34 +1,29 @@
-
 <!DOCTYPE html>
 
 <html>
 
-<head>
-
-<link rel='stylesheet' href='payment.css'>
-
-</head>
-
 <body>
 
+<h2>PAYMENT PAGE</h2>
 
-<div class='glass'>
+<div id="info"></div>
 
+<script>
 
-<h2 id='type'></h2>
+let u=new URLSearchParams(location.search);
 
-<h1 id='price'></h1>
+document.getElementById("info").innerHTML=
 
-<p id='time'></p>
+"TYPE: "+u.get("type")+"<br>"+
 
+"PRICE: $"+u.get("price")+"<br>"+
 
-</div>
+"TIME: "+u.get("time")+"<br>"+
 
+"WORDS: "+u.get("words");
 
-<script src='payment.js'></script>
-
+</script>
 
 </body>
 
 </html>
-
