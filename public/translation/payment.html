@@ -1,34 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SayBon Payment</title>
 
 <style>
 
 body{
 
-margin:0;
-font-family:'Avenir Next','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-letter-spacing:0.5px;
-background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
-color:#3a3a3c;
-
-}
-
-
-/* PERMANENT MOBILE FIX */
-
-*{
--webkit-tap-highlight-color: transparent;
-}
-
-
-.container{
-
+font-family: system-ui;
+background:#f4f6f8;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -36,102 +18,38 @@ height:100vh;
 
 }
 
+.card{
 
-.glass{
-
-background:rgba(255,255,255,0.6);
-backdrop-filter:blur(20px);
-border-radius:30px;
+background:white;
 padding:40px;
-width:420px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:16px;
+width:360px;
 
 }
 
-
-/* TEXT */
-
-.title{
-text-align:center;
-font-weight:600;
-letter-spacing:2px;
-font-size:22px;
-margin-bottom:25px;
-
-font-size:22px;
-margin-bottom:20px;
-
-}
-
-
-.row{
-margin:14px 0;
-font-weight:300;
-letter-spacing:1px;
-font-size:15px;
-
-margin:10px 0;
-
-}
-
-
-/* CURRENCY SELECTOR */
-
-select{
-
-padding:8px;
-border-radius:10px;
-border:1px solid #ccc;
-
-}
-
-
-
-/* PAYMENT BUTTONS */
-
-.payBtn{
+button{
 
 width:100%;
 padding:14px;
-border-radius:12px;
 border:none;
-margin-top:15px;
+border-radius:8px;
+margin-top:12px;
 font-size:16px;
 cursor:pointer;
-color:white;
 
 }
-
 
 .stripe{
 
 background:#635bff;
+color:white;
 
 }
-
 
 .paystack{
 
-background:#00c3a3;
-
-}
-
-
-/* HOVER */
-
-.payBtn:hover{
-
-transform:translateY(-2px);
-box-shadow:0 10px 20px rgba(0,0,0,0.15);
-
-}
-
-
-/* CLICK */
-
-.payBtn:active{
-
-transform:translateY(2px);
+background:#00c3a5;
+color:white;
 
 }
 
@@ -139,182 +57,132 @@ transform:translateY(2px);
 
 </head>
 
-
 <body>
 
 
+<div class="card">
 
-<div class="container">
+<h2>TRANSLATION PAYMENT</h2>
 
-<div class="glass">
-
-
-<div class="title">
-
-TRANSLATION PAYMENT
-
-</div>
-
-
-
-<div class="row" id="plan"></div>
-
-<div class="row" id="words"></div>
-
-<div class="row" id="rate"></div>
-
-<div class="row" id="timeline"></div>
-
-<div class="row" id="total"></div>
-
-
-
-<div class="row">
-
-Currency:
+<div id="summary"></div>
 
 <select id="currency">
 
-<option value="USD">$ USD</option>
-
-<option value="GHS">₵ GHS</option>
-
-<option value="EUR">€ EUR</option>
-
-<option value="GBP">£ GBP</option>
+<option value="usd">USD</option>
+<option value="ghs">GHS</option>
 
 </select>
 
-</div>
 
-
-
-<button class="payBtn stripe" onclick="payStripe()">
+<button class="stripe" onclick="payStripe()">
 
 PAY WITH STRIPE
 
 </button>
 
 
-
-<button class="payBtn paystack" onclick="payPaystack()">
+<button class="paystack" onclick="payPaystack()">
 
 PAY WITH PAYSTACK
 
 </button>
 
-
-
 </div>
-
-</div>
-
 
 
 <script>
 
+const params=new URLSearchParams(location.search);
 
-/* READ PARAMETERS */
-
-const params=new URLSearchParams(window.location.search);
+const words=params.get("words");
 
 const plan=params.get("plan");
 
-const words=parseInt(params.get("words"));
+const rate=plan==="express"?0.05:0.025;
+
+const total=Math.round(words*rate*100);
 
 
-/* RATES */
+document.getElementById("summary").innerHTML=
 
-const rate=plan=="standard"?0.025:0.05;
+`
+
+PLAN: ${plan}<br>
+
+WORDS: ${words}<br>
+
+TOTAL: $${(total/100).toFixed(2)}
+
+`;
 
 
-/* TIMELINE */
 
-function timelineStandard(words){
+async function payStripe(){
 
-if(words<=300) return "1–3 hrs";
-if(words<=1000) return "3–6 hrs";
-if(words<=3000) return "6–12 hrs";
-if(words<=6000) return "12–24 hrs";
-if(words<=10000) return "24–48 hrs";
-if(words<=20000) return "2–4 days";
-return "Custom";
+const currency=document.getElementById("currency").value;
+
+const res=await fetch(
+
+"https://us-central1-saybon-3e3c2.cloudfunctions.net/api/stripe",
+
+{
+
+method:"POST",
+
+headers:{"Content-Type":"application/json"},
+
+body:JSON.stringify({
+
+amount:total,
+
+currency
+
+})
 
 }
 
-function timelineExpress(words){
+);
 
-if(words<=300) return "30–60 mins";
-if(words<=1000) return "1–3 hrs";
-if(words<=3000) return "3–6 hrs";
-if(words<=6000) return "6–12 hrs";
-if(words<=10000) return "12–24 hrs";
-if(words<=20000) return "24–48 hrs";
-return "Custom";
+const data=await res.json();
 
-}
-
-
-const timeline=
-
-plan=="standard"
-?timelineStandard(words)
-:timelineExpress(words);
-
-
-const total=(words*rate).toFixed(2);
-
-
-/* DISPLAY */
-
-document.getElementById("plan").innerText=
-
-"PLAN: "+plan.toUpperCase();
-
-
-document.getElementById("words").innerText=
-
-"WORDS: "+words;
-
-
-document.getElementById("rate").innerText=
-
-"RATE: $"+rate+" per word";
-
-
-document.getElementById("timeline").innerText=
-
-"DELIVERY: "+timeline;
-
-
-document.getElementById("total").innerText=
-
-"TOTAL: $"+total;
-
-
-
-/* PAYMENT ACTIONS */
-
-function payStripe(){
-
-alert("Stripe integration next step");
+location.href=data.url;
 
 }
 
 
-function payPaystack(){
 
-alert("Paystack integration next step");
+async function payPaystack(){
+
+const res=await fetch(
+
+"https://us-central1-saybon-3e3c2.cloudfunctions.net/api/paystack",
+
+{
+
+method:"POST",
+
+headers:{"Content-Type":"application/json"},
+
+body:JSON.stringify({
+
+email:"customer@saybon.com",
+
+amount:total
+
+})
 
 }
 
+);
 
+const data=await res.json();
+
+location.href=data.data.authorization_url;
+
+}
 
 </script>
 
 
 </body>
-
 </html>
-
-

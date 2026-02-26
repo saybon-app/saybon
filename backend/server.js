@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import Stripe from "stripe";
 import axios from "axios";
 import cors from "cors";
@@ -15,9 +15,6 @@ app.use(express.json());
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 
-# ============================================
-# STRIPE PAYMENT SESSION
-# ============================================
 
 app.post("/api/stripe", async (req, res) => {
 
@@ -76,9 +73,6 @@ res.status(500).json({ error: err.message });
 });
 
 
-# ============================================
-# PAYSTACK SESSION
-# ============================================
 
 app.post("/api/paystack", async (req, res) => {
 
@@ -137,9 +131,6 @@ res.status(500).json({ error: err.message });
 });
 
 
-# ============================================
-# START SERVER
-# ============================================
 
 const PORT = 3000;
 
