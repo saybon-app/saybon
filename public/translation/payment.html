@@ -1,54 +1,71 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-
 <head>
 
 <title>Payment</title>
 
-<link rel="stylesheet" href="payment.css">
-
 </head>
-
 
 <body>
 
+<h1>Payment</h1>
 
-<div class="glass">
+<br>
 
+<div>
 
-<h2>Complete Payment</h2>
+Plan: <span id="plan"></span>
 
+</div>
 
-<div id="amount"></div>
+<br>
 
+<div>
 
-<button onclick="pay()">Pay Now</button>
+Words: <span id="words"></span>
 
+</div>
+
+<br>
+
+<div>
+
+Delivery: <span id="delivery"></span>
+
+</div>
+
+<br>
+
+<div>
+
+Amount: $<span id="amount"></span>
 
 </div>
 
 
-
-<script>
-
-document.getElementById("amount").innerText=
-
-"$"+localStorage.getItem("amount");
+<br><br>
 
 
-function pay(){
+<button>
 
-alert("Payment flow here");
+Pay with Stripe
 
-}
+</button>
 
 
-</script>
+<br><br>
+
+
+<button>
+
+Pay with Paystack
+
+</button>
+
+
+
+<script src="payment.js"></script>
 
 
 </body>
-
-
 </html>
-
