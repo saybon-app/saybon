@@ -168,14 +168,15 @@ UPLOAD SECTION
 
 
 
+
 <div class="price-wrap">
 
-<table class="vision-table">
+<table class="price-table">
 
 <tr>
 <th>WORD COUNT</th>
-<th>STANDARD</th>
-<th>EXPRESS</th>
+<th class="standard">STANDARD<br>0.025 / word</th>
+<th class="express">EXPRESS<br>0.05 / word</th>
 </tr>
 
 <tr><td></td><td></td><td></td></tr>
@@ -189,6 +190,66 @@ UPLOAD SECTION
 </table>
 
 </div>
+
+<style>
+
+.price-wrap{
+
+width:100%;
+height:100%;
+
+padding:40px;
+
+box-sizing:border-box;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.price-table{
+
+width:100%;
+height:100%;
+
+border-collapse:collapse;
+
+font-size:14px;
+
+}
+
+.price-table th,
+.price-table td{
+
+border:1px solid #cfcfcf;
+
+padding:14px;
+
+text-align:left;
+
+}
+
+.standard{
+
+color:#1a7f37;
+
+font-weight:600;
+
+}
+
+.express{
+
+color:#c62828;
+
+font-weight:600;
+
+}
+
+</style>
+
 
 <style>
 
@@ -285,6 +346,7 @@ padding:4px 0;
 </body>
 
 </html>
+
 
 
 
