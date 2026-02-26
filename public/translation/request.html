@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,223 +9,377 @@
 
 <style>
 
+
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
-color:#1d1d1f;
+color:#6e6e73;
 }
 
+
+/* PERMANENT MOBILE UNDERLINE FIX */
+
+*{
+-webkit-tap-highlight-color: transparent;
+}
+
+a{
+text-decoration:none !important;
+color:inherit !important;
+}
+
+a:visited{
+text-decoration:none !important;
+color:inherit !important;
+}
+
+
+
 h1{
+
 text-align:center;
 margin-top:40px;
 letter-spacing:3px;
+color:#3a3a3c;
+
 }
 
 .sub{
+
 text-align:center;
 margin-bottom:40px;
 font-size:14px;
 letter-spacing:2px;
 color:#6e6e73;
 white-space:nowrap;
+
 }
 
+
 .container{
+
 display:flex;
 justify-content:center;
 gap:40px;
 flex-wrap:wrap;
 padding:20px;
+
 }
 
+
 .glass{
+
 background:rgba(255,255,255,0.6);
 backdrop-filter:blur(20px);
 border-radius:30px;
 padding:30px;
 width:420px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
 }
+
+
 
 .uploadRow{
+
 display:flex;
-align-items:center;
 gap:10px;
 margin-bottom:15px;
+
 }
 
+
 .uploadBtn{
+
 background:#1e8e8e;
 color:white;
 border:none;
 padding:10px 20px;
 border-radius:10px;
 cursor:pointer;
+
 }
 
-.uploadBtn:hover{
-background:#166d6d;
-}
 
 .words{
+
 margin:15px 0;
 font-weight:600;
+
 }
 
+
 .quote{
+
 padding:15px;
 border-radius:12px;
 margin-bottom:15px;
 cursor:pointer;
+color:#6e6e73;
+
 }
+
 
 .standard{
+
 border:2px solid #34a853;
+
 }
+
 
 .express{
+
 border:2px solid #ea4335;
+
 }
 
-.quote:hover{
-background:rgba(0,0,0,0.05);
-}
+
+
+/* TABLE FIX */
 
 table{
+
 width:100%;
 border-collapse:collapse;
+color:#6e6e73;
+
 }
 
+
 th,td{
+
 border:1px solid #d0d0d0;
 padding:10px;
 text-align:left;
+color:#6e6e73;
+
 }
 
-th.standard{
+
+/* ONLY HEADINGS COLORED */
+
+th.standardHead{
+
 color:#34a853;
+
 }
 
-th.express{
+th.expressHead{
+
 color:#ea4335;
+
 }
+
+
 
 @media(max-width:600px){
 
 .glass{
+
 width:90%;
+
 }
 
 .sub{
+
 font-size:10px;
+
 }
 
 }
+
+
 
 </style>
 
 </head>
 
+
 <body>
+
+
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
 <div class="sub">
+
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
 </div>
+
+
 
 <div class="container">
 
+
+
 <div class="glass">
+
 
 <div class="uploadRow">
 
 <input type="file" id="file">
 
-<button class="uploadBtn" onclick="calculate()">UPLOAD</button>
+<button class="uploadBtn" onclick="calculate()">
+
+UPLOAD
+
+</button>
 
 </div>
 
-<div class="words" id="wordCount">WORDS: 0</div>
 
-<div class="quote standard" id="standardQuote"
+
+<div class="words" id="wordCount">
+
+WORDS: 0
+
+</div>
+
+
+
+<div class="quote standard"
+
+id="standardQuote"
+
 onclick="goPayment('standard')">
+
 STANDARD
+
 </div>
 
-<div class="quote express" id="expressQuote"
+
+
+<div class="quote express"
+
+id="expressQuote"
+
 onclick="goPayment('express')">
+
 EXPRESS
-</div>
 
 </div>
+
+
+
+</div>
+
 
 
 <div class="glass">
 
+
+
 <table>
+
 
 <tr>
 
-<th>WORD COUNT</th>
+<th>
 
-<th class="standard">STANDARD 0.025 / word</th>
+WORD COUNT
 
-<th class="express">EXPRESS 0.05 / word</th>
+</th>
+
+<th class="standardHead">
+
+STANDARD 0.025 / word
+
+</th>
+
+<th class="expressHead">
+
+EXPRESS 0.05 / word
+
+</th>
 
 </tr>
 
+
+
 <tr>
+
 <td>1–300</td>
 <td>1–3 hrs</td>
 <td>30–60 mins</td>
+
 </tr>
 
+
 <tr>
+
 <td>301–1000</td>
 <td>3–6 hrs</td>
 <td>1–3 hrs</td>
+
 </tr>
 
+
 <tr>
+
 <td>1001–3000</td>
 <td>6–12 hrs</td>
 <td>3–6 hrs</td>
+
 </tr>
 
+
 <tr>
+
 <td>3001–6000</td>
 <td>12–24 hrs</td>
 <td>6–12 hrs</td>
+
 </tr>
 
+
 <tr>
+
 <td>6001–10000</td>
 <td>24–48 hrs</td>
 <td>12–24 hrs</td>
+
 </tr>
 
+
 <tr>
+
 <td>10001–20000</td>
 <td>2–4 days</td>
 <td>24–48 hrs</td>
+
 </tr>
 
+
 <tr>
+
 <td>20000+</td>
 <td>Custom</td>
 <td>Custom</td>
+
 </tr>
+
+
 
 </table>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
 
 
 <script>
+
+
+let storedWords=0;
+
+
 
 function timelineStandard(words){
 
@@ -238,6 +393,8 @@ return "Custom";
 
 }
 
+
+
 function timelineExpress(words){
 
 if(words<=300) return "30–60 mins";
@@ -250,6 +407,8 @@ return "Custom";
 
 }
 
+
+
 function calculate(){
 
 let file=document.getElementById("file").files[0];
@@ -258,36 +417,66 @@ if(!file) return;
 
 let reader=new FileReader();
 
+
+
 reader.onload=function(e){
 
-let text=e.target.result;
 
-let words=text.trim().split(/\s+/).length;
+let words=e.target.result.trim().split(/\s+/).length;
+
+storedWords=words;
+
 
 document.getElementById("wordCount").innerText=
+
 "WORDS: "+words;
 
-let standardPrice=(words*0.025).toFixed(2);
 
-let expressPrice=(words*0.05).toFixed(2);
 
 document.getElementById("standardQuote").innerText=
-"STANDARD $"+standardPrice+" • "+timelineStandard(words);
+
+"STANDARD $"+(words*0.025).toFixed(2)
+
++" • "+timelineStandard(words);
+
+
 
 document.getElementById("expressQuote").innerText=
-"EXPRESS $"+expressPrice+" • "+timelineExpress(words);
+
+"EXPRESS $"+(words*0.05).toFixed(2)
+
++" • "+timelineExpress(words);
+
+
 
 }
+
+
 
 reader.readAsText(file);
 
-}
-
-function goPayment(type){
-
-window.location.href="/translation/payment.html?plan="+type;
 
 }
+
+
+
+function goPayment(plan){
+
+
+window.location.href=
+
+"/translation/payment.html?plan="
+
++plan+
+
+"&words="
+
++storedWords;
+
+
+}
+
+
 
 </script>
 
@@ -295,3 +484,4 @@ window.location.href="/translation/payment.html?plan="+type;
 </body>
 
 </html>
+

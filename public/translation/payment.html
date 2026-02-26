@@ -1,29 +1,97 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 
+<head>
+
+<meta charset="UTF-8">
+
+<title>Payment</title>
+
+<style>
+
+body{
+
+font-family:-apple-system;
+
+text-align:center;
+
+margin-top:100px;
+
+background:#f5f7fa;
+
+}
+
+.card{
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+display:inline-block;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+
+}
+
+</style>
+
+</head>
+
 <body>
 
-<h2>PAYMENT PAGE</h2>
 
-<div id="info"></div>
+
+<div class="card">
+
+<h2 id="plan"></h2>
+
+<p id="words"></p>
+
+<p id="price"></p>
+
+</div>
+
+
 
 <script>
 
-let u=new URLSearchParams(location.search);
 
-document.getElementById("info").innerHTML=
+let params=new URLSearchParams(window.location.search);
 
-"TYPE: "+u.get("type")+"<br>"+
 
-"PRICE: $"+u.get("price")+"<br>"+
+let plan=params.get("plan");
 
-"TIME: "+u.get("time")+"<br>"+
 
-"WORDS: "+u.get("words");
+let words=parseInt(params.get("words"));
+
+
+let rate=plan=="standard"?0.025:0.05;
+
+
+document.getElementById("plan").innerText=
+
+plan.toUpperCase();
+
+
+document.getElementById("words").innerText=
+
+"Words: "+words;
+
+
+document.getElementById("price").innerText=
+
+"Price: $"+(words*rate).toFixed(2);
+
+
 
 </script>
+
+
 
 </body>
 
 </html>
+
