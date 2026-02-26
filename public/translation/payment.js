@@ -1,23 +1,17 @@
-﻿
-const params=new URLSearchParams(window.location.search);
+
+let params =
+new URLSearchParams(location.search);
 
 
-document.getElementById("plan").innerHTML=
-
-params.get("type");
-
-
-document.getElementById("words").innerHTML=
-
-params.get("words");
+document.getElementById("price").innerText =
+"$"+params.get("price");
 
 
-document.getElementById("delivery").innerHTML=
+document.getElementById("time").innerText =
+params.get("time");
 
-params.get("delivery");
 
+document.getElementById("type").innerText =
+params.get("type").toUpperCase();
 
-document.getElementById("amount").innerHTML=
-
-params.get("price");
 

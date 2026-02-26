@@ -1,112 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="/css/request.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="request.css">
 
 </head>
-
 <body>
-
-
-<div class="page">
 
 
 <div class="header">
 
 <h1>SayBon Translation Services</h1>
 
-<p>Translated by experts • Quick delivery • Confidential</p>
+<p>
+Translated by experts • Quick delivery • Confidential
+</p>
 
 </div>
 
 
 
-<div class="glass-container">
+<div class="container">
 
 
-
-<div class="glass-card left">
-
-
-<input type="file" id="fileInput">
+<div class="glass card-left">
 
 
-<button id="uploadBtn" onclick="getQuote()">Upload Document To Get Quote</button>
+<input type="file" id="file">
+
+<button id="quoteBtn">
+Upload Document To Get Quote
+</button>
 
 
-
-<div id="quoteArea"></div>
-
+<div id="result"></div>
 
 
 </div>
 
 
 
+<div class="glass card-right">
 
 
+<div class="price standard">
 
-<div class="glass-card right">
+<h3>
+STANDARD — .025 / word
+</h3>
 
-
-<div class="price-card standard">
-
-<h3>STANDARD — .025 / word</h3>
-
-<ul>
-
-<li>1 – 300 • 1 – 3 hours</li>
-
-<li>301 – 1000 • 3 – 6 hours</li>
-
-<li>1001 – 3000 • 6 – 12 hours</li>
-
-<li>3001 – 6000 • 12 – 24 hours</li>
-
-<li>6001 – 10,000 • 24 – 48 hours</li>
-
-<li>10,001 – 20,000 • 2 – 4 days</li>
-
-<li>20,000+ • Custom</li>
-
-</ul>
+<p>1 – 300 : 1 – 3 hours</p>
+<p>301 – 1000 : 3 – 6 hours</p>
+<p>1001 – 3000 : 6 – 12 hours</p>
+<p>3001 – 6000 : 12 – 24 hours</p>
+<p>6001 – 10000 : 24 – 48 hours</p>
+<p>10001 – 20000 : 2 – 4 days</p>
+<p>20000+ : Custom timeline</p>
 
 </div>
 
 
 
+<div class="price express">
 
+<h3>
+EXPRESS — .05 / word
+</h3>
 
-
-<div class="price-card express">
-
-<h3>EXPRESS — .05 / word</h3>
-
-<ul>
-
-<li>1 – 300 • 30 – 60 minutes</li>
-
-<li>301 – 1000 • 1 – 3 hours</li>
-
-<li>1001 – 3000 • 3 – 6 hours</li>
-
-<li>3001 – 6000 • 6 – 12 hours</li>
-
-<li>6001 – 10,000 • 12 – 24 hours</li>
-
-<li>10,001 – 20,000 • 24 – 48 hours</li>
-
-<li>20,000+ • Custom</li>
-
-</ul>
+<p>1 – 300 : 30 – 60 minutes</p>
+<p>301 – 1000 : 1 – 3 hours</p>
+<p>1001 – 3000 : 3 – 6 hours</p>
+<p>3001 – 6000 : 6 – 12 hours</p>
+<p>6001 – 10000 : 12 – 24 hours</p>
+<p>10001 – 20000 : 24 – 48 hours</p>
+<p>20000+ : Custom timeline</p>
 
 </div>
 
@@ -118,12 +87,8 @@
 </div>
 
 
-</div>
 
-
-
-<script src="/js/request.js"></script>
+<script src="request.js"></script>
 
 </body>
-
 </html>

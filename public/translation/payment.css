@@ -1,56 +1,35 @@
-﻿
+
 body{
 
-font-family:-apple-system,Segoe UI;
+background:linear-gradient(
+135deg,
+#eaf2ff,
+white
+);
 
-background:#eef2f5;
+font-family:Segoe UI;
 
-margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
 
-}
-
-
-.header{
-
-text-align:center;
-
-margin-top:40px;
-
-}
-
-
-.card{
-
-background:white;
-
-width:400px;
-
-margin:auto;
-
-margin-top:40px;
-
-padding:30px;
-
-border-radius:10px;
-
-box-shadow:0 5px 20px rgba(0,0,0,.1);
+height:100vh;
 
 }
 
 
-button{
 
-padding:12px 20px;
+.glass{
 
-border:none;
+padding:40px;
 
-background:#2b7cff;
+border-radius:20px;
 
-color:white;
+background:rgba(255,255,255,0.2);
 
-border-radius:5px;
+backdrop-filter:blur(20px);
 
-cursor:pointer;
+box-shadow:0 8px 32px rgba(0,0,0,0.2);
 
 }
 

@@ -5,38 +5,27 @@
 
 <head>
 
-<title>Payment</title>
+<link rel='stylesheet' href='payment.css'>
 
 </head>
 
 <body>
 
 
-<h1>Payment</h1>
+<div class='glass'>
 
 
-<p id="details"></p>
+<h2 id='type'></h2>
+
+<h1 id='price'></h1>
+
+<p id='time'></p>
 
 
-<script>
+</div>
 
 
-const params=new URLSearchParams(window.location.search);
-
-
-document.getElementById("details").innerHTML=
-
-params.get("type")+"<br>"+
-
-"$"+params.get("price")+"<br>"+
-
-params.get("time")+"<br>"+
-
-params.get("words")+" words";
-
-
-
-</script>
+<script src='payment.js'></script>
 
 
 </body>

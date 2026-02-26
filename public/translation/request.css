@@ -1,138 +1,68 @@
-﻿
+
 body{
 
-margin:0;
+font-family: "Segoe UI", sans-serif;
 
-font-family:-apple-system, BlinkMacSystemFont, sans-serif;
-
-background:linear-gradient(180deg,#eef2f7,#dbe4ee);
-
-}
-
-
-.page{
-
-width:900px;
-
-margin:auto;
-
-padding-top:40px;
-
-}
-
-
-
-.title-main{
+background: linear-gradient(
+135deg,
+#eaf2ff,
+#ffffff
+);
 
 text-align:center;
 
-font-size:32px;
+}
 
-font-weight:600;
 
-margin-bottom:8px;
+
+.header h1{
+
+font-size:42px;
+font-weight:500;
 
 }
 
 
 
-.subtitle{
-
-text-align:center;
-
-color:#6b7280;
-
-margin-bottom:30px;
-
-}
-
-
-
-.dot{
-
-margin:0 8px;
-
-}
-
-
-
-.glass-card{
-
-
-padding:30px;
-
-margin-bottom:40px;
-
-border-radius:20px;
-
-background:rgba(255,255,255,0.6);
-
-backdrop-filter:blur(20px);
-
-box-shadow:
-
-0 8px 32px rgba(0,0,0,0.1),
-
-inset 0 0 20px rgba(255,255,255,0.5);
-
-
-}
-
-
-
-button{
-
-
-margin-top:15px;
-
-padding:12px 20px;
-
-border:none;
-
-border-radius:12px;
-
-background:#3b82f6;
-
-color:white;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-
-
-.pricing-area{
-
+.container{
 
 display:flex;
-
-gap:20px;
+justify-content:center;
+gap:50px;
+margin-top:40px;
 
 }
 
 
 
-.price-card{
+.glass{
 
-
-flex:1;
-
-padding:20px;
+width:420px;
+padding:30px;
 
 border-radius:20px;
 
-background:rgba(255,255,255,0.5);
+background: rgba(255,255,255,0.15);
 
-backdrop-filter:blur(20px);
+backdrop-filter: blur(20px);
 
 box-shadow:
 
-0 8px 32px rgba(0,0,0,0.1),
+0 8px 32px rgba(0,0,0,0.15),
 
-inset 0 0 20px rgba(255,255,255,0.5);
+inset 0 0 10px rgba(255,255,255,0.5);
 
+}
+
+
+
+.price{
+
+margin-top:20px;
+padding:20px;
+border-radius:15px;
+
+background: rgba(255,255,255,0.3);
 
 }
 
@@ -140,7 +70,7 @@ inset 0 0 20px rgba(255,255,255,0.5);
 
 .standard{
 
-border-left:5px solid #22c55e;
+border:1px solid green;
 
 }
 
@@ -148,7 +78,89 @@ border-left:5px solid #22c55e;
 
 .express{
 
-border-left:5px solid #ef4444;
+border:1px solid red;
+
+}
+
+
+
+button{
+
+margin-top:20px;
+
+padding:15px 30px;
+
+border-radius:10px;
+
+border:none;
+
+background:linear-gradient(
+90deg,
+#00c6ff,
+#0072ff
+);
+
+color:white;
+
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+
+
+button:active{
+
+transform:scale(.95);
+
+}
+
+
+
+.quoteCard{
+
+margin-top:20px;
+padding:15px;
+border-radius:10px;
+cursor:pointer;
+
+}
+
+
+
+.quoteStandard{
+
+background:#eaffea;
+border:1px solid green;
+
+}
+
+
+
+.quoteExpress{
+
+background:#ffeaea;
+border:1px solid red;
+
+}
+
+
+
+@media(max-width:900px){
+
+.container{
+
+flex-direction:column;
+align-items:center;
+
+}
 
 }
 
