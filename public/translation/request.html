@@ -1,27 +1,204 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAYBON TRANSLATION SERVICES</title>
 
-<link rel="stylesheet" href="request.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* LOCK: NEVER CHANGE TYPOGRAPHY ON MOBILE /
+
+body{
+
+margin:0;
+font-family:'Inter',sans-serif;
+background:linear-gradient(to bottom,#eef1f6,#dde3eb);
+color:#3a3a3a;
+
+}
+
+
+/ HEADER /
+
+.header{
+
+text-align:center;
+margin-top:40px;
+
+}
+
+.header h1{
+
+font-size:28px;
+letter-spacing:2px;
+font-weight:500;
+margin:0;
+color:#3a3a3a;
+
+}
+
+.sub{
+
+font-size:11px;
+letter-spacing:2px;
+margin-top:10px;
+color:#555;
+
+}
+
+
+/ LAYOUT /
+
+.container{
+
+display:flex;
+justify-content:center;
+gap:60px;
+margin-top:40px;
+flex-wrap:wrap;
+
+}
+
+
+/ 3D GLASS LOCK /
+
+.glass{
+
+width:340px;
+height:340px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.25);
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+
+inset 0 1px 0 rgba(255,255,255,.6),
+0 10px 30px rgba(0,0,0,.15);
+
+padding:30px;
+
+transition:.3s;
+
+}
+
+.glass:hover{
+
+transform:translateY(-5px);
+
+}
+
+
+/ PRICE CARDS /
+
+.price-card{
+
+border-radius:20px;
+padding:15px;
+margin-bottom:15px;
+
+font-size:13px;
+letter-spacing:.5px;
+line-height:1.6;
+
+text-align:left;
+
+}
+
+
+.standard{
+
+border:1px solid #34c759;
+
+}
+
+.express{
+
+border:1px solid #ff3b30;
+
+}
+
+
+/ BUTTON /
+
+button{
+
+margin-top:20px;
+padding:12px 20px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(to right,#6dd5fa,#3a7bd5);
+
+color:white;
+
+letter-spacing:1px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+button:active{
+
+transform:scale(.96);
+
+}
+
+
+/ LOCK MOBILE STACK ONLY — NO FONT CHANGE */
+
+@media(max-width:768px){
+
+.container{
+
+flex-direction:column-reverse;
+align-items:center;
+
+}
+
+}
+
+
+a{
+
+text-decoration:none;
+color:inherit;
+
+}
+
+</style>
 
 </head>
-<body>
 
+
+<body>
 
 
 <div class="header">
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
-<p>
+<div class="sub">
 
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
-</p>
+</div>
 
 </div>
 
@@ -31,29 +208,34 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 
 
+<!-- UPLOAD CARD -->
+
 <div class="glass">
 
-<input type="file" id="file">
+<input type="file">
 
-<button onclick="quote()">
+<br>
 
-Upload Document To Get Quote
+<button>
+
+UPLOAD DOCUMENT TO GET QUOTE
 
 </button>
-
-<div id="result"></div>
 
 </div>
 
 
 
+<!-- PRICE CARD -->
+
 <div class="glass">
 
 
+<div class="price-card standard">
 
-<div class="price standard">
+<b>STANDARD — 0.025 / word</b>
 
-<b>STANDARD — .025 / word</b><br><br>
+<br><br>
 
 1 – 300 : 1 – 3 hours<br>
 
@@ -73,13 +255,11 @@ Upload Document To Get Quote
 
 
 
-<br>
+<div class="price-card express">
 
+<b>EXPRESS — 0.05 / word</b>
 
-
-<div class="price express">
-
-<b>EXPRESS — .05 / word</b><br><br>
+<br><br>
 
 1 – 300 : 30 – 60 minutes<br>
 
@@ -98,16 +278,14 @@ Upload Document To Get Quote
 </div>
 
 
-
 </div>
 
 
 
 </div>
 
-
-
-<script src="request.js"></script>
 
 </body>
+
 </html>
+
