@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -7,7 +7,9 @@
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="request.css">
+<link rel="stylesheet" href="/css/request.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 </head>
 
@@ -17,43 +19,32 @@
 <div class="page">
 
 
-<h1 class="title-main">
+<div class="header">
 
-SayBon Translation Services
+<h1>SayBon Translation Services</h1>
 
-</h1>
-
-
-
-<div class="subtitle">
-
-<span>Translated by experts</span>
-
-<span class="dot">â€¢</span>
-
-<span>Quick delivery</span>
-
-<span class="dot">â€¢</span>
-
-<span>Confidential</span>
+<p>Translated by experts • Quick delivery • Confidential</p>
 
 </div>
 
 
 
+<div class="glass-container">
 
-<div class="glass-card">
+
+
+<div class="glass-card left">
+
 
 <input type="file" id="fileInput">
 
-<button onclick="getQuote()" id="quoteBtn">
 
-Upload Document To Get Quote
-
-</button>
+<button id="uploadBtn" onclick="getQuote()">Upload Document To Get Quote</button>
 
 
-<div id="quoteResult"></div>
+
+<div id="quoteArea"></div>
+
 
 
 </div>
@@ -61,58 +52,64 @@ Upload Document To Get Quote
 
 
 
-<div class="pricing-area">
+
+
+<div class="glass-card right">
 
 
 <div class="price-card standard">
 
-<h2>
+<h3>STANDARD — .025 / word</h3>
 
-STANDARD â€” $0.025 / word
+<ul>
 
-</h2>
+<li>1 – 300 • 1 – 3 hours</li>
 
-<p>1 â€“ 300 words â€¢ 1 â€“ 3 hours</p>
+<li>301 – 1000 • 3 – 6 hours</li>
 
-<p>301 â€“ 1000 words â€¢ 3 â€“ 6 hours</p>
+<li>1001 – 3000 • 6 – 12 hours</li>
 
-<p>1001 â€“ 3000 words â€¢ 6 â€“ 12 hours</p>
+<li>3001 – 6000 • 12 – 24 hours</li>
 
-<p>3001 â€“ 6000 words â€¢ 12 â€“ 24 hours</p>
+<li>6001 – 10,000 • 24 – 48 hours</li>
 
-<p>6001 â€“ 10,000 words â€¢ 24 â€“ 48 hours</p>
+<li>10,001 – 20,000 • 2 – 4 days</li>
 
-<p>10,001 â€“ 20,000 words â€¢ 2 â€“ 4 days</p>
+<li>20,000+ • Custom</li>
 
-<p>20,000+ â€¢ Custom timeline</p>
-
+</ul>
 
 </div>
+
+
 
 
 
 
 <div class="price-card express">
 
-<h2>
+<h3>EXPRESS — .05 / word</h3>
 
-EXPRESS â€” $0.05 / word
+<ul>
 
-</h2>
+<li>1 – 300 • 30 – 60 minutes</li>
 
-<p>1 â€“ 300 words â€¢ 30 â€“ 60 minutes</p>
+<li>301 – 1000 • 1 – 3 hours</li>
 
-<p>301 â€“ 1000 words â€¢ 1 â€“ 3 hours</p>
+<li>1001 – 3000 • 3 – 6 hours</li>
 
-<p>1001 â€“ 3000 words â€¢ 3 â€“ 6 hours</p>
+<li>3001 – 6000 • 6 – 12 hours</li>
 
-<p>3001 â€“ 6000 words â€¢ 6 â€“ 12 hours</p>
+<li>6001 – 10,000 • 12 – 24 hours</li>
 
-<p>6001 â€“ 10,000 words â€¢ 12 â€“ 24 hours</p>
+<li>10,001 – 20,000 • 24 – 48 hours</li>
 
-<p>10,001 â€“ 20,000 words â€¢ 24 â€“ 48 hours</p>
+<li>20,000+ • Custom</li>
 
-<p>20,000+ â€¢ Custom timeline</p>
+</ul>
+
+</div>
+
 
 
 </div>
@@ -125,8 +122,7 @@ EXPRESS â€” $0.05 / word
 
 
 
-<script src="request.js"></script>
-
+<script src="/js/request.js"></script>
 
 </body>
 

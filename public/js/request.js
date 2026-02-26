@@ -1,73 +1,139 @@
-ï»¿
-const fileInput=document.getElementById("fileInput");
 
-const uploadBtn=document.getElementById("uploadBtn");
+function getTimelineStandard(words){
 
-const fileName=document.getElementById("fileName");
+if(words<=300)return "1 – 3 hours";
 
-const wordCountBox=document.getElementById("wordCountBox");
+if(words<=1000)return "3 – 6 hours";
 
-const quoteBox=document.getElementById("quoteBox");
+if(words<=3000)return "6 – 12 hours";
 
+if(words<=6000)return "12 – 24 hours";
 
+if(words<=10000)return "24 – 48 hours";
 
-fileInput.onchange=()=>{
+if(words<=20000)return "2 – 4 days";
 
-fileName.innerText=fileInput.files[0].name;
+return "Custom";
 
-};
-
-
-
-uploadBtn.onclick=()=>{
-
-
-uploadBtn.innerText="Getting quote â³";
+}
 
 
 
-setTimeout(()=>{
+function getTimelineExpress(words){
+
+if(words<=300)return "30 – 60 minutes";
+
+if(words<=1000)return "1 – 3 hours";
+
+if(words<=3000)return "3 – 6 hours";
+
+if(words<=6000)return "6 – 12 hours";
+
+if(words<=10000)return "12 – 24 hours";
+
+if(words<=20000)return "24 – 48 hours";
+
+return "Custom";
+
+}
 
 
-let words= Math.floor(Math.random()*4000)+100;
 
 
-wordCountBox.innerHTML="Word count: "+words;
+function getQuote(){
+
+
+var file=document.getElementById("fileInput").files[0];
+
+if(!file){alert("Select file");return;}
+
+
+var reader=new FileReader();
+
+
+reader.onload=function(e){
 
 
 
-let standard=words*0.025;
 
-let express=words*0.05;
-
+var words=e.target.result.split(/\s+/).length;
 
 
-quoteBox.innerHTML=`
 
-<div class="quote-card standard">
+var standardPrice=(words*0.025).toFixed(2);
 
-Standard â€” $${standard.toFixed(2)}
+var expressPrice=(words*0.05).toFixed(2);
+
+
+var standardTime=getTimelineStandard(words);
+
+var expressTime=getTimelineExpress(words);
+
+
+
+document.getElementById("quoteArea").innerHTML=
+
+<p> words</p>
+
+
+<div class="quote-option standardQuote"
+
+onclick="goPay('standard',,'',)">
+
+
+Standard — public\css\request.css{standardPrice}
+
+<br>
+
+
 
 </div>
 
 
 
-<div class="quote-card express">
+<div class="quote-option-option expressQuote"
 
-Express â€” $${express.toFixed(2)}
+onclick="goPay('express',,'',)">
+
+Express — public\css\request.css{expressPrice}
+
+<br>
+
+
 
 </div>
 
-`;
+;
 
-
-
-uploadBtn.innerText="Upload Document To Get Quote";
-
-
-
-},2000);
 
 
 };
+
+
+
+reader.readAsText(file);
+
+
+
+}
+
+
+
+function goPay(type,price,time,words){
+
+
+window.location.href=
+
+/translation/payment.html?
+
+type=
+
+&price=
+
+&time=
+
+&words=;
+
+
+}
 

@@ -1,79 +1,45 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
+
 <html>
+
 <head>
 
 <title>Payment</title>
-
-<link rel="stylesheet" href="payment.css">
 
 </head>
 
 <body>
 
 
-<div class="header">
-
 <h1>Payment</h1>
 
-</div>
+
+<p id="details"></p>
 
 
-<div class="card">
+<script>
 
 
-<p>
-
-Plan: <span id="plan"></span>
-
-</p>
+const params=new URLSearchParams(window.location.search);
 
 
-<p>
+document.getElementById("details").innerHTML=
 
-Words: <span id="words"></span>
+params.get("type")+"<br>"+
 
-</p>
+"$"+params.get("price")+"<br>"+
 
+params.get("time")+"<br>"+
 
-<p>
-
-Delivery: <span id="delivery"></span>
-
-</p>
+params.get("words")+" words";
 
 
-<p>
 
-Amount: $<span id="amount"></span>
-
-</p>
-
-
-<br>
-
-
-<button>
-
-Pay with Stripe
-
-</button>
-
-
-<br><br>
-
-
-<button>
-
-Pay with Paystack
-
-</button>
-
-
-</div>
-
-
-<script src="payment.js"></script>
+</script>
 
 
 </body>
+
 </html>
+
