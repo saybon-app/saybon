@@ -39,28 +39,28 @@ color:#666;
 
 display:flex;
 justify-content:center;
-gap:40px;
+gap:60px;
 margin-top:40px;
 flex-wrap:wrap;
 
 }
 
 
-/* GLASS CARD */
+/* GLASS CARD — INCREASED SIZE ONLY */
 
 .glass{
 
-width:340px;
-height:340px;
+width:420px;
+height:420px;
 
-border-radius:30px;
+border-radius:34px;
 
 background:rgba(255,255,255,0.35);
 
 backdrop-filter:blur(20px);
 
 box-shadow:
-0 10px 30px rgba(0,0,0,0.1),
+0 10px 40px rgba(0,0,0,0.12),
 inset 0 1px 0 rgba(255,255,255,0.6);
 
 display:flex;
@@ -70,7 +70,7 @@ align-items:center;
 }
 
 
-/* PRICE CARD HOLDER */
+/* HOLDER */
 
 .price-holder{
 
@@ -82,7 +82,7 @@ align-items:center;
 }
 
 
-/* PRICE CARD */
+/* PRICE CARD — SIZE LOCKED (DO NOT CHANGE) */
 
 .price-card{
 
@@ -103,16 +103,13 @@ line-height:18px;
 }
 
 
-/* GREEN */
+/* COLORS */
 
 .standard{
 
 border:2px solid #2e7d32;
 
 }
-
-
-/* RED */
 
 .express{
 
@@ -121,7 +118,8 @@ border:2px solid #c62828;
 }
 
 
-/* MOBILE */
+
+/* MOBILE STACK */
 
 @media(max-width:800px){
 
@@ -132,8 +130,18 @@ align-items:center;
 
 }
 
+.glass{
+
+width:90%;
+height:auto;
+padding:40px 0;
+
 }
 
+}
+
+
+/* BUTTON */
 
 button{
 
@@ -163,12 +171,9 @@ transform:scale(0.95);
 
 </style>
 
-
 </head>
 
-
 <body>
-
 
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
@@ -180,47 +185,34 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
 
-
 <div class="container">
 
 
-
-<!-- UPLOAD CARD -->
-
+<!-- UPLOAD -->
 
 <div class="glass">
 
-
 <div>
 
-
 <input type="file" id="file">
-
 
 <br><br>
 
 <button onclick="quote()">UPLOAD DOCUMENT TO GET QUOTE</button>
 
-
 <div id="result"></div>
 
+</div>
 
 </div>
 
 
-</div>
 
-
-
-
-<!-- PRICE CARD -->
-
+<!-- PRICE -->
 
 <div class="glass">
 
-
 <div class="price-holder">
-
 
 
 <div class="price-card standard">
@@ -296,9 +288,7 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 </div>
 
-
 </div>
-
 
 
 </div>
@@ -307,26 +297,21 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 <script>
 
-
 function quote(){
 
 const file=document.getElementById("file").files[0];
 
 if(!file)return;
 
-
 const reader=new FileReader();
-
 
 reader.onload=function(){
 
 const words=reader.result.split(/\s+/).length;
 
-
 const standard=(words*0.025).toFixed(2);
 
 const express=(words*0.05).toFixed(2);
-
 
 document.getElementById("result").innerHTML=
 
@@ -336,21 +321,16 @@ document.getElementById("result").innerHTML=
 
 "<br>EXPRESS $"+express;
 
-
 };
-
 
 reader.readAsText(file);
 
 }
 
-
-
 </script>
 
 
 </body>
-
 
 </html>
 
