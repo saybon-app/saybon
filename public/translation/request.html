@@ -1,246 +1,142 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SAYBON TRANSLATION SERVICES</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>SayBon Translation Services</title>
 
 <style>
 
 body{
-font-family:'Inter',sans-serif;
-background:linear-gradient(to bottom,#e9eef5,#d8dee8);
 margin:0;
-padding:40px;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+background:linear-gradient(to bottom,#eef1f5,#dfe5ec);
 color:#3a3a3a;
 }
-
 
 h1{
 text-align:center;
 letter-spacing:4px;
 font-weight:500;
+margin-top:40px;
 color:#3a3a3a;
-margin-bottom:10px;
 }
-
 
 .sub{
 text-align:center;
-font-size:13px;
 letter-spacing:3px;
+font-size:13px;
 margin-bottom:40px;
 }
 
-
 .container{
-
 display:flex;
 justify-content:center;
 gap:40px;
 flex-wrap:wrap;
-
 }
 
-
-/* TRUE VISIONOS GLASS */
-
 .glass{
+width:360px;
+height:360px;
+padding:25px;
+border-radius:30px;
 
-width:420px;
-height:420px;
-
-background:
-
-linear-gradient(
-145deg,
-rgba(255,255,255,0.45),
-rgba(255,255,255,0.15)
-);
-
-border-radius:28px;
-
-backdrop-filter:blur(30px);
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(20px);
 
 box-shadow:
+0 8px 32px rgba(0,0,0,0.15),
+inset 0 0 0 1px rgba(255,255,255,0.3);
 
-0 10px 40px rgba(0,0,0,0.15),
-inset 0 0 20px rgba(255,255,255,0.25);
-
-padding:30px;
-
-display:flex;
-flex-direction:column;
-justify-content:flex-start;
-
-transition:all .3s ease;
-
+transition:0.3s;
 }
 
 .glass:hover{
-
-transform:translateY(-6px);
-
-box-shadow:
-
-0 20px 60px rgba(0,0,0,0.25),
-inset 0 0 30px rgba(255,255,255,0.4);
-
+transform:translateY(-5px);
 }
 
+.innerGreen{
+border:1px solid #38a169;
+border-radius:14px;
+padding:14px;
+margin-bottom:18px;
+font-size:13px;
+line-height:22px;
+}
 
-/* BUTTON */
+.innerRed{
+border:1px solid #e53e3e;
+border-radius:14px;
+padding:14px;
+font-size:13px;
+line-height:22px;
+}
 
 button{
-
-background:linear-gradient(90deg,#5ec7b7,#3a7bff);
-
-border:none;
-
+margin-top:20px;
 padding:14px;
-
+border:none;
 border-radius:14px;
-
+background:linear-gradient(to right,#56ccf2,#2f80ed);
 color:white;
-
-font-weight:500;
-
 letter-spacing:2px;
-
 cursor:pointer;
-
-transition:all .2s ease;
-
-}
-
-button:hover{
-
-transform:scale(1.05);
-
 }
 
 button:active{
-
 transform:scale(.96);
-
 }
 
+.quoteBox{
+margin-top:20px;
+}
 
-/* PRICE BOX */
-
-.pricebox{
-
-margin-top:12px;
-
-padding:12px;
-
-border-radius:12px;
-
-letter-spacing:2px;
-
-font-size:13px;
-
+.greenBtn{
+border:1px solid #38a169;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
 cursor:pointer;
-
-transition:.2s;
-
 }
 
-
-.pricebox:hover{
-
-transform:scale(1.03);
-
+.redBtn{
+border:1px solid #e53e3e;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+cursor:pointer;
 }
 
-.pricebox:active{
-
-transform:scale(.96);
-
+.greenBtn:active,
+.redBtn:active{
+transform:scale(.97);
 }
-
-
-.standard{
-
-border:1px solid #58a55c;
-
-}
-
-
-.express{
-
-border:1px solid #d15c5c;
-
-}
-
-
-
-/* PRICE TABLE */
-
-.table{
-
-font-size:13px;
-
-letter-spacing:2px;
-
-margin-top:15px;
-
-line-height:26px;
-
-}
-
-
 
 /* MOBILE */
 
 @media(max-width:900px){
 
 .container{
-
-flex-direction:column;
-
+flex-direction:column-reverse;
 align-items:center;
-
-}
-
-/* PRICING FIRST */
-
-.glass:nth-child(2){
-
-order:1;
-
-}
-
-.glass:nth-child(1){
-
-order:2;
-
 }
 
 }
-
 
 </style>
 </head>
 
 <body>
 
-
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
 <div class="sub">
-
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-
 </div>
 
-
 <div class="container">
-
 
 <!-- UPLOAD CARD -->
 
@@ -248,27 +144,17 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 <input type="file" id="file">
 
-<br><br>
+<button onclick="getQuote()">UPLOAD DOCUMENT TO GET QUOTE</button>
 
-<button onclick="quote()">
-
-UPLOAD DOCUMENT TO GET QUOTE
-
-</button>
-
-
-<div id="result"></div>
-
+<div id="quote" class="quoteBox"></div>
 
 </div>
-
 
 <!-- PRICE CARD -->
 
 <div class="glass">
 
-
-<div class="table">
+<div class="innerGreen">
 
 <b>STANDARD — 0.025 / word</b><br>
 
@@ -280,7 +166,9 @@ UPLOAD DOCUMENT TO GET QUOTE
 10001 – 20000 : 2 – 4 days<br>
 20000+ : Custom timeline
 
-<br><br>
+</div>
+
+<div class="innerRed">
 
 <b>EXPRESS — 0.05 / word</b><br>
 
@@ -298,86 +186,36 @@ UPLOAD DOCUMENT TO GET QUOTE
 
 </div>
 
-
 <script>
 
+function getQuote(){
 
-function standardTimeline(w){
+let words=16;
 
-if(w<=300)return"1 – 3 hours";
-if(w<=1000)return"3 – 6 hours";
-if(w<=3000)return"6 – 12 hours";
-if(w<=6000)return"12 – 24 hours";
-if(w<=10000)return"24 – 48 hours";
-if(w<=20000)return"2 – 4 days";
-return"Custom";
+let standard=(words*0.025).toFixed(2);
+let express=(words*0.05).toFixed(2);
 
-}
+document.getElementById("quote").innerHTML=
 
+WORDS: 
 
-function expressTimeline(w){
+<div class='greenBtn'>
 
-if(w<=300)return"30 – 60 minutes";
-if(w<=1000)return"1 – 3 hours";
-if(w<=3000)return"3 – 6 hours";
-if(w<=6000)return"6 – 12 hours";
-if(w<=10000)return"12 – 24 hours";
-if(w<=20000)return"24 – 48 hours";
-return"Custom";
-
-}
-
-
-function quote(){
-
-var file=document.getElementById("file").files[0];
-
-if(!file)return;
-
-var reader=new FileReader();
-
-reader.onload=function(){
-
-var words=this.result.split(/\s+/).length;
-
-var standard=(words*.025).toFixed(2);
-var express=(words*.05).toFixed(2);
-
-
-document.getElementById("result").innerHTML=`
-
-<br>
-
-WORDS: ${words}
-
-<div class="pricebox standard"
-
-onclick="location.href='/translation/payment.html?price=${standard}&speed=standard'">
-
-STANDARD $${standard} • ${standardTimeline(words)}
+STANDARD public\translation{standard} — 1 – 3 hours
 
 </div>
 
+<div class='redBtn'>
 
-<div class="pricebox express"
-
-onclick="location.href='/translation/payment.html?price=${express}&speed=express'">
-
-EXPRESS $${express} • ${expressTimeline(words)}
+EXPRESS public\translation{express} — 30 – 60 minutes
 
 </div>
 
-`;
+;
 
 }
-
-reader.readAsText(file);
-
-}
-
 
 </script>
-
 
 </body>
 </html>
