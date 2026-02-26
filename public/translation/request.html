@@ -1,359 +1,348 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
+
 <style>
 
+
 body{
+
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-background:linear-gradient(to bottom,#eef1f5,#dfe5ec);
-color:#3a3a3a;
+padding:0;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+background:linear-gradient(to bottom,#e9edf3,#d8dee8);
+
+color:#333;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
 }
+
+
 
 h1{
-text-align:center;
-letter-spacing:4px;
-font-weight:500;
+
 margin-top:40px;
-color:#3a3a3a;
+margin-bottom:10px;
+
+font-weight:600;
+letter-spacing:4px;
+
+color:#333;
+
 }
+
 
 .sub{
-text-align:center;
-letter-spacing:3px;
+
 font-size:13px;
-margin-bottom:40px;
+letter-spacing:3px;
+
+margin-bottom:30px;
+
+color:#555;
+
 }
+
+
+
 
 .container{
+
 display:flex;
-justify-content:center;
+
 gap:40px;
-flex-wrap:wrap;
+
 }
 
+
+
 .glass{
-width:360px;
-height:360px;
-padding:25px;
+
+width:420px;
+height:420px;
+
 border-radius:30px;
 
-background:rgba(255,255,255,0.25);
+background:rgba(255,255,255,0.35);
+
 backdrop-filter:blur(20px);
 
 box-shadow:
-0 8px 32px rgba(0,0,0,0.15),
-inset 0 0 0 1px rgba(255,255,255,0.3);
+0 10px 30px rgba(0,0,0,0.08),
+inset 0 0 10px rgba(255,255,255,0.6);
 
-transition:0.3s;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
 }
 
-.glass:hover{
-transform:translateY(-5px);
+
+
+.priceCenter{
+
+display:flex;
+gap:20px;
+
 }
 
-.innerGreen{
-border:1px solid #38a169;
-border-radius:14px;
-padding:14px;
-margin-bottom:18px;
-font-size:13px;
-line-height:22px;
+
+
+.standardCard,
+.expressCard{
+
+width:170px;
+
+padding:20px;
+
+border-radius:18px;
+
+font-size:12px;
+line-height:20px;
+
+letter-spacing:1px;
+
+background:white;
+
 }
 
-.innerRed{
-border:1px solid #e53e3e;
-border-radius:14px;
-padding:14px;
-font-size:13px;
-line-height:22px;
+
+.standardCard{
+
+border:2px solid #3aa655;
+
 }
+
+
+.expressCard{
+
+border:2px solid #d64545;
+
+}
+
+
 
 button{
-margin-top:20px;
-padding:14px;
+
+padding:12px 20px;
+
 border:none;
-border-radius:14px;
-background:linear-gradient(to right,#56ccf2,#2f80ed);
+
+border-radius:12px;
+
+background:linear-gradient(to right,#5bbcff,#4f7cff);
+
 color:white;
-letter-spacing:2px;
+
 cursor:pointer;
+
 }
+
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
 
 button:active{
-transform:scale(.96);
+
+transform:scale(0.95);
+
 }
 
-.quoteBox{
-margin-top:20px;
-}
 
-.greenBtn{
-border:1px solid #38a169;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-cursor:pointer;
-}
 
-.redBtn{
-border:1px solid #e53e3e;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-cursor:pointer;
-}
 
-.greenBtn:active,
-.redBtn:active{
-transform:scale(.97);
-}
 
-/* MOBILE */
+@media(max-width:768px){
 
-@media(max-width:900px){
 
 .container{
-flex-direction:column-reverse;
+
+flex-direction:column;
+
 align-items:center;
-}
 
 }
+
+
+.priceCenter{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+
+}
+
+
+
 
 </style>
+
+
+
 </head>
 
+
+
 <body>
+
+
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
 <div class="sub">
+
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
 </div>
+
+
 
 <div class="container">
 
-<!-- UPLOAD CARD -->
+
 
 <div class="glass">
 
-<input type="file" id="file">
 
-<button onclick="getQuote()">UPLOAD DOCUMENT TO GET QUOTE</button>
+<div>
 
-<div id="quote" class="quoteBox"></div>
+<input type="file">
+
+<br><br>
+
+<button>
+
+UPLOAD DOCUMENT TO GET QUOTE
+
+</button>
+
 
 </div>
 
-<!-- PRICE CARD -->
+
+</div>
+
+
+
+
+
 
 <div class="glass">
 
-<div class="innerGreen">
 
-<b>STANDARD — 0.025 / word</b><br>
 
-1 – 300 : 1 – 3 hours<br>
-301 – 1000 : 3 – 6 hours<br>
-1001 – 3000 : 6 – 12 hours<br>
-3001 – 6000 : 12 – 24 hours<br>
-6001 – 10000 : 24 – 48 hours<br>
-10001 – 20000 : 2 – 4 days<br>
+<div class="priceCenter">
+
+
+
+<div class="standardCard">
+
+<b>STANDARD — 0.025 / word</b>
+
+<br><br>
+
+1 – 300 : 1 – 3 hours
+
+<br>
+
+301 – 1000 : 3 – 6 hours
+
+<br>
+
+1001 – 3000 : 6 – 12 hours
+
+<br>
+
+3001 – 6000 : 12 – 24 hours
+
+<br>
+
+6001 – 10000 : 24 – 48 hours
+
+<br>
+
+10001 – 20000 : 2 – 4 days
+
+<br>
+
 20000+ : Custom timeline
 
 </div>
 
-<div class="innerRed">
 
-<b>EXPRESS — 0.05 / word</b><br>
 
-1 – 300 : 30 – 60 minutes<br>
-301 – 1000 : 1 – 3 hours<br>
-1001 – 3000 : 3 – 6 hours<br>
-3001 – 6000 : 6 – 12 hours<br>
-6001 – 10000 : 12 – 24 hours<br>
-10001 – 20000 : 24 – 48 hours<br>
+
+
+<div class="expressCard">
+
+<b>EXPRESS — 0.05 / word</b>
+
+<br><br>
+
+1 – 300 : 30 – 60 minutes
+
+<br>
+
+301 – 1000 : 1 – 3 hours
+
+<br>
+
+1001 – 3000 : 3 – 6 hours
+
+<br>
+
+3001 – 6000 : 6 – 12 hours
+
+<br>
+
+6001 – 10000 : 12 – 24 hours
+
+<br>
+
+10001 – 20000 : 24 – 48 hours
+
+<br>
+
 20000+ : Custom timeline
 
 </div>
 
-</div>
+
+
 
 </div>
 
-<script>
 
-function getQuote(){
-
-let words=16;
-
-let standard=(words*0.025).toFixed(2);
-let express=(words*0.05).toFixed(2);
-
-document.getElementById("quote").innerHTML=
-
-WORDS: 
-
-<div class='greenBtn'>
-
-STANDARD public\translation{standard} — 1 – 3 hours
 
 </div>
 
-<div class='redBtn'>
 
-EXPRESS public\translation{express} — 30 – 60 minutes
 
 </div>
 
-;
 
-}
 
-</script>
 
 </body>
+
 </html>
 
-<style>
-
-/* GLASS CARD — LOCKED SQUARE */
-.glass{
-
-width:360px;
-height:360px;
-
-padding:20px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-
-}
-
-
-/* INNER PRICE CARDS — COMPRESSED TO FIT */
-
-.innerGreen,
-.innerRed{
-
-font-size:12px;
-line-height:18px;
-
-padding:10px;
-
-margin-bottom:10px;
-
-}
-
-
-/* REMOVE EXTRA SPACE ON LAST CARD */
-
-.innerRed{
-
-margin-bottom:0;
-
-}
-
-</style>
-<style>
-
-/* PRICE CONTAINER — SIDE BY SIDE */
-.priceWrapper{
-
-display:flex;
-gap:16px;
-
-justify-content:center;
-align-items:flex-start;
-
-}
-
-
-/* INNER CARDS WIDTH LOCK */
-
-.innerGreen,
-.innerRed{
-
-width:160px;
-
-font-size:12px;
-line-height:18px;
-
-}
-
-
-/* MOBILE STACK FIX */
-
-@media(max-width:768px){
-
-.priceWrapper{
-
-flex-direction:column;
-align-items:center;
-
-}
-
-.innerGreen,
-.innerRed{
-
-width:100%;
-
-}
-
-}
-
-</style>
-<style>
-
-/* CENTER INNER PRICE CARDS — DO NOT CHANGE SIZE */
-
-.priceWrapper{
-
-display:flex;
-
-justify-content:center;   /* horizontal center */
-align-items:center;       /* vertical center */
-
-gap:16px;
-
-margin:auto;
-
-width:100%;
-
-}
-
-
-/* ENSURE GLASS CARD CONTENT CENTERS */
-
-.glassPrice{
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-}
-
-
-/* MOBILE CENTER */
-
-@media(max-width:768px){
-
-.priceWrapper{
-
-flex-direction:column;
-
-justify-content:center;
-align-items:center;
-
-}
-
-}
-
-</style>
