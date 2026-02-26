@@ -12,7 +12,7 @@ return;
 
 
 // ============================================
-// REAL WORD COUNT
+// WORD COUNT
 // ============================================
 
 let words=0;
@@ -33,7 +33,7 @@ words=Math.round(file.size/6);
 
 
 // ============================================
-// PRICE CALCULATION
+// PRICE
 // ============================================
 
 const standardPrice=(words*0.025).toFixed(2);
@@ -42,22 +42,22 @@ const expressPrice=(words*0.05).toFixed(2);
 
 
 // ============================================
-// REAL DELIVERY TIMELINE ENGINE
+// DELIVERY TIMELINES (WITH SPACED HYPHENS)
 // ============================================
 
 function getStandardTimeline(words){
 
-if(words<=300) return "1–3 hours";
+if(words<=300) return "1 - 3 hours";
 
-if(words<=1000) return "3–6 hours";
+if(words<=1000) return "3 - 6 hours";
 
-if(words<=3000) return "6–12 hours";
+if(words<=3000) return "6 - 12 hours";
 
-if(words<=6000) return "12–24 hours";
+if(words<=6000) return "12 - 24 hours";
 
-if(words<=10000) return "24–48 hours";
+if(words<=10000) return "24 - 48 hours";
 
-if(words<=20000) return "2–4 days";
+if(words<=20000) return "2 - 4 days";
 
 return "Custom timeline";
 
@@ -66,17 +66,17 @@ return "Custom timeline";
 
 function getExpressTimeline(words){
 
-if(words<=300) return "30–60 minutes";
+if(words<=300) return "30 - 60 minutes";
 
-if(words<=1000) return "1–3 hours";
+if(words<=1000) return "1 - 3 hours";
 
-if(words<=3000) return "3–6 hours";
+if(words<=3000) return "3 - 6 hours";
 
-if(words<=6000) return "6–12 hours";
+if(words<=6000) return "6 - 12 hours";
 
-if(words<=10000) return "12–24 hours";
+if(words<=10000) return "12 - 24 hours";
 
-if(words<=20000) return "24–48 hours";
+if(words<=20000) return "24 - 48 hours";
 
 return "Custom timeline";
 
@@ -89,17 +89,13 @@ const expressTimeline=getExpressTimeline(words);
 
 
 // ============================================
-// DISPLAY WORD COUNT
+// DISPLAY
 // ============================================
 
 document.getElementById("wordCount").innerHTML=
 
 "<br>"+words+" words";
 
-
-// ============================================
-// DISPLAY QUOTE BUTTONS
-// ============================================
 
 document.getElementById("quote").innerHTML=`
 
