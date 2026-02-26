@@ -294,3 +294,73 @@ reader.readAsText(file);
 
 </body>
 </html>
+<script>
+
+function getTimeline(words, plan){
+
+words = parseInt(words);
+
+const standard = [
+[300,"1–3 hrs"],
+[1000,"3–6 hrs"],
+[3000,"6–12 hrs"],
+[6000,"12–24 hrs"],
+[10000,"24–48 hrs"],
+[20000,"2–4 days"],
+[9999999,"Custom"]
+];
+
+const express = [
+[300,"30–60 mins"],
+[1000,"1–3 hrs"],
+[3000,"3–6 hrs"],
+[6000,"6–12 hrs"],
+[10000,"12–24 hrs"],
+[20000,"24–48 hrs"],
+[9999999,"Custom"]
+];
+
+const table = plan==="standard" ? standard : express;
+
+for(let i of table){
+
+if(words<=i[0]) return i[1];
+
+}
+
+}
+
+function updateQuoteCards(words){
+
+const standardPrice=(words*0.025).toFixed(2);
+const expressPrice=(words*0.05).toFixed(2);
+
+const standardTimeline=getTimeline(words,"standard");
+const expressTimeline=getTimeline(words,"express");
+
+const standardCard=document.getElementById("standardCard");
+const expressCard=document.getElementById("expressCard");
+
+standardCard.innerHTML=
+STANDARD \C:\SayBon{standardPrice} • ;
+
+expressCard.innerHTML=
+EXPRESS \C:\SayBon{expressPrice} • ;
+
+standardCard.onclick=function(){
+
+window.location.href=
+/translation/payment.html?plan=standard&words=&price=&timeline=;
+
+};
+
+expressCard.onclick=function(){
+
+window.location.href=
+/translation/payment.html?plan=express&words=&price=&timeline=;
+
+};
+
+}
+
+</script>
