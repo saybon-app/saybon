@@ -261,3 +261,51 @@ margin-bottom:0;
 }
 
 </style>
+<style>
+
+/* PRICE CONTAINER — SIDE BY SIDE */
+.priceWrapper{
+
+display:flex;
+gap:16px;
+
+justify-content:center;
+align-items:flex-start;
+
+}
+
+
+/* INNER CARDS WIDTH LOCK */
+
+.innerGreen,
+.innerRed{
+
+width:160px;
+
+font-size:12px;
+line-height:18px;
+
+}
+
+
+/* MOBILE STACK FIX */
+
+@media(max-width:768px){
+
+.priceWrapper{
+
+flex-direction:column;
+align-items:center;
+
+}
+
+.innerGreen,
+.innerRed{
+
+width:100%;
+
+}
+
+}
+
+</style>
