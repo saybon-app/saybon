@@ -5,92 +5,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Request</title>
+<title>SayBon Translation Services</title>
 
 <link rel="stylesheet" href="/translation/request.css">
 
 </head>
-<body>
 
+<body>
 
 <header class="header">
 
 <h1>SayBon Translation Services</h1>
 
-<p>
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</p>
+<p>TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL</p>
 
 </header>
-
 
 
 <main class="container">
 
 
-<section class="upload-card glass">
+<div class="glass left">
+
 
 <input type="file" id="fileInput">
 
-<button id="quoteBtn">
+<button id="uploadBtn">
 
-<span id="quoteText">
-
-Upload Document To Get Quote
-
-</span>
+<span id="btnText">Upload Document To Get Quote</span>
 
 </button>
 
 
-<div id="quoteResult"></div>
+<div id="wordCount"></div>
 
+<div id="quotes"></div>
 
-</section>
-
-
-
-<section class="pricing-card glass">
-
-<div class="price-box standard">
-
-<h2>Standard — 0.025 / word</h2>
-
-<ul>
-
-<li>0–300 words: 1–3 hrs</li>
-<li>300–1000 words: 3–6 hrs</li>
-<li>1000–3000 words: 6–12 hrs</li>
-<li>3000–5000 words: 12–24 hrs</li>
-
-</ul>
 
 </div>
 
 
-<div class="price-box express">
 
-<h2>Express — 0.05 / word</h2>
+<div class="glass right">
 
-<ul>
 
-<li>0–300 words: 30–60 mins</li>
-<li>300–1000 words: 1–3 hrs</li>
-<li>1000–3000 words: 3–6 hrs</li>
-<li>3000–5000 words: 6–12 hrs</li>
+<div class="price standard">
 
-</ul>
+<h3>Standard — 0.025 / word</h3>
+
+<p>0–300 words: 1–3 hrs</p>
+<p>300–1000 words: 3–6 hrs</p>
+<p>1000–3000 words: 6–12 hrs</p>
+<p>3000–5000 words: 12–24 hrs</p>
 
 </div>
 
-</section>
+
+<div class="price express">
+
+<h3>Express — 0.05 / word</h3>
+
+<p>0–300 words: 30–60 mins</p>
+<p>300–1000 words: 1–3 hrs</p>
+<p>1000–3000 words: 3–6 hrs</p>
+<p>3000–5000 words: 6–12 hrs</p>
+
+</div>
+
+
+</div>
 
 
 </main>
 
 
 <script src="/translation/request.js"></script>
-
 
 </body>
 </html>

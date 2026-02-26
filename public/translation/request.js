@@ -1,61 +1,128 @@
 ﻿
-const btn = document.getElementById("quoteBtn");
+const btn=document.getElementById("uploadBtn");
 
-const text = document.getElementById("quoteText");
+const text=document.getElementById("btnText");
 
-const result = document.getElementById("quoteResult");
+const quotes=document.getElementById("quotes");
+
+const wordDisplay=document.getElementById("wordCount");
 
 
-btn.onclick = ()=>{
+
+btn.onclick=async()=>{
+
+
+const file=document.getElementById("fileInput").files[0];
+
+if(!file){
+
+alert("Select file first");
+
+return;
+
+}
 
 
 text.innerHTML="Getting Quote ⏳";
 
 
-setTimeout(()=>{
+let words=0;
 
 
-const words = 1200;
+// exact txt word count
 
-const standard = words*.025;
+if(file.name.endsWith(".txt")){
 
-const express = words*.05;
+const content=await file.text();
+
+words=content.split(/\s+/).length;
+
+}else{
+
+// fallback estimate
+
+words=Math.round(file.size/6);
+
+}
 
 
-result.innerHTML=`
+wordDisplay.innerHTML=words+" words detected";
 
-<div class="quote-option standard glass"
 
-onclick="location.href='/translation/payment.html?type=standard&price=${standard}'">
+const standard=(words*.025).toFixed(2);
 
-Standard
+const express=(words*.05).toFixed(2);
 
-$${standard}
 
-6–12 hrs
+let standardTime="";
+
+let expressTime="";
+
+
+if(words<=300){
+
+standardTime="1–3 hrs";
+
+expressTime="30–60 mins";
+
+}
+
+else if(words<=1000){
+
+standardTime="3–6 hrs";
+
+expressTime="1–3 hrs";
+
+}
+
+else if(words<=3000){
+
+standardTime="6–12 hrs";
+
+expressTime="3–6 hrs";
+
+}
+
+else{
+
+standardTime="12–24 hrs";
+
+expressTime="6–12 hrs";
+
+}
+
+
+
+quotes.innerHTML=
+
+`<div class="quote standard"
+
+onclick="location.href='/translation/payment.html?price=${standard}&type=standard'">
+
+Standard<br>
+
+$${standard}<br>
+
+${standardTime}
 
 </div>
 
 
-<div class="quote-option express glass"
 
-onclick="location.href='/translation/payment.html?type=express&price=${express}'">
+<div class="quote express"
 
-Express
+onclick="location.href='/translation/payment.html?price=${express}&type=express'">
 
-$${express}
+Express<br>
 
-3–6 hrs
+$${express}<br>
 
-</div>
+${expressTime}
 
-`;
+</div>`;
 
 
 text.innerHTML="Upload Document To Get Quote";
-
-
-},1500);
 
 
 };
