@@ -1,76 +1,57 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
-
 <style>
 
-
 body{
-
 margin:0;
-padding:0;
-
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-
-background:linear-gradient(to bottom,#e9edf3,#d8dee8);
-
-color:#333;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#d8dde5);
+color:#3a3a3a;
+text-align:center;
 }
 
 
-
 h1{
-
 margin-top:40px;
-margin-bottom:10px;
-
-font-weight:600;
-letter-spacing:4px;
-
-color:#333;
-
+font-weight:500;
+letter-spacing:8px;
+font-size:28px;
 }
 
 
 .sub{
-
-font-size:13px;
-letter-spacing:3px;
-
-margin-bottom:30px;
-
-color:#555;
-
+margin-top:10px;
+font-size:12px;
+letter-spacing:4px;
+color:#666;
 }
 
 
-
+/* MAIN GRID */
 
 .container{
 
 display:flex;
-
+justify-content:center;
 gap:40px;
+margin-top:40px;
+flex-wrap:wrap;
 
 }
 
 
+/* GLASS CARD */
 
 .glass{
 
-width:420px;
-height:420px;
+width:340px;
+height:340px;
 
 border-radius:30px;
 
@@ -79,9 +60,8 @@ background:rgba(255,255,255,0.35);
 backdrop-filter:blur(20px);
 
 box-shadow:
-0 10px 30px rgba(0,0,0,0.08),
-inset 0 0 10px rgba(255,255,255,0.6);
-
+0 10px 30px rgba(0,0,0,0.1),
+inset 0 1px 0 rgba(255,255,255,0.6);
 
 display:flex;
 justify-content:center;
@@ -90,73 +70,89 @@ align-items:center;
 }
 
 
+/* PRICE CARD HOLDER */
 
-.priceCenter{
+.price-holder{
 
 display:flex;
 gap:20px;
+justify-content:center;
+align-items:center;
 
 }
 
 
+/* PRICE CARD */
 
-.standardCard,
-.expressCard{
+.price-card{
 
-width:170px;
-
-padding:20px;
-
-border-radius:18px;
-
-font-size:12px;
-line-height:20px;
-
-letter-spacing:1px;
+width:140px;
 
 background:white;
 
-}
+border-radius:20px;
 
+padding:14px;
 
-.standardCard{
+font-size:11px;
 
-border:2px solid #3aa655;
+text-align:left;
 
-}
-
-
-.expressCard{
-
-border:2px solid #d64545;
+line-height:18px;
 
 }
 
+
+/* GREEN */
+
+.standard{
+
+border:2px solid #2e7d32;
+
+}
+
+
+/* RED */
+
+.express{
+
+border:2px solid #c62828;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+.container{
+
+flex-direction:column-reverse;
+align-items:center;
+
+}
+
+}
 
 
 button{
 
 padding:12px 20px;
-
+border-radius:12px;
 border:none;
 
-border-radius:12px;
-
-background:linear-gradient(to right,#5bbcff,#4f7cff);
+background:linear-gradient(45deg,#5aa9ff,#4be1c3);
 
 color:white;
-
 cursor:pointer;
 
 }
-
 
 button:hover{
 
 transform:scale(1.05);
 
 }
-
 
 button:active{
 
@@ -165,41 +161,10 @@ transform:scale(0.95);
 }
 
 
-
-
-
-@media(max-width:768px){
-
-
-.container{
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-
-.priceCenter{
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-
-}
-
-
-
-
 </style>
 
 
-
 </head>
-
 
 
 <body>
@@ -220,63 +185,67 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 
 
+<!-- UPLOAD CARD -->
+
+
 <div class="glass">
 
 
 <div>
 
-<input type="file">
+
+<input type="file" id="file">
+
 
 <br><br>
 
-<button>
-
-UPLOAD DOCUMENT TO GET QUOTE
-
-</button>
+<button onclick="quote()">UPLOAD DOCUMENT TO GET QUOTE</button>
 
 
-</div>
+<div id="result"></div>
 
 
 </div>
 
 
+</div>
 
 
+
+
+<!-- PRICE CARD -->
 
 
 <div class="glass">
 
 
-
-<div class="priceCenter">
-
+<div class="price-holder">
 
 
-<div class="standardCard">
+
+<div class="price-card standard">
 
 <b>STANDARD — 0.025 / word</b>
 
 <br><br>
 
-1 – 300 : 1 – 3 hours
+1 – 300 : 1 – 3 hrs
 
 <br>
 
-301 – 1000 : 3 – 6 hours
+301 – 1000 : 3 – 6 hrs
 
 <br>
 
-1001 – 3000 : 6 – 12 hours
+1001 – 3000 : 6 – 12 hrs
 
 <br>
 
-3001 – 6000 : 12 – 24 hours
+3001 – 6000 : 12 – 24 hrs
 
 <br>
 
-6001 – 10000 : 24 – 48 hours
+6001 – 10000 : 24 – 48 hrs
 
 <br>
 
@@ -290,35 +259,33 @@ UPLOAD DOCUMENT TO GET QUOTE
 
 
 
-
-
-<div class="expressCard">
+<div class="price-card express">
 
 <b>EXPRESS — 0.05 / word</b>
 
 <br><br>
 
-1 – 300 : 30 – 60 minutes
+1 – 300 : 30 – 60 mins
 
 <br>
 
-301 – 1000 : 1 – 3 hours
+301 – 1000 : 1 – 3 hrs
 
 <br>
 
-1001 – 3000 : 3 – 6 hours
+1001 – 3000 : 3 – 6 hrs
 
 <br>
 
-3001 – 6000 : 6 – 12 hours
+3001 – 6000 : 6 – 12 hrs
 
 <br>
 
-6001 – 10000 : 12 – 24 hours
+6001 – 10000 : 12 – 24 hrs
 
 <br>
 
-10001 – 20000 : 24 – 48 hours
+10001 – 20000 : 24 – 48 hrs
 
 <br>
 
@@ -327,6 +294,7 @@ UPLOAD DOCUMENT TO GET QUOTE
 </div>
 
 
+</div>
 
 
 </div>
@@ -337,12 +305,52 @@ UPLOAD DOCUMENT TO GET QUOTE
 
 
 
-</div>
+<script>
 
 
+function quote(){
+
+const file=document.getElementById("file").files[0];
+
+if(!file)return;
+
+
+const reader=new FileReader();
+
+
+reader.onload=function(){
+
+const words=reader.result.split(/\s+/).length;
+
+
+const standard=(words*0.025).toFixed(2);
+
+const express=(words*0.05).toFixed(2);
+
+
+document.getElementById("result").innerHTML=
+
+"<br>WORDS : "+words+
+
+"<br><br>STANDARD $"+standard+
+
+"<br>EXPRESS $"+express;
+
+
+};
+
+
+reader.readAsText(file);
+
+}
+
+
+
+</script>
 
 
 </body>
+
 
 </html>
 
