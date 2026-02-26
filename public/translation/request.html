@@ -1,128 +1,275 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<title>SayBon Translation Services</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translation Services</title>
+
 
 <style>
 
+
+/* ============================================
+GLOBAL
+============================================ */
+
 body{
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Text",
+"Segoe UI",
+sans-serif;
+
+background:
+linear-gradient(
+180deg,
+#eef1f6,
+#e3e7ee);
+
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
-background:linear-gradient(to bottom,#eef1f6,#e3e8f0);
-color:#333;
+padding:0;
+
+color:#2e2e2e;
+
 }
+
 
 h1{
+
 text-align:center;
+
 margin-top:40px;
-letter-spacing:3px;
-font-weight:500;
+
+font-weight:600;
+
+letter-spacing:2px;
+
+color:#2e2e2e;
+
 }
 
-.sub{
+
+.subtitle{
+
 text-align:center;
+
+margin-top:10px;
+
 letter-spacing:2px;
-font-size:12px;
-margin-bottom:40px;
-color:#666;
+
+font-size:13px;
+
+color:#555;
+
 }
+
+
+
+/* ============================================
+MAIN CONTAINER
+============================================ */
 
 .container{
+
 display:flex;
+
 justify-content:center;
-gap:40px;
+
+gap:60px;
+
+margin-top:60px;
+
 flex-wrap:wrap;
+
 }
 
+
+
+/* ============================================
+GLASS CARD
+============================================ */
 
 .glass{
 
 width:420px;
+
 height:420px;
 
-border-radius:28px;
+background:
+rgba(255,255,255,0.45);
 
-background:rgba(255,255,255,.25);
+border-radius:30px;
 
-backdrop-filter:blur(30px);
+backdrop-filter: blur(20px);
 
 box-shadow:
-0 8px 32px rgba(0,0,0,.15),
-inset 0 0 20px rgba(255,255,255,.3);
+0 10px 40px rgba(0,0,0,0.08);
 
 padding:40px;
 
 display:flex;
+
 flex-direction:column;
-align-items:center;
-justify-content:center;
+
+justify-content:flex-start;
 
 }
 
 
 
-/* PRICE CARD CONTAINER */
+/* ============================================
+UPLOAD SECTION
+============================================ */
 
-
-.price-wrap{
+.upload-row{
 
 display:flex;
-gap:20px;
 
-justify-content:center;
+gap:10px;
+
 align-items:center;
 
-}
-
-
-
-/* INDIVIDUAL PRICE CARDS */
-
-
-.price-card{
-
-width:170px;
-height:240px;
-
-border-radius:18px;
-
-background:white;
-
-padding:18px;
-
-font-size:12px;
-
-line-height:1.6;
+margin-bottom:20px;
 
 }
 
 
-.green{
+.upload-btn{
 
-border:2px solid #2e7d32;
+background:
+rgba(0,128,128,0.85);
+
+color:white;
+
+border:none;
+
+padding:12px 22px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:500;
+
+backdrop-filter:blur(10px);
+
+box-shadow:
+0 4px 15px rgba(0,0,0,0.15);
 
 }
 
 
-.red{
+.upload-btn:hover{
 
-border:2px solid #c62828;
+transform:scale(1.05);
 
 }
 
 
 
-/* MOBILE */
+/* ============================================
+QUOTE CARDS
+============================================ */
 
+.quote{
+
+margin-top:20px;
+
+padding:12px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+
+.standard{
+
+border:1px solid green;
+
+}
+
+
+.express{
+
+border:1px solid red;
+
+}
+
+
+
+/* ============================================
+TABLE
+============================================ */
+
+table{
+
+width:100%;
+
+height:100%;
+
+border-collapse:collapse;
+
+font-size:13px;
+
+}
+
+
+td{
+
+border:1px solid #d0d0d0;
+
+padding:8px;
+
+text-align:left;
+
+}
+
+
+th{
+
+border:1px solid #d0d0d0;
+
+padding:8px;
+
+text-align:left;
+
+}
+
+
+.standard-head{
+
+color:green;
+
+font-weight:600;
+
+}
+
+
+.express-head{
+
+color:red;
+
+font-weight:600;
+
+}
+
+
+
+/* ============================================
+MOBILE
+============================================ */
 
 @media(max-width:900px){
 
 .container{
 
 flex-direction:column-reverse;
+
 align-items:center;
 
 }
@@ -134,29 +281,178 @@ align-items:center;
 
 </head>
 
+
 <body>
+
 
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
+<div class="subtitle">
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+</div>
+
+
+
+<div class="container">
+
+
+
+<!-- ============================================
+UPLOAD CARD
+============================================ -->
+
+
+<div class="glass">
+
+
+<div class="upload-row">
+
+<input type="file" id="file">
+
+<button class="upload-btn"
+onclick="getQuote()">
+
+UPLOAD
+
+</button>
+
+</div>
+
+
+
+<div id="quote"></div>
 
 
 
 </div>
 
 
+
+
+<!-- ============================================
+PRICING CARD
+============================================ -->
+
+
+<div class="glass">
+
+
+<table>
+
+
+<tr>
+
+<th>WORD COUNT</th>
+
+<th class="standard-head">
+STANDARD 0.025 / word
+</th>
+
+<th class="express-head">
+EXPRESS 0.05 / word
+</th>
+
+</tr>
+
+
+<tr>
+<td>1–300</td>
+<td>1–3 hrs</td>
+<td>30–60 mins</td>
+</tr>
+
+<tr>
+<td>301–1000</td>
+<td>3–6 hrs</td>
+<td>1–3 hrs</td>
+</tr>
+
+<tr>
+<td>1001–3000</td>
+<td>6–12 hrs</td>
+<td>3–6 hrs</td>
+</tr>
+
+<tr>
+<td>3001–6000</td>
+<td>12–24 hrs</td>
+<td>6–12 hrs</td>
+</tr>
+
+<tr>
+<td>6001–10000</td>
+<td>24–48 hrs</td>
+<td>12–24 hrs</td>
+</tr>
+
+<tr>
+<td>10001–20000</td>
+<td>2–4 days</td>
+<td>24–48 hrs</td>
+</tr>
+
+<tr>
+<td>20000+</td>
+<td>Custom</td>
+<td>Custom</td>
+</tr>
+
+
+</table>
+
+
 </div>
 
 
 
 </div>
+
+
+
+
+
+<script>
+
+
+
+function getQuote(){
+
+
+let words=1000;
+
+
+let standard=(words*0.025).toFixed(2);
+
+let express=(words*0.05).toFixed(2);
+
+
+document.getElementById("quote").innerHTML=`
+
+<div class="quote standard">
+
+STANDARD $${standard}
+
+</div>
+
+
+<div class="quote express">
+
+EXPRESS $${express}
+
+</div>
+
+`;
+
+
+}
+
+
+
+</script>
+
+
 
 
 </body>
-
 </html>
-
-
-
-
-
