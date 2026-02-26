@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -175,7 +175,7 @@ margin:auto;
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
 <div class="sub">
-TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
 <div class="row">
@@ -209,39 +209,39 @@ UPLOAD
 </tr>
 
 <tr>
-<td>1â€“300</td>
-<td>1â€“3 hrs</td>
-<td>30â€“60 mins</td>
+<td>1–300</td>
+<td>1–3 hrs</td>
+<td>30–60 mins</td>
 </tr>
 
 <tr>
-<td>301â€“1000</td>
-<td>3â€“6 hrs</td>
-<td>1â€“3 hrs</td>
+<td>301–1000</td>
+<td>3–6 hrs</td>
+<td>1–3 hrs</td>
 </tr>
 
 <tr>
-<td>1001â€“3000</td>
-<td>6â€“12 hrs</td>
-<td>3â€“6 hrs</td>
+<td>1001–3000</td>
+<td>6–12 hrs</td>
+<td>3–6 hrs</td>
 </tr>
 
 <tr>
-<td>3001â€“6000</td>
-<td>12â€“24 hrs</td>
-<td>6â€“12 hrs</td>
+<td>3001–6000</td>
+<td>12–24 hrs</td>
+<td>6–12 hrs</td>
 </tr>
 
 <tr>
-<td>6001â€“10000</td>
-<td>24â€“48 hrs</td>
-<td>12â€“24 hrs</td>
+<td>6001–10000</td>
+<td>24–48 hrs</td>
+<td>12–24 hrs</td>
 </tr>
 
 <tr>
-<td>10001â€“20000</td>
-<td>2â€“4 days</td>
-<td>24â€“48 hrs</td>
+<td>10001–20000</td>
+<td>2–4 days</td>
+<td>24–48 hrs</td>
 </tr>
 
 <tr>
@@ -279,10 +279,10 @@ const standard=(words*0.025).toFixed(2);
 const express=(words*0.05).toFixed(2);
 
 document.getElementById("standard").innerHTML=
-"STANDARD $"+standard+" â€¢ timeline applies";
+"STANDARD STANDARD $"+standard+" • timeline applies.00";
 
 document.getElementById("express").innerHTML=
-"EXPRESS $"+express+" â€¢ timeline applies";
+"EXPRESS EXPRESS $"+express+" • timeline applies.00";
 
 };
 
@@ -301,22 +301,22 @@ function getTimeline(words, plan){
 words = parseInt(words);
 
 const standard = [
-[300,"1â€“3 hrs"],
-[1000,"3â€“6 hrs"],
-[3000,"6â€“12 hrs"],
-[6000,"12â€“24 hrs"],
-[10000,"24â€“48 hrs"],
-[20000,"2â€“4 days"],
+[300,"1–3 hrs"],
+[1000,"3–6 hrs"],
+[3000,"6–12 hrs"],
+[6000,"12–24 hrs"],
+[10000,"24–48 hrs"],
+[20000,"2–4 days"],
 [9999999,"Custom"]
 ];
 
 const express = [
-[300,"30â€“60 mins"],
-[1000,"1â€“3 hrs"],
-[3000,"3â€“6 hrs"],
-[6000,"6â€“12 hrs"],
-[10000,"12â€“24 hrs"],
-[20000,"24â€“48 hrs"],
+[300,"30–60 mins"],
+[1000,"1–3 hrs"],
+[3000,"3–6 hrs"],
+[6000,"6–12 hrs"],
+[10000,"12–24 hrs"],
+[20000,"24–48 hrs"],
 [9999999,"Custom"]
 ];
 
@@ -342,10 +342,10 @@ const standardCard=document.getElementById("standardCard");
 const expressCard=document.getElementById("expressCard");
 
 standardCard.innerHTML=
-STANDARD \C:\SayBon{standardPrice} â€¢ ;
+STANDARD \C:\SayBon{standardPrice} • ;
 
 expressCard.innerHTML=
-EXPRESS \C:\SayBon{expressPrice} â€¢ ;
+EXPRESS \C:\SayBon{expressPrice} • ;
 
 standardCard.onclick=function(){
 
@@ -364,3 +364,83 @@ window.location.href=
 }
 
 </script>
+
+
+<script>
+
+function getTimeline(words,plan){
+
+const standard=[
+[300,"1–3 hrs"],
+[1000,"3–6 hrs"],
+[3000,"6–12 hrs"],
+[6000,"12–24 hrs"],
+[10000,"24–48 hrs"],
+[20000,"2–4 days"],
+[9999999,"Custom"]
+];
+
+const express=[
+[300,"30–60 mins"],
+[1000,"1–3 hrs"],
+[3000,"3–6 hrs"],
+[6000,"6–12 hrs"],
+[10000,"12–24 hrs"],
+[20000,"24–48 hrs"],
+[9999999,"Custom"]
+];
+
+const table=plan==="standard"?standard:express;
+
+for(let row of table){
+
+if(words<=row[0]) return row[1];
+
+}
+
+}
+
+
+
+function updateQuoteCards(words){
+
+const standardPrice=(words*0.025).toFixed(2);
+
+const expressPrice=(words*0.05).toFixed(2);
+
+const standardTimeline=getTimeline(words,"standard");
+
+const expressTimeline=getTimeline(words,"express");
+
+const standardCard=document.getElementById("standardCard");
+
+const expressCard=document.getElementById("expressCard");
+
+standardCard.innerHTML=
+STANDARD \public\translation\request.html{standardPrice} • ;
+
+expressCard.innerHTML=
+EXPRESS \public\translation\request.html{expressPrice} • ;
+
+
+
+standardCard.onclick=function(){
+
+window.location.href=
+/translation/payment.html?plan=standard&words=&price=&timeline=;
+
+};
+
+
+
+expressCard.onclick=function(){
+
+window.location.href=
+/translation/payment.html?plan=express&words=&price=&timeline=;
+
+};
+
+}
+
+</script>
+
