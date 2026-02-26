@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
@@ -10,174 +12,238 @@
 
 body{
 
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 
-background:linear-gradient(to bottom,#e9eef5,#d8dde5);
+background:linear-gradient(180deg,#e9eef5,#dbe2ea);
 
-text-align:center;
+display:flex;
+flex-direction:column;
+align-items:center;
 
 }
 
+h1{
+
+margin-top:40px;
+letter-spacing:.1em;
+font-weight:600;
+color:#333;
+
+}
+
+.sub{
+
+margin-top:10px;
+letter-spacing:.15em;
+font-size:12px;
+color:#666;
+
+}
+
+.container{
+
+display:flex;
+gap:40px;
+margin-top:40px;
+
+}
 
 .glass{
 
 width:420px;
 height:420px;
 
+background:rgba(255,255,255,.45);
+
+backdrop-filter:blur(30px);
+
 border-radius:30px;
 
-background:rgba(255,255,255,0.35);
+box-shadow:
 
-backdrop-filter:blur(20px);
+0 10px 40px rgba(0,0,0,.1),
+
+inset 0 0 0 1px rgba(255,255,255,.4);
 
 display:flex;
 justify-content:center;
 align-items:center;
 
-margin:auto;
-margin-top:40px;
-
 }
 
-
-/* TABLE */
-
-table{
-
-width:80%;
+.price-table{
 
 border-collapse:collapse;
 
-font-size:12px;
+font-size:13px;
 
-background:white;
+letter-spacing:.05em;
 
-border-radius:15px;
-
-overflow:hidden;
+color:#444;
 
 }
 
+.price-table th{
 
-th{
+padding:12px 20px;
 
-padding:10px;
-
-background:#f5f5f5;
-
-}
-
-
-td{
-
-padding:8px;
-
-border-top:1px solid #eee;
+font-weight:600;
 
 }
 
-
-.standard{
+.price-table th.standard{
 
 color:#2e7d32;
 
 }
 
-
-.express{
+.price-table th.express{
 
 color:#c62828;
 
 }
 
+.price-table td{
+
+padding:10px 20px;
+
+text-align:center;
+
+}
 
 </style>
 
-
 </head>
-
 
 <body>
 
+<h1>SAYBON TRANSLATION SERVICES</h1>
 
-<h2>SAYBON TRANSLATION SERVICES</h2>
+<div class="sub">
 
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
+</div>
+
+<div class="container">
 
 <div class="glass">
 
+UPLOAD SECTION
 
-<table>
+</div>
 
+<div class="glass">
+
+<table class="price-table">
+
+<thead>
 
 <tr>
 
 <th>WORD COUNT</th>
 
-<th class="standard">STANDARD<br>0.025 / word</th>
+<th class="standard">
 
-<th class="express">EXPRESS<br>0.05 / word</th>
+STANDARD<br>
+
+<span>0.025 / word</span>
+
+</th>
+
+<th class="express">
+
+EXPRESS<br>
+
+<span>0.05 / word</span>
+
+</th>
 
 </tr>
 
+</thead>
+
+<tbody>
 
 <tr>
+
 <td>1 – 300</td>
+
 <td>1 – 3 hrs</td>
+
 <td>30 – 60 mins</td>
+
 </tr>
 
-
 <tr>
+
 <td>301 – 1000</td>
+
 <td>3 – 6 hrs</td>
+
 <td>1 – 3 hrs</td>
+
 </tr>
 
-
 <tr>
+
 <td>1001 – 3000</td>
+
 <td>6 – 12 hrs</td>
+
 <td>3 – 6 hrs</td>
+
 </tr>
 
-
 <tr>
+
 <td>3001 – 6000</td>
+
 <td>12 – 24 hrs</td>
+
 <td>6 – 12 hrs</td>
+
 </tr>
 
-
 <tr>
+
 <td>6001 – 10000</td>
+
 <td>24 – 48 hrs</td>
+
 <td>12 – 24 hrs</td>
+
 </tr>
 
-
 <tr>
+
 <td>10001 – 20000</td>
-<td>2 – 4 days</td>
-<td>24 – 48 hrs</td>
-</tr>
 
+<td>2 – 4 days</td>
+
+<td>24 – 48 hrs</td>
+
+</tr>
 
 <tr>
+
 <td>20000+</td>
+
 <td>Custom</td>
+
 <td>Custom</td>
+
 </tr>
 
+</tbody>
 
 </table>
 
+</div>
 
 </div>
 
-
 </body>
 
-
 </html>
-
-
