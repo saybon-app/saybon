@@ -1,4 +1,4 @@
-
+﻿
 async function getQuote(){
 
 const file=document.getElementById("fileInput").files[0];
@@ -20,7 +20,7 @@ if(file.name.endsWith(".txt")){
 
 const text=await file.text();
 
-words=text.split(/\s+/).length;
+words=text.trim().split(/\s+/).length;
 
 }
 
@@ -33,12 +33,12 @@ words=Math.round(file.size/6);
 
 document.getElementById("wordCount").innerHTML=
 
-words+" words";
+words+" words detected";
 
 
-const standard=(words*0.025).toFixed(2);
+const standardPrice=(words*0.025).toFixed(2);
 
-const express=(words*0.05).toFixed(2);
+const expressPrice=(words*0.05).toFixed(2);
 
 
 
@@ -80,9 +80,9 @@ document.getElementById("quote").innerHTML=
 `
 <br>
 
-<button onclick="location.href='/translation/payment.html?type=standard&price=${standard}'">
+<button onclick="location.href='/translation/payment.html?type=standard&price=${standardPrice}&words=${words}&delivery=${standardTime}'">
 
-Standard $${standard} ${standardTime}
+STANDARD — $${standardPrice} — ${standardTime}
 
 </button>
 
@@ -90,9 +90,9 @@ Standard $${standard} ${standardTime}
 <br><br>
 
 
-<button onclick="location.href='/translation/payment.html?type=express&price=${express}'">
+<button onclick="location.href='/translation/payment.html?type=express&price=${expressPrice}&words=${words}&delivery=${expressTime}'">
 
-Express $${express} ${expressTime}
+EXPRESS — $${expressPrice} — ${expressTime}
 
 </button>
 
