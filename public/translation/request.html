@@ -444,3 +444,78 @@ window.location.href=
 
 </script>
 
+
+
+<script>
+
+function timeline(words, plan){
+
+const standard=[
+[300,"1–3 hrs"],
+[1000,"3–6 hrs"],
+[3000,"6–12 hrs"],
+[6000,"12–24 hrs"],
+[10000,"24–48 hrs"],
+[20000,"2–4 days"],
+[9999999,"Custom"]
+];
+
+const express=[
+[300,"30–60 mins"],
+[1000,"1–3 hrs"],
+[3000,"3–6 hrs"],
+[6000,"6–12 hrs"],
+[10000,"12–24 hrs"],
+[20000,"24–48 hrs"],
+[9999999,"Custom"]
+];
+
+const table = plan==="standard"?standard:express;
+
+for(let row of table){
+
+if(words<=row[0]) return row[1];
+
+}
+
+}
+
+
+function updateQuote(words){
+
+const standardPrice=(words*0.025).toFixed(2);
+
+const expressPrice=(words*0.05).toFixed(2);
+
+const standardTimeline=timeline(words,"standard");
+
+const expressTimeline=timeline(words,"express");
+
+const standardCard=document.getElementById("standardCard");
+
+const expressCard=document.getElementById("expressCard");
+
+standardCard.innerHTML=
+STANDARD \$content{standardPrice} • ;
+
+expressCard.innerHTML=
+EXPRESS \$content{expressPrice} • ;
+
+standardCard.onclick=function(){
+
+window.location.href=
+payment.html?plan=standard&words=&price=;
+
+};
+
+expressCard.onclick=function(){
+
+window.location.href=
+payment.html?plan=express&words=&price=;
+
+};
+
+}
+
+</script>
+
