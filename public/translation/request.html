@@ -1,88 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+
 <head>
 
-<title>SayBon Translation Services</title>
+<meta charset="UTF-8">
 
-<link rel="stylesheet" href="request.css">
+<title>SayBon Translation Request</title>
 
 </head>
 
 <body>
 
 
-<div class="header">
+<h2>SayBon Translation</h2>
 
-<h1>SayBon Translation Services</h1>
-
-<p>
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</p>
-
-</div>
-
-
-<div class="container">
-
-
-<div class="card">
-
-<h2>Upload Document</h2>
 
 <input type="file" id="fileInput">
 
+
 <br><br>
 
-<button onclick="getQuote()">
+
+<button id="quoteBtn">
 
 Get Quote
 
 </button>
 
 
-<div id="wordCount"></div>
-
-<div id="quote"></div>
+<br><br>
 
 
-</div>
-
-
-
-<div class="card">
-
-<h2>Pricing & Delivery</h2>
-
-
-<h3>Standard — $0.025 / word</h3>
-
-<p>
-1–300 words → 1–3 hours<br>
-301–1000 words → 3–6 hours<br>
-1001–3000 words → 6–12 hours<br>
-3001+ words → 12–24 hours
-</p>
-
-
-
-<h3>Express — $0.05 / word</h3>
-
-<p>
-1–300 words → 30–60 minutes<br>
-301–1000 words → 1–3 hours<br>
-1001–3000 words → 3–6 hours<br>
-3001+ words → 6–12 hours
-</p>
-
-
-</div>
-
-
-</div>
+<div id="result"></div>
 
 
 <script src="request.js"></script>
 
 
 </body>
+
 </html>

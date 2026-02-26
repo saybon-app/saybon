@@ -1,122 +1,125 @@
-﻿async function getQuote(){
+document.getElementById('quoteBtn')
 
-const file=document.getElementById("fileInput").files[0];
+.addEventListener('click',getQuote)
+
+
+
+async function getQuote(){
+
+
+const file=document.getElementById('fileInput').files[0]
+
 
 if(!file){
 
-alert("Please select a file");
+alert('Please select file')
 
-return;
+return
+
+}
+
+
+
+let words=0
+
+
+
+if(file.name.toLowerCase().endsWith('.txt')){
+
+
+const text=await file.text()
+
+words=text.trim().split(/\s+/).length
+
 
 }
 
-
-// ============================================
-// WORD COUNT
-// ============================================
-
-let words=0;
-
-if(file.name.toLowerCase().endsWith(".txt")){
-
-const text=await file.text();
-
-words=text.trim().split(/\s+/).length;
-
-}
 
 else{
 
-words=Math.round(file.size/6);
+
+words=Math.round(file.size/6)
+
 
 }
 
 
-// ============================================
-// PRICE
-// ============================================
 
-const standardPrice=(words*0.025).toFixed(2);
+const standardPrice=(words*0.025).toFixed(2)
 
-const expressPrice=(words*0.05).toFixed(2);
+const expressPrice=(words*0.05).toFixed(2)
 
 
-// ============================================
-// DELIVERY TIMELINES (WITH SPACED HYPHENS)
-// ============================================
 
-function getStandardTimeline(words){
+const standardTime=getTimeline(words,false)
 
-if(words<=300) return "1 - 3 hours";
+const expressTime=getTimeline(words,true)
 
-if(words<=1000) return "3 - 6 hours";
 
-if(words<=3000) return "6 - 12 hours";
 
-if(words<=6000) return "12 - 24 hours";
+document.getElementById('result').innerHTML=
 
-if(words<=10000) return "24 - 48 hours";
 
-if(words<=20000) return "2 - 4 days";
+"Word count: "+words+"<br><br>"+
 
-return "Custom timeline";
+
+"<button onclick='pay(""standard"","+standardPrice+",\""+standardTime+"\")'>"+
+
+"Standard $"+standardPrice+" "+standardTime+
+
+"</button><br><br>"+
+
+
+"<button onclick='pay(""express"","+expressPrice+",\""+expressTime+"\")'>"+
+
+"Express $"+expressPrice+" "+expressTime+
+
+"</button>"
+
 
 }
 
 
-function getExpressTimeline(words){
 
-if(words<=300) return "30 - 60 minutes";
+function getTimeline(words,express){
 
-if(words<=1000) return "1 - 3 hours";
 
-if(words<=3000) return "3 - 6 hours";
+if(express){
 
-if(words<=6000) return "6 - 12 hours";
+if(words<=300)return "30 - 60 mins"
 
-if(words<=10000) return "12 - 24 hours";
+if(words<=1000)return "1 - 3 hrs"
 
-if(words<=20000) return "24 - 48 hours";
+if(words<=3000)return "3 - 6 hrs"
 
-return "Custom timeline";
+if(words<=5000)return "6 - 12 hrs"
+
+return "12 - 24 hrs"
 
 }
 
 
-const standardTimeline=getStandardTimeline(words);
+else{
 
-const expressTimeline=getExpressTimeline(words);
+if(words<=300)return "1 - 3 hrs"
 
+if(words<=1000)return "3 - 6 hrs"
 
-// ============================================
-// DISPLAY
-// ============================================
+if(words<=3000)return "6 - 12 hrs"
 
-document.getElementById("wordCount").innerHTML=
+if(words<=5000)return "12 - 24 hrs"
 
-"<br>"+words+" words";
+return "24 - 48 hrs"
 
-
-document.getElementById("quote").innerHTML=`
-
-<br>
-
-<button onclick="location.href='/translation/payment.html?type=standard&price=${standardPrice}&words=${words}&delivery=${standardTimeline}'">
-
-STANDARD — $${standardPrice} — ${standardTimeline}
-
-</button>
+}
 
 
-<br><br>
+}
 
 
-<button onclick="location.href='/translation/payment.html?type=express&price=${expressPrice}&words=${words}&delivery=${expressTimeline}'">
 
-EXPRESS — $${expressPrice} — ${expressTimeline}
+function pay(type,price,time){
 
-</button>
-
-`;
+location.href="/translation/payment.html?type="+type+"&price="+price+"&time="+time
 
 }
