@@ -1,79 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Test Run</title>
+<title>SayBon Test Run Page</title>
 
 <style>
 
 body{
-font-family: Arial;
-padding:40px;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 background:#f4f6f8;
+margin:0;
+padding:40px;
 }
 
-
+.container{
+max-width:700px;
+margin:auto;
+}
 
 .card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
+
+.priceCard{
+
+max-width:600px;
+margin:20px auto;
+padding:18px;
 
 background:white;
-padding:30px;
-margin-bottom:30px;
+
 border-radius:12px;
 
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+box-shadow:
+0 2px 6px rgba(0,0,0,0.06),
+0 8px 20px rgba(0,0,0,0.05);
 
 }
 
+.row{
 
+padding:10px 14px;
+
+margin:6px 0;
+
+border-radius:8px;
+
+background:#fafafa;
+
+font-size:14px;
+
+}
+
+.green{
+
+border-left:3px solid #16a34a;
+
+}
+
+.red{
+
+border-left:3px solid #dc2626;
+
+}
 
 button{
 
-padding:12px 20px;
-font-size:16px;
+padding:10px 16px;
+
+border:none;
+
+border-radius:8px;
+
+background:#2563eb;
+
+color:white;
+
 cursor:pointer;
 
 }
 
+button:hover{
 
-
-.price-card{
-
-border:1px solid #ddd;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
+background:#1d4ed8;
 
 }
-
-
-
-.standard{
-
-border-left:6px solid green;
-
-}
-
-
-
-.express{
-
-border-left:6px solid red;
-
-}
-
-
-
-.quote{
-
-margin-top:20px;
-font-size:20px;
-
-}
-
-
 
 </style>
 
@@ -81,11 +99,9 @@ font-size:20px;
 
 <body>
 
+<div class="container">
 
-
-<h1>SayBon Test Run Page</h1>
-
-
+<h2>SayBon Test Run Page</h2>
 
 <div class="card">
 
@@ -95,197 +111,79 @@ font-size:20px;
 
 <button onclick="getQuote()">Get Quote</button>
 
+<br><br>
 
-
-<div id="quote" class="quote"></div>
-
-
+<div id="result"></div>
 
 </div>
 
 
+<div class="priceCard">
 
+<h3>STANDARD — .025 / word</h3>
 
-<div class="card">
-
-
-
-<h2>STANDARD — $0.025 / word</h2>
-
-
-
-<div class="price-card standard">
-
-1 – 300 ? 1 – 3 hours
+<div class="row green">1 - 300 : 1 - 3 hours</div>
+<div class="row green">301 - 1000 : 3 - 6 hours</div>
+<div class="row green">1001 - 3000 : 6 - 12 hours</div>
+<div class="row green">3001 - 6000 : 12 - 24 hours</div>
+<div class="row green">6001 - 10,000 : 24 - 48 hours</div>
+<div class="row green">10,001 - 20,000 : 2 - 4 days</div>
+<div class="row green">20,000+ : Custom timeline</div>
 
 </div>
 
 
+<div class="priceCard">
 
-<div class="price-card standard">
+<h3>EXPRESS — .05 / word</h3>
 
-301 – 1000 ? 3 – 6 hours
-
-</div>
-
-
-
-<div class="price-card standard">
-
-1001 – 3000 ? 6 – 12 hours
-
-</div>
-
-
-
-<div class="price-card standard">
-
-3001 – 6000 ? 12 – 24 hours
+<div class="row red">1 - 300 : 30 - 60 minutes</div>
+<div class="row red">301 - 1000 : 1 - 3 hours</div>
+<div class="row red">1001 - 3000 : 3 - 6 hours</div>
+<div class="row red">3001 - 6000 : 6 - 12 hours</div>
+<div class="row red">6001 - 10,000 : 12 - 24 hours</div>
+<div class="row red">10,001 - 20,000 : 24 - 48 hours</div>
+<div class="row red">20,000+ : Custom timeline</div>
 
 </div>
 
 
-
-<div class="price-card standard">
-
-6001 – 10,000 ? 24 – 48 hours
-
 </div>
-
-
-
-<div class="price-card standard">
-
-10,001 – 20,000 ? 2 – 4 days
-
-</div>
-
-
-
-<div class="price-card standard">
-
-20,000+ ? Custom timeline
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-<div class="card">
-
-
-
-<h2>EXPRESS — $0.05 / word</h2>
-
-
-
-<div class="price-card express">
-
-1 – 300 ? 30 – 60 minutes
-
-</div>
-
-
-
-<div class="price-card express">
-
-301 – 1000 ? 1 – 3 hours
-
-</div>
-
-
-
-<div class="price-card express">
-
-1001 – 3000 ? 3 – 6 hours
-
-</div>
-
-
-
-<div class="price-card express">
-
-3001 – 6000 ? 6 – 12 hours
-
-</div>
-
-
-
-<div class="price-card express">
-
-6001 – 10,000 ? 12 – 24 hours
-
-</div>
-
-
-
-<div class="price-card express">
-
-10,001 – 20,000 ? 24 – 48 hours
-
-</div>
-
-
-
-<div class="price-card express">
-
-20,000+ ? Custom timeline
-
-</div>
-
-
-
-</div>
-
-
 
 
 <script>
 
-
-
 function getStandardTimeline(words){
 
-if(words<=300)return "1 – 3 hours";
-if(words<=1000)return "3 – 6 hours";
-if(words<=3000)return "6 – 12 hours";
-if(words<=6000)return "12 – 24 hours";
-if(words<=10000)return "24 – 48 hours";
-if(words<=20000)return "2 – 4 days";
+if(words<=300)return"1 - 3 hours";
+if(words<=1000)return"3 - 6 hours";
+if(words<=3000)return"6 - 12 hours";
+if(words<=6000)return"12 - 24 hours";
+if(words<=10000)return"24 - 48 hours";
+if(words<=20000)return"2 - 4 days";
 
-return "Custom timeline";
+return"Custom timeline";
 
 }
-
 
 
 function getExpressTimeline(words){
 
-if(words<=300)return "30 – 60 minutes";
-if(words<=1000)return "1 – 3 hours";
-if(words<=3000)return "3 – 6 hours";
-if(words<=6000)return "6 – 12 hours";
-if(words<=10000)return "12 – 24 hours";
-if(words<=20000)return "24 – 48 hours";
+if(words<=300)return"30 - 60 minutes";
+if(words<=1000)return"1 - 3 hours";
+if(words<=3000)return"3 - 6 hours";
+if(words<=6000)return"6 - 12 hours";
+if(words<=10000)return"12 - 24 hours";
+if(words<=20000)return"24 - 48 hours";
 
-return "Custom timeline";
+return"Custom timeline";
 
 }
 
 
-
 function getQuote(){
 
-
-
 let file=document.getElementById("file").files[0];
-
-
 
 if(!file){
 
@@ -295,51 +193,42 @@ return;
 
 }
 
+let reader=new FileReader();
+
+reader.onload=function(){
+
+let words=reader.result.trim().split(/\s+/).length;
+
+let standardPrice=(words*0.025).toFixed(2);
+
+let expressPrice=(words*0.05).toFixed(2);
+
+let standardTime=getStandardTimeline(words);
+
+let expressTime=getExpressTimeline(words);
 
 
-let words=Math.round(file.size/6);
+document.getElementById("result").innerHTML=
 
+"Words: "+words+"<br><br>"+
 
+"Standard: $"+standardPrice+"<br>"+
 
-let standard=(words*0.025).toFixed(2);
+"Delivery: "+standardTime+"<br><br>"+
 
-let express=(words*0.05).toFixed(2);
+"Express: $"+expressPrice+"<br>"+
 
+"Delivery: "+expressTime;
 
+};
 
-document.getElementById("quote").innerHTML=`
-
-Words: ${words}
-
-<br><br>
-
-Standard: $${standard}
-
-<br>
-
-Delivery: ${getStandardTimeline(words)}
-
-<br><br>
-
-Express: $${express}
-
-<br>
-
-Delivery: ${getExpressTimeline(words)}
-
-`;
-
-
+reader.readAsText(file);
 
 }
 
-
-
 </script>
-
 
 
 </body>
 
 </html>
-
