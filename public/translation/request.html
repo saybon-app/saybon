@@ -1,232 +1,131 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Test Run Page</title>
+<title>SayBon Translation Services</title>
 
-<style>
-
-body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-background:#f4f6f8;
-margin:0;
-padding:40px;
-}
-
-.container{
-max-width:700px;
-margin:auto;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-margin-bottom:20px;
-}
-
-.priceCard{
-
-max-width:600px;
-margin:20px auto;
-padding:18px;
-
-background:white;
-
-border-radius:12px;
-
-box-shadow:
-0 2px 6px rgba(0,0,0,0.06),
-0 8px 20px rgba(0,0,0,0.05);
-
-}
-
-.row{
-
-padding:10px 14px;
-
-margin:6px 0;
-
-border-radius:8px;
-
-background:#fafafa;
-
-font-size:14px;
-
-}
-
-.green{
-
-border-left:3px solid #16a34a;
-
-}
-
-.red{
-
-border-left:3px solid #dc2626;
-
-}
-
-button{
-
-padding:10px 16px;
-
-border:none;
-
-border-radius:8px;
-
-background:#2563eb;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-button:hover{
-
-background:#1d4ed8;
-
-}
-
-</style>
+<link rel="stylesheet" href="request.css">
 
 </head>
 
 <body>
 
-<div class="container">
 
-<h2>SayBon Test Run Page</h2>
-
-<div class="card">
-
-<input type="file" id="file">
-
-<br><br>
-
-<button onclick="getQuote()">Get Quote</button>
-
-<br><br>
-
-<div id="result"></div>
-
-</div>
+<div class="page">
 
 
-<div class="priceCard">
+<h1 class="title-main">
 
-<h3>STANDARD � .025 / word</h3>
+SayBon Translation Services
 
-<div class="row green">1 - 300 : 1 - 3 hours</div>
-<div class="row green">301 - 1000 : 3 - 6 hours</div>
-<div class="row green">1001 - 3000 : 6 - 12 hours</div>
-<div class="row green">3001 - 6000 : 12 - 24 hours</div>
-<div class="row green">6001 - 10,000 : 24 - 48 hours</div>
-<div class="row green">10,001 - 20,000 : 2 - 4 days</div>
-<div class="row green">20,000+ : Custom timeline</div>
+</h1>
+
+
+
+<div class="subtitle">
+
+<span>Translated by experts</span>
+
+<span class="dot">•</span>
+
+<span>Quick delivery</span>
+
+<span class="dot">•</span>
+
+<span>Confidential</span>
 
 </div>
 
 
-<div class="priceCard">
 
-<h3>EXPRESS � .05 / word</h3>
 
-<div class="row red">1 - 300 : 30 - 60 minutes</div>
-<div class="row red">301 - 1000 : 1 - 3 hours</div>
-<div class="row red">1001 - 3000 : 3 - 6 hours</div>
-<div class="row red">3001 - 6000 : 6 - 12 hours</div>
-<div class="row red">6001 - 10,000 : 12 - 24 hours</div>
-<div class="row red">10,001 - 20,000 : 24 - 48 hours</div>
-<div class="row red">20,000+ : Custom timeline</div>
+<div class="glass-card">
 
-</div>
+<input type="file" id="fileInput">
+
+<button onclick="getQuote()" id="quoteBtn">
+
+Upload Document To Get Quote
+
+</button>
+
+
+<div id="quoteResult"></div>
 
 
 </div>
 
 
-<script>
-
-function getStandardTimeline(words){
-
-if(words<=300)return"1 - 3 hours";
-if(words<=1000)return"3 - 6 hours";
-if(words<=3000)return"6 - 12 hours";
-if(words<=6000)return"12 - 24 hours";
-if(words<=10000)return"24 - 48 hours";
-if(words<=20000)return"2 - 4 days";
-
-return"Custom timeline";
-
-}
 
 
-function getExpressTimeline(words){
-
-if(words<=300)return"30 - 60 minutes";
-if(words<=1000)return"1 - 3 hours";
-if(words<=3000)return"3 - 6 hours";
-if(words<=6000)return"6 - 12 hours";
-if(words<=10000)return"12 - 24 hours";
-if(words<=20000)return"24 - 48 hours";
-
-return"Custom timeline";
-
-}
+<div class="pricing-area">
 
 
-function getQuote(){
+<div class="price-card standard">
 
-let file=document.getElementById("file").files[0];
+<h2>
 
-if(!file){
+STANDARD — $0.025 / word
 
-alert("Select file");
+</h2>
 
-return;
+<p>1 – 300 words • 1 – 3 hours</p>
 
-}
+<p>301 – 1000 words • 3 – 6 hours</p>
 
-let reader=new FileReader();
+<p>1001 – 3000 words • 6 – 12 hours</p>
 
-reader.onload=function(){
+<p>3001 – 6000 words • 12 – 24 hours</p>
 
-let words=reader.result.trim().split(/\s+/).length;
+<p>6001 – 10,000 words • 24 – 48 hours</p>
 
-let standardPrice=(words*0.025).toFixed(2);
+<p>10,001 – 20,000 words • 2 – 4 days</p>
 
-let expressPrice=(words*0.05).toFixed(2);
-
-let standardTime=getStandardTimeline(words);
-
-let expressTime=getExpressTimeline(words);
+<p>20,000+ • Custom timeline</p>
 
 
-document.getElementById("result").innerHTML=
+</div>
 
-"Words: "+words+"<br><br>"+
 
-"Standard: $"+standardPrice+"<br>"+
 
-"Delivery: "+standardTime+"<br><br>"+
 
-"Express: $"+expressPrice+"<br>"+
+<div class="price-card express">
 
-"Delivery: "+expressTime;
+<h2>
 
-};
+EXPRESS — $0.05 / word
 
-reader.readAsText(file);
+</h2>
 
-}
+<p>1 – 300 words • 30 – 60 minutes</p>
 
-</script>
+<p>301 – 1000 words • 1 – 3 hours</p>
+
+<p>1001 – 3000 words • 3 – 6 hours</p>
+
+<p>3001 – 6000 words • 6 – 12 hours</p>
+
+<p>6001 – 10,000 words • 12 – 24 hours</p>
+
+<p>10,001 – 20,000 words • 24 – 48 hours</p>
+
+<p>20,000+ • Custom timeline</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script src="request.js"></script>
 
 
 </body>
