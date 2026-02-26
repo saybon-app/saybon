@@ -4,119 +4,242 @@
 
 <meta charset="UTF-8">
 
+<title>SayBon Translation Services</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Services</title>
 
 <style>
 
 body{
 
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 
-background:linear-gradient(180deg,#e9eef5,#dbe2ea);
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
 
-display:flex;
-flex-direction:column;
-align-items:center;
+background:linear-gradient(to bottom,#eef1f6,#e3e8f0);
 
-}
-
-h1{
-
-margin-top:40px;
-letter-spacing:.1em;
-font-weight:600;
 color:#333;
 
 }
 
+
+h1{
+
+text-align:center;
+
+margin-top:40px;
+
+letter-spacing:3px;
+
+font-weight:500;
+
+}
+
+
 .sub{
 
-margin-top:10px;
-letter-spacing:.15em;
+text-align:center;
+
+letter-spacing:2px;
+
 font-size:12px;
+
+margin-bottom:40px;
+
 color:#666;
 
 }
 
+
 .container{
 
 display:flex;
+
+justify-content:center;
+
 gap:40px;
-margin-top:40px;
+
+flex-wrap:wrap;
 
 }
+
+
 
 .glass{
 
 width:420px;
+
 height:420px;
 
-background:rgba(255,255,255,.45);
+border-radius:28px;
+
+background:rgba(255,255,255,.25);
 
 backdrop-filter:blur(30px);
 
-border-radius:30px;
+box-shadow:
+
+0 8px 32px rgba(0,0,0,.15),
+
+inset 0 0 20px rgba(255,255,255,.3);
+
+padding:40px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-start;
+
+}
+
+
+
+
+/* ============================================
+UPLOAD SECTION — SURGICAL
+============================================ */
+
+
+.upload-top{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.upload-btn{
+
+margin-top:10px;
+
+width:140px;
+
+height:42px;
+
+border-radius:14px;
+
+border:none;
+
+color:white;
+
+font-weight:500;
+
+letter-spacing:2px;
+
+cursor:pointer;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(10px);
 
 box-shadow:
 
-0 10px 40px rgba(0,0,0,.1),
+0 6px 18px rgba(0,0,0,.3),
 
-inset 0 0 0 1px rgba(255,255,255,.4);
+inset 0 1px 1px rgba(255,255,255,.2);
 
-display:flex;
-justify-content:center;
-align-items:center;
+transition:.2s;
 
 }
 
-.price-table{
+
+.upload-btn:hover{
+
+transform:scale(1.05);
+
+}
+
+
+.upload-btn:active{
+
+transform:scale(.95);
+
+}
+
+
+
+
+/* ============================================
+TABLE — SURGICAL FIX
+============================================ */
+
+
+table{
+
+width:100%;
 
 border-collapse:collapse;
 
-font-size:13px;
-
-letter-spacing:.05em;
-
-color:#444;
+font-size:14px;
 
 }
 
-.price-table th{
 
-padding:12px 20px;
+th{
 
-font-weight:600;
+text-align:center;
+
+padding-bottom:10px;
 
 }
 
-.price-table th.standard{
+
+td{
+
+padding:6px 0;
+
+text-align:left;
+
+}
+
+
+
+
+th:nth-child(2){
 
 color:#2e7d32;
 
 }
 
-.price-table th.express{
+
+th:nth-child(3){
 
 color:#c62828;
 
 }
 
-.price-table td{
 
-padding:10px 20px;
 
-text-align:center;
+
+@media(max-width:900px){
+
+.container{
+
+flex-direction:column-reverse;
+
+align-items:center;
 
 }
+
+}
+
 
 </style>
 
 </head>
 
+
 <body>
+
+
 
 <h1>SAYBON TRANSLATION SERVICES</h1>
 
@@ -126,45 +249,62 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 </div>
 
+
+
 <div class="container">
+
+
+
+<!-- UPLOAD CARD -->
+
 
 <div class="glass">
 
-UPLOAD SECTION
+
+<div class="upload-top">
+
+
+<input type="file">
+
+<span>No file chosen</span>
+
 
 </div>
 
+
+<button class="upload-btn">
+
+UPLOAD 📮
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- PRICING CARD -->
+
+
 <div class="glass">
 
-<table class="price-table">
 
-<thead>
+
+<table>
+
 
 <tr>
 
 <th>WORD COUNT</th>
 
-<th class="standard">
+<th>STANDARD<br>0.025 / word</th>
 
-STANDARD<br>
-
-<span>0.025 / word</span>
-
-</th>
-
-<th class="express">
-
-EXPRESS<br>
-
-<span>0.05 / word</span>
-
-</th>
+<th>EXPRESS<br>0.05 / word</th>
 
 </tr>
 
-</thead>
-
-<tbody>
 
 <tr>
 
@@ -176,6 +316,7 @@ EXPRESS<br>
 
 </tr>
 
+
 <tr>
 
 <td>301 – 1000</td>
@@ -185,6 +326,7 @@ EXPRESS<br>
 <td>1 – 3 hrs</td>
 
 </tr>
+
 
 <tr>
 
@@ -196,6 +338,7 @@ EXPRESS<br>
 
 </tr>
 
+
 <tr>
 
 <td>3001 – 6000</td>
@@ -205,6 +348,7 @@ EXPRESS<br>
 <td>6 – 12 hrs</td>
 
 </tr>
+
 
 <tr>
 
@@ -216,6 +360,7 @@ EXPRESS<br>
 
 </tr>
 
+
 <tr>
 
 <td>10001 – 20000</td>
@@ -225,6 +370,7 @@ EXPRESS<br>
 <td>24 – 48 hrs</td>
 
 </tr>
+
 
 <tr>
 
@@ -236,14 +382,20 @@ EXPRESS<br>
 
 </tr>
 
-</tbody>
 
 </table>
 
-</div>
+
 
 </div>
+
+
+
+</div>
+
+
 
 </body>
 
 </html>
+
