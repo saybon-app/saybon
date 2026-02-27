@@ -1,4 +1,4 @@
-﻿const express = require("express");
+const express = require("express");
 const cors = require("cors");
 const https = require("https");
 
@@ -84,7 +84,7 @@ cancel_url:"https://saybonapp.com/translation/payment.html",
 });
 
 
-res.json({ url: session.url });
+await require('./orders')(req.body); res.json({ url: session.url });
 
 }
 
@@ -158,7 +158,7 @@ response.on("end",()=>{
 
 const json=JSON.parse(body);
 
-res.json({ url: json.data.authorization_url });
+await require('./orders')(req.body); res.json({ url: json.data.authorization_url });
 
 });
 

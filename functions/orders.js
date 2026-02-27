@@ -1,31 +1,30 @@
-const admin = require("firebase-admin");
 
-admin.initializeApp();
+const admin=require("firebase-admin")
 
-const db = admin.firestore();
+admin.initializeApp()
 
+module.exports=async(order)=>{
 
-async function createOrder(data){
+await admin.firestore()
 
-await db.collection("translationOrders").add({
+.collection("translationOrders")
 
-email:data.email,
+.add({
 
-words:data.words,
+email:order.email,
 
-plan:data.plan,
+words:order.words,
 
-amount:data.amount,
+plan:order.plan,
 
-currency:data.currency,
+amount:order.amount,
+
+provider:order.provider,
 
 status:"paid",
 
 created:new Date()
 
-});
+})
 
 }
-
-module.exports = createOrder;
-

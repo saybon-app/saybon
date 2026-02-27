@@ -1,86 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
 
-<title>Payment Successful • SayBon</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayBon � Payment Successful</title>
 
 <style>
 
 body{
 
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-
-background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
-
+font-family:-apple-system,BlinkMacSystemFont;
+background:#f5f7fb;
 display:flex;
-
 justify-content:center;
-
 align-items:center;
-
 height:100vh;
 
-margin:0;
-
 }
-
-
 
 .card{
 
 background:white;
-
 padding:40px;
-
 border-radius:20px;
-
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
 text-align:center;
 
-max-width:400px;
-
 }
-
-
-
-h1{
-
-color:#34a853;
-
-margin-bottom:15px;
-
-}
-
-
-
-p{
-
-color:#666;
-
-}
-
-
 
 button{
 
 margin-top:20px;
-
 padding:12px 25px;
-
 border:none;
-
-background:#1e8e8e;
-
+background:#3478f6;
 color:white;
-
 border-radius:10px;
-
 font-size:16px;
-
 cursor:pointer;
 
 }
@@ -90,57 +46,30 @@ cursor:pointer;
 </head>
 
 
-
 <body>
-
-
 
 <div class="card">
 
-<h1>Payment Successful</h1>
+<h2>Payment Successful</h2>
 
-<p>
+<p>Your translation order has been received.</p>
 
-Your translation request has been received.
+<p>A receipt has been sent to your email.</p>
 
-</p>
-
-<p>
-
-A receipt has been sent to your email.
-
-</p>
-
-
-
-<button onclick="goDashboard()">
-
-Back to SayBon
-
-</button>
-
-
+<button onclick="go()">Back to SayBon</button>
 
 </div>
 
 
-
 <script>
 
-function goDashboard(){
+function go(){
 
-window.location.href="/dashboard.html";
+window.location="/dashboard.html"
 
 }
 
-
-
-// Auto redirect after 5 seconds
-
-setTimeout(goDashboard,5000);
-
 </script>
-
 
 
 </body>
