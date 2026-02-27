@@ -1,93 +1,156 @@
-const functions = require("firebase-functions");
-const express = require("express");
+﻿const express = require("express");
 const cors = require("cors");
 const Stripe = require("stripe");
-const axios = require("axios");
+const https = require("https");
 
-require("dotenv").config();
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
+
+const STRIPE_SECRET = defineSecret("STRIPE_SECRET");
+const PAYSTACK_SECRET = defineSecret("PAYSTACK_SECRET");
 
 const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-
-
-app.post("/createStripeSession", async (req, res) => {
-
-try {
-
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-
-const session = await stripe.checkout.sessions.create({
-
-payment_method_types: ["card"],
-
-mode: "payment",
-
-line_items: [
-{
-price_data: {
-currency: req.body.currency,
-product_data: { name: "SayBon Translation" },
-unit_amount: req.body.amount
-},
-quantity: 1
+function toInt(value, fallback = 0) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return fallback;
+  return n;
 }
-],
 
-success_url: "https://saybonapp.com/translation/payment-success.html",
+// Treat incoming amount as MINOR units (cents) and harden it.
+// If someone mistakenly sends dollars like 4.3, we auto-convert to 430.
+function normalizeMinorAmount(amount) {
+  const n = toInt(amount, 0);
 
-cancel_url: "https://saybonapp.com/translation/payment.html"
+  // If it's a decimal, assume it's dollars and convert to cents
+  if (!Number.isInteger(n)) {
+    return Math.round(n * 100);
+  }
 
+  // If it's a small integer that looks like dollars (e.g., 4, 5, 10),
+  // convert to cents. Otherwise assume it's already cents.
+  if (n > 0 && n < 50) {
+    return n * 100;
+  }
+
+  return n;
+}
+
+/*
+========================================
+STRIPE ROUTE
+========================================
+*/
+app.post("/api/pay/stripe", async (req, res) => {
+  try {
+    const stripe = new Stripe(STRIPE_SECRET.value());
+
+    const currency = (req.body.currency || "USD").toLowerCase();
+    const amountMinor = normalizeMinorAmount(req.body.amount);
+
+    if (!amountMinor || amountMinor < 50) {
+      return res.status(400).json({ error: "Invalid amount." });
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency,
+            product_data: { name: "SayBon Translation" },
+            unit_amount: amountMinor, // ✅ integer minor units
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: "https://saybonapp.com/translation/success.html",
+      cancel_url: "https://saybonapp.com/translation/payment.html",
+    });
+
+    res.json({ url: session.url });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-res.json({ url: session.url });
+/*
+========================================
+PAYSTACK ROUTE
+========================================
+*/
+app.post("/api/pay/paystack", async (req, res) => {
+  try {
+    const email = (req.body.email || "").trim();
+    const amountMinor = normalizeMinorAmount(req.body.amount);
 
-} catch (err) {
+    if (!email) return res.status(400).json({ error: "Email is required." });
+    if (!amountMinor || amountMinor < 50) return res.status(400).json({ error: "Invalid amount." });
 
-res.status(500).json({ error: err.message });
+    const data = JSON.stringify({
+      amount: amountMinor, // ✅ integer minor units
+      email: email,
+      currency: req.body.currency || "GHS",
+      callback_url: "https://saybonapp.com/translation/success.html",
+    });
 
-}
+    const options = {
+      hostname: "api.paystack.co",
+      port: 443,
+      path: "/transaction/initialize",
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${PAYSTACK_SECRET.value()}`,
+        "Content-Type": "application/json",
+      },
+    };
 
+    const request = https.request(options, (response) => {
+      let body = "";
+
+      response.on("data", (chunk) => (body += chunk));
+
+      response.on("end", () => {
+        let json;
+        try {
+          json = JSON.parse(body);
+        } catch (e) {
+          return res.status(500).json({ error: "Paystack returned invalid JSON." });
+        }
+
+        if (!json.status) {
+          return res.status(400).json({ error: json.message || "Paystack init failed." });
+        }
+
+        res.json({ url: json.data.authorization_url });
+      });
+    });
+
+    request.on("error", (e) => {
+      res.status(500).json({ error: e.message });
+    });
+
+    request.write(data);
+    request.end();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-
-
-
-app.post("/createPaystackSession", async (req, res) => {
-
-try {
-
-const response = await axios.post(
-
-"https://api.paystack.co/transaction/initialize",
-
-{
-amount: req.body.amount,
-email: req.body.email,
-currency: "GHS"
-},
-
-{
-headers: {
-Authorization: Bearer 
-}
-}
-
+/*
+========================================
+EXPORT FUNCTION
+========================================
+*/
+exports.api = onRequest(
+  {
+    region: "us-central1",
+    secrets: [STRIPE_SECRET, PAYSTACK_SECRET],
+  },
+  app
 );
-
-res.json(response.data);
-
-} catch (err) {
-
-res.status(500).json({ error: err.message });
-
-}
-
-});
-
-
-
-exports.api = functions.https.onRequest(app);
 
