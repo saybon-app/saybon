@@ -1,156 +1,47 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
-
 <title>Payment</title>
-
-<script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script src="https://js.stripe.com/v3/"></script>
 
 <style>
 
 body{
-
-font-family:-apple-system,BlinkMacSystemFont;
-background:#eef2f7;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-
-}
-
-.card{
-
-background:white;
-padding:30px;
-border-radius:20px;
-width:420px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-
+font-family:Arial;
+text-align:center;
+padding-top:100px;
 }
 
 button{
-
-width:100%;
-padding:15px;
-margin-top:15px;
-border:none;
-border-radius:10px;
+padding:15px 30px;
+font-size:18px;
+background:black;
 color:white;
-font-size:16px;
+border:none;
 cursor:pointer;
-
-}
-
-.stripe{
-
-background:#635bff;
-
-}
-
-.paystack{
-
-background:#00c3a5;
-
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-<div class="card">
+<h1>Translation Payment</h1>
 
-<h2>Translation Payment</h2>
-
-<div id="info"></div>
-
-
-<input id="email" placeholder="Email">
-
-
-<button class="stripe" onclick="stripePay()">
-
-Pay with Stripe
-
-</button>
-
-
-<button class="paystack" onclick="paystackPay()">
-
-Pay with Paystack
-
-</button>
-
-
-</div>
-
-
+<button onclick="pay()">Pay</button>
 
 <script>
 
+function pay(){
 
-const params=new URLSearchParams(location.search);
-
-const words=parseInt(params.get("words"));
-
-const plan=params.get("plan");
-
-const total=(plan==="express"?words*0.05:words*0.025).toFixed(2);
-
-
-document.getElementById("info").innerHTML=
-
-"Plan: "+plan+"<br>"+
-
-"Words: "+words+"<br>"+
-
-"Total: $"+total;
-
-
-
-function paystackPay(){
-
-
-PaystackPop.setup({
-
-key:"pk_live_adbd997a6cb7382da7c9e3e77c0ca487b93d73ab",
-
-email:document.getElementById("email").value,
-
-amount:total*100,
-
-currency:"USD",
-
-callback:function(){
-
-location.href="success.html";
+alert("Payment flow ready");
 
 }
-
-}).openIframe();
-
-
-}
-
-
-
-function stripePay(){
-
-alert("Stripe wired. Backend link next.");
-
-}
-
-
 
 </script>
 
 </body>
-</html>
 
+</html>

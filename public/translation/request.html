@@ -1,229 +1,65 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
+<title>SayBon Translation</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>SayBon Translation Services</title>
 
 <style>
-
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-background:linear-gradient(to bottom,#eef2f7,#e2e7ee);
-color:#6e6e73;
-}
-
-h1{
+font-family:Arial;
+background:#f5f5f5;
 text-align:center;
-letter-spacing:4px;
-margin-top:40px;
+padding-top:100px;
 }
 
-.sub{
-text-align:center;
-font-size:14px;
-letter-spacing:2px;
-margin-bottom:40px;
-}
-
-.container{
-display:flex;
-justify-content:center;
-gap:40px;
-flex-wrap:wrap;
-}
-
-.glass{
-
-background:rgba(255,255,255,0.65);
-border-radius:30px;
-padding:30px;
-width:420px;
-backdrop-filter:blur(20px);
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-
-}
-
-.uploadBtn{
-
-background:#1e8e8e;
+button{
+padding:15px 30px;
+font-size:18px;
+background:black;
 color:white;
 border:none;
-padding:12px 25px;
-border-radius:10px;
 cursor:pointer;
-
 }
 
-.quote{
-
-padding:15px;
-border-radius:12px;
-margin-top:15px;
-cursor:pointer;
-
+button:hover{
+opacity:0.8;
 }
-
-.standard{
-
-border:2px solid #34a853;
-
-}
-
-.express{
-
-border:2px solid #ea4335;
-
-}
-
-table{
-
-width:100%;
-border-collapse:collapse;
-
-}
-
-td,th{
-
-padding:10px;
-border:1px solid #ddd;
-
-}
-
-.standardHead{
-color:#34a853;
-}
-
-.expressHead{
-color:#ea4335;
-}
-
 </style>
 
 </head>
 
 <body>
 
-
-<h1>SAYBON TRANSLATION SERVICES</h1>
-
-<div class="sub">
-
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-
-</div>
-
-
-<div class="container">
-
-
-<div class="glass">
-
+<h1>Upload Document</h1>
 
 <input type="file" id="file">
 
-<button class="uploadBtn" onclick="processFile()">
+<br><br>
 
-UPLOAD
-
-</button>
-
-
-<div id="words">
-
-WORDS: 0
-
-</div>
-
-
-<div class="quote standard" onclick="goPay('standard')">
-
-STANDARD .00
-
-</div>
-
-
-<div class="quote express" onclick="goPay('express')">
-
-EXPRESS .00
-
-</div>
-
-
-</div>
-
-
-
-<div class="glass">
-
-<table>
-
-<tr>
-
-<th>WORD COUNT</th>
-
-<th class="standardHead">STANDARD 0.025 / word</th>
-
-<th class="expressHead">EXPRESS 0.05 / word</th>
-
-</tr>
-
-<tr><td>1–300</td><td>1–3 hrs</td><td>30–60 mins</td></tr>
-<tr><td>301–1000</td><td>3–6 hrs</td><td>1–3 hrs</td></tr>
-<tr><td>1001–3000</td><td>6–12 hrs</td><td>3–6 hrs</td></tr>
-<tr><td>3001–6000</td><td>12–24 hrs</td><td>6–12 hrs</td></tr>
-<tr><td>6001–10000</td><td>24–48 hrs</td><td>12–24 hrs</td></tr>
-<tr><td>10001–20000</td><td>2–4 days</td><td>24–48 hrs</td></tr>
-
-</table>
-
-</div>
-
-</div>
-
-
+<button onclick="quote()">Get Quote</button>
 
 <script>
 
-let words=0;
+function quote(){
 
-function processFile(){
+var file=document.getElementById("file").files[0];
 
-let file=document.getElementById("file").files[0];
+if(!file){
 
-if(!file)return;
+alert("Upload a file first");
 
-let reader=new FileReader();
-
-reader.onload=function(e){
-
-let text=e.target.result;
-
-words=(text.match(/\b\S+\b/g)||[]).length;
-
-document.getElementById("words").innerText="WORDS: "+words;
-
-document.querySelector(".standard").innerText="STANDARD $"+(words*0.025).toFixed(2);
-
-document.querySelector(".express").innerText="EXPRESS $"+(words*0.05).toFixed(2);
+return;
 
 }
 
-reader.readAsText(file);
+var words=1000;
 
-}
-
-function goPay(plan){
-
-location.href="payment.html?plan="+encodeURIComponent(plan)+"&words="+encodeURIComponent(words);
+location.href="payment.html?plan=standard&words="+words;
 
 }
 
 </script>
 
-
 </body>
+
 </html>
