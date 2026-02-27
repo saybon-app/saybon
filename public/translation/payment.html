@@ -1,27 +1,100 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
 
 <meta charset="UTF-8">
 
 <title>Payment</title>
 
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
 <script src="https://js.stripe.com/v3/"></script>
 
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+
+body{
+
+font-family:-apple-system,BlinkMacSystemFont;
+background:#eef2f7;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+
+}
+
+.card{
+
+background:white;
+padding:30px;
+border-radius:20px;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+
+}
+
+button{
+
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+color:white;
+font-size:16px;
+cursor:pointer;
+
+}
+
+.stripe{
+
+background:#635bff;
+
+}
+
+.paystack{
+
+background:#00c3a5;
+
+}
+
+</style>
 
 </head>
 
+
 <body>
+
+<div class="card">
+
+<h2>Translation Payment</h2>
 
 <div id="info"></div>
 
-<button onclick="payStripe()">PAY WITH STRIPE</button>
 
-<button onclick="payPaystack()">PAY WITH PAYSTACK</button>
+<input id="email" placeholder="Email">
+
+
+<button class="stripe" onclick="stripePay()">
+
+Pay with Stripe
+
+</button>
+
+
+<button class="paystack" onclick="paystackPay()">
+
+Pay with Paystack
+
+</button>
+
+
+</div>
+
+
 
 <script>
+
 
 const params=new URLSearchParams(location.search);
 
@@ -29,44 +102,55 @@ const words=parseInt(params.get("words"));
 
 const plan=params.get("plan");
 
-const amount=plan=="standard"?words*0.025:words*0.05;
+const total=(plan==="express"?words*0.05:words*0.025).toFixed(2);
 
-document.getElementById("info").innerText=
 
-plan+" | "+words+" words | $"+amount;
+document.getElementById("info").innerHTML=
 
-const stripe=Stripe("pk_live_51T1F1oJoEwCiVdJNyh6goTKNXpeNEhxPlN85Eu7QGJab8Ztkiba1TAdhab3nGPjKBb608Zym61XearWWCUji4jN000HfV9XkDe");
+"Plan: "+plan+"<br>"+
 
-function payStripe(){
+"Words: "+words+"<br>"+
 
-alert("Stripe ready");
+"Total: $"+total;
 
-}
 
-function payPaystack(){
+
+function paystackPay(){
+
 
 PaystackPop.setup({
 
 key:"pk_live_adbd997a6cb7382da7c9e3e77c0ca487b93d73ab",
 
-email:"customer@saybon.com",
+email:document.getElementById("email").value,
 
-amount:amount*100,
+amount:total*100,
 
 currency:"USD",
 
 callback:function(){
 
-location.href="/translation/success.html";
+location.href="success.html";
 
 }
 
 }).openIframe();
 
+
 }
+
+
+
+function stripePay(){
+
+alert("Stripe wired. Backend link next.");
+
+}
+
+
 
 </script>
 
 </body>
-
 </html>
+
