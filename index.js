@@ -1,115 +1,55 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const express = require('express');
-const Stripe = require('stripe');
+const functions = require("firebase-functions/v2/https");
+const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-const db = admin.firestore();
+exports.api = functions.onRequest(async (req, res) => {
 
-const app = express();
-app.use(express.json());
+  try {
 
-const stripe = new Stripe(functions.config().stripe.secret);
+    // Health test
+    if (req.method === "GET") {
+      res.json({ status: "SayBon API running" });
+      return;
+    }
 
-app.post('/pay/stripe', async (req, res) => {
+    // Order creation
+    if (req.body.type === "order") {
 
-try {
+      const order = {
 
-const { email, words, plan, amount } = req.body;
+        email: req.body.email,
+        amount: req.body.amount,
+        currency: req.body.currency,
+        status: "paid",
+        created: Date.now()
 
-const session = await stripe.checkout.sessions.create({
+      };
 
-payment_method_types: ['card'],
+      await admin.firestore()
+        .collection("translationOrders")
+        .add(order);
 
-mode: 'payment',
+      res.json({
+        ok: true
+      });
 
-customer_email: email,
+      return;
 
-line_items: [
-{
-price_data: {
-currency: 'usd',
-product_data: {
-name: 'SayBon Translation'
-},
-unit_amount: Math.round(amount * 100)
-},
-quantity: 1
-}
-],
+    }
 
-success_url:
-'https://saybonapp.com/translation/success.html',
+    res.status(400).json({
+      error: "Invalid request"
+    });
 
-cancel_url:
-'https://saybonapp.com/translation/payment.html'
+  }
 
-});
+  catch (error) {
 
+    res.status(500).json({
+      error: error.message
+    });
 
-await db.collection('translationOrders').add({
-
-email,
-words,
-plan,
-amount,
-provider: 'stripe',
-status: 'paid',
-created: new Date()
+  }
 
 });
-
-
-res.json({
-url: session.url
-});
-
-}
-
-catch(e){
-
-console.log(e);
-res.status(500).send('error');
-
-}
-
-});
-
-
-
-app.post('/pay/paystack', async (req, res) => {
-
-try {
-
-const { email, words, plan, amount } = req.body;
-
-await db.collection('translationOrders').add({
-
-email,
-words,
-plan,
-amount,
-provider: 'paystack',
-status: 'paid',
-created: new Date()
-
-});
-
-res.json({
-url:
-'https://saybonapp.com/translation/success.html'
-});
-
-}
-
-catch(e){
-
-res.status(500).send('error');
-
-}
-
-});
-
-
-exports.api = functions.https.onRequest(app);

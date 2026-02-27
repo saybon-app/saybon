@@ -1,117 +1,87 @@
-﻿<!doctype html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SayBon | Translation Payment</title>
-  <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    body { margin: 0; background: #f6f7fb; color: #111; }
-    .wrap { max-width: 820px; margin: 40px auto; padding: 0 16px; }
-    .card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-    h1 { margin: 0 0 14px 0; font-size: 30px; }
-    .grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 860px) { .grid { grid-template-columns: 1.2fr 0.8fr; } }
-    .row { display:flex; gap:10px; flex-wrap: wrap; align-items:center; }
-    .pill { display:inline-flex; gap:8px; align-items:center; padding: 8px 10px; border:1px solid rgba(0,0,0,0.10); border-radius: 999px; background: #fff; }
-    label { font-size: 12px; color:#333; display:block; margin-bottom:6px; }
-    input, select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.12);
-      outline: none;
-      font-size: 14px;
-      background: #fff;
-    }
-    input:focus, select:focus { border-color: rgba(0,0,0,0.28); }
-    .btn {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform .06s ease, opacity .2s ease;
-      width: 100%;
-    }
-    .btn:active { transform: scale(0.99); }
-    .btn[disabled] { opacity: .55; cursor: not-allowed; }
-    .btnStripe { background: #635bff; color: white; }
-    .btnPaystack { background: #0aa57a; color: white; }
-    .muted { color:#555; font-size: 13px; line-height: 1.35; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-    .error { color: #b00020; font-size: 13px; margin-top: 10px; white-space: pre-wrap; }
-    .ok { color: #0a7a44; font-size: 13px; margin-top: 10px; white-space: pre-wrap; }
-    .summary { background:#fafbff; border:1px solid rgba(0,0,0,0.06); padding: 12px; border-radius: 12px; }
-    .kv { display:flex; justify-content:space-between; gap:10px; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.10); }
-    .kv:last-child { border-bottom: none; }
-  </style>
 
-  <script defer src="./payment.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Translation Payment</h1>
 
-      <div class="grid">
-        <div>
-          <div class="summary">
-            <div class="kv"><div>Plan</div><div class="mono" id="planText">—</div></div>
-            <div class="kv"><div>Words</div><div class="mono" id="wordsText">—</div></div>
-            <div class="kv"><div>Total</div><div class="mono" id="totalText">—</div></div>
-          </div>
 
-          <div style="height: 12px;"></div>
+<button onclick="payPaystack()">Pay with Paystack</button>
 
-          <div class="row">
-            <div style="flex: 1; min-width: 220px;">
-              <label>Email (required for Paystack)</label>
-              <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
-            </div>
+<button onclick="payStripe()">Pay with Stripe</button>
 
-            <div style="width: 180px;">
-              <label>Currency</label>
-              <select id="currency">
-                <option value="USD">USD</option>
-                <option value="GHS">GHS</option>
-                <option value="NGN">NGN</option>
-              </select>
-            </div>
-          </div>
 
-          <div style="height: 12px;"></div>
+<script>
 
-          <div class="row">
-            <button id="btnStripe" class="btn btnStripe" type="button">Pay with Stripe</button>
-            <button id="btnPaystack" class="btn btnPaystack" type="button">Pay with Paystack</button>
-          </div>
 
-          <div id="msg" class="error" style="display:none;"></div>
-          <div id="ok" class="ok" style="display:none;"></div>
+// INSERT YOUR REAL PUBLIC KEYS HERE
 
-          <div style="height: 10px;"></div>
-          <div class="muted">
-            
-          </div>
-        </div>
+const PAYSTACK_PUBLIC_KEY = "pk_live_REPLACE";
+const STRIPE_PUBLIC_KEY = "pk_live_REPLACE";
 
-        <div>
-          <div class="muted">
-            <div class="pill"><b>Standard</b> $0.025 / word</div>
-            <div style="height: 10px;"></div>
-            <div class="pill"><b>Express</b> $0.05 / word</div>
-            <div style="height: 12px;"></div>
-            <div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
 
-    </div>
-  </div>
+
+function payPaystack()
+{
+
+let handler = PaystackPop.setup({
+
+key: PAYSTACK_PUBLIC_KEY,
+
+email: "customer@saybon.com",
+
+amount: 5000,
+
+currency: "GHS",
+
+callback: function(response)
+{
+
+window.location.href =
+"/translation/success.html?ref=" + response.reference;
+
+}
+
+});
+
+handler.openIframe();
+
+}
+
+
+
+
+async function payStripe()
+{
+
+const stripe = Stripe(STRIPE_PUBLIC_KEY);
+
+const res =
+await fetch("/create-stripe-session",
+{
+
+method: "POST"
+
+});
+
+const data = await res.json();
+
+stripe.redirectToCheckout({
+
+sessionId: data.id
+
+});
+
+}
+
+
+
+</script>
+
+
 </body>
 </html>
-
-
