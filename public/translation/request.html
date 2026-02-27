@@ -1,65 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-<title>SayBon Translation</title>
 <meta charset="UTF-8">
-
-<style>
-body{
-font-family:Arial;
-background:#f5f5f5;
-text-align:center;
-padding-top:100px;
-}
-
-button{
-padding:15px 30px;
-font-size:18px;
-background:black;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-button:hover{
-opacity:0.8;
-}
-</style>
-
+<title>SayBon Translation Request</title>
+<link rel="stylesheet" href="request.css">
 </head>
-
 <body>
 
 <h1>Upload Document</h1>
 
-<input type="file" id="file">
+<input type="file" id="fileInput">
 
 <br><br>
 
-<button onclick="quote()">Get Quote</button>
+<button onclick="getQuote()">Get Quote</button>
 
-<script>
-
-function quote(){
-
-var file=document.getElementById("file").files[0];
-
-if(!file){
-
-alert("Upload a file first");
-
-return;
-
-}
-
-var words=1000;
-
-location.href="payment.html?plan=standard&words="+words;
-
-}
-
-</script>
+<script src="request.js"></script>
 
 </body>
-
 </html>
