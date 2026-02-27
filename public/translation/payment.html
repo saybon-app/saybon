@@ -1,48 +1,149 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Payment</title>
+
 <script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0b0f1a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.card{
+background:white;
+color:black;
+padding:30px;
+border-radius:12px;
+width:350px;
+text-align:center;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+.stripe{
+background:#635bff;
+color:white;
+}
+
+.paystack{
+background:#00c3f7;
+color:white;
+}
+
+</style>
 
 </head>
 
 <body>
 
+<div class="card">
 
-<button onclick="payPaystack()">Pay with Paystack</button>
+<h2>Complete Payment</h2>
 
-<button onclick="payStripe()">Pay with Stripe</button>
+<p id="amount"></p>
 
+<button class="stripe" onclick="payStripe()">
+Pay with Stripe
+</button>
+
+<button class="paystack" onclick="payPaystack()">
+Pay with Paystack
+</button>
+
+</div>
 
 <script>
 
+const urlParams = new URLSearchParams(window.location.search);
 
-// INSERT YOUR REAL PUBLIC KEYS HERE
+const words = parseInt(urlParams.get("words"));
+const plan = urlParams.get("plan");
 
-const PAYSTACK_PUBLIC_KEY = "pk_live_REPLACE";
-const STRIPE_PUBLIC_KEY = "pk_live_REPLACE";
+let price = 0;
+
+if(plan === "standard") price = words * 0.025;
+if(plan === "express") price = words * 0.05;
+
+document.getElementById("amount").innerText =
+"$" + price.toFixed(2);
 
 
+/* STRIPE */
 
-function payPaystack()
+const stripe = Stripe(
+
+"pk_live_51T1FloJoEwCiVdJNyh6goTKNXpeNEhxPlN85Eu7QGJab8Ztkiba1TAdhab3nGPjKBb608Zym61XearWWCUji4jN000HfV9XkDe"
+
+);
+
+async function payStripe(){
+
+const res = await fetch(
+
+"https://us-central1-saybon-3a3c2.cloudfunctions.net/createStripeCheckout",
+
 {
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+amount:price,
+words:words,
+plan:plan
+})
+});
 
-let handler = PaystackPop.setup({
+const data = await res.json();
 
-key: PAYSTACK_PUBLIC_KEY,
+stripe.redirectToCheckout({
+sessionId:data.id
+});
 
-email: "customer@saybon.com",
+}
 
-amount: 5000,
 
-currency: "GHS",
 
-callback: function(response)
-{
+/* PAYSTACK */
+
+function payPaystack(){
+
+var handler = PaystackPop.setup({
+
+key:
+
+"pk_live_adbd997a6cb7382da7c9e3e7c0c8d4",
+
+email:"customer@saybon.com",
+
+amount:price * 100,
+
+currency:"USD",
+
+callback:function(response){
 
 window.location.href =
-"/translation/success.html?ref=" + response.reference;
+"/translation/success.html";
 
 }
 
@@ -52,36 +153,7 @@ handler.openIframe();
 
 }
 
-
-
-
-async function payStripe()
-{
-
-const stripe = Stripe(STRIPE_PUBLIC_KEY);
-
-const res =
-await fetch("/create-stripe-session",
-{
-
-method: "POST"
-
-});
-
-const data = await res.json();
-
-stripe.redirectToCheckout({
-
-sessionId: data.id
-
-});
-
-}
-
-
-
 </script>
-
 
 </body>
 </html>
