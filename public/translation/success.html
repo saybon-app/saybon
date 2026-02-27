@@ -1,74 +1,83 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Payment Successful — SayBon</title>
+
+<title>Payment Successful • SayBon</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 body{
-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto;
-background: linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 height:100vh;
+
 margin:0;
+
 }
+
+
 
 .card{
 
-background: rgba(255,255,255,0.08);
-backdrop-filter: blur(20px);
+background:white;
 
 padding:40px;
+
 border-radius:20px;
 
-width:500px;
-max-width:90%;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 
 text-align:center;
 
-box-shadow:
-0 0 40px rgba(0,0,0,0.3),
-inset 0 0 20px rgba(255,255,255,0.05);
+max-width:400px;
 
 }
 
-.check{
 
-font-size:70px;
-margin-bottom:20px;
-
-}
 
 h1{
 
-margin:0;
-margin-bottom:10px;
+color:#34a853;
+
+margin-bottom:15px;
 
 }
+
+
 
 p{
 
-opacity:0.8;
+color:#666;
 
 }
 
-.button{
 
-margin-top:25px;
 
-background: linear-gradient(90deg,#6366f1,#06b6d4);
+button{
+
+margin-top:20px;
+
+padding:12px 25px;
 
 border:none;
+
+background:#1e8e8e;
+
 color:white;
 
-padding:15px 30px;
-border-radius:12px;
+border-radius:10px;
 
 font-size:16px;
 
@@ -76,77 +85,64 @@ cursor:pointer;
 
 }
 
-.button:hover{
-
-opacity:0.9;
-
-}
-
-.small{
-
-margin-top:15px;
-font-size:13px;
-opacity:0.6;
-
-}
-
 </style>
 
 </head>
 
+
+
 <body>
+
+
 
 <div class="card">
 
-<div class="check">✓</div>
-
 <h1>Payment Successful</h1>
 
-<p>Your SayBon translation order has been received.</p>
+<p>
 
-<div id="ref" class="small"></div>
+Your translation request has been received.
 
-<button class="button"
-onclick="window.location.href='/translation/request.html'">
+</p>
 
-Submit Another Translation
+<p>
+
+A receipt has been sent to your email.
+
+</p>
+
+
+
+<button onclick="goDashboard()">
+
+Back to SayBon
 
 </button>
+
+
 
 </div>
 
 
+
 <script>
 
-const params = new URLSearchParams(window.location.search);
+function goDashboard(){
 
-const stripeSession = params.get("session_id");
-
-const paystackRef = params.get("reference");
-
-if(stripeSession){
-
-document.getElementById("ref").innerText =
-"Stripe reference: " + stripeSession;
+window.location.href="/dashboard.html";
 
 }
 
-else if(paystackRef){
 
-document.getElementById("ref").innerText =
-"Paystack reference: " + paystackRef;
 
-}
+// Auto redirect after 5 seconds
 
-else{
-
-document.getElementById("ref").innerText =
-"Payment reference received.";
-
-}
+setTimeout(goDashboard,5000);
 
 </script>
 
-</body>
-</html>
 
+
+</body>
+
+</html>
