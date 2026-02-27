@@ -1,83 +1,152 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SayBon | Payment Success</title>
-  <style>
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#f6f7fb; }
-    .wrap { max-width: 780px; margin: 60px auto; padding: 0 16px; }
-    .card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:14px; padding:22px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-    h1 { margin:0 0 10px 0; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-    .muted { color:#444; }
-    .ok { color:#0a7a44; font-weight:700; }
-    .err { color:#b00020; white-space:pre-wrap; }
-    a { color:#635bff; }
-    button { border:none; background:#111; color:#fff; padding:10px 12px; border-radius:12px; cursor:pointer; }
-  </style>
+<meta charset="UTF-8">
+<title>Payment Successful — SayBon</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto;
+background: linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.card{
+
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(20px);
+
+padding:40px;
+border-radius:20px;
+
+width:500px;
+max-width:90%;
+
+text-align:center;
+
+box-shadow:
+0 0 40px rgba(0,0,0,0.3),
+inset 0 0 20px rgba(255,255,255,0.05);
+
+}
+
+.check{
+
+font-size:70px;
+margin-bottom:20px;
+
+}
+
+h1{
+
+margin:0;
+margin-bottom:10px;
+
+}
+
+p{
+
+opacity:0.8;
+
+}
+
+.button{
+
+margin-top:25px;
+
+background: linear-gradient(90deg,#6366f1,#06b6d4);
+
+border:none;
+color:white;
+
+padding:15px 30px;
+border-radius:12px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.button:hover{
+
+opacity:0.9;
+
+}
+
+.small{
+
+margin-top:15px;
+font-size:13px;
+opacity:0.6;
+
+}
+
+</style>
+
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1 class="ok">Payment Completed (Verification Pending)</h1>
-      <div class="muted">
-        Provider: <span class="mono" id="provider">—</span><br/>
-        This page can also verify your payment by calling the backend.
-      </div>
 
-      <div style="height:14px;"></div>
+<div class="card">
 
-      <button id="verifyBtn" type="button">Verify Payment</button>
+<div class="check">✓</div>
 
-      <div style="height:14px;"></div>
-      <div id="out" class="mono"></div>
-      <div id="err" class="err"></div>
+<h1>Payment Successful</h1>
 
-      <div style="height:18px;"></div>
-      <a href="./request.html">Back to Translation Request</a>
-    </div>
-  </div>
+<p>Your SayBon translation order has been received.</p>
+
+<div id="ref" class="small"></div>
+
+<button class="button"
+onclick="window.location.href='/translation/request.html'">
+
+Submit Another Translation
+
+</button>
+
+</div>
+
 
 <script>
-(function(){
-  const url = new URL(window.location.href);
-  const provider = url.searchParams.get("provider") || "unknown";
-  document.getElementById("provider").textContent = provider;
 
-  const out = document.getElementById("out");
-  const err = document.getElementById("err");
+const params = new URLSearchParams(window.location.search);
 
-  async function verify() {
-    out.textContent = "";
-    err.textContent = "";
+const stripeSession = params.get("session_id");
 
-    try {
-      let verifyUrl = "";
-      if (provider === "stripe") {
-        const session_id = url.searchParams.get("session_id");
-        if (!session_id) throw new Error("Missing session_id. Stripe should return with ?session_id=...");
-        verifyUrl = `/api/verify/stripe?session_id=${encodeURIComponent(session_id)}`;
-      } else if (provider === "paystack") {
-        const reference = url.searchParams.get("reference");
-        if (!reference) throw new Error("Missing reference. Paystack should return with ?reference=...");
-        verifyUrl = `/api/verify/paystack?reference=${encodeURIComponent(reference)}`;
-      } else {
-        throw new Error("Unknown provider. Cannot verify.");
-      }
+const paystackRef = params.get("reference");
 
-      const res = await fetch(verifyUrl);
-      const data = await res.json().catch(()=>({}));
-      if (!res.ok) throw new Error(data.error || ("Verify failed: HTTP " + res.status));
-      out.textContent = JSON.stringify(data, null, 2);
-    } catch(e) {
-      err.textContent = String(e.message || e);
-    }
-  }
+if(stripeSession){
 
-  document.getElementById("verifyBtn").addEventListener("click", verify);
-})();
+document.getElementById("ref").innerText =
+"Stripe reference: " + stripeSession;
+
+}
+
+else if(paystackRef){
+
+document.getElementById("ref").innerText =
+"Paystack reference: " + paystackRef;
+
+}
+
+else{
+
+document.getElementById("ref").innerText =
+"Payment reference received.";
+
+}
+
 </script>
 
 </body>
 </html>
+

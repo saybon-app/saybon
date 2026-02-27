@@ -1,179 +1,147 @@
 ﻿(function () {
 
-  const qs = new URLSearchParams(window.location.search);
+const qs = new URLSearchParams(window.location.search);
 
-  const plan = (qs.get("plan") || "standard").toLowerCase();
-  const words = Math.max(0, parseInt(qs.get("words") || "0", 10));
+const plan = (qs.get("plan") || "standard").toLowerCase();
 
-  const rateStandard = 0.025;
-  const rateExpress = 0.05;
+const words = Math.max(0, parseInt(qs.get("words") || "0", 10));
 
-  const rate = plan === "express" ? rateExpress : rateStandard;
+const rateStandard = 0.025;
+const rateExpress = 0.05;
 
-  const totalUSD = words * rate;
-  const totalCents = Math.round(totalUSD * 100);
+const rate = plan === "express" ? rateExpress : rateStandard;
 
-  const elPlan = document.getElementById("planText");
-  const elWords = document.getElementById("wordsText");
-  const elTotal = document.getElementById("totalText");
+const totalUSD = words * rate;
+const totalCents = Math.round(totalUSD * 100);
 
-  const emailEl = document.getElementById("email");
-  const currencyEl = document.getElementById("currency");
+const elPlan = document.getElementById("planText");
+const elWords = document.getElementById("wordsText");
+const elTotal = document.getElementById("totalText");
 
-  const btnStripe = document.getElementById("btnStripe");
-  const btnPaystack = document.getElementById("btnPaystack");
+const emailEl = document.getElementById("email");
+const currencyEl = document.getElementById("currency");
 
+const btnStripe = document.getElementById("btnStripe");
+const btnPaystack = document.getElementById("btnPaystack");
 
-  function fmtMoneyUSD(v) {
-    return "US$" + (Math.round(v * 100) / 100).toFixed(2);
-  }
+function fmtMoneyUSD(v) {
 
+return "US$" + (Math.round(v * 100) / 100).toFixed(2);
 
-  function setUI() {
+}
 
-    if (elPlan) elPlan.textContent = plan;
-    if (elWords) elWords.textContent = String(words);
-    if (elTotal) elTotal.textContent = fmtMoneyUSD(totalUSD);
+function setUI() {
 
-  }
+if (elPlan) elPlan.textContent = plan;
+if (elWords) elWords.textContent = words;
+if (elTotal) elTotal.textContent = fmtMoneyUSD(totalUSD);
 
+}
 
-  async function postJson(url, body) {
+async function postJson(url, body) {
 
-    const res = await fetch(url, {
+const res = await fetch(url, {
 
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+method: "POST",
 
-    });
+headers: {
 
-    const text = await res.text();
+"Content-Type": "application/json"
 
-    let json;
+},
 
-    try {
-      json = JSON.parse(text);
-    }
-    catch {
-      json = { raw: text };
-    }
+body: JSON.stringify(body)
 
-    if (!res.ok) {
+});
 
-      const msg =
-        (json && (json.error || json.message))
-          ? (json.error || json.message)
-          : text;
+const json = await res.json();
 
-      throw new Error(msg || ("HTTP " + res.status));
+if (!res.ok) throw new Error(json.error || "Payment error");
 
-    }
+return json;
 
-    return json;
+}
 
-  }
+async function onStripe() {
 
+try {
 
+btnStripe.disabled = true;
+btnStripe.textContent = "Redirecting...";
 
-  async function onStripe() {
+const currency = currencyEl.value || "USD";
 
-    try {
+const data = await postJson("/api/pay/stripe", {
 
-      btnStripe.disabled = true;
-      btnStripe.textContent = "Redirecting…";
+amount: totalCents,
+currency: currency,
+plan: plan,
+words: words
 
-      const currency = currencyEl.value;
+});
 
-      const data = await postJson("/api/pay/stripe", {
+window.location.href = data.url;
 
-        amount: totalCents,
-        currency: currency,
-        plan: plan,
-        words: words
+}
 
-      });
+catch (e) {
 
-      if (!data.url)
-        throw new Error("Stripe did not return a checkout URL.");
+alert("Stripe error: " + e.message);
 
-      window.location.href = data.url;
+btnStripe.disabled = false;
+btnStripe.textContent = "Pay with Stripe";
 
-    }
+}
 
-    catch (e) {
+}
 
-      alert("Stripe error: " + e.message);
+async function onPaystack() {
 
-      btnStripe.disabled = false;
-      btnStripe.textContent = "Pay with Stripe";
+try {
 
-    }
+const email = emailEl.value.trim();
 
-  }
+if (!email) {
 
+alert("Enter email first");
 
+return;
 
+}
 
-  async function onPaystack() {
+btnPaystack.disabled = true;
+btnPaystack.textContent = "Redirecting...";
 
-    try {
+const currency = currencyEl.value || "GHS";
 
-      const email = emailEl.value.trim();
+const data = await postJson("/api/pay/paystack", {
 
-      if (!email) {
+amount: totalCents,
+email: email,
+currency: currency,
+plan: plan,
+words: words
 
-        alert("Please enter your email.");
+});
 
-        return;
+window.location.href = data.url;
 
-      }
+}
 
+catch (e) {
 
-      btnPaystack.disabled = true;
-      btnPaystack.textContent = "Redirecting…";
+alert("Paystack error: " + e.message);
 
+btnPaystack.disabled = false;
+btnPaystack.textContent = "Pay with Paystack";
 
-      const currency = currencyEl.value;
+}
 
+}
 
-      const data = await postJson("/api/pay/paystack", {
+btnStripe.onclick = onStripe;
+btnPaystack.onclick = onPaystack;
 
-        amount: totalCents,
-        email: email,
-        currency: currency,
-        plan: plan,
-        words: words
-
-      });
-
-
-      if (!data.url)
-        throw new Error("Paystack did not return authorization URL.");
-
-
-      window.location.href = data.url;
-
-    }
-
-    catch (e) {
-
-      alert("Paystack error: " + e.message);
-
-      btnPaystack.disabled = false;
-      btnPaystack.textContent = "Pay with Paystack";
-
-    }
-
-  }
-
-
-
-  btnStripe.addEventListener("click", onStripe);
-  btnPaystack.addEventListener("click", onPaystack);
-
-  document.addEventListener("DOMContentLoaded", setUI);
-
-  setUI();
+setUI();
 
 })();
