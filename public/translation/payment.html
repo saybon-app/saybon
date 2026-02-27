@@ -1,29 +1,110 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
-<link rel="stylesheet" href="request.css">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="format-detection"
+content="telephone=no, email=no, address=no, date=no">
+
+<meta name="apple-mobile-web-app-capable"
+content="yes">
+
+<title>Payment</title>
+
+<link rel="stylesheet" href="translation.css">
 
 </head>
 
 <body>
 
 
-<h1>Translation Payment</h1>
+<div class="payment-card">
 
 
-<div class="card">
-
-<div id="summary"></div>
+<h2>Translation Payment</h2>
 
 
-<input id="email" placeholder="Email">
+<div class="summary">
 
 
-<button onclick="payStripe()">Pay with Stripe</button>
+<div class="row">
 
-<button onclick="payPaystack()">Pay with Paystack</button>
+<div>Plan</div>
+
+<div id="plan">standard</div>
+
+</div>
+
+
+<div class="row">
+
+<div>Words</div>
+
+<div id="words">172</div>
+
+</div>
+
+
+<div class="row">
+
+<div>Total</div>
+
+<div id="total">US.30</div>
+
+</div>
+
+
+</div>
+
+
+
+<label>
+
+Email (required for Paystack)
+
+</label>
+
+
+<input type="email"
+placeholder="you@example.com">
+
+
+
+<label>
+
+Currency
+
+</label>
+
+
+<select>
+
+<option>USD</option>
+
+<option>GHS</option>
+
+</select>
+
+
+
+<button class="btn-stripe">
+
+Pay with Stripe
+
+</button>
+
+
+<button class="btn-paystack">
+
+Pay with Paystack
+
+</button>
+
 
 
 </div>
@@ -32,68 +113,32 @@
 
 <script>
 
+const params =
+new URLSearchParams(window.location.search)
 
-let params=new URLSearchParams(location.search)
+const words =
+params.get("words")
 
-let plan=params.get('plan')
-let words=params.get('words')
+const plan =
+params.get("plan")
 
-
-let price=
-plan=='standard'?words*0.025:words*0.05
-
-
-document.getElementById('summary').innerHTML=
-
-plan+"<br>"+words+" words<br>$"+price.toFixed(2)
+document.getElementById("plan")
+.innerText = plan
 
 
-
-function payStripe(){
-
-fetch('/api/pay/stripe',{
-
-method:'POST',
-headers:{'Content-Type':'application/json'},
-
-body:JSON.stringify({
-
-email:email.value,
-amount:price
-
-})
-
-})
-.then(r=>r.json())
-.then(d=>location=d.url)
-
-}
+document.getElementById("words")
+.innerText = words
 
 
+document.getElementById("total")
+.innerText =
 
-function payPaystack(){
-
-fetch('/api/pay/paystack',{
-
-method:'POST',
-headers:{'Content-Type':'application/json'},
-
-body:JSON.stringify({
-
-email:email.value,
-amount:price
-
-})
-
-})
-.then(r=>r.json())
-.then(d=>location=d.url)
-
-}
-
+"US$" +
+(words * 0.025).toFixed(2)
 
 </script>
 
 
 </body>
+
 </html>
