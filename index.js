@@ -1,113 +1,115 @@
-const functions = require("firebase-functions");
-const express = require("express");
-const cors = require("cors");
-const Stripe = require("stripe");
-const axios = require("axios");
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const express = require('express');
+const Stripe = require('stripe');
+
+admin.initializeApp();
+
+const db = admin.firestore();
 
 const app = express();
-
-app.use(cors({ origin: true }));
 app.use(express.json());
 
+const stripe = new Stripe(functions.config().stripe.secret);
 
-
-// STRIPE FUNCTION WITH SECRET ATTACHED
-
-exports.api = functions
-.runWith({
-secrets: ["STRIPE_SECRET_KEY", "PAYSTACK_SECRET_KEY"]
-})
-.https.onRequest(async (req, res) => {
-
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-
-
-
-// ROUTER
-
-if (req.path === "/createStripeSession") {
+app.post('/pay/stripe', async (req, res) => {
 
 try {
 
+const { email, words, plan, amount } = req.body;
+
 const session = await stripe.checkout.sessions.create({
 
-payment_method_types: ["card"],
+payment_method_types: ['card'],
 
-mode: "payment",
+mode: 'payment',
+
+customer_email: email,
 
 line_items: [
 {
 price_data: {
-currency: req.body.currency,
-product_data: { name: "SayBon Translation" },
-unit_amount: req.body.amount
+currency: 'usd',
+product_data: {
+name: 'SayBon Translation'
+},
+unit_amount: Math.round(amount * 100)
 },
 quantity: 1
 }
 ],
 
-success_url: "https://saybonapp.com/payment-success.html",
+success_url:
+'https://saybonapp.com/translation/success.html',
 
-cancel_url: "https://saybonapp.com/payment.html"
+cancel_url:
+'https://saybonapp.com/translation/payment.html'
 
 });
 
-res.json({ url: session.url });
+
+await db.collection('translationOrders').add({
+
+email,
+words,
+plan,
+amount,
+provider: 'stripe',
+status: 'paid',
+created: new Date()
+
+});
+
+
+res.json({
+url: session.url
+});
 
 }
 
-catch (err) {
+catch(e){
 
-res.status(500).json({ error: err.message });
-
-}
-
-return;
+console.log(e);
+res.status(500).send('error');
 
 }
 
+});
 
 
-// PAYSTACK
 
-if (req.path === "/createPaystackSession") {
+app.post('/pay/paystack', async (req, res) => {
 
 try {
 
-const response = await axios.post(
+const { email, words, plan, amount } = req.body;
 
-"https://api.paystack.co/transaction/initialize",
+await db.collection('translationOrders').add({
 
-{
-amount: req.body.amount,
-email: req.body.email,
-currency: "GHS"
-},
-
-{
-headers: {
-Authorization: Bearer 
-}
-}
-
-);
-
-res.json(response.data);
-
-}
-
-catch (err) {
-
-res.status(500).json({ error: err.message });
-
-}
-
-return;
-
-}
-
-
-
-res.status(404).send("Not found");
+email,
+words,
+plan,
+amount,
+provider: 'paystack',
+status: 'paid',
+created: new Date()
 
 });
+
+res.json({
+url:
+'https://saybonapp.com/translation/success.html'
+});
+
+}
+
+catch(e){
+
+res.status(500).send('error');
+
+}
+
+});
+
+
+exports.api = functions.https.onRequest(app);
