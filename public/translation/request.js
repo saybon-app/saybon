@@ -1,18 +1,44 @@
+let words=0
+
+
 function getQuote(){
 
-const file = document.getElementById("fileInput").files[0];
+let file=document.getElementById('file').files[0]
 
 if(!file){
 
-alert("Please select file");
-
-return;
+alert('Upload file')
+return
 
 }
 
-const words = 1000;
 
-window.location.href =
-"/translation/payment.html?plan=standard&words=" + words;
+let reader=new FileReader()
+
+reader.onload=function(e){
+
+let text=e.target.result
+
+words=text.split(/\s+/).length
+
+let standard=words*0.025
+let express=words*0.05
+
+document.getElementById('standardPrice').innerText='$'+standard.toFixed(2)
+document.getElementById('expressPrice').innerText='$'+express.toFixed(2)
+
+document.getElementById('quoteArea').style.display='block'
+
+}
+
+reader.readAsText(file)
+
+}
+
+
+
+function selectPlan(plan){
+
+location.href='payment.html?plan='+plan+'&words='+words
 
 }

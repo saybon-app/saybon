@@ -1,16 +1,99 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Payment</title>
+
+<link rel="stylesheet" href="request.css">
+
 </head>
+
 <body>
+
 
 <h1>Translation Payment</h1>
 
-<button onclick="pay()">Pay</button>
 
-<script src="payment.js"></script>
+<div class="card">
+
+<div id="summary"></div>
+
+
+<input id="email" placeholder="Email">
+
+
+<button onclick="payStripe()">Pay with Stripe</button>
+
+<button onclick="payPaystack()">Pay with Paystack</button>
+
+
+</div>
+
+
+
+<script>
+
+
+let params=new URLSearchParams(location.search)
+
+let plan=params.get('plan')
+let words=params.get('words')
+
+
+let price=
+plan=='standard'?words*0.025:words*0.05
+
+
+document.getElementById('summary').innerHTML=
+
+plan+"<br>"+words+" words<br>$"+price.toFixed(2)
+
+
+
+function payStripe(){
+
+fetch('/api/pay/stripe',{
+
+method:'POST',
+headers:{'Content-Type':'application/json'},
+
+body:JSON.stringify({
+
+email:email.value,
+amount:price
+
+})
+
+})
+.then(r=>r.json())
+.then(d=>location=d.url)
+
+}
+
+
+
+function payPaystack(){
+
+fetch('/api/pay/paystack',{
+
+method:'POST',
+headers:{'Content-Type':'application/json'},
+
+body:JSON.stringify({
+
+email:email.value,
+amount:price
+
+})
+
+})
+.then(r=>r.json())
+.then(d=>location=d.url)
+
+}
+
+
+</script>
+
 
 </body>
 </html>

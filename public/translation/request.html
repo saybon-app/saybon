@@ -1,21 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<title>SayBon Translation Request</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>SayBon Translation Services</title>
+
 <link rel="stylesheet" href="request.css">
+
 </head>
 <body>
 
-<h1>Upload Document</h1>
 
-<input type="file" id="fileInput">
+<div class="container">
 
-<br><br>
+<h1>SAYBON TRANSLATION SERVICES</h1>
 
-<button onclick="getQuote()">Get Quote</button>
+<p class="subtitle">
+Translated by experts • Quick delivery • Confidential
+</p>
+
+
+<div class="card-area">
+
+
+<div class="card left">
+
+<input type="file" id="file">
+
+<button onclick="getQuote()">UPLOAD</button>
+
+
+<div id="quoteArea" style="display:none">
+
+
+<div class="plan standard" onclick="selectPlan('standard')">
+
+STANDARD
+<span id="standardPrice"></span>
+
+</div>
+
+
+<div class="plan express" onclick="selectPlan('express')">
+
+EXPRESS
+<span id="expressPrice"></span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<div class="card right">
+
+<table>
+
+<tr>
+
+<th>Word Count</th>
+<th>Standard</th>
+<th>Express</th>
+
+</tr>
+
+<tr><td>1-300</td><td>1-3 hrs</td><td>30-60 mins</td></tr>
+<tr><td>301-1000</td><td>3-6 hrs</td><td>1-3 hrs</td></tr>
+<tr><td>1001-3000</td><td>6-12 hrs</td><td>3-6 hrs</td></tr>
+<tr><td>3001-6000</td><td>12-24 hrs</td><td>6-12 hrs</td></tr>
+<tr><td>6001-10000</td><td>24-48 hrs</td><td>12-24 hrs</td></tr>
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
 
 <script src="request.js"></script>
+
 
 </body>
 </html>
