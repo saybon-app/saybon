@@ -1,29 +1,262 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+<meta name="format-detection"
+content="telephone=no, date=no, email=no, address=no">
 
 <title>SayBon Translation Services</title>
 
-<link rel="stylesheet" href="request.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
+-webkit-font-smoothing:antialiased;
+}
+
+/* MOBILE UNDERLINE FIX */
+
+*{
+-webkit-tap-highlight-color: transparent;
+text-decoration:none;
+}
+
+.page{
+padding:30px;
+}
+
+.title{
+text-align:center;
+letter-spacing:3px;
+font-weight:500;
+}
+
+.subtitle{
+text-align:center;
+font-size:12px;
+margin-bottom:30px;
+white-space:nowrap;
+}
+
+.container{
+
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+
+}
+
+.left-card,
+.right-card{
+
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(20px);
+border-radius:30px;
+padding:25px;
+width:420px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
+transition:all .2s ease;
+
+}
+
+
+.left-card:hover,
+.right-card:hover{
+
+transform:translateY(-4px);
+
+}
+
+
+.upload-row{
+
+display:flex;
+gap:10px;
+
+}
+
+
+#uploadBtn{
+
+background:#1e8e8e;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+#uploadBtn:hover{
+
+transform:translateY(-2px);
+
+}
+
+
+#uploadBtn:active{
+
+transform:translateY(2px);
+
+}
+
+
+.word-count{
+
+margin-top:15px;
+font-weight:500;
+
+}
+
+
+.quote-card{
+
+margin-top:15px;
+padding:15px;
+border-radius:15px;
+cursor:pointer;
+
+border:1px solid;
+
+transition:.2s;
+
+}
+
+
+.standard{
+
+border-color:#34a853;
+
+}
+
+
+.express{
+
+border-color:#ea4335;
+
+}
+
+
+.quote-card:hover{
+
+transform:translateY(-2px);
+
+}
+
+
+.quote-card:active{
+
+transform:translateY(2px);
+
+}
+
+
+.quote-price{
+
+font-weight:500;
+
+}
+
+
+.quote-delivery{
+
+font-size:12px;
+
+}
+
+
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+
+th,td{
+
+border:1px solid #ddd;
+padding:8px;
+font-size:12px;
+text-align:left;
+
+}
+
+
+.green{
+
+color:#34a853;
+
+}
+
+
+.red{
+
+color:#ea4335;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.page{
+padding:15px;
+}
+
+.subtitle{
+font-size:10px;
+}
+
+.left-card,
+.right-card{
+
+width:100%;
+
+}
+
+}
+
+</style>
 
 </head>
 
+
 <body>
+
 
 <div class="page">
 
-<h1 class="title">SAYBON TRANSLATION SERVICES</h1>
+<h1 class="title">
+
+SAYBON TRANSLATION SERVICES
+
+</h1>
+
 
 <p class="subtitle">
+
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+
 </p>
 
 
@@ -32,38 +265,65 @@ TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 
 <div class="left-card">
 
+
 <div class="upload-row">
 
 <input type="file" id="fileInput">
 
-<button id="uploadBtn">UPLOAD</button>
+<button id="uploadBtn">
+
+UPLOAD
+
+</button>
 
 </div>
+
 
 <div id="wordCount" class="word-count">
+
 WORDS: 0
-</div>
-
-
-<div id="standardCard" class="quote-card standard">
-
-<div class="quote-price">STANDARD $0.00</div>
-
-<div class="quote-delivery">Delivery: —</div>
 
 </div>
 
 
-<div id="expressCard" class="quote-card express">
+<div id="standardCard"
+class="quote-card standard">
 
-<div class="quote-price">EXPRESS $0.00</div>
+<div class="quote-price">
 
-<div class="quote-delivery">Delivery: —</div>
+STANDARD .00
+
+</div>
+
+<div class="quote-delivery">
+
+Delivery: —
+
+</div>
+
+</div>
+
+
+<div id="expressCard"
+class="quote-card express">
+
+<div class="quote-price">
+
+EXPRESS .00
+
+</div>
+
+<div class="quote-delivery">
+
+Delivery: —
+
+</div>
 
 </div>
 
 
 </div>
+
 
 
 <div class="right-card">
@@ -75,11 +335,22 @@ WORDS: 0
 
 <th>WORD COUNT</th>
 
-<th class="green">STANDARD<br>0.025 / word</th>
+<th class="green">
 
-<th class="red">EXPRESS<br>0.05 / word</th>
+STANDARD<br>
+0.025 / word
+
+</th>
+
+<th class="red">
+
+EXPRESS<br>
+0.05 / word
+
+</th>
 
 </tr>
+
 
 <tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
 
@@ -95,20 +366,27 @@ WORDS: 0
 
 <tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
 
+
 </table>
 
 
 </div>
 
 
-</div>
-
 
 </div>
 
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 
 <script src="request.js"></script>
 
 
 </body>
+
 </html>
