@@ -1,27 +1,87 @@
-﻿const fileInput=document.getElementById("fileInput");
+﻿let words=0;
 
-const wordCountDiv=document.getElementById("wordCount");
 
-const standardCard=document.getElementById("standardCard");
+document.getElementById("uploadBtn").onclick=function(){
 
-const expressCard=document.getElementById("expressCard");
+let file=document.getElementById("fileInput").files[0];
 
-fileInput.onchange=async()=>{
+if(!file)return;
 
-const file=fileInput.files[0];
 
-const text=await file.text();
+let reader=new FileReader();
 
-const words=text.trim().split(/\s+/).length;
+reader.onload=function(e){
 
-wordCountDiv.innerHTML="WORDS: "+words;
+let text=e.target.result;
 
-const standard=(words*0.025).toFixed(2);
+words=text.split(/\s+/).length;
 
-const express=(words*0.05).toFixed(2);
-
-standardCard.innerHTML="STANDARD $"+standard+" • timeline applies";
-
-expressCard.innerHTML="EXPRESS $"+express+" • timeline applies";
+showQuote();
 
 };
+
+reader.readAsText(file);
+
+};
+
+
+function showQuote(){
+
+
+document.getElementById("wordCount").innerText="WORDS: "+words;
+
+
+let standardPrice=(words*0.025).toFixed(2);
+
+let expressPrice=(words*0.05).toFixed(2);
+
+
+document.querySelector(".standard .quote-price").innerText="STANDARD $"+standardPrice;
+
+document.querySelector(".express .quote-price").innerText="EXPRESS $"+expressPrice;
+
+
+document.querySelector(".standard .quote-delivery").innerText=
+
+"Delivery: "+getDelivery(words,"standard");
+
+
+document.querySelector(".express .quote-delivery").innerText=
+
+"Delivery: "+getDelivery(words,"express");
+
+
+document.getElementById("standardCard").onclick=function(){
+
+window.location="payment.html?plan=standard&words="+words;
+
+};
+
+
+document.getElementById("expressCard").onclick=function(){
+
+window.location="payment.html?plan=express&words="+words;
+
+};
+
+
+}
+
+
+function getDelivery(w,type){
+
+if(w<=300)return type=="standard"?"1 - 3 hrs":"30 - 60 mins";
+
+if(w<=1000)return type=="standard"?"3 - 6 hrs":"1 - 3 hrs";
+
+if(w<=3000)return type=="standard"?"6 - 12 hrs":"3 - 6 hrs";
+
+if(w<=6000)return type=="standard"?"12 - 24 hrs":"6 - 12 hrs";
+
+if(w<=10000)return type=="standard"?"24 - 48 hrs":"12 - 24 hrs";
+
+if(w<=20000)return type=="standard"?"2 - 4 days":"24 - 48 hrs";
+
+return "Custom";
+
+}
