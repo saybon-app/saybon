@@ -1,66 +1,165 @@
-body{
+﻿body {
 
-font-family:Arial;
-background:#f5f7fb;
+margin:0;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+
+background:linear-gradient(#e9f1f7,#ffffff);
+
+-webkit-text-size-adjust:100%;
+
+}
+
+body * {
+
+-webkit-tap-highlight-color: transparent;
+
+text-decoration:none !important;
+
+}
+
+.page {
+
+max-width:1100px;
+
+margin:auto;
+
+padding:40px;
+
+}
+
+header {
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+h1 {
+
+font-weight:500;
+
+letter-spacing:3px;
+
+}
+
+.subtitle {
+
+color:#555;
+
+font-size:14px;
+
+}
+
+.content {
+
+display:flex;
+
+gap:30px;
+
+}
+
+.left-card,.right-card {
+
+background:white;
+
+padding:25px;
+
+border-radius:14px;
+
+flex:1;
+
+box-shadow:0 2px 10px rgba(0,0,0,0.06);
+
+}
+
+.upload-row {
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:20px;
+
+}
+
+.upload-row input {
+
+flex:1;
+
+}
+
+#uploadBtn {
+
+background:#5f7f9a;
+
+color:white;
+
+border:none;
+
+padding:10px 22px;
+
+border-radius:20px;
+
+cursor:pointer;
+
+}
+
+.word-count {
+
+margin-bottom:10px;
+
+color:#666;
+
+}
+
+.price-card {
+
+padding:14px;
+
+margin-top:12px;
+
+border-radius:10px;
+
+font-weight:500;
+
+}
+
+.standard {
+
+border:1px solid #bbb;
+
+}
+
+.express {
+
+border:1px solid #e36d6d;
+
+color:#e36d6d;
+
+}
+
+table {
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+td,th {
+
+border:1px solid #ddd;
+
+padding:10px;
+
 text-align:center;
 
 }
 
-.container{
+th {
 
-margin-top:40px;
-
-}
-
-.subtitle{
-
-color:gray;
-
-}
-
-.card-area{
-
-display:flex;
-justify-content:center;
-gap:40px;
-margin-top:30px;
-
-}
-
-.card{
-
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-
-}
-
-.plan{
-
-padding:20px;
-margin-top:20px;
-border:1px solid #ddd;
-cursor:pointer;
-
-}
-
-.standard{
-
-border-color:gray;
-
-}
-
-.express{
-
-border-color:red;
-
-}
-
-button{
-
-margin-top:20px;
-padding:10px 30px;
-cursor:pointer;
+background:#f5f5f5;
 
 }

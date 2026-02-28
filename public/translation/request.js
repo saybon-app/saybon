@@ -1,44 +1,27 @@
-let words=0
+﻿const fileInput=document.getElementById("fileInput");
 
+const wordCountDiv=document.getElementById("wordCount");
 
-function getQuote(){
+const standardCard=document.getElementById("standardCard");
 
-let file=document.getElementById('file').files[0]
+const expressCard=document.getElementById("expressCard");
 
-if(!file){
+fileInput.onchange=async()=>{
 
-alert('Upload file')
-return
+const file=fileInput.files[0];
 
-}
+const text=await file.text();
 
+const words=text.trim().split(/\s+/).length;
 
-let reader=new FileReader()
+wordCountDiv.innerHTML="WORDS: "+words;
 
-reader.onload=function(e){
+const standard=(words*0.025).toFixed(2);
 
-let text=e.target.result
+const express=(words*0.05).toFixed(2);
 
-words=text.split(/\s+/).length
+standardCard.innerHTML="STANDARD $"+standard+" • timeline applies";
 
-let standard=words*0.025
-let express=words*0.05
+expressCard.innerHTML="EXPRESS $"+express+" • timeline applies";
 
-document.getElementById('standardPrice').innerText='$'+standard.toFixed(2)
-document.getElementById('expressPrice').innerText='$'+express.toFixed(2)
-
-document.getElementById('quoteArea').style.display='block'
-
-}
-
-reader.readAsText(file)
-
-}
-
-
-
-function selectPlan(plan){
-
-location.href='payment.html?plan='+plan+'&words='+words
-
-}
+};
