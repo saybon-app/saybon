@@ -1,144 +1,59 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>Payment • SayBon</title>
 
-<meta name="format-detection"
-content="telephone=no, email=no, address=no, date=no">
+<link rel="stylesheet" href="payment.css">
 
-<meta name="apple-mobile-web-app-capable"
-content="yes">
-
-<title>Payment</title>
-
-<link rel="stylesheet" href="translation.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
+<div class="page">
 
-<div class="payment-card">
+<h1>Complete Payment</h1>
 
+<div class="card">
 
-<h2>Translation Payment</h2>
+<div id="summary"></div>
 
+<select id="currency">
 
-<div class="summary">
-
-
-<div class="row">
-
-<div>Plan</div>
-
-<div id="plan">standard</div>
-
-</div>
-
-
-<div class="row">
-
-<div>Words</div>
-
-<div id="words">172</div>
-
-</div>
-
-
-<div class="row">
-
-<div>Total</div>
-
-<div id="total">US.30</div>
-
-</div>
-
-
-</div>
-
-
-
-<label>
-
-Email (required for Paystack)
-
-</label>
-
-
-<input type="email"
-placeholder="you@example.com">
-
-
-
-<label>
-
-Currency
-
-</label>
-
-
-<select>
-
-<option>USD</option>
-
-<option>GHS</option>
+<option value="USD">USD</option>
+<option value="GHS">GHS</option>
+<option value="NGN">NGN</option>
 
 </select>
 
 
-
-<button class="btn-stripe">
+<button id="stripeBtn">
 
 Pay with Stripe
 
 </button>
 
 
-<button class="btn-paystack">
+<button id="paystackBtn">
 
 Pay with Paystack
 
 </button>
 
-
+</div>
 
 </div>
 
 
+<script src="https://js.stripe.com/v3/"></script>
 
-<script>
-
-const params =
-new URLSearchParams(window.location.search)
-
-const words =
-params.get("words")
-
-const plan =
-params.get("plan")
-
-document.getElementById("plan")
-.innerText = plan
-
-
-document.getElementById("words")
-.innerText = words
-
-
-document.getElementById("total")
-.innerText =
-
-"US$" +
-(words * 0.025).toFixed(2)
-
-</script>
-
+<script src="payment.js"></script>
 
 </body>
-
 </html>
