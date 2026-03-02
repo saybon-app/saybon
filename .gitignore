@@ -1,3 +1,4 @@
 .env
-translation-engine/.env
-node_modules/
+node_modules
+.firebase
+backend.zip
