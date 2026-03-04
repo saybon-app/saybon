@@ -8,10 +8,12 @@
 
 <title>SayBon Invoice</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 
 body{
-font-family:Arial, Helvetica, sans-serif;
+font-family:'Poppins',sans-serif;
 background:#f2f4f7;
 padding:40px;
 }
@@ -30,13 +32,14 @@ justify-content:space-between;
 align-items:center;
 background:#4c5c72;
 color:white;
-padding:30px;
+padding:28px;
 margin-bottom:30px;
 }
 
 .header h1{
 margin:0;
-font-size:28px;
+font-size:26px;
+font-weight:600;
 }
 
 .header h2{
@@ -52,8 +55,8 @@ margin-bottom:25px;
 
 .total{
 font-size:34px;
-font-weight:bold;
-color:#333;
+font-weight:600;
+text-align:right;
 }
 
 table{
@@ -62,14 +65,26 @@ border-collapse:collapse;
 margin-top:20px;
 }
 
-th,td{
-padding:12px;
-border-bottom:1px solid #ddd;
+th{
 text-align:left;
+border-bottom:2px solid #ddd;
+padding:12px;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+td:nth-child(2),
+td:nth-child(3),
+td:nth-child(4){
+text-align:right;
 }
 
 .summary{
 margin-top:20px;
+text-align:right;
 }
 
 .summary div{
@@ -125,7 +140,7 @@ color:#2563eb;
 
 <body>
 
-<div class="invoice">
+<div id="invoice" class="invoice">
 
 <div class="header">
 
@@ -140,7 +155,7 @@ color:#2563eb;
 
 <div>
 
-Invoice No: <span id="invoice"></span><br>
+Invoice No: <span id="invoiceNumber"></span><br>
 Job Code: <span id="jobCode">Generating...</span><br>
 Issue Date: <span id="date"></span>
 
@@ -200,6 +215,9 @@ Open Translation Desk
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
 <script>
 
 const params = new URLSearchParams(location.search)
@@ -216,7 +234,6 @@ document.getElementById("service").innerHTML =
 plan === "express"
 ? "Express Translation"
 : "Standard Translation"
-
 
 document.getElementById("words").innerHTML =
 words + " words"
@@ -239,7 +256,7 @@ total.toFixed(2)
 document.getElementById("date").innerHTML =
 new Date().toLocaleDateString()
 
-document.getElementById("invoice").innerHTML =
+document.getElementById("invoiceNumber").innerHTML =
 "INV-" + Date.now()
 
 
@@ -293,7 +310,23 @@ window.location.href =
 
 function downloadInvoice(){
 
-window.print()
+const element = document.getElementById("invoice")
+
+const opt = {
+
+margin:0.3,
+
+filename:"SayBon-Invoice-"+jobCode+".pdf",
+
+image:{ type:"jpeg", quality:0.98 },
+
+html2canvas:{ scale:2 },
+
+jsPDF:{ unit:"in", format:"letter", orientation:"portrait" }
+
+}
+
+html2pdf().set(opt).from(element).save()
 
 }
 
@@ -304,5 +337,4 @@ createJob()
 
 
 </body>
-
 </html>
