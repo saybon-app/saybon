@@ -1,6 +1,6 @@
 ﻿/* =====================================
    SAYBON PAYMENT SCRIPT
-   Stripe Only
+   Stripe Only (USD Default)
 ===================================== */
 
 const qs = new URLSearchParams(location.search);
@@ -42,7 +42,7 @@ headers: {
 },
 body: JSON.stringify({
 amount: Math.round(price * 100),
-currency: document.getElementById("currency").value.toLowerCase(),
+currency: "usd",
 words: words,
 plan: plan
 })
