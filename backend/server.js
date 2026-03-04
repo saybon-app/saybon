@@ -139,3 +139,26 @@ app.listen(PORT, () => {
 console.log(`SayBon payment server running on port ${PORT}`);
 
 });
+
+app.get("/api/stripeSession/:id", async (req, res) => {
+
+  try {
+
+    const session = await stripe.checkout.sessions.retrieve(req.params.id);
+
+    res.json({
+      amount: session.amount_total,
+      currency: session.currency,
+      metadata: session.metadata
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message
+    });
+
+  }
+
+});
+
