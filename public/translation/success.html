@@ -1,48 +1,241 @@
-﻿
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Success</title>
+<title>SayBon Invoice</title>
 
-<link rel="stylesheet" href="success.css">
+<style>
+
+body{
+font-family:Arial;
+background:#f5f5f5;
+padding:40px;
+}
+
+.invoice{
+background:white;
+max-width:900px;
+margin:auto;
+padding:40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#5c6670;
+color:white;
+padding:30px;
+}
+
+.header h1{
+margin:0;
+}
+
+.meta{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+.section{
+margin-top:25px;
+}
+
+.total{
+font-size:32px;
+font-weight:bold;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+.actions{
+margin-top:30px;
+text-align:center;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin:10px;
+}
+
+.pdf{
+background:#333;
+color:white;
+}
+
+.desk{
+background:#2a6df4;
+color:white;
+}
+
+</style>
 
 </head>
 
 <body>
 
+<div class="invoice">
 
-<div class="success">
+<div class="header">
 
-<h1>
+<div>
 
-Payment Successful
-
-</h1>
-
-
-<p>
-
-Your translation order has been received.
-
-A receipt has been sent.
-
-</p>
-
-
-<a href="/dashboard/index.html">
-
-Back to SayBon
-
-</a>
-
+<h1>SayBon Language Services</h1>
 
 </div>
 
+<div>
+
+<h2>Invoice</h2>
+
+</div>
+
+</div>
+
+
+<div class="meta">
+
+<div>
+Invoice No: <span id="invoice"></span><br>
+Reference: <span id="jobCode"></span><br>
+Issue Date: <span id="date"></span>
+</div>
+
+<div class="total">
+
+$<span id="total"></span>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<table>
+
+<tr>
+<th>Description</th>
+<th>Quantity</th>
+<th>Unit Price</th>
+<th>Amount</th>
+</tr>
+
+<tr>
+<td id="service"></td>
+<td id="words"></td>
+<td id="rate"></td>
+<td id="amount"></td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="actions">
+
+<button class="pdf" onclick="downloadInvoice()">
+Download PDF Invoice
+</button>
+
+<button class="desk" onclick="openDesk()">
+Open Translation Desk
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const params=new URLSearchParams(location.search)
+
+const words=Number(params.get("words"))||0
+
+const plan=params.get("plan")||"standard"
+
+const rate=plan==="express"?0.05:0.025
+
+const total=words*rate
+
+document.getElementById("service").innerHTML=
+plan==="express"?"Express Translation":"Standard Translation"
+
+document.getElementById("words").innerHTML=words+" words"
+
+document.getElementById("rate").innerHTML="$"+rate
+
+document.getElementById("amount").innerHTML="$"+total.toFixed(2)
+
+document.getElementById("total").innerHTML=total.toFixed(2)
+
+document.getElementById("date").innerHTML=new Date().toLocaleDateString()
+
+document.getElementById("invoice").innerHTML=
+"INV-"+Date.now()
+
+
+let jobCode=""
+
+async function createJob(){
+
+const res=await fetch(
+"https://saybon-server.onrender.com/api/createJob",
+{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+words:words,
+delivery:plan,
+amount:total
+})
+}
+)
+
+const data=await res.json()
+
+jobCode=data.jobCode
+
+document.getElementById("jobCode").innerHTML=jobCode
+
+}
+
+function openDesk(){
+
+window.location.href=
+"/translation/translation-desk.html?job="+jobCode
+
+}
+
+function downloadInvoice(){
+
+window.print()
+
+}
+
+createJob()
+
+</script>
+
 </body>
-
 </html>
-

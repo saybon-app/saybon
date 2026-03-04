@@ -1,81 +1,72 @@
-﻿
-const stripe = Stripe("PASTE_YOUR_REAL_STRIPE_PUBLIC_KEY_HERE")
+﻿/* =====================================
+   SAYBON PAYMENT SCRIPT
+   Stripe Only
+===================================== */
+
+const qs = new URLSearchParams(location.search);
+
+const plan = qs.get("plan");
+const words = Number(qs.get("words"));
+
+/* =========================
+   PRICE CALCULATION
+========================= */
+
+const price = words * (plan === "express" ? 0.05 : 0.025);
 
 
-const qs=new URLSearchParams(location.search)
+/* =========================
+   DISPLAY SUMMARY
+========================= */
 
-const plan=qs.get("plan")
-
-const words=Number(qs.get("words"))
-
-const price=words*(plan==="express"?0.05:0.025)
-
-
-document.getElementById("summary").innerHTML=
-
-plan.toUpperCase()+"<br>"+
-
-words+" words<br>"+
-
-"$"+price.toFixed(2)
+document.getElementById("summary").innerHTML =
+plan.toUpperCase() + "<br>" +
+words + " words<br>" +
+"$" + price.toFixed(2);
 
 
+/* =========================
+   STRIPE PAYMENT
+========================= */
 
+document.getElementById("stripeBtn").onclick = async () => {
 
-document.getElementById("stripeBtn").onclick=async()=>{
+try{
 
-
-const res=await fetch("/api/pay/stripe",{
-
-method:"POST",
-
-headers:{"Content-Type":"application/json"},
-
-body:JSON.stringify({
-
-amount:Math.round(price*100),
-
-currency:document.getElementById("currency").value
-
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripePay",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+amount: Math.round(price * 100),
+currency: document.getElementById("currency").value.toLowerCase(),
+words: words,
+plan: plan
 })
+}
+);
 
-})
+const data = await res.json();
 
+if(data.url){
 
-const data=await res.json()
+/* Redirect to Stripe Checkout */
+location = data.url;
 
+}else{
 
-location=data.url
+alert("Stripe payment failed");
 
 }
 
+}catch(err){
 
-
-
-document.getElementById("paystackBtn").onclick=async()=>{
-
-
-const res=await fetch("/api/pay/paystack",{
-
-method:"POST",
-
-headers:{"Content-Type":"application/json"},
-
-body:JSON.stringify({
-
-amount:Math.round(price*100),
-
-currency:document.getElementById("currency").value
-
-})
-
-})
-
-
-const data=await res.json()
-
-
-location=data.url
+console.error(err);
+alert("Payment connection error");
 
 }
 
+};
