@@ -162,3 +162,27 @@ app.get("/api/stripeSession/:id", async (req, res) => {
 
 });
 
+
+app.get("/api/stripeSession/:id", async (req, res) => {
+
+try {
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+
+const session = await stripe.checkout.sessions.retrieve(req.params.id)
+
+res.json({
+amount: session.amount_total,
+currency: session.currency,
+metadata: session.metadata
+})
+
+} catch (err) {
+
+console.log(err)
+res.status(500).json({error:"Stripe lookup failed"})
+
+}
+
+})
+

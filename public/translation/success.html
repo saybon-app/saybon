@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -338,3 +338,32 @@ createJob()
 
 </body>
 </html>
+
+<script>
+
+const qs = new URLSearchParams(location.search)
+const sessionId = qs.get("session_id")
+
+async function loadInvoice(){
+
+if(!sessionId){
+return
+}
+
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripeSession/" + sessionId
+)
+
+const data = await res.json()
+
+const amount = (data.amount / 100).toFixed(2)
+
+document.querySelector(".totalPaid").innerText =
+"$" + amount
+
+}
+
+loadInvoice()
+
+</script>
+
