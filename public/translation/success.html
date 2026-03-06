@@ -220,14 +220,36 @@ Open Translation Desk
 
 <script>
 
-const params = new URLSearchParams(location.search)
+const qs = new URLSearchParams(location.search)
 
-const words = Number(params.get("words")) || 0
-const plan = params.get("plan") || "standard"
+const sessionId = qs.get("session_id")
 
-const rate = plan === "express" ? 0.05 : 0.025
+let words = 0
+let plan = "standard"
+let rate = 0.025
+let total = 0
+let jobCode = ""
 
-const total = words * rate
+
+async function loadInvoice(){
+
+if(!sessionId){
+alert("Invalid Stripe session")
+return
+}
+
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripeSession/" + sessionId
+)
+
+const data = await res.json()
+
+total = (data.amount / 100)
+
+plan = data.metadata?.plan || "standard"
+words = data.metadata?.words || 0
+
+rate = plan === "express" ? 0.05 : 0.025
 
 
 document.getElementById("service").innerHTML =
@@ -259,7 +281,6 @@ new Date().toLocaleDateString()
 document.getElementById("invoiceNumber").innerHTML =
 "INV-" + Date.now()
 
-
 const delivery =
 plan === "express"
 ? "Express Delivery (12 hours)"
@@ -267,8 +288,9 @@ plan === "express"
 
 document.getElementById("delivery").innerHTML = delivery
 
+createJob()
 
-let jobCode = ""
+}
 
 
 async function createJob(){
@@ -313,17 +335,11 @@ function downloadInvoice(){
 const element = document.getElementById("invoice")
 
 const opt = {
-
 margin:0.3,
-
 filename:"SayBon-Invoice-"+jobCode+".pdf",
-
 image:{ type:"jpeg", quality:0.98 },
-
 html2canvas:{ scale:2 },
-
 jsPDF:{ unit:"in", format:"letter", orientation:"portrait" }
-
 }
 
 html2pdf().set(opt).from(element).save()
@@ -331,39 +347,10 @@ html2pdf().set(opt).from(element).save()
 }
 
 
-createJob()
+loadInvoice()
 
 </script>
 
 
 </body>
 </html>
-
-<script>
-
-const qs = new URLSearchParams(location.search)
-const sessionId = qs.get("session_id")
-
-async function loadInvoice(){
-
-if(!sessionId){
-return
-}
-
-const res = await fetch(
-"https://saybon-server.onrender.com/api/stripeSession/" + sessionId
-)
-
-const data = await res.json()
-
-const amount = (data.amount / 100).toFixed(2)
-
-document.querySelector(".totalPaid").innerText =
-"$" + amount
-
-}
-
-loadInvoice()
-
-</script>
-
