@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,19 +77,9 @@ padding:12px;
 border-bottom:1px solid #eee;
 }
 
-td:nth-child(2),
-td:nth-child(3),
-td:nth-child(4){
-text-align:right;
-}
-
 .summary{
 margin-top:20px;
 text-align:right;
-}
-
-.summary div{
-margin:6px 0;
 }
 
 .actions{
@@ -103,18 +94,6 @@ border-radius:6px;
 cursor:pointer;
 font-weight:500;
 margin:8px;
-transition:all .15s ease;
-box-shadow:0 4px 10px rgba(0,0,0,0.15);
-}
-
-button:hover{
-transform:translateY(-1px);
-box-shadow:0 6px 14px rgba(0,0,0,0.18);
-}
-
-button:active{
-transform:translateY(2px);
-box-shadow:0 2px 4px rgba(0,0,0,0.25);
 }
 
 .pdf{
@@ -127,16 +106,9 @@ background:#3b82f6;
 color:white;
 }
 
-#jobCode{
-font-weight:600;
-letter-spacing:1px;
-color:#2563eb;
-}
-
 </style>
 
 </head>
-
 
 <body>
 
@@ -145,11 +117,9 @@ color:#2563eb;
 <div class="header">
 
 <h1>SayBon Language Services</h1>
-
 <h2>Invoice</h2>
 
 </div>
-
 
 <div class="meta">
 
@@ -169,7 +139,6 @@ $<span id="total"></span>
 
 </div>
 
-
 <table>
 
 <tr>
@@ -188,53 +157,38 @@ $<span id="total"></span>
 
 </table>
 
-
 <div class="summary">
 
 <div>Delivery Type: <span id="delivery"></span></div>
-
 <div>Subtotal: $<span id="subtotal"></span></div>
-
 <div><strong>Total Paid: $<span id="totalPaid"></span></strong></div>
 
 </div>
 
-
 <div class="actions">
 
-<button class="pdf" onclick="downloadInvoice()">
-Download PDF Invoice
-</button>
+<button class="pdf" onclick="downloadInvoice()">Download PDF Invoice</button>
 
-<button class="desk" onclick="openDesk()">
-Open Translation Desk
-</button>
+<button class="desk" onclick="openDesk()">Open Translation Desk</button>
 
 </div>
 
 </div>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-
 <script>
 
-const qs = new URLSearchParams(location.search)
-
-const sessionId = qs.get("session_id")
-
-let words = 0
-let plan = "standard"
-let rate = 0.025
-let total = 0
 let jobCode = ""
 
+async function init(){
 
-async function loadInvoice(){
+const params = new URLSearchParams(location.search)
+
+const sessionId = params.get("session_id")
 
 if(!sessionId){
-alert("Invalid Stripe session")
+alert("Missing Stripe session")
 return
 }
 
@@ -244,18 +198,14 @@ const res = await fetch(
 
 const data = await res.json()
 
-total = (data.amount / 100)
+const amount = data.amount / 100
+const words = Number(data.metadata.words)
+const plan = data.metadata.plan
 
-plan = data.metadata?.plan || "standard"
-words = data.metadata?.words || 0
-
-rate = plan === "express" ? 0.05 : 0.025
-
+const rate = plan === "express" ? 0.05 : 0.025
 
 document.getElementById("service").innerHTML =
-plan === "express"
-? "Express Translation"
-: "Standard Translation"
+plan === "express" ? "Express Translation" : "Standard Translation"
 
 document.getElementById("words").innerHTML =
 words + " words"
@@ -264,16 +214,16 @@ document.getElementById("rate").innerHTML =
 "$" + rate.toFixed(3)
 
 document.getElementById("amount").innerHTML =
-"$" + total.toFixed(2)
+"$" + amount.toFixed(2)
 
 document.getElementById("subtotal").innerHTML =
-total.toFixed(2)
+amount.toFixed(2)
 
 document.getElementById("totalPaid").innerHTML =
-total.toFixed(2)
+amount.toFixed(2)
 
 document.getElementById("total").innerHTML =
-total.toFixed(2)
+amount.toFixed(2)
 
 document.getElementById("date").innerHTML =
 new Date().toLocaleDateString()
@@ -288,12 +238,11 @@ plan === "express"
 
 document.getElementById("delivery").innerHTML = delivery
 
-createJob()
+createJob(words,plan,amount)
 
 }
 
-
-async function createJob(){
+async function createJob(words,plan,amount){
 
 const res = await fetch(
 "https://saybon-server.onrender.com/api/createJob",
@@ -303,7 +252,7 @@ headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
 words:words,
 delivery:plan,
-amount:total
+amount:amount
 })
 }
 )
@@ -316,41 +265,25 @@ document.getElementById("jobCode").innerHTML = jobCode
 
 }
 
-
 function openDesk(){
-
-if(!jobCode){
-alert("Job is still being created. Please wait.")
-return
-}
 
 window.location.href =
 "/translation/translation-desk.html?job=" + jobCode
 
 }
 
-
 function downloadInvoice(){
 
 const element = document.getElementById("invoice")
 
-const opt = {
-margin:0.3,
-filename:"SayBon-Invoice-"+jobCode+".pdf",
-image:{ type:"jpeg", quality:0.98 },
-html2canvas:{ scale:2 },
-jsPDF:{ unit:"in", format:"letter", orientation:"portrait" }
-}
-
-html2pdf().set(opt).from(element).save()
+html2pdf().from(element).save("SayBon-Invoice.pdf")
 
 }
 
-
-loadInvoice()
+init()
 
 </script>
 
-
 </body>
 </html>
+
