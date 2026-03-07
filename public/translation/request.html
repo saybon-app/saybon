@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,8 +25,6 @@ color:#6e6e73;
 -webkit-font-smoothing:antialiased;
 }
 
-/* MOBILE UNDERLINE FIX */
-
 *{
 -webkit-tap-highlight-color: transparent;
 text-decoration:none;
@@ -50,12 +48,10 @@ white-space:nowrap;
 }
 
 .container{
-
 display:flex;
 justify-content:center;
 gap:40px;
 flex-wrap:wrap;
-
 }
 
 .left-card,
@@ -73,147 +69,110 @@ transition:all .2s ease;
 
 }
 
-
 .left-card:hover,
 .right-card:hover{
-
 transform:translateY(-4px);
-
 }
-
 
 .upload-row{
-
 display:flex;
 gap:10px;
-
 }
 
-
 #uploadBtn{
-
 background:#1e8e8e;
 color:white;
 border:none;
 padding:10px 20px;
 border-radius:10px;
 cursor:pointer;
-
 transition:.2s;
-
 }
-
 
 #uploadBtn:hover{
-
 transform:translateY(-2px);
-
 }
-
 
 #uploadBtn:active{
-
 transform:translateY(2px);
-
 }
-
 
 .word-count{
-
 margin-top:15px;
 font-weight:500;
-
 }
 
-
 .quote-card{
-
 margin-top:15px;
 padding:15px;
 border-radius:15px;
 cursor:pointer;
-
 border:1px solid;
-
 transition:.2s;
-
 }
-
 
 .standard{
-
 border-color:#34a853;
-
 }
-
 
 .express{
-
 border-color:#ea4335;
-
 }
-
 
 .quote-card:hover{
-
 transform:translateY(-2px);
-
 }
-
 
 .quote-card:active{
-
 transform:translateY(2px);
-
 }
-
 
 .quote-price{
-
 font-weight:500;
-
 }
-
 
 .quote-delivery{
-
 font-size:12px;
-
 }
-
-
 
 table{
-
 width:100%;
 border-collapse:collapse;
-
 }
 
-
 th,td{
-
 border:1px solid #ddd;
 padding:8px;
 font-size:12px;
 text-align:left;
-
 }
-
 
 .green{
-
 color:#34a853;
-
 }
-
 
 .red{
-
 color:#ea4335;
-
 }
 
+/* NEW CONTINUE BUTTON */
+
+#continueBtn{
+display:none;
+margin-top:20px;
+width:100%;
+background:#1e8e8e;
+color:white;
+border:none;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-weight:500;
+}
+
+#continueBtn:hover{
+transform:translateY(-2px);
+}
 
 /* MOBILE */
 
@@ -229,9 +188,7 @@ font-size:10px;
 
 .left-card,
 .right-card{
-
 width:100%;
-
 }
 
 }
@@ -240,94 +197,69 @@ width:100%;
 
 </head>
 
-
 <body>
-
 
 <div class="page">
 
 <h1 class="title">
-
 SAYBON TRANSLATION SERVICES
-
 </h1>
 
-
 <p class="subtitle">
-
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-
 </p>
-
 
 <div class="container">
 
-
 <div class="left-card">
-
 
 <div class="upload-row">
 
 <input type="file" id="fileInput">
 
 <button id="uploadBtn">
-
 UPLOAD
-
 </button>
 
 </div>
 
-
 <div id="wordCount" class="word-count">
-
 WORDS: 0
-
 </div>
-
 
 <div id="standardCard"
 class="quote-card standard">
 
 <div class="quote-price">
-
 STANDARD .00
-
 </div>
 
 <div class="quote-delivery">
-
 Delivery: —
-
 </div>
 
 </div>
-
 
 <div id="expressCard"
 class="quote-card express">
 
 <div class="quote-price">
-
 EXPRESS .00
-
 </div>
 
 <div class="quote-delivery">
-
 Delivery: —
-
 </div>
 
 </div>
 
+<button id="continueBtn">
+CONTINUE
+</button>
 
 </div>
-
-
 
 <div class="right-card">
-
 
 <table>
 
@@ -336,56 +268,66 @@ Delivery: —
 <th>WORD COUNT</th>
 
 <th class="green">
-
 STANDARD<br>
 0.025 / word
-
 </th>
 
 <th class="red">
-
 EXPRESS<br>
 0.05 / word
-
 </th>
 
 </tr>
 
-
 <tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
-
 <tr><td>301 - 1000</td><td>3 - 6 hrs</td><td>1 - 3 hrs</td></tr>
-
 <tr><td>1001 - 3000</td><td>6 - 12 hrs</td><td>3 - 6 hrs</td></tr>
-
 <tr><td>3001 - 6000</td><td>12 - 24 hrs</td><td>6 - 12 hrs</td></tr>
-
 <tr><td>6001 - 10000</td><td>24 - 48 hrs</td><td>12 - 24 hrs</td></tr>
-
 <tr><td>10001 - 20000</td><td>2 - 4 days</td><td>24 - 48 hrs</td></tr>
-
 <tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
-
 
 </table>
 
+</div>
 
 </div>
 
-
-
 </div>
 
+<script>
 
-</div>
+let selectedPlan=null
 
+document.getElementById("standardCard").onclick=()=>{
+selectedPlan="standard"
+document.getElementById("continueBtn").style.display="block"
+}
+
+document.getElementById("expressCard").onclick=()=>{
+selectedPlan="express"
+document.getElementById("continueBtn").style.display="block"
+}
+
+document.getElementById("continueBtn").onclick=()=>{
+
+const words=parseInt(
+document.getElementById("wordCount")
+.innerText.replace(/\D/g,'')
+)
+
+location.href=
+"/translation/job.html?plan="+selectedPlan+"&words="+words
+
+}
+
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 
 <script src="request.js"></script>
-
 
 </body>
 
