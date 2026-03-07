@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Invoice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Poppins',sans-serif;
+background:#f2f4f7;
+padding:40px;
+}
+
+.invoice{
+background:white;
+max-width:900px;
+margin:auto;
+padding:40px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#4c5c72;
+color:white;
+padding:28px;
+margin-bottom:30px;
+}
+
+.header h1{
+margin:0;
+font-size:26px;
+font-weight:600;
+}
+
+.header h2{
+margin:0;
+font-weight:500;
+}
+
+.meta{
+display:flex;
+justify-content:space-between;
+margin-bottom:25px;
+}
+
+.total{
+font-size:34px;
+font-weight:600;
+text-align:right;
+}
+
+.actions{
+margin-top:30px;
+text-align:center;
+}
+
+button{
+padding:12px 22px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:500;
+margin:8px;
+}
+
+.pdf{
+background:#4b5563;
+color:white;
+}
+
+.home{
+background:#3b82f6;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="invoice">
+
+<div class="header">
+
+<h1>SayBon Language Services</h1>
+<h2>Invoice</h2>
+
+</div>
+
+<div class="meta">
+
+<div>
+
+Invoice No: <span id="invoiceNumber"></span><br>
+Session ID: <span id="sessionId"></span><br>
+Issue Date: <span id="date"></span>
+
+</div>
+
+<div class="total">
+
+$<span id="total"></span>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="pdf" onclick="window.print()">Download PDF</button>
+
+<button class="home" onclick="goHome()">Return Home</button>
+
+</div>
+
+</div>
+
+<script>
+
+async function loadInvoice(){
+
+const params = new URLSearchParams(window.location.search)
+
+const sessionId = params.get("session_id")
+
+if(!sessionId){
+
+alert("Missing Stripe session ID")
+
+return
+
+}
+
+document.getElementById("sessionId").innerText = sessionId
+
+try{
+
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripeSession/"+sessionId
+)
+
+const data = await res.json()
+
+const amount = data.amount / 100
+
+document.getElementById("total").innerText =
+amount.toFixed(2)
+
+document.getElementById("date").innerText =
+new Date().toLocaleDateString()
+
+document.getElementById("invoiceNumber").innerText =
+"INV-" + Date.now()
+
+}catch(err){
+
+console.log(err)
+
+alert("Unable to load payment information")
+
+}
+
+}
+
+function goHome(){
+
+window.location.href="/"
+
+}
+
+loadInvoice()
+
+</script>
+
+</body>
+</html>
