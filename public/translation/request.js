@@ -1,34 +1,33 @@
-let selectedPlan = null;
+﻿document.addEventListener("DOMContentLoaded", () => {
 
-/* ELEMENTS */
+let selectedPlan = null;
 
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");
 const continueBtn = document.getElementById("continueBtn");
 
-/* UPLOAD BUTTON */
-
 if(uploadBtn && fileInput){
-
 uploadBtn.onclick = () => {
 fileInput.click();
 };
-
 }
 
-/* PLAN SELECTION */
+const standardCard = document.getElementById("standardCard");
+const expressCard = document.getElementById("expressCard");
 
-document.getElementById("standardCard").onclick = () => {
+if(standardCard){
+standardCard.onclick = () => {
 selectedPlan = "standard";
 if(continueBtn) continueBtn.style.display = "block";
 };
+}
 
-document.getElementById("expressCard").onclick = () => {
+if(expressCard){
+expressCard.onclick = () => {
 selectedPlan = "express";
 if(continueBtn) continueBtn.style.display = "block";
 };
-
-/* CONTINUE BUTTON */
+}
 
 if(continueBtn){
 
@@ -45,3 +44,5 @@ window.location.href =
 };
 
 }
+
+});
