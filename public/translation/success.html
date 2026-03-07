@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,7 +13,7 @@
 <style>
 
 body{
-font-family:'Poppins',sans-serif;
+font-family:Poppins;
 background:#f2f4f7;
 padding:40px;
 }
@@ -30,55 +29,15 @@ box-shadow:0 10px 30px rgba(0,0,0,0.08);
 .header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 background:#4c5c72;
 color:white;
 padding:28px;
 margin-bottom:30px;
 }
 
-.header h1{
-margin:0;
-font-size:26px;
-font-weight:600;
-}
-
-.header h2{
-margin:0;
-font-weight:500;
-}
-
-.meta{
-display:flex;
-justify-content:space-between;
-margin-bottom:25px;
-}
-
 .total{
 font-size:34px;
 font-weight:600;
-text-align:right;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-
-th{
-text-align:left;
-border-bottom:2px solid #ddd;
-padding:12px;
-}
-
-td{
-padding:12px;
-border-bottom:1px solid #eee;
-}
-
-.summary{
-margin-top:20px;
 text-align:right;
 }
 
@@ -92,18 +51,7 @@ padding:12px 22px;
 border:none;
 border-radius:6px;
 cursor:pointer;
-font-weight:500;
 margin:8px;
-}
-
-.pdf{
-background:#4b5563;
-color:white;
-}
-
-.desk{
-background:#3b82f6;
-color:white;
 }
 
 </style>
@@ -112,7 +60,7 @@ color:white;
 
 <body>
 
-<div id="invoice" class="invoice">
+<div class="invoice">
 
 <div class="header">
 
@@ -121,15 +69,14 @@ color:white;
 
 </div>
 
-<div class="meta">
-
 <div>
 
-Invoice No: <span id="invoiceNumber"></span><br>
-Job Code: <span id="jobCode">Generating...</span><br>
-Issue Date: <span id="date"></span>
+Job Code: <span id="jobCode"></span><br>
+Date: <span id="date"></span>
 
 </div>
+
+<br>
 
 <div class="total">
 
@@ -137,153 +84,53 @@ $<span id="total"></span>
 
 </div>
 
-</div>
-
-<table>
-
-<tr>
-<th>Description</th>
-<th>Quantity</th>
-<th>Unit Price</th>
-<th>Amount</th>
-</tr>
-
-<tr>
-<td id="service"></td>
-<td id="words"></td>
-<td id="rate"></td>
-<td id="amount"></td>
-</tr>
-
-</table>
-
-<div class="summary">
-
-<div>Delivery Type: <span id="delivery"></span></div>
-<div>Subtotal: $<span id="subtotal"></span></div>
-<div><strong>Total Paid: $<span id="totalPaid"></span></strong></div>
-
-</div>
-
 <div class="actions">
 
-<button class="pdf" onclick="downloadInvoice()">Download PDF Invoice</button>
+<button onclick="window.print()">Download PDF</button>
 
-<button class="desk" onclick="openDesk()">Open Translation Desk</button>
-
-</div>
+<button onclick="openDesk()">Open Translation Desk</button>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</div>
 
 <script>
 
-let jobCode = ""
+const params = new URLSearchParams(location.search);
+
+const sessionId = params.get("session_id");
+
+let jobCode="";
 
 async function init(){
 
-const params = new URLSearchParams(location.search)
+const confirm = await fetch(
+"https://saybon-server.onrender.com/api/confirmPayment/"+sessionId
+);
 
-const sessionId = params.get("session_id")
+const job = await confirm.json();
 
-if(!sessionId){
-alert("Missing Stripe session")
-return
-}
+jobCode = job.jobCode;
 
-const res = await fetch(
-"https://saybon-server.onrender.com/api/stripeSession/" + sessionId
-)
+document.getElementById("jobCode").innerText = job.jobCode;
 
-const data = await res.json()
+document.getElementById("total").innerText = job.amount;
 
-const amount = data.amount / 100
-const words = Number(data.metadata.words)
-const plan = data.metadata.plan
-
-const rate = plan === "express" ? 0.05 : 0.025
-
-document.getElementById("service").innerHTML =
-plan === "express" ? "Express Translation" : "Standard Translation"
-
-document.getElementById("words").innerHTML =
-words + " words"
-
-document.getElementById("rate").innerHTML =
-"$" + rate.toFixed(3)
-
-document.getElementById("amount").innerHTML =
-"$" + amount.toFixed(2)
-
-document.getElementById("subtotal").innerHTML =
-amount.toFixed(2)
-
-document.getElementById("totalPaid").innerHTML =
-amount.toFixed(2)
-
-document.getElementById("total").innerHTML =
-amount.toFixed(2)
-
-document.getElementById("date").innerHTML =
-new Date().toLocaleDateString()
-
-document.getElementById("invoiceNumber").innerHTML =
-"INV-" + Date.now()
-
-const delivery =
-plan === "express"
-? "Express Delivery (12 hours)"
-: "Standard Delivery (24-48 hours)"
-
-document.getElementById("delivery").innerHTML = delivery
-
-createJob(words,plan,amount)
-
-}
-
-async function createJob(words,plan,amount){
-
-const res = await fetch(
-"https://saybon-server.onrender.com/api/createJob",
-{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-words:words,
-delivery:plan,
-amount:amount
-})
-}
-)
-
-const data = await res.json()
-
-jobCode = data.jobCode
-
-document.getElementById("jobCode").innerHTML = jobCode
+document.getElementById("date").innerText =
+new Date().toLocaleDateString();
 
 }
 
 function openDesk(){
 
-window.location.href =
-"/translation/translation-desk.html?job=" + jobCode
+location="/translation/translation-desk.html?job="+jobCode;
 
 }
 
-function downloadInvoice(){
-
-const element = document.getElementById("invoice")
-
-html2pdf().from(element).save("SayBon-Invoice.pdf")
-
-}
-
-init()
+init();
 
 </script>
 
 </body>
-</html>
 
+</html>
