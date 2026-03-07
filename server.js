@@ -10,7 +10,9 @@ app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const jobs = {};
+/* ===========================
+   GENERATE JOB CODE
+=========================== */
 
 function generateJobCode(){
  return "SB-" + crypto.randomBytes(3).toString("hex").toUpperCase();
@@ -32,19 +34,6 @@ app.post("/api/createCheckout", async(req,res)=>{
 
  const jobCode = generateJobCode();
 
- jobs[jobCode] = {
-
- jobCode,
- words,
- plan,
- amount:amount/100,
- status:"awaiting_payment",
- stage:"Waiting for payment",
- progress:0,
- createdAt:new Date()
-
- };
-
  const session = await stripe.checkout.sessions.create({
 
  payment_method_types:["card"],
@@ -57,7 +46,7 @@ app.post("/api/createCheckout", async(req,res)=>{
  currency:"usd",
  product_data:{
  name:"SayBon Translation",
- description:words+" words"
+ description:words + " words"
  },
  unit_amount:amount
  },
@@ -67,7 +56,10 @@ app.post("/api/createCheckout", async(req,res)=>{
  }],
 
  metadata:{
- jobCode:jobCode
+ jobCode:jobCode,
+ words:String(words),
+ plan:String(plan),
+ amount:String(amount/100)
  },
 
  success_url:
@@ -89,56 +81,26 @@ app.post("/api/createCheckout", async(req,res)=>{
 });
 
 /* ===========================
-   CONFIRM PAYMENT
+   RETRIEVE STRIPE SESSION
 =========================== */
 
-app.get("/api/confirmPayment/:session", async(req,res)=>{
+app.get("/api/stripeSession/:id", async(req,res)=>{
 
  try{
 
- const session = await stripe.checkout.sessions.retrieve(req.params.session);
+ const session = await stripe.checkout.sessions.retrieve(req.params.id);
 
- const jobCode = session.metadata.jobCode;
-
- if(!jobs[jobCode]){
-
- return res.status(404).json({error:"Job not found"});
-
- }
-
- if(session.payment_status==="paid"){
-
- jobs[jobCode].status="Payment received";
- jobs[jobCode].stage="Queued for Phase-1";
- jobs[jobCode].progress=5;
-
- }
-
- res.json(jobs[jobCode]);
+ res.json({
+ amount:session.amount_total,
+ metadata:session.metadata,
+ status:session.payment_status
+ });
 
  }catch(err){
 
- res.status(500).json({error:"Payment verification failed"});
+ res.status(400).json({error:"Invalid session"});
 
  }
-
-});
-
-/* ===========================
-   GET JOB
-=========================== */
-
-app.get("/api/job/:code",(req,res)=>{
-
- const job = jobs[req.params.code];
-
- if(!job){
-
- return res.status(404).json({error:"Job not found"});
-
- }
-
- res.json(job);
 
 });
 

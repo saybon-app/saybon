@@ -35,6 +35,10 @@ padding:28px;
 margin-bottom:30px;
 }
 
+.meta{
+margin-bottom:25px;
+}
+
 .total{
 font-size:34px;
 font-weight:600;
@@ -69,14 +73,12 @@ margin:8px;
 
 </div>
 
-<div>
+<div class="meta">
 
 Job Code: <span id="jobCode"></span><br>
 Date: <span id="date"></span>
 
 </div>
-
-<br>
 
 <div class="total">
 
@@ -104,17 +106,29 @@ let jobCode="";
 
 async function init(){
 
-const confirm = await fetch(
-"https://saybon-server.onrender.com/api/confirmPayment/"+sessionId
+if(!sessionId){
+alert("Missing payment session");
+return;
+}
+
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripeSession/"+sessionId
 );
 
-const job = await confirm.json();
+const data = await res.json();
 
-jobCode = job.jobCode;
+if(data.status!=="paid"){
+alert("Payment not confirmed");
+return;
+}
 
-document.getElementById("jobCode").innerText = job.jobCode;
+const meta = data.metadata;
 
-document.getElementById("total").innerText = job.amount;
+jobCode = meta.jobCode;
+
+document.getElementById("jobCode").innerText = meta.jobCode;
+
+document.getElementById("total").innerText = meta.amount;
 
 document.getElementById("date").innerText =
 new Date().toLocaleDateString();
