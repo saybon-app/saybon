@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Job Created</title>
+</head>
+
+<body>
+
+<h2>Translation Job Created</h2>
+
+<div id="jobInfo"></div>
+
+<script>
+
+const params = new URLSearchParams(location.search)
+const id = params.get("id")
+
+document.getElementById("jobInfo").innerHTML =
+"Your Job ID: "+id
+
+</script>
+
+</body>
+
+</html>
