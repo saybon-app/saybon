@@ -2,82 +2,37 @@
 <html>
 
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Payment Success</title>
-
-<style>
-
-body{
-font-family:Poppins,Arial;
-background:#f6f8ff;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-.card{
-background:white;
-padding:40px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-text-align:center;
-width:420px;
-}
-
-</style>
-
 </head>
 
 <body>
 
-<div class="card">
+<h2>Payment Successful</h2>
 
-<h1>Payment Successful</h1>
-
-<p id="details">Loading payment...</p>
-
-</div>
+<div id="info">Loading...</div>
 
 <script>
 
-const qs = new URLSearchParams(location.search)
-
-const sessionId = qs.get("session_id")
-
-if(!sessionId){
-
-document.getElementById("details").innerHTML =
-"Payment confirmed"
-
-}else{
+const params = new URLSearchParams(location.search)
+const id = params.get("session_id")
 
 fetch(
-"https://saybon-server.onrender.com/api/stripeSession/"+sessionId
+"https://saybon-server.onrender.com/api/stripeSession/" + id
 )
-.then(r=>r.json())
-.then(data=>{
+.then(r => r.json())
+.then(data => {
 
-document.getElementById("details").innerHTML =
+document.getElementById("info").innerHTML =
 
 "Amount Paid: $" + (data.amount/100).toFixed(2) +
-"<br>" +
-data.metadata.words + " words"
+"<br>Words: " + data.metadata.words +
+"<br>Plan: " + data.metadata.plan
 
 })
-.catch(()=>{
-
-document.getElementById("details").innerHTML =
-"Payment confirmed"
-
-})
-
-}
 
 </script>
 
 </body>
+
 </html>

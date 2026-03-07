@@ -1,42 +1,43 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="format-detection" content="telephone=no">
-
-<title>Payment</title>
-
-<link rel="stylesheet" href="payment.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<title>SayBon Payment Test</title>
 </head>
 
 <body>
 
-<div class="page">
+<h2>Stripe Payment Test</h2>
 
-<h1 class="title">Complete Payment</h1>
+<button id="pay">Pay $1</button>
 
-<div class="card">
+<script>
 
-<div id="summary" class="summary"></div>
+document.getElementById("pay").onclick = async () => {
 
-<button id="stripeBtn" class="stripe">
-Pay with Stripe
-</button>
+const res = await fetch(
+"https://saybon-server.onrender.com/api/stripe",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+amount: 1,
+words: 10,
+plan: "test"
+})
+}
+)
 
-</div>
+const data = await res.json()
 
-</div>
+location = data.url
 
-<script src="https://js.stripe.com/v3/"></script>
-<script src="payment.js"></script>
+}
+
+</script>
 
 </body>
 
