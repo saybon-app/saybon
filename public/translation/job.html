@@ -3,25 +3,32 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Job Created</title>
+<title>Translation Job Created</title>
 </head>
 
-<body>
+<body style="font-family:Arial;padding:40px">
 
-<h2>Translation Job Created</h2>
+<h1>Translation Job Created</h1>
 
-<div id="jobInfo"></div>
+<p id="jobId">Generating Job...</p>
 
 <script>
 
-const params = new URLSearchParams(location.search)
-const id = params.get("id")
+const params = new URLSearchParams(window.location.search)
 
-document.getElementById("jobInfo").innerHTML =
-"Your Job ID: "+id
+const plan = params.get("plan")
+const words = params.get("words")
+
+/* generate simple temporary job id */
+
+const jobId = "JOB-" + Date.now()
+
+document.getElementById("jobId").innerText =
+"Your Job ID: " + jobId +
+" | Plan: " + plan +
+" | Words: " + words
 
 </script>
 
 </body>
-
 </html>
