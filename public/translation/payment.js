@@ -64,7 +64,7 @@ alert("Stripe payment failed");
 }catch(err){
 
 console.error(err);
-alert("Payment connection error");
+alert("err.message");
 
 }
 
