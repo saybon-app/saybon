@@ -1,4 +1,5 @@
 .env
 node_modules
 .firebase
-backend.zip
+backend.zipSayBon.zip
+*.zip
