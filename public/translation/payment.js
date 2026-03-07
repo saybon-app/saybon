@@ -34,7 +34,7 @@ document.getElementById("stripeBtn").onclick = async () => {
 try{
 
 const res = await fetch(
-"https://saybon-server.onrender.com/api/stripe",
+"https://saybon-server.onrender.com/api/stripePay",
 {
 method: "POST",
 headers: {
