@@ -1,72 +1,75 @@
-﻿
-# SAYBON FILE LEDGER
+﻿# SAYBON FILE LEDGER
 
-This ledger records the current locked state of all production files.
-
----
-
-## LOCKED SYSTEM STATE
 Date: 2026-03-07
 
-### Translation Platform Architecture
+----------------------------------------
 
-Upload  
-↓  
-Quote  
-↓  
-Create Job  
-↓  
-Stripe Checkout  
-↓  
-Payment Success  
-↓  
-Invoice  
-↓  
-Translation Queue  
-↓  
-Translation Desk  
+LOCKED JOB CODE FORMAT
 
----
+SB-XXXXXX
 
-## LOCKED FILES
+Example:
 
-### Request Page
+SB-4F91A2
+
+----------------------------------------
+
+TRANSLATION PLATFORM FLOW
+
+Upload
+↓
+Quote
+↓
+Create Job
+↓
+Stripe Checkout
+↓
+Payment Success
+↓
+Invoice
+↓
+Translation Queue
+↓
+Translation Desk
+
+----------------------------------------
+
+REQUEST PAGE
 
 public/translation/request.html
 
 Status: LOCKED
 
-Features confirmed:
+Features
 
-• File upload (TXT / DOCX / PDF)  
-• Word count extraction  
-• Quote calculation  
-• Delivery timeline calculation  
-• Standard / Express plan selection  
-• Continue routing to job page  
+File Upload
+Word Count Extraction
+Quote Calculation
+Delivery Calculation
+Plan Selection
 
-Pricing Logic:
+----------------------------------------
 
-Standard = $0.025 per word  
-Express = $0.05 per word  
+JOB PAGE
 
-Delivery tiers automatically calculated from pricing table.
+public/translation/job.html
 
----
+Status: LOCKED ARCHITECTURE
 
-## CURRENT FRONTEND ROUTES
+Responsibilities
 
-/translation/request.html  
-/translation/job.html  
-/translation/payment.html  
-/translation/success.html  
-/translation/translation-desk.html  
+Display Job Summary
+Confirm Uploaded File
+Create Backend Job
+Display Job Code
+Initiate Payment
 
----
+----------------------------------------
 
-## BUILD STATE
+SECURITY RULE
 
-Request page UI and logic fully operational.
+Job page does not trust URL parameters.
+Backend must validate price, words, and plan.
 
-Next stage: Job Creation Page
+----------------------------------------
 

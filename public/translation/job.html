@@ -4,10 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Translation Job</title>
+<title>Translation Job</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -21,9 +20,20 @@ color:#6e6e73;
 }
 
 .page{
-padding:30px;
 max-width:700px;
 margin:auto;
+padding:30px;
+}
+
+.card{
+
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:25px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
 }
 
 .title{
@@ -31,36 +41,36 @@ text-align:center;
 margin-bottom:20px;
 }
 
-.card{
-background:rgba(255,255,255,0.7);
-backdrop-filter:blur(20px);
-border-radius:25px;
-padding:25px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
 .summary{
 margin-bottom:20px;
+line-height:1.8;
 }
 
-input,select{
-width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-border:1px solid #ccc;
-font-family:'Poppins',sans-serif;
+.jobCode{
+
+margin-top:15px;
+font-weight:600;
+
 }
 
 button{
+
 margin-top:20px;
+
 width:100%;
+
 padding:12px;
-background:#1e8e8e;
-color:white;
+
 border:none;
+
 border-radius:10px;
+
+background:#1e8e8e;
+
+color:white;
+
 cursor:pointer;
+
 }
 
 button:hover{
@@ -75,44 +85,26 @@ transform:translateY(-2px);
 
 <div class="page">
 
-<h2 class="title">Translation Job Details</h2>
+<h2 class="title">Translation Job Summary</h2>
 
 <div class="card">
 
 <div class="summary">
 
-<p id="wordSummary"></p>
-
-<p id="planSummary"></p>
-
-<p id="priceSummary"></p>
+<p id="fileName"></p>
+<p id="wordCount"></p>
+<p id="plan"></p>
+<p id="price"></p>
+<p id="delivery"></p>
 
 </div>
 
-<label>Name</label>
-<input id="name">
+<p class="jobCode" id="jobCode"></p>
 
-<label>Email</label>
-<input id="email">
+<button id="payBtn">
 
-<label>Source Language</label>
-<select id="source">
-<option>English</option>
-<option>French</option>
-<option>Spanish</option>
-<option>German</option>
-</select>
+Proceed to Payment
 
-<label>Target Language</label>
-<select id="target">
-<option>French</option>
-<option>English</option>
-<option>Spanish</option>
-<option>German</option>
-</select>
-
-<button id="createJob">
-Continue to Payment
 </button>
 
 </div>
@@ -121,50 +113,97 @@ Continue to Payment
 
 <script>
 
-const params = new URLSearchParams(window.location.search)
+const params=new URLSearchParams(window.location.search)
 
-const words = parseInt(params.get("words"))
-const plan = params.get("plan")
+const words=parseInt(params.get("words"))
+const plan=params.get("plan")
+const fileId=params.get("fileId")
+const fileName=params.get("fileName")
 
-const price = plan==="express"
-? words*0.05
-: words*0.025
+const rate=plan==="express"?0.05:0.025
+const price=(words*rate).toFixed(2)
 
-document.getElementById("wordSummary").innerText =
-"Word Count: "+words
+function deliveryEstimate(words){
 
-document.getElementById("planSummary").innerText =
-"Plan: "+plan
+if(words<=300)return"1 - 3 hrs"
+if(words<=1000)return"3 - 6 hrs"
+if(words<=3000)return"6 - 12 hrs"
+if(words<=6000)return"12 - 24 hrs"
+if(words<=10000)return"24 - 48 hrs"
+if(words<=20000)return"2 - 4 days"
 
-document.getElementById("priceSummary").innerText =
-"Price: $"+price.toFixed(2)
+return"Custom"
 
-document.getElementById("createJob").onclick=()=>{
-
-const name=document.getElementById("name").value
-const email=document.getElementById("email").value
-const source=document.getElementById("source").value
-const target=document.getElementById("target").value
-
-if(!name||!email){
-alert("Please complete your information")
-return
 }
 
-const jobId="JOB-"+Date.now()
+document.getElementById("fileName").innerText="File: "+fileName
 
-const query=new URLSearchParams()
+document.getElementById("wordCount").innerText="Word Count: "+words
 
-query.append("jobId",jobId)
-query.append("words",words)
-query.append("plan",plan)
-query.append("price",price)
-query.append("name",name)
-query.append("email",email)
-query.append("source",source)
-query.append("target",target)
+document.getElementById("plan").innerText="Plan: "+plan
 
-window.location.href="/translation/payment.html?"+query.toString()
+document.getElementById("price").innerText="Total Price: $"+price
+
+document.getElementById("delivery").innerText="Estimated Delivery: "+deliveryEstimate(words)
+
+async function createJob(){
+
+const res=await fetch("/api/createJob",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+fileId,
+words,
+plan,
+price
+
+})
+
+})
+
+const data=await res.json()
+
+document.getElementById("jobCode").innerText="Job Code: "+data.jobCode
+
+return data.jobCode
+
+}
+
+let jobCode
+
+createJob().then(code=>{
+
+jobCode=code
+
+})
+
+document.getElementById("payBtn").onclick=async()=>{
+
+const res=await fetch("/api/createCheckout",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+jobCode
+
+})
+
+})
+
+const data=await res.json()
+
+window.location.href=data.url
 
 }
 
@@ -173,3 +212,4 @@ window.location.href="/translation/payment.html?"+query.toString()
 </body>
 
 </html>
+
