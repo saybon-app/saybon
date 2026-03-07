@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="UTF-8">
@@ -24,11 +25,20 @@ padding:40px;
 border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
 text-align:center;
-width:400px;
+width:420px;
 }
 
 h1{
 color:#2d8cff;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#2d8cff;
+color:white;
+cursor:pointer;
 }
 
 </style>
@@ -41,37 +51,46 @@ color:#2d8cff;
 
 <h1>Payment Successful</h1>
 
-<p id="details">Loading payment...</p>
+<p id="details">Loading payment details...</p>
+
+<button onclick="window.print()">Download Invoice</button>
 
 </div>
 
 <script>
 
-const qs = new URLSearchParams(location.search)
+const qs = new URLSearchParams(location.search);
 
-const sessionId = qs.get("session_id")
+const sessionId = qs.get("session_id");
 
 if(!sessionId){
 
-alert("Missing Stripe session ID")
+document.getElementById("details").innerHTML =
+"Payment confirmed";
 
 }else{
 
-fetch("https://saybon-server.onrender.com/api/stripeSession/"+sessionId)
+fetch(
+"https://saybon-server.onrender.com/api/stripeSession/"+sessionId
+)
 .then(r=>r.json())
 .then(data=>{
 
 document.getElementById("details").innerHTML =
-"Amount Paid: $" + (data.amount/100).toFixed(2) +
+
+"Amount Paid: $" +
+(data.amount/100).toFixed(2) +
 "<br>" +
-data.metadata.words + " words"
+data.metadata.words +
+" words";
 
 })
 .catch(()=>{
 
-document.getElementById("details").innerHTML="Payment confirmed"
+document.getElementById("details").innerHTML =
+"Payment confirmed";
 
-})
+});
 
 }
 

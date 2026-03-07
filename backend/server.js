@@ -1,72 +1,103 @@
-import express from "express"
-import Stripe from "stripe"
-import cors from "cors"
-import dotenv from "dotenv"
+import express from "express";
+import Stripe from "stripe";
+import axios from "axios";
+import cors from "cors";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-const stripe = new Stripe(process.env.STRIPE_SECRET)
+const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-app.post("/api/stripe", async (req,res)=>{
+#############################################
+# STRIPE CHECKOUT
+#############################################
 
-try{
+app.post("/api/stripe", async (req, res) => {
 
-const { amount, words, plan } = req.body
+try {
+
+const { amount, words, plan } = req.body;
 
 const session = await stripe.checkout.sessions.create({
 
-payment_method_types:["card"],
+payment_method_types: ["card"],
 
-mode:"payment",
+mode: "payment",
 
-line_items:[{
+line_items: [
 
-price_data:{
-currency:"usd",
+{
 
-product_data:{
-name:`SayBon Translation (${plan})`,
-description:`${words} words`
+price_data: {
+
+currency: "usd",
+
+product_data: {
+
+name: `SayBon Translation (${plan})`,
+description: `${words} words`
+
 },
 
 unit_amount: Math.round(amount * 100)
+
 },
 
-quantity:1
-}],
-
-metadata:{
-words,
-plan
-},
-
-success_url:`${process.env.DOMAIN}/translation/success.html?session_id={CHECKOUT_SESSION_ID}`,
-cancel_url:`${process.env.DOMAIN}/translation/payment.html`
-
-})
-
-res.json({ url: session.url })
-
-}catch(err){
-
-console.log(err)
-res.status(500).json({error:err.message})
+quantity: 1
 
 }
 
-})
+],
 
+metadata: {
 
-app.get("/api/stripeSession/:id", async(req,res)=>{
+words,
+plan
 
-try{
+},
 
-const session = await stripe.checkout.sessions.retrieve(req.params.id)
+success_url:
+`${process.env.DOMAIN}/translation/success.html?session_id={CHECKOUT_SESSION_ID}`,
+
+cancel_url:
+`${process.env.DOMAIN}/translation/payment.html`
+
+});
+
+res.json({
+
+url: session.url
+
+});
+
+} catch (err) {
+
+console.log(err);
+
+res.status(500).json({
+
+error: err.message
+
+});
+
+}
+
+});
+
+#############################################
+# STRIPE SESSION LOOKUP
+#############################################
+
+app.get("/api/stripeSession/:id", async (req, res) => {
+
+try {
+
+const session = await stripe.checkout.sessions.retrieve(req.params.id);
 
 res.json({
 
@@ -74,22 +105,92 @@ amount: session.amount_total,
 currency: session.currency,
 metadata: session.metadata
 
-})
+});
 
-}catch(err){
+} catch (err) {
 
-console.log(err)
-res.status(500).json({error:"Stripe lookup failed"})
+console.log(err);
+
+res.status(500).json({
+
+error: "Stripe lookup failed"
+
+});
 
 }
 
-})
+});
 
+#############################################
+# PAYSTACK
+#############################################
 
-const PORT = 3000
+app.post("/api/paystack", async (req, res) => {
 
-app.listen(PORT, ()=>{
+try {
 
-console.log("SayBon payment server running")
+const { amount, email, words, plan } = req.body;
 
-})
+const response = await axios.post(
+
+"https://api.paystack.co/transaction/initialize",
+
+{
+
+amount: Math.round(amount * 100),
+
+email,
+
+metadata: {
+
+plan,
+words
+
+}
+
+},
+
+{
+
+headers: {
+
+Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
+"Content-Type": "application/json"
+
+}
+
+}
+
+);
+
+res.json({
+
+url: response.data.data.authorization_url
+
+});
+
+} catch (err) {
+
+console.log(err);
+
+res.status(500).json({
+
+error: err.message
+
+});
+
+}
+
+});
+
+#############################################
+# START SERVER
+#############################################
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+
+console.log(`SayBon payment server running`);
+
+});

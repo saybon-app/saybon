@@ -1,54 +1,52 @@
-const qs = new URLSearchParams(location.search)
+const qs = new URLSearchParams(location.search);
 
-const plan = qs.get("plan")
-const words = Number(qs.get("words"))
+const plan = qs.get("plan");
+const words = Number(qs.get("words"));
 
-const price = words * (plan === "express" ? 0.05 : 0.025)
+const price = words * (plan === "express" ? 0.05 : 0.025);
 
 document.getElementById("summary").innerHTML =
 plan.toUpperCase() + "<br>" +
 words + " words<br>" +
-"$" + price.toFixed(2)
+"$" + price.toFixed(2);
 
 
-document.getElementById("stripeBtn").onclick = async ()=>{
+document.getElementById("stripeBtn").onclick = async () => {
 
-try{
+try {
 
 const res = await fetch(
 "https://saybon-server.onrender.com/api/stripe",
 {
-method:"POST",
-headers:{
-"Content-Type":"application/json"
+method: "POST",
+headers: {
+"Content-Type": "application/json"
 },
 body: JSON.stringify({
-
 amount: price,
 words: words,
 plan: plan
-
 })
 }
-)
+);
 
-const data = await res.json()
+const data = await res.json();
 
 if(data.url){
 
-location = data.url
+location = data.url;
 
 }else{
 
-alert("Stripe payment failed")
+alert("Stripe payment failed");
 
 }
 
 }catch(err){
 
-console.log(err)
-alert("Payment connection error")
+console.error(err);
+alert("Payment connection error");
 
 }
 
-}
+};
