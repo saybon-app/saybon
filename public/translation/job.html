@@ -1,34 +1,175 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<title>Translation Job Created</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Translation Job</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
+}
+
+.page{
+padding:30px;
+max-width:700px;
+margin:auto;
+}
+
+.title{
+text-align:center;
+margin-bottom:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.summary{
+margin-bottom:20px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #ccc;
+font-family:'Poppins',sans-serif;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:12px;
+background:#1e8e8e;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+</style>
+
 </head>
 
-<body style="font-family:Arial;padding:40px">
+<body>
 
-<h1>Translation Job Created</h1>
+<div class="page">
 
-<p id="jobId">Generating Job...</p>
+<h2 class="title">Translation Job Details</h2>
+
+<div class="card">
+
+<div class="summary">
+
+<p id="wordSummary"></p>
+
+<p id="planSummary"></p>
+
+<p id="priceSummary"></p>
+
+</div>
+
+<label>Name</label>
+<input id="name">
+
+<label>Email</label>
+<input id="email">
+
+<label>Source Language</label>
+<select id="source">
+<option>English</option>
+<option>French</option>
+<option>Spanish</option>
+<option>German</option>
+</select>
+
+<label>Target Language</label>
+<select id="target">
+<option>French</option>
+<option>English</option>
+<option>Spanish</option>
+<option>German</option>
+</select>
+
+<button id="createJob">
+Continue to Payment
+</button>
+
+</div>
+
+</div>
 
 <script>
 
 const params = new URLSearchParams(window.location.search)
 
+const words = parseInt(params.get("words"))
 const plan = params.get("plan")
-const words = params.get("words")
 
-/* generate simple temporary job id */
+const price = plan==="express"
+? words*0.05
+: words*0.025
 
-const jobId = "JOB-" + Date.now()
+document.getElementById("wordSummary").innerText =
+"Word Count: "+words
 
-document.getElementById("jobId").innerText =
-"Your Job ID: " + jobId +
-" | Plan: " + plan +
-" | Words: " + words
+document.getElementById("planSummary").innerText =
+"Plan: "+plan
+
+document.getElementById("priceSummary").innerText =
+"Price: $"+price.toFixed(2)
+
+document.getElementById("createJob").onclick=()=>{
+
+const name=document.getElementById("name").value
+const email=document.getElementById("email").value
+const source=document.getElementById("source").value
+const target=document.getElementById("target").value
+
+if(!name||!email){
+alert("Please complete your information")
+return
+}
+
+const jobId="JOB-"+Date.now()
+
+const query=new URLSearchParams()
+
+query.append("jobId",jobId)
+query.append("words",words)
+query.append("plan",plan)
+query.append("price",price)
+query.append("name",name)
+query.append("email",email)
+query.append("source",source)
+query.append("target",target)
+
+window.location.href="/translation/payment.html?"+query.toString()
+
+}
 
 </script>
 
 </body>
+
 </html>
