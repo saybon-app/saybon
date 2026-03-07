@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="format-detection"
 content="telephone=no, date=no, email=no, address=no">
@@ -14,6 +13,9 @@ content="telephone=no, date=no, email=no, address=no">
 <title>SayBon Translation Services</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 
 <style>
 
@@ -219,31 +221,29 @@ UPLOAD
 
 </div>
 
-<div id="wordCount" class="word-count">
+<div class="word-count" id="wordCount">
 WORDS: 0
 </div>
 
-<div id="standardCard"
-class="quote-card standard">
+<div class="quote-card standard" id="standardCard">
 
-<div class="quote-price">
+<div class="quote-price" id="standardPrice">
 STANDARD .00
 </div>
 
-<div class="quote-delivery">
+<div class="quote-delivery" id="standardDelivery">
 Delivery: —
 </div>
 
 </div>
 
-<div id="expressCard"
-class="quote-card express">
+<div class="quote-card express" id="expressCard">
 
-<div class="quote-price">
+<div class="quote-price" id="expressPrice">
 EXPRESS .00
 </div>
 
-<div class="quote-delivery">
+<div class="quote-delivery" id="expressDelivery">
 Delivery: —
 </div>
 
@@ -293,35 +293,179 @@ EXPRESS<br>
 
 <script>
 
-let selectedPlan=null
+let wordCount = 0
+let selectedPlan = null
 
-document.getElementById("standardCard").onclick=()=>{
+const fileInput = document.getElementById("fileInput")
+const uploadBtn = document.getElementById("uploadBtn")
+
+const wordCountEl = document.getElementById("wordCount")
+
+const standardPrice = document.getElementById("standardPrice")
+const expressPrice = document.getElementById("expressPrice")
+
+const standardDelivery = document.getElementById("standardDelivery")
+const expressDelivery = document.getElementById("expressDelivery")
+
+const standardCard = document.getElementById("standardCard")
+const expressCard = document.getElementById("expressCard")
+
+const continueBtn = document.getElementById("continueBtn")
+
+function calculateDelivery(words){
+
+if(words<=300){
+return{
+standard:"1 - 3 hrs",
+express:"30 - 60 mins"
+}
+}
+
+if(words<=1000){
+return{
+standard:"3 - 6 hrs",
+express:"1 - 3 hrs"
+}
+}
+
+if(words<=3000){
+return{
+standard:"6 - 12 hrs",
+express:"3 - 6 hrs"
+}
+}
+
+if(words<=6000){
+return{
+standard:"12 - 24 hrs",
+express:"6 - 12 hrs"
+}
+}
+
+if(words<=10000){
+return{
+standard:"24 - 48 hrs",
+express:"12 - 24 hrs"
+}
+}
+
+if(words<=20000){
+return{
+standard:"2 - 4 days",
+express:"24 - 48 hrs"
+}
+}
+
+return{
+standard:"Custom",
+express:"Custom"
+}
+
+}
+
+async function extractText(file){
+
+const ext=file.name.split('.').pop().toLowerCase()
+
+if(ext==="txt"){
+return await file.text()
+}
+
+if(ext==="docx"){
+
+const arrayBuffer=await file.arrayBuffer()
+
+const result=await mammoth.extractRawText({arrayBuffer})
+
+return result.value
+}
+
+if(ext==="pdf"){
+
+const typedarray=new Uint8Array(await file.arrayBuffer())
+
+const pdf=await pdfjsLib.getDocument(typedarray).promise
+
+let text=""
+
+for(let i=1;i<=pdf.numPages;i++){
+
+const page=await pdf.getPage(i)
+
+const content=await page.getTextContent()
+
+content.items.forEach(item=>{
+text+=item.str+" "
+})
+
+}
+
+return text
+}
+
+return ""
+}
+
+uploadBtn.onclick=async()=>{
+
+const file=fileInput.files[0]
+
+if(!file){
+alert("Please choose a file first")
+return
+}
+
+const text=await extractText(file)
+
+const words=text.trim().split(/\s+/).filter(w=>w.length>0)
+
+wordCount=words.length
+
+wordCountEl.innerText="WORDS: "+wordCount
+
+const standard=(wordCount*0.025).toFixed(2)
+const express=(wordCount*0.05).toFixed(2)
+
+standardPrice.innerText="STANDARD $"+standard
+expressPrice.innerText="EXPRESS $"+express
+
+const delivery=calculateDelivery(wordCount)
+
+standardDelivery.innerText="Delivery: "+delivery.standard
+expressDelivery.innerText="Delivery: "+delivery.express
+
+}
+
+standardCard.onclick=()=>{
+
 selectedPlan="standard"
-document.getElementById("continueBtn").style.display="block"
+
+continueBtn.style.display="block"
+
 }
 
-document.getElementById("expressCard").onclick=()=>{
+expressCard.onclick=()=>{
+
 selectedPlan="express"
-document.getElementById("continueBtn").style.display="block"
+
+continueBtn.style.display="block"
+
 }
 
-document.getElementById("continueBtn").onclick=()=>{
+continueBtn.onclick=()=>{
 
-const words=parseInt(
-document.getElementById("wordCount")
-.innerText.replace(/\D/g,'')
-)
+if(!selectedPlan)return
 
-location.href=
-"https://saybonapp.com/translation/job.html?plan="+selectedPlan+"&words="+words
+const params=new URLSearchParams()
+
+params.append("words",wordCount)
+params.append("plan",selectedPlan)
+
+window.location.href="/translation/job.html?"+params.toString()
 
 }
 
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
-<script src="request.js"></script>
 
 </body>
 
