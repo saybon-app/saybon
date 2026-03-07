@@ -14,20 +14,18 @@
 
 <script>
 
-const params = new URLSearchParams(location.search)
-const id = params.get("session_id")
+const params=new URLSearchParams(location.search)
+const id=params.get("session_id")
 
-fetch(
-"https://saybon-server.onrender.com/api/stripeSession/" + id
-)
-.then(r => r.json())
-.then(data => {
+fetch("https://saybon-server.onrender.com/api/stripeSession/"+id)
+.then(r=>r.json())
+.then(data=>{
 
-document.getElementById("info").innerHTML =
+document.getElementById("info").innerHTML=
 
-"Amount Paid: $" + (data.amount/100).toFixed(2) +
-"<br>Words: " + data.metadata.words +
-"<br>Plan: " + data.metadata.plan
+"Amount Paid: $"+(data.amount/100).toFixed(2)+
+"<br>Words: "+data.metadata.words+
+"<br>Plan: "+data.metadata.plan
 
 })
 

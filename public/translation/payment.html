@@ -19,21 +19,21 @@ document.getElementById("pay").onclick = async () => {
 const res = await fetch(
 "https://saybon-server.onrender.com/api/stripe",
 {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
+method:"POST",
+headers:{
+"Content-Type":"application/json"
 },
-body: JSON.stringify({
-amount: 1,
-words: 10,
-plan: "test"
+body:JSON.stringify({
+amount:1,
+words:10,
+plan:"test"
 })
 }
 )
 
 const data = await res.json()
 
-location = data.url
+location=data.url
 
 }
 
