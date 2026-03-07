@@ -1,0 +1,36 @@
+[debug] [2026-03-07T13:00:24.755Z] ----------------------------------------------------------------------
+[debug] [2026-03-07T13:00:24.787Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\teama\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-03-07T13:00:24.789Z] CLI Version:   15.8.0
+[debug] [2026-03-07T13:00:24.790Z] Platform:      win32
+[debug] [2026-03-07T13:00:24.790Z] Node Version:  v24.12.0
+[debug] [2026-03-07T13:00:24.790Z] Time:          Sat Mar 07 2026 13:00:24 GMT+0000 (Greenwich Mean Time)
+[debug] [2026-03-07T13:00:24.791Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-07T13:00:34.670Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-07T13:00:34.672Z] > authorizing via signed-in user (adlaideduah@gmail.com)
+[debug] [2026-03-07T13:00:34.673Z] [iam] checking project saybon-3e3c2 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-07T13:00:34.677Z] Checked if tokens are valid: false, expires at: 1772888084662
+[debug] [2026-03-07T13:00:34.677Z] Checked if tokens are valid: false, expires at: 1772888084662
+[debug] [2026-03-07T13:00:34.678Z] > refreshing access token with scopes: []
+[debug] [2026-03-07T13:00:34.687Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-07T13:00:34.687Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-07T13:00:35.561Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-03-07T13:00:35.562Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-07T13:00:35.577Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/saybon-3e3c2:testIamPermissions [none]
+[debug] [2026-03-07T13:00:35.577Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/saybon-3e3c2:testIamPermissions  x-goog-user-project=saybon-3e3c2
+[debug] [2026-03-07T13:00:35.578Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saybon-3e3c2:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-07T13:00:37.066Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/saybon-3e3c2:testIamPermissions 200
+[debug] [2026-03-07T13:00:37.067Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/saybon-3e3c2:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-07T13:00:37.069Z] Checked if tokens are valid: true, expires at: 1772892034562
+[debug] [2026-03-07T13:00:37.070Z] Checked if tokens are valid: true, expires at: 1772892034562
+[debug] [2026-03-07T13:00:37.071Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/saybon-3e3c2 [none]
+[debug] [2026-03-07T13:00:37.905Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/saybon-3e3c2 200
+[debug] [2026-03-07T13:00:37.906Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/saybon-3e3c2 {"projectId":"saybon-3e3c2","projectNumber":"75085012344","displayName":"SayBon","name":"projects/saybon-3e3c2","resources":{"hostingSite":"saybon-3e3c2"},"state":"ACTIVE","etag":"1_5898f763-8e3f-44a2-bef8-dcd13364b27c"}
+[info] 
+[info] === Deploying to 'saybon-3e3c2'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-03-07T13:00:37.971Z] Checked if tokens are valid: true, expires at: 1772892034562
+[debug] [2026-03-07T13:00:37.972Z] Checked if tokens are valid: true, expires at: 1772892034562
+[debug] [2026-03-07T13:00:37.973Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/saybon-3e3c2/versions [none]
+[debug] [2026-03-07T13:00:37.974Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/saybon-3e3c2/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
