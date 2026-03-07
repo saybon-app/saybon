@@ -1,86 +1,34 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Invoice</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Payment Success</title>
 
 <style>
 
 body{
-font-family:'Poppins',sans-serif;
-background:#f2f4f7;
-padding:40px;
-}
-
-.invoice{
-background:white;
-max-width:900px;
-margin:auto;
-padding:40px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.header{
+font-family:Poppins,Arial;
+background:#f6f8ff;
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
-background:#4c5c72;
-color:white;
-padding:28px;
-margin-bottom:30px;
+height:100vh;
 }
 
-.header h1{
-margin:0;
-font-size:26px;
-font-weight:600;
-}
-
-.header h2{
-margin:0;
-font-weight:500;
-}
-
-.meta{
-display:flex;
-justify-content:space-between;
-margin-bottom:25px;
-}
-
-.total{
-font-size:34px;
-font-weight:600;
-text-align:right;
-}
-
-.actions{
-margin-top:30px;
+.card{
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 text-align:center;
+width:400px;
 }
 
-button{
-padding:12px 22px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-font-weight:500;
-margin:8px;
-}
-
-.pdf{
-background:#4b5563;
-color:white;
-}
-
-.home{
-background:#3b82f6;
-color:white;
+h1{
+color:#2d8cff;
 }
 
 </style>
@@ -89,97 +37,43 @@ color:white;
 
 <body>
 
-<div class="invoice">
+<div class="card">
 
-<div class="header">
+<h1>Payment Successful</h1>
 
-<h1>SayBon Language Services</h1>
-<h2>Invoice</h2>
-
-</div>
-
-<div class="meta">
-
-<div>
-
-Invoice No: <span id="invoiceNumber"></span><br>
-Session ID: <span id="sessionId"></span><br>
-Issue Date: <span id="date"></span>
-
-</div>
-
-<div class="total">
-
-$<span id="total"></span>
-
-</div>
-
-</div>
-
-<div class="actions">
-
-<button class="pdf" onclick="window.print()">Download PDF</button>
-
-<button class="home" onclick="goHome()">Return Home</button>
-
-</div>
+<p id="details">Loading payment...</p>
 
 </div>
 
 <script>
 
-async function loadInvoice(){
+const qs = new URLSearchParams(location.search)
 
-const params = new URLSearchParams(window.location.search)
-
-const sessionId = params.get("session_id")
+const sessionId = qs.get("session_id")
 
 if(!sessionId){
 
 alert("Missing Stripe session ID")
 
-return
+}else{
+
+fetch("https://saybon-server.onrender.com/api/stripeSession/"+sessionId)
+.then(r=>r.json())
+.then(data=>{
+
+document.getElementById("details").innerHTML =
+"Amount Paid: $" + (data.amount/100).toFixed(2) +
+"<br>" +
+data.metadata.words + " words"
+
+})
+.catch(()=>{
+
+document.getElementById("details").innerHTML="Payment confirmed"
+
+})
 
 }
-
-document.getElementById("sessionId").innerText = sessionId
-
-try{
-
-const res = await fetch(
-"https://saybon-server.onrender.com/api/stripeSession/"+sessionId
-)
-
-const data = await res.json()
-
-const amount = data.amount / 100
-
-document.getElementById("total").innerText =
-amount.toFixed(2)
-
-document.getElementById("date").innerText =
-new Date().toLocaleDateString()
-
-document.getElementById("invoiceNumber").innerText =
-"INV-" + Date.now()
-
-}catch(err){
-
-console.log(err)
-
-alert("Unable to load payment information")
-
-}
-
-}
-
-function goHome(){
-
-window.location.href="/"
-
-}
-
-loadInvoice()
 
 </script>
 
