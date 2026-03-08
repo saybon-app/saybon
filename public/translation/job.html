@@ -78,7 +78,6 @@ transform:translateY(-2px);
 
 <div class="summary">
 
-<p id="fileName"></p>
 <p id="wordCount"></p>
 <p id="plan"></p>
 <p id="price"></p>
@@ -106,8 +105,6 @@ const params=new URLSearchParams(window.location.search)
 
 const words=parseInt(params.get("words"))
 const plan=params.get("plan")
-const fileId=params.get("fileId")
-const fileName=params.get("fileName")
 
 const rate=plan==="express"?0.05:0.025
 const price=(words*rate).toFixed(2)
@@ -125,7 +122,6 @@ return"Custom"
 
 }
 
-document.getElementById("fileName").innerText="File: "+fileName
 document.getElementById("wordCount").innerText="Word Count: "+words
 document.getElementById("plan").innerText="Plan: "+plan
 document.getElementById("price").innerText="Total Price: $"+price
@@ -145,7 +141,7 @@ headers:{
 
 body:JSON.stringify({
 
-fileId,
+fileId:"temp",
 words,
 plan,
 price
