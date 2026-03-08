@@ -2,6 +2,9 @@
 const fs = require("fs")
 const path = require("path")
 const cors = require("cors")
+const Stripe = require("stripe")
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const app = express()
 
@@ -17,6 +20,7 @@ function loadJobs(){
   }
 
   return JSON.parse(fs.readFileSync(DATA_FILE))
+
 }
 
 function saveJobs(jobs){
@@ -34,13 +38,20 @@ function createJobCode(){
   }
 
   return code
+
 }
+
+
+
+# ==========================================
+# CREATE JOB
+# ==========================================
 
 app.post("/api/createJob",(req,res)=>{
 
   const { fileId, words, plan, price } = req.body
 
-  if(!fileId || !words || !plan){
+  if(!words || !plan){
 
     return res.status(400).json({
       error:"Missing job parameters"
@@ -78,23 +89,87 @@ app.post("/api/createJob",(req,res)=>{
 
 })
 
-app.post("/api/createCheckout",(req,res)=>{
 
-  const { jobCode } = req.body
 
-  if(!jobCode){
+# ==========================================
+# CREATE STRIPE CHECKOUT
+# ==========================================
 
-    return res.status(400).json({
-      error:"Missing jobCode"
+app.post("/api/createCheckout", async (req,res)=>{
+
+  try{
+
+    const { jobCode } = req.body
+
+    const jobs = loadJobs()
+
+    const job = jobs.find(j => j.jobCode === jobCode)
+
+    if(!job){
+
+      return res.status(404).json({
+        error:"Job not found"
+      })
+
+    }
+
+    const rate = job.plan === "express" ? 0.05 : 0.025
+
+    const price = Math.round(job.words * rate * 100)
+
+    const session = await stripe.checkout.sessions.create({
+
+      payment_method_types:["card"],
+
+      mode:"payment",
+
+      line_items:[{
+
+        price_data:{
+
+          currency:"usd",
+
+          product_data:{
+            name:"SayBon Translation ("+job.words+" words)"
+          },
+
+          unit_amount:price
+
+        },
+
+        quantity:1
+
+      }],
+
+      success_url:"https://saybonapp.com/translation/success.html?jobCode="+jobCode,
+
+      cancel_url:"https://saybonapp.com/translation/job.html?jobCode="+jobCode
+
+    })
+
+    res.json({
+      url:session.url
     })
 
   }
 
-  res.json({
-    url:"/translation/payment.html?jobCode="+jobCode
-  })
+  catch(err){
+
+    console.error(err)
+
+    res.status(500).json({
+      error:"Stripe session failed"
+    })
+
+  }
 
 })
+
+
+
+# ==========================================
+# START SERVER
+# ==========================================
 
 const PORT = process.env.PORT || 3000
 
