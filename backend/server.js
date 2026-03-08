@@ -24,7 +24,9 @@ function loadJobs(){
 }
 
 function saveJobs(jobs){
+
   fs.writeFileSync(DATA_FILE,JSON.stringify(jobs,null,2))
+
 }
 
 function createJobCode(){
@@ -34,7 +36,9 @@ function createJobCode(){
   let code="SB-"
 
   for(let i=0;i<6;i++){
+
     code+=chars[Math.floor(Math.random()*chars.length)]
+
   }
 
   return code
@@ -54,7 +58,7 @@ app.post("/api/createJob",(req,res)=>{
   if(!words || !plan){
 
     return res.status(400).json({
-      error:"Missing job parameters"
+      error:"Missing parameters"
     })
 
   }
@@ -92,7 +96,7 @@ app.post("/api/createJob",(req,res)=>{
 
 
 # ==========================================
-# CREATE STRIPE CHECKOUT
+# STRIPE CHECKOUT
 # ==========================================
 
 app.post("/api/createCheckout", async (req,res)=>{
@@ -166,10 +170,6 @@ app.post("/api/createCheckout", async (req,res)=>{
 })
 
 
-
-# ==========================================
-# START SERVER
-# ==========================================
 
 const PORT = process.env.PORT || 3000
 
