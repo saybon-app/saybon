@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Translation Job</title>
@@ -26,14 +27,11 @@ padding:30px;
 }
 
 .card{
-
 background:rgba(255,255,255,0.7);
 backdrop-filter:blur(20px);
 border-radius:25px;
 padding:25px;
-
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
-
 }
 
 .title{
@@ -47,30 +45,19 @@ line-height:1.8;
 }
 
 .jobCode{
-
 margin-top:15px;
 font-weight:600;
-
 }
 
 button{
-
 margin-top:20px;
-
 width:100%;
-
 padding:12px;
-
 border:none;
-
 border-radius:10px;
-
 background:#1e8e8e;
-
 color:white;
-
 cursor:pointer;
-
 }
 
 button:hover{
@@ -113,6 +100,8 @@ Proceed to Payment
 
 <script>
 
+const API="https://saybon-server.onrender.com"
+
 const params=new URLSearchParams(window.location.search)
 
 const words=parseInt(params.get("words"))
@@ -137,18 +126,16 @@ return"Custom"
 }
 
 document.getElementById("fileName").innerText="File: "+fileName
-
 document.getElementById("wordCount").innerText="Word Count: "+words
-
 document.getElementById("plan").innerText="Plan: "+plan
-
 document.getElementById("price").innerText="Total Price: $"+price
-
 document.getElementById("delivery").innerText="Estimated Delivery: "+deliveryEstimate(words)
 
 async function createJob(){
 
-const res=await fetch("/api/createJob",{
+try{
+
+const res=await fetch(API+"/api/createJob",{
 
 method:"POST",
 
@@ -173,6 +160,14 @@ document.getElementById("jobCode").innerText="Job Code: "+data.jobCode
 
 return data.jobCode
 
+}catch(err){
+
+document.getElementById("jobCode").innerText="Unable to create job"
+
+console.error(err)
+
+}
+
 }
 
 let jobCode
@@ -185,7 +180,9 @@ jobCode=code
 
 document.getElementById("payBtn").onclick=async()=>{
 
-const res=await fetch("/api/createCheckout",{
+try{
+
+const res=await fetch(API+"/api/createCheckout",{
 
 method:"POST",
 
@@ -205,6 +202,14 @@ const data=await res.json()
 
 window.location.href=data.url
 
+}catch(err){
+
+alert("Payment system error")
+
+console.error(err)
+
+}
+
 }
 
 </script>
@@ -212,4 +217,3 @@ window.location.href=data.url
 </body>
 
 </html>
-

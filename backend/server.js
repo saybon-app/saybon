@@ -1,76 +1,105 @@
-import express from "express"
-import cors from "cors"
-import fs from "fs"
+﻿const express = require("express")
+const fs = require("fs")
+const path = require("path")
+const cors = require("cors")
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-const JOB_FILE = "./backend/data/jobs.json"
+const DATA_FILE = path.join(__dirname,"data","jobs.json")
 
 function loadJobs(){
-  return JSON.parse(fs.readFileSync(JOB_FILE))
+
+  if(!fs.existsSync(DATA_FILE)){
+    fs.writeFileSync(DATA_FILE,"[]")
+  }
+
+  return JSON.parse(fs.readFileSync(DATA_FILE))
 }
 
 function saveJobs(jobs){
-  fs.writeFileSync(JOB_FILE,JSON.stringify(jobs,null,2))
+  fs.writeFileSync(DATA_FILE,JSON.stringify(jobs,null,2))
 }
 
-function createJobId(){
-  return "JOB-"+Date.now()
+function createJobCode(){
+
+  const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+  let code="SB-"
+
+  for(let i=0;i<6;i++){
+    code+=chars[Math.floor(Math.random()*chars.length)]
+  }
+
+  return code
 }
-
-############################################
-# SERVER STATUS
-############################################
-
-app.get("/",(req,res)=>{
-  res.send("SayBon backend running")
-})
-
-############################################
-# CREATE JOB
-############################################
 
 app.post("/api/createJob",(req,res)=>{
 
-  const { words, plan } = req.body
+  const { fileId, words, plan, price } = req.body
+
+  if(!fileId || !words || !plan){
+
+    return res.status(400).json({
+      error:"Missing job parameters"
+    })
+
+  }
 
   const jobs = loadJobs()
 
+  const jobCode = createJobCode()
+
   const job = {
-    id:createJobId(),
+
+    jobCode,
+    fileId,
     words,
     plan,
-    status:"pending_payment",
+    price,
+
+    status:"awaiting_payment",
+    stage:"waiting_for_payment",
+    progress:0,
+
     created:new Date().toISOString()
+
   }
 
   jobs.push(job)
 
   saveJobs(jobs)
 
-  res.json(job)
+  res.json({
+    jobCode
+  })
 
 })
 
-############################################
-# LIST JOBS
-############################################
+app.post("/api/createCheckout",(req,res)=>{
 
-app.get("/api/jobs",(req,res)=>{
+  const { jobCode } = req.body
 
-  const jobs = loadJobs()
+  if(!jobCode){
 
-  res.json(jobs)
+    return res.status(400).json({
+      error:"Missing jobCode"
+    })
+
+  }
+
+  res.json({
+    url:"/translation/payment.html?jobCode="+jobCode
+  })
 
 })
 
-############################################
-
-const PORT = process.env.PORT || 10000
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT,()=>{
-  console.log("SayBon backend running")
+
+  console.log("SayBon backend running on port "+PORT)
+
 })
