@@ -1,169 +1,60 @@
-const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
 const express = require("express");
 const cors = require("cors");
-const admin = require("firebase-admin");
-const axios = require("axios");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const Stripe = require("stripe");
 
-admin.initializeApp();
-
-const db = admin.firestore();
+try { require("dotenv").config(); } catch (e) {}
 
 const app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-/*
-========================================
-CREATE ORDER
-========================================
-*/
-
-app.post("/create-order", async (req, res) => {
-
-try {
-
-const {
-email,
-filename,
-wordCount,
-price,
-provider,
-reference
-} = req.body;
-
-const orderRef = db.collection("translationOrders").doc();
-
-await orderRef.set({
-
-email,
-filename,
-wordCount,
-price,
-provider,
-reference,
-status: "pending",
-createdAt: admin.firestore.FieldValue.serverTimestamp()
-
-});
-
-res.json({
-
-success: true,
-orderId: orderRef.id
-
-});
-
-} catch (error) {
-
-res.status(500).json({
-error: error.message
-});
-
+function mustEnv(name){
+  const v = process.env[name];
+  if(!v) throw new Error("Missing environment variable: "+name);
+  return v;
 }
 
-});
+app.post("/create-stripe-session", async (req,res)=>{
+try{
 
+const stripe = new Stripe(mustEnv("STRIPE_SECRET_KEY"));
 
-/*
-========================================
-VERIFY PAYSTACK
-========================================
-*/
+const words = Number(req.body.words || 0);
+const amount = Number(req.body.amount || 0);
+const currency = (req.body.currency || "USD").toLowerCase();
+const plan = req.body.plan === "express" ? "express" : "standard";
 
-app.post("/verify-paystack", async (req, res) => {
-
-try {
-
-const { reference } = req.body;
-
-const verify = await axios.get(
-
-"https://api.paystack.co/transaction/verify/" + reference,
-
+const session = await stripe.checkout.sessions.create({
+mode:"payment",
+line_items:[
 {
-headers: {
-Authorization:
-"Bearer " + process.env.PAYSTACK_SECRET_KEY
+price_data:{
+currency:currency,
+product_data:{
+name: plan==="express" ? "Express Translation" : "Standard Translation",
+description: words+" words"
+},
+unit_amount: Math.round(amount*100)
+},
+quantity:1
 }
+],
+success_url:"https://saybonapp.com/translation/payment.html?status=success",
+cancel_url:"https://saybonapp.com/translation/payment.html?status=cancel"
+});
+
+res.json({url:session.url});
+
+}catch(err){
+console.error(err);
+res.status(500).json({error:err.message});
 }
-
-);
-
-if (verify.data.data.status === "success") {
-
-const orders = await db
-.collection("translationOrders")
-.where("reference", "==", reference)
-.get();
-
-orders.forEach(async doc => {
-
-await doc.ref.update({
-status: "paid"
 });
 
+app.get("/health",(req,res)=>{
+res.json({ok:true});
 });
 
-res.json({ success: true });
-
-}
-
-} catch (error) {
-
-res.status(500).json({
-error: error.message
-});
-
-}
-
-});
-
-
-/*
-========================================
-VERIFY STRIPE
-========================================
-*/
-
-app.post("/verify-stripe", async (req, res) => {
-
-try {
-
-const { sessionId } = req.body;
-
-const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-if (session.payment_status === "paid") {
-
-const orders = await db
-.collection("translationOrders")
-.where("reference", "==", sessionId)
-.get();
-
-orders.forEach(async doc => {
-
-await doc.ref.update({
-status: "paid"
-});
-
-});
-
-res.json({ success: true });
-
-}
-
-} catch (error) {
-
-res.status(500).json({
-error: error.message
-});
-
-}
-
-});
-
-
-exports.api = functions.https.onRequest(app);
-
+exports.api = onRequest({region:"us-central1"},app);
