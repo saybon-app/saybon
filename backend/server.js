@@ -1,55 +1,100 @@
-import express from "express"
-import Stripe from "stripe"
-import cors from "cors"
+﻿import express from "express";
+import cors from "cors";
+import Stripe from "stripe";
 
-const app=express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-const stripe=new Stripe(process.env.STRIPE_SECRET_KEY)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.post("/api/createCheckout",async(req,res)=>{
+/* ==========================================
+SERVER HEALTH CHECK
+========================================== */
 
-const {words,plan}=req.body
+app.get("/", (req,res)=>{
+res.send("SayBon server running");
+});
 
-let price=0
+/* ==========================================
+CREATE STRIPE CHECKOUT
+========================================== */
 
-if(plan==="express"){
-price=words*0.05
-}else{
-price=words*0.025
+app.post("/api/createCheckout", async (req,res)=>{
+
+try{
+
+const { words, plan } = req.body;
+
+if(!words || !plan){
+return res.status(400).json({
+error:"Missing words or plan"
+});
 }
 
-const session=await stripe.checkout.sessions.create({
+let price = 0;
+
+if(plan==="express"){
+price = words * 0.05;
+}else{
+price = words * 0.025;
+}
+
+const session = await stripe.checkout.sessions.create({
 
 payment_method_types:["card"],
 
 line_items:[{
+
 price_data:{
+
 currency:"usd",
+
 product_data:{
-name:"Translation Service"
+name:"SayBon Translation Service"
 },
-unit_amount:Math.round(price*100)
+
+unit_amount: Math.round(price * 100)
+
 },
+
 quantity:1
+
 }],
 
 mode:"payment",
 
-success_url:"https://saybonapp.com/translation/success.html",
+success_url:
+"https://saybonapp.com/translation/success.html",
 
-cancel_url:"https://saybonapp.com/translation/request.html"
+cancel_url:
+"https://saybonapp.com/translation/request.html"
 
-})
+});
 
 res.json({
-url:session.url
-})
+url: session.url
+});
 
-})
+}catch(err){
 
-app.listen(3000,()=>{
-console.log("Server running")
-})
+console.error(err);
+
+res.status(500).json({
+error:"Stripe checkout failed"
+});
+
+}
+
+});
+
+/* ==========================================
+START SERVER
+========================================== */
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT,()=>{
+console.log("SayBon server running on port",PORT);
+});
