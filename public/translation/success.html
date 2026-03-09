@@ -1,55 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
-
-<meta charset="UTF-8">
 <title>Payment Success</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#eef3f8;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:10px;
-text-align:center
-}
-
-</style>
-
 </head>
 
 <body>
 
-<div class="card">
-
 <h2>Payment Successful</h2>
 
-<p>Your translation order has been received.</p>
-
-<div id="job"></div>
-
-</div>
-
-<script>
-
-const params = new URLSearchParams(location.search)
-
-const jobCode = params.get("jobCode")
-
-document.getElementById("job").innerText =
-"Job Code: "+jobCode
-
-</script>
+<p>Your translation job has been created.</p>
 
 </body>
 
