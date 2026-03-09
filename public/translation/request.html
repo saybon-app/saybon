@@ -1,102 +1,162 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<meta name="format-detection"
+content="telephone=no, date=no, email=no, address=no">
 
 <title>SayBon Translation Services</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+
 <style>
+
+/* =========================
+GLOBAL BASELINE
+========================= */
 
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
 color:#6e6e73;
+-webkit-font-smoothing:antialiased;
+}
+
+*{
+-webkit-tap-highlight-color: transparent;
+text-decoration:none;
 }
 
 .page{
-padding:40px;
-text-align:center;
+padding:30px;
 }
 
 .title{
+text-align:center;
 letter-spacing:3px;
 font-weight:500;
 }
 
 .subtitle{
+text-align:center;
 font-size:12px;
-margin-bottom:40px;
+margin-bottom:30px;
+white-space:nowrap;
 }
 
-.card{
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.left-card,
+.right-card{
 background:rgba(255,255,255,0.6);
 backdrop-filter:blur(20px);
-border-radius:25px;
+border-radius:30px;
 padding:25px;
 width:420px;
-margin:auto;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:all .2s ease;
 }
 
-input{
-width:100%;
-padding:12px;
+.left-card:hover,
+.right-card:hover{
+transform:translateY(-4px);
+}
+
+.upload-row{
+display:flex;
+gap:10px;
+}
+
+#uploadBtn{
+background:#1e8e8e;
+color:white;
+border:none;
+padding:10px 20px;
 border-radius:10px;
-border:1px solid #ddd;
-margin-bottom:20px;
-font-size:16px;
-}
-
-.quote{
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
 cursor:pointer;
-border:1px solid;
+transition:.2s;
 }
 
-.standard{
-border-color:#34a853;
+#uploadBtn:hover{
+transform:translateY(-2px);
 }
 
-.express{
-border-color:#ea4335;
-}
-
-.selected{
-background:#e9f6f2;
-}
-
-.price{
+.word-count{
+margin-top:15px;
 font-weight:500;
 }
 
-.delivery{
-font-size:12px;
-margin-top:5px;
+.quote-card{
+margin-top:15px;
+padding:15px;
+border-radius:15px;
+cursor:pointer;
+border:1px solid;
+transition:.2s;
 }
+
+.quote-card.active{
+background:#f1f7f7;
+border-width:2px;
+}
+
+.standard{border-color:#34a853;}
+.express{border-color:#ea4335;}
+
+.quote-price{font-weight:500;}
+.quote-delivery{font-size:12px;}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+font-size:12px;
+text-align:left;
+}
+
+.green{color:#34a853;}
+.red{color:#ea4335;}
 
 #continueBtn{
 display:none;
+margin-top:20px;
 width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
 background:#1e8e8e;
 color:white;
-font-size:16px;
+border:none;
+padding:12px;
+border-radius:12px;
 cursor:pointer;
-margin-top:15px;
+font-weight:500;
+}
+
+@media(max-width:600px){
+
+.page{padding:15px;}
+.subtitle{font-size:10px;}
+
+.left-card,
+.right-card{width:100%;}
+
 }
 
 </style>
-
 </head>
 
 <body>
@@ -111,36 +171,27 @@ SAYBON TRANSLATION SERVICES
 TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </p>
 
-<div class="card">
+<div class="container">
 
-<input
-type="number"
-id="words"
-placeholder="Enter word count"
-/>
+<div class="left-card">
 
-<div class="quote standard" id="standardCard">
-
-<div class="price" id="standardPrice">
-STANDARD $0.00
+<div class="upload-row">
+<input type="file" id="fileInput">
+<button id="uploadBtn">UPLOAD</button>
 </div>
 
-<div class="delivery" id="standardDelivery">
-Delivery: —
+<div class="word-count" id="wordCount">
+WORDS: 0
 </div>
 
+<div class="quote-card standard" id="standardCard">
+<div class="quote-price" id="standardPrice">STANDARD $0.00</div>
+<div class="quote-delivery" id="standardDelivery">Delivery: —</div>
 </div>
 
-<div class="quote express" id="expressCard">
-
-<div class="price" id="expressPrice">
-EXPRESS $0.00
-</div>
-
-<div class="delivery" id="expressDelivery">
-Delivery: —
-</div>
-
+<div class="quote-card express" id="expressCard">
+<div class="quote-price" id="expressPrice">EXPRESS $0.00</div>
+<div class="quote-delivery" id="expressDelivery">Delivery: —</div>
 </div>
 
 <button id="continueBtn">
@@ -149,66 +200,143 @@ CONTINUE
 
 </div>
 
+<div class="right-card">
+
+<table>
+
+<tr>
+<th>WORD COUNT</th>
+<th class="green">STANDARD<br>0.025 / word</th>
+<th class="red">EXPRESS<br>0.05 / word</th>
+</tr>
+
+<tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
+<tr><td>301 - 1000</td><td>3 - 6 hrs</td><td>1 - 3 hrs</td></tr>
+<tr><td>1001 - 3000</td><td>6 - 12 hrs</td><td>3 - 6 hrs</td></tr>
+<tr><td>3001 - 6000</td><td>12 - 24 hrs</td><td>6 - 12 hrs</td></tr>
+<tr><td>6001 - 10000</td><td>24 - 48 hrs</td><td>12 - 24 hrs</td></tr>
+<tr><td>10001 - 20000</td><td>2 - 4 days</td><td>24 - 48 hrs</td></tr>
+<tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
+
+</table>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
 
-let selectedPlan=null
-let wordCount=0
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-const wordsInput=document.getElementById("words")
+let wordCount = 0
+let selectedPlan = null
 
-const standardPrice=document.getElementById("standardPrice")
-const expressPrice=document.getElementById("expressPrice")
+const fileInput = document.getElementById("fileInput")
+const uploadBtn = document.getElementById("uploadBtn")
 
-const standardDelivery=document.getElementById("standardDelivery")
-const expressDelivery=document.getElementById("expressDelivery")
+const wordCountEl = document.getElementById("wordCount")
 
-const standardCard=document.getElementById("standardCard")
-const expressCard=document.getElementById("expressCard")
+const standardPrice = document.getElementById("standardPrice")
+const expressPrice = document.getElementById("expressPrice")
 
-const continueBtn=document.getElementById("continueBtn")
+const standardDelivery = document.getElementById("standardDelivery")
+const expressDelivery = document.getElementById("expressDelivery")
 
-function deliveryTime(words){
+const standardCard = document.getElementById("standardCard")
+const expressCard = document.getElementById("expressCard")
+
+const continueBtn = document.getElementById("continueBtn")
+
+function calculateDelivery(words){
 
 if(words<=300){
-return{
-standard:"1 – 3 hrs",
-express:"30 – 60 mins"
-}
+return{standard:"1 - 3 hrs",express:"30 - 60 mins"}
 }
 
 if(words<=1000){
-return{
-standard:"3 – 6 hrs",
-express:"1 – 3 hrs"
-}
+return{standard:"3 - 6 hrs",express:"1 - 3 hrs"}
 }
 
 if(words<=3000){
-return{
-standard:"6 – 12 hrs",
-express:"3 – 6 hrs"
-}
+return{standard:"6 - 12 hrs",express:"3 - 6 hrs"}
 }
 
 if(words<=6000){
-return{
-standard:"12 – 24 hrs",
-express:"6 – 12 hrs"
-}
+return{standard:"12 - 24 hrs",express:"6 - 12 hrs"}
 }
 
-return{
-standard:"24 – 48 hrs",
-express:"12 – 24 hrs"
+if(words<=10000){
+return{standard:"24 - 48 hrs",express:"12 - 24 hrs"}
 }
 
+if(words<=20000){
+return{standard:"2 - 4 days",express:"24 - 48 hrs"}
 }
 
-wordsInput.addEventListener("input",()=>{
+return{standard:"Custom",express:"Custom"}
 
-wordCount=Number(wordsInput.value)
+}
+
+async function extractText(file){
+
+const ext=file.name.split('.').pop().toLowerCase()
+
+if(ext==="txt"){
+return await file.text()
+}
+
+if(ext==="docx"){
+const arrayBuffer=await file.arrayBuffer()
+const result=await mammoth.extractRawText({arrayBuffer})
+return result.value
+}
+
+if(ext==="pdf"){
+
+const typedarray=new Uint8Array(await file.arrayBuffer())
+
+const pdf=await pdfjsLib.getDocument(typedarray).promise
+
+let text=""
+
+for(let i=1;i<=pdf.numPages;i++){
+
+const page=await pdf.getPage(i)
+const content=await page.getTextContent()
+
+content.items.forEach(item=>{
+text+=item.str+" "
+})
+
+}
+
+return text
+
+}
+
+return ""
+
+}
+
+uploadBtn.onclick=async()=>{
+
+const file=fileInput.files[0]
+
+if(!file){
+alert("Please choose a file first")
+return
+}
+
+const text=await extractText(file)
+
+const words=text.trim().split(/\s+/).filter(w=>w.length>0)
+
+wordCount=words.length
+
+wordCountEl.innerText="WORDS: "+wordCount
 
 const standard=(wordCount*0.025).toFixed(2)
 const express=(wordCount*0.05).toFixed(2)
@@ -216,19 +344,24 @@ const express=(wordCount*0.05).toFixed(2)
 standardPrice.innerText="STANDARD $"+standard
 expressPrice.innerText="EXPRESS $"+express
 
-const delivery=deliveryTime(wordCount)
+const delivery=calculateDelivery(wordCount)
 
 standardDelivery.innerText="Delivery: "+delivery.standard
 expressDelivery.innerText="Delivery: "+delivery.express
 
-})
+}
 
 standardCard.onclick=()=>{
 
+if(wordCount===0){
+alert("Upload a document first")
+return
+}
+
 selectedPlan="standard"
 
-standardCard.classList.add("selected")
-expressCard.classList.remove("selected")
+standardCard.classList.add("active")
+expressCard.classList.remove("active")
 
 continueBtn.style.display="block"
 
@@ -236,10 +369,15 @@ continueBtn.style.display="block"
 
 expressCard.onclick=()=>{
 
+if(wordCount===0){
+alert("Upload a document first")
+return
+}
+
 selectedPlan="express"
 
-expressCard.classList.add("selected")
-standardCard.classList.remove("selected")
+expressCard.classList.add("active")
+standardCard.classList.remove("active")
 
 continueBtn.style.display="block"
 
@@ -251,7 +389,9 @@ const price = selectedPlan==="express"
 ? wordCount*0.05
 : wordCount*0.025
 
-const res = await fetch(
+try{
+
+const response = await fetch(
 "https://saybon-server.onrender.com/api/createJob",
 {
 method:"POST",
@@ -265,15 +405,20 @@ price
 })
 })
 
-const data=await res.json()
+const data = await response.json()
 
-window.location.href=
+window.location.href =
 "/translation/job.html?jobCode="+data.jobCode
+
+}catch(err){
+
+alert("Connection error")
+
+}
 
 }
 
 </script>
 
 </body>
-
 </html>
