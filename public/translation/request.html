@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<meta name="format-detection"
+content="telephone=no, date=no, email=no, address=no">
 
 <title>SayBon Translation Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
@@ -13,91 +18,245 @@
 <style>
 
 body{
-font-family:Poppins, sans-serif;
+margin:0;
+font-family:'Poppins',sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
+-webkit-font-smoothing:antialiased;
+}
+
+*{
+-webkit-tap-highlight-color: transparent;
+text-decoration:none;
+}
+
+.page{padding:30px;}
+
+.title{
 text-align:center;
-padding:40px;
+letter-spacing:3px;
+font-weight:500;
 }
 
-.card{
-background:white;
-padding:30px;
-border-radius:20px;
-width:400px;
-margin:auto;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+.subtitle{
+text-align:center;
+font-size:12px;
+margin-bottom:30px;
+white-space:nowrap;
 }
 
-button{
-padding:12px 20px;
-border:none;
-border-radius:10px;
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.left-card,
+.right-card{
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(20px);
+border-radius:30px;
+padding:25px;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:all .2s ease;
+}
+
+.left-card:hover,
+.right-card:hover{
+transform:translateY(-4px);
+}
+
+.upload-row{display:flex;gap:10px;}
+
+#uploadBtn{
 background:#1e8e8e;
 color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
 cursor:pointer;
 }
 
-.plan{
-border:1px solid #ccc;
-padding:10px;
-margin-top:10px;
+.word-count{
+margin-top:15px;
+font-weight:500;
+}
+
+.quote-card{
+margin-top:15px;
+padding:15px;
+border-radius:15px;
 cursor:pointer;
+border:1px solid;
+}
+
+.quote-card.active{
+background:#f1f7f7;
+border-width:2px;
+}
+
+.standard{border-color:#34a853;}
+.express{border-color:#ea4335;}
+
+.quote-price{font-weight:500;}
+.quote-delivery{font-size:12px;}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+font-size:12px;
+text-align:left;
+}
+
+.green{color:#34a853;}
+.red{color:#ea4335;}
+
+#continueBtn{
+display:none;
+margin-top:20px;
+width:100%;
+background:#1e8e8e;
+color:white;
+border:none;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-weight:500;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>SAYBON TRANSLATION SERVICES</h1>
+<div class="page">
 
-<div class="card">
+<h1 class="title">
+SAYBON TRANSLATION SERVICES
+</h1>
 
-<input type="file" id="file">
+<p class="subtitle">
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+</p>
 
-<br><br>
+<div class="container">
 
-<button id="uploadBtn">Upload</button>
+<div class="left-card">
 
-<p id="words">Words: 0</p>
+<div class="upload-row">
+<input type="file" id="fileInput">
+<button id="uploadBtn">UPLOAD</button>
+</div>
 
-<div id="standard" class="plan">Standard</div>
-<div id="express" class="plan">Express</div>
+<div class="word-count" id="wordCount">
+WORDS: 0
+</div>
 
-<button id="payBtn" style="display:none">Proceed to Payment</button>
+<div class="quote-card standard" id="standardCard">
+<div class="quote-price" id="standardPrice">STANDARD $0.00</div>
+<div class="quote-delivery" id="standardDelivery">Delivery: —</div>
+</div>
+
+<div class="quote-card express" id="expressCard">
+<div class="quote-price" id="expressPrice">EXPRESS $0.00</div>
+<div class="quote-delivery" id="expressDelivery">Delivery: —</div>
+</div>
+
+<button id="continueBtn">
+CONTINUE
+</button>
+
+</div>
+
+<div class="right-card">
+
+<table>
+
+<tr>
+<th>WORD COUNT</th>
+<th class="green">STANDARD<br>0.025 / word</th>
+<th class="red">EXPRESS<br>0.05 / word</th>
+</tr>
+
+<tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
+<tr><td>301 - 1000</td><td>3 - 6 hrs</td><td>1 - 3 hrs</td></tr>
+<tr><td>1001 - 3000</td><td>6 - 12 hrs</td><td>3 - 6 hrs</td></tr>
+<tr><td>3001 - 6000</td><td>12 - 24 hrs</td><td>6 - 12 hrs</td></tr>
+<tr><td>6001 - 10000</td><td>24 - 48 hrs</td><td>12 - 24 hrs</td></tr>
+<tr><td>10001 - 20000</td><td>2 - 4 days</td><td>24 - 48 hrs</td></tr>
+<tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
+
+</table>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-let wordCount=0
-let plan=null
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+let wordCount = 0
+let selectedPlan = null
+
+const fileInput = document.getElementById("fileInput")
+const uploadBtn = document.getElementById("uploadBtn")
+
+const wordCountEl = document.getElementById("wordCount")
+
+const standardPrice = document.getElementById("standardPrice")
+const expressPrice = document.getElementById("expressPrice")
+
+const standardDelivery = document.getElementById("standardDelivery")
+const expressDelivery = document.getElementById("expressDelivery")
+
+const standardCard = document.getElementById("standardCard")
+const expressCard = document.getElementById("expressCard")
+
+const continueBtn = document.getElementById("continueBtn")
+
+function calculateDelivery(words){
+
+if(words<=300){return{standard:"1 - 3 hrs",express:"30 - 60 mins"}}
+if(words<=1000){return{standard:"3 - 6 hrs",express:"1 - 3 hrs"}}
+if(words<=3000){return{standard:"6 - 12 hrs",express:"3 - 6 hrs"}}
+
+return{standard:"12 - 24 hrs",express:"6 - 12 hrs"}
+
+}
 
 async function extractText(file){
 
 const ext=file.name.split('.').pop().toLowerCase()
 
-if(ext==="txt"){
-return await file.text()
-}
+if(ext==="txt"){return await file.text()}
 
 if(ext==="docx"){
-const buffer=await file.arrayBuffer()
-const result=await mammoth.extractRawText({arrayBuffer:buffer})
+const arrayBuffer=await file.arrayBuffer()
+const result=await mammoth.extractRawText({arrayBuffer})
 return result.value
 }
 
 if(ext==="pdf"){
-const typed=new Uint8Array(await file.arrayBuffer())
-const pdf=await pdfjsLib.getDocument(typed).promise
+
+const typedarray=new Uint8Array(await file.arrayBuffer())
+const pdf=await pdfjsLib.getDocument(typedarray).promise
 
 let text=""
 
 for(let i=1;i<=pdf.numPages;i++){
 
 const page=await pdf.getPage(i)
-
 const content=await page.getTextContent()
 
 content.items.forEach(item=>{
@@ -113,36 +272,54 @@ return ""
 
 }
 
-document.getElementById("uploadBtn").onclick=async()=>{
+uploadBtn.onclick=async()=>{
 
-const file=document.getElementById("file").files[0]
+const file=fileInput.files[0]
+
+if(!file){
+alert("Please choose a file first")
+return
+}
 
 const text=await extractText(file)
 
-wordCount=text.split(/\s+/).length
+const words=text.trim().split(/\s+/).filter(w=>w.length>0)
 
-document.getElementById("words").innerText="Words: "+wordCount
+wordCount=words.length
+
+wordCountEl.innerText="WORDS: "+wordCount
+
+const standard=(wordCount*0.025).toFixed(2)
+const express=(wordCount*0.05).toFixed(2)
+
+standardPrice.innerText="STANDARD $"+standard
+expressPrice.innerText="EXPRESS $"+express
+
+const delivery=calculateDelivery(wordCount)
+
+standardDelivery.innerText="Delivery: "+delivery.standard
+expressDelivery.innerText="Delivery: "+delivery.express
 
 }
 
-document.getElementById("standard").onclick=()=>{
-
-plan="standard"
-document.getElementById("payBtn").style.display="block"
-
+standardCard.onclick=()=>{
+selectedPlan="standard"
+continueBtn.style.display="block"
 }
 
-document.getElementById("express").onclick=()=>{
-
-plan="express"
-document.getElementById("payBtn").style.display="block"
-
+expressCard.onclick=()=>{
+selectedPlan="express"
+continueBtn.style.display="block"
 }
 
-document.getElementById("payBtn").onclick=async()=>{
+continueBtn.onclick=async()=>{
 
-const response=await fetch(
-"https://saybon-server.onrender.com/api/createCheckout",
+const price = selectedPlan==="express"
+? wordCount*0.05
+: wordCount*0.025
+
+const response = await fetch(
+"https://saybon-server.onrender.com/api/createJob",
 {
 method:"POST",
 headers:{
@@ -150,13 +327,15 @@ headers:{
 },
 body:JSON.stringify({
 words:wordCount,
-plan
+plan:selectedPlan,
+price
 })
 })
 
-const data=await response.json()
+const data = await response.json()
 
-window.location=data.url
+window.location.href =
+"/translation/job.html?jobCode="+data.jobCode
 
 }
 
