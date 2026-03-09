@@ -14,53 +14,37 @@ app.use(express.json())
 const DATA_FILE = path.join(__dirname,"data","jobs.json")
 
 function loadJobs(){
-
   if(!fs.existsSync(DATA_FILE)){
     fs.writeFileSync(DATA_FILE,"[]")
   }
-
   return JSON.parse(fs.readFileSync(DATA_FILE))
-
 }
 
 function saveJobs(jobs){
-
   fs.writeFileSync(DATA_FILE,JSON.stringify(jobs,null,2))
-
 }
 
 function createJobCode(){
-
   const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
   let code="SB-"
-
   for(let i=0;i<6;i++){
-
     code+=chars[Math.floor(Math.random()*chars.length)]
-
   }
-
   return code
-
 }
 
-
-
-# ==========================================
-# CREATE JOB
-# ==========================================
+// ==========================================
+// CREATE JOB
+// ==========================================
 
 app.post("/api/createJob",(req,res)=>{
 
-  const { fileId, words, plan, price } = req.body
+  const { words, plan, price } = req.body
 
   if(!words || !plan){
-
     return res.status(400).json({
       error:"Missing parameters"
     })
-
   }
 
   const jobs = loadJobs()
@@ -68,36 +52,25 @@ app.post("/api/createJob",(req,res)=>{
   const jobCode = createJobCode()
 
   const job = {
-
     jobCode,
-    fileId,
     words,
     plan,
     price,
-
     status:"awaiting_payment",
-    stage:"waiting_for_payment",
-    progress:0,
-
     created:new Date().toISOString()
-
   }
 
   jobs.push(job)
 
   saveJobs(jobs)
 
-  res.json({
-    jobCode
-  })
+  res.json({ jobCode })
 
 })
 
-
-
-# ==========================================
-# STRIPE CHECKOUT
-# ==========================================
+// ==========================================
+// STRIPE CHECKOUT
+// ==========================================
 
 app.post("/api/createCheckout", async (req,res)=>{
 
@@ -110,15 +83,12 @@ app.post("/api/createCheckout", async (req,res)=>{
     const job = jobs.find(j => j.jobCode === jobCode)
 
     if(!job){
-
       return res.status(404).json({
         error:"Job not found"
       })
-
     }
 
     const rate = job.plan === "express" ? 0.05 : 0.025
-
     const price = Math.round(job.words * rate * 100)
 
     const session = await stripe.checkout.sessions.create({
@@ -128,25 +98,17 @@ app.post("/api/createCheckout", async (req,res)=>{
       mode:"payment",
 
       line_items:[{
-
         price_data:{
-
           currency:"usd",
-
           product_data:{
             name:"SayBon Translation ("+job.words+" words)"
           },
-
           unit_amount:price
-
         },
-
         quantity:1
-
       }],
 
       success_url:"https://saybonapp.com/translation/success.html?jobCode="+jobCode,
-
       cancel_url:"https://saybonapp.com/translation/job.html?jobCode="+jobCode
 
     })
@@ -169,12 +131,8 @@ app.post("/api/createCheckout", async (req,res)=>{
 
 })
 
-
-
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT,()=>{
-
   console.log("SayBon backend running on port "+PORT)
-
 })

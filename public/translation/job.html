@@ -4,34 +4,38 @@
 <head>
 
 <meta charset="UTF-8">
+
 <title>Translation Job</title>
 
 <style>
 
 body{
-font-family:Arial;
+font-family:Poppins,sans-serif;
 background:#eef3f8;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh
+height:100vh;
 }
 
 .card{
 background:white;
 padding:30px;
-border-radius:10px;
-width:340px
+border-radius:14px;
+width:340px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
 button{
+margin-top:20px;
 width:100%;
-padding:12px;
-background:#6fa4c7;
+padding:14px;
 border:none;
+border-radius:10px;
+background:#7ea8c9;
 color:white;
-border-radius:6px;
-margin-top:20px
+font-size:15px;
+cursor:pointer;
 }
 
 </style>
@@ -46,44 +50,39 @@ margin-top:20px
 
 <div id="jobCode"></div>
 
-<button id="payBtn">Proceed to Payment</button>
+<button id="payBtn">
+Proceed to Payment
+</button>
 
 </div>
 
 <script>
 
-const params = new URLSearchParams(location.search)
+const params=new URLSearchParams(location.search)
 
-const jobCode = params.get("jobCode")
+const jobCode=params.get("jobCode")
 
-document.getElementById("jobCode").innerText =
-"Job Code: "+jobCode
+document.getElementById("jobCode").innerText="Job Code: "+jobCode
 
-document.getElementById("payBtn").onclick = async ()=>{
+document.getElementById("payBtn").onclick=async()=>{
 
-const res = await fetch(
-
+const res=await fetch(
 "https://saybon-server.onrender.com/api/createCheckout",
-
 {
 method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-jobCode
-})
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({jobCode})
 })
 
-const data = await res.json()
+const data=await res.json()
 
 if(data.url){
 
-window.location = data.url
+window.location.href=data.url
 
 }else{
 
-alert("Stripe checkout failed")
+alert("Payment error")
 
 }
 
