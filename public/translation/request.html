@@ -335,7 +335,12 @@ words: wordCount
 
 const data = await response.json()
 
-window.location = data.url
+if(data.url){
+    window.location = data.url
+}else{
+    console.error("Checkout error:", data)
+    alert("Payment session could not be created. Please try again.")
+}
 
 }
 
