@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -204,7 +204,7 @@ SAYBON TRANSLATION SERVICES
 </h1>
 
 <p class="subtitle">
-TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </p>
 
 <div class="container">
@@ -232,7 +232,7 @@ STANDARD .00
 </div>
 
 <div class="quote-delivery" id="standardDelivery">
-Delivery: â€”
+Delivery: —
 </div>
 
 </div>
@@ -244,7 +244,7 @@ EXPRESS .00
 </div>
 
 <div class="quote-delivery" id="expressDelivery">
-Delivery: â€”
+Delivery: —
 </div>
 
 </div>
@@ -470,3 +470,29 @@ window.location.href="/translation/job.html?"+params.toString()
 </body>
 
 </html>
+
+<script>
+
+async function createJob(){
+
+const words = wordCount
+const plan = selectedPlan
+const price = plan==="express"?words*0.05:words*0.025
+
+const res = await fetch(
+"https://saybon-server.onrender.com/api/createJob",
+{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({words,plan,price})
+})
+
+const data = await res.json()
+
+location.href =
+"/translation/job.html?jobCode="+data.jobCode
+
+}
+
+</script>
+
