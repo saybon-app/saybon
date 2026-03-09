@@ -1,194 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+ï»¿<!DOCTYPE html>
+<html>
 
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="format-detection"
-content="telephone=no, date=no, email=no, address=no">
-
-<title>SayBon Translation Services</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+<title>SayBon Translation</title>
 
 <style>
 
 body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
-color:#6e6e73;
--webkit-font-smoothing:antialiased;
-}
-
-*{
--webkit-tap-highlight-color: transparent;
-text-decoration:none;
-}
-
-.page{
-padding:30px;
-}
-
-.title{
-text-align:center;
-letter-spacing:3px;
-font-weight:500;
-}
-
-.subtitle{
-text-align:center;
-font-size:12px;
-margin-bottom:30px;
-white-space:nowrap;
-}
-
-.container{
+font-family:Arial;
+background:#eef3f8;
 display:flex;
 justify-content:center;
-gap:40px;
-flex-wrap:wrap;
+align-items:center;
+height:100vh
 }
 
-.left-card,
-.right-card{
-
-background:rgba(255,255,255,0.6);
-backdrop-filter:blur(20px);
-border-radius:30px;
-padding:25px;
-width:420px;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-
-transition:all .2s ease;
-
-}
-
-.left-card:hover,
-.right-card:hover{
-transform:translateY(-4px);
-}
-
-.upload-row{
-display:flex;
-gap:10px;
-}
-
-#uploadBtn{
-background:#1e8e8e;
-color:white;
-border:none;
-padding:10px 20px;
+.card{
+background:white;
+padding:30px;
 border-radius:10px;
-cursor:pointer;
-transition:.2s;
+width:340px
 }
 
-#uploadBtn:hover{
-transform:translateY(-2px);
-}
-
-#uploadBtn:active{
-transform:translateY(2px);
-}
-
-.word-count{
-margin-top:15px;
-font-weight:500;
-}
-
-.quote-card{
-margin-top:15px;
-padding:15px;
-border-radius:15px;
-cursor:pointer;
-border:1px solid;
-transition:.2s;
-}
-
-.standard{
-border-color:#34a853;
-}
-
-.express{
-border-color:#ea4335;
-}
-
-.quote-card:hover{
-transform:translateY(-2px);
-}
-
-.quote-card:active{
-transform:translateY(2px);
-}
-
-.quote-price{
-font-weight:500;
-}
-
-.quote-delivery{
-font-size:12px;
-}
-
-table{
+button{
 width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #ddd;
-padding:8px;
-font-size:12px;
-text-align:left;
-}
-
-.green{
-color:#34a853;
-}
-
-.red{
-color:#ea4335;
-}
-
-#continueBtn{
-display:none;
-margin-top:20px;
-width:100%;
-background:#1e8e8e;
-color:white;
-border:none;
 padding:12px;
-border-radius:12px;
-cursor:pointer;
-font-weight:500;
-}
-
-#continueBtn:hover{
-transform:translateY(-2px);
-}
-
-@media(max-width:600px){
-
-.page{
-padding:15px;
-}
-
-.subtitle{
-font-size:10px;
-}
-
-.left-card,
-.right-card{
-width:100%;
-}
-
+background:#6fa4c7;
+border:none;
+color:white;
+border-radius:6px;
+margin-top:20px
 }
 
 </style>
@@ -197,271 +40,55 @@ width:100%;
 
 <body>
 
-<div class="page">
+<div class="card">
 
-<h1 class="title">
-SAYBON TRANSLATION SERVICES
-</h1>
+<h2>SayBon Translation</h2>
 
-<p class="subtitle">
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</p>
+<input type="number" id="words" placeholder="Word count">
 
-<div class="container">
+<select id="plan">
 
-<div class="left-card">
+<option value="standard">Standard</option>
+<option value="express">Express</option>
 
-<div class="upload-row">
+</select>
 
-<input type="file" id="fileInput">
-
-<button id="uploadBtn">
-UPLOAD
-</button>
-
-</div>
-
-<div class="word-count" id="wordCount">
-WORDS: 0
-</div>
-
-<div class="quote-card standard" id="standardCard">
-
-<div class="quote-price" id="standardPrice">
-STANDARD .00
-</div>
-
-<div class="quote-delivery" id="standardDelivery">
-Delivery: —
-</div>
-
-</div>
-
-<div class="quote-card express" id="expressCard">
-
-<div class="quote-price" id="expressPrice">
-EXPRESS .00
-</div>
-
-<div class="quote-delivery" id="expressDelivery">
-Delivery: —
-</div>
-
-</div>
-
-<button id="continueBtn">
-CONTINUE
-</button>
-
-</div>
-
-<div class="right-card">
-
-<table>
-
-<tr>
-
-<th>WORD COUNT</th>
-
-<th class="green">
-STANDARD<br>
-0.025 / word
-</th>
-
-<th class="red">
-EXPRESS<br>
-0.05 / word
-</th>
-
-</tr>
-
-<tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
-<tr><td>301 - 1000</td><td>3 - 6 hrs</td><td>1 - 3 hrs</td></tr>
-<tr><td>1001 - 3000</td><td>6 - 12 hrs</td><td>3 - 6 hrs</td></tr>
-<tr><td>3001 - 6000</td><td>12 - 24 hrs</td><td>6 - 12 hrs</td></tr>
-<tr><td>6001 - 10000</td><td>24 - 48 hrs</td><td>12 - 24 hrs</td></tr>
-<tr><td>10001 - 20000</td><td>2 - 4 days</td><td>24 - 48 hrs</td></tr>
-<tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
-
-</table>
-
-</div>
-
-</div>
+<button id="createJob">Create Job</button>
 
 </div>
 
 <script>
 
-let wordCount = 0
-let selectedPlan = null
+document.getElementById("createJob").onclick = async ()=>{
 
-const fileInput = document.getElementById("fileInput")
-const uploadBtn = document.getElementById("uploadBtn")
+const words = Number(document.getElementById("words").value)
 
-const wordCountEl = document.getElementById("wordCount")
+const plan = document.getElementById("plan").value
 
-const standardPrice = document.getElementById("standardPrice")
-const expressPrice = document.getElementById("expressPrice")
+const rate = plan==="express"?0.05:0.025
 
-const standardDelivery = document.getElementById("standardDelivery")
-const expressDelivery = document.getElementById("expressDelivery")
+const price = words * rate
 
-const standardCard = document.getElementById("standardCard")
-const expressCard = document.getElementById("expressCard")
+const res = await fetch(
 
-const continueBtn = document.getElementById("continueBtn")
+"https://saybon-server.onrender.com/api/createJob",
 
-function calculateDelivery(words){
-
-if(words<=300){
-return{
-standard:"1 - 3 hrs",
-express:"30 - 60 mins"
-}
-}
-
-if(words<=1000){
-return{
-standard:"3 - 6 hrs",
-express:"1 - 3 hrs"
-}
-}
-
-if(words<=3000){
-return{
-standard:"6 - 12 hrs",
-express:"3 - 6 hrs"
-}
-}
-
-if(words<=6000){
-return{
-standard:"12 - 24 hrs",
-express:"6 - 12 hrs"
-}
-}
-
-if(words<=10000){
-return{
-standard:"24 - 48 hrs",
-express:"12 - 24 hrs"
-}
-}
-
-if(words<=20000){
-return{
-standard:"2 - 4 days",
-express:"24 - 48 hrs"
-}
-}
-
-return{
-standard:"Custom",
-express:"Custom"
-}
-
-}
-
-async function extractText(file){
-
-const ext=file.name.split('.').pop().toLowerCase()
-
-if(ext==="txt"){
-return await file.text()
-}
-
-if(ext==="docx"){
-
-const arrayBuffer=await file.arrayBuffer()
-
-const result=await mammoth.extractRawText({arrayBuffer})
-
-return result.value
-}
-
-if(ext==="pdf"){
-
-const typedarray=new Uint8Array(await file.arrayBuffer())
-
-const pdf=await pdfjsLib.getDocument(typedarray).promise
-
-let text=""
-
-for(let i=1;i<=pdf.numPages;i++){
-
-const page=await pdf.getPage(i)
-
-const content=await page.getTextContent()
-
-content.items.forEach(item=>{
-text+=item.str+" "
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+words,
+plan,
+price
+})
 })
 
-}
+const data = await res.json()
 
-return text
-}
-
-return ""
-}
-
-uploadBtn.onclick=async()=>{
-
-const file=fileInput.files[0]
-
-if(!file){
-alert("Please choose a file first")
-return
-}
-
-const text=await extractText(file)
-
-const words=text.trim().split(/\s+/).filter(w=>w.length>0)
-
-wordCount=words.length
-
-wordCountEl.innerText="WORDS: "+wordCount
-
-const standard=(wordCount*0.025).toFixed(2)
-const express=(wordCount*0.05).toFixed(2)
-
-standardPrice.innerText="STANDARD $"+standard
-expressPrice.innerText="EXPRESS $"+express
-
-const delivery=calculateDelivery(wordCount)
-
-standardDelivery.innerText="Delivery: "+delivery.standard
-expressDelivery.innerText="Delivery: "+delivery.express
-
-}
-
-standardCard.onclick=()=>{
-
-selectedPlan="standard"
-
-continueBtn.style.display="block"
-
-}
-
-expressCard.onclick=()=>{
-
-selectedPlan="express"
-
-continueBtn.style.display="block"
-
-}
-
-continueBtn.onclick=()=>{
-
-if(!selectedPlan)return
-
-const params=new URLSearchParams()
-
-params.append("words",wordCount)
-params.append("plan",selectedPlan)
-
-window.location.href="/translation/job.html?"+params.toString()
+window.location =
+"/translation/job.html?jobCode="+data.jobCode
 
 }
 
@@ -470,29 +97,3 @@ window.location.href="/translation/job.html?"+params.toString()
 </body>
 
 </html>
-
-<script>
-
-async function createJob(){
-
-const words = wordCount
-const plan = selectedPlan
-const price = plan==="express"?words*0.05:words*0.025
-
-const res = await fetch(
-"https://saybon-server.onrender.com/api/createJob",
-{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({words,plan,price})
-})
-
-const data = await res.json()
-
-location.href =
-"/translation/job.html?jobCode="+data.jobCode
-
-}
-
-</script>
-
