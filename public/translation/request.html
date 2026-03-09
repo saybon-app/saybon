@@ -319,7 +319,7 @@ const price = selectedPlan==="express"
 : wordCount*0.025
 
 const response = await fetch(
-"https://saybon-server.onrender.com/api/createJob",
+"https://saybon-server.onrender.com/api/createCheckout",
 {
 method:"POST",
 headers:{
@@ -334,8 +334,7 @@ price
 
 const data = await response.json()
 
-window.location.href =
-"/translation/job.html?jobCode="+data.jobCode
+window.location = data.url
 
 }
 
@@ -343,3 +342,4 @@ window.location.href =
 
 </body>
 </html>
+
