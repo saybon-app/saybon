@@ -165,6 +165,33 @@ margin-top:8px;
 
 </style>
 
+
+<style>
+
+/* ==========================================
+DESKTOP UX IMPROVEMENT
+Zoom out page + widen cards
+Mobile remains unchanged
+========================================== */
+
+@media (min-width:1200px){
+
+body{
+transform:scale(0.9);
+transform-origin:top center;
+}
+
+/* widen glass cards for better spacing */
+
+.left-card,
+.right-card{
+width:480px;
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
