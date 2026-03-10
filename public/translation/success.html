@@ -1,91 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Payment Successful • SayBon</title>
+<title>SayBon Translation Invoice</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 
 body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+
+font-family:Poppins;
+background:#eef2f6;
 display:flex;
-align-items:center;
 justify-content:center;
-height:100vh;
-color:#444;
+padding:40px;
+
 }
 
-.card{
+.invoice{
+
 background:white;
 padding:40px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-text-align:center;
-max-width:420px;
+width:600px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
 }
 
 h1{
-margin-top:0;
-color:#1e8e8e;
+
+text-align:center;
+margin-bottom:20px;
+
 }
 
-p{
-line-height:1.6;
+.row{
+
+margin:10px 0;
+
 }
 
-.button{
+button{
+
 margin-top:20px;
-display:inline-block;
+padding:12px 20px;
+border:none;
+border-radius:8px;
 background:#1e8e8e;
 color:white;
-padding:12px 22px;
-border-radius:10px;
-text-decoration:none;
+cursor:pointer;
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="card">
+<div class="invoice" id="invoice">
 
-<h1>Payment Successful</h1>
+<h1>SayBon Translation Invoice</h1>
 
-<p>
-Thank you for your translation request.
-</p>
+<div class="row">Job Code: <span id="job"></span></div>
 
-<p>
-Our team has received your order and will begin processing your document shortly.
-</p>
+<div class="row">Plan: <span id="plan"></span></div>
 
-<p id="session"></p>
+<div class="row">Word Count: <span id="words"></span></div>
 
-<a class="button" href="/translation/request.html">
-Submit Another Document
-</a>
+<div class="row">Language: <span id="language"></span></div>
+
+<div class="row">Price: $<span id="price"></span></div>
+
+<div class="row">Status: <span id="status"></span></div>
+
+<div class="row">Date: <span id="date"></span></div>
+
+<button onclick="downloadPDF()">Download Invoice PDF</button>
+
+<button onclick="location.href='/translation/dashboard.html'">
+Translation Desk
+</button>
 
 </div>
 
 <script>
 
-const params = new URLSearchParams(window.location.search)
-const sessionId = params.get("session_id")
+const firebaseConfig = {
 
-if(sessionId){
-document.getElementById("session").innerText =
-"Order reference: " + sessionId
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.firestore()
+
+const params = new URLSearchParams(window.location.search)
+
+const jobId = params.get("job")
+
+async function loadJob(){
+
+const doc = await db.collection("translationJobs")
+.doc(jobId)
+.get()
+
+const data = doc.data()
+
+document.getElementById("job").innerText=data.jobId
+document.getElementById("plan").innerText=data.plan
+document.getElementById("words").innerText=data.wordCount
+document.getElementById("language").innerText=data.targetLanguage
+document.getElementById("price").innerText=data.price
+document.getElementById("status").innerText=data.status
+document.getElementById("date").innerText=data.createdAt.toDate().toDateString()
+
+}
+
+loadJob()
+
+function downloadPDF(){
+
+const element = document.getElementById("invoice")
+
+html2pdf().from(element).save("SayBon-Invoice.pdf")
+
 }
 
 </script>
 
 </body>
+
 </html>
