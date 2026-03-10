@@ -73,6 +73,53 @@ transform:translateY(-2px);
 transform:scale(0.96);
 }
 </style>
+
+<style>
+
+/* job code emphasis */
+
+.jobLabel{
+font-size:12px;
+letter-spacing:3px;
+color:#888;
+margin-bottom:6px;
+}
+
+#job{
+font-size:24px;
+font-weight:600;
+letter-spacing:2px;
+color:#1e8e8e;
+cursor:pointer;
+margin-bottom:6px;
+}
+
+/* red instruction text */
+
+.jobNote{
+font-size:12px;
+color:#d44;
+font-weight:500;
+letter-spacing:1px;
+margin-bottom:18px;
+}
+
+/* slightly bigger card */
+
+.card{
+width:460px;
+padding:46px;
+}
+
+/* price emphasis */
+
+.price{
+font-size:32px;
+margin-top:18px;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -143,7 +190,7 @@ function generateJobId(){
 }
 
 const job = generateJobId();
-document.getElementById("job").innerText = "Job Code: " + job;
+document.getElementById("job").innerText = "<div class='jobLabel'>JOB CODE</div> " + job;
 
 let rate = plan === "express" ? 0.05 : 0.025;
 let total = Math.max(words,100) * rate;
@@ -191,5 +238,22 @@ async function startPayment(){
 }
 </script>
 
+
+<script>
+
+const jobElement = document.getElementById("job");
+
+if(jobElement){
+jobElement.addEventListener("click", async ()=>{
+try{
+await navigator.clipboard.writeText(jobElement.innerText.replace("Job Code: ",""));
+jobElement.style.color = "#2aa198";
+}catch(e){}
+});
+}
+
+</script>
+
 </body>
 </html>
+
