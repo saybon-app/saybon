@@ -36,6 +36,16 @@ letter-spacing:3px;
 font-weight:500;
 margin-bottom:20px;
 }
+.job{
+font-size:15px;
+font-weight:500;
+margin-bottom:4px;
+}
+.jobNote{
+font-size:11px;
+opacity:.75;
+margin-bottom:16px;
+}
 .row{
 margin:10px 0;
 font-size:14px;
@@ -56,6 +66,9 @@ border-radius:12px;
 cursor:pointer;
 transition:0.2s;
 }
+.payBtn:hover{
+transform:translateY(-2px);
+}
 .payBtn:active{
 transform:scale(0.96);
 }
@@ -70,7 +83,10 @@ transform:scale(0.96);
 CONFIRM TRANSLATION
 </div>
 
-<div id="job"></div>
+<div class="job" id="job"></div>
+<div class="jobNote">
+Quote this code on the payment page.
+</div>
 
 <div class="row">
 Plan: <span id="plan"></span>
@@ -106,15 +122,14 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 const params = new URLSearchParams(window.location.search);
-
 const plan = params.get("plan");
 const words = parseInt(params.get("words"));
 const language = params.get("language");
 const email = params.get("email");
 
 if(!plan || !words || !language || !email){
-alert("Invalid payment session");
-window.location="/translation/request.html";
+  alert("Invalid payment session");
+  window.location="/translation/request.html";
 }
 
 document.getElementById("plan").innerText = plan;
@@ -122,8 +137,9 @@ document.getElementById("words").innerText = words;
 document.getElementById("language").innerText = language;
 
 function generateJobId(){
-const rand = Math.random().toString(36).substring(2,6).toUpperCase();
-return "SB-" + Date.now() + "-" + rand;
+  const left = Date.now().toString(36).slice(-4).toUpperCase();
+  const right = Math.random().toString(36).slice(2,5).toUpperCase();
+  return "SB-" + left + right;
 }
 
 const job = generateJobId();
@@ -136,40 +152,42 @@ document.getElementById("price").innerText = "$" + total.toFixed(2);
 document.getElementById("payButton").addEventListener("click", startPayment);
 
 async function startPayment(){
-try{
-const button = document.getElementById("payButton");
-button.innerText = "Processing...";
-button.disabled = true;
+  try{
+    const button = document.getElementById("payButton");
+    button.innerText = "Opening payment...";
+    button.disabled = true;
 
-await db.collection("translationJobs").doc(job).set({
-jobId: job,
-email: email,
-plan: plan,
-wordCount: words,
-targetLanguage: language,
-price: total,
-status: "awaiting_payment",
-createdAt: new Date()
-});
+    await db.collection("translationJobs").doc(job).set({
+      jobId: job,
+      email: email,
+      plan: plan,
+      wordCount: words,
+      targetLanguage: language,
+      price: total,
+      status: "awaiting_payment",
+      createdAt: new Date()
+    });
 
-localStorage.setItem("saybon_last_job", job);
-localStorage.setItem("saybon_last_email", email);
+    localStorage.setItem("saybon_last_job", job);
 
-let link = "";
-if(plan === "express"){
-link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05";
-}else{
-link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02";
-}
+    try {
+      await navigator.clipboard.writeText(job);
+    } catch (e) {}
 
-window.location = link + "?client_reference_id=" + encodeURIComponent(job);
+    let link = "";
+    if(plan === "express"){
+      link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05";
+    } else {
+      link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02";
+    }
 
-}catch(err){
-console.error("PAYMENT ERROR:", err);
-alert("Payment system error. Please try again.");
-document.getElementById("payButton").innerText = "PAY SECURELY";
-document.getElementById("payButton").disabled = false;
-}
+    window.location = link;
+  }catch(err){
+    console.error("PAYMENT ERROR:", err);
+    alert("Payment system error. Please try again.");
+    document.getElementById("payButton").innerText = "PAY SECURELY";
+    document.getElementById("payButton").disabled = false;
+  }
 }
 </script>
 
