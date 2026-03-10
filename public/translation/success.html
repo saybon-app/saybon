@@ -21,21 +21,21 @@ body{
 
 margin:0;
 font-family:Poppins;
-background:#0f1115;
+background:#0f1117;
 display:flex;
 justify-content:center;
-padding:50px;
-color:#e8e8e8;
+padding:60px;
+color:#e8ecf3;
 
 }
 
 .invoice{
 
-width:640px;
-background:#1b1f27;
-padding:40px;
-border-radius:10px;
-box-shadow:0 10px 35px rgba(0,0,0,0.5);
+width:620px;
+background:#1c2130;
+padding:45px;
+border-radius:12px;
+box-shadow:0 0 40px rgba(30,142,142,0.15);
 
 }
 
@@ -52,20 +52,22 @@ margin-bottom:30px;
 
 font-size:22px;
 font-weight:600;
+letter-spacing:0.5px;
 
 }
 
 .pdf{
 
+font-size:22px;
 cursor:pointer;
-font-size:20px;
 
 }
 
 .section{
 
-margin-bottom:18px;
-line-height:1.7;
+margin-bottom:20px;
+line-height:1.8;
+color:#9aa4b2;
 
 }
 
@@ -80,7 +82,7 @@ margin-top:20px;
 th{
 
 text-align:left;
-padding:10px;
+padding:12px;
 background:#12151c;
 border-bottom:2px solid #2f3642;
 
@@ -88,7 +90,7 @@ border-bottom:2px solid #2f3642;
 
 td{
 
-padding:10px;
+padding:12px;
 border-bottom:1px solid #2f3642;
 
 }
@@ -96,13 +98,14 @@ border-bottom:1px solid #2f3642;
 .totalRow{
 
 font-weight:600;
+font-size:15px;
 
 }
 
 .status{
 
-margin-top:18px;
-color:#3ddc97;
+margin-top:20px;
+color:#4fd1c5;
 font-weight:500;
 
 }
@@ -112,9 +115,9 @@ font-weight:500;
 margin-top:35px;
 padding:12px 22px;
 border-radius:10px;
-border:1px solid rgba(255,255,255,0.15);
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(8px);
+border:1px solid rgba(255,255,255,0.12);
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(6px);
 color:white;
 cursor:pointer;
 transition:0.2s;
@@ -125,12 +128,6 @@ transition:0.2s;
 
 transform:translateY(-2px);
 background:rgba(255,255,255,0.12);
-
-}
-
-.glassButton:active{
-
-transform:translateY(2px);
 
 }
 
@@ -148,12 +145,9 @@ transform:translateY(2px);
 SayBon Translation Services
 </div>
 
-<div class="pdf" onclick="downloadPDF()">
-??
-</div>
+<div class="pdf" onclick="downloadPDF()">??</div>
 
 </div>
-
 
 <div class="section">
 
@@ -162,7 +156,6 @@ SayBon Translation Services
 <div>Date: <span id="date"></span></div>
 
 </div>
-
 
 <table>
 
@@ -199,7 +192,6 @@ SayBon Translation Services
 
 </table>
 
-
 <div class="section">
 
 <div>Source Language: <span id="source"></span></div>
@@ -216,7 +208,7 @@ Payment Status: <span id="status"></span>
 </div>
 
 <button class="glassButton"
-onclick="location.href='/translation/desk.html?job='+jobId">
+onclick="location.href='/translation/desk.html'">
 
 Translation Desk
 
@@ -242,21 +234,28 @@ firebase.initializeApp(firebaseConfig)
 
 const db=firebase.firestore()
 
-const params=new URLSearchParams(window.location.search)
-
-const jobId=params.get("job")
-
 
 async function loadInvoice(){
 
-const doc=await db.collection("translationJobs").doc(jobId).get()
+const snapshot=await db.collection("translationJobs")
+.orderBy("createdAt","desc")
+.limit(1)
+.get()
 
-const data=doc.data()
+if(snapshot.empty){
+
+alert("No translation job found")
+
+return
+
+}
+
+const data=snapshot.docs[0].data()
 
 document.getElementById("jobId").innerText=data.jobId
 document.getElementById("email").innerText=data.email
 
-document.getElementById("date").innerText=new Date(data.createdAt.seconds*1000).toDateString()
+document.getElementById("date").innerText=new Date(data.createdAt.toDate()).toDateString()
 
 document.getElementById("description").innerText=data.targetLanguage+" Translation"
 
@@ -285,7 +284,7 @@ function downloadPDF(){
 
 const element=document.getElementById("invoice")
 
-html2pdf().from(element).save("SayBon-Invoice-"+jobId+".pdf")
+html2pdf().from(element).save("SayBon-Invoice.pdf")
 
 }
 
