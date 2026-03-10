@@ -11,6 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const uploadDocument = require('./routes/upload-document');
+app.use('/api', uploadDocument);
+
+
 const stripeWebhook = require('./routes/stripe-webhook');
 app.use('/', stripeWebhook);
 
@@ -180,5 +184,6 @@ app.listen(PORT, () => {
 console.log(`SayBon payment server running on port ${PORT}`);
 
 });
+
 
 
