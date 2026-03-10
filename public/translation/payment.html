@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Payment</title>
+<title>SayBon Checkout</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -20,71 +20,71 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-color:#4b5563;
+color:#374151;
 -webkit-font-smoothing:antialiased;
 }
 
-.card{
+.checkout{
 
 background:rgba(255,255,255,0.75);
 backdrop-filter:blur(20px);
-padding:40px;
+padding:45px;
 border-radius:28px;
-width:440px;
-box-shadow:0 12px 35px rgba(0,0,0,0.08);
+width:460px;
+box-shadow:0 15px 45px rgba(0,0,0,0.08);
 
+}
+
+.header{
+text-align:center;
+margin-bottom:30px;
 }
 
 .title{
+font-size:22px;
 font-weight:600;
-letter-spacing:2px;
-font-size:20px;
-margin-bottom:10px;
-text-align:center;
-color:#374151;
+letter-spacing:1px;
 }
 
 .subtitle{
-text-align:center;
 font-size:12px;
 color:#9ca3af;
-margin-bottom:25px;
+margin-top:6px;
 }
 
 .job{
+margin-top:15px;
 font-size:12px;
 color:#6b7280;
-text-align:center;
-margin-bottom:25px;
+}
+
+.section{
+margin-top:20px;
+border-top:1px solid #eee;
+padding-top:15px;
 }
 
 .row{
-
 display:flex;
 justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid #eee;
+padding:8px 0;
 font-size:14px;
-
 }
 
 .label{
-font-weight:500;
 color:#6b7280;
+font-weight:500;
 }
 
 .value{
 font-weight:500;
-color:#374151;
 }
 
 .plan{
-
-padding:4px 10px;
+padding:4px 12px;
 border-radius:20px;
 font-size:12px;
 font-weight:500;
-
 }
 
 .standard{
@@ -97,27 +97,31 @@ background:#fdecec;
 color:#ea4335;
 }
 
-.price{
-
+.priceRow{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
 font-size:18px;
 font-weight:600;
-color:#1e8e8e;
+}
 
+.price{
+color:#1e8e8e;
 }
 
 .payBtn{
 
-margin-top:30px;
+margin-top:25px;
 width:100%;
 background:#1e8e8e;
 color:white;
 border:none;
-padding:14px;
+padding:15px;
 border-radius:14px;
-cursor:pointer;
-font-weight:500;
-transition:.2s;
 font-size:15px;
+font-weight:500;
+cursor:pointer;
+transition:.2s;
 
 }
 
@@ -129,49 +133,75 @@ transform:translateY(-2px);
 transform:translateY(2px);
 }
 
+.secure{
+margin-top:12px;
+font-size:11px;
+text-align:center;
+color:#9ca3af;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div class="card">
+<div class="checkout">
+
+<div class="header">
 
 <div class="title">
-CONFIRM TRANSLATION
+Confirm Your Translation
 </div>
 
 <div class="subtitle">
-Review your translation request before payment
+Review your order before payment
 </div>
 
 <div class="job" id="jobCode"></div>
 
+</div>
+
+
+<div class="section">
+
 <div class="row">
 <span class="label">Plan</span>
-<span id="plan" class="value"></span>
+<span id="plan"></span>
 </div>
 
 <div class="row">
 <span class="label">Word Count</span>
-<span id="words" class="value"></span>
+<span id="words"></span>
 </div>
 
 <div class="row">
 <span class="label">Target Language</span>
-<span id="language" class="value"></span>
+<span id="language"></span>
 </div>
 
-<div class="row">
-<span class="label">Price</span>
-<span id="price" class="price"></span>
 </div>
+
+
+<div class="priceRow">
+
+<span>Total</span>
+<span id="price" class="price"></span>
+
+</div>
+
 
 <button class="payBtn" onclick="startPayment()">
-Pay Now
+Pay Securely
 </button>
 
+<div class="secure">
+Secure payment powered by Stripe
 </div>
+
+</div>
+
+
 
 <script>
 
@@ -188,31 +218,31 @@ const jobCode = "SB-" + Math.floor(Math.random()*900000 + 100000)
 document.getElementById("jobCode").innerText =
 "Job Code: " + jobCode
 
+
 const planElement = document.getElementById("plan")
 
 planElement.innerText = plan.toUpperCase()
 
-if(plan === "standard"){
+if(plan==="standard"){
 planElement.classList.add("plan","standard")
 }
 
-if(plan === "express"){
+if(plan==="express"){
 planElement.classList.add("plan","express")
 }
 
-document.getElementById("words").innerText =
-words
 
-document.getElementById("price").innerText =
-"$" + price
-
-document.getElementById("language").innerText =
-language
+document.getElementById("words").innerText = words
+document.getElementById("price").innerText = "$" + price
+document.getElementById("language").innerText = language
 
 
-function startPayment(){
 
-fetch("https://YOUR_RENDER_SERVER/create-checkout-session",{
+async function startPayment(){
+
+try{
+
+const response = await fetch("https://YOUR-RENDER-BACKEND/create-checkout-session",{
 
 method:"POST",
 
@@ -222,25 +252,30 @@ headers:{
 
 body:JSON.stringify({
 
-plan,
-words,
-price,
-language,
-email,
-jobCode
+plan:plan,
+words:words,
+price:price,
+language:language,
+email:email,
+jobCode:jobCode
 
 })
 
 })
-.then(res=>res.json())
-.then(data=>{
-window.location.href=data.url
-})
+
+const data = await response.json()
+
+window.location.href = data.url
+
+}catch(error){
+
+alert("Payment connection failed.")
+
+}
 
 }
 
 </script>
 
 </body>
-
 </html>
