@@ -232,6 +232,68 @@ padding:14px 18px;
 
 </style>
 
+
+<style>
+
+/* ==========================================
+DESKTOP TYPOGRAPHY IMPROVEMENT
+Only affects large screens
+========================================== */
+
+@media (min-width:1200px){
+
+/* Make page slightly zoomed out but content bigger */
+body{
+transform:scale(0.92);
+transform-origin:top center;
+}
+
+/* Larger main heading */
+h1{
+font-size:42px;
+letter-spacing:6px;
+margin-bottom:10px;
+}
+
+/* Sub heading */
+.subtitle,
+.tagline{
+font-size:16px;
+letter-spacing:2px;
+}
+
+/* Increase overall text size */
+body,
+p,
+label,
+input,
+select,
+table{
+font-size:16px;
+}
+
+/* Larger inputs */
+input,
+select{
+padding:14px;
+}
+
+/* Larger buttons */
+button{
+font-size:16px;
+padding:14px 20px;
+}
+
+/* Slightly wider cards */
+.left-card,
+.right-card{
+width:520px;
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
@@ -452,4 +514,5 @@ window.location.href=url
 
 </body>
 </html>
+
 
