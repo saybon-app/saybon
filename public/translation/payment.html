@@ -62,12 +62,16 @@ border:none;
 padding:14px;
 border-radius:12px;
 cursor:pointer;
+transition:0.2s;
+}
+
+.payBtn:active{
+transform:scale(0.96);
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -93,64 +97,70 @@ Language: <span id="language"></span>
 
 <div class="price" id="price"></div>
 
-<button class="payBtn" onclick="startPayment()">
+<button class="payBtn" id="payButton">
 PAY SECURELY
 </button>
 
 </div>
 
-
 <script>
 
-// FIREBASE CONFIG
 const firebaseConfig = {
+apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain: "saybon-3e3c2.firebaseapp.com",
+projectId: "saybon-3e3c2",
+storageBucket: "saybon-3e3c2.firebasestorage.app",
+messagingSenderId: "75085012344",
+appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
 
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_DOMAIN",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_BUCKET",
-messagingSenderId: "YOUR_SENDER",
-appId: "YOUR_APP_ID"
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const params = new URLSearchParams(window.location.search);
+
+const plan = params.get("plan");
+const words = parseInt(params.get("words"));
+const language = params.get("language");
+const email = params.get("email");
+
+if(!plan || !words || !language){
+
+alert("Invalid payment session");
+window.location="/translation/request.html";
 
 }
 
-firebase.initializeApp(firebaseConfig)
+document.getElementById("plan").innerText = plan;
+document.getElementById("words").innerText = words;
+document.getElementById("language").innerText = language;
 
-const db = firebase.firestore()
+function generateJobId(){
 
+const rand = Math.random().toString(36).substring(2,6).toUpperCase();
+return "SB-" + Date.now() + "-" + rand;
 
-// GET PARAMETERS
+}
 
-const params = new URLSearchParams(window.location.search)
+const job = generateJobId();
 
-const plan = params.get("plan")
-const words = parseInt(params.get("words"))
-const language = params.get("language")
-const email = params.get("email")
+document.getElementById("job").innerText = "Job Code: " + job;
 
-document.getElementById("plan").innerText = plan
-document.getElementById("words").innerText = words
-document.getElementById("language").innerText = language
+let rate = plan === "express" ? 0.05 : 0.025;
+let total = Math.max(words,100) * rate;
 
+document.getElementById("price").innerText = "$" + total.toFixed(2);
 
-// JOB ID
-
-const job = "SB-" + Date.now().toString().slice(-6)
-
-document.getElementById("job").innerText = "Job Code: " + job
-
-
-// PRICE
-
-let rate = plan === "express" ? 0.05 : 0.025
-let total = Math.max(words,100) * rate
-
-document.getElementById("price").innerText = "$" + total.toFixed(2)
-
-
-// PAYMENT
+document.getElementById("payButton").addEventListener("click", startPayment);
 
 async function startPayment(){
+
+try{
+
+const button = document.getElementById("payButton");
+
+button.innerText="Processing...";
+button.disabled=true;
 
 await db.collection("translationJobs").doc(job).set({
 
@@ -163,31 +173,28 @@ price:total,
 status:"awaiting_payment",
 createdAt:new Date()
 
-})
+});
 
+let link="";
 
-// STRIPE LINK
-
-let link = ""
-
-if(plan === "express"){
-
-link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
-
+if(plan==="express"){
+link="https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05";
 }else{
-
-link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
-
+link="https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02";
 }
 
-window.location = link
+window.location = link + "?client_reference_id=" + job;
+
+}catch(err){
+
+console.error("PAYMENT ERROR:",err);
+alert("Payment system error. Please try again.");
+
+}
 
 }
 
 </script>
 
-
 </body>
 </html>
-
-
