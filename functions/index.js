@@ -1,52 +1,67 @@
-const { onRequest } = require("firebase-functions/v2/https");
-const express = require("express");
-const cors = require("cors");
-const Stripe = require("stripe");
+﻿const {onRequest} = require("firebase-functions/v2/https")
+const admin = require("firebase-admin")
+const Stripe = require("stripe")
+const nodemailer = require("nodemailer")
 
-const app = express();
+admin.initializeApp()
+const db = admin.firestore()
 
-app.use(cors({ origin: true }));
-app.use(express.json());
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-app.get("/health",(req,res)=>{
-res.json({ok:true});
-});
+function generateJobCode(){
+    const num = Math.floor(1000 + Math.random() * 9000)
+    return "SB-" + num
+}
 
-app.post("/create-stripe-session", async (req,res)=>{
+const transporter = nodemailer.createTransport({
+service:"gmail",
+auth:{
+user:"saybon.fr@gmail.com",
+pass:process.env.EMAIL_PASS
+}
+})
+
+exports.stripeWebhook = onRequest(async (req,res)=>{
+
 try{
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const event=req.body
 
-const amount = Number(req.body.amount || 0);
-const currency = (req.body.currency || "USD").toLowerCase();
-const words = Number(req.body.words || 0);
-const plan = req.body.plan === "express" ? "express" : "standard";
+if(event.type==="checkout.session.completed"){
 
-const session = await stripe.checkout.sessions.create({
-mode:"payment",
-line_items:[
-{
-price_data:{
-currency:currency,
-product_data:{
-name: plan==="express" ? "Express Translation" : "Standard Translation",
-description: words + " words"
-},
-unit_amount: Math.round(amount*100)
-},
-quantity:1
+const session=event.data.object
+
+const jobCode=generateJobCode()
+
+const job={
+jobCode:jobCode,
+email:session.customer_email,
+amount:session.amount_total/100,
+createdAt:new Date(),
+status:"Queued",
+progress:0
 }
-],
-success_url:"https://saybonapp.com/translation/payment.html?status=success",
-cancel_url:"https://saybonapp.com/translation/payment.html?status=cancel"
-});
 
-res.json({url:session.url});
+await db.collection("jobs").doc(jobCode).set(job)
+
+await transporter.sendMail({
+from:"saybon.fr@gmail.com",
+to:"saybon.fr@gmail.com",
+subject:"New SayBon Translation Job",
+text:
+"New translation order received.\n\n"+
+"Job Code: "+jobCode+"\n"+
+"Customer: "+session.customer_email+"\n"+
+"Amount: $"+job.amount
+})
+
+}
+
+res.send({received:true})
 
 }catch(e){
-console.error(e);
-res.status(500).json({error:e.message});
+console.error(e)
+res.status(500).send("Webhook error")
 }
-});
 
-exports.api = onRequest({ region:"us-central1" }, app);
+})

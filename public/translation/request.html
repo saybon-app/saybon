@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -103,6 +103,20 @@ border-width:2px;
 .quote-price{font-weight:500;}
 .quote-delivery{font-size:12px;}
 
+.field{
+margin-top:10px;
+font-size:13px;
+}
+
+.field input,
+.field select{
+width:100%;
+padding:8px;
+border-radius:8px;
+border:1px solid #ddd;
+margin-top:4px;
+}
+
 table{
 width:100%;
 border-collapse:collapse;
@@ -131,6 +145,12 @@ cursor:pointer;
 font-weight:500;
 }
 
+.small-note{
+font-size:11px;
+color:#777;
+margin-top:6px;
+}
+
 </style>
 </head>
 
@@ -143,7 +163,7 @@ SAYBON TRANSLATION SERVICES
 </h1>
 
 <p class="subtitle">
-TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </p>
 
 <div class="container">
@@ -155,18 +175,48 @@ TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
 <button id="uploadBtn">UPLOAD</button>
 </div>
 
+<div class="small-note">
+Minimum charge: 100 words per order.
+</div>
+
 <div class="word-count" id="wordCount">
 WORDS: 0
 </div>
 
+<div class="field">
+Customer Email
+<input type="email" id="email" placeholder="your@email.com">
+</div>
+
+<div class="field">
+Source Language
+<select id="sourceLang">
+<option>Auto Detect</option>
+<option>English</option>
+<option>French</option>
+<option>Spanish</option>
+<option>German</option>
+</select>
+</div>
+
+<div class="field">
+Target Language
+<select id="targetLang">
+<option>English</option>
+<option>French</option>
+<option>Spanish</option>
+<option>German</option>
+</select>
+</div>
+
 <div class="quote-card standard" id="standardCard">
 <div class="quote-price" id="standardPrice">STANDARD $0.00</div>
-<div class="quote-delivery" id="standardDelivery">Delivery: â€”</div>
+<div class="quote-delivery" id="standardDelivery">Delivery: —</div>
 </div>
 
 <div class="quote-card express" id="expressCard">
 <div class="quote-price" id="expressPrice">EXPRESS $0.00</div>
-<div class="quote-delivery" id="expressDelivery">Delivery: â€”</div>
+<div class="quote-delivery" id="expressDelivery">Delivery: —</div>
 </div>
 
 <button id="continueBtn">
@@ -208,6 +258,13 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 let wordCount = 0
 let selectedPlan = null
+let fileName = ""
+
+const STANDARD_LINK =
+"https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
+
+const EXPRESS_LINK =
+"https://buy.stripe.com/00w4gA6A1eMg68U8IFf7i03"
 
 const fileInput = document.getElementById("fileInput")
 const uploadBtn = document.getElementById("uploadBtn")
@@ -281,6 +338,8 @@ alert("Please choose a file first")
 return
 }
 
+fileName=file.name
+
 const text=await extractText(file)
 
 const words=text.trim().split(/\s+/).filter(w=>w.length>0)
@@ -312,35 +371,32 @@ selectedPlan="express"
 continueBtn.style.display="block"
 }
 
-continueBtn.onclick=async()=>{
+continueBtn.onclick=()=>{
 
-const price = selectedPlan==="express"
-? wordCount*0.05
-: wordCount*0.025
-
-const response = await fetch(
-"https://api-htvytnve2a-uc.a.run.app/create-stripe-session",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-amount: price,
-currency: "USD",
-plan: selectedPlan,
-words: wordCount
-})
-})
-
-const data = await response.json()
-
-if(data.url){
-    window.location = data.url
-}else{
-    console.error("Checkout error:", data)
-    alert("Payment session could not be created. Please try again.")
+if(!wordCount){
+alert("Please upload a document first")
+return
 }
+
+const blocks=Math.ceil(wordCount/100)
+
+const email=document.getElementById("email").value
+const source=document.getElementById("sourceLang").value
+const target=document.getElementById("targetLang").value
+
+let url=""
+
+if(selectedPlan==="standard"){
+url=STANDARD_LINK
+}else{
+url=EXPRESS_LINK
+}
+
+url += "?quantity="+blocks
+url += "&client_reference_id="+encodeURIComponent(fileName)
+url += "&prefilled_email="+encodeURIComponent(email)
+
+window.location=url
 
 }
 
@@ -348,4 +404,3 @@ if(data.url){
 
 </body>
 </html>
-

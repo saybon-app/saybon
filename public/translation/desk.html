@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>SayBon Translation Desk</title>
+</head>
+
+<body>
+
+<h2>Translation Job</h2>
+
+<div id="job"></div>
+
+<script>
+
+const params=new URLSearchParams(window.location.search)
+const job=params.get("job")
+
+document.getElementById("job").innerText=
+"Tracking job: "+job
+
+</script>
+
+</body>
+</html>

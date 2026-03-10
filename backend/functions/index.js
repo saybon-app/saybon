@@ -4,6 +4,8 @@
  * POST /api/create-stripe-session
  */
 
+// force redeploy
+
 const { onRequest } = require("firebase-functions/v2/https");
 const express = require("express");
 const cors = require("cors");
@@ -52,8 +54,7 @@ app.post("/create-stripe-session", async (req,res) => {
 
   try {
 
-    const stripe = new Stripe(mustEnv("STRIPE_SECRET_KEY"));
-
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const currency = normalizeCurrency(req.body.currency);
     const plan = formatPlan(req.body.plan);
 
