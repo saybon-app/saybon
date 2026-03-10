@@ -16,7 +16,6 @@
 <style>
 
 body{
-
 margin:0;
 background:#e7e4de;
 font-family:Poppins;
@@ -24,17 +23,15 @@ display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-
 letter-spacing:.08em;
 line-height:1.7;
-
 }
 
 .invoice{
 
-width:620px;
+width:640px;
 background:#1b1f27;
-padding:50px;
+padding:55px;
 border-radius:16px;
 color:white;
 
@@ -52,7 +49,6 @@ right:22px;
 
 font-size:28px;
 cursor:pointer;
-
 transition:.2s;
 
 }
@@ -72,24 +68,17 @@ transform:scale(.9);
 .brand{
 
 text-align:center;
-font-size:16px;
+font-size:22px;
 letter-spacing:.35em;
 color:#d4b16a;
-margin-bottom:20px;
+margin-bottom:8px;
 
 }
 
-.invoiceTitle{
+.company{
 
-font-size:52px;
-font-weight:600;
-margin-bottom:10px;
-
-}
-
-.invoiceNo{
-
-font-size:13px;
+text-align:center;
+font-size:12px;
 opacity:.7;
 margin-bottom:40px;
 
@@ -101,8 +90,15 @@ background:#141820;
 padding:18px;
 border-radius:10px;
 margin-bottom:35px;
-
 font-size:13px;
+
+}
+
+.row{
+
+display:flex;
+justify-content:space-between;
+margin:6px 0;
 
 }
 
@@ -156,21 +152,14 @@ font-weight:600;
 .deskButton{
 
 margin-top:40px;
-
 width:100%;
-
 padding:18px;
-
 border-radius:18px;
-
 border:none;
 
 font-family:Quicksand;
-
 font-weight:600;
-
 letter-spacing:.35em;
-
 font-size:14px;
 
 color:white;
@@ -182,7 +171,6 @@ box-shadow:
 inset 0 1px rgba(255,255,255,.25);
 
 cursor:pointer;
-
 transition:.25s;
 
 }
@@ -210,26 +198,41 @@ transform:scale(.96);
 <div class="pdfBtn" onclick="downloadInvoice()">📄</div>
 
 <div class="brand">
-
 SAYBON TRANSLATION SERVICES
-
 </div>
 
-<div class="invoiceTitle">
-
-INVOICE
-
-</div>
-
-<div class="invoiceNo">
-
-Invoice No. <span id="job"></span>
-
+<div class="company">
+Accra, Ghana<br>
+support@saybonapp.com<br>
+saybonapp.com
 </div>
 
 <div class="section">
 
-TO: <span id="email"></span>
+<div class="row">
+<div>Invoice ID</div>
+<div id="job"></div>
+</div>
+
+<div class="row">
+<div>Client</div>
+<div id="email"></div>
+</div>
+
+<div class="row">
+<div>Plan</div>
+<div id="plan"></div>
+</div>
+
+<div class="row">
+<div>Language</div>
+<div id="language"></div>
+</div>
+
+<div class="row">
+<div>Delivery Timeline</div>
+<div id="timeline"></div>
+</div>
 
 </div>
 
@@ -243,7 +246,7 @@ TO: <span id="email"></span>
 </tr>
 
 <tr>
-<td>Document Translation</td>
+<td>Professional Translation</td>
 <td id="rate"></td>
 <td id="words"></td>
 <td id="price"></td>
@@ -256,9 +259,7 @@ TO: <span id="email"></span>
 <div class="summaryBox">
 
 <div>Subtotal: <span id="subtotal"></span></div>
-
 <div>Processing: $0.00</div>
-
 <div class="total">TOTAL: <span id="total"></span></div>
 
 </div>
@@ -266,9 +267,7 @@ TO: <span id="email"></span>
 </div>
 
 <button class="deskButton" onclick="openDesk()">
-
 TRANSLATION DESK
-
 </button>
 
 </div>
@@ -301,6 +300,8 @@ const data=doc.data()
 
 document.getElementById("job").innerText=data.jobId
 document.getElementById("email").innerText=data.email
+document.getElementById("plan").innerText=data.plan
+document.getElementById("language").innerText=data.targetLanguage
 
 let rate=data.plan==="express"?0.05:0.025
 
@@ -312,6 +313,16 @@ document.getElementById("price").innerText="$"+data.price.toFixed(2)
 document.getElementById("subtotal").innerText="$"+data.price.toFixed(2)
 
 document.getElementById("total").innerText="$"+data.price.toFixed(2)
+
+if(data.plan==="express"){
+
+document.getElementById("timeline").innerText="24 Hours"
+
+}else{
+
+document.getElementById("timeline").innerText="2-3 Days"
+
+}
 
 })
 
