@@ -20,45 +20,105 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-color:#6e6e73;
+color:#4b5563;
+-webkit-font-smoothing:antialiased;
 }
 
 .card{
-background:rgba(255,255,255,0.7);
+
+background:rgba(255,255,255,0.75);
 backdrop-filter:blur(20px);
-padding:35px;
-border-radius:25px;
-width:420px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+padding:40px;
+border-radius:28px;
+width:440px;
+box-shadow:0 12px 35px rgba(0,0,0,0.08);
+
 }
 
 .title{
-font-weight:500;
+font-weight:600;
 letter-spacing:2px;
-margin-bottom:25px;
+font-size:20px;
+margin-bottom:10px;
 text-align:center;
+color:#374151;
+}
+
+.subtitle{
+text-align:center;
+font-size:12px;
+color:#9ca3af;
+margin-bottom:25px;
+}
+
+.job{
+font-size:12px;
+color:#6b7280;
+text-align:center;
+margin-bottom:25px;
 }
 
 .row{
-margin-bottom:10px;
+
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #eee;
 font-size:14px;
+
 }
 
 .label{
 font-weight:500;
+color:#6b7280;
+}
+
+.value{
+font-weight:500;
+color:#374151;
+}
+
+.plan{
+
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:500;
+
+}
+
+.standard{
+background:#e6f6f6;
+color:#1e8e8e;
+}
+
+.express{
+background:#fdecec;
+color:#ea4335;
+}
+
+.price{
+
+font-size:18px;
+font-weight:600;
+color:#1e8e8e;
+
 }
 
 .payBtn{
-margin-top:25px;
+
+margin-top:30px;
 width:100%;
 background:#1e8e8e;
 color:white;
 border:none;
 padding:14px;
-border-radius:12px;
+border-radius:14px;
 cursor:pointer;
 font-weight:500;
 transition:.2s;
+font-size:15px;
+
 }
 
 .payBtn:hover{
@@ -67,13 +127,6 @@ transform:translateY(-2px);
 
 .payBtn:active{
 transform:translateY(2px);
-}
-
-.job{
-font-size:12px;
-margin-bottom:20px;
-color:#999;
-text-align:center;
 }
 
 </style>
@@ -88,30 +141,34 @@ text-align:center;
 CONFIRM TRANSLATION
 </div>
 
+<div class="subtitle">
+Review your translation request before payment
+</div>
+
 <div class="job" id="jobCode"></div>
 
 <div class="row">
-<span class="label">Plan:</span>
-<span id="plan"></span>
+<span class="label">Plan</span>
+<span id="plan" class="value"></span>
 </div>
 
 <div class="row">
-<span class="label">Word Count:</span>
-<span id="words"></span>
+<span class="label">Word Count</span>
+<span id="words" class="value"></span>
 </div>
 
 <div class="row">
-<span class="label">Price:</span>
-<span id="price"></span>
+<span class="label">Target Language</span>
+<span id="language" class="value"></span>
 </div>
 
 <div class="row">
-<span class="label">Target Language:</span>
-<span id="language"></span>
+<span class="label">Price</span>
+<span id="price" class="price"></span>
 </div>
 
 <button class="payBtn" onclick="startPayment()">
-PAY NOW
+Pay Now
 </button>
 
 </div>
@@ -131,8 +188,17 @@ const jobCode = "SB-" + Math.floor(Math.random()*900000 + 100000)
 document.getElementById("jobCode").innerText =
 "Job Code: " + jobCode
 
-document.getElementById("plan").innerText =
-plan.toUpperCase()
+const planElement = document.getElementById("plan")
+
+planElement.innerText = plan.toUpperCase()
+
+if(plan === "standard"){
+planElement.classList.add("plan","standard")
+}
+
+if(plan === "express"){
+planElement.classList.add("plan","express")
+}
 
 document.getElementById("words").innerText =
 words
