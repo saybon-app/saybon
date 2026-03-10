@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>SayBon Translation Invoice</title>
+<title>SayBon Invoice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -15,47 +18,116 @@
 <style>
 
 body{
-
 font-family:Poppins;
 background:#eef2f6;
+margin:0;
+padding:40px;
 display:flex;
 justify-content:center;
-padding:40px;
-
 }
 
 .invoice{
 
+width:720px;
 background:white;
-padding:40px;
-width:600px;
+padding:50px;
 border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
 
 }
 
-h1{
+.header{
 
-text-align:center;
-margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
 
 }
 
-.row{
+.brand{
 
-margin:10px 0;
+font-size:26px;
+font-weight:600;
+letter-spacing:1px;
+
+}
+
+.invoiceTitle{
+
+font-size:20px;
+font-weight:500;
+
+}
+
+.section{
+
+margin-bottom:25px;
+
+}
+
+.table{
+
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+
+}
+
+.table th{
+
+text-align:left;
+border-bottom:1px solid #ddd;
+padding:10px;
+
+}
+
+.table td{
+
+padding:10px;
+
+}
+
+.total{
+
+text-align:right;
+font-size:18px;
+font-weight:600;
+margin-top:20px;
+
+}
+
+.status{
+
+margin-top:20px;
+font-weight:500;
+color:#1e8e8e;
+
+}
+
+.buttons{
+
+margin-top:30px;
+display:flex;
+gap:15px;
 
 }
 
 button{
 
-margin-top:20px;
-padding:12px 20px;
+padding:12px 18px;
 border:none;
 border-radius:8px;
+cursor:pointer;
 background:#1e8e8e;
 color:white;
-cursor:pointer;
+font-size:14px;
+
+}
+
+.secondary{
+
+background:#444;
 
 }
 
@@ -67,27 +139,78 @@ cursor:pointer;
 
 <div class="invoice" id="invoice">
 
-<h1>SayBon Translation Invoice</h1>
+<div class="header">
 
-<div class="row">Job Code: <span id="job"></span></div>
+<div class="brand">
+SayBon
+</div>
 
-<div class="row">Plan: <span id="plan"></span></div>
+<div class="invoiceTitle">
+TRANSLATION INVOICE
+</div>
 
-<div class="row">Word Count: <span id="words"></span></div>
+</div>
 
-<div class="row">Language: <span id="language"></span></div>
+<div class="section">
 
-<div class="row">Price: $<span id="price"></span></div>
+<div>
+Invoice Number: <span id="jobId"></span>
+</div>
 
-<div class="row">Status: <span id="status"></span></div>
+<div>
+Date: <span id="date"></span>
+</div>
 
-<div class="row">Date: <span id="date"></span></div>
+<div>
+Client: <span id="email"></span>
+</div>
 
-<button onclick="downloadPDF()">Download Invoice PDF</button>
+</div>
 
-<button onclick="location.href='/translation/dashboard.html'">
-Translation Desk
+<table class="table">
+
+<tr>
+<th>Description</th>
+<th>Words</th>
+<th>Rate</th>
+<th>Total</th>
+</tr>
+
+<tr>
+<td id="description"></td>
+<td id="words"></td>
+<td id="rate"></td>
+<td id="price"></td>
+</tr>
+
+</table>
+
+<div class="total">
+
+TOTAL: $<span id="total"></span>
+
+</div>
+
+<div class="status">
+
+Payment Status: <span id="status"></span>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="downloadPDF()">
+Download PDF
 </button>
+
+<button class="secondary"
+onclick="location.href='/translation/desk.html'">
+
+Translation Desk
+
+</button>
+
+</div>
 
 </div>
 
@@ -112,31 +235,37 @@ const params = new URLSearchParams(window.location.search)
 
 const jobId = params.get("job")
 
-async function loadJob(){
+async function loadInvoice(){
 
-const doc = await db.collection("translationJobs")
-.doc(jobId)
-.get()
+const doc = await db.collection("translationJobs").doc(jobId).get()
 
 const data = doc.data()
 
-document.getElementById("job").innerText=data.jobId
-document.getElementById("plan").innerText=data.plan
+document.getElementById("jobId").innerText=data.jobId
+document.getElementById("date").innerText=new Date(data.createdAt.seconds*1000).toDateString()
+document.getElementById("email").innerText=data.email
+
+document.getElementById("description").innerText=data.targetLanguage+" Translation"
 document.getElementById("words").innerText=data.wordCount
-document.getElementById("language").innerText=data.targetLanguage
-document.getElementById("price").innerText=data.price
+
+let rate=data.plan==="express"?0.05:0.025
+
+document.getElementById("rate").innerText="$"+rate
+
+document.getElementById("price").innerText="$"+data.price
+document.getElementById("total").innerText=data.price
+
 document.getElementById("status").innerText=data.status
-document.getElementById("date").innerText=data.createdAt.toDate().toDateString()
 
 }
 
-loadJob()
+loadInvoice()
 
 function downloadPDF(){
 
-const element = document.getElementById("invoice")
+const element=document.getElementById("invoice")
 
-html2pdf().from(element).save("SayBon-Invoice.pdf")
+html2pdf().from(element).save("SayBon-Invoice-"+jobId+".pdf")
 
 }
 
