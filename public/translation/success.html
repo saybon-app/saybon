@@ -225,8 +225,8 @@ saybonapp.com
 </div>
 
 <div class="row">
-<div>Language</div>
-<div id="language"></div>
+<div>Target Language</div>
+<div id="Target Language"></div>
 </div>
 
 <div class="row">
@@ -259,7 +259,7 @@ saybonapp.com
 <div class="summaryBox">
 
 <div>Subtotal: <span id="subtotal"></span></div>
-<div>Processing: $0.00</div>
+
 <div class="total">TOTAL: <span id="total"></span></div>
 
 </div>
@@ -301,7 +301,7 @@ const data=doc.data()
 document.getElementById("job").innerText=data.jobId
 document.getElementById("email").innerText=data.email
 document.getElementById("plan").innerText=data.plan
-document.getElementById("language").innerText=data.targetLanguage
+document.getElementById("Target Language").innerText=data.targetTarget Language
 
 let rate=data.plan==="express"?0.05:0.025
 
