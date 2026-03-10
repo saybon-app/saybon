@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Invoice</title>
 
@@ -18,22 +18,24 @@
 <style>
 
 body{
+
 margin:0;
 font-family:Poppins;
 background:#0f1115;
 display:flex;
 justify-content:center;
-padding:60px;
+padding:50px;
 color:#e8e8e8;
+
 }
 
 .invoice{
 
-width:760px;
+width:640px;
 background:#1b1f27;
-padding:50px;
-border-radius:12px;
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
+padding:40px;
+border-radius:10px;
+box-shadow:0 10px 35px rgba(0,0,0,0.5);
 
 }
 
@@ -42,29 +44,28 @@ box-shadow:0 10px 40px rgba(0,0,0,0.5);
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:40px;
+margin-bottom:30px;
 
 }
 
 .brand{
 
-font-size:26px;
+font-size:22px;
 font-weight:600;
-letter-spacing:1px;
 
 }
 
-.invoiceTitle{
+.pdf{
 
-font-size:18px;
-color:#9aa4b2;
+cursor:pointer;
+font-size:20px;
 
 }
 
 .section{
 
-margin-bottom:25px;
-line-height:1.8;
+margin-bottom:18px;
+line-height:1.7;
 
 }
 
@@ -72,14 +73,14 @@ table{
 
 width:100%;
 border-collapse:collapse;
-margin-top:25px;
+margin-top:20px;
 
 }
 
 th{
 
 text-align:left;
-padding:12px;
+padding:10px;
 background:#12151c;
 border-bottom:2px solid #2f3642;
 
@@ -87,7 +88,7 @@ border-bottom:2px solid #2f3642;
 
 td{
 
-padding:12px;
+padding:10px;
 border-bottom:1px solid #2f3642;
 
 }
@@ -95,54 +96,47 @@ border-bottom:1px solid #2f3642;
 .totalRow{
 
 font-weight:600;
-font-size:16px;
 
 }
 
 .status{
 
-margin-top:20px;
-font-weight:500;
+margin-top:18px;
 color:#3ddc97;
+font-weight:500;
 
 }
 
-.buttons{
+.glassButton{
 
-margin-top:40px;
-display:flex;
-gap:15px;
-
-}
-
-button{
-
-padding:12px 18px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-background:#1e8e8e;
+margin-top:35px;
+padding:12px 22px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(8px);
 color:white;
-font-size:14px;
+cursor:pointer;
+transition:0.2s;
 
 }
 
-.secondary{
+.glassButton:hover{
 
-background:#444;
+transform:translateY(-2px);
+background:rgba(255,255,255,0.12);
 
 }
 
-.download{
+.glassButton:active{
 
-background:#3a7afe;
+transform:translateY(2px);
 
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -154,16 +148,17 @@ background:#3a7afe;
 SayBon Translation Services
 </div>
 
-<div class="invoiceTitle">
-PROFESSIONAL TRANSLATION INVOICE
+<div class="pdf" onclick="downloadPDF()">
+??
 </div>
 
 </div>
+
 
 <div class="section">
 
 <div>Invoice Number: <span id="jobId"></span></div>
-<div>Client: <span id="email"></span></div>
+<div>Client Email: <span id="email"></span></div>
 <div>Date: <span id="date"></span></div>
 
 </div>
@@ -185,27 +180,32 @@ PROFESSIONAL TRANSLATION INVOICE
 <tbody>
 
 <tr>
+
 <td id="description"></td>
 <td id="words"></td>
 <td id="rate"></td>
 <td id="price"></td>
+
 </tr>
 
 <tr class="totalRow">
+
 <td colspan="3">TOTAL</td>
 <td id="total"></td>
+
 </tr>
 
 </tbody>
 
 </table>
 
+
 <div class="section">
 
 <div>Source Language: <span id="source"></span></div>
 <div>Target Language: <span id="target"></span></div>
 <div>Document Name: <span id="document"></span></div>
-<div>Delivery Deadline: <span id="deadline"></span></div>
+<div>Delivery Timeline: <span id="timeline"></span></div>
 
 </div>
 
@@ -215,27 +215,14 @@ Payment Status: <span id="status"></span>
 
 </div>
 
-<div class="buttons">
-
-<button class="download" onclick="downloadPDF()">
-Download Invoice PDF
-</button>
-
-<button onclick="downloadFile()">
-Download Document
-</button>
-
-<button class="secondary"
-onclick="location.href='/translation/desk.html'">
+<button class="glassButton"
+onclick="location.href='/translation/desk.html?job='+jobId">
 
 Translation Desk
 
 </button>
 
 </div>
-
-</div>
-
 
 
 <script>
@@ -259,7 +246,6 @@ const params=new URLSearchParams(window.location.search)
 
 const jobId=params.get("job")
 
-let documentURL=""
 
 async function loadInvoice(){
 
@@ -269,14 +255,8 @@ const data=doc.data()
 
 document.getElementById("jobId").innerText=data.jobId
 document.getElementById("email").innerText=data.email
+
 document.getElementById("date").innerText=new Date(data.createdAt.seconds*1000).toDateString()
-
-document.getElementById("source").innerText=data.sourceLanguage
-document.getElementById("target").innerText=data.targetLanguage
-
-document.getElementById("document").innerText=data.documentName
-
-document.getElementById("deadline").innerText=data.deadline
 
 document.getElementById("description").innerText=data.targetLanguage+" Translation"
 
@@ -289,20 +269,17 @@ document.getElementById("rate").innerText="$"+rate
 document.getElementById("price").innerText="$"+data.price
 document.getElementById("total").innerText="$"+data.price
 
-document.getElementById("status").innerText=data.status
+document.getElementById("source").innerText=data.sourceLanguage
+document.getElementById("target").innerText=data.targetLanguage
+document.getElementById("document").innerText=data.documentName
+document.getElementById("timeline").innerText=data.deadline
 
-documentURL=data.documentURL
+document.getElementById("status").innerText=data.status
 
 }
 
 loadInvoice()
 
-
-function downloadFile(){
-
-window.open(documentURL,"_blank")
-
-}
 
 function downloadPDF(){
 
@@ -313,7 +290,6 @@ html2pdf().from(element).save("SayBon-Invoice-"+jobId+".pdf")
 }
 
 </script>
-
 
 </body>
 </html>
