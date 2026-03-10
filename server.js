@@ -1,173 +1,193 @@
 ﻿import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
+import { onRequest } from "firebase-functions/v2/https";
 import admin from "firebase-admin";
+
+/* ==========================================
+INITIALIZE FIREBASE ADMIN
+========================================== */
+
+admin.initializeApp();
+const db = admin.firestore();
+
+/* ==========================================
+EXPRESS APP
+========================================== */
 
 const app = express();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2023-10-16"
+/* ==========================================
+CORS
+========================================== */
+
+app.use(cors({
+  origin:[
+    "https://saybonapp.com",
+    "http://localhost:5500"
+  ],
+  methods:["GET","POST"],
+  allowedHeaders:["Content-Type"]
+}));
+
+/* ==========================================
+STRIPE INITIALIZATION
+========================================== */
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY,{
+  apiVersion:"2023-10-16"
 });
 
-if (!admin.apps.length) {
-  const raw = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    throw new Error("Missing FIREBASE_SERVICE_ACCOUNT_JSON");
-  }
+/* ==========================================
+SERVER CHECK
+========================================== */
 
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(raw))
+app.get("/",(req,res)=>{
+  res.json({
+    status:"SayBon payment server running"
   });
-}
-
-const db = admin.firestore();
-
-function extractJobCode(session) {
-  const fields = Array.isArray(session.custom_fields) ? session.custom_fields : [];
-
-  const field = fields.find((f) => {
-    const key = String(f?.key || "").toLowerCase();
-    const label = String(f?.label?.custom || "").toLowerCase();
-    return key.includes("job") || label.includes("job");
-  });
-
-  return (
-    field?.text?.value ||
-    field?.numeric?.value ||
-    field?.dropdown?.value ||
-    session?.client_reference_id ||
-    session?.metadata?.jobId ||
-    null
-  );
-}
+});
 
 /* ==========================================
 STRIPE WEBHOOK
-Must come BEFORE express.json()
 ========================================== */
-app.post(
-  "/stripe-webhook",
-  express.raw({ type: "application/json" }),
-  async (req, res) => {
-    const signature = req.headers["stripe-signature"];
 
-    let event;
+app.post("/webhook",
+express.raw({type:"application/json"}),
+async(req,res)=>{
 
-    try {
-      event = stripe.webhooks.constructEvent(
-        req.body,
-        signature,
-        process.env.STRIPE_WEBHOOK_SECRET
-      );
-    } catch (err) {
-      console.error("Webhook signature error:", err.message);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
+let event;
 
-    try {
-      if (event.type === "checkout.session.completed") {
-        const session = event.data.object;
-        const jobId = extractJobCode(session);
+try{
 
-        if (!jobId) {
-          console.error("No Job Code found in checkout.session.completed");
-          return res.json({ received: true, updated: false });
-        }
-
-        await db.collection("translationJobs").doc(jobId).set(
-          {
-            status: "paid",
-            paidAt: admin.firestore.FieldValue.serverTimestamp(),
-            stripeSessionId: session.id,
-            stripePaymentStatus: session.payment_status || "paid",
-            stripeCustomerEmail:
-              session.customer_details?.email ||
-              session.customer_email ||
-              null
-          },
-          { merge: true }
-        );
-
-        console.log("Marked paid:", jobId);
-      }
-
-      return res.json({ received: true });
-    } catch (err) {
-      console.error("Webhook processing error:", err);
-      return res.status(500).json({ error: "Webhook processing failed" });
-    }
-  }
+event = stripe.webhooks.constructEvent(
+req.body,
+req.headers["stripe-signature"],
+process.env.STRIPE_WEBHOOK_SECRET
 );
+
+}catch(err){
+
+console.error("Webhook signature failed:",err.message);
+
+return res.status(400).send(`Webhook Error: ${err.message}`);
+
+}
+
+if(event.type === "checkout.session.completed"){
+
+const session = event.data.object;
+
+const jobId = session.client_reference_id;
+
+console.log("Payment completed for job:",jobId);
+
+if(jobId){
+
+await db.collection("translationJobs")
+.doc(jobId)
+.update({
+status:"paid",
+paidAt:new Date()
+});
+
+}
+
+}
+
+res.json({received:true});
+
+});
 
 /* ==========================================
-NORMAL MIDDLEWARE
+CREATE CHECKOUT SESSION
 ========================================== */
-app.use(
-  cors({
-    origin: [
-      "https://saybonapp.com",
-      "https://www.saybonapp.com",
-      "http://localhost:5500"
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"]
-  })
-);
 
 app.use(express.json());
 
-/* ==========================================
-SERVER HEALTH CHECK
-========================================== */
-app.get("/", (req, res) => {
-  res.json({
-    status: "SayBon server running"
-  });
+app.post("/api/createCheckout", async(req,res)=>{
+
+try{
+
+const {words,plan,jobId} = req.body;
+
+if(!words || !plan || !jobId){
+
+return res.status(400).json({
+error:"Missing parameters"
+});
+
+}
+
+let price = plan === "express"
+? words * 0.05
+: words * 0.025;
+
+const session = await stripe.checkout.sessions.create({
+
+payment_method_types:["card"],
+
+mode:"payment",
+
+line_items:[{
+
+price_data:{
+
+currency:"usd",
+
+product_data:{
+name:"SayBon Translation Service"
+},
+
+unit_amount:Math.round(price*100)
+
+},
+
+quantity:1
+
+}],
+
+client_reference_id:jobId,
+
+success_url:
+"https://saybonapp.com/translation/success.html",
+
+cancel_url:
+"https://saybonapp.com/translation/request.html"
+
+});
+
+res.json({
+url:session.url
+});
+
+}catch(err){
+
+console.error("Checkout error:",err);
+
+res.status(500).json({
+error:"Stripe checkout failed"
+});
+
+}
+
 });
 
 /* ==========================================
-LOOK UP SESSION -> JOB
-Used by success.html
+404
 ========================================== */
-app.get("/api/session-job", async (req, res) => {
-  try {
-    const sessionId = String(req.query.session_id || "").trim();
 
-    if (!sessionId) {
-      return res.status(400).json({ error: "Missing session_id" });
-    }
+app.use((req,res)=>{
 
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-    const jobId = extractJobCode(session);
+res.status(404).json({
+error:"Route not found"
+});
 
-    if (!jobId) {
-      return res.status(404).json({ error: "Job Code not found on session" });
-    }
-
-    return res.json({
-      jobId,
-      paymentStatus: session.payment_status || null
-    });
-  } catch (err) {
-    console.error("Session lookup error:", err);
-    return res.status(500).json({ error: "Session lookup failed" });
-  }
 });
 
 /* ==========================================
-404 HANDLER
+EXPORT FUNCTION
 ========================================== */
-app.use((req, res) => {
-  res.status(404).json({
-    error: "Route not found"
-  });
-});
 
-/* ==========================================
-START SERVER (Render)
-========================================== */
-const PORT = process.env.PORT || 3000;
+export const saybonApi = onRequest(app);
 
-app.listen(PORT, () => {
-  console.log("SayBon server running on port", PORT);
-});
