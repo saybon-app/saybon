@@ -1,19 +1,13 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-<meta name="format-detection"
-content="telephone=no, date=no, email=no, address=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 
 <style>
 
@@ -22,133 +16,60 @@ margin:0;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
 color:#6e6e73;
--webkit-font-smoothing:antialiased;
-}
-
-*{
--webkit-tap-highlight-color: transparent;
-text-decoration:none;
-}
-
-.page{padding:30px;}
-
-.title{
-text-align:center;
-letter-spacing:3px;
-font-weight:500;
-}
-
-.subtitle{
-text-align:center;
-font-size:12px;
-margin-bottom:30px;
-white-space:nowrap;
 }
 
 .container{
+max-width:1100px;
+margin:auto;
+padding:40px;
 display:flex;
-justify-content:center;
 gap:40px;
-flex-wrap:wrap;
+justify-content:center;
 }
 
-.left-card,
-.right-card{
-background:rgba(255,255,255,0.6);
-backdrop-filter:blur(20px);
-border-radius:30px;
-padding:25px;
-width:420px;
+.card{
+background:white;
+padding:30px;
+border-radius:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
-transition:all .2s ease;
+width:420px;
 }
 
-.left-card:hover,
-.right-card:hover{
-transform:translateY(-4px);
-}
-
-.upload-row{display:flex;gap:10px;}
-
-#uploadBtn{
-background:#1e8e8e;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-cursor:pointer;
-}
-
-.word-count{
-margin-top:15px;
-font-weight:500;
-}
-
-.quote-card{
-margin-top:15px;
-padding:15px;
-border-radius:15px;
-cursor:pointer;
-border:1px solid;
-}
-
-.quote-card.active{
-background:#f1f7f7;
-border-width:2px;
-}
-
-.standard{border-color:#34a853;}
-.express{border-color:#ea4335;}
-
-.quote-price{font-weight:500;}
-.quote-delivery{font-size:12px;}
-
-.field{
-margin-top:10px;
-font-size:13px;
-}
-
-.field input,
-.field select{
+input,select{
 width:100%;
-padding:8px;
-border-radius:8px;
-border:1px solid #ddd;
-margin-top:4px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #ddd;
-padding:8px;
-font-size:12px;
-text-align:left;
-}
-
-.green{color:#34a853;}
-.red{color:#ea4335;}
-
-#continueBtn{
-display:none;
-margin-top:20px;
-width:100%;
-background:#1e8e8e;
-color:white;
-border:none;
 padding:12px;
-border-radius:12px;
-cursor:pointer;
-font-weight:500;
+border-radius:10px;
+border:1px solid #d2d2d7;
+margin-top:6px;
+margin-bottom:18px;
+font-size:14px;
 }
 
-.small-note{
-font-size:11px;
-color:#777;
-margin-top:6px;
+button{
+padding:10px 18px;
+border-radius:10px;
+border:none;
+background:#1d1d1f;
+color:white;
+cursor:pointer;
+}
+
+.quote{
+border:1px solid #d2d2d7;
+padding:18px;
+border-radius:14px;
+margin-top:12px;
+cursor:pointer;
+}
+
+.express{
+border-color:#ff6b6b;
+}
+
+.small{
+font-size:13px;
+color:#8e8e93;
+margin-top:8px;
 }
 
 </style>
@@ -156,94 +77,41 @@ margin-top:6px;
 
 <body>
 
-<div class="page">
-
-<h1 class="title">
-SAYBON TRANSLATION SERVICES
-</h1>
-
-<p class="subtitle">
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
-</p>
-
 <div class="container">
 
-<div class="left-card">
+<div class="card">
 
-<div class="upload-row">
 <input type="file" id="fileInput">
-<button id="uploadBtn">UPLOAD</button>
+<button onclick="processFile()">UPLOAD</button>
+
+<div class="small">
+Minimum order: 100 words. Documents under 100 words are billed as 100 words.
 </div>
 
-<div class="small-note">
-Minimum charge: 100 words per order.
-</div>
+<h3 id="wordCount">WORDS: 0</h3>
 
-<div class="word-count" id="wordCount">
-WORDS: 0
-</div>
+<label>Customer Email</label>
+<input id="email" placeholder="your@email.com">
 
-<div class="field">
-Customer Email
-<input type="email" id="email" placeholder="your@email.com">
-</div>
-
-<div class="field">
-Source Language
-<select id="sourceLang">
-<option>Auto Detect</option>
-<option>English</option>
-<option>French</option>
-<option>Spanish</option>
-<option>German</option>
-</select>
-</div>
-
-<div class="field">
-Target Language
+<label>Translate Into</label>
 <select id="targetLang">
-<option>English</option>
-<option>French</option>
-<option>Spanish</option>
-<option>German</option>
+<option value="English">English</option>
+<option value="French">French</option>
 </select>
+
+<div id="quoteArea" style="display:none">
+
+<div class="quote" onclick="pay('standard')">
+<strong>STANDARD</strong>
+<div id="standardPrice"></div>
+<div class="small">Delivery: 1â€“3 hrs</div>
 </div>
 
-<div class="quote-card standard" id="standardCard">
-<div class="quote-price" id="standardPrice">STANDARD $0.00</div>
-<div class="quote-delivery" id="standardDelivery">Delivery: —</div>
+<div class="quote express" onclick="pay('express')">
+<strong>EXPRESS</strong>
+<div id="expressPrice"></div>
+<div class="small">Delivery: 30â€“60 mins</div>
 </div>
-
-<div class="quote-card express" id="expressCard">
-<div class="quote-price" id="expressPrice">EXPRESS $0.00</div>
-<div class="quote-delivery" id="expressDelivery">Delivery: —</div>
-</div>
-
-<button id="continueBtn">
-CONTINUE
-</button>
-
-</div>
-
-<div class="right-card">
-
-<table>
-
-<tr>
-<th>WORD COUNT</th>
-<th class="green">STANDARD<br>0.025 / word</th>
-<th class="red">EXPRESS<br>0.05 / word</th>
-</tr>
-
-<tr><td>1 - 300</td><td>1 - 3 hrs</td><td>30 - 60 mins</td></tr>
-<tr><td>301 - 1000</td><td>3 - 6 hrs</td><td>1 - 3 hrs</td></tr>
-<tr><td>1001 - 3000</td><td>6 - 12 hrs</td><td>3 - 6 hrs</td></tr>
-<tr><td>3001 - 6000</td><td>12 - 24 hrs</td><td>6 - 12 hrs</td></tr>
-<tr><td>6001 - 10000</td><td>24 - 48 hrs</td><td>12 - 24 hrs</td></tr>
-<tr><td>10001 - 20000</td><td>2 - 4 days</td><td>24 - 48 hrs</td></tr>
-<tr><td>20000+</td><td>Custom</td><td>Custom</td></tr>
-
-</table>
 
 </div>
 
@@ -253,151 +121,40 @@ CONTINUE
 
 <script>
 
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+function processFile(){
 
-let wordCount = 0
-let selectedPlan = null
-let fileName = ""
+const file=document.getElementById("fileInput").files[0]
 
-const STANDARD_LINK =
-"https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
+if(!file)return
 
-const EXPRESS_LINK =
-"https://buy.stripe.com/00w4gA6A1eMg68U8IFf7i03"
+const reader=new FileReader()
 
-const fileInput = document.getElementById("fileInput")
-const uploadBtn = document.getElementById("uploadBtn")
+reader.onload=function(e){
 
-const wordCountEl = document.getElementById("wordCount")
+const text=e.target.result
 
-const standardPrice = document.getElementById("standardPrice")
-const expressPrice = document.getElementById("expressPrice")
+let words=text.trim().split(/\s+/).length
 
-const standardDelivery = document.getElementById("standardDelivery")
-const expressDelivery = document.getElementById("expressDelivery")
+if(words<100)words=100
 
-const standardCard = document.getElementById("standardCard")
-const expressCard = document.getElementById("expressCard")
+document.getElementById("wordCount").innerText="WORDS: "+words
 
-const continueBtn = document.getElementById("continueBtn")
+const standard=(words*0.025).toFixed(2)
+const express=(words*0.05).toFixed(2)
 
-function calculateDelivery(words){
+document.getElementById("standardPrice").innerText="$"+standard
+document.getElementById("expressPrice").innerText="$"+express
 
-if(words<=300){return{standard:"1 - 3 hrs",express:"30 - 60 mins"}}
-if(words<=1000){return{standard:"3 - 6 hrs",express:"1 - 3 hrs"}}
-if(words<=3000){return{standard:"6 - 12 hrs",express:"3 - 6 hrs"}}
-
-return{standard:"12 - 24 hrs",express:"6 - 12 hrs"}
+document.getElementById("quoteArea").style.display="block"
 
 }
 
-async function extractText(file){
-
-const ext=file.name.split('.').pop().toLowerCase()
-
-if(ext==="txt"){return await file.text()}
-
-if(ext==="docx"){
-const arrayBuffer=await file.arrayBuffer()
-const result=await mammoth.extractRawText({arrayBuffer})
-return result.value
-}
-
-if(ext==="pdf"){
-
-const typedarray=new Uint8Array(await file.arrayBuffer())
-const pdf=await pdfjsLib.getDocument(typedarray).promise
-
-let text=""
-
-for(let i=1;i<=pdf.numPages;i++){
-
-const page=await pdf.getPage(i)
-const content=await page.getTextContent()
-
-content.items.forEach(item=>{
-text+=item.str+" "
-})
+reader.readAsText(file)
 
 }
 
-return text
-}
-
-return ""
-
-}
-
-uploadBtn.onclick=async()=>{
-
-const file=fileInput.files[0]
-
-if(!file){
-alert("Please choose a file first")
-return
-}
-
-fileName=file.name
-
-const text=await extractText(file)
-
-const words=text.trim().split(/\s+/).filter(w=>w.length>0)
-
-wordCount=words.length
-
-wordCountEl.innerText="WORDS: "+wordCount
-
-const standard=(wordCount*0.025).toFixed(2)
-const express=(wordCount*0.05).toFixed(2)
-
-standardPrice.innerText="STANDARD $"+standard
-expressPrice.innerText="EXPRESS $"+express
-
-const delivery=calculateDelivery(wordCount)
-
-standardDelivery.innerText="Delivery: "+delivery.standard
-expressDelivery.innerText="Delivery: "+delivery.express
-
-}
-
-standardCard.onclick=()=>{
-selectedPlan="standard"
-continueBtn.style.display="block"
-}
-
-expressCard.onclick=()=>{
-selectedPlan="express"
-continueBtn.style.display="block"
-}
-
-continueBtn.onclick=()=>{
-
-if(!wordCount){
-alert("Please upload a document first")
-return
-}
-
-const blocks=Math.ceil(wordCount/100)
-
-const email=document.getElementById("email").value
-const source=document.getElementById("sourceLang").value
-const target=document.getElementById("targetLang").value
-
-let url=""
-
-if(selectedPlan==="standard"){
-url=STANDARD_LINK
-}else{
-url=EXPRESS_LINK
-}
-
-url += "?quantity="+blocks
-url += "&client_reference_id="+encodeURIComponent(fileName)
-url += "&prefilled_email="+encodeURIComponent(email)
-
-window.location=url
-
+function pay(type){
+alert("Stripe checkout will open here")
 }
 
 </script>
