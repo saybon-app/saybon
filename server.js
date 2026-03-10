@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import Stripe from "stripe";
 import axios from "axios";
 import cors from "cors";
@@ -10,6 +10,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const jobRoutes = require('./routes/jobs');
+app.use('/api', jobRoutes);
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
@@ -173,3 +176,4 @@ app.listen(PORT, () => {
 console.log(`SayBon payment server running on port ${PORT}`);
 
 });
+
