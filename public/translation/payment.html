@@ -10,6 +10,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <style>
 
 body{
@@ -21,11 +24,9 @@ display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
--webkit-font-smoothing:antialiased;
 }
 
 .card{
-
 background:rgba(255,255,255,0.6);
 backdrop-filter:blur(20px);
 border-radius:30px;
@@ -33,54 +34,26 @@ padding:40px;
 width:420px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 text-align:center;
-
 }
 
 .title{
-
 letter-spacing:3px;
 font-weight:500;
-margin-bottom:15px;
-
-}
-
-.job{
-
-font-size:12px;
 margin-bottom:20px;
-color:#9aa0a6;
-
 }
 
 .row{
-
 margin:10px 0;
 font-size:14px;
-
-}
-
-.label{
-
-color:#8a8a8a;
-
-}
-
-.value{
-
-font-weight:500;
-
 }
 
 .price{
-
-font-size:28px;
+font-size:26px;
 font-weight:600;
 margin-top:15px;
-
 }
 
 .payBtn{
-
 margin-top:25px;
 width:100%;
 background:#1e8e8e;
@@ -88,30 +61,7 @@ color:white;
 border:none;
 padding:14px;
 border-radius:12px;
-font-weight:500;
 cursor:pointer;
-transition:.2s;
-
-}
-
-.payBtn:hover{
-
-transform:translateY(-2px);
-
-}
-
-.payBtn:active{
-
-transform:translateY(2px);
-
-}
-
-.note{
-
-font-size:11px;
-margin-top:10px;
-color:#9aa0a6;
-
 }
 
 </style>
@@ -127,39 +77,49 @@ color:#9aa0a6;
 CONFIRM TRANSLATION
 </div>
 
-<div class="job" id="jobCode"></div>
+<div id="job"></div>
 
 <div class="row">
-<span class="label">Plan:</span>
-<span class="value" id="plan"></span>
-</div>
-
-<div class="row">
-<span class="label">Word Count:</span>
-<span class="value" id="words"></span>
+Plan: <span id="plan"></span>
 </div>
 
 <div class="row">
-<span class="label">Target Language:</span>
-<span class="value" id="language"></span>
+Words: <span id="words"></span>
 </div>
 
-<div class="price" id="pricePreview">
-Calculating price...
+<div class="row">
+Language: <span id="language"></span>
 </div>
+
+<div class="price" id="price"></div>
 
 <button class="payBtn" onclick="startPayment()">
 PAY SECURELY
 </button>
 
-<div class="note">
-Payments processed securely via Stripe
-</div>
-
 </div>
 
 
 <script>
+
+// FIREBASE CONFIG
+const firebaseConfig = {
+
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_DOMAIN",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_BUCKET",
+messagingSenderId: "YOUR_SENDER",
+appId: "YOUR_APP_ID"
+
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.firestore()
+
+
+// GET PARAMETERS
 
 const params = new URLSearchParams(window.location.search)
 
@@ -168,53 +128,59 @@ const words = parseInt(params.get("words"))
 const language = params.get("language")
 const email = params.get("email")
 
-document.getElementById("plan").innerText = plan.toUpperCase()
+document.getElementById("plan").innerText = plan
 document.getElementById("words").innerText = words
 document.getElementById("language").innerText = language
 
-// Generate job code
+
+// JOB ID
 
 const job = "SB-" + Date.now().toString().slice(-6)
 
-document.getElementById("jobCode").innerText = "Job Code: " + job
+document.getElementById("job").innerText = "Job Code: " + job
 
-// Frontend estimate (server calculates real price)
+
+// PRICE
 
 let rate = plan === "express" ? 0.05 : 0.025
 let total = Math.max(words,100) * rate
 
-document.getElementById("pricePreview").innerText = "$" + total.toFixed(2)
+document.getElementById("price").innerText = "$" + total.toFixed(2)
 
 
-// Start Stripe Checkout
+// PAYMENT
 
 async function startPayment(){
 
-const res = await fetch(
-"https://saybon-server-1.onrender.com/create-checkout-session",
-{
+await db.collection("translationJobs").doc(job).set({
 
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-plan:plan,
-words:words,
-language:language,
+jobId:job,
 email:email,
-job:job
+plan:plan,
+wordCount:words,
+targetLanguage:language,
+price:total,
+status:"awaiting_payment",
+createdAt:new Date()
 
 })
 
-})
 
-const data = await res.json()
+// STRIPE LINK
 
-window.location = data.url
+let link = ""
+
+if(plan === "express"){
+
+link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
+
+}else{
+
+link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
+
+}
+
+window.location = link
 
 }
 
