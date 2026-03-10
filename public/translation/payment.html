@@ -2,9 +2,11 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confirm Translation – SayBon</title>
+
+<title>Translation Order – SayBon</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -12,127 +14,132 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <style>
+
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
-color:#6e6e73;
 display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
+color:#6e6e73;
 }
+
 .card{
-background:rgba(255,255,255,0.6);
+background:rgba(255,255,255,0.65);
 backdrop-filter:blur(20px);
-border-radius:30px;
-padding:40px;
-width:420px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:28px;
+padding:46px;
+width:460px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
 text-align:center;
 }
+
 .title{
-letter-spacing:3px;
-font-weight:500;
-margin-bottom:20px;
+letter-spacing:4px;
+font-weight:600;
+margin-bottom:24px;
+font-size:20px;
 }
-.job{
-font-size:15px;
-font-weight:500;
-margin-bottom:4px;
+
+/* CODE BOX */
+
+.codeBox{
+position:relative;
+background:#f4f6f8;
+border-radius:10px;
+padding:16px 18px;
+font-family:monospace;
+font-size:18px;
+letter-spacing:2px;
+margin-bottom:6px;
+border:1px solid #d9dee4;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
-.jobNote{
-font-size:11px;
-opacity:.75;
-margin-bottom:16px;
+
+.copyBtn{
+cursor:pointer;
+font-size:14px;
+color:#555;
+display:flex;
+align-items:center;
+gap:6px;
 }
+
+.copyBtn:hover{
+color:#000;
+}
+
+.copyNote{
+font-size:12px;
+color:#d33;
+margin-bottom:18px;
+}
+
+/* INFO ROWS */
+
 .row{
 margin:10px 0;
-font-size:14px;
+font-size:15px;
 }
+
 .price{
-font-size:26px;
+font-size:30px;
 font-weight:600;
-margin-top:15px;
+margin-top:18px;
 }
+
+/* BUTTON */
+
 .payBtn{
-margin-top:25px;
+margin-top:28px;
 width:100%;
 background:#1e8e8e;
 color:white;
 border:none;
-padding:14px;
+padding:15px;
 border-radius:12px;
 cursor:pointer;
+font-size:16px;
 transition:0.2s;
 }
+
 .payBtn:hover{
 transform:translateY(-2px);
 }
+
 .payBtn:active{
 transform:scale(0.96);
-}
-</style>
-
-<style>
-
-/* job code emphasis */
-
-.jobLabel{
-font-size:12px;
-letter-spacing:3px;
-color:#888;
-margin-bottom:6px;
-}
-
-#job{
-font-size:24px;
-font-weight:600;
-letter-spacing:2px;
-color:#1e8e8e;
-cursor:pointer;
-margin-bottom:6px;
-}
-
-/* red instruction text */
-
-.jobNote{
-font-size:12px;
-color:#d44;
-font-weight:500;
-letter-spacing:1px;
-margin-bottom:18px;
-}
-
-/* slightly bigger card */
-
-.card{
-width:460px;
-padding:46px;
-}
-
-/* price emphasis */
-
-.price{
-font-size:32px;
-margin-top:18px;
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 <div class="card">
 
 <div class="title">
-CONFIRM TRANSLATION
+TRANSLATION ORDER
 </div>
 
-<div class="job" id="job"></div>
-<div class="jobNote">
-Quote this code on the payment page.
+<div class="codeBox">
+
+<span id="job"></span>
+
+<div class="copyBtn" onclick="copyCode()">
+📋 Copy
+</div>
+
+</div>
+
+<div class="copyNote">
+Copy this code
 </div>
 
 <div class="row">
@@ -155,101 +162,92 @@ PAY SECURELY
 
 </div>
 
+
 <script>
+
 const firebaseConfig = {
+
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
 authDomain:"saybon-3e3c2.firebaseapp.com",
 projectId:"saybon-3e3c2",
 storageBucket:"saybon-3e3c2.firebasestorage.app",
 messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-const params = new URLSearchParams(window.location.search);
-const plan = params.get("plan");
-const words = parseInt(params.get("words"));
-const language = params.get("language");
-const email = params.get("email");
-
-if(!plan || !words || !language || !email){
-  alert("Invalid payment session");
-  window.location="/translation/request.html";
 }
 
-document.getElementById("plan").innerText = plan;
-document.getElementById("words").innerText = words;
-document.getElementById("language").innerText = language;
+firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+
+const params = new URLSearchParams(window.location.search)
+
+const plan = params.get("plan")
+const words = parseInt(params.get("words"))
+const language = params.get("language")
+const email = params.get("email")
+
+document.getElementById("plan").innerText = plan
+document.getElementById("words").innerText = words
+document.getElementById("language").innerText = language
 
 function generateJobId(){
-  const left = Date.now().toString(36).slice(-4).toUpperCase();
-  const right = Math.random().toString(36).slice(2,5).toUpperCase();
-  return "SB-" + left + right;
+
+const rand = Math.random().toString(36).substring(2,6).toUpperCase()
+return "SB-" + rand
+
 }
 
-const job = generateJobId();
-document.getElementById("job").innerText = "<div class='jobLabel'>JOB CODE</div> " + job;
+const job = generateJobId()
 
-let rate = plan === "express" ? 0.05 : 0.025;
-let total = Math.max(words,100) * rate;
-document.getElementById("price").innerText = "$" + total.toFixed(2);
+document.getElementById("job").innerText = job
 
-document.getElementById("payButton").addEventListener("click", startPayment);
+let rate = plan === "express" ? 0.05 : 0.025
+let total = Math.max(words,100) * rate
+
+document.getElementById("price").innerText = "$" + total.toFixed(2)
+
+document.getElementById("payButton").addEventListener("click", startPayment)
 
 async function startPayment(){
-  try{
-    const button = document.getElementById("payButton");
-    button.innerText = "Opening payment...";
-    button.disabled = true;
 
-    await db.collection("translationJobs").doc(job).set({
-      jobId: job,
-      email: email,
-      plan: plan,
-      wordCount: words,
-      targetLanguage: language,
-      price: total,
-      status: "awaiting_payment",
-      createdAt: new Date()
-    });
+const button = document.getElementById("payButton")
 
-    localStorage.setItem("saybon_last_job", job);
+button.innerText = "Processing..."
+button.disabled = true
 
-    try {
-      await navigator.clipboard.writeText(job);
-    } catch (e) {}
+await db.collection("translationJobs").doc(job).set({
 
-    let link = "";
-    if(plan === "express"){
-      link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05";
-    } else {
-      link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02";
-    }
+jobId:job,
+email:email,
+plan:plan,
+wordCount:words,
+targetLanguage:language,
+price:total,
+status:"awaiting_payment",
+createdAt:new Date()
 
-    window.location = link;
-  }catch(err){
-    console.error("PAYMENT ERROR:", err);
-    alert("Payment system error. Please try again.");
-    document.getElementById("payButton").innerText = "PAY SECURELY";
-    document.getElementById("payButton").disabled = false;
-  }
+})
+
+localStorage.setItem("saybon_last_job",job)
+
+let link=""
+
+if(plan==="express"){
+link="https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
+}else{
+link="https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
 }
-</script>
 
+window.location=link
 
-<script>
+}
 
-const jobElement = document.getElementById("job");
+function copyCode(){
 
-if(jobElement){
-jobElement.addEventListener("click", async ()=>{
-try{
-await navigator.clipboard.writeText(jobElement.innerText.replace("Job Code: ",""));
-jobElement.style.color = "#2aa198";
-}catch(e){}
-});
+const code=document.getElementById("job").innerText
+
+navigator.clipboard.writeText(code)
+
 }
 
 </script>
