@@ -21,9 +21,11 @@ display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
+-webkit-font-smoothing:antialiased;
 }
 
 .card{
+
 background:rgba(255,255,255,0.6);
 backdrop-filter:blur(20px);
 border-radius:30px;
@@ -31,31 +33,50 @@ padding:40px;
 width:420px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 text-align:center;
+
 }
 
 .title{
+
 letter-spacing:3px;
 font-weight:500;
+margin-bottom:15px;
+
+}
+
+.job{
+
+font-size:12px;
 margin-bottom:20px;
+color:#9aa0a6;
+
 }
 
 .row{
+
 margin:10px 0;
 font-size:14px;
+
 }
 
 .label{
+
 color:#8a8a8a;
+
 }
 
 .value{
+
 font-weight:500;
+
 }
 
 .price{
-font-size:26px;
+
+font-size:28px;
 font-weight:600;
 margin-top:15px;
+
 }
 
 .payBtn{
@@ -70,20 +91,27 @@ border-radius:12px;
 font-weight:500;
 cursor:pointer;
 transition:.2s;
+
 }
 
 .payBtn:hover{
+
 transform:translateY(-2px);
+
 }
 
 .payBtn:active{
+
 transform:translateY(2px);
+
 }
 
-.job{
-font-size:12px;
-margin-bottom:20px;
+.note{
+
+font-size:11px;
+margin-top:10px;
 color:#9aa0a6;
+
 }
 
 </style>
@@ -124,6 +152,10 @@ Calculating price...
 PAY SECURELY
 </button>
 
+<div class="note">
+Payments processed securely via Stripe
+</div>
+
 </div>
 
 
@@ -140,26 +172,27 @@ document.getElementById("plan").innerText = plan.toUpperCase()
 document.getElementById("words").innerText = words
 document.getElementById("language").innerText = language
 
-// Generate Job Code
+// Generate job code
 
 const job = "SB-" + Date.now().toString().slice(-6)
 
 document.getElementById("jobCode").innerText = "Job Code: " + job
 
-// Price Preview (frontend estimate)
+// Frontend estimate (server calculates real price)
 
 let rate = plan === "express" ? 0.05 : 0.025
-
 let total = Math.max(words,100) * rate
 
 document.getElementById("pricePreview").innerText = "$" + total.toFixed(2)
 
 
-// Payment
+// Start Stripe Checkout
 
 async function startPayment(){
 
-const res = await fetch("https://saybon-server-1.onrender.com/create-checkout-session",{
+const res = await fetch(
+"https://saybon-server-1.onrender.com/create-checkout-session",
+{
 
 method:"POST",
 
@@ -167,7 +200,7 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body: JSON.stringify({
+body:JSON.stringify({
 
 plan:plan,
 words:words,
@@ -187,6 +220,6 @@ window.location = data.url
 
 </script>
 
-</body>
 
+</body>
 </html>
