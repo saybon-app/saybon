@@ -3,24 +3,17 @@
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
+import admin from "firebase-admin";
 import { onRequest } from "firebase-functions/v2/https";
 
 const app = express();
 
 /* ==========================================
-MIDDLEWARE
+FIREBASE ADMIN
 ========================================== */
 
-app.use(cors({
-  origin: [
-    "https://saybonapp.com",
-    "http://localhost:5500"
-  ],
-  methods: ["GET","POST"],
-  allowedHeaders: ["Content-Type"]
-}));
-
-app.use(express.json());
+admin.initializeApp();
+const db = admin.firestore();
 
 /* ==========================================
 STRIPE INITIALIZATION
@@ -29,6 +22,83 @@ STRIPE INITIALIZATION
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY,{
   apiVersion:"2023-10-16"
 });
+
+/* ==========================================
+WEBHOOK (RAW BODY REQUIRED)
+========================================== */
+
+app.post("/webhook", express.raw({type:"application/json"}), async (req,res)=>{
+
+  let event;
+
+  try{
+
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      req.headers["stripe-signature"],
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+
+  }catch(err){
+
+    console.error("Webhook signature verification failed:",err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+
+  }
+
+  /* ==========================================
+  PAYMENT COMPLETED
+  ========================================== */
+
+  if(event.type === "checkout.session.completed"){
+
+    const session = event.data.object;
+
+    const jobId = session.client_reference_id;
+
+    console.log("Stripe payment received for job:",jobId);
+
+    if(jobId){
+
+      try{
+
+        await db.collection("translationJobs")
+        .doc(jobId)
+        .update({
+          status:"paid",
+          paidAt:new Date()
+        });
+
+        console.log("Firestore updated for:",jobId);
+
+      }catch(err){
+
+        console.error("Firestore update failed:",err);
+
+      }
+
+    }
+
+  }
+
+  res.json({received:true});
+
+});
+
+/* ==========================================
+MIDDLEWARE
+========================================== */
+
+app.use(cors({
+  origin:[
+    "https://saybonapp.com",
+    "http://localhost:5500"
+  ],
+  methods:["GET","POST"],
+  allowedHeaders:["Content-Type"]
+}));
+
+app.use(express.json());
 
 /* ==========================================
 SERVER HEALTH CHECK
@@ -48,17 +118,13 @@ app.post("/api/createCheckout", async (req,res)=>{
 
   try{
 
-    const { words, plan } = req.body;
+    const { words, plan, jobId } = req.body;
 
-    /* VALIDATION */
-
-    if(!words || !plan){
+    if(!words || !plan || !jobId){
       return res.status(400).json({
-        error:"Missing words or plan"
+        error:"Missing words, plan or jobId"
       });
     }
-
-    /* PRICE CALCULATION */
 
     let price = 0;
 
@@ -67,8 +133,6 @@ app.post("/api/createCheckout", async (req,res)=>{
     }else{
       price = words * 0.025;
     }
-
-    /* CREATE CHECKOUT SESSION */
 
     const session = await stripe.checkout.sessions.create({
 
@@ -87,13 +151,15 @@ app.post("/api/createCheckout", async (req,res)=>{
         quantity:1
       }],
 
+      client_reference_id: jobId,
+
       metadata:{
         words:String(words),
         plan:String(plan)
       },
 
       success_url:
-      "https://saybonapp.com/translation/success.html?session_id={CHECKOUT_SESSION_ID}",
+      "https://saybonapp.com/translation/success.html?job="+jobId,
 
       cancel_url:
       "https://saybonapp.com/translation/request.html"
