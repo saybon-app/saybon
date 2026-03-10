@@ -4,11 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Invoice</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -16,118 +16,180 @@
 <style>
 
 body{
+
 margin:0;
-font-family:'Poppins',sans-serif;
-background:#e8e5df;
+background:#e7e4de;
+font-family:Poppins;
 display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-letter-spacing:.05em;
-line-height:1.6;
+
+letter-spacing:.08em;
+line-height:1.7;
+
 }
 
 .invoice{
 
-background:#1c1c1c;
+width:620px;
+background:#1b1f27;
+padding:50px;
+border-radius:16px;
 color:white;
-padding:40px;
-border-radius:25px;
-width:500px;
-box-shadow:0 20px 60px rgba(0,0,0,.3);
+
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+
 position:relative;
-}
 
-.title{
-text-align:center;
-font-size:18px;
-font-weight:500;
-letter-spacing:.25em;
-color:#d4b16a;
-margin-bottom:30px;
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-margin:10px 0;
-font-size:13px;
-}
-
-.table{
-margin-top:25px;
-border-collapse:collapse;
-width:100%;
-font-size:13px;
-}
-
-.table th{
-text-align:left;
-border-bottom:1px solid #444;
-padding:8px 0;
-font-weight:500;
-}
-
-.table td{
-padding:10px 0;
-border-bottom:1px solid #333;
-}
-
-.total{
-text-align:right;
-margin-top:25px;
-font-size:14px;
-font-weight:500;
 }
 
 .pdfBtn{
 
 position:absolute;
-top:15px;
-right:20px;
-font-size:26px;
+top:18px;
+right:22px;
+
+font-size:28px;
 cursor:pointer;
+
 transition:.2s;
+
 }
 
 .pdfBtn:hover{
 
 transform:scale(1.2);
+
 }
 
 .pdfBtn:active{
 
 transform:scale(.9);
+
+}
+
+.brand{
+
+text-align:center;
+font-size:16px;
+letter-spacing:.35em;
+color:#d4b16a;
+margin-bottom:20px;
+
+}
+
+.invoiceTitle{
+
+font-size:52px;
+font-weight:600;
+margin-bottom:10px;
+
+}
+
+.invoiceNo{
+
+font-size:13px;
+opacity:.7;
+margin-bottom:40px;
+
+}
+
+.section{
+
+background:#141820;
+padding:18px;
+border-radius:10px;
+margin-bottom:35px;
+
+font-size:13px;
+
+}
+
+.table{
+
+width:100%;
+border-collapse:collapse;
+margin-top:25px;
+font-size:13px;
+
+}
+
+.table th{
+
+text-align:left;
+border-bottom:2px solid #caa458;
+padding-bottom:10px;
+
+}
+
+.table td{
+
+padding:14px 0;
+border-bottom:1px solid #333;
+
+}
+
+.summary{
+
+margin-top:30px;
+display:flex;
+justify-content:flex-end;
+font-size:13px;
+
+}
+
+.summaryBox{
+
+text-align:right;
+line-height:2;
+
+}
+
+.total{
+
+font-size:18px;
+font-weight:600;
+
 }
 
 .deskButton{
 
 margin-top:40px;
+
 width:100%;
-padding:16px;
-border-radius:16px;
+
+padding:18px;
+
+border-radius:18px;
+
 border:none;
-font-family:'Quicksand',sans-serif;
+
+font-family:Quicksand;
+
 font-weight:600;
-letter-spacing:.2em;
+
+letter-spacing:.35em;
+
 font-size:14px;
+
 color:white;
 
-background:linear-gradient(135deg,#37a3a3,#2a7f7f);
+background:linear-gradient(135deg,#38b6b6,#2a8c8c);
 
 box-shadow:
-0 10px 30px rgba(0,0,0,.2),
-inset 0 1px rgba(255,255,255,.2);
+0 15px 40px rgba(0,0,0,.25),
+inset 0 1px rgba(255,255,255,.25);
 
 cursor:pointer;
-transition:.2s;
+
+transition:.25s;
+
 }
 
 .deskButton:hover{
 
 transform:translateY(-3px);
-box-shadow:
-0 15px 40px rgba(0,0,0,.35);
 
 }
 
@@ -147,57 +209,66 @@ transform:scale(.96);
 
 <div class="pdfBtn" onclick="downloadInvoice()">📄</div>
 
-<div class="title">
+<div class="brand">
+
 SAYBON TRANSLATION SERVICES
+
 </div>
 
-<div class="row">
-<div>Job Code</div>
-<div id="job"></div>
+<div class="invoiceTitle">
+
+INVOICE
+
 </div>
 
-<div class="row">
-<div>Email</div>
-<div id="email"></div>
+<div class="invoiceNo">
+
+Invoice No. <span id="job"></span>
+
 </div>
 
-<div class="row">
-<div>Plan</div>
-<div id="plan"></div>
-</div>
+<div class="section">
 
-<div class="row">
-<div>Target Language</div>
-<div id="language"></div>
-</div>
+TO: <span id="email"></span>
 
-<div class="row">
-<div>Delivery Timeline</div>
-<div id="timeline"></div>
 </div>
 
 <table class="table">
 
 <tr>
-<th>Description</th>
-<th>Words</th>
+<th>Item</th>
 <th>Rate</th>
-<th>Price</th>
+<th>Qty</th>
+<th>Subtotal</th>
 </tr>
 
 <tr>
 <td>Document Translation</td>
-<td id="words"></td>
 <td id="rate"></td>
+<td id="words"></td>
 <td id="price"></td>
 </tr>
 
 </table>
 
-<div class="total" id="total"></div>
+<div class="summary">
+
+<div class="summaryBox">
+
+<div>Subtotal: <span id="subtotal"></span></div>
+
+<div>Processing: $0.00</div>
+
+<div class="total">TOTAL: <span id="total"></span></div>
+
+</div>
+
+</div>
 
 <button class="deskButton" onclick="openDesk()">
+
 TRANSLATION DESK
+
 </button>
 
 </div>
@@ -205,7 +276,7 @@ TRANSLATION DESK
 
 <script>
 
-const firebaseConfig = {
+const firebaseConfig={
 
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
 authDomain:"saybon-3e3c2.firebaseapp.com",
@@ -214,69 +285,47 @@ storageBucket:"saybon-3e3c2.firebasestorage.app",
 messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 
-};
+}
 
 firebase.initializeApp(firebaseConfig)
 
-const db = firebase.firestore()
+const db=firebase.firestore()
 
-const params = new URLSearchParams(window.location.search)
+const params=new URLSearchParams(window.location.search)
 
-const job = params.get("job")
+const job=params.get("job")
 
 db.collection("translationJobs").doc(job).get().then(doc=>{
 
-const data = doc.data()
+const data=doc.data()
 
-document.getElementById("job").innerText = data.jobId
-document.getElementById("email").innerText = data.email
-document.getElementById("plan").innerText = data.plan
-document.getElementById("language").innerText = data.targetLanguage
-document.getElementById("words").innerText = data.wordCount
+document.getElementById("job").innerText=data.jobId
+document.getElementById("email").innerText=data.email
 
-let rate = data.plan === "express" ? 0.05 : 0.025
+let rate=data.plan==="express"?0.05:0.025
 
-document.getElementById("rate").innerText = "$"+rate
-document.getElementById("price").innerText = "$"+data.price.toFixed(2)
+document.getElementById("rate").innerText="$"+rate
+document.getElementById("words").innerText=data.wordCount
 
-document.getElementById("total").innerText =
-"TOTAL   $" + data.price.toFixed(2)
+document.getElementById("price").innerText="$"+data.price.toFixed(2)
 
-if(data.plan==="express"){
+document.getElementById("subtotal").innerText="$"+data.price.toFixed(2)
 
-document.getElementById("timeline").innerText="24 Hours"
-
-}else{
-
-document.getElementById("timeline").innerText="2-3 Days"
-
-}
+document.getElementById("total").innerText="$"+data.price.toFixed(2)
 
 })
 
 function openDesk(){
 
-const job = new URLSearchParams(window.location.search).get("job")
+const job=new URLSearchParams(window.location.search).get("job")
 
-window.location =
-"/translation/desk.html?job=" + job
+window.location="/translation/desk.html?job="+job
 
 }
 
 function downloadInvoice(){
 
-const element = document.getElementById("invoice")
-
-const opt = {
-
-margin:1,
-filename:"SayBon-Invoice.pdf",
-html2canvas:{scale:2},
-jsPDF:{unit:"in",format:"letter",orientation:"portrait"}
-
-}
-
-html2pdf().set(opt).from(element).save()
+html2pdf().from(document.getElementById("invoice")).save("SayBon-Invoice.pdf")
 
 }
 
