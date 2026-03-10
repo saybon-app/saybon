@@ -1,108 +1,300 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>SayBon Translation Services</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
+
 body{
-font-family:Arial;
-background:#eef2f7;
 margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
+-webkit-font-smoothing:antialiased;
+}
+
+*{
+-webkit-tap-highlight-color: transparent;
+text-decoration:none;
+box-sizing:border-box;
+}
+
+.page{
+padding:30px;
+}
+
+.title{
+text-align:center;
+letter-spacing:3px;
+font-weight:500;
+}
+
+.subtitle{
+text-align:center;
+font-size:12px;
+margin-bottom:30px;
+white-space:nowrap;
 }
 
 .container{
-max-width:1000px;
-margin:auto;
-padding:40px;
 display:flex;
+justify-content:center;
 gap:40px;
+flex-wrap:wrap;
 }
 
-.card{
-background:white;
-padding:30px;
-border-radius:16px;
+.left-card,
+.right-card{
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(20px);
+border-radius:30px;
+padding:25px;
 width:420px;
-box-shadow:0 8px 30px rgba(0,0,0,0.08);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:all .2s ease;
+}
+
+.left-card:hover,
+.right-card:hover{
+transform:translateY(-4px);
+}
+
+.upload-row{
+display:flex;
+gap:10px;
+}
+
+#uploadBtn{
+background:#1e8e8e;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:10px;
+cursor:pointer;
+transition:.2s;
+}
+
+#uploadBtn:hover{
+transform:translateY(-2px);
+}
+
+#uploadBtn:active{
+transform:translateY(2px);
+}
+
+.word-count{
+margin-top:15px;
+font-weight:500;
+}
+
+.quote-card{
+margin-top:15px;
+padding:15px;
+border-radius:15px;
+cursor:pointer;
+border:1px solid;
+transition:.2s;
+}
+
+.standard{
+border-color:#34a853;
+}
+
+.express{
+border-color:#ea4335;
+}
+
+.quote-card:hover{
+transform:translateY(-2px);
+}
+
+.quote-card:active{
+transform:translateY(2px);
+}
+
+.quote-price{
+font-weight:500;
+}
+
+.quote-delivery{
+font-size:12px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+font-size:12px;
+text-align:left;
+}
+
+.green{
+color:#34a853;
+}
+
+.red{
+color:#ea4335;
 }
 
 input,select{
 width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid #ccc;
-margin-bottom:15px;
-}
-
-button{
-background:#2c2c2c;
-color:white;
-padding:10px 20px;
-border-radius:10px;
-border:none;
-cursor:pointer;
-}
-
-.quote{
-border:1px solid #ccc;
-border-radius:12px;
-padding:16px;
+padding:10px;
 margin-top:10px;
-cursor:pointer;
+border-radius:10px;
+border:1px solid #ddd;
+font-family:Poppins;
 }
 
-.express{
-border-color:#ff6b6b;
+.minimum{
+font-size:12px;
+margin-top:8px;
 }
 
-.small{
-font-size:13px;
-color:#777;
-margin-bottom:15px;
-}
 </style>
 
 </head>
 
 <body>
 
+<div class="page">
+
+<h2 class="title">
+SAYBON TRANSLATION SERVICES
+</h2>
+
+<div class="subtitle">
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+</div>
+
 <div class="container">
 
-<div class="card">
+<div class="left-card">
+
+<div class="upload-row">
 
 <input type="file" id="fileInput">
-<button onclick="processFile()">UPLOAD</button>
 
-<div class="small">
-Minimum order: 100 words. Documents under 100 words are billed as 100 words.
+<button id="uploadBtn">
+UPLOAD
+</button>
+
 </div>
 
-<h3 id="wordCount">WORDS: 0</h3>
+<div class="minimum">
+Minimum order is 100 words. Documents with fewer than 100 words are billed as 100 words.
+</div>
 
-<label>Customer Email</label>
-<input placeholder="your@email.com">
+<div class="word-count">
+WORDS: 0
+</div>
 
-<label>Translate Into</label>
-<select>
+<input id="emailInput" placeholder="Customer Email">
+
+<label style="margin-top:10px;display:block">
+Target Language
+</label>
+
+<select id="languageSelect">
+
 <option>English</option>
 <option>French</option>
+
 </select>
 
-<div id="quotes" style="display:none">
 
-<div class="quote" id="standard">
-<strong>STANDARD</strong>
-<div id="standardPrice"></div>
-<div class="small">Delivery: 1–3 hrs</div>
+<div class="quote-card standard" onclick="goToStripe('standard')">
+
+<div class="quote-price">
+STANDARD $0.00
 </div>
 
-<div class="quote express">
-<strong>EXPRESS</strong>
-<div id="expressPrice"></div>
-<div class="small">Delivery: 30–60 mins</div>
+<div class="quote-delivery" id="standardDelivery">
+Delivery:
 </div>
+
+</div>
+
+
+<div class="quote-card express" onclick="goToStripe('express')">
+
+<div class="quote-price">
+EXPRESS $0.00
+</div>
+
+<div class="quote-delivery" id="expressDelivery">
+Delivery:
+</div>
+
+</div>
+
+</div>
+
+<div class="right-card">
+
+<table>
+
+<tr>
+<th>WORD COUNT</th>
+<th class="green">STANDARD</th>
+<th class="red">EXPRESS</th>
+</tr>
+
+<tr>
+<td>1 – 300</td>
+<td>1 – 3 hrs</td>
+<td>30 – 60 mins</td>
+</tr>
+
+<tr>
+<td>301 – 1000</td>
+<td>3 – 6 hrs</td>
+<td>1 – 3 hrs</td>
+</tr>
+
+<tr>
+<td>1001 – 3000</td>
+<td>6 – 12 hrs</td>
+<td>3 – 6 hrs</td>
+</tr>
+
+<tr>
+<td>3001 – 6000</td>
+<td>12 – 24 hrs</td>
+<td>6 – 12 hrs</td>
+</tr>
+
+<tr>
+<td>6001 – 10000</td>
+<td>24 – 48 hrs</td>
+<td>12 – 24 hrs</td>
+</tr>
+
+<tr>
+<td>10001 – 20000</td>
+<td>2 – 4 days</td>
+<td>24 – 48 hrs</td>
+</tr>
+
+<tr>
+<td>20000+</td>
+<td>Custom</td>
+<td>Custom</td>
+</tr>
+
+</table>
 
 </div>
 
@@ -112,30 +304,80 @@ Minimum order: 100 words. Documents under 100 words are billed as 100 words.
 
 <script>
 
-function processFile(){
+let currentWords = 0
+let standardPrice = 0
+let expressPrice = 0
 
-const file=document.getElementById("fileInput").files[0]
+const uploadBtn=document.getElementById("uploadBtn")
+const fileInput=document.getElementById("fileInput")
 
-if(!file)return
+uploadBtn.addEventListener("click",()=>{
+
+const file=fileInput.files[0]
+
+if(!file){
+alert("Please choose a document first")
+return
+}
 
 const reader=new FileReader()
 
 reader.onload=function(e){
 
-let words=e.target.result.trim().split(/\s+/).length
+let text=e.target.result||""
 
-if(words<100)words=100
+let words=text.trim().split(/\s+/).filter(Boolean).length
 
-document.getElementById("wordCount").innerText="WORDS: "+words
+if(words<100){
+words=100
+}
 
-document.getElementById("standardPrice").innerText="$"+(words*0.025).toFixed(2)
-document.getElementById("expressPrice").innerText="$"+(words*0.05).toFixed(2)
+currentWords=words
 
-document.getElementById("quotes").style.display="block"
+standardPrice=(words*0.025).toFixed(2)
+expressPrice=(words*0.05).toFixed(2)
+
+document.querySelector(".word-count").innerText=
+"WORDS: "+words
+
+document.querySelector(".standard .quote-price").innerText=
+"STANDARD $"+standardPrice
+
+document.querySelector(".express .quote-price").innerText=
+"EXPRESS $"+expressPrice
+
+document.getElementById("standardDelivery").innerText =
+"Delivery: 1 – 3 hrs"
+
+document.getElementById("expressDelivery").innerText =
+"Delivery: 30 – 60 mins"
 
 }
 
 reader.readAsText(file)
+
+})
+
+
+function goToStripe(type){
+
+if(currentWords===0){
+alert("Please upload a document first")
+return
+}
+
+let price = type === "standard" ? standardPrice : expressPrice
+
+let language=document.getElementById("languageSelect").value
+let email=document.getElementById("emailInput").value
+
+let url="/translation/payment.html?plan="+type+
+"&words="+currentWords+
+"&price="+price+
+"&language="+language+
+"&email="+email
+
+window.location.href=url
 
 }
 
