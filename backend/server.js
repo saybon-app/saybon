@@ -1,10 +1,9 @@
-﻿// force redeploy 10 Mar
+﻿/* force redeploy 11 Mar */
 
 import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
 import admin from "firebase-admin";
-import { onRequest } from "firebase-functions/v2/https";
 
 const app = express();
 
@@ -53,7 +52,6 @@ app.post("/webhook", express.raw({type:"application/json"}), async (req,res)=>{
   if(event.type === "checkout.session.completed"){
 
     const session = event.data.object;
-
     const jobId = session.client_reference_id;
 
     console.log("Stripe payment received for job:",jobId);
@@ -86,7 +84,7 @@ app.post("/webhook", express.raw({type:"application/json"}), async (req,res)=>{
 });
 
 /* ==========================================
-MIDDLEWARE
+MIDDLEWARE (AFTER WEBHOOK)
 ========================================== */
 
 app.use(cors({
@@ -193,7 +191,11 @@ app.use((req,res)=>{
 });
 
 /* ==========================================
-EXPORT FIREBASE FUNCTION
+START SERVER (RENDER)
 ========================================== */
 
-export const saybonApi = onRequest(app);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, ()=>{
+  console.log("SayBon payment server running on port", PORT);
+});
