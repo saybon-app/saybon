@@ -30,8 +30,7 @@ box-shadow:0 8px 25px rgba(0,0,0,0.08);
 .source{
 font-size:18px;
 margin-bottom:15px;
-color:#333;
-line-height:1.5;
+line-height:1.6;
 }
 
 textarea{
@@ -72,9 +71,7 @@ font-size:16px;
 
 <div id="timer1" class="timer">5:00</div>
 
-<div id="frenchText" class="source">
-Loading test...
-</div>
+<div id="frenchText" class="source"></div>
 
 <textarea id="box1" placeholder="Type your English translation here..."></textarea>
 
@@ -85,9 +82,7 @@ Loading test...
 
 <div id="timer2" class="timer">5:00</div>
 
-<div id="englishText" class="source">
-Loading test...
-</div>
+<div id="englishText" class="source"></div>
 
 <textarea id="box2" placeholder="Tapez votre traduction française ici..."></textarea>
 
@@ -100,43 +95,43 @@ Loading test...
 
 <script>
 
-let frenchTest=""
-let englishTest=""
+/* ======================================
+TEST BANK
+====================================== */
 
-/* ==========================================
-LOAD TEST
-========================================== */
+const frenchTests=[
 
-async function loadTest(){
+"L’application doit pouvoir traiter les requêtes en temps réel tout en garantissant la sécurité des données et la conformité aux normes de protection de la vie privée.",
 
-try{
+"L’optimisation des processus internes a permis de réduire les coûts opérationnels tout en améliorant la qualité du service offert aux clients.",
 
-const res=await fetch("/api/getTranslationTest")
-const data=await res.json()
+"Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables."
 
-frenchTest=data.frenchTest
-englishTest=data.englishTest
+]
+
+const englishTests=[
+
+"The system automatically encrypts all sensitive information before it is transmitted to the server.",
+
+"Failure to comply with these guidelines may result in the suspension of the user's account.",
+
+"The success of the project depends largely on effective communication between the development team and the stakeholders."
+
+]
+
+/* ======================================
+SELECT RANDOM TEST
+====================================== */
+
+const frenchTest=frenchTests[Math.floor(Math.random()*frenchTests.length)]
+const englishTest=englishTests[Math.floor(Math.random()*englishTests.length)]
 
 document.getElementById("frenchText").innerText=frenchTest
 document.getElementById("englishText").innerText=englishTest
 
-}catch(e){
-
-document.getElementById("frenchText").innerText=
-"Error loading test. Please refresh."
-
-document.getElementById("englishText").innerText=
-"Error loading test. Please refresh."
-
-}
-
-}
-
-loadTest()
-
-/* ==========================================
+/* ======================================
 TIMERS
-========================================== */
+====================================== */
 
 function startTimer(box,timer){
 
@@ -171,6 +166,7 @@ document.getElementById("timer1")
 
 },{once:true})
 
+
 document.getElementById("box2").addEventListener("focus",()=>{
 
 startTimer(
@@ -180,42 +176,14 @@ document.getElementById("timer2")
 
 },{once:true})
 
-/* ==========================================
+
+/* ======================================
 SUBMIT
-========================================== */
+====================================== */
 
-document.getElementById("submitTest").onclick=async()=>{
+document.getElementById("submitTest").onclick=()=>{
 
-const englishAnswer=document.getElementById("box1").value
-const frenchAnswer=document.getElementById("box2").value
-
-if(!englishAnswer || !frenchAnswer){
-
-alert("Please complete both translations.")
-return
-
-}
-
-const response=await fetch("/api/gradeTranslationTest",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-englishAnswer,
-frenchAnswer,
-frenchTest,
-englishTest
-})
-
-})
-
-const result=await response.json()
-
-alert("Score: "+result.score+"/100\n\n"+result.feedback)
+alert("Translation submitted.")
 
 }
 
