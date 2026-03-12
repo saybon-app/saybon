@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Desk</title>
+<title>SayBon Translation Study</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -17,106 +17,135 @@
 
 body{
 margin:0;
-font-family:Inter;
-background:linear-gradient(180deg,#1a1d23,#0f1116);
-color:white;
+font-family:"Merriweather",serif;
+background-image:url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+background-size:cover;
+background-position:center;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
+color:#2b2b2b;
+}
+
+.overlay{
+background:rgba(0,0,0,0.45);
+position:absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
 }
 
 .container{
-width:950px;
-background:rgba(35,38,45,0.85);
-border-radius:18px;
+
+position:relative;
+z-index:2;
+
+width:820px;
+
+background:#f6f1e7;
+
 padding:50px;
-box-shadow:0 20px 60px rgba(0,0,0,0.35);
+
+border-radius:12px;
+
+box-shadow:0 30px 80px rgba(0,0,0,.6);
+
 }
 
 .title{
+
+font-family:"Libre Baskerville";
+
+font-size:28px;
+
 text-align:center;
-font-family:Poppins;
-font-size:26px;
-letter-spacing:.18em;
-margin-bottom:30px;
-color:#8ad2c8;
+
+margin-bottom:10px;
+
+color:#3a2a1e;
+
 }
 
-.greeting{
+.subtitle{
+
 text-align:center;
+
 margin-bottom:40px;
-opacity:.8;
-}
 
-.jobPanel{
-margin-top:30px;
+font-size:14px;
+
+color:#6c5a4d;
+
 }
 
 .row{
+
 display:flex;
+
 justify-content:space-between;
+
 padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,.06);
+
+border-bottom:1px solid #e3d8c8;
+
 }
 
 .label{
-opacity:.6;
+
+color:#8a7767;
+
 }
 
 .value{
-color:#d7e6e3;
+
+font-weight:600;
+
 }
 
-.progressContainer{
+.progress{
+
 margin-top:40px;
+
 }
 
-.progressTitle{
-margin-bottom:10px;
-font-size:14px;
-letter-spacing:.1em;
-opacity:.8;
-}
+.progress h3{
 
-.progressBar{
-width:100%;
-height:10px;
-background:#111826;
-border-radius:20px;
-overflow:hidden;
-}
+font-size:16px;
 
-.progressFill{
-height:100%;
-width:20%;
-background:linear-gradient(90deg,#6bbfb2,#a6e3d8);
-transition:width 1s ease;
-}
-
-.activity{
-margin-top:40px;
-}
-
-.activityTitle{
-font-size:14px;
-letter-spacing:.1em;
 margin-bottom:12px;
-opacity:.8;
+
 }
 
-.log{
-font-size:13px;
-margin:4px 0;
-opacity:.7;
+.step{
+
+margin:6px 0;
+
+font-size:14px;
+
+}
+
+.done{
+
+color:#3f7a45;
+
+}
+
+.pending{
+
+color:#999;
+
 }
 
 .timer{
-margin-top:40px;
+
+margin-top:30px;
+
 text-align:center;
-font-size:18px;
-letter-spacing:.08em;
-color:#8ad2c8;
+
+font-weight:600;
+
 }
 
 </style>
@@ -125,76 +154,62 @@ color:#8ad2c8;
 
 <body>
 
+<div class="overlay"></div>
+
 <div class="container">
 
 <div class="title">
-SAYBON TRANSLATION DESK
+SayBon Translation Study
 </div>
 
-<div id="greeting" class="greeting">
-Loading your translation...
+<div class="subtitle">
+Your document is being carefully prepared by our translators
 </div>
-
-<div id="jobPanel" class="jobPanel" style="display:none">
 
 <div class="row">
-<div class="label">JOB CODE</div>
+<div class="label">Job Code</div>
 <div class="value" id="jobId"></div>
 </div>
 
 <div class="row">
-<div class="label">CLIENT</div>
+<div class="label">Client</div>
 <div class="value" id="email"></div>
 </div>
 
 <div class="row">
-<div class="label">WORD COUNT</div>
+<div class="label">Word Count</div>
 <div class="value" id="words"></div>
 </div>
 
 <div class="row">
-<div class="label">TARGET LANGUAGE</div>
+<div class="label">Target Language</div>
 <div class="value" id="language"></div>
 </div>
 
 <div class="row">
-<div class="label">PLAN</div>
+<div class="label">Plan</div>
 <div class="value" id="plan"></div>
 </div>
 
 <div class="row">
-<div class="label">PRICE</div>
+<div class="label">Price</div>
 <div class="value" id="price"></div>
 </div>
 
-<div class="progressContainer">
+<div class="progress">
 
-<div class="progressTitle">
-TRANSLATION PROGRESS
-</div>
+<h3>Translation Journey</h3>
 
-<div class="progressBar">
-<div id="progressFill" class="progressFill"></div>
-</div>
-
-</div>
-
-<div class="activity">
-
-<div class="activityTitle">
-ACTIVITY
-</div>
-
-<div class="log">✓ Payment received</div>
-<div class="log">• Translation queued</div>
-<div class="log">• Waiting for translator</div>
+<div class="step done">✓ Payment received</div>
+<div class="step done">✓ Document received</div>
+<div class="step">● Translation in progress</div>
+<div class="step pending">○ Quality review</div>
+<div class="step pending">○ Delivery</div>
 
 </div>
 
 <div class="timer" id="timer">
-Estimated Delivery: Calculating...
-</div>
-
+Estimated delivery calculating...
 </div>
 
 </div>
@@ -222,10 +237,8 @@ async function loadJob(){
 const doc=await db.collection("translationJobs").doc(jobId).get()
 
 if(!doc.exists){
-
-document.getElementById("greeting").innerText="Job not found"
+alert("Job not found")
 return
-
 }
 
 const data=doc.data()
@@ -237,23 +250,12 @@ document.getElementById("language").innerText=data.targetLanguage
 document.getElementById("plan").innerText=data.plan
 document.getElementById("price").innerText="$"+data.price
 
-document.getElementById("greeting").innerText=
-"Welcome back. Your translation is currently being prepared."
+let minutes = data.wordCount * 0.6
 
-document.getElementById("jobPanel").style.display="block"
+let hours = Math.floor(minutes/60)
+let mins = Math.floor(minutes%60)
 
-calculateTimer(data.wordCount)
-
-}
-
-function calculateTimer(words){
-
-let minutes = words * 0.6
-
-let hours = Math.floor(minutes / 60)
-let mins = Math.floor(minutes % 60)
-
-document.getElementById("timer").innerText=
+document.getElementById("timer").innerText =
 "Estimated Delivery: "+hours+"h "+mins+"m"
 
 }
@@ -263,5 +265,5 @@ loadJob()
 </script>
 
 </body>
-</html>
 
+</html>
