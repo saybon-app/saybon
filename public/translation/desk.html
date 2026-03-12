@@ -305,9 +305,14 @@ Job Information
 
 <div>
 
-<div class="sectionTitle">
-Translation Progress
+<div class="sectionTitle">Translation Progress</div>
+
+<div class="progressBarContainer">
+<div class="progressBarFill" id="progressBar"></div>
 </div>
+
+<div class="progressPercent" id="progressPercent">0%</div>
+
 
 <div class="progressStep"><div class="check done">✓</div>Payment received</div>
 <div class="progressStep"><div class="check done">✓</div>Translation queued</div>
@@ -396,7 +401,7 @@ time--
 
 }
 
-async function load(){
+async function animateProgress(); load(){
 
 const doc=await db.collection("translationJobs").doc(job).get()
 
@@ -428,10 +433,11 @@ setTimeout(()=>addFeed("Quality review scheduled"),8000)
 
 }
 
-load()
+animateProgress(); load()
 
 </script>
 
 </body>
 
 </html>
+
