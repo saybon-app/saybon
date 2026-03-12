@@ -32,7 +32,7 @@ box-shadow:0 10px 30px rgba(0,0,0,0.08);
 h1{
 text-align:center;
 font-weight:600;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .subtitle{
@@ -58,11 +58,18 @@ font-weight:500;
 margin-bottom:12px;
 }
 
+/* SOURCE TEXT */
+
 .source{
 font-style:italic;
-margin-bottom:14px;
+margin-bottom:16px;
 color:#444;
+
+user-select:none;
+pointer-events:none;
 }
+
+/* TEXTAREAS */
 
 textarea{
 width:100%;
@@ -73,7 +80,6 @@ padding:16px;
 font-size:15px;
 resize:none;
 background:#fafafa;
-transition:all .2s;
 box-sizing:border-box;
 }
 
@@ -81,7 +87,6 @@ textarea:focus{
 outline:none;
 border-color:#4f46e5;
 background:white;
-box-shadow:0 0 0 2px rgba(79,70,229,0.1);
 }
 
 .divider{
@@ -90,15 +95,13 @@ height:1px;
 background:#e5e7eb;
 }
 
-/* Accent keyboard */
+/* ACCENT KEYBOARD */
 
 .accent-keyboard{
 margin-top:15px;
 display:flex;
-gap:8px;
-flex-wrap:nowrap;
+gap:6px;
 overflow-x:auto;
-padding-bottom:4px;
 }
 
 .accent-key{
@@ -106,16 +109,15 @@ font-size:20px;
 padding:6px 10px;
 border-radius:6px;
 cursor:pointer;
-user-select:none;
-background:#f1f5f9;
+background:#eef2ff;
 transition:.15s;
 }
 
 .accent-key:hover{
-background:#e0e7ff;
+background:#dbeafe;
 }
 
-/* Submit button */
+/* BUTTON */
 
 .submit-wrap{
 margin-top:40px;
@@ -131,7 +133,6 @@ font-size:16px;
 font-weight:500;
 border-radius:8px;
 cursor:pointer;
-transition:.2s;
 }
 
 .submit-btn:hover{
@@ -150,7 +151,7 @@ box-shadow:0 8px 18px rgba(0,0,0,0.15);
 <h1>SayBon Translation Test</h1>
 
 <div class="subtitle">
-Translate the quoted text into the appropriate language below.
+Translate the quoted text into the appropriate language.
 </div>
 
 <div class="timer" id="timer">
@@ -188,7 +189,7 @@ Traduction Française
 
 <textarea id="frenchBox" placeholder="Tapez votre traduction française ici..."></textarea>
 
-<div class="accent-keyboard" id="accentKeyboard">
+<div class="accent-keyboard">
 
 <span class="accent-key">à</span>
 <span class="accent-key">â</span>
@@ -206,22 +207,6 @@ Traduction Française
 <span class="accent-key">û</span>
 <span class="accent-key">ü</span>
 <span class="accent-key">ÿ</span>
-<span class="accent-key">À</span>
-<span class="accent-key">Â</span>
-<span class="accent-key">Æ</span>
-<span class="accent-key">Ç</span>
-<span class="accent-key">É</span>
-<span class="accent-key">È</span>
-<span class="accent-key">Ê</span>
-<span class="accent-key">Ë</span>
-<span class="accent-key">Î</span>
-<span class="accent-key">Ï</span>
-<span class="accent-key">Ô</span>
-<span class="accent-key">Œ</span>
-<span class="accent-key">Ù</span>
-<span class="accent-key">Û</span>
-<span class="accent-key">Ü</span>
-<span class="accent-key">Ÿ</span>
 
 </div>
 
@@ -241,37 +226,47 @@ Submit Translation
 
 <script>
 
-let activeBox = null;
-let timerStarted = false;
-let timeLeft = 300;
-let interval = null;
+/* ==========================================
+TIMER
+========================================== */
 
-const timerDisplay = document.getElementById("timer");
+let activeBox=null;
+let started=false;
+let timeLeft=300;
+let interval=null;
+
+const timerDisplay=document.getElementById("timer");
 
 function startTimer(){
 
-if(timerStarted) return;
+if(started) return;
 
-timerStarted = true;
+started=true;
 
-interval = setInterval(()=>{
+interval=setInterval(()=>{
 
 timeLeft--;
 
-let minutes = Math.floor(timeLeft / 60);
-let seconds = timeLeft % 60;
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
 
-timerDisplay.textContent =
-String(minutes).padStart(2,'0') + ":" + String(seconds).padStart(2,'0');
+timerDisplay.textContent=
+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
 
-if(timeLeft <= 0){
+if(timeLeft<=0){
+
 clearInterval(interval);
 submitTest();
+
 }
 
 },1000);
 
 }
+
+/* ==========================================
+FOCUS DETECTION
+========================================== */
 
 document.getElementById("englishBox").addEventListener("focus",()=>{
 activeBox="englishBox";
@@ -283,27 +278,32 @@ activeBox="frenchBox";
 startTimer();
 });
 
+
+/* ==========================================
+ACCENT INSERT
+========================================== */
+
 document.querySelectorAll(".accent-key").forEach(key=>{
 
 key.addEventListener("click",()=>{
 
-if(!activeBox)return;
+if(!activeBox) return;
 
-let textarea = document.getElementById(activeBox);
+let textarea=document.getElementById(activeBox);
 
-let start = textarea.selectionStart;
-let end = textarea.selectionEnd;
+let start=textarea.selectionStart;
+let end=textarea.selectionEnd;
 
-let value = textarea.value;
+let text=textarea.value;
 
-textarea.value =
-value.substring(0,start) +
-key.innerText +
-value.substring(end);
+textarea.value=
+text.substring(0,start)+
+key.innerText+
+text.substring(end);
 
-textarea.selectionStart =
-textarea.selectionEnd =
-start + 1;
+textarea.selectionStart=
+textarea.selectionEnd=
+start+1;
 
 textarea.focus();
 
@@ -311,13 +311,37 @@ textarea.focus();
 
 });
 
+
+/* ==========================================
+SUBMIT
+========================================== */
+
 function submitTest(){
 
-window.location.href="/translation/register.html";
+window.location.href="/translation/translator-register.html";
 
 }
+
+
+/* ==========================================
+BLOCK COPYING
+========================================== */
+
+document.addEventListener("copy",e=>e.preventDefault());
+document.addEventListener("cut",e=>e.preventDefault());
+document.addEventListener("paste",e=>e.preventDefault());
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+document.addEventListener("keydown",function(e){
+
+if(e.ctrlKey && (e.key==="c"||e.key==="v"||e.key==="x")){
+e.preventDefault();
+}
+
+});
 
 </script>
 
 </body>
 </html>
+
