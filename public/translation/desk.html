@@ -1,22 +1,295 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>SayBon Translation Desk</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Poppins;
+background:#0c0f14;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+/* ==========================================
+DESK CONTAINER
+========================================== */
+
+.desk{
+width:900px;
+background:rgba(20,25,35,0.7);
+backdrop-filter:blur(25px);
+border-radius:18px;
+padding:50px;
+box-shadow:0 0 60px rgba(0,255,255,0.08);
+}
+
+/* ==========================================
+HEADER
+========================================== */
+
+.title{
+font-family:Orbitron;
+text-align:center;
+letter-spacing:.4em;
+font-size:26px;
+margin-bottom:40px;
+color:#56e3e3;
+}
+
+/* ==========================================
+ENTRY PANEL
+========================================== */
+
+.entry{
+text-align:center;
+}
+
+.codeInput{
+width:320px;
+padding:14px;
+font-size:18px;
+border:none;
+border-radius:8px;
+text-align:center;
+letter-spacing:.25em;
+background:#0b0f15;
+color:#56e3e3;
+outline:none;
+border:1px solid rgba(86,227,227,.3);
+}
+
+.accessBtn{
+margin-top:20px;
+padding:14px 40px;
+background:linear-gradient(135deg,#38b6b6,#2a8c8c);
+border:none;
+border-radius:12px;
+color:white;
+font-weight:600;
+letter-spacing:.25em;
+cursor:pointer;
+transition:.25s;
+}
+
+.accessBtn:hover{
+transform:translateY(-2px);
+box-shadow:0 0 20px rgba(56,182,182,.6);
+}
+
+.error{
+margin-top:20px;
+color:#ff4c4c;
+font-size:14px;
+}
+
+/* ==========================================
+JOB PANEL
+========================================== */
+
+.jobPanel{
+display:none;
+margin-top:20px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid rgba(255,255,255,0.06);
+font-size:14px;
+letter-spacing:.05em;
+}
+
+.label{
+opacity:.6;
+}
+
+.value{
+font-weight:500;
+color:#6df5f5;
+}
+
+/* ==========================================
+PROGRESS TRACKER
+========================================== */
+
+.progress{
+margin-top:30px;
+font-size:13px;
+letter-spacing:.2em;
+}
+
+.step{
+margin:6px 0;
+opacity:.6;
+}
+
+.active{
+color:#56e3e3;
+opacity:1;
+}
+
+/* ==========================================
+GLOW BORDER
+========================================== */
+
+.desk:before{
+content:"";
+position:absolute;
+inset:0;
+border-radius:18px;
+padding:1px;
+background:linear-gradient(135deg,#56e3e3,#9d6bff);
+-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+pointer-events:none;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>Translation Job</h2>
+<div class="desk">
 
-<div id="job"></div>
+<div class="title">
+SAYBON TRANSLATION DESK
+</div>
+
+<div class="entry">
+
+<input id="jobInput" class="codeInput" placeholder="ENTER JOB CODE">
+
+<br>
+
+<button class="accessBtn" onclick="openJob()">
+ACCESS JOB
+</button>
+
+<div id="error" class="error"></div>
+
+</div>
+
+<div id="jobPanel" class="jobPanel">
+
+<div class="row">
+<div class="label">JOB CODE</div>
+<div class="value" id="jobId"></div>
+</div>
+
+<div class="row">
+<div class="label">CLIENT</div>
+<div class="value" id="email"></div>
+</div>
+
+<div class="row">
+<div class="label">WORD COUNT</div>
+<div class="value" id="words"></div>
+</div>
+
+<div class="row">
+<div class="label">TARGET LANGUAGE</div>
+<div class="value" id="language"></div>
+</div>
+
+<div class="row">
+<div class="label">PLAN</div>
+<div class="value" id="plan"></div>
+</div>
+
+<div class="row">
+<div class="label">PRICE</div>
+<div class="value" id="price"></div>
+</div>
+
+<div class="progress">
+
+<div class="step active">✔ PAYMENT RECEIVED</div>
+<div class="step">○ TRANSLATION QUEUED</div>
+<div class="step">○ TRANSLATION IN PROGRESS</div>
+<div class="step">○ QUALITY REVIEW</div>
+<div class="step">○ DELIVERY</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
-const params=new URLSearchParams(window.location.search)
-const job=params.get("job")
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
 
-document.getElementById("job").innerText=
-"Tracking job: "+job
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
+async function openJob(){
+
+const jobCode=document.getElementById("jobInput").value.trim().toUpperCase();
+
+if(!jobCode){
+
+document.getElementById("error").innerText="Enter a valid job code";
+return;
+
+}
+
+try{
+
+const doc=await db.collection("translationJobs").doc(jobCode).get();
+
+if(!doc.exists){
+
+document.getElementById("error").innerText="Job not found";
+return;
+
+}
+
+const data=doc.data();
+
+document.getElementById("jobId").innerText=jobCode;
+document.getElementById("email").innerText=data.email;
+document.getElementById("words").innerText=data.wordCount;
+document.getElementById("language").innerText=data.targetLanguage;
+document.getElementById("plan").innerText=data.plan;
+document.getElementById("price").innerText="$"+data.price;
+
+document.querySelector(".entry").style.display="none";
+document.getElementById("jobPanel").style.display="block";
+
+}catch(err){
+
+console.error(err);
+document.getElementById("error").innerText="System error";
+
+}
+
+}
 
 </script>
 
