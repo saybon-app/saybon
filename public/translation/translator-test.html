@@ -1,107 +1,92 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>SayBon Translator Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translation Test</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-font-family:Poppins;
-background:#f5f7fb;
+font-family:'Inter',sans-serif;
+background:#f4f6f9;
 margin:0;
 padding:40px;
+color:#2c2c2c;
 }
 
 .container{
 max-width:900px;
 margin:auto;
-}
-
-.card{
 background:white;
-padding:25px;
-border-radius:10px;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+text-align:center;
+font-weight:600;
+margin-bottom:6px;
+}
+
+.subtitle{
+text-align:center;
+color:#6b7280;
 margin-bottom:30px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-}
-
-.source{
-font-size:18px;
-margin-bottom:15px;
-line-height:1.6;
-}
-
-textarea{
-box-sizing:border-box;
-width:100%;
-height:160px;
-padding:10px;
-font-size:16px;
-border-radius:6px;
-border:1px solid #ccc;
 }
 
 .timer{
 text-align:center;
-font-size:22px;
-color:#991b1b;
+font-size:18px;
+font-weight:600;
+color:#c0392b;
+margin-bottom:25px;
+}
+
+.section{
+margin-top:30px;
+}
+
+.label{
+font-weight:500;
 margin-bottom:10px;
 }
 
-button{
-
-padding:14px 26px;
-border-radius:10px;
-border:none;
-font-size:16px;
-cursor:pointer;
-
-background:#2563eb;
-color:white;
-
-box-shadow:0 6px 0 rgba(0,0,0,0.25);
-transition:all .15s ease;
-
-}
-padding:14px 22px;
-background:#2563eb;
-color:white;
-border:none;
+textarea{
+width:100%;
+height:160px;
+border:1px solid #dcdcdc;
 border-radius:8px;
-cursor:pointer;
-font-size:16px;
+padding:14px;
+font-size:15px;
+resize:none;
+background:#fafafa;
+transition:all .2s;
 }
 
-button:hover{
-transform:translateY(-2px);
+textarea:focus{
+outline:none;
+border-color:#4f46e5;
+background:white;
+box-shadow:0 0 0 2px rgba(79,70,229,0.1);
 }
 
-button:active{
-transform:translateY(4px);
-box-shadow:0 2px 0 rgba(0,0,0,0.25);
+.helper{
+margin-top:10px;
+font-size:14px;
+color:#6b7280;
+letter-spacing:1px;
 }
 
-
-
-#frenchKeyboard{
-margin-top:12px;
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-}
-
-.key{
-padding:6px 10px;
-background:#f3f4f6;
-border-radius:6px;
-cursor:pointer;
-font-size:16px;
-border:1px solid #ddd;
-}
-
-.key:hover{
+.divider{
+margin:40px 0;
+height:1px;
 background:#e5e7eb;
 }
 
@@ -113,155 +98,56 @@ background:#e5e7eb;
 
 <div class="container">
 
-<div class="card">
+<h1>SayBon Translation Test</h1>
 
-<div id="timer1" class="timer">5:00</div>
+<div class="subtitle">
+Type your translation in the appropriate field below.
+</div>
 
-<div id="frenchText" class="source"></div>
+<div class="timer">
+⏱ 05:00 remaining
+</div>
 
-<textarea id="box1" placeholder="Type your English translation here..."></textarea>
+
+<div class="section">
+
+<div class="label">
+English Translation
+</div>
+
+<p>
+Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables.
+</p>
+
+<textarea placeholder="Type your English translation here..."></textarea>
 
 </div>
 
 
-<div class="card">
+<div class="divider"></div>
 
-<div id="timer2" class="timer">5:00</div>
 
-<div id="englishText" class="source"></div>
+<div class="section">
 
-<textarea id="box2" placeholder="Tapez votre traduction française ici..."></textarea>
+<div class="label">
+Traduction Française
+</div>
 
-<div id="frenchKeyboard"></div></textarea>
+<p>
+The system automatically encrypts all sensitive information before it is transmitted to the server.
+</p>
+
+<textarea placeholder="Tapez votre traduction française ici..."></textarea>
+
+<div class="helper">
+à â æ ç é è ê ë î ï ô œ ù û ü ÿ  
+À Â Æ Ç É È Ê Ë Î Ï Ô Œ Ù Û Ü Ÿ  
+« » – — … € £
+</div>
 
 </div>
 
-<button id="submitTest">Submit Translation</button>
-
 </div>
-
-
-<script>
-
-/* ======================================
-TEST BANK
-====================================== */
-
-const frenchTests=[
-
-"L’application doit pouvoir traiter les requêtes en temps réel tout en garantissant la sécurité des données et la conformité aux normes de protection de la vie privée.",
-
-"L’optimisation des processus internes a permis de réduire les coûts opérationnels tout en améliorant la qualité du service offert aux clients.",
-
-"Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables."
-
-]
-
-const englishTests=[
-
-"The system automatically encrypts all sensitive information before it is transmitted to the server.",
-
-"Failure to comply with these guidelines may result in the suspension of the user's account.",
-
-"The success of the project depends largely on effective communication between the development team and the stakeholders."
-
-]
-
-/* ======================================
-SELECT RANDOM TEST
-====================================== */
-
-const frenchTest=frenchTests[Math.floor(Math.random()*frenchTests.length)]
-const englishTest=englishTests[Math.floor(Math.random()*englishTests.length)]
-
-document.getElementById("frenchText").innerText=frenchTest
-document.getElementById("englishText").innerText=englishTest
-
-/* ======================================
-TIMERS
-====================================== */
-
-function startTimer(box,timer){
-
-let time=300
-
-const interval=setInterval(()=>{
-
-time--
-
-let min=Math.floor(time/60)
-let sec=time%60
-
-timer.innerText=min+":"+(sec<10?"0":"")+sec
-
-if(time<=0){
-
-clearInterval(interval)
-box.disabled=true
-
-}
-
-},1000)
-
-}
-
-document.getElementById("box1").addEventListener("focus",()=>{
-
-startTimer(
-document.getElementById("box1"),
-document.getElementById("timer1")
-)
-
-},{once:true})
-
-
-document.getElementById("box2").addEventListener("focus",()=>{
-
-startTimer(
-document.getElementById("box2"),
-document.getElementById("timer2")
-)
-
-},{once:true})
-
-
-/* ======================================
-SUBMIT
-====================================== */
-
-document.getElementById("submitTest").onclick=()=>{
-
-const englishAnswer=document.getElementById("box1").value
-const frenchAnswer=document.getElementById("box2").value
-
-if(!englishAnswer || !frenchAnswer){
-
-alert("Please complete both translations.")
-return
-
-}
-
-const btn=document.getElementById("submitTest")
-
-btn.innerText="Submitting..."
-btn.disabled=true
-
-setTimeout(()=>{
-
-alert("Test submitted successfully.")
-
-window.location="/translation/translator-registration.html"
-
-},1200)
-
-}
-
-</script>
 
 </body>
-
 </html>
-
-
-
-
