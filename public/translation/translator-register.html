@@ -57,13 +57,36 @@ font-size:13px;
 margin-top:6px;
 }
 
-.accept{
-color:green;
+.accept{ color:green }
+.reject{ color:red }
+
+/* ======================
+UPLOAD BUCKET
+====================== */
+
+#uploadBucket{
+
+border:1px solid #ddd;
+border-radius:8px;
+padding:12px;
+background:#fafafa;
+min-height:60px;
+font-size:14px;
+
 }
 
-.reject{
-color:red;
+#uploadBucket div{
+padding:6px 8px;
+border-bottom:1px solid #eee;
 }
+
+#uploadBucket div:last-child{
+border-bottom:none;
+}
+
+/* ======================
+BUTTONS
+====================== */
 
 .buttons{
 margin-top:30px;
@@ -113,7 +136,1131 @@ color:white;
 
 </style>
 
-</head>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ 
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ 
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ 
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+ 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js">
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
+ </head>
 
 <body>
 
@@ -159,6 +1306,16 @@ color:white;
 <div class="notice" id="cvNotice"></div>
 </div>
 
+<div class="field">
+
+<label>Uploaded Documents</label>
+
+<div id="uploadBucket">
+
+</div>
+
+</div>
+
 <div class="buttons">
 
 <button id="testBtn" class="btn testBtn" disabled>
@@ -176,86 +1333,166 @@ Submit Application
 <script>
 
 /* ================================
-FILE VALIDATION
+FIELDS
 ================================ */
 
-const allowed=["pdf","doc","docx","png","jpg","jpeg"];
+const fields=[
+document.getElementById("email"),
+document.getElementById("phone"),
+document.getElementById("country"),
+document.getElementById("experience")
+]
 
+const idUpload=document.getElementById("idUpload")
+const certUpload=document.getElementById("certUpload")
+const cvUpload=document.getElementById("cvUpload")
+
+const idNotice=document.getElementById("idNotice")
+const certNotice=document.getElementById("certNotice")
+const cvNotice=document.getElementById("cvNotice")
+
+const uploadBucket=document.getElementById("uploadBucket")
+
+const testBtn=document.getElementById("testBtn")
+const submitBtn=document.getElementById("submitBtn")
+
+/* ================================
+FILE RULES
+================================ */
+
+const allowed=["pdf","doc","docx","png","jpg","jpeg"]
+
+let idValid=false
+let certValid=false
+let cvValid=false
+
+/* ================================
+VALIDATE FILES
+================================ */
 
 function validateFiles(files,notice){
 
-let valid=true;
+let valid=true
 
-notice.innerHTML="";
+notice.innerHTML=""
 
 for(let file of files){
 
-let ext=file.name.split(".").pop().toLowerCase();
+let ext=file.name.split(".").pop().toLowerCase()
 
 if(!allowed.includes(ext)){
 
-notice.innerHTML+="✖ "+file.name+" invalid file type<br>";
-valid=false;
-
-continue;
+notice.innerHTML+="? "+file.name+" invalid file type<br>"
+valid=false
+continue
 
 }
 
 if(file.size>10000000){
 
-notice.innerHTML+="✖ "+file.name+" too large<br>";
-valid=false;
-
-continue;
-
-}
-
-notice.innerHTML+="✓ "+file.name+" accepted<br>";
+notice.innerHTML+="? "+file.name+" too large (max 10MB)<br>"
+valid=false
+continue
 
 }
 
-if(valid){
-notice.className="notice accept";
-}else{
-notice.className="notice reject";
+notice.innerHTML+="? "+file.name+" accepted<br>"
+
 }
 
-return valid;
+notice.className= valid ? "notice accept":"notice reject"
+
+return valid
+
+}
+
+/* ================================
+UPLOAD BUCKET
+================================ */
+
+let uploaded=[]
+
+function addToBucket(files){
+
+if(uploadBucket.innerHTML===""){
+
+uploadBucket.innerHTML=""
+
+}
+
+for(let file of files){
+
+uploaded.push(file)
+
+let row=document.createElement("div")
+
+row.innerHTML="?? "+file.name
+
+uploadBucket.appendChild(row)
+
+}
+
+}
+
+/* ================================
+UPLOAD EVENTS
+================================ */
+
+idUpload.onchange=()=>{
+
+idValid=validateFiles(idUpload.files,idNotice)
+
+addToBucket(idUpload.files,"id")
+
+checkForm()
 
 }
 
 certUpload.onchange=()=>{
-certValid=validateFiles(certUpload.files,certNotice);
-checkForm();
+
+certValid=validateFiles(certUpload.files,certNotice)
+
+addToBucket(certUpload.files,"cert")
+
+checkForm()
+
 }
 
 cvUpload.onchange=()=>{
-cvValid=validateFiles(cvUpload.files,cvNotice);
-checkForm();
+
+cvValid=validateFiles(cvUpload.files,cvNotice)
+
+addToBucket(cvUpload.files,"cv")
+
+checkForm()
+
 }
 
+/* ================================
+FORM CHECK
+================================ */
 
 fields.forEach(f=>{
-f.oninput=checkForm;
-});
+f.oninput=checkForm
+})
 
 function checkForm(){
 
-let filled=true;
+let filled=true
 
 fields.forEach(f=>{
-if(!f.value) filled=false;
-});
+if(!f.value) filled=false
+})
 
 if(filled && idValid && certValid && cvValid){
 
-testBtn.disabled=false;
-submitBtn.disabled=false;
+testBtn.disabled=false
+submitBtn.disabled=false
 
 }else{
 
-testBtn.disabled=true;
-submitBtn.disabled=true;
+testBtn.disabled=true
+submitBtn.disabled=true
 
 }
 
@@ -265,24 +1502,269 @@ submitBtn.disabled=true;
 BUTTON ACTIONS
 ================================ */
 
-const testBtn=document.getElementById("testBtn");
-const submitBtn=document.getElementById("submitBtn");
-
 testBtn.onclick=()=>{
 
-window.location="/translation/translator-test.html";
+window.location="/translation/translator-test.html"
 
 }
 
 submitBtn.onclick=()=>{
 
-alert("Application submitted. Our team will review your documents.");
+alert("Application submitted. Our team will review your documents.")
 
-window.location="/translation/translators.html";
+window.location="/translation/translators.html"
 
 }
 
-</script>
+
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ 
+
+/* =================================
+FIREBASE INIT
+================================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+/* =================================
+UPLOAD FUNCTION
+================================= */
+
+async function uploadFile(path,file){
+
+const ref=storage.ref().child(path)
+
+await ref.put(file)
+
+return await ref.getDownloadURL()
+
+}
+
+/* =================================
+SUBMIT APPLICATION
+================================= */
+
+submitBtn.onclick=async()=>{
+
+submitBtn.innerText="Uploading..."
+submitBtn.disabled=true
+
+const email=document.getElementById("email").value
+const phone=document.getElementById("phone").value
+const country=document.getElementById("country").value
+const experience=document.getElementById("experience").value
+
+try{
+
+/* NATIONAL ID */
+
+let idFile=idUpload.files[0]
+
+let idURL=await uploadFile(
+"translator-applications/"+email+"/id/"+idFile.name,
+idFile
+)
+
+/* CV FILES */
+
+let cvURLs=[]
+
+for(let file of cvUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/cv/"+file.name,
+file
+)
+
+cvURLs.push(url)
+
+}
+
+/* CERTIFICATIONS */
+
+let certURLs=[]
+
+for(let file of certUpload.files){
+
+let url=await uploadFile(
+"translator-applications/"+email+"/certificates/"+file.name,
+file
+)
+
+certURLs.push(url)
+
+}
+
+/* CREATE APPLICATION */
+
+await db.collection("translatorApplications").add({
+
+email,
+phone,
+country,
+experience,
+
+idFile:idURL,
+cvFiles:cvURLs,
+certificates:certURLs,
+
+status:"pending",
+createdAt:new Date()
+
+})
+
+alert("Application submitted successfully")
+
+window.location="/translation/translators.html"
+
+}catch(err){
+
+console.error(err)
+
+alert("Upload failed. Please try again.")
+
+submitBtn.innerText="Submit Application"
+submitBtn.disabled=false
+
+}
+
+}
+
+ </script>
 
 </body>
 </html>
