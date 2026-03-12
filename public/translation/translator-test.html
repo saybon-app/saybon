@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translator Test</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Poppins,sans-serif;
+background:#f4f6fb;
+margin:0;
+padding:40px;
+color:#444;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+text-align:center;
+letter-spacing:2px;
+}
+
+.instructions{
+background:#fff7d6;
+padding:15px;
+border-radius:6px;
+margin-bottom:20px;
+}
+
+.editor{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-top:20px;
+}
+
+textarea{
+width:100%;
+height:300px;
+padding:15px;
+border:1px solid #ccc;
+border-radius:8px;
+font-family:Poppins;
+font-size:14px;
+}
+
+.keyboard{
+margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.key{
+padding:8px 12px;
+background:#eee;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+}
+
+.key:hover{
+background:#ddd;
+}
+
+button{
+margin-top:20px;
+padding:12px 20px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+}
+
+.submit{
+background:#16a34a;
+color:white;
+}
+
+.timer{
+float:right;
+font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>SAYBON TRANSLATOR TEST</h1>
+
+<div class="timer">
+Time Remaining: <span id="time">30:00</span>
+</div>
+
+<div class="instructions">
+
+<p>
+Translate the document from French to English.  
+All work must be completed inside the SayBon editor.
+</p>
+
+<ul>
+<li>Copying is disabled</li>
+<li>Right-click is disabled</li>
+<li>External exporting is not allowed</li>
+<li>Minimum pass mark: 85%</li>
+</ul>
+
+</div>
+
+<div class="editor">
+
+<div>
+<h3>Source Text</h3>
+
+<textarea readonly>
+
+Bonjour,
+
+Nous vous remercions pour votre intérêt dans nos services de traduction.
+
+SayBon fournit des traductions professionnelles pour des entreprises, des institutions et des particuliers dans le monde entier.
+
+Notre objectif est de garantir précision, clarté et qualité dans chaque document que nous traitons.
+
+</textarea>
+
+</div>
+
+
+<div>
+
+<h3>Your Translation</h3>
+
+<textarea id="translationBox" placeholder="Type your translation here..."></textarea>
+
+</div>
+
+</div>
+
+
+<h3>French Accent Keyboard</h3>
+
+<div class="keyboard">
+
+<div class="key">é</div>
+<div class="key">è</div>
+<div class="key">ê</div>
+<div class="key">ë</div>
+<div class="key">à</div>
+<div class="key">â</div>
+<div class="key">î</div>
+<div class="key">ï</div>
+<div class="key">ô</div>
+<div class="key">ù</div>
+<div class="key">û</div>
+<div class="key">ç</div>
+<div class="key">œ</div>
+<div class="key">æ</div>
+
+</div>
+
+<button class="submit">Submit Translation</button>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+ACCENT KEYBOARD
+========================================== */
+
+document.querySelectorAll(".key").forEach(key=>{
+key.onclick=()=>{
+let box=document.getElementById("translationBox");
+box.value+=key.innerText;
+box.focus();
+};
+});
+
+
+/* ==========================================
+ANTI COPY PROTECTION
+========================================== */
+
+document.addEventListener("copy",e=>e.preventDefault());
+document.addEventListener("cut",e=>e.preventDefault());
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+
+/* ==========================================
+TEST TIMER
+========================================== */
+
+let time=1800;
+
+setInterval(()=>{
+
+time--;
+
+let minutes=Math.floor(time/60);
+let seconds=time%60;
+
+document.getElementById("time").innerText=
+minutes+":"+(seconds<10?"0"+seconds:seconds);
+
+if(time<=0){
+alert("Test time completed");
+}
+
+},1000);
+
+
+</script>
+
+</body>
+</html>
+
