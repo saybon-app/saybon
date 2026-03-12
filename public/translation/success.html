@@ -279,11 +279,28 @@ async function loadInvoice(){
     document.getElementById("subtotal").innerText = "$" + Number(data.price || 0).toFixed(2);
     document.getElementById("total").innerText = "$" + Number(data.price || 0).toFixed(2);
 
-    if(data.plan === "express"){
-      document.getElementById("timeline").innerText = "24 Hours";
+    const words = Number(data.wordCount || 0);
+    const isExpress = data.plan === "express";
+
+    let timeline = "";
+
+    if(words <= 300){
+      timeline = isExpress ? "30–60 mins" : "1–3 hrs";
+    }else if(words <= 1000){
+      timeline = isExpress ? "1–3 hrs" : "3–6 hrs";
+    }else if(words <= 3000){
+      timeline = isExpress ? "3–6 hrs" : "6–12 hrs";
+    }else if(words <= 6000){
+      timeline = isExpress ? "6–12 hrs" : "12–24 hrs";
+    }else if(words <= 10000){
+      timeline = isExpress ? "12–24 hrs" : "24–48 hrs";
+    }else if(words <= 20000){
+      timeline = isExpress ? "24–48 hrs" : "2–4 days";
     }else{
-      document.getElementById("timeline").innerText = "2–3 Days";
+      timeline = "Custom";
     }
+
+    document.getElementById("timeline").innerText = timeline;
 
     if(data.status === "paid"){
       document.getElementById("message").innerText = "Payment confirmed. Your translation request is now in queue.";
@@ -310,3 +327,4 @@ loadInvoice();
 
 </body>
 </html>
+
