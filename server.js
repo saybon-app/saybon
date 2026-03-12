@@ -1,272 +1,259 @@
-﻿/* force redeploy 11 Mar */
+﻿
+import express from "express"
+import cors from "cors"
+import Stripe from "stripe"
+import admin from "firebase-admin"
+import OpenAI from "openai"
 
-import express from "express";
-import cors from "cors";
-import Stripe from "stripe";
-import admin from "firebase-admin";
-import OpenAI from "openai";
-
-const app = express();
+const app = express()
 
 /* ==========================================
-FIREBASE ADMIN
+FIREBASE
 ========================================== */
 
-admin.initializeApp();
-const db = admin.firestore();
+admin.initializeApp()
+const db = admin.firestore()
 
 /* ==========================================
-OPENAI INITIALIZATION
+OPENAI
 ========================================== */
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+apiKey:process.env.OPENAI_API_KEY
+})
 
 /* ==========================================
-STRIPE INITIALIZATION
+STRIPE
 ========================================== */
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY,{
-  apiVersion:"2023-10-16"
-});
+apiVersion:"2023-10-16"
+})
 
 /* ==========================================
-WEBHOOK (RAW BODY REQUIRED)
+ROTATING TEST BANK
 ========================================== */
 
-app.post("/webhook", express.raw({type:"application/json"}), async (req,res)=>{
+const frenchToEnglishTests=[
 
-  let event;
+`L’application doit pouvoir traiter les requêtes en temps réel tout en garantissant la sécurité des données et la conformité aux normes de protection de la vie privée.`,
 
-  try{
+`L’optimisation des processus internes a permis de réduire les coûts opérationnels tout en améliorant la qualité du service offert aux clients.`,
 
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      req.headers["stripe-signature"],
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+`Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables.`
 
-  }catch(err){
+]
 
-    console.error("Webhook signature verification failed:",err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+const englishToFrenchTests=[
 
-  }
+`The system automatically encrypts all sensitive information before it is transmitted to the server.`,
 
-  /* ==========================================
-  PAYMENT COMPLETED
-  ========================================== */
+`Failure to comply with these guidelines may result in the suspension of the user's account.`,
 
-  if(event.type === "checkout.session.completed"){
+`The success of the project depends largely on effective communication between the development team and the stakeholders.`
 
-    const session = event.data.object;
-    const jobId = session.client_reference_id;
-
-    console.log("Stripe payment received for job:",jobId);
-
-    if(jobId){
-
-      try{
-
-        await db.collection("translationJobs")
-        .doc(jobId)
-        .update({
-          status:"paid",
-          paidAt:new Date()
-        });
-
-        console.log("Firestore updated for:",jobId);
-
-      }catch(err){
-
-        console.error("Firestore update failed:",err);
-
-      }
-
-    }
-
-  }
-
-  res.json({received:true});
-
-});
+]
 
 /* ==========================================
-MIDDLEWARE (AFTER WEBHOOK)
+GET RANDOM TEST
+========================================== */
+
+app.get("/api/getTranslationTest",(req,res)=>{
+
+const frenchTest=frenchToEnglishTests[
+Math.floor(Math.random()*frenchToEnglishTests.length)
+]
+
+const englishTest=englishToFrenchTests[
+Math.floor(Math.random()*englishToFrenchTests.length)
+]
+
+res.json({
+frenchTest,
+englishTest
+})
+
+})
+
+/* ==========================================
+WEBHOOK
+========================================== */
+
+app.post("/webhook",express.raw({type:"application/json"}),async(req,res)=>{
+
+let event
+
+try{
+
+event=stripe.webhooks.constructEvent(
+req.body,
+req.headers["stripe-signature"],
+process.env.STRIPE_WEBHOOK_SECRET
+)
+
+}catch(err){
+
+console.log("Webhook error",err.message)
+return res.status(400).send("Webhook error")
+
+}
+
+if(event.type==="checkout.session.completed"){
+
+const session=event.data.object
+const jobId=session.client_reference_id
+
+if(jobId){
+
+await db.collection("translationJobs")
+.doc(jobId)
+.update({
+status:"paid",
+paidAt:new Date()
+})
+
+}
+
+}
+
+res.json({received:true})
+
+})
+
+/* ==========================================
+MIDDLEWARE
 ========================================== */
 
 app.use(cors({
-  origin:[
-    "https://saybonapp.com",
-    "http://localhost:5500"
-  ],
-  methods:["GET","POST"],
-  allowedHeaders:["Content-Type"]
-}));
+origin:[
+"https://saybonapp.com",
+"http://localhost:5500"
+]
+}))
 
-app.use(express.json());
+app.use(express.json())
 
 /* ==========================================
-SERVER HEALTH CHECK
+CREATE CHECKOUT
 ========================================== */
 
-app.get("/", (req,res)=>{
-  res.json({
-    status:"SayBon server running"
-  });
-});
+app.post("/api/createCheckout",async(req,res)=>{
+
+try{
+
+const {words,plan,jobId}=req.body
+
+let price=plan==="express"
+? words*0.05
+: words*0.025
+
+const session=await stripe.checkout.sessions.create({
+
+payment_method_types:["card"],
+
+mode:"payment",
+
+line_items:[{
+price_data:{
+currency:"usd",
+product_data:{
+name:"SayBon Translation Service"
+},
+unit_amount:Math.round(price*100)
+},
+quantity:1
+}],
+
+client_reference_id:jobId,
+
+success_url:
+"https://saybonapp.com/translation/success.html?job="+jobId,
+
+cancel_url:
+"https://saybonapp.com/translation/request.html"
+
+})
+
+res.json({url:session.url})
+
+}catch(err){
+
+console.log(err)
+res.status(500).json({error:"Stripe error"})
+
+}
+
+})
 
 /* ==========================================
-CREATE STRIPE CHECKOUT
+AI TEST GRADING
 ========================================== */
 
-app.post("/api/createCheckout", async (req,res)=>{
+app.post("/api/gradeTranslationTest",async(req,res)=>{
 
-  try{
+try{
 
-    const { words, plan, jobId } = req.body;
+const {englishAnswer,frenchAnswer,frenchTest,englishTest}=req.body
 
-    if(!words || !plan || !jobId){
-      return res.status(400).json({
-        error:"Missing words, plan or jobId"
-      });
-    }
+const prompt=`
 
-    let price = 0;
-
-    if(plan==="express"){
-      price = words * 0.05;
-    }else{
-      price = words * 0.025;
-    }
-
-    const session = await stripe.checkout.sessions.create({
-
-      payment_method_types:["card"],
-
-      mode:"payment",
-
-      line_items:[{
-        price_data:{
-          currency:"usd",
-          product_data:{
-            name:"SayBon Translation Service"
-          },
-          unit_amount:Math.round(price * 100)
-        },
-        quantity:1
-      }],
-
-      client_reference_id: jobId,
-
-      metadata:{
-        words:String(words),
-        plan:String(plan)
-      },
-
-      success_url:
-      "https://saybonapp.com/translation/success.html?job="+jobId,
-
-      cancel_url:
-      "https://saybonapp.com/translation/request.html"
-
-    });
-
-    res.json({
-      url:session.url
-    });
-
-  }catch(err){
-
-    console.error("Stripe Checkout Error:",err);
-
-    res.status(500).json({
-      error:"Stripe checkout failed"
-    });
-
-  }
-
-});
-
-/* ==========================================
-AI TRANSLATION TEST GRADING
-========================================== */
-
-app.post("/api/gradeTranslationTest", async (req,res)=>{
-
-  try{
-
-    const { englishAnswer, frenchAnswer } = req.body;
-
-    const prompt = `
 You are a professional translation examiner.
 
-Evaluate the quality of these translations.
+Evaluate these translations.
 
-Original French:
-"La croissance économique dépend fortement de la stabilité politique et de la capacité des institutions à maintenir un environnement favorable aux investissements."
+French source:
+${frenchTest}
 
 Translator English:
 ${englishAnswer}
 
-Original English:
-"Economic growth depends strongly on political stability and the ability of institutions to maintain a favorable environment for investment."
+English source:
+${englishTest}
 
 Translator French:
 ${frenchAnswer}
 
-Score accuracy, grammar, meaning and fluency.
+Score accuracy, grammar and meaning.
 
 Return JSON only:
 
 {
-"score": number,
-"feedback": "short explanation"
+"score":number,
+"feedback":"short explanation"
 }
-`;
 
-    const completion = await openai.chat.completions.create({
-      model:"gpt-4o-mini",
-      messages:[{role:"user",content:prompt}],
-      temperature:0.2
-    });
+`
 
-    const responseText = completion.choices[0].message.content;
+const completion=await openai.chat.completions.create({
+model:"gpt-4o-mini",
+messages:[{role:"user",content:prompt}],
+temperature:0.2
+})
 
-    const result = JSON.parse(responseText);
+const result=JSON.parse(completion.choices[0].message.content)
 
-    res.json(result);
+res.json(result)
 
-  }catch(err){
+}catch(err){
 
-    console.error("AI grading failed:",err);
+console.log(err)
 
-    res.status(500).json({
-      score:0,
-      feedback:"AI grading failed"
-    });
+res.status(500).json({
+score:0,
+feedback:"AI grading failed"
+})
 
-  }
+}
 
-});
-
-/* ==========================================
-404 HANDLER
-========================================== */
-
-app.use((req,res)=>{
-  res.status(404).json({
-    error:"Route not found"
-  });
-});
+})
 
 /* ==========================================
-START SERVER (RENDER)
+START SERVER
 ========================================== */
 
-const PORT = process.env.PORT || 3000;
+const PORT=process.env.PORT||3000
 
-app.listen(PORT, ()=>{
-  console.log("SayBon payment server running on port", PORT);
-});
+app.listen(PORT,()=>{
+console.log("SayBon server running",PORT)
+})
+

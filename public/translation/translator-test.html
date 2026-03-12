@@ -1,92 +1,47 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+<!DOCTYPE html>
+<html>
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>Translator Test</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>SayBon Translator Test</title>
 
 <style>
 
 body{
 font-family:Poppins;
-background:#f4f6fb;
-margin:0;
-padding:40px;
+background:#f5f7fb;
+padding:40px
 }
 
-.container{
-max-width:900px;
-margin:auto;
+.box{
 background:white;
-padding:40px;
+padding:25px;
 border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.testBlock{
-margin-bottom:40px;
-}
-
-.timer{
-text-align:center;
-font-size:20px;
-color:#ef4444;
-margin-bottom:10px;
+margin-bottom:25px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08)
 }
 
 textarea{
 width:100%;
-height:180px;
-padding:15px;
-font-size:15px;
-border-radius:8px;
-border:1px solid #ccc;
-resize:none;
+height:150px;
+font-size:16px;
+padding:10px
 }
 
-.keyboard{
-margin-top:10px;
-display:flex;
-gap:6px;
-flex-wrap:wrap;
-}
-
-.key{
-padding:6px 10px;
-border-radius:6px;
-background:#eee;
-cursor:pointer;
-font-size:14px;
-}
-
-.key:hover{
-background:#ddd;
+.timer{
+font-size:20px;
+color:#b91c1c;
+text-align:center;
+margin-bottom:10px
 }
 
 button{
-margin-top:20px;
 padding:12px 20px;
-border-radius:8px;
-border:none;
 background:#2563eb;
 color:white;
-font-size:15px;
-cursor:pointer;
-box-shadow:0 6px 0 rgba(0,0,0,0.25);
-}
-
-button:hover{
-transform:translateY(-2px);
-}
-
-button:active{
-transform:translateY(4px);
-box-shadow:0 2px 0 rgba(0,0,0,0.25);
+border:none;
+border-radius:8px
 }
 
 </style>
@@ -95,162 +50,124 @@ box-shadow:0 2px 0 rgba(0,0,0,0.25);
 
 <body>
 
-<div class="container">
-
-<!-- TEST 1 -->
-
-<div class="testBlock">
+<div class="box">
 
 <div id="timer1" class="timer">5:00</div>
 
-<h3>Translate into English</h3>
+<div id="frenchText"></div>
 
-<p>
-La croissance économique dépend fortement de la stabilité politique et de la capacité des institutions à maintenir un environnement favorable aux investissements.
-</p>
-
-<textarea id="box1" placeholder="Type your English translation here..."></textarea>
+<textarea id="box1"></textarea>
 
 </div>
 
-<!-- TEST 2 -->
-
-<div class="testBlock">
+<div class="box">
 
 <div id="timer2" class="timer">5:00</div>
 
-<h3>Translate into French</h3>
+<div id="englishText"></div>
 
-<p>
-Economic growth depends strongly on political stability and the ability of institutions to maintain a favorable environment for investment.
-</p>
-
-<textarea id="box2" placeholder="Tapez votre traduction française ici..."></textarea>
-
-<div class="keyboard">
-
-<span class="key">é</span>
-<span class="key">è</span>
-<span class="key">ê</span>
-<span class="key">ë</span>
-<span class="key">à</span>
-<span class="key">â</span>
-<span class="key">î</span>
-<span class="key">ï</span>
-<span class="key">ô</span>
-<span class="key">ù</span>
-<span class="key">ç</span>
-<span class="key">œ</span>
+<textarea id="box2"></textarea>
 
 </div>
 
-</div>
-
-<button id="submitTest">Submit Test</button>
-
-</div>
+<button id="submitTest">Submit Translation</button>
 
 <script>
 
-/* =========================
-TIMER SYSTEM
-========================= */
+let frenchTest=""
+let englishTest=""
 
-function startTimer(display,textarea){
+/* LOAD ROTATING TEST */
+
+fetch("/api/getTranslationTest")
+.then(r=>r.json())
+.then(data=>{
+
+frenchTest=data.frenchTest
+englishTest=data.englishTest
+
+document.getElementById("frenchText").innerText=frenchTest
+document.getElementById("englishText").innerText=englishTest
+
+})
+
+/* TIMERS */
+
+function startTimer(box,timer){
 
 let time=300
 
-const timer=setInterval(()=>{
-
-let minutes=Math.floor(time/60)
-let seconds=time%60
-
-display.innerText=minutes+":"+String(seconds).padStart(2,"0")
+const interval=setInterval(()=>{
 
 time--
 
-if(time<0){
+let min=Math.floor(time/60)
+let sec=time%60
 
-clearInterval(timer)
-textarea.disabled=true
+timer.innerText=min+":"+(sec<10?"0":"")+sec
 
+if(time<=0){
+clearInterval(interval)
+box.disabled=true
 }
 
 },1000)
 
 }
 
-/* =========================
-START ON CLICK
-========================= */
-
-const box1=document.getElementById("box1")
-const box2=document.getElementById("box2")
-
-let started1=false
-let started2=false
-
-box1.onclick=()=>{
-
-if(!started1){
+document.getElementById("box1")
+.addEventListener("focus",()=>{
 
 startTimer(
-document.getElementById("timer1"),
-box1
+document.getElementById("box1"),
+document.getElementById("timer1")
 )
 
-started1=true
+},{once:true})
 
-}
-
-}
-
-box2.onclick=()=>{
-
-if(!started2){
+document.getElementById("box2")
+.addEventListener("focus",()=>{
 
 startTimer(
-document.getElementById("timer2"),
-box2
+document.getElementById("box2"),
+document.getElementById("timer2")
 )
 
-started2=true
+},{once:true})
 
-}
+/* SUBMIT */
 
-}
+document.getElementById("submitTest").onclick=async()=>{
 
-/* =========================
-FRENCH KEYBOARD
-========================= */
+const englishAnswer=document.getElementById("box1").value
+const frenchAnswer=document.getElementById("box2").value
 
-const keys=document.querySelectorAll(".key")
+const res=await fetch("/api/gradeTranslationTest",{
 
-keys.forEach(key=>{
+method:"POST",
 
-key.onclick=()=>{
+headers:{
+"Content-Type":"application/json"
+},
 
-box2.value+=key.innerText
-
-box2.focus()
-
-}
+body:JSON.stringify({
+englishAnswer,
+frenchAnswer,
+frenchTest,
+englishTest
+})
 
 })
 
-/* =========================
-SUBMIT
-========================= */
+const result=await res.json()
 
-document.getElementById("submitTest").onclick=()=>{
-
-alert("Test submitted")
-
-window.location="/translation/translators.html"
+alert("Score: "+result.score+"/100\n\n"+result.feedback)
 
 }
 
 </script>
 
 </body>
+
 </html>
+
