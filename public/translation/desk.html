@@ -34,21 +34,13 @@ background:rgba(0,0,0,0.35);
 }
 
 .card{
-
 position:relative;
 z-index:2;
-
 width:760px;
-
-background:rgba(255,255,255,0.93);
-
+background:rgba(255,255,255,0.94);
 border-radius:22px;
-
 padding:50px;
-
-box-shadow:
-0 40px 100px rgba(0,0,0,0.45);
-
+box-shadow:0 40px 100px rgba(0,0,0,0.45);
 }
 
 .title{
@@ -72,17 +64,10 @@ padding:12px 0;
 border-bottom:1px solid #eee;
 }
 
-.label{
-color:#888;
-}
+.label{color:#888;}
+.value{font-weight:600;}
 
-.value{
-font-weight:600;
-}
-
-.progress{
-margin-top:40px;
-}
+.progress{margin-top:40px;}
 
 .step{
 display:flex;
@@ -92,7 +77,6 @@ font-size:14px;
 }
 
 .check{
-
 width:20px;
 height:20px;
 border-radius:50%;
@@ -102,7 +86,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-size:12px;
-
 }
 
 .done{
@@ -124,24 +107,16 @@ justify-content:center;
 }
 
 .timer{
-
 width:120px;
 height:120px;
-
 border-radius:50%;
-
 border:8px solid #ddd;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 font-weight:600;
-
 font-size:18px;
-
 position:relative;
-
 }
 
 .timer::after{
@@ -155,50 +130,62 @@ animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
-
 0%{transform:scale(1);opacity:.8}
 50%{transform:scale(1.08);opacity:.4}
 100%{transform:scale(1);opacity:.8}
+}
 
+.activityFeed{
+margin-top:40px;
+border-top:1px solid #eee;
+padding-top:20px;
+}
+
+.feedTitle{
+font-weight:600;
+margin-bottom:12px;
+}
+
+.feedItem{
+background:#f7f7f7;
+padding:10px 14px;
+border-radius:10px;
+margin-bottom:8px;
+font-size:13px;
+opacity:0;
+transform:translateY(10px);
+animation:feedIn .5s forwards;
+}
+
+@keyframes feedIn{
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .dashboardButton{
-
 position:fixed;
 bottom:30px;
-
 left:50%;
 transform:translateX(-50%);
-
 background:white;
-
 padding:14px 28px;
-
 border-radius:30px;
-
 font-size:14px;
-
 text-decoration:none;
-
 color:#333;
-
 box-shadow:0 10px 30px rgba(0,0,0,.35);
-
 transition:.25s;
-
 }
 
 .dashboardButton:hover{
-
 transform:translateX(-50%) translateY(-3px);
 box-shadow:0 18px 40px rgba(0,0,0,.45);
-
 }
 
 .dashboardButton:active{
-
 transform:translateX(-50%) scale(.96);
-
 }
 
 </style>
@@ -211,75 +198,39 @@ transform:translateX(-50%) scale(.96);
 
 <div class="card">
 
-<div class="title">
-SayBon Translation Desk
-</div>
+<div class="title">SayBon Translation Desk</div>
 
 <div class="subtitle">
-Welcome back. Your translation is being carefully prepared.
+Welcome back. Your translation is progressing smoothly.
 </div>
 
-<div class="row">
-<div class="label">Job Code</div>
-<div class="value" id="jobId"></div>
-</div>
-
-<div class="row">
-<div class="label">Client</div>
-<div class="value" id="email"></div>
-</div>
-
-<div class="row">
-<div class="label">Word Count</div>
-<div class="value" id="words"></div>
-</div>
-
-<div class="row">
-<div class="label">Target Language</div>
-<div class="value" id="language"></div>
-</div>
-
-<div class="row">
-<div class="label">Plan</div>
-<div class="value" id="plan"></div>
-</div>
-
-<div class="row">
-<div class="label">Price</div>
-<div class="value" id="price"></div>
-</div>
+<div class="row"><div class="label">Job Code</div><div class="value" id="jobId"></div></div>
+<div class="row"><div class="label">Client</div><div class="value" id="email"></div></div>
+<div class="row"><div class="label">Word Count</div><div class="value" id="words"></div></div>
+<div class="row"><div class="label">Target Language</div><div class="value" id="language"></div></div>
+<div class="row"><div class="label">Plan</div><div class="value" id="plan"></div></div>
+<div class="row"><div class="label">Price</div><div class="value" id="price"></div></div>
 
 <div class="progress">
 
-<div class="step">
-<div class="check done">✓</div>
-Payment received
-</div>
-
-<div class="step">
-<div class="check done">✓</div>
-Translation queued
-</div>
-
-<div class="step">
-<div class="check" id="progressCheck"></div>
-Translation in progress
-</div>
-
-<div class="step">
-<div class="check"></div>
-Quality review
-</div>
-
-<div class="step">
-<div class="check"></div>
-Delivery
-</div>
+<div class="step"><div class="check done">✓</div>Payment received</div>
+<div class="step"><div class="check done">✓</div>Translation queued</div>
+<div class="step"><div class="check" id="progressCheck"></div>Translation in progress</div>
+<div class="step"><div class="check"></div>Quality review</div>
+<div class="step"><div class="check"></div>Delivery</div>
 
 </div>
 
 <div class="timerWrapper">
 <div class="timer" id="timer">--</div>
+</div>
+
+<div class="activityFeed">
+
+<div class="feedTitle">Activity</div>
+
+<div id="feed"></div>
+
 </div>
 
 </div>
@@ -300,7 +251,6 @@ appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 };
 
 firebase.initializeApp(firebaseConfig)
-
 const db=firebase.firestore()
 
 const params=new URLSearchParams(window.location.search)
@@ -329,6 +279,16 @@ clearInterval(countdown)
 
 }
 
+function addFeed(text){
+
+const div=document.createElement("div")
+div.className="feedItem"
+div.innerText=text
+
+document.getElementById("feed").prepend(div)
+
+}
+
 async function loadJob(){
 
 const doc=await db.collection("translationJobs").doc(jobId).get()
@@ -353,6 +313,11 @@ startTimer(minutes)
 
 document.getElementById("progressCheck").classList.add("done")
 document.getElementById("progressCheck").innerText="✓"
+
+addFeed("Translator assigned")
+setTimeout(()=>addFeed("Translation started"),2000)
+setTimeout(()=>addFeed("20% translated"),5000)
+setTimeout(()=>addFeed("Quality review scheduled"),8000)
 
 }
 
