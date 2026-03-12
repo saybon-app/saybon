@@ -512,7 +512,42 @@ window.location.href=url
 
 </script>
 
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+firebase.initializeApp(firebaseConfig)
+
+const storage = firebase.storage()
+
+async function uploadDocument(file, jobId){
+
+const storageRef = storage.ref("translations/" + jobId + "/" + file.name)
+
+await storageRef.put(file)
+
+const url = await storageRef.getDownloadURL()
+
+return {
+url:url,
+name:file.name
+}
+
+}
+
+</script>
 </body>
 </html>
+
 
 
