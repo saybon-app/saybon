@@ -4,11 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Desk</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -17,8 +17,8 @@
 
 body{
 margin:0;
-font-family:Poppins;
-background:#0c0f14;
+font-family:Inter;
+background:#0b0f17;
 color:white;
 display:flex;
 justify-content:center;
@@ -26,94 +26,38 @@ align-items:center;
 min-height:100vh;
 }
 
-/* ==========================================
-DESK CONTAINER
-========================================== */
-
-.desk{
-width:900px;
-background:rgba(20,25,35,0.7);
-backdrop-filter:blur(25px);
+.container{
+width:950px;
+background:rgba(20,25,35,0.8);
 border-radius:18px;
 padding:50px;
-box-shadow:0 0 60px rgba(0,255,255,0.08);
+box-shadow:0 0 60px rgba(0,255,255,0.05);
 }
-
-/* ==========================================
-HEADER
-========================================== */
 
 .title{
+text-align:center;
 font-family:Poppins;
-text-align:center;
-letter-spacing:.18em;
 font-size:26px;
+letter-spacing:.18em;
+margin-bottom:30px;
+color:#66e0ff;
+}
+
+.greeting{
+text-align:center;
 margin-bottom:40px;
-color:#56e3e3;
+opacity:.8;
 }
-
-/* ==========================================
-ENTRY PANEL
-========================================== */
-
-.entry{
-text-align:center;
-}
-
-.codeInput{
-width:320px;
-padding:14px;
-font-size:18px;
-border:none;
-border-radius:8px;
-text-align:center;
-letter-spacing:.08em;
-background:#0b0f15;
-color:#56e3e3;
-outline:none;
-border:1px solid rgba(86,227,227,.3);
-}
-
-.accessBtn{
-margin-top:20px;
-padding:14px 40px;
-background:linear-gradient(135deg,#38b6b6,#2a8c8c);
-border:none;
-border-radius:12px;
-color:white;
-font-weight:600;
-letter-spacing:.08em;
-cursor:pointer;
-transition:.25s;
-}
-
-.accessBtn:hover{
-transform:translateY(-2px);
-box-shadow:0 0 20px rgba(56,182,182,.6);
-}
-
-.error{
-margin-top:20px;
-color:#ff4c4c;
-font-size:14px;
-}
-
-/* ==========================================
-JOB PANEL
-========================================== */
 
 .jobPanel{
-display:none;
-margin-top:20px;
+margin-top:30px;
 }
 
 .row{
 display:flex;
 justify-content:space-between;
 padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,0.06);
-font-size:14px;
-letter-spacing:.05em;
+border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .label{
@@ -121,45 +65,58 @@ opacity:.6;
 }
 
 .value{
-font-weight:500;
 color:#6df5f5;
 }
 
-/* ==========================================
-PROGRESS TRACKER
-========================================== */
+.progressContainer{
+margin-top:40px;
+}
 
-.progress{
-margin-top:30px;
+.progressTitle{
+margin-bottom:10px;
+font-size:14px;
+letter-spacing:.1em;
+opacity:.8;
+}
+
+.progressBar{
+width:100%;
+height:10px;
+background:#111826;
+border-radius:20px;
+overflow:hidden;
+}
+
+.progressFill{
+height:100%;
+width:20%;
+background:linear-gradient(90deg,#38b6ff,#8af5ff);
+transition:width 1s ease;
+}
+
+.activity{
+margin-top:40px;
+}
+
+.activityTitle{
+font-size:14px;
+letter-spacing:.1em;
+margin-bottom:12px;
+opacity:.8;
+}
+
+.log{
 font-size:13px;
-letter-spacing:.2em;
+margin:4px 0;
+opacity:.7;
 }
 
-.step{
-margin:6px 0;
-opacity:.6;
-}
-
-.active{
-color:#56e3e3;
-opacity:1;
-}
-
-/* ==========================================
-GLOW BORDER
-========================================== */
-
-.desk:before{
-content:"";
-position:absolute;
-inset:0;
-border-radius:18px;
-padding:1px;
-background:linear-gradient(135deg,#56e3e3,#9d6bff);
--webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
--webkit-mask-composite:xor;
-mask-composite:exclude;
-pointer-events:none;
+.timer{
+margin-top:40px;
+text-align:center;
+font-size:18px;
+letter-spacing:.08em;
+color:#66e0ff;
 }
 
 </style>
@@ -168,27 +125,17 @@ pointer-events:none;
 
 <body>
 
-<div class="desk">
+<div class="container">
 
 <div class="title">
 SAYBON TRANSLATION DESK
 </div>
 
-<div class="entry">
-
-<input id="jobInput" class="codeInput" placeholder="ENTER JOB CODE">
-
-<br>
-
-<button class="accessBtn" onclick="openJob()">
-ACCESS JOB
-</button>
-
-<div id="error" class="error"></div>
-
+<div id="greeting" class="greeting">
+Loading your translation...
 </div>
 
-<div id="jobPanel" class="jobPanel">
+<div id="jobPanel" class="jobPanel" style="display:none">
 
 <div class="row">
 <div class="label">JOB CODE</div>
@@ -220,14 +167,32 @@ ACCESS JOB
 <div class="value" id="price"></div>
 </div>
 
-<div class="progress">
+<div class="progressContainer">
 
-<div class="step active">✔ PAYMENT RECEIVED</div>
-<div class="step">○ TRANSLATION QUEUED</div>
-<div class="step">○ TRANSLATION IN PROGRESS</div>
-<div class="step">○ QUALITY REVIEW</div>
-<div class="step">○ DELIVERY</div>
+<div class="progressTitle">
+TRANSLATION PROGRESS
+</div>
 
+<div class="progressBar">
+<div id="progressFill" class="progressFill"></div>
+</div>
+
+</div>
+
+<div class="activity">
+
+<div class="activityTitle">
+ACTIVITY
+</div>
+
+<div class="log">✓ Payment received</div>
+<div class="log">• Translation queued</div>
+<div class="log">• Waiting for translator</div>
+
+</div>
+
+<div class="timer" id="timer">
+Estimated Delivery: Calculating...
 </div>
 
 </div>
@@ -245,54 +210,57 @@ messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db=firebase.firestore();
+firebase.initializeApp(firebaseConfig)
 
-async function openJob(){
+const db=firebase.firestore()
 
-const jobCode=document.getElementById("jobInput").value.trim().toUpperCase();
+const params=new URLSearchParams(window.location.search)
+const jobId=params.get("job")
 
-if(!jobCode){
+async function loadJob(){
 
-document.getElementById("error").innerText="Enter a valid job code";
-return;
-
-}
-
-try{
-
-const doc=await db.collection("translationJobs").doc(jobCode).get();
+const doc=await db.collection("translationJobs").doc(jobId).get()
 
 if(!doc.exists){
 
-document.getElementById("error").innerText="Job not found";
-return;
+document.getElementById("greeting").innerText="Job not found"
+return
 
 }
 
-const data=doc.data();
+const data=doc.data()
 
-document.getElementById("jobId").innerText=jobCode;
-document.getElementById("email").innerText=data.email;
-document.getElementById("words").innerText=data.wordCount;
-document.getElementById("language").innerText=data.targetLanguage;
-document.getElementById("plan").innerText=data.plan;
-document.getElementById("price").innerText="$"+data.price;
+document.getElementById("jobId").innerText=jobId
+document.getElementById("email").innerText=data.email
+document.getElementById("words").innerText=data.wordCount
+document.getElementById("language").innerText=data.targetLanguage
+document.getElementById("plan").innerText=data.plan
+document.getElementById("price").innerText="$"+data.price
 
-document.querySelector(".entry").style.display="none";
-document.getElementById("jobPanel").style.display="block";
+document.getElementById("greeting").innerText=
+"Welcome back. Your translation is currently being prepared."
 
-}catch(err){
+document.getElementById("jobPanel").style.display="block"
 
-console.error(err);
-document.getElementById("error").innerText="System error";
+calculateTimer(data.wordCount)
+
+}
+
+function calculateTimer(words){
+
+let minutes = words * 0.6
+
+let hours = Math.floor(minutes / 60)
+let mins = Math.floor(minutes % 60)
+
+document.getElementById("timer").innerText=
+"Estimated Delivery: "+hours+"h "+mins+"m"
 
 }
 
-}
+loadJob()
 
 </script>
 
 </body>
 </html>
-
