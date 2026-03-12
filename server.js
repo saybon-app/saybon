@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import cors from "cors";
 import Stripe from "stripe";
 import { onRequest } from "firebase-functions/v2/https";
@@ -190,5 +190,6 @@ EXPORT FUNCTION
 ========================================== */
 
 export const saybonApi = onRequest(app);
+
 
 
