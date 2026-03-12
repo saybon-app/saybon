@@ -51,6 +51,20 @@ margin-bottom:10px;
 }
 
 button{
+
+padding:14px 26px;
+border-radius:10px;
+border:none;
+font-size:16px;
+cursor:pointer;
+
+background:#2563eb;
+color:white;
+
+box-shadow:0 6px 0 rgba(0,0,0,0.25);
+transition:all .15s ease;
+
+}
 padding:14px 22px;
 background:#2563eb;
 color:white;
@@ -58,6 +72,15 @@ border:none;
 border-radius:8px;
 cursor:pointer;
 font-size:16px;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+button:active{
+transform:translateY(4px);
+box-shadow:0 2px 0 rgba(0,0,0,0.25);
 }
 
 </style>
@@ -184,7 +207,28 @@ SUBMIT
 
 document.getElementById("submitTest").onclick=()=>{
 
-alert("Translation submitted.")
+const englishAnswer=document.getElementById("box1").value
+const frenchAnswer=document.getElementById("box2").value
+
+if(!englishAnswer || !frenchAnswer){
+
+alert("Please complete both translations.")
+return
+
+}
+
+const btn=document.getElementById("submitTest")
+
+btn.innerText="Submitting..."
+btn.disabled=true
+
+setTimeout(()=>{
+
+alert("Test submitted successfully.")
+
+window.location="/translation/translator-registration.html"
+
+},1200)
 
 }
 
@@ -193,5 +237,6 @@ alert("Translation submitted.")
 </body>
 
 </html>
+
 
 
