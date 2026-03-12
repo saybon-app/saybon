@@ -305,7 +305,7 @@ async function loadInvoice(){
     if(data.status === "paid"){
       document.getElementById("message").innerText = "Payment confirmed. Your translation request is now in queue.";
     }else{
-      document.getElementById("message").innerText = "Payment is being verified. Please refresh shortly if needed.";
+      document.getElementById("message").innerText = "";
     }
   }catch(err){
     console.error("INVOICE LOAD ERROR:", err);
@@ -327,4 +327,5 @@ loadInvoice();
 
 </body>
 </html>
+
 
