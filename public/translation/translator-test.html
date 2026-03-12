@@ -24,7 +24,7 @@ color:#2c2c2c;
 max-width:900px;
 margin:auto;
 background:white;
-padding:40px;
+padding:50px;
 border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
@@ -32,7 +32,7 @@ box-shadow:0 10px 30px rgba(0,0,0,0.08);
 h1{
 text-align:center;
 font-weight:600;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
 .subtitle{
@@ -46,28 +46,29 @@ text-align:center;
 font-size:18px;
 font-weight:600;
 color:#c0392b;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
 .section{
-margin-top:30px;
+margin-top:25px;
 }
 
 .label{
 font-weight:500;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 textarea{
 width:100%;
-height:160px;
+height:170px;
 border:1px solid #dcdcdc;
 border-radius:8px;
-padding:14px;
+padding:16px;
 font-size:15px;
 resize:none;
 background:#fafafa;
 transition:all .2s;
+box-sizing:border-box;
 }
 
 textarea:focus{
@@ -77,17 +78,51 @@ background:white;
 box-shadow:0 0 0 2px rgba(79,70,229,0.1);
 }
 
-.helper{
-margin-top:10px;
-font-size:14px;
-color:#6b7280;
-letter-spacing:1px;
-}
-
 .divider{
-margin:40px 0;
+margin:45px 0;
 height:1px;
 background:#e5e7eb;
+}
+
+.accent-panel{
+margin-top:12px;
+font-size:18px;
+letter-spacing:4px;
+color:#444;
+cursor:pointer;
+user-select:none;
+}
+
+.accent-panel span{
+padding:4px 6px;
+border-radius:4px;
+transition:.15s;
+}
+
+.accent-panel span:hover{
+background:#eef2ff;
+}
+
+.submit-wrap{
+margin-top:40px;
+text-align:center;
+}
+
+.submit-btn{
+background:linear-gradient(135deg,#4f46e5,#6366f1);
+color:white;
+border:none;
+padding:14px 32px;
+font-size:16px;
+font-weight:500;
+border-radius:8px;
+cursor:pointer;
+transition:.2s;
+}
+
+.submit-btn:hover{
+transform:translateY(-1px);
+box-shadow:0 8px 18px rgba(0,0,0,0.15);
 }
 
 </style>
@@ -119,7 +154,7 @@ English Translation
 Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables.
 </p>
 
-<textarea placeholder="Type your English translation here..."></textarea>
+<textarea id="englishBox" placeholder="Type your English translation here..."></textarea>
 
 </div>
 
@@ -137,17 +172,106 @@ Traduction Française
 The system automatically encrypts all sensitive information before it is transmitted to the server.
 </p>
 
-<textarea placeholder="Tapez votre traduction française ici..."></textarea>
+<textarea id="frenchBox" placeholder="Tapez votre traduction française ici..."></textarea>
 
-<div class="helper">
-à â æ ç é è ê ë î ï ô œ ù û ü ÿ  
-À Â Æ Ç É È Ê Ë Î Ï Ô Œ Ù Û Ü Ÿ  
-« » – — … € £
+<div class="accent-panel" id="accentPanel">
+
+<span>à</span>
+<span>â</span>
+<span>æ</span>
+<span>ç</span>
+<span>é</span>
+<span>è</span>
+<span>ê</span>
+<span>ë</span>
+<span>î</span>
+<span>ï</span>
+<span>ô</span>
+<span>œ</span>
+<span>ù</span>
+<span>û</span>
+<span>ü</span>
+<span>ÿ</span>
+
+<span>À</span>
+<span>Â</span>
+<span>Æ</span>
+<span>Ç</span>
+<span>É</span>
+<span>È</span>
+<span>Ê</span>
+<span>Ë</span>
+<span>Î</span>
+<span>Ï</span>
+<span>Ô</span>
+<span>Œ</span>
+<span>Ù</span>
+<span>Û</span>
+<span>Ü</span>
+<span>Ÿ</span>
+
+<span>«</span>
+<span>»</span>
+<span>–</span>
+<span>—</span>
+<span>…</span>
+<span>€</span>
+<span>£</span>
+
 </div>
 
 </div>
 
+
+<div class="submit-wrap">
+
+<button class="submit-btn" onclick="submitTest()">
+Submit Translation
+</button>
+
 </div>
+
+
+</div>
+
+
+<script>
+
+let activeBox = null;
+
+document.getElementById("englishBox").addEventListener("focus",()=>activeBox="englishBox");
+document.getElementById("frenchBox").addEventListener("focus",()=>activeBox="frenchBox");
+
+document.querySelectorAll("#accentPanel span").forEach(char=>{
+
+char.addEventListener("click",()=>{
+
+if(!activeBox)return;
+
+let textarea = document.getElementById(activeBox);
+
+let start = textarea.selectionStart;
+let end = textarea.selectionEnd;
+
+let value = textarea.value;
+
+textarea.value = value.substring(0,start) + char.innerText + value.substring(end);
+
+textarea.selectionStart = textarea.selectionEnd = start + 1;
+
+textarea.focus();
+
+});
+
+});
+
+function submitTest(){
+
+window.location.href="/translation/register.html";
+
+}
+
+</script>
 
 </body>
 </html>
