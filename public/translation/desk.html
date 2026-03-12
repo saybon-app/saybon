@@ -1,14 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Study</title>
+<title>SayBon Translation Desk</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -17,134 +16,188 @@
 
 body{
 margin:0;
-font-family:"Merriweather",serif;
-background-image:url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
-background-size:cover;
-background-position:center;
+font-family:Inter;
 height:100vh;
+background:url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6") center/cover no-repeat;
 display:flex;
 justify-content:center;
 align-items:center;
-color:#2b2b2b;
 }
 
 .overlay{
-background:rgba(0,0,0,0.45);
 position:absolute;
 top:0;
 left:0;
 right:0;
 bottom:0;
+background:rgba(0,0,0,0.35);
 }
 
-.container{
+.card{
 
 position:relative;
 z-index:2;
 
-width:820px;
+width:760px;
 
-background:#f6f1e7;
+background:rgba(255,255,255,0.93);
+
+border-radius:22px;
 
 padding:50px;
 
-border-radius:12px;
-
-box-shadow:0 30px 80px rgba(0,0,0,.6);
+box-shadow:
+0 40px 100px rgba(0,0,0,0.45);
 
 }
 
 .title{
-
-font-family:"Libre Baskerville";
-
+font-family:"Playfair Display";
 font-size:28px;
-
 text-align:center;
-
-margin-bottom:10px;
-
-color:#3a2a1e;
-
+margin-bottom:8px;
 }
 
 .subtitle{
-
 text-align:center;
-
-margin-bottom:40px;
-
 font-size:14px;
-
-color:#6c5a4d;
-
+color:#666;
+margin-bottom:40px;
 }
 
 .row{
-
 display:flex;
-
 justify-content:space-between;
-
 padding:12px 0;
-
-border-bottom:1px solid #e3d8c8;
-
+border-bottom:1px solid #eee;
 }
 
 .label{
-
-color:#8a7767;
-
+color:#888;
 }
 
 .value{
-
 font-weight:600;
-
 }
 
 .progress{
-
 margin-top:40px;
-
-}
-
-.progress h3{
-
-font-size:16px;
-
-margin-bottom:12px;
-
 }
 
 .step{
-
-margin:6px 0;
-
+display:flex;
+align-items:center;
+margin:12px 0;
 font-size:14px;
+}
+
+.check{
+
+width:20px;
+height:20px;
+border-radius:50%;
+border:2px solid #bbb;
+margin-right:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
 
 }
 
 .done{
-
-color:#3f7a45;
-
+border-color:#3aa46f;
+background:#3aa46f;
+color:white;
+animation:pop .4s ease;
 }
 
-.pending{
+@keyframes pop{
+0%{transform:scale(.4)}
+100%{transform:scale(1)}
+}
 
-color:#999;
-
+.timerWrapper{
+margin-top:40px;
+display:flex;
+justify-content:center;
 }
 
 .timer{
 
-margin-top:30px;
+width:120px;
+height:120px;
 
-text-align:center;
+border-radius:50%;
+
+border:8px solid #ddd;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 font-weight:600;
+
+font-size:18px;
+
+position:relative;
+
+}
+
+.timer::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+border-radius:50%;
+border:8px solid rgba(0,0,0,0.1);
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);opacity:.8}
+50%{transform:scale(1.08);opacity:.4}
+100%{transform:scale(1);opacity:.8}
+
+}
+
+.dashboardButton{
+
+position:fixed;
+bottom:30px;
+
+left:50%;
+transform:translateX(-50%);
+
+background:white;
+
+padding:14px 28px;
+
+border-radius:30px;
+
+font-size:14px;
+
+text-decoration:none;
+
+color:#333;
+
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+transition:.25s;
+
+}
+
+.dashboardButton:hover{
+
+transform:translateX(-50%) translateY(-3px);
+box-shadow:0 18px 40px rgba(0,0,0,.45);
+
+}
+
+.dashboardButton:active{
+
+transform:translateX(-50%) scale(.96);
 
 }
 
@@ -156,14 +209,14 @@ font-weight:600;
 
 <div class="overlay"></div>
 
-<div class="container">
+<div class="card">
 
 <div class="title">
-SayBon Translation Study
+SayBon Translation Desk
 </div>
 
 <div class="subtitle">
-Your document is being carefully prepared by our translators
+Welcome back. Your translation is being carefully prepared.
 </div>
 
 <div class="row">
@@ -198,21 +251,42 @@ Your document is being carefully prepared by our translators
 
 <div class="progress">
 
-<h3>Translation Journey</h3>
+<div class="step">
+<div class="check done">✓</div>
+Payment received
+</div>
 
-<div class="step done">✓ Payment received</div>
-<div class="step done">✓ Document received</div>
-<div class="step">● Translation in progress</div>
-<div class="step pending">○ Quality review</div>
-<div class="step pending">○ Delivery</div>
+<div class="step">
+<div class="check done">✓</div>
+Translation queued
+</div>
+
+<div class="step">
+<div class="check" id="progressCheck"></div>
+Translation in progress
+</div>
+
+<div class="step">
+<div class="check"></div>
+Quality review
+</div>
+
+<div class="step">
+<div class="check"></div>
+Delivery
+</div>
 
 </div>
 
-<div class="timer" id="timer">
-Estimated delivery calculating...
+<div class="timerWrapper">
+<div class="timer" id="timer">--</div>
 </div>
 
 </div>
+
+<a href="/dashboard/index.html" class="dashboardButton">
+Return to Dashboard
+</a>
 
 <script>
 
@@ -232,6 +306,29 @@ const db=firebase.firestore()
 const params=new URLSearchParams(window.location.search)
 const jobId=params.get("job")
 
+let countdown
+
+function startTimer(minutes){
+
+let time=minutes*60
+
+countdown=setInterval(()=>{
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("timer").innerText=m+":"+String(s).padStart(2,"0")
+
+time--
+
+if(time<=0){
+clearInterval(countdown)
+}
+
+},1000)
+
+}
+
 async function loadJob(){
 
 const doc=await db.collection("translationJobs").doc(jobId).get()
@@ -250,13 +347,12 @@ document.getElementById("language").innerText=data.targetLanguage
 document.getElementById("plan").innerText=data.plan
 document.getElementById("price").innerText="$"+data.price
 
-let minutes = data.wordCount * 0.6
+const minutes=data.wordCount*0.6
 
-let hours = Math.floor(minutes/60)
-let mins = Math.floor(minutes%60)
+startTimer(minutes)
 
-document.getElementById("timer").innerText =
-"Estimated Delivery: "+hours+"h "+mins+"m"
+document.getElementById("progressCheck").classList.add("done")
+document.getElementById("progressCheck").innerText="✓"
 
 }
 
@@ -265,5 +361,4 @@ loadJob()
 </script>
 
 </body>
-
 </html>
