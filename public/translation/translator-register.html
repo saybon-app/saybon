@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Translator Registration</title>
 
@@ -12,15 +13,15 @@
 <style>
 
 body{
-font-family:Poppins, sans-serif;
-background:#f3f5f9;
+font-family:Poppins;
+background:#f4f6fb;
 margin:0;
 padding:40px;
 color:#444;
 }
 
 .container{
-max-width:1000px;
+max-width:900px;
 margin:auto;
 background:white;
 padding:40px;
@@ -30,67 +31,84 @@ box-shadow:0 10px 30px rgba(0,0,0,0.08);
 
 h1{
 text-align:center;
-letter-spacing:2px;
+margin-bottom:40px;
 }
 
-h2{
-margin-top:35px;
+.field{
+margin-bottom:25px;
 }
 
-p{
-line-height:1.6;
-}
-
-ul{
-margin-top:10px;
-margin-bottom:20px;
-}
-
-.section{
-margin-top:25px;
-}
-
-.form-group{
-margin-top:15px;
-}
-
-input, select{
-width:100%;
-padding:10px;
-margin-top:6px;
-border:1px solid #ccc;
-border-radius:6px;
-}
-
-button{
-margin-top:25px;
-padding:12px 20px;
-border:none;
-border-radius:6px;
-cursor:pointer;
+label{
+display:block;
+margin-bottom:6px;
 font-weight:600;
 }
 
-.submit{
-background:#1f6feb;
-color:white;
-}
-
-.test{
-background:#16a34a;
-color:white;
-}
-
-.back{
-background:#888;
-color:white;
+input,select{
+width:100%;
+padding:10px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:15px;
 }
 
 .notice{
-background:#fff7d6;
-padding:15px;
-border-radius:6px;
-margin-top:20px;
+font-size:13px;
+margin-top:6px;
+}
+
+.accept{
+color:green;
+}
+
+.reject{
+color:red;
+}
+
+.buttons{
+margin-top:30px;
+display:flex;
+gap:20px;
+}
+
+/* 3D BUTTON STYLE */
+
+.btn{
+
+padding:12px 20px;
+border-radius:8px;
+border:none;
+font-size:15px;
+cursor:pointer;
+
+box-shadow:0 6px 0 rgba(0,0,0,0.25);
+transition:all .15s ease;
+
+}
+
+.btn:disabled{
+opacity:0.5;
+cursor:not-allowed;
+box-shadow:none;
+}
+
+.btn:hover:not(:disabled){
+transform:translateY(-2px);
+}
+
+.btn:active:not(:disabled){
+transform:translateY(4px);
+box-shadow:0 2px 0 rgba(0,0,0,0.25);
+}
+
+.testBtn{
+background:#22c55e;
+color:white;
+}
+
+.submitBtn{
+background:#2563eb;
+color:white;
 }
 
 </style>
@@ -101,209 +119,177 @@ margin-top:20px;
 
 <div class="container">
 
-<h1>SAYBON TRANSLATOR REGISTRATION</h1>
+<h1>Translator Registration</h1>
 
-<p style="text-align:center;">
-Join the SayBon Translator Pool and collaborate with us on professional document translation.
-</p>
-
-<div class="section">
-
-<h2>Who Can Apply</h2>
-
-<ul>
-<li>Must be proficient in French and English</li>
-<li>Strong writing ability in both languages</li>
-<li>Experienced translating professional documents</li>
-<li>Ability to meet deadlines</li>
-<li>Comfortable working inside the SayBon platform</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Important Platform Rule</h2>
-
-<p>
-All translation work is completed strictly inside the SayBon platform.
-</p>
-
-<ul>
-<li>Documents cannot be copied</li>
-<li>Documents cannot be downloaded</li>
-<li>Documents cannot be exported</li>
-<li>All editing must happen inside the SayBon editor</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Confidentiality and NDA</h2>
-
-<p>
-Before accessing any translation job, translators must sign a Non-Disclosure Agreement (NDA).
-</p>
-
-<p>
-Because different clients may require additional confidentiality protection, translators may sign multiple NDAs depending on the project.
-</p>
-
-</div>
-
-
-<div class="section">
-
-<h2>Job Competition System</h2>
-
-<p>
-When a job appears on the SayBon job board, a competition begins.
-</p>
-
-<ul>
-<li>The first 3 translators to accept the job enter the editing phase</li>
-<li>Once 3 translators accept, the job closes automatically</li>
-<li>The job board then displays that the job has reached its acceptance limit</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Quality Review</h2>
-
-<p>
-All submitted translations go through quality review.
-</p>
-
-<ul>
-<li>Minimum pass mark: <strong>85%</strong></li>
-<li>Submissions that fail review receive 0 payment</li>
-<li>Rejected submissions receive an explanation</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Payment Distribution</h2>
-
-<ul>
-<li>First translator to pass quality review receives <strong>100%</strong> payment</li>
-<li>Second translator to pass quality review receives <strong>40%</strong> payment</li>
-<li>Third translator to pass quality review receives <strong>20%</strong> payment</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Payment Timeline</h2>
-
-<p>
-Payments are issued within <strong>3–5 working days</strong> after translation work successfully passes quality review.
-</p>
-
-</div>
-
-
-<div class="section">
-
-<h2>Translator Verification</h2>
-
-<p>
-Applicants must provide identification and credentials.
-</p>
-
-<ul>
-<li>National ID</li>
-<li>Professional certification (if available)</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Professional Translation Test</h2>
-
-<p>
-All applicants must complete a professional translation test.
-</p>
-
-<ul>
-<li>The test must be completed inside the SayBon platform</li>
-<li>The test cannot be copied</li>
-<li>The test cannot be exported</li>
-</ul>
-
-</div>
-
-
-<div class="section">
-
-<h2>Registration Form</h2>
-
-<div class="form-group">
-<label>First Name</label>
-<input type="text">
-</div>
-
-<div class="form-group">
-<label>Last Name</label>
-<input type="text">
-</div>
-
-<div class="form-group">
+<div class="field">
 <label>Email</label>
-<input type="email">
+<input id="email">
 </div>
 
-<div class="form-group">
+<div class="field">
 <label>Phone</label>
-<input type="text">
+<input id="phone">
 </div>
 
-<div class="form-group">
+<div class="field">
 <label>Country</label>
-<input type="text">
+<input id="country">
 </div>
 
-<div class="form-group">
+<div class="field">
 <label>Years of Translation Experience</label>
-<input type="number">
+<input id="experience" type="number">
 </div>
 
-<div class="form-group">
+<div class="field">
 <label>Upload National ID</label>
-<input type="file">
+<input type="file" id="idUpload">
+<div class="notice" id="idNotice"></div>
 </div>
 
-<div class="form-group">
+<div class="field">
 <label>Upload Certification</label>
-<input type="file">
+<input type="file" id="certUpload">
+<div class="notice" id="certNotice"></div>
 </div>
 
-<button class="test">Begin Translator Test</button>
-<br>
+<div class="field">
+<label>Upload CV / Resume</label>
+<input type="file" id="cvUpload">
+<div class="notice" id="cvNotice"></div>
+</div>
 
-<button class="submit">Submit Application</button>
+<div class="buttons">
 
-<br>
+<button id="testBtn" class="btn testBtn" disabled>
+Begin Translator Test
+</button>
 
-<button class="back" onclick="history.back()">Back</button>
+<button id="submitBtn" class="btn submitBtn" disabled>
+Submit Application
+</button>
 
 </div>
 
 </div>
+
+<script>
+
+/* ================================
+FILE VALIDATION
+================================ */
+
+const allowed=["pdf","doc","docx","png","jpg","jpeg"];
+
+function validateFile(file,notice){
+
+let ext=file.name.split(".").pop().toLowerCase();
+
+if(!allowed.includes(ext)){
+notice.innerHTML="✖ Invalid file type";
+notice.className="notice reject";
+return false;
+}
+
+if(file.size>10000000){
+notice.innerHTML="✖ File too large (max 10MB)";
+notice.className="notice reject";
+return false;
+}
+
+notice.innerHTML="✓ Document accepted";
+notice.className="notice accept";
+
+return true;
+
+}
+
+/* ================================
+FIELD VALIDATION
+================================ */
+
+const fields=[
+document.getElementById("email"),
+document.getElementById("phone"),
+document.getElementById("country"),
+document.getElementById("experience")
+];
+
+const idUpload=document.getElementById("idUpload");
+const certUpload=document.getElementById("certUpload");
+const cvUpload=document.getElementById("cvUpload");
+
+const idNotice=document.getElementById("idNotice");
+const certNotice=document.getElementById("certNotice");
+const cvNotice=document.getElementById("cvNotice");
+
+let idValid=false;
+let certValid=false;
+let cvValid=false;
+
+idUpload.onchange=()=>{
+idValid=validateFile(idUpload.files[0],idNotice);
+checkForm();
+}
+
+certUpload.onchange=()=>{
+certValid=validateFile(certUpload.files[0],certNotice);
+checkForm();
+}
+
+cvUpload.onchange=()=>{
+cvValid=validateFile(cvUpload.files[0],cvNotice);
+checkForm();
+}
+
+fields.forEach(f=>{
+f.oninput=checkForm;
+});
+
+function checkForm(){
+
+let filled=true;
+
+fields.forEach(f=>{
+if(!f.value) filled=false;
+});
+
+if(filled && idValid && certValid && cvValid){
+
+testBtn.disabled=false;
+submitBtn.disabled=false;
+
+}else{
+
+testBtn.disabled=true;
+submitBtn.disabled=true;
+
+}
+
+}
+
+/* ================================
+BUTTON ACTIONS
+================================ */
+
+const testBtn=document.getElementById("testBtn");
+const submitBtn=document.getElementById("submitBtn");
+
+testBtn.onclick=()=>{
+
+window.location="/translation/translator-test.html";
+
+}
+
+submitBtn.onclick=()=>{
+
+alert("Application submitted. Our team will review your documents.");
+
+window.location="/translation/translators.html";
+
+}
+
+</script>
 
 </body>
 </html>
-
-
