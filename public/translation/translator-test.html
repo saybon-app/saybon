@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>SayBon Translator Test</title>
+<title>Translator Test</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -28,48 +28,56 @@ border-radius:10px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
-h1{
-text-align:center;
-margin-bottom:20px;
+.testBlock{
+margin-bottom:40px;
 }
 
 .timer{
 text-align:center;
-font-size:18px;
-margin-bottom:20px;
-color:#dc2626;
-}
-
-.source{
-background:#f1f5f9;
-padding:20px;
-border-radius:8px;
-margin-bottom:20px;
-user-select:none;
+font-size:20px;
+color:#ef4444;
+margin-bottom:10px;
 }
 
 textarea{
 width:100%;
-height:200px;
+height:180px;
 padding:15px;
+font-size:15px;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:15px;
 resize:none;
+}
+
+.keyboard{
+margin-top:10px;
+display:flex;
+gap:6px;
+flex-wrap:wrap;
+}
+
+.key{
+padding:6px 10px;
+border-radius:6px;
+background:#eee;
+cursor:pointer;
+font-size:14px;
+}
+
+.key:hover{
+background:#ddd;
 }
 
 button{
 margin-top:20px;
 padding:12px 20px;
-border:none;
 border-radius:8px;
+border:none;
 background:#2563eb;
 color:white;
-font-size:16px;
+font-size:15px;
 cursor:pointer;
-
-box-shadow:0 6px 0 #1e40af;
-transition:all .15s ease;
+box-shadow:0 6px 0 rgba(0,0,0,0.25);
 }
 
 button:hover{
@@ -78,7 +86,7 @@ transform:translateY(-2px);
 
 button:active{
 transform:translateY(4px);
-box-shadow:0 2px 0 #1e40af;
+box-shadow:0 2px 0 rgba(0,0,0,0.25);
 }
 
 </style>
@@ -89,100 +97,156 @@ box-shadow:0 2px 0 #1e40af;
 
 <div class="container">
 
-<h1>Translator Qualification Test</h1>
+<!-- TEST 1 -->
 
-<div class="timer" id="timer">
-30:00
-</div>
+<div class="testBlock">
 
-<div class="source">
+<div id="timer1" class="timer">5:00</div>
 
-<strong>Translate the following text into English:</strong>
+<h3>Translate into English</h3>
 
 <p>
-
-La croissance économique dépend fortement de la stabilité politique et de la capacité des institutions à maintenir un environnement favorable aux investissements. Les entreprises recherchent des marchés où les règles sont claires, les infrastructures fiables et la main-d’œuvre qualifiée.
-
+La croissance économique dépend fortement de la stabilité politique et de la capacité des institutions à maintenir un environnement favorable aux investissements.
 </p>
+
+<textarea id="box1" placeholder="Type your English translation here..."></textarea>
 
 </div>
 
-<textarea id="translation" placeholder="Type your translation here..."></textarea>
+<!-- TEST 2 -->
 
-<button onclick="submitTest()">Submit Translation</button>
+<div class="testBlock">
+
+<div id="timer2" class="timer">5:00</div>
+
+<h3>Translate into French</h3>
+
+<p>
+Economic growth depends strongly on political stability and the ability of institutions to maintain a favorable environment for investment.
+</p>
+
+<textarea id="box2" placeholder="Tapez votre traduction française ici..."></textarea>
+
+<div class="keyboard">
+
+<span class="key">é</span>
+<span class="key">è</span>
+<span class="key">ê</span>
+<span class="key">ë</span>
+<span class="key">à</span>
+<span class="key">â</span>
+<span class="key">î</span>
+<span class="key">ï</span>
+<span class="key">ô</span>
+<span class="key">ù</span>
+<span class="key">ç</span>
+<span class="key">œ</span>
+
+</div>
+
+</div>
+
+<button id="submitTest">Submit Test</button>
 
 </div>
 
 <script>
 
-/* ================================
-ANTI COPY PROTECTION
-================================ */
+/* =========================
+TIMER SYSTEM
+========================= */
 
-document.addEventListener("contextmenu", e => e.preventDefault());
+function startTimer(display,textarea){
 
-document.addEventListener("copy", e => e.preventDefault());
+let time=300
 
-document.addEventListener("cut", e => e.preventDefault());
+const timer=setInterval(()=>{
 
-document.addEventListener("paste", e => e.preventDefault());
+let minutes=Math.floor(time/60)
+let seconds=time%60
 
-document.addEventListener("keydown", function(e){
+display.innerText=minutes+":"+String(seconds).padStart(2,"0")
 
-if(e.ctrlKey && (e.key==="c" || e.key==="v" || e.key==="x" || e.key==="p")){
-e.preventDefault();
-}
-
-});
-
-
-/* ================================
-TIMER
-================================ */
-
-let time=1800;
-
-const timerEl=document.getElementById("timer");
-
-function updateTimer(){
-
-let minutes=Math.floor(time/60);
-let seconds=time%60;
-
-timerEl.innerText=
-minutes.toString().padStart(2,"0")+":"+
-seconds.toString().padStart(2,"0");
-
-time--;
+time--
 
 if(time<0){
-submitTest();
+
+clearInterval(timer)
+textarea.disabled=true
+
+}
+
+},1000)
+
+}
+
+/* =========================
+START ON CLICK
+========================= */
+
+const box1=document.getElementById("box1")
+const box2=document.getElementById("box2")
+
+let started1=false
+let started2=false
+
+box1.onclick=()=>{
+
+if(!started1){
+
+startTimer(
+document.getElementById("timer1"),
+box1
+)
+
+started1=true
+
 }
 
 }
 
-setInterval(updateTimer,1000);
+box2.onclick=()=>{
 
+if(!started2){
 
-/* ================================
-SUBMIT TEST
-================================ */
+startTimer(
+document.getElementById("timer2"),
+box2
+)
 
-function submitTest(){
-
-let text=document.getElementById("translation").value;
-
-if(text.length<20){
-
-alert("Translation too short.");
-
-return;
+started2=true
 
 }
 
-alert("Test submitted. Your application will now be reviewed.");
+}
 
-window.location="/translation/translators.html";
+/* =========================
+FRENCH KEYBOARD
+========================= */
+
+const keys=document.querySelectorAll(".key")
+
+keys.forEach(key=>{
+
+key.onclick=()=>{
+
+box2.value+=key.innerText
+
+box2.focus()
+
+}
+
+})
+
+/* =========================
+SUBMIT
+========================= */
+
+document.getElementById("submitTest").onclick=()=>{
+
+alert("Test submitted")
+
+window.location="/translation/translators.html"
 
 }
 
