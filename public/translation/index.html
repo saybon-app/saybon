@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#0f1115;
+color:#d6d6d6;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+}
+
+.container{
+max-width:700px;
+width:90%;
+text-align:center;
+}
+
+.hero{
+width:100%;
+border-radius:18px;
+box-shadow:0 20px 40px rgba(0,0,0,.6);
+margin-bottom:40px;
+}
+
+button{
+width:100%;
+padding:16px;
+margin:12px 0;
+font-size:16px;
+border-radius:12px;
+border:none;
+cursor:pointer;
+transition:.25s;
+}
+
+.request{
+background:linear-gradient(135deg,#4ecdc4,#5dade2);
+color:white;
+}
+
+.translators{
+background:#1f242d;
+color:#e5e5e5;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 20px rgba(0,0,0,.4);
+}
+
+.dashboard{
+margin-top:40px;
+font-size:14px;
+opacity:.7;
+cursor:pointer;
+}
+
+.dashboard:hover{
+opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="/assets/images/translation-hero.jpg" class="hero">
+
+<button class="request" onclick="location.href='/translation/request.html'">
+Request Translation
+</button>
+
+<button class="translators" onclick="location.href='/translation/translators.html'">
+Join Our Pool of Translators
+</button>
+
+<div class="dashboard" onclick="location.href='/dashboard/index.html'">
+← Back to Dashboard
+</div>
+
+</div>
+
+</body>
+
+</html>
