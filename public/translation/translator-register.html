@@ -149,13 +149,13 @@ color:white;
 
 <div class="field">
 <label>Upload Certification</label>
-<input type="file" id="certUpload">
+<input type="file" id="certUpload" multiple>
 <div class="notice" id="certNotice"></div>
 </div>
 
 <div class="field">
 <label>Upload CV / Resume</label>
-<input type="file" id="cvUpload">
+<input type="file" id="cvUpload" multiple>
 <div class="notice" id="cvNotice"></div>
 </div>
 
@@ -181,66 +181,59 @@ FILE VALIDATION
 
 const allowed=["pdf","doc","docx","png","jpg","jpeg"];
 
-function validateFile(file,notice){
+
+function validateFiles(files,notice){
+
+let valid=true;
+
+notice.innerHTML="";
+
+for(let file of files){
 
 let ext=file.name.split(".").pop().toLowerCase();
 
 if(!allowed.includes(ext)){
-notice.innerHTML="✖ Invalid file type";
-notice.className="notice reject";
-return false;
+
+notice.innerHTML+="✖ "+file.name+" invalid file type<br>";
+valid=false;
+
+continue;
+
 }
 
 if(file.size>10000000){
-notice.innerHTML="✖ File too large (max 10MB)";
-notice.className="notice reject";
-return false;
+
+notice.innerHTML+="✖ "+file.name+" too large<br>";
+valid=false;
+
+continue;
+
 }
 
-notice.innerHTML="✓ Document accepted";
+notice.innerHTML+="✓ "+file.name+" accepted<br>";
+
+}
+
+if(valid){
 notice.className="notice accept";
-
-return true;
-
+}else{
+notice.className="notice reject";
 }
 
-/* ================================
-FIELD VALIDATION
-================================ */
+return valid;
 
-const fields=[
-document.getElementById("email"),
-document.getElementById("phone"),
-document.getElementById("country"),
-document.getElementById("experience")
-];
-
-const idUpload=document.getElementById("idUpload");
-const certUpload=document.getElementById("certUpload");
-const cvUpload=document.getElementById("cvUpload");
-
-const idNotice=document.getElementById("idNotice");
-const certNotice=document.getElementById("certNotice");
-const cvNotice=document.getElementById("cvNotice");
-
-let idValid=false;
-let certValid=false;
-let cvValid=false;
-
-idUpload.onchange=()=>{
-idValid=validateFile(idUpload.files[0],idNotice);
-checkForm();
 }
 
 certUpload.onchange=()=>{
-certValid=validateFile(certUpload.files[0],certNotice);
+certValid=validateFiles(certUpload.files,certNotice);
 checkForm();
 }
 
 cvUpload.onchange=()=>{
-cvValid=validateFile(cvUpload.files[0],cvNotice);
+cvValid=validateFiles(cvUpload.files,cvNotice);
 checkForm();
 }
+
 
 fields.forEach(f=>{
 f.oninput=checkForm;
@@ -293,3 +286,4 @@ window.location="/translation/translators.html";
 
 </body>
 </html>
+
