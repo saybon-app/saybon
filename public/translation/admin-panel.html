@@ -35,10 +35,24 @@ h1{
 text-align:center;
 }
 
+.metrics{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+
+.metric{
+background:#eef2ff;
+padding:20px;
+border-radius:8px;
+text-align:center;
+font-weight:600;
+}
+
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:30px;
 }
 
 th,td{
@@ -53,10 +67,6 @@ border-radius:6px;
 cursor:pointer;
 background:#1f6feb;
 color:white;
-}
-
-button:hover{
-opacity:.9;
 }
 
 /* DRAWER */
@@ -80,7 +90,6 @@ right:0;
 
 .close{
 background:#ef4444;
-margin-bottom:10px;
 }
 
 .upload{
@@ -96,7 +105,42 @@ margin-top:15px;
 
 <div class="container">
 
-<h1>SAYBON TRANSLATION ADMIN</h1>
+<h1>SAYBON ADMIN DASHBOARD</h1>
+
+<div class="metrics">
+
+<div class="metric">
+Active Jobs
+<br>
+<span id="activeJobs">0</span>
+</div>
+
+<div class="metric">
+In Progress
+<br>
+<span id="progressJobs">0</span>
+</div>
+
+<div class="metric">
+Delivered Today
+<br>
+<span id="deliveredJobs">0</span>
+</div>
+
+<div class="metric">
+Express Jobs
+<br>
+<span id="expressJobs">0</span>
+</div>
+
+<div class="metric">
+Standard Jobs
+<br>
+<span id="standardJobs">0</span>
+</div>
+
+</div>
+
 
 <table>
 
@@ -121,25 +165,23 @@ margin-top:15px;
 
 <h2 id="dJob"></h2>
 
-<p><strong>Email:</strong> <span id="dEmail"></span></p>
+<p>Email: <span id="dEmail"></span></p>
 
-<p><strong>Words:</strong> <span id="dWords"></span></p>
+<p>Words: <span id="dWords"></span></p>
 
-<p><strong>Plan:</strong> <span id="dPlan"></span></p>
+<p>Plan: <span id="dPlan"></span></p>
 
-<p><strong>Deadline:</strong> <span id="dDeadline"></span></p>
-
-<p><strong>Status:</strong> <span id="dStatus"></span></p>
+<p>Status: <span id="dStatus"></span></p>
 
 <hr>
 
-<p><strong>Accepted Translators</strong></p>
+<p>Accepted Translators</p>
 
 <ul id="dAccepted"></ul>
 
 <hr>
 
-<p><strong>Submissions</strong></p>
+<p>Submissions</p>
 
 <ul id="dSubmissions"></ul>
 
@@ -147,12 +189,11 @@ margin-top:15px;
 
 <input type="file" id="finalFile">
 
-<button class="upload" onclick="uploadFinal()">Upload Final Translation</button>
+<button class="upload" onclick="uploadFinal()">Upload Final</button>
 
 <button onclick="deliverJob()">Mark Delivered</button>
 
 </div>
-
 
 
 <script>
@@ -170,19 +211,34 @@ firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
 
 
-/* LOAD JOBS */
+let currentJob="";
 
-async function loadJobs(){
 
-let snap=await db.collection("translationJobs").get();
+/* REALTIME JOB LISTENER */
+
+db.collection("translationJobs")
+.onSnapshot(snapshot=>{
 
 let table=document.getElementById("jobs");
 
 table.innerHTML="";
 
-snap.forEach(doc=>{
+let active=0;
+let progress=0;
+let delivered=0;
+let express=0;
+let standard=0;
+
+snapshot.forEach(doc=>{
 
 let job=doc.data();
+
+if(job.status==="paid") active++;
+if(job.status==="in_progress") progress++;
+if(job.status==="delivered") delivered++;
+
+if(job.plan==="express") express++;
+if(job.plan==="standard") standard++;
 
 let row=document.createElement("tr");
 
@@ -203,12 +259,13 @@ table.appendChild(row);
 
 });
 
-}
+document.getElementById("activeJobs").innerText=active;
+document.getElementById("progressJobs").innerText=progress;
+document.getElementById("deliveredJobs").innerText=delivered;
+document.getElementById("expressJobs").innerText=express;
+document.getElementById("standardJobs").innerText=standard;
 
-loadJobs();
-
-
-let currentJob="";
+});
 
 
 async function viewJob(id){
@@ -223,10 +280,7 @@ document.getElementById("dJob").innerText=id;
 document.getElementById("dEmail").innerText=job.email||"-";
 document.getElementById("dWords").innerText=job.wordCount||"-";
 document.getElementById("dPlan").innerText=job.plan||"-";
-document.getElementById("dDeadline").innerText=job.deadline||"-";
 document.getElementById("dStatus").innerText=job.status||"-";
-
-/* accepted translators */
 
 let accepted=document.getElementById("dAccepted");
 accepted.innerHTML="";
@@ -237,9 +291,6 @@ li.innerText=t;
 accepted.appendChild(li);
 });
 
-
-/* submissions */
-
 let subs=document.getElementById("dSubmissions");
 subs.innerHTML="";
 
@@ -248,7 +299,6 @@ let li=document.createElement("li");
 li.innerText=s.translatorId;
 subs.appendChild(li);
 });
-
 
 document.getElementById("drawer").classList.add("open");
 
@@ -262,16 +312,12 @@ document.getElementById("drawer").classList.remove("open");
 }
 
 
-/* UPLOAD FINAL */
-
 function uploadFinal(){
 
 alert("Final translation uploaded");
 
 }
 
-
-/* MARK DELIVERED */
 
 async function deliverJob(){
 
@@ -281,11 +327,9 @@ await db.collection("translationJobs")
 status:"delivered"
 });
 
-alert("Job marked delivered");
+alert("Job delivered");
 
 closeDrawer();
-
-loadJobs();
 
 }
 
@@ -293,4 +337,3 @@ loadJobs();
 
 </body>
 </html>
-
