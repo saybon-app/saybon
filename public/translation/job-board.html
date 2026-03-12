@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SayBon Job Board</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f4f6fb;
+margin:0;
+padding:40px;
+}
+
+h1{
+text-align:center;
+margin-bottom:40px;
+}
+
+.board{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card h3{
+margin-top:0;
+}
+
+button{
+margin-top:10px;
+padding:10px 15px;
+border:none;
+border-radius:6px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+button:disabled{
+background:#999;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Available Translation Jobs</h1>
+
+<div class="board" id="board"></div>
+
+<script>
+
+/* FIREBASE */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db=firebase.firestore();
+
+const board=document.getElementById("board");
+
+
+/* LOAD JOBS */
+
+async function loadJobs(){
+
+board.innerHTML="";
+
+let snapshot=await db.collection("translationJobs").get();
+
+snapshot.forEach(async doc=>{
+
+let job=doc.data();
+
+let acceptances=await db
+.collection("jobAcceptances")
+.where("jobId","==",job.jobId)
+.get();
+
+let acceptedCount=acceptances.size;
+
+let card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+
+<h3>Job ${job.jobId}</h3>
+
+<p>Words: ${job.wordCount}</p>
+
+<p>Plan: ${job.plan}</p>
+
+<p>Deadline: ${job.deadline||"-"}</p>
+
+<p>Accepted: ${acceptedCount} / 3</p>
+
+<button id="btn-${job.jobId}">
+${acceptedCount>=3 ? "JOB CLOSED":"ACCEPT JOB"}
+</button>
+
+`;
+
+board.appendChild(card);
+
+let btn=document.getElementById(`btn-${job.jobId}`);
+
+if(acceptedCount>=3){
+
+btn.disabled=true;
+
+}else{
+
+btn.onclick=()=>acceptJob(job.jobId);
+
+}
+
+});
+
+}
+
+
+/* ACCEPT JOB */
+
+async function acceptJob(jobId){
+
+let acceptances=await db
+.collection("jobAcceptances")
+.where("jobId","==",jobId)
+.get();
+
+if(acceptances.size>=3){
+
+alert("This job already has 3 translators.");
+
+return;
+
+}
+
+await db.collection("jobAcceptances").add({
+
+jobId:jobId,
+translatorId:"TR-"+Math.floor(Math.random()*10000),
+acceptedAt:new Date()
+
+});
+
+alert("You accepted the job.");
+
+loadJobs();
+
+}
+
+
+/* INITIAL LOAD */
+
+loadJobs();
+
+</script>
+
+</body>
+</html>
