@@ -8,7 +8,7 @@
 
 <title>SayBon Translation Desk</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -18,7 +18,7 @@
 body{
 
 margin:0;
-font-family:Inter;
+font-family:Quicksand; letter-spacing:.05em; line-height:1.7;
 background:url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6") center/cover no-repeat;
 
 min-height:100vh;
@@ -56,7 +56,7 @@ padding:50px;
 
 box-shadow:0 40px 120px rgba(0,0,0,.6);
 
-color:white;
+color:#cfcfcf;
 
 }
 
@@ -132,7 +132,7 @@ font-size:11px;
 
 background:#3aa46f;
 border-color:#3aa46f;
-color:white;
+color:#cfcfcf;
 
 animation:pop .35s ease;
 
@@ -188,7 +188,7 @@ padding:30px;
 
 border-radius:20px;
 
-color:white;
+color:#cfcfcf;
 
 box-shadow:0 25px 80px rgba(0,0,0,.55);
 
@@ -283,10 +283,10 @@ SayBon Translation Desk
 </div>
 
 <div class="subtitle">
-Your translation is currently being prepared by our professional team.
+Hi <span id="emailGreeting"></span>.<br><br>Your translation is currently being worked on by our team of experts.<br><br>Always check in here for live updates and the final document.
 </div>
 
-<div class="sections">
+<div class="sections" style="grid-template-columns:1fr 1fr 1fr;">
 
 <div>
 
@@ -388,7 +388,7 @@ function startTimer(minutes){
 
 let time=minutes*60
 
-setInterval(()=>{
+setQuicksandval(()=>{
 
 let m=Math.floor(time/60)
 let s=time%60
@@ -416,7 +416,8 @@ return
 const data=doc.data()
 
 document.getElementById("job").innerText=job
-document.getElementById("email").innerText=data.email
+document.getElementById("email").innerText=data.email;
+document.getElementById("emailGreeting").innerText=data.email
 document.getElementById("words").innerText=data.wordCount
 document.getElementById("language").innerText=data.targetLanguage
 document.getElementById("plan").innerText=data.plan
@@ -440,4 +441,5 @@ animateProgress(); load()
 </body>
 
 </html>
+
 
