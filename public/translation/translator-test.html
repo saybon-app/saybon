@@ -43,7 +43,7 @@ margin-bottom:30px;
 
 .timer{
 text-align:center;
-font-size:18px;
+font-size:20px;
 font-weight:600;
 color:#c0392b;
 margin-bottom:30px;
@@ -56,6 +56,12 @@ margin-top:25px;
 .label{
 font-weight:500;
 margin-bottom:12px;
+}
+
+.source{
+font-style:italic;
+margin-bottom:14px;
+color:#444;
 }
 
 textarea{
@@ -84,24 +90,32 @@ height:1px;
 background:#e5e7eb;
 }
 
-.accent-panel{
-margin-top:12px;
-font-size:18px;
-letter-spacing:4px;
-color:#444;
-cursor:pointer;
-user-select:none;
+/* Accent keyboard */
+
+.accent-keyboard{
+margin-top:15px;
+display:flex;
+gap:8px;
+flex-wrap:nowrap;
+overflow-x:auto;
+padding-bottom:4px;
 }
 
-.accent-panel span{
-padding:4px 6px;
-border-radius:4px;
+.accent-key{
+font-size:20px;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+user-select:none;
+background:#f1f5f9;
 transition:.15s;
 }
 
-.accent-panel span:hover{
-background:#eef2ff;
+.accent-key:hover{
+background:#e0e7ff;
 }
+
+/* Submit button */
 
 .submit-wrap{
 margin-top:40px;
@@ -136,11 +150,11 @@ box-shadow:0 8px 18px rgba(0,0,0,0.15);
 <h1>SayBon Translation Test</h1>
 
 <div class="subtitle">
-Type your translation in the appropriate field below.
+Translate the quoted text into the appropriate language below.
 </div>
 
-<div class="timer">
-⏱ 05:00 remaining
+<div class="timer" id="timer">
+05:00
 </div>
 
 
@@ -150,9 +164,9 @@ Type your translation in the appropriate field below.
 English Translation
 </div>
 
-<p>
-Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables.
-</p>
+<div class="source">
+" Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables. "
+</div>
 
 <textarea id="englishBox" placeholder="Type your English translation here..."></textarea>
 
@@ -168,55 +182,46 @@ Toute utilisation non autorisée de ce document est strictement interdite et peu
 Traduction Française
 </div>
 
-<p>
-The system automatically encrypts all sensitive information before it is transmitted to the server.
-</p>
+<div class="source">
+" The system automatically encrypts all sensitive information before it is transmitted to the server. "
+</div>
 
 <textarea id="frenchBox" placeholder="Tapez votre traduction française ici..."></textarea>
 
-<div class="accent-panel" id="accentPanel">
+<div class="accent-keyboard" id="accentKeyboard">
 
-<span>à</span>
-<span>â</span>
-<span>æ</span>
-<span>ç</span>
-<span>é</span>
-<span>è</span>
-<span>ê</span>
-<span>ë</span>
-<span>î</span>
-<span>ï</span>
-<span>ô</span>
-<span>œ</span>
-<span>ù</span>
-<span>û</span>
-<span>ü</span>
-<span>ÿ</span>
-
-<span>À</span>
-<span>Â</span>
-<span>Æ</span>
-<span>Ç</span>
-<span>É</span>
-<span>È</span>
-<span>Ê</span>
-<span>Ë</span>
-<span>Î</span>
-<span>Ï</span>
-<span>Ô</span>
-<span>Œ</span>
-<span>Ù</span>
-<span>Û</span>
-<span>Ü</span>
-<span>Ÿ</span>
-
-<span>«</span>
-<span>»</span>
-<span>–</span>
-<span>—</span>
-<span>…</span>
-<span>€</span>
-<span>£</span>
+<span class="accent-key">à</span>
+<span class="accent-key">â</span>
+<span class="accent-key">æ</span>
+<span class="accent-key">ç</span>
+<span class="accent-key">é</span>
+<span class="accent-key">è</span>
+<span class="accent-key">ê</span>
+<span class="accent-key">ë</span>
+<span class="accent-key">î</span>
+<span class="accent-key">ï</span>
+<span class="accent-key">ô</span>
+<span class="accent-key">œ</span>
+<span class="accent-key">ù</span>
+<span class="accent-key">û</span>
+<span class="accent-key">ü</span>
+<span class="accent-key">ÿ</span>
+<span class="accent-key">À</span>
+<span class="accent-key">Â</span>
+<span class="accent-key">Æ</span>
+<span class="accent-key">Ç</span>
+<span class="accent-key">É</span>
+<span class="accent-key">È</span>
+<span class="accent-key">Ê</span>
+<span class="accent-key">Ë</span>
+<span class="accent-key">Î</span>
+<span class="accent-key">Ï</span>
+<span class="accent-key">Ô</span>
+<span class="accent-key">Œ</span>
+<span class="accent-key">Ù</span>
+<span class="accent-key">Û</span>
+<span class="accent-key">Ü</span>
+<span class="accent-key">Ÿ</span>
 
 </div>
 
@@ -231,20 +236,56 @@ Submit Translation
 
 </div>
 
-
 </div>
 
 
 <script>
 
 let activeBox = null;
+let timerStarted = false;
+let timeLeft = 300;
+let interval = null;
 
-document.getElementById("englishBox").addEventListener("focus",()=>activeBox="englishBox");
-document.getElementById("frenchBox").addEventListener("focus",()=>activeBox="frenchBox");
+const timerDisplay = document.getElementById("timer");
 
-document.querySelectorAll("#accentPanel span").forEach(char=>{
+function startTimer(){
 
-char.addEventListener("click",()=>{
+if(timerStarted) return;
+
+timerStarted = true;
+
+interval = setInterval(()=>{
+
+timeLeft--;
+
+let minutes = Math.floor(timeLeft / 60);
+let seconds = timeLeft % 60;
+
+timerDisplay.textContent =
+String(minutes).padStart(2,'0') + ":" + String(seconds).padStart(2,'0');
+
+if(timeLeft <= 0){
+clearInterval(interval);
+submitTest();
+}
+
+},1000);
+
+}
+
+document.getElementById("englishBox").addEventListener("focus",()=>{
+activeBox="englishBox";
+startTimer();
+});
+
+document.getElementById("frenchBox").addEventListener("focus",()=>{
+activeBox="frenchBox";
+startTimer();
+});
+
+document.querySelectorAll(".accent-key").forEach(key=>{
+
+key.addEventListener("click",()=>{
 
 if(!activeBox)return;
 
@@ -255,9 +296,14 @@ let end = textarea.selectionEnd;
 
 let value = textarea.value;
 
-textarea.value = value.substring(0,start) + char.innerText + value.substring(end);
+textarea.value =
+value.substring(0,start) +
+key.innerText +
+value.substring(end);
 
-textarea.selectionStart = textarea.selectionEnd = start + 1;
+textarea.selectionStart =
+textarea.selectionEnd =
+start + 1;
 
 textarea.focus();
 
