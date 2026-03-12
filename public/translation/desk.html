@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SayBon Translation Desk</title>
 
@@ -15,177 +16,256 @@
 <style>
 
 body{
+
 margin:0;
 font-family:Inter;
-height:100vh;
 background:url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6") center/cover no-repeat;
+
+min-height:100vh;
 display:flex;
-justify-content:center;
+flex-direction:column;
 align-items:center;
+
+padding-top:90px;
+padding-bottom:140px;
+
 }
 
 .overlay{
-position:absolute;
+
+position:fixed;
 top:0;
 left:0;
 right:0;
 bottom:0;
-background:rgba(0,0,0,0.35);
+background:rgba(0,0,0,0.45);
+z-index:-1;
+
 }
 
 .card{
-position:relative;
-z-index:2;
-width:760px;
+
+width:950px;
+max-width:92%;
+
 background:rgba(28,30,34,0.92);
+
 border-radius:22px;
+
 padding:50px;
-box-shadow:0 40px 100px rgba(0,0,0,0.45);
+
+box-shadow:0 40px 120px rgba(0,0,0,.6);
+
+color:white;
+
 }
 
 .title{
+
 font-family:"Playfair Display";
-font-size:28px;
+font-size:30px;
 text-align:center;
 margin-bottom:8px;
+
 }
 
 .subtitle{
+
 text-align:center;
 font-size:14px;
-color:#cfcfcf;
+opacity:.7;
 margin-bottom:40px;
+
+}
+
+.sections{
+
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:30px;
+
+}
+
+.sectionTitle{
+
+font-weight:600;
+margin-bottom:15px;
+opacity:.8;
+
 }
 
 .row{
+
 display:flex;
 justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,0.08);
+margin:8px 0;
+font-size:13px;
+
 }
 
-.label{color:#a5a5a5;}
-.value{font-weight:600;}
+.progressStep{
 
-.progress{margin-top:40px;}
-
-.step{
 display:flex;
 align-items:center;
-margin:12px 0;
-font-size:14px;
+margin:10px 0;
+font-size:13px;
+
 }
 
 .check{
-width:20px;
-height:20px;
+
+width:18px;
+height:18px;
 border-radius:50%;
-border:2px solid #bbb;
+border:2px solid #aaa;
 margin-right:10px;
+
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:12px;
+
+font-size:11px;
+
 }
 
 .done{
-border-color:#3aa46f;
+
 background:#3aa46f;
+border-color:#3aa46f;
 color:white;
-animation:pop .4s ease;
+
+animation:pop .35s ease;
+
 }
 
 @keyframes pop{
-0%{transform:scale(.4)}
-100%{transform:scale(1)}
-}
 
-.timerWrapper{
-margin-top:40px;
-display:flex;
-justify-content:center;
+0%{transform:scale(.5)}
+100%{transform:scale(1)}
+
 }
 
 .timer{
-width:120px;
-height:120px;
+
+width:130px;
+height:130px;
+
 border-radius:50%;
-border:8px solid #ddd;
+
+border:8px solid rgba(255,255,255,.2);
+
 display:flex;
 align-items:center;
 justify-content:center;
-font-weight:600;
-font-size:18px;
-position:relative;
-}
 
-.timer::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-border-radius:50%;
-border:8px solid rgba(0,0,0,0.1);
+font-size:20px;
+font-weight:600;
+
+margin:auto;
+
 animation:pulse 2s infinite;
+
 }
 
 @keyframes pulse{
-0%{transform:scale(1);opacity:.8}
-50%{transform:scale(1.08);opacity:.4}
-100%{transform:scale(1);opacity:.8}
+
+0%{transform:scale(1)}
+50%{transform:scale(1.05)}
+100%{transform:scale(1)}
+
 }
 
-.activityFeed{
-margin-top:40px;
-border-top:1px solid #eee;
-padding-top:20px;
+.activity{
+
+width:950px;
+max-width:92%;
+
+margin-top:30px;
+
+background:rgba(28,30,34,0.92);
+
+padding:30px;
+
+border-radius:20px;
+
+color:white;
+
+box-shadow:0 25px 80px rgba(0,0,0,.55);
+
 }
 
 .feedTitle{
+
+margin-bottom:15px;
 font-weight:600;
-margin-bottom:12px;
+
 }
 
 .feedItem{
-background:rgba(255,255,255,0.06);
+
+background:rgba(255,255,255,.06);
+
 padding:10px 14px;
+
 border-radius:10px;
+
 margin-bottom:8px;
+
 font-size:13px;
+
 opacity:0;
-transform:translateY(10px);
-animation:feedIn .5s forwards;
+transform:translateY(8px);
+
+animation:feedIn .45s forwards;
+
 }
 
 @keyframes feedIn{
+
 to{
+
 opacity:1;
 transform:translateY(0);
+
 }
+
 }
 
 .dashboardButton{
+
 position:fixed;
 bottom:30px;
+
 left:50%;
 transform:translateX(-50%);
+
 background:white;
-padding:14px 28px;
+color:#222;
+
+padding:14px 30px;
+
 border-radius:30px;
+
 font-size:14px;
+
 text-decoration:none;
-color:#333;
-box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+box-shadow:0 12px 30px rgba(0,0,0,.4);
+
 transition:.25s;
+
 }
 
 .dashboardButton:hover{
+
 transform:translateX(-50%) translateY(-3px);
-box-shadow:0 18px 40px rgba(0,0,0,.45);
+
 }
 
 .dashboardButton:active{
-transform:translateX(-50%) scale(.96);
+
+transform:translateX(-50%) scale(.95);
+
 }
 
 </style>
@@ -198,40 +278,68 @@ transform:translateX(-50%) scale(.96);
 
 <div class="card">
 
-<div class="title">SayBon Translation Desk</div>
+<div class="title">
+SayBon Translation Desk
+</div>
 
 <div class="subtitle">
-Welcome back. Your translation is progressing smoothly.
+Your translation is currently being prepared by our professional team.
 </div>
 
-<div class="row"><div class="label">Job Code</div><div class="value" id="jobId"></div></div>
-<div class="row"><div class="label">Client</div><div class="value" id="email"></div></div>
-<div class="row"><div class="label">Word Count</div><div class="value" id="words"></div></div>
-<div class="row"><div class="label">Target Language</div><div class="value" id="language"></div></div>
-<div class="row"><div class="label">Plan</div><div class="value" id="plan"></div></div>
-<div class="row"><div class="label">Price</div><div class="value" id="price"></div></div>
+<div class="sections">
 
-<div class="progress">
+<div>
 
-<div class="step"><div class="check done">✓</div>Payment received</div>
-<div class="step"><div class="check done">✓</div>Translation queued</div>
-<div class="step"><div class="check" id="progressCheck"></div>Translation in progress</div>
-<div class="step"><div class="check"></div>Quality review</div>
-<div class="step"><div class="check"></div>Delivery</div>
+<div class="sectionTitle">
+Job Information
+</div>
+
+<div class="row"><div>Job Code</div><div id="job"></div></div>
+<div class="row"><div>Email</div><div id="email"></div></div>
+<div class="row"><div>Words</div><div id="words"></div></div>
+<div class="row"><div>Language</div><div id="language"></div></div>
+<div class="row"><div>Plan</div><div id="plan"></div></div>
+<div class="row"><div>Price</div><div id="price"></div></div>
 
 </div>
 
-<div class="timerWrapper">
-<div class="timer" id="timer">--</div>
+<div>
+
+<div class="sectionTitle">
+Translation Progress
 </div>
 
-<div class="activityFeed">
+<div class="progressStep"><div class="check done">✓</div>Payment received</div>
+<div class="progressStep"><div class="check done">✓</div>Translation queued</div>
+<div class="progressStep"><div class="check done" id="progress">✓</div>Translation in progress</div>
+<div class="progressStep"><div class="check"></div>Quality review</div>
+<div class="progressStep"><div class="check"></div>Delivery</div>
 
-<div class="feedTitle">Activity</div>
+</div>
+
+<div>
+
+<div class="sectionTitle">
+Delivery Timer
+</div>
+
+<div class="timer" id="timer">
+--
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="activity">
+
+<div class="feedTitle">
+Live Activity
+</div>
 
 <div id="feed"></div>
-
-</div>
 
 </div>
 
@@ -242,27 +350,40 @@ Return to Dashboard
 <script>
 
 const firebaseConfig={
+
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
 authDomain:"saybon-3e3c2.firebaseapp.com",
 projectId:"saybon-3e3c2",
 storageBucket:"saybon-3e3c2.firebasestorage.app",
 messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+
 };
 
 firebase.initializeApp(firebaseConfig)
+
 const db=firebase.firestore()
 
 const params=new URLSearchParams(window.location.search)
-const jobId=params.get("job")
 
-let countdown
+const job=params.get("job")
+
+function addFeed(text){
+
+const item=document.createElement("div")
+
+item.className="feedItem"
+item.innerText=text
+
+document.getElementById("feed").prepend(item)
+
+}
 
 function startTimer(minutes){
 
 let time=minutes*60
 
-countdown=setInterval(()=>{
+setInterval(()=>{
 
 let m=Math.floor(time/60)
 let s=time%60
@@ -271,36 +392,25 @@ document.getElementById("timer").innerText=m+":"+String(s).padStart(2,"0")
 
 time--
 
-if(time<=0){
-clearInterval(countdown)
-}
-
 },1000)
 
 }
 
-function addFeed(text){
+async function load(){
 
-const div=document.createElement("div")
-div.className="feedItem"
-div.innerText=text
-
-document.getElementById("feed").prepend(div)
-
-}
-
-async function loadJob(){
-
-const doc=await db.collection("translationJobs").doc(jobId).get()
+const doc=await db.collection("translationJobs").doc(job).get()
 
 if(!doc.exists){
+
 alert("Job not found")
+
 return
+
 }
 
 const data=doc.data()
 
-document.getElementById("jobId").innerText=jobId
+document.getElementById("job").innerText=job
 document.getElementById("email").innerText=data.email
 document.getElementById("words").innerText=data.wordCount
 document.getElementById("language").innerText=data.targetLanguage
@@ -311,9 +421,6 @@ const minutes=data.wordCount*0.6
 
 startTimer(minutes)
 
-document.getElementById("progressCheck").classList.add("done")
-document.getElementById("progressCheck").innerText="✓"
-
 addFeed("Translator assigned")
 setTimeout(()=>addFeed("Translation started"),2000)
 setTimeout(()=>addFeed("20% translated"),5000)
@@ -321,10 +428,10 @@ setTimeout(()=>addFeed("Quality review scheduled"),8000)
 
 }
 
-loadJob()
+load()
 
 </script>
 
 </body>
-</html>
 
+</html>
