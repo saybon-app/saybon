@@ -10,10 +10,16 @@
 body{
 font-family:Poppins;
 background:#f5f7fb;
+margin:0;
 padding:40px;
 }
 
-.box{
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
 background:white;
 padding:25px;
 border-radius:10px;
@@ -21,17 +27,18 @@ margin-bottom:30px;
 box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-.text{
+.source{
 font-size:18px;
 margin-bottom:15px;
 color:#333;
+line-height:1.5;
 }
 
 textarea{
 width:100%;
-height:150px;
-font-size:16px;
+height:160px;
 padding:10px;
+font-size:16px;
 border-radius:6px;
 border:1px solid #ccc;
 }
@@ -59,28 +66,36 @@ font-size:16px;
 
 <body>
 
-<div class="box">
+<div class="container">
+
+<div class="card">
 
 <div id="timer1" class="timer">5:00</div>
 
-<div id="frenchText" class="text"></div>
+<div id="frenchText" class="source">
+Loading test...
+</div>
 
 <textarea id="box1" placeholder="Type your English translation here..."></textarea>
 
 </div>
 
 
-<div class="box">
+<div class="card">
 
 <div id="timer2" class="timer">5:00</div>
 
-<div id="englishText" class="text"></div>
+<div id="englishText" class="source">
+Loading test...
+</div>
 
 <textarea id="box2" placeholder="Tapez votre traduction française ici..."></textarea>
 
 </div>
 
 <button id="submitTest">Submit Translation</button>
+
+</div>
 
 
 <script>
@@ -89,12 +104,15 @@ let frenchTest=""
 let englishTest=""
 
 /* ==========================================
-LOAD RANDOM TEST
+LOAD TEST
 ========================================== */
 
-fetch("/api/getTranslationTest")
-.then(res=>res.json())
-.then(data=>{
+async function loadTest(){
+
+try{
+
+const res=await fetch("/api/getTranslationTest")
+const data=await res.json()
 
 frenchTest=data.frenchTest
 englishTest=data.englishTest
@@ -102,7 +120,19 @@ englishTest=data.englishTest
 document.getElementById("frenchText").innerText=frenchTest
 document.getElementById("englishText").innerText=englishTest
 
-})
+}catch(e){
+
+document.getElementById("frenchText").innerText=
+"Error loading test. Please refresh."
+
+document.getElementById("englishText").innerText=
+"Error loading test. Please refresh."
+
+}
+
+}
+
+loadTest()
 
 /* ==========================================
 TIMERS
@@ -132,8 +162,6 @@ box.disabled=true
 
 }
 
-/* start timer when box clicked */
-
 document.getElementById("box1").addEventListener("focus",()=>{
 
 startTimer(
@@ -142,7 +170,6 @@ document.getElementById("timer1")
 )
 
 },{once:true})
-
 
 document.getElementById("box2").addEventListener("focus",()=>{
 
@@ -153,9 +180,8 @@ document.getElementById("timer2")
 
 },{once:true})
 
-
 /* ==========================================
-SUBMIT TEST
+SUBMIT
 ========================================== */
 
 document.getElementById("submitTest").onclick=async()=>{
