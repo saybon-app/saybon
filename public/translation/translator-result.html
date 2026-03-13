@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -61,34 +62,19 @@ th{
 background:#f1f4ff;
 }
 
-.passkey-box{
-margin-top:30px;
-padding:20px;
-background:#fff1f2;
-border:2px solid #dc2626;
-border-radius:10px;
-text-align:center;
-display:none;
+.passkey{
+background:#ecfdf5;
+padding:15px;
+border-radius:8px;
+margin-top:20px;
+font-weight:600;
 }
 
-.passkey-code{
-display:inline-block;
-margin-top:10px;
-padding:14px 22px;
-background:#7f1d1d;
-color:white;
-font-family:monospace;
-font-size:20px;
-letter-spacing:3px;
-border-radius:6px;
-cursor:pointer;
-}
-
-.passkey-note{
-margin-top:10px;
-font-size:13px;
-color:#991b1b;
-font-weight:500;
+.docs{
+background:#f9fafb;
+padding:15px;
+border-radius:8px;
+margin-top:20px;
 }
 
 .buttons{
@@ -164,18 +150,35 @@ background:#64748b;
 
 </table>
 
-<div class="passkey-box" id="passkeyBox">
+<div class="docs">
 
-<div><strong>Your Translator Job Key</strong></div>
+<h3>Document Verification</h3>
 
-<div class="passkey-code" id="passkeyCode"></div>
+<table>
 
-<div class="passkey-note">
-This key gives access to SayBon translation jobs.<br>
-Do NOT share it with anyone.
+<tr>
+<th>Document</th>
+<th>Type</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>National Identification</td>
+<td id="idType"></td>
+<td>Verified</td>
+</tr>
+
+<tr>
+<td>Certification</td>
+<td id="certType"></td>
+<td>Verified</td>
+</tr>
+
+</table>
+
 </div>
 
-</div>
+<div id="passkeyBox" class="passkey" style="display:none"></div>
 
 <div class="buttons">
 
@@ -194,28 +197,28 @@ Return To Dashboard
 <script>
 
 /* =========================================
-SIMULATED SCORES (replace with AI later)
+SIMULATED AI RESULTS (replace later)
 ========================================= */
 
-const accuracy=82
-const terminology=62
-const grammar=67
-const tone=67
+const accuracy = Math.floor(Math.random()*30)+60
+const terminology = Math.floor(Math.random()*30)+60
+const grammar = Math.floor(Math.random()*30)+60
+const tone = Math.floor(Math.random()*30)+60
 
-const total=Math.round((accuracy+terminology+grammar+tone)/4)
+const total = Math.round((accuracy+terminology+grammar+tone)/4)
 
 /* =========================================
 DISPLAY SCORES
 ========================================= */
 
-document.getElementById("accuracy").innerText=accuracy+"%"
-document.getElementById("terminology").innerText=terminology+"%"
-document.getElementById("grammar").innerText=grammar+"%"
-document.getElementById("tone").innerText=tone+"%"
-document.getElementById("totalScore").innerText=total+"%"
+document.getElementById("accuracy").innerText = accuracy+"%"
+document.getElementById("terminology").innerText = terminology+"%"
+document.getElementById("grammar").innerText = grammar+"%"
+document.getElementById("tone").innerText = tone+"%"
+document.getElementById("totalScore").innerText = total+"%"
 
 function status(score){
-return score>=75 ? "Pass":"Review"
+return score>=75 ? "Pass" : "Review"
 }
 
 document.getElementById("accuracyStatus").innerText=status(accuracy)
@@ -224,7 +227,14 @@ document.getElementById("grammarStatus").innerText=status(grammar)
 document.getElementById("toneStatus").innerText=status(tone)
 
 /* =========================================
-PASS / FAIL LOGIC
+DOCUMENT TYPE DETECTION (SIMULATED)
+========================================= */
+
+document.getElementById("idType").innerText="Passport"
+document.getElementById("certType").innerText="DELF B2"
+
+/* =========================================
+FINAL RESULT
 ========================================= */
 
 const statusBox=document.getElementById("status")
@@ -238,9 +248,8 @@ statusBox.classList.add("pass")
 
 const passkey="SB-"+Math.random().toString(36).substring(2,10).toUpperCase()
 
-document.getElementById("passkeyCode").innerText=passkey
-
 passkeyBox.style.display="block"
+passkeyBox.innerHTML="Translator Passkey: "+passkey
 
 jobBtn.style.display="inline-block"
 
@@ -254,18 +263,6 @@ document.getElementById("totalStatus").innerText="Below Entry Threshold"
 }
 
 /* =========================================
-COPY PASSKEY
-========================================= */
-
-document.getElementById("passkeyCode").onclick=function(){
-
-navigator.clipboard.writeText(this.innerText)
-
-this.innerText="Copied ✔"
-
-}
-
-/* =========================================
 BUTTONS
 ========================================= */
 
@@ -274,7 +271,7 @@ window.location="/translation/translator-dashboard.html"
 }
 
 document.getElementById("dashBtn").onclick=()=>{
-window.location="/dashboard/index.html"
+window.location="/public/dashboard/index.html"
 }
 
 </script>
