@@ -1,12 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+<script type='module' src='/js/auth-guard.js'></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translation Order – SayBon</title>
+<title>Confirm Translation � SayBon</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -19,134 +20,54 @@ body{
 margin:0;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
 display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
-color:#6e6e73;
 }
 
 .card{
-background:rgba(255,255,255,0.65);
+background:rgba(255,255,255,0.6);
 backdrop-filter:blur(20px);
-border-radius:28px;
-padding:48px;
-width:460px;
-box-shadow:0 15px 40px rgba(0,0,0,0.08);
+border-radius:30px;
+padding:40px;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 text-align:center;
 }
 
 .title{
-letter-spacing:5px;
-font-weight:600;
-margin-bottom:28px;
-font-size:20px;
+letter-spacing:3px;
+font-weight:500;
+margin-bottom:20px;
 }
-
-/* CODE BOX */
-
-.codeBox{
-
-background:#f4f6f8;
-border:1px solid #d9dee4;
-border-radius:10px;
-
-padding:16px 18px;
-
-font-family:monospace;
-font-size:18px;
-letter-spacing:2px;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-margin-bottom:6px;
-
-}
-
-/* COPY BUTTON */
-
-.copyBtn{
-
-cursor:pointer;
-
-font-size:13px;
-color:#555;
-
-display:flex;
-align-items:center;
-gap:6px;
-
-padding:5px 10px;
-
-border-radius:6px;
-
-transition:all .2s ease;
-
-}
-
-.copyBtn:hover{
-background:#eceff3;
-}
-
-.copyBtn:active{
-transform:scale(.92);
-}
-
-/* RED NOTE */
-
-.copyNote{
-font-size:12px;
-color:#d33;
-margin-bottom:18px;
-}
-
-/* ORDER INFO */
 
 .row{
 margin:10px 0;
-font-size:15px;
+font-size:14px;
 }
 
 .price{
-font-size:30px;
+font-size:26px;
 font-weight:600;
-margin-top:18px;
+margin-top:15px;
 }
-
-/* BUTTON */
 
 .payBtn{
-
-margin-top:28px;
-
+margin-top:25px;
 width:100%;
-
 background:#1e8e8e;
-
 color:white;
-
 border:none;
-
-padding:15px;
-
+padding:14px;
 border-radius:12px;
-
 cursor:pointer;
-
-font-size:16px;
-
-transition:.2s;
-
-}
-
-.payBtn:hover{
-transform:translateY(-2px);
+transition:0.2s;
 }
 
 .payBtn:active{
-transform:scale(.96);
+transform:scale(0.96);
 }
 
 </style>
@@ -158,22 +79,10 @@ transform:scale(.96);
 <div class="card">
 
 <div class="title">
-TRANSLATION ORDER
+CONFIRM TRANSLATION
 </div>
 
-<div class="codeBox">
-
-<span id="job"></span>
-
-<div class="copyBtn" id="copyBtn" onclick="copyCode()">
-📋 Copy
-</div>
-
-</div>
-
-<div class="copyNote">
-Copy this code
-</div>
+<div id="job"></div>
 
 <div class="row">
 Plan: <span id="plan"></span>
@@ -184,7 +93,7 @@ Words: <span id="words"></span>
 </div>
 
 <div class="row">
-Target Language: <span id="language"></span>
+Language: <span id="language"></span>
 </div>
 
 <div class="price" id="price"></div>
@@ -198,17 +107,16 @@ PAY SECURELY
 <script>
 
 const firebaseConfig = {
-
-apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-authDomain:"saybon-3e3c2.firebaseapp.com",
-projectId:"saybon-3e3c2",
-storageBucket:"saybon-3e3c2.firebasestorage.app",
-messagingSenderId:"75085012344",
-appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-
-}
+  apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+  authDomain: "saybon-3e3c2.firebaseapp.com",
+  projectId: "saybon-3e3c2",
+  storageBucket: "saybon-3e3c2.firebasestorage.app",
+  messagingSenderId: "75085012344",
+  appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
 
 firebase.initializeApp(firebaseConfig)
+
 const db = firebase.firestore()
 
 const params = new URLSearchParams(window.location.search)
@@ -225,17 +133,15 @@ document.getElementById("language").innerText = language
 function generateJobId(){
 
 const rand = Math.random().toString(36).substring(2,6).toUpperCase()
-
-return "SB-" + rand
+return "SB-" + Date.now() + "-" + rand
 
 }
 
 const job = generateJobId()
 
-document.getElementById("job").innerText = job
+document.getElementById("job").innerText = "Job Code: " + job
 
 let rate = plan === "express" ? 0.05 : 0.025
-
 let total = Math.max(words,100) * rate
 
 document.getElementById("price").innerText = "$" + total.toFixed(2)
@@ -246,8 +152,8 @@ async function startPayment(){
 
 const button = document.getElementById("payButton")
 
-button.innerText="Processing..."
-button.disabled=true
+button.innerText = "Processing..."
+button.disabled = true
 
 await db.collection("translationJobs").doc(job).set({
 
@@ -262,47 +168,19 @@ createdAt:new Date()
 
 })
 
-localStorage.setItem("saybon_last_job",job)
+let link = ""
 
-let link=""
+if(plan === "express"){
 
-if(plan==="express"){
-
-link="https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
+link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
 
 }else{
 
-link="https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
+link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
 
 }
 
-window.location=link
-
-}
-
-/* COPY FUNCTION */
-
-function copyCode(){
-
-const code=document.getElementById("job").innerText
-
-const btn=document.getElementById("copyBtn")
-
-navigator.clipboard.writeText(code)
-
-btn.innerHTML="✓ Copied"
-
-btn.style.background="#e8f7ee"
-btn.style.color="#1a7f37"
-
-setTimeout(()=>{
-
-btn.innerHTML="📋 Copy"
-
-btn.style.background="transparent"
-btn.style.color="#555"
-
-},1500)
+window.location = link + "?client_reference_id=" + job
 
 }
 
@@ -310,3 +188,4 @@ btn.style.color="#555"
 
 </body>
 </html>
+
