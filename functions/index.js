@@ -7,7 +7,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: functions.config().openai.key
 });
 
 
@@ -96,3 +96,4 @@ status:"evaluation_failed"
 }
 
 });
+
