@@ -559,3 +559,28 @@ error:"Translator evaluation failed"
 
 })
 
+
+app.get("/api/applicationResult", async (req,res)=>{
+
+try{
+
+const id=req.query.id
+
+const doc=await db.collection("translatorApplications").doc(id).get()
+
+if(!doc.exists){
+
+return res.status(404).json({error:"Application not found"})
+
+}
+
+res.json(doc.data())
+
+}catch(err){
+
+res.status(500).json({error:"Failed to fetch result"})
+
+}
+
+})
+
