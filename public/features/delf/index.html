@@ -5,6 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayBon DELF Preparation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,25 +15,55 @@
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:#f6f8fb;
+
+background:
+radial-gradient(circle at top,#f3f7ff 0%,#ffffff 60%);
+
 color:#3a3a3a;
 }
 
 .wrapper{
 max-width:720px;
 margin:auto;
-padding:40px 20px;
+padding:60px 30px;
 text-align:center;
+
+background:white;
+border-radius:26px;
+
+box-shadow:0 40px 90px rgba(0,0,0,0.08);
 }
 
 .hero-img{
-margin-bottom:20px;
+display:flex;
+justify-content:center;
+margin-bottom:30px;
+position:relative;
 }
 
 .hero-img img{
-max-width:380px;
-border-radius:20px;
-box-shadow:0 20px 60px rgba(0,0,0,0.08);
+width:220px;
+height:220px;
+
+object-fit:cover;
+
+border-radius:50%;
+
+border:6px solid white;
+
+box-shadow:0 18px 40px rgba(0,0,0,0.12);
+}
+
+.hero-img::after{
+content:'';
+position:absolute;
+
+width:260px;
+height:260px;
+
+border-radius:50%;
+
+border:3px solid #e7ecff;
 }
 
 h1{
@@ -44,33 +75,57 @@ font-weight:600;
 .subtitle{
 font-size:16px;
 color:#6b6b6b;
-margin-bottom:30px;
+margin-bottom:35px;
 }
 
 .primary-btn{
-background:#2d6cdf;
+
+background:linear-gradient(135deg,#4b7cff,#6ea2ff);
+
 color:white;
+
 border:none;
-padding:14px 22px;
-border-radius:10px;
+
+padding:14px 28px;
+
+border-radius:30px;
+
 font-size:15px;
+
+font-weight:500;
+
 cursor:pointer;
-transition:0.2s;
+
+box-shadow:0 10px 25px rgba(77,110,255,0.25);
+
+transition:0.25s;
+
 }
 
 .primary-btn:hover{
+
 transform:translateY(-2px);
-box-shadow:0 6px 18px rgba(0,0,0,0.15);
+
+box-shadow:0 16px 35px rgba(77,110,255,0.35);
+
 }
 
 .card{
+
 display:none;
-margin-top:30px;
+
+margin-top:40px;
+
 background:white;
+
 padding:32px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
+border-radius:20px;
+
+box-shadow:0 15px 45px rgba(0,0,0,0.08);
+
 text-align:left;
+
 }
 
 .section{
@@ -83,24 +138,26 @@ margin-bottom:10px;
 }
 
 .notice{
-background:#ffecec;
-padding:18px;
-border-radius:12px;
-border-left:4px solid #ff4c4c;
-font-size:15px;
-}
 
-.steps{
-margin-top:15px;
+background:#fff1f1;
+
+padding:18px;
+
+border-radius:12px;
+
+border-left:4px solid #ff4c4c;
+
+font-size:15px;
+
 }
 
 .steps div{
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
 .fees{
 margin-top:15px;
-line-height:1.8;
+line-height:1.9;
 }
 
 .cta{
@@ -109,13 +166,21 @@ text-align:center;
 }
 
 .close-btn{
-margin-top:25px;
+
+margin-top:20px;
+
 background:#444;
+
 color:white;
+
 border:none;
-padding:12px 18px;
+
+padding:12px 20px;
+
 border-radius:10px;
+
 cursor:pointer;
+
 }
 
 </style>
@@ -127,32 +192,41 @@ cursor:pointer;
 <div class="wrapper">
 
 <div class="hero-img">
+
 <img src="/assets/images/delf-prep-teacher.png" alt="Teacher helping student prepare for DELF">
+
 </div>
 
 <h1>SayBon DELF Preparation</h1>
 
 <div class="subtitle">
+
 Prepare confidently for the official DELF exam through structured mock-based training.
+
 </div>
 
 <button class="primary-btn" onclick="openInfo()">
+
 Learn Everything About This Service
+
 </button>
 
 <div class="card" id="infoCard">
 
 <div class="section">
+
 <h2>Important to Know</h2>
 
 <div class="notice">
-SayBon is not an official DELF examination centre. We do not administer the official exam,
-issue certificates, or register candidates for the exam. Our role is to prepare you so that
-you feel confident and ready when you take the official DELF exam.
+
+SayBon is not an official DELF examination centre. We do not administer the official exam, issue certificates, or register candidates for the exam. Our role is to prepare you so that you feel confident and ready when you take the official DELF exam.
+
 </div>
+
 </div>
 
 <div class="section">
+
 <h2>How Preparation Works</h2>
 
 <div class="steps">
@@ -168,9 +242,11 @@ you feel confident and ready when you take the official DELF exam.
 <div>5. Track your readiness before taking the real exam.</div>
 
 </div>
+
 </div>
 
 <div class="section">
+
 <h2>Preparation Fees</h2>
 
 <div class="fees">
@@ -193,18 +269,23 @@ B2 — $30<br>
 C1 — $40
 
 </div>
+
 </div>
 
 <div class="cta">
 
 <button class="primary-btn" onclick="window.location.href='/features/delf/test.html'">
+
 Take Free Level Recommendation Test
+
 </button>
 
 <br>
 
 <button class="close-btn" onclick="closeInfo()">
+
 Close Information
+
 </button>
 
 </div>
