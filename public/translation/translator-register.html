@@ -60,8 +60,6 @@ margin-top:6px;
 .accept{color:green}
 .reject{color:red}
 
-/* Upload bucket */
-
 #uploadBucket{
 border:1px solid #ddd;
 border-radius:8px;
@@ -70,8 +68,6 @@ background:#fafafa;
 min-height:60px;
 font-size:14px;
 }
-
-/* buttons */
 
 .buttons{
 margin-top:30px;
@@ -104,7 +100,6 @@ transform:translateY(4px);
 box-shadow:0 2px 0 rgba(0,0,0,0.25);
 }
 
-.testBtn{background:#22c55e;color:white}
 .submitBtn{background:#2563eb;color:white}
 
 .removeBtn{
@@ -170,10 +165,6 @@ cursor:pointer;
 
 <div class="buttons">
 
-<button id="testBtn" class="btn testBtn" disabled>
-Begin Translator Test
-</button>
-
 <button id="submitBtn" class="btn submitBtn" disabled>
 Submit Application
 </button>
@@ -205,7 +196,6 @@ const cvNotice=document.getElementById("cvNotice")
 
 const uploadBucket=document.getElementById("uploadBucket")
 
-const testBtn=document.getElementById("testBtn")
 const submitBtn=document.getElementById("submitBtn")
 
 /* ======================
@@ -333,22 +323,16 @@ if(!f.value) filled=false
 })
 
 if(filled && idValid && certValid && cvValid){
-testBtn.disabled=false
 submitBtn.disabled=false
 }else{
-testBtn.disabled=true
 submitBtn.disabled=true
 }
 
 }
 
 /* ======================
-BUTTONS
+SUBMIT
 ====================== */
-
-testBtn.onclick=()=>{
-window.location="/translation/translator-test.html"
-}
 
 submitBtn.onclick=()=>{
 alert("Application submitted")
@@ -359,4 +343,5 @@ window.location="/translation/translators.html"
 
 </body>
 </html>
+
 <script type="module" src="/translation/translator-register.js"></script>
