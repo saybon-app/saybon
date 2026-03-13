@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -734,3 +734,113 @@ loadTest();
 </script>
 </body>
 </html>
+
+
+<style>
+
+.wave{
+display:flex;
+gap:4px;
+height:40px;
+margin-top:12px;
+align-items:flex-end;
+}
+
+.bar{
+width:4px;
+background:#4f8cff;
+animation:wave 1s infinite ease-in-out;
+}
+
+.bar:nth-child(2){animation-delay:0.1s}
+.bar:nth-child(3){animation-delay:0.2s}
+.bar:nth-child(4){animation-delay:0.3s}
+.bar:nth-child(5){animation-delay:0.4s}
+.bar:nth-child(6){animation-delay:0.5s}
+.bar:nth-child(7){animation-delay:0.6s}
+
+@keyframes wave{
+0%{height:8px}
+50%{height:38px}
+100%{height:8px}
+}
+
+</style>
+
+
+<script>
+
+let mediaRecorder=null
+let audioChunks=[]
+let currentSpeakingIndex=null
+
+async function startRecording(index){
+
+if(mediaRecorder){
+return
+}
+
+currentSpeakingIndex=index
+
+const stream=await navigator.mediaDevices.getUserMedia({audio:true})
+
+mediaRecorder=new MediaRecorder(stream)
+
+audioChunks=[]
+
+mediaRecorder.start()
+
+const status=document.getElementById("rec"+index)
+
+status.innerHTML=
+"Recording..." +
+"<div class='wave'>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"<div class='bar'></div>" +
+"</div>"
+
+mediaRecorder.ondataavailable=e=>{
+audioChunks.push(e.data)
+}
+
+}
+
+async function stopRecording(){
+
+if(!mediaRecorder){
+return
+}
+
+mediaRecorder.stop()
+
+mediaRecorder.onstop=async()=>{
+
+const blob=new Blob(audioChunks,{type:"audio/webm"})
+
+const path="placement-audio/"+Date.now()+".webm"
+
+const ref=firebase.storage().ref(path)
+
+await ref.put(blob)
+
+const url=await ref.getDownloadURL()
+
+answers[currentSpeakingIndex]=url
+
+document.getElementById("rec"+currentSpeakingIndex).innerText="Recording saved"
+
+mediaRecorder=null
+audioChunks=[]
+currentSpeakingIndex=null
+
+}
+
+}
+
+</script>
+
