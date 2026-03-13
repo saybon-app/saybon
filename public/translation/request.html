@@ -551,3 +551,44 @@ name:file.name
 
 
 
+
+<script>
+
+async function createJob(){
+
+const wordCount=parseInt(
+document.getElementById("wordCount").innerText
+)
+
+const service=document.querySelector(
+"input[name=service]:checked"
+).value
+
+const email=document.getElementById("clientEmail").value
+
+const res=await fetch("/api/createTranslationJob",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+clientEmail:email,
+wordCount:wordCount,
+service:service
+
+})
+
+})
+
+const data=await res.json()
+
+alert("Translation job created. Job ID: "+data.jobId)
+
+}
+
+</script>
+
