@@ -844,3 +844,103 @@ currentSpeakingIndex=null
 
 </script>
 
+
+
+<script>
+
+let recorder=null
+let recordingStream=null
+let audioChunks=[]
+let activeQuestion=null
+
+
+async function startRecording(index){
+
+if(recorder){
+return
+}
+
+activeQuestion=index
+
+recordingStream=await navigator.mediaDevices.getUserMedia({audio:true})
+
+recorder=new MediaRecorder(recordingStream)
+
+audioChunks=[]
+
+recorder.ondataavailable=e=>{
+audioChunks.push(e.data)
+}
+
+recorder.start()
+
+document.getElementById("rec"+index).innerHTML=
+
+"Recording..." +
+
+"<div style='display:flex;gap:4px;margin-top:10px'>" +
+
+"<div class='bar'></div>".repeat(8) +
+
+"</div>"
+
+}
+
+
+
+async function stopRecording(){
+
+if(!recorder){
+return
+}
+
+recorder.stop()
+
+recorder.onstop=async()=>{
+
+const blob=new Blob(audioChunks,{type:"audio/webm"})
+
+const filePath="placement-audio/"+Date.now()+".webm"
+
+const ref=firebase.storage().ref(filePath)
+
+await ref.put(blob)
+
+const url=await ref.getDownloadURL()
+
+answers[activeQuestion]=url
+
+document.getElementById("rec"+activeQuestion).innerText="Recording saved"
+
+recordingStream.getTracks().forEach(t=>t.stop())
+
+recorder=null
+audioChunks=[]
+activeQuestion=null
+
+}
+
+}
+
+</script>
+
+
+<style>
+
+.bar{
+width:4px;
+height:8px;
+background:#4f8cff;
+animation:wave 1s infinite ease-in-out;
+}
+
+@keyframes wave{
+
+0%{height:8px}
+50%{height:32px}
+100%{height:8px}
+
+}
+
+</style>
+
