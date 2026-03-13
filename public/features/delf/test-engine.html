@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SayBon Test Engine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f4f6fb;
+margin:0;
+padding:40px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.slide{
+display:none;
+}
+
+.slide.active{
+display:block;
+}
+
+.progress{
+text-align:center;
+margin-bottom:20px;
+font-weight:600;
+}
+
+.nav{
+display:flex;
+justify-content:space-between;
+margin-top:30px;
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+cursor:pointer;
+}
+
+textarea{
+width:100%;
+height:120px;
+padding:10px;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="title"></div>
+
+<div class="progress" id="progress"></div>
+
+<div id="slides"></div>
+
+<div class="nav">
+
+<button onclick="prevSlide()">Back</button>
+<button onclick="nextSlide()">Next</button>
+
+</div>
+
+</div>
+
+<script>
+
+const firebaseConfig={
+apiKey:"YOUR_API_KEY",
+authDomain:"YOUR_DOMAIN",
+projectId:"YOUR_PROJECT",
+storageBucket:"YOUR_BUCKET",
+messagingSenderId:"YOUR_SENDER",
+appId:"YOUR_APP"
+}
+
+firebase.initializeApp(firebaseConfig)
+
+const db=firebase.firestore()
+const storage=firebase.storage()
+
+const params=new URLSearchParams(window.location.search)
+const test=params.get("test")
+
+let slides=[]
+let current=0
+let answers={}
+let recorder
+let audioChunks=[]
+
+async function loadTest(){
+
+const res=await fetch("/features/delf/tests/"+test+".json")
+const data=await res.json()
+
+document.getElementById("title").innerHTML="<h2>"+data.title+"</h2>"
+
+const container=document.getElementById("slides")
+
+data.questions.forEach((q,i)=>{
+
+const div=document.createElement("div")
+div.className="slide"
+
+let html="<h3>"+q.question+"</h3>"
+
+if(q.type==="listening"){
+
+html+=`<audio controls src="${q.audio}"></audio>`
+
+q.choices.forEach((c,index)=>{
+html+=`
+<label>
+<input type="radio" name="q${i}" value="${index}">
+${c}
+</label><br>`
+})
+
+}
+
+if(q.type==="reading"){
+
+html+=`<p>${q.text}</p>`
+
+q.choices.forEach((c,index)=>{
+html+=`
+<label>
+<input type="radio" name="q${i}" value="${index}">
+${c}
+</label><br>`
+})
+
+}
+
+if(q.type==="writing"){
+
+html+=`<textarea id="write${i}"></textarea>`
+
+}
+
+if(q.type==="speaking"){
+
+html+=`
+
+<button onclick="startRecording(${i})">Start Recording</button>
+<button onclick="stopRecording()">Stop</button>
+
+<div id="rec${i}"></div>
+
+`
+
+}
+
+div.innerHTML=html
+
+container.appendChild(div)
+
+})
+
+slides=document.querySelectorAll(".slide")
+
+slides[0].classList.add("active")
+
+updateProgress()
+
+}
+
+function updateProgress(){
+
+document.getElementById("progress").innerText=
+"Question "+(current+1)+" / "+slides.length
+
+}
+
+function nextSlide(){
+
+saveAnswer()
+
+if(current<slides.length-1){
+
+slides[current].classList.remove("active")
+current++
+slides[current].classList.add("active")
+
+updateProgress()
+
+}else{
+
+submitTest()
+
+}
+
+}
+
+function prevSlide(){
+
+if(current>0){
+
+slides[current].classList.remove("active")
+current--
+slides[current].classList.add("active")
+
+updateProgress()
+
+}
+
+}
+
+function saveAnswer(){
+
+const radios=document.querySelectorAll(`input[name="q${current}"]:checked`)
+
+if(radios.length>0){
+
+answers[current]=radios[0].value
+
+}
+
+const textarea=document.getElementById("write"+current)
+
+if(textarea){
+
+answers[current]=textarea.value
+
+}
+
+}
+
+async function startRecording(index){
+
+const stream=await navigator.mediaDevices.getUserMedia({audio:true})
+
+recorder=new MediaRecorder(stream)
+
+recorder.start()
+
+audioChunks=[]
+
+recorder.ondataavailable=e=>{
+audioChunks.push(e.data)
+}
+
+document.getElementById("rec"+index).innerText="Recording..."
+
+}
+
+function stopRecording(){
+
+recorder.stop()
+
+recorder.onstop=async()=>{
+
+const blob=new Blob(audioChunks,{type:"audio/webm"})
+
+const ref=storage.ref("placement-audio/"+Date.now()+".webm")
+
+await ref.put(blob)
+
+const url=await ref.getDownloadURL()
+
+answers[current]=url
+
+document.getElementById("rec"+current).innerText="Recording saved"
+
+}
+
+}
+
+async function submitTest(){
+
+await db.collection("placementTests").add({
+
+test:test,
+answers:answers,
+created:new Date()
+
+})
+
+alert("Test submitted")
+
+window.location="/dashboard/index.html"
+
+}
+
+loadTest()
+
+</script>
+
+</body>
+</html>
