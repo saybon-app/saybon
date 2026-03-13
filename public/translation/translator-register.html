@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+<script type='module' src='/js/auth-guard.js'></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -233,18 +234,18 @@ for(let file of files){
 let ext=file.name.split(".").pop().toLowerCase()
 
 if(!allowed.includes(ext)){
-notice.innerHTML+="✖ "+file.name+" invalid<br>"
+notice.innerHTML+="? "+file.name+" invalid<br>"
 valid=false
 continue
 }
 
 if(file.size>10000000){
-notice.innerHTML+="✖ "+file.name+" too large<br>"
+notice.innerHTML+="? "+file.name+" too large<br>"
 valid=false
 continue
 }
 
-notice.innerHTML+="✓ "+file.name+" accepted<br>"
+notice.innerHTML+="? "+file.name+" accepted<br>"
 
 }
 
@@ -263,10 +264,10 @@ uploaded.forEach((file,index)=>{
 let row=document.createElement("div")
 
 let name=document.createElement("span")
-name.innerHTML="📄 "+file.name
+name.innerHTML="?? "+file.name
 
 let remove=document.createElement("button")
-remove.innerHTML="✕"
+remove.innerHTML="?"
 remove.className="removeBtn"
 
 remove.onclick=()=>{
@@ -381,3 +382,4 @@ window.location="/translation/translator-result.html?id="+applicationId
 
 </body>
 </html>
+

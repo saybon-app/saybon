@@ -1,7 +1,8 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+<script type='module' src='/js/auth-guard.js'></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SayBon Invoice</title>
@@ -137,7 +138,7 @@ color:#9aa4b2;
 
 <div class="invoice" id="invoice">
 
-<div class="pdfBtn" onclick="downloadInvoice()">ðŸ“„</div>
+<div class="pdfBtn" onclick="downloadInvoice()">??</div>
 
 <div class="brand">
 SAYBON TRANSLATION SERVICES
@@ -285,17 +286,17 @@ async function loadInvoice(){
     let timeline = "";
 
     if(words <= 300){
-      timeline = isExpress ? "30â€“60 mins" : "1â€“3 hrs";
+      timeline = isExpress ? "30–60 mins" : "1–3 hrs";
     }else if(words <= 1000){
-      timeline = isExpress ? "1â€“3 hrs" : "3â€“6 hrs";
+      timeline = isExpress ? "1–3 hrs" : "3–6 hrs";
     }else if(words <= 3000){
-      timeline = isExpress ? "3â€“6 hrs" : "6â€“12 hrs";
+      timeline = isExpress ? "3–6 hrs" : "6–12 hrs";
     }else if(words <= 6000){
-      timeline = isExpress ? "6â€“12 hrs" : "12â€“24 hrs";
+      timeline = isExpress ? "6–12 hrs" : "12–24 hrs";
     }else if(words <= 10000){
-      timeline = isExpress ? "12â€“24 hrs" : "24â€“48 hrs";
+      timeline = isExpress ? "12–24 hrs" : "24–48 hrs";
     }else if(words <= 20000){
-      timeline = isExpress ? "24â€“48 hrs" : "2â€“4 days";
+      timeline = isExpress ? "24–48 hrs" : "2–4 days";
     }else{
       timeline = "Custom";
     }
@@ -327,5 +328,6 @@ loadInvoice();
 
 </body>
 </html>
+
 
 
