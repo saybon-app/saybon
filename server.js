@@ -455,3 +455,107 @@ error:"Document detection failed"
 }
 
 })
+
+/* ==========================================
+TRANSLATOR TEST EVALUATION
+========================================== */
+
+app.post("/api/evaluateTranslator", async (req,res)=>{
+
+try{
+
+const { frenchAnswer, englishAnswer, email } = req.body
+
+if(!frenchAnswer || !englishAnswer){
+return res.status(400).json({error:"Missing translation answers"})
+}
+
+const OpenAI = (await import("openai")).default
+
+const openai = new OpenAI({
+apiKey:process.env.OPENAI_API_KEY
+})
+
+const prompt = `
+You are a professional translation examiner.
+
+Score the following translations out of 100.
+
+Evaluate based on:
+- accuracy
+- terminology
+- grammar
+- sentence structure
+- professional tone
+
+Return JSON:
+
+{
+accuracy: number,
+terminology: number,
+grammar: number,
+tone: number,
+structure: number,
+finalScore: number,
+reason: "short explanation"
+}
+
+French ? English answer:
+${frenchAnswer}
+
+English ? French answer:
+${englishAnswer}
+`
+
+const completion = await openai.chat.completions.create({
+model:"gpt-4.1-mini",
+messages:[
+{role:"system",content:"You are a translation examiner."},
+{role:"user",content:prompt}
+],
+temperature:0
+})
+
+let result = completion.choices[0].message.content
+
+try{
+result = JSON.parse(result)
+}catch{
+return res.status(500).json({error:"AI evaluation failed"})
+}
+
+/* STORE RESULT */
+
+const doc = await db.collection("translatorApplications").add({
+
+email:email || "unknown",
+
+accuracy:result.accuracy,
+terminology:result.terminology,
+grammar:result.grammar,
+tone:result.tone,
+structure:result.structure,
+finalScore:result.finalScore,
+reason:result.reason,
+
+createdAt:new Date()
+
+})
+
+res.json({
+applicationId:doc.id,
+score:result.finalScore
+})
+
+}catch(err){
+
+console.error("Evaluation error:",err)
+
+res.status(500).json({
+error:"Translator evaluation failed"
+})
+
+}
+
+})
+
