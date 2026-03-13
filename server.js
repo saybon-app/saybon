@@ -317,3 +317,55 @@ res.status(500).json({error:"stats failed"})
 
 })
 
+
+# ------------------------------------------------
+# CREATE TRANSLATION JOB AUTOMATICALLY
+# ------------------------------------------------
+
+app.post("/api/createTranslationJob", async(req,res)=>{
+
+try{
+
+const {clientEmail,wordCount,service}=req.body
+
+let price=0
+
+if(service==="standard"){
+
+price=wordCount*0.025
+
+}else{
+
+price=wordCount*0.05
+
+}
+
+const ref=db.collection("translationJobs").doc()
+
+await ref.set({
+
+clientEmail,
+wordCount,
+service,
+price,
+status:"open",
+translator:null,
+created:new Date()
+
+})
+
+res.json({
+
+jobId:ref.id,
+price:price
+
+})
+
+}catch(err){
+
+res.status(500).json({error:"job creation failed"})
+
+}
+
+})
+
