@@ -100,7 +100,10 @@ transform:translateY(4px);
 box-shadow:0 2px 0 rgba(0,0,0,0.25);
 }
 
-.submitBtn{background:#2563eb;color:white}
+.submitBtn{
+background:#2563eb;
+color:white;
+}
 
 .removeBtn{
 background:none;
@@ -173,17 +176,32 @@ Submit Application
 
 </div>
 
-<script>
+<script type="module">
 
-/* ======================
-FIELDS
-====================== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+const app=initializeApp(firebaseConfig)
+const db=getFirestore(app)
+const storage=getStorage(app)
+
+/* FIELDS */
 
 const fields=[
-document.getElementById("email"),
-document.getElementById("phone"),
-document.getElementById("country"),
-document.getElementById("experience")
+email,
+phone,
+country,
+experience
 ]
 
 const idUpload=document.getElementById("idUpload")
@@ -195,18 +213,15 @@ const certNotice=document.getElementById("certNotice")
 const cvNotice=document.getElementById("cvNotice")
 
 const uploadBucket=document.getElementById("uploadBucket")
-
 const submitBtn=document.getElementById("submitBtn")
-
-/* ======================
-VALIDATION
-====================== */
 
 const allowed=["pdf","doc","docx","png","jpg","jpeg"]
 
 let idValid=false
 let certValid=false
 let cvValid=false
+
+let uploaded=[]
 
 function validateFiles(files,notice){
 
@@ -238,12 +253,6 @@ notice.className=valid?"notice accept":"notice reject"
 return valid
 
 }
-
-/* ======================
-UPLOAD BUCKET
-====================== */
-
-let uploaded=[]
 
 function renderBucket(){
 
@@ -284,10 +293,6 @@ renderBucket()
 
 }
 
-/* ======================
-UPLOAD EVENTS
-====================== */
-
 idUpload.onchange=()=>{
 idValid=validateFiles(idUpload.files,idNotice)
 addToBucket(idUpload.files)
@@ -306,10 +311,6 @@ addToBucket(cvUpload.files)
 checkForm()
 }
 
-/* ======================
-FORM CHECK
-====================== */
-
 fields.forEach(f=>{
 f.oninput=checkForm
 })
@@ -322,25 +323,61 @@ fields.forEach(f=>{
 if(!f.value) filled=false
 })
 
-if(filled && idValid && certValid && cvValid){
-submitBtn.disabled=false
-}else{
+submitBtn.disabled=!(filled && idValid && certValid && cvValid)
+
+}
+
+async function uploadFile(file,folder){
+
+const fileRef=ref(storage,folder+"/"+Date.now()+"_"+file.name)
+
+await uploadBytes(fileRef,file)
+
+return await getDownloadURL(fileRef)
+
+}
+
+submitBtn.onclick=async()=>{
+
 submitBtn.disabled=true
+submitBtn.innerText="Submitting..."
+
+const idUrl=await uploadFile(idUpload.files[0],"translatorDocs")
+
+const certUrls=[]
+for(let f of certUpload.files){
+certUrls.push(await uploadFile(f,"translatorDocs"))
 }
 
+const cvUrls=[]
+for(let f of cvUpload.files){
+cvUrls.push(await uploadFile(f,"translatorDocs"))
 }
 
-/* ======================
-SUBMIT
-====================== */
+const applicationId=crypto.randomUUID()
 
-submitBtn.onclick=()=>{
-window.location="/translation/translator-result.html"
+await setDoc(doc(db,"translatorApplications",applicationId),{
+
+email:email.value,
+phone:phone.value,
+country:country.value,
+experience:experience.value,
+
+documents:{
+id:idUrl,
+certifications:certUrls,
+cv:cvUrls
+},
+
+created:new Date()
+
+})
+
+window.location="/translation/translator-result.html?id="+applicationId
+
 }
 
 </script>
 
 </body>
 </html>
-
-<script type="module" src="/translation/translator-register.js"></script>
