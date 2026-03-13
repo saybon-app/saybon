@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -114,7 +113,6 @@ background:#64748b;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -194,124 +192,70 @@ Return To Dashboard
 
 <script>
 
-/* GET APPLICATION ID FROM URL */
-
-const params = new URLSearchParams(window.location.search)
-const id = params.get("id")
-
 async function loadResult(){
 
-const params = new URLSearchParams(window.location.search)
-const id = params.get("id")
+const params=new URLSearchParams(window.location.search)
+const id=params.get("id")
 
 if(!id){
-document.getElementById("status").innerHTML =
-"Result unavailable. No application ID was provided."
+
+document.getElementById("status").innerHTML="Result unavailable"
 document.getElementById("status").classList.add("fail")
+
 return
+
 }
 
-try{
+const res=await fetch("/api/applicationResult?id="+id)
 
-const res = await fetch("/api/applicationResult?id=" + id)
+const data=await res.json()
 
-if(!res.ok){
-throw new Error("Result not found")
-}
+const accuracy=data.accuracy
+const terminology=data.terminology
+const grammar=data.grammar
+const tone=data.tone
+const total=data.finalScore
 
-const data = await res.json()
-
-const accuracy = data.accuracy
-const terminology = data.terminology
-const grammar = data.grammar
-const tone = data.tone
-const total = data.finalScore
-
-document.getElementById("accuracy").innerText = accuracy + "%"
-document.getElementById("terminology").innerText = terminology + "%"
-document.getElementById("grammar").innerText = grammar + "%"
-document.getElementById("tone").innerText = tone + "%"
-document.getElementById("totalScore").innerText = total + "%"
+document.getElementById("accuracy").innerText=accuracy+"%"
+document.getElementById("terminology").innerText=terminology+"%"
+document.getElementById("grammar").innerText=grammar+"%"
+document.getElementById("tone").innerText=tone+"%"
+document.getElementById("totalScore").innerText=total+"%"
 
 function status(score){
-return score >= 75 ? "Pass" : "Review"
+return score>=75?"Pass":"Review"
 }
 
-document.getElementById("accuracyStatus").innerText = status(accuracy)
-document.getElementById("terminologyStatus").innerText = status(terminology)
-document.getElementById("grammarStatus").innerText = status(grammar)
-document.getElementById("toneStatus").innerText = status(tone)
+document.getElementById("accuracyStatus").innerText=status(accuracy)
+document.getElementById("terminologyStatus").innerText=status(terminology)
+document.getElementById("grammarStatus").innerText=status(grammar)
+document.getElementById("toneStatus").innerText=status(tone)
 
-const statusBox = document.getElementById("status")
-const passkeyBox = document.getElementById("passkeyBox")
-const jobBtn = document.getElementById("jobBtn")
+const statusBox=document.getElementById("status")
+const passkeyBox=document.getElementById("passkeyBox")
+const jobBtn=document.getElementById("jobBtn")
 
-if(total >= 75){
+if(total>=75){
 
-statusBox.innerHTML = "Status: Accepted Into Translator Pool"
+statusBox.innerHTML="Status: Accepted Into Translator Pool"
 statusBox.classList.add("pass")
 
-const passkey = "SB-" + Math.random().toString(36).substring(2,10).toUpperCase()
+document.getElementById("passkeyCode").innerText=data.passkey
 
-document.getElementById("passkeyCode").innerText = passkey
+passkeyBox.style.display="block"
 
-passkeyBox.style.display = "block"
-
-jobBtn.style.display = "inline-block"
+jobBtn.style.display="inline-block"
 
 }else{
 
-statusBox.innerHTML = "Status: Application Rejected"
+statusBox.innerHTML="Status: Application Rejected"
 statusBox.classList.add("fail")
 
-document.getElementById("totalStatus").innerText = "Below Entry Threshold"
-
-}
-
-}catch(err){
-
-document.getElementById("status").innerHTML =
-"Unable to load your application results."
-document.getElementById("status").classList.add("fail")
+document.getElementById("totalStatus").innerText="Below Entry Threshold"
 
 }
 
 }
-
-document.getElementById("accuracyStatus").innerText = status(accuracy)
-document.getElementById("terminologyStatus").innerText = status(terminology)
-document.getElementById("grammarStatus").innerText = status(grammar)
-document.getElementById("toneStatus").innerText = status(tone)
-
-const statusBox = document.getElementById("status")
-const passkeyBox = document.getElementById("passkeyBox")
-const jobBtn = document.getElementById("jobBtn")
-
-if(total >= 75){
-
-statusBox.innerHTML = "Status: Accepted Into Translator Pool"
-statusBox.classList.add("pass")
-
-const passkey = "SB-" + Math.random().toString(36).substring(2,10).toUpperCase()
-
-document.getElementById("passkeyCode").innerText = passkey
-
-passkeyBox.style.display = "block"
-
-jobBtn.style.display = "inline-block"
-
-}else{
-
-statusBox.innerHTML = "Status: Application Rejected"
-statusBox.classList.add("fail")
-
-document.getElementById("totalStatus").innerText = "Below Entry Threshold"
-
-}
-
-}
-
-/* COPY PASSKEY */
 
 document.getElementById("passkeyCode").onclick=function(){
 
@@ -321,8 +265,6 @@ this.innerText="Copied ✔"
 
 }
 
-loadResult()
-
 document.getElementById("jobBtn").onclick=()=>{
 window.location="/translation/translator-dashboard.html"
 }
@@ -331,8 +273,9 @@ document.getElementById("dashBtn").onclick=()=>{
 window.location="/dashboard/index.html"
 }
 
+loadResult()
+
 </script>
 
 </body>
 </html>
-
