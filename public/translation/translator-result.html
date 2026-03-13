@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Application Result</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f4f6fb;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+margin:0;
+}
+
+.card{
+background:white;
+padding:50px;
+border-radius:12px;
+box-shadow:0 10px 40px rgba(0,0,0,.08);
+max-width:650px;
+text-align:center;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.passkey{
+background:#f1f4ff;
+padding:15px;
+border-radius:8px;
+font-weight:600;
+margin-top:15px;
+}
+
+.score{
+font-size:22px;
+font-weight:600;
+margin-top:10px;
+}
+
+button{
+margin-top:25px;
+padding:14px 26px;
+border:none;
+border-radius:8px;
+font-size:15px;
+cursor:pointer;
+background:#2563eb;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1 id="title">Evaluating Application...</h1>
+
+<div id="content"></div>
+
+<div id="actions"></div>
+
+</div>
+
+<script>
+
+const score = Math.floor(Math.random()*40)+60
+
+let content=document.getElementById("content")
+let actions=document.getElementById("actions")
+let title=document.getElementById("title")
+
+if(score >= 85){
+
+let passkey="SB-"+Math.random().toString(36).substring(2,10).toUpperCase()
+
+title.innerText="Congratulations — You Have Been Accepted"
+
+content.innerHTML=`
+
+<div class="score">Score: ${score}%</div>
+
+<p>You are now part of the SayBon translator network.</p>
+
+<p>Your translator access passkey:</p>
+
+<div class="passkey">${passkey}</div>
+
+`
+
+actions.innerHTML=`
+<button onclick="location.href='/translation/translator-dashboard.html'">
+Go To Job Board
+</button>
+`
+
+}else{
+
+title.innerText="Application Result"
+
+content.innerHTML=`
+
+<div class="score">Score: ${score}%</div>
+
+<p>Your translation did not meet the required accuracy threshold of 85%.</p>
+
+<p>Common issues detected:</p>
+
+<ul style="text-align:left">
+<li>Translation structure inconsistencies</li>
+<li>Terminology mismatch</li>
+<li>Sentence restructuring errors</li>
+</ul>
+
+<p>You may reapply after further preparation.</p>
+
+`
+
+actions.innerHTML=`
+<button onclick="location.href='/dashboard/index.html'">
+Return to Dashboard
+</button>
+`
+
+}
+
+</script>
+
+</body>
+
+</html>
