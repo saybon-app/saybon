@@ -1,0 +1,47 @@
+rules_version = '2';
+
+service cloud.firestore {
+
+match /databases/{database}/documents {
+
+function isSignedIn() {
+return request.auth != null;
+}
+
+function isOwner(userId) {
+return request.auth != null && request.auth.uid == userId;
+}
+
+/* USERS */
+
+match /users/{userId} {
+allow read, write: if isOwner(userId);
+}
+
+/* TRANSLATION REQUESTS */
+
+match /translationRequests/{doc} {
+allow read, write: if isSignedIn();
+}
+
+/* TRANSLATOR TESTS */
+
+match /translatorTests/{doc} {
+allow read, write: if isSignedIn();
+}
+
+/* TRANSLATOR APPLICATIONS */
+
+match /translatorApplications/{doc} {
+allow read: if isSignedIn();
+allow write: if isSignedIn();
+}
+
+/* ADMIN COLLECTION */
+
+match /admin/{doc} {
+allow read, write: if false;
+}
+
+}
+}
