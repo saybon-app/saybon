@@ -130,3 +130,190 @@ console.log("Translator API running")
 
 })
 
+
+# ------------------------------------------------
+# CREATE TRANSLATION JOB
+# ------------------------------------------------
+
+app.post("/api/createJob", async(req,res)=>{
+
+try{
+
+const {clientEmail,sourceLanguage,targetLanguage,wordCount,price}=req.body
+
+const ref=db.collection("translationJobs").doc()
+
+await ref.set({
+
+clientEmail,
+sourceLanguage,
+targetLanguage,
+wordCount,
+price,
+status:"open",
+translator:null,
+created:new Date()
+
+})
+
+res.json({jobId:ref.id})
+
+}catch(err){
+
+res.status(500).json({error:"job creation failed"})
+
+}
+
+})
+
+# ------------------------------------------------
+# GET JOB BOARD
+# ------------------------------------------------
+
+app.get("/api/jobs", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("translationJobs")
+.where("status","==","open")
+.get()
+
+let jobs=[]
+
+snapshot.forEach(doc=>{
+
+jobs.push({
+
+id:doc.id,
+...doc.data()
+
+})
+
+})
+
+res.json(jobs)
+
+}catch(err){
+
+res.status(500).json({error:"failed"})
+
+}
+
+})
+
+# ------------------------------------------------
+# CLAIM JOB
+# ------------------------------------------------
+
+app.post("/api/claimJob", async(req,res)=>{
+
+try{
+
+const {jobId,passkey}=req.body
+
+const translatorSnapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(translatorSnapshot.empty){
+
+return res.json({error:"invalid translator"})
+
+}
+
+await db.collection("translationJobs")
+.doc(jobId)
+.update({
+
+status:"claimed",
+translator:passkey
+
+})
+
+res.json({success:true})
+
+}catch(err){
+
+res.status(500).json({error:"claim failed"})
+
+}
+
+})
+
+# ------------------------------------------------
+# SUBMIT TRANSLATION
+# ------------------------------------------------
+
+app.post("/api/submitTranslation", async(req,res)=>{
+
+try{
+
+const {jobId,passkey,translation}=req.body
+
+await db.collection("jobSubmissions").add({
+
+jobId,
+translator:passkey,
+translation,
+submitted:new Date()
+
+})
+
+await db.collection("translationJobs")
+.doc(jobId)
+.update({
+
+status:"completed"
+
+})
+
+res.json({success:true})
+
+}catch(err){
+
+res.status(500).json({error:"submission failed"})
+
+}
+
+})
+
+# ------------------------------------------------
+# TRANSLATOR STATS
+# ------------------------------------------------
+
+app.get("/api/translatorStats", async(req,res)=>{
+
+try{
+
+const passkey=req.query.key
+
+const jobs=await db.collection("translationJobs")
+.where("translator","==",passkey)
+.get()
+
+let completed=0
+
+jobs.forEach(j=>{
+
+if(j.data().status==="completed"){
+
+completed++
+
+}
+
+})
+
+res.json({
+
+jobsCompleted:completed
+
+})
+
+}catch(err){
+
+res.status(500).json({error:"stats failed"})
+
+}
+
+})
+
