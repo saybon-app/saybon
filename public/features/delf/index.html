@@ -6,121 +6,116 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>DELF Preparation | SayBon</title>
+<title>SayBon DELF Preparation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 body{
+font-family:'Inter',sans-serif;
+background:#f4f6fb;
 margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(180deg,#f5f7fb,#eef2f8);
+padding:40px;
 color:#2c2c2c;
 }
 
 .container{
-max-width:950px;
+max-width:900px;
 margin:auto;
-padding:60px 30px;
-}
-
-.card{
 background:white;
 padding:50px;
 border-radius:14px;
-box-shadow:0 12px 35px rgba(0,0,0,0.08);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
 h1{
 text-align:center;
-font-weight:600;
 margin-bottom:10px;
 }
 
 .subtitle{
 text-align:center;
 color:#6b7280;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
-.section{
-margin-bottom:28px;
-line-height:1.7;
-}
-
-.section h3{
-margin-bottom:10px;
-font-size:18px;
-}
-
-.list{
-margin-left:18px;
-}
-
-.notice{
-background:#fff7ed;
-border-left:4px solid #f97316;
-padding:14px 18px;
-border-radius:6px;
-margin-top:12px;
-}
-
-.process{
-background:#f1f5f9;
-padding:18px;
-border-radius:8px;
-margin-top:10px;
-}
-
-.buttons{
-margin-top:35px;
-display:flex;
-gap:20px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-.btn{
-padding:14px 26px;
-font-size:16px;
+.learn-btn{
+display:block;
+margin:auto;
+background:#2563eb;
+color:white;
 border:none;
+padding:12px 24px;
 border-radius:8px;
 cursor:pointer;
-transition:.2s;
+font-size:15px;
 }
 
-.primary{
-background:#4f46e5;
-color:white;
+.learn-btn:hover{
+background:#1d4ed8;
 }
 
-.primary:hover{
-background:#4338ca;
+.info-card{
+margin-top:30px;
+display:none;
 }
 
-.secondary{
-background:#e5e7eb;
+.card{
+border-radius:10px;
+padding:25px;
+margin-bottom:20px;
 }
 
-.secondary:hover{
-background:#d1d5db;
+.warning{
+background:#fdecea;
+border-left:4px solid #dc2626;
 }
 
-.levels{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-top:20px;
+.info{
+background:#eef2ff;
 }
 
-.level-card{
+.pricing{
 background:#f9fafb;
-border:1px solid #e5e7eb;
+}
+
+h3{
+margin-top:0;
+}
+
+.track-buttons{
+margin-top:25px;
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.track{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 20px;
 border-radius:8px;
-padding:14px 18px;
-font-size:14px;
+cursor:pointer;
+}
+
+.track:hover{
+background:#1d4ed8;
+}
+
+.close-btn{
+margin-top:20px;
+background:#6b7280;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.close-btn:hover{
+background:#4b5563;
 }
 
 </style>
@@ -131,108 +126,77 @@ font-size:14px;
 
 <div class="container">
 
-<div class="card">
-
-<h1>Prepare for the DELF Exam</h1>
+<h1>SayBon DELF Preparation</h1>
 
 <div class="subtitle">
-A calm, structured space to prepare for one of the most important French language exams.
+Prepare confidently for the official DELF exam through structured mock-based training.
 </div>
 
+<button class="learn-btn" onclick="toggleInfo()">
+Learn Everything About This Service
+</button>
 
-<div class="section">
+<div id="infoCard" class="info-card">
 
-SayBon offers a guided preparation system designed to help you approach the DELF examination with clarity and confidence.  
-
-Our preparation focuses on realistic exam tasks, structured practice, and clear progress tracking so that you know exactly where you stand before sitting the official exam.
-
-</div>
-
-
-<div class="section">
-
-<h3>What SayBon Offers</h3>
-
-<ul class="list">
-<li>Preparation for DELF Prim, Junior and Tout Public</li>
-<li>Support for levels A1, A2, B1 and B2</li>
-<li>Listening, Reading, Writing and Speaking preparation</li>
-<li>Mock-based learning from the start</li>
-<li>Full exam-style mock tests</li>
-<li>Preparation progress tracking and downloadable reports</li>
-</ul>
-
-</div>
-
-
-<div class="section">
+<div class="card warning">
 
 <h3>Important to Know</h3>
 
-<div class="notice">
-
-SayBon is not an official DELF examination centre.
-
-We do not administer the official exam, issue official certificates, or register candidates for the exam.
+SayBon is not an official DELF examination centre.  
+We do not administer the official exam, issue certificates, or register candidates for the exam.
 
 Our role is to prepare you so that you feel confident and ready when you take the official DELF exam.
 
 </div>
 
-</div>
-
-
-<div class="section">
+<div class="card info">
 
 <h3>How Preparation Works</h3>
 
-<div class="process">
-
-1. Take a short level recommendation test.  
-2. The system suggests the DELF level that best matches your ability.  
-3. Register for preparation at that level.  
-4. Unlock structured mock-based preparation.  
-5. Track your readiness before taking the real exam.
+1. Take a short **free level recommendation test**  
+2. The system suggests the DELF level that best matches your ability  
+3. Register for preparation at that level  
+4. Unlock structured **mock-based training**  
+5. Track your readiness before taking the real exam
 
 </div>
 
+<div class="card pricing">
+
+<h3>Preparation Fees</h3>
+
+<b>DELF Prim (Children)</b><br>
+A1 — $8<br>
+A2 — $10<br><br>
+
+<b>DELF Junior (Teenagers)</b><br>
+A1 — $12<br>
+A2 — $15<br>
+B1 — $18<br>
+B2 — $20<br><br>
+
+<b>DELF Tout Public (Adults)</b><br>
+A1 — $15<br>
+A2 — $20<br>
+B1 — $25<br>
+B2 — $30<br>
+C1 — $40<br><br>
+
+Payment happens **after your level recommendation test**.
+
 </div>
 
+<div class="track-buttons">
 
-<div class="section">
-
-<h3>Preparation Tracks Available</h3>
-
-<div class="levels">
-
-<div class="level-card">DELF Prim (Children)</div>
-<div class="level-card">DELF Junior (Teenagers)</div>
-<div class="level-card">DELF Tout Public (Adults)</div>
+<button class="track" onclick="goPrim()">DELF Prim (Children)</button>
+<button class="track" onclick="goJunior()">DELF Junior (Teenagers)</button>
+<button class="track" onclick="goAdult()">DELF Tout Public (Adults)</button>
 
 </div>
 
-</div>
-
-
-<div class="section">
-
-Preparation access requires registration and payment after your level recommendation test.  
-You will see your recommended level before deciding whether to proceed.
-
-</div>
-
-
-<div class="buttons">
-
-<button class="btn primary" onclick="startTest()">
-Take Level Recommendation Test
+<button class="close-btn" onclick="toggleInfo()">
+Close Information
 </button>
-
-<button class="btn secondary" onclick="goBack()">
-Back to Dashboard
-</button>
-
-</div>
 
 </div>
 
@@ -240,16 +204,31 @@ Back to Dashboard
 
 <script>
 
-function startTest(){
-window.location.href="/features/delf/placement/placement.html";
+function toggleInfo(){
+
+let card=document.getElementById("infoCard");
+
+if(card.style.display==="none" || card.style.display===""){
+card.style.display="block";
+}else{
+card.style.display="none";
 }
 
-function goBack(){
-window.location.href="/dashboard/index.html";
+}
+
+function goPrim(){
+window.location="/features/delf/test/?track=prim";
+}
+
+function goJunior(){
+window.location="/features/delf/test/?track=junior";
+}
+
+function goAdult(){
+window.location="/features/delf/test/?track=adult";
 }
 
 </script>
 
 </body>
-
 </html>
