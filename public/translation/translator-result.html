@@ -62,8 +62,6 @@ th{
 background:#f1f4ff;
 }
 
-/* PASSKEY SECTION */
-
 .passkey-box{
 margin-top:30px;
 padding:20px;
@@ -85,7 +83,6 @@ font-size:20px;
 letter-spacing:3px;
 border-radius:6px;
 cursor:pointer;
-user-select:all;
 }
 
 .passkey-note{
@@ -137,19 +134,19 @@ background:#64748b;
 </tr>
 
 <tr>
-<td>Translation Accuracy</td>
+<td>Accuracy</td>
 <td id="accuracy"></td>
 <td id="accuracyStatus"></td>
 </tr>
 
 <tr>
-<td>Terminology Consistency</td>
+<td>Terminology</td>
 <td id="terminology"></td>
 <td id="terminologyStatus"></td>
 </tr>
 
 <tr>
-<td>Grammar & Structure</td>
+<td>Grammar</td>
 <td id="grammar"></td>
 <td id="grammarStatus"></td>
 </tr>
@@ -168,7 +165,6 @@ background:#64748b;
 
 </table>
 
-
 <div class="passkey-box" id="passkeyBox">
 
 <div><strong>Your Translator Job Key</strong></div>
@@ -177,12 +173,10 @@ background:#64748b;
 
 <div class="passkey-note">
 This key gives access to SayBon translation jobs.<br>
-Do <strong>NOT</strong> share it with anyone.  
-Treat it like a secure access credential.
+Do NOT share it with anyone.
 </div>
 
 </div>
-
 
 <div class="buttons">
 
@@ -200,16 +194,22 @@ Return To Dashboard
 
 <script>
 
-/* ===== SAMPLE TEST RESULT (78%) ===== */
+/* GET APPLICATION ID FROM URL */
 
-const accuracy = 82
-const terminology = 62
-const grammar = 67
-const tone = 67
+const params = new URLSearchParams(window.location.search)
+const id = params.get("id")
 
-const total = Math.round((accuracy + terminology + grammar + tone) / 4)
+async function loadResult(){
 
-/* DISPLAY SCORES */
+const res = await fetch("/api/applicationResult?id=" + id)
+
+const data = await res.json()
+
+const accuracy = data.accuracy
+const terminology = data.terminology
+const grammar = data.grammar
+const tone = data.tone
+const total = data.finalScore
 
 document.getElementById("accuracy").innerText = accuracy + "%"
 document.getElementById("terminology").innerText = terminology + "%"
@@ -225,8 +225,6 @@ document.getElementById("accuracyStatus").innerText = status(accuracy)
 document.getElementById("terminologyStatus").innerText = status(terminology)
 document.getElementById("grammarStatus").innerText = status(grammar)
 document.getElementById("toneStatus").innerText = status(tone)
-
-/* PASS / FAIL LOGIC */
 
 const statusBox = document.getElementById("status")
 const passkeyBox = document.getElementById("passkeyBox")
@@ -254,29 +252,25 @@ document.getElementById("totalStatus").innerText = "Below Entry Threshold"
 
 }
 
+}
+
 /* COPY PASSKEY */
 
-document.getElementById("passkeyCode").onclick = function(){
+document.getElementById("passkeyCode").onclick=function(){
 
 navigator.clipboard.writeText(this.innerText)
 
-const original = this.innerText
-
-this.innerText = "Copied ✔"
-
-setTimeout(()=>{
-this.innerText = original
-},1500)
+this.innerText="Copied ✔"
 
 }
 
-/* BUTTONS */
+loadResult()
 
-jobBtn.onclick = ()=>{
+document.getElementById("jobBtn").onclick=()=>{
 window.location="/translation/translator-dashboard.html"
 }
 
-document.getElementById("dashBtn").onclick = ()=>{
+document.getElementById("dashBtn").onclick=()=>{
 window.location="/dashboard/index.html"
 }
 
