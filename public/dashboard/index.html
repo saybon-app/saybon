@@ -1,85 +1,71 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LEARNER DASHBOARD â€” SayBon</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LEARNER DASHBOARD — SayBon</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/dashboard.css" />
 
-  <!-- External CSS ONLY -->
-  <link rel="stylesheet" href="/css/dashboard.css" />
-
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
 </head>
 
 <body>
 
 <div class="dashboard">
 
-  <!-- ================= HEADER ================= -->
+<header class="dashboard-header">
+<h1>LEARNER 📌 DASHBOARD</h1>
+<p>Your French journey at a glance</p>
+</header>
 
-  <header class="dashboard-header">
-    <h1>LEARNER ðŸ“Œ DASHBOARD</h1>
-    <p>Your French journey at a glance</p>
-  </header>
+<main class="dashboard-grid">
 
-  <!-- ================= GRID ================= -->
-
-  <main class="dashboard-grid">
-
-    <div class="card levels" onclick="goLevels()">
-      <div class="emoji">ðŸŽ“</div>
-      <h3>Levels</h3>
-      <span>A0 â†’ C1 structured path</span>
-    </div>
-
-    <div class="card talkletics" onclick="goTalkletics()">
-      <div class="emoji">ðŸ§©</div>
-      <h3>Talkletics</h3>
-      <span>Skill building games</span>
-    </div>
-
-    <div class="card music" onclick="goMusic()">
-      <div class="emoji">ðŸŽµ</div>
-      <h3>Music</h3>
-      <span>Learn with rhythm</span>
-    </div>
-
-    <div class="card delf" onclick="goDelf()">
-      <div class="emoji">ðŸ“„</div>
-      <h3>DELF Prep</h3>
-      <span>Mock exams</span>
-    </div>
-
-    <div class="card translation" onclick="goTranslation()">
-      <div class="emoji">ðŸŒ</div>
-      <h3>Translation</h3>
-      <span>Clients & translators</span>
-    </div>
-
-    <div class="card chat" onclick="goChat()">
-      <div class="emoji">ðŸ’¬</div>
-      <h3>Chat Room</h3>
-      <span>Community space</span>
-    </div>
-
-  </main>
-
-  <!-- ================= FOOTER ================= -->
-
-  <div class="dashboard-footer">
-    <button onclick="goFeedback()">Feedback âœðŸ½ Enquiries</button>
-    <button onclick="goSupport()">Support ðŸ’š SayBon</button>
-    <button onclick="goHome()">Home</button>
-  </div>
-
+<div class="card levels" onclick="goLevels()">
+<div class="emoji">🎓</div>
+<h3>Levels</h3>
+<span>A0 → C1 structured path</span>
 </div>
 
-<!-- ================= NAVIGATION ================= -->
+<div class="card talkletics" onclick="goTalkletics()">
+<div class="emoji">🧩</div>
+<h3>Talkletics</h3>
+<span>Skill building games</span>
+</div>
+
+<div class="card music" onclick="goMusic()">
+<div class="emoji">🎵</div>
+<h3>Music</h3>
+<span>Learn with rhythm</span>
+</div>
+
+<div class="card delf" onclick="goDelf()">
+<div class="emoji">📄</div>
+<h3>DELF Prep</h3>
+<span>Mock exams</span>
+</div>
+
+<div class="card translation" onclick="goTranslation()">
+<div class="emoji">🌍</div>
+<h3>Translation</h3>
+<span>Clients & translators</span>
+</div>
+
+<div class="card chat" onclick="goChat()">
+<div class="emoji">💬</div>
+<h3>Chat Room</h3>
+<span>Community space</span>
+</div>
+
+</main>
+
+<div class="dashboard-footer">
+<button onclick="goFeedback()">Feedback ✍🏽 Enquiries</button>
+<button onclick="goSupport()">Support 💚 SayBon</button>
+<button onclick="goHome()">Home</button>
+</div>
+
+</div>
 
 <script>
 function goLevels(){ window.location.href="/levels/"; }
@@ -95,6 +81,3 @@ function goHome(){ window.location.href="/"; }
 
 </body>
 </html>
-
-
-
