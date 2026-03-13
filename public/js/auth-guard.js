@@ -8,23 +8,24 @@ projectId:"saybon-3e3c2",
 storageBucket:"saybon-3e3c2.firebasestorage.app",
 messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-}
+};
 
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
 
-document.documentElement.style.display="none"
+/* BLOCK PAGE RENDER */
+document.documentElement.style.display="none";
 
 onAuthStateChanged(auth,user=>{
 
 if(!user){
 
-window.location.href="/auth/login.html"
+window.location="/auth/login.html";
 
 }else{
 
-document.documentElement.style.display="block"
+document.documentElement.style.display="block";
 
 }
 
-})
+});
