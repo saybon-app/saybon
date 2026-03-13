@@ -58,18 +58,13 @@ font-weight:500;
 margin-bottom:12px;
 }
 
-/* SOURCE TEXT */
-
 .source{
 font-style:italic;
 margin-bottom:16px;
 color:#444;
-
 user-select:none;
 pointer-events:none;
 }
-
-/* TEXTAREAS */
 
 textarea{
 width:100%;
@@ -95,8 +90,6 @@ height:1px;
 background:#e5e7eb;
 }
 
-/* ACCENT KEYBOARD */
-
 .accent-keyboard{
 margin-top:15px;
 display:flex;
@@ -110,14 +103,7 @@ padding:6px 10px;
 border-radius:6px;
 cursor:pointer;
 background:#eef2ff;
-transition:.15s;
 }
-
-.accent-key:hover{
-background:#dbeafe;
-}
-
-/* BUTTON */
 
 .submit-wrap{
 margin-top:40px;
@@ -130,14 +116,8 @@ color:white;
 border:none;
 padding:14px 32px;
 font-size:16px;
-font-weight:500;
 border-radius:8px;
 cursor:pointer;
-}
-
-.submit-btn:hover{
-transform:translateY(-1px);
-box-shadow:0 8px 18px rgba(0,0,0,0.15);
 }
 
 </style>
@@ -158,7 +138,6 @@ Translate the quoted text into the appropriate language.
 05:00
 </div>
 
-
 <div class="section">
 
 <div class="label">
@@ -169,13 +148,11 @@ English Translation
 " Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables. "
 </div>
 
-<textarea id="englishBox" placeholder="Type your English translation here..."></textarea>
+<textarea id="englishBox"></textarea>
 
 </div>
 
-
 <div class="divider"></div>
-
 
 <div class="section">
 
@@ -187,13 +164,12 @@ Traduction Française
 " The system automatically encrypts all sensitive information before it is transmitted to the server. "
 </div>
 
-<textarea id="frenchBox" placeholder="Tapez votre traduction française ici..."></textarea>
+<textarea id="frenchBox"></textarea>
 
 <div class="accent-keyboard">
 
 <span class="accent-key">à</span>
 <span class="accent-key">â</span>
-<span class="accent-key">æ</span>
 <span class="accent-key">ç</span>
 <span class="accent-key">é</span>
 <span class="accent-key">è</span>
@@ -202,16 +178,12 @@ Traduction Française
 <span class="accent-key">î</span>
 <span class="accent-key">ï</span>
 <span class="accent-key">ô</span>
-<span class="accent-key">œ</span>
 <span class="accent-key">ù</span>
 <span class="accent-key">û</span>
-<span class="accent-key">ü</span>
-<span class="accent-key">ÿ</span>
 
 </div>
 
 </div>
-
 
 <div class="submit-wrap">
 
@@ -223,127 +195,103 @@ Submit Translation
 
 </div>
 
+<script type="module">
 
-<script>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* ==========================================
-TIMER
-========================================== */
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
 
-let activeBox=null;
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+/* TIMER */
+
 let started=false;
 let timeLeft=300;
-let interval=null;
-
-const timerDisplay=document.getElementById("timer");
 
 function startTimer(){
 
 if(started) return;
-
 started=true;
 
-interval=setInterval(()=>{
+setInterval(()=>{
 
 timeLeft--;
 
 let m=Math.floor(timeLeft/60);
 let s=timeLeft%60;
 
-timerDisplay.textContent=
-String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
+document.getElementById("timer").innerText=
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
 
 if(timeLeft<=0){
-
-clearInterval(interval);
 submitTest();
-
 }
 
 },1000);
 
 }
 
-/* ==========================================
-FOCUS DETECTION
-========================================== */
+document.getElementById("englishBox").addEventListener("focus",startTimer);
+document.getElementById("frenchBox").addEventListener("focus",startTimer);
 
-document.getElementById("englishBox").addEventListener("focus",()=>{
-activeBox="englishBox";
-startTimer();
-});
-
-document.getElementById("frenchBox").addEventListener("focus",()=>{
-activeBox="frenchBox";
-startTimer();
-});
-
-
-/* ==========================================
-ACCENT INSERT
-========================================== */
+/* ACCENTS */
 
 document.querySelectorAll(".accent-key").forEach(key=>{
 
-key.addEventListener("click",()=>{
+key.onclick=()=>{
 
-if(!activeBox) return;
+let box=document.getElementById("frenchBox");
 
-let textarea=document.getElementById(activeBox);
+let start=box.selectionStart;
 
-let start=textarea.selectionStart;
-let end=textarea.selectionEnd;
-
-let text=textarea.value;
-
-textarea.value=
-text.substring(0,start)+
+box.value=
+box.value.slice(0,start)+
 key.innerText+
-text.substring(end);
+box.value.slice(start);
 
-textarea.selectionStart=
-textarea.selectionEnd=
-start+1;
+box.selectionStart=box.selectionEnd=start+1;
 
-textarea.focus();
+};
 
 });
 
+/* SUBMIT */
+
+async function submitTest(){
+
+const english=document.getElementById("englishBox").value;
+const french=document.getElementById("frenchBox").value;
+
+const testId=crypto.randomUUID();
+
+await setDoc(doc(db,"translatorTests",testId),{
+
+englishTranslation:english,
+frenchTranslation:french,
+submitted:new Date()
+
 });
 
-
-/* ==========================================
-SUBMIT
-========================================== */
-
-function submitTest(){
-
-window.location.href="/translation/translator-register.html";
+window.location="/translation/translator-register.html?testId="+testId;
 
 }
 
-
-/* ==========================================
-BLOCK COPYING
-========================================== */
+/* BLOCK COPY */
 
 document.addEventListener("copy",e=>e.preventDefault());
-document.addEventListener("cut",e=>e.preventDefault());
 document.addEventListener("paste",e=>e.preventDefault());
-document.addEventListener("contextmenu",e=>e.preventDefault());
-
-document.addEventListener("keydown",function(e){
-
-if(e.ctrlKey && (e.key==="c"||e.key==="v"||e.key==="x")){
-e.preventDefault();
-}
-
-});
+document.addEventListener("cut",e=>e.preventDefault());
 
 </script>
 
 </body>
 </html>
-
-<script type="module" src="/translation/translator-test.js"></script>
-
