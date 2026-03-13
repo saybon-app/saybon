@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>DELF Preparation | SayBon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#f5f7fb,#eef2f8);
+color:#2c2c2c;
+}
+
+.container{
+max-width:950px;
+margin:auto;
+padding:60px 30px;
+}
+
+.card{
+background:white;
+padding:50px;
+border-radius:14px;
+box-shadow:0 12px 35px rgba(0,0,0,0.08);
+}
+
+h1{
+text-align:center;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+color:#6b7280;
+margin-bottom:35px;
+}
+
+.section{
+margin-bottom:28px;
+line-height:1.7;
+}
+
+.section h3{
+margin-bottom:10px;
+font-size:18px;
+}
+
+.list{
+margin-left:18px;
+}
+
+.notice{
+background:#fff7ed;
+border-left:4px solid #f97316;
+padding:14px 18px;
+border-radius:6px;
+margin-top:12px;
+}
+
+.process{
+background:#f1f5f9;
+padding:18px;
+border-radius:8px;
+margin-top:10px;
+}
+
+.buttons{
+margin-top:35px;
+display:flex;
+gap:20px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:14px 26px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+transition:.2s;
+}
+
+.primary{
+background:#4f46e5;
+color:white;
+}
+
+.primary:hover{
+background:#4338ca;
+}
+
+.secondary{
+background:#e5e7eb;
+}
+
+.secondary:hover{
+background:#d1d5db;
+}
+
+.levels{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.level-card{
+background:#f9fafb;
+border:1px solid #e5e7eb;
+border-radius:8px;
+padding:14px 18px;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Prepare for the DELF Exam</h1>
+
+<div class="subtitle">
+A calm, structured space to prepare for one of the most important French language exams.
+</div>
+
+
+<div class="section">
+
+SayBon offers a guided preparation system designed to help you approach the DELF examination with clarity and confidence.  
+
+Our preparation focuses on realistic exam tasks, structured practice, and clear progress tracking so that you know exactly where you stand before sitting the official exam.
+
+</div>
+
+
+<div class="section">
+
+<h3>What SayBon Offers</h3>
+
+<ul class="list">
+<li>Preparation for DELF Prim, Junior and Tout Public</li>
+<li>Support for levels A1, A2, B1 and B2</li>
+<li>Listening, Reading, Writing and Speaking preparation</li>
+<li>Mock-based learning from the start</li>
+<li>Full exam-style mock tests</li>
+<li>Preparation progress tracking and downloadable reports</li>
+</ul>
+
+</div>
+
+
+<div class="section">
+
+<h3>Important to Know</h3>
+
+<div class="notice">
+
+SayBon is not an official DELF examination centre.
+
+We do not administer the official exam, issue official certificates, or register candidates for the exam.
+
+Our role is to prepare you so that you feel confident and ready when you take the official DELF exam.
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>How Preparation Works</h3>
+
+<div class="process">
+
+1. Take a short level recommendation test.  
+2. The system suggests the DELF level that best matches your ability.  
+3. Register for preparation at that level.  
+4. Unlock structured mock-based preparation.  
+5. Track your readiness before taking the real exam.
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h3>Preparation Tracks Available</h3>
+
+<div class="levels">
+
+<div class="level-card">DELF Prim (Children)</div>
+<div class="level-card">DELF Junior (Teenagers)</div>
+<div class="level-card">DELF Tout Public (Adults)</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+Preparation access requires registration and payment after your level recommendation test.  
+You will see your recommended level before deciding whether to proceed.
+
+</div>
+
+
+<div class="buttons">
+
+<button class="btn primary" onclick="startTest()">
+Take Level Recommendation Test
+</button>
+
+<button class="btn secondary" onclick="goBack()">
+Back to Dashboard
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function startTest(){
+window.location.href="/features/delf/placement/placement.html";
+}
+
+function goBack(){
+window.location.href="/dashboard/index.html";
+}
+
+</script>
+
+</body>
+
+</html>
