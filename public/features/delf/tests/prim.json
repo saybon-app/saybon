@@ -1,111 +1,103 @@
-{
-  "test":"prim",
-  "questions":[
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-1.mp3",
-"question":"What does the boy want to do?",
-"choices":[
-"Go home",
-"Play football",
-"Eat dinner",
-"Go to school"
-],
-"answer":1
-},
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-2.mp3",
-"question":"What animals does Marie have?",
-"choices":[
-"A black cat and a white dog",
-"Two cats",
-"A dog",
-"A rabbit"
-],
-"answer":0
-},
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-3.mp3",
-"question":"Where is the cake?",
-"choices":[
-"On the table",
-"In the fridge",
-"At school",
-"In the bag"
-],
-"answer":0
-},
-
-{
-"type":"reading",
-"question":"Bonjour! Comment tu t'appelles?",
-"choices":[
-"I am fine",
-"My name is Paul",
-"I am twelve",
-"I live here"
-],
-"answer":1
-},
-
-{
-"type":"reading",
-"question":"Le chat est sur la table.",
-"choices":[
-"The dog is on the table",
-"The cat is on the table",
-"The cat is under the table",
-"The dog is under the chair"
-],
-"answer":1
-},
-
-{
-"type":"reading",
-"question":"Marie aime les pommes.",
-"choices":[
-"Marie likes apples",
-"Marie likes bread",
-"Marie likes oranges",
-"Marie likes milk"
-],
-"answer":0
-},
-
-{
-"type":"writing",
-"question":"Write one sentence introducing yourself in French."
-},
-
-{
-"type":"writing",
-"question":"Write one sentence describing your favourite food in French."
-},
-
-{
-"type":"writing",
-"question":"Write one sentence describing your school."
-},
-
-{
-"type":"speaking",
-"question":"Say your name and age in French."
-},
-
-{
-"type":"speaking",
-"question":"Describe your best friend in French."
-},
-
-{
-"type":"speaking",
-"question":"Say what you like to do after school in French."
-}
-
-]
+﻿{
+  "title": "DELF Prim Placement",
+  "questions": [
+    {
+      "type": "listening",
+      "audio": "/assets/sounds/prim-test-1.mp3",
+      "question": "What does the boy want to do?",
+      "choices": [
+        "Go home",
+        "Play football",
+        "Eat dinner",
+        "Go to school"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "listening",
+      "audio": "/assets/sounds/prim-test-2.mp3",
+      "question": "What animals does Marie have?",
+      "choices": [
+        "A black cat and a white dog",
+        "Two cats",
+        "A dog and a rabbit",
+        "A bird"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "listening",
+      "audio": "/assets/sounds/prim-test-3.mp3",
+      "question": "Where is the cake?",
+      "choices": [
+        "On the table",
+        "In the fridge",
+        "In the garden",
+        "In the living room"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "reading",
+      "text": "Bonjour. Je m'appelle Emma. J'ai neuf ans. J'habite à Paris. J'aime lire et dessiner.",
+      "question": "What is the girl's name?",
+      "choices": [
+        "Marie",
+        "Emma",
+        "Julie",
+        "Anna"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "reading",
+      "text": "Bonjour. Je m'appelle Emma. J'ai neuf ans. J'habite à Paris. J'aime lire et dessiner.",
+      "question": "How old is she?",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "reading",
+      "text": "Bonjour. Je m'appelle Emma. J'ai neuf ans. J'habite à Paris. J'aime lire et dessiner.",
+      "question": "What does she like?",
+      "choices": [
+        "Football",
+        "Singing",
+        "Reading and drawing",
+        "Swimming"
+      ],
+      "answer": 2
+    },
+    {
+      "type": "writing",
+      "question": "Translate into English:",
+      "prompt": "Je suis à l'école."
+    },
+    {
+      "type": "writing",
+      "question": "Translate into French:",
+      "prompt": "I like apples."
+    },
+    {
+      "type": "writing",
+      "question": "Write one sentence introducing yourself in French."
+    },
+    {
+      "type": "speaking",
+      "question": "Say your name and age in French."
+    },
+    {
+      "type": "speaking",
+      "question": "Describe your favorite food in French."
+    },
+    {
+      "type": "speaking",
+      "question": "Introduce yourself in one sentence."
+    }
+  ]
 }
