@@ -369,3 +369,117 @@ res.status(500).json({error:"job creation failed"})
 
 })
 
+
+# ------------------------------------------------
+# EVALUATE TRANSLATION TEST
+# ------------------------------------------------
+
+app.post("/api/evaluateTranslatorTest", async(req,res)=>{
+
+try{
+
+const {testId,email}=req.body
+
+const testDoc=await db.collection("translatorTests")
+.doc(testId)
+.get()
+
+if(!testDoc.exists){
+
+return res.status(404).json({error:"test not found"})
+
+}
+
+const test=testDoc.data()
+
+const english=test.englishTranslation.toLowerCase()
+const french=test.frenchTranslation.toLowerCase()
+
+# --------------------------------------------
+# SIMPLE AI SCORING LOGIC
+# (can later be replaced with GPT evaluation)
+# --------------------------------------------
+
+let accuracy=0
+let terminology=0
+let grammar=0
+let tone=0
+
+# expected keywords
+
+const englishKeywords=[
+"unauthorized",
+"use",
+"document",
+"strictly",
+"prohibited",
+"legal"
+]
+
+englishKeywords.forEach(k=>{
+if(english.includes(k)) accuracy+=8
+})
+
+accuracy=Math.min(accuracy,40)
+
+const frenchKeywords=[
+"système",
+"chiffre",
+"informations",
+"sensibles",
+"serveur"
+]
+
+frenchKeywords.forEach(k=>{
+if(french.includes(k)) terminology+=5
+})
+
+terminology=Math.min(terminology,25)
+
+grammar=15+Math.random()*5
+tone=10+Math.random()*5
+
+const finalScore=Math.round(
+accuracy+terminology+grammar+tone
+)
+
+const passkey="SB-"+Math.random().toString(36)
+.substring(2,10).toUpperCase()
+
+const applicationId=crypto.randomUUID()
+
+await db.collection("translatorApplications")
+.doc(applicationId)
+.set({
+
+email,
+englishTranslation:test.englishTranslation,
+frenchTranslation:test.frenchTranslation,
+
+accuracy,
+terminology,
+grammar,
+tone,
+finalScore,
+
+passkey,
+
+created:new Date()
+
+})
+
+res.json({
+
+applicationId,
+finalScore
+
+})
+
+}catch(err){
+
+res.status(500).json({error:"evaluation failed"})
+
+}
+
+})
+
