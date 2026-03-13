@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Choose Your DELF Test</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#eaf4f4,#f6efe6);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+
+text-align:center;
+max-width:900px;
+
+}
+
+h1{
+margin-bottom:10px;
+}
+
+.subtitle{
+color:#6b7280;
+margin-bottom:40px;
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+
+}
+
+.card{
+
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 15px 30px rgba(0,0,0,0.08);
+cursor:pointer;
+transition:transform .2s;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.card h3{
+margin-bottom:8px;
+}
+
+.card p{
+color:#6b7280;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Choose Your DELF Placement Test</h1>
+
+<div class="subtitle">
+Select the test that matches the learner so we can recommend the correct preparation level.
+</div>
+
+<div class="grid">
+
+<div class="card" onclick="location.href='tests/prim.html'">
+
+<h3>DELF Prim</h3>
+<p>For children preparing for DELF Prim</p>
+
+</div>
+
+<div class="card" onclick="location.href='tests/junior.html'">
+
+<h3>DELF Junior</h3>
+<p>For teenagers preparing for DELF Junior</p>
+
+</div>
+
+<div class="card" onclick="location.href='tests/adult.html'">
+
+<h3>DELF Tout Public</h3>
+<p>For adults preparing for official DELF levels</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
