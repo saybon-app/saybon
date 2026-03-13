@@ -7,16 +7,12 @@
 
 <title>Application Result</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 
 body{
-font-family:Poppins;
+font-family:Arial;
 background:#f4f6fb;
-margin:0;
-padding:40px;
-color:#444;
+padding:40px
 }
 
 .container{
@@ -24,95 +20,50 @@ max-width:900px;
 margin:auto;
 background:white;
 padding:40px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-h1{
-text-align:center;
-margin-bottom:30px;
+border-radius:10px;
 }
 
 .status{
 text-align:center;
 font-size:22px;
-margin-bottom:25px;
-font-weight:600;
+margin-bottom:20px
 }
 
-.pass{color:#16a34a}
-.fail{color:#dc2626}
+.pass{color:green}
+.fail{color:red}
 
 table{
 width:100%;
-border-collapse:collapse;
-margin-top:20px;
-margin-bottom:25px;
+border-collapse:collapse
 }
 
 th,td{
 border:1px solid #ddd;
-padding:12px;
-text-align:left;
-font-size:14px;
+padding:10px
 }
 
-th{
-background:#f1f4ff;
-}
-
-.passkey-box{
+.passkey{
 margin-top:30px;
 padding:20px;
 background:#fff1f2;
-border:2px solid #dc2626;
-border-radius:10px;
-text-align:center;
+border:2px solid red;
 display:none;
+text-align:center
 }
 
-.passkey-code{
-display:inline-block;
-margin-top:12px;
-padding:14px 24px;
-background:#7f1d1d;
-color:white;
+.code{
 font-family:monospace;
 font-size:20px;
-letter-spacing:3px;
-border-radius:6px;
-cursor:pointer;
-}
-
-.passkey-note{
-margin-top:12px;
-font-size:13px;
-color:#991b1b;
-font-weight:500;
-}
-
-.buttons{
-margin-top:30px;
-display:flex;
-gap:20px;
-justify-content:center;
-}
-
-.btn{
-padding:12px 20px;
-border-radius:8px;
-border:none;
-font-size:15px;
-cursor:pointer;
-background:#2563eb;
+background:#7f1d1d;
 color:white;
-}
-
-.btn.secondary{
-background:#64748b;
+padding:10px;
+margin-top:10px;
+display:inline-block;
+cursor:pointer
 }
 
 </style>
+
 </head>
 
 <body>
@@ -126,65 +77,44 @@ background:#64748b;
 <table>
 
 <tr>
-<th>Evaluation Area</th>
+<th>Evaluation</th>
 <th>Score</th>
-<th>Status</th>
 </tr>
 
 <tr>
 <td>Accuracy</td>
 <td id="accuracy"></td>
-<td id="accuracyStatus"></td>
 </tr>
 
 <tr>
 <td>Terminology</td>
 <td id="terminology"></td>
-<td id="terminologyStatus"></td>
 </tr>
 
 <tr>
 <td>Grammar</td>
 <td id="grammar"></td>
-<td id="grammarStatus"></td>
 </tr>
 
 <tr>
-<td>Professional Tone</td>
+<td>Tone</td>
 <td id="tone"></td>
-<td id="toneStatus"></td>
 </tr>
 
 <tr>
-<td><strong>Total Score</strong></td>
-<td id="totalScore"></td>
-<td id="totalStatus"></td>
+<td>Total</td>
+<td id="total"></td>
 </tr>
 
 </table>
 
-<div class="passkey-box" id="passkeyBox">
+<div class="passkey" id="passkeyBox">
 
-<div><strong>Your Translator Job Key</strong></div>
+<div>Your Translator Job Key</div>
 
-<div class="passkey-code" id="passkeyCode"></div>
+<div id="code" class="code"></div>
 
-<div class="passkey-note">
-This key gives access to SayBon translation jobs.<br>
-Do NOT share it with anyone.
-</div>
-
-</div>
-
-<div class="buttons">
-
-<button id="jobBtn" class="btn" style="display:none">
-Go To Job Board
-</button>
-
-<button id="dashBtn" class="btn secondary">
-Return To Dashboard
-</button>
+<p>Do not share this key</p>
 
 </div>
 
@@ -192,15 +122,15 @@ Return To Dashboard
 
 <script>
 
-async function loadResult(){
-
 const params=new URLSearchParams(window.location.search)
+
 const id=params.get("id")
+
+async function load(){
 
 if(!id){
 
 document.getElementById("status").innerHTML="Result unavailable"
-document.getElementById("status").classList.add("fail")
 
 return
 
@@ -210,70 +140,31 @@ const res=await fetch("/api/applicationResult?id="+id)
 
 const data=await res.json()
 
-const accuracy=data.accuracy
-const terminology=data.terminology
-const grammar=data.grammar
-const tone=data.tone
-const total=data.finalScore
+document.getElementById("accuracy").innerText=data.accuracy+"%"
+document.getElementById("terminology").innerText=data.terminology+"%"
+document.getElementById("grammar").innerText=data.grammar+"%"
+document.getElementById("tone").innerText=data.tone+"%"
+document.getElementById("total").innerText=data.finalScore+"%"
 
-document.getElementById("accuracy").innerText=accuracy+"%"
-document.getElementById("terminology").innerText=terminology+"%"
-document.getElementById("grammar").innerText=grammar+"%"
-document.getElementById("tone").innerText=tone+"%"
-document.getElementById("totalScore").innerText=total+"%"
+if(data.finalScore>=75){
 
-function status(score){
-return score>=75?"Pass":"Review"
-}
+document.getElementById("status").innerHTML="Accepted"
+document.getElementById("status").className="status pass"
 
-document.getElementById("accuracyStatus").innerText=status(accuracy)
-document.getElementById("terminologyStatus").innerText=status(terminology)
-document.getElementById("grammarStatus").innerText=status(grammar)
-document.getElementById("toneStatus").innerText=status(tone)
+document.getElementById("passkeyBox").style.display="block"
 
-const statusBox=document.getElementById("status")
-const passkeyBox=document.getElementById("passkeyBox")
-const jobBtn=document.getElementById("jobBtn")
-
-if(total>=75){
-
-statusBox.innerHTML="Status: Accepted Into Translator Pool"
-statusBox.classList.add("pass")
-
-document.getElementById("passkeyCode").innerText=data.passkey
-
-passkeyBox.style.display="block"
-
-jobBtn.style.display="inline-block"
+document.getElementById("code").innerText=data.passkey
 
 }else{
 
-statusBox.innerHTML="Status: Application Rejected"
-statusBox.classList.add("fail")
-
-document.getElementById("totalStatus").innerText="Below Entry Threshold"
+document.getElementById("status").innerHTML="Rejected"
+document.getElementById("status").className="status fail"
 
 }
 
 }
 
-document.getElementById("passkeyCode").onclick=function(){
-
-navigator.clipboard.writeText(this.innerText)
-
-this.innerText="Copied ✔"
-
-}
-
-document.getElementById("jobBtn").onclick=()=>{
-window.location="/translation/translator-dashboard.html"
-}
-
-document.getElementById("dashBtn").onclick=()=>{
-window.location="/dashboard/index.html"
-}
-
-loadResult()
+load()
 
 </script>
 
