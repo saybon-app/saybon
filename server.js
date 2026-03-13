@@ -361,3 +361,97 @@ error:"Translator evaluation failed"
 
 })
 
+
+/* ==========================================
+AI DOCUMENT DETECTION
+========================================== */
+
+import multer from "multer"
+import fs from "fs"
+
+const upload=multer({dest:"uploads/"})
+
+app.post("/api/detectDocument", upload.single("file"), async(req,res)=>{
+
+try{
+
+const OpenAI = (await import("openai")).default
+
+const openai = new OpenAI({
+apiKey:process.env.OPENAI_API_KEY
+})
+
+const fileBuffer = fs.readFileSync(req.file.path)
+
+const base64=fileBuffer.toString("base64")
+
+const prompt = `
+Identify what document this is.
+
+Possible answers:
+
+Passport
+National ID
+Driver License
+DELF B2 Certificate
+DALF Certificate
+TEF Certificate
+TCF Certificate
+Professional CV
+Unknown
+
+Return JSON:
+
+{
+documentType:"..."
+}
+`
+
+const completion = await openai.chat.completions.create({
+model:"gpt-4.1-mini",
+messages:[
+{
+role:"user",
+content:[
+{type:"text",text:prompt},
+{
+type:"image_url",
+image_url:{
+"url":"data:image/png;base64,"+base64
+}
+}
+]
+}
+]
+})
+
+let result = completion.choices[0].message.content
+
+try{
+result=JSON.parse(result)
+}catch{
+return res.status(500).json({error:"Document detection failed"})
+}
+
+/* STORE RESULT */
+
+const doc=await db.collection("documentChecks").add({
+documentType:result.documentType,
+createdAt:new Date()
+})
+
+res.json({
+documentType:result.documentType
+})
+
+}catch(err){
+
+console.error("Document detection error:",err)
+
+res.status(500).json({
+error:"Document detection failed"
+})
+
+}
+
+})
