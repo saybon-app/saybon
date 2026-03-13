@@ -4,118 +4,118 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SayBon DELF Preparation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-font-family:'Inter',sans-serif;
-background:#f4f6fb;
 margin:0;
-padding:40px;
-color:#2c2c2c;
+font-family:'Poppins',sans-serif;
+background:#f6f8fb;
+color:#3a3a3a;
 }
 
-.container{
-max-width:900px;
+.wrapper{
+max-width:720px;
 margin:auto;
-background:white;
-padding:50px;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-h1{
+padding:40px 20px;
 text-align:center;
-margin-bottom:10px;
 }
 
-.subtitle{
-text-align:center;
-color:#6b7280;
-margin-bottom:30px;
-}
-
-.learn-btn{
-display:block;
-margin:auto;
-background:#2563eb;
-color:white;
-border:none;
-padding:12px 24px;
-border-radius:8px;
-cursor:pointer;
-font-size:15px;
-}
-
-.learn-btn:hover{
-background:#1d4ed8;
-}
-
-.info-card{
-margin-top:30px;
-display:none;
-}
-
-.card{
-border-radius:10px;
-padding:25px;
+.hero-img{
 margin-bottom:20px;
 }
 
-.warning{
-background:#fdecea;
-border-left:4px solid #dc2626;
+.hero-img img{
+max-width:380px;
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
 }
 
-.info{
-background:#eef2ff;
+h1{
+font-size:34px;
+margin-bottom:10px;
+font-weight:600;
 }
 
-.pricing{
-background:#f9fafb;
+.subtitle{
+font-size:16px;
+color:#6b6b6b;
+margin-bottom:30px;
 }
 
-h3{
-margin-top:0;
-}
-
-.track-buttons{
-margin-top:25px;
-display:flex;
-gap:15px;
-flex-wrap:wrap;
-}
-
-.track{
-background:#2563eb;
+.primary-btn{
+background:#2d6cdf;
 color:white;
 border:none;
-padding:12px 20px;
-border-radius:8px;
+padding:14px 22px;
+border-radius:10px;
+font-size:15px;
 cursor:pointer;
+transition:0.2s;
 }
 
-.track:hover{
-background:#1d4ed8;
+.primary-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+
+.card{
+display:none;
+margin-top:30px;
+background:white;
+padding:32px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+text-align:left;
+}
+
+.section{
+margin-top:40px;
+}
+
+.section h2{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.notice{
+background:#ffecec;
+padding:18px;
+border-radius:12px;
+border-left:4px solid #ff4c4c;
+font-size:15px;
+}
+
+.steps{
+margin-top:15px;
+}
+
+.steps div{
+margin-bottom:12px;
+}
+
+.fees{
+margin-top:15px;
+line-height:1.8;
+}
+
+.cta{
+margin-top:40px;
+text-align:center;
 }
 
 .close-btn{
-margin-top:20px;
-background:#6b7280;
+margin-top:25px;
+background:#444;
 color:white;
 border:none;
-padding:10px 18px;
-border-radius:8px;
+padding:12px 18px;
+border-radius:10px;
 cursor:pointer;
-}
-
-.close-btn:hover{
-background:#4b5563;
 }
 
 </style>
@@ -124,7 +124,11 @@ background:#4b5563;
 
 <body>
 
-<div class="container">
+<div class="wrapper">
+
+<div class="hero-img">
+<img src="/assets/images/delf-prep-teacher.png" alt="Teacher helping student prepare for DELF">
+</div>
 
 <h1>SayBon DELF Preparation</h1>
 
@@ -132,38 +136,44 @@ background:#4b5563;
 Prepare confidently for the official DELF exam through structured mock-based training.
 </div>
 
-<button class="learn-btn" onclick="toggleInfo()">
+<button class="primary-btn" onclick="openInfo()">
 Learn Everything About This Service
 </button>
 
-<div id="infoCard" class="info-card">
+<div class="card" id="infoCard">
 
-<div class="card warning">
+<div class="section">
+<h2>Important to Know</h2>
 
-<h3>Important to Know</h3>
-
-SayBon is not an official DELF examination centre.  
-We do not administer the official exam, issue certificates, or register candidates for the exam.
-
-Our role is to prepare you so that you feel confident and ready when you take the official DELF exam.
-
+<div class="notice">
+SayBon is not an official DELF examination centre. We do not administer the official exam,
+issue certificates, or register candidates for the exam. Our role is to prepare you so that
+you feel confident and ready when you take the official DELF exam.
+</div>
 </div>
 
-<div class="card info">
+<div class="section">
+<h2>How Preparation Works</h2>
 
-<h3>How Preparation Works</h3>
+<div class="steps">
 
-1. Take a short **free level recommendation test**  
-2. The system suggests the DELF level that best matches your ability  
-3. Register for preparation at that level  
-4. Unlock structured **mock-based training**  
-5. Track your readiness before taking the real exam
+<div>1. Take a short <b>free level recommendation test</b>.</div>
+
+<div>2. The system suggests the DELF level that best matches your ability.</div>
+
+<div>3. Register for preparation at that level.</div>
+
+<div>4. Unlock structured <b>mock-based training</b>.</div>
+
+<div>5. Track your readiness before taking the real exam.</div>
 
 </div>
+</div>
 
-<div class="card pricing">
+<div class="section">
+<h2>Preparation Fees</h2>
 
-<h3>Preparation Fees</h3>
+<div class="fees">
 
 <b>DELF Prim (Children)</b><br>
 A1 — $8<br>
@@ -180,21 +190,20 @@ A1 — $15<br>
 A2 — $20<br>
 B1 — $25<br>
 B2 — $30<br>
-C1 — $40<br><br>
-
-Payment happens **after your level recommendation test**.
+C1 — $40
 
 </div>
-
-<div class="track-buttons">
-
-<button class="track" onclick="goPrim()">DELF Prim (Children)</button>
-<button class="track" onclick="goJunior()">DELF Junior (Teenagers)</button>
-<button class="track" onclick="goAdult()">DELF Tout Public (Adults)</button>
-
 </div>
 
-<button class="close-btn" onclick="toggleInfo()">
+<div class="cta">
+
+<button class="primary-btn" onclick="window.location.href='/features/delf/test.html'">
+Take Free Level Recommendation Test
+</button>
+
+<br>
+
+<button class="close-btn" onclick="closeInfo()">
 Close Information
 </button>
 
@@ -202,30 +211,16 @@ Close Information
 
 </div>
 
+</div>
+
 <script>
 
-function toggleInfo(){
-
-let card=document.getElementById("infoCard");
-
-if(card.style.display==="none" || card.style.display===""){
-card.style.display="block";
-}else{
-card.style.display="none";
+function openInfo(){
+document.getElementById("infoCard").style.display="block";
 }
 
-}
-
-function goPrim(){
-window.location="/features/delf/test/?track=prim";
-}
-
-function goJunior(){
-window.location="/features/delf/test/?track=junior";
-}
-
-function goAdult(){
-window.location="/features/delf/test/?track=adult";
+function closeInfo(){
+document.getElementById("infoCard").style.display="none";
 }
 
 </script>
