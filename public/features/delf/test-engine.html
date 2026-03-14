@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,326 +10,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
-let recorder=null
-let stream=null
-let audioChunks=[]
-let activeQuestion=null
-let animationId=null
-
-let audioContext
-let analyser
-let source
-
-const canvas=document.getElementById("waveCanvas")
-const ctx=canvas.getContext("2d")
-
-canvas.width=800
-canvas.height=80
-
-
-function drawWave(){
-
-const bufferLength=analyser.fftSize
-const dataArray=new Uint8Array(bufferLength)
-
-function draw(){
-
-animationId=requestAnimationFrame(draw)
-
-analyser.getByteTimeDomainData(dataArray)
-
-ctx.fillStyle="#eef4ff"
-ctx.fillRect(0,0,canvas.width,canvas.height)
-
-ctx.lineWidth=2
-ctx.strokeStyle="#4f8cff"
-
-ctx.beginPath()
-
-let sliceWidth=canvas.width/bufferLength
-let x=0
-
-for(let i=0;i<bufferLength;i++){
-
-let v=dataArray[i]/128.0
-let y=v*canvas.height/2
-
-if(i===0){
-ctx.moveTo(x,y)
-}else{
-ctx.lineTo(x,y)
-}
-
-x+=sliceWidth
-
-}
-
-ctx.lineTo(canvas.width,canvas.height/2)
-ctx.stroke()
-
-}
-
-draw()
-
-}
-
-
-async function startRecording(index){
-
-if(recorder){
-return
-}
-
-activeQuestion=index
-
-stream=await navigator.mediaDevices.getUserMedia({audio:true})
-
-audioContext=new AudioContext()
-
-source=audioContext.createMediaStreamSource(stream)
-
-analyser=audioContext.createAnalyser()
-analyser.fftSize=2048
-
-source.connect(analyser)
-
-drawWave()
-
-recorder=new MediaRecorder(stream)
-
-audioChunks=[]
-
-recorder.ondataavailable=e=>{
-if(e.data.size>0){
-audioChunks.push(e.data)
-}
-}
-
-recorder.onstop=uploadRecording
-
-recorder.start()
-
-document.getElementById("rec"+index).innerText="Recording..."
-
-}
-
-
-
-async function stopRecording(){
-
-if(!recorder){
-return
-}
-
-stream.getTracks().forEach(track=>track.stop())
-
-recorder.stop()
-
-cancelAnimationFrame(animationId)
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-}
-
-
-
-async function uploadRecording(){
-
-try{
-
-const blob=new Blob(audioChunks,{type:"audio/webm"})
-
-const path="placement-audio/"+Date.now()+".webm"
-
-const ref=firebase.storage().ref(path)
-
-await ref.put(blob)
-
-const url=await ref.getDownloadURL()
-
-answers[activeQuestion]=url
-
-document.getElementById("rec"+activeQuestion).innerText="Recording saved"
-
-}catch(err){
-
-document.getElementById("rec"+activeQuestion).innerText="Upload failed"
-
-console.error(err)
-
-}
-
-recorder=null
-audioChunks=[]
-stream=null
-
-setTimeout(()=>{
-nextSlide()
-},800)
-
-}
-</script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js">
-let recorder=null
-let stream=null
-let audioChunks=[]
-let activeQuestion=null
-let animationId=null
-
-let audioContext
-let analyser
-let source
-
-const canvas=document.getElementById("waveCanvas")
-const ctx=canvas.getContext("2d")
-
-canvas.width=800
-canvas.height=80
-
-
-function drawWave(){
-
-const bufferLength=analyser.fftSize
-const dataArray=new Uint8Array(bufferLength)
-
-function draw(){
-
-animationId=requestAnimationFrame(draw)
-
-analyser.getByteTimeDomainData(dataArray)
-
-ctx.fillStyle="#eef4ff"
-ctx.fillRect(0,0,canvas.width,canvas.height)
-
-ctx.lineWidth=2
-ctx.strokeStyle="#4f8cff"
-
-ctx.beginPath()
-
-let sliceWidth=canvas.width/bufferLength
-let x=0
-
-for(let i=0;i<bufferLength;i++){
-
-let v=dataArray[i]/128.0
-let y=v*canvas.height/2
-
-if(i===0){
-ctx.moveTo(x,y)
-}else{
-ctx.lineTo(x,y)
-}
-
-x+=sliceWidth
-
-}
-
-ctx.lineTo(canvas.width,canvas.height/2)
-ctx.stroke()
-
-}
-
-draw()
-
-}
-
-
-async function startRecording(index){
-
-if(recorder){
-return
-}
-
-activeQuestion=index
-
-stream=await navigator.mediaDevices.getUserMedia({audio:true})
-
-audioContext=new AudioContext()
-
-source=audioContext.createMediaStreamSource(stream)
-
-analyser=audioContext.createAnalyser()
-analyser.fftSize=2048
-
-source.connect(analyser)
-
-drawWave()
-
-recorder=new MediaRecorder(stream)
-
-audioChunks=[]
-
-recorder.ondataavailable=e=>{
-if(e.data.size>0){
-audioChunks.push(e.data)
-}
-}
-
-recorder.onstop=uploadRecording
-
-recorder.start()
-
-document.getElementById("rec"+index).innerText="Recording..."
-
-}
-
-
-
-async function stopRecording(){
-
-if(!recorder){
-return
-}
-
-stream.getTracks().forEach(track=>track.stop())
-
-recorder.stop()
-
-cancelAnimationFrame(animationId)
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-}
-
-
-
-async function uploadRecording(){
-
-try{
-
-const blob=new Blob(audioChunks,{type:"audio/webm"})
-
-const path="placement-audio/"+Date.now()+".webm"
-
-const ref=firebase.storage().ref(path)
-
-await ref.put(blob)
-
-const url=await ref.getDownloadURL()
-
-answers[activeQuestion]=url
-
-document.getElementById("rec"+activeQuestion).innerText="Recording saved"
-
-}catch(err){
-
-document.getElementById("rec"+activeQuestion).innerText="Upload failed"
-
-console.error(err)
-
-}
-
-recorder=null
-audioChunks=[]
-stream=null
-
-setTimeout(()=>{
-nextSlide()
-},800)
-
-}
-</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
 <style>
 
@@ -532,7 +214,72 @@ draw()
 
 /* START RECORDING */
 
-)
+async function startRecording(index){
+
+if(recorder){
+return
+}
+
+activeQuestion=index
+
+stream=await navigator.mediaDevices.getUserMedia({audio:true})
+
+audioContext=new AudioContext()
+
+source=audioContext.createMediaStreamSource(stream)
+
+analyser=audioContext.createAnalyser()
+analyser.fftSize=2048
+
+source.connect(analyser)
+
+drawWave()
+
+recorder=new MediaRecorder(stream)
+
+audioChunks=[]
+
+recorder.ondataavailable=e=>{
+if(e.data.size>0){
+audioChunks.push(e.data)
+}
+}
+
+recorder.onstop=uploadRecording
+
+recorder.start()
+
+document.getElementById("rec"+index).innerText="Recording..."
+
+}
+
+
+/* STOP RECORDING */
+
+async function stopRecording(){
+
+if(!recorder){
+return
+}
+
+stream.getTracks().forEach(track=>track.stop())
+
+recorder.stop()
+
+cancelAnimationFrame(animationId)
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+}
+
+
+/* UPLOAD + AUTO ADVANCE */
+
+async function uploadRecording(){
+
+try{
+
+const blob=new Blob(audioChunks,{type:"audio/webm"})
 
 const path="placement-audio/"+Date.now()+".webm"
 
@@ -575,167 +322,7 @@ console.log("Move to next question")
 
 }
 
-
-let recorder=null
-let stream=null
-let audioChunks=[]
-let activeQuestion=null
-let animationId=null
-
-let audioContext
-let analyser
-let source
-
-const canvas=document.getElementById("waveCanvas")
-const ctx=canvas.getContext("2d")
-
-canvas.width=800
-canvas.height=80
-
-
-function drawWave(){
-
-const bufferLength=analyser.fftSize
-const dataArray=new Uint8Array(bufferLength)
-
-function draw(){
-
-animationId=requestAnimationFrame(draw)
-
-analyser.getByteTimeDomainData(dataArray)
-
-ctx.fillStyle="#eef4ff"
-ctx.fillRect(0,0,canvas.width,canvas.height)
-
-ctx.lineWidth=2
-ctx.strokeStyle="#4f8cff"
-
-ctx.beginPath()
-
-let sliceWidth=canvas.width/bufferLength
-let x=0
-
-for(let i=0;i<bufferLength;i++){
-
-let v=dataArray[i]/128.0
-let y=v*canvas.height/2
-
-if(i===0){
-ctx.moveTo(x,y)
-}else{
-ctx.lineTo(x,y)
-}
-
-x+=sliceWidth
-
-}
-
-ctx.lineTo(canvas.width,canvas.height/2)
-ctx.stroke()
-
-}
-
-draw()
-
-}
-
-
-async function startRecording(index){
-
-if(recorder){
-return
-}
-
-activeQuestion=index
-
-stream=await navigator.mediaDevices.getUserMedia({audio:true})
-
-audioContext=new AudioContext()
-
-source=audioContext.createMediaStreamSource(stream)
-
-analyser=audioContext.createAnalyser()
-analyser.fftSize=2048
-
-source.connect(analyser)
-
-drawWave()
-
-recorder=new MediaRecorder(stream)
-
-audioChunks=[]
-
-recorder.ondataavailable=e=>{
-if(e.data.size>0){
-audioChunks.push(e.data)
-}
-}
-
-recorder.onstop=uploadRecording
-
-recorder.start()
-
-document.getElementById("rec"+index).innerText="Recording..."
-
-}
-
-
-
-async function stopRecording(){
-
-if(!recorder){
-return
-}
-
-stream.getTracks().forEach(track=>track.stop())
-
-recorder.stop()
-
-cancelAnimationFrame(animationId)
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-}
-
-
-
-async function uploadRecording(){
-
-try{
-
-const blob=new Blob(audioChunks,{type:"audio/webm"})
-
-const path="placement-audio/"+Date.now()+".webm"
-
-const ref=firebase.storage().ref(path)
-
-await ref.put(blob)
-
-const url=await ref.getDownloadURL()
-
-answers[activeQuestion]=url
-
-document.getElementById("rec"+activeQuestion).innerText="Recording saved"
-
-}catch(err){
-
-document.getElementById("rec"+activeQuestion).innerText="Upload failed"
-
-console.error(err)
-
-}
-
-recorder=null
-audioChunks=[]
-stream=null
-
-setTimeout(()=>{
-nextSlide()
-},800)
-
-}
 </script>
 
 </body>
 </html>
-
