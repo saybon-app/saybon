@@ -128,9 +128,7 @@ Press start and speak clearly.
 
 <script>
 
-/* ===============================
-FIREBASE CONFIG
-================================ */
+/* FIREBASE */
 
 const firebaseConfig={
 apiKey:"YOUR_API_KEY",
@@ -146,9 +144,7 @@ firebase.initializeApp(firebaseConfig)
 const storage=firebase.storage()
 
 
-/* ===============================
-GLOBAL VARIABLES
-================================ */
+/* VARIABLES */
 
 let recorder=null
 let stream=null
@@ -167,9 +163,7 @@ canvas.width=800
 canvas.height=80
 
 
-/* ===============================
-DRAW WAVEFORM
-================================ */
+/* DRAW WAVE */
 
 function drawWave(){
 
@@ -186,7 +180,7 @@ ctx.fillStyle="#eef4ff"
 ctx.fillRect(0,0,canvas.width,canvas.height)
 
 ctx.lineWidth=2
-ctx.strokeStyle="#4f8cff"
+ctx.strokeStyle="#4f8cff
 
 ctx.beginPath()
 
@@ -218,9 +212,7 @@ draw()
 }
 
 
-/* ===============================
-START RECORDING
-================================ */
+/* START RECORDING */
 
 async function startRecording(index){
 
@@ -262,9 +254,7 @@ document.getElementById("rec"+index).innerText="Recording..."
 }
 
 
-/* ===============================
-STOP RECORDING
-================================ */
+/* STOP RECORDING */
 
 async function stopRecording(){
 
@@ -272,15 +262,9 @@ if(!recorder){
 return
 }
 
-/* STOP MICROPHONE FIRST */
-
 stream.getTracks().forEach(track=>track.stop())
 
-/* STOP RECORDER */
-
 recorder.stop()
-
-/* STOP WAVE ANIMATION */
 
 cancelAnimationFrame(animationId)
 
@@ -289,9 +273,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height)
 }
 
 
-/* ===============================
-UPLOAD RECORDING
-================================ */
+/* UPLOAD + AUTO ADVANCE */
 
 async function uploadRecording(){
 
@@ -317,12 +299,26 @@ console.error(err)
 
 }
 
-/* RESET VARIABLES */
+/* RESET */
 
 recorder=null
 audioChunks=[]
-activeQuestion=null
 stream=null
+
+/* AUTO NEXT QUESTION */
+
+setTimeout(()=>{
+nextSlide()
+},800)
+
+}
+
+
+/* NEXT SLIDE PLACEHOLDER */
+
+function nextSlide(){
+
+console.log("Move to next question")
 
 }
 
