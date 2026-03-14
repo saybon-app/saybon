@@ -5,6 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>SayBon Test Engine</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -122,9 +123,14 @@ Press start and speak clearly.
 </div>
 
 </div>
+
 </div>
 
 <script>
+
+/* ===============================
+FIREBASE CONFIG
+================================ */
 
 const firebaseConfig={
 apiKey:"YOUR_API_KEY",
@@ -139,16 +145,20 @@ firebase.initializeApp(firebaseConfig)
 
 const storage=firebase.storage()
 
+
+/* ===============================
+GLOBAL VARIABLES
+================================ */
+
 let recorder=null
 let stream=null
 let audioChunks=[]
 let activeQuestion=null
-let answers={}
+let animationId=null
 
 let audioContext
 let analyser
 let source
-let animationId
 
 const canvas=document.getElementById("waveCanvas")
 const ctx=canvas.getContext("2d")
@@ -156,6 +166,10 @@ const ctx=canvas.getContext("2d")
 canvas.width=800
 canvas.height=80
 
+
+/* ===============================
+DRAW WAVEFORM
+================================ */
 
 function drawWave(){
 
@@ -204,6 +218,10 @@ draw()
 }
 
 
+/* ===============================
+START RECORDING
+================================ */
+
 async function startRecording(index){
 
 if(recorder){
@@ -235,6 +253,8 @@ audioChunks.push(e.data)
 }
 }
 
+recorder.onstop=uploadRecording
+
 recorder.start()
 
 document.getElementById("rec"+index).innerText="Recording..."
@@ -242,19 +262,40 @@ document.getElementById("rec"+index).innerText="Recording..."
 }
 
 
+/* ===============================
+STOP RECORDING
+================================ */
+
 async function stopRecording(){
 
 if(!recorder){
 return
 }
 
+/* STOP MICROPHONE FIRST */
+
+stream.getTracks().forEach(track=>track.stop())
+
+/* STOP RECORDER */
+
 recorder.stop()
+
+/* STOP WAVE ANIMATION */
 
 cancelAnimationFrame(animationId)
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-recorder.onstop=async()=>{
+}
+
+
+/* ===============================
+UPLOAD RECORDING
+================================ */
+
+async function uploadRecording(){
+
+try{
 
 const blob=new Blob(audioChunks,{type:"audio/webm"})
 
@@ -266,17 +307,22 @@ await ref.put(blob)
 
 const url=await ref.getDownloadURL()
 
-answers[activeQuestion]=url
-
 document.getElementById("rec"+activeQuestion).innerText="Recording saved"
 
-stream.getTracks().forEach(track=>track.stop())
+}catch(err){
+
+document.getElementById("rec"+activeQuestion).innerText="Upload failed"
+
+console.error(err)
+
+}
+
+/* RESET VARIABLES */
 
 recorder=null
 audioChunks=[]
 activeQuestion=null
-
-}
+stream=null
 
 }
 
