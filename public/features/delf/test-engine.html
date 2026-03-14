@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SayBon Test Engine</title>
@@ -9,849 +10,198 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
 <style>
-:root{
-  --bg1:#eef4fb;
-  --bg2:#dfe9f7;
-  --card:#ffffff;
-  --text:#203040;
-  --muted:#6b7a90;
-  --line:#e5edf7;
-  --primary:#4f8cff;
-  --primary-soft:#eaf2ff;
-  --primary-strong:#2f6fe8;
-  --success:#18a957;
-  --danger:#c63b3b;
-  --shadow:0 20px 60px rgba(32,48,64,0.10);
-  --radius:22px;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:Poppins,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.85), transparent 28%),
-    linear-gradient(180deg,var(--bg1),var(--bg2));
-}
 
 body{
-  padding:32px 18px 48px;
+font-family:Poppins;
+background:#eef4fb;
+margin:0;
+padding:30px;
 }
 
 .shell{
-  max-width:980px;
-  margin:0 auto;
+max-width:900px;
+margin:auto;
 }
 
 .exam-card{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:28px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:24px;
-  margin-bottom:22px;
-}
-
-.brand-block h1{
-  margin:0 0 6px;
-  font-size:clamp(28px,4vw,48px);
-  line-height:1.05;
-  font-weight:700;
-  letter-spacing:-0.03em;
-}
-
-.brand-block .subtitle{
-  margin:0;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.counter{
-  flex-shrink:0;
-  text-align:right;
-  min-width:160px;
-}
-
-.counter .label{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-
-.counter .value{
-  font-size:30px;
-  line-height:1;
-  font-weight:700;
-}
-
-.progress-wrap{
-  margin-bottom:26px;
-}
-
-.progress-track{
-  width:100%;
-  height:12px;
-  background:#edf2f8;
-  border-radius:999px;
-  overflow:hidden;
-}
-
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--primary),#84b0ff);
-  border-radius:999px;
-  transition:width .35s ease;
-}
-
-.slide-stage{
-  min-height:430px;
-  display:flex;
-  align-items:flex-start;
-}
-
-.slide{
-  display:none;
-  width:100%;
-}
-
-.slide.active{
-  display:block;
-  animation:fadeIn .25s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(6px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.question-type{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:var(--primary-soft);
-  color:var(--primary-strong);
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  margin-bottom:16px;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
 }
 
 .question-text{
-  font-size:clamp(22px,3vw,34px);
-  line-height:1.2;
-  font-weight:700;
-  margin:0 0 22px;
-  letter-spacing:-0.02em;
+font-size:34px;
+font-weight:600;
+margin-bottom:30px;
 }
 
-.reading-box,
-.audio-box,
-.writing-box,
 .speaking-box{
-  background:#f8fbff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:22px;
-}
-
-.reading-box{
-  font-size:18px;
-  line-height:1.75;
-  color:#33445a;
-  white-space:pre-line;
-}
-
-.audio-box audio{
-  width:100%;
-}
-
-.answer-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-.answer-option{
-  position:relative;
-}
-
-.answer-option input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
-}
-
-.answer-chip{
-  width:100%;
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:12px;
-  padding:18px 20px;
-  border-radius:18px;
-  border:2px solid #dbe7f5;
-  background:#fff;
-  color:var(--text);
-  cursor:pointer;
-  transition:.2s ease;
-  font-size:17px;
-  font-weight:500;
-  text-align:left;
-}
-
-.answer-chip:hover{
-  border-color:#b8cff7;
-  transform:translateY(-1px);
-  box-shadow:0 10px 24px rgba(79,140,255,.10);
-}
-
-.answer-option input:checked + .answer-chip{
-  border-color:var(--primary);
-  background:var(--primary-soft);
-  box-shadow:0 10px 24px rgba(79,140,255,.14);
-}
-
-.answer-badge{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:#f0f5fd;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:14px;
-  color:var(--primary-strong);
-  flex-shrink:0;
-}
-
-textarea{
-  width:100%;
-  min-height:180px;
-  resize:vertical;
-  border:2px solid #dbe7f5;
-  border-radius:18px;
-  padding:18px;
-  font:inherit;
-  font-size:16px;
-  color:var(--text);
-  background:#fff;
-  outline:none;
-  transition:.2s ease;
-}
-
-textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 4px rgba(79,140,255,.10);
-}
-
-.helper{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:10px;
+background:#f8fbff;
+border:1px solid #e6edf7;
+padding:25px;
+border-radius:18px;
 }
 
 .record-controls{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:8px;
+display:flex;
+gap:12px;
+margin-bottom:15px;
 }
 
 .btn{
-  appearance:none;
-  border:none;
-  border-radius:16px;
-  padding:14px 18px;
-  font:inherit;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s ease;
+padding:14px 22px;
+border:none;
+border-radius:14px;
+font-size:16px;
+cursor:pointer;
+font-weight:600;
 }
 
 .btn-primary{
-  background:linear-gradient(180deg,#68a1ff,#4f8cff);
-  color:#fff;
-  box-shadow:0 10px 24px rgba(79,140,255,.22);
-}
-
-.btn-primary:hover{
-  transform:translateY(-1px);
-  box-shadow:0 14px 30px rgba(79,140,255,.28);
-}
-
-.btn-secondary{
-  background:#eff5fc;
-  color:#28405f;
-}
-
-.btn-secondary:hover{
-  background:#e5eefb;
+background:#4f8cff;
+color:white;
 }
 
 .btn-danger{
-  background:#fff1f1;
-  color:var(--danger);
-}
-
-.btn-danger:hover{
-  background:#ffe4e4;
+background:#ffdede;
+color:#c63b3b;
 }
 
 .rec-status{
-  margin-top:14px;
-  font-size:14px;
-  color:var(--muted);
-  min-height:20px;
+margin-top:12px;
+font-size:14px;
+color:#6b7a90;
 }
 
-.nav{
-  margin-top:26px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
+#waveCanvas{
+width:100%;
+height:80px;
+margin-top:15px;
+background:#eef4ff;
+border-radius:10px;
 }
 
-.nav .btn{
-  min-width:120px;
-}
-
-.center-note{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.finish-box{
-  text-align:center;
-  padding:40px 20px 12px;
-}
-
-.finish-box h2{
-  margin:0 0 8px;
-  font-size:34px;
-}
-
-.finish-box p{
-  margin:0 0 22px;
-  color:var(--muted);
-}
-
-@media (max-width: 760px){
-  body{
-    padding:18px 12px 30px;
-  }
-
-  .exam-card{
-    padding:18px;
-    border-radius:18px;
-  }
-
-  .topbar{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .counter{
-    text-align:left;
-  }
-
-  .slide-stage{
-    min-height:auto;
-  }
-
-  .answer-grid{
-    grid-template-columns:1fr;
-  }
-
-  .question-text{
-    font-size:28px;
-  }
-
-  .nav{
-    flex-direction:column-reverse;
-    align-items:stretch;
-  }
-
-  .nav .btn{
-    width:100%;
-  }
-}
 </style>
+
 </head>
 
 <body>
+
 <div class="shell">
-  <div class="exam-card">
-    <div class="topbar">
-      <div class="brand-block">
-        <h1 id="title">Loading test...</h1>
-        <p class="subtitle">One question at a time. Stay calm and work through each step.</p>
-      </div>
-      <div class="counter">
-        <div class="label">Progress</div>
-        <div class="value" id="progressLabel">1 / 1</div>
-      </div>
-    </div>
 
-    <div class="progress-wrap">
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </div>
+<div class="exam-card">
 
-    <div class="slide-stage" id="slides"></div>
+<h2 class="question-text">
+Say your name and age in French.
+</h2>
 
-    <div class="nav">
-      <button class="btn btn-secondary" id="backBtn" onclick="prevSlide()">Back</button>
-      <div class="center-note" id="centerNote">Choose an answer, then continue.</div>
-      <button class="btn btn-primary" id="nextBtn" onclick="nextSlide()">Next</button>
-    </div>
-  </div>
+<div class="speaking-box">
+
+<div class="record-controls">
+
+<button class="btn btn-primary" onclick="startRecording(1)">
+Start recording
+</button>
+
+<button class="btn btn-danger" onclick="stopRecording()">
+Stop
+</button>
+
+</div>
+
+<canvas id="waveCanvas"></canvas>
+
+<div class="rec-status" id="rec1">
+Press start and speak clearly.
+</div>
+
+</div>
+
+</div>
 </div>
 
 <script>
-const firebaseConfig = {
-  apiKey:"YOUR_API_KEY",
-  authDomain:"YOUR_DOMAIN",
-  projectId:"YOUR_PROJECT",
-  storageBucket:"YOUR_BUCKET",
-  messagingSenderId:"YOUR_SENDER",
-  appId:"YOUR_APP"
-};
 
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-const storage = firebase.storage();
-
-const params = new URLSearchParams(window.location.search);
-const test = params.get("test");
-
-let testData = null;
-let current = 0;
-let answers = {};
-let recorder = null;
-let audioChunks = [];
-let speakingUploadIndex = null;
-
-function escapeHtml(str){
-  return String(str ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#39;");
+const firebaseConfig={
+apiKey:"YOUR_API_KEY",
+authDomain:"YOUR_DOMAIN",
+projectId:"YOUR_PROJECT",
+storageBucket:"YOUR_BUCKET",
+messagingSenderId:"YOUR_SENDER",
+appId:"YOUR_APP"
 }
 
-function typeLabel(type){
-  if(type === "listening") return "Listening";
-  if(type === "reading") return "Reading";
-  if(type === "writing") return "Writing";
-  if(type === "speaking") return "Speaking";
-  return "Question";
-}
+firebase.initializeApp(firebaseConfig)
 
-function optionBadge(index){
-  return ["A","B","C","D","E","F"][index] || String(index + 1);
-}
-
-function renderSlide(q, index){
-  let html = `
-    <section class="slide active" data-index="${index}">
-      <div class="question-type">${typeLabel(q.type)}</div>
-      <h2 class="question-text">${escapeHtml(q.question || "")}</h2>
-  `;
-
-  if(q.type === "listening"){
-    html += `
-      <div class="audio-box">
-        <audio controls controlsList="nodownload" src="${escapeHtml(q.audio || "")}"></audio>
-      </div>
-    `;
-  }
-
-  if(q.type === "reading" && q.text){
-    html += `
-      <div class="reading-box">${escapeHtml(q.text)}</div>
-    `;
-  }
-
-  if((q.type === "listening" || q.type === "reading") && Array.isArray(q.choices)){
-    html += `<div class="answer-grid">`;
-    q.choices.forEach((choice, choiceIndex) => {
-      const checked = String(answers[index] ?? "") === String(choiceIndex) ? "checked" : "";
-      html += `
-        <label class="answer-option">
-          <input type="radio" name="q${index}" value="${choiceIndex}" ${checked}>
-          <span class="answer-chip">
-            <span class="answer-badge">${optionBadge(choiceIndex)}</span>
-            <span>${escapeHtml(choice)}</span>
-          </span>
-        </label>
-      `;
-    });
-    html += `</div>`;
-  }
-
-  if(q.type === "writing"){
-    html += `
-      <div class="writing-box">
-        ${q.prompt ? `<div class="reading-box" style="margin-bottom:14px;">${escapeHtml(q.prompt)}</div>` : ""}
-        <textarea id="write${index}" placeholder="Type your answer here...">${escapeHtml(answers[index] || "")}</textarea>
-        <div class="helper">Write clearly and answer only what is asked.</div>
-      </div>
-    `;
-  }
-
-  if(q.type === "speaking"){
-    const statusText = answers[index] ? "Recording saved." : "Press start, speak clearly, then stop.";
-    html += `
-      <div class="speaking-box">
-        <div class="helper" style="margin-top:0; margin-bottom:14px;">Your answer will be recorded and saved with your test.</div>
-        <div class="record-controls">
-          <button class="btn btn-primary" type="button" onclick="startRecording(${index})">Start recording</button>
-          <button class="btn btn-danger" type="button" onclick="stopRecording()">Stop</button>
-        </div>
-        <div class="rec-status" id="rec${index}">${escapeHtml(statusText)}</div>
-      </div>
-    `;
-  }
-
-  html += `</section>`;
-  return html;
-}
-
-function updateProgress(){
-  const total = testData.questions.length;
-  document.getElementById("progressLabel").innerText = `${current + 1} / ${total}`;
-  document.getElementById("progressFill").style.width = `${((current + 1) / total) * 100}%`;
-  document.getElementById("backBtn").style.visibility = current === 0 ? "hidden" : "visible";
-  document.getElementById("nextBtn").innerText = current === total - 1 ? "Finish" : "Next";
-}
-
-function updateCenterNote(){
-  const q = testData.questions[current];
-  let note = "Choose an answer, then continue.";
-  if(q.type === "writing") note = "Take your time and write a complete answer.";
-  if(q.type === "speaking") note = "Record your answer before moving on.";
-  if(q.type === "listening") note = "Listen carefully before choosing your answer.";
-  document.getElementById("centerNote").innerText = note;
-}
-
-function renderCurrentSlide(){
-  const q = testData.questions[current];
-  const slidesContainer = document.getElementById("slides");
-  slidesContainer.innerHTML = renderSlide(q, current);
-  updateProgress();
-  updateCenterNote();
-}
-
-function saveCurrentAnswer(){
-  const q = testData.questions[current];
-
-  if(q.type === "listening" || q.type === "reading"){
-    const selected = document.querySelector(`input[name="q${current}"]:checked`);
-    if(selected){
-      answers[current] = selected.value;
-    }
-  }
-
-  if(q.type === "writing"){
-    const textarea = document.getElementById(`write${current}`);
-    if(textarea){
-      answers[current] = textarea.value.trim();
-    }
-  }
-}
-
-function nextSlide(){
-  saveCurrentAnswer();
-
-  if(current < testData.questions.length - 1){
-    current++;
-    renderCurrentSlide();
-  }else{
-    submitTest();
-  }
-}
-
-function prevSlide(){
-  saveCurrentAnswer();
-
-  if(current > 0){
-    current--;
-    renderCurrentSlide();
-  }
-}
-
-async function startRecording(index){
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
-    recorder = new MediaRecorder(stream);
-    audioChunks = [];
-    speakingUploadIndex = index;
-
-    recorder.ondataavailable = e => {
-      if(e.data && e.data.size > 0){
-        audioChunks.push(e.data);
-      }
-    };
-
-    recorder.start();
-    const status = document.getElementById(`rec${index}`);
-    if(status) status.innerText = "Recording...";
-  }catch(err){
-    const status = document.getElementById(`rec${index}`);
-    if(status) status.innerText = "Microphone access failed.";
-    console.error(err);
-  }
-}
-
-function stopRecording(){
-  if(!recorder) return;
-
-  recorder.stop();
-
-  recorder.onstop = async () => {
-    try{
-      const blob = new Blob(audioChunks, { type:"audio/webm" });
-      const path = `placement-audio/${test}/${Date.now()}-${speakingUploadIndex}.webm`;
-      const ref = storage.ref(path);
-
-      await ref.put(blob);
-      const url = await ref.getDownloadURL();
-
-      answers[speakingUploadIndex] = url;
-
-      const status = document.getElementById(`rec${speakingUploadIndex}`);
-      if(status) status.innerText = "Recording saved.";
-
-      audioChunks = [];
-      speakingUploadIndex = null;
-      recorder = null;
-    }catch(err){
-      const status = document.getElementById(`rec${speakingUploadIndex}`);
-      if(status) status.innerText = "Recording upload failed.";
-      console.error(err);
-    }
-  };
-}
-
-function scoreObjectiveAnswers(){
-  let score = 0;
-
-  testData.questions.forEach((q, index) => {
-    if((q.type === "listening" || q.type === "reading") && typeof q.answer !== "undefined"){
-      if(String(answers[index] ?? "") === String(q.answer)){
-        score++;
-      }
-    }
-  });
-
-  return score;
-}
-
-async function submitTest(){
-  const objectiveScore = scoreObjectiveAnswers();
-
-  try{
-    await db.collection("placementTests").add({
-      test,
-      title:testData.title,
-      answers,
-      objectiveScore,
-      totalQuestions:testData.questions.length,
-      created:new Date()
-    });
-
-    document.getElementById("slides").innerHTML = `
-      <div class="finish-box">
-        <h2>Test submitted</h2>
-        <p>Your responses have been saved successfully.</p>
-        <button class="btn btn-primary" onclick="window.location='/dashboard/index.html'">Return to dashboard</button>
-      </div>
-    `;
-
-    document.getElementById("backBtn").style.display = "none";
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("centerNote").innerText = "Submission complete.";
-    document.getElementById("progressFill").style.width = "100%";
-    document.getElementById("progressLabel").innerText = `${testData.questions.length} / ${testData.questions.length}`;
-  }catch(err){
-    alert("Submission failed. Please try again.");
-    console.error(err);
-  }
-}
-
-async function loadTest(){
-  try{
-    const res = await fetch(`/features/delf/tests/${test}.json`);
-    if(!res.ok) throw new Error("Test file not found");
-
-    testData = await res.json();
-
-    document.getElementById("title").innerText = testData.title || "Placement Test";
-    renderCurrentSlide();
-  }catch(err){
-    document.getElementById("title").innerText = "Test unavailable";
-    document.getElementById("slides").innerHTML = `
-      <div class="finish-box">
-        <h2>We couldn't load this test.</h2>
-        <p>Please check the test link or try again later.</p>
-      </div>
-    `;
-    document.getElementById("backBtn").style.display = "none";
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("centerNote").innerText = "No test loaded.";
-    console.error(err);
-  }
-}
-
-loadTest();
-</script>
-</body>
-</html>
-
-
-<style>
-
-.wave{
-display:flex;
-gap:4px;
-height:40px;
-margin-top:12px;
-align-items:flex-end;
-}
-
-.bar{
-width:4px;
-background:#4f8cff;
-animation:wave 1s infinite ease-in-out;
-}
-
-.bar:nth-child(2){animation-delay:0.1s}
-.bar:nth-child(3){animation-delay:0.2s}
-.bar:nth-child(4){animation-delay:0.3s}
-.bar:nth-child(5){animation-delay:0.4s}
-.bar:nth-child(6){animation-delay:0.5s}
-.bar:nth-child(7){animation-delay:0.6s}
-
-@keyframes wave{
-0%{height:8px}
-50%{height:38px}
-100%{height:8px}
-}
-
-</style>
-
-
-<script>
-
-let mediaRecorder=null
-let audioChunks=[]
-let currentSpeakingIndex=null
-
-async function startRecording(index){
-
-if(mediaRecorder){
-return
-}
-
-currentSpeakingIndex=index
-
-const stream=await navigator.mediaDevices.getUserMedia({audio:true})
-
-mediaRecorder=new MediaRecorder(stream)
-
-audioChunks=[]
-
-mediaRecorder.start()
-
-const status=document.getElementById("rec"+index)
-
-status.innerHTML=
-"Recording..." +
-"<div class='wave'>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"<div class='bar'></div>" +
-"</div>"
-
-mediaRecorder.ondataavailable=e=>{
-audioChunks.push(e.data)
-}
-
-}
-
-async function stopRecording(){
-
-if(!mediaRecorder){
-return
-}
-
-mediaRecorder.stop()
-
-mediaRecorder.onstop=async()=>{
-
-const blob=new Blob(audioChunks,{type:"audio/webm"})
-
-const path="placement-audio/"+Date.now()+".webm"
-
-const ref=firebase.storage().ref(path)
-
-await ref.put(blob)
-
-const url=await ref.getDownloadURL()
-
-answers[currentSpeakingIndex]=url
-
-document.getElementById("rec"+currentSpeakingIndex).innerText="Recording saved"
-
-mediaRecorder=null
-audioChunks=[]
-currentSpeakingIndex=null
-
-}
-
-}
-
-</script>
-
-
-
-<script>
+const storage=firebase.storage()
 
 let recorder=null
-let recordingStream=null
+let stream=null
 let audioChunks=[]
 let activeQuestion=null
+let answers={}
+
+let audioContext
+let analyser
+let source
+let animationId
+
+const canvas=document.getElementById("waveCanvas")
+const ctx=canvas.getContext("2d")
+
+canvas.width=800
+canvas.height=80
+
+
+function drawWave(){
+
+const bufferLength=analyser.fftSize
+const dataArray=new Uint8Array(bufferLength)
+
+function draw(){
+
+animationId=requestAnimationFrame(draw)
+
+analyser.getByteTimeDomainData(dataArray)
+
+ctx.fillStyle="#eef4ff"
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.lineWidth=2
+ctx.strokeStyle="#4f8cff"
+
+ctx.beginPath()
+
+let sliceWidth=canvas.width/bufferLength
+let x=0
+
+for(let i=0;i<bufferLength;i++){
+
+let v=dataArray[i]/128.0
+let y=v*canvas.height/2
+
+if(i===0){
+ctx.moveTo(x,y)
+}else{
+ctx.lineTo(x,y)
+}
+
+x+=sliceWidth
+
+}
+
+ctx.lineTo(canvas.width,canvas.height/2)
+ctx.stroke()
+
+}
+
+draw()
+
+}
 
 
 async function startRecording(index){
@@ -862,30 +212,34 @@ return
 
 activeQuestion=index
 
-recordingStream=await navigator.mediaDevices.getUserMedia({audio:true})
+stream=await navigator.mediaDevices.getUserMedia({audio:true})
 
-recorder=new MediaRecorder(recordingStream)
+audioContext=new AudioContext()
+
+source=audioContext.createMediaStreamSource(stream)
+
+analyser=audioContext.createAnalyser()
+analyser.fftSize=2048
+
+source.connect(analyser)
+
+drawWave()
+
+recorder=new MediaRecorder(stream)
 
 audioChunks=[]
 
 recorder.ondataavailable=e=>{
+if(e.data.size>0){
 audioChunks.push(e.data)
+}
 }
 
 recorder.start()
 
-document.getElementById("rec"+index).innerHTML=
-
-"Recording..." +
-
-"<div style='display:flex;gap:4px;margin-top:10px'>" +
-
-"<div class='bar'></div>".repeat(8) +
-
-"</div>"
+document.getElementById("rec"+index).innerText="Recording..."
 
 }
-
 
 
 async function stopRecording(){
@@ -896,13 +250,17 @@ return
 
 recorder.stop()
 
+cancelAnimationFrame(animationId)
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
 recorder.onstop=async()=>{
 
 const blob=new Blob(audioChunks,{type:"audio/webm"})
 
-const filePath="placement-audio/"+Date.now()+".webm"
+const path="placement-audio/"+Date.now()+".webm"
 
-const ref=firebase.storage().ref(filePath)
+const ref=storage.ref(path)
 
 await ref.put(blob)
 
@@ -912,7 +270,7 @@ answers[activeQuestion]=url
 
 document.getElementById("rec"+activeQuestion).innerText="Recording saved"
 
-recordingStream.getTracks().forEach(t=>t.stop())
+stream.getTracks().forEach(track=>track.stop())
 
 recorder=null
 audioChunks=[]
@@ -924,23 +282,5 @@ activeQuestion=null
 
 </script>
 
-
-<style>
-
-.bar{
-width:4px;
-height:8px;
-background:#4f8cff;
-animation:wave 1s infinite ease-in-out;
-}
-
-@keyframes wave{
-
-0%{height:8px}
-50%{height:32px}
-100%{height:8px}
-
-}
-
-</style>
-
+</body>
+</html>
