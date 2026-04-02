@@ -405,7 +405,7 @@ const firebaseConfig = {
   apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
   authDomain:"saybon-3e3c2.firebaseapp.com",
   projectId:"saybon-3e3c2",
-  storageBucket: "saybon-3e3c2.appspot.com",
+  storageBucket:"saybon-3e3c2.firebasestorage.app",
   messagingSenderId:"75085012344",
   appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 };
@@ -423,7 +423,6 @@ let current = 0;
 let answers = {};
 let submitting = false;
 
-/* recorder state */
 let recorder = null;
 let recorderStream = null;
 let recorderChunks = [];
@@ -665,22 +664,35 @@ async function startRecording(index){
     };
 
     recorder.onstop = async ()=>{
+      let saveSucceeded = false;
+
       try{
         const blob = new Blob(recorderChunks, { type:"audio/webm" });
         const path = `placement-audio/${test}/${Date.now()}-${recorderQuestionIndex}.webm`;
         const ref = storage.ref(path);
 
-        await ref.put(blob);
-        const url = await ref.getDownloadURL();
+        const uploadResult = await Promise.race([
+          ref.put(blob),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error("Upload timed out")), 20000);
+          })
+        ]);
+
+        const url = await Promise.race([
+          uploadResult.ref.getDownloadURL(),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error("URL fetch timed out")), 10000);
+          })
+        ]);
 
         answers[recorderQuestionIndex] = url;
+        saveSucceeded = true;
 
         if(status) status.innerText = "Recording saved.";
         updateCenterNote();
       }catch(err){
         if(status) status.innerText = "Recording upload failed.";
         console.error(err);
-        return;
       }finally{
         if(recorderStream){
           recorderStream.getTracks().forEach(track=>track.stop());
@@ -714,14 +726,16 @@ async function startRecording(index){
         if(stopBtn) stopBtn.disabled = true;
       }
 
-      setTimeout(()=>{
-        if(current < testData.questions.length - 1){
-          current += 1;
-          renderCurrentSlide();
-        }else{
-          submitTest();
-        }
-      }, 500);
+      if(saveSucceeded){
+        setTimeout(()=>{
+          if(current < testData.questions.length - 1){
+            current += 1;
+            renderCurrentSlide();
+          }else{
+            submitTest();
+          }
+        }, 500);
+      }
     };
 
     recorder.start();
@@ -747,17 +761,16 @@ function stopRecording(){
   if(stopBtn) stopBtn.disabled = true;
   if(status) status.innerText = "Saving recording...";
 
-  try{
-    recorder.requestData();
-  }catch(e){}
+  if(recorderStream){
+    recorderStream.getTracks().forEach(track=>track.stop());
+  }
 
-  setTimeout(()=>{
-    try{
-      recorder.stop();
-    }catch(err){
-      console.error(err);
-    }
-  }, 120);
+  try{
+    recorder.stop();
+  }catch(err){
+    console.error(err);
+    if(status) status.innerText = "Could not stop recording.";
+  }
 }
 
 function scoreObjectiveAnswers(){
@@ -841,4 +854,3 @@ loadTest();
 </script>
 </body>
 </html>
-
