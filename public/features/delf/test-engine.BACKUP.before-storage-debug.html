@@ -513,7 +513,6 @@ function renderCurrentSlide(){
         <div class="recordControls">
           <button class="btn btnPrimary" type="button" id="startRecBtn" onclick="startRecording(${current})">Start recording</button>
           <button class="btn btnDanger" type="button" id="stopRecBtn" onclick="stopRecording()">Stop</button>
-<button class="btn btnMuted" type="button" id="storageTestBtn" onclick="runStorageTest()">Test upload</button>
         </div>
         <div class="waveShell">
           <canvas id="waveCanvas" width="900" height="92"></canvas>
@@ -692,13 +691,8 @@ async function startRecording(index){
         if(status) status.innerText = "Recording saved.";
         updateCenterNote();
       }catch(err){
-        const code = err?.code || "unknown-error";
-        const message = err?.message || "No extra message";
-        if(status) status.innerText = `Recording upload failed: ${code}`;
-        console.error("UPLOAD ERROR FULL:", err);
-        console.error("UPLOAD ERROR CODE:", code);
-        console.error("UPLOAD ERROR MESSAGE:", message);
-        alert("UPLOAD ERROR:`n" + code + "`n`n" + message);
+        if(status) status.innerText = "Recording upload failed.";
+        console.error(err);
       }finally{
         if(recorderStream){
           recorderStream.getTracks().forEach(track=>track.stop());
@@ -853,47 +847,6 @@ async function loadTest(){
     document.getElementById("nextBtn").style.display = "none";
     document.getElementById("centerNote").innerText = "No test loaded.";
     console.error(err);
-  }
-}
-
-
-async function runStorageTest(){
-  try{
-    const status = document.getElementById("recStatus");
-    if(status) status.innerText = "Running storage test...";
-
-    console.log("=== STORAGE SELF TEST START ===");
-    console.log("Firebase app:", firebase.app().options);
-    console.log("Storage bucket from config:", firebase.app().options.storageBucket);
-
-    const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
-    const path = `debug/test-${Date.now()}.txt`;
-    const ref = storage.ref(path);
-
-    console.log("Storage ref fullPath:", ref.fullPath);
-    console.log("Uploading tiny test file...");
-
-    const snap = await ref.put(blob);
-    console.log("Upload snapshot:", snap);
-
-    const url = await ref.getDownloadURL();
-    console.log("STORAGE TEST SUCCESS URL:", url);
-
-    if(status) status.innerText = "Storage test passed.";
-    alert("STORAGE TEST PASSED`n`nFile uploaded successfully.");
-  }catch(err){
-    const code = err?.code || "unknown-error";
-    const message = err?.message || "No extra message";
-
-    console.error("=== STORAGE SELF TEST FAILED ===");
-    console.error("STORAGE TEST FULL ERROR:", err);
-    console.error("STORAGE TEST CODE:", code);
-    console.error("STORAGE TEST MESSAGE:", message);
-
-    const status = document.getElementById("recStatus");
-    if(status) status.innerText = `Storage test failed: ${code}`;
-
-    alert("STORAGE TEST FAILED`n`n" + code + "`n`n" + message);
   }
 }
 
