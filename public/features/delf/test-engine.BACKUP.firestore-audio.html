@@ -9,6 +9,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
 <style>
 :root{
@@ -396,6 +397,13 @@ textarea:focus{
       <div class="navCenter" id="centerNote">Choose an answer, then continue.</div>
       <button class="btn btnPrimary" id="nextBtn" type="button" onclick="nextSlide()">Next</button>
     </div>
+
+    <div id="debugPanel" style="margin-top:18px;padding:16px;border:1px solid #dbe6f3;border-radius:16px;background:#f8fbff;font-size:13px;color:#1f2f44;white-space:pre-wrap;display:block;">
+=== SAYBON STORAGE DEBUG ===
+Waiting...
+    </div>
+
+    <div id="debugPanel" style="margin-top:18px;padding:16px;border:1px solid #dbe6f3;border-radius:16px;background:#f8fbff;font-size:13px;color:#1f2f44;white-space:pre-wrap;display:none;"></div>
   </div>
 </div>
 
@@ -412,6 +420,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const storage = firebase.app().storage("gs://saybon-3e3c2.firebasestorage.app");
 
 const params = new URLSearchParams(window.location.search);
 const test = params.get("test") || "prim";
@@ -421,7 +430,6 @@ let current = 0;
 let answers = {};
 let submitting = false;
 
-/* recorder state */
 let recorder = null;
 let recorderStream = null;
 let recorderChunks = [];
@@ -512,6 +520,7 @@ function renderCurrentSlide(){
         <div class="recordControls">
           <button class="btn btnPrimary" type="button" id="startRecBtn" onclick="startRecording(${current})">Start recording</button>
           <button class="btn btnDanger" type="button" id="stopRecBtn" onclick="stopRecording()">Stop</button>
+<button class="btn btnMuted" type="button" id="storageTestBtn" onclick="runStorageTest()">Test upload</button>
         </div>
         <div class="waveShell">
           <canvas id="waveCanvas" width="900" height="92"></canvas>
@@ -627,15 +636,6 @@ function drawWaveLoop(canvas, ctx){
   draw();
 }
 
-function blobToBase64(blob){
-  return new Promise((resolve, reject)=>{
-    const reader = new FileReader();
-    reader.onloadend = ()=> resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-}
-
 async function startRecording(index){
   try{
     if(recorder || recorderStream) return;
@@ -672,23 +672,54 @@ async function startRecording(index){
     };
 
     recorder.onstop = async ()=>{
+      let saveSucceeded = false;
+
       try{
         const blob = new Blob(recorderChunks, { type:"audio/webm" });
-        const base64 = await blobToBase64(blob);
+        const path = `placement-audio/${test}/${Date.now()}-${recorderQuestionIndex}.webm`;
+        const ref = storage.ref(path);
+        dumpStorageInfo("RECORDER BEFORE PUT", ref);
+        dumpStorageContext("RECORDER PUT", ref);
 
-        answers[recorderQuestionIndex] = {
-          kind: "audio",
-          mimeType: "audio/webm",
-          data: base64,
-          savedAt: new Date().toISOString()
-        };
+        const uploadResult = await Promise.race([
+          ref.put(blob),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error("Upload timed out")), 20000);
+          })
+        ]);
+
+        const url = await Promise.race([
+          uploadResult.ref.getDownloadURL(),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error("URL fetch timed out")), 10000);
+          })
+        ]);
+
+        answers[recorderQuestionIndex] = url;
+        saveSucceeded = true;
 
         if(status) status.innerText = "Recording saved.";
         updateCenterNote();
       }catch(err){
-        if(status) status.innerText = "Recording save failed.";
-        console.error(err);
-        return;
+        const code = err?.code || "unknown-error";
+        const message = err?.message || "No extra message";
+        const serverResponse = err?.serverResponse || "No serverResponse";
+        const customData = JSON.stringify(err?.customData || {}, null, 2);
+
+        if(status) status.innerText = `Recording upload failed: ${code}`;
+
+        console.error("UPLOAD ERROR FULL:", err);
+        console.error("UPLOAD ERROR CODE:", code);
+        console.error("UPLOAD ERROR MESSAGE:", message);
+        console.error("UPLOAD ERROR SERVER RESPONSE:", serverResponse);
+        console.error("UPLOAD ERROR CUSTOM DATA:", customData);
+
+        alert(
+          "UPLOAD ERROR:`n" + code +
+          "`n`nMESSAGE:`n" + message +
+          "`n`nSERVER RESPONSE:`n" + serverResponse +
+          "`n`nCUSTOM DATA:`n" + customData
+        );
       }finally{
         if(recorderStream){
           recorderStream.getTracks().forEach(track=>track.stop());
@@ -722,14 +753,16 @@ async function startRecording(index){
         if(stopBtn) stopBtn.disabled = true;
       }
 
-      setTimeout(()=>{
-        if(current < testData.questions.length - 1){
-          current += 1;
-          renderCurrentSlide();
-        }else{
-          submitTest();
-        }
-      }, 500);
+      if(saveSucceeded){
+        setTimeout(()=>{
+          if(current < testData.questions.length - 1){
+            current += 1;
+            renderCurrentSlide();
+          }else{
+            submitTest();
+          }
+        }, 500);
+      }
     };
 
     recorder.start();
@@ -755,17 +788,16 @@ function stopRecording(){
   if(stopBtn) stopBtn.disabled = true;
   if(status) status.innerText = "Saving recording...";
 
-  try{
-    recorder.requestData();
-  }catch(e){}
+  if(recorderStream){
+    recorderStream.getTracks().forEach(track=>track.stop());
+  }
 
-  setTimeout(()=>{
-    try{
-      recorder.stop();
-    }catch(err){
-      console.error(err);
-    }
-  }, 120);
+  try{
+    recorder.stop();
+  }catch(err){
+    console.error(err);
+    if(status) status.innerText = "Could not stop recording.";
+  }
 }
 
 function scoreObjectiveAnswers(){
@@ -845,7 +877,233 @@ async function loadTest(){
   }
 }
 
+
+async function runStorageTest(){
+  try{
+    const status = document.getElementById("recStatus");
+    if(status) status.innerText = "Running storage test...";
+
+    console.log("=== STORAGE SELF TEST START ===");
+    console.log("Firebase app:", firebase.app().options);
+    console.log("Storage bucket from config:", firebase.app().options.storageBucket);
+
+    const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
+    const path = `debug/test-${Date.now()}.txt`;
+    const ref = storage.ref(path);
+        dumpStorageInfo("RECORDER BEFORE PUT", ref);
+        dumpStorageContext("RECORDER PUT", ref);
+
+    console.log("Storage ref fullPath:", ref.fullPath);
+    console.log("Uploading tiny test file...");
+
+    const snap = await ref.put(blob);
+    console.log("Upload snapshot:", snap);
+
+    const url = await ref.getDownloadURL();
+    console.log("STORAGE TEST SUCCESS URL:", url);
+
+    if(status) status.innerText = "Storage test passed.";
+    alert("STORAGE TEST PASSED`n`nFile uploaded successfully.");
+  }catch(err){
+    const code = err?.code || "unknown-error";
+    const message = err?.message || "No extra message";
+    const serverResponse = err?.serverResponse || "No serverResponse";
+    const customData = JSON.stringify(err?.customData || {}, null, 2);
+
+    console.error("=== STORAGE SELF TEST FAILED ===");
+    console.error("STORAGE TEST FULL ERROR:", err);
+    console.error("STORAGE TEST CODE:", code);
+    console.error("STORAGE TEST MESSAGE:", message);
+    console.error("STORAGE TEST SERVER RESPONSE:", serverResponse);
+    console.error("STORAGE TEST CUSTOM DATA:", customData);
+
+    const status = document.getElementById("recStatus");
+    if(status) status.innerText = `Storage test failed: ${code}`;
+
+    alert(
+      "STORAGE TEST FAILED`n`n" + code +
+      "`n`nMESSAGE:`n" + message +
+      "`n`nSERVER RESPONSE:`n" + serverResponse +
+      "`n`nCUSTOM DATA:`n" + customData
+    );
+  }
+}
+
+
+function showDebug(msg){
+  const panel = document.getElementById("debugPanel");
+  if(!panel) return;
+  panel.style.display = "block";
+  panel.textContent += "\n" + msg;
+}
+
+function clearDebug(){
+  const panel = document.getElementById("debugPanel");
+  if(!panel) return;
+  panel.style.display = "block";
+  panel.textContent = "=== SAYBON STORAGE FORENSIC LOG ===\n";
+}
+
+function dumpStorageContext(label, refObj){
+  try{
+    showDebug("[" + label + "]");
+    showDebug("location.href = " + window.location.href);
+    showDebug("origin = " + window.location.origin);
+    showDebug("firebase app projectId = " + firebase.app().options.projectId);
+    showDebug("firebase app storageBucket = " + firebase.app().options.storageBucket);
+    showDebug("storage bucket via SDK = " + storage.app.options.storageBucket);
+    if(refObj){
+      showDebug("ref.fullPath = " + (refObj.fullPath || "n/a"));
+      showDebug("ref.bucket = " + (refObj.bucket || "n/a"));
+      showDebug("ref.name = " + (refObj.name || "n/a"));
+      showDebug("ref.toString() = " + (refObj.toString ? refObj.toString() : "n/a"));
+    }
+    showDebug("----------------------------------------");
+  }catch(err){
+    console.error("dumpStorageContext error", err);
+  }
+}
+
+async function runStorageForensics(){
+  clearDebug();
+
+  try{
+    showDebug("Starting storage forensic test...");
+
+    const testBlob = new Blob(["SayBon forensic test"], { type: "text/plain" });
+    const testPath = "forensic-tests/" + Date.now() + "-forensic.txt";
+    const ref = storage.ref(testPath);
+
+    dumpStorageContext("BEFORE PUT", ref);
+
+    await ref.put(testBlob);
+
+    showDebug("PUT SUCCESS");
+
+    const url = await ref.getDownloadURL();
+    showDebug("DOWNLOAD URL SUCCESS");
+    showDebug("downloadURL = " + url);
+
+    const status = document.getElementById("recStatus");
+    if(status) status.innerText = "Storage forensic test passed.";
+    alert("STORAGE FORENSIC TEST PASSED");
+  }catch(err){
+    const code = err?.code || "unknown-error";
+    const message = err?.message || "No extra message";
+    const serverResponse = err?.serverResponse || "No serverResponse";
+    const customData = JSON.stringify(err?.customData || {}, null, 2);
+    const fullKeys = Object.keys(err || {}).join(", ");
+
+    console.error("=== STORAGE FORENSIC FAILED ===");
+    console.error("FULL ERROR:", err);
+
+    showDebug("FORENSIC TEST FAILED");
+    showDebug("code = " + code);
+    showDebug("message = " + message);
+    showDebug("serverResponse = " + serverResponse);
+    showDebug("customData = " + customData);
+    showDebug("error keys = " + fullKeys);
+
+    alert(
+      "FORENSIC FAILED\n\n" +
+      "CODE:\n" + code +
+      "\n\nMESSAGE:\n" + message +
+      "\n\nSERVER RESPONSE:\n" + serverResponse +
+      "\n\nCUSTOM DATA:\n" + customData +
+      "\n\nERROR KEYS:\n" + fullKeys
+    );
+  }
+}
+
+
+function debugWrite(msg){
+  const panel = document.getElementById("debugPanel");
+  if(!panel) return;
+  panel.textContent += "\n" + msg;
+}
+
+function debugReset(){
+  const panel = document.getElementById("debugPanel");
+  if(!panel) return;
+  panel.textContent = "=== SAYBON STORAGE DEBUG ===\n";
+}
+
+function dumpStorageInfo(label, refObj){
+  debugWrite("[" + label + "]");
+  debugWrite("window.location.origin = " + window.location.origin);
+  debugWrite("window.location.href = " + window.location.href);
+  debugWrite("firebase projectId = " + (firebase.app().options.projectId || "n/a"));
+  debugWrite("firebase storageBucket = " + (firebase.app().options.storageBucket || "n/a"));
+  debugWrite("storage app bucket = " + (storage.app.options.storageBucket || "n/a"));
+
+  if(refObj){
+    debugWrite("ref.bucket = " + (refObj.bucket || "n/a"));
+    debugWrite("ref.fullPath = " + (refObj.fullPath || "n/a"));
+    debugWrite("ref.name = " + (refObj.name || "n/a"));
+    debugWrite("ref.toString = " + (refObj.toString ? refObj.toString() : "n/a"));
+  }
+
+  debugWrite("--------------------------------");
+}
+
+async function testStorageUpload(){
+  debugReset();
+
+  try{
+    const status = document.getElementById("recStatus");
+    if(status) status.innerText = "Running storage self-test...";
+
+    const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
+    const path = "forensic-tests/" + Date.now() + "-test.txt";
+    const ref = storage.ref(path);
+        dumpStorageInfo("RECORDER BEFORE PUT", ref);
+
+    dumpStorageInfo("SELF TEST BEFORE PUT", ref);
+
+    await ref.put(blob);
+
+    debugWrite("PUT SUCCESS");
+
+    const url = await ref.getDownloadURL();
+    debugWrite("DOWNLOAD URL SUCCESS");
+    debugWrite("downloadURL = " + url);
+
+    if(status) status.innerText = "Storage self-test passed.";
+    alert("STORAGE TEST PASSED");
+  }catch(err){
+    const code = err?.code || "unknown-error";
+    const message = err?.message || "No extra message";
+    const serverResponse = err?.serverResponse || "No serverResponse";
+    const customData = JSON.stringify(err?.customData || {}, null, 2);
+    const keys = Object.keys(err || {}).join(", ");
+
+    console.error("=== STORAGE SELF TEST FAILED ===", err);
+
+    debugWrite("SELF TEST FAILED");
+    debugWrite("code = " + code);
+    debugWrite("message = " + message);
+    debugWrite("serverResponse = " + serverResponse);
+    debugWrite("customData = " + customData);
+    debugWrite("error keys = " + keys);
+
+    const status = document.getElementById("recStatus");
+    if(status) status.innerText = "Storage test failed: " + code;
+
+    alert(
+      "STORAGE TEST FAILED\n\n" +
+      "CODE:\n" + code +
+      "\n\nMESSAGE:\n" + message +
+      "\n\nSERVER RESPONSE:\n" + serverResponse +
+      "\n\nCUSTOM DATA:\n" + customData +
+      "\n\nERROR KEYS:\n" + keys
+    );
+  }
+}
+
 loadTest();
 </script>
 </body>
 </html>
+
+
+
