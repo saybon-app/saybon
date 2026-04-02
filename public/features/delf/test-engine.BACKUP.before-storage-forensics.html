@@ -397,8 +397,6 @@ textarea:focus{
       <div class="navCenter" id="centerNote">Choose an answer, then continue.</div>
       <button class="btn btnPrimary" id="nextBtn" type="button" onclick="nextSlide()">Next</button>
     </div>
-
-    <div id="debugPanel" style="margin-top:18px;padding:16px;border:1px solid #dbe6f3;border-radius:16px;background:#f8fbff;font-size:13px;color:#1f2f44;white-space:pre-wrap;display:none;"></div>
   </div>
 </div>
 
@@ -673,7 +671,6 @@ async function startRecording(index){
         const blob = new Blob(recorderChunks, { type:"audio/webm" });
         const path = `placement-audio/${test}/${Date.now()}-${recorderQuestionIndex}.webm`;
         const ref = storage.ref(path);
-        dumpStorageContext("RECORDER PUT", ref);
 
         const uploadResult = await Promise.race([
           ref.put(blob),
@@ -884,7 +881,6 @@ async function runStorageTest(){
     const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
     const path = `debug/test-${Date.now()}.txt`;
     const ref = storage.ref(path);
-        dumpStorageContext("RECORDER PUT", ref);
 
     console.log("Storage ref fullPath:", ref.fullPath);
     console.log("Uploading tiny test file...");
@@ -922,95 +918,8 @@ async function runStorageTest(){
   }
 }
 
-
-function showDebug(msg){
-  const panel = document.getElementById("debugPanel");
-  if(!panel) return;
-  panel.style.display = "block";
-  panel.textContent += "\n" + msg;
-}
-
-function clearDebug(){
-  const panel = document.getElementById("debugPanel");
-  if(!panel) return;
-  panel.style.display = "block";
-  panel.textContent = "=== SAYBON STORAGE FORENSIC LOG ===\n";
-}
-
-function dumpStorageContext(label, refObj){
-  try{
-    showDebug("[" + label + "]");
-    showDebug("location.href = " + window.location.href);
-    showDebug("origin = " + window.location.origin);
-    showDebug("firebase app projectId = " + firebase.app().options.projectId);
-    showDebug("firebase app storageBucket = " + firebase.app().options.storageBucket);
-    showDebug("storage bucket via SDK = " + storage.app.options.storageBucket);
-    if(refObj){
-      showDebug("ref.fullPath = " + (refObj.fullPath || "n/a"));
-      showDebug("ref.bucket = " + (refObj.bucket || "n/a"));
-      showDebug("ref.name = " + (refObj.name || "n/a"));
-      showDebug("ref.toString() = " + (refObj.toString ? refObj.toString() : "n/a"));
-    }
-    showDebug("----------------------------------------");
-  }catch(err){
-    console.error("dumpStorageContext error", err);
-  }
-}
-
-async function runStorageForensics(){
-  clearDebug();
-
-  try{
-    showDebug("Starting storage forensic test...");
-
-    const testBlob = new Blob(["SayBon forensic test"], { type: "text/plain" });
-    const testPath = "forensic-tests/" + Date.now() + "-forensic.txt";
-    const ref = storage.ref(testPath);
-
-    dumpStorageContext("BEFORE PUT", ref);
-
-    await ref.put(testBlob);
-
-    showDebug("PUT SUCCESS");
-
-    const url = await ref.getDownloadURL();
-    showDebug("DOWNLOAD URL SUCCESS");
-    showDebug("downloadURL = " + url);
-
-    const status = document.getElementById("recStatus");
-    if(status) status.innerText = "Storage forensic test passed.";
-    alert("STORAGE FORENSIC TEST PASSED");
-  }catch(err){
-    const code = err?.code || "unknown-error";
-    const message = err?.message || "No extra message";
-    const serverResponse = err?.serverResponse || "No serverResponse";
-    const customData = JSON.stringify(err?.customData || {}, null, 2);
-    const fullKeys = Object.keys(err || {}).join(", ");
-
-    console.error("=== STORAGE FORENSIC FAILED ===");
-    console.error("FULL ERROR:", err);
-
-    showDebug("FORENSIC TEST FAILED");
-    showDebug("code = " + code);
-    showDebug("message = " + message);
-    showDebug("serverResponse = " + serverResponse);
-    showDebug("customData = " + customData);
-    showDebug("error keys = " + fullKeys);
-
-    alert(
-      "FORENSIC FAILED\n\n" +
-      "CODE:\n" + code +
-      "\n\nMESSAGE:\n" + message +
-      "\n\nSERVER RESPONSE:\n" + serverResponse +
-      "\n\nCUSTOM DATA:\n" + customData +
-      "\n\nERROR KEYS:\n" + fullKeys
-    );
-  }
-}
-
 loadTest();
 </script>
 </body>
 </html>
-
 
