@@ -413,7 +413,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-const storage = firebase.app().storage("gs://saybon-3e3c2.firebasestorage.app");
+const storage = firebase.storage();
 
 const params = new URLSearchParams(window.location.search);
 const test = params.get("test") || "prim";
@@ -694,23 +694,11 @@ async function startRecording(index){
       }catch(err){
         const code = err?.code || "unknown-error";
         const message = err?.message || "No extra message";
-        const serverResponse = err?.serverResponse || "No serverResponse";
-        const customData = JSON.stringify(err?.customData || {}, null, 2);
-
         if(status) status.innerText = `Recording upload failed: ${code}`;
-
         console.error("UPLOAD ERROR FULL:", err);
         console.error("UPLOAD ERROR CODE:", code);
         console.error("UPLOAD ERROR MESSAGE:", message);
-        console.error("UPLOAD ERROR SERVER RESPONSE:", serverResponse);
-        console.error("UPLOAD ERROR CUSTOM DATA:", customData);
-
-        alert(
-          "UPLOAD ERROR:`n" + code +
-          "`n`nMESSAGE:`n" + message +
-          "`n`nSERVER RESPONSE:`n" + serverResponse +
-          "`n`nCUSTOM DATA:`n" + customData
-        );
+        alert("UPLOAD ERROR:`n" + code + "`n`n" + message);
       }finally{
         if(recorderStream){
           recorderStream.getTracks().forEach(track=>track.stop());
@@ -896,25 +884,16 @@ async function runStorageTest(){
   }catch(err){
     const code = err?.code || "unknown-error";
     const message = err?.message || "No extra message";
-    const serverResponse = err?.serverResponse || "No serverResponse";
-    const customData = JSON.stringify(err?.customData || {}, null, 2);
 
     console.error("=== STORAGE SELF TEST FAILED ===");
     console.error("STORAGE TEST FULL ERROR:", err);
     console.error("STORAGE TEST CODE:", code);
     console.error("STORAGE TEST MESSAGE:", message);
-    console.error("STORAGE TEST SERVER RESPONSE:", serverResponse);
-    console.error("STORAGE TEST CUSTOM DATA:", customData);
 
     const status = document.getElementById("recStatus");
     if(status) status.innerText = `Storage test failed: ${code}`;
 
-    alert(
-      "STORAGE TEST FAILED`n`n" + code +
-      "`n`nMESSAGE:`n" + message +
-      "`n`nSERVER RESPONSE:`n" + serverResponse +
-      "`n`nCUSTOM DATA:`n" + customData
-    );
+    alert("STORAGE TEST FAILED`n`n" + code + "`n`n" + message);
   }
 }
 
@@ -922,4 +901,3 @@ loadTest();
 </script>
 </body>
 </html>
-
