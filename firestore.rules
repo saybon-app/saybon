@@ -1,47 +1,40 @@
-rules_version = '2';
+﻿rules_version = '2';
 
 service cloud.firestore {
+  match /databases/{database}/documents {
 
-match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
-function isSignedIn() {
-return request.auth != null;
-}
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
 
-function isOwner(userId) {
-return request.auth != null && request.auth.uid == userId;
-}
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
 
-/* USERS */
+    match /translationRequests/{doc} {
+      allow read, write: if isSignedIn();
+    }
 
-match /users/{userId} {
-allow read, write: if isOwner(userId);
-}
+    match /translatorTests/{doc} {
+      allow read, write: if isSignedIn();
+    }
 
-/* TRANSLATION REQUESTS */
+    match /translatorApplications/{doc} {
+      allow read, write: if isSignedIn();
+    }
 
-match /translationRequests/{doc} {
-allow read, write: if isSignedIn();
-}
+    match /placementResults/{doc} {
+      allow create: if true;
+      allow read: if isSignedIn();
+      allow update, delete: if false;
+    }
 
-/* TRANSLATOR TESTS */
-
-match /translatorTests/{doc} {
-allow read, write: if isSignedIn();
-}
-
-/* TRANSLATOR APPLICATIONS */
-
-match /translatorApplications/{doc} {
-allow read: if isSignedIn();
-allow write: if isSignedIn();
-}
-
-/* ADMIN COLLECTION */
-
-match /admin/{doc} {
-allow read, write: if false;
-}
-
-}
+    match /admin/{doc} {
+      allow read, write: if false;
+    }
+  }
 }
