@@ -313,26 +313,6 @@ textarea:focus{
   display:block;
 }
 
-.previewShell{
-  margin-top:16px;
-  padding:14px;
-  border-radius:14px;
-  background:#ffffff;
-  border:1px solid #dbe6f3;
-}
-
-.previewShell audio{
-  width:100%;
-  margin-top:10px;
-}
-
-.previewActions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
 .nav{
   margin-top:22px;
   display:flex;
@@ -472,19 +452,9 @@ function optionBadge(i){
   return ["A","B","C","D","E","F"][i] || String(i + 1);
 }
 
-function getSavedAudio(index){
-  const a = answers[index];
-  if(a && typeof a === "object" && a.kind === "audio" && a.data){
-    return a.data;
-  }
-  return "";
-}
-
 function renderCurrentSlide(){
   const q = testData.questions[current];
   const stage = document.getElementById("stage");
-  const savedAudio = getSavedAudio(current);
-  const hasSaved = !!savedAudio;
 
   let html = `
     <section data-index="${current}">
@@ -534,34 +504,19 @@ function renderCurrentSlide(){
   }
 
   if(q.type === "speaking"){
-    const statusText = hasSaved ? "Recording saved. You can play it or re-record it." : "Press start, speak clearly, then stop.";
+    const hasSaved = !!answers[current];
+    const statusText = hasSaved ? "Recording saved." : "Press start, speak clearly, then stop.";
     html += `
       <div class="speakingBox">
         <div class="helper" style="margin-top:0;margin-bottom:14px;">Your answer will be recorded and saved with your test.</div>
-
         <div class="recordControls">
           <button class="btn btnPrimary" type="button" id="startRecBtn" onclick="startRecording(${current})">Start recording</button>
           <button class="btn btnDanger" type="button" id="stopRecBtn" onclick="stopRecording()">Stop</button>
         </div>
-
         <div class="waveShell">
           <canvas id="waveCanvas" width="900" height="92"></canvas>
         </div>
-
         <div class="recStatus" id="recStatus">${esc(statusText)}</div>
-
-        <div id="audioPreviewWrap">
-          ${hasSaved ? `
-            <div class="previewShell">
-              <div class="helper" style="margin-top:0;">Preview your saved answer before continuing.</div>
-              <audio id="savedAudioPlayer" controls src="${savedAudio}"></audio>
-              <div class="previewActions">
-                <button class="btn btnMuted" type="button" onclick="playSavedAudio()">Play recording</button>
-                <button class="btn btnDanger" type="button" onclick="reRecord(${current})">Re-record</button>
-              </div>
-            </div>
-          ` : ``}
-        </div>
       </div>
     `;
   }
@@ -571,9 +526,6 @@ function renderCurrentSlide(){
 
   updateProgress();
   updateCenterNote();
-
-  const stopBtn = document.getElementById("stopRecBtn");
-  if(stopBtn) stopBtn.disabled = true;
 }
 
 function updateProgress(){
@@ -589,7 +541,7 @@ function updateCenterNote(){
   let text = "Choose an answer, then continue.";
   if(q.type === "listening") text = "Listen carefully before choosing your answer.";
   if(q.type === "writing") text = "Take your time and write a complete answer.";
-  if(q.type === "speaking") text = getSavedAudio(current) ? "Playback available. Re-record if needed, then continue." : "Record your answer before moving on.";
+  if(q.type === "speaking") text = answers[current] ? "Recording captured. You can move on." : "Record your answer before moving on.";
   document.getElementById("centerNote").innerText = text;
 }
 
@@ -684,18 +636,6 @@ function blobToBase64(blob){
   });
 }
 
-function playSavedAudio(){
-  const player = document.getElementById("savedAudioPlayer");
-  if(player){
-    player.play().catch(err=>console.error(err));
-  }
-}
-
-function reRecord(index){
-  answers[index] = null;
-  renderCurrentSlide();
-}
-
 async function startRecording(index){
   try{
     if(recorder || recorderStream) return;
@@ -712,9 +652,6 @@ async function startRecording(index){
     if(startBtn) startBtn.disabled = true;
     if(stopBtn) stopBtn.disabled = false;
     if(status) status.innerText = "Recording...";
-
-    const previewWrap = document.getElementById("audioPreviewWrap");
-    if(previewWrap) previewWrap.innerHTML = "";
 
     recorderStream = await navigator.mediaDevices.getUserMedia({ audio:true });
 
@@ -746,7 +683,7 @@ async function startRecording(index){
           savedAt: new Date().toISOString()
         };
 
-        if(status) status.innerText = "Recording saved. You can play it or re-record it.";
+        if(status) status.innerText = "Recording saved.";
         updateCenterNote();
       }catch(err){
         if(status) status.innerText = "Recording save failed.";
@@ -785,7 +722,14 @@ async function startRecording(index){
         if(stopBtn) stopBtn.disabled = true;
       }
 
-      renderCurrentSlide();
+      setTimeout(()=>{
+        if(current < testData.questions.length - 1){
+          current += 1;
+          renderCurrentSlide();
+        }else{
+          submitTest();
+        }
+      }, 500);
     };
 
     recorder.start();
