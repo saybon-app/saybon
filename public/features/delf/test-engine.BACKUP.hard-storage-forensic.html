@@ -398,11 +398,6 @@ textarea:focus{
       <button class="btn btnPrimary" id="nextBtn" type="button" onclick="nextSlide()">Next</button>
     </div>
 
-    <div id="debugPanel" style="margin-top:18px;padding:16px;border:1px solid #dbe6f3;border-radius:16px;background:#f8fbff;font-size:13px;color:#1f2f44;white-space:pre-wrap;display:block;">
-=== SAYBON STORAGE DEBUG ===
-Waiting...
-    </div>
-
     <div id="debugPanel" style="margin-top:18px;padding:16px;border:1px solid #dbe6f3;border-radius:16px;background:#f8fbff;font-size:13px;color:#1f2f44;white-space:pre-wrap;display:none;"></div>
   </div>
 </div>
@@ -678,7 +673,6 @@ async function startRecording(index){
         const blob = new Blob(recorderChunks, { type:"audio/webm" });
         const path = `placement-audio/${test}/${Date.now()}-${recorderQuestionIndex}.webm`;
         const ref = storage.ref(path);
-        dumpStorageInfo("RECORDER BEFORE PUT", ref);
         dumpStorageContext("RECORDER PUT", ref);
 
         const uploadResult = await Promise.race([
@@ -890,7 +884,6 @@ async function runStorageTest(){
     const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
     const path = `debug/test-${Date.now()}.txt`;
     const ref = storage.ref(path);
-        dumpStorageInfo("RECORDER BEFORE PUT", ref);
         dumpStorageContext("RECORDER PUT", ref);
 
     console.log("Storage ref fullPath:", ref.fullPath);
@@ -1015,95 +1008,9 @@ async function runStorageForensics(){
   }
 }
 
-
-function debugWrite(msg){
-  const panel = document.getElementById("debugPanel");
-  if(!panel) return;
-  panel.textContent += "\n" + msg;
-}
-
-function debugReset(){
-  const panel = document.getElementById("debugPanel");
-  if(!panel) return;
-  panel.textContent = "=== SAYBON STORAGE DEBUG ===\n";
-}
-
-function dumpStorageInfo(label, refObj){
-  debugWrite("[" + label + "]");
-  debugWrite("window.location.origin = " + window.location.origin);
-  debugWrite("window.location.href = " + window.location.href);
-  debugWrite("firebase projectId = " + (firebase.app().options.projectId || "n/a"));
-  debugWrite("firebase storageBucket = " + (firebase.app().options.storageBucket || "n/a"));
-  debugWrite("storage app bucket = " + (storage.app.options.storageBucket || "n/a"));
-
-  if(refObj){
-    debugWrite("ref.bucket = " + (refObj.bucket || "n/a"));
-    debugWrite("ref.fullPath = " + (refObj.fullPath || "n/a"));
-    debugWrite("ref.name = " + (refObj.name || "n/a"));
-    debugWrite("ref.toString = " + (refObj.toString ? refObj.toString() : "n/a"));
-  }
-
-  debugWrite("--------------------------------");
-}
-
-async function testStorageUpload(){
-  debugReset();
-
-  try{
-    const status = document.getElementById("recStatus");
-    if(status) status.innerText = "Running storage self-test...";
-
-    const blob = new Blob(["SayBon storage test"], { type: "text/plain" });
-    const path = "forensic-tests/" + Date.now() + "-test.txt";
-    const ref = storage.ref(path);
-        dumpStorageInfo("RECORDER BEFORE PUT", ref);
-
-    dumpStorageInfo("SELF TEST BEFORE PUT", ref);
-
-    await ref.put(blob);
-
-    debugWrite("PUT SUCCESS");
-
-    const url = await ref.getDownloadURL();
-    debugWrite("DOWNLOAD URL SUCCESS");
-    debugWrite("downloadURL = " + url);
-
-    if(status) status.innerText = "Storage self-test passed.";
-    alert("STORAGE TEST PASSED");
-  }catch(err){
-    const code = err?.code || "unknown-error";
-    const message = err?.message || "No extra message";
-    const serverResponse = err?.serverResponse || "No serverResponse";
-    const customData = JSON.stringify(err?.customData || {}, null, 2);
-    const keys = Object.keys(err || {}).join(", ");
-
-    console.error("=== STORAGE SELF TEST FAILED ===", err);
-
-    debugWrite("SELF TEST FAILED");
-    debugWrite("code = " + code);
-    debugWrite("message = " + message);
-    debugWrite("serverResponse = " + serverResponse);
-    debugWrite("customData = " + customData);
-    debugWrite("error keys = " + keys);
-
-    const status = document.getElementById("recStatus");
-    if(status) status.innerText = "Storage test failed: " + code;
-
-    alert(
-      "STORAGE TEST FAILED\n\n" +
-      "CODE:\n" + code +
-      "\n\nMESSAGE:\n" + message +
-      "\n\nSERVER RESPONSE:\n" + serverResponse +
-      "\n\nCUSTOM DATA:\n" + customData +
-      "\n\nERROR KEYS:\n" + keys
-    );
-  }
-}
-
 loadTest();
 </script>
 </body>
 </html>
-
 
 
