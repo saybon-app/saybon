@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    message: "SayBon API live",
+message: "SayBon API live - OPENAI SERVER CONFIRMED - APRIL 2",
     routes: [
       "/",
       "/api/health",
@@ -84,10 +84,12 @@ Return STRICT JSON only in this exact format:
   "finalScore": number,
   "feedback": "short professional feedback"
 }
-`;
+;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    console.log("🔥 OPENAI EVALUATOR ROUTE IS RUNNING");
+
+const completion = await openai.chat.completions.create({
+  model: "gpt-4o-mini",
       messages: [
         {
           role: "user",
