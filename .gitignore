@@ -1,3 +1,15 @@
-node_modules
-*.zip
+﻿node_modules/
 .env
+.env.*
+firebase-debug.log
+.DS_Store
+uploads/
+backend/node_modules/
+backend_backup/node_modules/
+_FORENSICS/
+*.env
+serviceAccountKey.json
+*service-account*.json
+*firebase-adminsdk*.json
+backend/.env
+backend/**/*.env

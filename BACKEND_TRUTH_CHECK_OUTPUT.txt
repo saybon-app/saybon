@@ -1,0 +1,168 @@
+﻿
+Name                            Length LastWrit
+                                       eTime   
+----                            ------ --------
+.firebase                              3/13/...
+.git                                   4/2/2...
+.github                                1/25/...
+admin                                  3/2/2...
+backend                                3/9/2...
+backend_backup                         3/2/2...
+docs                                   2/21/...
+engine                                 3/12/...
+LEDGER                                 2/24/...
+public                                 3/13/...
+routes                                 3/10/...
+server                                 3/12/...
+src                                    1/25/...
+tools                                  2/21/...
+uploads                                2/21/...
+_FORENSICS                             4/1/2...
+.firebaserc                     54     3/9/2...
+.gitignore                      25     3/7/2...
+ASSISTANT_FILE_LEDGER.md        2029   2/24/...
+firebase.json                   135    3/13/...
+firestore.rules                 723    3/13/...
+index.js                        935    3/2/2...
+package-lock.json               137627 3/13/...
+package.json                    358    3/13/...
+README.md                       15     3/12/...
+SAYBON_FILE_LEDGER.md           953    3/7/2...
+server.BACKUP-BEFORE-DELF-AI.js 6868   3/13/...
+server.js                       6868   3/13/...
+storage.rules                   451    3/13/...
+test.txt                        99     2/22/...
+test12.txt                      21     2/27/...
+{
+  "name": "saybon-functions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "firebase-admin": "^11.11.1",
+    "firebase-functions": "^4.4.1",
+    "multer": "^2.1.1",
+    "nodemailer": "^6.9.8",
+    "openai": "^6.27.0",
+    "stripe": "^14.25.0"
+  }
+}
+
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
+rules_version = '2';
+
+service cloud.firestore {
+
+match /databases/{database}/documents {
+
+function isSignedIn() {
+return request.auth != null;
+}
+
+function isOwner(userId) {
+return request.auth != null && request.auth.uid == userId;
+}
+
+/* USERS */
+
+match /users/{userId} {
+allow read, write: if isOwner(userId);
+}
+
+/* TRANSLATION REQUESTS */
+
+match /translationRequests/{doc} {
+allow read, write: if isSignedIn();
+}
+
+/* TRANSLATOR TESTS */
+
+match /translatorTests/{doc} {
+allow read, write: if isSignedIn();
+}
+
+/* TRANSLATOR APPLICATIONS */
+
+match /translatorApplications/{doc} {
+allow read: if isSignedIn();
+allow write: if isSignedIn();
+}
+
+/* ADMIN COLLECTION */
+
+match /admin/{doc} {
+allow read, write: if false;
+}
+
+}
+}
+
+rules_version = '2';
+
+service firebase.storage {
+
+match /b/{bucket}/o {
+
+function signedIn() {
+return request.auth != null;
+}
+
+/* USER UPLOADS */
+
+match /userUploads/{userId}/{allPaths=**} {
+allow read, write: if request.auth != null && request.auth.uid == userId;
+}
+
+/* TRANSLATION DOCUMENTS */
+
+match /translations/{allPaths=**} {
+allow read, write: if signedIn();
+}
+
+/* DEFAULT BLOCK */
+
+match /{allPaths=**} {
+allow read, write: if false;
+}
+
+}
+}
+
+node : C:\SayBon\server.js:22
+At line:136 char:9
++         node --check ".\server.js"
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C 
+   :\SayBon\server.js:22:String) [], RemoteEx  
+  ception
+    + FullyQualifiedErrorId : NativeCommandErr 
+   or
+ 
+# 
+----------------------------------------------
+^
+
+SyntaxError: Invalid or unexpected token
+    at wrapSafe 
+(node:internal/modules/cjs/loader:1692:18)
+    at checkSyntax 
+(node:internal/main/check_syntax:76:3)
+
+Node.js v24.12.0
+
+
+
