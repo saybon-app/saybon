@@ -1,9 +1,8 @@
-﻿const express = require("express");
+﻿ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
-const OpenAI = require("openai");
 
 const app = express();
 
@@ -16,10 +15,6 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
-
 function generateKey() {
   return "SB-" + Math.random().toString(36).substring(2, 10).toUpperCase();
 }
@@ -31,7 +26,7 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    message: "SayBon API live - OPENAI SERVER CONFIRMED - APRIL 2",
+    message: "SayBon API live - DIRECT OPENAI FETCH MODE - APRIL 2",
     routes: [
       "/",
       "/api/health",
@@ -86,20 +81,38 @@ Return STRICT JSON only in this exact format:
 }
 `;
 
-    console.log("🔥 OPENAI EVALUATOR ROUTE IS RUNNING");
+    console.log("🔥 DIRECT OPENAI FETCH ROUTE IS RUNNING");
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      temperature: 0.2
+    const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 0.2
+      })
     });
 
-    const raw = completion.choices?.[0]?.message?.content?.trim() || "{}";
+    const aiData = await aiResponse.json();
+
+    if (!aiResponse.ok) {
+      console.error("OpenAI API error:", aiData);
+      return res.status(500).json({
+        error: "AI evaluation failed",
+        details: aiData?.error?.message || "Unknown OpenAI error",
+        raw: aiData
+      });
+    }
+
+    const raw = aiData?.choices?.[0]?.message?.content?.trim() || "{}";
 
     let result;
     try {
