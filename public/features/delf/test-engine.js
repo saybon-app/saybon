@@ -61,10 +61,10 @@ function setCenterNote(text) {
 }
 
 async function ensureCandidateRecord() {
-  let stored = sessionStorage.getItem("saybon_candidate_code");
+  let stored = sessionStorage.getItem("saybon_candidate_id_v2");
   if (!stored) {
     stored = generateCandidateCode();
-    sessionStorage.setItem("saybon_candidate_code", stored);
+    sessionStorage.setItem("saybon_candidate_id_v2", stored);
   }
 
   candidateCode = stored;
@@ -331,3 +331,4 @@ async function init() {
 }
 
 init();
+
