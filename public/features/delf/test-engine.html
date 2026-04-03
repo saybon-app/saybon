@@ -3,220 +3,361 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SayBon Test Engine</title>
+<title>SayBon DELF Test Engine</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <style>
-body{
-  margin:0;
-  padding:24px;
-  font-family:Poppins,Arial,sans-serif;
-  background:linear-gradient(180deg,#eef4fb,#dfe9f7);
-  color:#1f2f44;
+:root{
+  --bgA:#eef4fb;
+  --bgB:#dfe9f7;
+  --card:#ffffff;
+  --line:#dbe6f3;
+  --text:#1f2f44;
+  --muted:#6c7b90;
+  --primary:#4f8cff;
+  --primarySoft:#edf4ff;
+  --shadow:0 20px 60px rgba(20,40,70,.10);
+  --radius:24px;
 }
-.card{
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Poppins,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.92), transparent 28%),
+    linear-gradient(180deg,var(--bgA),var(--bgB));
+}
+
+body{
+  padding:24px 12px 40px;
+}
+
+.shell{
   max-width:980px;
   margin:0 auto;
-  background:#fff;
-  border-radius:24px;
-  box-shadow:0 20px 60px rgba(20,40,70,.10);
+}
+
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
   padding:28px;
 }
-h1{
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:flex-start;
+  margin-bottom:18px;
+}
+
+.brand h1{
   margin:0 0 8px;
-  font-size:48px;
-  line-height:1;
+  font-size:clamp(30px,4vw,52px);
+  line-height:1.02;
+  font-weight:700;
+  letter-spacing:-.03em;
 }
-.muted{
-  color:#6c7b90;
+
+.brand p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
 }
-.code{
-  margin-top:12px;
+
+.candidate{
+  margin-top:14px;
+  font-size:15px;
+  font-weight:700;
   color:#356fdf;
+}
+
+.progressMeta{
+  text-align:right;
+  min-width:120px;
+}
+
+.progressMeta .small{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.progressMeta .big{
+  font-size:30px;
+  line-height:1;
   font-weight:700;
 }
-.bar{
-  margin:20px 0 26px;
+
+.progressWrap{
+  margin-bottom:24px;
+}
+
+.progressTrack{
   width:100%;
   height:12px;
   background:#ecf1f8;
   border-radius:999px;
   overflow:hidden;
 }
-.fill{
+
+.progressFill{
   width:0%;
   height:100%;
-  background:linear-gradient(90deg,#4f8cff,#8db7ff);
+  background:linear-gradient(90deg,var(--primary),#8db7ff);
+  transition:width .25s ease;
 }
-.box{
+
+.stage{
+  min-height:360px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  background:var(--primarySoft);
+  color:#356fdf;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+
+.questionText{
+  margin:0 0 20px;
+  font-size:clamp(22px,3vw,36px);
+  line-height:1.15;
+  font-weight:700;
+  letter-spacing:-.02em;
+}
+
+.passageBox,
+.answerBox,
+.resultBox,
+.errorBox{
   background:#f8fbff;
-  border:1px solid #e4ecf7;
+  border:1px solid var(--line);
   border-radius:18px;
-  padding:20px;
-  margin-top:18px;
+  padding:18px;
+  margin-bottom:18px;
 }
+
+.passageBox{
+  white-space:pre-line;
+  font-size:17px;
+  line-height:1.7;
+  color:#32455e;
+}
+
+.answerGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
 .option{
-  display:block;
-  margin:12px 0;
-  padding:16px;
+  position:relative;
+}
+
+.option input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.optionCard{
+  width:100%;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px;
+  border-radius:18px;
   border:2px solid #dbe6f3;
-  border-radius:16px;
-  cursor:pointer;
   background:#fff;
+  cursor:pointer;
+  transition:.16s ease;
+  font-size:16px;
+  font-weight:500;
+  text-align:left;
 }
-.option:hover{
-  border-color:#4f8cff;
+
+.optionCard:hover{
+  border-color:#b9cef2;
+  box-shadow:0 12px 24px rgba(79,140,255,.10);
+  transform:translateY(-1px);
 }
+
+.option input:checked + .optionCard{
+  border-color:var(--primary);
+  background:var(--primarySoft);
+  box-shadow:0 12px 24px rgba(79,140,255,.14);
+}
+
+.badge{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#edf4ff;
+  color:#356fdf;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:14px;
+  font-weight:700;
+}
+
+textarea{
+  width:100%;
+  min-height:180px;
+  resize:vertical;
+  border:2px solid #dbe6f3;
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  font:inherit;
+  font-size:16px;
+  color:var(--text);
+  outline:none;
+}
+
+textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(79,140,255,.10);
+}
+
+.helper{
+  margin-top:10px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-top:22px;
+}
+
+.navCenter{
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+
 .btn{
+  appearance:none;
   border:none;
   border-radius:16px;
   padding:14px 18px;
   font:inherit;
   font-weight:600;
   cursor:pointer;
+  transition:.16s ease;
+}
+
+.btnPrimary{
   background:linear-gradient(180deg,#69a4ff,#4f8cff);
   color:#fff;
+  box-shadow:0 12px 24px rgba(79,140,255,.22);
 }
-.error{
-  color:#c53030;
-  font-weight:600;
+
+.btnPrimary:hover{
+  transform:translateY(-1px);
+}
+
+.btnMuted{
+  background:#eff4fb;
+  color:#28405f;
+}
+
+.btnMuted:hover{
+  background:#e5edf9;
+}
+
+.resultTitle{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.resultLine{
+  margin-bottom:8px;
+  font-size:16px;
+}
+
+.errorTitle{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.errorText{
+  color:#b3261e;
   white-space:pre-wrap;
+  line-height:1.5;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media (max-width:760px){
+  body{padding:16px 10px 28px}
+  .card{padding:18px;border-radius:18px}
+  .topbar{flex-direction:column;align-items:flex-start}
+  .progressMeta{text-align:left}
+  .answerGrid{grid-template-columns:1fr}
+  .nav{flex-direction:column-reverse;align-items:stretch}
+  .nav button{width:100%}
 }
 </style>
 </head>
 <body>
-<div class="card">
-  <h1 id="title">Loading test...</h1>
-  <div class="muted">One question at a time. Stay calm and work through each step.</div>
-  <div class="code" id="candidateCodeLine"></div>
-  <div class="bar"><div class="fill" id="progressFill"></div></div>
-  <div id="stage"></div>
+<div class="shell">
+  <div class="card">
+    <div class="topbar">
+      <div class="brand">
+        <h1 id="title">Loading test...</h1>
+        <p>One question at a time. Stay calm and work through each step.</p>
+        <div class="candidate" id="candidateCodeLine">Candidate Code: ...</div>
+      </div>
+
+      <div class="progressMeta">
+        <div class="small">Progress</div>
+        <div class="big" id="progressLabel">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="progressWrap">
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="stage" id="stage"></div>
+
+    <div class="nav" id="nav">
+      <button class="btn btnMuted" id="backBtn" type="button">Back</button>
+      <div class="navCenter" id="centerNote">Loading test...</div>
+      <button class="btn btnPrimary" id="nextBtn" type="button">Next</button>
+    </div>
+  </div>
 </div>
 
-<script>
-const firebaseConfig = {
-  apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-  authDomain:"saybon-3e3c2.firebaseapp.com",
-  projectId:"saybon-3e3c2",
-  storageBucket:"saybon-3e3c2.firebasestorage.app",
-  messagingSenderId:"75085012344",
-  appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-const params = new URLSearchParams(window.location.search);
-const test = params.get("test") || "prim";
-
-let testData = null;
-let candidateCode = null;
-
-function generateCandidateCode(){
-  return "CAND-" + Math.floor(100000 + Math.random() * 900000);
-}
-
-async function createCandidateRecord(){
-  candidateCode = sessionStorage.getItem("saybon_candidate_code");
-
-  if(!candidateCode){
-    candidateCode = generateCandidateCode();
-    sessionStorage.setItem("saybon_candidate_code", candidateCode);
-  }
-
-  document.getElementById("candidateCodeLine").innerText = "Candidate Code: " + candidateCode;
-
-  const ref = db.collection("delfCandidates").doc(candidateCode);
-  const snap = await ref.get();
-
-  if(!snap.exists){
-    await ref.set({
-      candidateCode,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      activeTest: test,
-      source: "placement"
-    }, { merge:true });
-  }
-}
-
-function esc(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-async function loadTest(){
-  const stage = document.getElementById("stage");
-
-  try{
-    await createCandidateRecord();
-
-    const fetchUrl = `/features/delf/tests/${test}.json?ts=${Date.now()}`;
-    const res = await fetch(fetchUrl);
-    const rawText = await res.text();
-
-    if(!res.ok){
-      throw new Error(
-        "HTTP " + res.status + "\n\n" +
-        "FETCH URL: " + fetchUrl + "\n\n" +
-        "RAW RESPONSE:\n" + rawText
-      );
-    }
-
-    try{
-      testData = JSON.parse(rawText);
-    }catch(parseErr){
-      throw new Error(
-        "JSON PARSE FAILED\n\n" +
-        "FETCH URL: " + fetchUrl + "\n\n" +
-        "RAW RESPONSE:\n" + rawText
-      );
-    }
-
-    document.getElementById("title").innerText = testData.title || "Placement Test";
-    document.getElementById("progressFill").style.width = "100%";
-
-    const q = testData.questions?.[0];
-
-    if(!q){
-      stage.innerHTML = `
-        <div class="box">
-          <div class="error">Test file loaded but contains no questions.</div>
-        </div>
-      `;
-      return;
-    }
-
-    let html = `<div class="box"><div style="font-size:28px;font-weight:700;margin-bottom:18px;">${esc(q.question)}</div>`;
-
-    if(Array.isArray(q.options)){
-      q.options.forEach(opt=>{
-        html += `<label class="option">${esc(opt)}</label>`;
-      });
-    }
-
-    html += `</div>`;
-    stage.innerHTML = html;
-
-  }catch(err){
-    console.error("LOAD TEST ERROR:", err);
-    document.getElementById("title").innerText = "Test unavailable";
-    stage.innerHTML = `
-      <div class="box">
-        <div class="error">REAL ERROR:\n\n${esc(err.message || String(err))}</div>
-      </div>
-    `;
-  }
-}
-
-loadTest();
-</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="/features/delf/test-engine.js?v=clean-rebuild-1"></script>
 </body>
 </html>
