@@ -1,496 +1,617 @@
-﻿const stage = document.getElementById("stage");
-const titleEl = document.getElementById("title");
-const progressLabel = document.getElementById("progressLabel");
-const progressFill = document.getElementById("progressFill");
-const centerNote = document.getElementById("centerNote");
-const nextBtn = document.getElementById("nextBtn");
-const backBtn = document.getElementById("backBtn");
-const candidateLine = document.getElementById("candidateCodeLine");
+﻿(() => {
+  "use strict";
 
-let test = null;
-let index = 0;
-let answers = [];
-let candidateId = "C-" + Math.floor(100000 + Math.random() * 900000);
-
-let recorder = null;
-let chunks = [];
-let currentStream = null;
-let waveformInterval = null;
-
-// ==========================================
-// BOOTSTRAP
-// ==========================================
-(async function bootstrap() {
-  try {
-    const params = new URLSearchParams(location.search);
-    const slug = params.get("test") || "prim";
-
-    titleEl.textContent = "Loading test...";
-    candidateLine.textContent = `Candidate ID: ${candidateId}`;
-    centerNote.textContent = "Loading test...";
-
-    const res = await fetch(`/features/delf/tests/${slug}.json?v=${Date.now()}`, {
-      cache: "no-store"
-    });
-
-    if (!res.ok) throw new Error(`Could not load test file (${res.status})`);
-
-    const raw = await res.text();
-    test = JSON.parse(raw);
-
-    if (!test || !Array.isArray(test.questions) || !test.questions.length) {
-      throw new Error("Test file has no questions.");
-    }
-
-    titleEl.textContent = test.title || "Placement Test";
-    candidateLine.textContent = `Candidate ID: ${candidateId}`;
-
-    answers = new Array(test.questions.length).fill(null);
-
-    bindNav();
-    render();
-
-  } catch (err) {
-    console.error("BOOTSTRAP ERROR:", err);
-    titleEl.textContent = "Test unavailable";
-    centerNote.textContent = "Failed to load test.";
-
-    stage.innerHTML = `
-      <div class="errorBox" style="background:#fff5f7;border:1px solid #f2c7d0;color:#8a2d3b;">
-        <h3 style="margin-top:0;">We couldn’t load this test.</h3>
-        <p style="margin-bottom:0;"><strong>REAL ERROR:</strong><br>${escapeHtml(String(err.message || err))}</p>
-      </div>
-    `;
-  }
-})();
-
-// ==========================================
-// NAV
-// ==========================================
-function bindNav() {
-  nextBtn.onclick = () => {
-    saveCurrentAnswer();
-
-    if (!canProceed()) return;
-
-    if (index < test.questions.length - 1) {
-      index++;
-      render();
-    } else {
-      finish();
-    }
+  // ==========================================
+  // TEST MAP
+  // ==========================================
+  const TEST_MAP = {
+    prim: "/features/delf/data/prim-placement.json"
   };
 
-  backBtn.onclick = () => {
-    saveCurrentAnswer();
-    if (index > 0) {
-      index--;
-      render();
-    }
+  // ==========================================
+  // REAL FIREBASE CONFIG
+  // ==========================================
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+    authDomain: "saybon-3e3c2.firebaseapp.com",
+    projectId: "saybon-3e3c2",
+    storageBucket: "saybon-3e3c2.firebasestorage.app",
+    messagingSenderId: "75085012344",
+    appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
   };
-}
 
-function canProceed() {
-  const q = test.questions[index];
-  const current = answers[index];
+  // ==========================================
+  // DOM
+  // ==========================================
+  const titleEl = document.getElementById("title");
+  const candidateCodeLineEl = document.getElementById("candidateCodeLine");
+  const progressLabelEl = document.getElementById("progressLabel");
+  const progressFillEl = document.getElementById("progressFill");
+  const stageEl = document.getElementById("stage");
+  const centerNoteEl = document.getElementById("centerNote");
+  const nextBtn = document.getElementById("nextBtn");
+  const backBtn = document.getElementById("backBtn");
 
-  if (q.type === "reading" || q.type === "listening") {
-    return current !== null && current !== undefined;
+  // ==========================================
+  // STATE
+  // ==========================================
+  let testData = null;
+  let questions = [];
+  let currentIndex = 0;
+  let answers = [];
+  let candidateId = "";
+  let mediaRecorder = null;
+  let recordingChunks = [];
+  let waveformInterval = null;
+
+  // ==========================================
+  // INIT
+  // ==========================================
+  document.addEventListener("DOMContentLoaded", init);
+
+  async function init() {
+    try {
+      setLoadingState("Loading test...");
+      candidateId = getOrCreateCandidateId();
+      candidateCodeLineEl.textContent = `Candidate ID: ${candidateId}`;
+
+      const testKey = getTestKey();
+      const testPath = TEST_MAP[testKey];
+
+      if (!testPath) {
+        throw new Error(`Unknown test key: ${testKey}`);
+      }
+
+      const response = await fetch(`${testPath}?v=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Could not load test file: ${testPath}`);
+      }
+
+      testData = await response.json();
+
+      if (!testData || !Array.isArray(testData.questions)) {
+        throw new Error("Placement JSON is invalid.");
+      }
+
+      questions = testData.questions;
+
+      if (!questions.length) {
+        throw new Error("No questions found in placement JSON.");
+      }
+
+      titleEl.textContent = testData.title || "Placement Test";
+      answers = new Array(questions.length).fill(null);
+
+      bindNav();
+      renderQuestion();
+    } catch (err) {
+      console.error("INIT ERROR:", err);
+      renderError(err.message || "Failed to load test.");
+    }
   }
 
-  if (q.type === "writing") {
-    return typeof current === "string" && current.trim().length > 0;
-  }
+  function bindNav() {
+    nextBtn.onclick = async () => {
+      if (!canProceed()) {
+        centerNoteEl.textContent = "Choose or complete your answer, then continue.";
+        return;
+      }
 
-  if (q.type === "speaking") {
-    return !!current;
-  }
-
-  return true;
-}
-
-// ==========================================
-// RENDER
-// ==========================================
-function render() {
-  stopWaveform();
-  const q = test.questions[index];
-
-  progressLabel.textContent = `${index + 1} / ${test.questions.length}`;
-  progressFill.style.width = `${((index + 1) / test.questions.length) * 100}%`;
-
-  backBtn.style.visibility = index === 0 ? "hidden" : "visible";
-  nextBtn.textContent = index === test.questions.length - 1 ? "Finish" : "Next";
-
-  if (q.type === "reading") renderChoiceQuestion(q, "READING");
-  else if (q.type === "listening") renderListeningQuestion(q);
-  else if (q.type === "writing") renderWritingQuestion(q);
-  else if (q.type === "speaking") renderSpeakingQuestion(q);
-  else renderUnknown(q);
-}
-
-// ==========================================
-// QUESTION TYPES
-// ==========================================
-function renderChoiceQuestion(q, label) {
-  centerNote.textContent = "Choose an answer, then continue.";
-
-  stage.innerHTML = `
-    <div class="pill">${label}</div>
-    <h2 class="questionText">${escapeHtml(q.question)}</h2>
-
-    <div class="answerGrid">
-      ${q.options.map((opt, i) => {
-        const checked = answers[index] === i ? "checked" : "";
-        const letter = ["A", "B", "C", "D"][i] || (i + 1);
-        return `
-          <label class="option">
-            <input type="radio" name="choice" value="${i}" ${checked}>
-            <div class="optionCard">
-              <div class="badge">${letter}</div>
-              <div>${escapeHtml(opt)}</div>
-            </div>
-          </label>
-        `;
-      }).join("")}
-    </div>
-  `;
-
-  stage.querySelectorAll('input[name="choice"]').forEach(el => {
-    el.addEventListener("change", e => {
-      answers[index] = Number(e.target.value);
-    });
-  });
-}
-
-function renderListeningQuestion(q) {
-  centerNote.textContent = "Listen carefully, then choose the correct answer.";
-
-  stage.innerHTML = `
-    <div class="pill">LISTENING</div>
-    <h2 class="questionText">${escapeHtml(q.question)}</h2>
-
-    <div class="passageBox">
-      <audio controls preload="metadata" style="width:100%;">
-        <source src="${escapeHtml(q.audio || "")}" type="audio/mpeg">
-        Your browser does not support audio playback.
-      </audio>
-    </div>
-
-    <div class="answerGrid">
-      ${q.options.map((opt, i) => {
-        const checked = answers[index] === i ? "checked" : "";
-        const letter = ["A", "B", "C", "D"][i] || (i + 1);
-        return `
-          <label class="option">
-            <input type="radio" name="choice" value="${i}" ${checked}>
-            <div class="optionCard">
-              <div class="badge">${letter}</div>
-              <div>${escapeHtml(opt)}</div>
-            </div>
-          </label>
-        `;
-      }).join("")}
-    </div>
-  `;
-
-  stage.querySelectorAll('input[name="choice"]').forEach(el => {
-    el.addEventListener("change", e => {
-      answers[index] = Number(e.target.value);
-    });
-  });
-}
-
-function renderWritingQuestion(q) {
-  centerNote.textContent = "Write your answer, then continue.";
-
-  const existing = typeof answers[index] === "string" ? answers[index] : "";
-
-  stage.innerHTML = `
-    <div class="pill">WRITING</div>
-    <h2 class="questionText">${escapeHtml(q.question)}</h2>
-
-    <div class="answerBox">
-      <textarea id="writingInput" placeholder="${escapeHtml(q.placeholder || "Type your answer here...")}">${escapeHtml(existing)}</textarea>
-      <div class="helper">Write naturally in French.</div>
-    </div>
-  `;
-}
-
-function renderSpeakingQuestion(q) {
-  centerNote.textContent = "Record your answer, replay it, or replace it before continuing.";
-
-  const existing = answers[index];
-  const existingUrl = existing && existing.url ? existing.url : "";
-
-  stage.innerHTML = `
-    <div class="pill">SPEAKING</div>
-    <h2 class="questionText">${escapeHtml(q.question)}</h2>
-
-    <div class="answerBox" style="padding:22px;">
-      <div id="recTop" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-        <div id="recStatus" style="font-weight:700;color:#356fdf;">Ready to record</div>
-        <div id="recHint" style="font-size:14px;color:#6c7b90;">Speak clearly and naturally.</div>
-      </div>
-
-      <div id="waveWrap" style="
-        display:flex;
-        align-items:flex-end;
-        gap:6px;
-        height:68px;
-        padding:16px 14px;
-        border:1px solid #dbe6f3;
-        border-radius:18px;
-        background:linear-gradient(180deg,#f9fbff,#f2f7ff);
-        margin-bottom:18px;
-        overflow:hidden;
-      ">
-        ${Array.from({length: 28}).map((_, i) => `
-          <div class="waveBar" data-i="${i}" style="
-            width:8px;
-            height:12px;
-            border-radius:999px;
-            background:linear-gradient(180deg,#8db7ff,#4f8cff);
-            opacity:.45;
-            transition:height .14s ease, opacity .14s ease, transform .14s ease;
-          "></div>
-        `).join("")}
-      </div>
-
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
-        <button id="startRecBtn" class="btn btnPrimary" type="button">Start Recording</button>
-        <button id="stopRecBtn" class="btn btnMuted" type="button" disabled>Stop</button>
-        <button id="replaceRecBtn" class="btn btnMuted" type="button" ${existingUrl ? "" : "disabled"}>Replace Recording</button>
-      </div>
-
-      <div id="playbackWrap" class="${existingUrl ? "" : "hidden"}">
-        <audio id="playbackAudio" controls style="width:100%;" ${existingUrl ? `src="${existingUrl}"` : ""}></audio>
-        <div class="helper" style="margin-top:10px;">You can replay this or replace it with a new recording.</div>
-      </div>
-    </div>
-  `;
-
-  const startBtn = document.getElementById("startRecBtn");
-  const stopBtn = document.getElementById("stopRecBtn");
-  const replaceBtn = document.getElementById("replaceRecBtn");
-
-  startBtn.onclick = startRecording;
-  stopBtn.onclick = stopRecording;
-  replaceBtn.onclick = replaceRecording;
-}
-
-function renderUnknown(q) {
-  centerNote.textContent = "Unsupported question type.";
-  stage.innerHTML = `
-    <div class="errorBox">
-      <h3 style="margin-top:0;">Unsupported question type</h3>
-      <p style="margin-bottom:0;">Type: <strong>${escapeHtml(q.type || "unknown")}</strong></p>
-    </div>
-  `;
-}
-
-// ==========================================
-// SAVE CURRENT
-// ==========================================
-function saveCurrentAnswer() {
-  if (!test) return;
-  const q = test.questions[index];
-  if (!q) return;
-
-  if (q.type === "writing") {
-    const input = document.getElementById("writingInput");
-    if (input) answers[index] = input.value.trim();
-  }
-}
-
-// ==========================================
-// SPEAKING LOGIC
-// ==========================================
-async function startRecording() {
-  try {
-    const status = document.getElementById("recStatus");
-    const startBtn = document.getElementById("startRecBtn");
-    const stopBtn = document.getElementById("stopRecBtn");
-    const replaceBtn = document.getElementById("replaceRecBtn");
-    const playbackWrap = document.getElementById("playbackWrap");
-    const playbackAudio = document.getElementById("playbackAudio");
-
-    if (playbackAudio) playbackAudio.pause();
-    if (playbackWrap) playbackWrap.classList.add("hidden");
-
-    chunks = [];
-    currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    recorder = new MediaRecorder(currentStream);
-
-    recorder.ondataavailable = e => {
-      if (e.data && e.data.size > 0) chunks.push(e.data);
-    };
-
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: "audio/webm" });
-      const url = URL.createObjectURL(blob);
-
-      answers[index] = { blob, url };
-
-      const playbackWrap2 = document.getElementById("playbackWrap");
-      const playbackAudio2 = document.getElementById("playbackAudio");
-      const replaceBtn2 = document.getElementById("replaceRecBtn");
-      const status2 = document.getElementById("recStatus");
-      const startBtn2 = document.getElementById("startRecBtn");
-      const stopBtn2 = document.getElementById("stopRecBtn");
-
-      if (playbackAudio2) playbackAudio2.src = url;
-      if (playbackWrap2) playbackWrap2.classList.remove("hidden");
-      if (replaceBtn2) replaceBtn2.disabled = false;
-      if (status2) status2.textContent = "Recording saved";
-      if (startBtn2) startBtn2.disabled = false;
-      if (stopBtn2) stopBtn2.disabled = true;
-
-      stopWaveform();
-
-      if (currentStream) {
-        currentStream.getTracks().forEach(t => t.stop());
-        currentStream = null;
+      if (currentIndex < questions.length - 1) {
+        currentIndex += 1;
+        renderQuestion();
+      } else {
+        await finishTest();
       }
     };
 
-    recorder.start();
-
-    if (status) status.textContent = "Recording...";
-    if (startBtn) startBtn.disabled = true;
-    if (stopBtn) stopBtn.disabled = false;
-    if (replaceBtn) replaceBtn.disabled = true;
-
-    startWaveform();
-
-  } catch (err) {
-    console.error("Recording failed:", err);
-    const status = document.getElementById("recStatus");
-    if (status) status.textContent = "Microphone access failed";
-    alert("Microphone access was blocked or unavailable.");
-  }
-}
-
-function stopRecording() {
-  if (recorder && recorder.state === "recording") {
-    recorder.stop();
-  }
-}
-
-function replaceRecording() {
-  answers[index] = null;
-
-  const playbackWrap = document.getElementById("playbackWrap");
-  const playbackAudio = document.getElementById("playbackAudio");
-  const replaceBtn = document.getElementById("replaceRecBtn");
-  const status = document.getElementById("recStatus");
-
-  if (playbackAudio) {
-    playbackAudio.pause();
-    playbackAudio.removeAttribute("src");
-    playbackAudio.load();
+    backBtn.onclick = () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        renderQuestion();
+      }
+    };
   }
 
-  if (playbackWrap) playbackWrap.classList.add("hidden");
-  if (replaceBtn) replaceBtn.disabled = true;
-  if (status) status.textContent = "Ready to record";
+  // ==========================================
+  // RENDER QUESTION
+  // ==========================================
+  function renderQuestion() {
+    stopWaveAnimation();
+    stopRecorderIfNeeded();
 
-  stopWaveform();
-  resetWaveform();
-}
+    const q = questions[currentIndex];
+    if (!q) return;
 
-// ==========================================
-// WAVEFORM
-// ==========================================
-function startWaveform() {
-  stopWaveform();
-  const bars = [...document.querySelectorAll(".waveBar")];
-  if (!bars.length) return;
+    stageEl.innerHTML = "";
+    updateProgress();
 
-  waveformInterval = setInterval(() => {
-    bars.forEach(bar => {
-      const h = 10 + Math.floor(Math.random() * 42);
-      const o = 0.45 + Math.random() * 0.55;
-      bar.style.height = `${h}px`;
-      bar.style.opacity = `${o}`;
-      bar.style.transform = `translateY(${Math.random() > 0.5 ? "-1px" : "0"})`;
-    });
-  }, 120);
-}
+    const pill = document.createElement("div");
+    pill.className = "pill";
+    pill.textContent = (q.type || "question").toUpperCase();
+    stageEl.appendChild(pill);
 
-function stopWaveform() {
-  if (waveformInterval) {
-    clearInterval(waveformInterval);
-    waveformInterval = null;
-  }
-  resetWaveform();
-}
-
-function resetWaveform() {
-  document.querySelectorAll(".waveBar").forEach(bar => {
-    bar.style.height = "12px";
-    bar.style.opacity = ".45";
-    bar.style.transform = "translateY(0)";
-  });
-}
-
-// ==========================================
-// FINISH
-// ==========================================
-function finish() {
-  saveCurrentAnswer();
-
-  let objectiveScore = 0;
-  let objectiveTotal = 0;
-
-  test.questions.forEach((q, i) => {
-    if (typeof q.answer === "number") {
-      objectiveTotal++;
-      if (answers[i] === q.answer) objectiveScore++;
+    if (q.passage) {
+      const passage = document.createElement("div");
+      passage.className = "passageBox";
+      passage.textContent = q.passage;
+      stageEl.appendChild(passage);
     }
-  });
 
-  const percent = objectiveTotal ? Math.round((objectiveScore / objectiveTotal) * 100) : 0;
-  const estimated = estimateLevel(percent);
+    const question = document.createElement("h2");
+    question.className = "questionText";
+    question.textContent = q.question || "Question";
+    stageEl.appendChild(question);
 
-  centerNote.textContent = "Placement complete.";
-  nextBtn.classList.add("hidden");
-  backBtn.classList.add("hidden");
+    if (q.type === "listening") {
+      stageEl.appendChild(buildListeningBlock(q));
+      stageEl.appendChild(buildOptionsBlock(q));
+      centerNoteEl.textContent = "Listen, choose your answer, then continue.";
+    }
+    else if (q.type === "reading") {
+      stageEl.appendChild(buildOptionsBlock(q));
+      centerNoteEl.textContent = "Choose your answer, then continue.";
+    }
+    else if (q.type === "writing") {
+      stageEl.appendChild(buildWritingBlock(q));
+      centerNoteEl.textContent = "Write your answer, then continue.";
+    }
+    else if (q.type === "speaking") {
+      stageEl.appendChild(buildSpeakingBlock(q));
+      centerNoteEl.textContent = "Record your answer, then continue.";
+    }
 
-  stage.innerHTML = `
-    <div class="pill">COMPLETED</div>
-    <h2 class="questionText">Placement complete</h2>
+    backBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+    nextBtn.textContent = currentIndex === questions.length - 1 ? "Finish" : "Next";
+    nextBtn.classList.remove("hidden");
+    backBtn.classList.remove("hidden");
+  }
 
-    <div class="resultBox">
-      <div style="display:grid;gap:10px;font-size:18px;">
-        <div><strong>Candidate ID:</strong> ${escapeHtml(candidateId)}</div>
-        <div><strong>Estimated Level:</strong> ${escapeHtml(estimated)}</div>
-        <div><strong>Objective Score:</strong> ${objectiveScore} / ${objectiveTotal}</div>
-        <div><strong>Objective Percent:</strong> ${percent}%</div>
+  // ==========================================
+  // LISTENING
+  // ==========================================
+  function buildListeningBlock(q) {
+    const wrap = document.createElement("div");
+    wrap.className = "answerBox";
+
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.preload = "metadata";
+    audio.style.width = "100%";
+    audio.src = `${q.audio}?v=${Date.now()}`;
+
+    const helper = document.createElement("div");
+    helper.className = "helper";
+    helper.textContent = "Play the audio, then answer the question.";
+
+    wrap.appendChild(audio);
+    wrap.appendChild(helper);
+    return wrap;
+  }
+
+  // ==========================================
+  // MCQ
+  // ==========================================
+  function buildOptionsBlock(q) {
+    const grid = document.createElement("div");
+    grid.className = "answerGrid";
+
+    const letters = ["A", "B", "C", "D"];
+
+    q.options.forEach((opt, i) => {
+      const label = document.createElement("label");
+      label.className = "option";
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `question-${currentIndex}`;
+      input.value = i;
+
+      if (answers[currentIndex] === i) {
+        input.checked = true;
+      }
+
+      input.addEventListener("change", () => {
+        answers[currentIndex] = i;
+      });
+
+      const card = document.createElement("div");
+      card.className = "optionCard";
+
+      const badge = document.createElement("div");
+      badge.className = "badge";
+      badge.textContent = letters[i] || "?";
+
+      const text = document.createElement("div");
+      text.textContent = opt;
+
+      card.appendChild(badge);
+      card.appendChild(text);
+
+      label.appendChild(input);
+      label.appendChild(card);
+      grid.appendChild(label);
+    });
+
+    return grid;
+  }
+
+  // ==========================================
+  // WRITING
+  // ==========================================
+  function buildWritingBlock(q) {
+    const wrap = document.createElement("div");
+    wrap.className = "answerBox";
+
+    const textarea = document.createElement("textarea");
+    textarea.placeholder = q.placeholder || "Type your answer here...";
+    textarea.value = typeof answers[currentIndex] === "string" ? answers[currentIndex] : "";
+
+    textarea.addEventListener("input", () => {
+      answers[currentIndex] = textarea.value.trim();
+    });
+
+    wrap.appendChild(textarea);
+    return wrap;
+  }
+
+  // ==========================================
+  // SPEAKING
+  // ==========================================
+  function buildSpeakingBlock(q) {
+    const wrap = document.createElement("div");
+    wrap.className = "answerBox";
+
+    const controls = document.createElement("div");
+    controls.style.display = "flex";
+    controls.style.flexWrap = "wrap";
+    controls.style.gap = "12px";
+    controls.style.alignItems = "center";
+    controls.style.marginBottom = "16px";
+
+    const startBtn = document.createElement("button");
+    startBtn.type = "button";
+    startBtn.className = "btn btnPrimary";
+    startBtn.textContent = "Start Recording";
+
+    const stopBtn = document.createElement("button");
+    stopBtn.type = "button";
+    stopBtn.className = "btn btnMuted";
+    stopBtn.textContent = "Stop";
+    stopBtn.disabled = true;
+
+    const replaceBtn = document.createElement("button");
+    replaceBtn.type = "button";
+    replaceBtn.className = "btn btnMuted";
+    replaceBtn.textContent = "Replace Recording";
+    replaceBtn.style.display = "none";
+
+    const status = document.createElement("div");
+    status.style.fontWeight = "600";
+    status.style.color = "#356fdf";
+    status.textContent = "Ready to record";
+
+    controls.appendChild(startBtn);
+    controls.appendChild(stopBtn);
+    controls.appendChild(replaceBtn);
+    controls.appendChild(status);
+
+    const waveWrap = document.createElement("div");
+    waveWrap.style.display = "flex";
+    waveWrap.style.alignItems = "flex-end";
+    waveWrap.style.gap = "6px";
+    waveWrap.style.height = "48px";
+    waveWrap.style.marginBottom = "18px";
+
+    const bars = [];
+    for (let i = 0; i < 18; i++) {
+      const bar = document.createElement("div");
+      bar.style.width = "8px";
+      bar.style.height = "10px";
+      bar.style.borderRadius = "999px";
+      bar.style.background = "#cfe0ff";
+      bar.style.transition = "height .12s ease";
+      bars.push(bar);
+      waveWrap.appendChild(bar);
+    }
+
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.style.width = "100%";
+    audio.style.display = "none";
+
+    const saved = answers[currentIndex];
+    if (saved && saved.url) {
+      audio.src = saved.url;
+      audio.style.display = "block";
+      replaceBtn.style.display = "inline-flex";
+      status.textContent = "Recording saved";
+    }
+
+    startBtn.addEventListener("click", async () => {
+      try {
+        stopRecorderIfNeeded();
+        recordingChunks = [];
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordingChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordingChunks, { type: "audio/webm" });
+          const url = URL.createObjectURL(blob);
+
+          answers[currentIndex] = {
+            type: "speaking-recording",
+            blob,
+            url,
+            mimeType: blob.type
+          };
+
+          audio.src = url;
+          audio.style.display = "block";
+          status.textContent = "Recording saved";
+          replaceBtn.style.display = "inline-flex";
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+          stopWaveAnimation();
+
+          stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+        status.textContent = "Recording...";
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        replaceBtn.style.display = "none";
+        startWaveAnimation(bars);
+
+      } catch (err) {
+        console.error("Mic error:", err);
+        status.textContent = "Microphone access failed";
+      }
+    });
+
+    stopBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    });
+
+    replaceBtn.addEventListener("click", () => {
+      answers[currentIndex] = null;
+      audio.removeAttribute("src");
+      audio.style.display = "none";
+      replaceBtn.style.display = "none";
+      status.textContent = "Ready to record";
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      stopWaveAnimation();
+    });
+
+    wrap.appendChild(controls);
+    wrap.appendChild(waveWrap);
+    wrap.appendChild(audio);
+
+    return wrap;
+  }
+
+  // ==========================================
+  // FINISH / SCORE
+  // ==========================================
+  async function finishTest() {
+    try {
+      const objectiveIndexes = questions
+        .map((q, i) => ({ q, i }))
+        .filter(item => item.q.type === "reading" || item.q.type === "listening");
+
+      let objectiveCorrect = 0;
+
+      objectiveIndexes.forEach(({ q, i }) => {
+        if (typeof q.answer === "number" && answers[i] === q.answer) {
+          objectiveCorrect += 1;
+        }
+      });
+
+      const objectiveTotal = objectiveIndexes.length;
+      const objectivePercent = objectiveTotal > 0
+        ? Math.round((objectiveCorrect / objectiveTotal) * 100)
+        : 0;
+
+      const estimatedLevel = estimatePrimLevel(objectivePercent, answers);
+
+      const payload = {
+        candidateId,
+        testKey: getTestKey(),
+        title: testData?.title || "Placement Test",
+        answers: serializeAnswers(answers),
+        objectiveCorrect,
+        objectiveTotal,
+        objectivePercent,
+        estimatedLevel,
+        completedAt: new Date().toISOString()
+      };
+
+      await saveResult(payload);
+
+      renderResult({
+        candidateId,
+        objectiveCorrect,
+        objectiveTotal,
+        objectivePercent,
+        estimatedLevel
+      });
+    } catch (err) {
+      console.error("FINISH ERROR:", err);
+      renderError("Test finished, but result processing failed.");
+    }
+  }
+
+  function estimatePrimLevel(objectivePercent, answers) {
+    const writingResponses = answers.filter(a => typeof a === "string" && a.trim().length > 0);
+    const speakingResponses = answers.filter(a => a && typeof a === "object" && a.type === "speaking-recording");
+
+    const hasWriting = writingResponses.length > 0;
+    const hasSpeaking = speakingResponses.length > 0;
+
+    if (objectivePercent <= 20) return "Pre-A1";
+    if (objectivePercent <= 45) return (hasWriting || hasSpeaking) ? "A1.1" : "Pre-A1";
+    if (objectivePercent <= 70) return (hasWriting && hasSpeaking) ? "A1" : "A1.1";
+    return (hasWriting && hasSpeaking) ? "A2" : "A1";
+  }
+
+  function renderResult(result) {
+    updateProgress(true);
+
+    stageEl.innerHTML = `
+      <div class="pill">Completed</div>
+      <h2 class="questionText">Placement complete</h2>
+      <div class="resultBox">
+        <p><strong>Candidate ID:</strong> ${escapeHtml(result.candidateId)}</p>
+        <p><strong>Estimated Level:</strong> ${escapeHtml(result.estimatedLevel)}</p>
+        <p><strong>Objective Score:</strong> ${result.objectiveCorrect} / ${result.objectiveTotal}</p>
+        <p><strong>Objective Percent:</strong> ${result.objectivePercent}%</p>
       </div>
-    </div>
+      <div class="helper">Your result has been saved.</div>
+    `;
 
-    <div class="helper" style="font-size:15px;">
-      Your objective score reflects only auto-marked questions. Writing and speaking should be reviewed separately.
-    </div>
-  `;
-}
+    centerNoteEl.textContent = "Placement complete.";
+    nextBtn.classList.add("hidden");
+    backBtn.classList.add("hidden");
+  }
 
-function estimateLevel(percent) {
-  if (percent >= 85) return "A2";
-  if (percent >= 65) return "A1";
-  if (percent >= 40) return "Pre-A1";
-  return "Starter";
-}
+  // ==========================================
+  // FIREBASE SAVE
+  // ==========================================
+  async function saveResult(payload) {
+    try {
+      if (!window.firebase) return;
 
-// ==========================================
-// UTILS
-// ==========================================
-function escapeHtml(str) {
-  return String(str ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
+      if (!firebase.apps.length) {
+        firebase.initializeApp(FIREBASE_CONFIG);
+      }
+
+      const db = firebase.firestore();
+      await db.collection("delfPlacementResults").add(payload);
+    } catch (err) {
+      console.warn("Could not save placement result:", err);
+    }
+  }
+
+  function serializeAnswers(rawAnswers) {
+    return rawAnswers.map(a => {
+      if (a && typeof a === "object" && a.type === "speaking-recording") {
+        return {
+          type: a.type,
+          mimeType: a.mimeType || "audio/webm",
+          note: "Browser audio recording captured."
+        };
+      }
+      return a;
+    });
+  }
+
+  // ==========================================
+  // HELPERS
+  // ==========================================
+  function updateProgress(forceComplete = false) {
+    const total = questions.length || 0;
+    const current = forceComplete ? total : currentIndex + 1;
+    const pct = total ? Math.round((current / total) * 100) : 0;
+
+    progressLabelEl.textContent = `${current} / ${total}`;
+    progressFillEl.style.width = `${pct}%`;
+  }
+
+  function canProceed() {
+    const q = questions[currentIndex];
+    const a = answers[currentIndex];
+
+    if (!q) return false;
+
+    if (q.type === "reading" || q.type === "listening") {
+      return typeof a === "number";
+    }
+
+    if (q.type === "writing") {
+      return typeof a === "string" && a.trim().length > 0;
+    }
+
+    if (q.type === "speaking") {
+      return !!(a && typeof a === "object" && a.type === "speaking-recording");
+    }
+
+    return false;
+  }
+
+  function getTestKey() {
+    const params = new URLSearchParams(window.location.search);
+    return (params.get("test") || "prim").toLowerCase();
+  }
+
+  function getOrCreateCandidateId() {
+    const params = new URLSearchParams(window.location.search);
+    const existing = params.get("candidate");
+    if (existing) return existing;
+
+    return `C-${Math.floor(100000 + Math.random() * 900000)}`;
+  }
+
+  function setLoadingState(text) {
+    titleEl.textContent = text;
+    centerNoteEl.textContent = text;
+    progressLabelEl.textContent = "0 / 0";
+    progressFillEl.style.width = "0%";
+  }
+
+  function renderError(message) {
+    titleEl.textContent = "Test unavailable";
+    stageEl.innerHTML = `
+      <div class="errorBox">
+        <strong>REAL ERROR:</strong><br><br>
+        ${escapeHtml(message)}
+      </div>
+    `;
+    centerNoteEl.textContent = "Could not load test.";
+    nextBtn.classList.add("hidden");
+    backBtn.classList.add("hidden");
+  }
+
+  function startWaveAnimation(bars) {
+    stopWaveAnimation();
+    waveformInterval = setInterval(() => {
+      bars.forEach(bar => {
+        const h = 10 + Math.floor(Math.random() * 36);
+        bar.style.height = `${h}px`;
+        bar.style.background = h > 28 ? "#4f8cff" : "#cfe0ff";
+      });
+    }, 120);
+  }
+
+  function stopWaveAnimation() {
+    if (waveformInterval) {
+      clearInterval(waveformInterval);
+      waveformInterval = null;
+    }
+  }
+
+  function stopRecorderIfNeeded() {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+      mediaRecorder.stop();
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+})();
