@@ -42,7 +42,7 @@ function esc(value) {
 }
 
 function generateCandidateCode() {
-  return "CAND-" + Math.floor(100000 + Math.random() * 900000);
+  return "C-" + Math.floor(100000 + Math.random() * 900000);
 }
 
 function getQuestionCount() {
@@ -68,7 +68,7 @@ async function ensureCandidateRecord() {
   }
 
   candidateCode = stored;
-  candidateCodeLineEl.innerText = `Candidate Code: ${candidateCode}`;
+  candidateCodeLineEl.innerText = `Candidate ID: ${candidateCode}`;
 
   await db.collection("placementCandidates").doc(candidateCode).set({
     candidateCode,
@@ -227,7 +227,7 @@ function renderResult(attemptId, objectiveScore, objectiveTotal, percent, level)
   stageEl.innerHTML = `
     <div class="resultBox">
       <div class="resultTitle">Placement complete</div>
-      <div class="resultLine"><strong>Candidate Code:</strong> ${esc(candidateCode)}</div>
+      <div class="resultLine"><strong>Candidate ID:</strong> ${esc(candidateCode)}</div>
       <div class="resultLine"><strong>Attempt ID:</strong> ${esc(attemptId)}</div>
       <div class="resultLine"><strong>Score:</strong> ${esc(objectiveScore)} / ${esc(objectiveTotal)}</div>
       <div class="resultLine"><strong>Percent:</strong> ${esc(percent)}%</div>
@@ -331,3 +331,4 @@ async function init() {
 }
 
 init();
+
