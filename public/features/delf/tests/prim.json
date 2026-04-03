@@ -1,84 +1,48 @@
 ﻿{
-"title":"DELF Prim Placement",
-"questions":[
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-1.mp3",
-"question":"What does the boy want to do?",
-"choices":["Go home","Play football","Eat dinner","Go to school"],
-"answer":1
-},
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-2.mp3",
-"question":"What animals does Marie have?",
-"choices":["A black cat and a white dog","Two cats","A dog and a rabbit","A bird"],
-"answer":0
-},
-
-{
-"type":"listening",
-"audio":"/assets/sounds/prim-test-3.mp3",
-"question":"Where is the cake?",
-"choices":["On the table","In the fridge","In the garden","In the living room"],
-"answer":0
-},
-
-{
-"type":"reading",
-"text":"Bonjour.\nJe m'appelle Emma.\nJ'ai neuf ans.\nJ'habite à Paris.\nJ'aime lire et dessiner.",
-"question":"What is the girl's name?",
-"choices":["Marie","Emma","Julie","Anna"],
-"answer":1
-},
-
-{
-"type":"reading",
-"question":"How old is she?",
-"choices":["7","8","9","10"],
-"answer":2
-},
-
-{
-"type":"reading",
-"question":"What does she like?",
-"choices":["Football","Singing","Reading and drawing","Swimming"],
-"answer":2
-},
-
-{
-"type":"writing",
-"question":"Translate into English",
-"prompt":"Je suis à l'école."
-},
-
-{
-"type":"writing",
-"question":"Translate into French",
-"prompt":"I like apples."
-},
-
-{
-"type":"writing",
-"question":"Write one sentence introducing yourself in French."
-},
-
-{
-"type":"speaking",
-"question":"Say your name and age in French."
-},
-
-{
-"type":"speaking",
-"question":"Describe your favorite food in French."
-},
-
-{
-"type":"speaking",
-"question":"Introduce yourself in one sentence."
-}
-
-]
+  "title": "DELF Prim Placement",
+  "questions": [
+    {
+      "type": "listening",
+      "question": "What does the boy want to do?",
+      "audio": "/features/delf/audio/prim-q1.mp3",
+      "options": [
+        "Go home",
+        "Play football",
+        "Eat dinner",
+        "Go to school"
+      ],
+      "answer": "Play football"
+    },
+    {
+      "type": "reading",
+      "question": "Read the passage and answer the question.",
+      "passage": "Bonjour ! Je m'appelle Lucas. J'ai 9 ans. J'aime jouer au football après l'école avec mes amis.",
+      "options": [
+        "Lucas is 7 years old",
+        "Lucas likes football",
+        "Lucas hates school",
+        "Lucas lives in Paris"
+      ],
+      "answer": "Lucas likes football"
+    },
+    {
+      "type": "reading",
+      "question": "What does 'Bonjour' mean in English?",
+      "options": [
+        "Goodbye",
+        "Thank you",
+        "Hello",
+        "Please"
+      ],
+      "answer": "Hello"
+    },
+    {
+      "type": "writing",
+      "question": "Write 4–6 simple sentences in French to introduce yourself."
+    },
+    {
+      "type": "speaking",
+      "question": "Introduce yourself in French. Say your name, age, and one thing you like."
+    }
+  ]
 }
