@@ -213,8 +213,8 @@ function renderError(message) {
   titleEl.innerText = "Test unavailable";
   stageEl.innerHTML = `
     <div class="errorBox">
-      <div class="errorTitle">We couldn't load this test.</div>
-      <div class="errorText">${esc(message)}</div>
+      <div style="font-size:22px;font-weight:700;margin-bottom:8px;">We couldn't load this test.</div>
+      <div style="color:#b3261e;white-space:pre-wrap;line-height:1.5;">${esc(message)}</div>
     </div>
   `;
   navEl.classList.add("hidden");
@@ -226,15 +226,15 @@ function renderResult(attemptId, objectiveScore, objectiveTotal, percent, level)
   titleEl.innerText = testData.title || "Placement Test";
   stageEl.innerHTML = `
     <div class="resultBox">
-      <div class="resultTitle">Placement complete</div>
-      <div class="resultLine"><strong>Candidate ID:</strong> ${esc(candidateCode)}</div>
-      <div class="resultLine"><strong>Attempt ID:</strong> ${esc(attemptId)}</div>
-      <div class="resultLine"><strong>Score:</strong> ${esc(objectiveScore)} / ${esc(objectiveTotal)}</div>
-      <div class="resultLine"><strong>Percent:</strong> ${esc(percent)}%</div>
-      <div class="resultLine"><strong>Estimated Level:</strong> ${esc(level)}</div>
+      <div style="font-size:24px;font-weight:700;margin-bottom:12px;">Placement complete</div>
+      <div style="margin-bottom:8px;"><strong>Candidate ID:</strong> ${esc(candidateCode)}</div>
+      <div style="margin-bottom:8px;"><strong>Attempt ID:</strong> ${esc(attemptId)}</div>
+      <div style="margin-bottom:8px;"><strong>Score:</strong> ${esc(objectiveScore)} / ${esc(objectiveTotal)}</div>
+      <div style="margin-bottom:8px;"><strong>Percent:</strong> ${esc(percent)}%</div>
+      <div style="margin-bottom:8px;"><strong>Estimated Level:</strong> ${esc(level)}</div>
     </div>
     <div class="resultBox">
-      <div class="resultLine"><strong>Next step:</strong> Keep this candidate code. It remains the learner's DELF ID throughout the preparation journey.</div>
+      <div><strong>Next step:</strong> Keep this Candidate ID. It remains the learner's DELF ID throughout the preparation journey.</div>
     </div>
   `;
 
@@ -331,4 +331,3 @@ async function init() {
 }
 
 init();
-
