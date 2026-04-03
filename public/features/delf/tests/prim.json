@@ -1,38 +1,38 @@
 ﻿{
-    "title":  "DELF Prim Placement",
-    "questions":  [
-                      {
-                          "type":  "reading",
-                          "question":  "What does Bonjour mean?",
-                          "options":  [
-                                          "Hello",
-                                          "Goodbye",
-                                          "Please",
-                                          "Thanks"
-                                      ],
-                          "answer":  0
-                      },
-                      {
-                          "type":  "listening",
-                          "audio":  "/assets/sounds/prim-test-1.mp3",
-                          "transcript":  "Bonjour Lucas, tu veux jouer au football après l\u0027école ?",
-                          "question":  "What does the boy want to do?",
-                          "options":  [
-                                          "Go home",
-                                          "Play football",
-                                          "Eat dinner",
-                                          "Go to school"
-                                      ],
-                          "answer":  1
-                      },
-                      {
-                          "type":  "writing",
-                          "question":  "Write one simple sentence to introduce yourself in French.",
-                          "placeholder":  "Type your answer here..."
-                      },
-                      {
-                          "type":  "speaking",
-                          "question":  "Introduce yourself in French."
-                      }
-                  ]
+  "title": "DELF Prim Placement",
+  "questions": [
+    {
+      "type": "reading",
+      "question": "What does Bonjour mean?",
+      "options": [
+        "Hello",
+        "Goodbye",
+        "Please",
+        "Thanks"
+      ],
+      "answer": 0
+    },
+    {
+      "type": "listening",
+      "audio": "/assets/sounds/prim-test-1.mp3",
+      "transcript": "Bonjour Lucas, tu veux jouer au football après l'école ?",
+      "question": "What does the boy want to do?",
+      "options": [
+        "Go home",
+        "Play football",
+        "Eat dinner",
+        "Go to school"
+      ],
+      "answer": 1
+    },
+    {
+      "type": "writing",
+      "question": "Write one simple sentence to introduce yourself in French.",
+      "placeholder": "Type your answer here..."
+    },
+    {
+      "type": "speaking",
+      "question": "Introduce yourself in French."
+    }
+  ]
 }

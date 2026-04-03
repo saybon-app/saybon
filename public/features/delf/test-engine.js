@@ -286,3 +286,71 @@ function drawWave(){
 
     draw();
 }
+
+
+async function bootstrap() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("test") || "prim";
+
+    const titleEl = document.getElementById("title");
+    const candidateLine = document.getElementById("candidateCodeLine");
+    const centerNote = document.getElementById("centerNote");
+
+    if (titleEl) titleEl.textContent = "Loading test...";
+    if (candidateLine) candidateLine.textContent = "Candidate ID: ...";
+    if (centerNote) centerNote.textContent = "Loading test...";
+
+    const url = `/features/delf/tests/${slug}.json?v=${Date.now()}`;
+    console.log("Loading test file:", url);
+
+    const res = await fetch(url, { cache: "no-store" });
+
+    if (!res.ok) {
+      throw new Error(`Could not load test file (${res.status})`);
+    }
+
+    const raw = await res.text();
+    console.log("Raw JSON:", raw);
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (parseErr) {
+      throw new Error("Invalid JSON in test file: " + parseErr.message);
+    }
+
+    if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+      throw new Error("Test file has no questions.");
+    }
+
+    window.TEST_DATA = data;
+
+    if (typeof initTestEngine === "function") {
+      initTestEngine(data);
+    } else {
+      throw new Error("initTestEngine() not found in test-engine.js");
+    }
+
+  } catch (err) {
+    console.error("BOOTSTRAP ERROR:", err);
+
+    const titleEl = document.getElementById("title");
+    const stage = document.getElementById("stage");
+    const centerNote = document.getElementById("centerNote");
+
+    if (titleEl) titleEl.textContent = "Test unavailable";
+    if (centerNote) centerNote.textContent = "Failed to load test.";
+
+    if (stage) {
+      stage.innerHTML = `
+        <div class="errorBox" style="background:#fff5f7;border:1px solid #f2c7d0;color:#8a2d3b;">
+          <h3 style="margin-top:0;">We couldn’t load this test.</h3>
+          <p style="margin-bottom:0;"><strong>REAL ERROR:</strong><br>${String(err.message || err)}</p>
+        </div>
+      `;
+    }
+  }
+}
+
+bootstrap();
