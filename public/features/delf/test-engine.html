@@ -17,6 +17,7 @@
   --muted:#6c7b90;
   --primary:#4f8cff;
   --primarySoft:#edf4ff;
+  --danger:#d55252;
   --shadow:0 20px 60px rgba(20,40,70,.10);
   --radius:24px;
 }
@@ -33,14 +34,9 @@ html,body{
     linear-gradient(180deg,var(--bgA),var(--bgB));
 }
 
-body{
-  padding:24px 12px 40px;
-}
+body{padding:24px 12px 40px}
 
-.shell{
-  max-width:980px;
-  margin:0 auto;
-}
+.shell{max-width:980px;margin:0 auto}
 
 .card{
   background:var(--card);
@@ -78,26 +74,11 @@ body{
   color:#356fdf;
 }
 
-.progressMeta{
-  text-align:right;
-  min-width:120px;
-}
+.progressMeta{text-align:right;min-width:120px}
+.progressMeta .small{font-size:13px;color:var(--muted);margin-bottom:6px}
+.progressMeta .big{font-size:30px;line-height:1;font-weight:700}
 
-.progressMeta .small{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-
-.progressMeta .big{
-  font-size:30px;
-  line-height:1;
-  font-weight:700;
-}
-
-.progressWrap{
-  margin-bottom:24px;
-}
+.progressWrap{margin-bottom:24px}
 
 .progressTrack{
   width:100%;
@@ -114,9 +95,7 @@ body{
   transition:width .25s ease;
 }
 
-.stage{
-  min-height:360px;
-}
+.stage{min-height:360px}
 
 .pill{
   display:inline-flex;
@@ -140,22 +119,12 @@ body{
   letter-spacing:-.02em;
 }
 
-.passageBox,
-.answerBox,
-.resultBox,
-.errorBox{
+.box{
   background:#f8fbff;
   border:1px solid var(--line);
   border-radius:18px;
   padding:18px;
   margin-bottom:18px;
-}
-
-.passageBox{
-  white-space:pre-line;
-  font-size:17px;
-  line-height:1.7;
-  color:#32455e;
 }
 
 .answerGrid{
@@ -164,15 +133,8 @@ body{
   gap:14px;
 }
 
-.option{
-  position:relative;
-}
-
-.option input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
-}
+.option{position:relative}
+.option input{position:absolute;opacity:0;pointer-events:none}
 
 .optionCard{
   width:100%;
@@ -236,10 +198,13 @@ textarea:focus{
   box-shadow:0 0 0 4px rgba(79,140,255,.10);
 }
 
-.helper{
-  margin-top:10px;
-  font-size:14px;
-  color:var(--muted);
+audio{width:100%}
+
+.recordRow{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
 }
 
 .nav{
@@ -250,11 +215,7 @@ textarea:focus{
   margin-top:22px;
 }
 
-.navCenter{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-}
+.navCenter{text-align:center;color:var(--muted);font-size:14px}
 
 .btn{
   appearance:none;
@@ -273,22 +234,23 @@ textarea:focus{
   box-shadow:0 12px 24px rgba(79,140,255,.22);
 }
 
-.btnPrimary:hover{
-  transform:translateY(-1px);
-}
+.btnPrimary:hover{transform:translateY(-1px)}
 
 .btnMuted{
   background:#eff4fb;
   color:#28405f;
 }
 
-.btnMuted:hover{
-  background:#e5edf9;
+.btnMuted:hover{background:#e5edf9}
+
+.btnDanger{
+  background:#ffe7e7;
+  color:var(--danger);
 }
 
-.hidden{
-  display:none !important;
-}
+.btnDanger:hover{background:#ffdada}
+
+.hidden{display:none !important}
 
 @media (max-width:760px){
   body{padding:16px 10px 28px}
@@ -335,6 +297,6 @@ textarea:focus{
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/features/delf/test-engine.js?v=force-clean-2"></script>
+<script src="/features/delf/test-engine.js?v=recording-upgrade-1"></script>
 </body>
 </html>

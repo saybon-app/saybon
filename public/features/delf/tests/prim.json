@@ -3,45 +3,36 @@
   "questions": [
     {
       "type": "reading",
+      "skill": "reading",
       "question": "What does Bonjour mean?",
-      "options": [
-        "Hello",
-        "Goodbye",
-        "Please",
-        "Thanks"
-      ],
+      "options": ["Hello", "Goodbye", "Please", "Thanks"],
       "answer": "Hello"
     },
     {
       "type": "reading",
-      "question": "Read the passage and answer the question.",
-      "passage": "Bonjour ! Je m'appelle Lucas. J'ai 9 ans. J'aime jouer au football après l'école avec mes amis.",
-      "options": [
-        "Lucas is 7 years old",
-        "Lucas likes football",
-        "Lucas hates school",
-        "Lucas lives in Paris"
-      ],
-      "answer": "Lucas likes football"
-    },
-    {
-      "type": "reading",
-      "question": "Which sentence is correct?",
-      "options": [
-        "Je suis neuf ans.",
-        "J'ai neuf ans.",
-        "Je ai neuf ans.",
-        "Je suis neuf."
-      ],
-      "answer": "J'ai neuf ans."
+      "skill": "reading",
+      "question": "What does Merci mean?",
+      "options": ["Hello", "Please", "Thanks", "Sorry"],
+      "answer": "Thanks"
     },
     {
       "type": "writing",
-      "question": "Write 4 to 6 simple sentences in French to introduce yourself."
+      "skill": "writing",
+      "question": "Write one simple sentence to introduce yourself in French.",
+      "placeholder": "Example: Bonjour, je m'appelle Sarah."
+    },
+    {
+      "type": "listening",
+      "skill": "listening",
+      "question": "Listen and choose the correct meaning.",
+      "audio": "/features/delf/audio/bonjour.mp3",
+      "options": ["Goodbye", "Hello", "Thank you", "Please"],
+      "answer": "Hello"
     },
     {
       "type": "speaking",
-      "question": "Type what the learner says to introduce themselves in French for now."
+      "skill": "speaking",
+      "question": "Introduce yourself in French. Say your name and where you live."
     }
   ]
 }
