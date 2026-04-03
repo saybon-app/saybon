@@ -2,16 +2,15 @@
   "title": "DELF Prim Placement",
   "questions": [
     {
-      "type": "listening",
-      "question": "What does the boy want to do?",
-      "audio": "/features/delf/audio/prim-q1.mp3",
+      "type": "reading",
+      "question": "What does 'Bonjour' mean in English?",
       "options": [
-        "Go home",
-        "Play football",
-        "Eat dinner",
-        "Go to school"
+        "Goodbye",
+        "Thank you",
+        "Hello",
+        "Please"
       ],
-      "answer": "Play football"
+      "answer": "Hello"
     },
     {
       "type": "reading",
@@ -26,19 +25,8 @@
       "answer": "Lucas likes football"
     },
     {
-      "type": "reading",
-      "question": "What does 'Bonjour' mean in English?",
-      "options": [
-        "Goodbye",
-        "Thank you",
-        "Hello",
-        "Please"
-      ],
-      "answer": "Hello"
-    },
-    {
       "type": "writing",
-      "question": "Write 4–6 simple sentences in French to introduce yourself."
+      "question": "Write 4 to 6 simple sentences in French to introduce yourself."
     },
     {
       "type": "speaking",

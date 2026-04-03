@@ -20,8 +20,6 @@
   --muted:#6c7b90;
   --primary:#4f8cff;
   --primary-soft:#edf4ff;
-  --success:#17a34a;
-  --danger:#d55252;
   --shadow:0 20px 60px rgba(20,40,70,.10);
   --radius:24px;
 }
@@ -101,10 +99,7 @@ body{padding:26px 14px 40px}
   font-weight:700;
   letter-spacing:-.02em;
 }
-.readingBox,
-.audioBox,
-.writingBox,
-.speakingBox{
+.readingBox,.writingBox,.speakingBox{
   background:#f8fbff;
   border:1px solid var(--line);
   border-radius:18px;
@@ -117,7 +112,6 @@ body{padding:26px 14px 40px}
   line-height:1.75;
   color:#32455e;
 }
-.audioBox audio{width:100%}
 .answerGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -205,30 +199,7 @@ textarea:focus{
   color:#fff;
   box-shadow:0 12px 24px rgba(79,140,255,.22);
 }
-.btnPrimary:hover{transform:translateY(-1px)}
-.btnDanger{background:#ffe7e7;color:var(--danger)}
-.btnDanger:hover{background:#ffdada}
 .btnMuted{background:#eff4fb;color:#28405f}
-.btnMuted:hover{background:#e5edf9}
-.recStatus{
-  margin-top:10px;
-  font-size:14px;
-  color:var(--muted);
-  min-height:20px;
-}
-.waveShell{
-  width:100%;
-  height:92px;
-  margin-top:14px;
-  background:#eef4ff;
-  border-radius:12px;
-  overflow:hidden;
-}
-.waveShell canvas{
-  width:100%;
-  height:92px;
-  display:block;
-}
 .nav{
   margin-top:22px;
   display:flex;
@@ -242,11 +213,7 @@ textarea:focus{
   font-size:14px;
 }
 .finishBox{text-align:center;padding:40px 10px 10px}
-.finishBox h2{margin:0 0 10px;font-size:34px}
-.finishBox p{margin:0 0 22px;color:var(--muted)}
 .errorBox{text-align:center;padding:36px 10px}
-.errorBox h2{margin:0 0 8px}
-.errorBox p{margin:0;color:var(--muted)}
 @media (max-width:760px){
   body{padding:16px 10px 26px}
   .exam-card{padding:18px;border-radius:18px}
@@ -313,16 +280,6 @@ let answers = {};
 let submitting = false;
 let candidateCode = null;
 
-/* recorder state */
-let recorder = null;
-let recorderStream = null;
-let recorderChunks = [];
-let recorderQuestionIndex = null;
-let audioContext = null;
-let analyser = null;
-let sourceNode = null;
-let waveAnimation = null;
-
 function generateCandidateCode(){
   return "CAND-" + Math.floor(100000 + Math.random() * 900000);
 }
@@ -361,11 +318,9 @@ function esc(value){
 
 function updateProgress(){
   if(!testData || !testData.questions?.length) return;
-
   const total = testData.questions.length;
   const currentDisplay = Math.min(current + 1, total);
   const percent = ((currentDisplay) / total) * 100;
-
   document.getElementById("progressLabel").innerText = `${currentDisplay} / ${total}`;
   document.getElementById("progressFill").style.width = `${percent}%`;
 }
@@ -375,12 +330,11 @@ function updateCenterNote(){
   const q = testData.questions[current];
   const centerNote = document.getElementById("centerNote");
   const nextBtn = document.getElementById("nextBtn");
-
   if(!q || !centerNote || !nextBtn) return;
 
   let answered = false;
 
-  if(q.type === "listening" || q.type === "reading"){
+  if(q.type === "reading"){
     answered = typeof answers[current] !== "undefined" && answers[current] !== "";
     centerNote.innerText = answered ? "Answer saved. Continue when ready." : "Choose an answer, then continue.";
   }
@@ -392,7 +346,7 @@ function updateCenterNote(){
 
   if(q.type === "speaking"){
     answered = String(answers[current] || "").trim().length > 0;
-    centerNote.innerText = answered ? "Recording saved. Continue when ready." : "Record your speaking answer before continuing.";
+    centerNote.innerText = answered ? "Speaking response saved." : "Type your speaking answer for now, then continue.";
   }
 
   nextBtn.innerText = current === testData.questions.length - 1 ? "Finish" : "Next";
@@ -403,18 +357,14 @@ function saveCurrentAnswer(){
   const q = testData.questions[current];
   if(!q) return;
 
-  if(q.type === "listening" || q.type === "reading"){
+  if(q.type === "reading"){
     const selected = document.querySelector(`input[name="question-${current}"]:checked`);
-    if(selected){
-      answers[current] = selected.value;
-    }
+    if(selected){ answers[current] = selected.value; }
   }
 
-  if(q.type === "writing"){
-    const text = document.getElementById("writingAnswer");
-    if(text){
-      answers[current] = text.value.trim();
-    }
+  if(q.type === "writing" || q.type === "speaking"){
+    const text = document.getElementById("textAnswer");
+    if(text){ answers[current] = text.value.trim(); }
   }
 }
 
@@ -426,10 +376,7 @@ function renderCurrentSlide(){
   const backBtn = document.getElementById("backBtn");
 
   updateProgress();
-
-  if(backBtn){
-    backBtn.style.visibility = current === 0 ? "hidden" : "visible";
-  }
+  if(backBtn){ backBtn.style.visibility = current === 0 ? "hidden" : "visible"; }
 
   let html = `<div class="pill">${esc(q.type || "Question")}</div>`;
   html += `<h2 class="questionText">${esc(q.question || "Untitled question")}</h2>`;
@@ -438,17 +385,7 @@ function renderCurrentSlide(){
     html += `<div class="readingBox">${esc(q.passage)}</div>`;
   }
 
-  if(q.type === "listening" && q.audio){
-    html += `
-      <div class="audioBox">
-        <audio controls controlsList="nodownload">
-          <source src="${esc(q.audio)}" type="audio/mpeg">
-        </audio>
-      </div>
-    `;
-  }
-
-  if((q.type === "listening" || q.type === "reading") && Array.isArray(q.options)){
+  if(q.type === "reading" && Array.isArray(q.options)){
     html += `<div class="answerGrid">`;
     q.options.forEach((option, i)=>{
       const letters = ["A","B","C","D","E","F"];
@@ -466,44 +403,11 @@ function renderCurrentSlide(){
     html += `</div>`;
   }
 
-  if(q.type === "writing"){
+  if(q.type === "writing" || q.type === "speaking"){
     html += `
-      <div class="writingBox">
-        <textarea id="writingAnswer" placeholder="Write your answer here..." oninput="saveCurrentAnswer();updateCenterNote();">${esc(answers[current] || "")}</textarea>
-        <div class="helper">Write as clearly and naturally as you can.</div>
-      </div>
-    `;
-  }
-
-  if(q.type === "speaking"){
-    html += `
-      <div class="speakingBox">
-        <div class="helper" style="margin-bottom:14px;">Record your answer clearly. You can preview it before continuing.</div>
-
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btnPrimary" id="startRecBtn" type="button" onclick="startRecording(${current})">Start Recording</button>
-          <button class="btn btnDanger" id="stopRecBtn" type="button" onclick="stopRecording()" disabled>Stop Recording</button>
-        </div>
-
-        <div class="recStatus" id="recStatus">${answers[current] ? "Recording already saved." : "Not recording yet."}</div>
-
-        <div class="waveShell">
-          <canvas id="waveCanvas" width="1200" height="92"></canvas>
-        </div>
-
-        ${
-          answers[current]
-          ? `
-            <div id="savedPreview" style="margin-top:14px;">
-              <div class="helper" style="margin-bottom:10px;">A recording is already saved for this question.</div>
-              <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                <button class="btn btnMuted" type="button" onclick="playSavedRecording()">Play recording</button>
-                <button class="btn btnDanger" type="button" onclick="reRecordCurrent()">Re-record</button>
-              </div>
-            </div>
-          `
-          : ``
-        }
+      <div class="${q.type === 'writing' ? 'writingBox' : 'speakingBox'}">
+        <textarea id="textAnswer" placeholder="${q.type === 'writing' ? 'Write your answer here...' : 'Type the candidate speaking response here for now...'}" oninput="saveCurrentAnswer();updateCenterNote();">${esc(answers[current] || "")}</textarea>
+        <div class="helper">${q.type === 'writing' ? 'Write as clearly and naturally as you can.' : 'Temporary simple speaking capture for testing.'}</div>
       </div>
     `;
   }
@@ -529,167 +433,6 @@ function prevSlide(){
   if(current <= 0) return;
   saveCurrentAnswer();
   current -= 1;
-  renderCurrentSlide();
-}
-
-function blobToBase64(blob){
-  return new Promise((resolve,reject)=>{
-    const reader = new FileReader();
-    reader.onloadend = ()=>{
-      const result = String(reader.result || "");
-      const base64 = result.includes(",") ? result.split(",")[1] : result;
-      resolve(base64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-}
-
-function drawWaveLoop(canvas, ctx){
-  if(!analyser) return;
-  const bufferLength = analyser.fftSize;
-  const dataArray = new Uint8Array(bufferLength);
-
-  function draw(){
-    waveAnimation = requestAnimationFrame(draw);
-    analyser.getByteTimeDomainData(dataArray);
-
-    ctx.fillStyle = "#eef4ff";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#4f8cff";
-    ctx.beginPath();
-
-    const sliceWidth = canvas.width / bufferLength;
-    let x = 0;
-
-    for(let i=0;i<bufferLength;i++){
-      const v = dataArray[i] / 128.0;
-      const y = v * canvas.height / 2;
-
-      if(i === 0){ ctx.moveTo(x,y); }
-      else{ ctx.lineTo(x,y); }
-
-      x += sliceWidth;
-    }
-
-    ctx.lineTo(canvas.width, canvas.height / 2);
-    ctx.stroke();
-  }
-
-  draw();
-}
-
-async function startRecording(index){
-  try{
-    if(recorder || recorderStream) return;
-
-    recorderQuestionIndex = index;
-    recorderChunks = [];
-
-    const startBtn = document.getElementById("startRecBtn");
-    const stopBtn = document.getElementById("stopRecBtn");
-    const status = document.getElementById("recStatus");
-    const canvas = document.getElementById("waveCanvas");
-    const ctx = canvas.getContext("2d");
-
-    if(startBtn) startBtn.disabled = true;
-    if(stopBtn) stopBtn.disabled = false;
-    if(status) status.innerText = "Recording...";
-
-    recorderStream = await navigator.mediaDevices.getUserMedia({ audio:true });
-
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    sourceNode = audioContext.createMediaStreamSource(recorderStream);
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    sourceNode.connect(analyser);
-
-    drawWaveLoop(canvas, ctx);
-
-    recorder = new MediaRecorder(recorderStream);
-
-    recorder.ondataavailable = (e)=>{
-      if(e.data && e.data.size > 0){
-        recorderChunks.push(e.data);
-      }
-    };
-
-    recorder.onstop = async ()=>{
-      try{
-        const blob = new Blob(recorderChunks, { type:"audio/webm" });
-        const base64 = await blobToBase64(blob);
-        answers[recorderQuestionIndex] = base64;
-
-        if(status) status.innerText = "Recording saved. You can continue or re-record.";
-        renderCurrentSlide();
-      }catch(err){
-        if(status) status.innerText = "Recording save failed.";
-        console.error(err);
-      }finally{
-        if(recorderStream){
-          recorderStream.getTracks().forEach(track=>track.stop());
-        }
-        if(sourceNode){
-          try{ sourceNode.disconnect(); }catch(e){}
-        }
-        if(analyser){
-          try{ analyser.disconnect(); }catch(e){}
-        }
-        if(audioContext && audioContext.state !== "closed"){
-          try{ await audioContext.close(); }catch(e){}
-        }
-
-        cancelAnimationFrame(waveAnimation);
-
-        recorder = null;
-        recorderStream = null;
-        recorderChunks = [];
-        recorderQuestionIndex = null;
-        audioContext = null;
-        analyser = null;
-        sourceNode = null;
-        waveAnimation = null;
-      }
-    };
-
-    recorder.start();
-  }catch(err){
-    const status = document.getElementById("recStatus");
-    const startBtn = document.getElementById("startRecBtn");
-    const stopBtn = document.getElementById("stopRecBtn");
-
-    if(status) status.innerText = "Microphone access failed.";
-    if(startBtn) startBtn.disabled = false;
-    if(stopBtn) stopBtn.disabled = true;
-
-    console.error(err);
-  }
-}
-
-function stopRecording(){
-  if(!recorder) return;
-
-  const stopBtn = document.getElementById("stopRecBtn");
-  const status = document.getElementById("recStatus");
-
-  if(stopBtn) stopBtn.disabled = true;
-  if(status) status.innerText = "Saving recording...";
-
-  try{ recorder.requestData(); }catch(e){}
-
-  setTimeout(()=>{
-    try{ recorder.stop(); }catch(err){ console.error(err); }
-  }, 120);
-}
-
-function playSavedRecording(){
-  alert("Saved audio is stored and submitted. Playback preview is only available immediately after recording in this version.");
-}
-
-function reRecordCurrent(){
-  delete answers[current];
   renderCurrentSlide();
 }
 
@@ -748,13 +491,6 @@ async function submitTest(){
           <div>${esc(result.speakingFeedback || "No feedback.")}</div>
         </div>
 
-        ${result.speakingTranscript ? `
-          <div class="readingBox" style="text-align:left;max-width:760px;margin:0 auto 18px;">
-            <div style="font-size:18px;font-weight:700;margin-bottom:10px;">Speech Transcript</div>
-            <div>${esc(result.speakingTranscript)}</div>
-          </div>
-        ` : ""}
-
         <button class="btn btnPrimary" onclick="window.location='/dashboard/index.html'">Return to dashboard</button>
       </div>
     `;
@@ -777,15 +513,16 @@ async function loadTest(){
   try{
     await createCandidateRecord();
 
-    const res = await fetch(`/features/delf/tests/${test}.json`);
+    const res = await fetch(`/features/delf/tests/${test}.json?ts=${Date.now()}`);
     if(!res.ok){
-      throw new Error("Test file not found");
+      throw new Error("Test file missing");
     }
 
     testData = await res.json();
     document.getElementById("title").innerText = testData.title || "Placement Test";
     renderCurrentSlide();
   }catch(err){
+    console.error("LOAD TEST ERROR:", err);
     document.getElementById("title").innerText = "Test unavailable";
     document.getElementById("stage").innerHTML = `
       <div class="errorBox">
@@ -796,7 +533,6 @@ async function loadTest(){
     document.getElementById("backBtn").style.display = "none";
     document.getElementById("nextBtn").style.display = "none";
     document.getElementById("centerNote").innerText = "No test loaded.";
-    console.error(err);
   }
 }
 
@@ -804,4 +540,3 @@ loadTest();
 </script>
 </body>
 </html>
-
