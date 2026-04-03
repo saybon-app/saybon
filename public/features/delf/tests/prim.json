@@ -2,6 +2,17 @@
     "title":  "DELF Prim Placement",
     "questions":  [
                       {
+                          "type":  "reading",
+                          "question":  "What does Bonjour mean?",
+                          "options":  [
+                                          "Hello",
+                                          "Goodbye",
+                                          "Please",
+                                          "Thanks"
+                                      ],
+                          "answer":  0
+                      },
+                      {
                           "type":  "listening",
                           "audio":  "/assets/sounds/prim-test-1.mp3",
                           "transcript":  "Bonjour Lucas, tu veux jouer au football après l\u0027école ?",
@@ -13,17 +24,6 @@
                                           "Go to school"
                                       ],
                           "answer":  1
-                      },
-                      {
-                          "type":  "reading",
-                          "question":  "What does Bonjour mean?",
-                          "options":  [
-                                          "Hello",
-                                          "Goodbye",
-                                          "Please",
-                                          "Thanks"
-                                      ],
-                          "answer":  0
                       },
                       {
                           "type":  "writing",
