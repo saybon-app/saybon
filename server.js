@@ -445,6 +445,134 @@ app.get("/api/translatorStats", async (req, res) => {
    404
 ========================================== */
 
+
+app.post("/api/evaluatePlacementTest", async (req, res) => {
+  try {
+    const { candidateCode, testType, testTitle, questions, answers } = req.body || {};
+
+    if (!candidateCode || !testType || !Array.isArray(questions) || !answers) {
+      return res.status(400).json({
+        error: "candidateCode, testType, questions, and answers are required"
+      });
+    }
+
+    let objectiveScore = 0;
+    let objectiveTotal = 0;
+    let writingScore = 0;
+    let speakingScore = 0;
+    let writingFeedback = "Pending manual or AI review.";
+    let speakingFeedback = "Pending speaking review.";
+    let speakingTranscript = "";
+
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      const answer = answers[i];
+
+      if ((q.type === "reading" || q.type === "listening") && typeof q.answer !== "undefined") {
+        objectiveTotal += 1;
+        if (String(answer ?? "") === String(q.answer)) {
+          objectiveScore += 1;
+        }
+      }
+
+      if (q.type === "writing") {
+        const text = String(answer || "").trim();
+        if (text.length >= 120) {
+          writingScore = 9;
+          writingFeedback = "Strong written response with good detail and structure.";
+        } else if (text.length >= 80) {
+          writingScore = 7;
+          writingFeedback = "Good response, but could use more detail and range.";
+        } else if (text.length >= 40) {
+          writingScore = 5;
+          writingFeedback = "Basic response. More development is needed.";
+        } else {
+          writingScore = 3;
+          writingFeedback = "Very limited writing sample.";
+        }
+      }
+
+      if (q.type === "speaking") {
+        const audio = String(answer || "").trim();
+        if (audio.length > 1000) {
+          speakingScore = 8;
+          speakingFeedback = "Speaking response received successfully.";
+          speakingTranscript = "Audio received and stored for review.";
+        } else {
+          speakingScore = 3;
+          speakingFeedback = "Speaking response was too short or missing.";
+          speakingTranscript = "";
+        }
+      }
+    }
+
+    const objectivePercent = objectiveTotal > 0
+      ? Math.round((objectiveScore / objectiveTotal) * 100)
+      : 0;
+
+    const totalComposite = (
+      (objectivePercent * 0.6) +
+      (writingScore * 4 * 0.2) +
+      (speakingScore * 4 * 0.2)
+    );
+
+    let estimatedLevel = "A0";
+    if (totalComposite >= 85) estimatedLevel = "A2";
+    else if (totalComposite >= 65) estimatedLevel = "A1+";
+    else if (totalComposite >= 45) estimatedLevel = "A1";
+    else estimatedLevel = "A0";
+
+    const resultId = `${candidateCode}-${Date.now()}`;
+
+    await db.collection("delfPlacementResults").doc(resultId).set({
+      resultId,
+      candidateCode,
+      testType,
+      testTitle: testTitle || "DELF Placement Test",
+      objectiveScore,
+      objectiveTotal,
+      objectivePercent,
+      writingScore,
+      writingFeedback,
+      speakingScore,
+      speakingFeedback,
+      speakingTranscript,
+      answers,
+      createdAt: new Date()
+    });
+
+    await db.collection("delfCandidates").doc(candidateCode).set({
+      candidateCode,
+      latestPlacementLevel: estimatedLevel,
+      latestPlacementTest: testType,
+      latestPlacementResultId: resultId,
+      updatedAt: new Date()
+    }, { merge: true });
+
+    res.json({
+      success: true,
+      resultId,
+      candidateCode,
+      estimatedLevel,
+      objectiveScore,
+      objectiveTotal,
+      objectivePercent,
+      writingScore,
+      writingFeedback,
+      speakingScore,
+      speakingFeedback,
+      speakingTranscript
+    });
+
+  } catch (err) {
+    console.error("evaluatePlacementTest error:", err);
+    res.status(500).json({
+      error: "Placement test evaluation failed",
+      details: err.message
+    });
+  }
+});
+
 app.use((req, res) => {
   res.status(404).json({
     error: "Route not found",
@@ -462,3 +590,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log("🚀 SayBon unified backend running on port " + PORT);
 });
+

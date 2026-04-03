@@ -25,9 +25,7 @@
   --shadow:0 20px 60px rgba(20,40,70,.10);
   --radius:24px;
 }
-
 *{box-sizing:border-box}
-
 html,body{
   margin:0;
   min-height:100%;
@@ -37,23 +35,14 @@ html,body{
     radial-gradient(circle at top left, rgba(255,255,255,.92), transparent 28%),
     linear-gradient(180deg,var(--bgA),var(--bgB));
 }
-
-body{
-  padding:26px 14px 40px;
-}
-
-.shell{
-  max-width:980px;
-  margin:0 auto;
-}
-
+body{padding:26px 14px 40px}
+.shell{max-width:980px;margin:0 auto}
 .exam-card{
   background:var(--card);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   padding:28px;
 }
-
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -61,7 +50,6 @@ body{
   align-items:flex-start;
   margin-bottom:20px;
 }
-
 .brand h1{
   margin:0 0 6px;
   font-size:clamp(28px,4vw,46px);
@@ -69,34 +57,15 @@ body{
   font-weight:700;
   letter-spacing:-.03em;
 }
-
 .brand p{
   margin:0;
   color:var(--muted);
   font-size:14px;
 }
-
-.progressMeta{
-  text-align:right;
-  min-width:160px;
-}
-
-.progressMeta .small{
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-.progressMeta .big{
-  font-size:30px;
-  font-weight:700;
-  line-height:1;
-}
-
-.progressWrap{
-  margin-bottom:24px;
-}
-
+.progressMeta{text-align:right;min-width:160px}
+.progressMeta .small{color:var(--muted);font-size:13px;margin-bottom:8px}
+.progressMeta .big{font-size:30px;font-weight:700;line-height:1}
+.progressWrap{margin-bottom:24px}
 .progressTrack{
   width:100%;
   height:12px;
@@ -104,7 +73,6 @@ body{
   border-radius:999px;
   overflow:hidden;
 }
-
 .progressFill{
   width:0%;
   height:100%;
@@ -112,11 +80,7 @@ body{
   border-radius:999px;
   transition:width .28s ease;
 }
-
-.stage{
-  min-height:430px;
-}
-
+.stage{min-height:430px}
 .pill{
   display:inline-flex;
   align-items:center;
@@ -130,7 +94,6 @@ body{
   text-transform:uppercase;
   margin-bottom:16px;
 }
-
 .questionText{
   margin:0 0 20px;
   font-size:clamp(22px,3vw,34px);
@@ -138,7 +101,6 @@ body{
   font-weight:700;
   letter-spacing:-.02em;
 }
-
 .readingBox,
 .audioBox,
 .writingBox,
@@ -149,34 +111,24 @@ body{
   padding:18px;
   margin-bottom:22px;
 }
-
 .readingBox{
   white-space:pre-line;
   font-size:18px;
   line-height:1.75;
   color:#32455e;
 }
-
-.audioBox audio{
-  width:100%;
-}
-
+.audioBox audio{width:100%}
 .answerGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
 }
-
-.option{
-  position:relative;
-}
-
+.option{position:relative}
 .option input{
   position:absolute;
   opacity:0;
   pointer-events:none;
 }
-
 .optionCard{
   width:100%;
   min-height:72px;
@@ -193,19 +145,16 @@ body{
   font-weight:500;
   text-align:left;
 }
-
 .optionCard:hover{
   transform:translateY(-1px);
   border-color:#b9cef2;
   box-shadow:0 12px 24px rgba(79,140,255,.10);
 }
-
 .option input:checked + .optionCard{
   border-color:var(--primary);
   background:var(--primary-soft);
   box-shadow:0 12px 24px rgba(79,140,255,.14);
 }
-
 .badge{
   width:34px;
   height:34px;
@@ -219,7 +168,6 @@ body{
   font-size:14px;
   font-weight:700;
 }
-
 textarea{
   width:100%;
   min-height:180px;
@@ -233,25 +181,15 @@ textarea{
   color:var(--text);
   outline:none;
 }
-
 textarea:focus{
   border-color:var(--primary);
   box-shadow:0 0 0 4px rgba(79,140,255,.10);
 }
-
 .helper{
   margin-top:10px;
   font-size:14px;
   color:var(--muted);
 }
-
-.recordControls{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-
 .btn{
   appearance:none;
   border:none;
@@ -262,42 +200,22 @@ textarea:focus{
   cursor:pointer;
   transition:.18s ease;
 }
-
 .btnPrimary{
   background:linear-gradient(180deg,#69a4ff,#4f8cff);
   color:#fff;
   box-shadow:0 12px 24px rgba(79,140,255,.22);
 }
-
-.btnPrimary:hover{
-  transform:translateY(-1px);
-}
-
-.btnDanger{
-  background:#ffe7e7;
-  color:var(--danger);
-}
-
-.btnDanger:hover{
-  background:#ffdada;
-}
-
-.btnMuted{
-  background:#eff4fb;
-  color:#28405f;
-}
-
-.btnMuted:hover{
-  background:#e5edf9;
-}
-
+.btnPrimary:hover{transform:translateY(-1px)}
+.btnDanger{background:#ffe7e7;color:var(--danger)}
+.btnDanger:hover{background:#ffdada}
+.btnMuted{background:#eff4fb;color:#28405f}
+.btnMuted:hover{background:#e5edf9}
 .recStatus{
   margin-top:10px;
   font-size:14px;
   color:var(--muted);
   min-height:20px;
 }
-
 .waveShell{
   width:100%;
   height:92px;
@@ -306,33 +224,11 @@ textarea:focus{
   border-radius:12px;
   overflow:hidden;
 }
-
 .waveShell canvas{
   width:100%;
   height:92px;
   display:block;
 }
-
-.previewShell{
-  margin-top:16px;
-  padding:14px;
-  border-radius:14px;
-  background:#ffffff;
-  border:1px solid #dbe6f3;
-}
-
-.previewShell audio{
-  width:100%;
-  margin-top:10px;
-}
-
-.previewActions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
 .nav{
   margin-top:22px;
   display:flex;
@@ -340,42 +236,17 @@ textarea:focus{
   align-items:center;
   gap:14px;
 }
-
 .navCenter{
   text-align:center;
   color:var(--muted);
   font-size:14px;
 }
-
-.finishBox{
-  text-align:center;
-  padding:40px 10px 10px;
-}
-
-.finishBox h2{
-  margin:0 0 10px;
-  font-size:34px;
-}
-
-.finishBox p{
-  margin:0 0 22px;
-  color:var(--muted);
-}
-
-.errorBox{
-  text-align:center;
-  padding:36px 10px;
-}
-
-.errorBox h2{
-  margin:0 0 8px;
-}
-
-.errorBox p{
-  margin:0;
-  color:var(--muted);
-}
-
+.finishBox{text-align:center;padding:40px 10px 10px}
+.finishBox h2{margin:0 0 10px;font-size:34px}
+.finishBox p{margin:0 0 22px;color:var(--muted)}
+.errorBox{text-align:center;padding:36px 10px}
+.errorBox h2{margin:0 0 8px}
+.errorBox p{margin:0;color:var(--muted)}
 @media (max-width:760px){
   body{padding:16px 10px 26px}
   .exam-card{padding:18px;border-radius:18px}
@@ -396,6 +267,7 @@ textarea:focus{
       <div class="brand">
         <h1 id="title">Loading test...</h1>
         <p>One question at a time. Stay calm and work through each step.</p>
+        <p id="candidateCodeLine" style="margin-top:10px;font-weight:600;color:#356fdf;"></p>
       </div>
       <div class="progressMeta">
         <div class="small">Progress</div>
@@ -430,7 +302,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
 const params = new URLSearchParams(window.location.search);
@@ -440,6 +311,7 @@ let testData = null;
 let current = 0;
 let answers = {};
 let submitting = false;
+let candidateCode = null;
 
 /* recorder state */
 let recorder = null;
@@ -450,6 +322,215 @@ let audioContext = null;
 let analyser = null;
 let sourceNode = null;
 let waveAnimation = null;
+
+function generateCandidateCode(){
+  return "SB-CAND-" + Math.random().toString(36).substring(2,8).toUpperCase();
+}
+
+async function createCandidateRecord(){
+  candidateCode = sessionStorage.getItem("saybon_candidate_code");
+
+  if(!candidateCode){
+    candidateCode = generateCandidateCode();
+    sessionStorage.setItem("saybon_candidate_code", candidateCode);
+  }
+
+  document.getElementById("candidateCodeLine").innerText = "Candidate Code: " + candidateCode;
+
+  const ref = db.collection("delfCandidates").doc(candidateCode);
+  const snap = await ref.get();
+
+  if(!snap.exists){
+    await ref.set({
+      candidateCode,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      activeTest: test,
+      source: "placement"
+    }, { merge:true });
+  }
+}
+
+function esc(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function updateProgress(){
+  if(!testData || !testData.questions?.length) return;
+
+  const total = testData.questions.length;
+  const currentDisplay = Math.min(current + 1, total);
+  const percent = ((currentDisplay) / total) * 100;
+
+  document.getElementById("progressLabel").innerText = `${currentDisplay} / ${total}`;
+  document.getElementById("progressFill").style.width = `${percent}%`;
+}
+
+function updateCenterNote(){
+  if(!testData) return;
+  const q = testData.questions[current];
+  const centerNote = document.getElementById("centerNote");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if(!q || !centerNote || !nextBtn) return;
+
+  let answered = false;
+
+  if(q.type === "listening" || q.type === "reading"){
+    answered = typeof answers[current] !== "undefined" && answers[current] !== "";
+    centerNote.innerText = answered ? "Answer saved. Continue when ready." : "Choose an answer, then continue.";
+  }
+
+  if(q.type === "writing"){
+    answered = String(answers[current] || "").trim().length > 0;
+    centerNote.innerText = answered ? "Writing response saved." : "Write your answer, then continue.";
+  }
+
+  if(q.type === "speaking"){
+    answered = String(answers[current] || "").trim().length > 0;
+    centerNote.innerText = answered ? "Recording saved. Continue when ready." : "Record your speaking answer before continuing.";
+  }
+
+  nextBtn.innerText = current === testData.questions.length - 1 ? "Finish" : "Next";
+}
+
+function saveCurrentAnswer(){
+  if(!testData) return;
+  const q = testData.questions[current];
+  if(!q) return;
+
+  if(q.type === "listening" || q.type === "reading"){
+    const selected = document.querySelector(`input[name="question-${current}"]:checked`);
+    if(selected){
+      answers[current] = selected.value;
+    }
+  }
+
+  if(q.type === "writing"){
+    const text = document.getElementById("writingAnswer");
+    if(text){
+      answers[current] = text.value.trim();
+    }
+  }
+}
+
+function renderCurrentSlide(){
+  if(!testData || !testData.questions?.length) return;
+
+  const q = testData.questions[current];
+  const stage = document.getElementById("stage");
+  const backBtn = document.getElementById("backBtn");
+
+  updateProgress();
+
+  if(backBtn){
+    backBtn.style.visibility = current === 0 ? "hidden" : "visible";
+  }
+
+  let html = `<div class="pill">${esc(q.type || "Question")}</div>`;
+  html += `<h2 class="questionText">${esc(q.question || "Untitled question")}</h2>`;
+
+  if(q.type === "reading" && q.passage){
+    html += `<div class="readingBox">${esc(q.passage)}</div>`;
+  }
+
+  if(q.type === "listening" && q.audio){
+    html += `
+      <div class="audioBox">
+        <audio controls controlsList="nodownload">
+          <source src="${esc(q.audio)}" type="audio/mpeg">
+        </audio>
+      </div>
+    `;
+  }
+
+  if((q.type === "listening" || q.type === "reading") && Array.isArray(q.options)){
+    html += `<div class="answerGrid">`;
+    q.options.forEach((option, i)=>{
+      const letters = ["A","B","C","D","E","F"];
+      const checked = String(answers[current] ?? "") === String(option) ? "checked" : "";
+      html += `
+        <label class="option">
+          <input type="radio" name="question-${current}" value="${esc(option)}" ${checked} onchange="saveCurrentAnswer();updateCenterNote();">
+          <div class="optionCard">
+            <div class="badge">${letters[i] || i+1}</div>
+            <div>${esc(option)}</div>
+          </div>
+        </label>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  if(q.type === "writing"){
+    html += `
+      <div class="writingBox">
+        <textarea id="writingAnswer" placeholder="Write your answer here..." oninput="saveCurrentAnswer();updateCenterNote();">${esc(answers[current] || "")}</textarea>
+        <div class="helper">Write as clearly and naturally as you can.</div>
+      </div>
+    `;
+  }
+
+  if(q.type === "speaking"){
+    html += `
+      <div class="speakingBox">
+        <div class="helper" style="margin-bottom:14px;">Record your answer clearly. You can preview it before continuing.</div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btnPrimary" id="startRecBtn" type="button" onclick="startRecording(${current})">Start Recording</button>
+          <button class="btn btnDanger" id="stopRecBtn" type="button" onclick="stopRecording()" disabled>Stop Recording</button>
+        </div>
+
+        <div class="recStatus" id="recStatus">${answers[current] ? "Recording already saved." : "Not recording yet."}</div>
+
+        <div class="waveShell">
+          <canvas id="waveCanvas" width="1200" height="92"></canvas>
+        </div>
+
+        ${
+          answers[current]
+          ? `
+            <div id="savedPreview" style="margin-top:14px;">
+              <div class="helper" style="margin-bottom:10px;">A recording is already saved for this question.</div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button class="btn btnMuted" type="button" onclick="playSavedRecording()">Play recording</button>
+                <button class="btn btnDanger" type="button" onclick="reRecordCurrent()">Re-record</button>
+              </div>
+            </div>
+          `
+          : ``
+        }
+      </div>
+    `;
+  }
+
+  stage.innerHTML = html;
+  updateCenterNote();
+}
+
+function nextSlide(){
+  if(!testData) return;
+  saveCurrentAnswer();
+
+  if(current === testData.questions.length - 1){
+    submitTest();
+    return;
+  }
+
+  current += 1;
+  renderCurrentSlide();
+}
+
+function prevSlide(){
+  if(current <= 0) return;
+  saveCurrentAnswer();
+  current -= 1;
+  renderCurrentSlide();
+}
 
 function blobToBase64(blob){
   return new Promise((resolve,reject)=>{
@@ -466,13 +547,11 @@ function blobToBase64(blob){
 
 function drawWaveLoop(canvas, ctx){
   if(!analyser) return;
-
   const bufferLength = analyser.fftSize;
   const dataArray = new Uint8Array(bufferLength);
 
   function draw(){
     waveAnimation = requestAnimationFrame(draw);
-
     analyser.getByteTimeDomainData(dataArray);
 
     ctx.fillStyle = "#eef4ff";
@@ -489,11 +568,8 @@ function drawWaveLoop(canvas, ctx){
       const v = dataArray[i] / 128.0;
       const y = v * canvas.height / 2;
 
-      if(i === 0){
-        ctx.moveTo(x,y);
-      }else{
-        ctx.lineTo(x,y);
-      }
+      if(i === 0){ ctx.moveTo(x,y); }
+      else{ ctx.lineTo(x,y); }
 
       x += sliceWidth;
     }
@@ -544,51 +620,28 @@ async function startRecording(index){
       try{
         const blob = new Blob(recorderChunks, { type:"audio/webm" });
         const base64 = await blobToBase64(blob);
-
         answers[recorderQuestionIndex] = base64;
 
-        if(status) status.innerText = "Recording saved. You can play it or re-record it.";
-
-        const existing = document.getElementById("savedPreview");
-        if(existing) existing.remove();
-
-        const previewWrap = document.createElement("div");
-        previewWrap.id = "savedPreview";
-        previewWrap.style.marginTop = "14px";
-        previewWrap.innerHTML = `
-          <div class="helper" style="margin-bottom:10px;">Preview your saved answer before continuing.</div>
-          <audio controls style="width:100%;" src="${URL.createObjectURL(blob)}"></audio>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;">
-            <button class="btn btnMuted" type="button" onclick="playSavedRecording()">Play recording</button>
-            <button class="btn btnDanger" type="button" onclick="reRecordCurrent()">Re-record</button>
-          </div>
-        `;
-
-        document.querySelector(".speakingBox").appendChild(previewWrap);
-        updateCenterNote();
+        if(status) status.innerText = "Recording saved. You can continue or re-record.";
+        renderCurrentSlide();
       }catch(err){
         if(status) status.innerText = "Recording save failed.";
         console.error(err);
-        return;
       }finally{
         if(recorderStream){
           recorderStream.getTracks().forEach(track=>track.stop());
         }
-
         if(sourceNode){
           try{ sourceNode.disconnect(); }catch(e){}
         }
-
         if(analyser){
           try{ analyser.disconnect(); }catch(e){}
         }
-
         if(audioContext && audioContext.state !== "closed"){
           try{ await audioContext.close(); }catch(e){}
         }
 
         cancelAnimationFrame(waveAnimation);
-        ctx.clearRect(0,0,canvas.width,canvas.height);
 
         recorder = null;
         recorderStream = null;
@@ -598,9 +651,6 @@ async function startRecording(index){
         analyser = null;
         sourceNode = null;
         waveAnimation = null;
-
-        if(startBtn) startBtn.disabled = false;
-        if(stopBtn) stopBtn.disabled = true;
       }
     };
 
@@ -627,39 +677,20 @@ function stopRecording(){
   if(stopBtn) stopBtn.disabled = true;
   if(status) status.innerText = "Saving recording...";
 
-  try{
-    recorder.requestData();
-  }catch(e){}
+  try{ recorder.requestData(); }catch(e){}
 
   setTimeout(()=>{
-    try{
-      recorder.stop();
-    }catch(err){
-      console.error(err);
-    }
+    try{ recorder.stop(); }catch(err){ console.error(err); }
   }, 120);
 }
 
 function playSavedRecording(){
-  const audio = document.querySelector("#savedPreview audio");
-  if(audio) audio.play();
+  alert("Saved audio is stored and submitted. Playback preview is only available immediately after recording in this version.");
 }
 
 function reRecordCurrent(){
   delete answers[current];
   renderCurrentSlide();
-}function scoreObjectiveAnswers(){
-  let score = 0;
-
-  testData.questions.forEach((q, index)=>{
-    if((q.type === "listening" || q.type === "reading") && typeof q.answer !== "undefined"){
-      if(String(answers[index] ?? "") === String(q.answer)){
-        score += 1;
-      }
-    }
-  });
-
-  return score;
 }
 
 async function submitTest(){
@@ -680,6 +711,7 @@ async function submitTest(){
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        candidateCode,
         testType: test,
         testTitle: testData.title,
         questions: testData.questions,
@@ -697,7 +729,9 @@ async function submitTest(){
       <div class="finishBox">
         <div class="pill" style="margin-bottom:18px;">Result</div>
         <h2 style="margin-bottom:16px;">Placement complete</h2>
+
         <div class="readingBox" style="text-align:left;max-width:760px;margin:0 auto 18px;">
+          <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Candidate Code: ${esc(result.candidateCode || candidateCode)}</div>
           <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Estimated Level: ${esc(result.estimatedLevel || "Pending")}</div>
           <div style="margin-bottom:8px;"><strong>Objective Score:</strong> ${esc(result.objectiveScore)} / ${esc(result.objectiveTotal)} (${esc(result.objectivePercent)}%)</div>
           <div style="margin-bottom:8px;"><strong>Writing Score:</strong> ${esc(result.writingScore)} / 10</div>
@@ -737,15 +771,18 @@ async function submitTest(){
     alert("Submission failed: " + (err.message || "Unknown error"));
     console.error(err);
   }
-}async function loadTest(){
+}
+
+async function loadTest(){
   try{
+    await createCandidateRecord();
+
     const res = await fetch(`/features/delf/tests/${test}.json`);
     if(!res.ok){
       throw new Error("Test file not found");
     }
 
     testData = await res.json();
-
     document.getElementById("title").innerText = testData.title || "Placement Test";
     renderCurrentSlide();
   }catch(err){
@@ -767,4 +804,3 @@ loadTest();
 </script>
 </body>
 </html>
-
