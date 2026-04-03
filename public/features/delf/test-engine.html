@@ -11,251 +11,90 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <style>
-:root{
-  --bgA:#eef4fb;
-  --bgB:#dfe9f7;
-  --card:#ffffff;
-  --line:#e4ecf7;
-  --text:#1f2f44;
-  --muted:#6c7b90;
-  --primary:#4f8cff;
-  --primary-soft:#edf4ff;
-  --shadow:0 20px 60px rgba(20,40,70,.10);
-  --radius:24px;
-}
-*{box-sizing:border-box}
-html,body{
+body{
   margin:0;
-  min-height:100%;
+  padding:24px;
   font-family:Poppins,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,.92), transparent 28%),
-    linear-gradient(180deg,var(--bgA),var(--bgB));
+  background:linear-gradient(180deg,#eef4fb,#dfe9f7);
+  color:#1f2f44;
 }
-body{padding:26px 14px 40px}
-.shell{max-width:980px;margin:0 auto}
-.exam-card{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
+.card{
+  max-width:980px;
+  margin:0 auto;
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(20,40,70,.10);
   padding:28px;
 }
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  align-items:flex-start;
-  margin-bottom:20px;
+h1{
+  margin:0 0 8px;
+  font-size:48px;
+  line-height:1;
 }
-.brand h1{
-  margin:0 0 6px;
-  font-size:clamp(28px,4vw,46px);
-  line-height:1.04;
+.muted{
+  color:#6c7b90;
+}
+.code{
+  margin-top:12px;
+  color:#356fdf;
   font-weight:700;
-  letter-spacing:-.03em;
 }
-.brand p{
-  margin:0;
-  color:var(--muted);
-  font-size:14px;
-}
-.progressMeta{text-align:right;min-width:160px}
-.progressMeta .small{color:var(--muted);font-size:13px;margin-bottom:8px}
-.progressMeta .big{font-size:30px;font-weight:700;line-height:1}
-.progressWrap{margin-bottom:24px}
-.progressTrack{
+.bar{
+  margin:20px 0 26px;
   width:100%;
   height:12px;
   background:#ecf1f8;
   border-radius:999px;
   overflow:hidden;
 }
-.progressFill{
+.fill{
   width:0%;
   height:100%;
-  background:linear-gradient(90deg,var(--primary),#8db7ff);
-  border-radius:999px;
-  transition:width .28s ease;
+  background:linear-gradient(90deg,#4f8cff,#8db7ff);
 }
-.stage{min-height:430px}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  padding:8px 12px;
-  border-radius:999px;
-  background:var(--primary-soft);
-  color:#356fdf;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  margin-bottom:16px;
-}
-.questionText{
-  margin:0 0 20px;
-  font-size:clamp(22px,3vw,34px);
-  line-height:1.18;
-  font-weight:700;
-  letter-spacing:-.02em;
-}
-.readingBox,.writingBox,.speakingBox{
+.box{
   background:#f8fbff;
-  border:1px solid var(--line);
+  border:1px solid #e4ecf7;
   border-radius:18px;
-  padding:18px;
-  margin-bottom:22px;
+  padding:20px;
+  margin-top:18px;
 }
-.readingBox{
-  white-space:pre-line;
-  font-size:18px;
-  line-height:1.75;
-  color:#32455e;
-}
-.answerGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-.option{position:relative}
-.option input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
-}
-.optionCard{
-  width:100%;
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:18px 18px;
-  border-radius:18px;
+.option{
+  display:block;
+  margin:12px 0;
+  padding:16px;
   border:2px solid #dbe6f3;
-  background:#fff;
+  border-radius:16px;
   cursor:pointer;
-  transition:.18s ease;
-  font-size:17px;
-  font-weight:500;
-  text-align:left;
-}
-.optionCard:hover{
-  transform:translateY(-1px);
-  border-color:#b9cef2;
-  box-shadow:0 12px 24px rgba(79,140,255,.10);
-}
-.option input:checked + .optionCard{
-  border-color:var(--primary);
-  background:var(--primary-soft);
-  box-shadow:0 12px 24px rgba(79,140,255,.14);
-}
-.badge{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:#edf4ff;
-  color:#356fdf;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  font-size:14px;
-  font-weight:700;
-}
-textarea{
-  width:100%;
-  min-height:180px;
-  resize:vertical;
-  border:2px solid #dbe6f3;
-  border-radius:18px;
-  padding:18px;
   background:#fff;
-  font:inherit;
-  font-size:16px;
-  color:var(--text);
-  outline:none;
 }
-textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 4px rgba(79,140,255,.10);
-}
-.helper{
-  margin-top:10px;
-  font-size:14px;
-  color:var(--muted);
+.option:hover{
+  border-color:#4f8cff;
 }
 .btn{
-  appearance:none;
   border:none;
   border-radius:16px;
   padding:14px 18px;
   font:inherit;
   font-weight:600;
   cursor:pointer;
-  transition:.18s ease;
-}
-.btnPrimary{
   background:linear-gradient(180deg,#69a4ff,#4f8cff);
   color:#fff;
-  box-shadow:0 12px 24px rgba(79,140,255,.22);
 }
-.btnMuted{background:#eff4fb;color:#28405f}
-.nav{
-  margin-top:22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
-}
-.navCenter{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-}
-.finishBox{text-align:center;padding:40px 10px 10px}
-.errorBox{text-align:center;padding:36px 10px}
-@media (max-width:760px){
-  body{padding:16px 10px 26px}
-  .exam-card{padding:18px;border-radius:18px}
-  .topbar{flex-direction:column;align-items:flex-start}
-  .progressMeta{text-align:left}
-  .answerGrid{grid-template-columns:1fr}
-  .nav{flex-direction:column-reverse;align-items:stretch}
-  .nav button{width:100%}
-  .questionText{font-size:28px}
+.error{
+  color:#c53030;
+  font-weight:600;
+  white-space:pre-wrap;
 }
 </style>
 </head>
-
 <body>
-<div class="shell">
-  <div class="exam-card">
-    <div class="topbar">
-      <div class="brand">
-        <h1 id="title">Loading test...</h1>
-        <p>One question at a time. Stay calm and work through each step.</p>
-        <p id="candidateCodeLine" style="margin-top:10px;font-weight:600;color:#356fdf;"></p>
-      </div>
-      <div class="progressMeta">
-        <div class="small">Progress</div>
-        <div class="big" id="progressLabel">1 / 1</div>
-      </div>
-    </div>
-
-    <div class="progressWrap">
-      <div class="progressTrack">
-        <div class="progressFill" id="progressFill"></div>
-      </div>
-    </div>
-
-    <div class="stage" id="stage"></div>
-
-    <div class="nav" id="nav">
-      <button class="btn btnMuted" id="backBtn" type="button" onclick="prevSlide()">Back</button>
-      <div class="navCenter" id="centerNote">Choose an answer, then continue.</div>
-      <button class="btn btnPrimary" id="nextBtn" type="button" onclick="nextSlide()">Next</button>
-    </div>
-  </div>
+<div class="card">
+  <h1 id="title">Loading test...</h1>
+  <div class="muted">One question at a time. Stay calm and work through each step.</div>
+  <div class="code" id="candidateCodeLine"></div>
+  <div class="bar"><div class="fill" id="progressFill"></div></div>
+  <div id="stage"></div>
 </div>
 
 <script>
@@ -275,9 +114,6 @@ const params = new URLSearchParams(window.location.search);
 const test = params.get("test") || "prim";
 
 let testData = null;
-let current = 0;
-let answers = {};
-let submitting = false;
 let candidateCode = null;
 
 function generateCandidateCode(){
@@ -316,223 +152,67 @@ function esc(value){
     .replace(/'/g,"&#039;");
 }
 
-function updateProgress(){
-  if(!testData || !testData.questions?.length) return;
-  const total = testData.questions.length;
-  const currentDisplay = Math.min(current + 1, total);
-  const percent = ((currentDisplay) / total) * 100;
-  document.getElementById("progressLabel").innerText = `${currentDisplay} / ${total}`;
-  document.getElementById("progressFill").style.width = `${percent}%`;
-}
-
-function updateCenterNote(){
-  if(!testData) return;
-  const q = testData.questions[current];
-  const centerNote = document.getElementById("centerNote");
-  const nextBtn = document.getElementById("nextBtn");
-  if(!q || !centerNote || !nextBtn) return;
-
-  let answered = false;
-
-  if(q.type === "reading"){
-    answered = typeof answers[current] !== "undefined" && answers[current] !== "";
-    centerNote.innerText = answered ? "Answer saved. Continue when ready." : "Choose an answer, then continue.";
-  }
-
-  if(q.type === "writing"){
-    answered = String(answers[current] || "").trim().length > 0;
-    centerNote.innerText = answered ? "Writing response saved." : "Write your answer, then continue.";
-  }
-
-  if(q.type === "speaking"){
-    answered = String(answers[current] || "").trim().length > 0;
-    centerNote.innerText = answered ? "Speaking response saved." : "Type your speaking answer for now, then continue.";
-  }
-
-  nextBtn.innerText = current === testData.questions.length - 1 ? "Finish" : "Next";
-}
-
-function saveCurrentAnswer(){
-  if(!testData) return;
-  const q = testData.questions[current];
-  if(!q) return;
-
-  if(q.type === "reading"){
-    const selected = document.querySelector(`input[name="question-${current}"]:checked`);
-    if(selected){ answers[current] = selected.value; }
-  }
-
-  if(q.type === "writing" || q.type === "speaking"){
-    const text = document.getElementById("textAnswer");
-    if(text){ answers[current] = text.value.trim(); }
-  }
-}
-
-function renderCurrentSlide(){
-  if(!testData || !testData.questions?.length) return;
-
-  const q = testData.questions[current];
-  const stage = document.getElementById("stage");
-  const backBtn = document.getElementById("backBtn");
-
-  updateProgress();
-  if(backBtn){ backBtn.style.visibility = current === 0 ? "hidden" : "visible"; }
-
-  let html = `<div class="pill">${esc(q.type || "Question")}</div>`;
-  html += `<h2 class="questionText">${esc(q.question || "Untitled question")}</h2>`;
-
-  if(q.type === "reading" && q.passage){
-    html += `<div class="readingBox">${esc(q.passage)}</div>`;
-  }
-
-  if(q.type === "reading" && Array.isArray(q.options)){
-    html += `<div class="answerGrid">`;
-    q.options.forEach((option, i)=>{
-      const letters = ["A","B","C","D","E","F"];
-      const checked = String(answers[current] ?? "") === String(option) ? "checked" : "";
-      html += `
-        <label class="option">
-          <input type="radio" name="question-${current}" value="${esc(option)}" ${checked} onchange="saveCurrentAnswer();updateCenterNote();">
-          <div class="optionCard">
-            <div class="badge">${letters[i] || i+1}</div>
-            <div>${esc(option)}</div>
-          </div>
-        </label>
-      `;
-    });
-    html += `</div>`;
-  }
-
-  if(q.type === "writing" || q.type === "speaking"){
-    html += `
-      <div class="${q.type === 'writing' ? 'writingBox' : 'speakingBox'}">
-        <textarea id="textAnswer" placeholder="${q.type === 'writing' ? 'Write your answer here...' : 'Type the candidate speaking response here for now...'}" oninput="saveCurrentAnswer();updateCenterNote();">${esc(answers[current] || "")}</textarea>
-        <div class="helper">${q.type === 'writing' ? 'Write as clearly and naturally as you can.' : 'Temporary simple speaking capture for testing.'}</div>
-      </div>
-    `;
-  }
-
-  stage.innerHTML = html;
-  updateCenterNote();
-}
-
-function nextSlide(){
-  if(!testData) return;
-  saveCurrentAnswer();
-
-  if(current === testData.questions.length - 1){
-    submitTest();
-    return;
-  }
-
-  current += 1;
-  renderCurrentSlide();
-}
-
-function prevSlide(){
-  if(current <= 0) return;
-  saveCurrentAnswer();
-  current -= 1;
-  renderCurrentSlide();
-}
-
-async function submitTest(){
-  if(submitting) return;
-  submitting = true;
-  saveCurrentAnswer();
-
-  const nextBtn = document.getElementById("nextBtn");
-  const centerNote = document.getElementById("centerNote");
-
-  if(nextBtn) nextBtn.disabled = true;
-  if(centerNote) centerNote.innerText = "Submitting and scoring your test...";
-
-  try{
-    const response = await fetch("/api/evaluatePlacementTest", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        candidateCode,
-        testType: test,
-        testTitle: testData.title,
-        questions: testData.questions,
-        answers
-      })
-    });
-
-    const result = await response.json();
-
-    if(!response.ok){
-      throw new Error(result.message || result.error || "Submission failed");
-    }
-
-    document.getElementById("stage").innerHTML = `
-      <div class="finishBox">
-        <div class="pill" style="margin-bottom:18px;">Result</div>
-        <h2 style="margin-bottom:16px;">Placement complete</h2>
-
-        <div class="readingBox" style="text-align:left;max-width:760px;margin:0 auto 18px;">
-          <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Candidate Code: ${esc(result.candidateCode || candidateCode)}</div>
-          <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Estimated Level: ${esc(result.estimatedLevel || "Pending")}</div>
-          <div style="margin-bottom:8px;"><strong>Objective Score:</strong> ${esc(result.objectiveScore)} / ${esc(result.objectiveTotal)} (${esc(result.objectivePercent)}%)</div>
-          <div style="margin-bottom:8px;"><strong>Writing Score:</strong> ${esc(result.writingScore)} / 10</div>
-          <div style="margin-bottom:8px;"><strong>Speaking Score:</strong> ${esc(result.speakingScore)} / 10</div>
-        </div>
-
-        <div class="readingBox" style="text-align:left;max-width:760px;margin:0 auto 18px;">
-          <div style="font-size:18px;font-weight:700;margin-bottom:10px;">Writing Feedback</div>
-          <div>${esc(result.writingFeedback || "No feedback.")}</div>
-        </div>
-
-        <div class="readingBox" style="text-align:left;max-width:760px;margin:0 auto 18px;">
-          <div style="font-size:18px;font-weight:700;margin-bottom:10px;">Speaking Feedback</div>
-          <div>${esc(result.speakingFeedback || "No feedback.")}</div>
-        </div>
-
-        <button class="btn btnPrimary" onclick="window.location='/dashboard/index.html'">Return to dashboard</button>
-      </div>
-    `;
-
-    document.getElementById("backBtn").style.display = "none";
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("centerNote").innerText = "Scoring complete.";
-    document.getElementById("progressFill").style.width = "100%";
-    document.getElementById("progressLabel").innerText = `${testData.questions.length} / ${testData.questions.length}`;
-  }catch(err){
-    submitting = false;
-    if(nextBtn) nextBtn.disabled = false;
-    if(centerNote) centerNote.innerText = "Submission failed. Please try again.";
-    alert("Submission failed: " + (err.message || "Unknown error"));
-    console.error(err);
-  }
-}
-
 async function loadTest(){
+  const stage = document.getElementById("stage");
+
   try{
     await createCandidateRecord();
 
-    const res = await fetch(`/features/delf/tests/${test}.json?ts=${Date.now()}`);
+    const fetchUrl = `/features/delf/tests/${test}.json?ts=${Date.now()}`;
+    const res = await fetch(fetchUrl);
+    const rawText = await res.text();
+
     if(!res.ok){
-      throw new Error("Test file missing");
+      throw new Error(
+        "HTTP " + res.status + "\n\n" +
+        "FETCH URL: " + fetchUrl + "\n\n" +
+        "RAW RESPONSE:\n" + rawText
+      );
     }
 
-    testData = await res.json();
+    try{
+      testData = JSON.parse(rawText);
+    }catch(parseErr){
+      throw new Error(
+        "JSON PARSE FAILED\n\n" +
+        "FETCH URL: " + fetchUrl + "\n\n" +
+        "RAW RESPONSE:\n" + rawText
+      );
+    }
+
     document.getElementById("title").innerText = testData.title || "Placement Test";
-    renderCurrentSlide();
+    document.getElementById("progressFill").style.width = "100%";
+
+    const q = testData.questions?.[0];
+
+    if(!q){
+      stage.innerHTML = `
+        <div class="box">
+          <div class="error">Test file loaded but contains no questions.</div>
+        </div>
+      `;
+      return;
+    }
+
+    let html = `<div class="box"><div style="font-size:28px;font-weight:700;margin-bottom:18px;">${esc(q.question)}</div>`;
+
+    if(Array.isArray(q.options)){
+      q.options.forEach(opt=>{
+        html += `<label class="option">${esc(opt)}</label>`;
+      });
+    }
+
+    html += `</div>`;
+    stage.innerHTML = html;
+
   }catch(err){
     console.error("LOAD TEST ERROR:", err);
     document.getElementById("title").innerText = "Test unavailable";
-    document.getElementById("stage").innerHTML = `
-      <div class="errorBox">
-        <h2>We couldn't load this test.</h2>
-        <p>Please check the test link or try again later.</p>
+    stage.innerHTML = `
+      <div class="box">
+        <div class="error">REAL ERROR:\n\n${esc(err.message || String(err))}</div>
       </div>
     `;
-    document.getElementById("backBtn").style.display = "none";
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("centerNote").innerText = "No test loaded.";
   }
 }
 
