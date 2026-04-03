@@ -324,7 +324,7 @@ let sourceNode = null;
 let waveAnimation = null;
 
 function generateCandidateCode(){
-  return "SB-CAND-" + Math.random().toString(36).substring(2,8).toUpperCase();
+  return "CAND-" + Math.floor(100000 + Math.random() * 900000);
 }
 
 async function createCandidateRecord(){
@@ -804,3 +804,4 @@ loadTest();
 </script>
 </body>
 </html>
+
