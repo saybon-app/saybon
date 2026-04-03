@@ -1,36 +1,13 @@
 ﻿{
+  "debug": true,
+  "message": "PRIM JSON IS LIVE",
   "title": "DELF Prim Placement",
   "questions": [
     {
       "type": "reading",
-      "question": "What does 'Bonjour' mean in English?",
-      "options": [
-        "Goodbye",
-        "Thank you",
-        "Hello",
-        "Please"
-      ],
+      "question": "What does Bonjour mean?",
+      "options": ["Hello","Goodbye","Please","Thanks"],
       "answer": "Hello"
-    },
-    {
-      "type": "reading",
-      "question": "Read the passage and answer the question.",
-      "passage": "Bonjour ! Je m'appelle Lucas. J'ai 9 ans. J'aime jouer au football après l'école avec mes amis.",
-      "options": [
-        "Lucas is 7 years old",
-        "Lucas likes football",
-        "Lucas hates school",
-        "Lucas lives in Paris"
-      ],
-      "answer": "Lucas likes football"
-    },
-    {
-      "type": "writing",
-      "question": "Write 4 to 6 simple sentences in French to introduce yourself."
-    },
-    {
-      "type": "speaking",
-      "question": "Introduce yourself in French. Say your name, age, and one thing you like."
     }
   ]
 }
