@@ -1,4 +1,4 @@
-﻿ const express = require("express");
+﻿const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
@@ -19,6 +19,15 @@ function generateKey() {
   return "SB-" + Math.random().toString(36).substring(2, 10).toUpperCase();
 }
 
+function cleanJson(raw) {
+  if (!raw) return "{}";
+
+  return raw
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
+}
+
 app.get("/", (req, res) => {
   res.send("SayBon Backend Running");
 });
@@ -26,7 +35,7 @@ app.get("/", (req, res) => {
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    message: "SayBon API live - DIRECT OPENAI FETCH MODE - APRIL 2",
+    message: "ROOT-SERVER-FILE-IS-LIVE-APRIL-2-TEST-999",
     routes: [
       "/",
       "/api/health",
@@ -53,6 +62,8 @@ app.post("/api/evaluateTranslatorTest", async (req, res) => {
       });
     }
 
+    console.log("🔥 DIRECT OPENAI FETCH ROUTE IS RUNNING");
+
     const prompt = `
 You are a professional French-English translation examiner.
 
@@ -70,7 +81,13 @@ Score out of 100 using:
 - grammar (20)
 - tone (15)
 
-Return STRICT JSON only in this exact format:
+IMPORTANT:
+- Return ONLY valid JSON
+- No markdown
+- No explanation before or after
+- No code block
+
+Return this exact structure:
 {
   "accuracy": number,
   "terminology": number,
@@ -81,8 +98,6 @@ Return STRICT JSON only in this exact format:
 }
 `;
 
-    console.log("🔥 DIRECT OPENAI FETCH ROUTE IS RUNNING");
-
     const aiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -92,6 +107,10 @@ Return STRICT JSON only in this exact format:
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
+          {
+            role: "system",
+            content: "You are a strict JSON-only evaluator."
+          },
           {
             role: "user",
             content: prompt
@@ -113,10 +132,11 @@ Return STRICT JSON only in this exact format:
     }
 
     const raw = aiData?.choices?.[0]?.message?.content?.trim() || "{}";
+    const cleaned = cleanJson(raw);
 
     let result;
     try {
-      result = JSON.parse(raw);
+      result = JSON.parse(cleaned);
     } catch (parseErr) {
       console.error("OpenAI JSON parse failed:", raw);
       return res.status(500).json({
@@ -125,6 +145,16 @@ Return STRICT JSON only in this exact format:
       });
     }
 
+    const accuracy = Number(result.accuracy ?? 0);
+    const terminology = Number(result.terminology ?? 0);
+    const grammar = Number(result.grammar ?? 0);
+    const tone = Number(result.tone ?? 0);
+
+    const finalScore =
+      Number(result.finalScore ?? (accuracy + terminology + grammar + tone));
+
+    const feedback = String(result.feedback ?? "").trim();
+
     const passkey = generateKey();
     const applicationId = crypto.randomUUID();
 
@@ -132,20 +162,27 @@ Return STRICT JSON only in this exact format:
       email,
       english,
       french,
-      accuracy: result.accuracy ?? 0,
-      terminology: result.terminology ?? 0,
-      grammar: result.grammar ?? 0,
-      tone: result.tone ?? 0,
-      finalScore: result.finalScore ?? 0,
-      feedback: result.feedback ?? "",
+      accuracy,
+      terminology,
+      grammar,
+      tone,
+      finalScore,
+      feedback,
       passkey,
       created: new Date()
     });
 
+    console.log("✅ Translator test saved:", applicationId);
+
     res.json({
       applicationId,
       passkey,
-      ...result
+      accuracy,
+      terminology,
+      grammar,
+      tone,
+      finalScore,
+      feedback
     });
 
   } catch (err) {
