@@ -29,19 +29,25 @@ function cleanJson(raw) {
 }
 
 app.get("/", (req, res) => {
-  res.send("SayBon Clean Evaluation Server Running");
+  res.send("SayBon Backend Running");
 });
 
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    message: "CLEAN-EVALUATION-SERVER-LIVE",
+    message: "ROOT-SERVER-FILE-IS-LIVE-APRIL-2-TEST-999",
     routes: [
       "/",
       "/api/health",
       "/api/evaluateTranslatorTest",
+      "/api/evaluateTranslator",
       "/api/applicationResult",
-      "/api/verifyTranslatorKey"
+      "/api/verifyTranslatorKey",
+      "/api/createTranslationJob",
+      "/api/jobs",
+      "/api/claimJob",
+      "/api/submitTranslation",
+      "/api/translatorStats"
     ]
   });
 });
@@ -56,7 +62,7 @@ app.post("/api/evaluateTranslatorTest", async (req, res) => {
       });
     }
 
-    console.log("🔥 CLEAN EVALUATOR ROUTE HIT");
+    console.log("🔥 DIRECT OPENAI FETCH ROUTE IS RUNNING");
 
     const prompt = `
 You are a professional French-English translation examiner.
@@ -143,11 +149,14 @@ Return this exact structure:
     const terminology = Number(result.terminology ?? 0);
     const grammar = Number(result.grammar ?? 0);
     const tone = Number(result.tone ?? 0);
-    const finalScore = Number(result.finalScore ?? (accuracy + terminology + grammar + tone));
+
+    const finalScore =
+      Number(result.finalScore ?? (accuracy + terminology + grammar + tone));
+
     const feedback = String(result.feedback ?? "").trim();
 
-    const applicationId = crypto.randomUUID();
     const passkey = generateKey();
+    const applicationId = crypto.randomUUID();
 
     await db.collection("translatorApplications").doc(applicationId).set({
       email,
@@ -163,9 +172,9 @@ Return this exact structure:
       created: new Date()
     });
 
-    console.log("✅ Saved to Firestore:", applicationId);
+    console.log("✅ Translator test saved:", applicationId);
 
-    return res.json({
+    res.json({
       applicationId,
       passkey,
       accuracy,
@@ -178,17 +187,55 @@ Return this exact structure:
 
   } catch (err) {
     console.error("evaluateTranslatorTest error:", err);
-    return res.status(500).json({
+    res.status(500).json({
       error: "AI evaluation failed",
       details: err.message
     });
   }
 });
 
+app.post("/api/evaluateTranslator", async (req, res) => {
+  try {
+    const { accuracy, terminology, grammar, tone, email } = req.body || {};
+
+    const finalScore = Math.round(
+      (
+        Number(accuracy || 0) +
+        Number(terminology || 0) +
+        Number(grammar || 0) +
+        Number(tone || 0)
+      ) / 4
+    );
+
+    const passkey = generateKey();
+    const ref = db.collection("translatorApplications").doc();
+
+    await ref.set({
+      accuracy,
+      terminology,
+      grammar,
+      tone,
+      finalScore,
+      passkey,
+      email,
+      created: new Date()
+    });
+
+    res.json({
+      applicationId: ref.id,
+      finalScore,
+      passkey
+    });
+
+  } catch (err) {
+    console.error("evaluateTranslator error:", err);
+    res.status(500).json({ error: "evaluation failed" });
+  }
+});
+
 app.get("/api/applicationResult", async (req, res) => {
   try {
     const id = req.query.id;
-
     if (!id) {
       return res.status(400).json({ error: "missing id" });
     }
@@ -199,11 +246,11 @@ app.get("/api/applicationResult", async (req, res) => {
       return res.status(404).json({ error: "not found" });
     }
 
-    return res.json(doc.data());
+    res.json(doc.data());
 
   } catch (err) {
     console.error("applicationResult error:", err);
-    return res.status(500).json({ error: "failed" });
+    res.status(500).json({ error: "failed" });
   }
 });
 
@@ -223,11 +270,132 @@ app.post("/api/verifyTranslatorKey", async (req, res) => {
       return res.json({ valid: false });
     }
 
-    return res.json({ valid: true });
+    res.json({ valid: true });
 
   } catch (err) {
     console.error("verifyTranslatorKey error:", err);
-    return res.status(500).json({ valid: false });
+    res.status(500).json({ valid: false });
+  }
+});
+
+app.post("/api/createTranslationJob", async (req, res) => {
+  try {
+    const { clientEmail, wordCount, service } = req.body || {};
+
+    const wc = Number(wordCount || 0);
+
+    let price = service === "standard"
+      ? wc * 0.025
+      : wc * 0.05;
+
+    const ref = db.collection("translationJobs").doc();
+
+    await ref.set({
+      clientEmail,
+      wordCount: wc,
+      service,
+      price,
+      status: "open",
+      translator: null,
+      created: new Date()
+    });
+
+    res.json({ jobId: ref.id, price });
+
+  } catch (err) {
+    console.error("createTranslationJob error:", err);
+    res.status(500).json({ error: "job creation failed" });
+  }
+});
+
+app.get("/api/jobs", async (req, res) => {
+  try {
+    const snapshot = await db.collection("translationJobs")
+      .where("status", "==", "open")
+      .get();
+
+    const jobs = [];
+    snapshot.forEach(doc => {
+      jobs.push({ id: doc.id, ...doc.data() });
+    });
+
+    res.json(jobs);
+
+  } catch (err) {
+    console.error("jobs error:", err);
+    res.status(500).json({ error: "failed" });
+  }
+});
+
+app.post("/api/claimJob", async (req, res) => {
+  try {
+    const { jobId, passkey } = req.body || {};
+
+    const translatorSnapshot = await db.collection("translatorApplications")
+      .where("passkey", "==", passkey)
+      .get();
+
+    if (translatorSnapshot.empty) {
+      return res.status(400).json({ error: "invalid translator" });
+    }
+
+    await db.collection("translationJobs").doc(jobId).update({
+      status: "claimed",
+      translator: passkey
+    });
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error("claimJob error:", err);
+    res.status(500).json({ error: "claim failed" });
+  }
+});
+
+app.post("/api/submitTranslation", async (req, res) => {
+  try {
+    const { jobId, passkey, translation } = req.body || {};
+
+    await db.collection("jobSubmissions").add({
+      jobId,
+      translator: passkey,
+      translation,
+      submitted: new Date()
+    });
+
+    await db.collection("translationJobs").doc(jobId).update({
+      status: "completed"
+    });
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.error("submitTranslation error:", err);
+    res.status(500).json({ error: "submission failed" });
+  }
+});
+
+app.get("/api/translatorStats", async (req, res) => {
+  try {
+    const passkey = req.query.key;
+
+    const jobs = await db.collection("translationJobs")
+      .where("translator", "==", passkey)
+      .get();
+
+    let completed = 0;
+
+    jobs.forEach(j => {
+      if (j.data().status === "completed") {
+        completed++;
+      }
+    });
+
+    res.json({ jobsCompleted: completed });
+
+  } catch (err) {
+    console.error("translatorStats error:", err);
+    res.status(500).json({ error: "stats failed" });
   }
 });
 
@@ -242,5 +410,5 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log("✅ SayBon clean evaluation server running on port " + PORT);
+  console.log("SayBon unified backend running on port " + PORT);
 });
