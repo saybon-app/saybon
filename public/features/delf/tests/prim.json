@@ -2,37 +2,37 @@
   "title": "DELF Prim Placement",
   "questions": [
     {
-      "type": "reading",
-      "skill": "reading",
-      "question": "What does Bonjour mean?",
-      "options": ["Hello", "Goodbye", "Please", "Thanks"],
-      "answer": "Hello"
+      "type": "listening",
+      "audio": "/assets/audio/prim/prim-test-1.mp3",
+      "transcript": "Bonjour Lucas, tu veux jouer au football après l'école ?",
+      "question": "What does the boy want to do?",
+      "options": [
+        "Go home",
+        "Play football",
+        "Eat dinner",
+        "Go to school"
+      ],
+      "answer": 1
     },
     {
       "type": "reading",
-      "skill": "reading",
-      "question": "What does Merci mean?",
-      "options": ["Hello", "Please", "Thanks", "Sorry"],
-      "answer": "Thanks"
+      "question": "What does Bonjour mean?",
+      "options": [
+        "Hello",
+        "Goodbye",
+        "Please",
+        "Thanks"
+      ],
+      "answer": 0
     },
     {
       "type": "writing",
-      "skill": "writing",
       "question": "Write one simple sentence to introduce yourself in French.",
-      "placeholder": "Example: Bonjour, je m'appelle Sarah."
-    },
-    {
-      "type": "listening",
-      "skill": "listening",
-      "question": "Listen and choose the correct meaning.",
-      "audio": "/features/delf/audio/bonjour.mp3",
-      "options": ["Goodbye", "Hello", "Thank you", "Please"],
-      "answer": "Hello"
+      "placeholder": "Type your answer here..."
     },
     {
       "type": "speaking",
-      "skill": "speaking",
-      "question": "Introduce yourself in French. Say your name and where you live."
+      "question": "Introduce yourself in French."
     }
   ]
 }
