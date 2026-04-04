@@ -93,7 +93,7 @@
   function bindNav() {
     nextBtn.onclick = async () => {
       if (!canProceed()) {
-        centerNoteEl.textContent = "Choose or complete your answer, then continue.";
+        centerNoteEl.textContent = "Complete this step, then continue.";
         return;
       }
 
@@ -128,8 +128,13 @@
 
     const pill = document.createElement("div");
     pill.className = "pill";
-    pill.textContent = (q.type || "question").toUpperCase();
+    pill.textContent = getPillLabel(q.type);
     stageEl.appendChild(pill);
+
+    const question = document.createElement("h2");
+    question.className = "questionText";
+    question.textContent = q.question || "Question";
+    stageEl.appendChild(question);
 
     if (q.passage) {
       const passage = document.createElement("div");
@@ -138,27 +143,22 @@
       stageEl.appendChild(passage);
     }
 
-    const question = document.createElement("h2");
-    question.className = "questionText";
-    question.textContent = q.question || "Question";
-    stageEl.appendChild(question);
-
     if (q.type === "listening") {
       stageEl.appendChild(buildListeningBlock(q));
       stageEl.appendChild(buildOptionsBlock(q));
-      centerNoteEl.textContent = "Listen, choose your answer, then continue.";
+      centerNoteEl.textContent = "Listen carefully, choose your answer, then continue.";
     }
     else if (q.type === "reading") {
       stageEl.appendChild(buildOptionsBlock(q));
-      centerNoteEl.textContent = "Choose your answer, then continue.";
+      centerNoteEl.textContent = "Choose the best answer, then continue.";
     }
     else if (q.type === "writing") {
       stageEl.appendChild(buildWritingBlock(q));
-      centerNoteEl.textContent = "Write your answer, then continue.";
+      centerNoteEl.textContent = "Write your response, then continue.";
     }
     else if (q.type === "speaking") {
       stageEl.appendChild(buildSpeakingBlock(q));
-      centerNoteEl.textContent = "Record your answer, then continue.";
+      centerNoteEl.textContent = "Record your response, then continue.";
     }
 
     backBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
@@ -167,12 +167,21 @@
     backBtn.classList.remove("hidden");
   }
 
+  function getPillLabel(type) {
+    if (type === "reading") return "Reading";
+    if (type === "listening") return "Listening";
+    if (type === "writing") return "Writing";
+    if (type === "speaking") return "Speaking";
+    return "Question";
+  }
+
   // ==========================================
   // LISTENING
   // ==========================================
   function buildListeningBlock(q) {
     const wrap = document.createElement("div");
     wrap.className = "answerBox";
+    wrap.style.padding = "18px";
 
     const audio = document.createElement("audio");
     audio.controls = true;
@@ -182,7 +191,7 @@
 
     const helper = document.createElement("div");
     helper.className = "helper";
-    helper.textContent = "Play the audio, then answer the question.";
+    helper.textContent = "Play the audio as many times as needed before answering.";
 
     wrap.appendChild(audio);
     wrap.appendChild(helper);
@@ -223,6 +232,8 @@
       badge.textContent = letters[i] || "?";
 
       const text = document.createElement("div");
+      text.style.lineHeight = "1.5";
+      text.style.fontWeight = "500";
       text.textContent = opt;
 
       card.appendChild(badge);
@@ -242,6 +253,7 @@
   function buildWritingBlock(q) {
     const wrap = document.createElement("div");
     wrap.className = "answerBox";
+    wrap.style.padding = "18px";
 
     const textarea = document.createElement("textarea");
     textarea.placeholder = q.placeholder || "Type your answer here...";
@@ -251,7 +263,13 @@
       answers[currentIndex] = textarea.value.trim();
     });
 
+    const helper = document.createElement("div");
+    helper.className = "helper";
+    helper.textContent = "Write naturally and clearly in French.";
+
     wrap.appendChild(textarea);
+    wrap.appendChild(helper);
+
     return wrap;
   }
 
@@ -261,12 +279,34 @@
   function buildSpeakingBlock(q) {
     const wrap = document.createElement("div");
     wrap.className = "answerBox";
+    wrap.style.padding = "20px";
+
+    const top = document.createElement("div");
+    top.style.display = "flex";
+    top.style.justifyContent = "space-between";
+    top.style.alignItems = "center";
+    top.style.gap = "12px";
+    top.style.flexWrap = "wrap";
+    top.style.marginBottom = "16px";
+
+    const status = document.createElement("div");
+    status.style.fontWeight = "600";
+    status.style.color = "#4d73d7";
+    status.style.fontSize = "14px";
+    status.textContent = "Ready to record";
+
+    const hint = document.createElement("div");
+    hint.className = "helper";
+    hint.style.marginTop = "0";
+    hint.textContent = "Speak clearly and naturally.";
+
+    top.appendChild(status);
+    top.appendChild(hint);
 
     const controls = document.createElement("div");
     controls.style.display = "flex";
     controls.style.flexWrap = "wrap";
-    controls.style.gap = "12px";
-    controls.style.alignItems = "center";
+    controls.style.gap = "10px";
     controls.style.marginBottom = "16px";
 
     const startBtn = document.createElement("button");
@@ -283,25 +323,23 @@
     const replaceBtn = document.createElement("button");
     replaceBtn.type = "button";
     replaceBtn.className = "btn btnMuted";
-    replaceBtn.textContent = "Replace Recording";
+    replaceBtn.textContent = "Replace";
     replaceBtn.style.display = "none";
-
-    const status = document.createElement("div");
-    status.style.fontWeight = "600";
-    status.style.color = "#356fdf";
-    status.textContent = "Ready to record";
 
     controls.appendChild(startBtn);
     controls.appendChild(stopBtn);
     controls.appendChild(replaceBtn);
-    controls.appendChild(status);
 
     const waveWrap = document.createElement("div");
     waveWrap.style.display = "flex";
     waveWrap.style.alignItems = "flex-end";
     waveWrap.style.gap = "6px";
-    waveWrap.style.height = "48px";
-    waveWrap.style.marginBottom = "18px";
+    waveWrap.style.height = "54px";
+    waveWrap.style.padding = "12px 10px";
+    waveWrap.style.marginBottom = "16px";
+    waveWrap.style.background = "#f7faff";
+    waveWrap.style.border = "1px solid #e3ebf5";
+    waveWrap.style.borderRadius = "18px";
 
     const bars = [];
     for (let i = 0; i < 18; i++) {
@@ -310,10 +348,14 @@
       bar.style.height = "10px";
       bar.style.borderRadius = "999px";
       bar.style.background = "#cfe0ff";
-      bar.style.transition = "height .12s ease";
+      bar.style.transition = "height .12s ease, background .12s ease";
       bars.push(bar);
       waveWrap.appendChild(bar);
     }
+
+    const audioBox = document.createElement("div");
+    audioBox.style.display = "grid";
+    audioBox.style.gap = "10px";
 
     const audio = document.createElement("audio");
     audio.controls = true;
@@ -394,9 +436,12 @@
       stopWaveAnimation();
     });
 
+    audioBox.appendChild(audio);
+
+    wrap.appendChild(top);
     wrap.appendChild(controls);
     wrap.appendChild(waveWrap);
-    wrap.appendChild(audio);
+    wrap.appendChild(audioBox);
 
     return wrap;
   }
@@ -472,10 +517,10 @@
       <div class="pill">Completed</div>
       <h2 class="questionText">Placement complete</h2>
       <div class="resultBox">
-        <p><strong>Candidate ID:</strong> ${escapeHtml(result.candidateId)}</p>
-        <p><strong>Estimated Level:</strong> ${escapeHtml(result.estimatedLevel)}</p>
-        <p><strong>Objective Score:</strong> ${result.objectiveCorrect} / ${result.objectiveTotal}</p>
-        <p><strong>Objective Percent:</strong> ${result.objectivePercent}%</p>
+        <p style="margin:0 0 10px;"><strong>Candidate ID:</strong> ${escapeHtml(result.candidateId)}</p>
+        <p style="margin:0 0 10px;"><strong>Estimated Level:</strong> ${escapeHtml(result.estimatedLevel)}</p>
+        <p style="margin:0 0 10px;"><strong>Objective Score:</strong> ${result.objectiveCorrect} / ${result.objectiveTotal}</p>
+        <p style="margin:0;"><strong>Objective Percent:</strong> ${result.objectivePercent}%</p>
       </div>
       <div class="helper">Your result has been saved.</div>
     `;
@@ -586,9 +631,9 @@
     stopWaveAnimation();
     waveformInterval = setInterval(() => {
       bars.forEach(bar => {
-        const h = 10 + Math.floor(Math.random() * 36);
+        const h = 10 + Math.floor(Math.random() * 28);
         bar.style.height = `${h}px`;
-        bar.style.background = h > 28 ? "#4f8cff" : "#cfe0ff";
+        bar.style.background = h > 24 ? "#7aa7ff" : "#cfe0ff";
       });
     }, 120);
   }
