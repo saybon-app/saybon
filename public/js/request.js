@@ -1,139 +1,129 @@
-
-function getTimelineStandard(words){
-
-if(words<=300)return "1 – 3 hours";
-
-if(words<=1000)return "3 – 6 hours";
-
-if(words<=3000)return "6 – 12 hours";
-
-if(words<=6000)return "12 – 24 hours";
-
-if(words<=10000)return "24 – 48 hours";
-
-if(words<=20000)return "2 – 4 days";
-
-return "Custom";
-
-}
-
-
-
-function getTimelineExpress(words){
-
-if(words<=300)return "30 – 60 minutes";
-
-if(words<=1000)return "1 – 3 hours";
-
-if(words<=3000)return "3 – 6 hours";
-
-if(words<=6000)return "6 – 12 hours";
-
-if(words<=10000)return "12 – 24 hours";
-
-if(words<=20000)return "24 – 48 hours";
-
-return "Custom";
-
-}
-
-
-
-
-function getQuote(){
-
-
-var file=document.getElementById("fileInput").files[0];
-
-if(!file){alert("Select file");return;}
-
-
-var reader=new FileReader();
-
-
-reader.onload=function(e){
-
-
-
-
-var words=e.target.result.split(/\s+/).length;
-
-
-
-var standardPrice=(words*0.025).toFixed(2);
-
-var expressPrice=(words*0.05).toFixed(2);
-
-
-var standardTime=getTimelineStandard(words);
-
-var expressTime=getTimelineExpress(words);
-
-
-
-document.getElementById("quoteArea").innerHTML=
-
-<p> words</p>
-
-
-<div class="quote-option standardQuote"
-
-onclick="goPay('standard',,'',)">
-
-
-Standard — public\css\request.css{standardPrice}
-
-<br>
-
-
-
-</div>
-
-
-
-<div class="quote-option-option expressQuote"
-
-onclick="goPay('express',,'',)">
-
-Express — public\css\request.css{expressPrice}
-
-<br>
-
-
-
-</div>
-
-;
-
-
-
-};
-
-
-
-reader.readAsText(file);
-
-
-
-}
-
-
-
-function goPay(type,price,time,words){
-
-
-window.location.href=
-
-/translation/payment.html?
-
-type=
-
-&price=
-
-&time=
-
-&words=;
-
-
-}
-
+ï»¿(() => {
+  "use strict";
+
+  const BACKEND = "https://saybon-server.onrender.com";
+
+  const fileInput = document.getElementById("fileInput");
+  const clientEmail = document.getElementById("clientEmail");
+  const sourceLanguage = document.getElementById("sourceLanguage");
+  const targetLanguage = document.getElementById("targetLanguage");
+  const standardBtn = document.getElementById("standardBtn");
+  const expressBtn = document.getElementById("expressBtn");
+  const quoteBox = document.getElementById("quoteBox");
+  const wordCountEl = document.getElementById("wordCount");
+  const planLabel = document.getElementById("planLabel");
+  const priceLabel = document.getElementById("priceLabel");
+  const timelineLabel = document.getElementById("timelineLabel");
+  const continueBtn = document.getElementById("continueBtn");
+  const status = document.getElementById("status");
+
+  let selectedPlan = "standard";
+  let currentWords = 0;
+  let currentPrice = 0;
+  let currentTimeline = "";
+  let currentFileName = "";
+
+  function countWords(text) {
+    return (text || "").trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function computePrice(words, plan) {
+    return (words * (plan === "express" ? 0.05 : 0.025)).toFixed(2);
+  }
+
+  function computeTimeline(words, plan) {
+    if (words <= 300) return plan === "express" ? "30â€“60 mins" : "1â€“3 hrs";
+    if (words <= 1000) return plan === "express" ? "1â€“3 hrs" : "3â€“6 hrs";
+    if (words <= 3000) return plan === "express" ? "3â€“6 hrs" : "6â€“12 hrs";
+    if (words <= 6000) return plan === "express" ? "6â€“12 hrs" : "12â€“24 hrs";
+    if (words <= 10000) return plan === "express" ? "12â€“24 hrs" : "24â€“48 hrs";
+    if (words <= 20000) return plan === "express" ? "24â€“48 hrs" : "2â€“4 days";
+    return "Custom";
+  }
+
+  async function extractText(file) {
+    const ext = file.name.split(".").pop().toLowerCase();
+
+    if (ext === "txt") {
+      return await file.text();
+    }
+
+    // Basic fallback for now.
+    // You can later replug mammoth/pdf.js if needed.
+    return await file.text().catch(() => "");
+  }
+
+  function refreshQuote() {
+    if (!currentWords) return;
+
+    currentPrice = computePrice(currentWords, selectedPlan);
+    currentTimeline = computeTimeline(currentWords, selectedPlan);
+
+    wordCountEl.textContent = currentWords;
+    planLabel.textContent = selectedPlan === "express" ? "Express" : "Standard";
+    priceLabel.textContent = currentPrice;
+    timelineLabel.textContent = currentTimeline;
+    quoteBox.style.display = "block";
+  }
+
+  standardBtn.onclick = () => {
+    selectedPlan = "standard";
+    refreshQuote();
+  };
+
+  expressBtn.onclick = () => {
+    selectedPlan = "express";
+    refreshQuote();
+  };
+
+  fileInput.addEventListener("change", async () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+
+    status.textContent = "Reading file...";
+    currentFileName = file.name;
+
+    const text = await extractText(file);
+    currentWords = countWords(text);
+
+    if (!currentWords) {
+      status.textContent = "Could not extract words from this file.";
+      return;
+    }
+
+    refreshQuote();
+    status.textContent = "Quote ready.";
+  });
+
+  continueBtn.onclick = async () => {
+    try {
+      status.textContent = "Creating job...";
+
+      const response = await fetch(${BACKEND}/api/createJob, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          words: currentWords,
+          plan: selectedPlan,
+          clientEmail: clientEmail.value.trim(),
+          sourceLanguage: sourceLanguage.value.trim() || "English",
+          targetLanguage: targetLanguage.value.trim() || "French",
+          originalFileName: currentFileName
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Job creation failed");
+      }
+
+      window.location.href = /translation/payment.html?job=;
+    } catch (err) {
+      console.error(err);
+      status.textContent = err.message || "Failed to create job.";
+    }
+  };
+})();
