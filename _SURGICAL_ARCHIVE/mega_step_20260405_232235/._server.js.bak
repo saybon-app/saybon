@@ -22,7 +22,6 @@ function getEnv(name, fallback = "") {
 const STRIPE_SECRET_KEY = getEnv("STRIPE_SECRET_KEY");
 const STRIPE_WEBHOOK_SECRET = getEnv("STRIPE_WEBHOOK_SECRET");
 const PUBLIC_APP_URL = getEnv("PUBLIC_APP_URL", "https://saybonapp.com");
-const ADMIN_ACCESS_CODE = getEnv("ADMIN_ACCESS_CODE");
 
 if (!admin.apps.length) {
   admin.initializeApp();
@@ -35,12 +34,16 @@ const stripe = STRIPE_SECRET_KEY
   : null;
 
 /* ==========================================
-   WEBHOOK FIRST
+   WEBHOOK MUST COME BEFORE express.json()
 ========================================== */
 app.post("/webhook", express.raw({ type: "application/json" }), async (req, res) => {
   try {
-    if (!stripe || !STRIPE_WEBHOOK_SECRET) {
-      return res.status(500).send("Stripe webhook not configured");
+    if (!stripe) {
+      return res.status(500).send("Stripe not configured");
+    }
+
+    if (!STRIPE_WEBHOOK_SECRET) {
+      return res.status(500).send("Stripe webhook secret not configured");
     }
 
     const signature = req.headers["stripe-signature"];
@@ -94,7 +97,7 @@ app.use(
   })
 );
 
-app.use(express.json({ limit: "8mb" }));
+app.use(express.json({ limit: "2mb" }));
 
 /* ==========================================
    HELPERS
@@ -130,7 +133,7 @@ function sanitizeEmail(value) {
   return email.includes("@") ? email : "";
 }
 
-function sanitizeText(value, fallback = "") {
+function sanitizeLanguage(value, fallback = "") {
   return String(value || fallback).trim();
 }
 
@@ -147,45 +150,24 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+    service: "SayBon canonical backend"
+  });
 });
 
 /* ==========================================
-   SECURITY
+   CREATE TRANSLATION JOB
+   POST /api/createJob
 ========================================== */
-app.post("/api/admin/verify", async (req, res) => {
-  try {
-    const code = String(req.body.code || "").trim();
-
-    if (!ADMIN_ACCESS_CODE) {
-      return res.status(500).json({ success: false, error: "Admin access code not configured" });
-    }
-
-    if (code && code === ADMIN_ACCESS_CODE) {
-      return res.json({ success: true });
-    }
-
-    return res.status(401).json({ success: false });
-  } catch (err) {
-    console.error("admin verify error:", err);
-    return res.status(500).json({ success: false });
-  }
-});
-
-/* ==========================================
-   TRANSLATION PIPELINE
-   Upload → Quote → Job Creation → Payment → Queue → Translation Desk → Review → Delivery → Archive
-========================================== */
-
-/* CREATE JOB */
 app.post("/api/createJob", async (req, res) => {
   try {
     const words = Number(req.body.words || req.body.wordCount || 0);
     const plan = normalizePlan(req.body.plan || req.body.service);
     const clientEmail = sanitizeEmail(req.body.clientEmail || req.body.email);
-    const sourceLanguage = sanitizeText(req.body.sourceLanguage, "English");
-    const targetLanguage = sanitizeText(req.body.targetLanguage, "French");
-    const originalFileName = sanitizeText(req.body.originalFileName || req.body.fileName);
+    const sourceLanguage = sanitizeLanguage(req.body.sourceLanguage, "English");
+    const targetLanguage = sanitizeLanguage(req.body.targetLanguage, "French");
+    const originalFileName = String(req.body.originalFileName || req.body.fileName || "").trim();
 
     if (!Number.isFinite(words) || words <= 0) {
       return res.status(400).json({ error: "Valid words are required" });
@@ -209,11 +191,7 @@ app.post("/api/createJob", async (req, res) => {
       targetLanguage,
       originalFileName,
       deliveryTimeline,
-      assignedTranslator: null,
-      submittedTranslation: "",
-      reviewedTranslation: "",
-      reviewFeedback: "",
-      reviewScore: null,
+      reviewStatus: "pending",
       deliveryStatus: "pending",
       archived: false,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -238,10 +216,17 @@ app.post("/api/createJob", async (req, res) => {
   }
 });
 
-/* GET JOB */
+/* ==========================================
+   GET SINGLE JOB
+   GET /api/job/:jobId
+========================================== */
 app.get("/api/job/:jobId", async (req, res) => {
   try {
     const jobId = String(req.params.jobId || "").trim();
+    if (!jobId) {
+      return res.status(400).json({ error: "Job ID is required" });
+    }
+
     const doc = await db.collection("translationJobs").doc(jobId).get();
 
     if (!doc.exists) {
@@ -261,7 +246,10 @@ app.get("/api/job/:jobId", async (req, res) => {
   }
 });
 
-/* CREATE CHECKOUT */
+/* ==========================================
+   CREATE STRIPE CHECKOUT
+   POST /api/createCheckout
+========================================== */
 app.post("/api/createCheckout", async (req, res) => {
   try {
     if (!stripe) {
@@ -284,6 +272,10 @@ app.post("/api/createCheckout", async (req, res) => {
     const words = Number(job.words || 0);
     const plan = normalizePlan(job.plan);
     const price = computePrice(words, plan);
+
+    if (!words || price <= 0) {
+      return res.status(400).json({ error: "Job is missing valid pricing data" });
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -322,206 +314,42 @@ app.post("/api/createCheckout", async (req, res) => {
       { merge: true }
     );
 
-    return res.json({ success: true, url: session.url });
+    return res.json({
+      success: true,
+      url: session.url
+    });
   } catch (err) {
     console.error("createCheckout error:", err);
-    return res.status(500).json({ error: "Stripe checkout failed", detail: err.message });
-  }
-});
-
-/* QUEUE */
-app.get("/api/queue", async (req, res) => {
-  try {
-    const snapshot = await db.collection("translationJobs").where("stage", "==", "queue").get();
-    const jobs = [];
-    snapshot.forEach(doc => jobs.push({ jobId: doc.id, ...doc.data() }));
-    return res.json({ success: true, jobs });
-  } catch (err) {
-    console.error("queue error:", err);
-    return res.status(500).json({ error: "Failed to fetch queue" });
-  }
-});
-
-/* CLAIM TO DESK */
-app.post("/api/claimJob", async (req, res) => {
-  try {
-    const jobId = sanitizeText(req.body.jobId);
-    const translator = sanitizeText(req.body.translator, "translator");
-
-    if (!jobId) {
-      return res.status(400).json({ error: "jobId is required" });
-    }
-
-    await db.collection("translationJobs").doc(jobId).set(
-      {
-        assignedTranslator: translator,
-        stage: "translation_desk",
-        status: "in_translation",
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      },
-      { merge: true }
-    );
-
-    return res.json({ success: true });
-  } catch (err) {
-    console.error("claimJob error:", err);
-    return res.status(500).json({ error: "Failed to claim job" });
-  }
-});
-
-/* SUBMIT TRANSLATION */
-app.post("/api/submitTranslation", async (req, res) => {
-  try {
-    const jobId = sanitizeText(req.body.jobId);
-    const translation = String(req.body.translation || "").trim();
-
-    if (!jobId || !translation) {
-      return res.status(400).json({ error: "jobId and translation are required" });
-    }
-
-    await db.collection("translationJobs").doc(jobId).set(
-      {
-        submittedTranslation: translation,
-        stage: "review",
-        status: "submitted_for_review",
-        submittedAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      },
-      { merge: true }
-    );
-
-    return res.json({ success: true });
-  } catch (err) {
-    console.error("submitTranslation error:", err);
-    return res.status(500).json({ error: "Failed to submit translation" });
-  }
-});
-
-/* REVIEW */
-app.post("/api/reviewJob", async (req, res) => {
-  try {
-    const jobId = sanitizeText(req.body.jobId);
-    const approved = !!req.body.approved;
-    const reviewFeedback = sanitizeText(req.body.reviewFeedback);
-    const reviewedTranslation = String(req.body.reviewedTranslation || "").trim();
-    const reviewScore = Number(req.body.reviewScore || 0);
-
-    if (!jobId) {
-      return res.status(400).json({ error: "jobId is required" });
-    }
-
-    await db.collection("translationJobs").doc(jobId).set(
-      {
-        reviewFeedback,
-        reviewedTranslation,
-        reviewScore,
-        stage: approved ? "delivery" : "translation_desk",
-        status: approved ? "approved" : "revision_required",
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      },
-      { merge: true }
-    );
-
-    return res.json({ success: true, nextStage: approved ? "delivery" : "translation_desk" });
-  } catch (err) {
-    console.error("reviewJob error:", err);
-    return res.status(500).json({ error: "Failed to review job" });
-  }
-});
-
-/* DELIVERY */
-app.post("/api/deliverJob", async (req, res) => {
-  try {
-    const jobId = sanitizeText(req.body.jobId);
-
-    if (!jobId) {
-      return res.status(400).json({ error: "jobId is required" });
-    }
-
-    await db.collection("translationJobs").doc(jobId).set(
-      {
-        stage: "delivered",
-        status: "delivered",
-        deliveryStatus: "delivered",
-        deliveredAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      },
-      { merge: true }
-    );
-
-    return res.json({ success: true });
-  } catch (err) {
-    console.error("deliverJob error:", err);
-    return res.status(500).json({ error: "Failed to deliver job" });
-  }
-});
-
-/* ARCHIVE */
-app.post("/api/archiveJob", async (req, res) => {
-  try {
-    const jobId = sanitizeText(req.body.jobId);
-
-    if (!jobId) {
-      return res.status(400).json({ error: "jobId is required" });
-    }
-
-    await db.collection("translationJobs").doc(jobId).set(
-      {
-        stage: "archived",
-        status: "archived",
-        archived: true,
-        archivedAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      },
-      { merge: true }
-    );
-
-    return res.json({ success: true });
-  } catch (err) {
-    console.error("archiveJob error:", err);
-    return res.status(500).json({ error: "Failed to archive job" });
+    return res.status(500).json({
+      error: "Stripe checkout failed",
+      detail: err.message
+    });
   }
 });
 
 /* ==========================================
-   DELF TIGHTENING FOUNDATION
+   QUEUE VIEW (PREP FOR NEXT STEP)
+   GET /api/queue
 ========================================== */
-
-/* DELF HEALTH */
-app.get("/api/delf/health", async (req, res) => {
-  return res.json({
-    success: true,
-    service: "SayBon DELF engine",
-    status: "ready"
-  });
-});
-
-/* DELF RESULT SUBMISSION */
-app.post("/api/delf/submit", async (req, res) => {
+app.get("/api/queue", async (req, res) => {
   try {
-    const candidateName = sanitizeText(req.body.candidateName);
-    const examTrack = sanitizeText(req.body.examTrack);
-    const levelEstimate = sanitizeText(req.body.levelEstimate);
-    const score = Number(req.body.score || 0);
+    const snapshot = await db
+      .collection("translationJobs")
+      .where("stage", "==", "queue")
+      .get();
 
-    const ref = db.collection("delfSubmissions").doc();
-
-    await ref.set({
-      submissionId: ref.id,
-      candidateName,
-      examTrack,
-      levelEstimate,
-      score,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
+    const jobs = [];
+    snapshot.forEach((doc) => {
+      jobs.push({ jobId: doc.id, ...doc.data() });
     });
 
     return res.json({
       success: true,
-      submissionId: ref.id
+      jobs
     });
   } catch (err) {
-    console.error("DELF submit error:", err);
-    return res.status(500).json({ error: "Failed to submit DELF result" });
+    console.error("queue error:", err);
+    return res.status(500).json({ error: "Failed to fetch queue" });
   }
 });
 
@@ -529,7 +357,9 @@ app.post("/api/delf/submit", async (req, res) => {
    404
 ========================================== */
 app.use((req, res) => {
-  res.status(404).json({ error: "Route not found" });
+  res.status(404).json({
+    error: "Route not found"
+  });
 });
 
 /* ==========================================
