@@ -484,13 +484,17 @@
 
       await saveResult(payload);
 
-      renderResult({
-        candidateId,
-        objectiveCorrect,
-        objectiveTotal,
-        objectivePercent,
-        estimatedLevel
-      });
+      const readiness = getReadinessLabel(objectivePercent, estimatedLevel);
+const recommendedEntry = getRecommendedEntry(readiness);
+
+const resultUrl =
+  `/features/delf/result.html?candidate=${encodeURIComponent(candidateId)}` +
+  `&score=${encodeURIComponent(objectivePercent)}` +
+  `&level=${encodeURIComponent(estimatedLevel)}` +
+  `&readiness=${encodeURIComponent(readiness)}` +
+  `&entry=${encodeURIComponent(recommendedEntry)}`;
+
+window.location.href = resultUrl;
     } catch (err) {
       console.error("FINISH ERROR:", err);
       renderError("Test finished, but result processing failed.");
@@ -651,6 +655,20 @@
     }
   }
 
+  
+  function getReadinessLabel(objectivePercent, estimatedLevel) {
+    if (objectivePercent < 40) return "Building Toward A1";
+    if (objectivePercent < 70) return "A1 Readiness";
+    return "Strong A1 / Moving Toward A2";
+  }
+
+  function getRecommendedEntry(readiness) {
+    if (readiness === "Strong A1 / Moving Toward A2") {
+      return "DELF Prim A2 Preparation";
+    }
+    return "DELF Prim A1 Preparation";
+  }
+
   function escapeHtml(value) {
     return String(value ?? "")
       .replace(/&/g, "&amp;")
@@ -660,3 +678,4 @@
       .replace(/'/g, "&#039;");
   }
 })();
+
