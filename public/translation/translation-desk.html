@@ -1,219 +1,25 @@
-<!DOCTYPE html>
-<html>
-
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-
-<title>SayBon Translation Desk</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f6f8fb;
-padding:40px;
-}
-
-.card{
-
-max-width:900px;
-margin:auto;
-
-background:white;
-
-border-radius:14px;
-
-padding:30px;
-
-box-shadow:0 10px 40px rgba(0,0,0,0.08);
-
-}
-
-h1{
-margin-bottom:20px;
-}
-
-input{
-
-padding:10px;
-font-size:16px;
-
-width:260px;
-
-border:1px solid #ccc;
-
-border-radius:6px;
-
-}
-
-button{
-
-padding:10px 18px;
-font-size:15px;
-
-background:#4a6cf7;
-color:white;
-
-border:none;
-
-border-radius:6px;
-
-cursor:pointer;
-
-}
-
-.progressBar{
-
-height:18px;
-
-background:#eee;
-
-border-radius:10px;
-
-margin-top:15px;
-
-}
-
-.progressFill{
-
-height:100%;
-
-background:#4a6cf7;
-
-border-radius:10px;
-
-width:0%;
-
-}
-
-.section{
-
-margin-top:25px;
-
-}
-
-.download{
-
-margin-top:20px;
-
-background:#28a745;
-
-}
-
-</style>
-
-
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translation Desk</title>
+  <link rel="stylesheet" href="/css/page-transition.css" />
+  <script type="module" src="/js/nav-engine.js"></script>
 </head>
-
 <body>
+<div style="max-width:900px;margin:60px auto;padding:32px;">
+  <h1>Translation Desk</h1>
+  <input id="translatorName" type="text" placeholder="Translator name" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-bottom:16px;" />
+  <button id="claimBtn">Claim Job</button>
 
-<div class="card">
+  <div style="margin-top:24px;">
+    <textarea id="translationText" placeholder="Paste translated content here..." style="width:100%;height:260px;padding:16px;border-radius:18px;border:1px solid #ddd;"></textarea>
+  </div>
 
-<h1>SAYBON TRANSLATION DESK</h1>
-
-<input id="jobCode" placeholder="Enter job code">
-
-<button onclick="loadJob()">Check Job</button>
-
-<div id="jobInfo" class="section"></div>
-
-<div class="progressBar">
-<div id="progressFill" class="progressFill"></div>
+  <button id="submitBtn" style="margin-top:16px;">Submit for Review</button>
+  <p id="status" style="margin-top:18px;"></p>
 </div>
-
-<div id="status"></div>
-
-<button id="downloadBtn"
-class="download"
-style="display:none"
-onclick="downloadTranslation()">
-
-Download Translation
-
-</button>
-
-</div>
-
-
-<script>
-
-let jobData=null;
-
-
-async function loadJob(){
-
-const code=document.getElementById("jobCode").value;
-
-const response=await fetch("/api/job/"+code);
-
-const job=await response.json();
-
-jobData=job;
-
-document.getElementById("jobInfo").innerHTML=
-
-\
-<b>Job Code:</b> \<br>
-<b>Word Count:</b> \<br>
-<b>Delivery:</b> \<br>
-<b>Status:</b> \
-\;
-
-updateProgress();
-
-}
-
-
-function updateProgress(){
-
-if(!jobData)return;
-
-const progress=jobData.progress||0;
-
-document.getElementById("progressFill").style.width=
-progress+"%";
-
-document.getElementById("status").innerHTML=
-
-\
-<b>Progress:</b> \%<br>
-
-Phase-1 Translation: Complete<br>
-Editing: \<br>
-Quality Review: \
-\;
-
-if(progress>=100){
-
-document.getElementById("downloadBtn").style.display="block";
-
-}
-
-}
-
-
-function downloadTranslation(){
-
-const text="Final translation will appear here.";
-
-const blob=new Blob([text],{type:"text/plain"});
-
-const link=document.createElement("a");
-
-link.href=URL.createObjectURL(blob);
-
-link.download="saybon-translation.txt";
-
-link.click();
-
-}
-
-</script>
-
+<script src="/js/translation-desk.js"></script>
 </body>
-
 </html>
-
-
