@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Confirm Translation � SayBon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
+color:#6e6e73;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
+
+.card{
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(20px);
+border-radius:30px;
+padding:40px;
+width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.title{
+letter-spacing:3px;
+font-weight:500;
+margin-bottom:20px;
+}
+
+.row{
+margin:10px 0;
+font-size:14px;
+}
+
+.price{
+font-size:26px;
+font-weight:600;
+margin-top:15px;
+}
+
+.payBtn{
+margin-top:25px;
+width:100%;
+background:#1e8e8e;
+color:white;
+border:none;
+padding:14px;
+border-radius:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.payBtn:active{
+transform:scale(0.96);
+}
+
+</style>
+
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="title">
+CONFIRM TRANSLATION
+</div>
+
+<div id="job"></div>
+
+<div class="row">
+Plan: <span id="plan"></span>
+</div>
+
+<div class="row">
+Words: <span id="words"></span>
+</div>
+
+<div class="row">
+Language: <span id="language"></span>
+</div>
+
+<div class="price" id="price"></div>
+
+<button class="payBtn" id="payButton">
+PAY SECURELY
+</button>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+  authDomain: "saybon-3e3c2.firebaseapp.com",
+  projectId: "saybon-3e3c2",
+  storageBucket: "saybon-3e3c2.firebasestorage.app",
+  messagingSenderId: "75085012344",
+  appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.firestore()
+
+const params = new URLSearchParams(window.location.search)
+
+const plan = params.get("plan")
+const words = parseInt(params.get("words"))
+const language = params.get("language")
+const email = params.get("email")
+
+document.getElementById("plan").innerText = plan
+document.getElementById("words").innerText = words
+document.getElementById("language").innerText = language
+
+function generateJobId(){
+
+const rand = Math.random().toString(36).substring(2,6).toUpperCase()
+return "SB-" + Date.now() + "-" + rand
+
+}
+
+const job = generateJobId()
+
+document.getElementById("job").innerText = "Job Code: " + job
+
+let rate = plan === "express" ? 0.05 : 0.025
+let total = Math.max(words,100) * rate
+
+document.getElementById("price").innerText = "$" + total.toFixed(2)
+
+document.getElementById("payButton").addEventListener("click", startPayment)
+
+async function startPayment(){
+
+const button = document.getElementById("payButton")
+
+button.innerText = "Processing..."
+button.disabled = true
+
+await db.collection("translationJobs").doc(job).set({
+
+jobId:job,
+email:email,
+plan:plan,
+wordCount:words,
+targetLanguage:language,
+price:total,
+status:"awaiting_payment",
+createdAt:new Date()
+
+})
+
+let link = ""
+
+if(plan === "express"){
+
+link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
+
+}else{
+
+link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
+
+}
+
+window.location = link + "?client_reference_id=" + job
+
+}
+
+</script>
+
+</body>
+</html>

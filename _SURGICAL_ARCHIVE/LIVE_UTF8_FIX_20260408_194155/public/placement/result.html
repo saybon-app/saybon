@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your level — SayBon</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eef6fb;
+      font-family: "Nunito", system-ui, sans-serif;
+    }
+
+    .result-box {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 26px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: #5b6b7a;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 16px 28px;
+      border-radius: 40px;
+      border: none;
+      background: #4da3ff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+  <div class="result-box">
+    <h1>Your level</h1>
+    <p id="levelText"></p>
+
+    <button onclick="goDashboard()">Continue</button>
+  </div>
+
+  <script>
+    const score = Number(localStorage.getItem("placementScore")) || 0;
+
+    let level = "A1 (Beginner)";
+    if (score === 2) level = "A2 (Elementary)";
+
+    document.getElementById("levelText").textContent =
+      `Based on your answers, your level is ${level}.`;
+
+    function goDashboard() {
+      window.location.href = "/dashboard/";
+    }
+  </script>
+
+</body>
+</html>
