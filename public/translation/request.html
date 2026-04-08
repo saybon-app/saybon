@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
@@ -166,7 +164,6 @@ margin-top:8px;
 
 </style>
 
-
 <style>
 
 /* ==========================================
@@ -192,7 +189,6 @@ width:480px;
 }
 
 </style>
-
 
 <style>
 
@@ -232,7 +228,6 @@ padding:14px 18px;
 }
 
 </style>
-
 
 <style>
 
@@ -295,7 +290,6 @@ width:520px;
 
 </style>
 
-
 <link rel='stylesheet' href='/css/page-transition.css'>
 <script type='module' src='/js/nav-engine.js'></script>
 </head>
@@ -309,7 +303,7 @@ SAYBON TRANSLATION SERVICES
 </h2>
 
 <div class="subtitle">
-TRANSLATED BY EXPERTS � QUICK DELIVERY � CONFIDENTIAL
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
 <div class="container">
@@ -341,12 +335,9 @@ Target Language
 </label>
 
 <select id="languageSelect">
-
 <option>English</option>
 <option>French</option>
-
 </select>
-
 
 <div class="quote-card standard" onclick="goToStripe('standard')">
 
@@ -359,7 +350,6 @@ Delivery:
 </div>
 
 </div>
-
 
 <div class="quote-card express" onclick="goToStripe('express')">
 
@@ -386,39 +376,39 @@ Delivery:
 </tr>
 
 <tr>
-<td>1 � 300</td>
-<td>1 � 3 hrs</td>
-<td>30 � 60 mins</td>
+<td>1–300</td>
+<td>1–3 hrs</td>
+<td>30–60 mins</td>
 </tr>
 
 <tr>
-<td>301 � 1000</td>
-<td>3 � 6 hrs</td>
-<td>1 � 3 hrs</td>
+<td>301–1000</td>
+<td>3–6 hrs</td>
+<td>1–3 hrs</td>
 </tr>
 
 <tr>
-<td>1001 � 3000</td>
-<td>6 � 12 hrs</td>
-<td>3 � 6 hrs</td>
+<td>1001–3000</td>
+<td>6–12 hrs</td>
+<td>3–6 hrs</td>
 </tr>
 
 <tr>
-<td>3001 � 6000</td>
-<td>12 � 24 hrs</td>
-<td>6 � 12 hrs</td>
+<td>3001–6000</td>
+<td>12–24 hrs</td>
+<td>6–12 hrs</td>
 </tr>
 
 <tr>
-<td>6001 � 10000</td>
-<td>24 � 48 hrs</td>
-<td>12 � 24 hrs</td>
+<td>6001–10000</td>
+<td>24–48 hrs</td>
+<td>12–24 hrs</td>
 </tr>
 
 <tr>
-<td>10001 � 20000</td>
-<td>2 � 4 days</td>
-<td>24 � 48 hrs</td>
+<td>10001–20000</td>
+<td>2–4 days</td>
+<td>24–48 hrs</td>
 </tr>
 
 <tr>
@@ -441,49 +431,40 @@ let currentWords = 0
 let standardPrice = 0
 let expressPrice = 0
 
-const uploadBtn=document.getElementById("uploadBtn")
-const fileInput=document.getElementById("fileInput")
+const uploadBtn = document.getElementById("uploadBtn")
+const fileInput = document.getElementById("fileInput")
 
-uploadBtn.addEventListener("click",()=>{
+uploadBtn.addEventListener("click", () => {
 
-const file=fileInput.files[0]
+const file = fileInput.files[0]
 
 if(!file){
 alert("Please choose a document first")
 return
 }
 
-const reader=new FileReader()
+const reader = new FileReader()
 
-reader.onload=function(e){
+reader.onload = function(e){
 
-let text=e.target.result||""
+let text = e.target.result || ""
+let words = text.trim().split(/\s+/).filter(Boolean).length
 
-let words=text.trim().split(/\s+/).filter(Boolean).length
-
-if(words<100){
-words=100
+if(words < 100){
+words = 100
 }
 
-currentWords=words
+currentWords = words
 
-standardPrice=(words*0.025).toFixed(2)
-expressPrice=(words*0.05).toFixed(2)
+standardPrice = (words * 0.025).toFixed(2)
+expressPrice = (words * 0.05).toFixed(2)
 
-document.querySelector(".word-count").innerText=
-"WORDS: "+words
+document.querySelector(".word-count").innerText = "WORDS: " + words
+document.querySelector(".standard .quote-price").innerText = "STANDARD $" + standardPrice
+document.querySelector(".express .quote-price").innerText = "EXPRESS $" + expressPrice
 
-document.querySelector(".standard .quote-price").innerText=
-"STANDARD $"+standardPrice
-
-document.querySelector(".express .quote-price").innerText=
-"EXPRESS $"+expressPrice
-
-document.getElementById("standardDelivery").innerText =
-"Delivery: 1 � 3 hrs"
-
-document.getElementById("expressDelivery").innerText =
-"Delivery: 30 � 60 mins"
+document.getElementById("standardDelivery").innerText = "Delivery: 1–3 hrs"
+document.getElementById("expressDelivery").innerText = "Delivery: 30–60 mins"
 
 }
 
@@ -491,31 +472,28 @@ reader.readAsText(file)
 
 })
 
-
 function goToStripe(type){
 
-if(currentWords===0){
+if(currentWords === 0){
 alert("Please upload a document first")
 return
 }
 
 let price = type === "standard" ? standardPrice : expressPrice
+let language = document.getElementById("languageSelect").value
+let email = document.getElementById("emailInput").value
 
-let language=document.getElementById("languageSelect").value
-let email=document.getElementById("emailInput").value
+let url = "/translation/payment.html?plan=" + type +
+"&words=" + currentWords +
+"&price=" + price +
+"&language=" + language +
+"&email=" + email
 
-let url="/translation/payment.html?plan="+type+
-"&words="+currentWords+
-"&price="+price+
-"&language="+language+
-"&email="+email
-
-window.location.href=url
+window.location.href = url
 
 }
 
 </script>
-
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
@@ -549,49 +527,33 @@ name:file.name
 
 }
 
-</script>
-</body>
-</html>
-
-
-
-
-<script>
-
 async function createJob(){
 
-const wordCount=parseInt(
-document.getElementById("wordCount").innerText
-)
+const wordCount = currentWords
+const email = document.getElementById("emailInput").value
 
-const service=document.querySelector(
-"input[name=service]:checked"
-).value
+if(!email){
+alert("Please enter customer email")
+return
+}
 
-const email=document.getElementById("clientEmail").value
-
-const res=await fetch("/api/createTranslationJob",{
-
+const res = await fetch("/api/createTranslationJob",{
 method:"POST",
-
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify({
-
 clientEmail:email,
-wordCount:wordCount,
-service:service
-
+wordCount:wordCount
+})
 })
 
-})
-
-const data=await res.json()
-
-alert("Translation job created. Job ID: "+data.jobId)
+const data = await res.json()
+alert("Translation job created. Job ID: " + data.jobId)
 
 }
 
 </script>
+
+</body>
+</html>
