@@ -3,22 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Delivery</title>
+  <title>SayBon Delivery Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/page-transition.css" />
+  <link rel="stylesheet" href="/css/translation-workspace.css" />
   <script type="module" src="/js/nav-engine.js"></script>
 </head>
 <body>
-<div style="max-width:800px;margin:60px auto;padding:32px;">
-  <h1>Delivery</h1>
-  <p>Finalize the translation lifecycle.</p>
+  <main class="workspace-shell">
+    <div class="workspace-wrap">
+      <div class="workspace-topbar">
+        <div class="brand-chip">
+          <span class="brand-dot"></span>
+          <span>SayBon Delivery & Archive</span>
+        </div>
 
-  <div style="display:flex;gap:12px;margin-top:24px;">
-    <button id="deliverBtn">Mark Delivered</button>
-    <button id="archiveBtn">Archive</button>
-  </div>
+        <div class="nav-row">
+          <a class="nav-pill" href="/translation/queue.html">Queue</a>
+          <a class="nav-pill" href="/translation/translation-desk.html">Desk</a>
+          <a class="nav-pill" href="/translation/review.html">Review</a>
+          <a class="nav-pill" href="/translation/delivery.html">Delivery</a>
+        </div>
+      </div>
 
-  <p id="status" style="margin-top:18px;"></p>
-</div>
-<script src="/js/delivery.js"></script>
+      <section class="hero-card">
+        <p class="hero-eyebrow">Final operational stage</p>
+        <h1 class="hero-title">Delivery Desk</h1>
+        <p class="hero-subtitle">
+          Finalize approved work, mark it as delivered, and then archive it cleanly once the workflow has closed.
+        </p>
+      </section>
+
+      <div class="grid-2">
+        <section class="card card-pad">
+          <h2 class="section-title">Delivery Actions</h2>
+          <p class="section-subtitle">Finalize the lifecycle for the selected translation job.</p>
+
+          <div class="actions">
+            <button id="deliverBtn" class="btn btn-success">Mark Delivered</button>
+            <button id="archiveBtn" class="btn btn-danger">Archive Job</button>
+          </div>
+
+          <div id="deliveryStatus" class="status-line"></div>
+
+          <div class="note">
+            Recommended order: approve in Review → mark Delivered → archive once fully closed.
+          </div>
+        </section>
+
+        <aside class="card card-pad">
+          <h2 class="section-title">Final Snapshot</h2>
+          <p class="section-subtitle">Live data from the selected job.</p>
+
+          <div class="list" id="deliverySummary">
+            <div class="empty">Open a reviewed job to finalize delivery here.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/delivery.js"></script>
 </body>
 </html>
