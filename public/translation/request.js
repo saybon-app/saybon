@@ -1,4 +1,4 @@
-﻿let selectedPlan = null;
+let selectedPlan = null;
 
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");

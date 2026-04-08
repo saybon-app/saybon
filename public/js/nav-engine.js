@@ -1,75 +1,50 @@
-﻿(() => {
-  "use strict";
+document.addEventListener("DOMContentLoaded",()=>{
 
-  const FADE_MS = 420;
-  const EXCLUDE_PROTOCOLS = ["mailto:", "tel:", "javascript:"];
-  const EXCLUDE_EXTENSIONS = [
-    ".pdf",".doc",".docx",".xls",".xlsx",".zip",".rar",".7z",".mp3",".mp4",".wav",".png",".jpg",".jpeg",".webp"
-  ];
+document.body.classList.add("loaded")
 
-  function shouldIgnore(anchor) {
-    if (!anchor) return true;
-    if (anchor.target === "_blank") return true;
-    if (anchor.hasAttribute("download")) return true;
+})
 
-    const href = anchor.getAttribute("href");
-    if (!href || href.trim() === "" || href.startsWith("#")) return true;
 
-    if (EXCLUDE_PROTOCOLS.some(p => href.startsWith(p))) return true;
-    if (EXCLUDE_EXTENSIONS.some(ext => href.toLowerCase().includes(ext))) return true;
+export function go(url){
 
-    const url = new URL(anchor.href, window.location.origin);
+document.body.classList.remove("loaded")
+document.body.classList.add("fade-out")
 
-    if (url.origin !== window.location.origin) return true;
-    if (url.pathname === window.location.pathname && url.search === window.location.search) return true;
+setTimeout(()=>{
 
-    return false;
-  }
+window.location.href=url
 
-  function enterPage() {
-    document.body.classList.add("page-enter");
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-enter-active");
-        document.body.classList.remove("page-enter");
-      });
-    });
+},250)
 
-    setTimeout(() => {
-      document.body.classList.remove("page-enter-active");
-    }, FADE_MS + 80);
-  }
+}
 
-  function exitTo(url) {
-    document.body.classList.add("page-exit");
-    setTimeout(() => {
-      window.location.href = url;
-    }, FADE_MS);
-  }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    enterPage();
+export function prefetch(url){
 
-    document.addEventListener("click", (e) => {
-      const anchor = e.target.closest("a");
-      if (!anchor || shouldIgnore(anchor)) return;
+const link=document.createElement("link")
 
-      e.preventDefault();
-      exitTo(anchor.href);
-    });
+link.rel="prefetch"
+link.href=url
 
-    document.querySelectorAll("[data-nav]").forEach(el => {
-      el.addEventListener("click", (e) => {
-        const url = el.getAttribute("data-nav");
-        if (!url) return;
-        e.preventDefault();
-        exitTo(url);
-      });
-    });
-  });
+document.head.appendChild(link)
 
-  window.addEventListener("pageshow", () => {
-    document.body.classList.remove("page-exit");
-    enterPage();
-  });
-})();
+}
+
+
+/* PREFETCH ON HOVER */
+
+document.querySelectorAll("a, .card, button").forEach(el=>{
+
+el.addEventListener("mouseenter",()=>{
+
+const href = el.getAttribute("href")
+
+if(href){
+
+prefetch(href)
+
+}
+
+})
+
+})

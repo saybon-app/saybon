@@ -1,0 +1,18 @@
+:root {
+  --mint: #8fbfc1;
+  --mint-dark: #6ea8ab;
+  --text: #1e2a32;
+  --bg: #f7fbfc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Trebuchet MS", system-ui, sans-serif;
+  background: linear-gradient(180deg, #f7fbfc, #eef7f6);
+  color: #1e2a32;
+}

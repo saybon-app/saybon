@@ -1,17 +1,31 @@
-﻿(function () {
-  const protectedAdminPages = [
-    "/admin/dashboard.html",
-    "/admin/panel.html",
-    "/admin/jobs.html",
-    "/admin/translation-admin.html"
-  ];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  const path = window.location.pathname;
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
 
-  if (protectedAdminPages.includes(path)) {
-    const ok = sessionStorage.getItem("saybon_admin_authenticated") === "true";
-    if (!ok) {
-      window.location.href = "/admin/index.html";
-    }
-  }
-})();
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+
+/* BLOCK PAGE RENDER */
+document.documentElement.style.display="none";
+
+onAuthStateChanged(auth,user=>{
+
+if(!user){
+
+window.location="/auth/login.html";
+
+}else{
+
+document.documentElement.style.display="block";
+
+}
+
+});

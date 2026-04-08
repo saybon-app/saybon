@@ -1,0 +1,285 @@
+/* =========================================
+   SAYBON DASHBOARD — GLASS FINAL
+========================================= */
+
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background: radial-gradient(circle at top, #0f172a 0%, #030712 75%);
+  color: white;
+  min-height: 100vh;
+}
+
+/* WRAPPER */
+.dashboard {
+  max-width: 1250px;          /* slightly wider */
+  margin: 0 auto;
+  padding: 60px 40px 40px 40px;   /* zoomed in feel */
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.dashboard-header h1 {
+  font-size: 44px;        /* zoomed */
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  background: linear-gradient(90deg, #ffffff, #b8c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: headerGlow 4s ease-in-out infinite alternate;
+}
+
+.dashboard-header p {
+  margin-top: 10px;
+  opacity: 0.75;
+  font-size: 15px;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;              /* larger spacing */
+}
+
+/* =========================================
+   GLASS CARD BASE
+========================================= */
+
+.dashboard-grid .card {
+  position: relative;
+  height: 190px;              /* zoomed in */
+  padding: 28px 26px;
+  border-radius: 26px;
+  cursor: pointer;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.12),
+    0 20px 50px rgba(0,0,0,0.6);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 3D PRESS */
+.dashboard-grid .card:active {
+  transform: scale(0.95);
+  box-shadow:
+    inset 0 8px 25px rgba(0,0,0,0.7),
+    0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* SHIMMER SWEEP */
+.dashboard-grid .card::after {
+  content: "";
+  position: absolute;
+  top: -120%;
+  left: -40%;
+  width: 60%;
+  height: 300%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transform: rotate(25deg);
+  animation: shimmer 7s infinite;
+}
+
+/* =========================================
+   CARD TEXT
+========================================= */
+
+.card .emoji {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.card span {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* =========================================
+   UPDATED GRADIENTS
+========================================= */
+
+/* Levels — #EA9AB2 */
+.levels {
+  background: linear-gradient(135deg, #EA9AB2, #d86a8a, #f4b5c8);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* Talkletics — #004D40 */
+.talkletics {
+  background: linear-gradient(135deg, #004D40, #00695c, #00332d);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* Music */
+.music {
+  background: linear-gradient(135deg, #FF5722, #ff7043, #ff8a65);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* DELF */
+.delf {
+  background: linear-gradient(135deg, #009B77, #00b894, #00a67d);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* Translation */
+.translation {
+  background: linear-gradient(135deg, #A2AD1E, #b5bf2b, #8c9616);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* Chat */
+.chat {
+  background: linear-gradient(135deg, #B17596, #9f5f80, #c58cab);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+}
+
+/* =========================================
+   FOOTER — GLASS BUTTONS
+========================================= */
+
+.dashboard-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.dashboard-footer button {
+  height: 44px;
+  padding: 0 28px;
+  border-radius: 25px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  font-family: "Playfair Display", serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  color: white;
+  cursor: pointer;
+
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+
+  background: rgba(255,255,255,0.08);
+
+  box-shadow:
+    inset 0 0 15px rgba(255,255,255,0.15),
+    0 12px 25px rgba(0,0,0,0.5);
+
+  transition: 0.2s ease;
+}
+
+/* shimmer for buttons */
+.dashboard-footer button::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -40%;
+  width: 60%;
+  height: 300%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+  transform: rotate(25deg);
+  animation: shimmer 8s infinite;
+}
+
+.dashboard-footer button:active {
+  transform: scale(0.95);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(300%) rotate(25deg); }
+}
+
+@keyframes headerGlow {
+  from { text-shadow: 0 0 10px rgba(150,170,255,0.3); }
+  to   { text-shadow: 0 0 28px rgba(150,170,255,0.6); }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .dashboard {
+    padding: 30px 20px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid .card {
+    height: 150px;
+  }
+
+  .dashboard-footer {
+    margin-top: 25px;
+  }
+}

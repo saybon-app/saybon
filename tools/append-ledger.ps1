@@ -1,4 +1,4 @@
-﻿param(
+param(
   [Parameter(Mandatory=$true)][string]$FilePath,
   [Parameter(Mandatory=$true)][string]$Summary
 )

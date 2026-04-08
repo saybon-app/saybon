@@ -20,4 +20,3 @@ document.getElementById("startJourney").onclick = () => {
 document.getElementById("backHome").onclick = () => {
   window.location.href = "/";
 };
-

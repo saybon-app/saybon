@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DELF Placement Tests</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#f7efe5,#eaf4f4);
+}
+
+.wrapper{
+text-align:center;
+max-width:1000px;
+padding:50px;
+}
+
+h1{
+font-size:42px;
+letter-spacing:1px;
+margin-bottom:8px;
+color:#1f2937;
+}
+
+.subtitle{
+font-size:18px;
+color:#6b7280;
+margin-bottom:50px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+padding:40px;
+border-radius:24px;
+color:white;
+cursor:pointer;
+transition:all .25s ease;
+box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 30px 60px rgba(0,0,0,0.18);
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:12px;
+}
+
+.card p{
+font-size:16px;
+opacity:.9;
+}
+
+/* COLOR PALETTE */
+
+.prim{
+background:linear-gradient(135deg,#c6592d,#e87a47);
+}
+
+.junior{
+background:linear-gradient(135deg,#d77a4b,#f2a87c);
+}
+
+.adult{
+background:linear-gradient(135deg,#0f766e,#1ea5a5);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<h1>DELF PLACEMENT TESTS</h1>
+
+<div class="subtitle">
+Select your category
+</div>
+
+<div class="grid">
+
+<div class="card prim" onclick="location.href='/features/delf/test-engine.html?test=prim'">
+
+<h3>DELF Prim</h3>
+<p>Ages 7 – 12</p>
+
+</div>
+
+<div class="card junior" onclick="location.href='tests/junior.html'">
+
+<h3>DELF Junior</h3>
+<p>Ages 12 – 17</p>
+
+</div>
+
+<div class="card adult" onclick="location.href='tests/adult.html'">
+
+<h3>DELF Tout Public</h3>
+<p>Ages 18+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
+
+

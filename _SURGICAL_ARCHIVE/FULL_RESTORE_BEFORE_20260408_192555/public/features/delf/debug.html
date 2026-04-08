@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SayBon DELF Debug</title>
+<style>
+body{
+  font-family:Arial,sans-serif;
+  padding:40px;
+  background:#f4f7fb;
+  color:#1f2f44;
+}
+.card{
+  max-width:900px;
+  margin:auto;
+  background:#fff;
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(20,40,70,.10);
+}
+pre{
+  background:#f7f9fc;
+  padding:18px;
+  border-radius:12px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.ok{color:green;font-weight:700}
+.bad{color:red;font-weight:700}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>SayBon DELF Debug Check</h1>
+  <p>This page checks whether <strong>/features/delf/tests/prim.json</strong> is truly live.</p>
+  <div id="status">Checking...</div>
+  <pre id="output"></pre>
+</div>
+
+<script>
+(async ()=>{
+  const status = document.getElementById("status");
+  const output = document.getElementById("output");
+
+  try{
+    const url = "/features/delf/tests/prim.json?ts=" + Date.now();
+    const res = await fetch(url);
+    const text = await res.text();
+
+    status.innerHTML = '<span class="ok">SUCCESS: fetch worked</span>';
+    output.textContent =
+      "FETCH URL: " + url + "\n\n" +
+      "HTTP STATUS: " + res.status + "\n\n" +
+      "RAW RESPONSE:\n" + text;
+  }catch(err){
+    status.innerHTML = '<span class="bad">FAILED: fetch crashed</span>';
+    output.textContent = err.message || String(err);
+  }
+})();
+</script>
+</body>
+</html>

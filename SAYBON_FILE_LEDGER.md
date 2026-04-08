@@ -1,4 +1,4 @@
-﻿# SAYBON FILE LEDGER
+# SAYBON FILE LEDGER
 
 Date: 2026-03-07
 
@@ -72,4 +72,3 @@ Job page does not trust URL parameters.
 Backend must validate price, words, and plan.
 
 ----------------------------------------
-

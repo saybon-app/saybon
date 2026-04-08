@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Strategic Investor — SayBon</title>
+  <link rel="stylesheet" href="invest-form.css" />
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+<div class="form-wrapper">
+
+  <h1>Strategic Investor</h1>
+  <p class="subtitle">
+    Investment combined with expertise, partnerships, or networks.
+  </p>
+
+  <div class="form-card">
+
+    <form id="strategicForm">
+
+      <div class="row">
+        <input type="text" placeholder="Organization name" required />
+        <input type="text" placeholder="Contact person" required />
+      </div>
+
+      <input type="email" placeholder="Business email" required />
+      <input type="text" placeholder="Country" required />
+
+      <select required>
+        <option value="">Investment range</option>
+        <option>$50,000 – $99,999</option>
+        <option>$100,000 – $249,999</option>
+        <option>$250,000+</option>
+      </select>
+
+      <textarea
+        rows="4"
+        placeholder="How would you like to partner with SayBon?"
+        required
+      ></textarea>
+
+      <button type="submit">Submit</button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script src="invest.js"></script>
+</body>
+</html>
+

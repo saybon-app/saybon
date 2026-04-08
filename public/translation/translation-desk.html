@@ -1,86 +1,217 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Translation Desk</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/page-transition.css" />
-  <link rel="stylesheet" href="/css/translation-workspace.css" />
-  <script type="module" src="/js/nav-engine.js"></script>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<title>SayBon Translation Desk</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f6f8fb;
+padding:40px;
+}
+
+.card{
+
+max-width:900px;
+margin:auto;
+
+background:white;
+
+border-radius:14px;
+
+padding:30px;
+
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+
+}
+
+h1{
+margin-bottom:20px;
+}
+
+input{
+
+padding:10px;
+font-size:16px;
+
+width:260px;
+
+border:1px solid #ccc;
+
+border-radius:6px;
+
+}
+
+button{
+
+padding:10px 18px;
+font-size:15px;
+
+background:#4a6cf7;
+color:white;
+
+border:none;
+
+border-radius:6px;
+
+cursor:pointer;
+
+}
+
+.progressBar{
+
+height:18px;
+
+background:#eee;
+
+border-radius:10px;
+
+margin-top:15px;
+
+}
+
+.progressFill{
+
+height:100%;
+
+background:#4a6cf7;
+
+border-radius:10px;
+
+width:0%;
+
+}
+
+.section{
+
+margin-top:25px;
+
+}
+
+.download{
+
+margin-top:20px;
+
+background:#28a745;
+
+}
+
+</style>
+
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
 </head>
+
 <body>
-  <main class="workspace-shell">
-    <div class="workspace-wrap">
-      <div class="workspace-topbar">
-        <div class="brand-chip">
-          <span class="brand-dot"></span>
-          <span>SayBon Translation Workspace</span>
-        </div>
 
-        <div class="nav-row">
-          <a class="nav-pill" href="/translation/queue.html">Queue</a>
-          <a class="nav-pill" href="/translation/translation-desk.html">Desk</a>
-          <a class="nav-pill" href="/translation/review.html">Review</a>
-          <a class="nav-pill" href="/translation/delivery.html">Delivery</a>
-        </div>
-      </div>
+<div class="card">
 
-      <section class="hero-card">
-        <p class="hero-eyebrow">Core translation work zone</p>
-        <h1 class="hero-title">Translation Desk</h1>
-        <p class="hero-subtitle">
-          Claim the job, work inside the SayBon desk, and submit the translated version forward for editorial review.
-        </p>
-      </section>
+<h1>SAYBON TRANSLATION DESK</h1>
 
-      <div class="grid-2">
-        <section class="card card-pad">
-          <h2 class="section-title">Desk Control</h2>
-          <p class="section-subtitle">Claim and prepare the current job for submission.</p>
+<input id="jobCode" placeholder="Enter job code">
 
-          <div class="field-stack">
-            <input id="translatorName" class="input" type="text" placeholder="Translator name" />
+<button onclick="loadJob()">Check Job</button>
 
-            <div class="actions">
-              <button id="claimBtn" class="btn btn-primary">Claim Job</button>
-              <a class="btn btn-secondary" id="openReviewLink" href="/translation/review.html">Open Review</a>
-            </div>
-          </div>
+<div id="jobInfo" class="section"></div>
 
-          <hr class="hr-soft" />
+<div class="progressBar">
+<div id="progressFill" class="progressFill"></div>
+</div>
 
-          <div class="panel">
-            <h3 class="panel-title">Translated Content</h3>
-            <p class="panel-copy">Complete the translation here before submission.</p>
-            <textarea id="translationText" class="textarea tall" placeholder="Paste or write the translated content here..."></textarea>
-          </div>
+<div id="status"></div>
 
-          <div class="actions">
-            <button id="submitBtn" class="btn btn-success">Submit for Review</button>
-          </div>
+<button id="downloadBtn"
+class="download"
+style="display:none"
+onclick="downloadTranslation()">
 
-          <div id="deskStatus" class="status-line"></div>
-        </section>
+Download Translation
 
-        <aside class="card card-pad">
-          <h2 class="section-title">Job Snapshot</h2>
-          <p class="section-subtitle">Live job metadata from the backend.</p>
+</button>
 
-          <div class="list" id="jobSummary">
-            <div class="empty">Load a job from the queue to view its details here.</div>
-          </div>
+</div>
 
-          <div class="note">
-            Workflow: Queue → Translation Desk → Review → Delivery → Archive
-          </div>
-        </aside>
-      </div>
-    </div>
-  </main>
 
-  <script src="/js/translation-desk.js"></script>
+<script>
+
+let jobData=null;
+
+
+async function loadJob(){
+
+const code=document.getElementById("jobCode").value;
+
+const response=await fetch("/api/job/"+code);
+
+const job=await response.json();
+
+jobData=job;
+
+document.getElementById("jobInfo").innerHTML=
+
+\
+<b>Job Code:</b> \<br>
+<b>Word Count:</b> \<br>
+<b>Delivery:</b> \<br>
+<b>Status:</b> \
+\;
+
+updateProgress();
+
+}
+
+
+function updateProgress(){
+
+if(!jobData)return;
+
+const progress=jobData.progress||0;
+
+document.getElementById("progressFill").style.width=
+progress+"%";
+
+document.getElementById("status").innerHTML=
+
+\
+<b>Progress:</b> \%<br>
+
+Phase-1 Translation: Complete<br>
+Editing: \<br>
+Quality Review: \
+\;
+
+if(progress>=100){
+
+document.getElementById("downloadBtn").style.display="block";
+
+}
+
+}
+
+
+function downloadTranslation(){
+
+const text="Final translation will appear here.";
+
+const blob=new Blob([text],{type:"text/plain"});
+
+const link=document.createElement("a");
+
+link.href=URL.createObjectURL(blob);
+
+link.download="saybon-translation.txt";
+
+link.click();
+
+}
+
+</script>
+
 </body>
+
 </html>

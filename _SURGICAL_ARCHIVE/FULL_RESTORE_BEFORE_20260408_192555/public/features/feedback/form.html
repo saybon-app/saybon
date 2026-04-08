@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Send Feedback</title>
+
+  <link rel="stylesheet" href="feedback.css" />
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+  <div class="feedback-page">
+
+    <h1 id="formTitle">Send feedback</h1>
+    <p>Please share as much detail as possible.</p>
+
+    <form class="feedback-form" id="feedbackForm">
+
+      <label>Your name (optional)</label>
+      <input type="text" id="name" />
+
+      <label>Email (optional)</label>
+      <input type="email" id="email" />
+
+      <label>Your message</label>
+      <textarea id="message" required></textarea>
+
+      <button type="submit" class="submit-btn">Send message</button>
+
+    </form>
+
+    <p class="feedback-note">
+      We read every message carefully. Thank you for helping us grow 🌱
+    </p>
+
+  </div>
+
+  <script src="feedback.js"></script>
+</body>
+</html>
+

@@ -1,24 +1,333 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Success</title>
-  <link rel="stylesheet" href="/css/page-transition.css" />
-  <script type="module" src="/js/nav-engine.js"></script>
+<script type='module' src='/js/auth-guard.js'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SayBon Invoice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+body{
+margin:0;
+background:#e7e4de;
+font-family:Poppins;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+letter-spacing:.08em;
+line-height:1.8;
+padding:30px;
+}
+.invoice{
+width:640px;
+background:#1b1f27;
+padding:55px;
+border-radius:16px;
+color:white;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+position:relative;
+}
+.pdfBtn{
+position:absolute;
+top:18px;
+right:22px;
+font-size:28px;
+cursor:pointer;
+transition:.2s;
+}
+.pdfBtn:hover{
+transform:scale(1.2);
+}
+.pdfBtn:active{
+transform:scale(.9);
+}
+.brand{
+text-align:center;
+font-size:22px;
+letter-spacing:.35em;
+color:#d4b16a;
+margin-bottom:8px;
+}
+.company{
+text-align:center;
+font-size:12px;
+opacity:.78;
+margin-bottom:40px;
+}
+.section{
+background:#141820;
+padding:18px;
+border-radius:10px;
+margin-bottom:35px;
+font-size:13px;
+}
+.row{
+display:flex;
+justify-content:space-between;
+margin:6px 0;
+gap:20px;
+}
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:25px;
+font-size:13px;
+}
+.table th{
+text-align:left;
+border-bottom:2px solid #caa458;
+padding-bottom:10px;
+}
+.table td{
+padding:14px 0;
+border-bottom:1px solid #333;
+}
+.summary{
+margin-top:30px;
+display:flex;
+justify-content:flex-end;
+font-size:13px;
+}
+.summaryBox{
+text-align:right;
+line-height:2;
+}
+.total{
+font-size:18px;
+font-weight:600;
+}
+.deskButton{
+margin-top:40px;
+width:100%;
+padding:18px;
+border-radius:18px;
+border:none;
+font-family:Quicksand;
+font-weight:600;
+letter-spacing:.35em;
+font-size:14px;
+color:white;
+background:linear-gradient(135deg,#38b6b6,#2a8c8c);
+box-shadow:0 15px 40px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.25);
+cursor:pointer;
+transition:.25s;
+}
+.deskButton:hover{
+transform:translateY(-3px);
+}
+.deskButton:active{
+transform:scale(.96);
+}
+.notice{
+text-align:center;
+font-size:13px;
+color:#9aa4b2;
+}
+</style>
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
 </head>
+
 <body>
-<div style="max-width:700px;margin:60px auto;padding:32px;">
-  <h1>Payment Successful</h1>
-  <div id="box" style="margin:24px 0;padding:24px;border-radius:20px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
-    <p><strong>Job:</strong> <span id="jobId">-</span></p>
-    <p><strong>Status:</strong> <span id="statusLabel">-</span></p>
-    <p><strong>Stage:</strong> <span id="stageLabel">-</span></p>
-    <p><strong>Plan:</strong> <span id="planLabel">-</span></p>
-    <p><strong>Price:</strong> $<span id="priceLabel">-</span></p>
-  </div>
-  <a href="/translation/request.html">Start Another Translation</a>
+
+<div class="invoice" id="invoice">
+
+<div class="pdfBtn" onclick="downloadInvoice()">??</div>
+
+<div class="brand">
+SAYBON TRANSLATION SERVICES
 </div>
-<script src="/js/success.js"></script>
+
+<div class="company">
+Accra, Ghana<br>
+support@saybonapp.com<br>
+saybonapp.com
+</div>
+
+<div class="section">
+
+<div class="row">
+<div>Invoice ID</div>
+<div id="job">Loading...</div>
+</div>
+
+<div class="row">
+<div>Client</div>
+<div id="email">Loading...</div>
+</div>
+
+<div class="row">
+<div>Plan</div>
+<div id="plan">Loading...</div>
+</div>
+
+<div class="row">
+<div>Target Language</div>
+<div id="language">Loading...</div>
+</div>
+
+<div class="row">
+<div>Delivery Timeline</div>
+<div id="timeline">Loading...</div>
+</div>
+
+</div>
+
+<table class="table">
+
+<tr>
+<th>Item</th>
+<th>Rate</th>
+<th>Qty</th>
+<th>Subtotal</th>
+</tr>
+
+<tr>
+<td>Professional Translation</td>
+<td id="rate">-</td>
+<td id="words">-</td>
+<td id="price">-</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div class="summaryBox">
+<div>Subtotal: <span id="subtotal">-</span></div>
+<div class="total">TOTAL: <span id="total">-</span></div>
+</div>
+</div>
+
+<div id="message" class="notice"></div>
+
+<button class="deskButton" onclick="openDesk()">
+TRANSLATION DESK
+</button>
+
+</div>
+
+<script>
+const firebaseConfig = {
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const params = new URLSearchParams(window.location.search);
+const sessionId = params.get("session_id");
+const fallbackJob = localStorage.getItem("saybon_last_job");
+
+async function resolveJobId(){
+  if(!sessionId){
+    return fallbackJob;
+  }
+
+  try{
+    const res = await fetch("https://saybon-server-1.onrender.com/api/session-job?session_id=" + encodeURIComponent(sessionId));
+    const data = await res.json();
+
+    if(data.jobId){
+      localStorage.setItem("saybon_last_job", data.jobId);
+      return data.jobId;
+    }
+
+    return fallbackJob;
+  }catch(err){
+    console.error("SESSION LOOKUP ERROR:", err);
+    return fallbackJob;
+  }
+}
+
+async function loadInvoice(){
+  try{
+    const jobId = await resolveJobId();
+
+    if(!jobId){
+      document.getElementById("message").innerText = "No job reference was found for this invoice.";
+      return;
+    }
+
+    const doc = await db.collection("translationJobs").doc(jobId).get();
+
+    if(!doc.exists){
+      document.getElementById("message").innerText = "Invoice data could not be found.";
+      return;
+    }
+
+    const data = doc.data();
+
+    document.getElementById("job").innerText = data.jobId || "-";
+    document.getElementById("email").innerText = data.email || "-";
+    document.getElementById("plan").innerText = data.plan || "-";
+    document.getElementById("language").innerText = data.targetLanguage || "-";
+
+    let rate = data.plan === "express" ? 0.05 : 0.025;
+    document.getElementById("rate").innerText = "$" + rate.toFixed(3);
+    document.getElementById("words").innerText = data.wordCount ?? "-";
+    document.getElementById("price").innerText = "$" + Number(data.price || 0).toFixed(2);
+    document.getElementById("subtotal").innerText = "$" + Number(data.price || 0).toFixed(2);
+    document.getElementById("total").innerText = "$" + Number(data.price || 0).toFixed(2);
+
+    const words = Number(data.wordCount || 0);
+    const isExpress = data.plan === "express";
+
+    let timeline = "";
+
+    if(words <= 300){
+      timeline = isExpress ? "30�60 mins" : "1�3 hrs";
+    }else if(words <= 1000){
+      timeline = isExpress ? "1�3 hrs" : "3�6 hrs";
+    }else if(words <= 3000){
+      timeline = isExpress ? "3�6 hrs" : "6�12 hrs";
+    }else if(words <= 6000){
+      timeline = isExpress ? "6�12 hrs" : "12�24 hrs";
+    }else if(words <= 10000){
+      timeline = isExpress ? "12�24 hrs" : "24�48 hrs";
+    }else if(words <= 20000){
+      timeline = isExpress ? "24�48 hrs" : "2�4 days";
+    }else{
+      timeline = "Custom";
+    }
+
+    document.getElementById("timeline").innerText = timeline;
+
+    if(data.status === "paid"){
+      document.getElementById("message").innerText = "Payment confirmed. Your translation request is now in queue.";
+    }else{
+      document.getElementById("message").innerText = "";
+    }
+  }catch(err){
+    console.error("INVOICE LOAD ERROR:", err);
+    document.getElementById("message").innerText = "There was a problem loading your invoice.";
+  }
+}
+
+function openDesk(){
+  const currentJob = localStorage.getItem("saybon_last_job") || "";
+  window.location = "/translation/desk.html?job=" + encodeURIComponent(currentJob);
+}
+
+function downloadInvoice(){
+  html2pdf().from(document.getElementById("invoice")).save("SayBon-Invoice.pdf");
+}
+
+loadInvoice();
+</script>
+
 </body>
 </html>
