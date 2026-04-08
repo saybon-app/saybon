@@ -1,0 +1,10 @@
+.form-card {
+  max-width: 480px;
+  margin: 80px auto;
+  background: white;
+  padding: 28px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}

@@ -29,4 +29,3 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     alert("Login cancelled or failed.");
   }
 });
-

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Translation Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/page-transition.css" />
+  <link rel="stylesheet" href="/css/translation-workspace.css" />
+  <script type="module" src="/js/nav-engine.js"></script>
+</head>
+<body>
+  <main class="workspace-shell">
+    <div class="workspace-wrap">
+      <div class="workspace-topbar">
+        <div class="brand-chip">
+          <span class="brand-dot"></span>
+          <span>SayBon Translation Workspace</span>
+        </div>
+
+        <div class="nav-row">
+          <a class="nav-pill" href="/translation/queue.html">Queue</a>
+          <a class="nav-pill" href="/translation/translation-desk.html">Desk</a>
+          <a class="nav-pill" href="/translation/review.html">Review</a>
+          <a class="nav-pill" href="/translation/delivery.html">Delivery</a>
+        </div>
+      </div>
+
+      <section class="hero-card">
+        <p class="hero-eyebrow">Core translation work zone</p>
+        <h1 class="hero-title">Translation Desk</h1>
+        <p class="hero-subtitle">
+          Claim the job, work inside the SayBon desk, and submit the translated version forward for editorial review.
+        </p>
+      </section>
+
+      <div class="grid-2">
+        <section class="card card-pad">
+          <h2 class="section-title">Desk Control</h2>
+          <p class="section-subtitle">Claim and prepare the current job for submission.</p>
+
+          <div class="field-stack">
+            <input id="translatorName" class="input" type="text" placeholder="Translator name" />
+
+            <div class="actions">
+              <button id="claimBtn" class="btn btn-primary">Claim Job</button>
+              <a class="btn btn-secondary" id="openReviewLink" href="/translation/review.html">Open Review</a>
+            </div>
+          </div>
+
+          <hr class="hr-soft" />
+
+          <div class="panel">
+            <h3 class="panel-title">Translated Content</h3>
+            <p class="panel-copy">Complete the translation here before submission.</p>
+            <textarea id="translationText" class="textarea tall" placeholder="Paste or write the translated content here..."></textarea>
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" class="btn btn-success">Submit for Review</button>
+          </div>
+
+          <div id="deskStatus" class="status-line"></div>
+        </section>
+
+        <aside class="card card-pad">
+          <h2 class="section-title">Job Snapshot</h2>
+          <p class="section-subtitle">Live job metadata from the backend.</p>
+
+          <div class="list" id="jobSummary">
+            <div class="empty">Load a job from the queue to view its details here.</div>
+          </div>
+
+          <div class="note">
+            Workflow: Queue → Translation Desk → Review → Delivery → Archive
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/translation-desk.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿
+
 async function loadJobs(){
 
 const response = await fetch("jobs.json");
@@ -62,4 +62,3 @@ loadJobs();
 }
 
 loadJobs();
-

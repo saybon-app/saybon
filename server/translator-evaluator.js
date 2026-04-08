@@ -1,4 +1,4 @@
-﻿import admin from "firebase-admin";
+import admin from "firebase-admin";
 import OpenAI from "openai";
 
 const db = admin.firestore();

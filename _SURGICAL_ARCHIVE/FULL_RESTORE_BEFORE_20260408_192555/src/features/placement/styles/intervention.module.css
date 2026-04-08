@@ -1,0 +1,102 @@
+/* /features/placement/styles/intervention.module.css */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: transparent;
+  pointer-events: all;
+}
+
+/* ---------- FADE OUT QUESTION ---------- */
+
+.fadeScreen {
+  position: absolute;
+  inset: 0;
+  background: white;
+  animation: fadeOut 0.9s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- TEACHER ---------- */
+
+.teacherWrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teacher {
+  width: 240px;
+  opacity: 0;
+  filter: blur(8px) drop-shadow(0 0 40px rgba(0, 255, 180, 0.6));
+  animation: teacherIn 1.2s ease forwards;
+}
+
+@keyframes teacherIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ---------- BUTTONS ---------- */
+
+.buttonWrap {
+  position: absolute;
+  bottom: 12%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  animation: buttonsIn 1s ease forwards;
+}
+
+@keyframes buttonsIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.primary {
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  background: #0fd6b4;
+  color: #002b25;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.secondary {
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1px solid #0fd6b4;
+  background: transparent;
+  color: #0fd6b4;
+  font-size: 15px;
+}
+

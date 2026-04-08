@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SayBon Translation Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f5f7fb;
+margin:0;
+padding:40px;
+color:#444;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+text-align:center;
+letter-spacing:2px;
+}
+
+.login{
+text-align:center;
+margin-top:80px;
+}
+
+input{
+padding:10px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:#1f6feb;
+color:white;
+font-weight:600;
+}
+
+button:hover{
+opacity:.9;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:30px;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.actions button{
+margin-right:8px;
+background:#16a34a;
+}
+
+</style>
+
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>SAYBON TRANSLATION ADMIN</h1>
+
+<div id="login" class="login">
+
+<p>Enter Admin Passcode</p>
+
+<input id="passcode" type="password">
+
+<br><br>
+
+<button onclick="unlock()">Access Panel</button>
+
+</div>
+
+<div id="panel" style="display:none;">
+
+<h2>Translation Jobs</h2>
+
+<table>
+
+<tr>
+<th>Job ID</th>
+<th>Words</th>
+<th>Plan</th>
+<th>Deadline</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+<tbody id="jobs"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig={
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db=firebase.firestore();
+
+
+/* LOGIN */
+
+function unlock(){
+
+const code=document.getElementById("passcode").value;
+
+if(code==="963281"){
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("panel").style.display="block";
+
+loadJobs();
+
+}else{
+
+alert("Incorrect passcode");
+
+}
+
+}
+
+
+/* LOAD JOBS */
+
+async function loadJobs(){
+
+const snapshot=await db.collection("translationJobs").get();
+
+const table=document.getElementById("jobs");
+
+table.innerHTML="";
+
+snapshot.forEach(doc=>{
+
+const job=doc.data();
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${doc.id}</td>
+<td>${job.wordCount||"-"}</td>
+<td>${job.plan||"-"}</td>
+<td>${job.deadline||"-"}</td>
+<td>${job.status||"-"}</td>
+
+<td class="actions">
+
+<button onclick="viewJob('${doc.id}')">View</button>
+
+<button onclick="completeJob('${doc.id}')">Complete</button>
+
+</td>
+
+`;
+
+table.appendChild(row);
+
+});
+
+}
+
+
+/* VIEW JOB */
+
+function viewJob(id){
+
+alert("Open job: "+id);
+
+}
+
+
+/* COMPLETE JOB */
+
+async function completeJob(id){
+
+await db.collection("translationJobs")
+.doc(id)
+.update({
+status:"completed"
+});
+
+alert("Job marked complete");
+
+loadJobs();
+
+}
+
+</script>
+
+</body>
+
+</html>
+
+

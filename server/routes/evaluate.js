@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import { evaluateTranslator } from "../translator-evaluator.js";
 
 const router = express.Router();

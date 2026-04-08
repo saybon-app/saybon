@@ -1,1 +1,1 @@
-﻿This is a SayBon translation test file. It contains exactly fifteen words for backend testing.
+This is a SayBon translation test file. It contains exactly fifteen words for backend testing.

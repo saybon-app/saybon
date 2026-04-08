@@ -1,0 +1,22 @@
+.playlist-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.playlist {
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6fd8, #3813c2);
+  color: white;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.playlist:hover {
+  transform: translateY(-3px);
+}

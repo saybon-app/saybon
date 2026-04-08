@@ -1,0 +1,125 @@
+
+<html>
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<title>Translator Job Board</title>
+
+<style>
+
+body{font-family:Arial;padding:40px}
+
+.job{
+
+border:1px solid #ccc;
+padding:20px;
+margin-bottom:20px
+
+}
+
+button{
+
+padding:10px 15px;
+background:#2563eb;
+color:white;
+border:none;
+cursor:pointer
+
+}
+
+</style>
+
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+<script>
+
+if(!sessionStorage.getItem("translatorKey")){
+
+window.location="/translation/translator-login.html"
+
+}
+
+</script>
+
+<h1>Available Translation Jobs</h1>
+
+<div id="jobs"></div>
+
+<script>
+
+const key=sessionStorage.getItem("translatorKey")
+
+async function loadJobs(){
+
+const res=await fetch("/api/jobs")
+
+const jobs=await res.json()
+
+const container=document.getElementById("jobs")
+
+container.innerHTML=""
+
+jobs.forEach(job=>{
+
+const div=document.createElement("div")
+
+div.className="job"
+
+div.innerHTML=`
+
+<p><b>Source:</b> ${job.sourceLanguage}</p>
+<p><b>Target:</b> ${job.targetLanguage}</p>
+<p><b>Words:</b> ${job.wordCount}</p>
+<p><b>Price:</b> $${job.price}</p>
+
+<button onclick="claim('${job.id}')">
+Claim Job
+</button>
+
+`
+
+container.appendChild(div)
+
+})
+
+}
+
+async function claim(id){
+
+await fetch("/api/claimJob",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/json"},
+
+body:JSON.stringify({
+
+jobId:id,
+passkey:key
+
+})
+
+})
+
+alert("Job claimed")
+
+loadJobs()
+
+}
+
+loadJobs()
+
+</script>
+
+</body>
+
+</html>
+
+
+

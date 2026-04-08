@@ -1,4 +1,4 @@
-﻿# ASSISTANT FILE LEDGER (LOCKED)
+# ASSISTANT FILE LEDGER (LOCKED)
 This ledger tracks every assistant-created/updated file so we can always reference the current state.
 
 ## 2026-02-22
@@ -37,4 +37,3 @@ This ledger tracks every assistant-created/updated file so we can always referen
 - public/translation/payment.html (premium teal glass, no popups, amount always renders)
 - public/translation/payment.css
 - public/translation/payment.js
-
