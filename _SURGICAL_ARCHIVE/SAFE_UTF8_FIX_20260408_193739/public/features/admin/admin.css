@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background: #f7faf9;
+  color: #234a45;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.admin-wrapper {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #6a9b93;
+}
+
+.admin-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.admin-card {
+  background: #cfeee6;
+  padding: 26px;
+  border-radius: 26px;
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+  color: #215b55;
+  transition: transform 0.15s ease;
+}
+
+.admin-card:active {
+  transform: scale(0.96);
+}

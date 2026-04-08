@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Placement Test</title>
+  <link rel="stylesheet" href="placement.css" />
+</head>
+<body>
+
+<main id="app">
+  <h2 id="questionPrompt"></h2>
+  <div id="mediaArea"></div>
+  <div id="options"></div>
+</main>
+
+<div id="intervention" class="hidden">
+
+  <!-- INTERVENTION TEACHER (NEW IMAGE ONLY HERE) -->
+  <div class="teacher-box">
+    <div class="teacher-circle">
+      <img src="/assets/images/teacher-intervention.png" />
+    </div>
+  </div>
+
+  <audio
+    id="interventionAudio"
+    src="/assets/sounds/placement/intervention.mp3"
+    preload="auto">
+  </audio>
+
+  <div class="intervention-actions">
+    <button id="continueBtn" class="glass-btn back">Back to test</button>
+    <button id="revealBtn" class="glass-btn reveal">Reveal level</button>
+  </div>
+</div>
+
+<script src="./placement.js"></script>
+</body>
+</html>/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+  box-sizing: border-box;
+  font-family: "Nunito", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f6f73, #0a4f57);
+  color: #ffffff;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   MAIN PLACEMENT PAGE
+===================================================== */
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 80px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: auto;
+}
+
+#questionPrompt {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+#mediaArea {
+  margin-bottom: 28px;
+}
+
+#mediaArea img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+#options {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.option {
+  padding: 18px;
+  border-radius: 999px;
+  border: none;
+  font-size: 17px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.option:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   INTERVENTION OVERLAY (NEW BACKGROUND)
+===================================================== */
+
+#intervention {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #0b2a33, #061a22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 2.8s ease;
+  z-index: 999;
+}
+
+#intervention.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =====================================================
+   TEACHER — CLEAN CIRCLE + VERTICAL BOUNCE
+===================================================== */
+
+.teacher-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Circle container */
+.teacher-circle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fill the circle */
+.teacher-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Soft glow ring */
+.teacher-circle::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(110, 210, 255, 0.45), transparent 70%);
+  z-index: 1;
+}
+
+/* VERY SLOW UP–DOWN MOTION */
+@keyframes gentleFloat {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* JS will toggle this */
+.slow-bounce {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+/* =====================================================
+   BUTTONS — 3D GLASS + STAGGERED ENTRY + SHIMMER
+===================================================== */
+
+.intervention-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* BASE GLASS BUTTON */
+.glass-btn {
+  min-width: 200px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  border: none;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.32),
+    rgba(255, 255, 255, 0.08)
+  );
+
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,0.6),
+    inset 0 -2px 2px rgba(0,0,0,0.1),
+    0 12px 28px rgba(0,0,0,0.22);
+
+  transition: all 0.35s cubic-bezier(.22,.61,.36,1);
+}
+
+.glass-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,0.7),
+    0 16px 34px rgba(0,0,0,0.28);
+}
+
+.glass-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Button colors */
+.glass-btn.back {
+  color: #e8f4ff;
+}
+
+.glass-btn.reveal {
+  color: #ecfffb;
+}
+
+/* Staggered slide-in animations */
+.intervention-actions button {
+  opacity: 0;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.22,.61,.36,1);
+}
+
+/* Slide from left */
+.slide-in-left {
+  animation-name: slideLeft;
+}
+
+/* Slide from right */
+.slide-in-right {
+  animation-name: slideRight;
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Soft shimmer when buttons appear */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 1.2s ease-out forwards;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}

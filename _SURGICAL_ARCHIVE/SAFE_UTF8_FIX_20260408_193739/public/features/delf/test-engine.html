@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SayBon DELF Test Engine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bgA:#f5f8fc;
+  --bgB:#edf3fa;
+  --card:#ffffff;
+  --line:#e3ebf5;
+  --lineSoft:#edf3fa;
+  --text:#1f2f44;
+  --muted:#7b8798;
+  --mutedSoft:#97a4b5;
+  --primary:#4f8cff;
+  --primarySoft:#f2f7ff;
+  --shadow:0 18px 50px rgba(25,45,80,.08);
+  --shadowSoft:0 8px 22px rgba(25,45,80,.05);
+  --radius:26px;
+  --radiusSoft:20px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Poppins,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.92), transparent 28%),
+    linear-gradient(180deg,var(--bgA),var(--bgB));
+}
+
+body{
+  padding:28px 14px 42px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.shell{
+  max-width:960px;
+  margin:0 auto;
+}
+
+.card{
+  background:rgba(255,255,255,.88);
+  border:1px solid rgba(255,255,255,.55);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:34px 34px 28px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+
+.brand{
+  max-width:720px;
+}
+
+.brand h1{
+  margin:0 0 10px;
+  font-size:clamp(28px,3.4vw,46px);
+  line-height:1.02;
+  font-weight:700;
+  letter-spacing:-.04em;
+  color:#17283f;
+}
+
+.brand p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  font-weight:400;
+  line-height:1.65;
+}
+
+.candidate{
+  margin-top:18px;
+  font-size:14px;
+  font-weight:600;
+  color:#466fd3;
+  letter-spacing:-.01em;
+}
+
+.progressMeta{
+  text-align:right;
+  min-width:120px;
+  padding-top:4px;
+}
+
+.progressMeta .small{
+  font-size:12px;
+  color:var(--mutedSoft);
+  margin-bottom:6px;
+  font-weight:500;
+  letter-spacing:.02em;
+}
+
+.progressMeta .big{
+  font-size:28px;
+  line-height:1;
+  font-weight:700;
+  color:#17283f;
+  letter-spacing:-.04em;
+}
+
+.progressWrap{
+  margin-bottom:28px;
+}
+
+.progressTrack{
+  width:100%;
+  height:10px;
+  background:#eaf1f8;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progressFill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#4f8cff,#7aaeff);
+  transition:width .25s ease;
+  border-radius:999px;
+}
+
+.stage{
+  min-height:360px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 14px;
+  border-radius:999px;
+  background:#f1f6ff;
+  color:#5a82df;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+  border:1px solid #e2ecfb;
+}
+
+.questionText{
+  margin:0 0 24px;
+  font-size:clamp(22px,2.8vw,34px);
+  line-height:1.18;
+  font-weight:650;
+  letter-spacing:-.03em;
+  color:#182a42;
+  max-width:860px;
+}
+
+.passageBox,
+.answerBox,
+.resultBox,
+.errorBox{
+  background:#fbfdff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:var(--shadowSoft);
+}
+
+.passageBox{
+  white-space:pre-line;
+  font-size:16px;
+  line-height:1.85;
+  color:#33465d;
+}
+
+.answerGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.option{
+  position:relative;
+}
+
+.option input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.optionCard{
+  width:100%;
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 18px;
+  border-radius:20px;
+  border:1.6px solid #dfe7f2;
+  background:rgba(255,255,255,.94);
+  cursor:pointer;
+  transition:.16s ease;
+  font-size:16px;
+  font-weight:500;
+  color:#2b3d55;
+  text-align:left;
+  box-shadow:0 2px 10px rgba(40,70,120,.03);
+}
+
+.optionCard:hover{
+  border-color:#c7d8f4;
+  box-shadow:0 12px 26px rgba(79,140,255,.08);
+  transform:translateY(-1px);
+}
+
+.option input:checked + .optionCard{
+  border-color:#8db7ff;
+  background:#f5f9ff;
+  box-shadow:0 14px 28px rgba(79,140,255,.10);
+}
+
+.badge{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#f0f5ff;
+  color:#5a82df;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:13px;
+  font-weight:600;
+}
+
+textarea{
+  width:100%;
+  min-height:190px;
+  resize:vertical;
+  border:1.6px solid #dfe7f2;
+  border-radius:22px;
+  padding:20px;
+  background:#ffffff;
+  font:inherit;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--text);
+  outline:none;
+  box-shadow:0 2px 10px rgba(40,70,120,.03);
+}
+
+textarea:focus{
+  border-color:#9abdf8;
+  box-shadow:0 0 0 4px rgba(79,140,255,.08);
+}
+
+.helper{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--mutedSoft);
+  line-height:1.6;
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-top:26px;
+}
+
+.navCenter{
+  text-align:center;
+  color:var(--mutedSoft);
+  font-size:13px;
+  font-weight:400;
+  line-height:1.6;
+}
+
+.btn{
+  appearance:none;
+  border:none;
+  border-radius:16px;
+  padding:14px 18px;
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+  transition:.16s ease;
+  min-width:108px;
+}
+
+.btnPrimary{
+  background:linear-gradient(180deg,#78b0ff,#4f8cff);
+  color:#fff;
+  box-shadow:0 12px 22px rgba(79,140,255,.20);
+}
+
+.btnPrimary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 28px rgba(79,140,255,.24);
+}
+
+.btnMuted{
+  background:#f2f6fb;
+  color:#47607d;
+  border:1px solid #e4ebf4;
+}
+
+.btnMuted:hover{
+  background:#edf3fa;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media (max-width:760px){
+  body{
+    padding:16px 10px 28px;
+  }
+
+  .card{
+    padding:22px 18px 20px;
+    border-radius:22px;
+  }
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:14px;
+  }
+
+  .progressMeta{
+    text-align:left;
+    padding-top:0;
+  }
+
+  .brand h1{
+    font-size:clamp(26px,9vw,40px);
+  }
+
+  .brand p{
+    font-size:14px;
+  }
+
+  .candidate{
+    margin-top:14px;
+  }
+
+  .questionText{
+    font-size:clamp(22px,7vw,30px);
+    line-height:1.18;
+  }
+
+  .answerGrid{
+    grid-template-columns:1fr;
+  }
+
+  .optionCard{
+    min-height:68px;
+    padding:16px;
+    font-size:15px;
+  }
+
+  textarea{
+    min-height:170px;
+    padding:18px;
+    font-size:15px;
+  }
+
+  .nav{
+    flex-direction:column-reverse;
+    align-items:stretch;
+  }
+
+  .nav button{
+    width:100%;
+  }
+
+  .navCenter{
+    font-size:13px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="card">
+    <div class="topbar">
+      <div class="brand">
+        <h1 id="title">Loading test...</h1>
+        <p>One question at a time. Stay calm and work through each step.</p>
+        <div class="candidate" id="candidateCodeLine">Candidate ID: ...</div>
+      </div>
+
+      <div class="progressMeta">
+        <div class="small">Progress</div>
+        <div class="big" id="progressLabel">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="progressWrap">
+      <div class="progressTrack">
+        <div class="progressFill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="stage" id="stage"></div>
+
+    <div class="nav" id="nav">
+      <button class="btn btnMuted" id="backBtn" type="button">Back</button>
+      <div class="navCenter" id="centerNote">Loading test...</div>
+      <button class="btn btnPrimary" id="nextBtn" type="button">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="/features/delf/test-engine.js?v=ui-cleanup-3"></script>
+</body>
+</html>
