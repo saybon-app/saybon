@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #0f3f4b, #061c22);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.reveal-container {
+  text-align: center;
+}
+
+.level-text {
+  font-size: 64px;
+  font-weight: 800;
+  color: #6fe7ff;
+  opacity: 0;
+  transform: translateX(120px);
+  animation: slideIn 1.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.reveal-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reveal-buttons.show {
+  animation: buttonsIn 1.2s ease forwards;
+  pointer-events: auto;
+}
+
+@keyframes buttonsIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn {
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #2af598, #08aeea);
+  color: #001a1f;
+}
+
+.btn.secondary {
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+}

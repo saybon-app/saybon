@@ -1,0 +1,28 @@
+.games-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.game-tile {
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+/* CONSOLE-STYLE LOOK */
+.console {
+  background: linear-gradient(135deg, #1b2838, #0f172a);
+  color: #6fe7ff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  border: 2px solid rgba(111, 231, 255, 0.4);
+}
+
+.console:hover {
+  transform: translateY(-3px);
+}

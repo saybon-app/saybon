@@ -1,0 +1,251 @@
+/* ==========================================================
+   🌍 SAYBON — GLOBAL CSS (LOCKED STYLE FOUNDATION)
+   Fun • Premium • Playful • Accessible • Mobile-First
+   “Duolingo-but-better” vibe
+========================================================== */
+
+/* ==============================
+   RESET + BASE
+============================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f4f8fb; /* neutral base for non-homepage pages */
+  color: #0b1f2a;
+  line-height: 1.5;
+}
+
+/* ==============================
+   TYPOGRAPHY
+============================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+p {
+  margin: 0;
+}
+
+/* Playful but clean title style */
+.title-fun {
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
+/* ==============================
+   COLORS (GLOBAL TOKENS)
+============================== */
+
+:root {
+  --color-teal: #0fa3b1;
+  --color-deep-teal: #0b7f8a;
+  --color-aqua: #6fe7ff;
+  --color-midnight: #061c22;
+  --color-soft-bg: #f4f8fb;
+  --color-white: #ffffff;
+
+  /* Gradients */
+  --grad-fresh: linear-gradient(135deg, #2af598, #08aeea);
+  --grad-ocean: linear-gradient(180deg, #0f6f73, #0a4f57);
+  --grad-sky: linear-gradient(180deg, #e6f0ff, #cfe6ff);
+}
+
+/* ==============================
+   CONTAINERS & LAYOUT
+============================== */
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Center utility */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Column utility */
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==============================
+   CARDS (GLOBAL)
+============================== */
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+/* Premium glass card */
+.card-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 22px;
+}
+
+/* ==============================
+   BUTTON SYSTEM
+============================== */
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Primary button */
+.btn-primary {
+  background: var(--grad-fresh);
+  color: #001a1f;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(12px);
+}
+
+/* Hover effect */
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ==============================
+   DASHBOARD BUTTONS (GLOBAL TILE STYLE)
+============================== */
+
+.tile {
+  background: linear-gradient(135deg, #0fa3b1, #0b7f8a);
+  color: white;
+  border-radius: 18px;
+  padding: 18px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Game-style tile variant */
+.tile-console {
+  background: radial-gradient(circle at top, #1ed9ff, #0b7f8a);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ==============================
+   GLOBAL LOADER STYLE
+============================== */
+
+.global-loader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #0b2e3b, #061a22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ==============================
+   ANIMATIONS
+============================== */
+
+/* Smooth fade */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slide up */
+.slide-up {
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==============================
+   MOBILE RESPONSIVENESS
+============================== */
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 14px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .tile {
+    font-size: 14px;
+    padding: 14px;
+  }
+}
+
+/* ==============================
+   SAFE AREA FOR iPHONE
+============================== */
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}

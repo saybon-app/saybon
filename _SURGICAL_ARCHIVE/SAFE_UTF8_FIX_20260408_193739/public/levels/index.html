@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Levels — SayBon</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/levels/levels.css" />
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Choose Your Level</h1>
+    <p>Select a level to enter its lesson hub.</p>
+  </header>
+
+  <main class="levels-grid">
+
+    <button class="level-tile" onclick="goLevel('A0')">A0 — Absolute Beginner</button>
+    <button class="level-tile" onclick="goLevel('A1')">A1 — Beginner</button>
+    <button class="level-tile" onclick="goLevel('A2')">A2 — Elementary</button>
+    <button class="level-tile" onclick="goLevel('B1')">B1 — Intermediate</button>
+    <button class="level-tile" onclick="goLevel('B2')">B2 — Upper Intermediate</button>
+    <button class="level-tile" onclick="goLevel('C1')">C1 — Advanced</button>
+
+  </main>
+
+  <button class="back-btn" onclick="window.location.href='/dashboard/'">
+    ← Back to Dashboard
+  </button>
+
+  <script src="/levels/levels.js"></script>
+</body>
+</html>
