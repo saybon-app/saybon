@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translation Queue</title>
+  <link rel="stylesheet" href="/css/page-transition.css" />
+  <script type="module" src="/js/nav-engine.js"></script>
+</head>
+<body>
+<div style="max-width:1000px;margin:60px auto;padding:32px;">
+  <h1>Translation Queue</h1>
+  <div id="queueList"></div>
+</div>
+<script src="/js/queue.js"></script>
+</body>
+</html>
