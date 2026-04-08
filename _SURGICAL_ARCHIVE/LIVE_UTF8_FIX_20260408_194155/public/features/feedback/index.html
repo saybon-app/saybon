@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback — SayBon</title>
+
+  <link rel="stylesheet" href="feedback.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+  <div class="feedback-wrapper">
+
+    <h1>We’d love your feedback</h1>
+
+    <p class="subtitle">
+      Your voice helps us improve SayBon — for you and for every learner.
+    </p>
+
+    <form id="feedbackForm">
+
+      <label>Your name</label>
+      <input type="text" name="name" placeholder="Your name" required />
+
+      <label>Email address</label>
+      <input type="email" name="email" placeholder="you@example.com" required />
+
+      <label>Type of feedback</label>
+      <select name="type" required>
+        <option value="">Select one</option>
+        <option>Bug or issue</option>
+        <option>Suggestion or idea</option>
+        <option>Something I loved</option>
+        <option>Content or lesson feedback</option>
+        <option>Other</option>
+      </select>
+
+      <label>Your message</label>
+      <textarea
+        name="message"
+        placeholder="Tell us what’s on your mind..."
+        required></textarea>
+
+      <button type="submit" class="submit-btn">
+        Send feedback
+      </button>
+
+    </form>
+
+    <!-- BACK BUTTON -->
+    <div class="footer">
+      <button class="back-btn" onclick="goDashboard()">
+        Back to dashboard
+      </button>
+    </div>
+
+  </div>
+
+  <script src="feedback.js"></script>
+</body>
+</html>
