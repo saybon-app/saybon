@@ -1,0 +1,12 @@
+﻿SAYBON UTF-8 FIX
+Timestamp: 20260408_193506
+
+All safe text/code files were rewritten as UTF-8 (NO BOM).
+
+What was done:
+- Re-encoded project text/code files as UTF-8
+- Removed common broken replacement characters
+- Added <meta charset="UTF-8"> where missing in HTML
+- Preserved app structure and logic
+
+Files processed: 0
