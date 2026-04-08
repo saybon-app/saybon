@@ -1,0 +1,155 @@
+{
+  "title": "DELF Prim Placement",
+  "version": "locked-real-placement-v2",
+  "levelBands": {
+    "0-2": "Pre-A1",
+    "3-4": "A1.1",
+    "5-6": "A1",
+    "7-8": "A1+",
+    "9-10": "A2 readiness"
+  },
+  "questions": [
+    {
+      "id": "prim-q1",
+      "type": "reading",
+      "competency": "reading",
+      "difficulty": "pre-a1",
+      "question": "You see this on a classroom door: \"Bibliothèque\". What room is it?",
+      "options": [
+        "The dining hall",
+        "The library",
+        "The playground",
+        "The bathroom"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "prim-q2",
+      "type": "listening",
+      "competency": "listening",
+      "difficulty": "a1",
+      "audio": "/assets/sounds/prim-placement-q2.mp3",
+      "transcript": "Bonjour Lucas, tu veux jouer au football après l'école ?",
+      "question": "What does Lucas want to do?",
+      "options": [
+        "Go home",
+        "Play football",
+        "Eat dinner",
+        "Go to bed"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "prim-q3",
+      "type": "writing",
+      "competency": "writing",
+      "difficulty": "pre-a1",
+      "question": "Write your first name and your age in one short French sentence.",
+      "placeholder": "Type your answer here..."
+    },
+    {
+      "id": "prim-q4",
+      "type": "reading",
+      "competency": "reading",
+      "difficulty": "a1",
+      "passage": "Salut ! Je m'appelle Emma. J'ai 9 ans. J'habite à Kumasi et j'aime le dessin.",
+      "question": "Which statement is correct?",
+      "options": [
+        "Emma is 12 years old",
+        "Emma lives in Accra",
+        "Emma likes drawing",
+        "Emma is a teacher"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "prim-q5",
+      "type": "speaking",
+      "competency": "speaking",
+      "difficulty": "pre-a1",
+      "question": "Introduce yourself in French. Say your name and age."
+    },
+    {
+      "id": "prim-q6",
+      "type": "listening",
+      "competency": "listening",
+      "difficulty": "a1",
+      "audio": "/assets/sounds/prim-placement-q6.mp3",
+      "transcript": "Après l'école, je vais au parc avec mon frère.",
+      "question": "Where does the speaker go after school?",
+      "options": [
+        "To the park",
+        "To the market",
+        "To school",
+        "To the hospital"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "prim-q7",
+      "type": "writing",
+      "competency": "writing",
+      "difficulty": "a1",
+      "question": "Write 2 short French sentences about what you like (food, sport, colour, or animal).",
+      "placeholder": "Type your answer here..."
+    },
+    {
+      "id": "prim-q8",
+      "type": "reading",
+      "competency": "reading",
+      "difficulty": "a1+",
+      "passage": "Bonjour Madame,\nJe suis malade aujourd'hui. Je ne peux pas venir à l'école.\nÀ demain,\nNina",
+      "question": "Why is Nina writing this message?",
+      "options": [
+        "She wants to invite her teacher",
+        "She cannot come to school",
+        "She is asking for homework help",
+        "She is going on holiday"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "prim-q9",
+      "type": "listening",
+      "competency": "listening",
+      "difficulty": "a1+",
+      "audio": "/assets/sounds/prim-placement-q9.mp3",
+      "transcript": "J’aime beaucoup jouer au football avec mes amis le samedi.",
+      "question": "What does the speaker like to do on Saturday?",
+      "options": [
+        "Watch television alone",
+        "Play football with friends",
+        "Go to school early",
+        "Read books in the library"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "prim-q10",
+      "type": "speaking",
+      "competency": "speaking",
+      "difficulty": "a1+",
+      "question": "Speak in French for a few seconds about what you like to do after school."
+    }
+  ],
+  "audioScripts": [
+    {
+      "questionId": "prim-q2",
+      "fileName": "prim-placement-q2.mp3",
+      "storeAt": "public/assets/sounds/prim-placement-q2.mp3",
+      "script": "Bonjour Lucas, tu veux jouer au football après l'école ?"
+    },
+    {
+      "questionId": "prim-q6",
+      "fileName": "prim-placement-q6.mp3",
+      "storeAt": "public/assets/sounds/prim-placement-q6.mp3",
+      "script": "Après l'école, je vais au parc avec mon frère."
+    },
+    {
+      "questionId": "prim-q9",
+      "fileName": "prim-placement-q9.mp3",
+      "storeAt": "public/assets/sounds/prim-placement-q9.mp3",
+      "script": "J’aime beaucoup jouer au football avec mes amis le samedi."
+    }
+  ]
+}

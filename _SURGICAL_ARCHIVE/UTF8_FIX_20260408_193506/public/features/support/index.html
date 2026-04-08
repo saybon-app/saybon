@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support SayBon</title>
+
+  <link rel="stylesheet" href="support.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+  <div class="support-wrapper">
+
+    <!-- HEADER -->
+    <div class="support-header">
+      <h1>Support SayBon</h1>
+      <p>
+        Help strengthen a Ghanaian-built language platform creating confident French learners worldwide.
+      </p>
+    </div>
+
+    <!-- SUPPORT OPTIONS -->
+    <div class="support-cards">
+
+      <!-- DONATE -->
+      <div class="support-card donate">
+        <h3>Donate</h3>
+        <p>
+          Your generosity helps improve quality, expand learning tools,
+          and grow the SayBon experience.
+        </p>
+        <button onclick="window.location.href='donate.html'">
+          Continue
+        </button>
+      </div>
+
+      <!-- INVEST (LOCKED) -->
+      <div class="support-card locked">
+        <h3>Invest</h3>
+        <p>
+          Support SayBon’s long-term growth as a scalable education platform.
+        </p>
+        <button disabled>Unavailable</button>
+        <div class="locked-label">Coming soon</div>
+      </div>
+
+      <!-- PARTNER (LOCKED) -->
+      <div class="support-card locked">
+        <h3>Partner</h3>
+        <p>
+          Collaborate with SayBon through institutions, programs, or initiatives.
+        </p>
+        <button disabled>Unavailable</button>
+        <div class="locked-label">Coming soon</div>
+      </div>
+
+    </div>
+
+    <!-- BACK BUTTON (OUTSIDE GRID) -->
+    <div class="support-footer">
+      <button class="back-dashboard-btn" onclick="goDashboard()">
+        Back to dashboard
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    function goDashboard() {
+      window.location.href = "/dashboard/index.html";
+    }
+  </script>
+
+</body>
+</html>

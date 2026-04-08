@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Translation Desk</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Kalam&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Quicksand',sans-serif;
+color:#bcbcbc;
+
+background:
+linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+url("https://images.unsplash.com/photo-1524758631624-e2822e304c36");
+
+background-size:cover;
+background-position:center;
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:60px 20px;
+}
+
+.card{
+background:#000;
+border-radius:16px;
+padding:30px;
+max-width:900px;
+width:100%;
+margin-bottom:22px;
+box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+.title{
+font-size:54px;
+letter-spacing:.35em;
+text-align:center;
+}
+
+.intro{
+font-family:'Kalam',cursive;
+text-align:center;
+font-size:15px;
+line-height:1.3;
+max-width:650px;
+margin:auto;
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:20px;
+margin-top:20px;
+
+}
+
+.cell{
+
+border:1px solid #333;
+padding:20px;
+border-radius:12px;
+background:#111;
+
+}
+
+.label{
+font-size:12px;
+letter-spacing:.1em;
+margin-bottom:8px;
+opacity:.7;
+}
+
+.value{
+font-size:16px;
+}
+
+.progress{
+margin-top:10px;
+height:6px;
+background:#222;
+border-radius:6px;
+overflow:hidden;
+}
+
+.bar{
+width:35%;
+height:100%;
+background:#888;
+}
+
+
+
+.timer{
+
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+
+
+
+width:120px;
+height:120px;
+border-radius:50%;
+border:6px solid #444;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+margin-top:15px;
+
+}
+
+.folder{
+
+position:absolute;
+top:25px;
+right:25px;
+font-size:28px;
+cursor:pointer;
+transition:.2s;
+
+}
+
+.folder:hover{
+transform:scale(1.15);
+}
+
+button{
+
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+
+padding:14px 30px;
+
+background:#2f2f2f;
+border:none;
+border-radius:10px;
+
+color:#ddd;
+font-size:15px;
+cursor:pointer;
+
+}
+
+button:hover{
+background:#444;
+}
+
+</style>
+
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
+</head>
+
+<body>
+
+<div class="folder">??</div>
+
+<div class="card">
+<div class="title">SAYBON TRANSLATION DESK</div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="card">
+
+<div class="grid">
+
+<div class="cell">
+<div class="label">JOB CODE</div>
+<div class="value">SB-YTAY</div>
+
+<div class="label">CLIENT</div>
+<div class="value">adlaideduah@gmail.com</div>
+
+<div class="label">WORD COUNT</div>
+<div class="value">100</div>
+
+<div class="label">TARGET LANGUAGE</div>
+<div class="value">French</div>
+
+<div class="label">PLAN</div>
+<div class="value">Standard</div>
+
+<div class="label">PRICE</div>
+<div class="value">$2.50</div>
+</div>
+
+<div class="cell">
+
+<div class="label">PROGRESS</div>
+
+<div><span style="color:#2ecc71;font-weight:600;">?</span> Payment received</div>
+<div><span style="color:#2ecc71;font-weight:600;">?</span> Translation queued</div>
+<div>� Translation in progress</div>
+<div>� Quality review</div>
+<div>� Delivery</div>
+
+<div class="progress">
+<div class="bar"></div>
+</div>
+
+</div>
+
+<div class="cell">
+
+<div class="timer">02:14</div>
+
+</div>
+
+</div>
+
+</div>
+
+<button onclick="location.href='/dashboard/index.html'">
+Return to Dashboard
+</button>
+
+</body>
+</html>
