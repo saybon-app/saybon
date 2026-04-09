@@ -431,3 +431,56 @@ body {
     gap: 12px;
   }
 }
+
+/* =====================================================
+   SAYBON AUDIO PLAYER VISIBILITY RESTORE
+===================================================== */
+
+#mediaArea {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 90px !important;
+  margin: 18px auto 26px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+
+#mediaArea audio {
+  display: block !important;
+  width: min(100%, 380px) !important;
+  min-width: 280px !important;
+  height: 54px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 20 !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,0.96) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.14) !important;
+}
+
+/* if any hidden utility class touched media */
+#mediaArea.hidden,
+#mediaArea[hidden] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #mediaArea {
+    min-height: 84px !important;
+    margin: 14px auto 22px !important;
+  }
+
+  #mediaArea audio {
+    width: min(100%, 320px) !important;
+    min-width: 240px !important;
+    height: 50px !important;
+  }
+}
