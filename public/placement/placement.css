@@ -565,7 +565,11 @@ body{
 }
 
 
-.skill-badge{
+
+
+.skill-badge,
+[class*="skill-badge"],
+[class~="skill-badge"]{
   display:none !important;
   visibility:hidden !important;
   opacity:0 !important;
@@ -574,4 +578,5 @@ body{
   margin:0 !important;
   padding:0 !important;
   overflow:hidden !important;
+  pointer-events:none !important;
 }
