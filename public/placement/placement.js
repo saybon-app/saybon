@@ -250,7 +250,6 @@ function updateProgress() {
 
   if (levelBadge) {
     const q = questions[currentQuestion];
-    levelBadge.textContent = q ? getSkillLabel(q.skill) : "Completed";
   }
 }
 
@@ -562,5 +561,6 @@ function finishPlacement() {
 ================================================== */
 
 renderQuestion();
+
 
 
