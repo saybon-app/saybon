@@ -610,3 +610,20 @@ body{
   pointer-events:all;
 }
 
+
+/* ==========================================
+   INTERVENTION HARD LOCK
+========================================== */
+
+#intervention.hidden{
+  display:none !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+
+#intervention{
+  display:none;
+  opacity:0;
+  pointer-events:none;
+}
+
