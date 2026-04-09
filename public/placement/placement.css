@@ -1072,3 +1072,30 @@ body.reading-mode .answer-pill,
 }
 
 /* === RECORDING HINT OVERRIDE END === */
+
+
+
+/* === RECORDING HELPER TEXT REAL FIX START === */
+
+.recording-helper-text{
+  width:100% !important;
+  text-align:center !important;
+  font-size:0.80rem !important;
+  font-weight:400 !important;
+  line-height:1.45 !important;
+  letter-spacing:0.01em !important;
+  color:rgba(255,255,255,0.54) !important;
+  margin:8px auto 10px !important;
+  display:block !important;
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .recording-helper-text{
+    font-size:0.74rem !important;
+    line-height:1.42 !important;
+    margin:6px auto 8px !important;
+  }
+}
+
+/* === RECORDING HELPER TEXT REAL FIX END === */

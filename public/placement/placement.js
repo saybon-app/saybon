@@ -368,7 +368,7 @@ function renderSpeakingQuestion(q) {
         <button class="stop-btn" id="stopRecordingBtn" type="button" disabled>Stop Recording</button>
       </div>
 
-      <p class="record-status" id="recordStatus">Tap Start Recording and answer in French.</p>
+      <p class="record-status" id="recordStatus"><div class="recording-helper-text">Tap Start Recording and answer in French.</div></p>
 
       <div id="recordingPreview"></div>
 
@@ -561,6 +561,7 @@ function finishPlacement() {
 ================================================== */
 
 renderQuestion();
+
 
 
 
