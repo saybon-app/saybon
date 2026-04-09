@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SayBon Placement Test</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="placement.css" />
   <link rel="stylesheet" href="/css/page-transition.css">
 
@@ -23,26 +19,48 @@
       <div class="progress-track">
         <div class="progress-bar" id="progressBar"></div>
       </div>
-      <div class="progress-meta">
-        <span id="levelBadge">Placement Test</span>
-        <span id="questionCounter">Question 1 of 15</span>
-      </div>
     </div>
 
     <main class="placement-card" id="app">
+
+      <div class="question-meta">
+        <span id="questionCategory" class="question-category">Understanding</span>
+        <span id="questionCounter" class="question-counter">Question 1 of 15</span>
+      </div>
+
       <div class="question-stage">
-        <p id="skillTag" class="skill-tag hidden"></p>
         <h2 id="questionText"></h2>
+
         <div id="mediaArea" class="media-area"></div>
+
         <div id="answers" class="answers"></div>
       </div>
+
     </main>
 
-    <!-- INTERVENTION -->
-    <section id="intervention" class="intervention hidden">
-      <div class="intervention-card">
-        <h2>Pause here?</h2>
-        <p>You can continue the placement test or reveal your current estimated level now.</p>
+    <!-- PREMIUM INTERVENTION -->
+    <section id="intervention" class="intervention hidden" aria-hidden="true">
+      <div class="intervention-shell">
+
+        <div class="intervention-teacher-wrap">
+          <div class="intervention-teacher-ring"></div>
+          <div class="intervention-teacher-card">
+            <img
+              src="/assets/images/teacher-intervention.png"
+              alt="SayBon Teacher"
+              class="intervention-teacher-img"
+            />
+          </div>
+        </div>
+
+        <div class="intervention-copy">
+          <p class="intervention-kicker">A quick pause</p>
+          <h2>You may have reached your current comfort zone.</h2>
+          <p>
+            We can keep going if you'd like, or we can reveal your current estimated level now
+            and recommend the best place for you to begin.
+          </p>
+        </div>
 
         <audio id="interventionAudio" preload="auto">
           <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
@@ -52,6 +70,7 @@
           <button id="continueBtn" class="pill-btn continue-btn" type="button">Continue Test</button>
           <button id="revealBtn" class="pill-btn reveal-btn" type="button">Reveal My Level</button>
         </div>
+
       </div>
     </section>
 
