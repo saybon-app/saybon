@@ -9,61 +9,61 @@ const questions = [
     id: 1,
     prompt: "Listen and choose.",
     audio: "/assets/sounds/placement/a0_q1_bonjour.mp3",
-    options: ["Bonjour", "Merci", "Bonsoir", "Pardon"],
-    correct: 0,
+    options: ["Merci", "Bonjour", "Pardon", "Bonsoir"],
+    correct: 1,
     level: "A0"
   },
   {
     id: 2,
     prompt: "Which word means morning?",
-    options: ["Le matin", "Le soir", "La nuit", "L’après-midi"],
-    correct: 0,
+    options: ["Le soir", "L’après-midi", "Le matin", "La nuit"],
+    correct: 2,
     level: "A0"
   },
   {
     id: 3,
     prompt: "What does « merci » mean?",
-    options: ["Thank you", "Hello", "Sorry", "Bye"],
-    correct: 0,
+    options: ["Hello", "Bye", "Thank you", "Sorry"],
+    correct: 2,
     level: "A0"
   },
   {
     id: 4,
     prompt: "Listen and choose.",
     audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3",
-    options: ["Au revoir", "Bonjour", "Merci", "Salut"],
-    correct: 0,
+    options: ["Salut", "Merci", "Au revoir", "Bonjour"],
+    correct: 2,
     level: "A0"
   },
   {
     id: 5,
     prompt: "Choose the correct sentence.",
     options: [
-      "Je suis étudiant.",
       "Je être étudiant.",
-      "Je suis être étudiant.",
-      "Je étudiant suis."
+      "Je suis étudiant.",
+      "Je étudiant suis.",
+      "Je suis être étudiant."
     ],
-    correct: 0,
+    correct: 1,
     level: "A1"
   },
   {
     id: 6,
     prompt: "What does « j’ai 10 ans » mean?",
     options: [
-      "I am 10 years old",
-      "I have 10 years",
       "I had 10 years",
+      "I have 10 years",
+      "I am 10 years old",
       "I am ten years"
     ],
-    correct: 0,
+    correct: 2,
     level: "A1"
   },
   {
     id: 7,
     prompt: "Choose the correct article.",
-    options: ["une maison", "un maison", "le maison", "des maison"],
-    correct: 0,
+    options: ["le maison", "une maison", "des maison", "un maison"],
+    correct: 1,
     level: "A1"
   },
   {
@@ -78,38 +78,38 @@ const questions = [
     id: 9,
     prompt: "Choisis la bonne réponse.",
     options: [
-      "Je vais au travail.",
-      "Je va travail.",
       "Je vais travail.",
-      "Je allé travail."
+      "Je allé travail.",
+      "Je vais au travail.",
+      "Je va travail."
     ],
-    correct: 0,
+    correct: 2,
     level: "A2"
   },
   {
     id: 10,
     prompt: "Quel est le passé correct ?",
-    options: ["J’ai mangé", "Je mange", "Je manger", "Je mangé"],
-    correct: 0,
+    options: ["Je mange", "Je manger", "J’ai mangé", "Je mangé"],
+    correct: 2,
     level: "A2"
   },
   {
     id: 11,
     prompt: "Choose the meaning of « souvent ».",
-    options: ["Often", "Never", "Yesterday", "Slowly"],
-    correct: 0,
+    options: ["Yesterday", "Often", "Slowly", "Never"],
+    correct: 1,
     level: "A2"
   },
   {
     id: 12,
     prompt: "Choisis la phrase correcte.",
     options: [
-      "Il y a beaucoup de monde.",
+      "Il beaucoup y a monde.",
       "Il est beaucoup monde.",
       "Il y a monde beaucoup.",
-      "Il beaucoup y a monde."
+      "Il y a beaucoup de monde."
     ],
-    correct: 0,
+    correct: 3,
     level: "A2"
   }
 ];
