@@ -359,16 +359,7 @@ body{
   margin-bottom:8px;
 }
 
-.intervention-hero-img{
-  width:260px;
-  max-width:58vw;
-  height:auto;
-  display:block;
-  margin:0 auto;
-  filter:drop-shadow(0 18px 36px rgba(72,196,255,.18));
-  animation:teacherFloat 3.8s ease-in-out infinite;
-  transform-origin:center;
-}
+
 
 @keyframes teacherFloat{
   0%{ transform:translateY(0px) scale(1); }
@@ -536,10 +527,7 @@ body{
     gap:28px;
   }
 
-  .intervention-hero-img{
-    width:210px;
-    max-width:62vw;
-  }
+  
 
   .intervention-actions{
     gap:18px;
@@ -550,5 +538,41 @@ body{
     max-width:320px;
     min-height:54px;
     font-size:.94rem;
+  }
+}
+
+/* ==========================================
+   INTERVENTION HERO — CIRCULAR FRAME FIX
+========================================== */
+
+.intervention-hero{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+}
+
+.intervention-hero-img{
+  width:270px !important;
+  height:270px !important;
+  object-fit:cover !important;
+  display:block;
+  margin:0 auto;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  background:radial-gradient(circle at center, rgba(68,176,255,.22) 0%, rgba(68,176,255,.08) 58%, rgba(68,176,255,0) 78%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 18px 42px rgba(31,127,255,.18);
+  filter:drop-shadow(0 14px 28px rgba(72,196,255,.14));
+  animation:teacherFloat 3.8s ease-in-out infinite;
+  transform-origin:center;
+}
+
+@media (max-width:768px){
+  .intervention-hero-img{
+    width:220px !important;
+    height:220px !important;
   }
 }
