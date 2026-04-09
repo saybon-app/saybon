@@ -11,6 +11,7 @@ const questions = [
   {
     id: 1,
     type: "mcq",
+    skill: "listening",
     prompt: "Listen and choose the best response.",
     audio: "/assets/sounds/placement/a0_q1_bonjour.mp3",
     options: ["Merci", "Bonjour", "Pardon", "Bonsoir"],
@@ -20,6 +21,7 @@ const questions = [
   {
     id: 2,
     type: "mcq",
+    skill: "response",
     prompt: "Someone says « Merci ». Choose the best response.",
     options: ["Bonsoir", "Salut", "De rien", "Bonjour"],
     correct: 2,
@@ -28,6 +30,7 @@ const questions = [
   {
     id: 3,
     type: "mcq",
+    skill: "response",
     prompt: "What do you say to greet someone in the morning?",
     options: ["Bonsoir", "Bonjour", "Pardon", "Merci"],
     correct: 1,
@@ -40,6 +43,7 @@ const questions = [
   {
     id: 4,
     type: "mcq",
+    skill: "listening",
     prompt: "Listen and choose the best response.",
     audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3",
     options: ["Au revoir", "Merci", "Bonjour", "Salut"],
@@ -49,11 +53,12 @@ const questions = [
   {
     id: 5,
     type: "mcq",
+    skill: "reading",
     prompt: "Read and answer the question.",
     text: "Je m’appelle Paul. J’habite à Accra.",
     readingQuestion: "Where does Paul live?",
     options: [
-      "He lives in Paris.",
+      "He lives in Kumasi.",
       "He lives in Accra.",
       "He is 10 years old.",
       "He is a teacher."
@@ -64,9 +69,10 @@ const questions = [
   {
     id: 6,
     type: "speaking",
+    skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Comment tu t’appelles ?",
-    expectedHint: "Example: Je m’appelle…",
+    expectedHint: "Record your answer in French.",
     level: "A1"
   },
 
@@ -76,6 +82,7 @@ const questions = [
   {
     id: 7,
     type: "mcq",
+    skill: "response",
     prompt: "Choose the best response to this question: « Qu’est-ce que tu fais le samedi ? »",
     options: [
       "Je joue au football le samedi.",
@@ -89,21 +96,23 @@ const questions = [
   {
     id: 8,
     type: "mcq",
+    skill: "reading",
     prompt: "Read and answer the question.",
     text: "Le dimanche, je me repose et je regarde la télévision.",
-    readingQuestion: "What does this person usually do on Sunday?",
+    readingQuestion: "Which statement is true about this person?",
     options: [
-      "They work on Sunday.",
-      "They play football on Sunday.",
-      "They rest and watch television.",
-      "They go to the market on Sunday."
+      "They work every Sunday morning.",
+      "They usually relax and watch television on Sunday.",
+      "They go to the market every Sunday.",
+      "They play football with friends on Sunday."
     ],
-    correct: 2,
+    correct: 1,
     level: "A2"
   },
   {
     id: 9,
     type: "writing",
+    skill: "writing",
     prompt: "Write 1 or 2 simple sentences in French.",
     writingPrompt: "Describe your usual Sunday in French.",
     expectedHint: "Example: Le dimanche, je vais à l’église puis je me repose.",
@@ -116,6 +125,7 @@ const questions = [
   {
     id: 10,
     type: "mcq",
+    skill: "reading",
     prompt: "Read and answer the question.",
     text: "Je suis arrivé en retard parce que le bus est parti avant mon arrivée.",
     readingQuestion: "Why was the person late?",
@@ -131,6 +141,7 @@ const questions = [
   {
     id: 11,
     type: "mcq",
+    skill: "response",
     prompt: "Choose the best response: « Pourquoi apprends-tu le français ? »",
     options: [
       "Parce que j’aime voyager et communiquer avec plus de personnes.",
@@ -144,9 +155,10 @@ const questions = [
   {
     id: 12,
     type: "speaking",
+    skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Pourquoi est-ce important d’apprendre une langue ?",
-    expectedHint: "Give a short spoken opinion in French.",
+    expectedHint: "Record a short spoken answer in French.",
     level: "B1"
   },
 
@@ -156,6 +168,7 @@ const questions = [
   {
     id: 13,
     type: "mcq",
+    skill: "reading",
     prompt: "Read and answer the question.",
     text: "De plus en plus de jeunes préfèrent apprendre en ligne, car cela leur permet d’étudier à leur rythme et d’avoir accès à davantage de ressources.",
     readingQuestion: "Why do many young people prefer learning online?",
@@ -171,6 +184,7 @@ const questions = [
   {
     id: 14,
     type: "writing",
+    skill: "writing",
     prompt: "Write a short response in French.",
     writingPrompt: "Do you think online learning is better than classroom learning? Give your opinion in 2–4 sentences.",
     expectedHint: "Explain your opinion clearly in French.",
@@ -179,9 +193,10 @@ const questions = [
   {
     id: 15,
     type: "speaking",
+    skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Selon toi, quels sont les avantages et les inconvénients des réseaux sociaux ?",
-    expectedHint: "Give a short spoken opinion with examples if possible.",
+    expectedHint: "Record a short spoken opinion in French.",
     level: "B2"
   }
 ];
@@ -196,6 +211,11 @@ let wrongAnswers = 0;
 let interventionShown = false;
 let spokenAnswers = [];
 let writtenAnswers = [];
+let objectiveResults = [];
+
+let mediaRecorder = null;
+let audioChunks = [];
+let currentAudioBlob = null;
 
 /* ==================================================
    DOM
@@ -206,6 +226,9 @@ const questionText = document.getElementById("questionText");
 const mediaArea = document.getElementById("mediaArea");
 const answers = document.getElementById("answers");
 const progressBar = document.getElementById("progressBar");
+const levelBadge = document.getElementById("levelBadge");
+const questionCounter = document.getElementById("questionCounter");
+const skillTag = document.getElementById("skillTag");
 
 const intervention = document.getElementById("intervention");
 const interventionAudio = document.getElementById("interventionAudio");
@@ -217,8 +240,18 @@ const revealBtn = document.getElementById("revealBtn");
 ================================================== */
 
 function updateProgress() {
-  const progress = ((currentQuestion) / questions.length) * 100;
-  progressBar.style.width = `${progress}%`;
+  const progress = (currentQuestion / questions.length) * 100;
+  if (progressBar) progressBar.style.width = `${progress}%`;
+
+  if (questionCounter) {
+    const displayNum = Math.min(currentQuestion + 1, questions.length);
+    questionCounter.textContent = `Question ${displayNum} of ${questions.length}`;
+  }
+
+  if (levelBadge) {
+    const q = questions[currentQuestion];
+    levelBadge.textContent = q ? `${q.level} Placement` : "Placement Complete";
+  }
 }
 
 function clearUI() {
@@ -229,9 +262,27 @@ function clearUI() {
 function makePillButton(text, onClick) {
   const btn = document.createElement("button");
   btn.className = "answer-pill";
+  btn.type = "button";
   btn.textContent = text;
   btn.onclick = onClick;
   return btn;
+}
+
+function getSkillLabel(skill) {
+  if (!skill) return "";
+  const map = {
+    listening: "Listening",
+    reading: "Reading",
+    response: "Understanding",
+    speaking: "Speaking",
+    writing: "Writing"
+  };
+  return map[skill] || skill;
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  renderQuestion();
 }
 
 /* ==================================================
@@ -250,6 +301,11 @@ function renderQuestion() {
   clearUI();
 
   questionText.textContent = q.prompt;
+
+  if (skillTag) {
+    skillTag.textContent = getSkillLabel(q.skill);
+    skillTag.classList.remove("hidden");
+  }
 
   if (q.audio) {
     const audioWrap = document.createElement("div");
@@ -289,50 +345,125 @@ function renderQuestion() {
   }
 
   if (q.type === "speaking") {
-    const card = document.createElement("div");
-    card.className = "response-card";
-    card.innerHTML = `
-      <p class="response-prompt">${q.speakingPrompt}</p>
-      <textarea id="spokenResponse" class="response-box" placeholder="${q.expectedHint || "Respond here..."}"></textarea>
-      <button class="answer-pill submit-pill" id="submitSpeaking">Submit Answer</button>
-    `;
-    answers.appendChild(card);
-
-    document.getElementById("submitSpeaking").onclick = () => {
-      const val = document.getElementById("spokenResponse").value.trim();
-      spokenAnswers.push({
-        id: q.id,
-        level: q.level,
-        prompt: q.speakingPrompt,
-        answer: val
-      });
-      currentQuestion++;
-      renderQuestion();
-    };
+    renderSpeakingQuestion(q);
   }
 
   if (q.type === "writing") {
-    const card = document.createElement("div");
-    card.className = "response-card";
-    card.innerHTML = `
-      <p class="response-prompt">${q.writingPrompt}</p>
-      <textarea id="writtenResponse" class="response-box" placeholder="${q.expectedHint || "Write here..."}"></textarea>
-      <button class="answer-pill submit-pill" id="submitWriting">Submit Answer</button>
-    `;
-    answers.appendChild(card);
-
-    document.getElementById("submitWriting").onclick = () => {
-      const val = document.getElementById("writtenResponse").value.trim();
-      writtenAnswers.push({
-        id: q.id,
-        level: q.level,
-        prompt: q.writingPrompt,
-        answer: val
-      });
-      currentQuestion++;
-      renderQuestion();
-    };
+    renderWritingQuestion(q);
   }
+}
+
+/* ==================================================
+   SPEAKING
+================================================== */
+
+function renderSpeakingQuestion(q) {
+  const card = document.createElement("div");
+  card.className = "response-card";
+  card.innerHTML = `
+    <div class="record-panel">
+      <p class="response-prompt">${q.speakingPrompt}</p>
+
+      <div class="record-actions">
+        <button class="record-btn" id="startRecordingBtn" type="button">🎤 Start Recording</button>
+        <button class="stop-btn" id="stopRecordingBtn" type="button" disabled>Stop Recording</button>
+      </div>
+
+      <p class="record-status" id="recordStatus">Tap Start Recording and answer in French.</p>
+
+      <div id="recordingPreview"></div>
+
+      <button class="answer-pill submit-pill" id="submitSpeaking" type="button" disabled>Submit Answer</button>
+    </div>
+  `;
+  answers.appendChild(card);
+
+  const startBtn = document.getElementById("startRecordingBtn");
+  const stopBtn = document.getElementById("stopRecordingBtn");
+  const submitBtn = document.getElementById("submitSpeaking");
+  const recordStatus = document.getElementById("recordStatus");
+  const recordingPreview = document.getElementById("recordingPreview");
+
+  currentAudioBlob = null;
+
+  startBtn.onclick = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        currentAudioBlob = new Blob(audioChunks, { type: "audio/webm" });
+        const audioURL = URL.createObjectURL(currentAudioBlob);
+
+        recordingPreview.innerHTML = `
+          <audio class="recorded-audio" controls src="${audioURL}"></audio>
+        `;
+
+        recordStatus.textContent = "Recording captured. You can review it, then submit.";
+        submitBtn.disabled = false;
+
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorder.start();
+      recordStatus.textContent = "Recording... speak now.";
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    } catch (error) {
+      console.error("Microphone error:", error);
+      recordStatus.textContent = "Microphone access was blocked or unavailable.";
+    }
+  };
+
+  stopBtn.onclick = () => {
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+      mediaRecorder.stop();
+      stopBtn.disabled = true;
+    }
+  };
+
+  submitBtn.onclick = () => {
+    spokenAnswers.push({
+      id: q.id,
+      level: q.level,
+      prompt: q.speakingPrompt,
+      hasAudio: !!currentAudioBlob,
+      audioCapturedAt: new Date().toISOString()
+    });
+    nextQuestion();
+  };
+}
+
+/* ==================================================
+   WRITING
+================================================== */
+
+function renderWritingQuestion(q) {
+  const card = document.createElement("div");
+  card.className = "response-card";
+  card.innerHTML = `
+    <p class="response-prompt">${q.writingPrompt}</p>
+    <textarea id="writtenResponse" class="response-box" placeholder="${q.expectedHint || "Write here..."}"></textarea>
+    <button class="answer-pill submit-pill" id="submitWriting" type="button">Submit Answer</button>
+  `;
+  answers.appendChild(card);
+
+  document.getElementById("submitWriting").onclick = () => {
+    const val = document.getElementById("writtenResponse").value.trim();
+    writtenAnswers.push({
+      id: q.id,
+      level: q.level,
+      prompt: q.writingPrompt,
+      answer: val
+    });
+    nextQuestion();
+  };
 }
 
 /* ==================================================
@@ -341,8 +472,16 @@ function renderQuestion() {
 
 function handleAnswer(selectedIndex) {
   const q = questions[currentQuestion];
+  const isCorrect = selectedIndex === q.correct;
 
-  if (selectedIndex === q.correct) {
+  objectiveResults.push({
+    id: q.id,
+    level: q.level,
+    skill: q.skill || "objective",
+    correct: isCorrect
+  });
+
+  if (isCorrect) {
     score++;
   } else {
     wrongAnswers++;
@@ -384,16 +523,24 @@ revealBtn.onclick = () => {
 };
 
 /* ==================================================
-   RESULT LOGIC
+   RESULT LOGIC (LEVEL GATING)
 ================================================== */
 
-function calculateLevel() {
-  const percent = Math.round((score / 12) * 100);
+function countLevelCorrect(level) {
+  return objectiveResults.filter(x => x.level === level && x.correct).length;
+}
 
-  if (percent < 25) return "A0";
-  if (percent < 45) return "A1";
-  if (percent < 65) return "A2";
-  if (percent < 80) return "B1";
+function calculateLevel() {
+  const a0 = countLevelCorrect("A0");
+  const a1 = countLevelCorrect("A1");
+  const a2 = countLevelCorrect("A2");
+  const b1 = countLevelCorrect("B1");
+  const b2 = countLevelCorrect("B2");
+
+  if (a0 <= 1) return "A0";
+  if (a1 <= 1) return "A1";
+  if (a2 <= 1) return "A2";
+  if (b1 <= 1) return "B1";
   return "B2";
 }
 
@@ -401,10 +548,11 @@ function finishPlacement() {
   const level = calculateLevel();
 
   sessionStorage.setItem("placement_score", String(score));
-  sessionStorage.setItem("placement_total", "15");
+  sessionStorage.setItem("placement_total", String(questions.length));
   sessionStorage.setItem("placement_level", level);
   sessionStorage.setItem("placement_spoken_answers", JSON.stringify(spokenAnswers));
   sessionStorage.setItem("placement_written_answers", JSON.stringify(writtenAnswers));
+  sessionStorage.setItem("placement_objective_results", JSON.stringify(objectiveResults));
 
   window.location.href = "/placement/result.html";
 }

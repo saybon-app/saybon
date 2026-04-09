@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SayBon Placement Test</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="placement.css" />
   <link rel="stylesheet" href="/css/page-transition.css">
 
@@ -19,18 +23,19 @@
       <div class="progress-track">
         <div class="progress-bar" id="progressBar"></div>
       </div>
+      <div class="progress-meta">
+        <span id="levelBadge">Placement Test</span>
+        <span id="questionCounter">Question 1 of 15</span>
+      </div>
     </div>
 
     <main class="placement-card" id="app">
-
       <div class="question-stage">
+        <p id="skillTag" class="skill-tag hidden"></p>
         <h2 id="questionText"></h2>
-
         <div id="mediaArea" class="media-area"></div>
-
         <div id="answers" class="answers"></div>
       </div>
-
     </main>
 
     <!-- INTERVENTION -->
