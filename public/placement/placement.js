@@ -72,7 +72,7 @@ const questions = [
     skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Comment tu t’appelles ?",
-    expectedHint: "Record your answer in French.",
+
     level: "A1"
   },
 
@@ -115,7 +115,7 @@ const questions = [
     skill: "writing",
     prompt: "Write 1 or 2 simple sentences in French.",
     writingPrompt: "Describe your usual Sunday in French.",
-    expectedHint: "Example: Le dimanche, je vais à l’église puis je me repose.",
+
     level: "A2"
   },
 
@@ -158,7 +158,7 @@ const questions = [
     skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Pourquoi est-ce important d’apprendre une langue ?",
-    expectedHint: "Record a short spoken answer in French.",
+
     level: "B1"
   },
 
@@ -187,7 +187,7 @@ const questions = [
     skill: "writing",
     prompt: "Write a short response in French.",
     writingPrompt: "Do you think online learning is better than classroom learning? Give your opinion in 2–4 sentences.",
-    expectedHint: "Explain your opinion clearly in French.",
+
     level: "B2"
   },
   {
@@ -196,7 +196,7 @@ const questions = [
     skill: "speaking",
     prompt: "Answer in French.",
     speakingPrompt: "Selon toi, quels sont les avantages et les inconvénients des réseaux sociaux ?",
-    expectedHint: "Record a short spoken opinion in French.",
+
     level: "B2"
   }
 ];
@@ -448,7 +448,7 @@ function renderWritingQuestion(q) {
   card.className = "response-card";
   card.innerHTML = `
     <p class="response-prompt">${q.writingPrompt}</p>
-    <textarea id="writtenResponse" class="response-box" placeholder="${q.expectedHint || "Write here..."}"></textarea>
+    <textarea id="writtenResponse" class="response-box" placeholder="Write your answer here..."></textarea>
     <button class="answer-pill submit-pill" id="submitWriting" type="button">Submit Answer</button>
   `;
   answers.appendChild(card);
@@ -561,6 +561,7 @@ function finishPlacement() {
 ================================================== */
 
 renderQuestion();
+
 
 
 
