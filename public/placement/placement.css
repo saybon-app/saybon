@@ -951,3 +951,89 @@ body.reading-mode .answer-pill,
 }
 
 /* === RECORDING NOTE OVERRIDE END === */
+
+
+
+/* === QUESTION HEADING OVERRIDE START === */
+
+/* Main question text across placement engine */
+#questionText{
+  font-size:2.45rem !important;
+  font-weight:700 !important;
+  line-height:1.24 !important;
+  letter-spacing:-0.02em !important;
+  max-width:820px !important;
+  margin:0 auto 10px !important;
+  color:#f7fbff !important;
+  text-shadow:0 2px 12px rgba(0,0,0,.18) !important;
+}
+
+/* Reading / writing / speaking sub-prompts under the main title */
+.response-prompt,
+.reading-question{
+  font-size:1.04rem !important;
+  font-weight:600 !important;
+  line-height:1.65 !important;
+  letter-spacing:0.005em !important;
+  color:rgba(255,255,255,.92) !important;
+}
+
+/* Reading text itself */
+.reading-text{
+  font-size:1.08rem !important;
+  font-weight:500 !important;
+  line-height:1.82 !important;
+  letter-spacing:0.003em !important;
+  color:#ffffff !important;
+}
+
+/* Optional writing/speaking prompt inside cards */
+.response-card h3,
+.response-card h4{
+  font-size:1.08rem !important;
+  font-weight:600 !important;
+  line-height:1.55 !important;
+  letter-spacing:0.01em !important;
+}
+
+/* Tablet */
+@media (max-width:1024px){
+  #questionText{
+    font-size:2.15rem !important;
+    line-height:1.26 !important;
+    max-width:760px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width:768px){
+  #questionText{
+    font-size:1.72rem !important;
+    font-weight:700 !important;
+    line-height:1.30 !important;
+    letter-spacing:-0.015em !important;
+    max-width:100% !important;
+    margin:0 auto 8px !important;
+  }
+
+  .response-prompt,
+  .reading-question{
+    font-size:0.97rem !important;
+    line-height:1.58 !important;
+  }
+
+  .reading-text{
+    font-size:1rem !important;
+    line-height:1.72 !important;
+  }
+}
+
+/* Small laptop / tighter viewport */
+@media (max-height:780px){
+  #questionText{
+    font-size:2.05rem !important;
+    line-height:1.22 !important;
+  }
+}
+
+/* === QUESTION HEADING OVERRIDE END === */
