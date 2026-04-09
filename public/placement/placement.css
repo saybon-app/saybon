@@ -905,3 +905,49 @@ body.reading-mode .answer-pill,
 /* === READING LAYOUT OVERRIDE END === */
 
 
+
+
+
+/* === RECORDING NOTE OVERRIDE START === */
+
+.recording-note,
+.speaking-note,
+.voice-note,
+.recording-helper{
+  font-size:0.9rem !important;
+  font-weight:500 !important;
+  line-height:1.5 !important;
+  text-align:center !important;
+  color:rgba(255,255,255,0.58) !important;
+  letter-spacing:0.01em !important;
+  margin-top:6px !important;
+  margin-bottom:10px !important;
+  width:100% !important;
+  display:block !important;
+}
+
+/* fallback if note is just a p inside speaking card */
+.response-card p.recording-note,
+.response-card p.speaking-note,
+.response-card p.voice-note,
+.response-card p.recording-helper{
+  text-align:center !important;
+  color:rgba(255,255,255,0.58) !important;
+  font-size:0.9rem !important;
+  font-weight:500 !important;
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .recording-note,
+  .speaking-note,
+  .voice-note,
+  .recording-helper{
+    font-size:0.82rem !important;
+    line-height:1.45 !important;
+    margin-top:4px !important;
+    margin-bottom:8px !important;
+  }
+}
+
+/* === RECORDING NOTE OVERRIDE END === */
