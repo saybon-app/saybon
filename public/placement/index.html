@@ -24,50 +24,42 @@
     <main class="placement-card" id="app">
 
       <div class="question-meta">
-        <span id="questionCategory" class="question-category">Understanding</span>
-        <span id="questionCounter" class="question-counter">Question 1 of 15</span>
+        <span class="placement-category" id="questionCategory">Understanding</span>
+        <span class="question-count" id="questionCounter">Question 1 of 15</span>
       </div>
 
       <div class="question-stage">
         <h2 id="questionText"></h2>
-
         <div id="mediaArea" class="media-area"></div>
-
         <div id="answers" class="answers"></div>
       </div>
 
     </main>
 
-    <!-- PREMIUM INTERVENTION -->
-    <section id="intervention" class="intervention hidden">
-  <div class="intervention-card">
+    <section id="intervention" class="intervention hidden" aria-hidden="true">
+      <div class="intervention-card">
 
-    <!-- TEACHER HERO -->
-    <div class="intervention-hero">
-      <img src="/assets/images/teacher.png" alt="Teacher">
-    </div>
+        <div class="intervention-hero">
+          <img
+            src="/assets/images/teacher-intervention.png"
+            alt="SayBon intervention teacher"
+            class="intervention-hero-img"
+          />
+        </div>
 
-    <!-- AUDIO -->
-    <audio id="interventionAudio" preload="auto">
-      <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
-    </audio>
+        <audio id="interventionAudio" preload="auto">
+          <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
+        </audio>
 
-    <!-- BUTTONS -->
-    <div class="intervention-actions">
-      <button id="continueBtn" class="pill-btn continue-btn" type="button">
-        Continue Test
-      </button>
+        <div class="intervention-actions">
+          <button id="continueBtn" class="pill-btn continue-btn" type="button">Continue Test</button>
+          <button id="revealBtn" class="pill-btn reveal-btn" type="button">Reveal My Level</button>
+        </div>
 
-      <button id="revealBtn" class="pill-btn reveal-btn" type="button">
-        Reveal My Level
-      </button>
-    </div>
-
-  </div>
-</section>
+      </div>
+    </section>
 
   </div>
 
 </body>
 </html>
-
