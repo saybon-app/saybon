@@ -11,63 +11,45 @@
   <script type="module" src="/js/nav-engine.js"></script>
   <script src="placement.js" defer></script>
 </head>
-
 <body>
 
-  <div class="placement-app" id="app">
+  <div class="placement-shell">
 
-    <!-- Progress -->
     <div class="progress-wrap">
       <div class="progress-track">
         <div class="progress-bar" id="progressBar"></div>
       </div>
     </div>
 
-    <!-- Question -->
-    <div class="question-area">
+    <main class="placement-card" id="app">
 
-      <h2 id="questionText"></h2>
+      <div class="question-stage">
+        <h2 id="questionText"></h2>
 
-      <!-- Extra question prompt support -->
-      <p id="questionPrompt" class="question-prompt"></p>
+        <div id="mediaArea" class="media-area"></div>
 
-      <!-- Media -->
-      <div id="mediaArea"></div>
-
-      <!-- Legacy image/audio support -->
-      <img
-        id="questionImage"
-        class="question-image hidden"
-        alt="question image"
-      />
-
-      <button id="audioBtn" class="audio-btn hidden" type="button">
-        🔊 Play audio
-      </button>
-
-      <!-- Answers -->
-      <div class="answers" id="answers"></div>
-      <div class="answers" id="options"></div>
-
-    </div>
-
-  </div>
-
-  <!-- Intervention screen -->
-  <div id="intervention" class="hidden">
-    <div class="intervention-card">
-      <h2>Need a little help?</h2>
-      <p>You can continue the test or reveal your current estimated level now.</p>
-
-      <audio id="interventionAudio" preload="auto">
-        <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
-      </audio>
-
-      <div class="intervention-actions">
-        <button id="continueBtn" type="button">Continue</button>
-        <button id="revealBtn" type="button">Reveal My Level</button>
+        <div id="answers" class="answers"></div>
       </div>
-    </div>
+
+    </main>
+
+    <!-- INTERVENTION -->
+    <section id="intervention" class="intervention hidden">
+      <div class="intervention-card">
+        <h2>Pause here?</h2>
+        <p>You can continue the placement test or reveal your current estimated level now.</p>
+
+        <audio id="interventionAudio" preload="auto">
+          <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="intervention-actions">
+          <button id="continueBtn" class="pill-btn continue-btn" type="button">Continue Test</button>
+          <button id="revealBtn" class="pill-btn reveal-btn" type="button">Reveal My Level</button>
+        </div>
+      </div>
+    </section>
+
   </div>
 
 </body>

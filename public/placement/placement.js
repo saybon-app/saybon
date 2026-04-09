@@ -1,165 +1,188 @@
-﻿console.log("🔥 placement.js loaded");
+﻿console.log("🔥 DELF-style General Placement loaded");
 
 /* ==================================================
-   SAYBON — REAL DELF-STYLE PLACEMENT ENGINE
-   BUILT FOR CURRENT HTML DOM
+   QUESTION SET — GENERAL PLACEMENT (15)
 ================================================== */
 
 const questions = [
+  /* =========================
+     A0 (Q1–Q3)
+  ========================= */
   {
     id: 1,
     type: "mcq",
-    level: "A0",
     prompt: "Listen and choose the best response.",
     audio: "/assets/sounds/placement/a0_q1_bonjour.mp3",
     options: ["Merci", "Bonjour", "Pardon", "Bonsoir"],
-    correct: 1
+    correct: 1,
+    level: "A0"
   },
   {
     id: 2,
     type: "mcq",
-    level: "A0",
     prompt: "Someone says « Merci ». Choose the best response.",
     options: ["Bonsoir", "Salut", "De rien", "Bonjour"],
-    correct: 2
+    correct: 2,
+    level: "A0"
   },
   {
     id: 3,
     type: "mcq",
-    level: "A0",
     prompt: "What do you say to greet someone in the morning?",
-    options: ["Bonsoir", "Merci", "Bonjour", "Pardon"],
-    correct: 2
+    options: ["Bonsoir", "Bonjour", "Pardon", "Merci"],
+    correct: 1,
+    level: "A0"
   },
+
+  /* =========================
+     A1 (Q4–Q6)
+  ========================= */
   {
     id: 4,
     type: "mcq",
-    level: "A1",
     prompt: "Listen and choose the best response.",
     audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3",
-    options: ["Salut", "Bonjour", "Au revoir", "Merci"],
-    correct: 2
+    options: ["Au revoir", "Merci", "Bonjour", "Salut"],
+    correct: 0,
+    level: "A1"
   },
   {
     id: 5,
-    type: "reading",
-    level: "A1",
+    type: "mcq",
     prompt: "Read and answer the question.",
     text: "Je m’appelle Paul. J’habite à Accra.",
-    question: "Which statement is true?",
+    readingQuestion: "Where does Paul live?",
     options: [
-      "Paul lives in Ghana.",
-      "Paul is introducing his brother.",
-      "Paul is saying goodbye.",
-      "Paul lives in Paris."
+      "He lives in Paris.",
+      "He lives in Accra.",
+      "He is 10 years old.",
+      "He is a teacher."
     ],
-    correct: 0
+    correct: 1,
+    level: "A1"
   },
   {
     id: 6,
     type: "speaking",
-    level: "A1",
-    prompt: "Réponds en français : Comment tu t’appelles ?",
-    hint: "Exemple : Je m’appelle …"
+    prompt: "Answer in French.",
+    speakingPrompt: "Comment tu t’appelles ?",
+    expectedHint: "Example: Je m’appelle…",
+    level: "A1"
   },
+
+  /* =========================
+     A2 (Q7–Q9)
+  ========================= */
   {
     id: 7,
     type: "mcq",
-    level: "A2",
-    prompt: "Choose the best response to this question: « Tu fais quoi le week-end ? »",
+    prompt: "Choose the best response to this question: « Qu’est-ce que tu fais le samedi ? »",
     options: [
-      "Il fait beau aujourd’hui.",
       "Je joue au football le samedi.",
-      "Merci beaucoup.",
-      "J’ai deux frères."
+      "J’ai deux frères.",
+      "Il fait beau.",
+      "Merci beaucoup."
     ],
-    correct: 1
+    correct: 0,
+    level: "A2"
   },
   {
     id: 8,
-    type: "reading",
-    level: "A2",
+    type: "mcq",
     prompt: "Read and answer the question.",
     text: "Le dimanche, je me repose et je regarde la télévision.",
-    question: "Which statement is true?",
+    readingQuestion: "What does this person usually do on Sunday?",
     options: [
-      "This person usually has a very busy Sunday.",
-      "This person goes shopping every Sunday.",
-      "This person spends Sunday resting at home.",
-      "This person usually plays sports on Sunday."
+      "They work on Sunday.",
+      "They play football on Sunday.",
+      "They rest and watch television.",
+      "They go to the market on Sunday."
     ],
-    correct: 2
+    correct: 2,
+    level: "A2"
   },
   {
     id: 9,
     type: "writing",
-    level: "A2",
-    prompt: "Écris 1 ou 2 phrases simples en français sur ta routine quotidienne.",
-    hint: "Exemple : Je me réveille à 6 heures. Je vais à l’école."
+    prompt: "Write 1 or 2 simple sentences in French.",
+    writingPrompt: "Describe your usual Sunday in French.",
+    expectedHint: "Example: Le dimanche, je vais à l’église puis je me repose.",
+    level: "A2"
   },
+
+  /* =========================
+     B1 (Q10–Q12)
+  ========================= */
   {
     id: 10,
-    type: "reading",
-    level: "B1",
+    type: "mcq",
     prompt: "Read and answer the question.",
-    text: "Je suis arrivé en retard parce que le bus est tombé en panne. Heureusement, le professeur a compris la situation.",
-    question: "What can we understand from the text?",
+    text: "Je suis arrivé en retard parce que le bus est parti avant mon arrivée.",
+    readingQuestion: "Why was the person late?",
     options: [
-      "The teacher refused to listen.",
-      "The student was late because of transport trouble.",
-      "The student missed school on purpose.",
-      "The bus arrived earlier than expected."
+      "Because they woke up late.",
+      "Because the bus left before they arrived.",
+      "Because they missed school.",
+      "Because they forgot their bag."
     ],
-    correct: 1
+    correct: 1,
+    level: "B1"
   },
   {
     id: 11,
     type: "mcq",
-    level: "B1",
-    prompt: "Choose the most natural answer.",
+    prompt: "Choose the best response: « Pourquoi apprends-tu le français ? »",
     options: [
-      "À mon avis, apprendre le français peut offrir plus d’opportunités.",
-      "À mon avis, le français est apprend opportunités.",
-      "Le français opinion plus opportunité est.",
-      "Je opinion apprendre français très possibilité."
+      "Parce que j’aime voyager et communiquer avec plus de personnes.",
+      "Je suis dans la cuisine.",
+      "Il est trois heures.",
+      "Merci beaucoup."
     ],
-    correct: 0
+    correct: 0,
+    level: "B1"
   },
   {
     id: 12,
     type: "speaking",
-    level: "B1",
-    prompt: "Décris ta journée en français en 2 ou 3 phrases.",
-    hint: "Exemple : Le matin, je travaille. L’après-midi, j’étudie. Le soir, je me repose."
+    prompt: "Answer in French.",
+    speakingPrompt: "Pourquoi est-ce important d’apprendre une langue ?",
+    expectedHint: "Give a short spoken opinion in French.",
+    level: "B1"
   },
+
+  /* =========================
+     B2 (Q13–Q15)
+  ========================= */
   {
     id: 13,
-    type: "reading",
-    level: "B2",
+    type: "mcq",
     prompt: "Read and answer the question.",
-    text: "Je pense que voyager est essentiel, non seulement pour découvrir d’autres cultures, mais aussi pour remettre en question ses propres habitudes et élargir sa vision du monde.",
-    question: "What is the writer mainly saying?",
+    text: "De plus en plus de jeunes préfèrent apprendre en ligne, car cela leur permet d’étudier à leur rythme et d’avoir accès à davantage de ressources.",
+    readingQuestion: "Why do many young people prefer learning online?",
     options: [
-      "Travelling can broaden the way a person thinks.",
-      "Travelling is mostly useful for entertainment.",
-      "Travelling should only be done during holidays.",
-      "Travelling has little effect on personal growth."
+      "Because school is closed.",
+      "Because it lets them study at their own pace and access more resources.",
+      "Because teachers are not useful.",
+      "Because books are too expensive."
     ],
-    correct: 0
+    correct: 1,
+    level: "B2"
   },
   {
     id: 14,
     type: "writing",
-    level: "B2",
-    prompt: "Écris 3 à 5 phrases en français pour donner ton opinion sur l’utilité d’apprendre le français.",
-    hint: "Donne ton opinion et une ou deux raisons."
+    prompt: "Write a short response in French.",
+    writingPrompt: "Do you think online learning is better than classroom learning? Give your opinion in 2–4 sentences.",
+    expectedHint: "Explain your opinion clearly in French.",
+    level: "B2"
   },
   {
     id: 15,
     type: "speaking",
-    level: "B2",
-    prompt: "Réponds en français : Est-ce qu’apprendre le français est important ? Pourquoi ?",
-    hint: "Donne ton avis et explique pourquoi."
+    prompt: "Answer in French.",
+    speakingPrompt: "Selon toi, quels sont les avantages et les inconvénients des réseaux sociaux ?",
+    expectedHint: "Give a short spoken opinion with examples if possible.",
+    level: "B2"
   }
 ];
 
@@ -171,159 +194,44 @@ let currentQuestion = 0;
 let score = 0;
 let wrongAnswers = 0;
 let interventionShown = false;
-const responses = [];
-const attemptId = "placement_" + Date.now();
+let spokenAnswers = [];
+let writtenAnswers = [];
 
 /* ==================================================
    DOM
 ================================================== */
 
+const app = document.getElementById("app");
 const questionText = document.getElementById("questionText");
-const questionImage = document.getElementById("questionImage");
-const audioBtn = document.getElementById("audioBtn");
+const mediaArea = document.getElementById("mediaArea");
 const answers = document.getElementById("answers");
 const progressBar = document.getElementById("progressBar");
 
-/* ==================================================
-   AUDIO PLAYBACK
-================================================== */
-
-let currentAudio = null;
-
-/* ==================================================
-   SPEAKING CAPTURE
-================================================== */
-
-let mediaRecorder = null;
-let mediaStream = null;
-let recordingChunks = [];
-let currentRecordingBlob = null;
-let currentRecordingUrl = null;
-let recordingStartedAt = null;
-let recordingSeconds = 0;
-let recordingTimer = null;
-
-/* ==================================================
-   INDEXEDDB
-================================================== */
-
-function openPlacementDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open("SayBonPlacementDB", 1);
-
-    request.onupgradeneeded = function(event) {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains("spokenAnswers")) {
-        const store = db.createObjectStore("spokenAnswers", { keyPath: "id" });
-        store.createIndex("attemptId", "attemptId", { unique: false });
-        store.createIndex("questionId", "questionId", { unique: false });
-      }
-    };
-
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function saveSpokenAnswer({ questionId, blob, duration }) {
-  const db = await openPlacementDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction("spokenAnswers", "readwrite");
-    const store = tx.objectStore("spokenAnswers");
-
-    const record = {
-      id: attemptId + "_q" + questionId,
-      attemptId,
-      questionId,
-      createdAt: new Date().toISOString(),
-      duration,
-      mimeType: blob.type || "audio/webm",
-      blob
-    };
-
-    const req = store.put(record);
-    req.onsuccess = () => resolve(record.id);
-    req.onerror = () => reject(req.error);
-  });
-}
+const intervention = document.getElementById("intervention");
+const interventionAudio = document.getElementById("interventionAudio");
+const continueBtn = document.getElementById("continueBtn");
+const revealBtn = document.getElementById("revealBtn");
 
 /* ==================================================
    HELPERS
 ================================================== */
 
 function updateProgress() {
-  const percent = ((currentQuestion) / questions.length) * 100;
-  progressBar.style.width = percent + "%";
-}
-
-function saveResponse(q, data) {
-  const existingIndex = responses.findIndex(r => r.id === q.id);
-  const payload = {
-    id: q.id,
-    level: q.level,
-    type: q.type,
-    ...data
-  };
-
-  if (existingIndex >= 0) {
-    responses[existingIndex] = payload;
-  } else {
-    responses.push(payload);
-  }
-}
-
-function getResponseById(id) {
-  return responses.find(r => r.id === id) || null;
+  const progress = ((currentQuestion) / questions.length) * 100;
+  progressBar.style.width = `${progress}%`;
 }
 
 function clearUI() {
-  questionText.innerHTML = "";
+  mediaArea.innerHTML = "";
   answers.innerHTML = "";
-  questionImage.classList.add("hidden");
-  questionImage.removeAttribute("src");
-
-  audioBtn.classList.add("hidden");
-  audioBtn.onclick = null;
-
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio = null;
-  }
 }
 
-function makeButton(label, onClick, className = "answer-btn") {
+function makePillButton(text, onClick) {
   const btn = document.createElement("button");
-  btn.className = className;
-  btn.textContent = label;
+  btn.className = "answer-pill";
+  btn.textContent = text;
   btn.onclick = onClick;
   return btn;
-}
-
-function cleanupMediaStream() {
-  if (mediaStream) {
-    mediaStream.getTracks().forEach(track => track.stop());
-    mediaStream = null;
-  }
-  mediaRecorder = null;
-}
-
-function stopRecordingTimer() {
-  if (recordingTimer) {
-    clearInterval(recordingTimer);
-    recordingTimer = null;
-  }
-}
-
-function resetRecordingState() {
-  stopRecordingTimer();
-  recordingChunks = [];
-  currentRecordingBlob = null;
-  if (currentRecordingUrl) {
-    URL.revokeObjectURL(currentRecordingUrl);
-  }
-  currentRecordingUrl = null;
-  recordingStartedAt = null;
-  recordingSeconds = 0;
 }
 
 /* ==================================================
@@ -331,260 +239,110 @@ function resetRecordingState() {
 ================================================== */
 
 function renderQuestion() {
-  updateProgress();
-  clearUI();
-
   const q = questions[currentQuestion];
+
   if (!q) {
     finishPlacement();
     return;
   }
 
+  updateProgress();
+  clearUI();
+
   questionText.textContent = q.prompt;
 
   if (q.audio) {
-    currentAudio = new Audio(q.audio);
-    audioBtn.classList.remove("hidden");
-    audioBtn.textContent = "🔊 Play audio";
-    audioBtn.onclick = () => {
-      currentAudio.currentTime = 0;
-      currentAudio.play().catch(() => {});
-    };
+    const audioWrap = document.createElement("div");
+    audioWrap.className = "audio-wrap";
+
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.src = q.audio;
+    audio.preload = "auto";
+
+    audioWrap.appendChild(audio);
+    mediaArea.appendChild(audioWrap);
   }
 
-  if (q.image) {
-    questionImage.src = q.image;
-    questionImage.classList.remove("hidden");
+  if (q.text) {
+    const readingBlock = document.createElement("div");
+    readingBlock.className = "reading-block";
+    readingBlock.innerHTML = `
+      <p class="reading-label">Text</p>
+      <div class="reading-text">${q.text}</div>
+    `;
+    mediaArea.appendChild(readingBlock);
+  }
+
+  if (q.readingQuestion) {
+    const rq = document.createElement("div");
+    rq.className = "reading-question";
+    rq.textContent = q.readingQuestion;
+    mediaArea.appendChild(rq);
   }
 
   if (q.type === "mcq") {
     q.options.forEach((option, index) => {
-      answers.appendChild(
-        makeButton(option, () => handleMCQ(index))
-      );
+      const btn = makePillButton(option, () => handleAnswer(index));
+      answers.appendChild(btn);
     });
-    return;
-  }
-
-  if (q.type === "reading") {
-    const textBox = document.createElement("div");
-    textBox.className = "reading-box";
-    textBox.style.background = "rgba(255,255,255,0.10)";
-    textBox.style.padding = "18px";
-    textBox.style.borderRadius = "18px";
-    textBox.style.marginBottom = "18px";
-    textBox.style.lineHeight = "1.8";
-    textBox.style.textAlign = "left";
-    textBox.innerHTML = `<strong>Text:</strong><br><br>${q.text}<br><br><strong>Question:</strong><br>${q.question}`;
-    answers.appendChild(textBox);
-
-    q.options.forEach((option, index) => {
-      answers.appendChild(
-        makeButton(option, () => handleMCQ(index))
-      );
-    });
-    return;
-  }
-
-  if (q.type === "writing") {
-    const hint = document.createElement("div");
-    hint.style.marginBottom = "14px";
-    hint.style.opacity = "0.9";
-    hint.style.lineHeight = "1.6";
-    hint.textContent = q.hint || "";
-    answers.appendChild(hint);
-
-    const textarea = document.createElement("textarea");
-    textarea.id = "writingResponse";
-    textarea.placeholder = "Write your answer here in French...";
-    textarea.style.width = "100%";
-    textarea.style.minHeight = "170px";
-    textarea.style.padding = "16px";
-    textarea.style.borderRadius = "18px";
-    textarea.style.border = "none";
-    textarea.style.fontSize = "1rem";
-    textarea.style.fontFamily = "inherit";
-    textarea.style.marginBottom = "16px";
-    answers.appendChild(textarea);
-
-    answers.appendChild(
-      makeButton("Continue", handleWriting)
-    );
-    return;
   }
 
   if (q.type === "speaking") {
-    renderSpeakingQuestion(q);
-    return;
+    const card = document.createElement("div");
+    card.className = "response-card";
+    card.innerHTML = `
+      <p class="response-prompt">${q.speakingPrompt}</p>
+      <textarea id="spokenResponse" class="response-box" placeholder="${q.expectedHint || "Respond here..."}"></textarea>
+      <button class="answer-pill submit-pill" id="submitSpeaking">Submit Answer</button>
+    `;
+    answers.appendChild(card);
+
+    document.getElementById("submitSpeaking").onclick = () => {
+      const val = document.getElementById("spokenResponse").value.trim();
+      spokenAnswers.push({
+        id: q.id,
+        level: q.level,
+        prompt: q.speakingPrompt,
+        answer: val
+      });
+      currentQuestion++;
+      renderQuestion();
+    };
+  }
+
+  if (q.type === "writing") {
+    const card = document.createElement("div");
+    card.className = "response-card";
+    card.innerHTML = `
+      <p class="response-prompt">${q.writingPrompt}</p>
+      <textarea id="writtenResponse" class="response-box" placeholder="${q.expectedHint || "Write here..."}"></textarea>
+      <button class="answer-pill submit-pill" id="submitWriting">Submit Answer</button>
+    `;
+    answers.appendChild(card);
+
+    document.getElementById("submitWriting").onclick = () => {
+      const val = document.getElementById("writtenResponse").value.trim();
+      writtenAnswers.push({
+        id: q.id,
+        level: q.level,
+        prompt: q.writingPrompt,
+        answer: val
+      });
+      currentQuestion++;
+      renderQuestion();
+    };
   }
 }
 
 /* ==================================================
-   SPEAKING UI
+   ANSWER HANDLER
 ================================================== */
 
-function renderSpeakingQuestion(q) {
-  resetRecordingState();
-  cleanupMediaStream();
-
-  const hint = document.createElement("div");
-  hint.style.marginBottom = "14px";
-  hint.style.opacity = "0.9";
-  hint.style.lineHeight = "1.6";
-  hint.textContent = q.hint || "";
-  answers.appendChild(hint);
-
-  const recorderBox = document.createElement("div");
-  recorderBox.style.background = "rgba(255,255,255,0.10)";
-  recorderBox.style.padding = "18px";
-  recorderBox.style.borderRadius = "18px";
-  recorderBox.style.marginBottom = "18px";
-  recorderBox.style.textAlign = "left";
-
-  const status = document.createElement("div");
-  status.textContent = "Recorder ready.";
-  status.style.fontWeight = "600";
-  status.style.marginBottom = "10px";
-
-  const timer = document.createElement("div");
-  timer.textContent = "00:00";
-  timer.style.marginBottom = "14px";
-  timer.style.opacity = "0.85";
-
-  const controls = document.createElement("div");
-  controls.style.display = "flex";
-  controls.style.flexWrap = "wrap";
-  controls.style.gap = "10px";
-  controls.style.marginBottom = "14px";
-
-  const startBtn = makeButton("Start Recording", () => startRecording(status, timer, playback));
-  const stopBtn = makeButton("Stop Recording", () => stopRecording(status, timer));
-  const rerecordBtn = makeButton("Re-record", () => rerecord(status, timer, playback, continueBtn));
-  const continueBtn = makeButton("Continue", () => handleSpeaking(q, note, status));
-
-  stopBtn.disabled = true;
-  rerecordBtn.disabled = true;
-  continueBtn.disabled = true;
-
-  controls.appendChild(startBtn);
-  controls.appendChild(stopBtn);
-  controls.appendChild(rerecordBtn);
-  controls.appendChild(continueBtn);
-
-  const playback = document.createElement("audio");
-  playback.controls = true;
-  playback.style.display = "none";
-  playback.style.width = "100%";
-  playback.style.marginBottom = "14px";
-
-  const note = document.createElement("textarea");
-  note.placeholder = "Optional: type a short note about what you said...";
-  note.style.width = "100%";
-  note.style.minHeight = "110px";
-  note.style.padding = "16px";
-  note.style.borderRadius = "18px";
-  note.style.border = "none";
-  note.style.fontSize = "1rem";
-  note.style.fontFamily = "inherit";
-
-  recorderBox.appendChild(status);
-  recorderBox.appendChild(timer);
-  recorderBox.appendChild(controls);
-  recorderBox.appendChild(playback);
-  recorderBox.appendChild(note);
-  answers.appendChild(recorderBox);
-
-  async function startRecording(statusEl, timerEl, playbackEl) {
-    try {
-      resetRecordingState();
-      cleanupMediaStream();
-
-      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(mediaStream);
-      recordingChunks = [];
-      recordingStartedAt = Date.now();
-
-      mediaRecorder.ondataavailable = event => {
-        if (event.data && event.data.size > 0) {
-          recordingChunks.push(event.data);
-        }
-      };
-
-      mediaRecorder.onstop = () => {
-        currentRecordingBlob = new Blob(recordingChunks, { type: mediaRecorder.mimeType || "audio/webm" });
-        currentRecordingUrl = URL.createObjectURL(currentRecordingBlob);
-        playbackEl.src = currentRecordingUrl;
-        playbackEl.style.display = "block";
-
-        recordingSeconds = Math.max(1, Math.round((Date.now() - recordingStartedAt) / 1000));
-        statusEl.textContent = "Recording captured.";
-        stopBtn.disabled = true;
-        startBtn.disabled = true;
-        rerecordBtn.disabled = false;
-        continueBtn.disabled = false;
-
-        cleanupMediaStream();
-      };
-
-      mediaRecorder.start();
-      statusEl.textContent = "Recording...";
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
-      rerecordBtn.disabled = true;
-      continueBtn.disabled = true;
-      playbackEl.style.display = "none";
-
-      recordingTimer = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - recordingStartedAt) / 1000);
-        const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
-        const ss = String(elapsed % 60).padStart(2, "0");
-        timerEl.textContent = mm + ":" + ss;
-      }, 250);
-
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = "Microphone access failed. Please allow microphone access and try again.";
-      cleanupMediaStream();
-      stopRecordingTimer();
-    }
-  }
-
-  function stopRecording(statusEl, timerEl) {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-      mediaRecorder.stop();
-      stopRecordingTimer();
-      statusEl.textContent = "Finalizing recording...";
-      timerEl.textContent = "Saved";
-    }
-  }
-
-  function rerecord(statusEl, timerEl, playbackEl, continueButton) {
-    resetRecordingState();
-    playbackEl.removeAttribute("src");
-    playbackEl.style.display = "none";
-    statusEl.textContent = "Recorder reset. Start again.";
-    timerEl.textContent = "00:00";
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    rerecordBtn.disabled = true;
-    continueButton.disabled = true;
-  }
-}
-
-/* ==================================================
-   ANSWER HANDLERS
-================================================== */
-
-function handleMCQ(selectedIndex) {
+function handleAnswer(selectedIndex) {
   const q = questions[currentQuestion];
-  const isCorrect = selectedIndex === q.correct;
 
-  saveResponse(q, {
-    selectedIndex,
-    isCorrect
-  });
-
-  if (isCorrect) {
+  if (selectedIndex === q.correct) {
     score++;
   } else {
     wrongAnswers++;
@@ -593,160 +351,60 @@ function handleMCQ(selectedIndex) {
   currentQuestion++;
 
   if (!interventionShown && wrongAnswers >= 3 && currentQuestion < questions.length) {
-    finishPlacement();
+    showIntervention();
     return;
   }
 
   renderQuestion();
 }
 
-function handleWriting() {
-  const q = questions[currentQuestion];
-  const textarea = document.getElementById("writingResponse");
-  const text = textarea ? textarea.value.trim() : "";
-
-  saveResponse(q, {
-    completed: text.length > 0,
-    text,
-    length: text.length
-  });
-
-  currentQuestion++;
-  renderQuestion();
-}
-
-async function handleSpeaking(q, noteEl, statusEl) {
-  try {
-    const note = noteEl ? noteEl.value.trim() : "";
-
-    if (!currentRecordingBlob || currentRecordingBlob.size === 0) {
-      statusEl.textContent = "Please record your answer before continuing.";
-      return;
-    }
-
-    const recordingId = await saveSpokenAnswer({
-      questionId: q.id,
-      blob: currentRecordingBlob,
-      duration: recordingSeconds
-    });
-
-    saveResponse(q, {
-      completed: true,
-      note,
-      length: note.length,
-      hasRecording: true,
-      recordingId,
-      recordingDuration: recordingSeconds
-    });
-
-    currentQuestion++;
-    renderQuestion();
-
-  } catch (err) {
-    console.error(err);
-    statusEl.textContent = "Could not save recording. Please try again.";
-  }
-}
-
 /* ==================================================
-   SCORING
+   INTERVENTION
 ================================================== */
 
-function calculateBaseLevel() {
-  const autoQuestionsByLevel = {
-    A0: questions.filter(q => q.level === "A0" && (q.type === "mcq" || q.type === "reading")),
-    A1: questions.filter(q => q.level === "A1" && (q.type === "mcq" || q.type === "reading")),
-    A2: questions.filter(q => q.level === "A2" && (q.type === "mcq" || q.type === "reading")),
-    B1: questions.filter(q => q.level === "B1" && (q.type === "mcq" || q.type === "reading")),
-    B2: questions.filter(q => q.level === "B2" && (q.type === "mcq" || q.type === "reading"))
-  };
+function showIntervention() {
+  interventionShown = true;
+  app.classList.add("hidden");
+  intervention.classList.remove("hidden");
 
-  const correctByLevel = {
-    A0: 0,
-    A1: 0,
-    A2: 0,
-    B1: 0,
-    B2: 0
-  };
-
-  responses.forEach(r => {
-    if (r.isCorrect && correctByLevel.hasOwnProperty(r.level)) {
-      correctByLevel[r.level]++;
-    }
-  });
-
-  function passed(level) {
-    const total = autoQuestionsByLevel[level].length;
-    if (total === 0) return false;
-    return correctByLevel[level] >= Math.ceil(total * 0.67);
+  if (interventionAudio) {
+    interventionAudio.currentTime = 0;
+    interventionAudio.play().catch(() => {});
   }
-
-  if (passed("B2")) return "B2";
-  if (passed("B1")) return "B1";
-  if (passed("A2")) return "A2";
-  if (passed("A1")) return "A1";
-  return "A0";
 }
 
-function capLevel(level, maxLevel) {
-  const rank = { A0: 0, A1: 1, A2: 2, B1: 3, B2: 4 };
-  return rank[level] > rank[maxLevel] ? maxLevel : level;
-}
+continueBtn.onclick = () => {
+  intervention.classList.add("hidden");
+  app.classList.remove("hidden");
+  renderQuestion();
+};
+
+revealBtn.onclick = () => {
+  finishPlacement();
+};
+
+/* ==================================================
+   RESULT LOGIC
+================================================== */
 
 function calculateLevel() {
-  let level = calculateBaseLevel();
+  const percent = Math.round((score / 12) * 100);
 
-  const a2Writing = getResponseById(9);
-  const b1Speaking = getResponseById(12);
-  const b2Writing = getResponseById(14);
-  const b2Speaking = getResponseById(15);
-
-  if (["A2","B1","B2"].includes(level)) {
-    const weak = !a2Writing || !a2Writing.completed || (a2Writing.length || 0) < 12;
-    if (weak) level = capLevel(level, "A1");
-  }
-
-  if (["B1","B2"].includes(level)) {
-    const weak = !b1Speaking || !b1Speaking.completed || !b1Speaking.hasRecording;
-    if (weak) level = capLevel(level, "A2");
-  }
-
-  if (level === "B2") {
-    const weakWriting = !b2Writing || !b2Writing.completed || (b2Writing.length || 0) < 35;
-    if (weakWriting) level = capLevel(level, "B1");
-
-    const weakSpeaking = !b2Speaking || !b2Speaking.completed || !b2Speaking.hasRecording;
-    if (weakSpeaking) level = capLevel(level, "B1");
-  }
-
-  return level;
-}
-
-function buildRecommendation(level) {
-  const writingDone = responses.some(r => r.type === "writing" && r.completed);
-  const speakingDone = responses.some(r => r.type === "speaking" && r.completed && r.hasRecording);
-
-  if (!writingDone && !speakingDone) {
-    return "Assessment completed mainly through listening, reading, and response tasks.";
-  }
-  if (!writingDone) return "Writing still needs to be observed more fully.";
-  if (!speakingDone) return "Speaking still needs to be observed more fully.";
-  return "Listening, reading, writing, and speaking tasks were all attempted.";
+  if (percent < 25) return "A0";
+  if (percent < 45) return "A1";
+  if (percent < 65) return "A2";
+  if (percent < 80) return "B1";
+  return "B2";
 }
 
 function finishPlacement() {
-  cleanupMediaStream();
-  stopRecordingTimer();
-
   const level = calculateLevel();
-  const recommendation = buildRecommendation(level);
 
-  sessionStorage.setItem("placement_attempt_id", attemptId);
   sessionStorage.setItem("placement_score", String(score));
-  sessionStorage.setItem("placement_total", String(questions.length));
+  sessionStorage.setItem("placement_total", "15");
   sessionStorage.setItem("placement_level", level);
-  sessionStorage.setItem("placement_note", recommendation);
-  sessionStorage.setItem("placement_responses", JSON.stringify(responses));
+  sessionStorage.setItem("placement_spoken_answers", JSON.stringify(spokenAnswers));
+  sessionStorage.setItem("placement_written_answers", JSON.stringify(writtenAnswers));
 
   window.location.href = "/placement/result.html";
 }
