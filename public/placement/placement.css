@@ -1037,3 +1037,38 @@ body.reading-mode .answer-pill,
 }
 
 /* === QUESTION HEADING OVERRIDE END === */
+
+
+
+/* === RECORDING HINT OVERRIDE START === */
+
+.recording-instruction,
+.recording-hint,
+.tap-recording-hint,
+.voice-hint,
+.response-hint{
+  text-align:center !important;
+  font-size:0.84rem !important;
+  font-weight:400 !important;
+  line-height:1.45 !important;
+  letter-spacing:0.01em !important;
+  color:rgba(255,255,255,0.58) !important;
+  width:100% !important;
+  margin:10px auto 8px !important;
+  display:block !important;
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .recording-instruction,
+  .recording-hint,
+  .tap-recording-hint,
+  .voice-hint,
+  .response-hint{
+    font-size:0.78rem !important;
+    line-height:1.42 !important;
+    margin:8px auto 6px !important;
+  }
+}
+
+/* === RECORDING HINT OVERRIDE END === */
