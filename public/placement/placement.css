@@ -1,486 +1,375 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Placement Test</title>
-  <link rel="stylesheet" href="placement.css" />
-</head>
-<body>
-
-<main id="app">
-  <h2 id="questionPrompt"></h2>
-  <div id="mediaArea"></div>
-  <div id="options"></div>
-</main>
-
-<div id="intervention" class="hidden">
-
-  <!-- INTERVENTION TEACHER (NEW IMAGE ONLY HERE) -->
-  <div class="teacher-box">
-    <div class="teacher-circle">
-      <img src="/assets/images/teacher-intervention.png" />
-    </div>
-  </div>
-
-  <audio
-    id="interventionAudio"
-    src="/assets/sounds/placement/intervention.mp3"
-    preload="auto">
-  </audio>
-
-  <div class="intervention-actions">
-    <button id="continueBtn" class="glass-btn back">Back to test</button>
-    <button id="revealBtn" class="glass-btn reveal">Reveal level</button>
-  </div>
-</div>
-
-<script src="./placement.js"></script>
-</body>
-</html>/* =====================================================
-   GLOBAL
-===================================================== */
-
-* {
-  box-sizing: border-box;
-  font-family: "Nunito", system-ui, sans-serif;
+﻿*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0f6f73, #0a4f57);
-  color: #ffffff;
-  overflow-y: auto;
-  overflow-x: hidden;
+html,body{
+  width:100%;
+  min-height:100%;
+  font-family:'Poppins',sans-serif;
+  background:
+    radial-gradient(circle at center, rgba(0,180,255,.22) 0%, rgba(0,0,0,0) 34%),
+    linear-gradient(180deg,#05070d 0%,#0a1020 42%,#071a2d 100%);
+  color:#ffffff;
+  overflow-x:hidden;
 }
 
-/* =====================================================
-   MAIN PLACEMENT PAGE
-===================================================== */
-
-#app {
-  min-height: 100vh;
-  width: 100%;
-  padding-top: 80px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: auto;
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
 }
 
-#questionPrompt {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 24px;
+.hidden{
+  display:none !important;
 }
 
-#mediaArea {
-  margin-bottom: 28px;
+/* ==========================================
+   SHELL
+========================================== */
+
+.placement-shell{
+  width:100%;
+  max-width:980px;
+  margin:0 auto;
 }
 
-#mediaArea img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 18px;
+.progress-wrap{
+  width:100%;
+  margin-bottom:28px;
 }
 
-#options {
-  width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.progress-track{
+  width:100%;
+  height:12px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.10);
+  overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 
-.option {
-  padding: 18px;
-  border-radius: 999px;
-  border: none;
-  font-size: 17px;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  backdrop-filter: blur(12px);
-  cursor: pointer;
-  transition: all 0.25s ease;
+.progress-bar{
+  width:0%;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#42e9f5,#5bbdff);
+  transition:width .35s ease;
+  box-shadow:0 0 16px rgba(66,233,245,.45);
 }
 
-.option:hover {
-  background: rgba(255, 255, 255, 0.28);
-  transform: translateY(-2px);
+/* ==========================================
+   MAIN CARD
+========================================== */
+
+.placement-card{
+  width:100%;
+  min-height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 20px;
 }
 
-/* =====================================================
-   INTERVENTION OVERLAY (NEW BACKGROUND)
-===================================================== */
-
-#intervention {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, #0b2a33, #061a22);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  transition: opacity 2.8s ease;
-  z-index: 999;
+.question-stage{
+  width:100%;
+  max-width:760px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:26px;
+  text-align:center;
 }
 
-#intervention.hidden {
-  opacity: 0;
-  pointer-events: none;
+#questionText{
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:2.2rem;
+  font-weight:700;
+  line-height:1.3;
+  color:#ffffff;
+  text-shadow:0 2px 14px rgba(0,0,0,.28);
+  margin-bottom:6px;
+  max-width:900px;
 }
 
-/* =====================================================
-   TEACHER — CLEAN CIRCLE + VERTICAL BOUNCE
-===================================================== */
+/* ==========================================
+   MEDIA
+========================================== */
 
-.teacher-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.media-area{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
 }
 
-/* Circle container */
-.teacher-circle {
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.audio-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* Fill the circle */
-.teacher-circle img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  z-index: 2;
+.audio-wrap audio{
+  width:min(380px,92vw);
+  border-radius:999px;
+  background:#fff;
+  padding:6px 10px;
+  box-shadow:0 12px 28px rgba(0,0,0,.20);
 }
 
-/* Soft glow ring */
-.teacher-circle::after {
-  content: "";
-  position: absolute;
-  inset: -16px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(110, 210, 255, 0.45), transparent 70%);
-  z-index: 1;
+.reading-block{
+  width:100%;
+  max-width:700px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:28px;
+  padding:26px 28px;
+  text-align:left;
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
 }
 
-/* VERY SLOW UP–DOWN MOTION */
-@keyframes gentleFloat {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-12px); }
-  100% { transform: translateY(0px); }
+.reading-label{
+  font-size:.95rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#bfefff;
+  margin-bottom:14px;
 }
 
-/* JS will toggle this */
-.slow-bounce {
-  animation: gentleFloat 4s ease-in-out infinite;
+.reading-text{
+  font-size:1.18rem;
+  line-height:1.85;
+  color:#ffffff;
 }
 
-/* =====================================================
-   BUTTONS — 3D GLASS + STAGGERED ENTRY + SHIMMER
-===================================================== */
-
-.intervention-actions {
-  margin-top: 40px;
-  display: flex;
-  gap: 40px;
-  justify-content: center;
+.reading-question{
+  width:100%;
+  max-width:700px;
+  font-size:1.16rem;
+  line-height:1.7;
+  color:#f2fbff;
+  font-weight:600;
+  margin-top:-4px;
 }
 
-/* BASE GLASS BUTTON */
-.glass-btn {
-  min-width: 200px;
-  padding: 16px 28px;
-  border-radius: 999px;
-  border: none;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  backdrop-filter: blur(16px);
+/* ==========================================
+   ANSWERS
+========================================== */
 
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.32),
-    rgba(255, 255, 255, 0.08)
-  );
+.answers{
+  width:100%;
+  max-width:700px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  align-items:center;
+}
 
+.answer-pill{
+  width:100%;
+  max-width:700px;
+  min-height:72px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(240,250,255,.96), rgba(224,244,255,.92));
+  color:#17354d;
+  font-size:1.12rem;
+  font-weight:700;
+  letter-spacing:.01em;
+  padding:0 26px;
+  cursor:pointer;
   box-shadow:
-    inset 0 2px 2px rgba(255,255,255,0.6),
-    inset 0 -2px 2px rgba(0,0,0,0.1),
-    0 12px 28px rgba(0,0,0,0.22);
-
-  transition: all 0.35s cubic-bezier(.22,.61,.36,1);
+    0 14px 30px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.75);
+  transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
 }
 
-.glass-btn:hover {
-  transform: translateY(-3px) scale(1.02);
+.answer-pill:hover{
+  transform:translateY(-2px);
   box-shadow:
-    inset 0 2px 3px rgba(255,255,255,0.7),
-    0 16px 34px rgba(0,0,0,0.28);
+    0 18px 34px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.8);
 }
 
-.glass-btn:active {
-  transform: translateY(1px) scale(0.99);
+.answer-pill:active{
+  transform:translateY(0);
 }
 
-/* Button colors */
-.glass-btn.back {
-  color: #e8f4ff;
+.submit-pill{
+  margin-top:14px;
 }
 
-.glass-btn.reveal {
-  color: #ecfffb;
+/* ==========================================
+   WRITING / SPEAKING
+========================================== */
+
+.response-card{
+  width:100%;
+  max-width:700px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:30px;
+  padding:28px 28px 26px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+  text-align:left;
 }
 
-/* Staggered slide-in animations */
-.intervention-actions button {
-  opacity: 0;
-  animation-duration: 1.2s;
-  animation-fill-mode: forwards;
-  animation-timing-function: cubic-bezier(.22,.61,.36,1);
+.response-prompt{
+  font-size:1.12rem;
+  line-height:1.7;
+  color:#ffffff;
+  font-weight:600;
+  margin-bottom:18px;
 }
 
-/* Slide from left */
-.slide-in-left {
-  animation-name: slideLeft;
+.response-box{
+  width:100%;
+  min-height:170px;
+  border:none;
+  outline:none;
+  resize:vertical;
+  border-radius:22px;
+  padding:20px 20px;
+  font-size:1rem;
+  line-height:1.7;
+  font-family:'Poppins',sans-serif;
+  background:rgba(255,255,255,.96);
+  color:#17354d;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.06);
 }
 
-/* Slide from right */
-.slide-in-right {
-  animation-name: slideRight;
+/* ==========================================
+   INTERVENTION
+========================================== */
+
+.intervention{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,8,20,.72);
+  backdrop-filter:blur(14px);
+  z-index:50;
+  padding:24px;
 }
 
-@keyframes slideLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-120px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.intervention-card{
+  width:100%;
+  max-width:620px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:34px;
+  padding:38px 30px 32px;
+  text-align:center;
+  backdrop-filter:blur(22px);
+  box-shadow:0 26px 60px rgba(0,0,0,.30);
 }
 
-@keyframes slideRight {
-  from {
-    opacity: 0;
-    transform: translateX(120px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.intervention-card h2{
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:2rem;
+  margin-bottom:12px;
 }
 
-/* Soft shimmer when buttons appear */
-.shimmer {
-  position: relative;
-  overflow: hidden;
+.intervention-card p{
+  font-size:1.05rem;
+  line-height:1.75;
+  color:#eefbff;
+  max-width:520px;
+  margin:0 auto 26px;
 }
 
-.shimmer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.5),
-    transparent
-  );
-  transform: translateX(-100%);
-  animation: shimmer 1.2s ease-out forwards;
+.intervention-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
 }
 
-@keyframes shimmer {
-  to {
-    transform: translateX(100%);
-  }
-}
-/* =====================================================
-   SAYBON OPTION BUTTON RESTORE PATCH
-   (visual only — no logic)
-===================================================== */
-
-#options {
-  width: 100%;
-  max-width: 680px;
-  margin: 28px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: stretch;
+.pill-btn{
+  min-width:220px;
+  min-height:62px;
+  border:none;
+  border-radius:999px;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease;
 }
 
-.option-btn {
-  width: 100%;
-  min-height: 62px;
-  padding: 16px 22px;
-  border: none;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.95);
-  color: #21445a;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  text-align: center;
-  cursor: pointer;
-  box-shadow:
-    0 10px 24px rgba(0,0,0,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.75);
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    background 0.18s ease,
-    color 0.18s ease;
-  -webkit-tap-highlight-color: transparent;
+.pill-btn:hover{
+  transform:translateY(-2px);
 }
 
-.option-btn:hover {
-  transform: translateY(-2px) scale(1.01);
-  background: #ffffff;
-  box-shadow:
-    0 14px 30px rgba(0,0,0,0.14),
-    inset 0 1px 0 rgba(255,255,255,0.88);
+.continue-btn{
+  background:linear-gradient(90deg,#4fe8ff,#6bc7ff);
+  color:#07243b;
+  box-shadow:0 16px 32px rgba(79,232,255,.25);
 }
 
-.option-btn:active {
-  transform: scale(0.985);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.65);
+.reveal-btn{
+  background:rgba(255,255,255,0.12);
+  color:#ffffff;
+  border:1px solid rgba(255,255,255,0.18);
 }
 
-.option-btn:focus {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,0.35),
-    0 12px 28px rgba(0,0,0,0.12);
-}
+/* ==========================================
+   MOBILE
+========================================== */
 
-/* Better spacing around prompt + media */
-#questionPrompt {
-  max-width: 760px;
-  margin: 0 auto 24px;
-  text-align: center;
-  line-height: 1.2;
-}
-
-#mediaArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin-bottom: 12px;
-}
-
-/* Audio polish */
-#mediaArea audio {
-  width: min(100%, 380px);
-  border-radius: 999px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-}
-
-/* Mobile refinement */
-@media (max-width: 768px) {
-  #options {
-    max-width: 100%;
-    gap: 14px;
-    margin-top: 22px;
+@media (max-width:768px){
+  body{
+    padding:24px 14px;
   }
 
-  .option-btn {
-    min-height: 58px;
-    padding: 15px 18px;
-    font-size: 1rem;
-    border-radius: 16px;
+  .placement-card{
+    min-height:auto;
+    padding:20px 8px;
   }
 
-  #questionPrompt {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
-    margin-bottom: 20px;
-    padding: 0 10px;
+  .question-stage{
+    gap:20px;
   }
 
-  #mediaArea audio {
-    width: min(100%, 320px);
-  }
-}
-
-@media (max-width: 480px) {
-  .option-btn {
-    min-height: 56px;
-    font-size: 0.98rem;
-    padding: 14px 16px;
+  #questionText{
+    font-size:1.55rem;
+    line-height:1.35;
   }
 
-  #options {
-    gap: 12px;
-  }
-}
-
-/* =====================================================
-   SAYBON AUDIO PLAYER VISIBILITY RESTORE
-===================================================== */
-
-#mediaArea {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  min-height: 90px !important;
-  margin: 18px auto 26px !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  overflow: visible !important;
-}
-
-#mediaArea audio {
-  display: block !important;
-  width: min(100%, 380px) !important;
-  min-width: 280px !important;
-  height: 54px !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 20 !important;
-  border-radius: 999px !important;
-  background: rgba(255,255,255,0.96) !important;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.14) !important;
-}
-
-/* if any hidden utility class touched media */
-#mediaArea.hidden,
-#mediaArea[hidden] {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  #mediaArea {
-    min-height: 84px !important;
-    margin: 14px auto 22px !important;
+  .answer-pill{
+    min-height:64px;
+    font-size:1rem;
+    padding:0 18px;
   }
 
-  #mediaArea audio {
-    width: min(100%, 320px) !important;
-    min-width: 240px !important;
-    height: 50px !important;
+  .reading-block,
+  .response-card{
+    padding:22px 18px;
+    border-radius:24px;
+  }
+
+  .reading-text,
+  .reading-question,
+  .response-prompt{
+    font-size:1rem;
+  }
+
+  .response-box{
+    min-height:150px;
+    font-size:.98rem;
+  }
+
+  .pill-btn{
+    width:100%;
+    min-width:unset;
   }
 }
