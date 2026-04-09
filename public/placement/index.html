@@ -39,42 +39,35 @@
     </main>
 
     <!-- PREMIUM INTERVENTION -->
-    <section id="intervention" class="intervention hidden" aria-hidden="true">
-      <div class="intervention-shell">
+    <section id="intervention" class="intervention hidden">
+  <div class="intervention-card">
 
-        <div class="intervention-teacher-wrap">
-          <div class="intervention-teacher-ring"></div>
-          <div class="intervention-teacher-card">
-            <img
-              src="/assets/images/teacher-intervention.png"
-              alt="SayBon Teacher"
-              class="intervention-teacher-img"
-            />
-          </div>
-        </div>
+    <!-- TEACHER HERO -->
+    <div class="intervention-hero">
+      <img src="/assets/images/teacher.png" alt="Teacher">
+    </div>
 
-        <div class="intervention-copy">
-          <p class="intervention-kicker">A quick pause</p>
-          <h2>You may have reached your current comfort zone.</h2>
-          <p>
-            We can keep going if you'd like, or we can reveal your current estimated level now
-            and recommend the best place for you to begin.
-          </p>
-        </div>
+    <!-- AUDIO -->
+    <audio id="interventionAudio" preload="auto">
+      <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
+    </audio>
 
-        <audio id="interventionAudio" preload="auto">
-          <source src="/assets/sounds/placement/intervention.mp3" type="audio/mpeg">
-        </audio>
+    <!-- BUTTONS -->
+    <div class="intervention-actions">
+      <button id="continueBtn" class="pill-btn continue-btn" type="button">
+        Continue Test
+      </button>
 
-        <div class="intervention-actions">
-          <button id="continueBtn" class="pill-btn continue-btn" type="button">Continue Test</button>
-          <button id="revealBtn" class="pill-btn reveal-btn" type="button">Reveal My Level</button>
-        </div>
+      <button id="revealBtn" class="pill-btn reveal-btn" type="button">
+        Reveal My Level
+      </button>
+    </div>
 
-      </div>
-    </section>
+  </div>
+</section>
 
   </div>
 
 </body>
 </html>
+

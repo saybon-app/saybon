@@ -847,3 +847,29 @@ body{
   }
 }
 
+
+/* FORCE INTERVENTION FIX (HIGH PRIORITY) */
+
+#intervention .intervention-hero img{
+  width:240px !important;
+  display:block;
+  margin:0 auto;
+  animation:teacherFloat 3.6s ease-in-out infinite;
+}
+
+#intervention .pill-btn{
+  width:360px !important;
+  max-width:70vw !important;
+  height:56px !important;
+  font-size:.95rem !important;
+}
+
+#intervention .intervention-actions{
+  gap:22px !important;
+}
+
+@keyframes teacherFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(0)}
+}
