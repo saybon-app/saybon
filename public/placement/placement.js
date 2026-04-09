@@ -8,7 +8,7 @@ const questions = [
   {
     id: 1,
     type: "mcq",
-    category: "Listening",
+    category: "Understanding",
     prompt: "Listen and choose the best response.",
     audio: "/assets/sounds/placement/a0_q1_bonjour.mp3",
     options: ["Merci", "Bonjour", "Pardon", "Bonsoir"],
@@ -167,7 +167,7 @@ const questions = [
     type: "writing",
     category: "Writing",
     prompt: "Write a short response in French.",
-    writingPrompt: "Do you think online learning is better than classroom learning? Give your opinion in 2–4 sentences.",
+    writingPrompt: "Do you think online learning is better than classroom learning?",
     expectedHint: "",
     level: "B2"
   },
@@ -192,9 +192,6 @@ let wrongAnswers = 0;
 let interventionShown = false;
 let spokenAnswers = [];
 let writtenAnswers = [];
-let mediaRecorder = null;
-let recordedChunks = [];
-let currentAudioBlob = null;
 
 /* ==================================================
    DOM
@@ -205,8 +202,6 @@ const questionText = document.getElementById("questionText");
 const mediaArea = document.getElementById("mediaArea");
 const answers = document.getElementById("answers");
 const progressBar = document.getElementById("progressBar");
-const questionCategory = document.getElementById("questionCategory");
-const questionCounter = document.getElementById("questionCounter");
 
 const intervention = document.getElementById("intervention");
 const interventionAudio = document.getElementById("interventionAudio");
@@ -214,34 +209,61 @@ const continueBtn = document.getElementById("continueBtn");
 const revealBtn = document.getElementById("revealBtn");
 
 /* ==================================================
+   SAFETY RESET ON LOAD
+================================================== */
+
+function resetInterventionState() {
+  if (intervention) {
+    intervention.classList.add("hidden");
+    intervention.style.display = "none";
+    intervention.style.opacity = "0";
+    intervention.style.pointerEvents = "none";
+  }
+
+  if (app) {
+    app.classList.remove("hidden");
+    app.style.display = "";
+    app.style.opacity = "1";
+    app.style.pointerEvents = "auto";
+  }
+
+  if (continueBtn) {
+    continueBtn.style.opacity = "0";
+    continueBtn.classList.remove("slide-in-left");
+  }
+
+  if (revealBtn) {
+    revealBtn.style.opacity = "0";
+    revealBtn.classList.remove("slide-in-right");
+  }
+
+  if (interventionAudio) {
+    interventionAudio.pause();
+    interventionAudio.currentTime = 0;
+    interventionAudio.onended = null;
+  }
+}
+
+/* ==================================================
    HELPERS
 ================================================== */
 
 function updateProgress() {
-  const progress = ((currentQuestion) / questions.length) * 100;
+  const progress = (currentQuestion / questions.length) * 100;
   progressBar.style.width = `${progress}%`;
 }
 
 function clearUI() {
   mediaArea.innerHTML = "";
   answers.innerHTML = "";
-  currentAudioBlob = null;
 }
 
-function makePillButton(text, onClick, extraClass = "") {
+function makePillButton(text, onClick) {
   const btn = document.createElement("button");
-  btn.className = `answer-pill ${extraClass}`.trim();
+  btn.className = "answer-pill";
   btn.textContent = text;
   btn.onclick = onClick;
   return btn;
-}
-
-function getEstimatedLevelByProgress() {
-  if (score <= 1) return "A0";
-  if (score <= 3) return "A1";
-  if (score <= 5) return "A2";
-  if (score <= 7) return "B1";
-  return "B2";
 }
 
 /* ==================================================
@@ -256,12 +278,21 @@ function renderQuestion() {
     return;
   }
 
+  resetInterventionState();
   updateProgress();
   clearUI();
 
   questionText.textContent = q.prompt;
-  questionCategory.textContent = q.category || "Placement";
-  questionCounter.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+  const categoryBadge = document.querySelector(".placement-category");
+  if (categoryBadge) {
+    categoryBadge.textContent = q.category || "";
+  }
+
+  const questionCount = document.querySelector(".question-count");
+  if (questionCount) {
+    questionCount.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  }
 
   if (q.audio) {
     const audioWrap = document.createElement("div");
@@ -280,7 +311,7 @@ function renderQuestion() {
     const readingBlock = document.createElement("div");
     readingBlock.className = "reading-block";
     readingBlock.innerHTML = `
-      <p class="reading-label">Text</p>
+      <p class="reading-label">TEXT</p>
       <div class="reading-text">${q.text}</div>
     `;
     mediaArea.appendChild(readingBlock);
@@ -305,25 +336,19 @@ function renderQuestion() {
     card.className = "response-card";
     card.innerHTML = `
       <p class="response-prompt">${q.speakingPrompt}</p>
-      <button class="answer-pill record-btn-primary" id="startRecordingBtn">🎤 Start Recording</button>
-      <button class="answer-pill record-btn-secondary" id="stopRecordingBtn" type="button">Stop Recording</button>
-      <p class="response-helper">Tap Start Recording and answer in French.</p>
+      <button class="record-btn" id="startRecordingBtn" type="button">🎤 Start Recording</button>
+      <button class="stop-btn" id="stopRecordingBtn" type="button">Stop Recording</button>
+      <p class="record-instruction">Tap Start Recording and answer in French.</p>
       <button class="answer-pill submit-pill" id="submitSpeaking">Submit Answer</button>
     `;
     answers.appendChild(card);
 
-    const startBtn = document.getElementById("startRecordingBtn");
-    const stopBtn = document.getElementById("stopRecordingBtn");
-    const submitBtn = document.getElementById("submitSpeaking");
-
-    startBtn.onclick = startRecording;
-    stopBtn.onclick = stopRecording;
-    submitBtn.onclick = () => {
+    document.getElementById("submitSpeaking").onclick = () => {
       spokenAnswers.push({
         id: q.id,
         level: q.level,
         prompt: q.speakingPrompt,
-        audioRecorded: !!currentAudioBlob
+        answer: "Recorded response"
       });
       currentQuestion++;
       renderQuestion();
@@ -355,40 +380,6 @@ function renderQuestion() {
 }
 
 /* ==================================================
-   RECORDING
-================================================== */
-
-async function startRecording() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    recordedChunks = [];
-    mediaRecorder = new MediaRecorder(stream);
-
-    mediaRecorder.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        recordedChunks.push(event.data);
-      }
-    };
-
-    mediaRecorder.onstop = () => {
-      currentAudioBlob = new Blob(recordedChunks, { type: "audio/webm" });
-      stream.getTracks().forEach(track => track.stop());
-    };
-
-    mediaRecorder.start();
-  } catch (error) {
-    alert("Microphone access is required to record your answer.");
-    console.error(error);
-  }
-}
-
-function stopRecording() {
-  if (mediaRecorder && mediaRecorder.state !== "inactive") {
-    mediaRecorder.stop();
-  }
-}
-
-/* ==================================================
    ANSWER HANDLER
 ================================================== */
 
@@ -403,6 +394,7 @@ function handleAnswer(selectedIndex) {
 
   currentQuestion++;
 
+  // ONLY TRIGGER HERE. NOWHERE ELSE.
   if (!interventionShown && wrongAnswers >= 3 && currentQuestion < questions.length) {
     showIntervention();
     return;
@@ -412,19 +404,30 @@ function handleAnswer(selectedIndex) {
 }
 
 /* ==================================================
-   PREMIUM INTERVENTION
+   INTERVENTION
 ================================================== */
 
 function showIntervention() {
+  // HARD LOCK: ONLY ALLOW AFTER 3 WRONG ANSWERS
+  if (wrongAnswers < 3 || interventionShown === true) return;
+
   interventionShown = true;
 
-  app.classList.add("hidden");
-  intervention.classList.remove("hidden");
+  if (app) {
+    app.classList.add("hidden");
+    app.style.display = "none";
+    app.style.pointerEvents = "none";
+  }
 
-  // Hide buttons initially
+  if (intervention) {
+    intervention.classList.remove("hidden");
+    intervention.style.display = "flex";
+    intervention.style.opacity = "1";
+    intervention.style.pointerEvents = "all";
+  }
+
   continueBtn.style.opacity = "0";
   revealBtn.style.opacity = "0";
-
   continueBtn.classList.remove("slide-in-left");
   revealBtn.classList.remove("slide-in-right");
 
@@ -433,7 +436,6 @@ function showIntervention() {
     interventionAudio.play().catch(() => {});
   }
 
-  // AFTER AUDIO ENDS → SHOW BUTTONS
   interventionAudio.onended = () => {
     continueBtn.style.opacity = "1";
     revealBtn.style.opacity = "1";
@@ -441,19 +443,27 @@ function showIntervention() {
     continueBtn.classList.add("slide-in-left");
     revealBtn.classList.add("slide-in-right");
   };
-});
-  }
 }
 
 continueBtn.onclick = () => {
-  intervention.classList.add("hidden");
-  intervention.setAttribute("aria-hidden", "true");
-  app.classList.remove("hidden");
+  if (intervention) {
+    intervention.classList.add("hidden");
+    intervention.style.display = "none";
+    intervention.style.opacity = "0";
+    intervention.style.pointerEvents = "none";
+  }
+
+  if (app) {
+    app.classList.remove("hidden");
+    app.style.display = "";
+    app.style.pointerEvents = "auto";
+  }
+
   renderQuestion();
 };
 
 revealBtn.onclick = () => {
-  finishPlacement(true);
+  finishPlacement();
 };
 
 /* ==================================================
@@ -470,15 +480,14 @@ function calculateLevel() {
   return "B2";
 }
 
-function finishPlacement(fromIntervention = false) {
-  const level = fromIntervention ? getEstimatedLevelByProgress() : calculateLevel();
+function finishPlacement() {
+  const level = calculateLevel();
 
   sessionStorage.setItem("placement_score", String(score));
   sessionStorage.setItem("placement_total", "15");
   sessionStorage.setItem("placement_level", level);
   sessionStorage.setItem("placement_spoken_answers", JSON.stringify(spokenAnswers));
   sessionStorage.setItem("placement_written_answers", JSON.stringify(writtenAnswers));
-  sessionStorage.setItem("placement_intervention_used", fromIntervention ? "yes" : "no");
 
   window.location.href = "/placement/result.html";
 }
@@ -487,5 +496,5 @@ function finishPlacement(fromIntervention = false) {
    START
 ================================================== */
 
+resetInterventionState();
 renderQuestion();
-
