@@ -1,4 +1,4 @@
-const PASSWORD = "s9a6y3b2o8n1"; // 🔒 LOCKED
+const PASSWORD = "0110041181"; // 🔒 LOCKED
 
 const status = document.getElementById("status");
 const passInput = document.getElementById("adminPassword");
