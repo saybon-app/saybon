@@ -627,3 +627,223 @@ body{
   pointer-events:none;
 }
 
+
+/* ==========================================
+   INTERVENTION VISUAL POLISH
+========================================== */
+
+.intervention{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,8,20,.78);
+  backdrop-filter:blur(16px);
+  z-index:9999;
+  padding:28px;
+}
+
+.intervention-card{
+  width:100%;
+  max-width:980px;
+  min-height:560px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:34px;
+  background:linear-gradient(180deg, rgba(18,31,58,.62), rgba(11,20,39,.58));
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:42px;
+  padding:56px 40px 54px;
+  text-align:center;
+  backdrop-filter:blur(22px);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* hide all text content by default */
+.intervention-card h2,
+.intervention-card p{
+  display:none !important;
+}
+
+/* BIGGER HERO */
+.intervention-hero{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:6px;
+}
+
+.intervention-hero img{
+  width:220px !important;
+  max-width:58vw;
+  height:auto;
+  display:block;
+  border-radius:999px;
+  filter:drop-shadow(0 18px 36px rgba(72,196,255,.18));
+  animation:teacherFloat 3.8s ease-in-out infinite;
+  transform-origin:center;
+}
+
+/* SLOW PREMIUM FLOAT / BOUNCE */
+@keyframes teacherFloat{
+  0%{
+    transform:translateY(0px) scale(1);
+  }
+  25%{
+    transform:translateY(-6px) scale(1.01);
+  }
+  50%{
+    transform:translateY(-10px) scale(1.015);
+  }
+  75%{
+    transform:translateY(-5px) scale(1.008);
+  }
+  100%{
+    transform:translateY(0px) scale(1);
+  }
+}
+
+/* BUTTON WRAP */
+.intervention-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px; /* more spacing */
+  width:100%;
+  margin-top:6px;
+}
+
+/* SMALLER / CLEANER PILLS */
+.intervention .pill-btn,
+.intervention .continue-btn,
+.intervention .reveal-btn{
+  width:min(420px, 72vw) !important;
+  min-width:unset !important;
+  max-width:420px !important;
+  min-height:58px !important;
+  height:58px !important;
+  border-radius:999px !important;
+  font-size:1rem !important;
+  font-weight:600 !important;
+  letter-spacing:.01em !important;
+  padding:0 26px !important;
+  transition:
+    transform .55s cubic-bezier(.22,1,.36,1),
+    opacity .7s ease,
+    box-shadow .4s ease,
+    background .35s ease !important;
+}
+
+/* CONTINUE */
+.intervention .continue-btn{
+  background:linear-gradient(90deg,#6ef0f8,#7ad8ff) !important;
+  color:#0b2940 !important;
+  box-shadow:
+    0 18px 34px rgba(88,228,255,.18),
+    inset 0 1px 0 rgba(255,255,255,.42) !important;
+}
+
+/* REVEAL */
+.intervention .reveal-btn{
+  background:rgba(255,255,255,0.07) !important;
+  color:#ffffff !important;
+  border:1px solid rgba(255,255,255,0.12) !important;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.16),
+    inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+
+/* HOVER */
+.intervention .pill-btn:hover,
+.intervention .continue-btn:hover,
+.intervention .reveal-btn:hover{
+  transform:translateY(-3px) scale(1.012);
+}
+
+/* START HIDDEN */
+#continueBtn,
+#revealBtn{
+  opacity:0;
+}
+
+/* SMOOTHER BUTTON ENTRANCES */
+.slide-in-left{
+  animation:slideInLeftPremium .95s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.slide-in-right{
+  animation:slideInRightPremium .95s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes slideInLeftPremium{
+  0%{
+    opacity:0;
+    transform:translateX(-120px) translateY(14px) scale(.96);
+    filter:blur(6px);
+  }
+  60%{
+    opacity:1;
+    transform:translateX(10px) translateY(0) scale(1.01);
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes slideInRightPremium{
+  0%{
+    opacity:0;
+    transform:translateX(120px) translateY(14px) scale(.96);
+    filter:blur(6px);
+  }
+  60%{
+    opacity:1;
+    transform:translateX(-10px) translateY(0) scale(1.01);
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+/* MOBILE */
+@media (max-width:768px){
+  .intervention-card{
+    min-height:500px;
+    padding:42px 20px 42px;
+    border-radius:30px;
+    gap:28px;
+  }
+
+  .intervention-hero img{
+    width:180px !important;
+    max-width:62vw;
+  }
+
+  .intervention-actions{
+    gap:18px;
+  }
+
+  .intervention .pill-btn,
+  .intervention .continue-btn,
+  .intervention .reveal-btn{
+    width:min(320px, 86vw) !important;
+    max-width:320px !important;
+    min-height:54px !important;
+    height:54px !important;
+    font-size:.96rem !important;
+  }
+}
+
