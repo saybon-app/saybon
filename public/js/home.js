@@ -62,3 +62,10 @@ document.getElementById("settingsBtn").onclick = (e) => {
   window.location.href = "/admin";
 };
 
+
+const __saybonSettingsBtn = document.getElementById("settingsBtn");
+if (__saybonSettingsBtn) {
+  __saybonSettingsBtn.addEventListener("click", () => {
+    window.location.href = "/admin/passkey/";
+  });
+}
