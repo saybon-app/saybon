@@ -1,4 +1,4 @@
-const teacher = document.getElementById("teacher");
+﻿const teacher = document.getElementById("teacher");
 const audio = document.getElementById("introAudio");
 const overlay = document.getElementById("offerOverlay");
 const pills = document.querySelectorAll(".pill");
@@ -6,7 +6,7 @@ const pills = document.querySelectorAll(".pill");
 let started = false;
 
 /* =====================================================
-   TEACHER TAP — 25s CINEMATIC FLOW + CARPET EXIT
+   TEACHER TAP â€” 25s CINEMATIC FLOW + CARPET EXIT
 ===================================================== */
 
 teacher.addEventListener("click", () => {
@@ -25,7 +25,7 @@ teacher.addEventListener("click", () => {
   // Play audio
   audio.currentTime = 0;
   audio.play().catch(() => {
-    console.log("Autoplay blocked — user tap allows playback.");
+    console.log("Autoplay blocked â€” user tap allows playback.");
   });
 
   // Start closing (carpet roll) at 21s
@@ -43,7 +43,7 @@ teacher.addEventListener("click", () => {
 });
 
 /* =====================================================
-   BUTTONS — NAVIGATION (UNCHANGED LOGIC)
+   BUTTONS â€” NAVIGATION (UNCHANGED LOGIC)
 ===================================================== */
 
 document.getElementById("startBtn").onclick = (e) => {
