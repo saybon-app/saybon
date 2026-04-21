@@ -1,40 +1,47 @@
-const options = document.querySelectorAll(".why-option");
-const affirmationBox = document.getElementById("affirmationBox");
+﻿const options = document.querySelectorAll(".why-option");
+const optionsGrid = document.getElementById("optionsGrid");
 
-const tags = {
-  travel:
-    "Better get your passport ready then… on y va ✈️🌍",
+let locked = false;
 
-  career:
-    "Ambition looks good on you… allez travailler 💼✨",
+function getFallClass(index, total, selectedIndex) {
+  if (index === selectedIndex) return "";
 
-  school:
-    "Brain glow activated… très studieux 📚✨",
+  if (total === 4) {
+    if (index === 0) return "fall-left";
+    if (index === 1) return "fall-right";
+    if (index === 2) return "fall-left";
+    if (index === 3) return "fall-right";
+  }
 
-  personal:
-    "Whatever your reasons may be, we’ve got you covered. 💫"
-};
+  return index < selectedIndex ? "fall-left" : "fall-right";
+}
 
-options.forEach(btn => {
+options.forEach((btn, selectedIndex) => {
   btn.addEventListener("click", () => {
+    if (locked) return;
+    locked = true;
 
-    // 1) Fade out all other options
-    options.forEach(o => {
-      if (o !== btn) o.classList.add("fade-out");
+    optionsGrid.classList.add("is-animating");
+
+    options.forEach((option, index) => {
+      if (option === btn) return;
+
+      const fallClass = getFallClass(index, options.length, selectedIndex);
+      if (fallClass) {
+        option.classList.add(fallClass);
+      } else {
+        option.classList.add("fall-down");
+      }
     });
 
-    // 2) Center selected option
-    btn.classList.add("selected");
-
-    // 3) Show affirmation tag (different style + emojis)
-    const key = btn.dataset.reason;
-    affirmationBox.textContent = tags[key];
-    affirmationBox.classList.remove("hidden");
-
-    // 4) After 3 seconds → loader → start.html
     setTimeout(() => {
+      btn.classList.add("chosen");
+    }, 120);
+
+    setTimeout(() => {
+      sessionStorage.setItem("saybon_reason", btn.dataset.reason || "");
       sessionStorage.setItem("saybon_next", "/start.html");
       window.location.href = "/loader.html";
-    }, 3000);
+    }, 1850);
   });
 });
