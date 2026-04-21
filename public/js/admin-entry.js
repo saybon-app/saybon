@@ -1,10 +1,10 @@
-import { adminLogin } from "/features/admin/auth/admin-auth.js";
+﻿(() => {
+  const settingsBtn = document.getElementById("settingsBtn");
+  if (!settingsBtn) return;
 
-const adminIcon = document.getElementById("admin-entry");
-
-if (adminIcon) {
-  adminIcon.addEventListener("click", () => {
-    sessionStorage.setItem("admin_attempt", "true");
-    adminLogin();
-  });
-}
+  settingsBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.href = "/admin/unlock.html";
+  }, true);
+})();
