@@ -1,17 +1,4 @@
-﻿===========================================
-SAYBON CLEAN TREE
-Generated: 2026-04-21 12:37:52
-Root: C:\SayBon
-===========================================
-
-_RESTORE_BACKUPS\placement.20260409_080247.BROKEN-BEFORE-RESTORE.js
-_RESTORE_BACKUPS\placement.20260409_080633.BEFORE-OPTION-DESIGN-FIX.css
-_RESTORE_BACKUPS\placement.20260409_080912.BEFORE-AUDIO-VISIBILITY-FIX.css
-_RESTORE_BACKUPS\placement.20260409_082110.BEFORE-ANSWER-PATTERN-FIX.js
-_RESTORE_BACKUPS\placement.20260409_094033.before-smart-scoring.js
-_RESTORE_BACKUPS\placement.20260409_100217.before-speaking-capture-upgrade.js
-_RESTORE_BACKUPS\placement.20260409_100839.before-real-speaking-ui.js
-admin\admin.css
+﻿admin\admin.css
 admin\admin.js
 admin\index.html
 admin\unlock.html
@@ -24,24 +11,8 @@ backend\SAYBON_ASSISTANT_FILE_LEDGER.md
 backend\server.js
 backend\src\controllers\quoteController.js
 backend\src\server.js
-backend_backup\app.js
-backend_backup\functions\index.js
-backend_backup\functions\package.json
-backend_backup\package.json
-backend_backup\SAYBON_ASSISTANT_FILE_LEDGER.md
-backend_backup\server.js
-backend_backup\src\controllers\phase1Controller.js
-backend_backup\src\controllers\quoteController.js
-backend_backup\src\server.js
-backend_backup\src\services\phase1Service.js
-backend_backup\src\utils\phase1Storage.js
 BACKEND_TRUTH_CHECK_OUTPUT.txt
 docs\ASSISTANT_FILE_LEDGER.md
-DUMP_20260416_125300\file-list.txt
-DUMP_20260416_125300\FULL_DUMP.txt
-DUMP_20260416_125300\tree.txt
-DUMP_CLEAN_20260416_130821\FULL_DUMP.txt
-DUMP_CLEAN_20260416_130821\tree.txt
 engine\delivery-engine.js
 engine\job-allocation.js
 engine\job-engine.js
@@ -58,13 +29,20 @@ LEDGER\SayBon_File_Ledger.json
 package.json
 package-lock.BACKUP.json
 public\404.html
+public\admin\access-granted\access-granted.css
+public\admin\access-granted\access-granted.js
+public\admin\access-granted\index.html
 public\admin\admin.css
 public\admin\admin.js
 public\admin\dashboard.html
 public\admin\index.html
 public\admin\jobs.html
 public\admin\panel.html
+public\admin\passkey\index.html
+public\admin\passkey\passkey.css
+public\admin\passkey\passkey.js
 public\admin\translation-admin.html
+public\admin\unlock.html
 public\auth\login.css
 public\auth\login.html
 public\auth\login.js
@@ -82,6 +60,7 @@ public\css\start.css
 public\css\why.css
 public\dashboard\dashboard.js
 public\dashboard\index.html
+public\data\admin-clearances.json
 public\delf\index.html
 public\delf\les-petits\index.html
 public\delf\les-petits\junior\index.html

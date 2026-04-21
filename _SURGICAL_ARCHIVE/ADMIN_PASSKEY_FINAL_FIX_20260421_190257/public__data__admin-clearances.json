@@ -1,0 +1,10 @@
+﻿[
+  {
+    "employeeId": "SB-ADM-001",
+    "name": "SayBon Core Admin",
+    "passkey": "0110041181",
+    "clearanceLevel": "super_admin",
+    "enabled": true,
+    "allowedSections": ["all"]
+  }
+]
