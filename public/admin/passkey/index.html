@@ -10,11 +10,22 @@
   <main class="gate-shell">
     <section class="gate-card">
       <div class="badge">ADMIN CLEARANCE</div>
-      <h1>Enter Access Code</h1>
-      <p class="sub">Only employees with approved clearance can continue.</p>
 
-      <input id="passkeyInput" type="password" placeholder="Enter employee passkey" autocomplete="off" />
-      <button id="unlockBtn">Unlock</button>
+      <h1>Access Code</h1>
+      <p class="sub">Authorized staff only.</p>
+
+      <input
+        id="passkeyInput"
+        type="password"
+        placeholder="Enter passkey"
+        autocomplete="off"
+      />
+
+      <div class="actions">
+        <button id="unlockBtn" class="primary-btn">Unlock</button>
+        <a href="/" class="secondary-btn">Homepage</a>
+      </div>
+
       <p id="status"></p>
     </section>
   </main>
