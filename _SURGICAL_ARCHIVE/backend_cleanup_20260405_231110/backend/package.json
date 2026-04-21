@@ -1,1 +1,0 @@
-{"name":"saybon-engine","version":"1.0.0","type":"module","main":"server.js","scripts":{"start":"node server.js"},"dependencies":{"cors":"^2.8.6","express":"^4.22.1","firebase-admin":"^13.7.0","stripe":"^20.4.1"}}

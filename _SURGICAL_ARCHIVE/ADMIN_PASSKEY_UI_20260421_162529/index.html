@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Admin Passkey</title>
+  <link rel="stylesheet" href="/admin/passkey/passkey.css" />
+</head>
+<body>
+  <main class="gate-shell">
+    <section class="gate-card">
+      <div class="badge">ADMIN CLEARANCE</div>
+      <h1>Enter Access Code</h1>
+      <p class="sub">Only employees with approved clearance can continue.</p>
+
+      <input id="passkeyInput" type="password" placeholder="Enter employee passkey" autocomplete="off" />
+      <button id="unlockBtn">Unlock</button>
+      <p id="status"></p>
+    </section>
+  </main>
+
+  <script src="/admin/passkey/passkey.js"></script>
+</body>
+</html>
