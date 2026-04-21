@@ -61,3 +61,4 @@ document.getElementById("settingsBtn").onclick = (e) => {
   e.stopPropagation();
   window.location.href = "/admin";
 };
+
