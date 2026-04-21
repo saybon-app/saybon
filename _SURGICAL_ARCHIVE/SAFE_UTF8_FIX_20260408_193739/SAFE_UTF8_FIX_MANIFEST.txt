@@ -1,8 +1,0 @@
-﻿SAYBON SAFE UTF-8 FIX
-Timestamp: 20260408_193739
-
-Files fixed: 0
-Files skipped: 2018
-
-Potential remaining suspicious files:
-

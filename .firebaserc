@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "saybon-3e3c2"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

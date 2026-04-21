@@ -1,35 +1,127 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Admin Passkey</title>
-  <link rel="stylesheet" href="/admin/passkey/passkey.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Clearance</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: radial-gradient(circle at top,#0b1d2f,#02060c);
+font-family: 'Segoe UI', sans-serif;
+color:white;
+}
+
+.card{
+background: rgba(255,255,255,0.04);
+backdrop-filter: blur(20px);
+padding:40px;
+border-radius:20px;
+width:320px;
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+text-align:center;
+}
+
+.header{
+font-size:12px;
+letter-spacing:2px;
+color:#00d4ff;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background: rgba(255,255,255,0.06);
+color:white;
+outline:none;
+font-size:14px;
+text-align:center;
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:48px;
+font-weight:bold;
+z-index:999;
+opacity:0;
+pointer-events:none;
+transition:0.3s;
+}
+
+.granted{
+background:#021a0c;
+color:#00ff7b;
+}
+
+.denied{
+background:#1a0202;
+color:#ff3b3b;
+}
+</style>
 </head>
+
 <body>
-  <main class="gate-shell">
-    <section class="gate-card">
-      <div class="badge">ADMIN CLEARANCE</div>
 
-      <h1>Access Code</h1>
-      <p class="sub">Authorized staff only.</p>
+<div class="card">
+<div class="header">ADMIN CLEARANCE</div>
+<input id="passkey" placeholder="Enter employee passkey" autofocus />
+</div>
 
-      <input
-        id="passkeyInput"
-        type="password"
-        placeholder="Enter passkey"
-        autocomplete="off"
-      />
+<div id="granted" class="overlay granted">ACCESS GRANTED</div>
+<div id="denied" class="overlay denied">ACCESS DENIED</div>
 
-      <div class="actions">
-        <button id="unlockBtn" class="primary-btn">Unlock</button>
-        <a href="/" class="secondary-btn">Homepage</a>
-      </div>
+<script>
+const input = document.getElementById("passkey")
 
-      <p id="status"></p>
-    </section>
-  </main>
+// ?? Replace with your real keys later
+const validKeys = ["SB-ADMIN-001","SB-ADMIN-777","IGENIUS"]
 
-  <script src="/admin/passkey/passkey.js"></script>
+input.addEventListener("input", () => {
+const value = input.value.trim()
+
+// Only trigger when user finishes typing (length check)
+if(value.length < 5) return
+
+if(validKeys.includes(value)){
+showGranted()
+}else{
+showDenied()
+}
+})
+
+function showGranted(){
+const g = document.getElementById("granted")
+g.style.opacity = "1"
+
+setTimeout(()=>{
+window.location.href = "/admin/"
+},1500)
+}
+
+function showDenied(){
+const d = document.getElementById("denied")
+d.style.opacity = "1"
+
+setTimeout(()=>{
+window.location.href = "/admin/passkey/"
+},1500)
+}
+</script>
+
 </body>
 </html>
