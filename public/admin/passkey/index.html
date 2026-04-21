@@ -40,28 +40,18 @@
           type="password"
           inputmode="numeric"
           autocomplete="off"
-          placeholder="Enter employee passkey"
-          aria-label="Enter employee passkey"
+          placeholder="Enter passkey"
+          aria-label="Enter passkey"
         />
       </div>
 
-      <div class="fingerprint-wrap" aria-hidden="true">
-        <svg class="fingerprint-frame" viewBox="0 0 120 120" fill="none">
-          <path d="M18 42V30H30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M102 42V30H90" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M18 78V90H30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M102 78V90H90" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-
-          <path d="M60 28C47 28 37 38 37 51C37 58 40 62 40 69C40 78 34 84 34 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 35C50 35 42 43 42 53C42 60 45 64 45 72C45 80 41 86 39 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 42C54 42 49 47 49 53C49 59 52 64 52 71C52 78 50 85 48 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 30C73 30 83 40 83 53C83 60 80 65 80 72C80 81 85 87 85 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 37C70 37 78 45 78 55C78 62 75 66 75 73C75 80 79 86 81 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 44C66 44 71 49 71 55C71 61 68 66 68 73C68 80 70 86 72 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 49C62.9 49 65 51.3 65 54.5C65 61 60 63.5 60 71.5C60 78 61 84 63 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M60 49C57.1 49 55 51.3 55 54.5C55 61 60 63.5 60 71.5C60 78 59 84 57 92" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <a class="home-center-button" href="/" aria-label="Go to homepage" title="Homepage">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 11.5L12 5L20 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 10.8V19H17V10.8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
         </svg>
-      </div>
+        <span>Home</span>
+      </a>
 
       <div class="brand-row">
         <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -71,13 +61,6 @@
         </svg>
         <div class="brand-text">SAYBON</div>
       </div>
-
-      <a class="home-icon" href="/" aria-label="Go to homepage" title="Homepage">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M4 11.5L12 5L20 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M7 10.8V19H17V10.8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-        </svg>
-      </a>
 
       <div id="status" class="sr-only" aria-live="polite"></div>
     </section>
