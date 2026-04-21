@@ -313,22 +313,49 @@ function renderQuestion() {
 
   if (q.type === "speaking") {
     const card = document.createElement("div");
-    card.className = "response-card";
+    card.className = "response-card speaking-card";
     card.innerHTML = `
-      <p class="response-prompt">${q.speakingPrompt}</p>
-      <button class="record-btn record-btn-primary" id="startRecordingBtn" type="button">🎤 Start Recording</button>
-      <button class="record-btn record-btn-secondary" id="stopRecordingBtn" type="button">Stop Recording</button>
-      <p class="response-helper">Tap Start Recording and answer in French.</p>
-      <button class="answer-pill submit-pill" id="submitSpeaking" type="button">Submit Answer</button>
+      <p class="response-prompt speaking-prompt">${q.speakingPrompt}</p>
+
+      <div class="speaking-recorder-shell">
+        <div class="speaking-control-row">
+          <button class="record-icon-btn record-icon-start" id="startRecordingBtn" type="button" aria-label="Start recording">
+            <span class="record-icon-disc"></span>
+          </button>
+
+          <button class="record-icon-btn record-icon-stop" id="stopRecordingBtn" type="button" aria-label="Stop recording" disabled>
+            <span class="record-icon-square"></span>
+          </button>
+        </div>
+
+        <div class="speaking-status" id="recStatus">Tap record and answer in French.</div>
+
+        <div class="wave-shell" id="waveShell">
+          <canvas id="waveCanvas" width="760" height="90"></canvas>
+        </div>
+
+        <div class="audio-preview-wrap" id="audioPreviewWrap"></div>
+
+        <div class="speaking-secondary-row" id="speakingSecondaryRow">
+          <button class="secondary-rec-btn" id="reRecordBtn" type="button" disabled>Re-record</button>
+        </div>
+
+        <button class="answer-pill submit-pill speaking-submit-btn" id="submitSpeaking" type="button" disabled>
+          Submit Answer
+        </button>
+      </div>
     `;
     answers.appendChild(card);
 
     const startBtn = document.getElementById("startRecordingBtn");
     const stopBtn = document.getElementById("stopRecordingBtn");
     const submitBtn = document.getElementById("submitSpeaking");
+    const rerecordBtn = document.getElementById("reRecordBtn");
 
-    startBtn.onclick = startRecording;
+    startBtn.onclick = () => startRecording(q.id);
     stopBtn.onclick = stopRecording;
+    rerecordBtn.onclick = () => reRecordSpeaking();
+
     submitBtn.onclick = () => {
       spokenAnswers.push({
         id: q.id,
@@ -341,7 +368,7 @@ function renderQuestion() {
     };
   }
 
-  if (q.type === "writing") {
+  if (q.type === "writing") { {
     const card = document.createElement("div");
     card.className = "response-card";
     card.innerHTML = `
@@ -365,33 +392,82 @@ function renderQuestion() {
   }
 }
 
-async function startRecording() {
+async function startRecording(questionId) {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    if (mediaRecorder && mediaRecorder.state !== "inactive") return;
+
+    const startBtn = document.getElementById("startRecordingBtn");
+    const stopBtn = document.getElementById("stopRecordingBtn");
+    const submitBtn = document.getElementById("submitSpeaking");
+    const status = document.getElementById("recStatus");
+    const previewWrap = document.getElementById("audioPreviewWrap");
+    const reRecordBtn = document.getElementById("reRecordBtn");
+    const waveCanvas = document.getElementById("waveCanvas");
+
+    currentAudioBlob = null;
     recordedChunks = [];
-    mediaRecorder = new MediaRecorder(stream);
+
+    if (previewWrap) previewWrap.innerHTML = "";
+    if (submitBtn) submitBtn.disabled = true;
+    if (reRecordBtn) reRecordBtn.disabled = true;
+
+    recordingStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(recordingStream);
+
+    waveAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    waveSource = waveAudioContext.createMediaStreamSource(recordingStream);
+    waveAnalyser = waveAudioContext.createAnalyser();
+    waveAnalyser.fftSize = 2048;
+    waveSource.connect(waveAnalyser);
+
+    if (waveCanvas) {
+      startWaveDraw(waveCanvas, waveAnalyser);
+    }
 
     mediaRecorder.ondataavailable = (event) => {
-      if (event.data.size > 0) {
+      if (event.data && event.data.size > 0) {
         recordedChunks.push(event.data);
       }
     };
 
-    mediaRecorder.onstop = () => {
-      currentAudioBlob = new Blob(recordedChunks, { type: "audio/webm" });
-      stream.getTracks().forEach(track => track.stop());
+    mediaRecorder.onstop = async () => {
+      try {
+        currentAudioBlob = new Blob(recordedChunks, { type: "audio/webm" });
+        renderSavedAudioPreview(currentAudioBlob);
+
+        if (status) status.textContent = "Recording saved. You can replay, re-record, or submit.";
+        if (submitBtn) submitBtn.disabled = false;
+        if (reRecordBtn) reRecordBtn.disabled = false;
+      } catch (err) {
+        console.error(err);
+        if (status) status.textContent = "Recording failed. Please try again.";
+      } finally {
+        stopWaveDraw();
+        cleanupWaveRecorder();
+        if (startBtn) startBtn.disabled = false;
+        if (stopBtn) stopBtn.disabled = true;
+      }
     };
 
     mediaRecorder.start();
+
+    if (startBtn) startBtn.disabled = true;
+    if (stopBtn) stopBtn.disabled = false;
+    if (status) status.textContent = "Recording… speak now.";
   } catch (error) {
-    alert("Microphone access is required to record your answer.");
     console.error(error);
+    const status = document.getElementById("recStatus");
+    if (status) status.textContent = "Microphone access is required to record your answer.";
+    cleanupWaveRecorder();
   }
 }
 
 function stopRecording() {
+  const status = document.getElementById("recStatus");
+
   if (mediaRecorder && mediaRecorder.state !== "inactive") {
     mediaRecorder.stop();
+    if (status) status.textContent = "Finishing recording…";
   }
 }
 
@@ -502,3 +578,126 @@ function finishPlacement(fromIntervention = false) {
 
 resetInterventionState();
 renderQuestion();
+
+/* ==========================================
+   SPEAKING RECORDER UPGRADE HELPERS
+========================================== */
+
+let waveAnimation = null;
+let recordingStream = null;
+let waveAudioContext = null;
+let waveAnalyser = null;
+let waveSource = null;
+
+function startWaveDraw(canvas, analyserNode) {
+  if (!canvas || !analyserNode) return;
+
+  const ctx = canvas.getContext("2d");
+  const bufferLength = analyserNode.fftSize;
+  const dataArray = new Uint8Array(bufferLength);
+
+  function draw() {
+    waveAnimation = requestAnimationFrame(draw);
+
+    analyserNode.getByteTimeDomainData(dataArray);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    grad.addColorStop(0, "rgba(110,224,255,0.85)");
+    grad.addColorStop(1, "rgba(67,154,255,0.95)");
+
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = grad;
+    ctx.beginPath();
+
+    const sliceWidth = canvas.width / bufferLength;
+    let x = 0;
+
+    for (let i = 0; i < bufferLength; i++) {
+      const v = dataArray[i] / 128.0;
+      const y = v * canvas.height / 2;
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    ctx.lineTo(canvas.width, canvas.height / 2);
+    ctx.stroke();
+  }
+
+  draw();
+}
+
+function stopWaveDraw() {
+  if (waveAnimation) {
+    cancelAnimationFrame(waveAnimation);
+    waveAnimation = null;
+  }
+
+  const canvas = document.getElementById("waveCanvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function cleanupWaveRecorder() {
+  try {
+    if (recordingStream) {
+      recordingStream.getTracks().forEach(track => track.stop());
+    }
+  } catch (e) {}
+
+  try {
+    if (waveAudioContext && waveAudioContext.state !== "closed") {
+      waveAudioContext.close();
+    }
+  } catch (e) {}
+
+  recordingStream = null;
+  waveAudioContext = null;
+  waveAnalyser = null;
+  waveSource = null;
+  mediaRecorder = null;
+}
+
+function renderSavedAudioPreview(blob) {
+  const previewWrap = document.getElementById("audioPreviewWrap");
+  if (!previewWrap || !blob) return;
+
+  const url = URL.createObjectURL(blob);
+
+  previewWrap.innerHTML = `
+    <div class="saved-audio-box">
+      <audio id="savedAudioPlayer" controls src="${url}"></audio>
+    </div>
+  `;
+}
+
+function reRecordSpeaking() {
+  currentAudioBlob = null;
+  recordedChunks = [];
+
+  const previewWrap = document.getElementById("audioPreviewWrap");
+  const submitBtn = document.getElementById("submitSpeaking");
+  const reRecordBtn = document.getElementById("reRecordBtn");
+  const status = document.getElementById("recStatus");
+  const startBtn = document.getElementById("startRecordingBtn");
+  const stopBtn = document.getElementById("stopRecordingBtn");
+
+  if (previewWrap) previewWrap.innerHTML = "";
+  if (submitBtn) submitBtn.disabled = true;
+  if (reRecordBtn) reRecordBtn.disabled = true;
+  if (startBtn) startBtn.disabled = false;
+  if (stopBtn) stopBtn.disabled = true;
+  if (status) status.textContent = "Tap record and answer in French.";
+
+  stopWaveDraw();
+  cleanupWaveRecorder();
+}
