@@ -1,5 +1,5 @@
 ﻿(function () {
   setTimeout(() => {
-    window.location.href = "/features/admin/";
-  }, 1800);
+    window.location.href = "/admin/";
+  }, 1700);
 })();
