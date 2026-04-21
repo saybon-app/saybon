@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Clearance</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: radial-gradient(circle at top,#071a2c,#01040a);
+color:white;
+}
+
+.container{
+width:360px;
+text-align:center;
+}
+
+.card{
+border-radius:20px;
+padding:30px;
+background: rgba(255,255,255,0.03);
+backdrop-filter: blur(20px);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 20px 50px rgba(0,0,0,0.6);
+position:relative;
+}
+
+/* Header tab */
+.header{
+position:absolute;
+top:-14px;
+left:50%;
+transform:translateX(-50%);
+background:#071a2c;
+padding:6px 18px;
+border-radius:10px;
+font-size:11px;
+letter-spacing:2px;
+color:#00d4ff;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Lock icon */
+.lock{
+font-size:30px;
+margin-top:10px;
+margin-bottom:15px;
+color:#00d4ff;
+}
+
+/* Subtitle */
+.subtitle{
+font-size:11px;
+letter-spacing:3px;
+color:#aaa;
+margin-bottom:20px;
+}
+
+/* Input */
+input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.04);
+color:white;
+text-align:center;
+outline:none;
+}
+
+/* Fingerprint */
+.fingerprint{
+margin-top:25px;
+font-size:28px;
+opacity:0.7;
+}
+
+/* Brand */
+.brand{
+margin-top:20px;
+font-size:14px;
+letter-spacing:6px;
+color:#888;
+}
+
+/* Home button */
+.home{
+margin-top:15px;
+font-size:18px;
+cursor:pointer;
+opacity:0.6;
+}
+.home:hover{
+opacity:1;
+}
+
+/* Overlays */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:48px;
+font-weight:bold;
+opacity:0;
+pointer-events:none;
+z-index:999;
+}
+
+.granted{
+background:#021a0c;
+color:#00ff7b;
+}
+
+.denied{
+background:#1a0202;
+color:#ff3b3b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+<div class="header">ADMIN CLEARANCE</div>
+
+<div class="lock">??</div>
+
+<div class="subtitle">AUTHORIZED STAFF ONLY</div>
+
+<input id="passkey" placeholder="Enter employee passkey" autofocus />
+
+<div class="fingerprint">??</div>
+
+<div class="brand">SAYBON</div>
+
+<div class="home" onclick="goHome()">??</div>
+</div>
+
+</div>
+
+<div id="granted" class="overlay granted">ACCESS GRANTED</div>
+<div id="denied" class="overlay denied">ACCESS DENIED</div>
+
+<script>
+const input = document.getElementById("passkey")
+
+// ?? TEMP KEYS (we will upgrade later)
+const validKeys = ["SB-ADMIN-001","IGENIUS","SB-777"]
+
+input.addEventListener("input", () => {
+const val = input.value.trim()
+
+if(val.length < 5) return
+
+if(validKeys.includes(val)){
+grant()
+}else{
+deny()
+}
+})
+
+function grant(){
+const g = document.getElementById("granted")
+g.style.opacity = "1"
+
+setTimeout(()=>{
+window.location.href = "/admin/"
+},1500)
+}
+
+function deny(){
+const d = document.getElementById("denied")
+d.style.opacity = "1"
+
+setTimeout(()=>{
+window.location.href = "/admin/passkey/"
+},1500)
+}
+
+function goHome(){
+window.location.href = "/"
+}
+</script>
+
+</body>
+</html>
