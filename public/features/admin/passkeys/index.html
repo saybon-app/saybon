@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/js/session.js"></script>
+  <script src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Passkeys — SayBon</title>
+  <link rel="stylesheet" href="/features/admin/passkeys/passkeys.css" />
+</head>
+<body>
+  <main class="passkeys-shell">
+    <header class="hero-card">
+      <div class="kicker">ADMIN PASSKEYS</div>
+      <h1>Generate employee admin passkeys</h1>
+      <p class="sub">Master admin only. This first version stores generated passkeys in the browser on this admin device.</p>
+      <div class="meta" id="accessMeta">Checking clearance…</div>
+    </header>
+
+    <section class="manager-grid">
+      <div class="panel">
+        <h2>Create passkey</h2>
+
+        <label>Name</label>
+        <input id="nameInput" type="text" placeholder="Employee name" />
+
+        <label>Employee ID</label>
+        <input id="employeeIdInput" type="text" placeholder="Employee ID" />
+
+        <label>Role</label>
+        <select id="roleInput">
+          <option value="employee_admin">Employee Admin</option>
+          <option value="ops_admin">Operations Admin</option>
+        </select>
+
+        <label>Passkey</label>
+        <div class="inline-row">
+          <input id="passkeyInput" type="text" placeholder="Generated passkey" />
+          <button id="generateBtn" type="button">Generate</button>
+        </div>
+
+        <button id="saveBtn" class="save-btn" type="button">Save passkey</button>
+      </div>
+
+      <div class="panel">
+        <h2>Existing passkeys</h2>
+        <div id="listWrap" class="list-wrap"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/features/admin/passkeys/passkeys.js"></script>
+</body>
+</html>
