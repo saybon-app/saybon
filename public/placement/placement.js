@@ -527,40 +527,60 @@ function showIntervention() {
   intervention.classList.remove("hidden");
   intervention.setAttribute("aria-hidden", "false");
 
-  continueBtn.classList.remove("slide-in-left", "shimmer", "intervention-btn-visible");
-  revealBtn.classList.remove("slide-in-right", "shimmer", "intervention-btn-visible");
+  const buttons = [continueBtn, revealBtn];
 
-  continueBtn.classList.add("intervention-btn-hidden");
-  revealBtn.classList.add("intervention-btn-hidden");
+  buttons.forEach(btn => {
+    if (!btn) return;
+    btn.classList.remove(
+      "slide-in-left",
+      "slide-in-right",
+      "shimmer",
+      "intervention-btn-visible",
+      "intervention-slide-left",
+      "intervention-slide-right"
+    );
+    btn.classList.add("intervention-force-hidden");
+    btn.style.opacity = "0";
+    btn.style.pointerEvents = "none";
+    btn.style.visibility = "hidden";
+  });
+
+  const revealInterventionButtons = () => {
+    buttons.forEach(btn => {
+      if (!btn) return;
+      btn.classList.remove("intervention-force-hidden");
+      btn.style.visibility = "visible";
+    });
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        continueBtn.style.opacity = "";
+        revealBtn.style.opacity = "";
+        continueBtn.style.pointerEvents = "";
+        revealBtn.style.pointerEvents = "";
+
+        continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left-slow");
+        revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right-slow");
+      }, 120);
+    });
+  };
 
   if (interventionAudio) {
+    interventionAudio.pause();
     interventionAudio.currentTime = 0;
 
-    interventionAudio.onended = () => {
-      continueBtn.classList.remove("intervention-btn-hidden");
-      revealBtn.classList.remove("intervention-btn-hidden");
-
-      continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
-      revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
-    };
+    interventionAudio.onended = null;
+    interventionAudio.addEventListener("ended", revealInterventionButtons, { once: true });
 
     interventionAudio.play().catch(() => {
-      setTimeout(() => {
-        continueBtn.classList.remove("intervention-btn-hidden");
-        revealBtn.classList.remove("intervention-btn-hidden");
-
-        continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
-        revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
-      }, 900);
+      /*
+        If browser blocks autoplay, keep the hero-only moment,
+        then reveal after a longer graceful delay.
+      */
+      setTimeout(revealInterventionButtons, 3200);
     });
   } else {
-    setTimeout(() => {
-      continueBtn.classList.remove("intervention-btn-hidden");
-      revealBtn.classList.remove("intervention-btn-hidden");
-
-      continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
-      revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
-    }, 900);
+    setTimeout(revealInterventionButtons, 3200);
   }
 }
 
@@ -602,6 +622,7 @@ function finishPlacement() {
 }
 
 renderQuestion();
+
 
 
 

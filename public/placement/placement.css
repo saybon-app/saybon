@@ -1678,3 +1678,81 @@ PLACEMENT INTERVENTION FLOW START
 PLACEMENT INTERVENTION FLOW END
 ========================================== */
 
+
+/* ==========================================
+PLACEMENT STRICT INTERVENTION START
+========================================== */
+
+#continueBtn.intervention-force-hidden,
+#revealBtn.intervention-force-hidden{
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  transform:translateY(26px) scale(.94) !important;
+}
+
+#continueBtn.intervention-btn-visible,
+#revealBtn.intervention-btn-visible{
+  visibility:visible !important;
+  pointer-events:auto !important;
+}
+
+.intervention-slide-left-slow{
+  animation:interventionSlideLeftSlow 1.45s cubic-bezier(.16, .84, .22, 1) both !important;
+}
+
+.intervention-slide-right-slow{
+  animation:interventionSlideRightSlow 1.45s cubic-bezier(.16, .84, .22, 1) both !important;
+  animation-delay:.18s !important;
+}
+
+@keyframes interventionSlideLeftSlow{
+  0%{
+    opacity:0;
+    transform:translateX(-140px) translateY(28px) scale(.92);
+    filter:blur(7px);
+  }
+  55%{
+    opacity:.92;
+    transform:translateX(8px) translateY(0) scale(1.01);
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes interventionSlideRightSlow{
+  0%{
+    opacity:0;
+    transform:translateX(140px) translateY(28px) scale(.92);
+    filter:blur(7px);
+  }
+  55%{
+    opacity:.92;
+    transform:translateX(-8px) translateY(0) scale(1.01);
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+/* make sure old animation classes cannot reveal early */
+#continueBtn.slide-in-left:not(.intervention-btn-visible),
+#revealBtn.slide-in-right:not(.intervention-btn-visible),
+#continueBtn.shimmer:not(.intervention-btn-visible),
+#revealBtn.shimmer:not(.intervention-btn-visible){
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* ==========================================
+PLACEMENT STRICT INTERVENTION END
+========================================== */
+
