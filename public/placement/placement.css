@@ -1560,3 +1560,121 @@ select,
 PLACEMENT LIGHT CLASSY FONT OVERRIDE END
 ========================================== */
 
+
+/* ==========================================
+PLACEMENT INTERVENTION FLOW START
+========================================== */
+
+#intervention{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:24px;
+}
+
+#intervention.hidden{
+  display:none !important;
+}
+
+#intervention .intervention-card,
+#intervention .intervention-content,
+#intervention > div{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+}
+
+#continueBtn,
+#revealBtn{
+  width:min(92vw, 420px) !important;
+  height:56px !important;
+  border-radius:999px !important;
+  transition:
+    opacity .55s ease,
+    transform .75s cubic-bezier(.2,.8,.2,1),
+    filter .4s ease !important;
+}
+
+.intervention-btn-hidden{
+  opacity:0 !important;
+  pointer-events:none !important;
+  transform:translateY(18px) scale(.96) !important;
+}
+
+.intervention-btn-visible{
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+.intervention-slide-left{
+  animation:interventionSlideLeft .8s cubic-bezier(.2,.85,.2,1) both;
+}
+
+.intervention-slide-right{
+  animation:interventionSlideRight .8s cubic-bezier(.2,.85,.2,1) both;
+}
+
+@keyframes interventionSlideLeft{
+  from{
+    opacity:0;
+    transform:translateX(-90px) translateY(14px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes interventionSlideRight{
+  from{
+    opacity:0;
+    transform:translateX(90px) translateY(14px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* keep hero visible and centered while audio plays */
+#intervention img,
+#intervention .teacher-img,
+#intervention .hero-img{
+  display:block;
+  max-width:min(280px, 55vw);
+  margin:0 auto;
+  animation:interventionHeroFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes interventionHeroFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+
+/* mobile */
+@media(max-width:768px){
+  #intervention{
+    padding:18px;
+  }
+
+  #continueBtn,
+  #revealBtn{
+    width:100% !important;
+    max-width:360px !important;
+    height:54px !important;
+  }
+
+  #intervention img,
+  #intervention .teacher-img,
+  #intervention .hero-img{
+    max-width:min(230px, 62vw);
+  }
+}
+
+/* ==========================================
+PLACEMENT INTERVENTION FLOW END
+========================================== */
+
