@@ -2,17 +2,22 @@
 <html lang="en">
 <head>
   <script type="module" src="/js/auth-guard.js"></script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>A1 Lesson 1 — SayBon</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/page-transition.css">
   <script type="module" src="/js/nav-engine.js"></script>
 
   <style>
+    :root{
+      --accent:#CBA37E;
+      --soft:#F2E4D4;
+      --dark:#07181d;
+    }
+
     *{box-sizing:border-box}
 
     body{
@@ -22,72 +27,92 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-family:"Nunito",system-ui,sans-serif;
-      color:#f7fbfb;
+      color:#fff;
       text-align:center;
+      font-family:"Nunito",system-ui,sans-serif;
       background:
-        radial-gradient(circle at 50% 24%, color-mix(in srgb, #95C2BD 34%, transparent), transparent 22%),
-        radial-gradient(circle at 15% 80%, rgba(149,194,189,.18), transparent 22%),
-        linear-gradient(145deg,#0d2f35 0%,#123f45 48%,#071b22 100%);
+        radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 24%),
+        radial-gradient(circle at 14% 84%, color-mix(in srgb, var(--soft) 18%, transparent), transparent 24%),
+        linear-gradient(145deg, color-mix(in srgb, var(--accent) 36%, #07181d) 0%, #07181d 58%, #030b0f 100%);
+      overflow:hidden;
     }
 
-    .card{
-      width:min(92vw,620px);
-      padding:42px 28px;
-      border-radius:38px;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.30;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
+        radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1.5px);
+      background-size:90px 90px;
+      animation:bgMove 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMove{
+      from{transform:translateY(-10px)}
+      to{transform:translateY(14px)}
+    }
+
+    .lesson-stage{
+      width:min(92vw,680px);
+      position:relative;
+      z-index:1;
+      padding:42px 30px;
+      border-radius:42px;
+      background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
       border:1px solid rgba(255,255,255,.18);
-      box-shadow:
-        0 30px 86px rgba(0,0,0,.30),
-        inset 0 1px 0 rgba(255,255,255,.16);
-      backdrop-filter:blur(22px);
-      animation:cardIn .75s ease both;
+      box-shadow:0 34px 90px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.16);
+      backdrop-filter:blur(24px);
+      animation:stageIn .8s cubic-bezier(.16,.84,.22,1) both;
     }
 
-    @keyframes cardIn{
-      from{opacity:0; transform:translateY(18px) scale(.985)}
-      to{opacity:1; transform:translateY(0) scale(1)}
+    @keyframes stageIn{
+      from{opacity:0; transform:translateY(24px) scale(.97); filter:blur(10px)}
+      to{opacity:1; transform:translateY(0) scale(1); filter:blur(0)}
     }
 
-    .orb{
-      width:96px;
-      height:96px;
-      border-radius:32px;
-      margin:0 auto 20px;
+    .symbol{
+      width:112px;
+      height:112px;
+      margin:0 auto 22px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:42px;
-      background:linear-gradient(180deg,#ffffff,#95C2BD);
-      box-shadow:
-        0 20px 54px color-mix(in srgb, #95C2BD 35%, transparent),
-        inset 0 1px 0 rgba(255,255,255,.60);
-      color:#0d2f35;
+      color:#0b1518;
+      background:linear-gradient(180deg,#fff,var(--accent));
+      box-shadow:0 22px 60px color-mix(in srgb, var(--accent) 38%, transparent), inset 0 1px 0 rgba(255,255,255,.75);
+      font-size:46px;
+      animation:symbolMotion 3.6s ease-in-out infinite;
+    }
+
+    @keyframes symbolMotion{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
     }
 
     .kicker{
       font-size:12px;
       font-weight:900;
-      letter-spacing:.22em;
+      letter-spacing:.24em;
       text-transform:uppercase;
-      color:rgba(247,251,251,.72);
+      color:rgba(255,255,255,.70);
       margin-bottom:10px;
     }
 
     h1{
       margin:0;
-      font-size:clamp(32px,5vw,50px);
+      font-size:clamp(34px,5vw,56px);
+      line-height:1.04;
       font-weight:850;
-      letter-spacing:-.02em;
     }
 
-    p{
-      margin:14px auto 28px;
-      max-width:450px;
+    .line{
+      margin:16px auto 30px;
+      max-width:470px;
+      color:rgba(255,255,255,.76);
+      line-height:1.65;
       font-size:16px;
-      line-height:1.6;
-      color:rgba(247,251,251,.78);
     }
 
     .actions{
@@ -97,15 +122,14 @@
       flex-wrap:wrap;
     }
 
-    button,
-    a{
-      min-width:180px;
+    button,a{
+      min-width:178px;
       height:52px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      border:1px solid rgba(255,255,255,.18);
       text-decoration:none;
       font-family:inherit;
       font-size:14px;
@@ -115,35 +139,121 @@
     }
 
     button{
-      background:linear-gradient(180deg,#ffffff,#95C2BD);
-      color:#0d2f35;
-      box-shadow:0 18px 38px color-mix(in srgb, #95C2BD 22%, transparent);
+      background:linear-gradient(180deg,#fff,var(--accent));
+      color:#0b1518;
+      box-shadow:0 18px 42px color-mix(in srgb, var(--accent) 26%, transparent);
     }
 
     a{
       background:rgba(255,255,255,.10);
-      color:#ffffff;
+      color:#fff;
     }
 
-    button:hover,
-    a:hover{
-      transform:translateY(-3px);
-      filter:brightness(1.04);
+    button:hover,a:hover{transform:translateY(-3px); filter:brightness(1.04)}
+    button:active,a:active{transform:translateY(1px) scale(.985)}
+
+    .foundationA0 .symbol{
+      border-radius:32px;
+    }
+    .foundationA0 h1{
+      font-family:"Baloo 2", sans-serif;
     }
 
-    button:active,
-    a:active{
-      transform:translateY(1px) scale(.985);
+    .warmA1 .lesson-stage{
+      border-radius:24px 56px 24px 56px;
+    }
+    .warmA1 .symbol{
+      border-radius:22px 46px 22px 46px;
+      animation:softTilt 3s ease-in-out infinite;
+    }
+    .warmA1 h1{
+      font-family:"Nunito", sans-serif;
+      letter-spacing:-.03em;
+    }
+    @keyframes softTilt{
+      0%,100%{transform:rotate(-2deg) translateY(0)}
+      50%{transform:rotate(2deg) translateY(-7px)}
+    }
+
+    .flowA2 .symbol{
+      border-radius:46% 54% 48% 52% / 58% 54% 46% 42%;
+      animation:floatFlow 4s ease-in-out infinite;
+    }
+    .flowA2 h1{
+      font-family:"Baloo 2", sans-serif;
+    }
+    @keyframes floatFlow{
+      0%,100%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-10px) scale(1.04)}
+    }
+
+    .gridB1 .lesson-stage{
+      border-radius:12px;
+    }
+    .gridB1 .symbol{
+      border-radius:8px;
+      animation:gridPulse 2.5s ease-in-out infinite;
+    }
+    .gridB1 h1{
+      font-family:"Space Grotesk", sans-serif;
+      letter-spacing:-.02em;
+    }
+    @keyframes gridPulse{
+      0%,100%{box-shadow:0 22px 60px color-mix(in srgb, var(--accent) 30%, transparent)}
+      50%{box-shadow:0 22px 60px color-mix(in srgb, var(--accent) 55%, transparent)}
+    }
+
+    .precisionB2 .lesson-stage{
+      transform:skewX(-2deg);
+      border-radius:28px;
+    }
+    .precisionB2 .lesson-stage > *{
+      transform:skewX(2deg);
+    }
+    .precisionB2 .symbol{
+      border-radius:24px;
+      transform:rotate(45deg);
+      animation:diamondGlow 3s ease-in-out infinite;
+    }
+    .precisionB2 .symbol span{
+      display:block;
+      transform:rotate(-45deg);
+    }
+    .precisionB2 h1{
+      font-family:"Space Grotesk", sans-serif;
+    }
+    @keyframes diamondGlow{
+      0%,100%{filter:brightness(1)}
+      50%{filter:brightness(1.14)}
+    }
+
+    .eleganceC1 .lesson-stage{
+      border-radius:999px 999px 46px 46px;
+      padding-top:54px;
+    }
+    .eleganceC1 .symbol{
+      border-radius:999px;
+    }
+    .eleganceC1 h1{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
+    }
+
+    @media(max-width:560px){
+      body{overflow:auto}
+      .lesson-stage{padding:34px 22px; border-radius:32px}
+      .actions{flex-direction:column; align-items:center}
+      button,a{width:100%; max-width:300px}
     }
   </style>
 </head>
 
-<body>
-  <main class="card">
-    <div class="orb">✨</div>
+<body class="warmA1">
+  <main class="lesson-stage">
+    <div class="symbol"><span>☕</span></div>
     <div class="kicker">A1 Lesson 1</div>
-    <h1>Lesson 1 is Ready</h1>
-    <p>This is a polished placeholder for the first lesson in A1 — Beginner. The full lesson engine will be connected here.</p>
+    <h1>Everyday Confidence</h1>
+    <p class="line">Start building the French you can use immediately.</p>
 
     <div class="actions">
       <button onclick="completeLesson()">Mark Lesson Complete</button>
