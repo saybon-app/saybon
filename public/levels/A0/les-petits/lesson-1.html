@@ -1,29 +1,133 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <title>A0 — Les petits</title>
-  <link rel="stylesheet" href="/css/global.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 — SayBon Littles</title>
 
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Nunito",sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,230,150,.4), transparent 25%),
+    linear-gradient(145deg,#0e8b91,#074261);
+}
+
+.container{
+  padding:40px 24px;
+  width:min(92vw,600px);
+  border-radius:36px;
+
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.25);
+
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+
+/* FLOATING EMOJIS */
+.float{
+  position:absolute;
+  font-size:24px;
+  animation:float 6s infinite ease-in-out;
+  opacity:.8;
+}
+
+.float:nth-child(1){ top:10%; left:20%; animation-delay:0s }
+.float:nth-child(2){ top:20%; right:18%; animation-delay:1s }
+.float:nth-child(3){ bottom:15%; left:25%; animation-delay:2s }
+.float:nth-child(4){ bottom:18%; right:22%; animation-delay:3s }
+
+@keyframes float{
+  0%,100%{ transform:translateY(0) }
+  50%{ transform:translateY(-18px) }
+}
+
+h1{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:16px;
+  opacity:.9;
+  margin-bottom:28px;
+}
+
+/* BUTTONS */
+button,a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:54px;
+  padding:0 26px;
+  border-radius:999px;
+  margin:8px;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  border:none;
+}
+
+.start{
+  background:#ffe58a;
+  color:#074261;
+  box-shadow:0 10px 30px rgba(255,229,138,.4);
+}
+
+.back{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+}
+
+/* FUN CHARACTER */
+.character{
+  font-size:70px;
+  margin-bottom:12px;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>A0 — Les petits (Lessons 1–25)</h1>
+<div class="float">🎈</div>
+<div class="float">🌟</div>
+<div class="float">🎶</div>
+<div class="float">🧸</div>
 
-  <div class="lesson-grid">
-    <a href="lesson-1.html" class="lesson unlocked">Lesson 1</a>
+<div class="container">
 
-    <script>
-      for (let i = 2; i <= 25; i++) {
-        document.write(`
-          <div class="lesson locked">Lesson ${i} 🔒</div>
-        `);
-      }
-    </script>
-  </div>
+<div class="character">👧🏽</div>
+
+<h1>Bonjour 👋</h1>
+<p>Welcome to your very first French adventure!</p>
+
+<button class="start" onclick="startLesson()">Start Lesson 🎉</button>
+<a class="back" href="/levels/A0/les-petits/">Back</a>
+
+</div>
+
+<script>
+function startLesson(){
+  alert("Lesson engine will plug in here next 🚀");
+
+  // Mark Lesson 1 complete (unlocks Lesson 2)
+  localStorage.setItem("saybon_a0_littles_lesson_1_complete", "true");
+}
+</script>
 
 </body>
 </html>
