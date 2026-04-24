@@ -522,17 +522,46 @@ function clearWaveCanvas() {
 
 function showIntervention() {
   interventionShown = true;
+
   app.classList.add("hidden");
   intervention.classList.remove("hidden");
   intervention.setAttribute("aria-hidden", "false");
 
+  continueBtn.classList.remove("slide-in-left", "shimmer", "intervention-btn-visible");
+  revealBtn.classList.remove("slide-in-right", "shimmer", "intervention-btn-visible");
+
+  continueBtn.classList.add("intervention-btn-hidden");
+  revealBtn.classList.add("intervention-btn-hidden");
+
   if (interventionAudio) {
     interventionAudio.currentTime = 0;
-    interventionAudio.play().catch(() => {});
-  }
 
-  continueBtn.classList.add("slide-in-left", "shimmer");
-  revealBtn.classList.add("slide-in-right", "shimmer");
+    interventionAudio.onended = () => {
+      continueBtn.classList.remove("intervention-btn-hidden");
+      revealBtn.classList.remove("intervention-btn-hidden");
+
+      continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
+      revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
+    };
+
+    interventionAudio.play().catch(() => {
+      setTimeout(() => {
+        continueBtn.classList.remove("intervention-btn-hidden");
+        revealBtn.classList.remove("intervention-btn-hidden");
+
+        continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
+        revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
+      }, 900);
+    });
+  } else {
+    setTimeout(() => {
+      continueBtn.classList.remove("intervention-btn-hidden");
+      revealBtn.classList.remove("intervention-btn-hidden");
+
+      continueBtn.classList.add("intervention-btn-visible", "intervention-slide-left");
+      revealBtn.classList.add("intervention-btn-visible", "intervention-slide-right");
+    }, 900);
+  }
 }
 
 continueBtn.onclick = () => {
@@ -573,5 +602,6 @@ function finishPlacement() {
 }
 
 renderQuestion();
+
 
 
