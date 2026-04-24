@@ -254,6 +254,105 @@ body{
   margin-right:auto !important;
 }
 
+
+/* ==========================================
+BALLOON CARD REFINEMENT
+========================================== */
+
+.lesson-grid{
+  width:min(100%, 880px) !important;
+  grid-template-columns:repeat(5, 1fr) !important;
+  gap:24px 28px !important;
+  margin:34px auto 42px !important;
+  justify-items:center !important;
+}
+
+.lesson{
+  width:132px !important;
+  height:118px !important;
+  min-height:118px !important;
+  padding:14px 10px !important;
+  border-radius:56% 54% 58% 52% / 58% 56% 50% 52% !important;
+  position:relative !important;
+  overflow:visible !important;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,.42), transparent 24%),
+    linear-gradient(180deg, rgba(65,185,255,.82), rgba(28,112,210,.72)) !important;
+  border:1px solid rgba(255,255,255,.28) !important;
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.30) !important;
+}
+
+.lesson::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-9px;
+  transform:translateX(-50%);
+  width:14px;
+  height:12px;
+  background:rgba(28,112,210,.72);
+  clip-path:polygon(50% 100%, 0 0, 100% 0);
+  filter:drop-shadow(0 5px 6px rgba(0,0,0,.18));
+}
+
+.lesson:hover{
+  transform:translateY(-9px) rotate(-2deg) scale(1.045) !important;
+}
+
+.lesson:first-child{
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,.55), transparent 24%),
+    linear-gradient(180deg,#ffe982,#27e6d3) !important;
+  color:#083f4f !important;
+}
+
+.lesson:first-child::after{
+  background:#27e6d3 !important;
+}
+
+.lesson-icon{
+  font-size:17px !important;
+}
+
+.lesson-title{
+  font-size:12px !important;
+  line-height:1.1 !important;
+}
+
+.back-btn{
+  min-width:170px !important;
+  height:46px !important;
+  padding:0 22px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  line-height:1 !important;
+  margin:0 auto 18px !important;
+}
+
+@media(max-width:900px){
+  .lesson-grid{
+    grid-template-columns:repeat(3, 1fr) !important;
+    gap:22px !important;
+  }
+}
+
+@media(max-width:560px){
+  .lesson-grid{
+    grid-template-columns:repeat(2, 1fr) !important;
+    gap:20px !important;
+  }
+
+  .lesson{
+    width:124px !important;
+    height:110px !important;
+    min-height:110px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -301,5 +400,6 @@ body{
   </main>
 </body>
 </html>
+
 
 
