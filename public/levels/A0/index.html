@@ -1,37 +1,231 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+  <script type="module" src="/js/auth-guard.js"></script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A0 — SayBon</title>
 
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/levels/level-template.css" />
+  <title>A0 — Absolute Beginner | SayBon</title>
 
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      min-height:100%;
+      font-family:"Nunito", system-ui, sans-serif;
+      color:#eef8ff;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(72,210,255,.22), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(37,160,255,.20), transparent 34%),
+        linear-gradient(145deg,#063f57 0%, #07546f 48%, #032532 100%);
+    }
+
+    .page{
+      width:min(92vw, 860px);
+      min-height:78vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:36px 22px;
+      animation:pageIn .75s ease both;
+    }
+
+    @keyframes pageIn{
+      from{
+        opacity:0;
+        transform:translateY(18px) scale(.985);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .level-kicker{
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.34em;
+      text-transform:uppercase;
+      color:rgba(155,232,255,.82);
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(34px, 5vw, 58px);
+      line-height:1.05;
+      font-weight:700;
+      letter-spacing:.015em;
+      text-shadow:0 18px 38px rgba(0,0,0,.24);
+    }
+
+    .subtitle{
+      margin:18px 0 42px;
+      font-size:18px;
+      font-weight:500;
+      color:rgba(238,248,255,.78);
+      letter-spacing:.04em;
+    }
+
+    .path-grid{
+      width:min(100%, 680px);
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:22px;
+      margin-bottom:38px;
+    }
+
+    .path-card{
+      min-height:150px;
+      padding:26px 22px;
+      border-radius:30px;
+      border:1px solid rgba(255,255,255,.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.07));
+      color:#f4fbff;
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter:blur(20px);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease;
+    }
+
+    .path-card:hover{
+      transform:translateY(-7px) scale(1.018);
+      border-color:rgba(148,231,255,.42);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,.28),
+        0 0 32px rgba(78,204,255,.18),
+        inset 0 1px 0 rgba(255,255,255,.22);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.09));
+    }
+
+    .path-card:active{
+      transform:translateY(-2px) scale(.99);
+    }
+
+    .path-icon{
+      font-size:34px;
+      line-height:1;
+      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
+    }
+
+    .path-title{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+
+    .path-note{
+      font-size:14px;
+      font-weight:500;
+      color:rgba(238,248,255,.72);
+      line-height:1.35;
+    }
+
+    .back-btn{
+      min-width:190px;
+      height:48px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      color:#eef8ff;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.03em;
+      transition:transform .22s ease, background .22s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,.13);
+    }
+
+    @media(max-width:720px){
+      body{
+        overflow:auto;
+      }
+
+      .page{
+        min-height:100vh;
+        padding:28px 18px;
+      }
+
+      .subtitle{
+        margin-bottom:30px;
+      }
+
+      .path-grid{
+        grid-template-columns:1fr;
+        gap:16px;
+      }
+
+      .path-card{
+        min-height:132px;
+        border-radius:26px;
+      }
+
+      .path-title{
+        font-size:21px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <main class="page">
+    <div class="level-kicker">Choose your learning path</div>
 
-  <header class="page-header">
     <h1>A0 — Absolute Beginner</h1>
-    <p>Select your path:</p>
-  </header>
 
-  <main class="paths">
-    <button class="path-btn" onclick="window.location.href='/levels/A0/les-petits/'">
-      Les petits
-    </button>
+    <p class="subtitle">Start from the very beginning, the SayBon way.</p>
 
-    <button class="path-btn" onclick="window.location.href='/levels/A0/tout-public/'">
-      Tout public
-    </button>
+    <section class="path-grid" aria-label="Select your path">
+      <a class="path-card" href="/levels/A0/les-petits/">
+        <div class="path-icon">👧🏽👶🏽👦🏽</div>
+        <div class="path-title">French for Littles</div>
+        <div class="path-note">Playful first French for younger learners.</div>
+      </a>
+
+      <a class="path-card" href="/levels/A0/tout-public/">
+        <div class="path-icon">🌍✨</div>
+        <div class="path-title">French for Adults</div>
+        <div class="path-note">Clear, confident French for grown learners.</div>
+      </a>
+    </section>
+
+    <a class="back-btn" href="/levels/">← Back to Levels</a>
   </main>
-
-  <button class="back-btn" onclick="window.location.href='/levels/'">
-    ← Back to Levels
-  </button>
-
 </body>
 </html>
