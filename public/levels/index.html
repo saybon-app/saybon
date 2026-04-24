@@ -17,22 +17,24 @@
     *{box-sizing:border-box}
 
     html,body{
-  min-height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#167F7A;
-}
+      margin:0;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#eef8ff;
+    }
 
     body{
-  min-height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#167F7A;
-}
+      min-height:100vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(99,220,255,.22), transparent 26%),
+        radial-gradient(circle at 15% 18%, rgba(255,255,255,.08), transparent 18%),
+        radial-gradient(circle at 84% 74%, rgba(72,170,255,.12), transparent 22%),
+        linear-gradient(145deg,#052d42 0%,#064c66 48%,#021b29 100%);
+    }
 
     body::before{
       content:"";
@@ -40,8 +42,8 @@
       inset:0;
       pointer-events:none;
       background-image:
-         transparent 70%) 1px, transparent 1px),
-         transparent 70%) 1px, transparent 1px);
+        radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1px),
+        radial-gradient(circle, rgba(111,226,255,.14) 1px, transparent 1px);
       background-size:90px 90px,140px 140px;
       opacity:.35;
     }
@@ -81,6 +83,7 @@
       line-height:1.04;
       letter-spacing:.01em;
       text-shadow:0 20px 42px rgba(0,0,0,.30);
+      color:#eef8ff;
     }
 
     .subtitle{
@@ -105,7 +108,7 @@
       border-radius:28px;
       border:1px solid rgba(255,255,255,.15);
       background:
-        linear-gradient(180deg,#ffffff,#d8f3f1), rgba(255,255,255,.03));
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.065));
       color:#f5fbff;
       text-decoration:none;
       display:flex;
@@ -116,7 +119,7 @@
       backdrop-filter:blur(20px);
       box-shadow:
         0 20px 48px rgba(0,0,0,.19),
-        inset 0 1px 0 rgba(255,255,255,.08);
+        inset 0 1px 0 rgba(255,255,255,.18);
       transition:
         transform .28s ease,
         box-shadow .28s ease,
@@ -128,11 +131,11 @@
       transform:translateY(-7px) scale(1.018);
       border-color:rgba(147,232,255,.42);
       background:
-        linear-gradient(180deg,#ffffff,#d8f3f1), rgba(255,255,255,.09));
+        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.09));
       box-shadow:
         0 28px 70px rgba(0,0,0,.28),
-        0 0 34px rgba(47,127,121,.25),
-        inset 0 1px 0 rgba(255,255,255,.10);
+        0 0 34px rgba(84,212,255,.18),
+        inset 0 1px 0 rgba(255,255,255,.22);
     }
 
     .level-card:active{
@@ -149,7 +152,7 @@
       font-size:18px;
       font-weight:800;
       color:#052d42;
-      background: #167F7A;
+      background:linear-gradient(180deg,#dff8ff,#72dfff);
       box-shadow:0 14px 28px rgba(45,202,255,.18);
     }
 
@@ -157,6 +160,7 @@
       font-size:17px;
       font-weight:700;
       letter-spacing:.015em;
+      color:#f5fbff;
     }
 
     .level-note{
@@ -170,9 +174,9 @@
       min-width:210px;
       height:48px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
       background:rgba(255,255,255,.08);
-      color:#f4fffd;
+      color:#eef8ff;
       text-decoration:none;
       display:inline-flex;
       align-items:center;
@@ -190,14 +194,7 @@
     }
 
     @media(max-width:850px){
-      body{
-  min-height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#167F7A;
-}
+      body{overflow:auto}
 
       .levels-page{
         min-height:100vh;
@@ -225,58 +222,6 @@
       }
     }
   </style>
-
-<style id="levels-teal-background-only-fix">
-  .kicker{
-    color:rgba(255,255,255,.76) !important;
-  }
-
-  h1{
-    color:#ffffff !important;
-    text-shadow:0 16px 34px rgba(0,0,0,.22) !important;
-  }
-
-  .subtitle{
-    color:rgba(255,255,255,.82) !important;
-  }
-
-  .level-card{
-    background:linear-gradient(180deg, rgba(4,42,45,.54), rgba(4,35,38,.42)) !important;
-    border:1px solid rgba(255,255,255,.20) !important;
-    color:#ffffff !important;
-    box-shadow:
-      0 20px 46px rgba(0,0,0,.20),
-      inset 0 1px 0 rgba(255,255,255,.14) !important;
-  }
-
-  .level-card:hover{
-    background:linear-gradient(180deg, rgba(5,56,58,.68), rgba(4,42,45,.50)) !important;
-    border-color:rgba(255,255,255,.34) !important;
-    box-shadow:
-      0 28px 70px rgba(0,0,0,.28),
-      inset 0 1px 0 rgba(255,255,255,.18) !important;
-  }
-
-  .level-code{
-    background:#ffffff !important;
-    color:#167F7A !important;
-    box-shadow:0 12px 28px rgba(0,0,0,.18) !important;
-  }
-
-  .level-title{
-    color:#ffffff !important;
-  }
-
-  .level-note{
-    color:rgba(255,255,255,.74) !important;
-  }
-
-  .back-btn{
-    background:rgba(4,42,45,.36) !important;
-    color:#ffffff !important;
-    border:1px solid rgba(255,255,255,.20) !important;
-  }
-</style>
 </head>
 
 <body>
@@ -329,7 +274,3 @@
   </main>
 </body>
 </html>
-
-
-
-
