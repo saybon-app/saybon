@@ -503,6 +503,74 @@ TRUE TRANSPARENT GLASS BALLOONS
   }
 }
 
+
+/* ==========================================
+LESSON LOCK SYSTEM
+========================================== */
+
+.lesson.locked{
+  opacity:.52 !important;
+  cursor:not-allowed !important;
+  filter:saturate(.75) brightness(.9) !important;
+}
+
+.lesson.locked:hover{
+  transform:none !important;
+  box-shadow:
+    0 18px 36px rgba(0,0,0,.20),
+    inset 0 2px 0 rgba(255,255,255,.40),
+    inset 0 -18px 28px rgba(255,255,255,.06) !important;
+}
+
+.lesson.locked::before{
+  content:"🔒";
+  position:absolute;
+  top:16px;
+  right:18px;
+  width:auto;
+  height:auto;
+  border:none;
+  transform:none;
+  font-size:16px;
+  opacity:.78;
+  z-index:5;
+}
+
+.lesson.locked .lesson-title,
+.lesson.locked .lesson-icon{
+  opacity:.78;
+}
+
+.lesson.upgrade-locked::before{
+  content:"⭐";
+}
+
+.lesson-lock-note{
+  position:fixed;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%) translateY(20px);
+  padding:13px 18px;
+  border-radius:999px;
+  background:rgba(4,30,48,.82);
+  color:#fff;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.02em;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 18px 44px rgba(0,0,0,.26);
+  backdrop-filter:blur(16px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  z-index:999;
+}
+
+.lesson-lock-note.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
 </style>
 </head>
 
@@ -548,8 +616,112 @@ TRUE TRANSPARENT GLASS BALLOONS
 
     <a class="back-btn" href="/levels/A0/">← Back to A0</a>
   </main>
+
+<script>
+(function(){
+  const STORAGE_PREFIX = "saybon_a0_littles_lesson_";
+  const UPGRADE_KEY = "saybon_a0_littles_upgrade_paid";
+
+  const lessons = Array.from(document.querySelectorAll(".lesson"));
+
+  function isLessonCompleted(n){
+    return localStorage.getItem(STORAGE_PREFIX + n + "_complete") === "true";
+  }
+
+  function hasUpgrade(){
+    return localStorage.getItem(UPGRADE_KEY) === "true";
+  }
+
+  function showLockNote(message){
+    let note = document.querySelector(".lesson-lock-note");
+
+    if(!note){
+      note = document.createElement("div");
+      note.className = "lesson-lock-note";
+      document.body.appendChild(note);
+    }
+
+    note.textContent = message;
+    note.classList.add("show");
+
+    clearTimeout(window.__lessonLockTimer);
+    window.__lessonLockTimer = setTimeout(() => {
+      note.classList.remove("show");
+    }, 2200);
+  }
+
+  function applyLocks(){
+    lessons.forEach((lesson, index) => {
+      const lessonNumber = index + 1;
+
+      lesson.classList.remove("locked", "upgrade-locked");
+      lesson.removeAttribute("aria-disabled");
+
+      if(lessonNumber === 1){
+        return;
+      }
+
+      if(lessonNumber >= 2 && lessonNumber <= 10){
+        const previousComplete = isLessonCompleted(lessonNumber - 1);
+
+        if(!previousComplete){
+          lesson.classList.add("locked");
+          lesson.setAttribute("aria-disabled", "true");
+        }
+
+        return;
+      }
+
+      if(lessonNumber >= 11 && lessonNumber <= 25){
+        if(!hasUpgrade()){
+          lesson.classList.add("locked", "upgrade-locked");
+          lesson.setAttribute("aria-disabled", "true");
+        }
+      }
+    });
+  }
+
+  lessons.forEach((lesson, index) => {
+    const lessonNumber = index + 1;
+
+    lesson.addEventListener("click", function(e){
+      if(!lesson.classList.contains("locked")){
+        return;
+      }
+
+      e.preventDefault();
+
+      if(lessonNumber >= 2 && lessonNumber <= 10){
+        showLockNote("Complete Lesson " + (lessonNumber - 1) + " first.");
+        return;
+      }
+
+      if(lessonNumber >= 11){
+        showLockNote("Unlock Lessons 11–25 with one upgrade.");
+        setTimeout(() => {
+          window.location.href = "/levels/A0/les-petits/upgrade.html";
+        }, 900);
+      }
+    });
+  });
+
+  applyLocks();
+
+  window.saybonMarkLittleLessonComplete = function(lessonNumber){
+    localStorage.setItem(STORAGE_PREFIX + lessonNumber + "_complete", "true");
+    applyLocks();
+  };
+
+  window.saybonUnlockLittleUpgrade = function(){
+    localStorage.setItem(UPGRADE_KEY, "true");
+    applyLocks();
+  };
+})();
+</script>
+
 </body>
 </html>
+
 
 
 
