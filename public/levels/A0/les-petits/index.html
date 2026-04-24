@@ -18,20 +18,22 @@
     html,body{
       margin:0;
       min-height:100%;
+      width:100%;
       font-family:"Nunito",system-ui,sans-serif;
       color:#ffffff;
+      overflow-x:hidden;
     }
 
     body{
-      min-height:100vh; height:auto;
-      overflow:auto;
+      min-height:100vh;
+      overflow-y:auto;
       display:flex;
-      align-items:center;
-      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      align-items:flex-start;
+      justify-content:center;
       background:
-        radial-gradient(circle at 20% 18%, rgba(255,226,133,.38), transparent 18%),
-        radial-gradient(circle at 82% 20%, rgba(255,141,199,.32), transparent 18%),
-        radial-gradient(circle at 50% 95%, rgba(78,220,255,.35), transparent 28%),
+        radial-gradient(circle at 20% 18%, rgba(255,226,133,.28), transparent 18%),
+        radial-gradient(circle at 82% 20%, rgba(255,141,199,.18), transparent 18%),
+        radial-gradient(circle at 50% 95%, rgba(78,220,255,.30), transparent 28%),
         linear-gradient(145deg,#0e8b91 0%,#0b6f8f 48%,#074261 100%);
     }
 
@@ -40,10 +42,10 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.22;
+      opacity:.20;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,.9) 2px, transparent 2px),
-        radial-gradient(circle, rgba(255,239,164,.8) 2px, transparent 2px);
+        radial-gradient(circle, rgba(255,255,255,.8) 2px, transparent 2px),
+        radial-gradient(circle, rgba(255,239,164,.7) 2px, transparent 2px);
       background-size:90px 90px,140px 140px;
       animation:floatDots 16s linear infinite;
     }
@@ -57,12 +59,12 @@
       position:relative;
       z-index:1;
       width:min(94vw,1050px);
-      min-height:auto;
-      padding:30px 22px;
+      margin:0 auto;
+      padding:42px 22px 60px;
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      justify-content:flex-start;
       text-align:center;
       animation:pageIn .7s ease both;
     }
@@ -75,12 +77,12 @@
     .badge{
       display:inline-flex;
       align-items:center;
-      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      justify-content:center;
       gap:8px;
       padding:9px 16px;
       border-radius:999px;
-      background:rgba(255,255,255,.18);
-      border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.24);
       font-size:13px;
       font-weight:800;
       letter-spacing:.12em;
@@ -99,74 +101,149 @@
     }
 
     .subtitle{
-      margin:14px 0 30px;
+      margin:14px 0 36px;
       font-size:18px;
       font-weight:700;
       color:rgba(255,255,255,.84);
     }
 
     .lesson-grid{
-      width:min(100%,900px);
+      width:min(100%, 900px);
       display:grid;
-      grid-template-columns:repeat(5,minmax(0,1fr));
-      gap:14px;
-      margin-bottom:28px;
+      grid-template-columns:repeat(5, 1fr);
+      gap:34px 32px;
+      margin:0 auto 52px;
+      justify-items:center;
     }
 
     .lesson{
-      min-height:74px;
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.25);
-      background:
-        linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.13));
-      color:#ffffff;
-      text-decoration:none;
+      width:122px;
+      height:148px;
+      min-height:148px;
+      padding:28px 12px 24px;
+      border-radius:52% 52% 48% 48% / 58% 58% 44% 44%;
       display:flex;
-      align-items:center;
-      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
       flex-direction:column;
-      gap:4px;
-      box-shadow:
-        0 16px 34px rgba(0,0,0,.16),
-        inset 0 1px 0 rgba(255,255,255,.25);
-      backdrop-filter:blur(18px);
-      transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
-    }
-
-    .lesson:hover{
-      transform:translateY(-6px) rotate(-1deg) scale(1.035);
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      gap:8px;
+      position:relative;
+      overflow:visible;
+      text-decoration:none;
+      color:#ffffff;
       background:
-        linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.18));
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.58), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.07));
+      border:2px solid rgba(255,255,255,.38);
       box-shadow:
-        0 24px 50px rgba(0,0,0,.22),
-        0 0 28px rgba(255,239,164,.22),
-        inset 0 1px 0 rgba(255,255,255,.28);
+        0 18px 36px rgba(0,0,0,.20),
+        inset 0 2px 0 rgba(255,255,255,.40),
+        inset 0 -18px 28px rgba(255,255,255,.06);
+      backdrop-filter:blur(18px) saturate(1.2);
+      -webkit-backdrop-filter:blur(18px) saturate(1.2);
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease, opacity .22s ease;
     }
 
-    .lesson:active{
-      transform:translateY(-1px) scale(.98);
+    .lesson::before{
+      content:"";
+      position:absolute;
+      top:22px;
+      left:25px;
+      width:34px;
+      height:12px;
+      border-radius:999px;
+      border-top:5px solid rgba(255,255,255,.55);
+      transform:rotate(-38deg);
+      pointer-events:none;
+    }
+
+    .lesson::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-13px;
+      transform:translateX(-50%);
+      width:24px;
+      height:18px;
+      background:rgba(255,255,255,.22);
+      border:2px solid rgba(255,255,255,.38);
+      border-radius:45% 45% 60% 60%;
+      clip-path:polygon(50% 0, 100% 100%, 0 100%);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+
+    .lesson-icon,
+    .lesson-title{
+      position:relative;
+      z-index:2;
+      width:100%;
+      text-align:center;
+      margin:0;
     }
 
     .lesson-icon{
-      font-size:18px;
+      font-size:19px;
       line-height:1;
     }
 
     .lesson-title{
-      font-size:13px;
+      font-size:12px;
+      line-height:1.15;
       font-weight:900;
-      letter-spacing:.02em;
+      color:#ffffff;
+      text-shadow:0 2px 10px rgba(0,0,0,.25);
     }
 
     .lesson:first-child{
-      background:linear-gradient(180deg,#ffe982,#27e6d3);
-      color:#083f4f;
-      border-color:rgba(255,255,255,.5);
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.72), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,.26), rgba(39,230,211,.18));
+      border-color:rgba(255,255,255,.52);
+    }
+
+    .lesson:hover{
+      transform:translateY(-10px) rotate(-2deg) scale(1.04);
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.72), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.10));
+      box-shadow:
+        0 26px 52px rgba(0,0,0,.26),
+        0 0 30px rgba(255,255,255,.18),
+        inset 0 2px 0 rgba(255,255,255,.48);
+    }
+
+    .lesson.locked{
+      opacity:.45;
+      cursor:not-allowed;
+      filter:saturate(.75) brightness(.88);
+    }
+
+    .lesson.locked:hover{
+      transform:none;
+    }
+
+    .lesson.locked .lesson-lock{
+      opacity:1;
+    }
+
+    .lesson-lock{
+      position:absolute;
+      top:48%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      z-index:4;
+      font-size:22px;
+      opacity:0;
+      pointer-events:none;
+      filter:drop-shadow(0 5px 10px rgba(0,0,0,.25));
     }
 
     .back-btn{
-      height:48px;
-      min-width:190px;
+      min-width:170px;
+      height:46px;
+      padding:0 24px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.22);
       background:rgba(255,255,255,.18);
@@ -174,11 +251,14 @@
       text-decoration:none;
       display:inline-flex;
       align-items:center;
-      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      justify-content:center;
+      text-align:center;
+      line-height:1;
       font-size:14px;
       font-weight:900;
       backdrop-filter:blur(14px);
       transition:transform .22s ease, background .22s ease;
+      margin:0 auto;
     }
 
     .back-btn:hover{
@@ -186,544 +266,174 @@
       background:rgba(255,255,255,.24);
     }
 
+    .lesson-lock-note{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      transform:translateX(-50%) translateY(20px);
+      padding:13px 18px;
+      border-radius:999px;
+      background:rgba(4,30,48,.82);
+      color:#fff;
+      font-size:13px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 44px rgba(0,0,0,.26);
+      backdrop-filter:blur(16px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+      z-index:999;
+    }
+
+    .lesson-lock-note.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
     @media(max-width:900px){
-      body{overflow:auto}
-
-      .hub{
-        min-height:100vh; height:auto;
-      }
-
       .lesson-grid{
-        grid-template-columns:repeat(3,minmax(0,1fr));
+        grid-template-columns:repeat(3, 1fr);
+        gap:32px 24px;
       }
     }
 
     @media(max-width:560px){
       .lesson-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:12px;
+        grid-template-columns:repeat(2, 1fr);
+        gap:30px 20px;
       }
 
       .lesson{
-        min-height:68px;
-        border-radius:20px;
+        width:112px;
+        height:138px;
+        min-height:138px;
       }
 
       .subtitle{
         font-size:15px;
       }
     }
-  
-/* ==========================================
-FINAL CENTERED SCROLL FIX
-========================================== */
-
-html,
-body{
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden !important;
-}
-
-body{
-  min-height:100vh !important;
-  height:auto !important;
-  overflow-y:auto !important;
-  display:flex !important;
-  justify-content:center !important;
-  align-items:flex-start !important;
-}
-
-.hub{
-  width:min(94vw,1050px) !important;
-  margin:0 auto !important;
-  min-height:auto !important;
-  padding:42px 22px 56px !important;
-  justify-content:flex-start !important;
-  align-items:center !important;
-}
-
-.lesson-grid{
-  margin-left:auto !important;
-  margin-right:auto !important;
-  justify-content:center !important;
-}
-
-.back-btn{
-  margin-left:auto !important;
-  margin-right:auto !important;
-}
-
-
-/* ==========================================
-BALLOON CARD REFINEMENT
-========================================== */
-
-.lesson-grid{
-  width:min(100%, 880px) !important;
-  grid-template-columns:repeat(5, 1fr) !important;
-  gap:24px 28px !important;
-  margin:34px auto 42px !important;
-  justify-items:center !important;
-}
-
-.lesson{
-  width:132px !important;
-  height:118px !important;
-  min-height:118px !important;
-  padding:14px 10px !important;
-  border-radius:56% 54% 58% 52% / 58% 56% 50% 52% !important;
-  position:relative !important;
-  overflow:visible !important;
-  background:
-    radial-gradient(circle at 32% 24%, rgba(255,255,255,.42), transparent 24%),
-    linear-gradient(180deg, rgba(65,185,255,.82), rgba(28,112,210,.72)) !important;
-  border:1px solid rgba(255,255,255,.28) !important;
-  box-shadow:
-    0 16px 34px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.30) !important;
-}
-
-.lesson::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-9px;
-  transform:translateX(-50%);
-  width:14px;
-  height:12px;
-  background:rgba(28,112,210,.72);
-  clip-path:polygon(50% 100%, 0 0, 100% 0);
-  filter:drop-shadow(0 5px 6px rgba(0,0,0,.18));
-}
-
-.lesson:hover{
-  transform:translateY(-9px) rotate(-2deg) scale(1.045) !important;
-}
-
-.lesson:first-child{
-  background:
-    radial-gradient(circle at 32% 24%, rgba(255,255,255,.55), transparent 24%),
-    linear-gradient(180deg,#ffe982,#27e6d3) !important;
-  color:#083f4f !important;
-}
-
-.lesson:first-child::after{
-  background:#27e6d3 !important;
-}
-
-.lesson-icon{
-  font-size:17px !important;
-}
-
-.lesson-title{
-  font-size:12px !important;
-  line-height:1.1 !important;
-}
-
-.back-btn{
-  min-width:170px !important;
-  height:46px !important;
-  padding:0 22px !important;
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-  line-height:1 !important;
-  margin:0 auto 18px !important;
-}
-
-@media(max-width:900px){
-  .lesson-grid{
-    grid-template-columns:repeat(3, 1fr) !important;
-    gap:22px !important;
-  }
-}
-
-@media(max-width:560px){
-  .lesson-grid{
-    grid-template-columns:repeat(2, 1fr) !important;
-    gap:20px !important;
-  }
-
-  .lesson{
-    width:124px !important;
-    height:110px !important;
-    min-height:110px !important;
-  }
-}
-
-
-/* ==========================================
-TRUE TRANSPARENT GLASS BALLOONS
-========================================== */
-
-.lesson-grid{
-  width:min(100%, 900px) !important;
-  grid-template-columns:repeat(5, 1fr) !important;
-  gap:34px 32px !important;
-  margin:38px auto 48px !important;
-  justify-items:center !important;
-}
-
-.lesson{
-  width:122px !important;
-  height:148px !important;
-  min-height:148px !important;
-  padding:28px 12px 24px !important;
-
-  border-radius:52% 52% 48% 48% / 58% 58% 44% 44% !important;
-
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-  gap:8px !important;
-
-  position:relative !important;
-  overflow:visible !important;
-
-  background:
-    radial-gradient(circle at 30% 22%, rgba(255,255,255,.58), transparent 18%),
-    linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.07)) !important;
-
-  border:2px solid rgba(255,255,255,.38) !important;
-
-  box-shadow:
-    0 18px 36px rgba(0,0,0,.20),
-    inset 0 2px 0 rgba(255,255,255,.40),
-    inset 0 -18px 28px rgba(255,255,255,.06) !important;
-
-  backdrop-filter:blur(18px) saturate(1.2) !important;
-  -webkit-backdrop-filter:blur(18px) saturate(1.2) !important;
-}
-
-.lesson::before{
-  content:"";
-  position:absolute;
-  top:22px;
-  left:25px;
-  width:34px;
-  height:12px;
-  border-radius:999px;
-  border-top:5px solid rgba(255,255,255,.55);
-  transform:rotate(-38deg);
-  pointer-events:none;
-}
-
-.lesson::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-13px;
-  transform:translateX(-50%);
-  width:24px;
-  height:18px;
-  background:rgba(255,255,255,.22);
-  border:2px solid rgba(255,255,255,.38);
-  border-radius:45% 45% 60% 60%;
-  clip-path:polygon(50% 0, 100% 100%, 0 100%);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-}
-
-.lesson-icon,
-.lesson-title{
-  position:relative !important;
-  z-index:2 !important;
-  width:100% !important;
-  text-align:center !important;
-  margin:0 !important;
-}
-
-.lesson-icon{
-  font-size:19px !important;
-  line-height:1 !important;
-}
-
-.lesson-title{
-  font-size:12px !important;
-  line-height:1.15 !important;
-  font-weight:900 !important;
-  color:#ffffff !important;
-  text-shadow:0 2px 10px rgba(0,0,0,.25) !important;
-}
-
-.lesson:first-child{
-  color:#ffffff !important;
-  background:
-    radial-gradient(circle at 30% 22%, rgba(255,255,255,.72), transparent 18%),
-    linear-gradient(180deg, rgba(255,255,255,.26), rgba(39,230,211,.18)) !important;
-  border-color:rgba(255,255,255,.52) !important;
-}
-
-.lesson:first-child::after{
-  background:rgba(255,255,255,.24) !important;
-  border-color:rgba(255,255,255,.52) !important;
-}
-
-.lesson:hover{
-  transform:translateY(-10px) rotate(-2deg) scale(1.04) !important;
-  background:
-    radial-gradient(circle at 30% 22%, rgba(255,255,255,.72), transparent 18%),
-    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.10)) !important;
-  box-shadow:
-    0 26px 52px rgba(0,0,0,.26),
-    0 0 30px rgba(255,255,255,.18),
-    inset 0 2px 0 rgba(255,255,255,.48) !important;
-}
-
-.back-btn{
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  text-align:center !important;
-  line-height:1 !important;
-  padding:0 24px !important;
-}
-
-@media(max-width:900px){
-  .lesson-grid{
-    grid-template-columns:repeat(3, 1fr) !important;
-    gap:32px 24px !important;
-  }
-}
-
-@media(max-width:560px){
-  .lesson-grid{
-    grid-template-columns:repeat(2, 1fr) !important;
-    gap:30px 20px !important;
-  }
-
-  .lesson{
-    width:112px !important;
-    height:138px !important;
-    min-height:138px !important;
-  }
-}
-
-
-/* ==========================================
-LESSON LOCK SYSTEM
-========================================== */
-
-.lesson.locked{
-  opacity:.52 !important;
-  cursor:not-allowed !important;
-  filter:saturate(.75) brightness(.9) !important;
-}
-
-.lesson.locked:hover{
-  transform:none !important;
-  box-shadow:
-    0 18px 36px rgba(0,0,0,.20),
-    inset 0 2px 0 rgba(255,255,255,.40),
-    inset 0 -18px 28px rgba(255,255,255,.06) !important;
-}
-
-.lesson.locked::before{
-  content:"🔒";
-  position:absolute;
-  top:16px;
-  right:18px;
-  width:auto;
-  height:auto;
-  border:none;
-  transform:none;
-  font-size:16px;
-  opacity:.78;
-  z-index:5;
-}
-
-.lesson.locked .lesson-title,
-.lesson.locked .lesson-icon{
-  opacity:.78;
-}
-
-.lesson.upgrade-locked::before{
-  content:"⭐";
-}
-
-.lesson-lock-note{
-  position:fixed;
-  left:50%;
-  bottom:28px;
-  transform:translateX(-50%) translateY(20px);
-  padding:13px 18px;
-  border-radius:999px;
-  background:rgba(4,30,48,.82);
-  color:#fff;
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.02em;
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 18px 44px rgba(0,0,0,.26);
-  backdrop-filter:blur(16px);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .25s ease, transform .25s ease;
-  z-index:999;
-}
-
-.lesson-lock-note.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-</style>
+  </style>
 </head>
 
 <body>
   <main class="hub">
     <div class="badge">🌈 A0 Kids Hub</div>
-
     <h1>French for Littles</h1>
-
     <p class="subtitle">Tiny steps. Big smiles. French starts here.</p>
 
     <section class="lesson-grid" aria-label="French for Littles lessons">
-      <a class="lesson" href="/levels/A0/les-petits/lesson-1/"><span class="lesson-icon">🎈</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a></span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-2/"><span class="lesson-icon">🧸</span><span class="lesson-title">Lesson 2</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-3/"><span class="lesson-icon">🌟</span><span class="lesson-title">Lesson 3</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-4/"><span class="lesson-icon">🎵</span><span class="lesson-title">Lesson 4</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-5/"><span class="lesson-icon">🍭</span><span class="lesson-title">Lesson 5</span></a>
+      <a class="lesson" data-lesson="1" href="/levels/A0/les-petits/lesson-1.html"><span class="lesson-lock">🔒</span><span class="lesson-icon">🎈</span><span class="lesson-title">Lesson 1</span></a>
+      <a class="lesson" data-lesson="2" href="/levels/A0/les-petits/lesson-2/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🧸</span><span class="lesson-title">Lesson 2</span></a>
+      <a class="lesson" data-lesson="3" href="/levels/A0/les-petits/lesson-3/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🌟</span><span class="lesson-title">Lesson 3</span></a>
+      <a class="lesson" data-lesson="4" href="/levels/A0/les-petits/lesson-4/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🎵</span><span class="lesson-title">Lesson 4</span></a>
+      <a class="lesson" data-lesson="5" href="/levels/A0/les-petits/lesson-5/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🍭</span><span class="lesson-title">Lesson 5</span></a>
 
-      <a class="lesson" href="/levels/A0/les-petits/lesson-6/"><span class="lesson-icon">🦋</span><span class="lesson-title">Lesson 6</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-7/"><span class="lesson-icon">🐣</span><span class="lesson-title">Lesson 7</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-8/"><span class="lesson-icon">🎨</span><span class="lesson-title">Lesson 8</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-9/"><span class="lesson-icon">🚀</span><span class="lesson-title">Lesson 9</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-10/"><span class="lesson-icon">🧃</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>0</span></a>
+      <a class="lesson" data-lesson="6" href="/levels/A0/les-petits/lesson-6/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🦋</span><span class="lesson-title">Lesson 6</span></a>
+      <a class="lesson" data-lesson="7" href="/levels/A0/les-petits/lesson-7/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🐣</span><span class="lesson-title">Lesson 7</span></a>
+      <a class="lesson" data-lesson="8" href="/levels/A0/les-petits/lesson-8/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🎨</span><span class="lesson-title">Lesson 8</span></a>
+      <a class="lesson" data-lesson="9" href="/levels/A0/les-petits/lesson-9/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🚀</span><span class="lesson-title">Lesson 9</span></a>
+      <a class="lesson" data-lesson="10" href="/levels/A0/les-petits/lesson-10/"><span class="lesson-lock">🔒</span><span class="lesson-icon">🧃</span><span class="lesson-title">Lesson 10</span></a>
 
-      <a class="lesson" href="/levels/A0/les-petits/lesson-11/"><span class="lesson-icon">🐝</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>1</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-12/"><span class="lesson-icon">🎁</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>2</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-13/"><span class="lesson-icon">🌼</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>3</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-14/"><span class="lesson-icon">🪁</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>4</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-15/"><span class="lesson-icon">✨</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>5</span></a>
+      <a class="lesson" data-lesson="11" href="/levels/A0/les-petits/lesson-11/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🐝</span><span class="lesson-title">Lesson 11</span></a>
+      <a class="lesson" data-lesson="12" href="/levels/A0/les-petits/lesson-12/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🎁</span><span class="lesson-title">Lesson 12</span></a>
+      <a class="lesson" data-lesson="13" href="/levels/A0/les-petits/lesson-13/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🌼</span><span class="lesson-title">Lesson 13</span></a>
+      <a class="lesson" data-lesson="14" href="/levels/A0/les-petits/lesson-14/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🪁</span><span class="lesson-title">Lesson 14</span></a>
+      <a class="lesson" data-lesson="15" href="/levels/A0/les-petits/lesson-15/"><span class="lesson-lock">⭐</span><span class="lesson-icon">✨</span><span class="lesson-title">Lesson 15</span></a>
 
-      <a class="lesson" href="/levels/A0/les-petits/lesson-16/"><span class="lesson-icon">🐬</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>6</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-17/"><span class="lesson-icon">🍓</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>7</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-18/"><span class="lesson-icon">🎀</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>8</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-19/"><span class="lesson-icon">🦄</span><span class="lesson-title"><a href="/levels/A0/les-petits/lesson-1.html" class="lesson-title">Lesson 1</a>9</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-20/"><span class="lesson-icon">🌙</span><span class="lesson-title">Lesson 20</span></a>
+      <a class="lesson" data-lesson="16" href="/levels/A0/les-petits/lesson-16/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🐬</span><span class="lesson-title">Lesson 16</span></a>
+      <a class="lesson" data-lesson="17" href="/levels/A0/les-petits/lesson-17/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🍓</span><span class="lesson-title">Lesson 17</span></a>
+      <a class="lesson" data-lesson="18" href="/levels/A0/les-petits/lesson-18/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🎀</span><span class="lesson-title">Lesson 18</span></a>
+      <a class="lesson" data-lesson="19" href="/levels/A0/les-petits/lesson-19/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🦄</span><span class="lesson-title">Lesson 19</span></a>
+      <a class="lesson" data-lesson="20" href="/levels/A0/les-petits/lesson-20/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🌙</span><span class="lesson-title">Lesson 20</span></a>
 
-      <a class="lesson" href="/levels/A0/les-petits/lesson-21/"><span class="lesson-icon">☀️</span><span class="lesson-title">Lesson 21</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-22/"><span class="lesson-icon">🐢</span><span class="lesson-title">Lesson 22</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-23/"><span class="lesson-icon">🎉</span><span class="lesson-title">Lesson 23</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-24/"><span class="lesson-icon">🍦</span><span class="lesson-title">Lesson 24</span></a>
-      <a class="lesson" href="/levels/A0/les-petits/lesson-25/"><span class="lesson-icon">🏆</span><span class="lesson-title">Lesson 25</span></a>
+      <a class="lesson" data-lesson="21" href="/levels/A0/les-petits/lesson-21/"><span class="lesson-lock">⭐</span><span class="lesson-icon">☀️</span><span class="lesson-title">Lesson 21</span></a>
+      <a class="lesson" data-lesson="22" href="/levels/A0/les-petits/lesson-22/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🐢</span><span class="lesson-title">Lesson 22</span></a>
+      <a class="lesson" data-lesson="23" href="/levels/A0/les-petits/lesson-23/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🎉</span><span class="lesson-title">Lesson 23</span></a>
+      <a class="lesson" data-lesson="24" href="/levels/A0/les-petits/lesson-24/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🍦</span><span class="lesson-title">Lesson 24</span></a>
+      <a class="lesson" data-lesson="25" href="/levels/A0/les-petits/lesson-25/"><span class="lesson-lock">⭐</span><span class="lesson-icon">🏆</span><span class="lesson-title">Lesson 25</span></a>
     </section>
 
     <a class="back-btn" href="/levels/A0/">← Back to A0</a>
   </main>
 
-<script>
-(function(){
-  const STORAGE_PREFIX = "saybon_a0_littles_lesson_";
-  const UPGRADE_KEY = "saybon_a0_littles_upgrade_paid";
+  <script>
+    (function(){
+      const STORAGE_PREFIX = "saybon_a0_littles_lesson_";
+      const UPGRADE_KEY = "saybon_a0_littles_upgrade_paid";
+      const lessons = Array.from(document.querySelectorAll(".lesson"));
 
-  const lessons = Array.from(document.querySelectorAll(".lesson"));
-
-  function isLessonCompleted(n){
-    return localStorage.getItem(STORAGE_PREFIX + n + "_complete") === "true";
-  }
-
-  function hasUpgrade(){
-    return localStorage.getItem(UPGRADE_KEY) === "true";
-  }
-
-  function showLockNote(message){
-    let note = document.querySelector(".lesson-lock-note");
-
-    if(!note){
-      note = document.createElement("div");
-      note.className = "lesson-lock-note";
-      document.body.appendChild(note);
-    }
-
-    note.textContent = message;
-    note.classList.add("show");
-
-    clearTimeout(window.__lessonLockTimer);
-    window.__lessonLockTimer = setTimeout(() => {
-      note.classList.remove("show");
-    }, 2200);
-  }
-
-  function applyLocks(){
-    lessons.forEach((lesson, index) => {
-      const lessonNumber = index + 1;
-
-      lesson.classList.remove("locked", "upgrade-locked");
-      lesson.removeAttribute("aria-disabled");
-
-      if(lessonNumber === 1){
-        return;
+      function isLessonCompleted(n){
+        return localStorage.getItem(STORAGE_PREFIX + n + "_complete") === "true";
       }
 
-      if(lessonNumber >= 2 && lessonNumber <= 10){
-        const previousComplete = isLessonCompleted(lessonNumber - 1);
+      function hasUpgrade(){
+        return localStorage.getItem(UPGRADE_KEY) === "true";
+      }
 
-        if(!previousComplete){
-          lesson.classList.add("locked");
-          lesson.setAttribute("aria-disabled", "true");
+      function showLockNote(message){
+        let note = document.querySelector(".lesson-lock-note");
+        if(!note){
+          note = document.createElement("div");
+          note.className = "lesson-lock-note";
+          document.body.appendChild(note);
         }
 
-        return;
+        note.textContent = message;
+        note.classList.add("show");
+
+        clearTimeout(window.__lessonLockTimer);
+        window.__lessonLockTimer = setTimeout(() => {
+          note.classList.remove("show");
+        }, 2200);
       }
 
-      if(lessonNumber >= 11 && lessonNumber <= 25){
-        if(!hasUpgrade()){
-          lesson.classList.add("locked", "upgrade-locked");
-          lesson.setAttribute("aria-disabled", "true");
-        }
-      }
-    });
-  }
+      function applyLocks(){
+        lessons.forEach((lesson) => {
+          const lessonNumber = Number(lesson.dataset.lesson);
 
-  lessons.forEach((lesson, index) => {
-    const lessonNumber = index + 1;
+          lesson.classList.remove("locked");
+          lesson.removeAttribute("aria-disabled");
 
-    lesson.addEventListener("click", function(e){
-      if(!lesson.classList.contains("locked")){
-        return;
-      }
+          if(lessonNumber === 1) return;
 
-      e.preventDefault();
+          if(lessonNumber >= 2 && lessonNumber <= 10 && !isLessonCompleted(lessonNumber - 1)){
+            lesson.classList.add("locked");
+            lesson.setAttribute("aria-disabled", "true");
+          }
 
-      if(lessonNumber >= 2 && lessonNumber <= 10){
-        showLockNote("Complete Lesson " + (lessonNumber - 1) + " first.");
-        return;
+          if(lessonNumber >= 11 && !hasUpgrade()){
+            lesson.classList.add("locked");
+            lesson.setAttribute("aria-disabled", "true");
+          }
+        });
       }
 
-      if(lessonNumber >= 11){
-        showLockNote("Unlock Lessons 11–25 with one upgrade.");
-        setTimeout(() => {
-          window.location.href = "/levels/A0/les-petits/upgrade.html";
-        }, 900);
-      }
-    });
-  });
+      lessons.forEach((lesson) => {
+        lesson.addEventListener("click", function(e){
+          const lessonNumber = Number(lesson.dataset.lesson);
 
-  applyLocks();
+          if(!lesson.classList.contains("locked")) return;
 
-  window.saybonMarkLittleLessonComplete = function(lessonNumber){
-    localStorage.setItem(STORAGE_PREFIX + lessonNumber + "_complete", "true");
-    applyLocks();
-  };
+          e.preventDefault();
 
-  window.saybonUnlockLittleUpgrade = function(){
-    localStorage.setItem(UPGRADE_KEY, "true");
-    applyLocks();
-  };
-})();
-</script>
+          if(lessonNumber >= 2 && lessonNumber <= 10){
+            showLockNote("Complete Lesson " + (lessonNumber - 1) + " first.");
+            return;
+          }
 
+          if(lessonNumber >= 11){
+            showLockNote("Unlock Lessons 11–25 with one upgrade.");
+            setTimeout(() => {
+              window.location.href = "/levels/A0/les-petits/upgrade.html";
+            }, 900);
+          }
+        });
+      });
+
+      applyLocks();
+    })();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
