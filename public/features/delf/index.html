@@ -218,7 +218,7 @@ cursor:pointer;
 Structured mock-based preparation designed to help you walk into the official DELF exam ready and confident.
 </p>
 
-<a class="main-btn" onclick="window.location.href='\/features\/delf\/test.html'">Learn Everything About This Service</a>
+<a class="main-btn" onclick="window.location.href="/features/delf/info.html"">Learn Everything About This Service</a>
 
 <div class="teacher-wrap">
 <img src="/assets/images/delf-prep-teacher.png">
@@ -333,7 +333,7 @@ with confidence and familiarity.
 
 <div class="section" style="text-align:center">
 
-<a class="main-btn" href="/features/delf/test.html">
+<a class="main-btn" href="/features/delf/info.html">
 
 Take the Free Level Recommendation Test
 
@@ -341,7 +341,7 @@ Take the Free Level Recommendation Test
 
 <br>
 
-<button class="close-btn" onclick="window.location.href='\/features\/delf\/test.html'">
+<button class="close-btn" onclick="window.location.href="/features/delf/info.html"">
 
 Back to Dashboard
 
@@ -366,5 +366,30 @@ document.getElementById("infoCard").style.display="none";
 
 </script>
 
+
+<script>
+(function(){
+  function sendDelfInfoButtonsToInfoPage(){
+    const targets = Array.from(document.querySelectorAll("a, button"));
+
+    targets.forEach((el) => {
+      const text = (el.textContent || "").trim().toLowerCase();
+
+      if(text.includes("learn everything about this service")){
+        el.setAttribute("href", "/features/delf/info.html");
+        el.onclick = function(e){
+          e.preventDefault();
+          window.location.href = "/features/delf/info.html";
+        };
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", sendDelfInfoButtonsToInfoPage);
+  sendDelfInfoButtonsToInfoPage();
+})();
+</script>
+
 </body>
 </html>
+
