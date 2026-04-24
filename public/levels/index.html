@@ -17,24 +17,22 @@
     *{box-sizing:border-box}
 
     html,body{
-      margin:0;
-      min-height:100%;
-      font-family:"Nunito",system-ui,sans-serif;
-      color:#f4fffd;
-    }
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#167F7A;
+}
 
     body{
-      min-height:100vh;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-         transparent 70%), transparent 26%),
-         transparent 70%), transparent 18%),
-         transparent 70%), transparent 22%),
-        linear-gradient(145deg,#052d42 0%,#064c66 48%,#021b29 100%);
-    }
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#167F7A;
+}
 
     body::before{
       content:"";
@@ -192,7 +190,14 @@
     }
 
     @media(max-width:850px){
-      body{overflow:auto}
+      body{
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#167F7A;
+}
 
       .levels-page{
         min-height:100vh;
@@ -220,6 +225,58 @@
       }
     }
   </style>
+
+<style id="levels-teal-background-only-fix">
+  .kicker{
+    color:rgba(255,255,255,.76) !important;
+  }
+
+  h1{
+    color:#ffffff !important;
+    text-shadow:0 16px 34px rgba(0,0,0,.22) !important;
+  }
+
+  .subtitle{
+    color:rgba(255,255,255,.82) !important;
+  }
+
+  .level-card{
+    background:linear-gradient(180deg, rgba(4,42,45,.54), rgba(4,35,38,.42)) !important;
+    border:1px solid rgba(255,255,255,.20) !important;
+    color:#ffffff !important;
+    box-shadow:
+      0 20px 46px rgba(0,0,0,.20),
+      inset 0 1px 0 rgba(255,255,255,.14) !important;
+  }
+
+  .level-card:hover{
+    background:linear-gradient(180deg, rgba(5,56,58,.68), rgba(4,42,45,.50)) !important;
+    border-color:rgba(255,255,255,.34) !important;
+    box-shadow:
+      0 28px 70px rgba(0,0,0,.28),
+      inset 0 1px 0 rgba(255,255,255,.18) !important;
+  }
+
+  .level-code{
+    background:#ffffff !important;
+    color:#167F7A !important;
+    box-shadow:0 12px 28px rgba(0,0,0,.18) !important;
+  }
+
+  .level-title{
+    color:#ffffff !important;
+  }
+
+  .level-note{
+    color:rgba(255,255,255,.74) !important;
+  }
+
+  .back-btn{
+    background:rgba(4,42,45,.36) !important;
+    color:#ffffff !important;
+    border:1px solid rgba(255,255,255,.20) !important;
+  }
+</style>
 </head>
 
 <body>
@@ -272,6 +329,7 @@
   </main>
 </body>
 </html>
+
 
 
 
