@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Your French Level — SayBon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
+
+  <style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  font-family:"Nunito",sans-serif;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(149,194,189,.25), transparent 30%),
+    linear-gradient(145deg,#3A837D,#1c3f41,#102629);
+  color:#f7fbfb;
+}
+
+/* MAIN CARD */
+.stage{
+  width:100%;
+  max-width:640px;
+  padding:36px 32px;
+  border-radius:34px;
+
+  background:
+    linear-gradient(160deg,
+      rgba(214,185,164,.15),
+      rgba(221,162,128,.12),
+      rgba(149,194,189,.10)
+    );
+
+  border:1px solid rgba(214,185,164,.25);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.08);
+
+  backdrop-filter:blur(18px);
+}
+
+/* TITLE */
+.pretitle{
+  font-size:12px;
+  letter-spacing:.28em;
+  color:#DDA280;
+  margin-bottom:18px;
+}
+
+/* ORB (MAIN FOCUS) */
+.level-orb{
+  width:150px;
+  height:150px;
+  margin:0 auto 28px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:54px;
+  font-weight:600;
+  color:#102629;
+
+  background:
+    radial-gradient(circle at 30% 25%,
+      #fff6ee,
+      #D6B9A4,
+      #DE5969
+    );
+
+  box-shadow:
+    0 0 0 10px rgba(214,185,164,.15),
+    0 0 50px rgba(222,89,105,.35),
+    0 20px 60px rgba(0,0,0,.35);
+
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.05);
+  }
+}
+
+/* DESCRIPTION */
+.description{
+  font-size:15px;
+  line-height:1.6;
+  max-width:520px;
+  margin:0 auto 26px;
+  color:rgba(255,255,255,.85);
+}
+
+/* STATS */
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.chip{
+  padding:14px;
+  border-radius:20px;
+
+  background:rgba(149,194,189,.08);
+  border:1px solid rgba(214,185,164,.2);
+
+  text-align:center;
+}
+
+.chip span{
+  font-size:10px;
+  letter-spacing:.18em;
+  color:#D6B9A4;
+}
+
+.chip strong{
+  display:block;
+  margin-top:4px;
+  font-size:15px;
+  font-weight:500;
+}
+
+/* BUTTONS */
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+button,a{
+  min-width:150px;
+  height:46px;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.05em;
+}
+
+.primary{
+  background:linear-gradient(180deg,#DDA280,#DE5969);
+  color:#fff;
+}
+
+.secondary{
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  border:1px solid rgba(214,185,164,.2);
+}
+
+/* MOBILE */
+@media(max-width:650px){
+  .stage{padding:28px 18px}
+  .result-grid{grid-template-columns:1fr}
+  .level-orb{width:130px;height:130px;font-size:46px}
+}
+</style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <main class="reveal-shell" id="revealShell">
+    
+
+    <section class="stage">
+      <div class="content">
+        <div class="pretitle">Your French level is</div>
+
+        
+
+        <div class="level-orb" id="levelBadge">A1</div>
+
+        <p class="description" id="levelText"></p>
+
+        <div class="result-grid">
+          <div class="chip">
+            <span>Objective</span>
+            <strong id="scoreChip">0 / 12</strong>
+          </div>
+
+          <div class="chip">
+            <span>Speaking</span>
+            <strong id="spokenChip">0 responses</strong>
+          </div>
+
+          <div class="chip">
+            <span>Writing</span>
+            <strong id="writtenChip">0 responses</strong>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" onclick="continueJourney()">Continue</button>
+          <a class="secondary" href="/placement/">Retake Test</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const score = Number(sessionStorage.getItem("placement_score")) || 0;
+    const total = Number(sessionStorage.getItem("placement_total")) || 15;
+    const level = sessionStorage.getItem("placement_level") || "A1";
+    const spokenAnswers = JSON.parse(sessionStorage.getItem("placement_spoken_answers") || "[]");
+    const writtenAnswers = JSON.parse(sessionStorage.getItem("placement_written_answers") || "[]");
+
+    const descriptions = {
+      A0: "You are at the beginning of your French journey. SayBon will help you build confidence from the very first sounds and words.",
+      A1: "You can understand and use simple everyday expressions. This is the perfect stage to grow your speaking confidence.",
+      A2: "You can manage familiar situations and communicate in simple ways. Your next goal is smoother expression and stronger listening.",
+      B1: "You can handle everyday conversations with growing independence. Now we refine structure, fluency, and confidence.",
+      B2: "You can understand more complex French and express yourself with clarity. Now we sharpen precision, elegance, and exam readiness."
+    };
+
+    document.getElementById("levelBadge").textContent = level;
+    document.getElementById("levelText").textContent = descriptions[level] || descriptions.A1;
+    document.getElementById("scoreChip").textContent = `${score} / 12`;
+    document.getElementById("spokenChip").textContent = `${spokenAnswers.length} responses`;
+    document.getElementById("writtenChip").textContent = `${writtenAnswers.length} responses`;
+
+    function continueJourney(){
+      const shell = document.getElementById("revealShell");
+      shell.classList.add("fade-out");
+
+      setTimeout(() => {
+        window.location.href = "/dashboard/";
+      }, 650);
+    }
+  </script>
+</body>
+</html>
+
+
+

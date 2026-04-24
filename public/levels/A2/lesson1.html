@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A2 Lesson 1</title>
+
+<style>
+body{
+margin:0;
+font-family:sans-serif;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+background:linear-gradient(145deg,#99C0CD,#111);
+color:#fff;
+text-align:center;
+}
+
+.card{
+padding:40px;
+border-radius:30px;
+background:rgba(255,255,255,.1);
+backdrop-filter:blur(20px);
+}
+
+button{
+margin-top:20px;
+padding:12px 22px;
+border:none;
+border-radius:999px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>A2 Lesson 1</h1>
+<p>Everything is starting to flow.</p>
+
+<button onclick="complete()">Complete Lesson</button>
+</div>
+
+<script>
+function complete(){
+localStorage.setItem("saybon_A2_lesson1_complete","true");
+window.location.href="/levels/A2/";
+}
+</script>
+
+</body>
+</html>

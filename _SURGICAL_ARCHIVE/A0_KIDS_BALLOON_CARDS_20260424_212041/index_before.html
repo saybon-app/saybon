@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="/js/auth-guard.js"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>French for Littles — SayBon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
+
+  <style>
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#ffffff;
+    }
+
+    body{
+      min-height:100vh; height:auto;
+      overflow:auto;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,226,133,.38), transparent 18%),
+        radial-gradient(circle at 82% 20%, rgba(255,141,199,.32), transparent 18%),
+        radial-gradient(circle at 50% 95%, rgba(78,220,255,.35), transparent 28%),
+        linear-gradient(145deg,#0e8b91 0%,#0b6f8f 48%,#074261 100%);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 2px, transparent 2px),
+        radial-gradient(circle, rgba(255,239,164,.8) 2px, transparent 2px);
+      background-size:90px 90px,140px 140px;
+      animation:floatDots 16s linear infinite;
+    }
+
+    @keyframes floatDots{
+      from{transform:translateY(0)}
+      to{transform:translateY(90px)}
+    }
+
+    .hub{
+      position:relative;
+      z-index:1;
+      width:min(94vw,1050px);
+      min-height:auto;
+      padding:30px 22px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      text-align:center;
+      animation:pageIn .7s ease both;
+    }
+
+    @keyframes pageIn{
+      from{opacity:0; transform:translateY(18px) scale(.985)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      gap:8px;
+      padding:9px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.25);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+      backdrop-filter:blur(14px);
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(34px,5vw,64px);
+      line-height:1;
+      font-weight:900;
+      letter-spacing:-.025em;
+      text-shadow:0 16px 34px rgba(0,0,0,.22);
+    }
+
+    .subtitle{
+      margin:14px 0 30px;
+      font-size:18px;
+      font-weight:700;
+      color:rgba(255,255,255,.84);
+    }
+
+    .lesson-grid{
+      width:min(100%,900px);
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:28px;
+    }
+
+    .lesson{
+      min-height:74px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.25);
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.13));
+      color:#ffffff;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      flex-direction:column;
+      gap:4px;
+      box-shadow:
+        0 16px 34px rgba(0,0,0,.16),
+        inset 0 1px 0 rgba(255,255,255,.25);
+      backdrop-filter:blur(18px);
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+
+    .lesson:hover{
+      transform:translateY(-6px) rotate(-1deg) scale(1.035);
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.18));
+      box-shadow:
+        0 24px 50px rgba(0,0,0,.22),
+        0 0 28px rgba(255,239,164,.22),
+        inset 0 1px 0 rgba(255,255,255,.28);
+    }
+
+    .lesson:active{
+      transform:translateY(-1px) scale(.98);
+    }
+
+    .lesson-icon{
+      font-size:18px;
+      line-height:1;
+    }
+
+    .lesson-title{
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+
+    .lesson:first-child{
+      background:linear-gradient(180deg,#ffe982,#27e6d3);
+      color:#083f4f;
+      border-color:rgba(255,255,255,.5);
+    }
+
+    .back-btn{
+      height:48px;
+      min-width:190px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.18);
+      color:#ffffff;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:flex-start; padding-top:40px; padding-bottom:40px;
+      font-size:14px;
+      font-weight:900;
+      backdrop-filter:blur(14px);
+      transition:transform .22s ease, background .22s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,.24);
+    }
+
+    @media(max-width:900px){
+      body{overflow:auto}
+
+      .hub{
+        min-height:100vh; height:auto;
+      }
+
+      .lesson-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:560px){
+      .lesson-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:12px;
+      }
+
+      .lesson{
+        min-height:68px;
+        border-radius:20px;
+      }
+
+      .subtitle{
+        font-size:15px;
+      }
+    }
+  
+/* ==========================================
+FINAL CENTERED SCROLL FIX
+========================================== */
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden !important;
+}
+
+body{
+  min-height:100vh !important;
+  height:auto !important;
+  overflow-y:auto !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+}
+
+.hub{
+  width:min(94vw,1050px) !important;
+  margin:0 auto !important;
+  min-height:auto !important;
+  padding:42px 22px 56px !important;
+  justify-content:flex-start !important;
+  align-items:center !important;
+}
+
+.lesson-grid{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  justify-content:center !important;
+}
+
+.back-btn{
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+</style>
+</head>
+
+<body>
+  <main class="hub">
+    <div class="badge">🌈 A0 Kids Hub</div>
+
+    <h1>French for Littles</h1>
+
+    <p class="subtitle">Tiny steps. Big smiles. French starts here.</p>
+
+    <section class="lesson-grid" aria-label="French for Littles lessons">
+      <a class="lesson" href="/levels/A0/les-petits/lesson-1/"><span class="lesson-icon">🎈</span><span class="lesson-title">Lesson 1</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-2/"><span class="lesson-icon">🧸</span><span class="lesson-title">Lesson 2</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-3/"><span class="lesson-icon">🌟</span><span class="lesson-title">Lesson 3</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-4/"><span class="lesson-icon">🎵</span><span class="lesson-title">Lesson 4</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-5/"><span class="lesson-icon">🍭</span><span class="lesson-title">Lesson 5</span></a>
+
+      <a class="lesson" href="/levels/A0/les-petits/lesson-6/"><span class="lesson-icon">🦋</span><span class="lesson-title">Lesson 6</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-7/"><span class="lesson-icon">🐣</span><span class="lesson-title">Lesson 7</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-8/"><span class="lesson-icon">🎨</span><span class="lesson-title">Lesson 8</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-9/"><span class="lesson-icon">🚀</span><span class="lesson-title">Lesson 9</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-10/"><span class="lesson-icon">🧃</span><span class="lesson-title">Lesson 10</span></a>
+
+      <a class="lesson" href="/levels/A0/les-petits/lesson-11/"><span class="lesson-icon">🐝</span><span class="lesson-title">Lesson 11</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-12/"><span class="lesson-icon">🎁</span><span class="lesson-title">Lesson 12</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-13/"><span class="lesson-icon">🌼</span><span class="lesson-title">Lesson 13</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-14/"><span class="lesson-icon">🪁</span><span class="lesson-title">Lesson 14</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-15/"><span class="lesson-icon">✨</span><span class="lesson-title">Lesson 15</span></a>
+
+      <a class="lesson" href="/levels/A0/les-petits/lesson-16/"><span class="lesson-icon">🐬</span><span class="lesson-title">Lesson 16</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-17/"><span class="lesson-icon">🍓</span><span class="lesson-title">Lesson 17</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-18/"><span class="lesson-icon">🎀</span><span class="lesson-title">Lesson 18</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-19/"><span class="lesson-icon">🦄</span><span class="lesson-title">Lesson 19</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-20/"><span class="lesson-icon">🌙</span><span class="lesson-title">Lesson 20</span></a>
+
+      <a class="lesson" href="/levels/A0/les-petits/lesson-21/"><span class="lesson-icon">☀️</span><span class="lesson-title">Lesson 21</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-22/"><span class="lesson-icon">🐢</span><span class="lesson-title">Lesson 22</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-23/"><span class="lesson-icon">🎉</span><span class="lesson-title">Lesson 23</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-24/"><span class="lesson-icon">🍦</span><span class="lesson-title">Lesson 24</span></a>
+      <a class="lesson" href="/levels/A0/les-petits/lesson-25/"><span class="lesson-icon">🏆</span><span class="lesson-title">Lesson 25</span></a>
+    </section>
+
+    <a class="back-btn" href="/levels/A0/">← Back to A0</a>
+  </main>
+</body>
+</html>
+
+

@@ -1,231 +1,91 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A0 — Absolute Beginner</title>
 
-  <title>A0 — Absolute Beginner | SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{
+margin:0;
+font-family:'Nunito',sans-serif;
+color:#fff;
+display:flex;
+justify-content:center;
+padding:60px 20px;
+background:
+radial-gradient(circle at 50% 20%, #6F957633, transparent 25%),
+linear-gradient(145deg,#0b1d22,#041014);
+}
 
-  <link rel="stylesheet" href="/css/page-transition.css">
-  <script type="module" src="/js/nav-engine.js"></script>
+.container{
+max-width:900px;
+width:100%;
+text-align:center;
+}
 
-  <style>
-    *{
-      box-sizing:border-box;
-    }
+h1{
+font-size:42px;
+margin-bottom:10px;
+}
 
-    html,
-    body{
-      margin:0;
-      min-height:100%;
-      font-family:"Nunito", system-ui, sans-serif;
-      color:#eef8ff;
-    }
+p{
+opacity:.8;
+margin-bottom:40px;
+}
 
-    body{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(72,210,255,.22), transparent 26%),
-        radial-gradient(circle at 50% 100%, rgba(37,160,255,.20), transparent 34%),
-        linear-gradient(145deg,#063f57 0%, #07546f 48%, #032532 100%);
-    }
+.grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+}
 
-    .page{
-      width:min(92vw, 860px);
-      min-height:78vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:36px 22px;
-      animation:pageIn .75s ease both;
-    }
+.lesson{
+padding:22px;
+border-radius:24px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+cursor:pointer;
+transition:.25s;
+text-decoration:none;
+color:#fff;
+}
 
-    @keyframes pageIn{
-      from{
-        opacity:0;
-        transform:translateY(18px) scale(.985);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-      }
-    }
+.lesson:hover{
+transform:translateY(-6px);
+background:rgba(255,255,255,.12);
+}
 
-    .level-kicker{
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.34em;
-      text-transform:uppercase;
-      color:rgba(155,232,255,.82);
-      margin-bottom:14px;
-    }
+.lesson.locked{
+opacity:.35;
+cursor:not-allowed;
+}
 
-    h1{
-      margin:0;
-      font-size:clamp(34px, 5vw, 58px);
-      line-height:1.05;
-      font-weight:700;
-      letter-spacing:.015em;
-      text-shadow:0 18px 38px rgba(0,0,0,.24);
-    }
+.lesson1{
+background:linear-gradient(180deg,#fff,#6F9576);
+color:#111;
+font-weight:900;
+}
 
-    .subtitle{
-      margin:18px 0 42px;
-      font-size:18px;
-      font-weight:500;
-      color:rgba(238,248,255,.78);
-      letter-spacing:.04em;
-    }
-
-    .path-grid{
-      width:min(100%, 680px);
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:22px;
-      margin-bottom:38px;
-    }
-
-    .path-card{
-      min-height:150px;
-      padding:26px 22px;
-      border-radius:30px;
-      border:1px solid rgba(255,255,255,.16);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.07));
-      color:#f4fbff;
-      text-decoration:none;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      box-shadow:
-        0 20px 50px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.18);
-      backdrop-filter:blur(20px);
-      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease;
-    }
-
-    .path-card:hover{
-      transform:translateY(-7px) scale(1.018);
-      border-color:rgba(148,231,255,.42);
-      box-shadow:
-        0 28px 70px rgba(0,0,0,.28),
-        0 0 32px rgba(78,204,255,.18),
-        inset 0 1px 0 rgba(255,255,255,.22);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.09));
-    }
-
-    .path-card:active{
-      transform:translateY(-2px) scale(.99);
-    }
-
-    .path-icon{
-      font-size:34px;
-      line-height:1;
-      filter:drop-shadow(0 8px 16px rgba(0,0,0,.22));
-    }
-
-    .path-title{
-      font-size:24px;
-      font-weight:700;
-      letter-spacing:.01em;
-    }
-
-    .path-note{
-      font-size:14px;
-      font-weight:500;
-      color:rgba(238,248,255,.72);
-      line-height:1.35;
-    }
-
-    .back-btn{
-      min-width:190px;
-      height:48px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.08);
-      color:#eef8ff;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:.03em;
-      transition:transform .22s ease, background .22s ease;
-    }
-
-    .back-btn:hover{
-      transform:translateY(-3px);
-      background:rgba(255,255,255,.13);
-    }
-
-    @media(max-width:720px){
-      body{
-        overflow:auto;
-      }
-
-      .page{
-        min-height:100vh;
-        padding:28px 18px;
-      }
-
-      .subtitle{
-        margin-bottom:30px;
-      }
-
-      .path-grid{
-        grid-template-columns:1fr;
-        gap:16px;
-      }
-
-      .path-card{
-        min-height:132px;
-        border-radius:26px;
-      }
-
-      .path-title{
-        font-size:21px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <main class="page">
-    <div class="level-kicker">Choose your learning path</div>
+<div class="container">
 
-    <h1>A0 — Absolute Beginner</h1>
+<h1>A0 — Absolute Beginner</h1>
+<p>Your journey begins here.</p>
 
-    <p class="subtitle">Start from the very beginning, the SayBon way.</p>
+<div class="grid">
 
-    <section class="path-grid" aria-label="Select your path">
-      <a class="path-card" href="/levels/A0/les-petits/">
-        <div class="path-icon">👧🏽👶🏽👦🏽</div>
-        <div class="path-title">French for Littles</div>
-        <div class="path-note">Playful first French for younger learners.</div>
-      </a>
+<a class="lesson lesson1" href="/levels/A0/lesson1.html">Lesson 1</a>
+<div class='lesson locked'>Lesson 2 🔒</div> <div class='lesson locked'>Lesson 3 🔒</div> <div class='lesson locked'>Lesson 4 🔒</div> <div class='lesson locked'>Lesson 5 🔒</div> <div class='lesson locked'>Lesson 6 🔒</div> <div class='lesson locked'>Lesson 7 🔒</div> <div class='lesson locked'>Lesson 8 🔒</div> <div class='lesson locked'>Lesson 9 🔒</div> <div class='lesson locked'>Lesson 10 🔒</div> <div class='lesson locked'>Lesson 11 🔒</div> <div class='lesson locked'>Lesson 12 🔒</div> <div class='lesson locked'>Lesson 13 🔒</div> <div class='lesson locked'>Lesson 14 🔒</div> <div class='lesson locked'>Lesson 15 🔒</div> <div class='lesson locked'>Lesson 16 🔒</div> <div class='lesson locked'>Lesson 17 🔒</div> <div class='lesson locked'>Lesson 18 🔒</div> <div class='lesson locked'>Lesson 19 🔒</div> <div class='lesson locked'>Lesson 20 🔒</div> <div class='lesson locked'>Lesson 21 🔒</div> <div class='lesson locked'>Lesson 22 🔒</div> <div class='lesson locked'>Lesson 23 🔒</div> <div class='lesson locked'>Lesson 24 🔒</div> <div class='lesson locked'>Lesson 25 🔒</div>
 
-      <a class="path-card" href="/levels/A0/tout-public/">
-        <div class="path-icon">🌍✨</div>
-        <div class="path-title">French for Adults</div>
-        <div class="path-note">Clear, confident French for grown learners.</div>
-      </a>
-    </section>
+</div>
 
-    <a class="back-btn" href="/levels/">← Back to Levels</a>
-  </main>
+</div>
 </body>
 </html>
