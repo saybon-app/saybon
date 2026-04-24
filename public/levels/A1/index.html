@@ -306,15 +306,6 @@
     body[data-level="B1"] .lesson-card:hover{transform:translateY(-4px)}
 
     /* B2 — diamond precision cards */
-    body[data-level="B2"] h1{font-family:"Space Grotesk", "Nunito", sans-serif; font-size:clamp(34px,4.8vw,58px); letter-spacing:.01em}
-    body[data-level="B2"] .lesson-card{
-      border-radius:24px;
-      transform:skewX(-3deg);
-    }
-    body[data-level="B2"] .lesson-card > *{transform:skewX(3deg)}
-    body[data-level="B2"] .lesson-card:hover{transform:skewX(-3deg) translateY(-7px) scale(1.014)}
-
-    /* C1 — editorial gallery */
     body[data-level="C1"] h1{font-family:"Playfair Display", serif; font-size:clamp(36px,5vw,64px); letter-spacing:.01em}
     body[data-level="C1"] .grid{
       gap:20px;
@@ -335,7 +326,34 @@
       .lesson-card{min-height:86px}
       .vibe{font-size:15px}
     }
-  </style>
+  
+/* ==========================================
+FINAL ADULT HUB CARD CORRECTION
+========================================== */
+
+.lesson-card{
+  border-radius:28px !important;
+  min-height:96px !important;
+  transform:none !important;
+}
+
+.lesson-card > *{
+  transform:none !important;
+}
+
+.lesson-card:hover{
+  transform:translateY(-6px) scale(1.018) !important;
+}
+
+.lesson-card.locked:hover{
+  transform:none !important;
+}
+
+.grid{
+  gap:18px !important;
+}
+
+</style>
 </head>
 
 <body data-level="A1">
@@ -552,3 +570,4 @@
   </script>
 </body>
 </html>
+
