@@ -1,29 +1,161 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+  <script type="module" src="/js/auth-guard.js"></script>
+
   <meta charset="UTF-8" />
-  <title>C1</title>
-  <link rel="stylesheet" href="/css/global.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
+  <title>C1 Lesson 1 — SayBon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
+
+  <style>
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#f7fbfb;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 24%, color-mix(in srgb, #D6B9A4 34%, transparent), transparent 22%),
+        radial-gradient(circle at 15% 80%, rgba(149,194,189,.18), transparent 22%),
+        linear-gradient(145deg,#0d2f35 0%,#123f45 48%,#071b22 100%);
+    }
+
+    .card{
+      width:min(92vw,620px);
+      padding:42px 28px;
+      border-radius:38px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:
+        0 30px 86px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.16);
+      backdrop-filter:blur(22px);
+      animation:cardIn .75s ease both;
+    }
+
+    @keyframes cardIn{
+      from{opacity:0; transform:translateY(18px) scale(.985)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    .orb{
+      width:96px;
+      height:96px;
+      border-radius:32px;
+      margin:0 auto 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:42px;
+      background:linear-gradient(180deg,#ffffff,#D6B9A4);
+      box-shadow:
+        0 20px 54px color-mix(in srgb, #D6B9A4 35%, transparent),
+        inset 0 1px 0 rgba(255,255,255,.60);
+      color:#0d2f35;
+    }
+
+    .kicker{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(247,251,251,.72);
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(32px,5vw,50px);
+      font-weight:850;
+      letter-spacing:-.02em;
+    }
+
+    p{
+      margin:14px auto 28px;
+      max-width:450px;
+      font-size:16px;
+      line-height:1.6;
+      color:rgba(247,251,251,.78);
+    }
+
+    .actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    button,
+    a{
+      min-width:180px;
+      height:52px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      font-family:inherit;
+      font-size:14px;
+      font-weight:900;
+      cursor:pointer;
+      transition:transform .22s ease, filter .22s ease, box-shadow .22s ease;
+    }
+
+    button{
+      background:linear-gradient(180deg,#ffffff,#D6B9A4);
+      color:#0d2f35;
+      box-shadow:0 18px 38px color-mix(in srgb, #D6B9A4 22%, transparent);
+    }
+
+    a{
+      background:rgba(255,255,255,.10);
+      color:#ffffff;
+    }
+
+    button:hover,
+    a:hover{
+      transform:translateY(-3px);
+      filter:brightness(1.04);
+    }
+
+    button:active,
+    a:active{
+      transform:translateY(1px) scale(.985);
+    }
+  </style>
 </head>
+
 <body>
+  <main class="card">
+    <div class="orb">✨</div>
+    <div class="kicker">C1 Lesson 1</div>
+    <h1>Lesson 1 is Ready</h1>
+    <p>This is a polished placeholder for the first lesson in C1 — Advanced. The full lesson engine will be connected here.</p>
 
-  <h1>C1 (Lessons 1–25)</h1>
+    <div class="actions">
+      <button onclick="completeLesson()">Mark Lesson Complete</button>
+      <a href="/levels/C1/">Back to Hub</a>
+    </div>
+  </main>
 
-  <div class="lesson-grid">
-    <a href="lesson-1.html" class="lesson unlocked">Lesson 1</a>
-
-    <script>
-      for (let i = 2; i <= 25; i++) {
-        document.write(`
-          <div class="lesson locked">Lesson ${i} 🔒</div>
-        `);
-      }
-    </script>
-  </div>
-
+  <script>
+    function completeLesson(){
+      localStorage.setItem("saybon_" + "C1".toLowerCase() + "_adult_lesson_1_complete", "true");
+      window.location.href = "/levels/C1/";
+    }
+  </script>
 </body>
 </html>
