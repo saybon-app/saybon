@@ -111,13 +111,13 @@ const questions = [
     type: "mcq",
     category: "Reading",
     prompt: "Lis le texte et réponds à la question.",
-    text: "Je suis arrivé en retard parce que le bus est parti avant mon arrivée.",
+    text: "Je suis arrivé en retard parce que le bus que je prends d’habitude était déjà parti quand je suis arrivé à l’arrêt.",
     readingQuestion: "Pourquoi la personne était-elle en retard ?",
     options: [
-      "Parce qu’elle s’est réveillée tard.",
-      "Parce que le bus est parti avant son arrivée.",
-      "Parce qu’elle a manqué l’école.",
-      "Parce qu’elle a oublié son sac."
+      "Parce qu’elle n’a pas trouvé l’arrêt de bus.",
+      "Parce que son bus habituel était déjà parti.",
+      "Parce qu’elle a changé d’itinéraire.",
+      "Parce que le bus était plus lent que d’habitude."
     ],
     correct: 1,
     level: "B1"
@@ -126,14 +126,14 @@ const questions = [
     id: 11,
     type: "mcq",
     category: "Understanding",
-    prompt: "Choose the best response: « Pourquoi apprends-tu le français ? »",
+    prompt: "Choisis la réponse la plus naturelle : « Pourquoi apprends-tu le français ? »",
     options: [
-      "Parce que j’aime voyager et communiquer avec plus de personnes.",
-      "Je suis dans la cuisine.",
-      "Il est trois heures.",
-      "Merci beaucoup."
+      "J’apprends le français depuis deux ans.",
+      "J’apprends le français parce que cela peut m’aider dans mes études et mes voyages.",
+      "J’apprends le français avec mon professeur le mercredi.",
+      "J’apprends le français quand j’ai du temps libre."
     ],
-    correct: 0,
+    correct: 1,
     level: "B1"
   },
   {
@@ -148,16 +148,16 @@ const questions = [
     id: 13,
     type: "mcq",
     category: "Reading",
-    prompt: "Read and answer the question.",
-    text: "De plus en plus de jeunes préfèrent apprendre en ligne, car cela leur permet d’étudier à leur rythme et d’avoir accès à davantage de ressources.",
-    readingQuestion: "Why do many young people prefer learning online?",
+    prompt: "Lis le texte et réponds à la question.",
+    text: "De plus en plus de jeunes préfèrent apprendre en ligne. Cette méthode leur permet d’organiser leur temps plus librement, mais elle demande aussi beaucoup d’autonomie et de discipline.",
+    readingQuestion: "Quelle idée résume le mieux le texte ?",
     options: [
-      "Because school is closed.",
-      "Because it lets them study at their own pace and access more resources.",
-      "Because teachers are not useful.",
-      "Because books are too expensive."
+      "L’apprentissage en ligne est pratique, mais il exige une grande responsabilité personnelle.",
+      "L’apprentissage en ligne est toujours plus facile que l’apprentissage en classe.",
+      "Les jeunes choisissent l’apprentissage en ligne uniquement parce qu’ils n’aiment pas les écoles.",
+      "Les cours en ligne permettent d’apprendre sans effort ni organisation."
     ],
-    correct: 1,
+    correct: 0,
     level: "B2"
   },
   {
@@ -573,4 +573,5 @@ function finishPlacement() {
 }
 
 renderQuestion();
+
 
