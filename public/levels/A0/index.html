@@ -1,91 +1,153 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>A0 — Absolute Beginner</title>
+  <title>A0 — Absolute Beginner | SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
 
-<style>
-body{
-margin:0;
-font-family:'Nunito',sans-serif;
-color:#fff;
-display:flex;
-justify-content:center;
-padding:60px 20px;
-background:
-radial-gradient(circle at 50% 20%, #6F957633, transparent 25%),
-linear-gradient(145deg,#0b1d22,#041014);
-}
+  <style>
+    *{box-sizing:border-box}
 
-.container{
-max-width:900px;
-width:100%;
-text-align:center;
-}
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#eef8ff;
+    }
 
-h1{
-font-size:42px;
-margin-bottom:10px;
-}
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:auto;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(99,220,255,.20), transparent 26%),
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.08), transparent 18%),
+        linear-gradient(145deg,#052d42 0%,#064c66 48%,#021b29 100%);
+    }
 
-p{
-opacity:.8;
-margin-bottom:40px;
-}
+    .page{
+      width:min(92vw,900px);
+      min-height:82vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:38px 22px;
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:20px;
-}
+    .kicker{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      color:rgba(151,232,255,.82);
+      margin-bottom:14px;
+    }
 
-.lesson{
-padding:22px;
-border-radius:24px;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.15);
-cursor:pointer;
-transition:.25s;
-text-decoration:none;
-color:#fff;
-}
+    h1{
+      margin:0;
+      font-size:clamp(38px,5vw,64px);
+      line-height:1.04;
+      font-weight:850;
+      letter-spacing:-.02em;
+      text-shadow:0 20px 44px rgba(0,0,0,.28);
+    }
 
-.lesson:hover{
-transform:translateY(-6px);
-background:rgba(255,255,255,.12);
-}
+    .subtitle{
+      margin:16px 0 42px;
+      font-size:17px;
+      font-weight:600;
+      color:rgba(238,248,255,.76);
+    }
 
-.lesson.locked{
-opacity:.35;
-cursor:not-allowed;
-}
+    .path-grid{
+      width:min(100%,720px);
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:24px;
+      margin-bottom:34px;
+    }
 
-.lesson1{
-background:linear-gradient(180deg,#fff,#6F9576);
-color:#111;
-font-weight:900;
-}
+    .path-card{
+      min-height:170px;
+      padding:28px 24px;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.17);
+      background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.065));
+      color:#f4fbff;
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      box-shadow:0 22px 54px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter:blur(20px);
+      transition:transform .28s ease, box-shadow .28s ease, background .28s ease;
+    }
 
-</style>
+    .path-card:hover{
+      transform:translateY(-7px) scale(1.018);
+      background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.09));
+      box-shadow:0 30px 72px rgba(0,0,0,.30), 0 0 34px rgba(84,212,255,.16);
+    }
+
+    .path-icon{font-size:36px}
+    .path-title{font-size:25px;font-weight:900}
+    .path-note{font-size:14px;color:rgba(238,248,255,.72);line-height:1.4}
+
+    .back-btn{
+      min-width:190px;
+      height:48px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      color:#eef8ff;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    @media(max-width:720px){
+      .path-grid{grid-template-columns:1fr}
+      .path-card{min-height:145px}
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <main class="page">
+    <div class="kicker">Choose your learning path</div>
+    <h1>A0 — Absolute Beginner</h1>
+    <p class="subtitle">Start from the very beginning, the SayBon way.</p>
 
-<h1>A0 — Absolute Beginner</h1>
-<p>Your journey begins here.</p>
+    <section class="path-grid">
+      <a class="path-card" href="/levels/A0/les-petits/">
+        <div class="path-icon">👧🏽👶🏽👦🏽</div>
+        <div class="path-title">French for Littles</div>
+        <div class="path-note">Playful first French for younger learners.</div>
+      </a>
 
-<div class="grid">
+      <a class="path-card" href="/levels/A0/tout-public/">
+        <div class="path-icon">🌍✨</div>
+        <div class="path-title">French for Adults</div>
+        <div class="path-note">Clear, calm French for grown learners.</div>
+      </a>
+    </section>
 
-<a class="lesson lesson1" href="/levels/A0/lesson1.html">Lesson 1</a>
-<div class='lesson locked'>Lesson 2 🔒</div> <div class='lesson locked'>Lesson 3 🔒</div> <div class='lesson locked'>Lesson 4 🔒</div> <div class='lesson locked'>Lesson 5 🔒</div> <div class='lesson locked'>Lesson 6 🔒</div> <div class='lesson locked'>Lesson 7 🔒</div> <div class='lesson locked'>Lesson 8 🔒</div> <div class='lesson locked'>Lesson 9 🔒</div> <div class='lesson locked'>Lesson 10 🔒</div> <div class='lesson locked'>Lesson 11 🔒</div> <div class='lesson locked'>Lesson 12 🔒</div> <div class='lesson locked'>Lesson 13 🔒</div> <div class='lesson locked'>Lesson 14 🔒</div> <div class='lesson locked'>Lesson 15 🔒</div> <div class='lesson locked'>Lesson 16 🔒</div> <div class='lesson locked'>Lesson 17 🔒</div> <div class='lesson locked'>Lesson 18 🔒</div> <div class='lesson locked'>Lesson 19 🔒</div> <div class='lesson locked'>Lesson 20 🔒</div> <div class='lesson locked'>Lesson 21 🔒</div> <div class='lesson locked'>Lesson 22 🔒</div> <div class='lesson locked'>Lesson 23 🔒</div> <div class='lesson locked'>Lesson 24 🔒</div> <div class='lesson locked'>Lesson 25 🔒</div>
-
-</div>
-
-</div>
+    <a class="back-btn" href="/levels/">← Back to Levels</a>
+  </main>
 </body>
 </html>
