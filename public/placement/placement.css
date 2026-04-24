@@ -1756,3 +1756,246 @@ PLACEMENT STRICT INTERVENTION START
 PLACEMENT STRICT INTERVENTION END
 ========================================== */
 
+
+
+/* ==========================================
+PLACEMENT OASIS INTERVENTION START
+========================================== */
+
+#intervention{
+  min-height:100vh !important;
+  padding:24px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(149,194,189,.42), transparent 24%),
+    radial-gradient(circle at 28% 18%, rgba(214,185,164,.34), transparent 24%),
+    radial-gradient(circle at 76% 74%, rgba(221,162,128,.26), transparent 28%),
+    linear-gradient(145deg, #95C2BD 0%, #3A837D 42%, #D6B9A4 125%) !important;
+  animation:interventionOasisEnter 1.35s cubic-bezier(.16,.84,.22,1) both !important;
+  overflow:hidden !important;
+}
+
+#intervention.hidden{
+  display:none !important;
+}
+
+#intervention::before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255,255,255,.28), transparent 13%),
+    radial-gradient(circle at 74% 16%, rgba(255,246,238,.22), transparent 15%),
+    radial-gradient(circle at 60% 78%, rgba(222,89,105,.13), transparent 18%);
+  filter:blur(12px);
+  animation:oasisLightDrift 8s ease-in-out infinite alternate;
+}
+
+#intervention::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), transparent 28%, rgba(16,38,41,.16));
+  opacity:.72;
+}
+
+@keyframes interventionOasisEnter{
+  0%{
+    opacity:0;
+    filter:blur(14px);
+    transform:scale(1.035);
+  }
+  55%{
+    opacity:1;
+    filter:blur(3px);
+    transform:scale(1.008);
+  }
+  100%{
+    opacity:1;
+    filter:blur(0);
+    transform:scale(1);
+  }
+}
+
+@keyframes oasisLightDrift{
+  from{ transform:translate3d(-12px,-10px,0) scale(1); }
+  to{ transform:translate3d(14px,12px,0) scale(1.04); }
+}
+
+#intervention .intervention-card,
+#intervention .intervention-content,
+#intervention > div{
+  position:relative !important;
+  z-index:2 !important;
+  width:min(92vw, 620px) !important;
+  min-height:420px !important;
+  padding:34px 28px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:22px !important;
+  border-radius:36px !important;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.30), rgba(214,185,164,.22), rgba(149,194,189,.18)) !important;
+  border:1px solid rgba(255,255,255,.34) !important;
+  box-shadow:
+    0 30px 80px rgba(16,38,41,.28),
+    inset 0 1px 0 rgba(255,255,255,.28) !important;
+  backdrop-filter:blur(22px) saturate(1.15) !important;
+  animation:interventionCardFloatIn 1.55s cubic-bezier(.16,.84,.22,1) both .15s !important;
+}
+
+@keyframes interventionCardFloatIn{
+  0%{
+    opacity:0;
+    transform:translateY(26px) scale(.965);
+    filter:blur(10px);
+  }
+  65%{
+    opacity:1;
+    transform:translateY(-4px) scale(1.006);
+    filter:blur(1px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+#intervention img,
+#intervention .teacher-img,
+#intervention .hero-img{
+  display:block !important;
+  max-width:min(250px, 50vw) !important;
+  margin:0 auto !important;
+  filter:
+    drop-shadow(0 22px 38px rgba(16,38,41,.24))
+    drop-shadow(0 0 32px rgba(255,246,238,.18)) !important;
+  animation:oasisHeroEnter 1.7s cubic-bezier(.16,.84,.22,1) both .25s, oasisHeroFloat 4.4s ease-in-out infinite 2s !important;
+}
+
+@keyframes oasisHeroEnter{
+  0%{
+    opacity:0;
+    transform:translateY(18px) scale(.92);
+    filter:blur(10px);
+  }
+  70%{
+    opacity:1;
+    transform:translateY(-5px) scale(1.02);
+    filter:blur(0);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes oasisHeroFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-9px); }
+}
+
+#continueBtn,
+#revealBtn{
+  width:min(92vw, 410px) !important;
+  height:54px !important;
+  border-radius:999px !important;
+  font-weight:600 !important;
+  letter-spacing:.045em !important;
+  border:1px solid rgba(255,255,255,.38) !important;
+  box-shadow:0 14px 32px rgba(16,38,41,.18) !important;
+}
+
+#continueBtn{
+  background:linear-gradient(180deg, #ffffff, #D6B9A4) !important;
+  color:#1a4341 !important;
+}
+
+#revealBtn{
+  background:linear-gradient(180deg, rgba(255,255,255,.34), rgba(149,194,189,.20)) !important;
+  color:#ffffff !important;
+}
+
+.intervention-slide-left-slow{
+  animation:interventionOasisSlideLeft 1.9s cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.intervention-slide-right-slow{
+  animation:interventionOasisSlideRight 1.9s cubic-bezier(.16,.84,.22,1) both .28s !important;
+}
+
+@keyframes interventionOasisSlideLeft{
+  0%{
+    opacity:0;
+    transform:translateX(-170px) translateY(34px) scale(.92);
+    filter:blur(10px);
+  }
+  60%{
+    opacity:.96;
+    transform:translateX(10px) translateY(-2px) scale(1.01);
+    filter:blur(1px);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes interventionOasisSlideRight{
+  0%{
+    opacity:0;
+    transform:translateX(170px) translateY(34px) scale(.92);
+    filter:blur(10px);
+  }
+  60%{
+    opacity:.96;
+    transform:translateX(-10px) translateY(-2px) scale(1.01);
+    filter:blur(1px);
+  }
+  100%{
+    opacity:1;
+    transform:translateX(0) translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@media(max-width:768px){
+  #intervention{
+    padding:18px !important;
+  }
+
+  #intervention .intervention-card,
+  #intervention .intervention-content,
+  #intervention > div{
+    width:100% !important;
+    min-height:390px !important;
+    padding:28px 18px !important;
+    border-radius:30px !important;
+  }
+
+  #intervention img,
+  #intervention .teacher-img,
+  #intervention .hero-img{
+    max-width:min(220px, 58vw) !important;
+  }
+
+  #continueBtn,
+  #revealBtn{
+    max-width:350px !important;
+    height:52px !important;
+  }
+}
+
+/* ==========================================
+PLACEMENT OASIS INTERVENTION END
+========================================== */
+
