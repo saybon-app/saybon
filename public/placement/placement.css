@@ -1433,11 +1433,15 @@ SPEAKING RECORDER UPGRADE OVERRIDE END
 }
 
 
+
+
+
+
 /* ==========================================
-PLACEMENT FUN CLASSY FONT OVERRIDE START
+PLACEMENT LIGHT CLASSY FONT OVERRIDE START
 ========================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
 
 html,
 body,
@@ -1458,98 +1462,101 @@ select,
 .response-prompt,
 .response-box,
 .recording-status{
-  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 
-/* Main question heading */
+/* Main heading: lighter, cleaner, spaced */
 #questionText{
-  font-weight: 900 !important;
-  letter-spacing: -0.02em !important;
-  line-height: 1.12 !important;
-  color: #eaf5ff !important;
-  text-shadow: 0 8px 26px rgba(0,0,0,0.28) !important;
+  font-weight:600 !important;
+  letter-spacing:0.035em !important;
+  line-height:1.18 !important;
+  color:#e8f3ff !important;
+  text-shadow:0 6px 20px rgba(0,0,0,0.22) !important;
 }
 
-/* Skill + counter */
+/* Small labels */
 #questionCategory,
 #questionCounter{
-  font-weight: 800 !important;
-  letter-spacing: -0.01em !important;
-  color: rgba(218,238,255,0.82) !important;
+  font-weight:500 !important;
+  letter-spacing:0.06em !important;
+  color:rgba(218,238,255,0.78) !important;
 }
 
-/* Reading card */
+/* Reading card text */
 .reading-block{
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1.45 !important;
+  font-weight:500 !important;
+  letter-spacing:0.025em !important;
+  line-height:1.55 !important;
 }
 
 .reading-text{
-  font-size: 19px !important;
-  font-weight: 750 !important;
-  color: #edf7ff !important;
+  font-size:18px !important;
+  font-weight:500 !important;
+  letter-spacing:0.025em !important;
+  color:#edf7ff !important;
 }
 
 .reading-question{
-  font-size: 18px !important;
-  font-weight: 850 !important;
-  color: #d9ecff !important;
-  margin-top: 8px !important;
+  font-size:17px !important;
+  font-weight:600 !important;
+  letter-spacing:0.035em !important;
+  color:#d9ecff !important;
+  margin-top:10px !important;
 }
 
 /* Answer buttons */
 .answers button.option-btn,
 .answers .answer-pill,
 #answers button{
-  font-family: "Nunito", system-ui, sans-serif !important;
-  font-weight: 800 !important;
-  font-size: 17px !important;
-  letter-spacing: -0.01em !important;
-  color: #edf7ff !important;
+  font-family:"Nunito", system-ui, sans-serif !important;
+  font-weight:500 !important;
+  font-size:16px !important;
+  letter-spacing:0.045em !important;
+  color:#edf7ff !important;
 }
 
 /* Speaking / writing */
 .response-prompt,
 .speaking-prompt{
-  font-weight: 850 !important;
-  letter-spacing: -0.01em !important;
+  font-weight:500 !important;
+  letter-spacing:0.04em !important;
 }
 
 .response-box{
-  font-weight: 650 !important;
-  font-size: 17px !important;
+  font-weight:400 !important;
+  font-size:16px !important;
+  letter-spacing:0.025em !important;
 }
 
 .submit-small-btn,
 .secondary-small-btn,
 .recording-status{
-  font-family: "Nunito", system-ui, sans-serif !important;
-  font-weight: 800 !important;
+  font-family:"Nunito", system-ui, sans-serif !important;
+  font-weight:500 !important;
+  letter-spacing:0.035em !important;
 }
 
-/* Mobile tuning */
 @media(max-width:768px){
   #questionText{
-    font-size: clamp(1.75rem, 5vw, 2.35rem) !important;
+    font-size:clamp(1.55rem, 4.5vw, 2.1rem) !important;
   }
 
   .answers button.option-btn,
   .answers .answer-pill,
   #answers button{
-    font-size: 16px !important;
+    font-size:15px !important;
   }
 
   .reading-text{
-    font-size: 17px !important;
+    font-size:16px !important;
   }
 
   .reading-question{
-    font-size: 16px !important;
+    font-size:15px !important;
   }
 }
 
 /* ==========================================
-PLACEMENT FUN CLASSY FONT OVERRIDE END
+PLACEMENT LIGHT CLASSY FONT OVERRIDE END
 ========================================== */
 
