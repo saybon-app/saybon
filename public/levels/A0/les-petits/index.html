@@ -213,7 +213,48 @@
         font-size:15px;
       }
     }
-  </style>
+  
+/* ==========================================
+FINAL CENTERED SCROLL FIX
+========================================== */
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden !important;
+}
+
+body{
+  min-height:100vh !important;
+  height:auto !important;
+  overflow-y:auto !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+}
+
+.hub{
+  width:min(94vw,1050px) !important;
+  margin:0 auto !important;
+  min-height:auto !important;
+  padding:42px 22px 56px !important;
+  justify-content:flex-start !important;
+  align-items:center !important;
+}
+
+.lesson-grid{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  justify-content:center !important;
+}
+
+.back-btn{
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+</style>
 </head>
 
 <body>
@@ -260,4 +301,5 @@
   </main>
 </body>
 </html>
+
 
