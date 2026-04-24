@@ -110,14 +110,14 @@ const questions = [
     id: 10,
     type: "mcq",
     category: "Reading",
-    prompt: "Read and answer the question.",
+    prompt: "Lis le texte et réponds à la question.",
     text: "Je suis arrivé en retard parce que le bus est parti avant mon arrivée.",
-    readingQuestion: "Why was the person late?",
+    readingQuestion: "Pourquoi la personne était-elle en retard ?",
     options: [
-      "Because they woke up late.",
-      "Because the bus left before they arrived.",
-      "Because they missed school.",
-      "Because they forgot their bag."
+      "Parce qu’elle s’est réveillée tard.",
+      "Parce que le bus est parti avant son arrivée.",
+      "Parce qu’elle a manqué l’école.",
+      "Parce qu’elle a oublié son sac."
     ],
     correct: 1,
     level: "B1"
@@ -164,8 +164,8 @@ const questions = [
     id: 14,
     type: "writing",
     category: "Writing",
-    prompt: "Write a short response in French.",
-    writingPrompt: "Do you think online learning is better than classroom learning?",
+    prompt: "Écris une courte réponse en français.",
+    writingPrompt: "Penses-tu que l’apprentissage en ligne est meilleur que l’apprentissage en classe ?",
     level: "B2"
   },
   {
@@ -573,3 +573,4 @@ function finishPlacement() {
 }
 
 renderQuestion();
+
