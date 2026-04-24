@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="/js/session.js"></script>
+  <script src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Core Admin</title>
+  <link rel="stylesheet" href="/features/admin/admin.css" />
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-hero">
+      <div class="admin-kicker">SAYBON CORE ADMIN</div>
+      <h1>Admin Operations Center</h1>
+      <p class="admin-sub">Master admin can generate employee admin passkeys from inside this dashboard.</p>
+      <div class="admin-meta" id="adminMeta">Loading clearance…</div>
+    </header>
+
+    <section class="admin-grid">
+      <a class="admin-card" href="/features/admin/financials/">
+        <h2>Financials</h2>
+        <p>Expenses, income, founder view, and reports.</p>
+      </a>
+
+      <a class="admin-card" href="/features/admin/assets/">
+        <h2>Assets</h2>
+        <p>Domains, tools, and intellectual property records.</p>
+      </a>
+
+      <a class="admin-card" href="/features/admin/documents/">
+        <h2>Documents</h2>
+        <p>Business plans, contracts, NDA records, and receipts.</p>
+      </a>
+
+      <a class="admin-card" href="/features/admin/investors/">
+        <h2>Investors</h2>
+        <p>Cap table, investor exports, and terms.</p>
+      </a>
+
+      <a class="admin-card" href="/features/admin/settings/">
+        <h2>Settings</h2>
+        <p>Access control, feature locks, and admin settings.</p>
+      </a>
+
+      <a class="admin-card admin-card-accent" href="/features/admin/passkeys/">
+        <h2>Admin Passkeys</h2>
+        <p>Generate, disable, and delete employee admin passkeys.</p>
+      </a>
+    </section>
+  </main>
+
+  <script src="/features/admin/admin.js"></script>
+</body>
+</html>

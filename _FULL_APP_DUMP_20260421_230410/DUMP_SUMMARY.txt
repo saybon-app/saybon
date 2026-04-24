@@ -1,0 +1,13 @@
+﻿==========================================
+SAYBON FULL DUMP SUMMARY
+Generated: 04/21/2026 23:04:50
+==========================================
+
+Output folder: C:\SayBon\_FULL_APP_DUMP_20260421_230410
+Root scanned: C:\SayBon
+Files dumped: 615
+
+Generated files:
+- FULL_TREE.txt
+- FULL_APP_DUMP.txt
+- DUMP_SUMMARY.txt
