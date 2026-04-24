@@ -2062,3 +2062,39 @@ PLACEMENT INTERVENTION SPEED HOVER START
 PLACEMENT INTERVENTION SPEED HOVER END
 ========================================== */
 
+
+/* ==========================================
+PLACEMENT INTERVENTION QUICK SPEED START
+========================================== */
+
+#intervention{
+  animation-duration:.38s !important;
+}
+
+#intervention .intervention-card,
+#intervention .intervention-content,
+#intervention > div{
+  animation-duration:.48s !important;
+  animation-delay:0s !important;
+}
+
+#intervention img,
+#intervention .teacher-img,
+#intervention .hero-img{
+  animation:
+    oasisHeroEnter .45s cubic-bezier(.16,.84,.22,1) both 0s,
+    oasisHeroFloat 4.4s ease-in-out infinite .6s !important;
+}
+
+.intervention-slide-left-slow{
+  animation:interventionOasisSlideLeft .55s cubic-bezier(.16,.84,.22,1) both !important;
+}
+
+.intervention-slide-right-slow{
+  animation:interventionOasisSlideRight .55s cubic-bezier(.16,.84,.22,1) both .06s !important;
+}
+
+/* ==========================================
+PLACEMENT INTERVENTION QUICK SPEED END
+========================================== */
+
