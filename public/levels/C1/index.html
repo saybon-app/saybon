@@ -1,91 +1,554 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>C1 — Advanced</title>
+  <title>C1 — Advanced — SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page-transition.css">
+  <script type="module" src="/js/nav-engine.js"></script>
 
-<style>
-body{
-margin:0;
-font-family:'Nunito',sans-serif;
-color:#fff;
-display:flex;
-justify-content:center;
-padding:60px 20px;
-background:
-radial-gradient(circle at 50% 20%, #E2A4C033, transparent 25%),
-linear-gradient(145deg,#0b1d22,#041014);
-}
+  <style>
+    :root{
+      --accent:#E2A4C0;
+      --soft:#FAEAF1;
+      --dark:#07181d;
+      --glass:rgba(255,255,255,.12);
+      --glass-strong:rgba(255,255,255,.18);
+    }
 
-.container{
-max-width:900px;
-width:100%;
-text-align:center;
-}
+    *{box-sizing:border-box}
 
-h1{
-font-size:42px;
-margin-bottom:10px;
-}
+    html,body{
+      margin:0;
+      min-height:100%;
+      width:100%;
+      overflow-x:hidden;
+    }
 
-p{
-opacity:.8;
-margin-bottom:40px;
-}
+    body{
+      min-height:100vh;
+      overflow-y:auto;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      color:#fff;
+      font-family:"Nunito",system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 36%, transparent), transparent 20%),
+        radial-gradient(circle at 82% 75%, color-mix(in srgb, var(--soft) 18%, transparent), transparent 24%),
+        linear-gradient(145deg, color-mix(in srgb, var(--accent) 38%, #07181d) 0%, #07181d 54%, #030b0f 100%);
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:20px;
-}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.28;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.05), transparent 18%, rgba(255,255,255,.035) 32%, transparent 50%),
+        radial-gradient(circle, rgba(255,255,255,.20) 1px, transparent 1.5px);
+      background-size:auto, 92px 92px;
+      animation:bgDrift 18s ease-in-out infinite alternate;
+    }
 
-.lesson{
-padding:22px;
-border-radius:24px;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.15);
-cursor:pointer;
-transition:.25s;
-text-decoration:none;
-color:#fff;
-}
+    @keyframes bgDrift{
+      from{transform:translate3d(-10px,-8px,0)}
+      to{transform:translate3d(14px,10px,0)}
+    }
 
-.lesson:hover{
-transform:translateY(-6px);
-background:rgba(255,255,255,.12);
-}
+    .hub{
+      position:relative;
+      z-index:1;
+      width:min(94vw,1080px);
+      padding:46px 20px 66px;
+      margin:0 auto;
+      text-align:center;
+      animation:pageIn .75s cubic-bezier(.16,.84,.22,1) both;
+    }
 
-.lesson.locked{
-opacity:.35;
-cursor:not-allowed;
-}
+    @keyframes pageIn{
+      from{opacity:0; transform:translateY(18px) scale(.985)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
 
-.lesson1{
-background:linear-gradient(180deg,#fff,#E2A4C0);
-color:#111;
-font-weight:900;
-}
+    .hero-shell{
+      width:min(100%,960px);
+      margin:0 auto 30px;
+      padding:26px 22px;
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 28px 80px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.15);
+      backdrop-filter:blur(20px);
+    }
 
-</style>
+    .studio{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      padding:8px 15px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.82);
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0;
+      font-weight:800;
+      line-height:1.02;
+      color:#fff;
+      text-shadow:0 18px 44px rgba(0,0,0,.28);
+    }
+
+    .vibe{
+      margin:14px auto 0;
+      max-width:620px;
+      color:rgba(255,255,255,.76);
+      font-size:16px;
+      line-height:1.5;
+      font-weight:500;
+    }
+
+    .grid{
+      width:min(100%,930px);
+      margin:0 auto 34px;
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .lesson-card{
+      min-height:96px;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      text-decoration:none;
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.055));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 42px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter:blur(18px) saturate(1.12);
+      -webkit-backdrop-filter:blur(18px) saturate(1.12);
+      transition:transform .28s ease, box-shadow .28s ease, background .28s ease, opacity .28s ease;
+    }
+
+    .lesson-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(circle at 32% 18%, rgba(255,255,255,.26), transparent 18%),
+        linear-gradient(135deg, transparent, color-mix(in srgb, var(--accent) 18%, transparent));
+      opacity:.88;
+    }
+
+    .lesson-card:hover{
+      background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+      box-shadow:0 26px 68px rgba(0,0,0,.30), 0 0 28px color-mix(in srgb, var(--accent) 34%, transparent), inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .lesson-card:active{transform:translateY(1px) scale(.985)}
+
+    .lesson-card:first-child{
+      color:#0b1518;
+      background:
+        radial-gradient(circle at 32% 18%, rgba(255,255,255,.62), transparent 20%),
+        linear-gradient(180deg, #ffffff, var(--accent));
+      border-color:rgba(255,255,255,.42);
+    }
+
+    .lesson-count{
+      width:34px;
+      height:34px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      line-height:1;
+      font-weight:900;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .lesson-card:first-child .lesson-count{
+      background:rgba(0,0,0,.10);
+      border-color:rgba(0,0,0,.08);
+    }
+
+    .lesson-name{
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+
+    .lock-mark{
+      position:absolute;
+      top:9px;
+      right:11px;
+      opacity:0;
+      font-size:14px;
+      z-index:3;
+      filter:drop-shadow(0 5px 10px rgba(0,0,0,.25));
+    }
+
+    .lesson-card.locked{
+      opacity:.44;
+      cursor:not-allowed;
+      filter:saturate(.75) brightness(.88);
+    }
+
+    .lesson-card.locked .lock-mark{opacity:.95}
+    .lesson-card.locked:hover{transform:none}
+
+    .back-btn{
+      height:46px;
+      min-width:190px;
+      padding:0 24px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      color:#fff;
+      font-size:14px;
+      font-weight:850;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(14px);
+      transition:transform .24s ease, background .24s ease, box-shadow .24s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,.16);
+      box-shadow:0 18px 38px rgba(0,0,0,.18);
+    }
+
+    .lesson-lock-note{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      transform:translateX(-50%) translateY(20px);
+      padding:13px 18px;
+      border-radius:999px;
+      background:rgba(6,27,34,.86);
+      color:#fff;
+      font-size:13px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 44px rgba(0,0,0,.26);
+      backdrop-filter:blur(16px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+      z-index:999;
+    }
+
+    .lesson-lock-note.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    /* A0 — soft rounded foundation */
+    body[data-level="A0"] h1{font-family:"Baloo 2", "Nunito", sans-serif; font-size:clamp(36px,5.2vw,62px)}
+    body[data-level="A0"] .lesson-card{border-radius:32px}
+    body[data-level="A0"] .lesson-card:hover{transform:translateY(-6px) scale(1.018)}
+
+    /* A1 — warm ticket cards */
+    body[data-level="A1"] h1{font-family:"Nunito", sans-serif; font-size:clamp(34px,4.8vw,58px); letter-spacing:-.03em}
+    body[data-level="A1"] .lesson-card{
+      border-radius:18px 34px 18px 34px;
+    }
+    body[data-level="A1"] .lesson-card:hover{transform:translateY(-7px) rotate(-1deg)}
+
+    /* A2 — airy floating circles */
+    body[data-level="A2"] h1{font-family:"Baloo 2", "Nunito", sans-serif; font-size:clamp(36px,5vw,60px)}
+    body[data-level="A2"] .lesson-card{
+      min-height:108px;
+      border-radius:46% 54% 48% 52% / 58% 54% 46% 42%;
+    }
+    body[data-level="A2"] .lesson-card:hover{transform:translateY(-9px) scale(1.025)}
+
+    /* B1 — structured architectural grid */
+    body[data-level="B1"] h1{font-family:"Space Grotesk", "Nunito", sans-serif; font-size:clamp(34px,4.6vw,56px); letter-spacing:-.015em}
+    body[data-level="B1"] .lesson-card{
+      border-radius:8px;
+      min-height:88px;
+    }
+    body[data-level="B1"] .lesson-card::after{
+      content:"";
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:12px;
+      height:1px;
+      background:rgba(255,255,255,.18);
+    }
+    body[data-level="B1"] .lesson-card:hover{transform:translateY(-4px)}
+
+    /* B2 — diamond precision cards */
+    body[data-level="B2"] h1{font-family:"Space Grotesk", "Nunito", sans-serif; font-size:clamp(34px,4.8vw,58px); letter-spacing:.01em}
+    body[data-level="B2"] .lesson-card{
+      border-radius:24px;
+      transform:skewX(-3deg);
+    }
+    body[data-level="B2"] .lesson-card > *{transform:skewX(3deg)}
+    body[data-level="B2"] .lesson-card:hover{transform:skewX(-3deg) translateY(-7px) scale(1.014)}
+
+    /* C1 — editorial gallery */
+    body[data-level="C1"] h1{font-family:"Playfair Display", serif; font-size:clamp(36px,5vw,64px); letter-spacing:.01em}
+    body[data-level="C1"] .grid{
+      gap:20px;
+    }
+    body[data-level="C1"] .lesson-card{
+      border-radius:999px;
+      min-height:82px;
+    }
+    body[data-level="C1"] .lesson-card:hover{transform:translateY(-5px) scale(1.012)}
+
+    @media(max-width:920px){
+      .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+
+    @media(max-width:560px){
+      .hub{padding:36px 16px 56px}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+      .lesson-card{min-height:86px}
+      .vibe{font-size:15px}
+    }
+  </style>
 </head>
 
-<body>
-<div class="container">
+<body data-level="C1">
+  <main class="hub">
+    <section class="hero-shell">
+      <div class="studio">✦ Elegance Salon</div>
+      <h1>C1 — Advanced</h1>
+      <p class="vibe">Nuance, style, and expressive command.</p>
+    </section>
 
-<h1>C1 — Advanced</h1>
-<p>Elegance is emerging.</p>
+    <section class="grid" aria-label="C1 — Advanced lessons">
+      <a class="lesson-card lesson-1" data-lesson="1" href="/levels/C1/lesson-1.html">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">01</span>
+        <span class="lesson-name">Lesson 1</span>
+      </a>
+      <a class="lesson-card lesson-2" data-lesson="2" href="/levels/C1/lesson-2/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">02</span>
+        <span class="lesson-name">Lesson 2</span>
+      </a>
+      <a class="lesson-card lesson-3" data-lesson="3" href="/levels/C1/lesson-3/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">03</span>
+        <span class="lesson-name">Lesson 3</span>
+      </a>
+      <a class="lesson-card lesson-4" data-lesson="4" href="/levels/C1/lesson-4/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">04</span>
+        <span class="lesson-name">Lesson 4</span>
+      </a>
+      <a class="lesson-card lesson-5" data-lesson="5" href="/levels/C1/lesson-5/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">05</span>
+        <span class="lesson-name">Lesson 5</span>
+      </a>
+      <a class="lesson-card lesson-6" data-lesson="6" href="/levels/C1/lesson-6/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">06</span>
+        <span class="lesson-name">Lesson 6</span>
+      </a>
+      <a class="lesson-card lesson-7" data-lesson="7" href="/levels/C1/lesson-7/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">07</span>
+        <span class="lesson-name">Lesson 7</span>
+      </a>
+      <a class="lesson-card lesson-8" data-lesson="8" href="/levels/C1/lesson-8/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">08</span>
+        <span class="lesson-name">Lesson 8</span>
+      </a>
+      <a class="lesson-card lesson-9" data-lesson="9" href="/levels/C1/lesson-9/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">09</span>
+        <span class="lesson-name">Lesson 9</span>
+      </a>
+      <a class="lesson-card lesson-10" data-lesson="10" href="/levels/C1/lesson-10/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">10</span>
+        <span class="lesson-name">Lesson 10</span>
+      </a>
+      <a class="lesson-card lesson-11" data-lesson="11" href="/levels/C1/lesson-11/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">11</span>
+        <span class="lesson-name">Lesson 11</span>
+      </a>
+      <a class="lesson-card lesson-12" data-lesson="12" href="/levels/C1/lesson-12/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">12</span>
+        <span class="lesson-name">Lesson 12</span>
+      </a>
+      <a class="lesson-card lesson-13" data-lesson="13" href="/levels/C1/lesson-13/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">13</span>
+        <span class="lesson-name">Lesson 13</span>
+      </a>
+      <a class="lesson-card lesson-14" data-lesson="14" href="/levels/C1/lesson-14/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">14</span>
+        <span class="lesson-name">Lesson 14</span>
+      </a>
+      <a class="lesson-card lesson-15" data-lesson="15" href="/levels/C1/lesson-15/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">15</span>
+        <span class="lesson-name">Lesson 15</span>
+      </a>
+      <a class="lesson-card lesson-16" data-lesson="16" href="/levels/C1/lesson-16/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">16</span>
+        <span class="lesson-name">Lesson 16</span>
+      </a>
+      <a class="lesson-card lesson-17" data-lesson="17" href="/levels/C1/lesson-17/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">17</span>
+        <span class="lesson-name">Lesson 17</span>
+      </a>
+      <a class="lesson-card lesson-18" data-lesson="18" href="/levels/C1/lesson-18/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">18</span>
+        <span class="lesson-name">Lesson 18</span>
+      </a>
+      <a class="lesson-card lesson-19" data-lesson="19" href="/levels/C1/lesson-19/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">19</span>
+        <span class="lesson-name">Lesson 19</span>
+      </a>
+      <a class="lesson-card lesson-20" data-lesson="20" href="/levels/C1/lesson-20/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">20</span>
+        <span class="lesson-name">Lesson 20</span>
+      </a>
+      <a class="lesson-card lesson-21" data-lesson="21" href="/levels/C1/lesson-21/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">21</span>
+        <span class="lesson-name">Lesson 21</span>
+      </a>
+      <a class="lesson-card lesson-22" data-lesson="22" href="/levels/C1/lesson-22/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">22</span>
+        <span class="lesson-name">Lesson 22</span>
+      </a>
+      <a class="lesson-card lesson-23" data-lesson="23" href="/levels/C1/lesson-23/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">23</span>
+        <span class="lesson-name">Lesson 23</span>
+      </a>
+      <a class="lesson-card lesson-24" data-lesson="24" href="/levels/C1/lesson-24/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">24</span>
+        <span class="lesson-name">Lesson 24</span>
+      </a>
+      <a class="lesson-card lesson-25" data-lesson="25" href="/levels/C1/lesson-25/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">25</span>
+        <span class="lesson-name">Lesson 25</span>
+      </a>
 
-<div class="grid">
+    </section>
 
-<a class="lesson lesson1" href="/levels/C1/lesson1.html">Lesson 1</a>
-<div class='lesson locked'>Lesson 2 🔒</div> <div class='lesson locked'>Lesson 3 🔒</div> <div class='lesson locked'>Lesson 4 🔒</div> <div class='lesson locked'>Lesson 5 🔒</div> <div class='lesson locked'>Lesson 6 🔒</div> <div class='lesson locked'>Lesson 7 🔒</div> <div class='lesson locked'>Lesson 8 🔒</div> <div class='lesson locked'>Lesson 9 🔒</div> <div class='lesson locked'>Lesson 10 🔒</div> <div class='lesson locked'>Lesson 11 🔒</div> <div class='lesson locked'>Lesson 12 🔒</div> <div class='lesson locked'>Lesson 13 🔒</div> <div class='lesson locked'>Lesson 14 🔒</div> <div class='lesson locked'>Lesson 15 🔒</div> <div class='lesson locked'>Lesson 16 🔒</div> <div class='lesson locked'>Lesson 17 🔒</div> <div class='lesson locked'>Lesson 18 🔒</div> <div class='lesson locked'>Lesson 19 🔒</div> <div class='lesson locked'>Lesson 20 🔒</div> <div class='lesson locked'>Lesson 21 🔒</div> <div class='lesson locked'>Lesson 22 🔒</div> <div class='lesson locked'>Lesson 23 🔒</div> <div class='lesson locked'>Lesson 24 🔒</div> <div class='lesson locked'>Lesson 25 🔒</div>
+    <a class="back-btn" href="/levels/">← Back to Levels</a>
+  </main>
 
-</div>
+  <script>
+    (function(){
+      const LEVEL = "C1";
+      const STORAGE_PREFIX = "saybon_" + LEVEL.toLowerCase() + "_adult_lesson_";
+      const UPGRADE_KEY = "saybon_" + LEVEL.toLowerCase() + "_adult_upgrade_paid";
+      const lessons = Array.from(document.querySelectorAll(".lesson-card"));
 
-</div>
+      function done(n){
+        return localStorage.getItem(STORAGE_PREFIX + n + "_complete") === "true";
+      }
+
+      function upgraded(){
+        return localStorage.getItem(UPGRADE_KEY) === "true";
+      }
+
+      function note(message){
+        let n = document.querySelector(".lesson-lock-note");
+        if(!n){
+          n = document.createElement("div");
+          n.className = "lesson-lock-note";
+          document.body.appendChild(n);
+        }
+        n.textContent = message;
+        n.classList.add("show");
+        clearTimeout(window.__lessonLockTimer);
+        window.__lessonLockTimer = setTimeout(() => n.classList.remove("show"), 2200);
+      }
+
+      function locks(){
+        lessons.forEach(card => {
+          const number = Number(card.dataset.lesson);
+          card.classList.remove("locked");
+          card.removeAttribute("aria-disabled");
+
+          if(number === 1) return;
+
+          if(number >= 2 && number <= 10 && !done(number - 1)){
+            card.classList.add("locked");
+            card.setAttribute("aria-disabled","true");
+          }
+
+          if(number >= 11 && !upgraded()){
+            card.classList.add("locked");
+            card.setAttribute("aria-disabled","true");
+          }
+        });
+      }
+
+      lessons.forEach(card => {
+        card.addEventListener("click", function(e){
+          const number = Number(card.dataset.lesson);
+          if(!card.classList.contains("locked")) return;
+
+          e.preventDefault();
+
+          if(number >= 2 && number <= 10){
+            note("Complete Lesson " + (number - 1) + " first.");
+            return;
+          }
+
+          if(number >= 11){
+            note("Unlock Lessons 11–25 with one upgrade.");
+            setTimeout(() => {
+              window.location.href = "/levels/C1/upgrade.html";
+            }, 900);
+          }
+        });
+      });
+
+      locks();
+    })();
+  </script>
 </body>
 </html>

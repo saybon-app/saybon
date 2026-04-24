@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
   <script type="module" src="/js/auth-guard.js"></script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>A0 — Absolute Beginner — SayBon</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/page-transition.css">
   <script type="module" src="/js/nav-engine.js"></script>
 
   <style>
+    :root{
+      --accent:#6F9576;
+      --soft:#D2D2D1;
+      --dark:#07181d;
+      --glass:rgba(255,255,255,.12);
+      --glass-strong:rgba(255,255,255,.18);
+    }
+
     *{box-sizing:border-box}
 
     html,body{
       margin:0;
       min-height:100%;
       width:100%;
-      font-family:"Nunito",system-ui,sans-serif;
-      color:#f7fbfb;
       overflow-x:hidden;
     }
 
@@ -28,13 +33,14 @@
       min-height:100vh;
       overflow-y:auto;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
+      align-items:flex-start;
+      color:#fff;
+      font-family:"Nunito",system-ui,sans-serif;
       background:
-        radial-gradient(circle at 50% 20%, rgba(214,185,164,.26), transparent 24%),
-        radial-gradient(circle at 14% 18%, rgba(255,255,255,.08), transparent 19%),
-        radial-gradient(circle at 86% 78%, rgba(214,185,164,.26), transparent 25%),
-        linear-gradient(145deg,#31261f 0%,#6f5140 48%,#18110d 100%);
+        radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--accent) 36%, transparent), transparent 20%),
+        radial-gradient(circle at 82% 75%, color-mix(in srgb, var(--soft) 18%, transparent), transparent 24%),
+        linear-gradient(145deg, color-mix(in srgb, var(--accent) 38%, #07181d) 0%, #07181d 54%, #030b0f 100%);
     }
 
     body::before{
@@ -42,26 +48,27 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.22;
-      background-image:
-        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-      background-size:54px 54px;
-      mask-image:linear-gradient(to bottom, black, transparent 82%);
+      opacity:.28;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.05), transparent 18%, rgba(255,255,255,.035) 32%, transparent 50%),
+        radial-gradient(circle, rgba(255,255,255,.20) 1px, transparent 1.5px);
+      background-size:auto, 92px 92px;
+      animation:bgDrift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgDrift{
+      from{transform:translate3d(-10px,-8px,0)}
+      to{transform:translate3d(14px,10px,0)}
     }
 
     .hub{
       position:relative;
       z-index:1;
       width:min(94vw,1080px);
+      padding:46px 20px 66px;
       margin:0 auto;
-      padding:48px 22px 64px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
       text-align:center;
-      animation:pageIn .72s ease both;
+      animation:pageIn .75s cubic-bezier(.16,.84,.22,1) both;
     }
 
     @keyframes pageIn{
@@ -69,192 +76,171 @@
       to{opacity:1; transform:translateY(0) scale(1)}
     }
 
-    .top-pill{
+    .hero-shell{
+      width:min(100%,960px);
+      margin:0 auto 30px;
+      padding:26px 22px;
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 28px 80px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.15);
+      backdrop-filter:blur(20px);
+    }
+
+    .studio{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
-      padding:9px 16px;
+      gap:9px;
+      padding:8px 15px;
       border-radius:999px;
-      background:rgba(255,255,255,.10);
+      background:rgba(255,255,255,.12);
       border:1px solid rgba(255,255,255,.18);
-      color:rgba(247,251,251,.86);
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.18em;
       text-transform:uppercase;
-      margin-bottom:16px;
-      backdrop-filter:blur(16px);
+      color:rgba(255,255,255,.82);
+      margin-bottom:14px;
     }
 
     h1{
       margin:0;
-      font-size:clamp(34px,4.8vw,58px);
-      line-height:1.04;
       font-weight:800;
-      letter-spacing:-.025em;
-      text-shadow:0 18px 42px rgba(0,0,0,.28);
+      line-height:1.02;
+      color:#fff;
+      text-shadow:0 18px 44px rgba(0,0,0,.28);
     }
 
-    .subtitle{
-      margin:14px 0 34px;
-      font-size:17px;
+    .vibe{
+      margin:14px auto 0;
+      max-width:620px;
+      color:rgba(255,255,255,.76);
+      font-size:16px;
       line-height:1.5;
       font-weight:500;
-      color:rgba(247,251,251,.76);
-      max-width:640px;
     }
 
-    .lesson-grid{
-      width:min(100%,920px);
+    .grid{
+      width:min(100%,930px);
+      margin:0 auto 34px;
       display:grid;
-      grid-template-columns:repeat(5, minmax(0, 1fr));
+      grid-template-columns:repeat(5,minmax(0,1fr));
       gap:18px;
-      margin:0 auto 36px;
     }
 
     .lesson-card{
-      min-height:92px;
-      border-radius:28px;
+      min-height:96px;
       position:relative;
       overflow:hidden;
+      isolation:isolate;
       text-decoration:none;
-      color:#ffffff;
+      color:#fff;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:6px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.055));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow:
-        0 18px 42px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.16);
-      backdrop-filter:blur(18px) saturate(1.1);
-      -webkit-backdrop-filter:blur(18px) saturate(1.1);
-      transition:
-        transform .26s ease,
-        box-shadow .26s ease,
-        background .26s ease,
-        border-color .26s ease,
-        opacity .26s ease;
+      gap:7px;
+      background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.055));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 18px 42px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter:blur(18px) saturate(1.12);
+      -webkit-backdrop-filter:blur(18px) saturate(1.12);
+      transition:transform .28s ease, box-shadow .28s ease, background .28s ease, opacity .28s ease;
     }
 
     .lesson-card::before{
       content:"";
       position:absolute;
       inset:0;
+      z-index:-1;
       background:
-        radial-gradient(circle at 32% 18%, rgba(255,255,255,.20), transparent 20%),
-        linear-gradient(135deg, transparent, rgba(255,255,255,.08));
-      opacity:.8;
-      pointer-events:none;
+        radial-gradient(circle at 32% 18%, rgba(255,255,255,.26), transparent 18%),
+        linear-gradient(135deg, transparent, color-mix(in srgb, var(--accent) 18%, transparent));
+      opacity:.88;
     }
 
     .lesson-card:hover{
-      transform:translateY(-6px) scale(1.018);
-      border-color:rgba(255,255,255,.32);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.21), rgba(255,255,255,.075));
-      box-shadow:
-        0 26px 66px rgba(0,0,0,.28),
-        0 0 28px color-mix(in srgb, #D6B9A4 36%, transparent),
-        inset 0 1px 0 rgba(255,255,255,.22);
+      background:linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+      box-shadow:0 26px 68px rgba(0,0,0,.30), 0 0 28px color-mix(in srgb, var(--accent) 34%, transparent), inset 0 1px 0 rgba(255,255,255,.22);
     }
 
-    .lesson-card:active{
-      transform:translateY(-1px) scale(.99);
-    }
+    .lesson-card:active{transform:translateY(1px) scale(.985)}
 
     .lesson-card:first-child{
-      color:#0d2f35;
+      color:#0b1518;
       background:
-        radial-gradient(circle at 30% 18%, rgba(255,255,255,.42), transparent 20%),
-        linear-gradient(180deg, #ffffff, #D6B9A4);
-      border-color:rgba(255,255,255,.46);
+        radial-gradient(circle at 32% 18%, rgba(255,255,255,.62), transparent 20%),
+        linear-gradient(180deg, #ffffff, var(--accent));
+      border-color:rgba(255,255,255,.42);
     }
 
-    .lesson-number{
-      position:relative;
-      z-index:2;
+    .lesson-count{
       width:34px;
       height:34px;
       border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.14);
-      font-size:13px;
-      font-weight:900;
+      font-size:12px;
       line-height:1;
+      font-weight:900;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
     }
 
-    .lesson-card:first-child .lesson-number{
-      background:rgba(13,47,53,.12);
-      border-color:rgba(13,47,53,.10);
+    .lesson-card:first-child .lesson-count{
+      background:rgba(0,0,0,.10);
+      border-color:rgba(0,0,0,.08);
     }
 
-    .lesson-label{
-      position:relative;
-      z-index:2;
+    .lesson-name{
       font-size:13px;
       font-weight:800;
-      letter-spacing:.015em;
+      letter-spacing:.01em;
     }
 
-    .lesson-lock{
+    .lock-mark{
       position:absolute;
       top:9px;
       right:11px;
-      z-index:4;
-      font-size:14px;
       opacity:0;
-      filter:drop-shadow(0 4px 8px rgba(0,0,0,.25));
+      font-size:14px;
+      z-index:3;
+      filter:drop-shadow(0 5px 10px rgba(0,0,0,.25));
     }
 
     .lesson-card.locked{
-      opacity:.48;
+      opacity:.44;
       cursor:not-allowed;
-      filter:saturate(.72) brightness(.9);
+      filter:saturate(.75) brightness(.88);
     }
 
-    .lesson-card.locked:hover{
-      transform:none;
-      box-shadow:
-        0 18px 42px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.16);
-    }
-
-    .lesson-card.locked .lesson-lock{
-      opacity:.9;
-    }
+    .lesson-card.locked .lock-mark{opacity:.95}
+    .lesson-card.locked:hover{transform:none}
 
     .back-btn{
-      min-width:180px;
       height:46px;
+      min-width:190px;
       padding:0 24px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.10);
-      color:#ffffff;
-      text-decoration:none;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
-      line-height:1;
+      text-decoration:none;
+      color:#fff;
       font-size:14px;
-      font-weight:800;
+      font-weight:850;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
       backdrop-filter:blur(14px);
-      transition:transform .22s ease, background .22s ease, box-shadow .22s ease;
+      transition:transform .24s ease, background .24s ease, box-shadow .24s ease;
     }
 
     .back-btn:hover{
       transform:translateY(-3px);
       background:rgba(255,255,255,.16);
-      box-shadow:0 16px 34px rgba(0,0,0,.18);
+      box-shadow:0 18px 38px rgba(0,0,0,.18);
     }
 
     .lesson-lock-note{
@@ -282,166 +268,209 @@
       transform:translateX(-50%) translateY(0);
     }
 
+    /* A0 — soft rounded foundation */
+    body[data-level="A0"] h1{font-family:"Baloo 2", "Nunito", sans-serif; font-size:clamp(36px,5.2vw,62px)}
+    body[data-level="A0"] .lesson-card{border-radius:32px}
+    body[data-level="A0"] .lesson-card:hover{transform:translateY(-6px) scale(1.018)}
+
+    /* A1 — warm ticket cards */
+    body[data-level="A1"] h1{font-family:"Nunito", sans-serif; font-size:clamp(34px,4.8vw,58px); letter-spacing:-.03em}
+    body[data-level="A1"] .lesson-card{
+      border-radius:18px 34px 18px 34px;
+    }
+    body[data-level="A1"] .lesson-card:hover{transform:translateY(-7px) rotate(-1deg)}
+
+    /* A2 — airy floating circles */
+    body[data-level="A2"] h1{font-family:"Baloo 2", "Nunito", sans-serif; font-size:clamp(36px,5vw,60px)}
+    body[data-level="A2"] .lesson-card{
+      min-height:108px;
+      border-radius:46% 54% 48% 52% / 58% 54% 46% 42%;
+    }
+    body[data-level="A2"] .lesson-card:hover{transform:translateY(-9px) scale(1.025)}
+
+    /* B1 — structured architectural grid */
+    body[data-level="B1"] h1{font-family:"Space Grotesk", "Nunito", sans-serif; font-size:clamp(34px,4.6vw,56px); letter-spacing:-.015em}
+    body[data-level="B1"] .lesson-card{
+      border-radius:8px;
+      min-height:88px;
+    }
+    body[data-level="B1"] .lesson-card::after{
+      content:"";
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:12px;
+      height:1px;
+      background:rgba(255,255,255,.18);
+    }
+    body[data-level="B1"] .lesson-card:hover{transform:translateY(-4px)}
+
+    /* B2 — diamond precision cards */
+    body[data-level="B2"] h1{font-family:"Space Grotesk", "Nunito", sans-serif; font-size:clamp(34px,4.8vw,58px); letter-spacing:.01em}
+    body[data-level="B2"] .lesson-card{
+      border-radius:24px;
+      transform:skewX(-3deg);
+    }
+    body[data-level="B2"] .lesson-card > *{transform:skewX(3deg)}
+    body[data-level="B2"] .lesson-card:hover{transform:skewX(-3deg) translateY(-7px) scale(1.014)}
+
+    /* C1 — editorial gallery */
+    body[data-level="C1"] h1{font-family:"Playfair Display", serif; font-size:clamp(36px,5vw,64px); letter-spacing:.01em}
+    body[data-level="C1"] .grid{
+      gap:20px;
+    }
+    body[data-level="C1"] .lesson-card{
+      border-radius:999px;
+      min-height:82px;
+    }
+    body[data-level="C1"] .lesson-card:hover{transform:translateY(-5px) scale(1.012)}
+
     @media(max-width:920px){
-      .lesson-grid{
-        grid-template-columns:repeat(3, minmax(0,1fr));
-        gap:16px;
-      }
+      .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
 
     @media(max-width:560px){
-      .hub{
-        padding:36px 16px 56px;
-      }
-
-      .lesson-grid{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-        gap:14px;
-      }
-
-      .lesson-card{
-        min-height:86px;
-        border-radius:24px;
-      }
-
-      .subtitle{
-        font-size:15px;
-      }
+      .hub{padding:36px 16px 56px}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+      .lesson-card{min-height:86px}
+      .vibe{font-size:15px}
     }
   </style>
 </head>
 
-<body>
+<body data-level="A0">
   <main class="hub">
-    <div class="top-pill">FOUNDATION STUDIO</div>
-    <h1>A0 — Absolute Beginner</h1>
-    <p class="subtitle">Start from the first words, calmly and confidently.</p>
+    <section class="hero-shell">
+      <div class="studio">🌱 Foundation Atelier</div>
+      <h1>A0 — Absolute Beginner</h1>
+      <p class="vibe">Calm beginnings. Clear first steps.</p>
+    </section>
 
-    <section class="lesson-grid" aria-label="A0 — Absolute Beginner lessons">
-      <a class="lesson-card" data-lesson="1" href="/levels/A0/tout-public/lesson-1.html">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">1</span>
-        <span class="lesson-label">Lesson 1</span>
+    <section class="grid" aria-label="A0 — Absolute Beginner lessons">
+      <a class="lesson-card lesson-1" data-lesson="1" href="/levels/A0/tout-public/lesson-1.html">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">01</span>
+        <span class="lesson-name">Lesson 1</span>
       </a>
-      <a class="lesson-card" data-lesson="2" href="/levels/A0/tout-public/lesson-2/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">2</span>
-        <span class="lesson-label">Lesson 2</span>
+      <a class="lesson-card lesson-2" data-lesson="2" href="/levels/A0/tout-public/lesson-2/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">02</span>
+        <span class="lesson-name">Lesson 2</span>
       </a>
-      <a class="lesson-card" data-lesson="3" href="/levels/A0/tout-public/lesson-3/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">3</span>
-        <span class="lesson-label">Lesson 3</span>
+      <a class="lesson-card lesson-3" data-lesson="3" href="/levels/A0/tout-public/lesson-3/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">03</span>
+        <span class="lesson-name">Lesson 3</span>
       </a>
-      <a class="lesson-card" data-lesson="4" href="/levels/A0/tout-public/lesson-4/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">4</span>
-        <span class="lesson-label">Lesson 4</span>
+      <a class="lesson-card lesson-4" data-lesson="4" href="/levels/A0/tout-public/lesson-4/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">04</span>
+        <span class="lesson-name">Lesson 4</span>
       </a>
-      <a class="lesson-card" data-lesson="5" href="/levels/A0/tout-public/lesson-5/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">5</span>
-        <span class="lesson-label">Lesson 5</span>
+      <a class="lesson-card lesson-5" data-lesson="5" href="/levels/A0/tout-public/lesson-5/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">05</span>
+        <span class="lesson-name">Lesson 5</span>
       </a>
-      <a class="lesson-card" data-lesson="6" href="/levels/A0/tout-public/lesson-6/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">6</span>
-        <span class="lesson-label">Lesson 6</span>
+      <a class="lesson-card lesson-6" data-lesson="6" href="/levels/A0/tout-public/lesson-6/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">06</span>
+        <span class="lesson-name">Lesson 6</span>
       </a>
-      <a class="lesson-card" data-lesson="7" href="/levels/A0/tout-public/lesson-7/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">7</span>
-        <span class="lesson-label">Lesson 7</span>
+      <a class="lesson-card lesson-7" data-lesson="7" href="/levels/A0/tout-public/lesson-7/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">07</span>
+        <span class="lesson-name">Lesson 7</span>
       </a>
-      <a class="lesson-card" data-lesson="8" href="/levels/A0/tout-public/lesson-8/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">8</span>
-        <span class="lesson-label">Lesson 8</span>
+      <a class="lesson-card lesson-8" data-lesson="8" href="/levels/A0/tout-public/lesson-8/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">08</span>
+        <span class="lesson-name">Lesson 8</span>
       </a>
-      <a class="lesson-card" data-lesson="9" href="/levels/A0/tout-public/lesson-9/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">9</span>
-        <span class="lesson-label">Lesson 9</span>
+      <a class="lesson-card lesson-9" data-lesson="9" href="/levels/A0/tout-public/lesson-9/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">09</span>
+        <span class="lesson-name">Lesson 9</span>
       </a>
-      <a class="lesson-card" data-lesson="10" href="/levels/A0/tout-public/lesson-10/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">10</span>
-        <span class="lesson-label">Lesson 10</span>
+      <a class="lesson-card lesson-10" data-lesson="10" href="/levels/A0/tout-public/lesson-10/">
+        <span class="lock-mark">🔒</span>
+        <span class="lesson-count">10</span>
+        <span class="lesson-name">Lesson 10</span>
       </a>
-      <a class="lesson-card" data-lesson="11" href="/levels/A0/tout-public/lesson-11/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">11</span>
-        <span class="lesson-label">Lesson 11</span>
+      <a class="lesson-card lesson-11" data-lesson="11" href="/levels/A0/tout-public/lesson-11/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">11</span>
+        <span class="lesson-name">Lesson 11</span>
       </a>
-      <a class="lesson-card" data-lesson="12" href="/levels/A0/tout-public/lesson-12/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">12</span>
-        <span class="lesson-label">Lesson 12</span>
+      <a class="lesson-card lesson-12" data-lesson="12" href="/levels/A0/tout-public/lesson-12/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">12</span>
+        <span class="lesson-name">Lesson 12</span>
       </a>
-      <a class="lesson-card" data-lesson="13" href="/levels/A0/tout-public/lesson-13/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">13</span>
-        <span class="lesson-label">Lesson 13</span>
+      <a class="lesson-card lesson-13" data-lesson="13" href="/levels/A0/tout-public/lesson-13/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">13</span>
+        <span class="lesson-name">Lesson 13</span>
       </a>
-      <a class="lesson-card" data-lesson="14" href="/levels/A0/tout-public/lesson-14/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">14</span>
-        <span class="lesson-label">Lesson 14</span>
+      <a class="lesson-card lesson-14" data-lesson="14" href="/levels/A0/tout-public/lesson-14/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">14</span>
+        <span class="lesson-name">Lesson 14</span>
       </a>
-      <a class="lesson-card" data-lesson="15" href="/levels/A0/tout-public/lesson-15/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">15</span>
-        <span class="lesson-label">Lesson 15</span>
+      <a class="lesson-card lesson-15" data-lesson="15" href="/levels/A0/tout-public/lesson-15/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">15</span>
+        <span class="lesson-name">Lesson 15</span>
       </a>
-      <a class="lesson-card" data-lesson="16" href="/levels/A0/tout-public/lesson-16/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">16</span>
-        <span class="lesson-label">Lesson 16</span>
+      <a class="lesson-card lesson-16" data-lesson="16" href="/levels/A0/tout-public/lesson-16/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">16</span>
+        <span class="lesson-name">Lesson 16</span>
       </a>
-      <a class="lesson-card" data-lesson="17" href="/levels/A0/tout-public/lesson-17/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">17</span>
-        <span class="lesson-label">Lesson 17</span>
+      <a class="lesson-card lesson-17" data-lesson="17" href="/levels/A0/tout-public/lesson-17/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">17</span>
+        <span class="lesson-name">Lesson 17</span>
       </a>
-      <a class="lesson-card" data-lesson="18" href="/levels/A0/tout-public/lesson-18/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">18</span>
-        <span class="lesson-label">Lesson 18</span>
+      <a class="lesson-card lesson-18" data-lesson="18" href="/levels/A0/tout-public/lesson-18/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">18</span>
+        <span class="lesson-name">Lesson 18</span>
       </a>
-      <a class="lesson-card" data-lesson="19" href="/levels/A0/tout-public/lesson-19/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">19</span>
-        <span class="lesson-label">Lesson 19</span>
+      <a class="lesson-card lesson-19" data-lesson="19" href="/levels/A0/tout-public/lesson-19/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">19</span>
+        <span class="lesson-name">Lesson 19</span>
       </a>
-      <a class="lesson-card" data-lesson="20" href="/levels/A0/tout-public/lesson-20/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">20</span>
-        <span class="lesson-label">Lesson 20</span>
+      <a class="lesson-card lesson-20" data-lesson="20" href="/levels/A0/tout-public/lesson-20/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">20</span>
+        <span class="lesson-name">Lesson 20</span>
       </a>
-      <a class="lesson-card" data-lesson="21" href="/levels/A0/tout-public/lesson-21/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">21</span>
-        <span class="lesson-label">Lesson 21</span>
+      <a class="lesson-card lesson-21" data-lesson="21" href="/levels/A0/tout-public/lesson-21/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">21</span>
+        <span class="lesson-name">Lesson 21</span>
       </a>
-      <a class="lesson-card" data-lesson="22" href="/levels/A0/tout-public/lesson-22/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">22</span>
-        <span class="lesson-label">Lesson 22</span>
+      <a class="lesson-card lesson-22" data-lesson="22" href="/levels/A0/tout-public/lesson-22/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">22</span>
+        <span class="lesson-name">Lesson 22</span>
       </a>
-      <a class="lesson-card" data-lesson="23" href="/levels/A0/tout-public/lesson-23/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">23</span>
-        <span class="lesson-label">Lesson 23</span>
+      <a class="lesson-card lesson-23" data-lesson="23" href="/levels/A0/tout-public/lesson-23/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">23</span>
+        <span class="lesson-name">Lesson 23</span>
       </a>
-      <a class="lesson-card" data-lesson="24" href="/levels/A0/tout-public/lesson-24/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">24</span>
-        <span class="lesson-label">Lesson 24</span>
+      <a class="lesson-card lesson-24" data-lesson="24" href="/levels/A0/tout-public/lesson-24/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">24</span>
+        <span class="lesson-name">Lesson 24</span>
       </a>
-      <a class="lesson-card" data-lesson="25" href="/levels/A0/tout-public/lesson-25/">
-        <span class="lesson-lock">🔒</span>
-        <span class="lesson-number">25</span>
-        <span class="lesson-label">Lesson 25</span>
+      <a class="lesson-card lesson-25" data-lesson="25" href="/levels/A0/tout-public/lesson-25/">
+        <span class="lock-mark">⭐</span>
+        <span class="lesson-count">25</span>
+        <span class="lesson-name">Lesson 25</span>
       </a>
 
     </section>
@@ -456,77 +485,70 @@
       const UPGRADE_KEY = "saybon_" + LEVEL.toLowerCase() + "_adult_upgrade_paid";
       const lessons = Array.from(document.querySelectorAll(".lesson-card"));
 
-      function isLessonCompleted(n){
+      function done(n){
         return localStorage.getItem(STORAGE_PREFIX + n + "_complete") === "true";
       }
 
-      function hasUpgrade(){
+      function upgraded(){
         return localStorage.getItem(UPGRADE_KEY) === "true";
       }
 
-      function showLockNote(message){
-        let note = document.querySelector(".lesson-lock-note");
-        if(!note){
-          note = document.createElement("div");
-          note.className = "lesson-lock-note";
-          document.body.appendChild(note);
+      function note(message){
+        let n = document.querySelector(".lesson-lock-note");
+        if(!n){
+          n = document.createElement("div");
+          n.className = "lesson-lock-note";
+          document.body.appendChild(n);
         }
-
-        note.textContent = message;
-        note.classList.add("show");
-
+        n.textContent = message;
+        n.classList.add("show");
         clearTimeout(window.__lessonLockTimer);
-        window.__lessonLockTimer = setTimeout(() => {
-          note.classList.remove("show");
-        }, 2200);
+        window.__lessonLockTimer = setTimeout(() => n.classList.remove("show"), 2200);
       }
 
-      function applyLocks(){
-        lessons.forEach((lesson) => {
-          const lessonNumber = Number(lesson.dataset.lesson);
+      function locks(){
+        lessons.forEach(card => {
+          const number = Number(card.dataset.lesson);
+          card.classList.remove("locked");
+          card.removeAttribute("aria-disabled");
 
-          lesson.classList.remove("locked");
-          lesson.removeAttribute("aria-disabled");
+          if(number === 1) return;
 
-          if(lessonNumber === 1) return;
-
-          if(lessonNumber >= 2 && lessonNumber <= 10 && !isLessonCompleted(lessonNumber - 1)){
-            lesson.classList.add("locked");
-            lesson.setAttribute("aria-disabled", "true");
+          if(number >= 2 && number <= 10 && !done(number - 1)){
+            card.classList.add("locked");
+            card.setAttribute("aria-disabled","true");
           }
 
-          if(lessonNumber >= 11 && !hasUpgrade()){
-            lesson.classList.add("locked");
-            lesson.setAttribute("aria-disabled", "true");
+          if(number >= 11 && !upgraded()){
+            card.classList.add("locked");
+            card.setAttribute("aria-disabled","true");
           }
         });
       }
 
-      lessons.forEach((lesson) => {
-        lesson.addEventListener("click", function(e){
-          const lessonNumber = Number(lesson.dataset.lesson);
-
-          if(!lesson.classList.contains("locked")) return;
+      lessons.forEach(card => {
+        card.addEventListener("click", function(e){
+          const number = Number(card.dataset.lesson);
+          if(!card.classList.contains("locked")) return;
 
           e.preventDefault();
 
-          if(lessonNumber >= 2 && lessonNumber <= 10){
-            showLockNote("Complete Lesson " + (lessonNumber - 1) + " first.");
+          if(number >= 2 && number <= 10){
+            note("Complete Lesson " + (number - 1) + " first.");
             return;
           }
 
-          if(lessonNumber >= 11){
-            showLockNote("Unlock Lessons 11–25 with one upgrade.");
+          if(number >= 11){
+            note("Unlock Lessons 11–25 with one upgrade.");
             setTimeout(() => {
-              window.location.href = "/levels/A0/tout-public/" + "upgrade.html";
+              window.location.href = "/levels/A0/tout-public/upgrade.html";
             }, 900);
           }
         });
       });
 
-      applyLocks();
+      locks();
     })();
   </script>
 </body>
 </html>
-

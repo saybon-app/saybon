@@ -5,9 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Upgrade — A0 — Absolute Beginner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    *{box-sizing:border-box}
     body{
       margin:0;
       min-height:100vh;
@@ -15,12 +14,10 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      text-align:center;
       font-family:"Nunito",sans-serif;
       color:#fff;
-      text-align:center;
-      background:
-        radial-gradient(circle at 50% 34%, color-mix(in srgb, #D6B9A4 30%, transparent), transparent 22%),
-        linear-gradient(145deg,#0d2f35,#071b22);
+      background:linear-gradient(145deg, color-mix(in srgb, #6F9576 40%, #07181d), #030b0f);
     }
     .card{
       width:min(92vw,540px);
@@ -47,7 +44,7 @@
       text-decoration:none;
       cursor:pointer;
     }
-    button{background:linear-gradient(180deg,#ffffff,#D6B9A4);color:#0d2f35}
+    button{background:linear-gradient(180deg,#fff,#6F9576);color:#07181d}
     a{background:rgba(255,255,255,.12);color:#fff}
   </style>
 </head>
@@ -55,13 +52,12 @@
   <main class="card">
     <h1>Unlock Lessons 11–25</h1>
     <p>This is the upgrade placeholder for A0 — Absolute Beginner. Payment connection will be added here.</p>
-
-    <button onclick="demoUnlock()">Mark Upgrade Paid</button>
+    <button onclick="unlock()">Mark Upgrade Paid</button>
     <a href="/levels/A0/tout-public/">Back to Hub</a>
   </main>
 
   <script>
-    function demoUnlock(){
+    function unlock(){
       localStorage.setItem("saybon_" + "A0".toLowerCase() + "_adult_upgrade_paid", "true");
       window.location.href = "/levels/A0/tout-public/";
     }
