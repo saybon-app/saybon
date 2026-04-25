@@ -204,6 +204,143 @@ cursor:pointer;
 
 </style>
 
+
+<style id="delf-inline-info-style">
+  #delf-info-document{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-28px);
+    transition:
+      max-height 1.15s cubic-bezier(.16,.84,.22,1),
+      opacity .55s ease,
+      transform .75s cubic-bezier(.16,.84,.22,1);
+    background:#f7fbfb;
+  }
+
+  #delf-info-document.open{
+    max-height:2600px;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .delf-info-wrap{
+    width:min(92vw,900px);
+    margin:0 auto;
+    padding:56px 18px 76px;
+  }
+
+  .delf-info-card{
+    background:#ffffff;
+    border-radius:30px;
+    padding:38px;
+    box-shadow:0 24px 70px rgba(0,0,0,.08);
+    border:1px solid rgba(26,143,138,.12);
+    color:#263238;
+    text-align:left;
+  }
+
+  .delf-info-kicker{
+    color:#1a8f8a;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+
+  .delf-info-card h2{
+    margin:0 0 16px;
+    font-size:clamp(30px,4.5vw,48px);
+    line-height:1.05;
+    color:#17252a;
+  }
+
+  .delf-info-card h3{
+    color:#1a8f8a;
+    margin:32px 0 10px;
+    font-size:23px;
+  }
+
+  .delf-info-card p{
+    color:#4f5f66;
+    font-size:16px;
+    line-height:1.7;
+  }
+
+  .delf-info-list{
+    display:grid;
+    gap:12px;
+    margin-top:16px;
+  }
+
+  .delf-info-list div,
+  .delf-fees{
+    background:#f6fbfb;
+    padding:14px 16px;
+    border-radius:16px;
+    border:1px solid rgba(26,143,138,.10);
+    color:#34484f;
+    font-weight:650;
+  }
+
+  .delf-notice{
+    margin-top:18px;
+    background:#fff4f4;
+    padding:20px;
+    border-left:5px solid #d74b4b;
+    border-radius:16px;
+    color:#4d3a3a;
+    font-weight:650;
+  }
+
+  .delf-info-actions{
+    margin-top:38px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .delf-continue,
+  .delf-collapse{
+    min-height:52px;
+    padding:0 26px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-weight:900;
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    transition:.22s ease;
+  }
+
+  .delf-continue{
+    background:#1a8f8a;
+    color:#fff;
+    box-shadow:0 16px 34px rgba(26,143,138,.22);
+  }
+
+  .delf-collapse{
+    background:#e9f2f2;
+    color:#34484f;
+  }
+
+  .delf-continue:hover,
+  .delf-collapse:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.03);
+  }
+
+  @media(max-width:620px){
+    .delf-info-card{padding:28px 20px}
+    .delf-continue,.delf-collapse{width:100%}
+  }
+</style>
+
 </head>
 
 <body>
@@ -218,7 +355,7 @@ cursor:pointer;
 Structured mock-based preparation designed to help you walk into the official DELF exam ready and confident.
 </p>
 
-<a class="main-btn" onclick="window.location.href="/features/delf/info.html"">Learn Everything About This Service</a>
+<a class="main-btn" #delf-info-document"">Learn Everything About This Service</a>
 
 <div class="teacher-wrap">
 <img src="/assets/images/delf-prep-teacher.png">
@@ -333,7 +470,7 @@ with confidence and familiarity.
 
 <div class="section" style="text-align:center">
 
-<a class="main-btn" href="/features/delf/info.html">
+<a class="main-btn" href="#delf-info-document">
 
 Take the Free Level Recommendation Test
 
@@ -341,7 +478,7 @@ Take the Free Level Recommendation Test
 
 <br>
 
-<button class="close-btn" onclick="window.location.href="/features/delf/info.html"">
+<button class="close-btn" #delf-info-document"">
 
 Back to Dashboard
 
@@ -367,29 +504,118 @@ document.getElementById("infoCard").style.display="none";
 </script>
 
 
-<script>
+
+
+
+<section id="delf-info-document" aria-label="Everything about DELF preparation">
+  <div class="delf-info-wrap">
+    <article class="delf-info-card">
+      <div class="delf-info-kicker">SayBon DELF Preparation</div>
+
+      <h2>Everything You Need to Know About DELF Preparation</h2>
+
+      <p>
+        SayBon provides structured preparation designed specifically for the DELF examination.
+        Instead of generic French lessons, the training focuses directly on the format,
+        expectations, and evaluation style used in DELF exams.
+      </p>
+
+      <h3>What SayBon DELF Preparation Offers</h3>
+
+      <div class="delf-info-list">
+        <div>Realistic mock-exam style exercises from the beginning</div>
+        <div>Familiarity with DELF listening, reading, writing, and speaking tasks</div>
+        <div>Practice under exam-style conditions</div>
+        <div>Preparation that focuses on exam readiness rather than general theory</div>
+        <div>Progress tracking so you know when you are ready for the real exam</div>
+      </div>
+
+      <h3>How Preparation Works</h3>
+
+      <div class="delf-info-list">
+        <div>1. Take a short free level recommendation test.</div>
+        <div>2. The system recommends the DELF level that best matches your current ability.</div>
+        <div>3. Register for preparation at that level.</div>
+        <div>4. Begin structured mock-based preparation.</div>
+        <div>5. Track your readiness before sitting the official exam.</div>
+      </div>
+
+      <h3>Preparation Fees</h3>
+
+      <p>Payment is made once per level and gives you full access to everything that level offers. There are no subscriptions or recurring fees.</p>
+
+      <div class="delf-fees">
+        <b>DELF Prim (Children)</b><br>
+        A1 — $8<br>
+        A2 — $10<br><br>
+
+        <b>DELF Junior (Teenagers)</b><br>
+        A1 — $12<br>
+        A2 — $15<br>
+        B1 — $18<br>
+        B2 — $20<br><br>
+
+        <b>DELF Tout Public (Adults)</b><br>
+        A1 — $15<br>
+        A2 — $20<br>
+        B1 — $25<br>
+        B2 — $30<br>
+        C1 — $40
+      </div>
+
+      <h3>Important to Know</h3>
+
+      <div class="delf-notice">
+        SayBon is not an official DELF examination centre. We do not administer the official exam,
+        issue certificates, or register candidates. Our role is to help you prepare thoroughly so
+        that you approach the official DELF exam with confidence and familiarity.
+      </div>
+
+      <div class="delf-info-actions">
+        <a class="delf-continue" href="/features/delf/test.html">Continue to Find Your DELF Level</a>
+        <button class="delf-collapse" type="button" id="closeDelfInfo">Close</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script id="delf-inline-info-script">
 (function(){
-  function sendDelfInfoButtonsToInfoPage(){
-    const targets = Array.from(document.querySelectorAll("a, button"));
+  function setupDelfInfoPullDown(){
+    const doc = document.getElementById("delf-info-document");
+    if(!doc) return;
 
-    targets.forEach((el) => {
-      const text = (el.textContent || "").trim().toLowerCase();
-
-      if(text.includes("learn everything about this service")){
-        el.setAttribute("href", "/features/delf/info.html");
-        el.onclick = function(e){
-          e.preventDefault();
-          window.location.href = "/features/delf/info.html";
-        };
-      }
+    const triggers = Array.from(document.querySelectorAll("a, button")).filter((el) => {
+      return (el.textContent || "").trim().toLowerCase().includes("learn everything about this service");
     });
+
+    triggers.forEach((trigger) => {
+      trigger.setAttribute("href", "#delf-info-document");
+      trigger.addEventListener("click", function(e){
+        e.preventDefault();
+        doc.classList.add("open");
+
+        setTimeout(() => {
+          doc.scrollIntoView({ behavior:"smooth", block:"start" });
+        }, 180);
+      });
+    });
+
+    const closeBtn = document.getElementById("closeDelfInfo");
+    if(closeBtn){
+      closeBtn.addEventListener("click", function(){
+        doc.classList.remove("open");
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", sendDelfInfoButtonsToInfoPage);
-  sendDelfInfoButtonsToInfoPage();
+  document.addEventListener("DOMContentLoaded", setupDelfInfoPullDown);
+  setupDelfInfoPullDown();
 })();
 </script>
 
 </body>
 </html>
+
 
