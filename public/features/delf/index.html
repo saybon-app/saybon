@@ -208,20 +208,20 @@ cursor:pointer;
 
 
 
+
+
+
 <style id="delf-inline-info-style">
   #delf-info-document{
     display:grid;
     grid-template-rows:0fr;
     opacity:0;
     transform:translateY(-18px);
-    background:
-      radial-gradient(circle at 18% 8%, rgba(214,185,164,.24), transparent 24%),
-      radial-gradient(circle at 88% 20%, rgba(58,131,125,.18), transparent 24%),
-      linear-gradient(180deg,#f8fbfa 0%,#eef6f5 100%);
+    background:#eee9df;
     transition:
-      grid-template-rows 1.45s cubic-bezier(.16,1,.3,1),
-      opacity .9s ease,
-      transform 1.05s cubic-bezier(.16,1,.3,1);
+      grid-template-rows 1.25s cubic-bezier(.16,1,.3,1),
+      opacity .85s ease,
+      transform .9s cubic-bezier(.16,1,.3,1);
   }
 
   #delf-info-document > .delf-info-inner{
@@ -234,235 +234,274 @@ cursor:pointer;
     transform:translateY(0);
   }
 
-  .delf-info-wrap{
-    width:min(92vw,1060px);
+  .delf-sheet{
+    width:min(94vw,1080px);
     margin:0 auto;
-    padding:76px 18px 96px;
+    padding:70px 18px 92px;
   }
 
-  .delf-info-card{
+  .delf-paper{
     position:relative;
     overflow:hidden;
-    border-radius:42px;
-    background:
-      linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,255,255,.84));
-    border:1px solid rgba(58,131,125,.16);
+    border-radius:34px;
+    background:#e8e3d9;
+    padding:52px;
+    color:#342f28;
     box-shadow:
-      0 34px 90px rgba(22,55,58,.12),
-      inset 0 1px 0 rgba(255,255,255,.9);
-    color:#263238;
+      0 38px 90px rgba(55,46,34,.16),
+      inset 0 1px 0 rgba(255,255,255,.72);
+    border:1px solid rgba(122,105,74,.12);
   }
 
-  .delf-info-card::before{
+  .delf-paper::before{
     content:"";
     position:absolute;
     inset:0;
     pointer-events:none;
     background:
-      radial-gradient(circle at 12% 8%, rgba(214,185,164,.22), transparent 24%),
-      radial-gradient(circle at 92% 10%, rgba(58,131,125,.16), transparent 22%);
+      radial-gradient(circle at 12% 8%, rgba(255,255,255,.50), transparent 24%),
+      radial-gradient(circle at 92% 10%, rgba(58,131,125,.14), transparent 26%);
   }
 
-  .delf-doc-hero{
+  .delf-paper > *{
     position:relative;
     z-index:1;
-    padding:54px 54px 34px;
-    border-bottom:1px solid rgba(58,131,125,.12);
   }
 
-  .delf-info-kicker{
+  .delf-header{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:24px;
+    align-items:end;
+    margin-bottom:38px;
+  }
+
+  .delf-kicker{
     display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:9px 15px;
+    width:max-content;
+    padding:9px 16px;
     border-radius:999px;
-    background:rgba(58,131,125,.10);
-    color:#2f6f69;
+    background:#b9b99a;
+    color:#514936;
     font-size:12px;
     font-weight:900;
-    letter-spacing:.22em;
+    letter-spacing:.18em;
     text-transform:uppercase;
     margin-bottom:18px;
   }
 
-  .delf-doc-hero h2{
+  .delf-title{
     margin:0;
-    max-width:760px;
-    font-size:clamp(34px,5vw,62px);
-    line-height:1.02;
-    letter-spacing:-.035em;
-    color:#17252a;
+    font-size:clamp(44px,7vw,86px);
+    line-height:.92;
+    letter-spacing:-.065em;
+    color:#746647;
+    font-weight:500;
+  }
+
+  .delf-brand{
+    justify-self:end;
+    text-align:right;
+    color:#746647;
+    font-size:30px;
+    line-height:.9;
+    font-weight:900;
   }
 
   .delf-lead{
-    margin:22px 0 0;
-    max-width:760px;
-    color:#4f5f66;
-    font-size:18px;
+    grid-column:1 / -1;
+    margin:8px 0 0;
+    max-width:830px;
+    color:#6b604d;
+    font-size:17px;
     line-height:1.75;
-    font-weight:550;
+    font-weight:650;
   }
 
-  .delf-doc-body{
-    position:relative;
-    z-index:1;
-    padding:38px 54px 54px;
-  }
-
-  .delf-section{
-    margin-top:34px;
-  }
-
-  .delf-section:first-child{
-    margin-top:0;
-  }
-
-  .delf-section h3{
-    margin:0 0 16px;
-    color:#2f6f69;
-    font-size:25px;
-    letter-spacing:-.015em;
-  }
-
-  .delf-section p{
-    color:#52656b;
-    font-size:16.5px;
-    line-height:1.75;
-    margin:0 0 18px;
-  }
-
-  .delf-grid{
+  .delf-card-grid{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-    margin-top:18px;
+    gap:30px 34px;
   }
 
-  .delf-point{
-    padding:18px 18px;
-    border-radius:22px;
-    background:rgba(246,251,251,.86);
-    border:1px solid rgba(58,131,125,.12);
-    box-shadow:0 14px 34px rgba(22,55,58,.045);
+  .delf-box{
+    position:relative;
+    background:rgba(255,255,255,.78);
+    border-radius:0 24px 24px 24px;
+    padding:58px 28px 28px;
+    min-height:220px;
+    box-shadow:
+      0 18px 44px rgba(80,68,48,.10),
+      inset 0 1px 0 rgba(255,255,255,.76);
+    border:1px solid rgba(122,105,74,.09);
   }
 
-  .delf-point b{
+  .delf-box.wide{
+    grid-column:1 / -1;
+    min-height:auto;
+  }
+
+  .delf-tab{
+    position:absolute;
+    top:-18px;
+    left:-18px;
+    min-width:250px;
+    max-width:92%;
+    padding:13px 22px;
+    border-radius:0 999px 999px 0;
+    background:#b9b99a;
+    color:#6c6045;
+    font-size:22px;
+    font-weight:700;
+    box-shadow:0 14px 28px rgba(80,68,48,.13);
+  }
+
+  .delf-tab.dark{
+    background:#746647;
+    color:#fff7ea;
+  }
+
+  .delf-box p{
+    margin:0;
+    color:#6a5e4c;
+    font-size:15.5px;
+    line-height:1.55;
+    font-weight:600;
+  }
+
+  .delf-mini-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+  }
+
+  .delf-mini{
+    padding:16px 16px;
+    border-radius:18px;
+    background:#f6f3ed;
+    border:1px solid rgba(116,102,71,.10);
+  }
+
+  .delf-mini b{
     display:block;
-    color:#1f3d42;
+    color:#453d2d;
     font-size:15px;
     margin-bottom:5px;
   }
 
-  .delf-point span{
+  .delf-mini span{
     display:block;
-    color:#62747a;
-    font-size:14.5px;
-    line-height:1.55;
+    color:#6a5e4c;
+    font-size:14px;
+    line-height:1.5;
+    font-weight:600;
   }
 
-  .delf-flow{
+  .delf-process{
     display:grid;
     gap:14px;
-    counter-reset:step;
   }
 
   .delf-step{
-    position:relative;
-    padding:18px 18px 18px 64px;
-    border-radius:22px;
-    background:#ffffff;
-    border:1px solid rgba(58,131,125,.12);
-    box-shadow:0 14px 34px rgba(22,55,58,.05);
-    color:#52656b;
-    line-height:1.6;
+    display:grid;
+    grid-template-columns:70px 1fr;
+    align-items:center;
+    border-radius:999px;
+    background:#f6f3ed;
+    border:1px solid rgba(116,102,71,.12);
+    overflow:hidden;
   }
 
-  .delf-step::before{
-    counter-increment:step;
-    content:counter(step);
-    position:absolute;
-    left:18px;
-    top:18px;
-    width:30px;
-    height:30px;
-    border-radius:12px;
+  .delf-step-num{
+    min-height:64px;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#3A837D;
-    color:#fff;
+    font-size:30px;
     font-weight:900;
-    font-size:13px;
+    color:#1f2933;
+    background:#d8dfcf;
+    border-right:1px solid rgba(116,102,71,.18);
   }
 
-  .fees-table{
-    overflow:hidden;
-    border-radius:24px;
-    border:1px solid rgba(58,131,125,.14);
-    background:#fff;
-    box-shadow:0 16px 36px rgba(22,55,58,.055);
+  .delf-step:nth-child(2) .delf-step-num{background:#cfdde2}
+  .delf-step:nth-child(3) .delf-step-num{background:#f1d58d}
+  .delf-step:nth-child(4) .delf-step-num{background:#e9b7b9}
+  .delf-step:nth-child(5) .delf-step-num{background:#d7c3df}
+
+  .delf-step-text{
+    padding:14px 20px;
+    color:#5f5545;
+    font-size:15px;
+    line-height:1.45;
+    font-weight:700;
   }
 
-  .fee-row{
+  .fee-strip{
     display:grid;
-    grid-template-columns:1.1fr 1.4fr;
-    gap:0;
-    border-bottom:1px solid rgba(58,131,125,.10);
+    gap:14px;
   }
 
-  .fee-row:last-child{
-    border-bottom:0;
+  .fee-item{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    border-radius:22px;
+    overflow:hidden;
+    background:#f6f3ed;
+    border:1px solid rgba(116,102,71,.12);
   }
 
   .fee-name{
     padding:18px;
-    background:rgba(58,131,125,.075);
-    color:#1f3d42;
+    background:#746647;
+    color:#fff;
     font-weight:900;
   }
 
   .fee-detail{
     padding:18px;
-    color:#52656b;
-    line-height:1.7;
+    color:#5f5545;
+    font-weight:700;
+    line-height:1.65;
   }
 
   .delf-notice{
-    margin-top:20px;
-    padding:22px;
+    padding:22px 24px;
     border-radius:24px;
-    background:linear-gradient(135deg,rgba(214,185,164,.22),rgba(255,255,255,.72));
-    border:1px solid rgba(214,185,164,.34);
-    color:#554943;
+    background:#f7eee9;
+    border:1px solid rgba(184,87,72,.18);
+    color:#60483f;
     line-height:1.7;
-    font-weight:650;
+    font-weight:750;
   }
 
-  .delf-bottom-panel{
-    margin-top:36px;
-    padding:28px;
+  .delf-final{
+    grid-column:1 / -1;
     border-radius:30px;
+    padding:34px;
     text-align:center;
     background:
-      radial-gradient(circle at 50% 0%,rgba(58,131,125,.16),transparent 34%),
-      linear-gradient(135deg,#173a3c,#102a30);
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 35%),
+      linear-gradient(135deg,#3A837D,#244a49);
     color:#fff;
-    box-shadow:0 24px 64px rgba(16,42,48,.22);
+    box-shadow:0 24px 58px rgba(58,131,125,.22);
   }
 
-  .delf-bottom-panel h3{
-    margin:0 0 8px;
-    color:#fff;
-    font-size:28px;
+  .delf-final h3{
+    margin:0 0 10px;
+    font-size:30px;
+    letter-spacing:-.02em;
   }
 
-  .delf-bottom-panel p{
-    margin:0 auto 22px;
-    max-width:620px;
+  .delf-final p{
+    margin:0 auto 24px;
+    max-width:640px;
     color:rgba(255,255,255,.78);
+    font-size:15.5px;
+    line-height:1.65;
   }
 
-  .delf-info-actions{
+  .delf-actions{
     display:flex;
     justify-content:center;
     gap:14px;
@@ -482,19 +521,19 @@ cursor:pointer;
     border:0;
     cursor:pointer;
     font-family:inherit;
-    transition:transform .24s ease, filter .24s ease, box-shadow .24s ease;
+    transition:.24s ease;
   }
 
   .delf-continue{
-    background:#D6B9A4;
-    color:#102a30;
-    box-shadow:0 16px 34px rgba(214,185,164,.25);
+    background:#d8c49f;
+    color:#25312f;
+    box-shadow:0 16px 34px rgba(0,0,0,.16);
   }
 
   .delf-collapse{
-    background:rgba(255,255,255,.10);
+    background:rgba(255,255,255,.12);
     color:#fff;
-    border:1px solid rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.20);
   }
 
   .delf-continue:hover,
@@ -503,30 +542,23 @@ cursor:pointer;
     filter:brightness(1.04);
   }
 
-  .delf-continue:active,
-  .delf-collapse:active{
-    transform:translateY(1px) scale(.985);
+  @media(max-width:850px){
+    .delf-paper{padding:36px 20px}
+    .delf-header{grid-template-columns:1fr}
+    .delf-brand{justify-self:start;text-align:left;font-size:22px}
+    .delf-card-grid{grid-template-columns:1fr;gap:34px}
+    .delf-mini-grid{grid-template-columns:1fr}
+    .fee-item{grid-template-columns:1fr}
+    .delf-tab{left:0;min-width:220px;font-size:19px}
   }
 
-  @media(max-width:760px){
-    .delf-doc-hero,
-    .delf-doc-body{
-      padding-left:24px;
-      padding-right:24px;
-    }
-
-    .delf-grid{
-      grid-template-columns:1fr;
-    }
-
-    .fee-row{
-      grid-template-columns:1fr;
-    }
-
-    .delf-continue,
-    .delf-collapse{
-      width:100%;
-    }
+  @media(max-width:560px){
+    .delf-sheet{padding:48px 12px 72px}
+    .delf-title{font-size:48px}
+    .delf-box{padding:54px 20px 24px}
+    .delf-step{grid-template-columns:56px 1fr;border-radius:24px}
+    .delf-step-num{min-height:58px;font-size:24px}
+    .delf-continue,.delf-collapse{width:100%}
   }
 </style>
 
@@ -699,13 +731,21 @@ document.getElementById("infoCard").style.display="none";
 
 
 
+
+
+
 <section id="delf-info-document" aria-label="Everything about DELF preparation">
   <div class="delf-info-inner">
-    <div class="delf-info-wrap">
-      <article class="delf-info-card">
-        <header class="delf-doc-hero">
-          <div class="delf-info-kicker">DELF preparation guide</div>
-          <h2>Everything you need to know before choosing your DELF path.</h2>
+    <div class="delf-sheet">
+      <article class="delf-paper">
+        <header class="delf-header">
+          <div>
+            <div class="delf-kicker">SayBon DELF Guide</div>
+            <h2 class="delf-title">DELF Info Sheet</h2>
+          </div>
+
+          <div class="delf-brand">SayBon<br>Prep</div>
+
           <p class="delf-lead">
             DELF preparation is not just about learning French. It is about learning how the exam thinks:
             the tasks, the timing, the scoring expectations, and the level of confidence required to enter
@@ -713,142 +753,154 @@ document.getElementById("infoCard").style.display="none";
           </p>
         </header>
 
-        <div class="delf-doc-body">
-          <section class="delf-section">
-            <h3>What DELF is</h3>
+        <section class="delf-card-grid">
+          <div class="delf-box wide">
+            <div class="delf-tab">What DELF is</div>
             <p>
               DELF is an internationally recognized French language diploma awarded by the French Ministry
               of Education. It evaluates practical communication in French across four key skills:
               listening, reading, writing, and speaking.
             </p>
+          </div>
 
-            <div class="delf-grid">
-              <div class="delf-point">
+          <div class="delf-box">
+            <div class="delf-tab">The 4 Skills</div>
+            <div class="delf-mini-grid">
+              <div class="delf-mini">
                 <b>Listening</b>
                 <span>You practise understanding announcements, conversations, instructions, and spoken information.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Reading</b>
                 <span>You learn to understand notices, messages, short texts, articles, and exam-style written tasks.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Writing</b>
                 <span>You prepare to write clearly for the level: forms, messages, emails, opinions, and structured responses.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Speaking</b>
                 <span>You build confidence for oral tasks, role plays, personal questions, and guided conversation.</span>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section class="delf-section">
-            <h3>How SayBon prepares you</h3>
-            <p>
-              SayBon’s DELF preparation is mock-based and level-aware. The goal is not to overload learners
-              with theory, but to help them become familiar with the exact style of tasks they will face.
-            </p>
-
-            <div class="delf-grid">
-              <div class="delf-point">
+          <div class="delf-box">
+            <div class="delf-tab">SayBon Method</div>
+            <div class="delf-mini-grid">
+              <div class="delf-mini">
                 <b>Exam-style practice</b>
                 <span>Lessons are shaped around real DELF task types so learners understand what to expect.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Readiness focus</b>
                 <span>The emphasis is on confidence, task familiarity, timing, and performance.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Progress tracking</b>
                 <span>Learners can see where they are improving and what still needs attention.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Skill balance</b>
                 <span>Preparation covers all four competencies, not just vocabulary or grammar.</span>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section class="delf-section">
-            <h3>How the preparation journey works</h3>
-
-            <div class="delf-flow">
-              <div class="delf-step">Take the free DELF recommendation test so SayBon can suggest the most suitable category and level.</div>
-              <div class="delf-step">Choose the recommended DELF path: Prim, Junior, or Tout Public.</div>
-              <div class="delf-step">Begin structured preparation with mock-style tasks and level-specific support.</div>
-              <div class="delf-step">Practise listening, reading, writing, and speaking in the format expected by the exam.</div>
-              <div class="delf-step">Track readiness before registering for the official DELF exam externally.</div>
+          <div class="delf-box wide">
+            <div class="delf-tab dark">How Preparation Works</div>
+            <div class="delf-process">
+              <div class="delf-step">
+                <div class="delf-step-num">01</div>
+                <div class="delf-step-text">Take the free DELF recommendation test so SayBon can suggest the most suitable category and level.</div>
+              </div>
+              <div class="delf-step">
+                <div class="delf-step-num">02</div>
+                <div class="delf-step-text">Choose the recommended DELF path: Prim, Junior, or Tout Public.</div>
+              </div>
+              <div class="delf-step">
+                <div class="delf-step-num">03</div>
+                <div class="delf-step-text">Begin structured preparation with mock-style tasks and level-specific support.</div>
+              </div>
+              <div class="delf-step">
+                <div class="delf-step-num">04</div>
+                <div class="delf-step-text">Practise listening, reading, writing, and speaking in the format expected by the exam.</div>
+              </div>
+              <div class="delf-step">
+                <div class="delf-step-num">05</div>
+                <div class="delf-step-text">Track readiness before registering for the official DELF exam externally.</div>
+              </div>
             </div>
-          </section>
+          </div>
 
-          <section class="delf-section">
-            <h3>Which DELF category fits you?</h3>
-
-            <div class="delf-grid">
-              <div class="delf-point">
+          <div class="delf-box">
+            <div class="delf-tab">Which Category?</div>
+            <div class="delf-mini-grid">
+              <div class="delf-mini">
                 <b>DELF Prim</b>
                 <span>Designed for children, usually ages 7–12. It uses child-friendly themes and age-appropriate communication.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>DELF Junior</b>
                 <span>Designed for teenagers, usually ages 12–17. It keeps the same exam seriousness with youth-appropriate contexts.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>DELF Tout Public</b>
                 <span>Designed for adults and general candidates. It focuses on practical, mature communication contexts.</span>
               </div>
-              <div class="delf-point">
+              <div class="delf-mini">
                 <b>Not sure?</b>
                 <span>The recommendation test helps you choose the right path before committing to a preparation level.</span>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section class="delf-section">
-            <h3>Preparation fees</h3>
+          <div class="delf-box">
+            <div class="delf-tab">Preparation Fees</div>
             <p>
               Payment is made once per level and gives access to the preparation materials for that level.
               There are no subscriptions or recurring fees.
             </p>
 
-            <div class="fees-table">
-              <div class="fee-row">
+            <div class="fee-strip">
+              <div class="fee-item">
                 <div class="fee-name">DELF Prim</div>
                 <div class="fee-detail">A1 — $8<br>A2 — $10</div>
               </div>
-              <div class="fee-row">
+
+              <div class="fee-item">
                 <div class="fee-name">DELF Junior</div>
                 <div class="fee-detail">A1 — $12<br>A2 — $15<br>B1 — $18<br>B2 — $20</div>
               </div>
-              <div class="fee-row">
-                <div class="fee-name">DELF Tout Public</div>
+
+              <div class="fee-item">
+                <div class="fee-name">Tout Public</div>
                 <div class="fee-detail">A1 — $15<br>A2 — $20<br>B1 — $25<br>B2 — $30<br>C1 — $40</div>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section class="delf-section">
-            <h3>Important notice</h3>
-
+          <div class="delf-box wide">
+            <div class="delf-tab">Important Notice</div>
             <div class="delf-notice">
               SayBon is not an official DELF examination centre. SayBon does not administer the official exam,
               issue DELF certificates, or register candidates for the official exam. SayBon helps learners prepare
               thoroughly so they can approach the official DELF exam with confidence and familiarity.
             </div>
-          </section>
+          </div>
 
-          <section class="delf-bottom-panel">
+          <section class="delf-final">
             <h3>Ready to find your DELF starting point?</h3>
             <p>
               Take the short recommendation test and let SayBon guide you toward the DELF category and level that fits you best.
             </p>
 
-            <div class="delf-info-actions">
+            <div class="delf-actions">
               <a class="delf-continue" href="/features/delf/test.html">Continue to Find Your DELF Level</a>
               <button class="delf-collapse" type="button" id="closeDelfInfo">Close Guide</button>
             </div>
           </section>
-        </div>
+        </section>
       </article>
     </div>
   </div>
@@ -869,15 +921,12 @@ document.getElementById("infoCard").style.display="none";
 
       trigger.addEventListener("click", function(e){
         e.preventDefault();
-
         doc.classList.add("open");
 
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            const top = doc.getBoundingClientRect().top + window.pageYOffset - 12;
-            window.scrollTo({ top, behavior:"smooth" });
-          }, 420);
-        });
+        setTimeout(() => {
+          const top = doc.getBoundingClientRect().top + window.pageYOffset - 10;
+          window.scrollTo({ top, behavior:"smooth" });
+        }, 360);
       });
     });
 
@@ -899,6 +948,7 @@ document.getElementById("infoCard").style.display="none";
 
 </body>
 </html>
+
 
 
 
