@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DELF Payment — SayBon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#fff;
+      text-align:center;
+      background:linear-gradient(145deg,#123f45,#071b22);
+    }
+
+    .card{
+      width:min(92vw,520px);
+      padding:34px 26px;
+      border-radius:34px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 28px 80px rgba(0,0,0,.28);
+      backdrop-filter:blur(20px);
+    }
+
+    h1{margin:0 0 10px;font-size:34px}
+    p{color:rgba(255,255,255,.78);line-height:1.6}
+    .price{font-size:44px;font-weight:900;margin:18px 0;color:#D6B9A4}
+
+    button,a{
+      min-height:52px;
+      padding:0 24px;
+      border-radius:999px;
+      border:0;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin:7px;
+      font-family:inherit;
+      font-weight:900;
+      text-decoration:none;
+      cursor:pointer;
+    }
+
+    button{background:#D6B9A4;color:#102a30}
+    a{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18)}
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1 id="title">DELF Payment</h1>
+    <p id="desc">Preparing your checkout...</p>
+    <div class="price" id="price"></div>
+
+    <button onclick="payNow()">Pay with Stripe</button>
+    <a href="/features/delf/levels.html">Change Level</a>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category") || "";
+    const level = params.get("level") || "";
+    const price = Number(params.get("price") || "0");
+
+    const categoryLabels = {
+      prim: "DELF Prim",
+      junior: "DELF Junior",
+      public: "DELF Tout Public"
+    };
+
+    document.getElementById("title").textContent = `${categoryLabels[category] || "DELF"} ${level}`;
+    document.getElementById("desc").textContent = "One-time payment for this DELF preparation level.";
+    document.getElementById("price").textContent = `$${price}`;
+
+    async function payNow(){
+      try{
+        const res = await fetch("https://saybon-payment-server.onrender.com/api/createDelfCheckout", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ category, level, price })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok || !data.url){
+          throw new Error(data.error || "Checkout failed.");
+        }
+
+        window.location.href = data.url;
+      }catch(err){
+        alert("Payment checkout is not ready yet. Please confirm the Render payment server endpoint is deployed.");
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
