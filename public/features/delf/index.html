@@ -562,6 +562,54 @@ cursor:pointer;
   }
 </style>
 
+
+<style id="delf-cta-button-fix">
+  .delf-actions{
+    align-items:center !important;
+  }
+
+  .delf-known,
+  .delf-dashboard{
+    min-height:54px;
+    padding:0 28px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-weight:900;
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    transition:.24s ease;
+  }
+
+  .delf-known{
+    background:rgba(255,255,255,.13);
+    color:#ffffff;
+    border:1px solid rgba(255,255,255,.22);
+  }
+
+  .delf-dashboard{
+    background:rgba(255,255,255,.08);
+    color:rgba(255,255,255,.86);
+    border:1px solid rgba(255,255,255,.16);
+  }
+
+  .delf-known:hover,
+  .delf-dashboard:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.04);
+  }
+
+  @media(max-width:760px){
+    .delf-known,
+    .delf-dashboard{
+      width:100%;
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -890,15 +938,16 @@ document.getElementById("infoCard").style.display="none";
           </div>
 
           <section class="delf-final">
-            <h3>Ready to find your DELF starting point?</h3>
+            <h3>Ready to begin?</h3>
             <p>
-              Take the short recommendation test and let SayBon guide you toward the DELF category and level that fits you best.
+              Choose the path that fits you best.
             </p>
 
             <div class="delf-actions">
-              <a class="delf-continue" href="/features/delf/test.html">Continue to Find Your DELF Level</a>
-              <button class="delf-collapse" type="button" id="closeDelfInfo">Close Guide</button>
-            </div>
+  <a class="delf-continue" href="/features/delf/test.html">Find Your DELF Level</a>
+  <a class="delf-known" href="/features/delf/test.html">I Already Know My Level</a>
+  <a class="delf-dashboard" href="/dashboard.html">Return to Dashboard</a>
+</div>
           </section>
         </section>
       </article>
@@ -948,6 +997,7 @@ document.getElementById("infoCard").style.display="none";
 
 </body>
 </html>
+
 
 
 
