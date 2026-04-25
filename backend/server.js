@@ -1,4 +1,4 @@
-/* force redeploy 11 Mar */
+﻿/* force redeploy 11 Mar */
 
 import express from "express";
 import cors from "cors";
@@ -195,6 +195,58 @@ START SERVER (RENDER)
 ========================================== */
 
 const PORT = process.env.PORT || 3000;
+
+
+/* ==========================================
+DELF STRIPE CHECKOUT
+========================================== */
+app.post("/api/createDelfCheckout", async (req, res) => {
+  try {
+    const { category, level, price } = req.body || {};
+
+    const allowedPrices = {
+      prim: { A1: 8, A2: 10 },
+      junior: { A1: 12, A2: 15, B1: 18, B2: 20 },
+      public: { A1: 15, A2: 20, B1: 25, B2: 30, C1: 40 }
+    };
+
+    if (!category || !level || !allowedPrices[category] || allowedPrices[category][level] !== Number(price)) {
+      return res.status(400).json({ error: "Invalid DELF checkout request." });
+    }
+
+    const categoryNames = {
+      prim: "DELF Prim",
+      junior: "DELF Junior",
+      public: "DELF Tout Public"
+    };
+
+    const amount = Math.round(Number(price) * 100);
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: `SayBon ${categoryNames[category]} ${level} Preparation`
+            },
+            unit_amount: amount
+          },
+          quantity: 1
+        }
+      ],
+      success_url: `https://saybonapp.com/features/delf/success.html?category=${encodeURIComponent(category)}&level=${encodeURIComponent(level)}`,
+      cancel_url: `https://saybonapp.com/features/delf/payment.html?category=${encodeURIComponent(category)}&level=${encodeURIComponent(level)}&price=${encodeURIComponent(price)}`
+    });
+
+    return res.json({ url: session.url });
+  } catch (err) {
+    console.error("DELF checkout error:", err);
+    return res.status(500).json({ error: "Unable to create DELF checkout session." });
+  }
+});
 
 app.listen(PORT, ()=>{
   console.log("SayBon payment server running on port", PORT);
