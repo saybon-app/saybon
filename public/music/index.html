@@ -4,26 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SayBon Music — Dashboard</title>
+  <title>SayBon Music</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#07090f;
-      --panel:rgba(255,255,255,.075);
-      --panel-strong:rgba(255,255,255,.12);
+      --bg:#071b22;
+      --deep:#06151b;
+      --teal:#3A837D;
+      --soft-teal:#95C2BD;
+      --cream:#F7F2EA;
+      --muted:rgba(247,242,234,.68);
       --line:rgba(255,255,255,.12);
-      --text:#f8fbff;
-      --muted:rgba(248,251,255,.62);
-      --soft:rgba(248,251,255,.82);
-      --red:#ef3f4f;
-      --pink:#ff4fac;
-      --violet:#8b5cf6;
-      --blue:#38bdf8;
-      --green:#4ade80;
-      --gold:#facc15;
-      --radius:30px;
+      --glass:rgba(255,255,255,.075);
+      --glass-strong:rgba(255,255,255,.115);
     }
 
     *{box-sizing:border-box}
@@ -32,241 +27,191 @@
       margin:0;
       min-height:100vh;
       font-family:"Nunito",system-ui,sans-serif;
-      color:var(--text);
+      color:var(--cream);
       background:
-        radial-gradient(circle at 12% 18%, rgba(239,63,79,.20), transparent 28%),
-        radial-gradient(circle at 84% 14%, rgba(139,92,246,.24), transparent 28%),
-        radial-gradient(circle at 52% 92%, rgba(56,189,248,.18), transparent 34%),
-        linear-gradient(145deg,#05060a,#0b0f18 48%,#07090f);
+        radial-gradient(circle at 18% 18%, rgba(149,194,189,.16), transparent 30%),
+        radial-gradient(circle at 78% 72%, rgba(58,131,125,.18), transparent 34%),
+        linear-gradient(145deg,#06151b,#071b22 55%,#041116);
       overflow-x:hidden;
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size:56px 56px;
-      mask-image:radial-gradient(circle at center, black, transparent 75%);
-    }
-
-    .app-shell{
-      width:min(96vw,1480px);
-      min-height:calc(100vh - 36px);
-      margin:18px auto;
+    .page{
+      width:min(94vw,1180px);
+      min-height:100vh;
+      margin:0 auto;
+      padding:34px 0 44px;
       display:grid;
-      grid-template-columns:260px 1fr 330px;
-      gap:18px;
+      grid-template-columns:220px 1fr;
+      gap:22px;
     }
 
     .glass{
-      background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.045));
+      background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.04));
       border:1px solid var(--line);
-      box-shadow:
-        0 24px 70px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.12);
+      box-shadow:0 24px 70px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10);
       backdrop-filter:blur(22px);
     }
 
     .sidebar{
-      border-radius:34px;
-      padding:24px 18px;
+      border-radius:30px;
+      padding:22px 16px;
+      height:calc(100vh - 68px);
+      position:sticky;
+      top:34px;
       display:flex;
       flex-direction:column;
-      gap:22px;
-      position:sticky;
-      top:18px;
-      height:calc(100vh - 36px);
+      gap:24px;
     }
 
-    .logo{
+    .brand{
       display:flex;
       align-items:center;
-      gap:11px;
-      padding:0 8px 10px;
+      gap:12px;
+      padding:0 8px;
     }
 
-    .logo-mark{
+    .brand-icon{
       width:42px;
       height:42px;
       border-radius:16px;
       display:grid;
       place-items:center;
-      background:linear-gradient(135deg,var(--red),var(--pink));
-      box-shadow:0 15px 32px rgba(239,63,79,.30);
+      color:#062026;
+      background:linear-gradient(135deg,#F7F2EA,#95C2BD);
+      font-size:20px;
       font-weight:900;
     }
 
-    .logo-text strong{
+    .brand strong{
       display:block;
-      font-size:19px;
-      letter-spacing:.01em;
+      font-size:18px;
     }
 
-    .logo-text span{
+    .brand span{
       display:block;
-      font-size:11px;
-      color:var(--muted);
+      margin-top:2px;
+      font-size:10px;
       letter-spacing:.18em;
       text-transform:uppercase;
-      margin-top:2px;
+      color:var(--muted);
     }
 
-    .nav-group{
+    .nav{
       display:grid;
-      gap:7px;
+      gap:8px;
     }
 
     .nav-label{
-      padding:0 10px;
-      margin-bottom:4px;
-      color:rgba(255,255,255,.38);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.17em;
+      margin:8px 10px 2px;
+      font-size:10px;
+      letter-spacing:.18em;
       text-transform:uppercase;
+      color:rgba(247,242,234,.38);
+      font-weight:900;
     }
 
-    .nav-item{
-      height:46px;
+    .nav a{
+      min-height:44px;
       border-radius:16px;
       display:flex;
       align-items:center;
-      gap:12px;
-      padding:0 14px;
-      color:var(--soft);
+      gap:11px;
+      padding:0 13px;
+      color:rgba(247,242,234,.78);
       text-decoration:none;
-      font-weight:750;
+      font-weight:800;
+      font-size:14px;
       transition:.22s ease;
     }
 
-    .nav-item span:first-child{
-      width:24px;
-      text-align:center;
-      opacity:.95;
+    .nav a:hover{
+      background:rgba(255,255,255,.08);
+      transform:translateX(3px);
     }
 
-    .nav-item:hover{
-      background:rgba(255,255,255,.09);
-      transform:translateX(4px);
-    }
-
-    .nav-item.active{
-      background:linear-gradient(135deg,var(--red),#fb4e63);
-      color:white;
-      box-shadow:0 16px 36px rgba(239,63,79,.26);
-    }
-
-    .create-btn{
-      margin-top:auto;
-      height:50px;
-      border:0;
-      border-radius:18px;
-      color:white;
-      font-family:inherit;
-      font-weight:900;
-      cursor:pointer;
-      background:linear-gradient(135deg,rgba(239,63,79,.95),rgba(139,92,246,.92));
-      box-shadow:0 18px 42px rgba(139,92,246,.22);
-      transition:.22s ease;
-    }
-
-    .create-btn:hover{
-      transform:translateY(-3px);
-      filter:brightness(1.05);
+    .nav a.active{
+      background:rgba(149,194,189,.18);
+      color:#fff;
+      border:1px solid rgba(149,194,189,.22);
     }
 
     .main{
       min-width:0;
       display:grid;
-      gap:18px;
+      gap:22px;
     }
 
-    .topbar{
-      height:74px;
-      border-radius:28px;
-      padding:14px;
+    .top{
       display:flex;
+      justify-content:space-between;
       align-items:center;
       gap:16px;
     }
 
     .search{
       flex:1;
-      height:46px;
-      border-radius:18px;
-      background:rgba(255,255,255,.08);
+      max-width:560px;
+      height:48px;
+      border-radius:999px;
+      background:rgba(255,255,255,.075);
       border:1px solid rgba(255,255,255,.10);
       display:flex;
       align-items:center;
-      gap:12px;
-      padding:0 16px;
-      color:var(--muted);
+      padding:0 18px;
+      color:rgba(247,242,234,.58);
       font-weight:700;
+      font-size:14px;
     }
 
-    .icon-btn{
+    .top-actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .icon{
       width:46px;
       height:46px;
-      border-radius:17px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.08);
-      color:white;
+      border-radius:16px;
       display:grid;
       place-items:center;
-      cursor:pointer;
-      transition:.22s ease;
-    }
-
-    .icon-btn:hover{
-      transform:translateY(-3px);
-      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.07);
+      color:#fff;
     }
 
     .hero{
-      min-height:360px;
+      min-height:420px;
       border-radius:38px;
-      padding:34px;
+      padding:44px;
       position:relative;
       overflow:hidden;
       display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:20px;
+      grid-template-columns:1fr 340px;
+      gap:28px;
       align-items:center;
-      background:
-        radial-gradient(circle at 80% 30%, rgba(255,79,172,.42), transparent 28%),
-        radial-gradient(circle at 62% 72%, rgba(56,189,248,.28), transparent 34%),
-        linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 30px 100px rgba(0,0,0,.42);
     }
 
     .hero::before{
       content:"";
       position:absolute;
-      width:320px;
-      height:320px;
-      border-radius:999px;
-      right:70px;
-      top:34px;
-      background:linear-gradient(135deg,#ff4fac,#ef3f4f);
+      width:330px;
+      height:330px;
+      border-radius:50%;
+      right:90px;
+      top:58px;
+      background:linear-gradient(135deg,rgba(149,194,189,.34),rgba(58,131,125,.18));
       filter:blur(.2px);
-      opacity:.9;
     }
 
     .hero::after{
       content:"";
       position:absolute;
-      width:260px;
-      height:260px;
-      border-radius:999px;
-      right:330px;
-      bottom:-70px;
-      background:linear-gradient(135deg,#8b5cf6,#ec4899);
-      opacity:.72;
+      width:250px;
+      height:250px;
+      border-radius:50%;
+      right:260px;
+      bottom:-90px;
+      background:rgba(247,242,234,.08);
     }
 
     .hero-copy{
@@ -276,44 +221,44 @@
 
     .kicker{
       display:inline-flex;
-      height:34px;
+      height:32px;
       align-items:center;
       padding:0 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.11);
-      border:1px solid rgba(255,255,255,.13);
-      color:rgba(255,255,255,.76);
-      font-size:12px;
-      font-weight:900;
+      background:rgba(149,194,189,.14);
+      color:rgba(247,242,234,.78);
+      font-size:11px;
       letter-spacing:.18em;
       text-transform:uppercase;
+      font-weight:900;
       margin-bottom:18px;
     }
 
     h1{
       margin:0;
-      max-width:640px;
-      font-size:clamp(42px,6vw,82px);
-      line-height:.92;
+      max-width:560px;
+      font-size:clamp(44px,6vw,76px);
+      line-height:.95;
       letter-spacing:-.055em;
+      font-weight:850;
     }
 
-    .hero-copy p{
-      max-width:600px;
-      margin:18px 0 28px;
-      color:rgba(255,255,255,.72);
-      font-size:17px;
-      line-height:1.6;
+    .hero p{
+      max-width:560px;
+      margin:20px 0 28px;
+      color:rgba(247,242,234,.70);
+      font-size:16.5px;
+      line-height:1.7;
       font-weight:650;
     }
 
-    .hero-actions{
+    .actions{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
     }
 
-    .primary,.secondary{
+    .btn{
       min-height:52px;
       padding:0 24px;
       border-radius:999px;
@@ -325,603 +270,415 @@
       transition:.22s ease;
     }
 
-    .primary{
-      background:#fff;
-      color:#111827;
+    .btn.primary{
+      background:var(--cream);
+      color:#071b22;
     }
 
-    .secondary{
+    .btn.secondary{
+      background:rgba(255,255,255,.08);
       color:#fff;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.12);
     }
 
-    .primary:hover,.secondary:hover{
+    .btn:hover{
       transform:translateY(-3px);
       filter:brightness(1.04);
     }
 
-    .player-card{
+    .music-card{
       position:relative;
-      z-index:3;
-      width:min(100%,360px);
+      z-index:2;
+      width:100%;
+      max-width:320px;
       justify-self:center;
-      aspect-ratio:1 / 1.18;
-      border-radius:36px;
-      background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.22);
-      box-shadow:0 30px 90px rgba(0,0,0,.42);
-      backdrop-filter:blur(30px);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
+      padding:28px;
+      border-radius:34px;
+      display:grid;
+      justify-items:center;
       gap:22px;
-      transform:rotate(-2deg);
+      background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.15);
+      backdrop-filter:blur(24px);
+      box-shadow:0 28px 80px rgba(0,0,0,.26);
     }
 
-    .note-box{
+    .music-art{
       width:170px;
       height:170px;
-      border-radius:30px;
+      border-radius:34px;
       display:grid;
       place-items:center;
-      background:rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 70% 25%,rgba(247,242,234,.35),transparent 28%),
+        linear-gradient(135deg,rgba(149,194,189,.38),rgba(58,131,125,.22));
       border:1px solid rgba(255,255,255,.16);
-      font-size:82px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.20);
+      font-size:76px;
     }
 
-    .mini-progress{
-      width:66%;
+    .track-title{
+      text-align:center;
+    }
+
+    .track-title strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .track-title span{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .progress{
+      width:100%;
       height:7px;
       border-radius:999px;
-      background:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.12);
       overflow:hidden;
     }
 
-    .mini-progress span{
+    .progress span{
       display:block;
-      width:58%;
+      width:52%;
       height:100%;
       border-radius:999px;
-      background:white;
+      background:var(--cream);
     }
 
-    .controls{
+    .player-controls{
       display:flex;
-      gap:20px;
       align-items:center;
+      gap:14px;
     }
 
-    .control{
-      width:44px;
-      height:44px;
+    .circle{
+      width:42px;
+      height:42px;
       border-radius:50%;
       display:grid;
       place-items:center;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      font-size:18px;
+      background:rgba(255,255,255,.075);
+      border:1px solid rgba(255,255,255,.11);
     }
 
-    .control.play{
-      width:62px;
-      height:62px;
-      background:rgba(255,255,255,.18);
-      font-size:24px;
+    .circle.big{
+      width:58px;
+      height:58px;
+      background:rgba(247,242,234,.16);
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
     }
 
     .section{
-      border-radius:34px;
+      border-radius:32px;
       padding:24px;
     }
 
     .section-head{
       display:flex;
-      align-items:end;
       justify-content:space-between;
-      gap:20px;
+      align-items:center;
       margin-bottom:18px;
     }
 
     .section-head h2{
       margin:0;
-      font-size:23px;
-      letter-spacing:-.02em;
+      font-size:22px;
     }
 
     .section-head a{
-      color:rgba(255,255,255,.58);
-      font-weight:850;
+      color:rgba(247,242,234,.56);
       text-decoration:none;
+      font-weight:850;
       font-size:13px;
     }
 
-    .album-row{
+    .songs{
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .song{
+      display:grid;
+      grid-template-columns:44px 1fr auto;
       gap:14px;
+      align-items:center;
+      min-height:64px;
+      border-radius:20px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.07);
+      transition:.22s ease;
+    }
+
+    .song:hover{
+      background:rgba(255,255,255,.075);
+      transform:translateX(3px);
+    }
+
+    .num{
+      color:rgba(247,242,234,.42);
+      font-weight:900;
+    }
+
+    .song strong{
+      display:block;
+      font-size:14.5px;
+    }
+
+    .song span{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:12.5px;
+      font-weight:700;
+    }
+
+    .time{
+      color:rgba(247,242,234,.55);
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .album-list{
+      display:grid;
+      gap:12px;
     }
 
     .album{
-      min-width:0;
+      min-height:84px;
       border-radius:24px;
-      padding:12px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.09);
-      transition:.22s ease;
-      cursor:pointer;
+      padding:14px;
+      display:grid;
+      grid-template-columns:66px 1fr;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.07);
     }
 
-    .album:hover{
-      transform:translateY(-5px);
-      background:rgba(255,255,255,.10);
-    }
-
-    .album-art{
-      height:126px;
+    .album-thumb{
+      width:66px;
+      height:56px;
       border-radius:18px;
-      margin-bottom:12px;
-      background:
-        radial-gradient(circle at 25% 18%, rgba(255,255,255,.35), transparent 20%),
-        linear-gradient(135deg,var(--red),var(--violet));
+      background:linear-gradient(135deg,rgba(149,194,189,.50),rgba(58,131,125,.26));
+      display:grid;
+      place-items:center;
+      font-size:24px;
     }
-
-    .album:nth-child(2) .album-art{background:linear-gradient(135deg,#111827,#e5e7eb)}
-    .album:nth-child(3) .album-art{background:linear-gradient(135deg,#7f1d1d,#fb7185)}
-    .album:nth-child(4) .album-art{background:linear-gradient(135deg,#0f766e,#67e8f9)}
 
     .album strong{
       display:block;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      font-size:14px;
+      font-size:14.5px;
     }
 
     .album span{
       display:block;
       margin-top:3px;
       color:var(--muted);
-      font-size:12px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .song-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .song{
-      min-height:68px;
-      display:grid;
-      grid-template-columns:44px 54px 1fr auto auto;
-      gap:14px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:20px;
-      background:rgba(255,255,255,.045);
-      border:1px solid rgba(255,255,255,.075);
-      transition:.22s ease;
-    }
-
-    .song:hover{
-      background:rgba(255,255,255,.085);
-      transform:translateX(4px);
-    }
-
-    .song-no{
-      color:rgba(255,255,255,.42);
-      font-weight:900;
-      font-size:13px;
-    }
-
-    .thumb{
-      width:54px;
-      height:48px;
-      border-radius:14px;
-      background:linear-gradient(135deg,#ef3f4f,#8b5cf6);
-    }
-
-    .song:nth-child(2) .thumb{background:linear-gradient(135deg,#38bdf8,#4ade80)}
-    .song:nth-child(3) .thumb{background:linear-gradient(135deg,#facc15,#fb7185)}
-    .song:nth-child(4) .thumb{background:linear-gradient(135deg,#a78bfa,#22d3ee)}
-
-    .song-title strong{
-      display:block;
-      font-size:14.5px;
-    }
-
-    .song-title span{
-      display:block;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:3px;
-    }
-
-    .time{
-      color:rgba(255,255,255,.56);
-      font-size:13px;
-      font-weight:800;
-    }
-
-    .like{
-      color:rgba(255,255,255,.65);
-    }
-
-    .rightbar{
-      display:grid;
-      gap:18px;
-      align-content:start;
-    }
-
-    .now{
-      border-radius:34px;
-      padding:22px;
-      position:sticky;
-      top:18px;
-    }
-
-    .now-art{
-      height:230px;
-      border-radius:28px;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(255,255,255,.28), transparent 24%),
-        linear-gradient(135deg,#ef3f4f,#7c2d12);
-      margin-bottom:18px;
-      box-shadow:0 20px 60px rgba(239,63,79,.24);
-    }
-
-    .now h3{
-      margin:0;
-      font-size:26px;
-    }
-
-    .now p{
-      margin:5px 0 20px;
-      color:var(--muted);
+      font-size:12.5px;
       font-weight:700;
     }
 
-    .bar{
-      height:6px;
-      border-radius:999px;
-      background:rgba(255,255,255,.14);
-      overflow:hidden;
-      margin-bottom:18px;
-    }
-
-    .bar span{
-      display:block;
-      height:100%;
-      width:48%;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--red),var(--pink));
-    }
-
-    .now-controls{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      margin-bottom:20px;
-    }
-
-    .round{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .round.big{
-      width:58px;
-      height:58px;
-      background:linear-gradient(135deg,var(--red),var(--pink));
-      box-shadow:0 14px 36px rgba(239,63,79,.30);
-    }
-
-    .lyrics{
-      max-height:220px;
-      overflow:hidden;
-      color:rgba(255,255,255,.42);
-      line-height:1.65;
-      font-size:14px;
-      font-weight:700;
-    }
-
-    .lyrics b{
-      color:white;
-    }
-
-    @media(max-width:1180px){
-      .app-shell{
-        grid-template-columns:92px 1fr;
-      }
-
-      .sidebar{
-        align-items:center;
-        padding:22px 12px;
-      }
-
-      .logo-text,.nav-label,.nav-item small,.create-btn{
-        display:none;
-      }
-
-      .nav-item{
-        width:52px;
-        justify-content:center;
-        padding:0;
-      }
-
-      .rightbar{
-        grid-column:1 / -1;
-      }
-
-      .now{
-        position:relative;
-        top:auto;
-      }
-    }
-
-    @media(max-width:850px){
-      .app-shell{
-        width:min(94vw,760px);
+    @media(max-width:980px){
+      .page{
         grid-template-columns:1fr;
       }
 
       .sidebar{
+        height:auto;
         position:relative;
         top:auto;
-        height:auto;
-        flex-direction:row;
-        overflow:auto;
-        border-radius:24px;
       }
 
-      .logo,.nav-group{
-        display:flex;
+      .nav{
+        grid-template-columns:repeat(3,1fr);
       }
 
-      .nav-item{
-        width:auto;
-        min-width:48px;
+      .nav-label{
+        grid-column:1 / -1;
       }
 
       .hero{
         grid-template-columns:1fr;
-        padding:26px;
       }
 
-      .player-card{
-        transform:none;
-      }
-
-      .album-row{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
-
-      .song{
-        grid-template-columns:38px 48px 1fr auto;
-      }
-
-      .like{
-        display:none;
+      .content-grid{
+        grid-template-columns:1fr;
       }
     }
 
-    @media(max-width:520px){
-      .topbar{
-        height:auto;
-        flex-wrap:wrap;
+    @media(max-width:560px){
+      .page{
+        width:min(92vw,520px);
+        padding-top:18px;
+      }
+
+      .top{
+        flex-direction:column;
+        align-items:stretch;
       }
 
       .search{
-        flex-basis:100%;
+        max-width:none;
       }
 
-      .album-row{
-        grid-template-columns:1fr;
+      .hero{
+        padding:28px 22px;
       }
 
-      .song{
-        grid-template-columns:44px 1fr auto;
-      }
-
-      .thumb{
-        display:none;
+      .nav{
+        grid-template-columns:1fr 1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="app-shell">
+  <main class="page">
     <aside class="sidebar glass">
-      <div class="logo">
-        <div class="logo-mark">♪</div>
-        <div class="logo-text">
+      <div class="brand">
+        <div class="brand-icon">♪</div>
+        <div>
           <strong>SayBon Music</strong>
           <span>French in rhythm</span>
         </div>
       </div>
 
-      <div class="nav-group">
+      <nav class="nav">
         <div class="nav-label">Menu</div>
-        <a class="nav-item active" href="#"><span>⌂</span><small>Home</small></a>
-        <a class="nav-item" href="#"><span>◎</span><small>Discover</small></a>
-        <a class="nav-item" href="#"><span>↗</span><small>Trending</small></a>
-        <a class="nav-item" href="#"><span>▣</span><small>Albums</small></a>
-        <a class="nav-item" href="#"><span>✦</span><small>Artists</small></a>
-      </div>
+        <a class="active" href="#">⌂ Home</a>
+        <a href="#">◎ Discover</a>
+        <a href="#">▣ Albums</a>
 
-      <div class="nav-group">
         <div class="nav-label">Library</div>
-        <a class="nav-item" href="#"><span>◷</span><small>Recently Added</small></a>
-        <a class="nav-item" href="#"><span>♡</span><small>Favorites</small></a>
-        <a class="nav-item" href="#"><span>≋</span><small>Playlists</small></a>
-      </div>
-
-      <button class="create-btn">+ Create Playlist</button>
+        <a href="#">♡ Favorites</a>
+        <a href="#">◷ Recent</a>
+        <a href="#">≋ Playlists</a>
+      </nav>
     </aside>
 
-    <main class="main">
-      <header class="topbar glass">
-        <div class="search">⌕ Search for a song, artist, lesson or mood...</div>
-        <button class="icon-btn">⚙</button>
-        <button class="icon-btn">🔔</button>
-        <button class="icon-btn">👤</button>
+    <section class="main">
+      <header class="top">
+        <div class="search">⌕ Search songs, lessons, artists or moods...</div>
+        <div class="top-actions">
+          <div class="icon">⚙</div>
+          <div class="icon">👤</div>
+        </div>
       </header>
 
-      <section class="hero">
+      <section class="hero glass">
         <div class="hero-copy">
           <div class="kicker">SayBon Studio</div>
-          <h1>Learn French through music that feels alive.</h1>
+          <h1>Learn French through music.</h1>
           <p>
-            A premium streaming space for SayBon songs, pronunciation tracks, learning albums,
-            worship translations, vocabulary grooves, and immersive French listening.
+            A calm streaming space for French songs, listening practice, vocabulary grooves,
+            pronunciation tracks, and SayBon originals.
           </p>
 
-          <div class="hero-actions">
-            <a class="primary" href="#">Start Listening</a>
-            <a class="secondary" href="#">Explore Albums</a>
+          <div class="actions">
+            <a class="btn primary" href="#">Start Listening</a>
+            <a class="btn secondary" href="#">Explore Albums</a>
           </div>
         </div>
 
-        <div class="player-card">
-          <div class="note-box">♪</div>
-          <div class="mini-progress"><span></span></div>
-          <div class="controls">
-            <div class="control">‹</div>
-            <div class="control play">Ⅱ</div>
-            <div class="control">›</div>
-          </div>
-        </div>
-      </section>
+        <div class="music-card">
+          <div class="music-art">♪</div>
 
-      <section class="section glass">
-        <div class="section-head">
-          <h2>Recently listened albums</h2>
-          <a href="#">See all</a>
-        </div>
-
-        <div class="album-row">
-          <article class="album">
-            <div class="album-art"></div>
-            <strong>Bonjour Beats</strong>
-            <span>A1 vocabulary songs</span>
-          </article>
-
-          <article class="album">
-            <div class="album-art"></div>
-            <strong>DELF Listening Lounge</strong>
-            <span>Exam-style audio practice</span>
-          </article>
-
-          <article class="album">
-            <div class="album-art"></div>
-            <strong>French Worship Sessions</strong>
-            <span>Gospel translations</span>
-          </article>
-
-          <article class="album">
-            <div class="album-art"></div>
-            <strong>Speak With Rhythm</strong>
-            <span>Pronunciation drills</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="section glass">
-        <div class="section-head">
-          <h2>Trending right now</h2>
-          <a href="#">See all</a>
-        </div>
-
-        <div class="song-list">
-          <div class="song">
-            <div class="song-no">01</div>
-            <div class="thumb"></div>
-            <div class="song-title">
-              <strong>Je me présente</strong>
-              <span>SayBon Kids Studio</span>
-            </div>
-            <div class="time">03:56</div>
-            <div class="like">♡</div>
+          <div class="track-title">
+            <strong>Bonjour Soleil</strong>
+            <span>SayBon Originals</span>
           </div>
 
-          <div class="song">
-            <div class="song-no">02</div>
-            <div class="thumb"></div>
-            <div class="song-title">
-              <strong>Les jours de la semaine</strong>
-              <span>A0 Listening Track</span>
-            </div>
-            <div class="time">02:48</div>
-            <div class="like">♡</div>
-          </div>
+          <div class="progress"><span></span></div>
 
-          <div class="song">
-            <div class="song-no">03</div>
-            <div class="thumb"></div>
-            <div class="song-title">
-              <strong>Parle avec confiance</strong>
-              <span>Speaking Booster</span>
-            </div>
-            <div class="time">04:12</div>
-            <div class="like">♡</div>
-          </div>
-
-          <div class="song">
-            <div class="song-no">04</div>
-            <div class="thumb"></div>
-            <div class="song-title">
-              <strong>Ma journée en français</strong>
-              <span>A1 Daily Routine</span>
-            </div>
-            <div class="time">03:37</div>
-            <div class="like">♡</div>
+          <div class="player-controls">
+            <div class="circle">‹</div>
+            <div class="circle big">Ⅱ</div>
+            <div class="circle">›</div>
           </div>
         </div>
       </section>
-    </main>
 
-    <aside class="rightbar">
-      <section class="now glass">
-        <div class="section-head">
-          <h2>Now played</h2>
+      <section class="content-grid">
+        <div class="section glass">
+          <div class="section-head">
+            <h2>Trending Tracks</h2>
+            <a href="#">See all</a>
+          </div>
+
+          <div class="songs">
+            <div class="song">
+              <div class="num">01</div>
+              <div>
+                <strong>Je me présente</strong>
+                <span>A0 speaking warm-up</span>
+              </div>
+              <div class="time">03:56</div>
+            </div>
+
+            <div class="song">
+              <div class="num">02</div>
+              <div>
+                <strong>Les jours de la semaine</strong>
+                <span>Vocabulary song</span>
+              </div>
+              <div class="time">02:48</div>
+            </div>
+
+            <div class="song">
+              <div class="num">03</div>
+              <div>
+                <strong>Parle avec confiance</strong>
+                <span>Pronunciation booster</span>
+              </div>
+              <div class="time">04:12</div>
+            </div>
+          </div>
         </div>
 
-        <div class="now-art"></div>
+        <div class="section glass">
+          <div class="section-head">
+            <h2>Learning Albums</h2>
+            <a href="#">See all</a>
+          </div>
 
-        <h3>Bonjour Soleil</h3>
-        <p>SayBon Originals</p>
+          <div class="album-list">
+            <div class="album">
+              <div class="album-thumb">A0</div>
+              <div>
+                <strong>Bonjour Basics</strong>
+                <span>First French words</span>
+              </div>
+            </div>
 
-        <div class="bar"><span></span></div>
+            <div class="album">
+              <div class="album-thumb">A1</div>
+              <div>
+                <strong>Daily French Rhythm</strong>
+                <span>Everyday phrases</span>
+              </div>
+            </div>
 
-        <div class="now-controls">
-          <div class="round">↺</div>
-          <div class="round">‹</div>
-          <div class="round big">Ⅱ</div>
-          <div class="round">›</div>
-          <div class="round">♡</div>
-        </div>
-
-        <div class="lyrics">
-          écoute, répète, respire doucement<br>
-          les mots deviennent musique<br>
-          <b>bonjour, bonsoir, je suis ici</b><br>
-          SayBon te guide pas à pas<br>
-          every rhythm becomes a lesson
+            <div class="album">
+              <div class="album-thumb">🎧</div>
+              <div>
+                <strong>DELF Listening Lounge</strong>
+                <span>Exam-style audio</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </aside>
-  </div>
+    </section>
+  </main>
 </body>
 </html>
