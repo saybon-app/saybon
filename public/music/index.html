@@ -14,18 +14,17 @@
     }
 
     :root {
-      --cream: #fffaf3;
-      --ink: #182326;
-      --muted: rgba(24, 35, 38, 0.62);
-      --glass: rgba(255, 255, 255, 0.42);
-      --glass-strong: rgba(255, 255, 255, 0.58);
-      --line: rgba(255, 255, 255, 0.62);
+      --ink: #ffffff;
+      --muted: rgba(255,255,255,.72);
+      --soft: rgba(255,255,255,.55);
+      --glass: rgba(12, 16, 22, .46);
+      --glass-strong: rgba(12, 16, 22, .58);
+      --line: rgba(255,255,255,.14);
       --teal: #3A837D;
-      --soft-teal: #95C2BD;
-      --coral: #DDA280;
-      --rose: #DE5969;
-      --sand: #D6B9A4;
-      --shadow: 0 28px 90px rgba(36, 42, 48, 0.22);
+      --gold: #DDA280;
+      --cream: #FFF2D8;
+      --coral: #DE5969;
+      --shadow: 0 34px 100px rgba(0,0,0,.42);
     }
 
     html,
@@ -41,7 +40,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       background:
-        linear-gradient(rgba(255, 250, 243, 0.48), rgba(255, 250, 243, 0.68)),
+        linear-gradient(rgba(4,7,12,.78), rgba(4,7,12,.88)),
         url("/assets/images/music-icon.png");
       background-size: cover;
       background-position: center;
@@ -55,144 +54,131 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.45), transparent 24%),
-        radial-gradient(circle at 74% 82%, rgba(255, 255, 255, 0.35), transparent 28%),
-        rgba(255, 250, 243, 0.18);
-      backdrop-filter: blur(16px) saturate(118%);
+        radial-gradient(circle at 22% 24%, rgba(221,162,128,.18), transparent 28%),
+        radial-gradient(circle at 76% 78%, rgba(58,131,125,.22), transparent 30%),
+        rgba(0,0,0,.18);
+      backdrop-filter: blur(12px) saturate(118%);
     }
 
     .page {
       position: relative;
       z-index: 1;
-      min-height: 100vh;
       width: 100%;
-      padding: 28px clamp(18px, 4vw, 58px) 42px;
+      min-height: 100vh;
+      padding: 28px clamp(18px, 4vw, 58px) 44px;
       display: grid;
       grid-template-rows: auto auto 1fr;
       gap: 24px;
     }
 
     .top-icons {
-      width: 100%;
       display: flex;
-      justify-content: flex-start;
       align-items: center;
       gap: 14px;
     }
 
     .top-icon {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.68);
-      background: rgba(255,255,255,0.42);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 14px 32px rgba(25, 35, 40, 0.12);
-      color: var(--ink);
       display: grid;
       place-items: center;
-      font-size: 20px;
       text-decoration: none;
+      color: white;
+      font-size: 20px;
       font-weight: 900;
-      transition: 0.22s ease;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 16px 36px rgba(0,0,0,.22);
+      transition: .22s ease;
     }
 
     .top-icon:hover {
       transform: translateY(-3px);
-      background: rgba(255,255,255,0.62);
+      background: rgba(255,255,255,.12);
     }
 
-    .hero-heading {
+    .heading {
       text-align: center;
-      max-width: 880px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .hero-heading h1 {
+    .heading h1 {
       margin: 0;
-      font-size: clamp(48px, 7vw, 92px);
-      line-height: 0.95;
-      letter-spacing: -0.07em;
+      font-size: clamp(52px, 7vw, 96px);
+      line-height: .92;
+      letter-spacing: -.075em;
       font-weight: 900;
-      color: #172326;
-      text-shadow: 0 16px 42px rgba(255, 255, 255, 0.75);
+      color: #fff;
+      text-shadow: 0 20px 55px rgba(0,0,0,.45);
     }
 
-    .hero-heading p {
+    .heading p {
       margin: 18px auto 0;
-      max-width: 650px;
-      color: rgba(24, 35, 38, 0.68);
-      font-size: clamp(14px, 1.6vw, 17px);
-      line-height: 1.65;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.5vw, 17px);
+      line-height: 1.7;
       font-weight: 500;
-      letter-spacing: 0.01em;
     }
 
     .stage {
-      width: min(100%, 1180px);
+      width: min(100%, 1220px);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: clamp(28px, 5vw, 74px);
+      grid-template-columns: 360px 1fr;
+      gap: clamp(30px, 5vw, 78px);
       align-items: center;
-      padding-top: 8px;
+    }
+
+    .invisible-card {
+      background: linear-gradient(145deg, rgba(12,16,22,.50), rgba(12,16,22,.34));
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(24px) saturate(120%);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.08);
     }
 
     .player {
       width: 100%;
-      max-width: 340px;
+      max-width: 360px;
       justify-self: start;
       border-radius: 42px;
       padding: 24px 22px 28px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.55), rgba(255,255,255,0.24));
-      border: 1px solid rgba(255,255,255,0.72);
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.7);
-      backdrop-filter: blur(24px) saturate(120%);
       cursor: pointer;
-      transition: 0.45s cubic-bezier(.2,.8,.2,1);
       position: relative;
       overflow: hidden;
-    }
-
-    .player::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border-radius: 32px;
-      border: 1px solid rgba(255,255,255,0.42);
-      pointer-events: none;
+      transition: .45s cubic-bezier(.2,.8,.2,1);
     }
 
     .player:hover {
-      transform: translateY(-6px) scale(1.01);
+      transform: translateY(-7px) scale(1.01);
     }
 
     .player-screen {
       width: 100%;
-      aspect-ratio: 1 / 0.92;
+      aspect-ratio: 1 / .92;
       border-radius: 30px;
-      background:
-        radial-gradient(circle at 68% 24%, rgba(255,255,255,0.58), transparent 26%),
-        linear-gradient(135deg, rgba(149,194,189,0.62), rgba(221,162,128,0.46));
-      border: 1px solid rgba(255,255,255,0.62);
       display: grid;
       place-items: center;
-      font-size: 82px;
-      color: rgba(24,35,38,0.76);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+      font-size: 88px;
+      color: rgba(255,255,255,.9);
+      background:
+        radial-gradient(circle at 68% 24%, rgba(255,255,255,.18), transparent 26%),
+        linear-gradient(135deg, rgba(58,131,125,.62), rgba(221,162,128,.38));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
     }
 
     .player-info {
       margin-top: 22px;
-      position: relative;
-      z-index: 2;
     }
 
     .player-info strong {
       display: block;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 900;
-      letter-spacing: -0.02em;
     }
 
     .player-info span {
@@ -204,13 +190,12 @@
     }
 
     .player-controls {
+      margin: 22px 0 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 22px 0 18px;
       font-size: 21px;
-      position: relative;
-      z-index: 2;
+      color: rgba(255,255,255,.84);
     }
 
     .player-play {
@@ -219,10 +204,9 @@
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: rgba(255,255,255,0.82);
-      color: var(--ink);
-      box-shadow: 0 14px 34px rgba(24, 35, 38, 0.18);
-      font-size: 22px;
+      background: rgba(255,255,255,.88);
+      color: #10161a;
+      box-shadow: 0 16px 40px rgba(255,255,255,.12);
     }
 
     .progress {
@@ -230,18 +214,16 @@
       grid-template-columns: 46px 1fr 46px;
       align-items: center;
       gap: 10px;
-      color: rgba(24,35,38,0.58);
+      color: rgba(255,255,255,.58);
       font-size: 12px;
       font-weight: 800;
-      position: relative;
-      z-index: 2;
     }
 
     .bar {
       height: 5px;
       border-radius: 999px;
+      background: rgba(255,255,255,.18);
       overflow: hidden;
-      background: rgba(24,35,38,0.14);
     }
 
     .bar span {
@@ -249,67 +231,65 @@
       width: 56%;
       height: 100%;
       border-radius: 999px;
-      background: linear-gradient(90deg, var(--teal), var(--coral));
+      background: linear-gradient(90deg, var(--teal), var(--gold));
     }
 
-    .playlists-wrap {
-      min-width: 0;
+    .playlist-panel {
+      border-radius: 38px;
+      padding: clamp(24px, 3vw, 36px);
     }
 
     .playlist-title {
+      margin: 0 0 24px;
+      color: rgba(255,255,255,.84);
       font-size: 18px;
       font-weight: 900;
-      color: rgba(24,35,38,0.74);
-      margin: 0 0 22px;
-      text-align: left;
     }
 
     .playlist-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(120px, 1fr));
-      gap: clamp(18px, 2.4vw, 28px);
-      align-items: center;
+      gap: clamp(18px, 2.5vw, 30px);
     }
 
     .folder-card {
-      min-height: 148px;
+      min-height: 150px;
       display: grid;
       place-items: center;
       gap: 10px;
       text-decoration: none;
-      color: var(--ink);
-      animation: folderFloat 4.5s ease-in-out infinite;
+      color: white;
+      animation: folderFloat 4.6s ease-in-out infinite;
       animation-delay: var(--delay);
     }
 
     @keyframes folderFloat {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-9px); }
+      50% { transform: translateY(-8px); }
     }
 
     .folder-3d {
-      width: 116px;
-      height: 86px;
+      width: 122px;
+      height: 90px;
       position: relative;
-      transform-style: preserve-3d;
-      filter: drop-shadow(0 18px 20px rgba(24,35,38,0.18));
-      transition: 0.25s ease;
+      filter: drop-shadow(0 22px 24px rgba(0,0,0,.28));
+      transition: .25s ease;
     }
 
     .folder-card:hover .folder-3d {
       transform: translateY(-5px) rotateX(8deg) rotateY(-8deg);
-      filter: drop-shadow(0 24px 26px rgba(24,35,38,0.22));
+      filter: drop-shadow(0 28px 30px rgba(0,0,0,.34));
     }
 
     .folder-tab {
       position: absolute;
       left: 10px;
       top: 0;
-      width: 52px;
-      height: 22px;
+      width: 54px;
+      height: 23px;
       border-radius: 13px 13px 4px 4px;
       background: linear-gradient(145deg, var(--f1), var(--f2));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
     }
 
     .folder-body {
@@ -317,25 +297,25 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 72px;
-      border-radius: 18px 22px 22px 22px;
+      height: 75px;
+      border-radius: 18px 24px 24px 24px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,0.25), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.22), transparent 34%),
         linear-gradient(145deg, var(--f1), var(--f2));
-      border: 1px solid rgba(255,255,255,0.36);
+      border: 1px solid rgba(255,255,255,.28);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.55),
-        inset 0 -12px 24px rgba(0,0,0,0.12);
+        inset 0 1px 0 rgba(255,255,255,.42),
+        inset 0 -14px 24px rgba(0,0,0,.18);
     }
 
     .folder-shine {
       position: absolute;
       left: 16px;
-      top: 34px;
-      width: 52px;
+      top: 36px;
+      width: 54px;
       height: 16px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,.20);
       filter: blur(1px);
     }
 
@@ -343,8 +323,7 @@
       font-size: 15px;
       font-weight: 900;
       text-align: center;
-      color: rgba(24,35,38,0.82);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+      text-shadow: 0 8px 20px rgba(0,0,0,.35);
     }
 
     .jazz { --f1:#CBA37E; --f2:#6F9576; --delay:0s; }
@@ -357,62 +336,17 @@
     .gospel { --f1:#D6B9A4; --f2:#95C2BD; --delay:1.26s; }
 
     .lyric-note {
-      margin-top: 24px;
-      padding: 14px 18px;
+      margin-top: 28px;
       width: max-content;
       max-width: 100%;
+      padding: 14px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.42);
-      border: 1px solid rgba(255,255,255,0.66);
-      backdrop-filter: blur(14px);
-      color: rgba(24,35,38,0.68);
+      color: rgba(255,255,255,.76);
       font-size: 13px;
       font-weight: 800;
-    }
-
-    .player.expanded {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      width: 100vw;
-      max-width: none;
-      height: 100vh;
-      border-radius: 0;
-      padding: clamp(22px, 4vw, 58px);
-      display: grid;
-      grid-template-columns: minmax(280px, 520px) 1fr;
-      align-items: center;
-      gap: clamp(28px, 6vw, 80px);
-      background:
-        linear-gradient(rgba(255,250,243,0.55),rgba(255,250,243,0.78)),
-        url("/assets/images/music-icon.png");
-      background-size: cover;
-      background-position: center;
-      backdrop-filter: blur(24px) saturate(120%);
-      cursor: default;
-      overflow: auto;
-    }
-
-    .player.expanded::after {
-      content: "Lyric videos will play here";
-      align-self: center;
-      justify-self: start;
-      max-width: 620px;
-      color: rgba(24,35,38,0.72);
-      font-size: clamp(34px, 5vw, 72px);
-      line-height: 1;
-      letter-spacing: -0.06em;
-      font-weight: 900;
-    }
-
-    .player.expanded .player-screen {
-      max-width: 520px;
-      justify-self: center;
-      font-size: 120px;
-    }
-
-    .player.expanded .player-info strong {
-      font-size: 28px;
+      background: rgba(12,16,22,.40);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(18px);
     }
 
     .close-player {
@@ -425,17 +359,55 @@
       height: 54px;
       border: 0;
       border-radius: 50%;
-      background: rgba(255,255,255,0.72);
-      color: var(--ink);
+      background: rgba(255,255,255,.84);
+      color: #10161a;
       font-size: 28px;
       font-weight: 900;
-      box-shadow: 0 14px 36px rgba(24,35,38,0.18);
+      box-shadow: 0 14px 36px rgba(0,0,0,.22);
       cursor: pointer;
+    }
+
+    .player.expanded {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      border-radius: 0;
+      padding: clamp(24px, 5vw, 64px);
+      display: grid;
+      grid-template-columns: minmax(280px, 520px) 1fr;
+      align-items: center;
+      gap: clamp(30px, 6vw, 90px);
+      background:
+        linear-gradient(rgba(4,7,12,.80), rgba(4,7,12,.90)),
+        url("/assets/images/music-icon.png");
+      background-size: cover;
+      background-position: center;
+      cursor: default;
+      overflow: auto;
     }
 
     .player.expanded .close-player {
       display: grid;
       place-items: center;
+    }
+
+    .player.expanded .player-screen {
+      max-width: 520px;
+      font-size: 120px;
+    }
+
+    .player.expanded::after {
+      content: "Lyric videos will play here";
+      max-width: 620px;
+      color: rgba(255,255,255,.86);
+      font-size: clamp(36px, 5.5vw, 76px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      text-shadow: 0 18px 45px rgba(0,0,0,.42);
     }
 
     @media (max-width: 920px) {
@@ -449,7 +421,7 @@
         order: 2;
       }
 
-      .playlists-wrap {
+      .playlist-panel {
         order: 1;
       }
 
@@ -471,7 +443,6 @@
       }
 
       .player.expanded::after {
-        justify-self: center;
         text-align: center;
       }
     }
@@ -485,7 +456,7 @@
         justify-content: center;
       }
 
-      .hero-heading h1 {
+      .heading h1 {
         font-size: 46px;
       }
 
@@ -494,9 +465,13 @@
         border-radius: 32px;
       }
 
+      .playlist-panel {
+        padding: 22px 14px;
+      }
+
       .playlist-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 18px;
       }
 
       .folder-card {
@@ -521,7 +496,7 @@
       <a class="top-icon" href="javascript:history.back()" title="Back">‹</a>
     </nav>
 
-    <header class="hero-heading">
+    <header class="heading">
       <h1>SayBon Music</h1>
       <p>
         French lyric videos arranged by genre, mood, rhythm and learning purpose.
@@ -530,7 +505,7 @@
     </header>
 
     <section class="stage">
-      <aside class="player" id="musicPlayer" aria-label="SayBon music player">
+      <aside class="player invisible-card" id="musicPlayer" aria-label="SayBon music player">
         <button class="close-player" id="closePlayer" type="button" aria-label="Close expanded player">×</button>
 
         <div class="player-screen">♪</div>
@@ -555,7 +530,7 @@
         </div>
       </aside>
 
-      <section class="playlists-wrap">
+      <section class="playlist-panel invisible-card">
         <div class="playlist-title">Choose a lyric-video playlist</div>
 
         <section class="playlist-grid">
