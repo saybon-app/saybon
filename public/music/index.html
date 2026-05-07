@@ -385,21 +385,31 @@
     }
 
     .engraving {
-      position: absolute;
-      z-index: 5;
-      inset: 34px 42px 24px;
-      display: grid;
-      place-items: center;
-      font-size: 58px;
-      color: transparent;
-      text-shadow:
-        0 2px 2px rgba(255, 217, 112, 0.28),
-        0 -2px 3px rgba(58, 31, 0, 0.72),
-        2px 3px 6px rgba(45, 24, 0, 0.78),
-        -1px -1px 1px rgba(255, 228, 134, 0.22);
-      filter: contrast(1.1);
-      transform: translateY(2px);
-    }
+  position: absolute;
+  inset: 42px 60px 36px;
+  display: grid;
+  place-items: center;
+  font-size: 38px;
+
+  /* REMOVE FLAT LOOK */
+  color: transparent;
+
+  /* DEEP CARVE EFFECT */
+  text-shadow:
+    /* top highlight (light hitting edge) */
+    0 -1px 0 rgba(255, 225, 140, 0.25),
+
+    /* main carved depth */
+    0 3px 6px rgba(20, 10, 0, 0.85),
+
+    /* deeper inner shadow */
+    0 6px 10px rgba(0, 0, 0, 0.9),
+
+    /* subtle edge softness */
+    0 0 4px rgba(0,0,0,0.4);
+
+  transform: translateY(2px);
+}
 
     .engraving span {
       color: rgba(63, 36, 3, 0.50);
@@ -410,15 +420,23 @@
     }
 
     .deep-cut {
-      position: absolute;
-      z-index: 4;
-      inset: 42px 54px 32px;
-      border-radius: 40%;
-      background:
-        radial-gradient(circle, rgba(56, 31, 3, 0.28), rgba(255, 223, 120, 0.06) 42%, transparent 66%);
-      filter: blur(5px);
-      opacity: 0.9;
-    }
+  position: absolute;
+  inset: 50px 70px 42px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,0,0,0.7) 0%,
+      rgba(0,0,0,0.5) 30%,
+      rgba(255,210,120,0.05) 55%,
+      transparent 75%
+    );
+
+  filter: blur(6px);
+  opacity: 0.95;
+}
 
     .folder-name {
       margin-top: 16px;
@@ -624,9 +642,31 @@
       }
 
       .engraving {
-        inset: 28px 34px 20px;
-        font-size: 46px;
-      }
+  position: absolute;
+  inset: 42px 60px 36px;
+  display: grid;
+  place-items: center;
+  font-size: 38px;
+
+  /* REMOVE FLAT LOOK */
+  color: transparent;
+
+  /* DEEP CARVE EFFECT */
+  text-shadow:
+    /* top highlight (light hitting edge) */
+    0 -1px 0 rgba(255, 225, 140, 0.25),
+
+    /* main carved depth */
+    0 3px 6px rgba(20, 10, 0, 0.85),
+
+    /* deeper inner shadow */
+    0 6px 10px rgba(0, 0, 0, 0.9),
+
+    /* subtle edge softness */
+    0 0 4px rgba(0,0,0,0.4);
+
+  transform: translateY(2px);
+}
     }
 
     @media (max-width: 460px) {
@@ -795,3 +835,4 @@
   </main>
 </body>
 </html>
+

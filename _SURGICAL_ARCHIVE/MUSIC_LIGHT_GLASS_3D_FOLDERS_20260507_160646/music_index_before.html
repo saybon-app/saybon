@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SayBon Music</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{ box-sizing:border-box; }
+
+    :root{
+      --cream:#fff7ef;
+      --white:#ffffff;
+      --muted:rgba(255,255,255,.74);
+      --pink:#ff4f8b;
+      --rose:#b4325b;
+      --gold:#ffd58a;
+      --purple:#8f6bff;
+      --line:rgba(255,255,255,.18);
+      --dark:rgba(4,4,8,.45);
+    }
+
+    html,body{
+      margin:0;
+      width:100%;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:white;
+    }
+
+    body{
+      min-height:100vh;
+      overflow-x:hidden;
+      background:
+        linear-gradient(rgba(10,8,18,.28),rgba(10,8,18,.42)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop stop-color='%23ff914d'/%3E%3Cstop offset='.42' stop-color='%235b257d'/%3E%3Cstop offset='1' stop-color='%230a1018'/%3E%3C/linearGradient%3E%3Cfilter id='blur'%3E%3CfeGaussianBlur stdDeviation='5'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23bg)'/%3E%3Cg opacity='.58' stroke='%23fff0bd' stroke-width='7' fill='none'%3E%3Cpath d='M-40 310 C230 250 450 370 720 305 S1160 240 1640 295'/%3E%3Cpath d='M-40 420 C240 360 480 480 740 410 S1160 350 1640 410'/%3E%3Cpath d='M-40 530 C240 470 480 590 740 520 S1160 465 1640 520'/%3E%3Cpath d='M-40 640 C240 580 480 700 740 630 S1160 575 1640 630'/%3E%3C/g%3E%3Cg fill='%23fff3c8' opacity='.84'%3E%3Ctext x='120' y='305' font-size='150' font-family='serif'%3E𝄞%3C/text%3E%3Ctext x='395' y='490' font-size='120' font-family='serif'%3E♪%3C/text%3E%3Ctext x='710' y='385' font-size='116' font-family='serif'%3E♫%3C/text%3E%3Ctext x='980' y='580' font-size='126' font-family='serif'%3E♪%3C/text%3E%3Ctext x='1240' y='410' font-size='112' font-family='serif'%3E♬%3C/text%3E%3Ctext x='1360' y='720' font-size='138' font-family='serif'%3E♪%3C/text%3E%3C/g%3E%3Cg opacity='.52' filter='url(%23blur)'%3E%3Ccircle cx='170' cy='120' r='34' fill='%23fff3c7'/%3E%3Ccircle cx='260' cy='82' r='25' fill='%23ffd58a'/%3E%3Ccircle cx='1320' cy='150' r='43' fill='%23fff3c7'/%3E%3Ccircle cx='1190' cy='200' r='30' fill='%23ff9f68'/%3E%3Ccircle cx='500' cy='785' r='42' fill='%23fff3c7'/%3E%3Ccircle cx='840' cy='825' r='30' fill='%23ffd58a'/%3E%3Ccircle cx='1460' cy='842' r='38' fill='%23fff3c7'/%3E%3C/g%3E%3C/svg%3E");
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:rgba(0,0,0,.18);
+      backdrop-filter:blur(7px);
+      z-index:0;
+    }
+
+    .page{
+      position:relative;
+      z-index:1;
+      width:100%;
+      min-height:100vh;
+      padding:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .glass-screen{
+      width:min(100%,1220px);
+      min-height:calc(100vh - 68px);
+      border-radius:38px;
+      padding:46px;
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(135deg,rgba(15,18,25,.34),rgba(15,18,25,.18));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 40px 110px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.16);
+      backdrop-filter:blur(22px) saturate(130%);
+    }
+
+    .glass-screen::before{
+      content:"";
+      position:absolute;
+      inset:20px;
+      border-radius:30px;
+      background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.12);
+      pointer-events:none;
+    }
+
+    .nav{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:34px;
+    }
+
+    .brand{
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      opacity:.9;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      opacity:1;
+      transform:translateY(-2px);
+    }
+
+    .layout{
+      position:relative;
+      z-index:2;
+      min-height:560px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 330px;
+      gap:54px;
+      align-items:center;
+    }
+
+    .copy{
+      max-width:680px;
+      align-self:start;
+      padding-top:28px;
+    }
+
+    h1{
+      margin:0;
+      max-width:720px;
+      font-size:clamp(48px,7vw,88px);
+      line-height:1.02;
+      letter-spacing:-.065em;
+      font-weight:900;
+      text-shadow:0 18px 40px rgba(0,0,0,.28);
+    }
+
+    .subtitle{
+      max-width:610px;
+      margin:24px 0 34px;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.65;
+      font-weight:700;
+    }
+
+    .hero-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:44px;
+    }
+
+    .main-play{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:radial-gradient(circle at 35% 30%,#ff87ae,var(--pink));
+      color:white;
+      font-size:30px;
+      box-shadow:0 0 0 13px rgba(255,79,139,.13),0 18px 45px rgba(255,79,139,.36);
+      animation:pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.055)}
+    }
+
+    .action-text strong{
+      display:block;
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .action-text span{
+      display:block;
+      margin-top:3px;
+      color:rgba(255,255,255,.62);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .playlist-title{
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:18px;
+    }
+
+    .playlist-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+      max-width:720px;
+    }
+
+    .playlist{
+      min-height:122px;
+      border-radius:24px;
+      padding:16px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      color:white;
+      text-decoration:none;
+      backdrop-filter:blur(15px);
+      box-shadow:0 18px 44px rgba(0,0,0,.20);
+      transition:.22s ease;
+    }
+
+    .playlist:hover{
+      transform:translateY(-5px);
+      background:rgba(255,255,255,.16);
+    }
+
+    .folder{
+      width:54px;
+      height:45px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      font-size:25px;
+      background:linear-gradient(135deg,var(--c1),var(--c2));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .playlist strong{
+      display:block;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .jazz{--c1:#1d1020;--c2:#8e2441}
+    .pop{--c1:#ff4e8a;--c2:#6d5dfc}
+    .classical{--c1:#31261f;--c2:#d9b77a}
+    .afro{--c1:#123a2e;--c2:#d89235}
+    .latin{--c1:#9d244a;--c2:#ff9d4d}
+    .reggaeton{--c1:#3b1767;--c2:#ff3f7f}
+    .highlife{--c1:#0f4a37;--c2:#ffc05a}
+
+    .ipod{
+      justify-self:end;
+      width:100%;
+      max-width:330px;
+      border-radius:42px;
+      padding:24px 22px 28px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.07));
+      border:1px solid rgba(255,255,255,.20);
+      box-shadow:0 34px 80px rgba(0,0,0,.32);
+      backdrop-filter:blur(20px);
+    }
+
+    .ipod-screen{
+      width:100%;
+      aspect-ratio:1 / 1;
+      border-radius:30px;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 64% 28%,rgba(255,255,255,.30),transparent 24%),
+        linear-gradient(135deg,rgba(255,79,139,.24),rgba(143,107,255,.22),rgba(0,0,0,.26));
+      border:1px solid rgba(255,255,255,.16);
+      font-size:88px;
+      margin-bottom:22px;
+    }
+
+    .ipod-info strong{
+      display:block;
+      font-size:20px;
+      font-weight:900;
+    }
+
+    .ipod-info span{
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.68);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .ipod-controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:24px 0 18px;
+      font-size:22px;
+    }
+
+    .ipod-play{
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:white;
+      color:#111;
+      font-size:24px;
+      box-shadow:0 16px 36px rgba(255,255,255,.16);
+    }
+
+    .ipod-progress{
+      display:grid;
+      grid-template-columns:44px 1fr 44px;
+      gap:10px;
+      align-items:center;
+      color:rgba(255,255,255,.68);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .bar{
+      height:5px;
+      border-radius:999px;
+      background:rgba(255,255,255,.25);
+      overflow:hidden;
+    }
+
+    .bar span{
+      display:block;
+      width:54%;
+      height:100%;
+      background:linear-gradient(90deg,var(--pink),var(--gold));
+      border-radius:999px;
+    }
+
+    @media(max-width:980px){
+      .page{
+        padding:0;
+      }
+
+      .glass-screen{
+        min-height:100vh;
+        border-radius:0;
+        padding:28px 22px 42px;
+      }
+
+      .layout{
+        grid-template-columns:1fr;
+        gap:34px;
+      }
+
+      .copy{
+        padding-top:0;
+      }
+
+      .ipod{
+        justify-self:center;
+        max-width:390px;
+      }
+
+      .playlist-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        max-width:none;
+      }
+    }
+
+    @media(max-width:560px){
+      .nav{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:14px;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:space-between;
+      }
+
+      h1{
+        font-size:43px;
+      }
+
+      .subtitle{
+        font-size:15px;
+      }
+
+      .hero-actions{
+        margin-bottom:30px;
+      }
+
+      .playlist-grid{
+        grid-template-columns:1fr;
+      }
+
+      .playlist{
+        min-height:86px;
+        flex-direction:row;
+        align-items:center;
+        gap:14px;
+      }
+
+      .folder{
+        flex:0 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="glass-screen">
+      <nav class="nav">
+        <div class="brand">SayBon Music</div>
+        <div class="nav-links">
+          <a href="#">FR</a>
+          <a href="#">⌕</a>
+          <a href="#">♙</a>
+          <a href="#">☰</a>
+        </div>
+      </nav>
+
+      <section class="layout">
+        <section class="copy">
+          <h1>Play Your Beloved French Music</h1>
+
+          <p class="subtitle">
+            Selected SayBon playlists across genres, moods, pronunciation, vocabulary,
+            and listening practice. Learn French through rhythm, beauty, and repetition.
+          </p>
+
+          <div class="hero-actions">
+            <div class="main-play">▶</div>
+            <div class="action-text">
+              <strong>Start with SayBon Originals</strong>
+              <span>Music-powered French learning</span>
+            </div>
+          </div>
+
+          <div class="playlist-title">Choose Playlist</div>
+
+          <section class="playlist-grid">
+            <a class="playlist jazz" href="#"><div class="folder">📂</div><strong>Jazz</strong></a>
+            <a class="playlist pop" href="#"><div class="folder">📂</div><strong>Pop</strong></a>
+            <a class="playlist classical" href="#"><div class="folder">📂</div><strong>Classical</strong></a>
+            <a class="playlist afro" href="#"><div class="folder">📂</div><strong>Afrobeats</strong></a>
+            <a class="playlist latin" href="#"><div class="folder">📂</div><strong>Latin</strong></a>
+            <a class="playlist reggaeton" href="#"><div class="folder">📂</div><strong>Reggaeton</strong></a>
+            <a class="playlist highlife" href="#"><div class="folder">📂</div><strong>African Highlife</strong></a>
+          </section>
+        </section>
+
+        <aside class="ipod">
+          <div class="ipod-screen">♪</div>
+
+          <div class="ipod-info">
+            <strong>Bonjour Soleil</strong>
+            <span>SayBon Originals</span>
+          </div>
+
+          <div class="ipod-controls">
+            <span>↺</span>
+            <span>‹</span>
+            <div class="ipod-play">▶</div>
+            <span>›</span>
+            <span>🔊</span>
+          </div>
+
+          <div class="ipod-progress">
+            <span>02:10</span>
+            <div class="bar"><span></span></div>
+            <span>03:45</span>
+          </div>
+        </aside>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

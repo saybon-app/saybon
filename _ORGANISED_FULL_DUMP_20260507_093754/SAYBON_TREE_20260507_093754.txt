@@ -1,9 +1,12 @@
-﻿==========================================
-SAYBON FULL CLEAN TREE
-Generated: 04/21/2026 23:04:11
-==========================================
+==================================================
+SAYBON ORGANISED CLEAN TREE
+Generated: 05/07/2026 09:38:13
+Root: C:\SayBon
+==================================================
 
 .env.example
+.firebaserc
+.gitignore
 [_FORENSICS]
   [backend_cleanup_20260402_072114]
     index.js
@@ -13,9 +16,11 @@ Generated: 04/21/2026 23:04:11
     git-log-before.txt
     git-status-before.txt
     [WORKING_COPY]
+      .firebaserc
       [.github]
         [workflows]
           firebase-hosting.yml
+      .gitignore
       [admin]
         admin.css
         admin.js
@@ -25,11 +30,13 @@ Generated: 04/21/2026 23:04:11
         unlock.html
       ASSISTANT_FILE_LEDGER.md
       [backend]
+        .env
         app.js
         [data]
           jobs.json
         [functions]
           .env.example
+          .gitignore
           index.js
           package.json
           package-lock.json
@@ -41,10 +48,13 @@ Generated: 04/21/2026 23:04:11
           [controllers]
             quoteController.js
           server.js
+        [uploads]
       [backend_backup]
+        .env
         app.js
         [functions]
           .env.example
+          .gitignore
           index.js
           package.json
           package-lock.json
@@ -61,6 +71,7 @@ Generated: 04/21/2026 23:04:11
             phase1Service.js
           [utils]
             phase1Storage.js
+        [uploads]
       BACKEND_TRUTH_CHECK_OUTPUT.txt
       [docs]
         ASSISTANT_FILE_LEDGER.md
@@ -77,12 +88,14 @@ Generated: 04/21/2026 23:04:11
         translation-memory.js
       firebase.json
       firestore.rules
+      firestore.rules.BACKUP-BEFORE-DELF-AI
       index.js
       [LEDGER]
         SayBon_File_Ledger.json
       package.json
       package-lock.json
       [public]
+        .gitignore
         404.html
         [admin]
           admin.css
@@ -94,15 +107,49 @@ Generated: 04/21/2026 23:04:11
           translation-admin.html
         [assets]
           [fonts]
+            playful-font.ttf
           [icons]
+            chat.svg
+            delf.svg
+            feedback.svg
+            games.svg
+            home.svg
+            levels.svg
+            music.svg
+            support.svg
+            translation.svg
           [icons-3d]
+            chat.png
+            delf.png
+            games.png
+            levels.png
+            music.png
+            translation.png
           [images]
+            a1_q8_weather_collage.png
+            delf-prep-teacher.png
+            logo.png
+            teacher.png
+            teacher-holding-logo.png
+            teacher-intervention.png
+            translation-hero.jpg
           [sounds]
+            intro-v2.mp3
             [placement]
+              a0_q1_bonjour.mp3
+              a0_q4_aurevoir.mp3
+              b1_q10_bus.mp3
+              b2_q14_diplomatique.mp3
+              c1_q18_formel.mp3
+              intervention.mp3
+            prim-test-1.mp3
+            prim-test-2.mp3
+            prim-test-3.mp3
         [auth]
           login.css
           login.html
           login.js
+        [cache]
         [chat]
           index.html
         [css]
@@ -140,6 +187,7 @@ Generated: 04/21/2026 23:04:11
             admin.css
             admin.js
             [assets]
+              assets,js
               domains.html
               index.html
               ip.html
@@ -188,6 +236,7 @@ Generated: 04/21/2026 23:04:11
             index.html
           [delf]
             [audio]
+              delf-intro.mp3
             [exams]
               [junior]
                 index.html
@@ -370,6 +419,7 @@ Generated: 04/21/2026 23:04:11
           job-engine.js
           jobs.json
           payment.html
+          payment.js.bak_20260306_012448
           [receipts]
           request.css
           request.html
@@ -417,15 +467,13 @@ Generated: 04/21/2026 23:04:11
       test.txt
       test12.txt
       [tools]
+        append-ledger.ps1
+      [uploads]
   [secret_cleanup_20260402_072628]
     git-log-before.txt
     git-status-before.txt
     secret-hits.txt
-[_FULL_APP_DUMP_20260421_224911]
-  DUMP_SUMMARY.txt
-  FULL_APP_DUMP.txt
-  FULL_TREE.txt
-[_FULL_APP_DUMP_20260421_230410]
+[_ORGANISED_FULL_DUMP_20260507_093754]
 [admin]
   admin.css
   admin.js
@@ -459,12 +507,14 @@ BACKEND_TRUTH_CHECK_OUTPUT.txt
   translation-engine.js
   translation-memory.js
 firebase.json
+firestore.rules.BACKUP-BEFORE-DELF-AI
 index.js
 [LEDGER]
   SayBon_File_Ledger.json
 package.json
 package-lock.BACKUP.json
 [public]
+  .gitignore
   404.html
   [admin]
     [access-denied]
@@ -488,11 +538,44 @@ package-lock.BACKUP.json
     unlock.html
   [assets]
     [fonts]
+      playful-font.ttf
     [icons]
+      chat.svg
+      delf.svg
+      feedback.svg
+      games.svg
+      home.svg
+      levels.svg
+      music.svg
+      support.svg
+      translation.svg
     [icons-3d]
+      chat.png
+      delf.png
+      games.png
+      levels.png
+      music.png
+      translation.png
     [images]
+      a1_q8_weather_collage.png
+      delf-prep-teacher.png
+      logo.png
+      teacher.png
+      teacher-holding-logo.png
+      teacher-intervention.png
+      translation-hero.jpg
     [sounds]
+      intro-v2.mp3
       [placement]
+        a0_q1_bonjour.mp3
+        a0_q4_aurevoir.mp3
+        b1_q10_bus.mp3
+        b2_q14_diplomatique.mp3
+        c1_q18_formel.mp3
+        intervention.mp3
+      prim-placement-q2.mp3
+      prim-placement-q6.mp3
+      prim-placement-q9.mp3
   [auth]
     login.css
     login.html
@@ -534,6 +617,7 @@ package-lock.BACKUP.json
       admin.css
       admin.js
       [assets]
+        assets,js
         domains.html
         index.html
         ip.html
@@ -583,6 +667,7 @@ package-lock.BACKUP.json
       index.html
     [delf]
       [audio]
+        delf-intro.mp3
       [data]
         prim-placement.json
       debug.html
@@ -600,14 +685,18 @@ package-lock.BACKUP.json
           lessons.html
           pay.html
       index.html
+      info.html
       [levels]
+      levels.html
         index.html
+      payment.html
       [payments]
         access.js
         paystack.js
         pricing.js
       result.html
       start-test.html
+      success.html
       test.html
       test-engine.BACKUP.before-direct-bucket-fix.html
       test-engine.BACKUP.before-storage-debug.html
@@ -683,6 +772,7 @@ package-lock.BACKUP.json
     intro-audio.js
     jobQueue.js
     lazy-assets.js
+    login-button-safety.js
     nav-engine.js
     navigatin.js
     prefetch.js
@@ -699,24 +789,37 @@ package-lock.BACKUP.json
       [les-petits]
         index.html
         lesson-1.html
+        upgrade.html
+      lesson1.html
       [tout-public]
         index.html
         lesson-1.html
+        upgrade.html
     [A1]
       index.html
+      lesson1.html
       lesson-1.html
+      upgrade.html
     [A2]
       index.html
+      lesson1.html
       lesson-1.html
+      upgrade.html
     [B1]
       index.html
+      lesson1.html
       lesson-1.html
+      upgrade.html
     [B2]
       index.html
+      lesson1.html
       lesson-1.html
+      upgrade.html
     [C1]
       index.html
+      lesson1.html
       lesson-1.html
+      upgrade.html
     index.html
     levels.css
     levels.js
@@ -737,9 +840,18 @@ package-lock.BACKUP.json
     delf-prim-config.json
     index.html
     placement.css
+    placement.css.bak
+    placement.css.bak_heading_soften
+    placement.css.bak_recording_hint
+    placement.css.bak_recording_hint_realfix
+    placement.css.bak_recording_note
     placement.js
+    placement.js.bak
+    placement.js.bak_recording_hint_realfix
     placement-intro.js
+    result.css
     result.html
+    result.js
     test.html
     test.js
   pricing.html
@@ -770,6 +882,7 @@ package-lock.BACKUP.json
     job-engine.js
     jobs.json
     payment.html
+    payment.js.bak_20260306_012448
     request.css
     request.html
     request.js
@@ -817,3 +930,4 @@ server.MINIMAL-EVAL.js
 test.txt
 test12.txt
 [tools]
+  append-ledger.ps1
