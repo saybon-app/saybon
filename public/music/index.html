@@ -4,61 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SayBon Music — Library</title>
+  <title>SayBon Music</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
 
     :root{
-      --bg:#b8b1c3;
-      --app:#050505;
-      --side:#1c1c1f;
-      --side-active:#343236;
-      --text:#ffffff;
-      --muted:rgba(255,255,255,.68);
-      --purple:#7c4dff;
-      --blue:#2f9cff;
-      --radius:28px;
+      --shell:#e8c0b9;
+      --shell-2:#efcfca;
+      --panel:#ffffff;
+      --ink:#181818;
+      --muted:#776d69;
+      --accent:#e58f86;
+      --soft:#f7f1ef;
+      --line:rgba(0,0,0,.08);
+      --shadow:0 34px 90px rgba(92,58,49,.18);
+    }
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 14% 18%,rgba(255,255,255,.28),transparent 24%),
+        radial-gradient(circle at 86% 22%,rgba(255,255,255,.20),transparent 24%),
+        linear-gradient(135deg,var(--shell),var(--shell-2));
     }
 
     body{
-  margin:0;
-  min-height:100vh;
-  width:100%;
-  font-family:"Nunito",system-ui,sans-serif;
-  color:var(--text);
-  background:#050505;
-  overflow:hidden;
-}
+      min-height:100vh;
+      padding:22px;
+      overflow-x:hidden;
+    }
 
-    .music-app{
-  width:100vw;
-  height:100vh;
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:230px 1fr;
-  border-radius:0;
-  overflow:hidden;
-  background:var(--app);
-  box-shadow:none;
-  position:relative;
-}
-.sidebar{
-  background:var(--side);
-  padding:34px 0 30px;
-  display:flex;
-  flex-direction:column;
-  border-radius:0;
-  overflow:hidden;
-}
+    .music-page{
+      width:min(100%,1240px);
+      min-height:calc(100vh - 44px);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:290px 1fr;
+      border-radius:18px;
+      background:rgba(232,192,185,.74);
+      border:1px solid rgba(255,255,255,.32);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-    .logo{
-      padding:0 22px 34px;
-      font-size:30px;
+    .sidebar{
+      padding:42px 24px 26px;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+      border-right:1px solid rgba(255,255,255,.24);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:0 26px 14px;
+    }
+
+    .brand-mark{
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,#ff9d9d,#ec7f85);
+      color:#111;
       font-weight:900;
-      letter-spacing:-.05em;
+      font-size:22px;
+    }
+
+    .brand strong{
+      font-size:21px;
+      letter-spacing:-.03em;
     }
 
     .nav{
@@ -67,136 +91,162 @@
     }
 
     .nav a{
-      min-height:44px;
+      min-height:48px;
+      display:flex;
+      align-items:center;
+      padding:0 26px;
+      border-radius:999px;
+      color:#221f1e;
+      text-decoration:none;
+      font-size:15px;
+      font-weight:750;
+      transition:.2s ease;
+    }
+
+    .nav a:hover{
+      background:rgba(255,255,255,.38);
+      transform:translateX(3px);
+    }
+
+    .nav a.active{
+      background:#fff;
+      color:#d56d67;
+      box-shadow:0 12px 26px rgba(99,55,49,.10);
+    }
+
+    .nav .plus{
+      margin-left:auto;
+      font-size:22px;
+    }
+
+    .bottom-player-mini{
+      margin-top:auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 8px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+
+    .mini-cover{
+      width:50px;
+      height:50px;
+      border-radius:10px;
+      background:linear-gradient(135deg,#64352e,#f2a287);
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:20px;
+      flex:0 0 auto;
+    }
+
+    .mini-text{
+      min-width:0;
+    }
+
+    .mini-text strong{
+      display:block;
+      font-size:13px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .mini-text span{
+      display:block;
+      color:#6f625e;
+      font-size:12px;
+    }
+
+    .mini-actions{
+      margin-left:auto;
+      font-weight:900;
+      color:#5d514d;
+    }
+
+    .content-wrap{
+      padding:34px 34px 88px;
+      position:relative;
+    }
+
+    .content-card{
+      width:100%;
+      min-height:calc(100vh - 164px);
+      background:var(--panel);
+      border-radius:34px;
+      padding:38px 42px;
+      box-shadow:0 24px 60px rgba(92,58,49,.12);
+      overflow:hidden;
+    }
+
+    .topbar{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+      margin-bottom:24px;
+    }
+
+    .search{
+      height:52px;
+      border-radius:18px;
+      background:#f5f5f5;
       display:flex;
       align-items:center;
       gap:14px;
       padding:0 22px;
-      color:var(--muted);
-      text-decoration:none;
+      color:#9b9491;
       font-size:15px;
-      font-weight:850;
-      transition:.22s ease;
+      font-weight:700;
+      max-width:640px;
     }
 
-    .nav a:hover{
+    .top-icons{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      font-size:22px;
+    }
+
+    .profile{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      background:linear-gradient(135deg,#e58f86,#b95350);
       color:#fff;
-      background:rgba(255,255,255,.06);
-    }
-
-    .nav a.active{
-      background:var(--side-active);
-      color:#fff;
-    }
-
-    .spacer{flex:1}
-
-    .main{
-  padding:42px 54px;
-  overflow:auto;
-  background:#050505;
-}
-
-    .main::-webkit-scrollbar{
-      width:8px;
-    }
-
-    .main::-webkit-scrollbar-thumb{
-      background:rgba(255,255,255,.18);
-      border-radius:999px;
-    }
-
-    .top-title{
-      margin:0 0 28px;
-      font-size:21px;
-      font-weight:900;
-      letter-spacing:-.02em;
-    }
-
-    .hero{
-  height:245px;
-  border-radius:16px;
-  overflow:hidden;
-  position:relative;
-  display:flex;
-  align-items:flex-end;
-  padding:36px;
-  margin-bottom:22px;
-  background:
-    linear-gradient(90deg,rgba(20,26,68,.96),rgba(37,31,86,.76)),
-    radial-gradient(circle at 55% 30%,rgba(124,77,255,.38),transparent 34%),
-    linear-gradient(135deg,#17223f,#302469);
-}
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 20% 25%,rgba(255,255,255,.18),transparent 12%),
-        radial-gradient(circle at 72% 20%,rgba(255,255,255,.13),transparent 12%),
-        linear-gradient(135deg,rgba(255,255,255,.05),transparent);
-      opacity:.9;
-    }
-
-    .hero-copy{
-      position:relative;
-      z-index:2;
-    }
-
-    .hero-kicker{
-      font-size:20px;
-      font-weight:900;
-      margin-bottom:4px;
-    }
-
-    .hero h1{
-      margin:0;
-      font-size:31px;
-      line-height:1;
-      font-weight:900;
-      letter-spacing:-.05em;
-    }
-
-    .play-float{
-      position:absolute;
-      right:26px;
-      bottom:26px;
-      z-index:3;
-      width:62px;
-      height:62px;
-      border-radius:50%;
-      background:var(--purple);
       display:grid;
       place-items:center;
-      font-size:28px;
-      box-shadow:0 18px 38px rgba(124,77,255,.36);
+      font-weight:900;
     }
 
-    .playlist-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-}
+    h1{
+      margin:0 0 20px;
+      font-size:28px;
+      letter-spacing:-.035em;
+    }
 
-    .playlist-card{
-  min-height:155px;
-  border-radius:14px;
-  overflow:hidden;
-  position:relative;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  text-decoration:none;
-  font-size:23px;
-  font-weight:900;
-  text-align:center;
-  isolation:isolate;
-  transition:.24s ease;
-  background:#222;
-}
+    .featured-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:32px;
+      margin-bottom:28px;
+    }
 
-    .playlist-card::before{
+    .feature{
+      min-height:300px;
+      border-radius:28px;
+      overflow:hidden;
+      position:relative;
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      color:#fff;
+      isolation:isolate;
+      background:#222;
+    }
+
+    .feature::before{
       content:"";
       position:absolute;
       inset:0;
@@ -204,91 +254,183 @@
       background:linear-gradient(135deg,var(--c1),var(--c2));
     }
 
-    .playlist-card::after{
+    .feature::after{
       content:"";
       position:absolute;
       inset:0;
       z-index:-1;
       background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.25),transparent 24%),
-        linear-gradient(rgba(0,0,0,.10),rgba(0,0,0,.38));
-      backdrop-filter:blur(.5px);
+        radial-gradient(circle at 24% 18%,rgba(255,255,255,.28),transparent 16%),
+        linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.55));
     }
 
-    .playlist-card:hover{
-      transform:translateY(-5px) scale(1.015);
-      filter:brightness(1.08);
+    .feature.jazz{--c1:#160918;--c2:#61235a;}
+    .feature.highlife{--c1:#884221;--c2:#dfa15f;}
+
+    .feature-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:start;
+      gap:16px;
     }
 
-    .playlist-card span{
-      position:relative;
-      z-index:2;
-      text-shadow:0 8px 20px rgba(0,0,0,.45);
-    }
-
-    .playlist-card small{
-      position:absolute;
-      top:12px;
-      left:12px;
-      font-size:20px;
-      z-index:2;
-      opacity:.92;
-    }
-
-    .jazz{--c1:#1b2735;--c2:#8a5a44}
-    .pop{--c1:#ff4e8a;--c2:#7c4dff}
-    .classical{--c1:#c9b89f;--c2:#483d35}
-    .afrobeats{--c1:#f5a623;--c2:#124e43}
-    .latin{--c1:#e24a3b;--c2:#f6b34b}
-    .reggaeton{--c1:#6a11cb;--c2:#2575fc}
-    .highlife{--c1:#17684f;--c2:#e5a93d}
-    .kids{--c1:#8bd3ff;--c2:#ffb6d9}
-
-    .footer-player{
-  margin-top:24px;
-  height:86px;
-  border-radius:16px;
-  background:#17171a;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:18px;
-  padding:0 24px;
-}
-
-    .now{
+    .artist{
       display:flex;
       align-items:center;
       gap:12px;
     }
 
-    .mini-art{
+    .artist-icon{
       width:46px;
       height:46px;
-      border-radius:9px;
+      border-radius:50%;
+      background:rgba(255,255,255,.20);
       display:grid;
       place-items:center;
-      background:linear-gradient(135deg,#7c4dff,#2f9cff);
-      font-size:22px;
+      font-size:21px;
+      border:1px solid rgba(255,255,255,.22);
     }
 
-    .now strong{
+    .artist strong{
       display:block;
-      font-size:14px;
+      font-size:17px;
     }
 
-    .now span{
+    .artist span{
       display:block;
-      color:var(--muted);
+      font-size:13px;
+      opacity:.78;
+    }
+
+    .duration{
+      min-width:74px;
+      height:34px;
+      padding:0 12px;
+      border-radius:12px;
+      background:#ff7e45;
+      display:grid;
+      place-items:center;
       font-size:12px;
-      margin-top:2px;
+      font-weight:900;
+    }
+
+    .feature-title{
+      font-size:20px;
+      line-height:1.25;
+      font-weight:900;
+      max-width:320px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:12px 0 18px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:28px;
+      letter-spacing:-.035em;
+    }
+
+    .section-title span{
+      color:#7b706c;
+      font-size:26px;
+      font-weight:900;
+    }
+
+    .mood-row{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:16px;
+      align-items:stretch;
+    }
+
+    .mood{
+      min-height:130px;
+      border-radius:18px;
+      padding:14px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      font-size:13px;
+      font-weight:900;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      background:#333;
+    }
+
+    .mood::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background:linear-gradient(135deg,var(--m1),var(--m2));
+    }
+
+    .mood::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.50));
+    }
+
+    .mood:nth-child(1){--m1:#30221f;--m2:#c27a67;}
+    .mood:nth-child(2){--m1:#1e3a43;--m2:#8bb7c6;}
+    .mood:nth-child(3){--m1:#6b5a40;--m2:#ddd0a1;}
+    .mood:nth-child(4){--m1:#342c4f;--m2:#d9a5b4;}
+    .mood:nth-child(5){--m1:#283a37;--m2:#e4a775;}
+    .mood:nth-child(6){--m1:#432728;--m2:#f0b1a4;}
+
+    .bottom-player{
+      position:absolute;
+      left:34px;
+      right:34px;
+      bottom:24px;
+      min-height:74px;
+      display:grid;
+      grid-template-columns:260px 1fr 180px;
+      gap:22px;
+      align-items:center;
+      padding:12px 22px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+
+    .song-id{
+      display:flex;
+      align-items:center;
+      gap:13px;
+      min-width:0;
+    }
+
+    .song-id strong{
+      display:block;
+      font-size:13px;
+    }
+
+    .song-id span{
+      display:block;
+      color:#746864;
+      font-size:12px;
+    }
+
+    .player-center{
+      display:grid;
+      gap:9px;
+      justify-items:center;
     }
 
     .controls{
       display:flex;
       align-items:center;
       gap:18px;
-      color:#fff;
+      font-size:16px;
+      color:#292524;
       font-weight:900;
     }
 
@@ -296,171 +438,290 @@
       width:42px;
       height:42px;
       border-radius:50%;
+      background:#292524;
+      color:#fff;
       display:grid;
       place-items:center;
-      background:#fff;
-      color:#111;
     }
 
-    .wave{
-      justify-self:end;
-      display:flex;
+    .timeline{
+      width:min(100%,520px);
+      display:grid;
+      grid-template-columns:44px 1fr 44px;
       align-items:center;
-      gap:4px;
-      height:36px;
+      gap:10px;
+      color:#6f625e;
+      font-size:11px;
+      font-weight:800;
     }
 
-    .wave i{
-      width:5px;
+    .bar{
+      height:4px;
       border-radius:999px;
-      background:rgba(255,255,255,.26);
-      height:18px;
+      background:#d7c8c4;
+      overflow:hidden;
     }
 
-    .wave i:nth-child(1),.wave i:nth-child(8){height:12px}
-    .wave i:nth-child(2),.wave i:nth-child(9){height:24px;background:#7c4dff}
-    .wave i:nth-child(3),.wave i:nth-child(10){height:33px;background:#7c4dff}
-    .wave i:nth-child(4),.wave i:nth-child(11){height:26px;background:#7c4dff}
-    .wave i:nth-child(5),.wave i:nth-child(12){height:16px}
-    .wave i:nth-child(6),.wave i:nth-child(13){height:28px}
-    .wave i:nth-child(7),.wave i:nth-child(14){height:20px}
+    .bar span{
+      display:block;
+      width:38%;
+      height:100%;
+      background:#292524;
+    }
+
+    .sound-icons{
+      display:flex;
+      justify-content:flex-end;
+      gap:18px;
+      font-size:18px;
+      color:#292524;
+    }
 
     @media(max-width:1050px){
-.music-app{
-  width:100vw;
-  height:100vh;
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:230px 1fr;
-  border-radius:0;
-  overflow:hidden;
-  background:var(--app);
-  box-shadow:none;
-  position:relative;
-}
+      body{padding:12px;}
 
-      .sidebar{
-  background:var(--side);
-  padding:34px 0 30px;
-  display:flex;
-  flex-direction:column;
-  border-radius:0;
-  overflow:hidden;
-}
-
-      .logo{padding:0 0 18px}
-      .nav{
-        grid-template-columns:repeat(3,1fr);
+      .music-page{
+        min-height:calc(100vh - 24px);
+        grid-template-columns:1fr;
       }
 
-      .playlist-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-}
+      .sidebar{
+        flex-direction:row;
+        align-items:center;
+        overflow-x:auto;
+        gap:18px;
+        padding:18px;
+        border-right:0;
+        border-bottom:1px solid rgba(255,255,255,.25);
+      }
+
+      .brand{
+        padding:0;
+        flex:0 0 auto;
+      }
+
+      .nav{
+        display:flex;
+        gap:8px;
+        flex:0 0 auto;
+      }
+
+      .nav a{
+        padding:0 18px;
+        white-space:nowrap;
+      }
+
+      .bottom-player-mini{
+        display:none;
+      }
+
+      .content-wrap{
+        padding:18px 18px 92px;
+      }
+
+      .content-card{
+        padding:28px 24px;
+        min-height:auto;
+      }
+
+      .bottom-player{
+        left:18px;
+        right:18px;
+      }
     }
 
-    @media(max-width:620px){
-      body{
-  margin:0;
-  min-height:100vh;
-  width:100%;
-  font-family:"Nunito",system-ui,sans-serif;
-  color:var(--text);
-  background:#050505;
-  overflow:hidden;
-}
-      .main{
-  padding:42px 54px;
-  overflow:auto;
-  background:#050505;
-}
-      .playlist-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-}
-      .footer-player{
-  margin-top:24px;
-  height:86px;
-  border-radius:16px;
-  background:#17171a;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:18px;
-  padding:0 24px;
-}
-      .wave{justify-self:start}
+    @media(max-width:760px){
+      .topbar{
+        grid-template-columns:1fr;
+      }
+
+      .top-icons{
+        justify-content:flex-end;
+      }
+
+      .featured-grid{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+
+      .feature{
+        min-height:230px;
+      }
+
+      .mood-row{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .bottom-player{
+        position:relative;
+        left:auto;
+        right:auto;
+        bottom:auto;
+        margin-top:22px;
+        grid-template-columns:1fr;
+        padding:16px 0 0;
+      }
+
+      .sound-icons{
+        justify-content:center;
+      }
+    }
+
+    @media(max-width:480px){
+      body{padding:0;}
+
+      .music-page{
+        border-radius:0;
+        min-height:100vh;
+      }
+
+      .content-wrap{
+        padding:14px;
+      }
+
+      .content-card{
+        border-radius:26px;
+        padding:22px 16px;
+      }
+
+      .search{
+        max-width:none;
+        height:48px;
+      }
+
+      h1,.section-title h2{
+        font-size:24px;
+      }
+
+      .mood-row{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        border-radius:0;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="music-app">
-<aside class="sidebar">
-      <div class="logo">SayBon Music</div>
+  <main class="music-page">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">s</div>
+        <strong>SayBon</strong>
+      </div>
 
       <nav class="nav">
-        <a href="#">⌂ Music Home</a>
-        <a href="#">⌕ Search Music</a>
-        <a class="active" href="#">▰ Playlists</a>
-        <a href="#">✚ Create Playlist</a>
-        <a href="#">♡ Saved Songs</a>
+        <a class="active" href="#">Home</a>
+        <a href="#">Browse</a>
+        <a href="#">Moods</a>
+        <a href="#">Library</a>
+        <a href="#">Saved Songs</a>
+        <a href="#">Create Playlist</a>
+        <a href="#">Recently Added</a>
+        <a href="#">Playlists</a>
+        <a href="#">Artists</a>
+        <a href="#">Favorites</a>
+        <a href="#">Jazz <span class="plus">+</span></a>
+        <a href="#">Pop</a>
       </nav>
 
-      <div class="spacer"></div>
-
-      <nav class="nav">
-        <a href="#">⚙ Music Settings</a>
-        <a href="#">← Back to SayBon</a>
-      </nav>
+      <div class="bottom-player-mini">
+        <div class="mini-cover">♪</div>
+        <div class="mini-text">
+          <strong>Bonjour Soleil</strong>
+          <span>SayBon Originals</span>
+        </div>
+        <div class="mini-actions">✓ ≡</div>
+      </div>
     </aside>
 
-    <section class="main">
-      <h2 class="top-title">Your Library</h2>
-
-      <section class="hero">
-        <div class="hero-copy">
-          <div class="hero-kicker">Your Music</div>
-          <h1>On Repeat</h1>
-        </div>
-        <div class="play-float">▶</div>
-      </section>
-
-      <section class="playlist-grid">
-        <a class="playlist-card jazz" href="#"><small>📂</small><span>Jazz</span></a>
-        <a class="playlist-card pop" href="#"><small>📂</small><span>Pop</span></a>
-        <a class="playlist-card classical" href="#"><small>📂</small><span>Classical</span></a>
-        <a class="playlist-card afrobeats" href="#"><small>📂</small><span>Afrobeats</span></a>
-        <a class="playlist-card latin" href="#"><small>📂</small><span>Latin</span></a>
-        <a class="playlist-card reggaeton" href="#"><small>📂</small><span>Reggaeton</span></a>
-        <a class="playlist-card highlife" href="#"><small>📂</small><span>African Highlife</span></a>
-        <a class="playlist-card kids" href="#"><small>📂</small><span>French for Littles</span></a>
-      </section>
-
-      <section class="footer-player">
-        <div class="now">
-          <div class="mini-art">♪</div>
-          <div>
-            <span>SayBon Originals</span>
-            <strong>Bonjour Soleil</strong>
+    <section class="content-wrap">
+      <div class="content-card">
+        <header class="topbar">
+          <div class="search">⌕ Search...</div>
+          <div class="top-icons">
+            <span>♙</span>
+            <div class="profile">♪</div>
           </div>
-        </div>
+        </header>
 
-        <div class="controls">
-          <span>‹</span>
-          <div class="pause">Ⅱ</div>
-          <span>›</span>
-        </div>
+        <h1>Soundtrack your French journey</h1>
 
-        <div class="wave">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-      </section>
+        <section class="featured-grid">
+          <article class="feature jazz">
+            <div class="feature-head">
+              <div class="artist">
+                <div class="artist-icon">♪</div>
+                <div>
+                  <strong>Jazz Français</strong>
+                  <span>@SayBon</span>
+                </div>
+              </div>
+              <div class="duration">32 min</div>
+            </div>
+            <div class="feature-title">Smooth French listening for calm practice</div>
+          </article>
+
+          <article class="feature highlife">
+            <div class="feature-head">
+              <div class="artist">
+                <div class="artist-icon">♫</div>
+                <div>
+                  <strong>African Highlife</strong>
+                  <span>@SayBon</span>
+                </div>
+              </div>
+              <div class="duration">45 min</div>
+            </div>
+            <div class="feature-title">Highlife rhythms with French vocabulary</div>
+          </article>
+        </section>
+
+        <section class="section-title">
+          <h2>Mood</h2>
+          <span>•••</span>
+        </section>
+
+        <section class="mood-row">
+          <article class="mood">Jazz</article>
+          <article class="mood">Pop</article>
+          <article class="mood">Classical</article>
+          <article class="mood">Afrobeats</article>
+          <article class="mood">Latin</article>
+          <article class="mood">Reggaeton</article>
+        </section>
+
+        <section class="bottom-player">
+          <div class="song-id">
+            <div class="mini-cover">♪</div>
+            <div>
+              <strong>Bonjour Soleil</strong>
+              <span>SayBon Originals</span>
+            </div>
+          </div>
+
+          <div class="player-center">
+            <div class="controls">
+              <span>×</span>
+              <span>‹</span>
+              <div class="pause">Ⅱ</div>
+              <span>›</span>
+              <span>↻</span>
+            </div>
+
+            <div class="timeline">
+              <span>1:16</span>
+              <div class="bar"><span></span></div>
+              <span>4:04</span>
+            </div>
+          </div>
+
+          <div class="sound-icons">◔ 🔊</div>
+        </section>
+      </div>
     </section>
   </main>
 </body>
 </html>
-
