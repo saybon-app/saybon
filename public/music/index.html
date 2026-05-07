@@ -24,56 +24,35 @@
     }
 
     body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Nunito",system-ui,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 45% 15%,rgba(255,255,255,.24),transparent 26%),
-        linear-gradient(135deg,#b7afbd,#9e97a9);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:34px;
-    }
+  margin:0;
+  min-height:100vh;
+  width:100%;
+  font-family:"Nunito",system-ui,sans-serif;
+  color:var(--text);
+  background:#050505;
+  overflow:hidden;
+}
 
     .music-app{
-      width:min(94vw,1220px);
-      height:min(82vh,760px);
-      min-height:640px;
-      display:grid;
-      grid-template-columns:180px 1fr;
-      border-radius:22px;
-      overflow:visible;
-      background:var(--app);
-      box-shadow:0 38px 95px rgba(0,0,0,.38);
-      position:relative;
-    }
-
-    .pro-badge{
-      position:absolute;
-      top:-14px;
-      right:-110px;
-      width:160px;
-      height:124px;
-      border-radius:28px;
-      background:#2f9cff;
-      display:grid;
-      place-items:center;
-      font-size:48px;
-      font-weight:900;
-      box-shadow:0 24px 52px rgba(47,156,255,.30);
-      letter-spacing:-.04em;
-    }
-
-    .sidebar{
-      background:var(--side);
-      padding:34px 0 30px;
-      display:flex;
-      flex-direction:column;
-      border-radius:22px 0 0 22px;
-      overflow:hidden;
-    }
+  width:100vw;
+  height:100vh;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:230px 1fr;
+  border-radius:0;
+  overflow:hidden;
+  background:var(--app);
+  box-shadow:none;
+  position:relative;
+}
+.sidebar{
+  background:var(--side);
+  padding:34px 0 30px;
+  display:flex;
+  flex-direction:column;
+  border-radius:0;
+  overflow:hidden;
+}
 
     .logo{
       padding:0 22px 34px;
@@ -113,9 +92,10 @@
     .spacer{flex:1}
 
     .main{
-      padding:38px 42px;
-      overflow:auto;
-    }
+  padding:42px 54px;
+  overflow:auto;
+  background:#050505;
+}
 
     .main::-webkit-scrollbar{
       width:8px;
@@ -134,19 +114,19 @@
     }
 
     .hero{
-      height:190px;
-      border-radius:10px;
-      overflow:hidden;
-      position:relative;
-      display:flex;
-      align-items:flex-end;
-      padding:30px;
-      margin-bottom:16px;
-      background:
-        linear-gradient(90deg,rgba(28,20,65,.92),rgba(37,31,86,.68)),
-        radial-gradient(circle at 55% 30%,rgba(124,77,255,.42),transparent 34%),
-        linear-gradient(135deg,#243052,#45328f);
-    }
+  height:245px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  padding:36px;
+  margin-bottom:22px;
+  background:
+    linear-gradient(90deg,rgba(20,26,68,.96),rgba(37,31,86,.76)),
+    radial-gradient(circle at 55% 30%,rgba(124,77,255,.38),transparent 34%),
+    linear-gradient(135deg,#17223f,#302469);
+}
 
     .hero::before{
       content:"";
@@ -194,27 +174,27 @@
     }
 
     .playlist-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:14px;
-    }
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
 
     .playlist-card{
-      min-height:124px;
-      border-radius:9px;
-      overflow:hidden;
-      position:relative;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      text-decoration:none;
-      font-size:20px;
-      font-weight:900;
-      text-align:center;
-      isolation:isolate;
-      transition:.24s ease;
-      background:#222;
-    }
+  min-height:155px;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  text-decoration:none;
+  font-size:23px;
+  font-weight:900;
+  text-align:center;
+  isolation:isolate;
+  transition:.24s ease;
+  background:#222;
+}
 
     .playlist-card::before{
       content:"";
@@ -265,16 +245,16 @@
     .kids{--c1:#8bd3ff;--c2:#ffb6d9}
 
     .footer-player{
-      margin-top:20px;
-      height:76px;
-      border-radius:13px;
-      background:#17171a;
-      display:grid;
-      grid-template-columns:1fr auto 1fr;
-      align-items:center;
-      gap:18px;
-      padding:0 22px;
-    }
+  margin-top:24px;
+  height:86px;
+  border-radius:16px;
+  background:#17171a;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:18px;
+  padding:0 24px;
+}
 
     .now{
       display:flex;
@@ -346,16 +326,27 @@
     .wave i:nth-child(7),.wave i:nth-child(14){height:20px}
 
     @media(max-width:1050px){
-      .pro-badge{display:none}
-      .music-app{
-        grid-template-columns:1fr;
-        height:auto;
-      }
+.music-app{
+  width:100vw;
+  height:100vh;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:230px 1fr;
+  border-radius:0;
+  overflow:hidden;
+  background:var(--app);
+  box-shadow:none;
+  position:relative;
+}
 
       .sidebar{
-        border-radius:22px 22px 0 0;
-        padding:24px;
-      }
+  background:var(--side);
+  padding:34px 0 30px;
+  display:flex;
+  flex-direction:column;
+  border-radius:0;
+  overflow:hidden;
+}
 
       .logo{padding:0 0 18px}
       .nav{
@@ -363,15 +354,43 @@
       }
 
       .playlist-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-      }
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
     }
 
     @media(max-width:620px){
-      body{padding:16px}
-      .main{padding:26px 18px}
-      .playlist-grid{grid-template-columns:1fr}
-      .footer-player{grid-template-columns:1fr; height:auto; padding:18px}
+      body{
+  margin:0;
+  min-height:100vh;
+  width:100%;
+  font-family:"Nunito",system-ui,sans-serif;
+  color:var(--text);
+  background:#050505;
+  overflow:hidden;
+}
+      .main{
+  padding:42px 54px;
+  overflow:auto;
+  background:#050505;
+}
+      .playlist-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+      .footer-player{
+  margin-top:24px;
+  height:86px;
+  border-radius:16px;
+  background:#17171a;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:18px;
+  padding:0 24px;
+}
       .wave{justify-self:start}
     }
   </style>
@@ -379,24 +398,22 @@
 
 <body>
   <main class="music-app">
-    <div class="pro-badge">Pro</div>
-
-    <aside class="sidebar">
-      <div class="logo">SayBon</div>
+<aside class="sidebar">
+      <div class="logo">SayBon Music</div>
 
       <nav class="nav">
-        <a href="#">⌂ Home</a>
-        <a href="#">⌕ Search</a>
-        <a class="active" href="#">▰ My library</a>
-        <a href="#">✚ New playlist</a>
-        <a href="#">♡ Liked songs</a>
+        <a href="#">⌂ Music Home</a>
+        <a href="#">⌕ Search Music</a>
+        <a class="active" href="#">▰ Playlists</a>
+        <a href="#">✚ Create Playlist</a>
+        <a href="#">♡ Saved Songs</a>
       </nav>
 
       <div class="spacer"></div>
 
       <nav class="nav">
-        <a href="#">⚙ Settings</a>
-        <a href="#">⇱ Log out</a>
+        <a href="#">⚙ Music Settings</a>
+        <a href="#">← Back to SayBon</a>
       </nav>
     </aside>
 
@@ -446,3 +463,4 @@
   </main>
 </body>
 </html>
+
