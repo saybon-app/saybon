@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>SayBon Music</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -23,7 +24,7 @@
       min-height:100vh;
       overflow:hidden;
       background:
-        linear-gradient(rgba(2,2,4,.80),rgba(2,2,4,.92)),
+        linear-gradient(rgba(2,2,4,.80),rgba(2,2,4,.93)),
         url("/assets/images/music-icon.png");
       background-size:cover;
       background-position:center;
@@ -35,9 +36,12 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      background:rgba(0,0,0,.24);
-      backdrop-filter:blur(10px) saturate(120%);
       z-index:0;
+      background:
+        radial-gradient(circle at 55% 16%, rgba(255,208,120,.12), transparent 30%),
+        radial-gradient(circle at 72% 82%, rgba(222,89,105,.10), transparent 34%),
+        rgba(0,0,0,.18);
+      backdrop-filter:blur(12px) saturate(118%);
     }
 
     .app{
@@ -126,6 +130,12 @@
       color:rgba(255,255,255,.74);
       font-size:15px;
       font-weight:760;
+      transition:.2s ease;
+    }
+
+    .nav a:hover{
+      background:rgba(255,255,255,.055);
+      color:#fff;
     }
 
     .nav a.active{
@@ -147,56 +157,116 @@
 
     .topbar{
       display:flex;
-      justify-content:flex-end;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:28px;
+    }
+
+    .page-title{
+      font-size:15px;
+      font-weight:900;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(255,231,173,.82);
+    }
+
+    .top-icons{
+      display:flex;
       gap:22px;
-      margin-bottom:34px;
       color:rgba(255,255,255,.78);
-      font-size:22px;
+      font-size:21px;
     }
 
     .folder-grid{
-      width:min(100%,1050px);
+      width:min(100%,1120px);
       margin:0 auto;
       display:grid;
-      grid-template-columns:repeat(4,minmax(180px,1fr));
-      gap:62px 58px;
-      padding:30px 0 80px;
+      grid-template-columns:repeat(4,minmax(190px,1fr));
+      gap:58px 54px;
+      padding:36px 0 86px;
+      align-items:center;
     }
 
     .folder-link{
+      position:relative;
       display:grid;
       place-items:center;
       text-decoration:none;
       color:#fff7df;
+      min-height:210px;
       animation:floatFolder 5.4s ease-in-out infinite;
       animation-delay:var(--delay);
+      isolation:isolate;
     }
 
     @keyframes floatFolder{
       0%,100%{ transform:translateY(0); }
-      50%{ transform:translateY(-8px); }
+      50%{ transform:translateY(-9px); }
     }
 
-    .folder-img{
-      width:230px;
-      max-width:100%;
-      height:auto;
-      display:block;
-      filter:drop-shadow(0 30px 28px rgba(0,0,0,.50));
+    .folder-link::before{
+      content:"";
+      position:absolute;
+      width:76%;
+      height:56%;
+      left:12%;
+      bottom:18px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(255,196,73,.18),rgba(0,0,0,0) 68%);
+      filter:blur(18px);
+      opacity:.75;
+      z-index:-1;
       transition:.25s ease;
     }
 
-    .folder-link:hover .folder-img{
-      transform:translateY(-6px) scale(1.03);
-      filter:drop-shadow(0 42px 38px rgba(0,0,0,.62));
+    .folder-link:hover::before{
+      opacity:1;
+      transform:scale(1.12);
     }
 
-    .folder-name{
-      margin-top:12px;
-      font-size:15px;
+    .folder-img{
+      width:250px;
+      max-width:100%;
+      height:auto;
+      display:block;
+      object-fit:contain;
+      filter:
+        drop-shadow(0 34px 30px rgba(0,0,0,.58))
+        drop-shadow(0 0 18px rgba(255,190,65,.12));
+      transition:.28s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .folder-link:hover .folder-img{
+      transform:translateY(-8px) scale(1.045);
+      filter:
+        drop-shadow(0 48px 42px rgba(0,0,0,.72))
+        drop-shadow(0 0 30px rgba(255,210,105,.24));
+    }
+
+    .folder-link::after{
+      content:attr(data-title);
+      position:absolute;
+      bottom:-12px;
+      left:50%;
+      transform:translateX(-50%) translateY(8px);
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(14px);
+      color:rgba(255,247,223,.9);
+      font-size:13px;
       font-weight:900;
-      color:rgba(255,247,223,.86);
-      text-shadow:0 8px 20px rgba(0,0,0,.55);
+      opacity:0;
+      pointer-events:none;
+      transition:.22s ease;
+      white-space:nowrap;
+      box-shadow:0 12px 30px rgba(0,0,0,.28);
+    }
+
+    .folder-link:hover::after{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
     }
 
     .bottom-player{
@@ -226,6 +296,7 @@
       display:grid;
       place-items:center;
       color:#ffc84f;
+      font-size:23px;
     }
 
     .now strong{
@@ -304,7 +375,7 @@
       align-items:center;
       justify-content:center;
       padding:34px;
-      background:rgba(0,0,0,.82);
+      background:rgba(0,0,0,.84);
       backdrop-filter:blur(20px);
     }
 
@@ -378,8 +449,8 @@
       }
 
       .folder-grid{
-        grid-template-columns:repeat(3,minmax(160px,1fr));
-        gap:48px 28px;
+        grid-template-columns:repeat(3,minmax(170px,1fr));
+        gap:44px 28px;
       }
 
       .bottom-player{
@@ -395,11 +466,15 @@
     @media(max-width:720px){
       .folder-grid{
         grid-template-columns:repeat(2,minmax(140px,1fr));
-        gap:36px 18px;
+        gap:34px 18px;
       }
 
       .folder-img{
-        width:180px;
+        width:190px;
+      }
+
+      .folder-link{
+        min-height:170px;
       }
     }
 
@@ -407,307 +482,18 @@
       .folder-grid{
         grid-template-columns:1fr;
       }
+
+      .folder-img{
+        width:230px;
+      }
+
+      .topbar{
+        justify-content:center;
+        gap:20px;
+        flex-direction:column;
+      }
     }
   </style>
-
-<style id="saybon-glass-folder-override">
-/* ==========================================
-   SAYBON MUSIC — TRANSPARENT GLASS FOLDER EFFECT
-   Keeps existing PNG folder shape/images
-========================================== */
-
-.folder-link{
-  position:relative !important;
-  isolation:isolate !important;
-}
-
-.folder-img{
-  position:relative !important;
-  z-index:2 !important;
-
-  /* glass transformation */
-  opacity:.72 !important;
-  filter:
-    brightness(1.22)
-    contrast(.82)
-    saturate(.58)
-    drop-shadow(0 26px 32px rgba(0,0,0,.62))
-    drop-shadow(0 0 18px rgba(255,255,255,.14)) !important;
-
-  mix-blend-mode:screen !important;
-  transform:translateZ(0) !important;
-}
-
-/* soft glass glow behind each folder */
-.folder-link::before{
-  content:"" !important;
-  position:absolute !important;
-  z-index:0 !important;
-  width:82% !important;
-  height:72% !important;
-  top:8% !important;
-  left:9% !important;
-  border-radius:28px !important;
-  background:
-    radial-gradient(circle at 28% 18%, rgba(255,255,255,.36), transparent 28%),
-    radial-gradient(circle at 80% 80%, rgba(255,214,140,.18), transparent 34%),
-    rgba(255,255,255,.045) !important;
-  border:1px solid rgba(255,255,255,.18) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.28),
-    inset 0 -18px 35px rgba(0,0,0,.18),
-    0 20px 48px rgba(0,0,0,.36) !important;
-  backdrop-filter:blur(16px) saturate(125%) !important;
-  opacity:.82 !important;
-  pointer-events:none !important;
-}
-
-/* diagonal highlight sweep */
-.folder-link::after{
-  content:"" !important;
-  position:absolute !important;
-  z-index:3 !important;
-  width:62% !important;
-  height:42% !important;
-  top:10% !important;
-  left:6% !important;
-  border-radius:28px !important;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.38) 0%,
-    rgba(255,255,255,.14) 26%,
-    rgba(255,255,255,0) 58%
-  ) !important;
-  filter:blur(.4px) !important;
-  opacity:.55 !important;
-  pointer-events:none !important;
-  transform:rotate(-4deg) !important;
-}
-
-/* hover should feel like floating glass */
-.folder-link:hover .folder-img{
-  opacity:.84 !important;
-  filter:
-    brightness(1.35)
-    contrast(.88)
-    saturate(.72)
-    drop-shadow(0 38px 42px rgba(0,0,0,.70))
-    drop-shadow(0 0 26px rgba(255,226,160,.26)) !important;
-}
-
-.folder-link:hover::before{
-  opacity:1 !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.36),
-    inset 0 -20px 38px rgba(0,0,0,.20),
-    0 30px 64px rgba(0,0,0,.45),
-    0 0 28px rgba(255,226,160,.12) !important;
-}
-
-.folder-name{
-  color:rgba(255,247,223,.92) !important;
-  text-shadow:0 10px 24px rgba(0,0,0,.70) !important;
-}
-</style>
-
-
-<style id="saybon-simple-music-tiles">
-/* ==========================================
-   SIMPLE CLASSY PLAYLIST TILES
-========================================== */
-
-.folder-grid.simple-grid{
-  width:min(100%,980px) !important;
-  margin:0 auto !important;
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(160px,1fr)) !important;
-  gap:34px !important;
-  padding:56px 0 90px !important;
-}
-
-.simple-tile{
-  min-height:170px !important;
-  padding:26px 24px !important;
-  border-radius:30px !important;
-  text-decoration:none !important;
-  color:#fff7df !important;
-  display:flex !important;
-  flex-direction:column !important;
-  justify-content:space-between !important;
-  background:
-    linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025)) !important;
-  border:1px solid rgba(255,255,255,.13) !important;
-  box-shadow:
-    0 26px 70px rgba(0,0,0,.34),
-    inset 0 1px 0 rgba(255,255,255,.12) !important;
-  backdrop-filter:blur(22px) saturate(120%) !important;
-  transition:.24s ease !important;
-}
-
-.simple-tile:hover{
-  transform:translateY(-7px) !important;
-  background:
-    linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.04)) !important;
-  border-color:rgba(255,216,150,.26) !important;
-  box-shadow:
-    0 36px 90px rgba(0,0,0,.48),
-    0 0 34px rgba(255,207,106,.08),
-    inset 0 1px 0 rgba(255,255,255,.18) !important;
-}
-
-.simple-tile span{
-  font-size:15px !important;
-  font-weight:900 !important;
-  letter-spacing:.16em !important;
-  color:rgba(255,212,106,.78) !important;
-}
-
-.simple-tile strong{
-  font-size:26px !important;
-  line-height:1 !important;
-  letter-spacing:-.045em !important;
-  font-weight:900 !important;
-}
-
-.simple-tile small{
-  font-size:13px !important;
-  color:rgba(255,247,223,.58) !important;
-  font-weight:700 !important;
-}
-
-@media(max-width:900px){
-  .folder-grid.simple-grid{
-    grid-template-columns:repeat(2,minmax(150px,1fr)) !important;
-    gap:22px !important;
-  }
-}
-
-@media(max-width:520px){
-  .folder-grid.simple-grid{
-    grid-template-columns:1fr !important;
-    padding:32px 0 70px !important;
-  }
-
-  .simple-tile{
-    min-height:130px !important;
-  }
-}
-</style>
-
-
-<style id="saybon-svg-icon-upgrade">
-
-.folder-grid.simple-grid{
-  width:min(100%,980px) !important;
-  margin:0 auto !important;
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(160px,1fr)) !important;
-  gap:34px !important;
-  padding:56px 0 90px !important;
-}
-
-.simple-tile{
-  min-height:180px !important;
-  border-radius:34px !important;
-  display:grid !important;
-  place-items:center !important;
-  text-decoration:none !important;
-
-  background:
-    linear-gradient(145deg,
-      rgba(255,255,255,.07),
-      rgba(255,255,255,.025)
-    ) !important;
-
-  border:1px solid rgba(255,255,255,.10) !important;
-
-  box-shadow:
-    0 28px 80px rgba(0,0,0,.34),
-    inset 0 1px 0 rgba(255,255,255,.10) !important;
-
-  backdrop-filter:blur(22px) saturate(120%) !important;
-
-  transition:.24s ease !important;
-}
-
-.simple-tile:hover{
-  transform:translateY(-7px) !important;
-
-  background:
-    linear-gradient(145deg,
-      rgba(255,255,255,.12),
-      rgba(255,255,255,.04)
-    ) !important;
-
-  border-color:rgba(255,216,150,.22) !important;
-
-  box-shadow:
-    0 40px 90px rgba(0,0,0,.52),
-    0 0 26px rgba(255,214,106,.08),
-    inset 0 1px 0 rgba(255,255,255,.16) !important;
-}
-
-.music-icon{
-  width:78px !important;
-  height:78px !important;
-  display:grid !important;
-  place-items:center !important;
-}
-
-.music-icon svg{
-  width:100% !important;
-  height:100% !important;
-
-  stroke:#ffd46a !important;
-  stroke-width:2.2 !important;
-  stroke-linecap:round !important;
-  stroke-linejoin:round !important;
-
-  filter:
-    drop-shadow(0 0 10px rgba(255,212,106,.18))
-    drop-shadow(0 8px 18px rgba(0,0,0,.42));
-
-  transition:.24s ease !important;
-}
-
-.simple-tile:hover svg{
-  stroke:#ffe5a0 !important;
-
-  filter:
-    drop-shadow(0 0 18px rgba(255,223,140,.34))
-    drop-shadow(0 10px 26px rgba(0,0,0,.52));
-}
-
-.simple-tile span,
-.simple-tile strong,
-.simple-tile small,
-.folder-name{
-  display:none !important;
-}
-
-@media(max-width:900px){
-  .folder-grid.simple-grid{
-    grid-template-columns:repeat(2,minmax(150px,1fr)) !important;
-    gap:22px !important;
-  }
-}
-
-@media(max-width:520px){
-  .folder-grid.simple-grid{
-    grid-template-columns:1fr !important;
-  }
-
-  .simple-tile{
-    min-height:140px !important;
-  }
-
-  .music-icon{
-    width:64px !important;
-    height:64px !important;
-  }
-}
-</style>
-
 </head>
 
 <body>
@@ -734,100 +520,47 @@
 
     <section class="main">
       <header class="topbar">
-        <span>⌕</span>
-        <span>🔔</span>
-        <span>☰</span>
+        <div class="page-title">Featured Genre Vaults</div>
+        <div class="top-icons">
+          <span>⌕</span>
+          <span>♢</span>
+          <span>☰</span>
+        </div>
       </header>
 
-      <section class="folder-grid simple-grid">
+      <section class="folder-grid">
+        <a class="folder-link" style="--delay:0s" href="#" data-title="Afrobeats" data-video="">
+          <img class="folder-img" src="/assets/images/fa.png" alt="Afrobeats">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Afrobeats" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <ellipse cx="32" cy="14" rx="14" ry="6"/>
-      <path d="M18 14V46C18 52 46 52 46 46V14"/>
-      <path d="M18 30C18 36 46 36 46 30"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.14s" href="#" data-title="Classical" data-video="">
+          <img class="folder-img" src="/assets/images/fc.png" alt="Classical">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Classical" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <path d="M30 10V42"/>
-      <path d="M30 10L44 18"/>
-      <path d="M30 26L44 34"/>
-      <circle cx="24" cy="46" r="6"/>
-      <circle cx="38" cy="50" r="6"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.28s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+          <img class="folder-img" src="/assets/images/fcntry.png" alt="Country">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <path d="M28 18C28 10 36 8 40 14L48 28C50 34 46 40 38 40H28"/>
-      <circle cx="22" cy="32" r="10"/>
-      <path d="M30 30L44 18"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.42s" href="#" data-title="Gospel" data-video="">
+          <img class="folder-img" src="/assets/images/fg.png" alt="Gospel">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Gospel" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <path d="M32 10V54"/>
-      <path d="M18 24H46"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.56s" href="#" data-title="Jazz" data-video="">
+          <img class="folder-img" src="/assets/images/fj.png" alt="Jazz">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Jazz" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <path d="M20 10C38 18 38 44 22 52"/>
-      <path d="M42 14C28 20 28 42 44 50"/>
-      <circle cx="22" cy="52" r="4"/>
-      <circle cx="44" cy="50" r="4"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.70s" href="#" data-title="Latin" data-video="">
+          <img class="folder-img" src="/assets/images/fl.png" alt="Latin">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Latin" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <circle cx="24" cy="20" r="5"/>
-      <circle cx="42" cy="18" r="5"/>
-      <path d="M24 26L18 40L28 52"/>
-      <path d="M42 24L48 38L38 52"/>
-    </svg>
-  </div>
-</a>
+        <a class="folder-link" style="--delay:.84s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+          <img class="folder-img" src="/assets/images/fp.png" alt="Pop">
+        </a>
 
-<a class="simple-tile" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <path d="M18 30C18 18 26 12 32 12C38 12 46 18 46 30"/>
-      <path d="M18 30V38"/>
-      <path d="M46 30V38"/>
-      <rect x="14" y="38" width="10" height="12" rx="4"/>
-      <rect x="40" y="38" width="10" height="12" rx="4"/>
-    </svg>
-  </div>
-</a>
-
-<a class="simple-tile" href="#" data-title="Reggaeton" data-video="">
-  <div class="music-icon">
-    <svg viewBox="0 0 64 64" fill="none">
-      <circle cx="32" cy="16" r="5"/>
-      <path d="M32 22L24 36L32 50L40 36L32 22Z"/>
-      <path d="M20 28L28 34"/>
-      <path d="M44 28L36 34"/>
-    </svg>
-  </div>
-</a>
-
-</section>
+        <a class="folder-link" style="--delay:.98s" href="#" data-title="Reggaeton" data-video="">
+          <img class="folder-img" src="/assets/images/fr.png" alt="Reggaeton">
+        </a>
+      </section>
     </section>
 
     <section class="bottom-player">
@@ -835,7 +568,7 @@
         <div class="now-art">♪</div>
         <div>
           <strong>SayBon Lyric Videos</strong>
-          <span>Select a genre folder</span>
+          <span>Select a genre vault</span>
         </div>
       </div>
 
@@ -899,24 +632,22 @@
       });
     });
 
-    closeVideo.addEventListener("click", () => {
+    function closeOverlay(){
       player.pause();
       player.removeAttribute("src");
       player.load();
       overlay.classList.remove("active");
-    });
+    }
+
+    closeVideo.addEventListener("click", closeOverlay);
 
     overlay.addEventListener("click", event => {
-      if (event.target === overlay) {
-        player.pause();
-        player.removeAttribute("src");
-        player.load();
-        overlay.classList.remove("active");
-      }
+      if (event.target === overlay) closeOverlay();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && overlay.classList.contains("active")) closeOverlay();
     });
   </script>
 </body>
 </html>
-
-
-
