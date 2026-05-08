@@ -594,6 +594,120 @@
 }
 </style>
 
+
+<style id="saybon-svg-icon-upgrade">
+
+.folder-grid.simple-grid{
+  width:min(100%,980px) !important;
+  margin:0 auto !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(160px,1fr)) !important;
+  gap:34px !important;
+  padding:56px 0 90px !important;
+}
+
+.simple-tile{
+  min-height:180px !important;
+  border-radius:34px !important;
+  display:grid !important;
+  place-items:center !important;
+  text-decoration:none !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.025)
+    ) !important;
+
+  border:1px solid rgba(255,255,255,.10) !important;
+
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.10) !important;
+
+  backdrop-filter:blur(22px) saturate(120%) !important;
+
+  transition:.24s ease !important;
+}
+
+.simple-tile:hover{
+  transform:translateY(-7px) !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,.12),
+      rgba(255,255,255,.04)
+    ) !important;
+
+  border-color:rgba(255,216,150,.22) !important;
+
+  box-shadow:
+    0 40px 90px rgba(0,0,0,.52),
+    0 0 26px rgba(255,214,106,.08),
+    inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+.music-icon{
+  width:78px !important;
+  height:78px !important;
+  display:grid !important;
+  place-items:center !important;
+}
+
+.music-icon svg{
+  width:100% !important;
+  height:100% !important;
+
+  stroke:#ffd46a !important;
+  stroke-width:2.2 !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+
+  filter:
+    drop-shadow(0 0 10px rgba(255,212,106,.18))
+    drop-shadow(0 8px 18px rgba(0,0,0,.42));
+
+  transition:.24s ease !important;
+}
+
+.simple-tile:hover svg{
+  stroke:#ffe5a0 !important;
+
+  filter:
+    drop-shadow(0 0 18px rgba(255,223,140,.34))
+    drop-shadow(0 10px 26px rgba(0,0,0,.52));
+}
+
+.simple-tile span,
+.simple-tile strong,
+.simple-tile small,
+.folder-name{
+  display:none !important;
+}
+
+@media(max-width:900px){
+  .folder-grid.simple-grid{
+    grid-template-columns:repeat(2,minmax(150px,1fr)) !important;
+    gap:22px !important;
+  }
+}
+
+@media(max-width:520px){
+  .folder-grid.simple-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .simple-tile{
+    min-height:140px !important;
+  }
+
+  .music-icon{
+    width:64px !important;
+    height:64px !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -626,38 +740,94 @@
       </header>
 
       <section class="folder-grid simple-grid">
-        <a class="simple-tile" href="#" data-title="Afrobeats" data-video="">
-          <span>01</span><strong>Afrobeats</strong><small>Lyric Videos</small>
-        </a>
 
-        <a class="simple-tile" href="#" data-title="Classical" data-video="">
-          <span>02</span><strong>Classical</strong><small>Lyric Videos</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Afrobeats" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <ellipse cx="32" cy="14" rx="14" ry="6"/>
+      <path d="M18 14V46C18 52 46 52 46 46V14"/>
+      <path d="M18 30C18 36 46 36 46 30"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
-          <span>03</span><strong>Country</strong><small>Play Video</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Classical" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M30 10V42"/>
+      <path d="M30 10L44 18"/>
+      <path d="M30 26L44 34"/>
+      <circle cx="24" cy="46" r="6"/>
+      <circle cx="38" cy="50" r="6"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Gospel" data-video="">
-          <span>04</span><strong>Gospel</strong><small>Lyric Videos</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M28 18C28 10 36 8 40 14L48 28C50 34 46 40 38 40H28"/>
+      <circle cx="22" cy="32" r="10"/>
+      <path d="M30 30L44 18"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Jazz" data-video="">
-          <span>05</span><strong>Jazz</strong><small>Lyric Videos</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Gospel" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M32 10V54"/>
+      <path d="M18 24H46"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Latin" data-video="">
-          <span>06</span><strong>Latin</strong><small>Lyric Videos</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Jazz" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M20 10C38 18 38 44 22 52"/>
+      <path d="M42 14C28 20 28 42 44 50"/>
+      <circle cx="22" cy="52" r="4"/>
+      <circle cx="44" cy="50" r="4"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
-          <span>07</span><strong>Pop</strong><small>Play Video</small>
-        </a>
+<a class="simple-tile" href="#" data-title="Latin" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <circle cx="24" cy="20" r="5"/>
+      <circle cx="42" cy="18" r="5"/>
+      <path d="M24 26L18 40L28 52"/>
+      <path d="M42 24L48 38L38 52"/>
+    </svg>
+  </div>
+</a>
 
-        <a class="simple-tile" href="#" data-title="Reggaeton" data-video="">
-          <span>08</span><strong>Reggaeton</strong><small>Lyric Videos</small>
-        </a>
-      </section>
+<a class="simple-tile" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <path d="M18 30C18 18 26 12 32 12C38 12 46 18 46 30"/>
+      <path d="M18 30V38"/>
+      <path d="M46 30V38"/>
+      <rect x="14" y="38" width="10" height="12" rx="4"/>
+      <rect x="40" y="38" width="10" height="12" rx="4"/>
+    </svg>
+  </div>
+</a>
+
+<a class="simple-tile" href="#" data-title="Reggaeton" data-video="">
+  <div class="music-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="16" r="5"/>
+      <path d="M32 22L24 36L32 50L40 36L32 22Z"/>
+      <path d="M20 28L28 34"/>
+      <path d="M44 28L36 34"/>
+    </svg>
+  </div>
+</a>
+
+</section>
     </section>
 
     <section class="bottom-player">
@@ -747,5 +917,6 @@
   </script>
 </body>
 </html>
+
 
 
