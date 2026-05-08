@@ -409,6 +409,107 @@
       }
     }
   </style>
+
+<style id="saybon-glass-folder-override">
+/* ==========================================
+   SAYBON MUSIC — TRANSPARENT GLASS FOLDER EFFECT
+   Keeps existing PNG folder shape/images
+========================================== */
+
+.folder-link{
+  position:relative !important;
+  isolation:isolate !important;
+}
+
+.folder-img{
+  position:relative !important;
+  z-index:2 !important;
+
+  /* glass transformation */
+  opacity:.72 !important;
+  filter:
+    brightness(1.22)
+    contrast(.82)
+    saturate(.58)
+    drop-shadow(0 26px 32px rgba(0,0,0,.62))
+    drop-shadow(0 0 18px rgba(255,255,255,.14)) !important;
+
+  mix-blend-mode:screen !important;
+  transform:translateZ(0) !important;
+}
+
+/* soft glass glow behind each folder */
+.folder-link::before{
+  content:"" !important;
+  position:absolute !important;
+  z-index:0 !important;
+  width:82% !important;
+  height:72% !important;
+  top:8% !important;
+  left:9% !important;
+  border-radius:28px !important;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255,255,255,.36), transparent 28%),
+    radial-gradient(circle at 80% 80%, rgba(255,214,140,.18), transparent 34%),
+    rgba(255,255,255,.045) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -18px 35px rgba(0,0,0,.18),
+    0 20px 48px rgba(0,0,0,.36) !important;
+  backdrop-filter:blur(16px) saturate(125%) !important;
+  opacity:.82 !important;
+  pointer-events:none !important;
+}
+
+/* diagonal highlight sweep */
+.folder-link::after{
+  content:"" !important;
+  position:absolute !important;
+  z-index:3 !important;
+  width:62% !important;
+  height:42% !important;
+  top:10% !important;
+  left:6% !important;
+  border-radius:28px !important;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.38) 0%,
+    rgba(255,255,255,.14) 26%,
+    rgba(255,255,255,0) 58%
+  ) !important;
+  filter:blur(.4px) !important;
+  opacity:.55 !important;
+  pointer-events:none !important;
+  transform:rotate(-4deg) !important;
+}
+
+/* hover should feel like floating glass */
+.folder-link:hover .folder-img{
+  opacity:.84 !important;
+  filter:
+    brightness(1.35)
+    contrast(.88)
+    saturate(.72)
+    drop-shadow(0 38px 42px rgba(0,0,0,.70))
+    drop-shadow(0 0 26px rgba(255,226,160,.26)) !important;
+}
+
+.folder-link:hover::before{
+  opacity:1 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.36),
+    inset 0 -20px 38px rgba(0,0,0,.20),
+    0 30px 64px rgba(0,0,0,.45),
+    0 0 28px rgba(255,226,160,.12) !important;
+}
+
+.folder-name{
+  color:rgba(255,247,223,.92) !important;
+  text-shadow:0 10px 24px rgba(0,0,0,.70) !important;
+}
+</style>
+
 </head>
 
 <body>
@@ -570,3 +671,4 @@
   </script>
 </body>
 </html>
+
