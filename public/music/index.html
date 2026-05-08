@@ -510,6 +510,90 @@
 }
 </style>
 
+
+<style id="saybon-simple-music-tiles">
+/* ==========================================
+   SIMPLE CLASSY PLAYLIST TILES
+========================================== */
+
+.folder-grid.simple-grid{
+  width:min(100%,980px) !important;
+  margin:0 auto !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(160px,1fr)) !important;
+  gap:34px !important;
+  padding:56px 0 90px !important;
+}
+
+.simple-tile{
+  min-height:170px !important;
+  padding:26px 24px !important;
+  border-radius:30px !important;
+  text-decoration:none !important;
+  color:#fff7df !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025)) !important;
+  border:1px solid rgba(255,255,255,.13) !important;
+  box-shadow:
+    0 26px 70px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(22px) saturate(120%) !important;
+  transition:.24s ease !important;
+}
+
+.simple-tile:hover{
+  transform:translateY(-7px) !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.04)) !important;
+  border-color:rgba(255,216,150,.26) !important;
+  box-shadow:
+    0 36px 90px rgba(0,0,0,.48),
+    0 0 34px rgba(255,207,106,.08),
+    inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+.simple-tile span{
+  font-size:15px !important;
+  font-weight:900 !important;
+  letter-spacing:.16em !important;
+  color:rgba(255,212,106,.78) !important;
+}
+
+.simple-tile strong{
+  font-size:26px !important;
+  line-height:1 !important;
+  letter-spacing:-.045em !important;
+  font-weight:900 !important;
+}
+
+.simple-tile small{
+  font-size:13px !important;
+  color:rgba(255,247,223,.58) !important;
+  font-weight:700 !important;
+}
+
+@media(max-width:900px){
+  .folder-grid.simple-grid{
+    grid-template-columns:repeat(2,minmax(150px,1fr)) !important;
+    gap:22px !important;
+  }
+}
+
+@media(max-width:520px){
+  .folder-grid.simple-grid{
+    grid-template-columns:1fr !important;
+    padding:32px 0 70px !important;
+  }
+
+  .simple-tile{
+    min-height:130px !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -541,45 +625,37 @@
         <span>☰</span>
       </header>
 
-      <section class="folder-grid">
-        <a class="folder-link" style="--delay:0s" href="#" data-title="Afrobeats" data-video="">
-          <img class="folder-img" src="/assets/images/fa.png" alt="Afrobeats folder">
-          <div class="folder-name">Afrobeats</div>
+      <section class="folder-grid simple-grid">
+        <a class="simple-tile" href="#" data-title="Afrobeats" data-video="">
+          <span>01</span><strong>Afrobeats</strong><small>Lyric Videos</small>
         </a>
 
-        <a class="folder-link" style="--delay:.14s" href="#" data-title="Classical" data-video="">
-          <img class="folder-img" src="/assets/images/fc.png" alt="Classical folder">
-          <div class="folder-name">Classical</div>
+        <a class="simple-tile" href="#" data-title="Classical" data-video="">
+          <span>02</span><strong>Classical</strong><small>Lyric Videos</small>
         </a>
 
-        <a class="folder-link" style="--delay:.28s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
-          <img class="folder-img" src="/assets/images/fcntry.png" alt="Country folder">
-          <div class="folder-name">Country</div>
+        <a class="simple-tile" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+          <span>03</span><strong>Country</strong><small>Play Video</small>
         </a>
 
-        <a class="folder-link" style="--delay:.42s" href="#" data-title="Gospel" data-video="">
-          <img class="folder-img" src="/assets/images/fg.png" alt="Gospel folder">
-          <div class="folder-name">Gospel</div>
+        <a class="simple-tile" href="#" data-title="Gospel" data-video="">
+          <span>04</span><strong>Gospel</strong><small>Lyric Videos</small>
         </a>
 
-        <a class="folder-link" style="--delay:.56s" href="#" data-title="Jazz" data-video="">
-          <img class="folder-img" src="/assets/images/fj.png" alt="Jazz folder">
-          <div class="folder-name">Jazz</div>
+        <a class="simple-tile" href="#" data-title="Jazz" data-video="">
+          <span>05</span><strong>Jazz</strong><small>Lyric Videos</small>
         </a>
 
-        <a class="folder-link" style="--delay:.70s" href="#" data-title="Latin" data-video="">
-          <img class="folder-img" src="/assets/images/fl.png" alt="Latin folder">
-          <div class="folder-name">Latin</div>
+        <a class="simple-tile" href="#" data-title="Latin" data-video="">
+          <span>06</span><strong>Latin</strong><small>Lyric Videos</small>
         </a>
 
-        <a class="folder-link" style="--delay:.84s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
-          <img class="folder-img" src="/assets/images/fp.png" alt="Pop folder">
-          <div class="folder-name">Pop</div>
+        <a class="simple-tile" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+          <span>07</span><strong>Pop</strong><small>Play Video</small>
         </a>
 
-        <a class="folder-link" style="--delay:.98s" href="#" data-title="Reggaeton" data-video="">
-          <img class="folder-img" src="/assets/images/fr.png" alt="Reggaeton folder">
-          <div class="folder-name">Reggaeton</div>
+        <a class="simple-tile" href="#" data-title="Reggaeton" data-video="">
+          <span>08</span><strong>Reggaeton</strong><small>Lyric Videos</small>
         </a>
       </section>
     </section>
@@ -671,4 +747,5 @@
   </script>
 </body>
 </html>
+
 
