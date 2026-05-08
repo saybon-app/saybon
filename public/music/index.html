@@ -3,696 +3,426 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>SayBon Music</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
+    *{ box-sizing:border-box; }
+
+    html,body{
+      margin:0;
+      width:100%;
+      min-height:100%;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#fff7df;
+      background:#050507;
     }
 
-    :root {
-      --gold-1: #ffd46a;
-      --gold-2: #c88419;
-      --gold-3: #7a4b0d;
-      --dark: #050507;
-      --panel: rgba(5, 6, 9, 0.72);
-      --panel-soft: rgba(255, 255, 255, 0.045);
-      --line: rgba(255, 255, 255, 0.10);
-      --text: #fff7df;
-      --muted: rgba(255, 247, 223, 0.66);
-      --accent: #de5969;
-    }
-
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      font-family: "Nunito", system-ui, sans-serif;
-      color: var(--text);
-      background: #050507;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow: hidden;
+    body{
+      min-height:100vh;
+      overflow:hidden;
       background:
-        linear-gradient(rgba(2, 2, 4, 0.78), rgba(2, 2, 4, 0.9)),
+        linear-gradient(rgba(2,2,4,.80),rgba(2,2,4,.92)),
         url("/assets/images/music-icon.png");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 62% 20%, rgba(255, 195, 82, 0.12), transparent 24%),
-        radial-gradient(circle at 78% 78%, rgba(222, 89, 105, 0.12), transparent 28%),
-        rgba(0, 0, 0, 0.18);
-      backdrop-filter: blur(10px) saturate(118%);
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:rgba(0,0,0,.24);
+      backdrop-filter:blur(10px) saturate(120%);
+      z-index:0;
     }
 
-    .music-app {
-      position: relative;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      grid-template-rows: 1fr 112px;
-      overflow: hidden;
+    .app{
+      position:relative;
+      z-index:1;
+      width:100vw;
+      height:100vh;
+      display:grid;
+      grid-template-columns:280px 1fr;
+      grid-template-rows:1fr 104px;
+      overflow:hidden;
     }
 
-    .sidebar {
-      grid-row: 1 / 3;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.64));
-      border-right: 1px solid var(--line);
-      padding: 30px 22px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      backdrop-filter: blur(22px);
+    .sidebar{
+      grid-row:1 / 3;
+      padding:30px 22px 18px;
+      background:rgba(0,0,0,.66);
+      border-right:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(22px);
+      display:flex;
+      flex-direction:column;
+      gap:24px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 0 4px 18px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding-bottom:14px;
     }
 
-    .brand-mark {
-      width: 56px;
-      height: 56px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, var(--gold-1), var(--gold-2));
-      display: grid;
-      place-items: center;
-      color: #211300;
-      font-size: 26px;
-      box-shadow:
-        inset 0 2px 0 rgba(255, 255, 255, 0.46),
-        inset 0 -12px 22px rgba(80, 45, 0, 0.22),
-        0 18px 36px rgba(0, 0, 0, 0.34);
+    .brand-mark{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg,#ffd46a,#c88419);
+      color:#211300;
+      font-size:26px;
+      box-shadow:inset 0 2px 0 rgba(255,255,255,.45),0 16px 34px rgba(0,0,0,.35);
     }
 
-    .brand-title strong {
-      display: block;
-      font-size: 20px;
-      letter-spacing: 0.24em;
-      font-weight: 900;
-      color: #ffe39a;
+    .brand strong{
+      display:block;
+      font-size:19px;
+      letter-spacing:.23em;
+      font-weight:900;
+      color:#ffe39a;
     }
 
-    .brand-title span {
-      display: block;
-      font-size: 13px;
-      letter-spacing: 0.28em;
-      color: #ffe39a;
-      font-weight: 800;
-      margin-top: 2px;
+    .brand span{
+      display:block;
+      font-size:12px;
+      letter-spacing:.26em;
+      color:#ffe39a;
+      font-weight:800;
     }
 
-    .search {
-      height: 44px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.045);
-      display: flex;
-      align-items: center;
-      padding: 0 14px;
-      color: rgba(255, 255, 255, 0.46);
-      font-size: 14px;
-      font-weight: 700;
+    .search{
+      height:44px;
+      border-radius:15px;
+      padding:0 14px;
+      display:flex;
+      align-items:center;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.45);
+      font-size:14px;
+      font-weight:700;
     }
 
-    .nav {
-      display: grid;
-      gap: 4px;
+    .nav{
+      display:grid;
+      gap:4px;
     }
 
-    .nav a {
-      min-height: 42px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 14px;
-      color: rgba(255, 255, 255, 0.74);
-      text-decoration: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 760;
-      transition: 0.2s ease;
+    .nav a{
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 14px;
+      border-radius:12px;
+      text-decoration:none;
+      color:rgba(255,255,255,.74);
+      font-size:15px;
+      font-weight:760;
     }
 
-    .nav a:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
+    .nav a.active{
+      color:#ff7186;
+      background:linear-gradient(90deg,rgba(222,89,105,.18),rgba(255,255,255,.02));
+      border-left:3px solid #ff5774;
     }
 
-    .nav a.active {
-      color: #ff7186;
-      background: linear-gradient(90deg, rgba(222, 89, 105, 0.18), rgba(255, 255, 255, 0.02));
-      border-left: 3px solid #ff5774;
+    .main{
+      overflow:auto;
+      padding:38px 54px 34px;
     }
 
-    .side-section-title {
-      margin: 12px 8px 8px;
-      font-size: 14px;
-      font-weight: 900;
-      color: #ffffff;
+    .main::-webkit-scrollbar{ width:8px; }
+    .main::-webkit-scrollbar-thumb{
+      background:rgba(255,255,255,.16);
+      border-radius:999px;
     }
 
-    .side-playlist {
-      color: rgba(255, 214, 106, 0.88) !important;
+    .topbar{
+      display:flex;
+      justify-content:flex-end;
+      gap:22px;
+      margin-bottom:34px;
+      color:rgba(255,255,255,.78);
+      font-size:22px;
     }
 
-    .mini-player {
-      margin-top: auto;
-      border-radius: 18px;
-      padding: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.045);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.28);
+    .folder-grid{
+      width:min(100%,1050px);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(180px,1fr));
+      gap:62px 58px;
+      padding:30px 0 80px;
     }
 
-    .mini-art {
-      width: 100%;
-      aspect-ratio: 1.65 / 1;
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255, 211, 106, 0.18), transparent 35%),
-        linear-gradient(135deg, #130c06, #2b1708);
-      display: grid;
-      place-items: center;
-      color: #ffc84f;
-      font-size: 30px;
-      margin-bottom: 12px;
+    .folder-link{
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      color:#fff7df;
+      animation:floatFolder 5.4s ease-in-out infinite;
+      animation-delay:var(--delay);
     }
 
-    .mini-player strong {
-      display: block;
-      font-size: 14px;
+    @keyframes floatFolder{
+      0%,100%{ transform:translateY(0); }
+      50%{ transform:translateY(-8px); }
     }
 
-    .mini-player span {
-      display: block;
-      font-size: 12px;
-      margin-top: 3px;
-      color: var(--muted);
+    .folder-img{
+      width:230px;
+      max-width:100%;
+      height:auto;
+      display:block;
+      filter:drop-shadow(0 30px 28px rgba(0,0,0,.50));
+      transition:.25s ease;
     }
 
-    .mini-line {
-      margin: 14px 0 12px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      overflow: hidden;
+    .folder-link:hover .folder-img{
+      transform:translateY(-6px) scale(1.03);
+      filter:drop-shadow(0 42px 38px rgba(0,0,0,.62));
     }
 
-    .mini-line i {
-      display: block;
-      width: 58%;
-      height: 100%;
-      background: linear-gradient(90deg, #de5969, #ffd46a);
+    .folder-name{
+      margin-top:12px;
+      font-size:15px;
+      font-weight:900;
+      color:rgba(255,247,223,.86);
+      text-shadow:0 8px 20px rgba(0,0,0,.55);
     }
 
-    .mini-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
+    .bottom-player{
+      grid-column:2;
+      display:grid;
+      grid-template-columns:290px 1fr 220px;
+      align-items:center;
+      gap:28px;
+      padding:14px 36px;
+      background:rgba(5,6,9,.78);
+      border-top:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(24px);
     }
 
-    .mini-pause {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #c84e65;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      box-shadow: 0 12px 26px rgba(222, 89, 105, 0.3);
+    .now{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
     }
 
-    .main {
-      position: relative;
-      padding: 44px 54px 28px;
-      overflow: auto;
+    .now-art{
+      width:58px;
+      height:58px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#150c05,#351807);
+      display:grid;
+      place-items:center;
+      color:#ffc84f;
     }
 
-    .main::-webkit-scrollbar {
-      width: 8px;
+    .now strong{
+      display:block;
+      font-size:15px;
     }
 
-    .main::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.16);
-      border-radius: 999px;
+    .now span{
+      display:block;
+      color:rgba(255,247,223,.62);
+      font-size:12px;
+      margin-top:3px;
     }
 
-    .topbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 22px;
-      margin-bottom: 42px;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 22px;
+    .controls{
+      display:grid;
+      justify-items:center;
+      gap:10px;
     }
 
-    .folder-grid {
-      width: min(100%, 1050px);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(180px, 1fr));
-      gap: 78px 72px;
-      align-items: center;
-      padding: 46px 0 70px;
+    .buttons{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      color:rgba(255,255,255,.82);
+      font-size:19px;
     }
 
-    .folder-link {
-      text-decoration: none;
-      color: inherit;
-      display: grid;
-      place-items: center;
-      animation: floatFolder 5.2s ease-in-out infinite;
-      animation-delay: var(--delay);
+    .play-main{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);
     }
 
-    @keyframes floatFolder {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-9px); }
+    .timeline{
+      width:min(100%,560px);
+      display:grid;
+      grid-template-columns:48px 1fr 48px;
+      gap:12px;
+      align-items:center;
+      color:rgba(255,255,255,.68);
+      font-size:12px;
+      font-weight:800;
     }
 
-    .gold-folder {
-      width: 220px;
-      height: 160px;
-      position: relative;
-      filter:
-        drop-shadow(0 28px 26px rgba(0, 0, 0, 0.42))
-        drop-shadow(0 0 18px rgba(255, 188, 64, 0.16));
-      transition: 0.28s ease;
-      transform-style: preserve-3d;
+    .line{
+      height:4px;
+      border-radius:999px;
+      background:rgba(255,255,255,.15);
+      overflow:hidden;
     }
 
-    .folder-link:hover .gold-folder {
-      transform: translateY(-7px) rotateX(5deg) rotateY(-4deg);
-      filter:
-        drop-shadow(0 38px 34px rgba(0, 0, 0, 0.52))
-        drop-shadow(0 0 26px rgba(255, 188, 64, 0.24));
+    .line span{
+      display:block;
+      width:58%;
+      height:100%;
+      background:linear-gradient(90deg,#de5969,#ffd46a);
     }
 
-    .folder-back {
-      position: absolute;
-      left: 6px;
-      right: 10px;
-      top: 0;
-      height: 100px;
-      border-radius: 24px 24px 16px 16px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.26), transparent 28%),
-        linear-gradient(145deg, #ffd96f, #bf7612 70%, #6f4209);
-      box-shadow:
-        inset 0 3px 0 rgba(255, 255, 255, 0.42),
-        inset 0 -16px 24px rgba(75, 43, 3, 0.28);
+    .tools{
+      justify-self:end;
+      display:flex;
+      gap:18px;
+      color:rgba(255,255,255,.80);
     }
 
-    .folder-tab {
-      position: absolute;
-      left: 10px;
-      top: 0;
-      width: 82px;
-      height: 42px;
-      border-radius: 22px 22px 8px 8px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.28), transparent 36%),
-        linear-gradient(145deg, #ffdc76, #b66c0e);
-      z-index: 2;
-      box-shadow:
-        inset 0 2px 0 rgba(255, 255, 255, 0.44),
-        0 8px 14px rgba(64, 36, 4, 0.18);
+    .video-overlay{
+      position:fixed;
+      inset:0;
+      z-index:50;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:34px;
+      background:rgba(0,0,0,.82);
+      backdrop-filter:blur(20px);
     }
 
-    .folder-front {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 122px;
-      border-radius: 24px 28px 28px 28px;
-      background:
-        radial-gradient(circle at 34% 20%, rgba(255, 255, 255, 0.22), transparent 28%),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.18), transparent 34%),
-        linear-gradient(145deg, #ffcf58 0%, #c78216 58%, #80500c 100%);
-      border: 1px solid rgba(255, 224, 128, 0.34);
-      box-shadow:
-        inset 0 3px 0 rgba(255, 255, 255, 0.38),
-        inset 0 -20px 36px rgba(77, 45, 3, 0.34),
-        inset 18px 0 28px rgba(255, 220, 108, 0.10);
-      z-index: 3;
-      overflow: hidden;
+    .video-overlay.active{
+      display:flex;
     }
 
-    .folder-front::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.24), transparent 20%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 7px);
-      opacity: 0.8;
-      pointer-events: none;
+    .video-shell{
+      width:min(100%,1040px);
+      border-radius:28px;
+      padding:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 40px 110px rgba(0,0,0,.55);
     }
 
-    .folder-front::after {
-      content: "";
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      top: 16px;
-      height: 24px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.11);
-      filter: blur(3px);
+    .video-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:4px 4px 16px;
     }
 
-    .engraving {
-  position: absolute;
-  inset: 42px 60px 36px;
-  display: grid;
-  place-items: center;
-  font-size: 38px;
-
-  /* REMOVE FLAT LOOK */
-  color: transparent;
-
-  /* DEEP CARVE EFFECT */
-  text-shadow:
-    /* top highlight (light hitting edge) */
-    0 -1px 0 rgba(255, 225, 140, 0.25),
-
-    /* main carved depth */
-    0 3px 6px rgba(20, 10, 0, 0.85),
-
-    /* deeper inner shadow */
-    0 6px 10px rgba(0, 0, 0, 0.9),
-
-    /* subtle edge softness */
-    0 0 4px rgba(0,0,0,0.4);
-
-  transform: translateY(2px);
-}
-
-    .engraving span {
-      color: rgba(63, 36, 3, 0.50);
-      filter:
-        drop-shadow(0 -1px 0 rgba(255, 225, 134, 0.28))
-        drop-shadow(0 5px 5px rgba(38, 20, 0, 0.78));
-      transform: scale(0.82);
+    .video-head strong{
+      font-size:20px;
+      font-weight:900;
     }
 
-    .deep-cut {
-  position: absolute;
-  inset: 50px 70px 42px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(0,0,0,0.7) 0%,
-      rgba(0,0,0,0.5) 30%,
-      rgba(255,210,120,0.05) 55%,
-      transparent 75%
-    );
-
-  filter: blur(6px);
-  opacity: 0.95;
-}
-
-    .folder-name {
-      margin-top: 16px;
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      color: rgba(255, 247, 223, 0.84);
-      text-shadow: 0 8px 20px rgba(0,0,0,0.55);
+    .close-video{
+      width:46px;
+      height:46px;
+      border:0;
+      border-radius:50%;
+      background:rgba(255,255,255,.14);
+      color:white;
+      font-size:26px;
+      cursor:pointer;
     }
 
-    .jazz { --delay: 0s; }
-    .pop { --delay: .16s; }
-    .classical { --delay: .32s; }
-    .afrobeats { --delay: .48s; }
-    .latin { --delay: .64s; }
-    .reggaeton { --delay: .80s; }
-    .highlife { --delay: .96s; }
-    .gospel { --delay: 1.12s; }
-
-    .bottom-player {
-      grid-column: 2;
-      background: rgba(5, 6, 9, 0.78);
-      border-top: 1px solid var(--line);
-      backdrop-filter: blur(24px);
-      display: grid;
-      grid-template-columns: 290px 1fr 260px;
-      align-items: center;
-      gap: 28px;
-      padding: 14px 36px;
+    video{
+      width:100%;
+      max-height:72vh;
+      display:block;
+      border-radius:20px;
+      background:#000;
     }
 
-    .now {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
+    @media(max-width:1120px){
+      body{ overflow:auto; }
 
-    .now-art {
-      width: 58px;
-      height: 58px;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255, 211, 106, 0.20), transparent 35%),
-        linear-gradient(135deg, #150c05, #351807);
-      display: grid;
-      place-items: center;
-      color: #ffc84f;
-      flex: 0 0 auto;
-    }
-
-    .now strong {
-      display: block;
-      font-size: 15px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .now span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-    .main-controls {
-      display: grid;
-      gap: 10px;
-      justify-items: center;
-    }
-
-    .buttons {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      font-size: 19px;
-      color: rgba(255, 255, 255, 0.82);
-    }
-
-    .play-main {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.22);
-      display: grid;
-      place-items: center;
-      font-size: 18px;
-      color: #fff;
-      background: rgba(255,255,255,.06);
-    }
-
-    .timeline {
-      width: min(100%, 560px);
-      display: grid;
-      grid-template-columns: 48px 1fr 48px;
-      gap: 12px;
-      align-items: center;
-      color: rgba(255,255,255,.68);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .timeline-line {
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.15);
-      overflow: hidden;
-    }
-
-    .timeline-line span {
-      display: block;
-      width: 58%;
-      height: 100%;
-      background: linear-gradient(90deg, #de5969, #ffd46a);
-    }
-
-    .player-tools {
-      justify-self: end;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      color: rgba(255,255,255,.80);
-    }
-
-    @media (max-width: 1120px) {
-      .music-app {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr auto;
-        overflow: auto;
+      .app{
+        grid-template-columns:1fr;
+        grid-template-rows:auto 1fr auto;
+        height:auto;
+        min-height:100vh;
       }
 
-      body {
-        overflow: auto;
+      .sidebar{
+        grid-row:auto;
+        flex-direction:row;
+        overflow-x:auto;
+        border-right:0;
+        border-bottom:1px solid rgba(255,255,255,.10);
       }
 
-      .sidebar {
-        grid-row: auto;
-        flex-direction: row;
-        align-items: center;
-        overflow-x: auto;
-        padding: 18px;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
+      .brand,.search,.nav{ flex:0 0 auto; }
+      .nav{ display:flex; }
+
+      .main{
+        padding:30px 24px;
       }
 
-      .brand,
-      .search,
-      .nav {
-        flex: 0 0 auto;
+      .folder-grid{
+        grid-template-columns:repeat(3,minmax(160px,1fr));
+        gap:48px 28px;
       }
 
-      .nav {
-        display: flex;
+      .bottom-player{
+        grid-column:auto;
+        grid-template-columns:1fr;
       }
 
-      .side-section-title,
-      .mini-player {
-        display: none;
-      }
-
-      .main {
-        padding: 30px 24px;
-      }
-
-      .folder-grid {
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
-        gap: 58px 34px;
-      }
-
-      .bottom-player {
-        grid-column: auto;
-        grid-template-columns: 1fr;
-      }
-
-      .player-tools {
-        justify-self: center;
+      .tools{
+        justify-self:center;
       }
     }
 
-    @media (max-width: 720px) {
-      .folder-grid {
-        grid-template-columns: repeat(2, minmax(150px, 1fr));
-        gap: 42px 20px;
+    @media(max-width:720px){
+      .folder-grid{
+        grid-template-columns:repeat(2,minmax(140px,1fr));
+        gap:36px 18px;
       }
 
-      .gold-folder {
-        width: 170px;
-        height: 126px;
+      .folder-img{
+        width:180px;
       }
-
-      .folder-back {
-        height: 78px;
-      }
-
-      .folder-front {
-        height: 96px;
-      }
-
-      .folder-tab {
-        width: 66px;
-        height: 34px;
-      }
-
-      .engraving {
-  position: absolute;
-  inset: 42px 60px 36px;
-  display: grid;
-  place-items: center;
-  font-size: 38px;
-
-  /* REMOVE FLAT LOOK */
-  color: transparent;
-
-  /* DEEP CARVE EFFECT */
-  text-shadow:
-    /* top highlight (light hitting edge) */
-    0 -1px 0 rgba(255, 225, 140, 0.25),
-
-    /* main carved depth */
-    0 3px 6px rgba(20, 10, 0, 0.85),
-
-    /* deeper inner shadow */
-    0 6px 10px rgba(0, 0, 0, 0.9),
-
-    /* subtle edge softness */
-    0 0 4px rgba(0,0,0,0.4);
-
-  transform: translateY(2px);
-}
     }
 
-    @media (max-width: 460px) {
-      .folder-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        justify-content: center;
+    @media(max-width:460px){
+      .folder-grid{
+        grid-template-columns:1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="music-app">
+  <main class="app">
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">♪</div>
-        <div class="brand-title">
+        <div>
           <strong>SAYBON</strong>
           <span>MUSIC</span>
         </div>
       </div>
 
-      <div class="search">Search music...</div>
+      <div class="search">Search lyric videos...</div>
 
       <nav class="nav">
         <a class="active" href="#">▣ Browse</a>
@@ -701,102 +431,54 @@
         <a href="#">♡ Liked Songs</a>
         <a href="#">▱ Playlists</a>
       </nav>
-
-      <div class="side-section-title">Your Playlists</div>
-
-      <nav class="nav">
-        <a class="side-playlist" href="#">◉ Chill & Learn</a>
-        <a class="side-playlist" href="#">◉ Morning Vibes</a>
-        <a class="side-playlist" href="#">♪ Focus Mode</a>
-        <a class="side-playlist" href="#">◉ Romance Français</a>
-        <a class="side-playlist" href="#">♬ Worship Flow</a>
-      </nav>
-
-      <section class="mini-player">
-        <div class="mini-art">SayBon ♪</div>
-        <strong>Bonjour Soleil</strong>
-        <span>SayBon Originals · Lyric Video</span>
-        <div class="mini-line"><i></i></div>
-        <div class="mini-controls">
-          <span>↺</span>
-          <span>‹</span>
-          <span class="mini-pause">Ⅱ</span>
-          <span>›</span>
-          <span>↻</span>
-        </div>
-      </section>
     </aside>
 
     <section class="main">
       <header class="topbar">
-        <span>♢</span>
+        <span>⌕</span>
         <span>🔔</span>
-        <span>◎</span>
+        <span>☰</span>
       </header>
 
       <section class="folder-grid">
-        <a class="folder-link jazz" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🎷</span></div>
-          </div>
-          <div class="folder-name">Jazz</div>
-        </a>
-
-        <a class="folder-link pop" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🎤</span></div>
-          </div>
-          <div class="folder-name">Pop</div>
-        </a>
-
-        <a class="folder-link classical" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🎻</span></div>
-          </div>
-          <div class="folder-name">Classical</div>
-        </a>
-
-        <a class="folder-link afrobeats" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🪘</span></div>
-          </div>
+        <a class="folder-link" style="--delay:0s" href="#" data-title="Afrobeats" data-video="">
+          <img class="folder-img" src="/assets/images/fa.png" alt="Afrobeats folder">
           <div class="folder-name">Afrobeats</div>
         </a>
 
-        <a class="folder-link latin" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>💃</span></div>
-          </div>
+        <a class="folder-link" style="--delay:.14s" href="#" data-title="Classical" data-video="">
+          <img class="folder-img" src="/assets/images/fc.png" alt="Classical folder">
+          <div class="folder-name">Classical</div>
+        </a>
+
+        <a class="folder-link" style="--delay:.28s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+          <img class="folder-img" src="/assets/images/fcntry.png" alt="Country folder">
+          <div class="folder-name">Country</div>
+        </a>
+
+        <a class="folder-link" style="--delay:.42s" href="#" data-title="Gospel" data-video="">
+          <img class="folder-img" src="/assets/images/fg.png" alt="Gospel folder">
+          <div class="folder-name">Gospel</div>
+        </a>
+
+        <a class="folder-link" style="--delay:.56s" href="#" data-title="Jazz" data-video="">
+          <img class="folder-img" src="/assets/images/fj.png" alt="Jazz folder">
+          <div class="folder-name">Jazz</div>
+        </a>
+
+        <a class="folder-link" style="--delay:.70s" href="#" data-title="Latin" data-video="">
+          <img class="folder-img" src="/assets/images/fl.png" alt="Latin folder">
           <div class="folder-name">Latin</div>
         </a>
 
-        <a class="folder-link reggaeton" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🕺</span></div>
-          </div>
+        <a class="folder-link" style="--delay:.84s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+          <img class="folder-img" src="/assets/images/fp.png" alt="Pop folder">
+          <div class="folder-name">Pop</div>
+        </a>
+
+        <a class="folder-link" style="--delay:.98s" href="#" data-title="Reggaeton" data-video="">
+          <img class="folder-img" src="/assets/images/fr.png" alt="Reggaeton folder">
           <div class="folder-name">Reggaeton</div>
-        </a>
-
-        <a class="folder-link highlife" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🤲</span></div>
-          </div>
-          <div class="folder-name">African Highlife</div>
-        </a>
-
-        <a class="folder-link gospel" href="#">
-          <div class="gold-folder">
-            <div class="folder-back"></div><div class="folder-tab"></div><div class="folder-front"></div>
-            <div class="deep-cut"></div><div class="engraving"><span>🙌</span></div>
-          </div>
-          <div class="folder-name">Gospel</div>
         </a>
       </section>
     </section>
@@ -805,12 +487,12 @@
       <div class="now">
         <div class="now-art">♪</div>
         <div>
-          <strong>Bonjour Soleil</strong>
-          <span>SayBon Originals · Lyric Video</span>
+          <strong>SayBon Lyric Videos</strong>
+          <span>Select a genre folder</span>
         </div>
       </div>
 
-      <div class="main-controls">
+      <div class="controls">
         <div class="buttons">
           <span>⤨</span>
           <span>‹</span>
@@ -820,19 +502,71 @@
         </div>
 
         <div class="timeline">
-          <span>02:10</span>
-          <div class="timeline-line"><span></span></div>
-          <span>03:45</span>
+          <span>00:00</span>
+          <div class="line"><span></span></div>
+          <span>--:--</span>
         </div>
       </div>
 
-      <div class="player-tools">
+      <div class="tools">
         <span>▣</span>
         <span>🔊</span>
         <span>☰</span>
       </div>
     </section>
   </main>
+
+  <section class="video-overlay" id="videoOverlay">
+    <div class="video-shell">
+      <div class="video-head">
+        <strong id="videoTitle">SayBon Lyric Video</strong>
+        <button class="close-video" id="closeVideo">×</button>
+      </div>
+      <video id="videoPlayer" controls playsinline></video>
+    </div>
+  </section>
+
+  <script>
+    const folders = document.querySelectorAll(".folder-link");
+    const overlay = document.getElementById("videoOverlay");
+    const player = document.getElementById("videoPlayer");
+    const title = document.getElementById("videoTitle");
+    const closeVideo = document.getElementById("closeVideo");
+
+    folders.forEach(folder => {
+      folder.addEventListener("click", event => {
+        event.preventDefault();
+
+        const video = folder.dataset.video;
+        const name = folder.dataset.title;
+
+        if (!video) {
+          alert(name + " lyric videos are coming soon.");
+          return;
+        }
+
+        title.textContent = name + " Lyric Video";
+        player.src = video;
+        overlay.classList.add("active");
+        player.play();
+      });
+    });
+
+    closeVideo.addEventListener("click", () => {
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+      overlay.classList.remove("active");
+    });
+
+    overlay.addEventListener("click", event => {
+      if (event.target === overlay) {
+        player.pause();
+        player.removeAttribute("src");
+        player.load();
+        overlay.classList.remove("active");
+      }
+    });
+  </script>
 </body>
 </html>
-
