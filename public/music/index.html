@@ -9,715 +9,482 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    *{box-sizing:border-box}
-
-    html,body{
-      margin:0;
-      min-height:100%;
-      font-family:"Nunito",system-ui,sans-serif;
-      background:#06070a;
-      color:#fff7df;
+    * {
+      box-sizing: border-box;
     }
 
-    body{
-      min-height:100vh;
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: "Nunito", system-ui, sans-serif;
+      background: #06070a;
+      color: #fff7df;
+    }
+
+    body {
+      min-height: 100vh;
       background:
-        linear-gradient(rgba(5,7,12,.84),rgba(5,7,12,.94)),
+        linear-gradient(rgba(5, 7, 12, 0.84), rgba(5, 7, 12, 0.94)),
         url("/assets/images/music-icon.png") center/cover fixed no-repeat;
-      overflow:hidden;
+      overflow-x: hidden;
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
       background:
-        radial-gradient(circle at 30% 18%,rgba(255,207,106,.14),transparent 28%),
-        radial-gradient(circle at 75% 75%,rgba(222,89,105,.11),transparent 34%),
-        rgba(0,0,0,.18);
-      backdrop-filter:blur(12px) saturate(115%);
-      pointer-events:none;
-      z-index:0;
+        radial-gradient(circle at 28% 18%, rgba(255, 207, 106, 0.14), transparent 28%),
+        radial-gradient(circle at 74% 72%, rgba(222, 89, 105, 0.10), transparent 34%),
+        rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(12px) saturate(115%);
     }
 
-    .app{
-      position:relative;
-      z-index:1;
-      width:100vw;
-      height:100vh;
-      display:grid;
-      grid-template-columns:260px 1fr;
-      grid-template-rows:1fr 96px;
-      overflow:hidden;
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      width: 100%;
+      padding: clamp(20px, 4vw, 52px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .sidebar{
-      grid-row:1 / 3;
-      padding:30px 22px;
-      background:rgba(0,0,0,.62);
-      border-right:1px solid rgba(255,255,255,.1);
-      backdrop-filter:blur(24px);
-      display:flex;
-      flex-direction:column;
-      gap:24px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
-    .brand-mark{
-      width:52px;
-      height:52px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(145deg,#ffd46a,#b96f18);
-      color:#170c00;
-      font-size:24px;
-      font-weight:900;
-      box-shadow:0 18px 38px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.45);
-    }
-
-    .brand strong{
-      display:block;
-      font-size:18px;
-      letter-spacing:.22em;
-      color:#ffe39a;
-      font-weight:900;
-    }
-
-    .brand span{
-      display:block;
-      font-size:11px;
-      letter-spacing:.28em;
-      color:rgba(255,227,154,.78);
-      font-weight:800;
-      margin-top:2px;
-    }
-
-    .search{
-      height:44px;
-      border-radius:15px;
-      padding:0 14px;
-      display:flex;
-      align-items:center;
-      background:rgba(255,255,255,.045);
-      border:1px solid rgba(255,255,255,.1);
-      color:rgba(255,255,255,.45);
-      font-size:14px;
-      font-weight:700;
-    }
-
-    .nav{
-      display:grid;
-      gap:5px;
-    }
-
-    .nav a{
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      padding:0 14px;
-      border-radius:13px;
-      text-decoration:none;
-      color:rgba(255,255,255,.72);
-      font-size:14px;
-      font-weight:800;
-      transition:.2s ease;
-    }
-
-    .nav a:hover{
-      background:rgba(255,255,255,.055);
-      color:white;
-    }
-
-    .nav a.active{
-      color:#ffd46a;
-      background:rgba(255,212,106,.105);
-      border-left:3px solid #ffd46a;
-    }
-
-    .main{
-      overflow:auto;
-      padding:42px 54px 34px;
-    }
-
-    .main::-webkit-scrollbar{width:8px}
-    .main::-webkit-scrollbar-thumb{
-      background:rgba(255,255,255,.16);
-      border-radius:999px;
-    }
-
-    .hero{
-      max-width:1040px;
-      margin:0 auto 36px;
-      min-height:230px;
-      border-radius:34px;
-      padding:38px;
+    .music-shell {
+      width: min(1180px, 100%);
+      border-radius: 42px;
+      padding: clamp(30px, 5vw, 64px);
       background:
-        linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 35px 100px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.1);
-      backdrop-filter:blur(24px) saturate(120%);
-      display:grid;
-      grid-template-columns:1fr 280px;
-      gap:30px;
-      align-items:center;
+        linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(24px) saturate(120%);
+      overflow: hidden;
     }
 
-    .eyebrow{
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:#ffd46a;
-      margin-bottom:12px;
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      align-items: center;
+      gap: clamp(30px, 6vw, 80px);
     }
 
-    .hero h1{
-      margin:0;
-      font-size:clamp(48px,6vw,78px);
-      line-height:.92;
-      letter-spacing:-.07em;
-      font-weight:900;
+    .hero h1 {
+      margin: 0;
+      max-width: 690px;
+      font-size: clamp(50px, 7vw, 92px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+      color: #fff9e9;
+      text-shadow: 0 20px 58px rgba(0, 0, 0, 0.42);
     }
 
-    .hero p{
-      margin:18px 0 0;
-      max-width:650px;
-      color:rgba(255,247,223,.68);
-      line-height:1.65;
-      font-size:15px;
-      font-weight:600;
+    .hero p {
+      margin: 28px 0 0;
+      max-width: 720px;
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.72;
+      color: rgba(255, 247, 223, 0.74);
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
-    .hero-device{
-      width:240px;
-      height:240px;
-      justify-self:end;
-      border-radius:38px;
+    .music-toggle {
+      width: 260px;
+      height: 260px;
+      justify-self: end;
+      border: 0;
+      border-radius: 42px;
+      cursor: pointer;
       background:
-        radial-gradient(circle at 58% 26%,rgba(255,255,255,.22),transparent 24%),
-        linear-gradient(145deg,rgba(255,212,106,.28),rgba(222,89,105,.12),rgba(255,255,255,.035));
-      border:1px solid rgba(255,255,255,.15);
-      display:grid;
-      place-items:center;
-      box-shadow:0 30px 80px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.16);
+        radial-gradient(circle at 58% 26%, rgba(255, 255, 255, 0.22), transparent 24%),
+        linear-gradient(145deg, rgba(255, 212, 106, 0.30), rgba(222, 89, 105, 0.12), rgba(255, 255, 255, 0.035));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      box-shadow:
+        0 30px 86px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      transition: 0.28s ease;
     }
 
-    .hero-device .note{
-      width:96px;
-      height:96px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:rgba(255,255,255,.13);
-      border:1px solid rgba(255,255,255,.14);
-      font-size:42px;
-      color:#ffd46a;
-      box-shadow:0 18px 40px rgba(0,0,0,.28);
+    .music-toggle:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow:
+        0 42px 110px rgba(0, 0, 0, 0.5),
+        0 0 36px rgba(255, 212, 106, 0.11),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
-    .section-head{
-      max-width:1040px;
-      margin:0 auto 18px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:18px;
+    .music-toggle.is-open {
+      transform: scale(0.98);
+      border-color: rgba(255, 212, 106, 0.28);
     }
 
-    .section-head h2{
-      margin:0;
-      font-size:24px;
-      letter-spacing:-.035em;
-    }
-
-    .section-head span{
-      color:rgba(255,247,223,.52);
-      font-size:13px;
-      font-weight:800;
-    }
-
-    .genre-grid{
-      max-width:1040px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(4,minmax(150px,1fr));
-      gap:22px;
-      padding-bottom:70px;
-    }
-
-    .genre-card{
-      min-height:158px;
-      border-radius:28px;
-      text-decoration:none;
-      color:#fff7df;
-      position:relative;
-      overflow:hidden;
-      padding:22px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
+    .note-orb {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
       background:
-        radial-gradient(circle at 78% 18%,rgba(255,212,106,.16),transparent 28%),
-        linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 26px 70px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.1);
-      backdrop-filter:blur(22px) saturate(120%);
-      transition:.24s ease;
+        radial-gradient(circle at 35% 20%, rgba(255,255,255,0.28), transparent 34%),
+        rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.32);
+      color: #ffd46a;
+      font-size: 46px;
+      font-weight: 900;
     }
 
-    .genre-card:hover{
-      transform:translateY(-7px);
-      border-color:rgba(255,212,106,.26);
-      box-shadow:0 38px 95px rgba(0,0,0,.52), 0 0 34px rgba(255,212,106,.08);
+    .folder-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.8s cubic-bezier(0.2, 0.9, 0.2, 1);
     }
 
-    .genre-card::before{
-      content:"";
-      position:absolute;
-      right:-34px;
-      top:-34px;
-      width:118px;
-      height:118px;
-      border-radius:50%;
-      background:var(--glow);
-      opacity:.42;
-      filter:blur(6px);
+    .folder-drawer.is-open {
+      grid-template-rows: 1fr;
     }
 
-    .genre-icon{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.12);
-      color:#ffd46a;
+    .folder-drawer-inner {
+      overflow: hidden;
     }
 
-    .genre-icon svg{
-      width:30px;
-      height:30px;
-      stroke:currentColor;
-      stroke-width:2.4;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
+    .folder-grid {
+      padding-top: 54px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: clamp(24px, 4vw, 44px);
+      opacity: 0;
+      transform: translateY(-22px);
+      transition:
+        opacity 0.55s ease 0.12s,
+        transform 0.65s cubic-bezier(0.2, 0.9, 0.2, 1) 0.12s;
     }
 
-    .genre-card strong{
-      position:relative;
-      z-index:2;
-      font-size:24px;
-      line-height:1;
-      font-weight:900;
-      letter-spacing:-.05em;
+    .folder-drawer.is-open .folder-grid {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .genre-card small{
-      position:relative;
-      z-index:2;
-      margin-top:8px;
-      display:block;
-      color:rgba(255,247,223,.56);
-      font-size:12px;
-      font-weight:800;
+    .folder-link {
+      position: relative;
+      min-height: 155px;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      isolation: isolate;
+      animation: folderFloat 5.5s ease-in-out infinite;
+      animation-delay: var(--delay);
     }
 
-    .genre-copy{
-      position:relative;
-      z-index:2;
+    @keyframes folderFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
-    .afro{--glow:rgba(111,149,118,.7)}
-    .classical{--glow:rgba(210,210,209,.55)}
-    .country{--glow:rgba(203,163,126,.72)}
-    .gospel{--glow:rgba(255,212,106,.62)}
-    .jazz{--glow:rgba(153,192,205,.58)}
-    .latin{--glow:rgba(222,89,105,.6)}
-    .pop{--glow:rgba(226,164,192,.64)}
-    .reggaeton{--glow:rgba(160,133,180,.62)}
-
-    .bottom-player{
-      grid-column:2;
-      height:96px;
-      display:grid;
-      grid-template-columns:280px 1fr 220px;
-      align-items:center;
-      gap:28px;
-      padding:14px 34px;
-      background:rgba(5,6,9,.82);
-      border-top:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(24px);
+    .folder-link::before {
+      content: "";
+      position: absolute;
+      width: 72%;
+      height: 34%;
+      left: 14%;
+      bottom: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 196, 73, 0.20), rgba(0,0,0,0) 70%);
+      filter: blur(16px);
+      opacity: 0.7;
+      z-index: -1;
+      transition: 0.25s ease;
     }
 
-    .now{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
+    .folder-link:hover::before {
+      opacity: 1;
+      transform: scale(1.12);
     }
 
-    .now-art{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      background:linear-gradient(145deg,#ffd46a,#b96f18);
-      display:grid;
-      place-items:center;
-      color:#170c00;
-      font-weight:900;
+    .folder-img {
+      width: 180px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 30px 28px rgba(0,0,0,0.58))
+        drop-shadow(0 0 18px rgba(255,190,65,0.10));
+      transition: 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .now strong{
-      display:block;
-      font-size:15px;
+    .folder-link:hover .folder-img {
+      transform: translateY(-7px) scale(1.05);
+      filter:
+        drop-shadow(0 42px 38px rgba(0,0,0,0.72))
+        drop-shadow(0 0 30px rgba(255,210,105,0.22));
     }
 
-    .now span{
-      display:block;
-      color:rgba(255,247,223,.58);
-      font-size:12px;
-      margin-top:3px;
+    .folder-link::after {
+      content: attr(data-title);
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.48);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(14px);
+      color: rgba(255,247,223,0.92);
+      font-size: 13px;
+      font-weight: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.22s ease;
+      white-space: nowrap;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
     }
 
-    .controls{
-      display:grid;
-      justify-items:center;
-      gap:9px;
+    .folder-link:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
-    .buttons{
-      display:flex;
-      align-items:center;
-      gap:26px;
-      color:rgba(255,255,255,.78);
-      font-size:18px;
+    .video-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 34px;
+      background: rgba(0,0,0,0.84);
+      backdrop-filter: blur(20px);
     }
 
-    .play-main{
-      width:46px;
-      height:46px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.18);
+    .video-overlay.active {
+      display: flex;
     }
 
-    .timeline{
-      width:min(100%,560px);
-      display:grid;
-      grid-template-columns:48px 1fr 48px;
-      gap:12px;
-      align-items:center;
-      color:rgba(255,255,255,.62);
-      font-size:12px;
-      font-weight:800;
+    .video-shell {
+      width: min(100%, 1040px);
+      border-radius: 28px;
+      padding: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 40px 110px rgba(0,0,0,0.55);
     }
 
-    .line{
-      height:4px;
-      border-radius:999px;
-      background:rgba(255,255,255,.14);
-      overflow:hidden;
+    .video-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 4px 16px;
     }
 
-    .line span{
-      display:block;
-      width:58%;
-      height:100%;
-      background:linear-gradient(90deg,#de5969,#ffd46a);
+    .video-head strong {
+      font-size: 20px;
+      font-weight: 900;
     }
 
-    .tools{
-      justify-self:end;
-      display:flex;
-      gap:18px;
-      color:rgba(255,255,255,.74);
+    .close-video {
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.14);
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
     }
 
-    .video-overlay{
-      position:fixed;
-      inset:0;
-      z-index:50;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:34px;
-      background:rgba(0,0,0,.84);
-      backdrop-filter:blur(20px);
+    video {
+      width: 100%;
+      max-height: 72vh;
+      display: block;
+      border-radius: 20px;
+      background: #000;
     }
 
-    .video-overlay.active{display:flex}
-
-    .video-shell{
-      width:min(100%,1040px);
-      border-radius:28px;
-      padding:18px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 40px 110px rgba(0,0,0,.55);
-    }
-
-    .video-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:4px 4px 16px;
-    }
-
-    .video-head strong{
-      font-size:20px;
-      font-weight:900;
-    }
-
-    .close-video{
-      width:46px;
-      height:46px;
-      border:0;
-      border-radius:50%;
-      background:rgba(255,255,255,.14);
-      color:white;
-      font-size:26px;
-      cursor:pointer;
-    }
-
-    video{
-      width:100%;
-      max-height:72vh;
-      display:block;
-      border-radius:20px;
-      background:#000;
-    }
-
-    @media(max-width:1080px){
-      body{overflow:auto}
-
-      .app{
-        height:auto;
-        min-height:100vh;
-        grid-template-columns:1fr;
-        grid-template-rows:auto 1fr auto;
+    @media (max-width: 900px) {
+      .page {
+        align-items: flex-start;
       }
 
-      .sidebar{
-        grid-row:auto;
-        flex-direction:row;
-        overflow-x:auto;
-        padding:18px;
-        border-right:0;
-        border-bottom:1px solid rgba(255,255,255,.1);
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
-      .brand,.search,.nav{flex:0 0 auto}
-      .nav{display:flex}
-
-      .main{padding:30px 22px}
-
-      .hero{
-        grid-template-columns:1fr;
-        text-align:center;
+      .hero h1,
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .hero p{margin-left:auto;margin-right:auto}
-
-      .hero-device{
-        justify-self:center;
+      .music-toggle {
+        justify-self: center;
+        width: 220px;
+        height: 220px;
       }
 
-      .genre-grid{
-        grid-template-columns:repeat(2,minmax(150px,1fr));
+      .folder-grid {
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
       }
-
-      .bottom-player{
-        grid-column:auto;
-        grid-template-columns:1fr;
-        height:auto;
-      }
-
-      .tools{justify-self:center}
     }
 
-    @media(max-width:540px){
-      .genre-grid{
-        grid-template-columns:1fr;
+    @media (max-width: 520px) {
+      .music-shell {
+        padding: 28px 18px 38px;
+        border-radius: 30px;
       }
 
-      .hero{
-        padding:28px 22px;
+      .hero h1 {
+        font-size: 44px;
       }
 
-      .hero-device{
-        width:190px;
-        height:190px;
+      .hero p {
+        font-size: 15px;
+      }
+
+      .music-toggle {
+        width: 180px;
+        height: 180px;
+        border-radius: 34px;
+      }
+
+      .note-orb {
+        width: 82px;
+        height: 82px;
+        font-size: 38px;
+      }
+
+      .folder-grid {
+        grid-template-columns: 1fr;
+        padding-top: 38px;
+      }
+
+      .folder-img {
+        width: 210px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">♪</div>
-        <div>
-          <strong>SAYBON</strong>
-          <span>MUSIC</span>
-        </div>
-      </div>
-
-      <div class="search">Search lyric videos...</div>
-
-      <nav class="nav">
-        <a class="active" href="#">Browse</a>
-        <a href="#">Your Library</a>
-        <a href="#">Recently Played</a>
-        <a href="#">Liked Songs</a>
-        <a href="#">Playlists</a>
-      </nav>
-    </aside>
-
-    <section class="main">
+  <main class="page">
+    <section class="music-shell">
       <section class="hero">
         <div>
-          <div class="eyebrow">SayBon Originals</div>
           <h1>French through music that feels alive.</h1>
           <p>
-            A curated lyric-video space for learning French through rhythm, repetition,
-            vocabulary, pronunciation, culture, and beautiful genre-based listening.
+            SayBon creates original French music to help learners absorb vocabulary,
+            pronunciation, sentence rhythm, listening patterns, and cultural expression
+            naturally through repetition, melody, and emotional memory.
           </p>
         </div>
 
-        <div class="hero-device">
-          <div class="note">♪</div>
-        </div>
+        <button class="music-toggle" id="musicToggle" type="button" aria-label="Open SayBon music genres">
+          <span class="note-orb">♪</span>
+        </button>
       </section>
 
-      <div class="section-head">
-        <h2>Choose a music style</h2>
-        <span>All songs here are lyric videos</span>
-      </div>
+      <section class="folder-drawer" id="folderDrawer">
+        <div class="folder-drawer-inner">
+          <section class="folder-grid">
+            <a class="folder-link" style="--delay:0s" href="#" data-title="Afrobeats" data-video="">
+              <img class="folder-img" src="/assets/images/fa.png" alt="Afrobeats">
+            </a>
 
-      <section class="genre-grid">
-        <a class="genre-card afro" href="#" data-title="Afrobeats" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="16" rx="13" ry="5"/><path d="M19 16v28c0 7 26 7 26 0V16"/><path d="M19 30c0 7 26 7 26 0"/></svg></div>
-          <div class="genre-copy"><strong>Afrobeats</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.14s" href="#" data-title="Classical" data-video="">
+              <img class="folder-img" src="/assets/images/fc.png" alt="Classical">
+            </a>
 
-        <a class="genre-card classical" href="#" data-title="Classical" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><path d="M24 12v34"/><path d="M24 12l20 10"/><path d="M24 28l18 8"/><circle cx="21" cy="49" r="6"/><circle cx="39" cy="51" r="5"/></svg></div>
-          <div class="genre-copy"><strong>Classical</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.28s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+              <img class="folder-img" src="/assets/images/fcntry.png" alt="Country">
+            </a>
 
-        <a class="genre-card country" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><path d="M26 20c0-8 9-11 14-4l10 14c4 7-2 14-11 13H28"/><circle cx="22" cy="34" r="10"/><path d="M31 31l17-17"/></svg></div>
-          <div class="genre-copy"><strong>Country</strong><small>Play video</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.42s" href="#" data-title="Gospel" data-video="">
+              <img class="folder-img" src="/assets/images/fg.png" alt="Gospel">
+            </a>
 
-        <a class="genre-card gospel" href="#" data-title="Gospel" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><path d="M32 10v44"/><path d="M18 24h28"/></svg></div>
-          <div class="genre-copy"><strong>Gospel</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.56s" href="#" data-title="Jazz" data-video="">
+              <img class="folder-img" src="/assets/images/fj.png" alt="Jazz">
+            </a>
 
-        <a class="genre-card jazz" href="#" data-title="Jazz" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><path d="M22 10c19 10 18 34 0 44"/><path d="M43 15c-13 7-13 28 2 36"/><circle cx="22" cy="54" r="4"/><circle cx="45" cy="51" r="4"/></svg></div>
-          <div class="genre-copy"><strong>Jazz</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.70s" href="#" data-title="Latin" data-video="">
+              <img class="folder-img" src="/assets/images/fl.png" alt="Latin">
+            </a>
 
-        <a class="genre-card latin" href="#" data-title="Latin" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><circle cx="23" cy="18" r="5"/><circle cx="43" cy="18" r="5"/><path d="M24 25l-8 14 10 14"/><path d="M42 25l8 14-10 14"/><path d="M28 32h8"/></svg></div>
-          <div class="genre-copy"><strong>Latin</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.84s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+              <img class="folder-img" src="/assets/images/fp.png" alt="Pop">
+            </a>
 
-        <a class="genre-card pop" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><path d="M18 31c0-12 8-19 14-19s14 7 14 19"/><path d="M18 31v8"/><path d="M46 31v8"/><rect x="13" y="38" width="11" height="13" rx="4"/><rect x="40" y="38" width="11" height="13" rx="4"/></svg></div>
-          <div class="genre-copy"><strong>Pop</strong><small>Play video</small></div>
-        </a>
-
-        <a class="genre-card reggaeton" href="#" data-title="Reggaeton" data-video="">
-          <div class="genre-icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="15" r="5"/><path d="M32 22l-9 16 9 15 9-15-9-16z"/><path d="M19 28l9 7"/><path d="M45 28l-9 7"/></svg></div>
-          <div class="genre-copy"><strong>Reggaeton</strong><small>Coming soon</small></div>
-        </a>
+            <a class="folder-link" style="--delay:.98s" href="#" data-title="Reggaeton" data-video="">
+              <img class="folder-img" src="/assets/images/fr.png" alt="Reggaeton">
+            </a>
+          </section>
+        </div>
       </section>
-    </section>
-
-    <section class="bottom-player">
-      <div class="now">
-        <div class="now-art">♪</div>
-        <div>
-          <strong>SayBon Lyric Videos</strong>
-          <span>Select a music style</span>
-        </div>
-      </div>
-
-      <div class="controls">
-        <div class="buttons">
-          <span>⤨</span>
-          <span>‹</span>
-          <span class="play-main">▶</span>
-          <span>›</span>
-          <span>↻</span>
-        </div>
-
-        <div class="timeline">
-          <span>00:00</span>
-          <div class="line"><span></span></div>
-          <span>--:--</span>
-        </div>
-      </div>
-
-      <div class="tools">
-        <span>▣</span>
-        <span>🔊</span>
-        <span>☰</span>
-      </div>
     </section>
   </main>
 
   <section class="video-overlay" id="videoOverlay">
     <div class="video-shell">
       <div class="video-head">
-        <strong id="videoTitle">SayBon Lyric Video</strong>
-        <button class="close-video" id="closeVideo">×</button>
+        <strong id="videoTitle">SayBon Music</strong>
+        <button class="close-video" id="closeVideo" type="button">×</button>
       </div>
       <video id="videoPlayer" controls playsinline></video>
     </div>
   </section>
 
   <script>
-    const cards = document.querySelectorAll(".genre-card");
+    const toggle = document.getElementById("musicToggle");
+    const drawer = document.getElementById("folderDrawer");
+
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("is-open");
+      drawer.classList.toggle("is-open");
+    });
+
+    const folders = document.querySelectorAll(".folder-link");
     const overlay = document.getElementById("videoOverlay");
     const player = document.getElementById("videoPlayer");
     const title = document.getElementById("videoTitle");
     const closeVideo = document.getElementById("closeVideo");
 
-    cards.forEach(card => {
-      card.addEventListener("click", event => {
+    folders.forEach(folder => {
+      folder.addEventListener("click", event => {
         event.preventDefault();
 
-        const video = card.dataset.video;
-        const name = card.dataset.title;
+        const video = folder.dataset.video;
+        const name = folder.dataset.title;
 
         if (!video) {
-          alert(name + " lyric videos are coming soon.");
+          alert(name + " songs are coming soon.");
           return;
         }
 
-        title.textContent = name + " Lyric Video";
+        title.textContent = name + " — SayBon Music";
         player.src = video;
         overlay.classList.add("active");
         player.play();
       });
     });
 
-    function closeOverlay(){
+    function closeOverlay() {
       player.pause();
       player.removeAttribute("src");
       player.load();
