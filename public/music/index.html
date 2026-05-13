@@ -6,7 +6,7 @@
 
   <title>SayBon Music</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -18,17 +18,17 @@
       margin: 0;
       width: 100%;
       min-height: 100%;
-      font-family: "Nunito", system-ui, sans-serif;
-      background: #06070a;
+      font-family: "Inter", system-ui, sans-serif;
+      background: #050609;
       color: #fff7df;
     }
 
     body {
       min-height: 100vh;
+      overflow-x: hidden;
       background:
         linear-gradient(rgba(5, 7, 12, 0.84), rgba(5, 7, 12, 0.94)),
         url("/assets/images/music-icon.png") center/cover fixed no-repeat;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -38,10 +38,10 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 28% 18%, rgba(255, 207, 106, 0.14), transparent 28%),
-        radial-gradient(circle at 74% 72%, rgba(222, 89, 105, 0.10), transparent 34%),
-        rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(12px) saturate(115%);
+        radial-gradient(circle at 25% 18%, rgba(255, 207, 106, 0.12), transparent 28%),
+        radial-gradient(circle at 78% 72%, rgba(222, 89, 105, 0.10), transparent 34%),
+        rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(13px) saturate(115%);
     }
 
     .page {
@@ -57,14 +57,15 @@
 
     .music-shell {
       width: min(1180px, 100%);
+      min-height: 640px;
       border-radius: 42px;
       padding: clamp(30px, 5vw, 64px);
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
-      border: 1px solid rgba(255, 255, 255, 0.12);
+        linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.022));
+      border: 1px solid rgba(255, 255, 255, 0.11);
       box-shadow:
-        0 40px 120px rgba(0, 0, 0, 0.42),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 42px 120px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(24px) saturate(120%);
       overflow: hidden;
     }
@@ -78,55 +79,63 @@
 
     .hero h1 {
       margin: 0;
-      max-width: 690px;
-      font-size: clamp(50px, 7vw, 92px);
-      line-height: 0.94;
-      letter-spacing: -0.075em;
+      max-width: 760px;
+      font-size: clamp(44px, 6vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
       font-weight: 900;
       color: #fff9e9;
       text-shadow: 0 20px 58px rgba(0, 0, 0, 0.42);
     }
 
     .hero p {
-      margin: 28px 0 0;
-      max-width: 720px;
-      font-size: clamp(16px, 1.8vw, 20px);
-      line-height: 1.72;
-      color: rgba(255, 247, 223, 0.74);
-      font-weight: 700;
+      margin: 26px 0 0;
+      max-width: 730px;
+      font-size: clamp(15px, 1.55vw, 18px);
+      line-height: 1.75;
+      color: rgba(255, 247, 223, 0.72);
+      font-weight: 500;
       letter-spacing: -0.01em;
     }
 
-    .music-toggle {
-      width: 260px;
-      height: 260px;
+    .music-stage {
+      position: relative;
+      width: 280px;
+      height: 280px;
       justify-self: end;
+    }
+
+    .music-toggle {
+      position: absolute;
+      inset: 10px;
+      z-index: 8;
       border: 0;
       border-radius: 42px;
       cursor: pointer;
       background:
-        radial-gradient(circle at 58% 26%, rgba(255, 255, 255, 0.22), transparent 24%),
-        linear-gradient(145deg, rgba(255, 212, 106, 0.30), rgba(222, 89, 105, 0.12), rgba(255, 255, 255, 0.035));
+        radial-gradient(circle at 58% 26%, rgba(255, 255, 255, 0.20), transparent 24%),
+        linear-gradient(145deg, rgba(255, 212, 106, 0.27), rgba(222, 89, 105, 0.11), rgba(255, 255, 255, 0.035));
       border: 1px solid rgba(255, 255, 255, 0.15);
       display: grid;
       place-items: center;
       box-shadow:
         0 30px 86px rgba(0, 0, 0, 0.38),
         inset 0 1px 0 rgba(255, 255, 255, 0.16);
-      transition: 0.28s ease;
+      transition: 0.36s cubic-bezier(0.2, 0.9, 0.2, 1);
     }
 
     .music-toggle:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-5px) scale(1.015);
       box-shadow:
         0 42px 110px rgba(0, 0, 0, 0.5),
-        0 0 36px rgba(255, 212, 106, 0.11),
+        0 0 36px rgba(255, 212, 106, 0.10),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .music-toggle.is-open {
-      transform: scale(0.98);
-      border-color: rgba(255, 212, 106, 0.28);
+      transform: scale(0.84);
+      opacity: 0.92;
+      border-color: rgba(255, 212, 106, 0.30);
     }
 
     .note-orb {
@@ -137,118 +146,118 @@
       place-items: center;
       background:
         radial-gradient(circle at 35% 20%, rgba(255,255,255,0.28), transparent 34%),
-        rgba(255, 255, 255, 0.13);
+        rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.14);
       box-shadow: 0 18px 46px rgba(0, 0, 0, 0.32);
       color: #ffd46a;
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 900;
     }
 
-    .folder-drawer {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.8s cubic-bezier(0.2, 0.9, 0.2, 1);
-    }
-
-    .folder-drawer.is-open {
-      grid-template-rows: 1fr;
-    }
-
-    .folder-drawer-inner {
-      overflow: hidden;
-    }
-
-    .folder-grid {
-      padding-top: 54px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(150px, 1fr));
-      gap: clamp(24px, 4vw, 44px);
-      opacity: 0;
-      transform: translateY(-22px);
-      transition:
-        opacity 0.55s ease 0.12s,
-        transform 0.65s cubic-bezier(0.2, 0.9, 0.2, 1) 0.12s;
-    }
-
-    .folder-drawer.is-open .folder-grid {
-      opacity: 1;
-      transform: translateY(0);
+    .folder-orbit {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
     }
 
     .folder-link {
-      position: relative;
-      min-height: 155px;
-      display: grid;
-      place-items: center;
-      text-decoration: none;
-      isolation: isolate;
-      animation: folderFloat 5.5s ease-in-out infinite;
-      animation-delay: var(--delay);
-    }
+      --x: 0px;
+      --y: 0px;
+      --r: 0deg;
 
-    @keyframes folderFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    .folder-link::before {
-      content: "";
       position: absolute;
-      width: 72%;
-      height: 34%;
-      left: 14%;
-      bottom: 6px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 196, 73, 0.20), rgba(0,0,0,0) 70%);
-      filter: blur(16px);
-      opacity: 0.7;
-      z-index: -1;
-      transition: 0.25s ease;
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      height: 106px;
+      transform:
+        translate(-50%, -50%)
+        translate(0, 0)
+        scale(0.16)
+        rotate(0deg);
+      opacity: 0;
+      pointer-events: none;
+      text-decoration: none;
+      transition:
+        transform 0.82s cubic-bezier(0.2, 0.95, 0.2, 1),
+        opacity 0.38s ease,
+        filter 0.28s ease;
+      transition-delay: var(--delay);
+      filter:
+        drop-shadow(0 28px 24px rgba(0,0,0,0.56))
+        drop-shadow(0 0 18px rgba(255,190,65,0.10));
     }
 
-    .folder-link:hover::before {
+    .folder-orbit.is-open .folder-link {
+      transform:
+        translate(-50%, -50%)
+        translate(var(--x), var(--y))
+        scale(1)
+        rotate(var(--r));
       opacity: 1;
-      transform: scale(1.12);
+      pointer-events: auto;
+    }
+
+    .folder-orbit.has-selection .folder-link:not(.selected) {
+      transform:
+        translate(-50%, -50%)
+        translate(0, 0)
+        scale(0.12)
+        rotate(0deg);
+      opacity: 0;
+      pointer-events: none;
+      transition-delay: 0s;
+    }
+
+    .folder-orbit.has-selection .folder-link.selected {
+      transform:
+        translate(-50%, -50%)
+        translate(var(--selected-x), var(--selected-y))
+        scale(1.08)
+        rotate(0deg);
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 12;
     }
 
     .folder-img {
-      width: 180px;
-      max-width: 100%;
-      height: auto;
-      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
+      display: block;
+
+      /* pulls the gold folder away from the dark square background */
+      mix-blend-mode: screen;
       filter:
-        drop-shadow(0 30px 28px rgba(0,0,0,0.58))
-        drop-shadow(0 0 18px rgba(255,190,65,0.10));
-      transition: 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+        brightness(1.16)
+        contrast(1.08)
+        saturate(1.05);
+      transition: 0.28s ease;
     }
 
     .folder-link:hover .folder-img {
-      transform: translateY(-7px) scale(1.05);
+      transform: translateY(-5px) scale(1.04);
       filter:
-        drop-shadow(0 42px 38px rgba(0,0,0,0.72))
-        drop-shadow(0 0 30px rgba(255,210,105,0.22));
+        brightness(1.28)
+        contrast(1.12)
+        saturate(1.12);
     }
 
     .folder-link::after {
       content: attr(data-title);
       position: absolute;
-      bottom: -16px;
+      bottom: -26px;
       left: 50%;
       transform: translateX(-50%) translateY(8px);
       padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.48);
+      background: rgba(0, 0, 0, 0.54);
       border: 1px solid rgba(255,255,255,0.12);
       backdrop-filter: blur(14px);
       color: rgba(255,247,223,0.92);
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 800;
       opacity: 0;
       pointer-events: none;
       transition: 0.22s ease;
@@ -259,6 +268,106 @@
     .folder-link:hover::after {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+    }
+
+    .content-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      margin-top: 0;
+      transition:
+        grid-template-rows 0.72s cubic-bezier(0.2, 0.95, 0.2, 1),
+        margin-top 0.45s ease;
+    }
+
+    .content-drawer.is-open {
+      grid-template-rows: 1fr;
+      margin-top: 46px;
+    }
+
+    .content-inner {
+      overflow: hidden;
+    }
+
+    .genre-content {
+      opacity: 0;
+      transform: translateY(-18px);
+      transition: 0.48s ease 0.18s;
+      border-radius: 30px;
+      padding: clamp(22px, 4vw, 34px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.085), rgba(255,255,255,0.025));
+      border: 1px solid rgba(255,255,255,0.11);
+      box-shadow:
+        0 26px 80px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(22px) saturate(120%);
+    }
+
+    .content-drawer.is-open .genre-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .genre-content h2 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing: -0.055em;
+      font-weight: 850;
+    }
+
+    .genre-content p {
+      margin: 12px 0 24px;
+      max-width: 760px;
+      color: rgba(255,247,223,0.68);
+      font-size: 15px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .video-card {
+      display: none;
+      align-items: center;
+      gap: 16px;
+      width: max-content;
+      max-width: 100%;
+      padding: 14px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #fff7df;
+      cursor: pointer;
+      transition: 0.22s ease;
+      font-family: inherit;
+    }
+
+    .video-card.available {
+      display: flex;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.10);
+    }
+
+    .play-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #ffd46a, #b96f18);
+      color: #160c00;
+      font-weight: 900;
+    }
+
+    .soon {
+      display: none;
+      color: rgba(255,247,223,0.66);
+      font-weight: 700;
+    }
+
+    .soon.active {
+      display: block;
     }
 
     .video-overlay {
@@ -295,7 +404,7 @@
 
     .video-head strong {
       font-size: 20px;
-      font-weight: 900;
+      font-weight: 800;
     }
 
     .close-video {
@@ -333,15 +442,29 @@
         margin-right: auto;
       }
 
-      .music-toggle {
+      .music-stage {
         justify-self: center;
-        width: 220px;
-        height: 220px;
+        width: 240px;
+        height: 240px;
       }
 
-      .folder-grid {
-        grid-template-columns: repeat(2, minmax(130px, 1fr));
+      .music-toggle {
+        border-radius: 36px;
       }
+
+      .folder-link {
+        width: 112px;
+        height: 92px;
+      }
+
+      .folder-orbit.is-open .folder-link:nth-child(1) { --x: -130px; --y: -70px; }
+      .folder-orbit.is-open .folder-link:nth-child(2) { --x: 0px; --y: -112px; }
+      .folder-orbit.is-open .folder-link:nth-child(3) { --x: 130px; --y: -70px; }
+      .folder-orbit.is-open .folder-link:nth-child(4) { --x: -138px; --y: 48px; }
+      .folder-orbit.is-open .folder-link:nth-child(5) { --x: 138px; --y: 48px; }
+      .folder-orbit.is-open .folder-link:nth-child(6) { --x: -78px; --y: 134px; }
+      .folder-orbit.is-open .folder-link:nth-child(7) { --x: 78px; --y: 134px; }
+      .folder-orbit.is-open .folder-link:nth-child(8) { --x: 0px; --y: 186px; }
     }
 
     @media (max-width: 520px) {
@@ -351,33 +474,38 @@
       }
 
       .hero h1 {
-        font-size: 44px;
+        font-size: 40px;
+        letter-spacing: -0.055em;
       }
 
       .hero p {
-        font-size: 15px;
+        font-size: 14px;
       }
 
-      .music-toggle {
-        width: 180px;
-        height: 180px;
-        border-radius: 34px;
+      .music-stage {
+        width: 210px;
+        height: 210px;
       }
 
       .note-orb {
-        width: 82px;
-        height: 82px;
-        font-size: 38px;
+        width: 78px;
+        height: 78px;
+        font-size: 34px;
       }
 
-      .folder-grid {
-        grid-template-columns: 1fr;
-        padding-top: 38px;
+      .folder-link {
+        width: 94px;
+        height: 78px;
       }
 
-      .folder-img {
-        width: 210px;
-      }
+      .folder-orbit.is-open .folder-link:nth-child(1) { --x: -96px; --y: -58px; }
+      .folder-orbit.is-open .folder-link:nth-child(2) { --x: 0px; --y: -98px; }
+      .folder-orbit.is-open .folder-link:nth-child(3) { --x: 96px; --y: -58px; }
+      .folder-orbit.is-open .folder-link:nth-child(4) { --x: -102px; --y: 46px; }
+      .folder-orbit.is-open .folder-link:nth-child(5) { --x: 102px; --y: 46px; }
+      .folder-orbit.is-open .folder-link:nth-child(6) { --x: -58px; --y: 120px; }
+      .folder-orbit.is-open .folder-link:nth-child(7) { --x: 58px; --y: 120px; }
+      .folder-orbit.is-open .folder-link:nth-child(8) { --x: 0px; --y: 160px; }
     }
   </style>
 </head>
@@ -395,46 +523,63 @@
           </p>
         </div>
 
-        <button class="music-toggle" id="musicToggle" type="button" aria-label="Open SayBon music genres">
-          <span class="note-orb">♪</span>
-        </button>
-      </section>
+        <div class="music-stage">
+          <button class="music-toggle" id="musicToggle" type="button" aria-label="Open SayBon music genres">
+            <span class="note-orb">♪</span>
+          </button>
 
-      <section class="folder-drawer" id="folderDrawer">
-        <div class="folder-drawer-inner">
-          <section class="folder-grid">
-            <a class="folder-link" style="--delay:0s" href="#" data-title="Afrobeats" data-video="">
+          <div class="folder-orbit" id="folderOrbit">
+            <a class="folder-link" style="--x:-270px;--y:-100px;--r:-10deg;--selected-x:-20px;--selected-y:160px;--delay:.00s" href="#" data-title="Afrobeats" data-video="">
               <img class="folder-img" src="/assets/images/fa.png" alt="Afrobeats">
             </a>
 
-            <a class="folder-link" style="--delay:.14s" href="#" data-title="Classical" data-video="">
+            <a class="folder-link" style="--x:-90px;--y:-170px;--r:-5deg;--selected-x:-20px;--selected-y:160px;--delay:.06s" href="#" data-title="Classical" data-video="">
               <img class="folder-img" src="/assets/images/fc.png" alt="Classical">
             </a>
 
-            <a class="folder-link" style="--delay:.28s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
+            <a class="folder-link" style="--x:100px;--y:-170px;--r:5deg;--selected-x:-20px;--selected-y:160px;--delay:.12s" href="#" data-title="Country" data-video="/assets/videos/country-1.mp4">
               <img class="folder-img" src="/assets/images/fcntry.png" alt="Country">
             </a>
 
-            <a class="folder-link" style="--delay:.42s" href="#" data-title="Gospel" data-video="">
+            <a class="folder-link" style="--x:280px;--y:-95px;--r:10deg;--selected-x:-20px;--selected-y:160px;--delay:.18s" href="#" data-title="Gospel" data-video="">
               <img class="folder-img" src="/assets/images/fg.png" alt="Gospel">
             </a>
 
-            <a class="folder-link" style="--delay:.56s" href="#" data-title="Jazz" data-video="">
+            <a class="folder-link" style="--x:-270px;--y:82px;--r:8deg;--selected-x:-20px;--selected-y:160px;--delay:.24s" href="#" data-title="Jazz" data-video="">
               <img class="folder-img" src="/assets/images/fj.png" alt="Jazz">
             </a>
 
-            <a class="folder-link" style="--delay:.70s" href="#" data-title="Latin" data-video="">
+            <a class="folder-link" style="--x:-92px;--y:170px;--r:3deg;--selected-x:-20px;--selected-y:160px;--delay:.30s" href="#" data-title="Latin" data-video="">
               <img class="folder-img" src="/assets/images/fl.png" alt="Latin">
             </a>
 
-            <a class="folder-link" style="--delay:.84s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
+            <a class="folder-link" style="--x:96px;--y:170px;--r:-3deg;--selected-x:-20px;--selected-y:160px;--delay:.36s" href="#" data-title="Pop" data-video="/assets/videos/pop-1.mp4">
               <img class="folder-img" src="/assets/images/fp.png" alt="Pop">
             </a>
 
-            <a class="folder-link" style="--delay:.98s" href="#" data-title="Reggaeton" data-video="">
+            <a class="folder-link" style="--x:280px;--y:82px;--r:-8deg;--selected-x:-20px;--selected-y:160px;--delay:.42s" href="#" data-title="Reggaeton" data-video="">
               <img class="folder-img" src="/assets/images/fr.png" alt="Reggaeton">
             </a>
-          </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-drawer" id="contentDrawer">
+        <div class="content-inner">
+          <div class="genre-content">
+            <h2 id="genreTitle">Genre</h2>
+            <p id="genreDescription">Select a genre to see what is available.</p>
+
+            <button class="video-card" id="videoCard" type="button">
+              <span class="play-dot">▶</span>
+              <span>
+                <strong id="videoCardTitle">Play video</strong><br>
+                <small>Open SayBon music player</small>
+              </span>
+            </button>
+
+            <div class="soon" id="soonText">Songs for this genre are coming soon.</div>
+          </div>
         </div>
       </section>
     </section>
@@ -452,36 +597,84 @@
 
   <script>
     const toggle = document.getElementById("musicToggle");
-    const drawer = document.getElementById("folderDrawer");
-
-    toggle.addEventListener("click", () => {
-      toggle.classList.toggle("is-open");
-      drawer.classList.toggle("is-open");
-    });
-
+    const orbit = document.getElementById("folderOrbit");
     const folders = document.querySelectorAll(".folder-link");
+
+    const contentDrawer = document.getElementById("contentDrawer");
+    const genreTitle = document.getElementById("genreTitle");
+    const genreDescription = document.getElementById("genreDescription");
+    const videoCard = document.getElementById("videoCard");
+    const videoCardTitle = document.getElementById("videoCardTitle");
+    const soonText = document.getElementById("soonText");
+
     const overlay = document.getElementById("videoOverlay");
     const player = document.getElementById("videoPlayer");
-    const title = document.getElementById("videoTitle");
+    const videoTitle = document.getElementById("videoTitle");
     const closeVideo = document.getElementById("closeVideo");
+
+    let selectedVideo = "";
+    let selectedName = "";
+
+    const descriptions = {
+      Afrobeats: "Rhythmic French phrases, movement-based memory, and energetic listening practice inspired by African grooves.",
+      Classical: "Elegant melodies for careful listening, sentence flow, pronunciation control, and calm repetition.",
+      Country: "Story-led French music that helps learners follow meaning, emotion, everyday vocabulary, and natural phrasing.",
+      Gospel: "Reflective French songs for expression, confidence, repetition, and emotionally memorable vocabulary.",
+      Jazz: "Smooth French listening practice with rhythm, pauses, phrasing, and pronunciation texture.",
+      Latin: "Dance-inspired repetition for speed, rhythm, verbs, and conversational musicality.",
+      Pop: "Catchy French hooks designed for vocabulary recall, pronunciation confidence, and repeat listening.",
+      Reggaeton: "Beat-driven French patterns for rhythm, informal expression, and fast phrase recognition."
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = orbit.classList.contains("is-open");
+
+      if (isOpen) {
+        orbit.classList.remove("is-open", "has-selection");
+        toggle.classList.remove("is-open");
+        contentDrawer.classList.remove("is-open");
+        folders.forEach(folder => folder.classList.remove("selected"));
+      } else {
+        orbit.classList.add("is-open");
+        toggle.classList.add("is-open");
+      }
+    });
 
     folders.forEach(folder => {
       folder.addEventListener("click", event => {
         event.preventDefault();
 
-        const video = folder.dataset.video;
-        const name = folder.dataset.title;
+        folders.forEach(item => item.classList.remove("selected"));
+        folder.classList.add("selected");
 
-        if (!video) {
-          alert(name + " songs are coming soon.");
-          return;
+        orbit.classList.add("has-selection");
+
+        selectedName = folder.dataset.title;
+        selectedVideo = folder.dataset.video || "";
+
+        genreTitle.textContent = selectedName;
+        genreDescription.textContent = descriptions[selectedName] || "SayBon original music for French listening and language memory.";
+
+        if (selectedVideo) {
+          videoCard.classList.add("available");
+          soonText.classList.remove("active");
+          videoCardTitle.textContent = "Play " + selectedName + " song";
+        } else {
+          videoCard.classList.remove("available");
+          soonText.classList.add("active");
         }
 
-        title.textContent = name + " — SayBon Music";
-        player.src = video;
-        overlay.classList.add("active");
-        player.play();
+        contentDrawer.classList.add("is-open");
       });
+    });
+
+    videoCard.addEventListener("click", () => {
+      if (!selectedVideo) return;
+
+      videoTitle.textContent = selectedName + " — SayBon Music";
+      player.src = selectedVideo;
+      overlay.classList.add("active");
+      player.play();
     });
 
     function closeOverlay() {
