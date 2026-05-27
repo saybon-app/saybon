@@ -22,19 +22,19 @@
 
         <div class="sidebar-top">
 
-            <button class="side-icon active" data-chat="home">⌂</button>
-            <button class="side-icon" data-chat="lessons">✎</button>
-            <button class="side-icon" data-chat="delf">◈</button>
-            <button class="side-icon" data-chat="music">♫</button>
-            <button class="side-icon" data-chat="translation">文</button>
-            <button class="side-icon" data-chat="feedback">★</button>
-            <button class="side-icon" data-chat="support">?</button>
+            <button class="side-icon active" data-chat="home" title="Toggle Welcome Screen">⌂</button>
+            <button class="side-icon" data-chat="lessons" title="Lessons">📘</button>
+            <button class="side-icon" data-chat="delf" title="DELF">🎓</button>
+            <button class="side-icon" data-chat="music" title="Music">♫</button>
+            <button class="side-icon" data-chat="translation" title="Translation">🌐</button>
+            <button class="side-icon" data-chat="feedback" title="Feedback">💬</button>
+            <button class="side-icon" data-chat="support" title="Support">🛟</button>
 
         </div>
 
         <div class="sidebar-bottom">
 
-            <button class="side-icon" data-chat="dashboard">▦</button>
+            <button class="side-icon" id="dashboardBtn" title="Dashboard">▦</button>
             <button class="side-icon" onclick="history.back()">↩</button>
 
         </div>
@@ -66,7 +66,7 @@
 
                 <div class="chat-meta">
                     <div class="chat-row">
-                        <span class="chat-name">Lessons</span>
+                        <span class="chat-name"></span>
                         <span class="chat-time">16:14</span>
                     </div>
 
@@ -82,7 +82,7 @@
 
                 <div class="chat-meta">
                     <div class="chat-row">
-                        <span class="chat-name">DELF</span>
+                        <span class="chat-name"></span>
                         <span class="chat-time">19:45</span>
                     </div>
 
@@ -98,7 +98,7 @@
 
                 <div class="chat-meta">
                     <div class="chat-row">
-                        <span class="chat-name">Music</span>
+                        <span class="chat-name"></span>
                         <span class="chat-time">18:20</span>
                     </div>
 
@@ -113,7 +113,7 @@
 
                 <div class="chat-meta">
                     <div class="chat-row">
-                        <span class="chat-name">Translation</span>
+                        <span class="chat-name"></span>
                         <span class="chat-time">09:18</span>
                     </div>
 
@@ -128,7 +128,7 @@
 
                 <div class="chat-meta">
                     <div class="chat-row">
-                        <span class="chat-name">Support</span>
+                        <span class="chat-name"></span>
                         <span class="chat-time">08:57</span>
                     </div>
 
@@ -151,8 +151,7 @@
             <div class="welcome-logo">SayBon Chatroom</div>
 
             <div class="welcome-subtitle">
-                Real-time collaboration spaces for lessons, DELF preparation,
-                translations, music and support conversations.
+                Get involved in our engaged community of learners and language enthusiasts.
             </div>
 
         </div>
@@ -198,3 +197,4 @@
 
 </body>
 </html>
+

@@ -372,3 +372,137 @@ font-size:44px;
 
 }
 
+
+body{
+background:#f2f2f2 !important;
+}
+
+.chatroom-shell{
+background:#f6f6f6 !important;
+}
+
+.sidebar{
+background:#ebebeb !important;
+}
+
+.chat-list-panel{
+background:#f7f7f7 !important;
+}
+
+.main-panel{
+background:#ece5dd !important;
+background-image:url('https://www.transparenttextures.com/patterns/connected.png');
+}
+
+.welcome-screen{
+background:rgba(236,229,221,.95) !important;
+}
+
+.welcome-logo{
+font-size:64px !important;
+font-weight:700;
+letter-spacing:-2px;
+color:#222 !important;
+}
+
+.welcome-subtitle{
+font-size:13px !important;
+max-width:420px;
+line-height:1.6;
+color:#777 !important;
+margin-top:12px !important;
+}
+
+.side-icon{
+transition:all .18s ease !important;
+cursor:pointer;
+position:relative;
+}
+
+.side-icon:hover{
+transform:scale(1.08);
+background:#dcdcdc !important;
+}
+
+.side-icon:active{
+transform:scale(.92);
+}
+
+.chat-item{
+transition:all .18s ease !important;
+}
+
+.chat-item:hover{
+transform:translateX(2px);
+background:#ececec !important;
+}
+
+.chat-item:active{
+transform:scale(.985);
+}
+
+.messages{
+overflow-y:scroll !important;
+scroll-behavior:smooth;
+}
+
+.chat-list{
+overflow-y:scroll !important;
+}
+
+.messages::-webkit-scrollbar,
+.chat-list::-webkit-scrollbar{
+width:8px;
+}
+
+.messages::-webkit-scrollbar-thumb,
+.chat-list::-webkit-scrollbar-thumb{
+background:#bdbdbd;
+border-radius:999px;
+}
+
+.messages::-webkit-scrollbar-track,
+.chat-list::-webkit-scrollbar-track{
+background:transparent;
+}
+
+.chat-preview{
+font-size:15px !important;
+color:#777 !important;
+line-height:1.4;
+}
+
+.chat-name{
+display:none !important;
+}
+
+.chat-avatar{
+background:#dcdcdc !important;
+font-size:24px !important;
+}
+
+.profile-slot{
+background:#ddd;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.profile-slot img{
+object-fit:cover;
+}
+
+.composer{
+position:sticky;
+bottom:0;
+z-index:30;
+}
+
+.live-chat{
+overflow:hidden !important;
+}
+
+.messages{
+padding-bottom:80px !important;
+}
+

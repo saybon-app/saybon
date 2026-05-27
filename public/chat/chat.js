@@ -69,3 +69,57 @@ avatarUpload.addEventListener("change", e => {
     reader.readAsDataURL(file);
 
 });
+
+
+// =====================================================
+// TOGGLE WELCOME SCREEN
+// =====================================================
+
+const homeToggle =
+document.querySelector('[data-chat="home"]');
+
+if(homeToggle){
+
+homeToggle.addEventListener("click",()=>{
+
+welcomeScreen.classList.remove("hidden");
+liveChat.classList.add("hidden");
+
+});
+
+}
+
+// =====================================================
+// DASHBOARD BUTTON
+// =====================================================
+
+const dashboardBtn =
+document.getElementById("dashboardBtn");
+
+if(dashboardBtn){
+
+dashboardBtn.addEventListener("click",()=>{
+
+window.location.href = "/dashboard/";
+
+});
+
+}
+
+// =====================================================
+// SAYBON HOME BUTTON
+// =====================================================
+
+const homeBtn =
+document.getElementById("homeBtn");
+
+if(homeBtn){
+
+homeBtn.addEventListener("click",()=>{
+
+window.location.href = "/";
+
+});
+
+}
+
