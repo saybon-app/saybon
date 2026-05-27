@@ -1,46 +1,24 @@
-﻿window.addEventListener("DOMContentLoaded", () => {
+﻿document.querySelectorAll(".history-card").forEach(card => {
+card.addEventListener("click", () => {
 
-    const input = document.getElementById("chatInput");
-    const sendBtn = document.querySelector(".send-btn");
-    const messages = document.querySelector(".messages");
+document.querySelectorAll(".history-card")
+.forEach(c => c.classList.remove("active"));
 
-    function sendMessage(){
+card.classList.add("active");
 
-        const text = input.value.trim();
+});
+});
 
-        if(!text) return;
+document.querySelectorAll("button").forEach(btn => {
 
-        const bubble = document.createElement("div");
+btn.addEventListener("click", () => {
 
-        bubble.className = "message outgoing";
+btn.style.transform = "scale(.95)";
 
-        bubble.textContent = text;
+setTimeout(() => {
+btn.style.transform = "";
+},120);
 
-        messages.appendChild(bubble);
-
-        messages.scrollTop = messages.scrollHeight;
-
-        input.value = "";
-    }
-
-    sendBtn.addEventListener("click", sendMessage);
-
-    input.addEventListener("keydown", (e)=>{
-        if(e.key === "Enter"){
-            sendMessage();
-        }
-    });
-
-    document.querySelector(".record-btn").addEventListener("click", ()=>{
-        alert("Voice recording UI active");
-    });
-
-    document.querySelector(".media-btn").addEventListener("click", ()=>{
-        alert("Photo/video picker active");
-    });
-
-    document.querySelector(".attach-btn").addEventListener("click", ()=>{
-        alert("Attachment picker active");
-    });
+});
 
 });

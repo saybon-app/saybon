@@ -1,30 +1,307 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Chatroom</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SayBon Chatroom</title>
 
-  <link rel="stylesheet" href="/chat/chat.css" />
+<link rel="stylesheet" href="./chat.css"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
 </head>
 
 <body>
 
-  <div class="chatroom-placeholder">
+<div class="chatroom-bg">
 
-    <div class="placeholder-card">
+<div class="chatroom-shell">
 
-      <div class="placeholder-title">
-        SAYBON CHATROOM
-      </div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-      <div class="placeholder-subtitle">
-        Clean placeholder loaded successfully.
-      </div>
+<button class="side-btn active" data-label="Menu">
+<i class="fas fa-bars"></i>
+<span>Menu</span>
+</button>
 
-    </div>
+<button class="side-btn" data-label="Courses">
+<i class="fas fa-graduation-cap"></i>
+<span>Courses</span>
+</button>
 
-  </div>
+<button class="side-btn" data-label="Music">
+<i class="fas fa-music"></i>
+<span>Music</span>
+</button>
+
+<button class="side-btn" data-label="Create">
+<i class="fas fa-circle-plus"></i>
+<span>Create</span>
+</button>
+
+<button class="side-btn" data-label="Messages">
+<i class="fas fa-message"></i>
+<span>Messages</span>
+</button>
+
+<button class="side-btn" data-label="Alerts">
+<i class="fas fa-triangle-exclamation"></i>
+<span>Alerts</span>
+</button>
+
+<div class="sidebar-divider"></div>
+
+<button class="side-btn" data-label="Home">
+<i class="fas fa-house"></i>
+<span>Home</span>
+</button>
+
+<button class="side-btn" data-label="Dashboard">
+<i class="fas fa-table-cells-large"></i>
+<span>Dashboard</span>
+</button>
+
+<button class="side-btn" data-label="Logout">
+<i class="fas fa-arrow-right-from-bracket"></i>
+<span>Logout</span>
+</button>
+
+</aside>
+
+<!-- LEFT -->
+<section class="left-panel">
+
+<div class="left-sticky">
+
+<div class="profile-wrap">
+
+<div class="profile-avatar">
+<i class="fas fa-user"></i>
+
+<button class="camera-btn">
+<i class="fas fa-camera"></i>
+</button>
+</div>
+
+<h2>Adel</h2>
+
+<p>adlaideduah@gmail.com</p>
+
+</div>
+
+<div class="chat-search">
+<input type="text" placeholder="Search chats..." />
+<button>
+<i class="fas fa-magnifying-glass"></i>
+</button>
+</div>
+
+</div>
+
+<div class="chat-history">
+
+<div class="history-card active">
+<div class="history-avatar"></div>
+
+<div class="history-content">
+<h4>Support</h4>
+<p>Please I need help with my account</p>
+</div>
+
+<div class="history-meta">
+<span>11:24</span>
+<div class="badge">3</div>
+</div>
+</div>
+
+<div class="history-card">
+<div class="history-avatar"></div>
+
+<div class="history-content">
+<h4>Lessons</h4>
+<p>Grammar correction discussion</p>
+</div>
+
+<div class="history-meta">
+<span>10:42</span>
+<div class="badge">2</div>
+</div>
+</div>
+
+<div class="history-card">
+<div class="history-avatar"></div>
+
+<div class="history-content">
+<h4>DELF</h4>
+<p>Listening prep uploaded</p>
+</div>
+
+<div class="history-meta">
+<span>09:18</span>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- CENTER -->
+<section class="chat-panel">
+
+<div class="chat-header">
+
+<h1>S A Y B O N &nbsp;&nbsp; C H A T R O O M</h1>
+
+<div class="top-actions">
+
+<div class="top-search">
+<i class="fas fa-magnifying-glass"></i>
+<input type="text" placeholder="Search here..." />
+</div>
+
+<button class="top-btn">
+<i class="fas fa-ellipsis"></i>
+</button>
+
+<button class="top-btn">
+<i class="fas fa-bell"></i>
+</button>
+
+</div>
+
+</div>
+
+<div class="messages-scroll">
+
+<div class="message incoming">
+Salut 👋 Does anyone understand this grammar rule?
+<span class="time">11:24</span>
+</div>
+
+<div class="message outgoing">
+Yes. It relates to reflexive verbs.
+<span class="time">11:26</span>
+</div>
+
+<div class="audio-card">
+<div class="audio-play">
+<i class="fas fa-play"></i>
+</div>
+
+<div class="audio-wave"></div>
+
+<div class="audio-time">0:24</div>
+</div>
+
+<div class="message outgoing">
+I really missed you
+
+<div class="media-row">
+<div class="media-box"></div>
+<div class="media-box"></div>
+<div class="media-box"></div>
+<div class="media-count">+10</div>
+</div>
+
+<span class="time">11:27</span>
+</div>
+
+<div class="message outgoing">
+OK! I'm going to
+<span class="time">11:28</span>
+</div>
+
+<div class="message outgoing">
+Plz! Order dinner for two! 🥰🌮
+<span class="time">11:28</span>
+</div>
+
+</div>
+
+<div class="composer">
+
+<button class="composer-btn">
+<i class="fas fa-paperclip"></i>
+</button>
+
+<input type="text" placeholder="Type here..." />
+
+<button class="composer-btn">
+<i class="far fa-face-smile"></i>
+</button>
+
+<button class="composer-btn">
+<i class="fas fa-microphone"></i>
+</button>
+
+<button class="send-btn">
+Send
+<i class="fas fa-paper-plane"></i>
+</button>
+
+</div>
+
+</section>
+
+<!-- RIGHT -->
+<aside class="right-panel">
+
+<div class="right-sticky">
+
+<h2>Support Community</h2>
+
+<p class="right-sub">Active members</p>
+
+<div class="member-card">
+
+<div class="member-avatar-wrap">
+
+<div class="member-avatar"></div>
+
+<div class="online-dot"></div>
+
+</div>
+
+<div class="member-info">
+<h4>Adel</h4>
+<p>Online now</p>
+</div>
+
+<i class="fas fa-chevron-right"></i>
+
+</div>
+
+<h3>Shared Media</h3>
+
+<div class="media-file">
+
+<div class="media-thumb"></div>
+
+<div class="media-info">
+<h4>Study Guide.pdf</h4>
+<p>PDF • 1.4 MB</p>
+</div>
+
+<i class="fas fa-chevron-right"></i>
+
+</div>
+
+</div>
+
+</aside>
+
+</div>
+
+</div>
+
+<script src="./chat.js"></script>
 
 </body>
 </html>
