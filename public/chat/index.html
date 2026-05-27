@@ -5,299 +5,192 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SayBon Chatroom</title>
 
-<link rel="stylesheet" href="./chat.css"/>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
+<link rel="stylesheet" href="./chat.css"/>
 </head>
 
 <body>
 
-<div class="chatroom-bg">
-
 <div class="chatroom-shell">
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
+    <!-- LEFT ICON BAR -->
+    <aside class="sidebar">
 
-<button class="side-btn active" data-label="Menu">
-<i class="fas fa-bars"></i>
-<span>Menu</span>
-</button>
+        <div class="sidebar-top">
 
-<button class="side-btn" data-label="Courses">
-<i class="fas fa-graduation-cap"></i>
-<span>Courses</span>
-</button>
+            <button class="side-icon active" data-chat="home">⌂</button>
+            <button class="side-icon" data-chat="lessons">✎</button>
+            <button class="side-icon" data-chat="delf">◈</button>
+            <button class="side-icon" data-chat="music">♫</button>
+            <button class="side-icon" data-chat="translation">文</button>
+            <button class="side-icon" data-chat="feedback">★</button>
+            <button class="side-icon" data-chat="support">?</button>
 
-<button class="side-btn" data-label="Music">
-<i class="fas fa-music"></i>
-<span>Music</span>
-</button>
+        </div>
+
+        <div class="sidebar-bottom">
 
-<button class="side-btn" data-label="Create">
-<i class="fas fa-circle-plus"></i>
-<span>Create</span>
-</button>
+            <button class="side-icon" data-chat="dashboard">▦</button>
+            <button class="side-icon" onclick="history.back()">↩</button>
+
+        </div>
+
+    </aside>
 
-<button class="side-btn" data-label="Messages">
-<i class="fas fa-message"></i>
-<span>Messages</span>
-</button>
+    <!-- CHAT LIST -->
+    <section class="chat-list-panel">
 
-<button class="side-btn" data-label="Alerts">
-<i class="fas fa-triangle-exclamation"></i>
-<span>Alerts</span>
-</button>
+        <div class="chat-list-header">
 
-<div class="sidebar-divider"></div>
+            <div class="chat-title">Chats</div>
 
-<button class="side-btn" data-label="Home">
-<i class="fas fa-house"></i>
-<span>Home</span>
-</button>
+            <div class="profile-slot">
+                <input type="file" id="avatarUpload" hidden>
+                <img id="profilePreview" src="https://i.pravatar.cc/100?img=12">
+            </div>
 
-<button class="side-btn" data-label="Dashboard">
-<i class="fas fa-table-cells-large"></i>
-<span>Dashboard</span>
-</button>
+        </div>
 
-<button class="side-btn" data-label="Logout">
-<i class="fas fa-arrow-right-from-bracket"></i>
-<span>Logout</span>
-</button>
+        <div class="chat-search">
+            <input type="text" placeholder="Search">
+        </div>
 
-</aside>
+        <div class="chat-list scrollable">
 
-<!-- LEFT -->
-<section class="left-panel">
+            <div class="chat-item active" data-room="lessons">
+                <div class="chat-avatar">✎</div>
 
-<div class="left-sticky">
+                <div class="chat-meta">
+                    <div class="chat-row">
+                        <span class="chat-name">Lessons</span>
+                        <span class="chat-time">16:14</span>
+                    </div>
 
-<div class="profile-wrap">
+                    <div class="chat-row bottom">
+                        <span class="chat-preview">New grammar correction uploaded.</span>
+                        <span class="unread">2</span>
+                    </div>
+                </div>
+            </div>
 
-<div class="profile-avatar">
-<i class="fas fa-user"></i>
+            <div class="chat-item" data-room="delf">
+                <div class="chat-avatar">◈</div>
 
-<button class="camera-btn">
-<i class="fas fa-camera"></i>
-</button>
-</div>
+                <div class="chat-meta">
+                    <div class="chat-row">
+                        <span class="chat-name">DELF</span>
+                        <span class="chat-time">19:45</span>
+                    </div>
 
-<h2>Adel</h2>
+                    <div class="chat-row bottom">
+                        <span class="chat-preview">Listening practice now available.</span>
+                        <span class="unread">1</span>
+                    </div>
+                </div>
+            </div>
 
-<p>adlaideduah@gmail.com</p>
+            <div class="chat-item" data-room="music">
+                <div class="chat-avatar">♫</div>
 
-</div>
+                <div class="chat-meta">
+                    <div class="chat-row">
+                        <span class="chat-name">Music</span>
+                        <span class="chat-time">18:20</span>
+                    </div>
 
-<div class="chat-search">
-<input type="text" placeholder="Search chats..." />
-<button>
-<i class="fas fa-magnifying-glass"></i>
-</button>
-</div>
+                    <div class="chat-row bottom">
+                        <span class="chat-preview">New piano progression shared.</span>
+                    </div>
+                </div>
+            </div>
 
-</div>
+            <div class="chat-item" data-room="translation">
+                <div class="chat-avatar">文</div>
 
-<div class="chat-history">
+                <div class="chat-meta">
+                    <div class="chat-row">
+                        <span class="chat-name">Translation</span>
+                        <span class="chat-time">09:18</span>
+                    </div>
 
-<div class="history-card active">
-<div class="history-avatar"></div>
+                    <div class="chat-row bottom">
+                        <span class="chat-preview">Document translation completed.</span>
+                    </div>
+                </div>
+            </div>
 
-<div class="history-content">
-<h4>Support</h4>
-<p>Please I need help with my account</p>
-</div>
+            <div class="chat-item" data-room="support">
+                <div class="chat-avatar">?</div>
 
-<div class="history-meta">
-<span>11:24</span>
-<div class="badge">3</div>
-</div>
-</div>
+                <div class="chat-meta">
+                    <div class="chat-row">
+                        <span class="chat-name">Support</span>
+                        <span class="chat-time">08:57</span>
+                    </div>
 
-<div class="history-card">
-<div class="history-avatar"></div>
+                    <div class="chat-row bottom">
+                        <span class="chat-preview">Need help with your account?</span>
+                    </div>
+                </div>
+            </div>
 
-<div class="history-content">
-<h4>Lessons</h4>
-<p>Grammar correction discussion</p>
-</div>
+        </div>
 
-<div class="history-meta">
-<span>10:42</span>
-<div class="badge">2</div>
-</div>
-</div>
+    </section>
 
-<div class="history-card">
-<div class="history-avatar"></div>
+    <!-- MAIN PANEL -->
+    <main class="main-panel">
 
-<div class="history-content">
-<h4>DELF</h4>
-<p>Listening prep uploaded</p>
-</div>
+        <!-- EMPTY STATE -->
+        <div class="welcome-screen" id="welcomeScreen">
 
-<div class="history-meta">
-<span>09:18</span>
-</div>
-</div>
+            <div class="welcome-logo">SayBon Chatroom</div>
 
-</div>
+            <div class="welcome-subtitle">
+                Real-time collaboration spaces for lessons, DELF preparation,
+                translations, music and support conversations.
+            </div>
 
-</section>
+        </div>
 
-<!-- CENTER -->
-<div class="floating-heading">S A Y B O N &nbsp;&nbsp; C H A T R O O M</div><section class="chat-panel">
+        <!-- LIVE CHAT -->
+        <div class="live-chat hidden" id="liveChat">
 
-<div class="chat-header">
+            <div class="live-chat-header">
+                <div class="live-chat-name" id="liveChatName">Lessons</div>
+            </div>
 
+            <div class="messages scrollable" id="messages">
 
+                <div class="message incoming">
+                    Welcome to the discussion room.
+                </div>
 
-<div class="top-actions">
+                <div class="message outgoing">
+                    Thank you!
+                </div>
 
-<div class="top-search">
-<i class="fas fa-magnifying-glass"></i>
-<input type="text" placeholder="Search here..." />
-</div>
+            </div>
 
-<button class="top-btn">
-<i class="fas fa-ellipsis"></i>
-</button>
+            <div class="composer">
 
-<button class="top-btn">
-<i class="fas fa-bell"></i>
-</button>
+                <button class="composer-btn">＋</button>
 
-</div>
+                <input type="text" placeholder="Type a message">
 
-</div>
+                <button class="composer-btn">🎤</button>
 
-<div class="messages-scroll">
+                <button class="send-btn">Send</button>
 
-<div class="message incoming">
-Salut 👋 Does anyone understand this grammar rule?
-<span class="time">11:24</span>
-</div>
+            </div>
 
-<div class="message outgoing">
-Yes. It relates to reflexive verbs.
-<span class="time">11:26</span>
-</div>
+        </div>
 
-<div class="audio-card">
-<div class="audio-play">
-<i class="fas fa-play"></i>
-</div>
-
-<div class="audio-wave"></div>
-
-<div class="audio-time">0:24</div>
-</div>
-
-<div class="message outgoing">
-I really missed you
-
-<div class="media-row">
-<div class="media-box"></div>
-<div class="media-box"></div>
-<div class="media-box"></div>
-<div class="media-count">+10</div>
-</div>
-
-<span class="time">11:27</span>
-</div>
-
-<div class="message outgoing">
-OK! I'm going to
-<span class="time">11:28</span>
-</div>
-
-<div class="message outgoing">
-Plz! Order dinner for two! 🥰🌮
-<span class="time">11:28</span>
-</div>
-
-</div>
-
-<div class="composer">
-
-<button class="composer-btn">
-<i class="fas fa-paperclip"></i>
-</button>
-
-<input type="text" placeholder="Type here..." />
-
-<button class="composer-btn">
-<i class="far fa-face-smile"></i>
-</button>
-
-<button class="composer-btn">
-<i class="fas fa-microphone"></i>
-</button>
-
-<button class="send-btn">
-Send
-<i class="fas fa-paper-plane"></i>
-</button>
-
-</div>
-
-</section>
-
-<!-- RIGHT -->
-<aside class="right-panel">
-
-<div class="right-sticky">
-
-<h2>Support Community</h2>
-
-<p class="right-sub">Active members</p>
-
-<div class="member-card">
-
-<div class="member-avatar-wrap">
-
-<div class="member-avatar"></div>
-
-<div class="online-dot"></div>
-
-</div>
-
-<div class="member-info">
-<h4>Adel</h4>
-<p>Online now</p>
-</div>
-
-<i class="fas fa-chevron-right"></i>
-
-</div>
-
-<h3>Shared Media</h3>
-
-<div class="media-file">
-
-<div class="media-thumb"></div>
-
-<div class="media-info">
-<h4>Study Guide.pdf</h4>
-<p>PDF • 1.4 MB</p>
-</div>
-
-<i class="fas fa-chevron-right"></i>
-
-</div>
-
-</div>
-
-</aside>
-
-</div>
+    </main>
 
 </div>
 
@@ -305,4 +198,3 @@ Send
 
 </body>
 </html>
-
