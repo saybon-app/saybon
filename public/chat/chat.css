@@ -5,12 +5,31 @@ box-sizing:border-box;
 }
 
 body{
-font-family:"Inter",sans-serif;
-height:100vh;
-background:#efece6;
+margin:0;
+padding:0;
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#f8a76c 0%,
+#f68c6f 18%,
+#8b77d9 58%,
+#4b69cb 100%
+);
+
+background-attachment:fixed;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
+font-family:
+"SF Pro Display",
+"Inter",
+sans-serif;
+
 overflow:hidden;
 }
 
@@ -374,7 +393,32 @@ font-size:44px;
 
 
 body{
-background:#f2f2f2 !important;
+margin:0;
+padding:0;
+
+min-height:100vh;
+
+background:
+linear-gradient(
+135deg,
+#f8a76c 0%,
+#f68c6f 18%,
+#8b77d9 58%,
+#4b69cb 100%
+);
+
+background-attachment:fixed;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-family:
+"SF Pro Display",
+"Inter",
+sans-serif;
+
+overflow:hidden;
 }
 
 .chatroom-shell{
@@ -505,4 +549,5 @@ overflow:hidden !important;
 .messages{
 padding-bottom:80px !important;
 }
+
 
