@@ -827,3 +827,235 @@ body{
     scrollbar-width:thin;
 }
 
+
+/* =========================================
+   HOVER LABEL FIX
+========================================= */
+
+.side-icon{
+    position:relative;
+    z-index:200;
+}
+
+.side-tooltip{
+    position:absolute;
+    left:78px;
+    top:50%;
+    transform:translateY(-50%);
+
+    background:#151515;
+    color:#ffffff;
+
+    padding:10px 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+    font-weight:600;
+
+    white-space:nowrap;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:0.18s ease;
+
+    z-index:999999;
+}
+
+.side-icon:hover .side-tooltip{
+    opacity:1;
+    left:88px;
+}
+
+/* =========================================
+   FONT FIX
+========================================= */
+
+.messages,
+.message,
+.chat-history-item,
+.history-preview,
+.history-name,
+.chat-input-bar input,
+.community-title{
+    font-family:
+        "Trebuchet MS",
+        "Comic Sans MS",
+        cursive;
+}
+
+.message{
+    font-size:15px !important;
+    line-height:1.55;
+}
+
+.history-name{
+    font-size:17px !important;
+}
+
+.history-preview{
+    font-size:13px !important;
+}
+
+.chat-input-bar input{
+    font-size:14px !important;
+}
+
+/* =========================================
+   FORCE VISIBLE SCROLLBARS
+========================================= */
+
+.chat-history::-webkit-scrollbar,
+.messages::-webkit-scrollbar,
+.chat-info::-webkit-scrollbar{
+    width:10px !important;
+}
+
+.chat-history::-webkit-scrollbar-thumb,
+.messages::-webkit-scrollbar-thumb,
+.chat-info::-webkit-scrollbar-thumb{
+    background:#bfd0cb;
+    border-radius:20px;
+}
+
+.chat-history::-webkit-scrollbar-track,
+.messages::-webkit-scrollbar-track,
+.chat-info::-webkit-scrollbar-track{
+    background:rgba(0,0,0,0.03);
+}
+
+/* =========================================
+   KEEP PANELS SCROLLABLE
+========================================= */
+
+.chat-history,
+.messages,
+.chat-info{
+    overflow-y:scroll !important;
+}
+
+/* =========================================
+   INPUT BAR FIX
+========================================= */
+
+.chat-input-bar{
+    position:sticky;
+    bottom:0;
+
+    z-index:50;
+
+    background:#f4f6f5;
+
+    border-top:1px solid rgba(0,0,0,.04);
+
+    padding:18px;
+
+    min-height:92px;
+}
+
+/* =========================================
+   FIX MESSAGE AREA HEIGHT
+========================================= */
+
+.chat-main{
+    display:flex;
+    flex-direction:column;
+
+    min-height:0;
+}
+
+.messages{
+    flex:1;
+    min-height:0;
+
+    padding-bottom:30px;
+}
+
+/* =========================================
+   REMOVE EXTRA COMMUNITY CIRCLES
+========================================= */
+
+.member-list{
+    display:block !important;
+}
+
+.member{
+    display:none !important;
+}
+
+.member:first-child{
+    display:block !important;
+
+    width:58px;
+    height:58px;
+
+    margin:0 auto 28px;
+
+    position:relative;
+}
+
+.member:first-child::after{
+    content:"";
+
+    position:absolute;
+
+    right:2px;
+    bottom:2px;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    background:#2dd36f;
+
+    border:2px solid white;
+}
+
+/* =========================================
+   SINGLE SHARED MEDIA TEMPLATE
+========================================= */
+
+.shared-grid{
+    grid-template-columns:1fr !important;
+}
+
+.shared-grid div:nth-child(n+2){
+    display:none !important;
+}
+
+.shared-grid div:first-child{
+    height:120px;
+}
+
+/* =========================================
+   STICKY PROFILE
+========================================= */
+
+.profile-panel{
+    position:sticky;
+    top:0;
+
+    z-index:100;
+
+    background:#eef3f2;
+}
+
+/* =========================================
+   DARKER BACKGROUND
+========================================= */
+
+.chatroom-background{
+    background:
+        linear-gradient(
+            rgba(28,35,37,.72),
+            rgba(28,35,37,.72)
+        ),
+        url("/images/teacher.png") !important;
+
+    background-size:cover;
+    background-position:center;
+}
+
