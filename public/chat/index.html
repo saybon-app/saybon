@@ -1,25 +1,307 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <title>Chat — SayBon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
 
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>SayBon Chatroom</title>
+
+<link rel="stylesheet" href="/chat/chat.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-  <div class="card">
-    <h2>SayBon Chat Room</h2>
-    <p>Coming soon… 💬</p>
+<div class="chatroom-background"></div>
 
-    <button class="secondary" onclick="location.href='/dashboard/'">
-      Back to Dashboard
-    </button>
-  </div>
+<div class="chatroom-heading">
+S a y B o n &nbsp; C h a t r o o m
+</div>
+
+<div class="chat-shell">
+
+    <!-- ===================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================== -->
+
+    <aside class="chat-sidebar">
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h16v4H4zm0 6h16v4H4zm0 6h16v4H4z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3v10.55A4 4 0 1 0 16 17V7h4V3h-8z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 6h-2v9H5v2a1 1 0 001 1h13l4 4V7a1 1 0 00-1-1zM17 2H3a1 1 0 00-1 1v14l4-4h11a1 1 0 001-1V3a1 1 0 00-1-1z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/>
+            </svg>
+        </button>
+
+        <div class="sidebar-divider"></div>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 13h8V3H3v10zm10 8h8v-6h-8v6zM3 21h8v-6H3v6zm10-18v10h8V3h-8z"/>
+            </svg>
+        </button>
+
+        <button class="side-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </button>
+
+    </aside>
+
+    <!-- ===================================== -->
+    <!-- HISTORY -->
+    <!-- ===================================== -->
+
+    <section class="chat-history">
+
+        <div class="profile-panel">
+
+            <div class="avatar-wrapper">
+
+                <div class="avatar"></div>
+
+                <button class="avatar-camera">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 3l-2 2H3v14h18V5h-4l-2-2H9zm3 14a5 5 0 110-10 5 5 0 010 10z"/>
+                    </svg>
+                </button>
+
+            </div>
+
+            <h2>Adel</h2>
+            <p>adlaideduah@gmail.com</p>
+
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search chats..." />
+        </div>
+
+        <div class="history-list">
+
+            <div class="history-item active">
+
+                <div class="history-avatar"></div>
+
+                <div class="history-content">
+                    <h3>Support</h3>
+                    <p>Please I need help with my account</p>
+                </div>
+
+                <div class="history-meta">
+                    <span>11:24</span>
+                    <div class="badge">3</div>
+                </div>
+
+            </div>
+
+            <div class="history-item">
+
+                <div class="history-avatar"></div>
+
+                <div class="history-content">
+                    <h3>Lessons</h3>
+                    <p>Grammar correction discussion</p>
+                </div>
+
+                <div class="history-meta">
+                    <span>10:42</span>
+                    <div class="badge">2</div>
+                </div>
+
+            </div>
+
+            <div class="history-item">
+
+                <div class="history-avatar"></div>
+
+                <div class="history-content">
+                    <h3>DELF</h3>
+                    <p>Listening prep uploaded</p>
+                </div>
+
+                <div class="history-meta">
+                    <span>09:18</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- CHAT -->
+    <!-- ===================================== -->
+
+    <main class="chat-main">
+
+        <div class="chat-topbar">
+
+            <div class="chat-search">
+                <input type="text" placeholder="Search here" />
+            </div>
+
+            <div class="chat-top-actions">
+
+                <button>
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="5" cy="12" r="2"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <circle cx="19" cy="12" r="2"/>
+                    </svg>
+                </button>
+
+                <button>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4a1.5 1.5 0 10-3 0v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="messages">
+
+            <div class="message incoming">
+                Salut 👋 Does anyone understand this grammar rule?
+            </div>
+
+            <div class="message outgoing">
+                Yes. It relates to reflexive verbs.
+            </div>
+
+            <div class="message voice incoming">
+
+                <div class="voice-play"></div>
+
+                <div class="voice-wave"></div>
+
+                <span>0:24</span>
+
+            </div>
+
+        </div>
+
+        <div class="chat-input-bar">
+
+            <button class="attach-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17.5 6.5l-7.79 7.79a3 3 0 104.24 4.24l8.49-8.49a5 5 0 10-7.07-7.07L5.88 12.46"/>
+                </svg>
+            </button>
+
+            <button class="media-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 19V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+            </button>
+
+            <input
+                id="chatInput"
+                type="text"
+                placeholder="Type here..."
+            />
+
+            <button class="record-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 0014 0h-2z"/>
+                </svg>
+            </button>
+
+            <button class="send-btn">
+                Send
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- ===================================== -->
+    <!-- RIGHT -->
+    <!-- ===================================== -->
+
+    <aside class="chat-info">
+
+        <div class="community-avatar"></div>
+
+        <h2>Support Community</h2>
+
+        <p>Active members</p>
+
+        <div class="member-list">
+
+            <div class="member"></div>
+            <div class="member"></div>
+            <div class="member"></div>
+            <div class="member"></div>
+            <div class="member"></div>
+
+        </div>
+
+        <h3>Shared Media</h3>
+
+        <div class="shared-grid">
+
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+        </div>
+
+    </aside>
+
+</div>
+
+<input
+type="file"
+id="avatarUpload"
+hidden
+accept="image/*"
+/>
+
+<script src="/chat/chat.js"></script>
 
 </body>
 </html>

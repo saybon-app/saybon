@@ -1,0 +1,696 @@
+﻿/* =========================================================
+   SAYBON CHATROOM
+   EXACT PHOTO B STYLE REFINEMENT
+   UTF-8 SAFE
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Inter, sans-serif;
+    background:#dfe9e8;
+    color:#1b1b1b;
+}
+
+/* =========================================================
+   PAGE WRAPPER
+========================================================= */
+
+.chatroom-page{
+    width:100vw;
+    height:100vh;
+    padding:42px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(223,233,232,0.96),
+            rgba(223,233,232,0.96)
+        );
+    overflow:hidden;
+}
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.chatroom-shell{
+    width:100%;
+    max-width:1380px;
+    height:calc(100vh - 84px);
+    margin:0 auto;
+
+    background:#f8fbfb;
+
+    border-radius:34px;
+
+    box-shadow:
+        0 24px 60px rgba(0,0,0,0.08);
+
+    overflow:hidden;
+
+    display:grid;
+    grid-template-columns:
+        110px
+        360px
+        1fr
+        320px;
+
+    position:relative;
+}
+
+/* =========================================================
+   FLOATING TITLE
+========================================================= */
+
+.chatroom-title{
+    position:absolute;
+
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+
+    z-index:50;
+
+    font-size:13px;
+    letter-spacing:14px;
+    font-weight:500;
+
+    color:#95a7aa;
+
+    text-transform:uppercase;
+
+    pointer-events:none;
+}
+
+/* =========================================================
+   LEFT SIDEBAR
+========================================================= */
+
+.chatroom-sidebar{
+    background:
+        linear-gradient(
+            180deg,
+            #295b5d,
+            #18373d
+        );
+
+    padding:22px 0;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+}
+
+.sidebar-spacer{
+    flex:1;
+}
+
+.sidebar-btn{
+    width:56px;
+    height:56px;
+
+    border:none;
+    border-radius:18px;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:0.25s ease;
+}
+
+.sidebar-btn:hover{
+    background:rgba(255,255,255,0.10);
+    transform:translateY(-2px);
+}
+
+.sidebar-btn svg{
+    width:24px;
+    height:24px;
+    fill:white;
+    opacity:0.95;
+}
+
+/* =========================================================
+   LEFT PANEL
+========================================================= */
+
+.chatroom-left{
+    background:#edf5f5;
+
+    border-right:1px solid rgba(0,0,0,0.04);
+
+    overflow-y:auto;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* scroll fix */
+.chatroom-left,
+.chatroom-center,
+.chatroom-right{
+    min-height:0;
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.chat-profile{
+    padding:84px 36px 26px;
+    text-align:center;
+}
+
+.avatar-wrap{
+    width:120px;
+    height:120px;
+    margin:0 auto 18px;
+    position:relative;
+}
+
+.avatar-main{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+
+    background:#d9dce9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.avatar-main svg{
+    width:62px;
+    height:62px;
+    fill:#6f7387;
+}
+
+.avatar-camera{
+    position:absolute;
+
+    right:2px;
+    bottom:8px;
+
+    width:42px;
+    height:42px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#23474d;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.avatar-camera svg{
+    width:18px;
+    height:18px;
+    fill:white;
+}
+
+.profile-name{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.profile-email{
+    color:#8f9b9d;
+    font-size:15px;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.chat-search-wrap{
+    padding:0 26px 18px;
+}
+
+.chat-search{
+    width:100%;
+    height:58px;
+
+    border:none;
+    border-radius:18px;
+
+    background:white;
+
+    padding:0 22px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.chat-history{
+    padding:0 18px 22px;
+    overflow-y:auto;
+}
+
+.chat-history-item{
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:18px;
+
+    border-radius:22px;
+
+    cursor:pointer;
+
+    transition:0.22s ease;
+
+    margin-bottom:10px;
+
+    text-align:left;
+}
+
+.chat-history-item.active{
+    background:#dfe9ec;
+}
+
+.chat-history-item:hover{
+    background:#e7eff1;
+}
+
+.history-avatar{
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:#d5dce0;
+    flex-shrink:0;
+}
+
+.history-main{
+    flex:1;
+}
+
+.history-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:4px;
+}
+
+.history-name{
+    font-size:20px;
+    font-weight:700;
+}
+
+.history-time{
+    font-size:13px;
+    color:#8d989a;
+}
+
+.history-preview{
+    font-size:15px;
+    color:#738083;
+    line-height:1.4;
+}
+
+.unread-count{
+    width:28px;
+    height:28px;
+
+    border-radius:50%;
+
+    background:#ea8f9b;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:13px;
+    font-weight:700;
+}
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.chatroom-center{
+    background:#f9fbfb;
+
+    border-right:1px solid rgba(0,0,0,0.04);
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.center-top{
+    padding:28px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    border-bottom:1px solid rgba(0,0,0,0.04);
+}
+
+.center-search{
+    flex:1;
+
+    height:58px;
+
+    border:none;
+    border-radius:18px;
+
+    background:white;
+
+    padding:0 22px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.top-icon-btn{
+    width:58px;
+    height:58px;
+
+    border:none;
+    border-radius:18px;
+
+    background:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.top-icon-btn svg{
+    width:22px;
+    height:22px;
+    fill:#5d6769;
+}
+
+/* =========================================================
+   CHAT BODY
+========================================================= */
+
+.chat-body{
+    flex:1;
+    overflow-y:auto;
+
+    padding:34px;
+}
+
+.message-row{
+    display:flex;
+    margin-bottom:26px;
+}
+
+.message-row.right{
+    justify-content:flex-end;
+}
+
+.message{
+    max-width:420px;
+
+    padding:22px 24px;
+
+    border-radius:24px;
+
+    font-size:20px;
+    line-height:1.5;
+}
+
+.message.left{
+    background:white;
+}
+
+.message.right{
+    background:#edf5f8;
+}
+
+/* =========================================================
+   VOICE NOTE
+========================================================= */
+
+.voice-note{
+    width:320px;
+    height:82px;
+
+    background:white;
+
+    border-radius:24px;
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:0 22px;
+
+    margin-bottom:28px;
+}
+
+.voice-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#ef8f9c;
+}
+
+.voice-bar{
+    flex:1;
+    height:8px;
+    border-radius:999px;
+    background:linear-gradient(
+        90deg,
+        #f2a4b2,
+        #f5d7df
+    );
+}
+
+/* =========================================================
+   COMPOSER
+========================================================= */
+
+.chat-composer{
+    height:104px;
+
+    border-top:1px solid rgba(0,0,0,0.04);
+
+    padding:18px 24px;
+
+    display:flex;
+    align-items:center;
+    gap:16px;
+
+    background:#fbfdfd;
+}
+
+.compose-btn{
+    width:56px;
+    height:56px;
+
+    border:none;
+    border-radius:16px;
+
+    background:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.compose-btn svg{
+    width:22px;
+    height:22px;
+    fill:#566467;
+}
+
+.compose-input{
+    flex:1;
+    height:58px;
+
+    border:none;
+    border-radius:18px;
+
+    background:white;
+
+    padding:0 22px;
+
+    font-size:16px;
+
+    outline:none;
+}
+
+.send-btn{
+    width:120px;
+    height:58px;
+
+    border:none;
+    border-radius:18px;
+
+    background:#ee8f84;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.chatroom-right{
+    background:#f3f8f8;
+
+    overflow-y:auto;
+
+    padding:46px 28px;
+}
+
+.community-avatar{
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    background:#d5dce0;
+
+    margin:0 auto 18px;
+}
+
+.community-title{
+    text-align:center;
+
+    font-size:18px;
+    font-weight:700;
+
+    margin-bottom:4px;
+}
+
+.community-sub{
+    text-align:center;
+
+    color:#8c989a;
+
+    margin-bottom:30px;
+}
+
+.members-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+
+    margin-bottom:42px;
+}
+
+.member{
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:#d6dde0;
+}
+
+.shared-title{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.shared-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.shared-item{
+    aspect-ratio:1/1;
+
+    border-radius:22px;
+
+    background:#dfe5e8;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1100px){
+
+    body{
+        overflow:auto;
+    }
+
+    .chatroom-page{
+        padding:14px;
+        height:auto;
+        overflow:auto;
+    }
+
+    .chatroom-shell{
+        height:auto;
+
+        grid-template-columns:1fr;
+
+        overflow:visible;
+    }
+
+    .chatroom-sidebar{
+        flex-direction:row;
+        justify-content:center;
+        padding:14px;
+    }
+
+    .sidebar-spacer{
+        display:none;
+    }
+
+    .chatroom-title{
+        top:10px;
+        font-size:10px;
+        letter-spacing:8px;
+    }
+
+    .chatroom-center{
+        min-height:700px;
+    }
+}
