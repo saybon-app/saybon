@@ -1,0 +1,115 @@
+﻿=========================================================
+SAYBON CHATROOM DUMP
+=========================================================
+
+ROUTE:
+public/chat/index.html
+
+FILES:
+public/chat/index.html
+public/chat/chat.css
+public/chat/chat.js
+
+=========================================================
+LAYOUT
+=========================================================
+
+1. LEFT SIDEBAR
+2. CHAT LIST PANEL
+3. LIVE CHAT PANEL
+
+=========================================================
+SIDEBAR
+=========================================================
+
+STYLE:
+- slim
+- frosted white
+- soft shadow
+- rounded corners
+- vertically centered icons
+- hover animation
+- click animation
+
+ICON ORDER:
+1. ☰ toggle
+2. 📘 lessons
+3. 🎓 delf
+4. 🪉 music
+5. 🌐 translation
+6. ✍🏽 feedback
+7. 💚 support
+8. 💠 dashboard
+9. 🏠 home
+
+IMPORTANT:
+Dashboard and Home DO NOT separate themselves.
+They remain inside the SAME icon stack.
+They are ONLY the LAST TWO icons.
+
+TOGGLE:
+- resets live chat panel
+- restores SayBon Chatroom landing panel
+
+=========================================================
+CHAT LIST PANEL
+=========================================================
+
+TOP:
+- Chats title
+- avatar
+
+BODY:
+- search input
+- scrollable category list
+
+CATEGORY ITEMS:
+- icon only
+- preview text
+- timestamp
+- unread badge
+
+NO CATEGORY LABELS.
+
+=========================================================
+LIVE CHAT PANEL
+=========================================================
+
+DEFAULT:
+SayBon Chatroom
+
+SUBTEXT:
+Join conversations with the SayBon learning community.
+
+SUPPORT:
+- text messages
+- media
+- voice notes
+- scrolling
+
+=========================================================
+COLOR SYSTEM
+=========================================================
+
+OUTER BACKGROUND:
+warm orange/pink gradient
+
+PANELS:
+soft white
+
+CHAT WALLPAPER:
+creamy beige
+
+MESSAGE COLORS:
+mint green
+white
+
+=========================================================
+CURRENT LOCKED DECISION
+=========================================================
+
+Sidebar rebuilt cleanly from scratch.
+No split bottom icon section.
+All icons remain in ONE unified stack.
+
+=========================================================
