@@ -245,7 +245,40 @@ SAYBON CHATROOM
 
 </div>
 
+
+<script>
+function switchChat(el){
+
+    document.querySelectorAll(".chat-item").forEach(item=>{
+        item.classList.remove("active");
+    });
+
+    el.classList.add("active");
+
+    const title =
+        el.querySelector(".chat-title").innerText;
+
+    if(title === "Support"){
+        document.querySelector(".message.left").innerHTML =
+        "Support team, does anyone know how to reset a learner password?";
+    }
+
+    if(title === "Lessons"){
+        document.querySelector(".message.left").innerHTML =
+        "Salut 👋 Does anyone understand this grammar rule?";
+    }
+
+    if(title === "DELF"){
+        document.querySelector(".message.left").innerHTML =
+        "Has anyone practised the DELF oral section today?";
+    }
+
+    document.querySelector(".community-title").innerText =
+        title + " Community";
+}
+</script>
 </body>
 </html>
+
 
 
