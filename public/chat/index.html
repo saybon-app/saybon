@@ -1,284 +1,30 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Chatroom</title>
 
-<title>SayBon Chatroom</title>
-
-<link rel="stylesheet" href="/chat/chat.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/chat/chat.css" />
 </head>
 
 <body>
 
-<div class="chatroom-bg"></div>
-<div class="chatroom-overlay"></div>
+  <div class="chatroom-placeholder">
 
-<div class="chatroom-title">
-SAYBON CHATROOM
-</div>
+    <div class="placeholder-card">
 
-<div class="chatroom-shell">
+      <div class="placeholder-title">
+        SAYBON CHATROOM
+      </div>
 
-    <!-- SIDEBAR -->
-    <aside class="chat-sidebar">
+      <div class="placeholder-subtitle">
+        Clean placeholder loaded successfully.
+      </div>
 
-        <button class="side-btn" data-label="Lessons">
-            <svg viewBox="0 0 24 24">
-                <path d="M4 6L12 2L20 6L12 10L4 6Z"/>
-                <path d="M6 10V14C6 16 9 18 12 18C15 18 18 16 18 14V10"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Music">
-            <svg viewBox="0 0 24 24">
-                <path d="M14 3V15.5A3.5 3.5 0 1 1 12 12.3V6H20V3H14Z"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Translation">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2L14 8H20L15 12L17 18L12 14L7 18L9 12L4 8H10L12 2Z"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Support">
-            <svg viewBox="0 0 24 24">
-                <path d="M4 5H20V15H6L4 17V5Z"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Feedback">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2L22 20H2L12 2Z"/>
-            </svg>
-        </button>
-
-        <div class="sidebar-divider"></div>
-
-        <button class="side-btn" data-label="Home" onclick="window.location.href='/'">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 3L3 10V21H9V15H15V21H21V10L12 3Z"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Dashboard" onclick="window.location.href='/dashboard/'">
-            <svg viewBox="0 0 24 24">
-                <path d="M3 3H10V10H3V3ZM14 3H21V10H14V3ZM3 14H10V21H3V14ZM14 14H21V21H14V14Z"/>
-            </svg>
-        </button>
-
-        <button class="side-btn" data-label="Back" onclick="history.back()">
-            <svg viewBox="0 0 24 24">
-                <path d="M14 7L9 12L14 17"/>
-            </svg>
-        </button>
-
-    </aside>
-
-    <!-- LEFT -->
-    <section class="chat-history">
-
-        <div class="left-sticky">
-
-            <div class="profile-wrap">
-
-                <div class="avatar-wrap">
-
-                    <div class="avatar">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"/>
-                            <path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22"/>
-                        </svg>
-                    </div>
-
-                    <button class="camera-btn">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M4 7H8L10 5H14L16 7H20V19H4V7Z"/>
-                            <circle cx="12" cy="13" r="3"/>
-                        </svg>
-                    </button>
-
-                </div>
-
-                <div class="profile-name">Adel</div>
-                <div class="profile-email">adlaideduah@gmail.com</div>
-
-            </div>
-
-            <div class="search-box">
-                <input type="text" placeholder="Search chats..." />
-            </div>
-
-        </div>
-
-        <div class="chat-list">
-
-            <div class="chat-item active" onclick="switchChat(this)">
-                <div class="chat-thumb"></div>
-
-                <div class="chat-meta">
-                    <div class="chat-top">
-                        <div class="chat-title">Support</div>
-                        <div class="chat-time">11:24</div>
-                    </div>
-
-                    <div class="chat-preview">
-                        Please I need help with my account
-                    </div>
-                </div>
-
-                <div class="unread">3</div>
-            </div>
-
-            <div class="chat-item active" onclick="switchChat(this)">
-                <div class="chat-thumb"></div>
-
-                <div class="chat-meta">
-                    <div class="chat-top">
-                        <div class="chat-title">Lessons</div>
-                        <div class="chat-time">10:42</div>
-                    </div>
-
-                    <div class="chat-preview">
-                        Grammar correction discussion
-                    </div>
-                </div>
-
-                <div class="unread">2</div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- CENTER -->
-    <main class="chat-main">
-
-        <div class="chat-topbar">
-            <input class="chat-search" placeholder="Search here" />
-
-            <button class="icon-square">•••</button>
-            <button class="icon-square">🔔</button>
-        </div>
-
-        <div class="messages">
-
-            <div class="message left">
-                Salut 👋 Does anyone understand this grammar rule?
-            </div>
-
-            <div class="message right">
-                Yes. It relates to reflexive verbs.
-            </div>
-
-            <div class="voice-card">
-                <div class="voice-dot"></div>
-                <div class="voice-bar"></div>
-                <div>0:24</div>
-            </div>
-
-        </div>
-
-        <div class="chat-compose">
-
-            <div class="compose-box">
-                📎
-                🖼️
-
-                <input type="text" placeholder="Type here..." />
-
-                🎤
-            </div>
-
-            <button class="send-btn">
-                Send
-            </button>
-
-        </div>
-
-    </main>
-
-    <!-- RIGHT -->
-    <aside class="chat-info">
-
-        
-
-        <div class="community-title">
-            Support Community
-        </div>
-
-        <div class="community-sub">
-            Active members
-        </div>
-<div class="online-user-card">
-
-    <div class="online-user-avatar"></div>
-
-    <div>
-        <div class="online-user-name">
-            Adel
-        </div>
-
-        <div class="online-user-status">
-            Online now
-        </div>
     </div>
 
-</div>
-        <div style="margin-top:34px;font-weight:700;font-size:18px;">
-            Shared Media
-        </div>
+  </div>
 
-        <div class="media-card">
-            <div class="media-image"></div>
-
-            <div>
-                <div style="font-weight:700;">Study Guide.pdf</div>
-                <div style="font-size:13px;color:#7b8489;">PDF • 1.4 MB</div>
-            </div>
-        </div>
-
-    </aside>
-
-</div>
-
-
-<script>
-function switchChat(el){
-
-    document.querySelectorAll(".chat-item").forEach(item=>{
-        item.classList.remove("active");
-    });
-
-    el.classList.add("active");
-
-    const title =
-        el.querySelector(".chat-title").innerText;
-
-    if(title === "Support"){
-        document.querySelector(".message.left").innerHTML =
-        "Support team, does anyone know how to reset a learner password?";
-    }
-
-    if(title === "Lessons"){
-        document.querySelector(".message.left").innerHTML =
-        "Salut 👋 Does anyone understand this grammar rule?";
-    }
-
-    if(title === "DELF"){
-        document.querySelector(".message.left").innerHTML =
-        "Has anyone practised the DELF oral section today?";
-    }
-
-    document.querySelector(".community-title").innerText =
-        title + " Community";
-}
-</script>
 </body>
 </html>
-
-
-
