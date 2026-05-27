@@ -25,13 +25,13 @@ align-items:center;
 }
 
 .chatroom-shell{
-width:min(1440px,100%);
-height:min(900px,100%);
+width:min(1280px,92vw);
+height:min(760px,86vh);
 background:#edf5f2;
 border-radius:34px;
 overflow:hidden;
 display:grid;
-grid-template-columns:90px 360px 1fr 320px;
+grid-template-columns:84px 300px 1fr 260px;
 box-shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
@@ -52,7 +52,7 @@ border:none;
 border-radius:18px;
 background:transparent;
 color:white;
-font-size:22px;
+font-size:16px;
 cursor:pointer;
 position:relative;
 transition:.25s ease;
@@ -115,15 +115,15 @@ align-items:center;
 }
 
 .profile-avatar{
-width:170px;
-height:170px;
+width:120px;
+height:120px;
 border-radius:50%;
 background:#dfe2ef;
 display:flex;
 justify-content:center;
 align-items:center;
 position:relative;
-font-size:72px;
+font-size:28px;
 color:#59617e;
 }
 
@@ -131,24 +131,24 @@ color:#59617e;
 position:absolute;
 bottom:12px;
 right:10px;
-width:56px;
-height:56px;
+width:42px;
+height:42px;
 border:none;
 border-radius:50%;
 background:#0d6a5b;
 color:white;
-font-size:22px;
+font-size:16px;
 cursor:pointer;
 }
 
 .profile-wrap h2{
-font-size:48px;
+font-size:28px;
 margin-top:18px;
 font-weight:700;
 }
 
 .profile-wrap p{
-font-size:22px;
+font-size:16px;
 color:#7b8487;
 }
 
@@ -160,20 +160,20 @@ gap:10px;
 
 .chat-search input{
 flex:1;
-height:64px;
+height:36px;
 border:none;
-border-radius:22px;
+border-radius:18px;
 padding:0 22px;
-font-size:24px;
+font-size:16px;
 font-family:"Baloo 2",sans-serif;
 }
 
 .chat-search button{
-width:64px;
+width:48px;
 border:none;
 border-radius:20px;
 background:white;
-font-size:22px;
+font-size:16px;
 cursor:pointer;
 }
 
@@ -187,11 +187,11 @@ gap:22px;
 
 .history-card{
 background:#f4fbf8;
-border-radius:28px;
-padding:22px;
+border-radius:20px;
+padding:16px;
 display:flex;
 align-items:center;
-gap:18px;
+gap:12px;
 cursor:pointer;
 transition:.25s ease;
 }
@@ -202,19 +202,19 @@ box-shadow:0 12px 30px rgba(0,0,0,.08);
 }
 
 .history-avatar{
-width:72px;
-height:72px;
+width:36px;
+height:36px;
 border-radius:50%;
 background:#d9dbe2;
 flex-shrink:0;
 }
 
 .history-content h4{
-font-size:34px;
+font-size:12px;
 }
 
 .history-content p{
-font-size:22px;
+font-size:16px;
 color:#788184;
 line-height:1.2;
 }
@@ -225,7 +225,7 @@ display:flex;
 flex-direction:column;
 align-items:flex-end;
 gap:12px;
-font-size:18px;
+font-size:12px;
 }
 
 .badge{
@@ -237,7 +237,7 @@ color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:18px;
+font-size:12px;
 }
 
 .chat-panel{
@@ -254,44 +254,44 @@ border-bottom:1px solid #ebefed;
 
 .chat-header h1{
 text-align:center;
-letter-spacing:14px;
-font-size:18px;
+letter-spacing:10px;
+font-size:12px;
 margin-bottom:26px;
 color:#555;
 }
 
 .top-actions{
 display:flex;
-gap:18px;
+gap:12px;
 }
 
 .top-search{
 flex:1;
 background:white;
-height:74px;
-border-radius:26px;
+height:36px;
+border-radius:18px;
 display:flex;
 align-items:center;
 padding:0 24px;
-gap:18px;
+gap:12px;
 }
 
 .top-search input{
 border:none;
 outline:none;
 flex:1;
-font-size:24px;
+font-size:16px;
 font-family:"Baloo 2",sans-serif;
 background:transparent;
 }
 
 .top-btn{
-width:74px;
-height:74px;
+width:52px;
+height:36px;
 border:none;
 border-radius:24px;
 background:white;
-font-size:22px;
+font-size:16px;
 cursor:pointer;
 }
 
@@ -306,9 +306,9 @@ gap:28px;
 
 .message{
 max-width:72%;
-padding:26px 30px;
-border-radius:28px;
-font-size:34px;
+padding:18px 20px;
+border-radius:20px;
+font-size:12px;
 line-height:1.25;
 position:relative;
 }
@@ -325,24 +325,24 @@ align-self:flex-end;
 
 .time{
 display:block;
-font-size:18px;
+font-size:12px;
 color:#7b8184;
 margin-top:12px;
 }
 
 .audio-card{
-width:360px;
+width:260px;
 background:white;
-border-radius:28px;
-padding:22px;
+border-radius:20px;
+padding:16px;
 display:flex;
 align-items:center;
-gap:18px;
+gap:12px;
 }
 
 .audio-play{
-width:52px;
-height:52px;
+width:36px;
+height:36px;
 border-radius:50%;
 background:#ffdce6;
 color:#ff5d8c;
@@ -359,7 +359,7 @@ background:linear-gradient(90deg,#ff6d97,#dcb6cb);
 }
 
 .audio-time{
-font-size:30px;
+font-size:16px;
 }
 
 .media-row{
@@ -369,15 +369,15 @@ margin-top:18px;
 }
 
 .media-box{
-width:82px;
-height:82px;
+width:56px;
+height:56px;
 border-radius:18px;
 background:linear-gradient(135deg,#5f8ca5,#8ec7d3);
 }
 
 .media-count{
-width:82px;
-height:82px;
+width:56px;
+height:56px;
 border-radius:18px;
 background:#dff0e8;
 display:flex;
@@ -397,32 +397,32 @@ background:#f8faf9;
 
 .composer input{
 flex:1;
-height:72px;
+height:36px;
 border:none;
 border-radius:24px;
 padding:0 24px;
-font-size:24px;
+font-size:16px;
 font-family:"Baloo 2",sans-serif;
 }
 
 .composer-btn{
-width:64px;
-height:64px;
+width:48px;
+height:36px;
 border:none;
 border-radius:18px;
 background:white;
-font-size:22px;
+font-size:16px;
 cursor:pointer;
 }
 
 .send-btn{
-height:72px;
+height:36px;
 padding:0 28px;
 border:none;
 border-radius:24px;
 background:linear-gradient(135deg,#1d9a84,#0f6a5b);
 color:white;
-font-size:24px;
+font-size:16px;
 font-family:"Baloo 2",sans-serif;
 display:flex;
 align-items:center;
@@ -441,11 +441,11 @@ padding:44px 28px;
 }
 
 .right-sticky h2{
-font-size:42px;
+font-size:20px;
 }
 
 .right-sub{
-font-size:24px;
+font-size:16px;
 color:#778083;
 margin-top:4px;
 margin-bottom:38px;
@@ -458,7 +458,7 @@ border-radius:24px;
 padding:18px;
 display:flex;
 align-items:center;
-gap:18px;
+gap:12px;
 margin-bottom:40px;
 }
 
@@ -467,8 +467,8 @@ position:relative;
 }
 
 .member-avatar{
-width:74px;
-height:74px;
+width:52px;
+height:36px;
 border-radius:50%;
 background:#d7d9df;
 }
@@ -494,13 +494,13 @@ color:#6f777a;
 }
 
 .right-sticky h3{
-font-size:34px;
+font-size:12px;
 margin-bottom:24px;
 }
 
 .media-thumb{
-width:82px;
-height:82px;
+width:56px;
+height:56px;
 border-radius:18px;
 background:linear-gradient(135deg,#5f8ca5,#8ec7d3);
 }
@@ -510,7 +510,7 @@ font-size:26px;
 }
 
 .media-info p{
-font-size:18px;
+font-size:12px;
 color:#7c8386;
 }
 
@@ -562,12 +562,35 @@ display:none;
 
 .message{
 max-width:90%;
-font-size:24px;
+font-size:16px;
 }
 
 .profile-wrap h2{
 font-size:36px;
 }
 
+}
+
+
+.left-panel,
+.chat-panel,
+.right-panel{
+min-height:0;
+}
+
+.messages-scroll{
+overflow-y:auto !important;
+}
+
+.chat-history{
+overflow-y:auto !important;
+}
+
+.right-panel{
+overflow-y:auto !important;
+}
+
+.chatroom-shell{
+align-items:stretch;
 }
 
