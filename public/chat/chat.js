@@ -123,3 +123,70 @@ window.location.href = "/";
 
 }
 
+
+
+
+
+// ======================================================
+// SIDEBAR TOGGLE RETURNS TO WELCOME PANEL
+// ======================================================
+
+const sidebarToggle =
+document.getElementById('sidebarToggle')
+
+if(sidebarToggle){
+
+sidebarToggle.addEventListener('click',()=>{
+
+const welcome =
+document.querySelector('.welcome-screen')
+
+const liveChat =
+document.querySelector('.live-chat')
+
+if(welcome && liveChat){
+
+welcome.classList.remove('hidden')
+
+liveChat.classList.add('hidden')
+
+}
+
+})
+
+}
+
+// ======================================================
+// DASHBOARD BUTTON
+// ======================================================
+
+const dashboardButton =
+document.getElementById('dashboardButton')
+
+if(dashboardButton){
+
+dashboardButton.addEventListener('click',()=>{
+
+window.location.href='/dashboard/'
+
+})
+
+}
+
+// ======================================================
+// HOME BUTTON
+// ======================================================
+
+const homeButton =
+document.getElementById('homeButton')
+
+if(homeButton){
+
+homeButton.addEventListener('click',()=>{
+
+window.location.href='/'
+
+})
+
+}
+
