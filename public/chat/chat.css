@@ -828,175 +828,306 @@ body{
 }
 
 
-/* =========================================
-   HOVER LABEL FIX
-========================================= */
 
-.side-icon{
-    position:relative;
-    z-index:200;
+/* =====================================================
+   SAYBON CHATROOM FINAL STABLE PATCH
+===================================================== */
+
+/* -------------------------------
+   TITLE CENTER FIX
+-------------------------------- */
+
+.chatroom-title{
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    z-index:500 !important;
 }
 
-.side-tooltip{
-    position:absolute;
-    left:78px;
-    top:50%;
-    transform:translateY(-50%);
+/* -------------------------------
+   DARKER BACKGROUND
+-------------------------------- */
 
-    background:#151515;
-    color:#ffffff;
+.chatroom-bg{
+    background:
+        linear-gradient(
+            rgba(16,22,24,.78),
+            rgba(16,22,24,.78)
+        ),
+        url("/assets/images/teacher.png")
+        center center / cover no-repeat !important;
+}
 
-    padding:10px 14px;
+/* -------------------------------
+   STABLE MAIN CARD
+-------------------------------- */
 
-    border-radius:12px;
+.chatroom-shell{
+    width:90vw !important;
+    height:82vh !important;
 
-    font-size:13px;
-    font-weight:600;
+    margin:9vh auto !important;
 
-    white-space:nowrap;
+    border-radius:34px !important;
+
+    overflow:hidden !important;
+
+    grid-template-columns:
+        88px
+        320px
+        1fr
+        280px !important;
+}
+
+/* -------------------------------
+   SIDEBAR
+-------------------------------- */
+
+.chat-sidebar{
+    background:
+        linear-gradient(
+            180deg,
+            #0d5b53,
+            #073933
+        ) !important;
+
+    position:relative;
+    z-index:300;
+}
+
+/* -------------------------------
+   TOOLTIP FIX
+-------------------------------- */
+
+.side-btn{
+    overflow:visible !important;
+    z-index:500 !important;
+}
+
+.side-btn::after{
+    left:78px !important;
+
+    z-index:99999 !important;
+
+    background:#111 !important;
+
+    color:#fff !important;
+
+    font-size:13px !important;
+
+    padding:10px 14px !important;
+
+    border-radius:12px !important;
 
     opacity:0;
 
+    transform:translateX(-10px);
+
+    transition:0.2s ease !important;
+
     pointer-events:none;
-
-    transition:0.18s ease;
-
-    z-index:999999;
 }
 
-.side-icon:hover .side-tooltip{
-    opacity:1;
-    left:88px;
+.side-btn:hover::after{
+    opacity:1 !important;
+    transform:translateX(0) !important;
 }
 
-/* =========================================
-   FONT FIX
-========================================= */
+/* -------------------------------
+   LEFT PANEL
+-------------------------------- */
 
-.messages,
-.message,
-.chat-history-item,
-.history-preview,
-.history-name,
-.chat-input-bar input,
-.community-title{
-    font-family:
-        "Trebuchet MS",
-        "Comic Sans MS",
-        cursive;
+.chat-history{
+    overflow-y:scroll !important;
+    scrollbar-width:thin;
 }
 
-.message{
-    font-size:15px !important;
-    line-height:1.55;
+.chat-history::-webkit-scrollbar{
+    width:10px;
 }
 
-.history-name{
-    font-size:17px !important;
+.chat-history::-webkit-scrollbar-thumb{
+    background:#bfd0cb;
+    border-radius:20px;
 }
 
-.history-preview{
-    font-size:13px !important;
+/* -------------------------------
+   STICKY PROFILE
+-------------------------------- */
+
+.left-sticky{
+    position:sticky !important;
+    top:0 !important;
+
+    z-index:200 !important;
+
+    background:#edf4f1 !important;
+
+    padding-bottom:18px !important;
 }
 
-.chat-input-bar input{
+/* -------------------------------
+   PROFILE TEXT
+-------------------------------- */
+
+.profile-name{
+    font-size:22px !important;
+    font-weight:800 !important;
+}
+
+.profile-email{
     font-size:14px !important;
 }
 
-/* =========================================
-   FORCE VISIBLE SCROLLBARS
-========================================= */
+/* -------------------------------
+   CHAT LIST
+-------------------------------- */
 
-.chat-history::-webkit-scrollbar,
-.messages::-webkit-scrollbar,
-.chat-info::-webkit-scrollbar{
-    width:10px !important;
+.chat-item{
+    min-height:104px !important;
 }
 
-.chat-history::-webkit-scrollbar-thumb,
-.messages::-webkit-scrollbar-thumb,
+.chat-title{
+    font-size:22px !important;
+    font-weight:800 !important;
+
+    font-family:
+        "Trebuchet MS",
+        "Comic Sans MS",
+        cursive !important;
+}
+
+.chat-preview{
+    font-size:15px !important;
+    line-height:1.4 !important;
+}
+
+/* -------------------------------
+   CENTER PANEL
+-------------------------------- */
+
+.chat-main{
+    min-width:0 !important;
+}
+
+.messages{
+    overflow-y:scroll !important;
+
+    scrollbar-width:thin !important;
+
+    padding-bottom:40px !important;
+}
+
+.messages::-webkit-scrollbar{
+    width:10px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+    background:#bfd0cb;
+    border-radius:20px;
+}
+
+/* -------------------------------
+   MESSAGE FONT FIX
+-------------------------------- */
+
+.message{
+    font-family:
+        "Trebuchet MS",
+        "Comic Sans MS",
+        cursive !important;
+
+    font-size:18px !important;
+
+    line-height:1.5 !important;
+
+    max-width:72% !important;
+}
+
+/* -------------------------------
+   VOICE NOTE FIX
+-------------------------------- */
+
+.voice-card{
+    width:300px !important;
+}
+
+/* -------------------------------
+   INPUT AREA
+-------------------------------- */
+
+.chat-compose{
+    position:sticky;
+    bottom:0;
+
+    z-index:100;
+
+    background:#f4f7f5 !important;
+}
+
+/* -------------------------------
+   RIGHT PANEL
+-------------------------------- */
+
+.chat-info{
+    overflow-y:scroll !important;
+
+    scrollbar-width:thin !important;
+}
+
+.chat-info::-webkit-scrollbar{
+    width:10px;
+}
+
 .chat-info::-webkit-scrollbar-thumb{
     background:#bfd0cb;
     border-radius:20px;
 }
 
-.chat-history::-webkit-scrollbar-track,
-.messages::-webkit-scrollbar-track,
-.chat-info::-webkit-scrollbar-track{
-    background:rgba(0,0,0,0.03);
+/* -------------------------------
+   COMMUNITY PANEL
+-------------------------------- */
+
+.community-title{
+    font-size:20px !important;
+    font-weight:800 !important;
+
+    margin-top:0 !important;
 }
 
-/* =========================================
-   KEEP PANELS SCROLLABLE
-========================================= */
-
-.chat-history,
-.messages,
-.chat-info{
-    overflow-y:scroll !important;
+.community-sub{
+    font-size:14px !important;
 }
 
-/* =========================================
-   INPUT BAR FIX
-========================================= */
+/* -------------------------------
+   ONLINE USER CARD
+-------------------------------- */
 
-.chat-input-bar{
-    position:sticky;
-    bottom:0;
+.online-user-card{
+    margin-top:26px;
 
-    z-index:50;
+    background:white;
 
-    background:#f4f6f5;
+    border-radius:22px;
 
-    border-top:1px solid rgba(0,0,0,.04);
+    padding:16px;
 
-    padding:18px;
-
-    min-height:92px;
-}
-
-/* =========================================
-   FIX MESSAGE AREA HEIGHT
-========================================= */
-
-.chat-main{
     display:flex;
-    flex-direction:column;
-
-    min-height:0;
+    align-items:center;
+    gap:14px;
 }
 
-.messages{
-    flex:1;
-    min-height:0;
+.online-user-avatar{
+    width:56px;
+    height:56px;
 
-    padding-bottom:30px;
-}
+    border-radius:50%;
 
-/* =========================================
-   REMOVE EXTRA COMMUNITY CIRCLES
-========================================= */
-
-.member-list{
-    display:block !important;
-}
-
-.member{
-    display:none !important;
-}
-
-.member:first-child{
-    display:block !important;
-
-    width:58px;
-    height:58px;
-
-    margin:0 auto 28px;
+    background:#d5dce0;
 
     position:relative;
 }
 
-.member:first-child::after{
+.online-user-avatar::after{
     content:"";
 
     position:absolute;
@@ -1009,53 +1140,84 @@ body{
 
     border-radius:50%;
 
-    background:#2dd36f;
+    background:#35d66f;
 
     border:2px solid white;
+
+    animation:onlineBlink 1.2s infinite;
 }
 
-/* =========================================
-   SINGLE SHARED MEDIA TEMPLATE
-========================================= */
-
-.shared-grid{
-    grid-template-columns:1fr !important;
+@keyframes onlineBlink{
+    0%{opacity:1;}
+    50%{opacity:.35;}
+    100%{opacity:1;}
 }
 
-.shared-grid div:nth-child(n+2){
-    display:none !important;
+/* -------------------------------
+   SHARED MEDIA
+-------------------------------- */
+
+.media-card{
+    margin-top:20px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:14px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    max-width:100% !important;
 }
 
-.shared-grid div:first-child{
-    height:120px;
+.media-image{
+    width:72px !important;
+    height:72px !important;
+
+    border-radius:18px !important;
 }
 
-/* =========================================
-   STICKY PROFILE
-========================================= */
+/* -------------------------------
+   FORCE SCROLLBARS ALWAYS
+-------------------------------- */
 
-.profile-panel{
-    position:sticky;
-    top:0;
-
-    z-index:100;
-
-    background:#eef3f2;
+.chat-history,
+.messages,
+.chat-info{
+    overflow-y:scroll !important;
 }
 
-/* =========================================
-   DARKER BACKGROUND
-========================================= */
+/* -------------------------------
+   MOBILE
+-------------------------------- */
 
-.chatroom-background{
-    background:
-        linear-gradient(
-            rgba(28,35,37,.72),
-            rgba(28,35,37,.72)
-        ),
-        url("/images/teacher.png") !important;
+@media(max-width:1100px){
 
-    background-size:cover;
-    background-position:center;
+    body{
+        overflow:auto !important;
+    }
+
+    .chatroom-shell{
+        width:100% !important;
+        height:auto !important;
+
+        margin:0 !important;
+
+        border-radius:0 !important;
+
+        grid-template-columns:78px 1fr !important;
+    }
+
+    .chat-main,
+    .chat-info{
+        grid-column:1 / -1;
+    }
+
+    .message{
+        font-size:16px !important;
+    }
 }
 
