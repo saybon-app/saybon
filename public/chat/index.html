@@ -1,299 +1,76 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+/>
+
 <title>SayBon Chatroom</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com"
+/>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+/>
 
-<link rel="stylesheet" href="./chat.css"/>
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<link
+rel="stylesheet"
+href="./chat.css"
+/>
+
 </head>
 
 <body>
 
-<div class="chatroom-shell">
+<div class="placeholder-shell">
 
-    <!-- LEFT ICON BAR -->
-    <aside class="sidebar">
+    <div class="placeholder-card">
 
-<button class="sidebar-btn active" id="sidebarToggle">☰</button>
+        <div class="placeholder-badge">
+            SAYBON
+        </div>
 
-<button class="sidebar-btn">📚</button>
+        <h1 class="placeholder-title">
+            Chatroom Rebuild In Progress
+        </h1>
 
-<button class="sidebar-btn">🎓</button>
+        <p class="placeholder-subtitle">
 
-<button class="sidebar-btn">📝</button>
+            The new premium SayBon community experience
+            is currently being rebuilt from scratch.
 
-<button class="sidebar-btn">🎧</button>
+        </p>
 
-<button class="sidebar-btn">🌐</button>
+        <div class="placeholder-status">
 
-<button class="sidebar-btn">💚</button>
+            <div class="status-dot"></div>
 
-<button class="sidebar-btn">🎲</button>
-
-<button class="sidebar-btn">🏠</button>
-
-</aside>
-
-    <!-- CHAT LIST -->
-    <section class="chat-list-panel">
-
-        <div class="chat-list-header">
-
-            <div class="chat-title">Chats</div>
-
-            <div class="profile-slot">
-                <input type="file" id="avatarUpload" hidden>
-                <img id="profilePreview" src="https://i.pravatar.cc/100?img=12">
-            </div>
+            <span>
+                Preparing final architecture...
+            </span>
 
         </div>
 
-        <div class="chat-search">
-            <input type="text" placeholder="Search">
-        </div>
-
-        <div class="chat-list scrollable">
-
-            <div class="chat-item active" data-room="lessons">
-                <div class="chat-avatar">✎</div>
-
-                <div class="chat-meta">
-                    <div class="chat-row">
-                        <span class="chat-name"></span>
-                        <span class="chat-time">16:14</span>
-                    </div>
-
-                    <div class="chat-row bottom">
-                        <span class="chat-preview">New grammar correction uploaded.</span>
-                        <span class="unread">2</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-item" data-room="delf">
-                <div class="chat-avatar">✎</div>
-
-                <div class="chat-meta">
-                    <div class="chat-row">
-                        <span class="chat-name"></span>
-                        <span class="chat-time">19:45</span>
-                    </div>
-
-                    <div class="chat-row bottom">
-                        <span class="chat-preview">Listening practice now available.</span>
-                        <span class="unread">1</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-item" data-room="music">
-                <div class="chat-avatar">✎</div>
-
-                <div class="chat-meta">
-                    <div class="chat-row">
-                        <span class="chat-name"></span>
-                        <span class="chat-time">18:20</span>
-                    </div>
-
-                    <div class="chat-row bottom">
-                        <span class="chat-preview">New piano progression shared.</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-item" data-room="translation">
-                <div class="chat-avatar">✎</div>
-
-                <div class="chat-meta">
-                    <div class="chat-row">
-                        <span class="chat-name"></span>
-                        <span class="chat-time">09:18</span>
-                    </div>
-
-                    <div class="chat-row bottom">
-                        <span class="chat-preview">Document translation completed.</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-item" data-room="support">
-                <div class="chat-avatar">✎</div>
-
-                <div class="chat-meta">
-                    <div class="chat-row">
-                        <span class="chat-name"></span>
-                        <span class="chat-time">08:57</span>
-                    </div>
-
-                    <div class="chat-row bottom">
-                        <span class="chat-preview">Need help with your account?</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- MAIN PANEL -->
-    <main class="main-panel">
-
-        <!-- WORKSPACE HOME -->
-        <div class="welcome-screen workspace-home" id="workspaceHome">
-
-            <div class="welcome-logo">SayBon Chatroom</div>
-
-            <div class="welcome-subtitle">
-                Get involved in our engaged community of learners and language enthusiasts.
-            </div>
-
-        </div>
-
-        <!-- EXPANDED LIVE CHAT -->
-        <div class="live-chat workspace-chat workspace-hidden" id="workspaceChat">
-
-            <div class="live-chat-header">
-                <div class="live-chat-name" id="workspaceChatTitle">Lessons</div>
-            </div>
-
-            <div class="messages scrollable" id="messages">
-
-                <div class="message incoming">
-                    Welcome to the discussion room.
-                </div>
-
-                <div class="message outgoing">
-                    Thank you!
-                </div>
-
-            </div>
-
-            <div class="composer">
-
-                <button class="composer-btn">+</button>
-
-                <input type="text" placeholder="Type a message">
-
-                <button class="composer-btn">📚</button>
-
-                <button class="send-btn">Send</button>
-
-            </div>
-
-        </div>
-
-    </main>
+    </div>
 
 </div>
 
 <script src="./chat.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="page-scroll-rail">
-    <div class="page-scroll-thumb" id="pageScrollThumb"></div>
-</div>
-
-<script>
-
-(function(){
-
-const sidebar =
-document.querySelector(".sidebar");
-
-const thumb =
-document.getElementById("pageScrollThumb");
-
-const rail =
-document.querySelector(".page-scroll-rail");
-
-function updateScroller(){
-
-if(!sidebar || !thumb || !rail){
-return;
-}
-
-const scrollTop =
-sidebar.scrollTop;
-
-const maxScroll =
-sidebar.scrollHeight - sidebar.clientHeight;
-
-const maxThumb =
-rail.clientHeight - thumb.clientHeight;
-
-let ratio = 0;
-
-if(maxScroll > 0){
-ratio = scrollTop / maxScroll;
-}
-
-thumb.style.top =
-(ratio * maxThumb) + "px";
-}
-
-sidebar.addEventListener(
-"scroll",
-updateScroller
-);
-
-window.addEventListener(
-"resize",
-updateScroller
-);
-
-updateScroller();
-
-})();
-
-</script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
