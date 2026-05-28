@@ -3,11 +3,11 @@
 
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 />
 
 <title>SayBon Chatroom</title>
@@ -37,36 +37,336 @@ href="./chat.css"
 
 <body>
 
-<div class="placeholder-shell">
+<div class="chat-shell">
 
-    <div class="placeholder-card">
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-        <div class="placeholder-badge">
-            SAYBON
-        </div>
+<button
+class="sidebar-btn active"
+id="toggleBtn"
+>
+☰
+</button>
 
-        <h1 class="placeholder-title">
-            Chatroom Rebuild In Progress
-        </h1>
+<button
+class="sidebar-btn room-btn"
+data-room="Lessons"
+>
+📚
+</button>
 
-        <p class="placeholder-subtitle">
+<button
+class="sidebar-btn room-btn"
+data-room="DELF"
+>
+🎓
+</button>
 
-            The new premium SayBon community experience
-            is currently being rebuilt from scratch.
+<button
+class="sidebar-btn room-btn"
+data-room="Music"
+>
+🎧
+</button>
 
-        </p>
+<button
+class="sidebar-btn room-btn"
+data-room="Translation Services"
+>
+🌐
+</button>
 
-        <div class="placeholder-status">
+<button
+class="sidebar-btn room-btn"
+data-room="Feedback"
+>
+📝
+</button>
 
-            <div class="status-dot"></div>
+<button
+class="sidebar-btn room-btn"
+data-room="Support"
+>
+💚
+</button>
 
-            <span>
-                Preparing final architecture...
-            </span>
+<button
+class="sidebar-btn"
+id="dashboardBtn"
+>
+🎲
+</button>
 
-        </div>
+<button
+class="sidebar-btn"
+id="homeBtn"
+>
+🏠
+</button>
 
-    </div>
+</aside>
+
+<!-- WORKSPACE -->
+<main class="workspace">
+
+<!-- WELCOME -->
+<section
+class="welcome-view"
+id="welcomeView"
+>
+
+<div class="welcome-content">
+
+<div class="welcome-badge">
+SAYBON COMMUNITY
+</div>
+
+<h1 class="welcome-title">
+SayBon Chatroom
+</h1>
+
+<p class="welcome-subtitle">
+
+A premium live community space for learners,
+music lovers, translators, DELF students,
+and the global SayBon ecosystem.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- LIVE CHAT -->
+<section
+class="chat-view hidden"
+id="chatView"
+>
+
+<!-- HEADER -->
+<div class="chat-header">
+
+<div class="chat-room-info">
+
+<h2
+class="chat-room-title"
+id="chatRoomTitle"
+>
+Lessons
+</h2>
+
+<p class="chat-room-subtitle">
+Live community discussion
+</p>
+
+</div>
+
+<div class="chat-user-panel">
+
+<div class="avatar-wrapper">
+
+<img
+id="profileAvatar"
+class="profile-avatar"
+src="https://i.pravatar.cc/120?img=32"
+/>
+
+<label
+for="avatarInput"
+class="avatar-camera"
+>
+📷
+</label>
+
+<input
+type="file"
+id="avatarInput"
+hidden
+accept="image/*"
+/>
+
+</div>
+
+<div class="user-email">
+learner@saybonapp.com
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+
+<input
+type="text"
+placeholder="Search messages..."
+class="search-input"
+/>
+
+</div>
+
+<!-- MESSAGES -->
+<div
+class="messages-area"
+id="messagesArea"
+>
+
+<div class="message incoming">
+
+<div class="message-avatar">
+A
+</div>
+
+<div class="message-bubble">
+
+<div class="message-name">
+Ama
+</div>
+
+<div class="message-text">
+Welcome to the discussion room.
+</div>
+
+</div>
+
+</div>
+
+<div class="message outgoing">
+
+<div class="message-bubble">
+
+<div class="message-name">
+You
+</div>
+
+<div class="message-text">
+Glad to be here.
+</div>
+
+</div>
+
+</div>
+
+<div class="voice-message incoming">
+
+<button class="voice-play">
+▶
+</button>
+
+<div class="voice-wave">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+<div class="voice-duration">
+0:18
+</div>
+
+</div>
+
+</div>
+
+<!-- MEDIA PREVIEW -->
+<div
+class="media-preview hidden"
+id="mediaPreview"
+>
+</div>
+
+<!-- COMPOSER -->
+<div
+class="composer"
+id="composer"
+>
+
+<button
+class="composer-btn"
+id="mediaBtn"
+>
+📎
+</button>
+
+<input
+type="file"
+id="mediaInput"
+hidden
+multiple
+/>
+
+<input
+type="text"
+placeholder="Type a message..."
+class="composer-input"
+id="composerInput"
+/>
+
+<button
+class="composer-btn"
+id="voiceBtn"
+>
+🎙️
+</button>
+
+<button
+class="send-btn"
+id="sendBtn"
+>
+Send
+</button>
+
+</div>
+
+<!-- RECORDING MODE -->
+<div
+class="recording-mode hidden"
+id="recordingMode"
+>
+
+<button
+class="recording-cancel"
+id="cancelRecording"
+>
+✕
+</button>
+
+<div class="recording-wave">
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+<div
+class="recording-timer"
+id="recordingTimer"
+>
+0:00
+</div>
+
+<button
+class="recording-send"
+id="sendRecording"
+>
+Send
+</button>
+
+</div>
+
+</section>
+
+</main>
 
 </div>
 
