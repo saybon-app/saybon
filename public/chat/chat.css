@@ -546,3 +546,53 @@ html{
 
 /* END OUTSIDE PAGE SCROLLBAR */
 
+
+
+
+/* OUTSIDE PAGE SCROLLBAR */
+
+html{
+    overflow-y:auto;
+}
+
+body{
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+/* ENTIRE PAGE SCROLLBAR */
+body::-webkit-scrollbar{
+    width:14px;
+}
+
+body::-webkit-scrollbar-track{
+    background:#3d43b8;
+    border-radius:20px;
+}
+
+body::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        #f6a5c0,
+        #8c7bff
+    );
+    border-radius:20px;
+    border:3px solid #3d43b8;
+}
+
+body::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(
+        180deg,
+        #ffbdd3,
+        #a89cff
+    );
+}
+
+/* FIREFOX */
+html{
+    scrollbar-width:thin;
+    scrollbar-color:#c79cff #3d43b8;
+}
+
+/* END OUTSIDE PAGE SCROLLBAR */
+
