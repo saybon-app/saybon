@@ -73,3 +73,41 @@ reader.readAsDataURL(file)
 })
 
 }
+
+/* =========================================================
+TOGGLE WELCOME SCREEN
+========================================================= */
+
+const sidebarToggle =
+document.getElementById("sidebarToggle")
+
+if(sidebarToggle){
+
+sidebarToggle.addEventListener("click",()=>{
+
+const welcome =
+document.getElementById("welcomeScreen")
+
+const live =
+document.getElementById("liveChat")
+
+if(
+welcome.classList.contains("hidden")
+){
+
+welcome.classList.remove("hidden")
+
+live.classList.add("hidden")
+
+}else{
+
+welcome.classList.add("hidden")
+
+live.classList.remove("hidden")
+
+}
+
+})
+
+}
+
