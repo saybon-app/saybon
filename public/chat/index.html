@@ -199,8 +199,66 @@
     <div class="page-scroll-thumb" id="pageScrollThumb"></div>
 </div>
 
+
+<script>
+
+(function(){
+
+    const thumb =
+        document.getElementById("pageScrollThumb");
+
+    function updateScroller(){
+
+        const scrollTop =
+            window.scrollY;
+
+        const docHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        const rail =
+            document.querySelector(".page-scroll-rail");
+
+        if(!rail || !thumb) return;
+
+        const railHeight =
+            rail.offsetHeight;
+
+        const thumbHeight =
+            thumb.offsetHeight;
+
+        const maxTop =
+            railHeight - thumbHeight;
+
+        let ratio = 0;
+
+        if(docHeight > 0){
+            ratio = scrollTop / docHeight;
+        }
+
+        thumb.style.top =
+            (ratio * maxTop) + "px";
+    }
+
+    window.addEventListener(
+        "scroll",
+        updateScroller
+    );
+
+    window.addEventListener(
+        "resize",
+        updateScroller
+    );
+
+    updateScroller();
+
+})();
+
+</script>
+
 </body>
 </html>
+
 
 
 
