@@ -207,6 +207,9 @@
 
 
 
+
+
+
 <div class="page-scroll-rail">
     <div class="page-scroll-thumb" id="pageScrollThumb"></div>
 </div>
@@ -215,51 +218,51 @@
 
 (function(){
 
-    const shell =
-        document.querySelector(".chatroom-shell");
+const shell =
+document.querySelector(".chatroom-shell");
 
-    const thumb =
-        document.getElementById("pageScrollThumb");
+const thumb =
+document.getElementById("pageScrollThumb");
 
-    const rail =
-        document.querySelector(".page-scroll-rail");
+const rail =
+document.querySelector(".page-scroll-rail");
 
-    function updateScroller(){
+function updateScroller(){
 
-        if(!shell || !thumb || !rail){
-            return;
-        }
+if(!shell || !thumb || !rail){
+return;
+}
 
-        const scrollTop =
-            shell.scrollTop;
+const scrollTop =
+shell.scrollTop;
 
-        const maxScroll =
-            shell.scrollHeight - shell.clientHeight;
+const maxScroll =
+shell.scrollHeight - shell.clientHeight;
 
-        const maxThumb =
-            rail.clientHeight - thumb.clientHeight;
+const maxThumb =
+rail.clientHeight - thumb.clientHeight;
 
-        let ratio = 0;
+let ratio = 0;
 
-        if(maxScroll > 0){
-            ratio = scrollTop / maxScroll;
-        }
+if(maxScroll > 0){
+ratio = scrollTop / maxScroll;
+}
 
-        thumb.style.top =
-            (ratio * maxThumb) + "px";
-    }
+thumb.style.top =
+(ratio * maxThumb) + "px";
+}
 
-    shell.addEventListener(
-        "scroll",
-        updateScroller
-    );
+shell.addEventListener(
+"scroll",
+updateScroller
+);
 
-    window.addEventListener(
-        "resize",
-        updateScroller
-    );
+window.addEventListener(
+"resize",
+updateScroller
+);
 
-    updateScroller();
+updateScroller();
 
 })();
 
@@ -267,6 +270,7 @@
 
 </body>
 </html>
+
 
 
 

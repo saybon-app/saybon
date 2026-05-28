@@ -29,15 +29,18 @@ align-items:center;
 justify-content:center;
 }
 
+
 .chatroom-shell{
 width:min(1500px,95vw);
+
 height:min(900px,94vh);
 
 background:#f7f5f2;
 
 border-radius:34px;
 
-overflow:hidden;
+overflow-y:auto;
+overflow-x:hidden;
 
 display:grid;
 
@@ -48,11 +51,21 @@ grid-template-columns:
 
 box-shadow:
 0 30px 80px rgba(0,0,0,.18);
+
+position:relative;
+
+scrollbar-width:none;
 }
+
+.chatroom-shell::-webkit-scrollbar{
+display:none;
+}
+
 
 /* =========================================================
 SIDEBAR
 ========================================================= */
+
 
 .sidebar{
 background:
@@ -69,9 +82,13 @@ flex-direction:column;
 align-items:center;
 
 padding-top:24px;
+padding-bottom:220px;
 
 gap:18px;
+
+min-height:1200px;
 }
+
 
 .sidebar-btn{
 width:58px;
@@ -478,17 +495,38 @@ MOBILE
 
 @media(max-width:900px){
 
-.chatroom-shell{
-width:100vw;
-height:100vh;
 
-border-radius:0;
+.chatroom-shell{
+width:min(1500px,95vw);
+
+height:min(900px,94vh);
+
+background:#f7f5f2;
+
+border-radius:34px;
+
+overflow-y:auto;
+overflow-x:hidden;
+
+display:grid;
 
 grid-template-columns:
-78px
-340px
+96px
+430px
 1fr;
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.18);
+
+position:relative;
+
+scrollbar-width:none;
 }
+
+.chatroom-shell::-webkit-scrollbar{
+display:none;
+}
+
 
 .welcome-logo{
 font-size:52px;
@@ -499,102 +537,15 @@ font-size:52px;
 
 
 
-/* OUTSIDE PAGE SCROLLBAR */
-
-html{
-    overflow-y:auto;
-}
-
-body{
-    overflow-y:auto;
-    overflow-x:hidden;
-}
-
-/* ENTIRE PAGE SCROLLBAR */
-body::-webkit-scrollbar{
-    width:14px;
-}
-
-body::-webkit-scrollbar-track{
-    background:#3d43b8;
-    border-radius:20px;
-}
-
-body::-webkit-scrollbar-thumb{
-    background:linear-gradient(
-        180deg,
-        #f6a5c0,
-        #8c7bff
-    );
-    border-radius:20px;
-    border:3px solid #3d43b8;
-}
-
-body::-webkit-scrollbar-thumb:hover{
-    background:linear-gradient(
-        180deg,
-        #ffbdd3,
-        #a89cff
-    );
-}
-
-/* FIREFOX */
-html{
-    scrollbar-width:thin;
-    scrollbar-color:#c79cff #3d43b8;
-}
-
-/* END OUTSIDE PAGE SCROLLBAR */
 
 
 
 
-/* OUTSIDE PAGE SCROLLBAR */
 
-html{
-    overflow-y:auto;
-}
 
-body{
-    overflow-y:auto;
-    overflow-x:hidden;
-}
 
-/* ENTIRE PAGE SCROLLBAR */
-body::-webkit-scrollbar{
-    width:14px;
-}
 
-body::-webkit-scrollbar-track{
-    background:#3d43b8;
-    border-radius:20px;
-}
 
-body::-webkit-scrollbar-thumb{
-    background:linear-gradient(
-        180deg,
-        #f6a5c0,
-        #8c7bff
-    );
-    border-radius:20px;
-    border:3px solid #3d43b8;
-}
-
-body::-webkit-scrollbar-thumb:hover{
-    background:linear-gradient(
-        180deg,
-        #ffbdd3,
-        #a89cff
-    );
-}
-
-/* FIREFOX */
-html{
-    scrollbar-width:thin;
-    scrollbar-color:#c79cff #3d43b8;
-}
-
-/* END OUTSIDE PAGE SCROLLBAR */
 
 
 
@@ -613,95 +564,56 @@ html{
 
 /* CUSTOM OUTSIDE SCROLLER */
 
-html,
-body{
-    margin:0;
-    height:100%;
-    overflow:hidden;
-}
-
-/* MAIN CARD SCROLLS INTERNALLY */
-
-.chatroom-shell{
-
-    height:calc(100vh - 20px);
-
-    overflow-y:auto;
-
-    overflow-x:hidden;
-
-    position:relative;
-
-    scrollbar-width:none;
-}
-
-.chatroom-shell::-webkit-scrollbar{
-    display:none;
-}
-
-/* EXTEND CONTENT DOWNWARD */
-
-.sidebar{
-    min-height:1250px;
-
-    padding-bottom:180px;
-}
-
-/* FIXED OUTSIDE SCROLL TRACK */
-
 .page-scroll-rail{
 
-    position:fixed;
+position:fixed;
 
-    top:18px;
+top:18px;
 
-    right:8px;
+right:8px;
 
-    width:12px;
+width:12px;
 
-    height:calc(100vh - 36px);
+height:calc(100vh - 36px);
 
-    border-radius:999px;
+border-radius:999px;
 
-    background:rgba(255,255,255,0.14);
+background:rgba(255,255,255,0.14);
 
-    backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 
-    overflow:hidden;
+overflow:hidden;
 
-    z-index:99999;
+z-index:99999;
 
-    box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.16),
-        0 0 14px rgba(94,84,255,0.22);
+box-shadow:
+inset 0 0 0 1px rgba(255,255,255,0.16),
+0 0 14px rgba(94,84,255,0.22);
 }
-
-/* REAL MOVING THUMB */
 
 .page-scroll-thumb{
 
-    position:absolute;
+position:absolute;
 
-    top:0;
+top:0;
+left:2px;
 
-    left:2px;
+width:8px;
 
-    width:8px;
+height:120px;
 
-    height:130px;
+border-radius:999px;
 
-    border-radius:999px;
+background:linear-gradient(
+180deg,
+rgba(180,170,255,1),
+rgba(98,90,255,1)
+);
 
-    background:linear-gradient(
-        180deg,
-        rgba(180,170,255,1),
-        rgba(98,90,255,1)
-    );
+box-shadow:
+0 0 14px rgba(98,90,255,0.45);
 
-    box-shadow:
-        0 0 14px rgba(98,90,255,0.45);
-
-    transition:top 0.04s linear;
+transition:top .04s linear;
 }
 
 /* END CUSTOM OUTSIDE SCROLLER */
