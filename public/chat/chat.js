@@ -4,14 +4,14 @@ document.querySelectorAll(".room-btn")
 const toggleBtn =
 document.getElementById("toggleBtn")
 
-const welcomeView =
-document.getElementById("welcomeView")
+const welcomeWorkspace =
+document.getElementById("welcomeWorkspace")
 
-const chatView =
-document.getElementById("chatView")
+const chatWorkspace =
+document.getElementById("chatWorkspace")
 
-const chatRoomTitle =
-document.getElementById("chatRoomTitle")
+const roomTitle =
+document.getElementById("roomTitle")
 
 const homeBtn =
 document.getElementById("homeBtn")
@@ -22,8 +22,8 @@ document.getElementById("dashboardBtn")
 const avatarInput =
 document.getElementById("avatarInput")
 
-const profileAvatar =
-document.getElementById("profileAvatar")
+const avatarPreview =
+document.getElementById("avatarPreview")
 
 const mediaBtn =
 document.getElementById("mediaBtn")
@@ -40,8 +40,8 @@ document.getElementById("voiceBtn")
 const composer =
 document.getElementById("composer")
 
-const recordingMode =
-document.getElementById("recordingMode")
+const recordingPanel =
+document.getElementById("recordingPanel")
 
 const cancelRecording =
 document.getElementById("cancelRecording")
@@ -49,12 +49,12 @@ document.getElementById("cancelRecording")
 const recordingTimer =
 document.getElementById("recordingTimer")
 
-let recordingInterval
 let recordingSeconds = 0
+let recordingInterval
 
-# ============================================
+# =========================================================
 # ROOM SWITCHING
-# ============================================
+# =========================================================
 
 roomButtons.forEach(btn=>{
 
@@ -66,20 +66,20 @@ document
 
 btn.classList.add("active")
 
-welcomeView.classList.add("hidden")
+welcomeWorkspace.classList.add("hidden")
 
-chatView.classList.remove("hidden")
+chatWorkspace.classList.remove("hidden")
 
-chatRoomTitle.textContent =
+roomTitle.innerHTML =
 btn.dataset.room
 
 })
 
 })
 
-# ============================================
-# TOGGLE
-# ============================================
+# =========================================================
+# TOGGLE BUTTON
+# =========================================================
 
 toggleBtn.addEventListener("click",()=>{
 
@@ -89,15 +89,15 @@ document
 
 toggleBtn.classList.add("active")
 
-chatView.classList.add("hidden")
+chatWorkspace.classList.add("hidden")
 
-welcomeView.classList.remove("hidden")
+welcomeWorkspace.classList.remove("hidden")
 
 })
 
-# ============================================
+# =========================================================
 # HOME
-# ============================================
+# =========================================================
 
 homeBtn.addEventListener("click",()=>{
 
@@ -105,9 +105,9 @@ window.location.href="/"
 
 })
 
-# ============================================
+# =========================================================
 # DASHBOARD
-# ============================================
+# =========================================================
 
 dashboardBtn.addEventListener("click",()=>{
 
@@ -115,9 +115,9 @@ window.location.href="/dashboard/"
 
 })
 
-# ============================================
-# AVATAR
-# ============================================
+# =========================================================
+# AVATAR UPLOAD
+# =========================================================
 
 avatarInput.addEventListener("change",(e)=>{
 
@@ -129,7 +129,7 @@ const reader = new FileReader()
 
 reader.onload = function(event){
 
-profileAvatar.src =
+avatarPreview.src =
 event.target.result
 
 }
@@ -138,9 +138,9 @@ reader.readAsDataURL(file)
 
 })
 
-# ============================================
-# MEDIA
-# ============================================
+# =========================================================
+# MEDIA ATTACHMENTS
+# =========================================================
 
 mediaBtn.addEventListener("click",()=>{
 
@@ -152,7 +152,8 @@ mediaInput.addEventListener("change",(e)=>{
 
 mediaPreview.innerHTML = ""
 
-const files = [...e.target.files]
+const files =
+[...e.target.files]
 
 if(!files.length){
 return
@@ -165,7 +166,8 @@ files.forEach(file=>{
 const card =
 document.createElement("div")
 
-card.className = "media-card"
+card.className =
+"media-card"
 
 card.innerHTML =
 file.name
@@ -176,19 +178,20 @@ mediaPreview.appendChild(card)
 
 })
 
-# ============================================
-# VOICE RECORDING
-# ============================================
+# =========================================================
+# VOICE NOTE SYSTEM
+# =========================================================
 
 voiceBtn.addEventListener("click",()=>{
 
 composer.classList.add("hidden")
 
-recordingMode.classList.remove("hidden")
+recordingPanel.classList.remove("hidden")
 
 recordingSeconds = 0
 
-recordingTimer.innerHTML = "0:00"
+recordingTimer.innerHTML =
+"0:00"
 
 recordingInterval =
 setInterval(()=>{
@@ -212,7 +215,7 @@ cancelRecording.addEventListener("click",()=>{
 
 clearInterval(recordingInterval)
 
-recordingMode.classList.add("hidden")
+recordingPanel.classList.add("hidden")
 
 composer.classList.remove("hidden")
 
@@ -224,7 +227,7 @@ document
 
 clearInterval(recordingInterval)
 
-recordingMode.classList.add("hidden")
+recordingPanel.classList.add("hidden")
 
 composer.classList.remove("hidden")
 

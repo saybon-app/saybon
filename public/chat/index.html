@@ -37,7 +37,7 @@ href="./chat.css"
 
 <body>
 
-<div class="chat-shell">
+<div class="chatroom-shell">
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
@@ -45,6 +45,7 @@ href="./chat.css"
 <button
 class="sidebar-btn active"
 id="toggleBtn"
+title="Welcome"
 >
 ☰
 </button>
@@ -52,6 +53,7 @@ id="toggleBtn"
 <button
 class="sidebar-btn room-btn"
 data-room="Lessons"
+title="Lessons"
 >
 📚
 </button>
@@ -59,6 +61,7 @@ data-room="Lessons"
 <button
 class="sidebar-btn room-btn"
 data-room="DELF"
+title="DELF"
 >
 🎓
 </button>
@@ -66,6 +69,7 @@ data-room="DELF"
 <button
 class="sidebar-btn room-btn"
 data-room="Music"
+title="Music"
 >
 🎧
 </button>
@@ -73,6 +77,7 @@ data-room="Music"
 <button
 class="sidebar-btn room-btn"
 data-room="Translation Services"
+title="Translation Services"
 >
 🌐
 </button>
@@ -80,6 +85,7 @@ data-room="Translation Services"
 <button
 class="sidebar-btn room-btn"
 data-room="Feedback"
+title="Feedback"
 >
 📝
 </button>
@@ -87,6 +93,7 @@ data-room="Feedback"
 <button
 class="sidebar-btn room-btn"
 data-room="Support"
+title="Support"
 >
 💚
 </button>
@@ -94,6 +101,7 @@ data-room="Support"
 <button
 class="sidebar-btn"
 id="dashboardBtn"
+title="Dashboard"
 >
 🎲
 </button>
@@ -101,6 +109,7 @@ id="dashboardBtn"
 <button
 class="sidebar-btn"
 id="homeBtn"
+title="Home"
 >
 🏠
 </button>
@@ -112,13 +121,13 @@ id="homeBtn"
 
 <!-- WELCOME -->
 <section
-class="welcome-view"
-id="welcomeView"
+class="welcome-workspace"
+id="welcomeWorkspace"
 >
 
-<div class="welcome-content">
+<div class="welcome-inner">
 
-<div class="welcome-badge">
+<div class="welcome-pill">
 SAYBON COMMUNITY
 </div>
 
@@ -128,9 +137,10 @@ SayBon Chatroom
 
 <p class="welcome-subtitle">
 
-A premium live community space for learners,
-music lovers, translators, DELF students,
-and the global SayBon ecosystem.
+A calm premium space for learners,
+DELF preparation, music discussions,
+translation conversations, support,
+and the global SayBon community.
 
 </p>
 
@@ -140,36 +150,36 @@ and the global SayBon ecosystem.
 
 <!-- LIVE CHAT -->
 <section
-class="chat-view hidden"
-id="chatView"
+class="chat-workspace hidden"
+id="chatWorkspace"
 >
 
 <!-- HEADER -->
 <div class="chat-header">
 
-<div class="chat-room-info">
+<div class="chat-header-left">
 
 <h2
-class="chat-room-title"
-id="chatRoomTitle"
+class="room-title"
+id="roomTitle"
 >
 Lessons
 </h2>
 
-<p class="chat-room-subtitle">
+<p class="room-subtitle">
 Live community discussion
 </p>
 
 </div>
 
-<div class="chat-user-panel">
+<div class="chat-header-right">
 
-<div class="avatar-wrapper">
+<div class="avatar-shell">
 
 <img
-id="profileAvatar"
-class="profile-avatar"
-src="https://i.pravatar.cc/120?img=32"
+id="avatarPreview"
+class="avatar-preview"
+src="https://i.pravatar.cc/150?img=32"
 />
 
 <label
@@ -197,7 +207,7 @@ learner@saybonapp.com
 </div>
 
 <!-- SEARCH -->
-<div class="search-wrap">
+<div class="search-row">
 
 <input
 type="text"
@@ -209,53 +219,56 @@ class="search-input"
 
 <!-- MESSAGES -->
 <div
-class="messages-area"
-id="messagesArea"
+class="messages-container"
+id="messagesContainer"
 >
 
-<div class="message incoming">
+<!-- INCOMING -->
+<div class="message-row incoming">
 
 <div class="message-avatar">
 A
 </div>
 
-<div class="message-bubble">
+<div class="message-bubble incoming-bubble">
 
-<div class="message-name">
+<div class="message-user">
 Ama
 </div>
 
 <div class="message-text">
-Welcome to the discussion room.
+Has anyone found a good way to improve French listening comprehension quickly?
 </div>
 
 </div>
 
 </div>
 
-<div class="message outgoing">
+<!-- OUTGOING -->
+<div class="message-row outgoing">
 
-<div class="message-bubble">
+<div class="message-bubble outgoing-bubble">
 
-<div class="message-name">
+<div class="message-user">
 You
 </div>
 
 <div class="message-text">
-Glad to be here.
+Shadowing exercises helped me a lot with pronunciation and listening together.
 </div>
 
 </div>
 
 </div>
 
-<div class="voice-message incoming">
+<!-- VOICE -->
+<div class="voice-note incoming">
 
 <button class="voice-play">
 ▶
 </button>
 
-<div class="voice-wave">
+<div class="voice-bars">
 
 <span></span>
 <span></span>
@@ -265,7 +278,7 @@ Glad to be here.
 
 </div>
 
-<div class="voice-duration">
+<div class="voice-time">
 0:18
 </div>
 
@@ -287,7 +300,7 @@ id="composer"
 >
 
 <button
-class="composer-btn"
+class="composer-icon"
 id="mediaBtn"
 >
 📎
@@ -308,7 +321,7 @@ id="composerInput"
 />
 
 <button
-class="composer-btn"
+class="composer-icon"
 id="voiceBtn"
 >
 🎙️
@@ -325,8 +338,8 @@ Send
 
 <!-- RECORDING MODE -->
 <div
-class="recording-mode hidden"
-id="recordingMode"
+class="recording-panel hidden"
+id="recordingPanel"
 >
 
 <button
