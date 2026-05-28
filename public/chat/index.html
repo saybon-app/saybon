@@ -204,6 +204,9 @@
 
 
 
+
+
+
 <div class="page-scroll-rail">
     <div class="page-scroll-thumb" id="pageScrollThumb"></div>
 </div>
@@ -223,7 +226,9 @@
 
     function updateScroller(){
 
-        if(!shell || !thumb || !rail) return;
+        if(!shell || !thumb || !rail){
+            return;
+        }
 
         const scrollTop =
             shell.scrollTop;
@@ -231,14 +236,8 @@
         const maxScroll =
             shell.scrollHeight - shell.clientHeight;
 
-        const railHeight =
-            rail.clientHeight;
-
-        const thumbHeight =
-            thumb.clientHeight;
-
-        const maxThumbTop =
-            railHeight - thumbHeight;
+        const maxThumb =
+            rail.clientHeight - thumb.clientHeight;
 
         let ratio = 0;
 
@@ -246,11 +245,8 @@
             ratio = scrollTop / maxScroll;
         }
 
-        const top =
-            ratio * maxThumbTop;
-
         thumb.style.top =
-            top + "px";
+            (ratio * maxThumb) + "px";
     }
 
     shell.addEventListener(
@@ -271,6 +267,7 @@
 
 </body>
 </html>
+
 
 
 

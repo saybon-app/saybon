@@ -608,24 +608,27 @@ html{
 
 
 
+
+
+
 /* CUSTOM OUTSIDE SCROLLER */
 
 html,
 body{
-    height:100vh;
+    margin:0;
+    height:100%;
     overflow:hidden;
 }
 
-/* MAIN CARD */
+/* MAIN CARD SCROLLS INTERNALLY */
 
 .chatroom-shell{
-    height:calc(100vh - 24px);
+
+    height:calc(100vh - 20px);
 
     overflow-y:auto;
 
     overflow-x:hidden;
-
-    padding-bottom:220px;
 
     position:relative;
 
@@ -636,16 +639,18 @@ body{
     display:none;
 }
 
-/* SIDEBAR */
+/* EXTEND CONTENT DOWNWARD */
 
 .sidebar{
-    min-height:1300px;
+    min-height:1250px;
+
     padding-bottom:180px;
 }
 
-/* RIGHT SIDE RAIL */
+/* FIXED OUTSIDE SCROLL TRACK */
 
 .page-scroll-rail{
+
     position:fixed;
 
     top:18px;
@@ -658,22 +663,23 @@ body{
 
     border-radius:999px;
 
-    background:rgba(255,255,255,0.15);
+    background:rgba(255,255,255,0.14);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(10px);
 
     overflow:hidden;
 
     z-index:99999;
 
     box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.18),
-        0 0 16px rgba(98,89,255,0.22);
+        inset 0 0 0 1px rgba(255,255,255,0.16),
+        0 0 14px rgba(94,84,255,0.22);
 }
 
-/* REAL THUMB */
+/* REAL MOVING THUMB */
 
 .page-scroll-thumb{
+
     position:absolute;
 
     top:0;
@@ -682,18 +688,18 @@ body{
 
     width:8px;
 
-    height:120px;
+    height:130px;
 
     border-radius:999px;
 
     background:linear-gradient(
         180deg,
-        rgba(180,170,255,0.98),
-        rgba(102,96,255,0.98)
+        rgba(180,170,255,1),
+        rgba(98,90,255,1)
     );
 
     box-shadow:
-        0 0 16px rgba(98,89,255,0.42);
+        0 0 14px rgba(98,90,255,0.45);
 
     transition:top 0.04s linear;
 }
