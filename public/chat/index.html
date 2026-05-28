@@ -195,52 +195,53 @@
 <script src="./chat.js"></script>
 
 
+
+
+
+
+
+
 <div class="page-scroll-rail">
     <div class="page-scroll-thumb" id="pageScrollThumb"></div>
 </div>
-
 
 <script>
 
 (function(){
 
+    const shell =
+        document.querySelector(".chat-shell");
+
     const thumb =
         document.getElementById("pageScrollThumb");
 
+    const rail =
+        document.querySelector(".page-scroll-rail");
+
     function updateScroller(){
 
+        if(!shell || !thumb || !rail) return;
+
         const scrollTop =
-            window.scrollY;
+            shell.scrollTop;
 
-        const docHeight =
-            document.documentElement.scrollHeight -
-            window.innerHeight;
+        const maxScroll =
+            shell.scrollHeight - shell.clientHeight;
 
-        const rail =
-            document.querySelector(".page-scroll-rail");
-
-        if(!rail || !thumb) return;
-
-        const railHeight =
-            rail.offsetHeight;
-
-        const thumbHeight =
-            thumb.offsetHeight;
-
-        const maxTop =
-            railHeight - thumbHeight;
+        const maxThumb =
+            rail.clientHeight - thumb.clientHeight;
 
         let ratio = 0;
 
-        if(docHeight > 0){
-            ratio = scrollTop / docHeight;
+        if(maxScroll > 0){
+            ratio = scrollTop / maxScroll;
         }
 
         thumb.style.top =
-            (ratio * maxTop) + "px";
+            (ratio * maxThumb) + "px";
     }
 
-    window.addEventListener(
+    shell.addEventListener(
         "scroll",
         updateScroller
     );
@@ -258,6 +259,7 @@
 
 </body>
 </html>
+
 
 
 

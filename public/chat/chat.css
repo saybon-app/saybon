@@ -602,68 +602,90 @@ html{
 
 
 
+
+
+
 /* CUSTOM OUTSIDE SCROLLER */
 
 html,
 body{
-    min-height:140vh;
+    overflow:hidden;
+    height:100vh;
 }
+
+/* EXTEND ONLY THE CARD */
 
 .chat-shell{
-    min-height:130vh;
-    padding-bottom:220px;
+    height:calc(100vh - 18px) !important;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding-bottom:140px;
+
+    scrollbar-width:none;
+
+    position:relative;
 }
 
-/* RIGHT OUTSIDE RAIL */
+.chat-shell::-webkit-scrollbar{
+    display:none;
+}
+
+/* SINGLE OUTSIDE RAIL */
 
 .page-scroll-rail{
     position:fixed;
 
     top:18px;
+
     right:8px;
 
     width:12px;
+
     height:calc(100vh - 36px);
 
     border-radius:999px;
 
-    background:rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.16);
 
     backdrop-filter:blur(10px);
 
-    box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.2),
-        0 0 14px rgba(90,70,255,0.22);
+    overflow:hidden;
 
     z-index:99999;
 
-    overflow:hidden;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.18),
+        0 0 14px rgba(96,74,255,0.18);
 }
 
-/* ACTUAL THUMB INSIDE RAIL */
+/* THUMB INSIDE TRACK */
 
 .page-scroll-thumb{
     position:absolute;
 
     top:0;
+
     left:2px;
 
     width:8px;
+
     height:140px;
 
     border-radius:999px;
 
     background:linear-gradient(
         180deg,
-        #7f7cff,
-        #5f5cff
+        rgba(150,140,255,0.96),
+        rgba(95,92,255,0.95)
     );
 
     box-shadow:
-        0 0 14px rgba(98,89,255,0.45),
-        inset 0 0 8px rgba(255,255,255,0.28);
+        0 0 14px rgba(98,89,255,0.38);
 
-    transition:top 0.06s linear;
+    transition:top 0.05s linear;
 }
 
 /* END CUSTOM OUTSIDE SCROLLER */
