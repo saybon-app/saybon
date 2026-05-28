@@ -201,6 +201,9 @@
 
 
 
+
+
+
 <div class="page-scroll-rail">
     <div class="page-scroll-thumb" id="pageScrollThumb"></div>
 </div>
@@ -210,7 +213,7 @@
 (function(){
 
     const shell =
-        document.querySelector(".chat-shell");
+        document.querySelector(".chatroom-shell");
 
     const thumb =
         document.getElementById("pageScrollThumb");
@@ -228,8 +231,14 @@
         const maxScroll =
             shell.scrollHeight - shell.clientHeight;
 
-        const maxThumb =
-            rail.clientHeight - thumb.clientHeight;
+        const railHeight =
+            rail.clientHeight;
+
+        const thumbHeight =
+            thumb.clientHeight;
+
+        const maxThumbTop =
+            railHeight - thumbHeight;
 
         let ratio = 0;
 
@@ -237,8 +246,11 @@
             ratio = scrollTop / maxScroll;
         }
 
+        const top =
+            ratio * maxThumbTop;
+
         thumb.style.top =
-            (ratio * maxThumb) + "px";
+            top + "px";
     }
 
     shell.addEventListener(
@@ -259,6 +271,7 @@
 
 </body>
 </html>
+
 
 
 
