@@ -596,3 +596,66 @@ html{
 
 /* END OUTSIDE PAGE SCROLLBAR */
 
+
+
+
+/* CUSTOM OUTSIDE SCROLLER */
+
+body {
+    overflow-y: scroll;
+}
+
+.chat-shell {
+    position: relative;
+}
+
+.page-scroll-rail {
+    position: fixed;
+    top: 22px;
+    right: 10px;
+    width: 10px;
+    height: calc(100vh - 44px);
+
+    background: rgba(255,255,255,0.18);
+
+    border-radius: 999px;
+
+    backdrop-filter: blur(10px);
+
+    z-index: 9999;
+
+    overflow: hidden;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.18),
+        0 0 14px rgba(93, 63, 211, 0.16);
+}
+
+.page-scroll-thumb {
+    position: absolute;
+
+    top: 0;
+
+    left: 1px;
+
+    width: 8px;
+
+    height: 120px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        180deg,
+        rgba(142,110,255,0.95),
+        rgba(96,74,255,0.85)
+    );
+
+    box-shadow:
+        0 0 12px rgba(120,90,255,0.35),
+        inset 0 0 6px rgba(255,255,255,0.25);
+
+    transition: top 0.08s linear;
+}
+
+/* END CUSTOM OUTSIDE SCROLLER */
+
