@@ -20,24 +20,12 @@ justify-content:center;
 padding:22px;
 
 background:
-radial-gradient(
-circle at top left,
-rgba(255,185,130,.9),
-transparent 28%
-),
-
-radial-gradient(
-circle at bottom right,
-rgba(110,120,255,.8),
-transparent 32%
-),
-
 linear-gradient(
 135deg,
-#ffb08f 0%,
-#ff92b4 35%,
-#867fff 70%,
-#6079ff 100%
+#d7fff1 0%,
+#c7f7eb 25%,
+#e5fff8 55%,
+#bff4e4 100%
 );
 }
 
@@ -47,44 +35,32 @@ height:min(900px,94vh);
 
 display:grid;
 grid-template-columns:
-94px
+96px
 1fr;
 
 overflow:hidden;
 
 border-radius:34px;
 
-background:
-rgba(255,255,255,.14);
-
-backdrop-filter:
-blur(26px);
-
--webkit-backdrop-filter:
-blur(26px);
-
-border:
-1px solid rgba(255,255,255,.16);
+background:#dff8ef;
 
 box-shadow:
-0 35px 90px rgba(0,0,0,.18);
+0 28px 70px rgba(0,0,0,.12);
 }
 
 .sidebar{
 display:flex;
 flex-direction:column;
 align-items:center;
+justify-content:space-evenly;
 
-gap:22px;
+padding:
+18px 0;
 
-padding-top:24px;
-padding-bottom:24px;
-
-background:
-rgba(255,255,255,.08);
+background:#9fd8c5;
 
 border-right:
-1px solid rgba(255,255,255,.08);
+1px solid rgba(0,0,0,.04);
 }
 
 .sidebar-btn{
@@ -96,9 +72,7 @@ border:none;
 border-radius:18px;
 
 background:
-rgba(255,255,255,.12);
-
-color:white;
+rgba(255,255,255,.26);
 
 font-size:24px;
 
@@ -106,6 +80,10 @@ cursor:pointer;
 
 transition:
 all .18s ease;
+
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .sidebar-btn:hover{
@@ -113,10 +91,10 @@ transform:
 translateY(-2px);
 
 background:
-rgba(255,255,255,.22);
+rgba(255,255,255,.42);
 
 box-shadow:
-0 10px 24px rgba(0,0,0,.12);
+0 10px 18px rgba(0,0,0,.08);
 }
 
 .sidebar-btn:active{
@@ -125,14 +103,17 @@ transform:scale(.92);
 
 .sidebar-btn.active{
 background:
-rgba(255,255,255,.28);
+rgba(255,255,255,.62);
 
 box-shadow:
-0 0 18px rgba(255,255,255,.2);
+0 0 0 3px rgba(255,255,255,.22);
 }
 
 .workspace{
+background:#dff8ef;
+
 position:relative;
+
 overflow:hidden;
 }
 
@@ -164,9 +145,9 @@ padding:
 border-radius:999px;
 
 background:
-rgba(255,255,255,.14);
+rgba(255,255,255,.56);
 
-color:white;
+color:#245948;
 
 font-size:12px;
 font-weight:700;
@@ -183,18 +164,17 @@ line-height:1;
 
 font-weight:800;
 
-color:white;
+color:#214c3f;
 }
 
 .welcome-subtitle{
-margin-top:26px;
+margin-top:28px;
 
 font-size:20px;
 
 line-height:1.9;
 
-color:
-rgba(255,255,255,.86);
+color:#42695d;
 }
 
 .chat-workspace{
@@ -214,7 +194,7 @@ justify-content:space-between;
 .room-title{
 font-size:42px;
 font-weight:800;
-color:white;
+color:#214c3f;
 }
 
 .room-subtitle{
@@ -222,8 +202,7 @@ margin-top:8px;
 
 font-size:15px;
 
-color:
-rgba(255,255,255,.76);
+color:#5d8478;
 }
 
 .chat-header-right{
@@ -246,7 +225,7 @@ border-radius:50%;
 object-fit:cover;
 
 border:
-3px solid rgba(255,255,255,.18);
+3px solid rgba(255,255,255,.7);
 }
 
 .avatar-camera{
@@ -269,12 +248,14 @@ background:white;
 font-size:12px;
 
 cursor:pointer;
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.08);
 }
 
 .user-email{
 font-size:12px;
-color:white;
-opacity:.82;
+color:#4e7669;
 }
 
 .search-row{
@@ -294,9 +275,9 @@ padding:
 border-radius:18px;
 
 background:
-rgba(255,255,255,.12);
+rgba(255,255,255,.72);
 
-color:white;
+color:#214c3f;
 
 font-size:15px;
 
@@ -305,16 +286,12 @@ all .18s ease;
 }
 
 .search-input::placeholder{
-color:
-rgba(255,255,255,.68);
+color:#709286;
 }
 
 .search-input:focus{
-background:
-rgba(255,255,255,.18);
-
 box-shadow:
-0 0 0 3px rgba(255,255,255,.08);
+0 0 0 3px rgba(108,182,158,.18);
 }
 
 .messages-container{
@@ -331,12 +308,12 @@ gap:22px;
 }
 
 .messages-container::-webkit-scrollbar{
-width:7px;
+width:6px;
 }
 
 .messages-container::-webkit-scrollbar-thumb{
 background:
-rgba(255,255,255,.18);
+rgba(62,112,96,.16);
 
 border-radius:999px;
 }
@@ -361,8 +338,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-background:
-rgba(255,255,255,.18);
+background:#8cc8b4;
 
 color:white;
 
@@ -377,9 +353,6 @@ padding:
 
 border-radius:24px;
 
-backdrop-filter:
-blur(16px);
-
 transition:
 all .18s ease;
 }
@@ -390,20 +363,18 @@ translateY(-2px);
 }
 
 .incoming-bubble{
-background:
-rgba(255,255,255,.14);
+background:white;
 }
 
 .outgoing-bubble{
-background:
-rgba(255,255,255,.24);
+background:#bfe8d8;
 }
 
 .message-user{
 font-size:13px;
 font-weight:700;
 
-color:white;
+color:#214c3f;
 
 margin-bottom:8px;
 }
@@ -413,7 +384,7 @@ font-size:15px;
 
 line-height:1.8;
 
-color:white;
+color:#365f52;
 }
 
 .voice-note{
@@ -428,8 +399,7 @@ padding:
 
 border-radius:999px;
 
-background:
-rgba(255,255,255,.14);
+background:white;
 }
 
 .voice-play{
@@ -440,7 +410,9 @@ border:none;
 
 border-radius:50%;
 
-background:white;
+background:#9fd8c5;
+
+color:white;
 
 cursor:pointer;
 }
@@ -456,7 +428,7 @@ height:24px;
 .voice-bars span{
 width:4px;
 
-background:white;
+background:#6ea996;
 
 border-radius:999px;
 
@@ -488,7 +460,7 @@ transform:scaleY(.6);
 
 .voice-time{
 font-size:13px;
-color:white;
+color:#476f63;
 }
 
 .media-preview{
@@ -504,10 +476,9 @@ padding:
 
 border-radius:16px;
 
-background:
-rgba(255,255,255,.14);
+background:white;
 
-color:white;
+color:#3b6155;
 
 font-size:13px;
 }
@@ -521,12 +492,14 @@ border-radius:24px;
 padding:
 0 18px;
 
-background:
-rgba(255,255,255,.12);
+background:white;
 
 display:flex;
 align-items:center;
 gap:14px;
+
+box-shadow:
+0 10px 22px rgba(0,0,0,.04);
 }
 
 .composer-input{
@@ -539,14 +512,13 @@ outline:none;
 
 background:transparent;
 
-color:white;
+color:#214c3f;
 
 font-size:15px;
 }
 
 .composer-input::placeholder{
-color:
-rgba(255,255,255,.7);
+color:#78998d;
 }
 
 .composer-icon{
@@ -557,10 +529,9 @@ border:none;
 
 border-radius:16px;
 
-background:
-rgba(255,255,255,.14);
+background:#eefaf5;
 
-color:white;
+color:#2f5b4e;
 
 font-size:18px;
 
@@ -574,8 +545,7 @@ all .18s ease;
 transform:
 translateY(-2px);
 
-background:
-rgba(255,255,255,.22);
+background:#d8f3e8;
 }
 
 .send-btn,
@@ -589,11 +559,21 @@ border:none;
 
 border-radius:16px;
 
-background:white;
+background:#8cc8b4;
+
+color:white;
 
 font-weight:700;
 
 cursor:pointer;
+
+transition:
+all .18s ease;
+}
+
+.send-btn:hover,
+.recording-send:hover{
+background:#79b6a1;
 }
 
 .recording-panel{
@@ -611,7 +591,7 @@ height:36px;
 .recording-wave span{
 width:5px;
 
-background:white;
+background:#6aa692;
 
 border-radius:999px;
 
@@ -651,10 +631,9 @@ border:none;
 
 border-radius:50%;
 
-background:
-rgba(255,255,255,.14);
+background:#eefaf5;
 
-color:white;
+color:#335f52;
 
 cursor:pointer;
 }
@@ -662,7 +641,7 @@ cursor:pointer;
 .recording-timer{
 font-size:18px;
 font-weight:700;
-color:white;
+color:#335f52;
 }
 
 .hidden{
