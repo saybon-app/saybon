@@ -392,3 +392,140 @@ body{
 .hidden{
     display:none !important;
 }
+
+/* =======================================================
+   REFERENCE WELCOME SCREEN
+   ======================================================= */
+
+.welcome-workspace{
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #f6f3ed 0%,
+            #fbf8f4 45%,
+            #f8f6f1 100%
+        );
+
+    position:relative;
+    overflow:hidden;
+}
+
+.welcome-workspace::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-10%;
+    top:-12%;
+
+    width:75%;
+    height:60%;
+
+    background:
+    rgba(235,231,223,.55);
+
+    border-radius:55% 45% 55% 45%;
+
+    transform:rotate(-8deg);
+}
+
+.welcome-workspace::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-15%;
+    bottom:-25%;
+
+    width:75%;
+    height:65%;
+
+    background:
+    rgba(195,210,198,.55);
+
+    border-radius:60% 40% 55% 45%;
+
+    transform:rotate(-10deg);
+}
+
+.welcome-inner{
+
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+}
+
+.welcome-overline{
+
+    font-family:'Inter',sans-serif;
+
+    font-size:clamp(24px,2vw,42px);
+
+    font-weight:400;
+
+    color:#16281d;
+
+    margin-bottom:20px;
+}
+
+.welcome-title{
+
+    margin:0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif !important;
+
+    font-size:
+        clamp(72px,7vw,120px) !important;
+
+    font-weight:500 !important;
+
+    line-height:1.05;
+
+    letter-spacing:-2px;
+
+    color:#102417;
+}
+
+.welcome-title::before{
+    display:none !important;
+    content:none !important;
+}
+
+.welcome-divider{
+
+    margin-top:34px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:22px;
+}
+
+.divider-line{
+
+    width:110px;
+    height:2px;
+
+    background:#cfc8b7;
+}
+
+.divider-leaf{
+
+    font-size:34px;
+
+    color:#b8b29d;
+}
+
+.welcome-subtitle,
+.community-pill{
+    display:none !important;
+}
+
