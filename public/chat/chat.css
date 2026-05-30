@@ -754,3 +754,44 @@ body{
     position:relative !important;
     z-index:5 !important;
 }
+
+/* =====================================================
+   CLEAR PHOTO + BLUR
+   ===================================================== */
+
+.chat-workspace{
+    position:relative !important;
+    background:transparent !important;
+    overflow:hidden !important;
+}
+
+.chat-workspace::before{
+    content:'' !important;
+    position:absolute !important;
+    inset:-80px !important;
+
+    background:
+        url('/assets/images/chatroom.png')
+        center center / cover
+        no-repeat !important;
+
+    filter:blur(18px) !important;
+
+    transform:scale(1.12) !important;
+
+    opacity:1 !important;
+
+    z-index:0 !important;
+}
+
+.chat-header,
+.search-row,
+.messages-container,
+.composer,
+.media-preview,
+.recording-panel{
+    position:relative !important;
+    z-index:10 !important;
+    background:transparent !important;
+}
+
