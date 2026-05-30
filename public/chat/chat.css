@@ -685,3 +685,72 @@ body{
     transform:translateY(-2px);
 }
 
+
+/* =====================================================
+   CHATROOM BACKGROUND RESTORE
+   ===================================================== */
+
+.welcome-workspace{
+    position:relative !important;
+    overflow:hidden !important;
+}
+
+.welcome-workspace::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+
+    background:
+        url('/assets/images/chatroom.png')
+        center center / cover
+        no-repeat !important;
+
+    filter:blur(55px) brightness(1.1) !important;
+
+    transform:scale(1.15) !important;
+
+    opacity:.55 !important;
+
+    z-index:0 !important;
+}
+
+.welcome-inner{
+    position:relative !important;
+    z-index:10 !important;
+}
+
+/* CHAT WORKSPACE */
+
+.chat-workspace{
+    position:relative !important;
+    overflow:hidden !important;
+}
+
+.chat-workspace::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+
+    background:
+        url('/assets/images/chatroom.png')
+        center center / cover
+        no-repeat !important;
+
+    filter:blur(10px) brightness(.7) !important;
+
+    transform:scale(1.08) !important;
+
+    opacity:.35 !important;
+
+    z-index:0 !important;
+}
+
+.chat-header,
+.search-row,
+.messages-container,
+.composer,
+.media-preview,
+.recording-panel{
+    position:relative !important;
+    z-index:5 !important;
+}
