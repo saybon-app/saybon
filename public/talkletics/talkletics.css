@@ -55,7 +55,8 @@ body{
     max-width:85%;
     height:auto;
 
-    top:auto;
+    top:12px;
+
     left:auto;
     transform:none;
 
@@ -218,6 +219,7 @@ body{
         height:310px;
     }
 }
+
 
 
 
