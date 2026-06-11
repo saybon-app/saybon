@@ -91,3 +91,37 @@ body{
 }
 
 
+
+
+@media (max-width:768px){
+
+  .logo-card{
+    width:88vw !important;
+    max-width:420px !important;
+    height:92px !important;
+    top:88px !important;
+    border-radius:24px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+  }
+
+  #talkleticsLogo{
+    width:78% !important;
+    max-width:none !important;
+    height:auto !important;
+  }
+
+  .guide{
+    right:auto !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    height:320px !important;
+    width:auto !important;
+    bottom:30px !important;
+  }
+
+  .background{
+    background-position:52% top !important;
+  }
+
+}
