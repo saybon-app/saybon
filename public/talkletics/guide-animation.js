@@ -1,24 +1,41 @@
-﻿const blink = document.querySelector(".blink");
+﻿const poses = [
+    "guideIdle",
+    "guideBlink",
+    "guideIdle",
+    "guideWave",
+    "guideIdle",
+    "guideWink",
+    "guideIdle",
+    "guideSalute",
+    "guideIdle"
+];
 
-function doBlink(){
+let current = 0;
 
-    if(!blink) return;
+function showPose(id){
 
-    blink.style.opacity = "1";
+    document
+        .querySelectorAll(".guide-layer")
+        .forEach(el => el.classList.remove("active"));
 
-    setTimeout(() => {
-        blink.style.opacity = "0";
-    }, 120);
+    const target = document.getElementById(id);
+
+    if(target){
+        target.classList.add("active");
+    }
 }
 
-setTimeout(doBlink, 2000);
+function nextPose(){
 
-setInterval(() => {
+    showPose(poses[current]);
 
-    const randomDelay =
-        Math.floor(Math.random() * 4000) + 3000;
+    current++;
 
-    setTimeout(doBlink, randomDelay);
+    if(current >= poses.length){
+        current = 0;
+    }
+}
 
-}, 7000);
+showPose("guideIdle");
 
+setInterval(nextPose,1800);

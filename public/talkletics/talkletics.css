@@ -155,3 +155,68 @@ body{
     opacity:0;
 }
 
+
+/* =====================================
+   GUIDE STACK
+===================================== */
+
+#guideStack{
+    position:absolute;
+    right:260px;
+    bottom:18px;
+
+    height:430px;
+    width:320px;
+
+    z-index:20;
+
+    animation:breathe 4s ease-in-out infinite;
+}
+
+.guide-layer{
+    position:absolute;
+    inset:0;
+
+    height:430px;
+    width:auto;
+
+    opacity:0;
+
+    transition:opacity .45s ease-in-out;
+
+    pointer-events:none;
+}
+
+.guide-layer.active{
+    opacity:1;
+}
+
+@keyframes breathe{
+
+    0%{
+        transform:translateY(0px) scale(1);
+    }
+
+    50%{
+        transform:translateY(-4px) scale(1.01);
+    }
+
+    100%{
+        transform:translateY(0px) scale(1);
+    }
+}
+
+@media (max-width:768px){
+
+    #guideStack{
+        right:-20px;
+        bottom:10px;
+
+        width:230px;
+        height:310px;
+    }
+
+    .guide-layer{
+        height:310px;
+    }
+}
