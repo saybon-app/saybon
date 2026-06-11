@@ -1,4 +1,5 @@
 ﻿const sequence = [
+
     "guideIdle",
     "guideIdle",
     "guideBlink",
@@ -8,12 +9,17 @@
     "guideIdle",
 
     "guideWave",
+    "guideWave",
+    "guideWave",
 
     "guideIdle",
     "guideIdle",
     "guideIdle",
 
     "guideBlink",
+
+    "guideIdle",
+    "guideIdle",
 
     "guideWink",
 
@@ -23,6 +29,15 @@
     "guideIdle",
 
     "guideWave",
+    "guideWave",
+
+    "guideIdle",
+    "guideIdle",
+
+    "guideBlink",
+
+    "guideIdle",
+    "guideIdle",
 
     "guideSalute",
 
@@ -32,8 +47,16 @@
 
     "guideWink",
 
+    "guideIdle",
+    "guideIdle",
+
     "guideBlink",
 
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+
+    "guideSalute",
     "guideSalute",
 
     "guideIdle",
@@ -44,15 +67,11 @@ let current = 0;
 
 function showPose(id){
 
-    const layers =
-        document.querySelectorAll(".guide-layer");
+    document
+        .querySelectorAll(".guide-layer")
+        .forEach(layer => layer.classList.remove("active"));
 
-    layers.forEach(layer => {
-        layer.classList.remove("active");
-    });
-
-    const target =
-        document.getElementById(id);
+    const target = document.getElementById(id);
 
     if(target){
         target.classList.add("active");
@@ -72,9 +91,8 @@ function nextPose(){
 
 showPose("guideIdle");
 
-/* start after a short delay */
 setTimeout(() => {
 
-    setInterval(nextPose, 500);
+    setInterval(nextPose, 700);
 
 }, 1500);
