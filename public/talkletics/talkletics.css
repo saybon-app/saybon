@@ -26,26 +26,23 @@ body{
     top:20px;
     left:50%;
     transform:translateX(-50%);
-    width:500px;
-    height:100px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(255,255,255,.38);
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-    border:1px solid rgba(255,255,255,.35);
-    border-radius:32px;
-    overflow:hidden;
+    width:auto;
+    height:auto;
+
+    background:transparent;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    overflow:visible;
+
     z-index:30;
 }
 
 .logo-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:32px;
-    transform:perspective(900px) rotateX(8deg);
+    display:none;
 }
 
 #talkleticsLogo{
@@ -97,14 +94,24 @@ body{
 @media (max-width:768px){
 
   .logo-card{
-    width:88vw !important;
-    max-width:420px !important;
-    height:92px !important;
-    top:88px !important;
-    border-radius:24px !important;
-    left:50% !important;
-    transform:translateX(-50%) !important;
-  }
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:auto;
+    height:auto;
+
+    background:transparent;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    overflow:visible;
+
+    z-index:30;
+}
 
   #talkleticsLogo{
     width:78% !important;
@@ -219,6 +226,7 @@ body{
         height:310px;
     }
 }
+
 
 
 
