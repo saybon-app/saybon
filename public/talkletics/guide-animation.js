@@ -1,31 +1,24 @@
-﻿const guide = document.querySelector(".guide");
+﻿const blink = document.querySelector(".blink");
 
-if (guide) {
+function doBlink(){
 
-  const poses = [
-    "/assets/talkletics/guide.png",
-    "/assets/talkletics/guide-blink.png",
-    "/assets/talkletics/guide.png",
-    "/assets/talkletics/guide-wave.png",
-    "/assets/talkletics/guide.png",
-    "/assets/talkletics/guide-wink.png",
-    "/assets/talkletics/guide.png",
-    "/assets/talkletics/guide-salute.png",
-    "/assets/talkletics/guide.png"
-  ];
+    if(!blink) return;
 
-  let frame = 0;
+    blink.style.opacity = "1";
 
-  setInterval(() => {
-
-    frame++;
-
-    if(frame >= poses.length){
-      frame = 0;
-    }
-
-    guide.src = poses[frame];
-
-  }, 2200);
-
+    setTimeout(() => {
+        blink.style.opacity = "0";
+    }, 120);
 }
+
+setTimeout(doBlink, 2000);
+
+setInterval(() => {
+
+    const randomDelay =
+        Math.floor(Math.random() * 4000) + 3000;
+
+    setTimeout(doBlink, randomDelay);
+
+}, 7000);
+
