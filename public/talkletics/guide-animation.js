@@ -56,7 +56,7 @@ function nextPose(){
 
     const nextDelay =
         pose === "guideBlink"
-            ? 120
+            ? 300
             : 850;
 
     setTimeout(nextPose, nextDelay);
