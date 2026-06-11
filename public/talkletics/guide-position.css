@@ -1,0 +1,16 @@
+﻿.guide{
+    position:absolute;
+
+    /* height based on locked spec */
+    height:420px;
+
+    /* move guide to marked landing spot */
+    left:50%;
+    bottom:95px;
+
+    transform:translateX(120px);
+
+    z-index:20;
+
+    pointer-events:none;
+}
