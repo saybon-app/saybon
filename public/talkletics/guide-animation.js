@@ -56,11 +56,11 @@ function nextPose(){
 
     const nextDelay =
         pose === "guideBlink"
-            ? 300
-            : 850;
+            ? 500 : 850;
 
     setTimeout(nextPose, nextDelay);
 }
 
 showPose("guideIdle");
 setTimeout(nextPose, 850);
+
