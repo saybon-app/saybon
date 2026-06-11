@@ -2,51 +2,6 @@
 
     "guideIdle",
     "guideIdle",
-    "guideBlink",
-
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-
-    "guideWave",
-    "guideWave",
-    "guideWave",
-
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-
-    "guideBlink",
-
-    "guideIdle",
-    "guideIdle",
-
-    "guideWink",
-
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-
-    "guideWave",
-    "guideWave",
-
-    "guideIdle",
-    "guideIdle",
-
-    "guideBlink",
-
-    "guideIdle",
-    "guideIdle",
-
-    "guideSalute",
-
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-
-    "guideWink",
-
     "guideIdle",
     "guideIdle",
 
@@ -55,12 +10,30 @@
     "guideIdle",
     "guideIdle",
     "guideIdle",
+    "guideIdle",
 
-    "guideSalute",
-    "guideSalute",
+    "guideBlink",
 
     "guideIdle",
-    "guideIdle"
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+
+    "guideBlink",
+
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+
+    "guideBlink",
+
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+    "guideIdle",
+
+    "guideBlink"
 ];
 
 let current = 0;
@@ -91,8 +64,4 @@ function nextPose(){
 
 showPose("guideIdle");
 
-setTimeout(() => {
-
-    setInterval(nextPose, 700);
-
-}, 1500);
+setInterval(nextPose, 900);

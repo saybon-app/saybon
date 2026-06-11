@@ -170,7 +170,7 @@ body{
 
     z-index:20;
 
-    animation:breathe 6s ease-in-out infinite;
+    animation:breathe 4s ease-in-out infinite;
 }
 
 .guide-layer{
@@ -197,9 +197,7 @@ body{
         transform:translateY(0px) scale(1);
     }
 
-    50%{
-        transform:translateY(-2px) scale(1.005);
-    }
+    50%{ transform:translateY(-4px) scale(1.01); }
 
     100%{
         transform:translateY(0px) scale(1);
@@ -220,5 +218,6 @@ body{
         height:310px;
     }
 }
+
 
 
