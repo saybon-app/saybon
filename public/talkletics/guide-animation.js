@@ -26,13 +26,6 @@
     "guideIdle",
     "guideIdle",
 
-    "guideBlink",
-
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-    "guideIdle",
-
     "guideBlink"
 ];
 
@@ -44,24 +37,30 @@ function showPose(id){
         .querySelectorAll(".guide-layer")
         .forEach(layer => layer.classList.remove("active"));
 
-    const target = document.getElementById(id);
-
-    if(target){
-        target.classList.add("active");
-    }
+    document
+        .getElementById(id)
+        ?.classList.add("active");
 }
 
 function nextPose(){
 
-    showPose(sequence[current]);
+    const pose = sequence[current];
+
+    showPose(pose);
 
     current++;
 
     if(current >= sequence.length){
         current = 0;
     }
+
+    const nextDelay =
+        pose === "guideBlink"
+            ? 120
+            : 850;
+
+    setTimeout(nextPose, nextDelay);
 }
 
 showPose("guideIdle");
-
-setInterval(nextPose, 900);
+setTimeout(nextPose, 850);
