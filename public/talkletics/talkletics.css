@@ -24,7 +24,7 @@ body{
 .logo-card{
     position:absolute;
     top:20px;
-    left:50%;
+    left:72%;
     transform:translateX(-50%);
     width:auto;
     height:auto;
@@ -96,7 +96,7 @@ body{
   .logo-card{
     position:absolute;
     top:20px;
-    left:50%;
+    left:72%;
     transform:translateX(-50%);
     width:auto;
     height:auto;
@@ -226,6 +226,7 @@ body{
         height:310px;
     }
 }
+
 
 
 
