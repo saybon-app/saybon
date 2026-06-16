@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SayBon Payments API (Firebase Functions v2)
  * Route:
  * POST /api/create-stripe-session

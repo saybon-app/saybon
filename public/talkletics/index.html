@@ -1,51 +1,50 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Talkletics</title>
-<link rel="stylesheet" href="./talkletics.css?v=99">
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talkletics — SayBon</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/talkletics/talkletics.css" />
 </head>
 <body>
 
-<div class="background"></div>
+  <header class="page-header">
+    <h1>Talkletics Games</h1>
+    <p>Play, practice, and level up your French 🎮</p>
+  </header>
 
-<div class="logo-card">
-    <img
-        id="talkleticsLogo"
-        src="/assets/talkletics/logo.png?v=99"
-        alt="Talkletics"
-    >
-</div>
+  <main class="games-grid">
 
-<div id="guideStack">
+    <div class="game-tile console">Accent Arena</div>
+    <div class="game-tile console">Verb Voyager</div>
+    <div class="game-tile console">Word Warp</div>
+    <div class="game-tile console">Sentence Sprint</div>
+    <div class="game-tile console">Pronunciation Quest</div>
+    <div class="game-tile console">Grammar Galaxy</div>
+    <div class="game-tile console">Listening Lab</div>
+    <div class="game-tile console">Conversation Craze</div>
+    <div class="game-tile console">Tense Trek</div>
+    <div class="game-tile console">Vocabulary Vault</div>
+    <div class="game-tile console">Accent Arcade</div>
+    <div class="game-tile console">Dialogue Dash</div>
+    <div class="game-tile console">Syntax Safari</div>
+    <div class="game-tile console">French Frenzy</div>
+    <div class="game-tile console">Memory Match</div>
+    <div class="game-tile console">Phrase Fighter</div>
+    <div class="game-tile console">Word Wrestle</div>
+    <div class="game-tile console">Speed Speak</div>
+    <div class="game-tile console">Listening Legends</div>
+    <div class="game-tile console">Grammar Gladiators</div>
 
-    <img id="guideIdle"
-         class="guide-layer active"
-         src="/assets/talkletics/guide.png">
+  </main>
 
-    <img id="guideBlink"
-         class="guide-layer"
-         src="/assets/talkletics/guide-blink.png">
+  <button class="back-btn" onclick="window.location.href='/dashboard/'">
+    ← Back to Dashboard
+  </button>
 
-    <img id="guideWave"
-         class="guide-layer"
-         src="/assets/talkletics/guide-wave.png">
-
-    <img id="guideWink"
-         class="guide-layer"
-         src="/assets/talkletics/guide-wink.png">
-
-    <img id="guideSalute"
-         class="guide-layer"
-         src="/assets/talkletics/guide-salute.png">
-
-</div>
-
-    <script src="./guide-animation.js"></script>
 </body>
 </html>
-
-
-
 

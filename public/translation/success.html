@@ -132,9 +132,6 @@ font-size:13px;
 color:#9aa4b2;
 }
 </style>
-
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
 </head>
 
 <body>
@@ -289,17 +286,17 @@ async function loadInvoice(){
     let timeline = "";
 
     if(words <= 300){
-      timeline = isExpress ? "30ï¿½60 mins" : "1ï¿½3 hrs";
+      timeline = isExpress ? "30–60 mins" : "1–3 hrs";
     }else if(words <= 1000){
-      timeline = isExpress ? "1ï¿½3 hrs" : "3ï¿½6 hrs";
+      timeline = isExpress ? "1–3 hrs" : "3–6 hrs";
     }else if(words <= 3000){
-      timeline = isExpress ? "3ï¿½6 hrs" : "6ï¿½12 hrs";
+      timeline = isExpress ? "3–6 hrs" : "6–12 hrs";
     }else if(words <= 6000){
-      timeline = isExpress ? "6ï¿½12 hrs" : "12ï¿½24 hrs";
+      timeline = isExpress ? "6–12 hrs" : "12–24 hrs";
     }else if(words <= 10000){
-      timeline = isExpress ? "12ï¿½24 hrs" : "24ï¿½48 hrs";
+      timeline = isExpress ? "12–24 hrs" : "24–48 hrs";
     }else if(words <= 20000){
-      timeline = isExpress ? "24ï¿½48 hrs" : "2ï¿½4 days";
+      timeline = isExpress ? "24–48 hrs" : "2–4 days";
     }else{
       timeline = "Custom";
     }
@@ -331,3 +328,6 @@ loadInvoice();
 
 </body>
 </html>
+
+
+

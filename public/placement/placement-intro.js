@@ -9,6 +9,6 @@ teacherBtn.addEventListener("click", () => {
 
 // start test → placement test placeholder
 startBtn.addEventListener("click", () => {
-  sessionStorage.setItem("saybon_next", "placement/");
+  sessionStorage.setItem("saybon_next", "placement/test.html");
   window.location.href = "../loader.html";
 });

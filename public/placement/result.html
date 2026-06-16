@@ -1,425 +1,75 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Your French Level — SayBon</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/page-transition.css">
-  <script type="module" src="/js/nav-engine.js"></script>
+  <title>Your level — SayBon</title>
 
   <style>
-*{box-sizing:border-box}
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eef6fb;
+      font-family: "Nunito", system-ui, sans-serif;
+    }
 
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  font-family:"Nunito",sans-serif;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(149,194,189,.26), transparent 25%),
-    radial-gradient(circle at 18% 16%, rgba(222,89,105,.13), transparent 22%),
-    linear-gradient(145deg,#3A837D 0%,#1d4547 52%,#102629 100%);
-  color:#f7fbfb;
-}
+    .result-box {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 26px;
+      text-align: center;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    }
 
-/* MAIN CARD */
-.stage{
-  width:100%;
-  max-width:640px;
-  padding:36px 32px;
-  border-radius:34px;
+    h1 {
+      margin-bottom: 16px;
+    }
 
-  background:
-    linear-gradient(160deg,
-      rgba(214,185,164,.15),
-      rgba(221,162,128,.12),
-      rgba(149,194,189,.10)
-    );
+    p {
+      color: #5b6b7a;
+      margin-bottom: 30px;
+    }
 
-  border:1px solid rgba(214,185,164,.25);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.08);
-
-  backdrop-filter:blur(18px);
-}
-
-/* TITLE */
-.pretitle{
-  font-size:12px;
-  letter-spacing:.28em;
-  color:#DDA280;
-  margin-bottom:18px;
-}
-
-/* ORB (MAIN FOCUS) */
-.level-orb{
-  width:150px;
-  height:150px;
-  margin:0 auto 28px;
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:54px;
-  font-weight:600;
-  color:#102629;
-
-  background:
-    radial-gradient(circle at 30% 25%,
-      #fff6ee,
-      #D6B9A4,
-      #DE5969
-    );
-
-  box-shadow:
-    0 0 0 10px rgba(214,185,164,.15),
-    0 0 50px rgba(222,89,105,.35),
-    0 20px 60px rgba(0,0,0,.35);
-
-  animation: pulse 3s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%,100%{
-    transform:scale(1);
-  }
-  50%{
-    transform:scale(1.05);
-  }
-}
-
-/* DESCRIPTION */
-.description{
-  max-width:430px;
-  margin:0 auto 22px;
-  text-align:center;
-  font-size:12.5px;
-  line-height:1.55;
-  font-weight:400;
-  letter-spacing:.015em;
-  color:rgba(247,251,251,.76);
-}
-
-/* STATS */
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:28px;
-}
-
-.chip{
-  padding:14px;
-  border-radius:20px;
-
-  background:rgba(149,194,189,.08);
-  border:1px solid rgba(214,185,164,.2);
-
-  text-align:center;
-}
-
-.chip span{
-  font-size:10px;
-  letter-spacing:.18em;
-  color:#D6B9A4;
-}
-
-.chip strong{
-  display:block;
-  margin-top:4px;
-  font-size:15px;
-  font-weight:500;
-}
-
-/* BUTTONS */
-.actions{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-}
-
-button,a{
-  min-width:150px;
-  height:46px;
-  border-radius:999px;
-  border:none;
-  cursor:pointer;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:.05em;
-}
-
-.primary{
-  background:linear-gradient(180deg,#DDA280,#DE5969);
-  color:#fff;
-}
-
-.secondary{
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  border:1px solid rgba(214,185,164,.2);
-}
-
-/* MOBILE */
-@media(max-width:650px){
-  .stage{padding:28px 18px}
-  .result-grid{grid-template-columns:1fr}
-  .level-orb{width:130px;height:130px;font-size:46px}
-}
-
-/* ==========================================
-PLACEMENT RESULT TEXT + CARD REFINEMENT
-========================================== */
-
-/* Bigger card only */
-.stage{
-  max-width:720px !important;
-  padding:46px 46px 42px !important;
-  border-radius:38px !important;
-}
-
-/* Center the top text properly */
-.pretitle{
-  text-align:center !important;
-  margin:0 auto 30px !important;
-  display:block !important;
-  font-size:13.5px !important;
-  line-height:1.2 !important;
-  letter-spacing:.30em !important;
-  font-weight:500 !important;
-}
-
-/* Add breathing room around the orb without changing the orb */
-.level-orb{
-  margin-left:auto !important;
-  margin-right:auto !important;
-  margin-bottom:34px !important;
-}
-
-/* Make recommendation text clearer and centered */
-.description{
-  max-width:560px !important;
-  margin:0 auto 34px !important;
-  text-align:center !important;
-  font-size:15.5px !important;
-  line-height:1.65 !important;
-  font-weight:500 !important;
-  letter-spacing:.02em !important;
-  color:rgba(247,251,251,.86) !important;
-}
-
-/* Make stat texts readable */
-.chip{
-  padding:18px 16px !important;
-  border-radius:22px !important;
-}
-
-.chip span{
-  font-size:11.5px !important;
-  letter-spacing:.19em !important;
-  font-weight:600 !important;
-}
-
-.chip strong{
-  margin-top:7px !important;
-  font-size:18px !important;
-  font-weight:650 !important;
-}
-
-/* Buttons a little clearer */
-button,a{
-  font-size:14px !important;
-  height:50px !important;
-  min-width:160px !important;
-}
-
-/* Mobile safety */
-@media(max-width:650px){
-  .stage{
-    max-width:94vw !important;
-    padding:34px 22px 32px !important;
-  }
-
-  .pretitle{
-    margin-bottom:24px !important;
-    font-size:12.5px !important;
-  }
-
-  .description{
-    font-size:14px !important;
-    margin-bottom:26px !important;
-  }
-}
-
-/* END PLACEMENT RESULT TEXT + CARD REFINEMENT */
-
-</style>
-<style>
-/* === RESULT CARD SCALE IMPROVEMENT === */
-
-.result-card {
-  max-width: 520px;
-  padding: 40px 36px;
-}
-
-/* Top text */
-.result-title {
-  font-size: 18px;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-bottom: 22px;
-  opacity: 0.85;
-}
-
-/* Level description */
-.result-description {
-  font-size: 17px;
-  line-height: 1.7;
-  text-align: center;
-  margin-top: 22px;
-  margin-bottom: 30px;
-  opacity: 0.9;
-}
-
-/* Stats boxes */
-.result-stats {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.result-stat {
-  padding: 16px 18px;
-  border-radius: 14px;
-  font-size: 15px;
-  min-width: 110px;
-}
-
-/* Labels */
-.result-stat span {
-  display: block;
-  font-size: 13px;
-  opacity: 0.7;
-  margin-bottom: 6px;
-}
-
-/* Values */
-.result-stat strong {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Buttons */
-.result-actions {
-  margin-top: 28px;
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-}
-
-.result-actions button {
-  padding: 14px 22px;
-  font-size: 15px;
-  border-radius: 999px;
-}
-</style>
+    button {
+      padding: 16px 28px;
+      border-radius: 40px;
+      border: none;
+      background: #4da3ff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="stars"></div>
 
-  <main class="reveal-shell" id="revealShell">
-    
+  <div class="result-box">
+    <h1>Your level</h1>
+    <p id="levelText"></p>
 
-    <section class="stage">
-      <div class="content">
-        <div class="pretitle">Your French level is</div>
-
-        
-
-        <div class="level-orb" id="levelBadge">A1</div>
-
-        <p class="description" id="levelText"></p>
-
-        <div class="result-grid">
-          <div class="chip">
-            <span>Objective</span>
-            <strong id="scoreChip">0 / 12</strong>
-          </div>
-
-          <div class="chip">
-            <span>Speaking</span>
-            <strong id="spokenChip">0 responses</strong>
-          </div>
-
-          <div class="chip">
-            <span>Writing</span>
-            <strong id="writtenChip">0 responses</strong>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="primary" onclick="continueJourney()">Continue</button>
-          <a class="secondary" href="/placement/">Retake Test</a>
-        </div>
-      </div>
-    </section>
-  </main>
+    <button onclick="goDashboard()">Continue</button>
+  </div>
 
   <script>
-    const score = Number(sessionStorage.getItem("placement_score")) || 0;
-    const total = Number(sessionStorage.getItem("placement_total")) || 15;
-    const level = sessionStorage.getItem("placement_level") || "A1";
-    const spokenAnswers = JSON.parse(sessionStorage.getItem("placement_spoken_answers") || "[]");
-    const writtenAnswers = JSON.parse(sessionStorage.getItem("placement_written_answers") || "[]");
+    const score = Number(localStorage.getItem("placementScore")) || 0;
 
-    const descriptions = {
-      A0: "You are at the beginning of your French journey. SayBon will help you build confidence from the very first sounds and words.",
-      A1: "You can understand and use simple everyday expressions. This is the perfect stage to grow your speaking confidence.",
-      A2: "You can manage familiar situations and communicate in simple ways. Your next goal is smoother expression and stronger listening.",
-      B1: "You can handle everyday conversations with growing independence. Now we refine structure, fluency, and confidence.",
-      B2: "You can understand more complex French and express yourself with clarity. Now we sharpen precision, elegance, and exam readiness."
-    };
+    let level = "A1 (Beginner)";
+    if (score === 2) level = "A2 (Elementary)";
 
-    document.getElementById("levelBadge").textContent = level;
-    document.getElementById("levelText").textContent = descriptions[level] || descriptions.A1;
-    document.getElementById("scoreChip").textContent = `${score} / 12`;
-    document.getElementById("spokenChip").textContent = `${spokenAnswers.length} responses`;
-    document.getElementById("writtenChip").textContent = `${writtenAnswers.length} responses`;
+    document.getElementById("levelText").textContent =
+      `Based on your answers, your level is ${level}.`;
 
-    function continueJourney(){
-      const shell = document.getElementById("revealShell");
-      shell.classList.add("fade-out");
-
-      setTimeout(() => {
-        window.location.href = "/auth/login.html";
-      }, 650);
+    function goDashboard() {
+      window.location.href = "/dashboard/";
     }
   </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-

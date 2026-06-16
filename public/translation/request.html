@@ -5,7 +5,9 @@
 <script type='module' src='/js/auth-guard.js'></script>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Services</title>
 
@@ -33,14 +35,8 @@ padding:30px;
 
 .title{
 text-align:center;
-letter-spacing:6px;
-font-weight:600;
-font-size:32px;
-margin-bottom:6px;
-color:#2c3e50;
-text-shadow:
-0 1px 0 rgba(255,255,255,0.7),
-0 2px 4px rgba(0,0,0,0.08);
+letter-spacing:3px;
+font-weight:500;
 }
 
 .subtitle{
@@ -137,22 +133,13 @@ font-size:12px;
 table{
 width:100%;
 border-collapse:collapse;
-table-layout:fixed;
-margin-top:8px;
 }
 
 th,td{
 border:1px solid #ddd;
-padding:16px 18px;
-font-size:16px;
-line-height:1.35;
+padding:8px;
+font-size:12px;
 text-align:left;
-vertical-align:middle;
-word-wrap:break-word;
-}
-
-th{
-font-weight:600;
 }
 
 .green{
@@ -177,58 +164,8 @@ font-size:12px;
 margin-top:8px;
 }
 
-.file-picker{
-display:flex;
-align-items:center;
-gap:12px;
-width:100%;
-padding:10px 14px;
-border:1px solid rgba(0,0,0,0.08);
-border-radius:14px;
-background:rgba(255,255,255,0.72);
-box-shadow:inset 0 1px 0 rgba(255,255,255,0.7);
-min-height:58px;
-}
-
-.file-trigger{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-padding:10px 16px;
-border-radius:12px;
-background:linear-gradient(180deg,#ffffff,#eef3f8);
-border:1px solid rgba(0,0,0,0.08);
-font-size:14px;
-font-weight:500;
-color:#4b5563;
-cursor:pointer;
-white-space:nowrap;
-transition:all .18s ease;
-}
-
-.file-trigger:hover{
-transform:translateY(-1px);
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-
-.file-trigger:active{
-transform:translateY(1px);
-}
-
-.file-name{
-font-size:14px;
-color:#6b7280;
-overflow:hidden;
-text-overflow:ellipsis;
-white-space:nowrap;
-flex:1;
-}
-
-#fileInput{
-display:none;
-}
-
 </style>
+
 
 <style>
 
@@ -255,6 +192,7 @@ width:480px;
 }
 
 </style>
+
 
 <style>
 
@@ -294,6 +232,7 @@ padding:14px 18px;
 }
 
 </style>
+
 
 <style>
 
@@ -356,8 +295,6 @@ width:520px;
 
 </style>
 
-<link rel='stylesheet' href='/css/page-transition.css'>
-<script type='module' src='/js/nav-engine.js'></script>
 </head>
 
 <body>
@@ -369,7 +306,7 @@ SAYBON TRANSLATION SERVICES
 </h2>
 
 <div class="subtitle">
-TRANSLATED BY EXPERTS | QUICK DELIVERY | CONFIDENTIAL
+TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
 </div>
 
 <div class="container">
@@ -378,11 +315,7 @@ TRANSLATED BY EXPERTS | QUICK DELIVERY | CONFIDENTIAL
 
 <div class="upload-row">
 
-<div class="file-picker">
 <input type="file" id="fileInput">
-<label for="fileInput" class="file-trigger">Choose File</label>
-<div class="file-name" id="fileName">No file chosen</div>
-</div>
 
 <button id="uploadBtn">
 UPLOAD
@@ -405,9 +338,12 @@ Target Language
 </label>
 
 <select id="languageSelect">
+
 <option>English</option>
 <option>French</option>
+
 </select>
+
 
 <div class="quote-card standard" onclick="goToStripe('standard')">
 
@@ -420,6 +356,7 @@ Delivery:
 </div>
 
 </div>
+
 
 <div class="quote-card express" onclick="goToStripe('express')">
 
@@ -446,39 +383,39 @@ Delivery:
 </tr>
 
 <tr>
-<td>1 to 300</td>
-<td>1 to 3 hrs</td>
-<td>30 to 60 mins</td>
+<td>1 – 300</td>
+<td>1 – 3 hrs</td>
+<td>30 – 60 mins</td>
 </tr>
 
 <tr>
-<td>301 to 1000</td>
-<td>3 to 6 hrs</td>
-<td>1 to 3 hrs</td>
+<td>301 – 1000</td>
+<td>3 – 6 hrs</td>
+<td>1 – 3 hrs</td>
 </tr>
 
 <tr>
-<td>1001 to 3000</td>
-<td>6 to 12 hrs</td>
-<td>3 to 6 hrs</td>
+<td>1001 – 3000</td>
+<td>6 – 12 hrs</td>
+<td>3 – 6 hrs</td>
 </tr>
 
 <tr>
-<td>3001 to 6000</td>
-<td>12 to 24 hrs</td>
-<td>6 to 12 hrs</td>
+<td>3001 – 6000</td>
+<td>12 – 24 hrs</td>
+<td>6 – 12 hrs</td>
 </tr>
 
 <tr>
-<td>6001 to 10000</td>
-<td>24 to 48 hrs</td>
-<td>12 to 24 hrs</td>
+<td>6001 – 10000</td>
+<td>24 – 48 hrs</td>
+<td>12 – 24 hrs</td>
 </tr>
 
 <tr>
-<td>10001 to 20000</td>
-<td>2 to 4 days</td>
-<td>24 to 48 hrs</td>
+<td>10001 – 20000</td>
+<td>2 – 4 days</td>
+<td>24 – 48 hrs</td>
 </tr>
 
 <tr>
@@ -501,49 +438,49 @@ let currentWords = 0
 let standardPrice = 0
 let expressPrice = 0
 
-const uploadBtn = document.getElementById("uploadBtn")
-const fileInput = document.getElementById("fileInput")
-const fileName = document.getElementById("fileName")
+const uploadBtn=document.getElementById("uploadBtn")
+const fileInput=document.getElementById("fileInput")
 
-fileInput.addEventListener("change", () => {
-if(fileInput.files.length > 0){
-fileName.innerText = fileInput.files[0].name
-}else{
-fileName.innerText = "No file chosen"
-}
-})
+uploadBtn.addEventListener("click",()=>{
 
-uploadBtn.addEventListener("click", () => {
-
-const file = fileInput.files[0]
+const file=fileInput.files[0]
 
 if(!file){
 alert("Please choose a document first")
 return
 }
 
-const reader = new FileReader()
+const reader=new FileReader()
 
-reader.onload = function(e){
+reader.onload=function(e){
 
-let text = e.target.result || ""
-let words = text.trim().split(/\s+/).filter(Boolean).length
+let text=e.target.result||""
 
-if(words < 100){
-words = 100
+let words=text.trim().split(/\s+/).filter(Boolean).length
+
+if(words<100){
+words=100
 }
 
-currentWords = words
+currentWords=words
 
-standardPrice = (words * 0.025).toFixed(2)
-expressPrice = (words * 0.05).toFixed(2)
+standardPrice=(words*0.025).toFixed(2)
+expressPrice=(words*0.05).toFixed(2)
 
-document.querySelector(".word-count").innerText = "WORDS: " + words
-document.querySelector(".standard .quote-price").innerText = "STANDARD $" + standardPrice
-document.querySelector(".express .quote-price").innerText = "EXPRESS $" + expressPrice
+document.querySelector(".word-count").innerText=
+"WORDS: "+words
 
-document.getElementById("standardDelivery").innerText = "Delivery: 1 to 3 hrs"
-document.getElementById("expressDelivery").innerText = "Delivery: 30 to 60 mins"
+document.querySelector(".standard .quote-price").innerText=
+"STANDARD $"+standardPrice
+
+document.querySelector(".express .quote-price").innerText=
+"EXPRESS $"+expressPrice
+
+document.getElementById("standardDelivery").innerText =
+"Delivery: 1 – 3 hrs"
+
+document.getElementById("expressDelivery").innerText =
+"Delivery: 30 – 60 mins"
 
 }
 
@@ -551,28 +488,31 @@ reader.readAsText(file)
 
 })
 
+
 function goToStripe(type){
 
-if(currentWords === 0){
+if(currentWords===0){
 alert("Please upload a document first")
 return
 }
 
 let price = type === "standard" ? standardPrice : expressPrice
-let language = document.getElementById("languageSelect").value
-let email = document.getElementById("emailInput").value
 
-let url = "/translation/payment.html?plan=" + type +
-"&words=" + currentWords +
-"&price=" + price +
-"&language=" + language +
-"&email=" + email
+let language=document.getElementById("languageSelect").value
+let email=document.getElementById("emailInput").value
 
-window.location.href = url
+let url="/translation/payment.html?plan="+type+
+"&words="+currentWords+
+"&price="+price+
+"&language="+language+
+"&email="+email
+
+window.location.href=url
 
 }
 
 </script>
+
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
@@ -606,33 +546,51 @@ name:file.name
 
 }
 
+</script>
+</body>
+</html>
+
+
+
+
+<script>
+
 async function createJob(){
 
-const wordCount = currentWords
-const email = document.getElementById("emailInput").value
+const wordCount=parseInt(
+document.getElementById("wordCount").innerText
+)
 
-if(!email){
-alert("Please enter customer email")
-return
-}
+const service=document.querySelector(
+"input[name=service]:checked"
+).value
 
-const res = await fetch("/api/createTranslationJob",{
+const email=document.getElementById("clientEmail").value
+
+const res=await fetch("/api/createTranslationJob",{
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify({
+
 clientEmail:email,
-wordCount:wordCount
-})
+wordCount:wordCount,
+service:service
+
 })
 
-const data = await res.json()
-alert("Translation job created. Job ID: " + data.jobId)
+})
+
+const data=await res.json()
+
+alert("Translation job created. Job ID: "+data.jobId)
 
 }
 
 </script>
 
-</body>
-</html>
+

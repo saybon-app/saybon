@@ -1,4 +1,4 @@
-﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -33,10 +33,9 @@ export async function adminLogin() {
       return;
     }
 
-    window.location.href = "/admin/passkey/";
+    window.location.href = "/features/admin/";
   } catch (err) {
     console.error(err);
     alert("Admin login failed.");
   }
 }
-

@@ -1,17 +1,17 @@
 
 function getTimelineStandard(words){
 
-if(words<=300)return "1 ï¿½ 3 hours";
+if(words<=300)return "1 – 3 hours";
 
-if(words<=1000)return "3 ï¿½ 6 hours";
+if(words<=1000)return "3 – 6 hours";
 
-if(words<=3000)return "6 ï¿½ 12 hours";
+if(words<=3000)return "6 – 12 hours";
 
-if(words<=6000)return "12 ï¿½ 24 hours";
+if(words<=6000)return "12 – 24 hours";
 
-if(words<=10000)return "24 ï¿½ 48 hours";
+if(words<=10000)return "24 – 48 hours";
 
-if(words<=20000)return "2 ï¿½ 4 days";
+if(words<=20000)return "2 – 4 days";
 
 return "Custom";
 
@@ -21,17 +21,17 @@ return "Custom";
 
 function getTimelineExpress(words){
 
-if(words<=300)return "30 ï¿½ 60 minutes";
+if(words<=300)return "30 – 60 minutes";
 
-if(words<=1000)return "1 ï¿½ 3 hours";
+if(words<=1000)return "1 – 3 hours";
 
-if(words<=3000)return "3 ï¿½ 6 hours";
+if(words<=3000)return "3 – 6 hours";
 
-if(words<=6000)return "6 ï¿½ 12 hours";
+if(words<=6000)return "6 – 12 hours";
 
-if(words<=10000)return "12 ï¿½ 24 hours";
+if(words<=10000)return "12 – 24 hours";
 
-if(words<=20000)return "24 ï¿½ 48 hours";
+if(words<=20000)return "24 – 48 hours";
 
 return "Custom";
 
@@ -81,7 +81,7 @@ document.getElementById("quoteArea").innerHTML=
 onclick="goPay('standard',,'',)">
 
 
-Standard ï¿½ public\css\request.css{standardPrice}
+Standard — public\css\request.css{standardPrice}
 
 <br>
 
@@ -95,7 +95,7 @@ Standard ï¿½ public\css\request.css{standardPrice}
 
 onclick="goPay('express',,'',)">
 
-Express ï¿½ public\css\request.css{expressPrice}
+Express — public\css\request.css{expressPrice}
 
 <br>
 
@@ -136,3 +136,4 @@ type=
 
 
 }
+

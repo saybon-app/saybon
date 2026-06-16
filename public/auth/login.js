@@ -1,4 +1,4 @@
-﻿import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -19,13 +19,14 @@ const provider = new GoogleAuthProvider();
 document.getElementById("loginBtn").addEventListener("click", async () => {
   try {
     await signInWithPopup(auth, provider);
+
+    // 🔒 LOCKED BEHAVIOR:
+    // Always → loader → dashboard
     sessionStorage.setItem("saybon_next", "/dashboard/");
     window.location.href = "/loader.html";
+
   } catch (err) {
     alert("Login cancelled or failed.");
   }
 });
 
-document.getElementById("backBtn").addEventListener("click", () => {
-  window.location.href = "/";
-});

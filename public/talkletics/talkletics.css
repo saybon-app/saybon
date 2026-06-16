@@ -1,240 +1,28 @@
-﻿*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.games-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
 }
 
-html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
+.game-tile {
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s ease;
 }
 
-body{
-    position:relative;
+/* CONSOLE-STYLE LOOK */
+.console {
+  background: linear-gradient(135deg, #1b2838, #0f172a);
+  color: #6fe7ff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  border: 2px solid rgba(111, 231, 255, 0.4);
 }
 
-.background{
-    position:absolute;
-    inset:0;
-    background:url("/assets/talkletics/landing.png?v=99") center center / cover no-repeat;
+.console:hover {
+  transform: translateY(-3px);
 }
-
-.logo-card{
-    position:absolute;
-    top:8px;
-    left:88%;
-    transform:translateX(-50%);
-    width:auto;
-    height:auto;
-
-    background:transparent;
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-
-    border:none;
-    border-radius:0;
-    box-shadow:none;
-    overflow:visible;
-
-    z-index:30;
-}
-
-.logo-card::before{
-    display:none;
-}
-
-#talkleticsLogo{
-    position:relative;
-
-    width:420px;
-    max-width:85%;
-    height:auto;
-
-    top:12px;
-
-    left:auto;
-    transform:none;
-
-    z-index:21;
-}
-
-.guide{
-    position:absolute;
-    right:260px;
-    bottom:18px;
-    height:430px;
-    width:auto;
-    z-index:20;
-    pointer-events:none;
-
-    transform-origin:center bottom;
-
-    animation:guideIdle 3s ease-in-out infinite;
-}
-
-@keyframes guideIdle{
-    0%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-18px);
-    }
-
-    100%{
-        transform:translateY(0px);
-    }
-}
-
-
-
-
-@media (max-width:768px){
-
-  .logo-card{
-    position:absolute;
-    top:8px;
-    left:88%;
-    transform:translateX(-50%);
-    width:auto;
-    height:auto;
-
-    background:transparent;
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-
-    border:none;
-    border-radius:0;
-    box-shadow:none;
-    overflow:visible;
-
-    z-index:30;
-}
-
-  #talkleticsLogo{
-    width:78% !important;
-    max-width:none !important;
-    height:auto !important;
-  }
-
-  .guide{
-    right:auto !important;
-    left:50% !important;
-    transform:translateX(-50%) !important;
-    height:320px !important;
-    width:auto !important;
-    bottom:30px !important;
-  }
-
-  .background{
-    background-position:52% top !important;
-  }
-
-}
-
-.guide-container{
-    position:absolute;
-    right:260px;
-    bottom:18px;
-
-    width:300px;
-    height:430px;
-
-    z-index:20;
-}
-
-.guide-layer{
-    position:absolute;
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-    pointer-events:none;
-}
-
-.blink,
-.wave,
-.wink,
-.salute{
-    opacity:0;
-}
-
-
-/* =====================================
-   GUIDE STACK
-===================================== */
-
-#guideStack{
-    position:absolute;
-    right:260px;
-    bottom:18px;
-
-    height:430px;
-    width:320px;
-
-    z-index:20;
-
-    animation:breathe 4s ease-in-out infinite;
-}
-
-.guide-layer{
-    position:absolute;
-    inset:0;
-
-    height:430px;
-    width:auto;
-
-    opacity:0;
-
-    transition:opacity .9s cubic-bezier(.22,.61,.36,1);
-
-    pointer-events:none;
-}
-
-.guide-layer.active{
-    opacity:1;
-}
-
-@keyframes breathe{
-
-    0%{
-        transform:translateY(0px) scale(1);
-    }
-
-    50%{ transform:translateY(-4px) scale(1.01); }
-
-    100%{
-        transform:translateY(0px) scale(1);
-    }
-}
-
-@media (max-width:768px){
-
-    #guideStack{
-        right:-20px;
-        bottom:10px;
-
-        width:230px;
-        height:310px;
-    }
-
-    .guide-layer{
-        height:310px;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
