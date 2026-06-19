@@ -1,63 +1,110 @@
-const teacher = document.getElementById("teacher");
+﻿const teacher = document.getElementById("teacher");
 const audio = document.getElementById("introAudio");
 const overlay = document.getElementById("offerOverlay");
-const pills = document.querySelectorAll(".pill");
+
+const pill1 = document.getElementById("pill1");
+const pill2 = document.getElementById("pill2");
+const pill3 = document.getElementById("pill3");
+const pill4 = document.getElementById("pill4");
 
 let started = false;
 
 /* =====================================================
-   TEACHER TAP — 25s CINEMATIC FLOW + CARPET EXIT
+   TEACHER TAP — CINEMATIC PNG OVERLAY
 ===================================================== */
 
 teacher.addEventListener("click", () => {
-  if (started) return;
-  started = true;
 
-  // HARD RESET
-  overlay.classList.remove("hidden", "active", "closing");
-  overlay.style.pointerEvents = "auto";
+    if (started) return;
+    started = true;
 
-  // Show blank overlay first
-  requestAnimationFrame(() => {
-    overlay.classList.add("active");
-  });
+    overlay.classList.remove(
+        "hidden",
+        "active",
+        "closing"
+    );
 
-  // Play audio
-  audio.currentTime = 0;
-  audio.play().catch(() => {
-    console.log("Autoplay blocked — user tap allows playback.");
-  });
+    [
+        pill1,
+        pill2,
+        pill3,
+        pill4
+    ].forEach(p => {
+        if (p) p.classList.remove("show");
+    });
 
-  // Start closing (carpet roll) at 21s
-  setTimeout(() => {
-    overlay.classList.add("closing");
-  }, 21000);
+    requestAnimationFrame(() => {
+        overlay.classList.add("active");
+    });
 
-  // Fully remove overlay at 25s
-  setTimeout(() => {
-    overlay.classList.remove("active", "closing");
-    overlay.classList.add("hidden");
-    overlay.style.pointerEvents = "none";
-    started = false;
-  }, 25000);
+    audio.currentTime = 0;
+
+    audio.play().catch(() => {});
+
+    /* staggered pill reveal */
+
+    setTimeout(() => {
+        pill1?.classList.add("show");
+    }, 3000);
+
+    setTimeout(() => {
+        pill2?.classList.add("show");
+    }, 6000);
+
+    setTimeout(() => {
+        pill3?.classList.add("show");
+    }, 9000);
+
+    setTimeout(() => {
+        pill4?.classList.add("show");
+    }, 12000);
+
+    /* smooth outro */
+
+    setTimeout(() => {
+        overlay.classList.add("closing");
+    }, 20000);
+
+    setTimeout(() => {
+
+        overlay.classList.remove(
+            "active",
+            "closing"
+        );
+
+        overlay.classList.add("hidden");
+
+        [
+            pill1,
+            pill2,
+            pill3,
+            pill4
+        ].forEach(p => {
+            if (p) p.classList.remove("show");
+        });
+
+        started = false;
+
+    }, 25000);
+
 });
 
 /* =====================================================
-   BUTTONS — NAVIGATION (UNCHANGED LOGIC)
+   BUTTONS
 ===================================================== */
 
 document.getElementById("startBtn").onclick = (e) => {
-  e.stopPropagation();
-  sessionStorage.setItem("saybon_next", "/why.html");
-  window.location.href = "/loader.html";
+    e.stopPropagation();
+    sessionStorage.setItem("saybon_next", "/why.html");
+    window.location.href = "/loader.html";
 };
 
 document.getElementById("loginBtn").onclick = (e) => {
-  e.stopPropagation();
-  window.location.href = "/auth/login.html";
+    e.stopPropagation();
+    window.location.href = "/auth/login.html";
 };
 
 document.getElementById("settingsBtn").onclick = (e) => {
-  e.stopPropagation();
-  window.location.href = "/admin";
+    e.stopPropagation();
+    window.location.href = "/admin/passkey/";
 };
