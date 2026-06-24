@@ -73,45 +73,45 @@ teacher.addEventListener("click", () => {
 
   schedule(() => {
     pill1.classList.add("show");
-  }, 5200);
+  }, 2200);
 
   schedule(() => {
     pill2.classList.add("show");
-  }, 9200);
+  }, 5600);
 
   schedule(() => {
     pill3.classList.add("show");
-  }, 13200);
+  }, 9000);
 
   schedule(() => {
     pill4.classList.add("show");
-  }, 17200);
+  }, 12400);
 
   schedule(() => {
     pill4.classList.add("exit");
-  }, 24800);
+  }, 19600);
 
   schedule(() => {
     pill3.classList.add("exit");
-  }, 25800);
+  }, 20400);
 
   schedule(() => {
     pill2.classList.add("exit");
-  }, 26800);
+  }, 21200);
 
   schedule(() => {
     pill1.classList.add("exit");
-  }, 27800);
+  }, 22000);
 
   schedule(() => {
     document.body.classList.remove("intervention-running");
     document.body.classList.add("intervention-closing");
     overlay.classList.add("closing");
-  }, 28750);
+  }, 22900);
 
   schedule(() => {
     finishIntervention();
-  }, 32000);
+  }, 27000);
 });
 
 document.getElementById("startBtn").onclick = (e) => {

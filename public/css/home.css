@@ -269,7 +269,7 @@ body.intervention-closing .settings-image-btn{
   left:50%;
   top:88%;
   transform:translate(-50%, 0);
-  width:min(51vw,520px);
+  width:min(24vw,250px);
   opacity:0;
   will-change:top, transform, opacity, filter;
   transition:
@@ -333,10 +333,7 @@ body.intervention-closing .settings-image-btn{
    MOBILE
 ========================================================= */
 
-@media (max-width:900px){
-
-  body{
-    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed;
+@media (max-width:74vw;
   }
 
   .background-layer img{
@@ -344,7 +341,7 @@ body.intervention-closing .settings-image-btn{
   }
 
   .teacher-hitbox{
-    width:100vw;
+    width:74vw;
     left:50%;
     top:8%;
     transform:translateX(-50%);
@@ -355,14 +352,14 @@ body.intervention-closing .settings-image-btn{
   }
 
   .tap-icon{
-    width:54px;
+    width:74vw;
     left:50%;
     top:55%;
     transform:translateX(-50%);
   }
 
   .saybon-logo{
-    width:145px;
+    width:74vw;
     left:50%;
     top:60%;
     right:auto;
@@ -370,21 +367,21 @@ body.intervention-closing .settings-image-btn{
   }
 
   .start-btn{
-    width:255px;
+    width:74vw;
     top:72%;
     left:50%;
     transform:translateX(-50%);
   }
 
   .login-btn{
-    width:255px;
+    width:74vw;
     top:81%;
     left:50%;
     transform:translateX(-50%);
   }
 
   .settings-image-btn{
-    width:42px;
+    width:74vw;
     right:2%;
     bottom:1.5%;
   }
@@ -395,26 +392,26 @@ body.intervention-closing .settings-image-btn{
   }
 
   .overlay-pill.slot-1.show{
-    top:36%;
+  top:34%;
   }
 
   .overlay-pill.slot-2.show{
-    top:49%;
+  top:47%;
   }
 
   .overlay-pill.slot-3.show{
-    top:62%;
+  top:60%;
   }
 
   .overlay-pill.slot-4.show{
-    top:75%;
+  top:73%;
   }
 }
 
 @media (min-width:901px){
 
   .teacher-hitbox{
-    width:min(36vw,580px);
+    width:min(24vw,250px);
   }
 
   .saybon-logo{
