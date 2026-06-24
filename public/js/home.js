@@ -12,120 +12,66 @@ const loginBtn = document.getElementById("loginBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
 let started = false;
+let timers = [];
+
+function clearAllTimers() {
+  timers.forEach((id) => clearTimeout(id));
+  timers = [];
+}
+
+function schedule(fn, delay) {
+  const id = setTimeout(fn, delay);
+  timers.push(id);
+  return id;
+}
 
 function resetPills() {
   [pill1, pill2, pill3, pill4].forEach((pill) => {
     if (!pill) return;
-    pill.classList.remove(
-      "show",
-      "slot-1",
-      "slot-2",
-      "slot-3",
-      "slot-4",
-      "exit"
-    );
+    pill.classList.remove("show", "slot-1", "slot-2", "slot-3", "slot-4", "exit");
   });
+
+  pill1?.classList.add("slot-1");
+  pill2?.classList.add("slot-2");
+  pill3?.classList.add("slot-3");
+  pill4?.classList.add("slot-4");
 }
 
 teacher?.addEventListener("click", () => {
   if (started) return;
   started = true;
 
+  clearAllTimers();
   resetPills();
 
-  overlay.classList.remove("hidden", "active", "closing");
+  overlay.classList.remove("hidden", "closing");
+  overlay.classList.add("active");
   overlay.style.pointerEvents = "auto";
 
-  requestAnimationFrame(() => {
-    overlay.classList.add("active");
-  });
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
 
-  audio.currentTime = 0;
-  audio.play().catch(() => {});
+  schedule(() => pill1?.classList.add("show"), 2000);
+  schedule(() => pill2?.classList.add("show"), 5000);
+  schedule(() => pill3?.classList.add("show"), 8000);
+  schedule(() => pill4?.classList.add("show"), 11000);
 
-  /* ---------------------------------------------------
-     TIMING PLAN
-     0s    overlay starts appearing
-     0-2s  overlay sharpens
-     2s    pill 1 appears at bottom
-     4s    pill 1 climbs to slot 1
-     5s    pill 2 appears at bottom
-     7s    pill 2 climbs to slot 2
-     8s    pill 3 appears at bottom
-     10s   pill 3 climbs to slot 3
-     11s   pill 4 appears at bottom
-     13s   pill 4 climbs to slot 4
-     18s   exit pill 4
-     19s   exit pill 3
-     20s   exit pill 2
-     21s   exit pill 1
-     22s   overlay closing starts
-     25s   overlay removed
-  --------------------------------------------------- */
+  schedule(() => pill4?.classList.add("exit"), 18000);
+  schedule(() => pill3?.classList.add("exit"), 19000);
+  schedule(() => pill2?.classList.add("exit"), 20000);
+  schedule(() => pill1?.classList.add("exit"), 21000);
 
-  // PILL 1
-  setTimeout(() => {
-    pill1.classList.add("show");
-  }, 2000);
-
-  setTimeout(() => {
-    pill1.classList.add("slot-1");
-  }, 4000);
-
-  // PILL 2
-  setTimeout(() => {
-    pill2.classList.add("show");
-  }, 5000);
-
-  setTimeout(() => {
-    pill2.classList.add("slot-2");
-  }, 7000);
-
-  // PILL 3
-  setTimeout(() => {
-    pill3.classList.add("show");
-  }, 8000);
-
-  setTimeout(() => {
-    pill3.classList.add("slot-3");
-  }, 10000);
-
-  // PILL 4
-  setTimeout(() => {
-    pill4.classList.add("show");
-  }, 11000);
-
-  setTimeout(() => {
-    pill4.classList.add("slot-4");
-  }, 13000);
-
-  // EXIT ONE BY ONE (bottom to top looks messy here;
-  // better to remove from bottom upward visually)
-  setTimeout(() => {
-    pill4.classList.add("exit");
-  }, 18000);
-
-  setTimeout(() => {
-    pill3.classList.add("exit");
-  }, 19000);
-
-  setTimeout(() => {
-    pill2.classList.add("exit");
-  }, 20000);
-
-  setTimeout(() => {
-    pill1.classList.add("exit");
-  }, 21000);
-
-  // overlay closes after pills start clearing
-  setTimeout(() => {
+  schedule(() => {
     overlay.classList.add("closing");
   }, 22000);
 
-  setTimeout(() => {
+  schedule(() => {
     overlay.classList.remove("active", "closing");
     overlay.classList.add("hidden");
     overlay.style.pointerEvents = "none";
+    clearAllTimers();
     resetPills();
     started = false;
   }, 25000);
