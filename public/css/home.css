@@ -285,22 +285,22 @@ body.intervention-closing .settings-image-btn{
 }
 
 .overlay-pill.slot-1.show{
-  top:27%;
+  top:34%;
   opacity:1;
 }
 
 .overlay-pill.slot-2.show{
-  top:41%;
+  top:47%;
   opacity:1;
 }
 
 .overlay-pill.slot-3.show{
-  top:55%;
+  top:60%;
   opacity:1;
 }
 
 .overlay-pill.slot-4.show{
-  top:69%;
+  top:73%;
   opacity:1;
 }
 
@@ -390,24 +390,24 @@ body.intervention-closing .settings-image-btn{
   }
 
   .overlay-pill{
-    width:88vw;
+    width:74vw;
     top:88%;
   }
 
   .overlay-pill.slot-1.show{
-    top:28%;
+    top:36%;
   }
 
   .overlay-pill.slot-2.show{
-    top:42%;
+    top:49%;
   }
 
   .overlay-pill.slot-3.show{
-    top:56%;
+    top:62%;
   }
 
   .overlay-pill.slot-4.show{
-    top:70%;
+    top:75%;
   }
 }
 
