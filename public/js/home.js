@@ -9,20 +9,12 @@ const pill4 = document.getElementById("pill4");
 
 let started = false;
 
-/* =====================================================
-   TEACHER TAP — CINEMATIC PNG OVERLAY
-===================================================== */
-
 teacher.addEventListener("click", () => {
 
     if (started) return;
     started = true;
 
-    overlay.classList.remove(
-        "hidden",
-        "active",
-        "closing"
-    );
+    overlay.classList.remove("hidden","active","closing");
 
     [
         pill1,
@@ -30,7 +22,7 @@ teacher.addEventListener("click", () => {
         pill3,
         pill4
     ].forEach(p => {
-        if (p) p.classList.remove("show");
+        p.classList.remove("show");
     });
 
     requestAnimationFrame(() => {
@@ -38,33 +30,34 @@ teacher.addEventListener("click", () => {
     });
 
     audio.currentTime = 0;
+    audio.play().catch(()=>{});
 
-    audio.play().catch(() => {});
-
-    /* staggered pill reveal */
-
+    /* 3s */
     setTimeout(() => {
-        pill1?.classList.add("show");
+        pill1.classList.add("show");
     }, 3000);
 
+    /* 6s */
     setTimeout(() => {
-        pill2?.classList.add("show");
+        pill2.classList.add("show");
     }, 6000);
 
+    /* 9s */
     setTimeout(() => {
-        pill3?.classList.add("show");
+        pill3.classList.add("show");
     }, 9000);
 
+    /* 12s */
     setTimeout(() => {
-        pill4?.classList.add("show");
+        pill4.classList.add("show");
     }, 12000);
 
-    /* smooth outro */
-
+    /* Outro begins */
     setTimeout(() => {
         overlay.classList.add("closing");
     }, 20000);
 
+    /* Hide */
     setTimeout(() => {
 
         overlay.classList.remove(
@@ -80,7 +73,7 @@ teacher.addEventListener("click", () => {
             pill3,
             pill4
         ].forEach(p => {
-            if (p) p.classList.remove("show");
+            p.classList.remove("show");
         });
 
         started = false;
@@ -88,10 +81,6 @@ teacher.addEventListener("click", () => {
     }, 25000);
 
 });
-
-/* =====================================================
-   BUTTONS
-===================================================== */
 
 document.getElementById("startBtn").onclick = (e) => {
     e.stopPropagation();

@@ -1,433 +1,1 @@
-﻿﻿*{  box-sizing:border-box;  margin:0;  padding:0;}html,body{  width:100%;  height:100%;  min-height:100vh;  overflow:hidden;  font-family:"Nunito",sans-serif;  background:#000;}body{  position:relative;  background:url('/assets/home/desktop-background.PNG')             center center / cover no-repeat fixed;}.home-shell{  position:relative;  width:100vw;  height:100vh;  overflow:hidden;}.background-layer{  position:absolute;  inset:0;  z-index:1;}.background-layer img{  width:100%;  height:100%;  object-fit:cover;  display:block;}.desktop-layout{  position:absolute;  inset:0;  z-index:5;}/* ==========================   TEACHER========================== */.teacher-hitbox{  position:absolute;  left:16%;  top:9%;  width:min(36vw,580px);  cursor:pointer;  z-index:20;}.teacher-img{  width:100%;  height:auto;  display:block;}.teacher-hitbox:hover{  transform:scale(1.02);}/* ==========================   TAP ICON========================== */.tap-icon{  position:absolute;  left:33%;  top:65%;  width:min(70px,5vw);  z-index:25;}/* ==========================   LOGO========================== */.saybon-logo{  position:absolute;  right:11%;  top:10%;  width:min(220px,15vw);  z-index:20;}/* ==========================   BUTTONS========================== */.image-btn{  background:none;  border:none;  padding:0;  cursor:pointer;  z-index:20;}.image-btn img{  display:block;  width:100%;  height:auto;}.start-btn{  position:absolute;  left:50%;  transform:translateX(-50%);  top:75%;  width:min(200px,35vw);}.login-btn{  position:absolute;  left:50%;  transform:translateX(-50%);  top:83%;  width:min(200px,26vw);}.settings-image-btn{  position:absolute;  right:2%;  bottom:2%;  width:min(65px,4.5vw);  background:none;  border:none;  cursor:pointer;  z-index:20;}.settings-image-btn img{  width:100%;  display:block;}/* =========================================   SAYBON PREMIUM OVERLAY========================================= */.overlay{    position:fixed;    inset:0;    background:        radial-gradient(            circle at center,            rgba(0,120,160,.18) 0%,            rgba(0,40,70,.35) 35%,            rgba(0,8,18,.92) 100%        );    backdrop-filter:blur(14px);    display:flex;    align-items:center;    justify-content:center;    opacity:0;    pointer-events:none;    transition:opacity 3s ease;    z-index:999;}.overlay.active{    opacity:1;    pointer-events:auto;}.overlay.hidden{    display:none;}.overlay.closing{    opacity:0;    transition:opacity 4s ease;}/* =========================================   CONTENT========================================= */.overlay-content{    width:min(92vw,760px);    text-align:center;}/* logo */.overlay-logo{    width:220px;    display:block;    margin:0 auto 22px;}/* heading */.offer-title{    color:#ffffff;    font-size:56px;    font-weight:700;    line-height:1.1;    white-space:nowrap;    margin-bottom:20px;}.offer-title span{    color:#D7B56D;}/* dots */.offer-dots{    display:flex;    justify-content:center;    gap:22px;    margin-bottom:34px;}.offer-dots span{    width:12px;    height:12px;    border-radius:50%;    background:#D7B56D;}/* =========================================   PILLS========================================= */.pill-list{    display:flex;    flex-direction:column;    gap:12px;}.pill{    width:min(88vw,620px);    margin:0 auto;    padding:28px 24px;    border-radius:32px;    background:        linear-gradient(            180deg,            rgba(20,45,65,.96),            rgba(8,22,34,.96)        );    border:2px solid rgba(255,255,255,.15);    backdrop-filter:blur(12px);    box-shadow:        inset 0 0 20px rgba(255,255,255,.06),        0 0 30px rgba(255,255,255,.08);    color:#ffffff;    font-size:20px;    font-weight:500;    text-align:center;    opacity:0;    transform:translateY(30px);}/* staggered reveal */.overlay.active .pill{    animation:pillReveal .8s ease forwards;}.overlay.active .pill:nth-child(1){    animation-delay:.25s;}.overlay.active .pill:nth-child(2){    animation-delay:.55s;}.overlay.active .pill:nth-child(3){    animation-delay:.85s;}.overlay.active .pill:nth-child(4){    animation-delay:1.15s;}@keyframes pillReveal{    from{        opacity:0;        transform:translateY(30px);    }    to{        opacity:1;        transform:none;    }}/* =========================================   MOBILE========================================= */@media (max-width:900px){    .overlay-logo{        width:180px;        margin-bottom:18px;    }    .offer-title{        font-size:32px;        white-space:nowrap;        margin-bottom:16px;    }    .offer-dots{        margin-bottom:26px;    }    .pill{        width:88vw;        padding:24px 18px;        font-size:18px;        border-radius:28px;    }}/* ==========================   MOBILE========================== */@media (max-width:900px){  .background-layer img{    content:url("../assets/home/mobile-background.PNG");  }  /* Teacher bigger + lower */  .teacher-hitbox{    width:97vw;    left:50%;    top:14%;    transform:translateX(-50%);  }  /* Tap raised */  .tap-icon{    width:55px;    left:52%;    top:58%;    transform:translateX(-50%);  }  /* Logo smaller + higher */  .saybon-logo{    width:150px;    left:50%;    top:55%;    transform:translateX(-50%);  }  /* Buttons directly under logo */  .start-btn{    width:200px;    top:70%;  }  .login-btn{    width:200px;    top:76%;  }  .settings-image-btn{    width:50px;    right:5%;    bottom:5%;  }  body{    background:url('/assets/home/mobile-background.PNG')               center top / cover no-repeat fixed;  }}n e ;       t r a n s i t i o n : o p a c i t y   3 s   e a s e ;       z - i n d e x : 9 9 9 ;   }     . o v e r l a y . a c t i v e {       o p a c i t y : 1 ;       p o i n t e r - e v e n t s : a u t o ;   }     . o v e r l a y . h i d d e n {       d i s p l a y : n o n e ;   }     . o v e r l a y   h 2 {       c o l o r : # f f f ;       f o n t - s i z e : 3 2 p x ;       m a r g i n - b o t t o m : 2 8 p x ;   }     . p i l l - l i s t {       d i s p l a y : f l e x ;       f l e x - d i r e c t i o n : c o l u m n ;       g a p : 1 4 p x ;       w i d t h : m i n ( 9 0 v w , 5 4 0 p x ) ;   }     . p i l l {       b a c k g r o u n d : r g b a ( 2 5 5 , 2 5 5 , 2 5 5 , . 1 5 ) ;       b a c k d r o p - f i l t e r : b l u r ( 1 0 p x ) ;       b o r d e r - r a d i u s : 9 9 9 p x ;       p a d d i n g : 1 4 p x   2 2 p x ;       c o l o r : # f f f ;       t e x t - a l i g n : c e n t e r ;   }     . o v e r l a y . c l o s i n g {       o p a c i t y : 0 ;       t r a n s i t i o n : o p a c i t y   4 s   e a s e ;   }     / *   = = = = = = = = = = = = = = = = = = = = = = = = = =         M O B I L E   = = = = = = = = = = = = = = = = = = = = = = = = = =   * /     @ m e d i a   ( m a x - w i d t h : 9 0 0 p x ) {         . b a c k g r o u n d - l a y e r   i m g {           c o n t e n t : u r l ( " . . / a s s e t s / h o m e / m o b i l e - b a c k g r o u n d . P N G " ) ;       }         . t e a c h e r - h i t b o x {           w i d t h : 8 4 v w ;           l e f t : 5 0 % ;           t o p : 8 % ;           t r a n s f o r m : t r a n s l a t e X ( - 5 0 % ) ;       }         . t a p - i c o n {           w i d t h : 6 0 p x ;           l e f t : 5 0 % ;           t o p : 5 8 % ;           t r a n s f o r m : t r a n s l a t e X ( - 5 0 % ) ;       }         . s a y b o n - l o g o {           w i d t h : 1 7 0 p x ;           l e f t : 5 0 % ;           t o p : 6 4 % ;           t r a n s f o r m : t r a n s l a t e X ( - 5 0 % ) ;       }         . s t a r t - b t n {           w i d t h : 3 0 0 p x ;           t o p : 7 4 % ;       }         . l o g i n - b t n {           w i d t h : 3 0 0 p x ;           t o p : 8 4 % ;       }         . s e t t i n g s - i m a g e - b t n {           w i d t h : 4 2 p x ;           r i g h t : 3 % ;           b o t t o m : 3 % ;       }         b o d y {           b a c k g r o u n d : u r l ( ' / a s s e t s / h o m e / m o b i l e - b a c k g r o u n d . P N G ' )                                 c e n t e r   t o p   /   c o v e r   n o - r e p e a t   f i x e d ;       }     }   
-/* =========================================
-   SAYBON OVERLAY FINAL
-========================================= */
-
-.overlay-content{
-    width:min(92vw,760px);
-    text-align:center;
-}
-
-.overlay-logo{
-    width:220px;
-    display:block;
-    margin:0 auto 28px;
-}
-
-.offer-title{
-    font-size:56px;
-    font-weight:800;
-    color:#ffffff;
-    line-height:1.15;
-    white-space:nowrap;
-    margin-bottom:18px;
-}
-
-.offer-title span{
-    color:#D7B56D;
-}
-
-.offer-dots{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    margin-bottom:38px;
-}
-
-.offer-dots span{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#D7B56D;
-}
-
-.offer-cards{
-    display:flex;
-    flex-direction:column;
-    gap:22px;
-}
-
-.offer-card{
-    width:min(88vw,640px);
-    margin:0 auto;
-    padding:26px 30px;
-    border-radius:32px;
-    color:#ffffff;
-    font-size:22px;
-    font-weight:500;
-    text-align:center;
-
-    background:
-    linear-gradient(
-        180deg,
-        rgba(22,44,64,.92),
-        rgba(8,22,34,.92)
-    );
-
-    border:1px solid rgba(255,255,255,.18);
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.25),
-        0 0 30px rgba(255,255,255,.06);
-
-    opacity:0;
-    transform:translateY(24px);
-}
-
-.overlay.active .offer-card{
-    animation:cardReveal .8s ease forwards;
-}
-
-.overlay.active .offer-card:nth-child(1){
-    animation-delay:.25s;
-}
-
-.overlay.active .offer-card:nth-child(2){
-    animation-delay:.55s;
-}
-
-.overlay.active .offer-card:nth-child(3){
-    animation-delay:.85s;
-}
-
-.overlay.active .offer-card:nth-child(4){
-    animation-delay:1.15s;
-}
-
-@keyframes cardReveal{
-    from{
-        opacity:0;
-        transform:translateY(24px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-@media (max-width:900px){
-
-    .overlay-logo{
-        width:180px;
-    }
-
-    .offer-title{
-        font-size:32px;
-        white-space:nowrap;
-    }
-
-    .offer-card{
-        width:88vw;
-        font-size:18px;
-        padding:22px;
-    }
-}
-
-/* =========================================
-   SAYBON OVERLAY CINEMATIC UPGRADE
-========================================= */
-
-.overlay{
-
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(18,74,98,.72) 0%,
-        rgba(5,16,28,.95) 68%,
-        rgba(0,0,0,.98) 100%
-    );
-
-    backdrop-filter:blur(10px);
-}
-
-.offer-title{
-
-    font-size:54px;
-    font-weight:800;
-    color:#ffffff;
-
-    line-height:1.1;
-
-    white-space:nowrap;
-
-    text-shadow:
-    0 0 18px rgba(255,255,255,.12);
-}
-
-.offer-title span{
-
-    background:linear-gradient(
-        180deg,
-        #F1DEB0 0%,
-        #E8C97A 35%,
-        #D7B773 65%,
-        #B98F46 100%
-    );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.offer-dots{
-    gap:12px;
-}
-
-.offer-dots span{
-
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:#E8C97A;
-
-    box-shadow:
-    0 0 14px rgba(232,201,122,.65);
-}
-
-.offer-card{
-
-    background:
-    linear-gradient(
-        180deg,
-        rgba(40,68,98,.95) 0%,
-        rgba(15,31,49,.98) 100%
-    );
-
-    border:1px solid rgba(255,255,255,.22);
-
-    backdrop-filter:blur(16px);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.30),
-        inset 0 -12px 28px rgba(0,0,0,.25),
-        0 10px 30px rgba(0,0,0,.35),
-        0 0 22px rgba(255,255,255,.05);
-
-    color:#ffffff;
-
-    font-size:22px;
-
-    opacity:0;
-    transform:translateY(28px);
-}
-
-.overlay.active .offer-card{
-    animation:cardReveal 1s ease forwards;
-}
-
-.overlay.active .offer-card:nth-child(1){
-    animation-delay:3s;
-}
-
-.overlay.active .offer-card:nth-child(2){
-    animation-delay:6s;
-}
-
-.overlay.active .offer-card:nth-child(3){
-    animation-delay:9s;
-}
-
-.overlay.active .offer-card:nth-child(4){
-    animation-delay:12s;
-}
-
-@media (max-width:900px){
-
-    .offer-title{
-        font-size:32px;
-        white-space:nowrap;
-    }
-
-    .offer-card{
-        font-size:18px;
-    }
-}
-
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.90);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:opacity 1.5s ease;
-
-    z-index:999;
-}
-
-.overlay.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.overlay.hidden{
-    display:none;
-}
-
-.overlay-art{
-    width:100%;
-    height:100%;
-}
-
-.overlay-art img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-/* =====================================
-   OVERLAY ARTWORK
-===================================== */
-
-.overlay{
-    position:fixed;
-    inset:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:opacity 1.2s ease;
-
-    z-index:999;
-}
-
-.overlay.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.overlay.hidden{
-    display:none;
-}
-
-.overlay-art{
-    position:absolute;
-    inset:0;
-}
-
-.overlay-art img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-
-    filter:blur(18px);
-    opacity:.82;
-    transform:scale(1.03);
-
-    transition:
-        filter 1.2s ease,
-        opacity 1.2s ease,
-        transform 1.2s ease;
-}
-
-.overlay.active .overlay-art img{
-    filter:blur(0);
-    opacity:1;
-    transform:scale(1);
-}
-
-/* =====================================
-   PILLS
-===================================== */
-
-.overlay-pills{
-
-    position:absolute;
-
-    left:50%;
-    top:58%;
-
-    transform:translateX(-50%);
-
-    width:min(88vw,860px);
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:12px;
-}
-
-.overlay-pill{
-
-    width:min(72vw,620px);
-
-    opacity:0;
-
-    transform:translateY(12px);
-
-    transition:
-        opacity 1.4s ease,
-        transform 1.4s ease;
-}
-
-.overlay-pill.show{
-
-    opacity:1;
-
-    transform:translateY(0);
-}
-
-.overlay-pill img{
-    width:100%;
-    display:block;
-}
-
-/* =====================================
-   OUTRO
-===================================== */
-
-.overlay.closing{
-
-    opacity:0;
-
-    transition:opacity 5s ease;
-}
-
-.overlay.closing .overlay-art img{
-
-    filter:blur(14px);
-
-    opacity:.75;
-
-    transform:scale(1.02);
-
-    transition:
-        filter 5s ease,
-        opacity 5s ease,
-        transform 5s ease;
-}
-
-/* MOBILE */
-
-@media (max-width:900px){
-
-    .overlay-pills{
-
-        top:58%;
-
-        width:92vw;
-
-        gap:12px;
-    }
-
-    .overlay-pill{
-        width:88vw;
-    }
-}
-
+﻿*{  box-sizing:border-box;  margin:0;  padding:0;}html,body{  width:100%;  height:100%;  min-height:100vh;  overflow:hidden;  font-family:"Nunito",sans-serif;  background:#000;}body{  position:relative;  background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;}.home-shell{  position:relative;  width:100vw;  height:100vh;  overflow:hidden;}.background-layer{  position:absolute;  inset:0;  z-index:1;}.background-layer img{  width:100%;  height:100%;  object-fit:cover;  display:block;}.desktop-layout{  position:absolute;  inset:0;  z-index:5;}/* ==========================   TEACHER========================== */.teacher-hitbox{  position:absolute;  left:16%;  top:9%;  width:min(36vw,580px);  cursor:pointer;  z-index:20;}.teacher-img{  width:100%;  height:auto;  display:block;}.teacher-hitbox:hover{  transform:scale(1.02);}/* ==========================   TAP ICON========================== */.tap-icon{  position:absolute;  left:33%;  top:65%;  width:min(70px,5vw);  z-index:25;}/* ==========================   LOGO========================== */.saybon-logo{  position:absolute;  right:11%;  top:10%;  width:min(220px,15vw);  z-index:20;}/* ==========================   BUTTONS========================== */.image-btn{  position:absolute;  background:none;  border:none;  padding:0;  cursor:pointer;  z-index:20;}.image-btn img{  display:block;  width:100%;  height:auto;}.start-btn{  left:50%;  transform:translateX(-50%);  top:75%;  width:min(200px,35vw);}.login-btn{  left:50%;  transform:translateX(-50%);  top:83%;  width:min(200px,26vw);}.settings-image-btn{  position:absolute;  right:2%;  bottom:2%;  width:min(65px,4.5vw);  background:none;  border:none;  cursor:pointer;  z-index:20;}.settings-image-btn img{  width:100%;  display:block;}/* =========================================   SAYBON OFFER OVERLAY========================================= */.overlay{  position:fixed;  inset:0;  z-index:999;  opacity:0;  pointer-events:none;  transition:opacity 1.2s ease;}.overlay.hidden{  display:none;}.overlay.active{  opacity:1;  pointer-events:auto;}/* artwork background */.overlay-art{  position:absolute;  inset:0;  z-index:1;}.overlay-art img{  width:100%;  height:100%;  object-fit:cover;  display:block;  /* intro starts blurry */  filter:blur(18px);  opacity:.84;  transform:scale(1.02);  transition:    filter 1.8s ease,    opacity 1.8s ease,    transform 1.8s ease;}.overlay.active .overlay-art img{  filter:blur(0);  opacity:1;  transform:scale(1);}/* stage that all pills animate inside */.overlay-stage{  position:absolute;  inset:0;  z-index:3;  pointer-events:none;}/* =========================================================   PILLS   IMPORTANT:   - Each pill is absolutely positioned   - Starts from the same launch point near the bottom   - When .show is added it moves to its own parked slot========================================================= */.overlay-pill{  position:absolute;  left:50%;  /* same launch point for every pill */  top:78%;  transform:translate(-50%, 0);  width:min(72vw,620px);  opacity:0;  will-change:transform, opacity;  transition:    top 1.65s cubic-bezier(.22,.82,.18,1),    opacity .55s ease,    transform 1.65s cubic-bezier(.22,.82,.18,1);}.overlay-pill img{  width:100%;  display:block;}/* final parked positions */.overlay-pill.slot-1.show{  top:44%;  opacity:1;}.overlay-pill.slot-2.show{  top:56%;  opacity:1;}.overlay-pill.slot-3.show{  top:68%;  opacity:1;}.overlay-pill.slot-4.show{  top:80%;  opacity:1;}/* smooth overlay outro */.overlay.closing{  opacity:0;  transition:opacity 4.8s ease;}.overlay.closing .overlay-art img{  filter:blur(12px);  opacity:.76;  transform:scale(1.015);  transition:    filter 4.8s ease,    opacity 4.8s ease,    transform 4.8s ease;}/* =========================================================   MOBILE========================================================= */@media (max-width:900px){  body{    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed;  }  .background-layer img{    content:url("../assets/home/mobile-background.PNG");  }  /* Teacher bigger + lower */  .teacher-hitbox{    width:97vw;    left:50%;    top:14%;    transform:translateX(-50%);  }  /* Tap raised */  .tap-icon{    width:55px;    left:52%;    top:58%;    transform:translateX(-50%);  }  /* Logo smaller + higher */  .saybon-logo{    width:150px;    left:50%;    top:55%;    transform:translateX(-50%);  }  /* Buttons directly under logo */  .start-btn{    width:200px;    top:70%;  }  .login-btn{    width:200px;    top:76%;  }  .settings-image-btn{    width:50px;    right:5%;    bottom:5%;  }  /* mobile pills */  .overlay-pill{    width:88vw;    top:80%;  }  .overlay-pill.slot-1.show{    top:42%;  }  .overlay-pill.slot-2.show{    top:54%;  }  .overlay-pill.slot-3.show{    top:66%;  }  .overlay-pill.slot-4.show{    top:78%;  }}
