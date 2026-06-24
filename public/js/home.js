@@ -7,125 +7,93 @@ const pill2 = document.getElementById("pill2");
 const pill3 = document.getElementById("pill3");
 const pill4 = document.getElementById("pill4");
 
-const pills = [pill1, pill2, pill3, pill4];
-
 let started = false;
-let timers = [];
-
-function clearAllTimers(){
-  timers.forEach(t => clearTimeout(t));
-  timers = [];
-}
-
-function schedule(fn, ms){
-  const id = setTimeout(fn, ms);
-  timers.push(id);
-  return id;
-}
-
-function resetPills(){
-  pills.forEach(pill => {
-    pill.classList.remove("show", "exit");
-  });
-}
-
-function resetOverlay(){
-  overlay.classList.remove("active", "closing");
-  overlay.classList.add("hidden");
-  overlay.setAttribute("aria-hidden", "true");
-  overlay.style.pointerEvents = "none";
-}
-
-function finishIntervention(){
-  resetPills();
-  resetOverlay();
-
-  document.body.classList.remove(
-    "intervention-running",
-    "intervention-closing"
-  );
-
-  started = false;
-}
 
 teacher.addEventListener("click", () => {
-  if (started) return;
-  started = true;
 
-  clearAllTimers();
-  resetPills();
+    if (started) return;
+    started = true;
 
-  document.body.classList.remove("intervention-closing");
-  document.body.classList.add("intervention-running");
+    overlay.classList.remove("hidden","active","closing");
 
-  overlay.classList.remove("hidden", "active", "closing");
-  overlay.setAttribute("aria-hidden", "false");
-  overlay.style.pointerEvents = "auto";
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      overlay.classList.add("active");
+    [
+        pill1,
+        pill2,
+        pill3,
+        pill4
+    ].forEach(p => {
+        p.classList.remove("show");
     });
-  });
 
-  audio.currentTime = 0;
-  audio.play().catch(() => {});
+    requestAnimationFrame(() => {
+        overlay.classList.add("active");
+    });
 
-  schedule(() => {
-    pill1.classList.add("show");
-  }, 2200);
+    audio.currentTime = 0;
+    audio.play().catch(()=>{});
 
-  schedule(() => {
-    pill2.classList.add("show");
-  }, 5600);
+    /* 3s */
+    setTimeout(() => {
+        pill1.classList.add("show");
+    }, 3000);
 
-  schedule(() => {
-    pill3.classList.add("show");
-  }, 9000);
+    /* 6s */
+    setTimeout(() => {
+        pill2.classList.add("show");
+    }, 6000);
 
-  schedule(() => {
-    pill4.classList.add("show");
-  }, 12400);
+    /* 9s */
+    setTimeout(() => {
+        pill3.classList.add("show");
+    }, 9000);
 
-  schedule(() => {
-    pill4.classList.add("exit");
-  }, 19600);
+    /* 12s */
+    setTimeout(() => {
+        pill4.classList.add("show");
+    }, 12000);
 
-  schedule(() => {
-    pill3.classList.add("exit");
-  }, 20400);
+    /* Outro begins */
+    setTimeout(() => {
+        overlay.classList.add("closing");
+    }, 20000);
 
-  schedule(() => {
-    pill2.classList.add("exit");
-  }, 21200);
+    /* Hide */
+    setTimeout(() => {
 
-  schedule(() => {
-    pill1.classList.add("exit");
-  }, 22000);
+        overlay.classList.remove(
+            "active",
+            "closing"
+        );
 
-  schedule(() => {
-    document.body.classList.remove("intervention-running");
-    document.body.classList.add("intervention-closing");
-    overlay.classList.add("closing");
-  }, 22900);
+        overlay.classList.add("hidden");
 
-  schedule(() => {
-    finishIntervention();
-  }, 27000);
+        [
+            pill1,
+            pill2,
+            pill3,
+            pill4
+        ].forEach(p => {
+            p.classList.remove("show");
+        });
+
+        started = false;
+
+    }, 25000);
+
 });
 
 document.getElementById("startBtn").onclick = (e) => {
-  e.stopPropagation();
-  sessionStorage.setItem("saybon_next", "/why.html");
-  window.location.href = "/loader.html";
+    e.stopPropagation();
+    sessionStorage.setItem("saybon_next", "/why.html");
+    window.location.href = "/loader.html";
 };
 
 document.getElementById("loginBtn").onclick = (e) => {
-  e.stopPropagation();
-  window.location.href = "/auth/login.html";
+    e.stopPropagation();
+    window.location.href = "/auth/login.html";
 };
 
 document.getElementById("settingsBtn").onclick = (e) => {
-  e.stopPropagation();
-  window.location.href = "/admin/passkey/";
+    e.stopPropagation();
+    window.location.href = "/admin/passkey/";
 };
