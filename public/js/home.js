@@ -71,47 +71,49 @@ teacher.addEventListener("click", () => {
   audio.currentTime = 0;
   audio.play().catch(() => {});
 
+  /* earlier than current broken version, but still paced */
   schedule(() => {
     pill1.classList.add("show");
-  }, 2200);
+  }, 1600);
 
   schedule(() => {
     pill2.classList.add("show");
-  }, 5600);
+  }, 5000);
 
   schedule(() => {
     pill3.classList.add("show");
-  }, 9000);
+  }, 8400);
 
   schedule(() => {
     pill4.classList.add("show");
-  }, 12400);
+  }, 11800);
 
+  /* keep sequence longer than original, but not too delayed */
   schedule(() => {
     pill4.classList.add("exit");
-  }, 19600);
+  }, 19200);
 
   schedule(() => {
     pill3.classList.add("exit");
-  }, 20400);
+  }, 20100);
 
   schedule(() => {
     pill2.classList.add("exit");
-  }, 21200);
+  }, 21000);
 
   schedule(() => {
     pill1.classList.add("exit");
-  }, 22000);
+  }, 21900);
 
   schedule(() => {
     document.body.classList.remove("intervention-running");
     document.body.classList.add("intervention-closing");
     overlay.classList.add("closing");
-  }, 22900);
+  }, 22800);
 
   schedule(() => {
     finishIntervention();
-  }, 27000);
+  }, 26000);
 });
 
 document.getElementById("startBtn").onclick = (e) => {

@@ -232,11 +232,9 @@ body.intervention-closing .settings-image-btn{
   height:100%;
   object-fit:cover;
   display:block;
-
   filter:blur(18px);
   opacity:.78;
   transform:scale(1.022);
-
   transition:
     filter 1.55s ease,
     opacity 1.55s ease,
@@ -269,7 +267,7 @@ body.intervention-closing .settings-image-btn{
   left:50%;
   top:88%;
   transform:translate(-50%, 0);
-  width:min(24vw,250px);
+  width:min(20vw,220px);
   opacity:0;
   will-change:top, transform, opacity, filter;
   transition:
@@ -284,23 +282,24 @@ body.intervention-closing .settings-image-btn{
   display:block;
 }
 
+/* desktop landing positions */
 .overlay-pill.slot-1.show{
-  top:34%;
+  top:37%;
   opacity:1;
 }
 
 .overlay-pill.slot-2.show{
-  top:47%;
+  top:50%;
   opacity:1;
 }
 
 .overlay-pill.slot-3.show{
-  top:60%;
+  top:63%;
   opacity:1;
 }
 
 .overlay-pill.slot-4.show{
-  top:73%;
+  top:76%;
   opacity:1;
 }
 
@@ -333,7 +332,10 @@ body.intervention-closing .settings-image-btn{
    MOBILE
 ========================================================= */
 
-@media (max-width:74vw;
+@media (max-width:900px){
+
+  body{
+    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed;
   }
 
   .background-layer img{
@@ -341,7 +343,7 @@ body.intervention-closing .settings-image-btn{
   }
 
   .teacher-hitbox{
-    width:74vw;
+    width:100vw;
     left:50%;
     top:8%;
     transform:translateX(-50%);
@@ -352,14 +354,14 @@ body.intervention-closing .settings-image-btn{
   }
 
   .tap-icon{
-    width:74vw;
+    width:54px;
     left:50%;
     top:55%;
     transform:translateX(-50%);
   }
 
   .saybon-logo{
-    width:74vw;
+    width:145px;
     left:50%;
     top:60%;
     right:auto;
@@ -367,51 +369,54 @@ body.intervention-closing .settings-image-btn{
   }
 
   .start-btn{
-    width:74vw;
+    width:255px;
     top:72%;
     left:50%;
     transform:translateX(-50%);
   }
 
   .login-btn{
-    width:74vw;
+    width:255px;
     top:81%;
     left:50%;
     transform:translateX(-50%);
   }
 
   .settings-image-btn{
-    width:74vw;
+    width:42px;
     right:2%;
     bottom:1.5%;
   }
 
   .overlay-pill{
-    width:74vw;
+    width:38vw;
+    min-width:120px;
+    max-width:160px;
     top:88%;
   }
 
+  /* mobile landing positions */
   .overlay-pill.slot-1.show{
-  top:34%;
+    top:36%;
   }
 
   .overlay-pill.slot-2.show{
-  top:47%;
+    top:49%;
   }
 
   .overlay-pill.slot-3.show{
-  top:60%;
+    top:62%;
   }
 
   .overlay-pill.slot-4.show{
-  top:73%;
+    top:75%;
   }
 }
 
 @media (min-width:901px){
 
   .teacher-hitbox{
-    width:min(24vw,250px);
+    width:min(36vw,580px);
   }
 
   .saybon-logo{
