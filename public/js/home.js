@@ -1,120 +1,50 @@
 ﻿const teacher = document.getElementById("teacher");
 const audio = document.getElementById("introAudio");
 const overlay = document.getElementById("offerOverlay");
-
-const pill1 = document.getElementById("pill1");
-const pill2 = document.getElementById("pill2");
-const pill3 = document.getElementById("pill3");
-const pill4 = document.getElementById("pill4");
-
-const pills = [pill1, pill2, pill3, pill4];
+const pills = document.querySelectorAll(".pill");
 
 let started = false;
-let timers = [];
 
-function clearAllTimers(){
-  timers.forEach(t => clearTimeout(t));
-  timers = [];
-}
-
-function schedule(fn, ms){
-  const id = setTimeout(fn, ms);
-  timers.push(id);
-  return id;
-}
-
-function resetPills(){
-  pills.forEach(pill => {
-    pill.classList.remove("show", "exit");
-  });
-}
-
-function resetOverlay(){
-  overlay.classList.remove("active", "closing");
-  overlay.classList.add("hidden");
-  overlay.setAttribute("aria-hidden", "true");
-  overlay.style.pointerEvents = "none";
-}
-
-function finishIntervention(){
-  resetPills();
-  resetOverlay();
-
-  document.body.classList.remove(
-    "intervention-running",
-    "intervention-closing"
-  );
-
-  started = false;
-}
+/* =====================================================
+   TEACHER TAP â€” 25s CINEMATIC FLOW + CARPET EXIT
+===================================================== */
 
 teacher.addEventListener("click", () => {
   if (started) return;
   started = true;
 
-  clearAllTimers();
-  resetPills();
-
-  document.body.classList.remove("intervention-closing");
-  document.body.classList.add("intervention-running");
-
+  // HARD RESET
   overlay.classList.remove("hidden", "active", "closing");
-  overlay.setAttribute("aria-hidden", "false");
   overlay.style.pointerEvents = "auto";
 
+  // Show blank overlay first
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      overlay.classList.add("active");
-    });
+    overlay.classList.add("active");
   });
 
+  // Play audio
   audio.currentTime = 0;
-  audio.play().catch(() => {});
+  audio.play().catch(() => {
+    console.log("Autoplay blocked â€” user tap allows playback.");
+  });
 
-  /* earlier than current broken version, but still paced */
-  schedule(() => {
-    pill1.classList.add("show");
-  }, 1600);
-
-  schedule(() => {
-    pill2.classList.add("show");
-  }, 5000);
-
-  schedule(() => {
-    pill3.classList.add("show");
-  }, 8400);
-
-  schedule(() => {
-    pill4.classList.add("show");
-  }, 11800);
-
-  /* keep sequence longer than original, but not too delayed */
-  schedule(() => {
-    pill4.classList.add("exit");
-  }, 19200);
-
-  schedule(() => {
-    pill3.classList.add("exit");
-  }, 20100);
-
-  schedule(() => {
-    pill2.classList.add("exit");
+  // Start closing (carpet roll) at 21s
+  setTimeout(() => {
+    overlay.classList.add("closing");
   }, 21000);
 
-  schedule(() => {
-    pill1.classList.add("exit");
-  }, 21900);
-
-  schedule(() => {
-    document.body.classList.remove("intervention-running");
-    document.body.classList.add("intervention-closing");
-    overlay.classList.add("closing");
-  }, 22800);
-
-  schedule(() => {
-    finishIntervention();
-  }, 26000);
+  // Fully remove overlay at 25s
+  setTimeout(() => {
+    overlay.classList.remove("active", "closing");
+    overlay.classList.add("hidden");
+    overlay.style.pointerEvents = "none";
+    started = false;
+  }, 25000);
 });
+
+/* =====================================================
+   BUTTONS â€” NAVIGATION (UNCHANGED LOGIC)
+===================================================== */
 
 document.getElementById("startBtn").onclick = (e) => {
   e.stopPropagation();
@@ -129,5 +59,13 @@ document.getElementById("loginBtn").onclick = (e) => {
 
 document.getElementById("settingsBtn").onclick = (e) => {
   e.stopPropagation();
-  window.location.href = "/admin/passkey/";
+  window.location.href = "/admin";
 };
+
+
+const __saybonSettingsBtn = document.getElementById("settingsBtn");
+if (__saybonSettingsBtn) {
+  __saybonSettingsBtn.addEventListener("click", () => {
+    window.location.href = "/admin/passkey/";
+  });
+}

@@ -1,96 +1,80 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>SayBon — Easy Fun French</title>
+  <title>SayBon — Easy Fun French</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/home.css?v=17">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/home.css" />
 
-<script type="module" src="/js/nav-engine.js"></script>
+<link rel='stylesheet' href='/css/page-transition.css'>
+<script type='module' src='/js/nav-engine.js'></script>
 </head>
 
 <body>
 
-<audio id="introAudio" preload="auto">
+  <!-- AUDIO -->
+  <audio id="introAudio" preload="auto">
     <source src="assets/sounds/intro-v2.mp3" type="audio/mpeg">
-</audio>
+  </audio>
 
-<div class="home-shell">
+  <div class="app">
 
-    <picture class="background-layer">
-        <source media="(max-width:900px)" srcset="assets/home/mobile-background.PNG">
-        <img src="assets/home/desktop-background.PNG" alt="">
-    </picture>
+    <!-- LEFT (WHITE SIDE) -->
+    <section class="white-area">
 
-    <div class="desktop-layout">
+      <!-- BIG TEACHER (ONLY THING ON WHITE SIDE) -->
+      <div class="teacher-wrap" id="teacher">
+        <img src="assets/images/teacher.png" class="teacher-img" />
+        <p class="tap-text">Tap 👆🏽</p>
+      </div>
 
-        <div id="teacher" class="teacher-hitbox">
-            <img
-                src="assets/home/teacher.PNG"
-                class="teacher-img"
-                alt="Teacher"
-            >
-        </div>
+    </section>
 
-        <img
-            src="assets/home/IMG_6479.PNG"
-            class="tap-icon"
-            alt=""
-        >
+    <!-- RIGHT (GREEN SIDE) -->
+    <section class="green-area">
 
-        <img
-            src="assets/home/saybon-logo.PNG"
-            class="saybon-logo"
-            alt=""
-        >
+      <!-- 3D LOGO (BIGGER) -->
+      <div class="logo-wrap">
+        <img src="assets/images/logo.png" class="logo big-logo" />
+      </div>
 
-        <button id="startBtn" class="image-btn start-btn">
-            <img src="assets/home/get-started-button.PNG" alt="Get Started">
-        </button>
+      <!-- ACTION BUTTONS (STACKED, GLASSY) -->
+      <div class="actions">
+        <button class="action-btn" id="startBtn">Get started</button>
+        <button class="action-btn secondary" id="loginBtn">Log in</button>
+      </div>
 
-        <button id="loginBtn" class="image-btn login-btn">
-            <img src="assets/home/login-button.PNG" alt="Login">
-        </button>
+      <!-- SETTINGS ICON (ADMIN ENTRY) -->
+      <button id="settingsBtn" class="settings-btn" aria-label="Admin settings" onclick="window.location.href='\/admin\/passkey\/'">
+        ⚙️
+      </button>
 
-        <button id="settingsBtn" class="settings-image-btn">
-            <img src="assets/home/admin-button.PNG" alt="Settings">
-        </button>
+    </section>
+
+  </div>
+
+  <!-- OVERLAY (WRAPPED FOR CARPET ROLL) -->
+  <div id="offerOverlay" class="overlay hidden">
+
+    <div class="overlay-content">  <!-- REQUIRED WRAPPER FOR CARPET EFFECT -->
+
+      <h2>What we offer at SayBon</h2>
+
+      <div class="pill-list">
+        <div class="pill"><span>Speak French from your very first lesson</span></div>
+        <div class="pill"><span>Clear, fun CEFR-based learning</span></div>
+        <div class="pill"><span>Original music to help French stick naturally</span></div>
+        <div class="pill"><span>DELF prep + professional translation by experts</span></div>
+      </div>
 
     </div>
 
-</div>
+  </div>
 
-<!-- OFFER OVERLAY -->
-<div id="offerOverlay" class="overlay hidden" aria-hidden="true">
+  <script src="js/home.js"></script>
 
-    <picture class="overlay-art">
-        <source media="(max-width:900px)" srcset="assets/home/overlay-mobile.png">
-        <img src="assets/home/overlay-desktop.png" alt="What we offer at SayBon">
-    </picture>
-
-    <div class="overlay-stage">
-        <div class="overlay-pill slot-1" id="pill1">
-            <img src="assets/home/pill-1.png" alt="">
-        </div>
-
-        <div class="overlay-pill slot-2" id="pill2">
-            <img src="assets/home/pill-2.png" alt="">
-        </div>
-
-        <div class="overlay-pill slot-3" id="pill3">
-            <img src="assets/home/pill-3.png" alt="">
-        </div>
-
-        <div class="overlay-pill slot-4" id="pill4">
-            <img src="assets/home/pill-4.png" alt="">
-        </div>
-    </div>
-
-</div>
-
-<script src="js/home.js"></script>
 </body>
 </html>
