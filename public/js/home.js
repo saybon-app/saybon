@@ -12,90 +12,111 @@ const loginBtn = document.getElementById("loginBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
 const backgroundImg = document.querySelector(".background-layer img");
-const teacherImg = teacher?.querySelector("img");
+const backgroundSource = document.querySelector('.background-layer source[media="(max-width:900px)"]');
+const teacherImg = document.querySelector(".teacher-img");
+const tapIconImg = document.querySelector(".tap-icon");
+const logoImg = document.querySelector(".saybon-logo");
+const startBtnImg = document.querySelector("#startBtn img");
+const loginBtnImg = document.querySelector("#loginBtn img");
+const settingsBtnImg = document.querySelector("#settingsBtn img");
 
 let started = false;
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Goal:
-   - no dead black waiting screen
-   - background reveals quickly
-   - all visible homepage elements fade in smoothly
-   - no choppy pop-in even if images finish slightly later
 ========================================================= */
 
 function waitForImage(img) {
-  if (!img) return Promise.resolve();
-  if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-
   return new Promise((resolve) => {
-    let done = false;
-    const finish = () => {
-      if (done) return;
-      done = true;
+    if (!img) return resolve();
+
+    if (img.complete && img.naturalWidth > 0) {
       resolve();
-    };
+      return;
+    }
 
-    img.addEventListener("load", finish, { once: true });
-    img.addEventListener("error", finish, { once: true });
-
-    // fallback so one slow image doesn't hold the page hostage
-    setTimeout(finish, 1800);
+    const done = () => resolve();
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
   });
 }
 
-function revealHomepage() {
-  document.body.classList.add("home-preload");
+function waitForPicture(img, sourceEl) {
+  return new Promise((resolve) => {
+    if (!img) return resolve();
 
-  const bgPromise = waitForImage(backgroundImg);
-  const teacherPromise = waitForImage(teacherImg);
+    if (img.complete && img.naturalWidth > 0) {
+      resolve();
+      return;
+    }
 
-  // reveal background as soon as it is ready (or fallback timer hits)
-  bgPromise.then(() => {
-    requestAnimationFrame(() => {
-      document.body.classList.add("home-bg-ready");
-    });
+    const done = () => resolve();
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
+
+    if (sourceEl) {
+      sourceEl.addEventListener("load", done, { once: true });
+      sourceEl.addEventListener("error", done, { once: true });
+    }
+  });
+}
+
+async function runHomepageReveal() {
+  const body = document.body;
+  body.classList.add("home-preload");
+
+  const criticalAssets = [
+    waitForPicture(backgroundImg, backgroundSource),
+    waitForImage(teacherImg)
+  ];
+
+  const secondaryAssets = [
+    waitForImage(tapIconImg),
+    waitForImage(logoImg),
+    waitForImage(startBtnImg),
+    waitForImage(loginBtnImg),
+    waitForImage(settingsBtnImg)
+  ];
+
+  // Wait for the two things that must lead the reveal
+  await Promise.all(criticalAssets);
+
+  // Start background + teacher immediately together
+  requestAnimationFrame(() => {
+    body.classList.add("home-bg-in");
   });
 
-  // reveal the rest shortly after background readiness OR teacher readiness,
-  // whichever gives a smoother assembled feel first
-  Promise.race([
-    Promise.all([bgPromise, teacherPromise]),
-    new Promise((resolve) => setTimeout(resolve, 320))
-  ]).then(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("home-ui-ready");
-        document.body.classList.remove("home-preload");
-      });
-    });
-  });
+  // Give them just a short head start, not a long lag
+  setTimeout(async () => {
+    await Promise.all(secondaryAssets);
 
-  // absolute safety release in case browser is slow decoding assets
-  setTimeout(() => {
-    document.body.classList.add("home-bg-ready", "home-ui-ready");
-    document.body.classList.remove("home-preload");
-  }, 2200);
+    requestAnimationFrame(() => {
+      body.classList.add("home-ui-in");
+    });
+
+    // final ready state after all entrance transitions settle
+    setTimeout(() => {
+      body.classList.remove("home-preload");
+      body.classList.add("home-ready");
+    }, 1100);
+
+  }, 180);
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", revealHomepage, { once: true });
+  document.addEventListener("DOMContentLoaded", runHomepageReveal, { once: true });
 } else {
-  revealHomepage();
+  runHomepageReveal();
 }
+
+/* =========================================================
+   INTERVENTION
+========================================================= */
 
 function resetPills() {
   [pill1, pill2, pill3, pill4].forEach((pill) => {
     if (!pill) return;
-    pill.classList.remove(
-      "show",
-      "slot-1",
-      "slot-2",
-      "slot-3",
-      "slot-4",
-      "exit"
-    );
+    pill.classList.remove("show", "exit");
   });
 }
 
@@ -104,6 +125,7 @@ teacher?.addEventListener("click", () => {
   started = true;
 
   document.body.classList.add("intervention-running");
+
   resetPills();
 
   overlay.classList.remove("hidden", "active", "closing");
@@ -118,61 +140,25 @@ teacher?.addEventListener("click", () => {
     audio.play().catch(() => {});
   }
 
-  /* ---------------------------------------------------
-     TIMING PLAN
-     0s    overlay starts appearing
-     0-2s  overlay sharpens
-     2s    pill 1 appears at bottom
-     4s    pill 1 climbs to slot 1
-     5s    pill 2 appears at bottom
-     7s    pill 2 climbs to slot 2
-     8s    pill 3 appears at bottom
-     10s   pill 3 climbs to slot 3
-     11s   pill 4 appears at bottom
-     13s   pill 4 climbs to slot 4
-     18s   exit pill 4
-     19s   exit pill 3
-     20s   exit pill 2
-     21s   exit pill 1
-     22s   overlay closing starts
-     25s   overlay removed
-  --------------------------------------------------- */
-
   // PILL 1
   setTimeout(() => {
     pill1?.classList.add("show");
   }, 2000);
-
-  setTimeout(() => {
-    pill1?.classList.add("slot-1");
-  }, 4000);
 
   // PILL 2
   setTimeout(() => {
     pill2?.classList.add("show");
   }, 5000);
 
-  setTimeout(() => {
-    pill2?.classList.add("slot-2");
-  }, 7000);
-
   // PILL 3
   setTimeout(() => {
     pill3?.classList.add("show");
   }, 8000);
 
-  setTimeout(() => {
-    pill3?.classList.add("slot-3");
-  }, 10000);
-
   // PILL 4
   setTimeout(() => {
     pill4?.classList.add("show");
   }, 11000);
-
-  setTimeout(() => {
-    pill4?.classList.add("slot-4");
-  }, 13000);
 
   // EXIT
   setTimeout(() => {
@@ -205,7 +191,10 @@ teacher?.addEventListener("click", () => {
   }, 25000);
 });
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_next", "/why.html");
