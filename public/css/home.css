@@ -191,3 +191,88 @@
     filter:blur(2px) !important;
   }
 }
+
+
+/* =========================================================
+   SAYBON MOBILE HOMEPAGE HARD OVERRIDE
+   MOBILE ONLY — DO NOT TOUCH DESKTOP
+   Purpose:
+   - shift teacher LEFT on mobile because teacher art sits right-heavy inside PNG
+   - realign tap icon / logo / buttons to the intended mobile composition
+========================================================= */
+@media (max-width:900px){
+
+  /* -------------------------
+     MOBILE HOMEPAGE LAYOUT
+  ------------------------- */
+
+  .teacher-hitbox{
+    position:absolute !important;
+    width:104vw !important;
+    max-width:none !important;
+    left:41% !important;
+    top:11.8% !important;
+    right:auto !important;
+    bottom:auto !important;
+    margin:0 !important;
+    transform:translateX(-50%) !important;
+    z-index:20 !important;
+  }
+
+  .teacher-hitbox:hover{
+    transform:translateX(-50%) scale(1.02) !important;
+  }
+
+  .teacher-img{
+    width:100% !important;
+    height:auto !important;
+    display:block !important;
+  }
+
+  .tap-icon{
+    position:absolute !important;
+    width:56px !important;
+    left:50% !important;
+    top:56.6% !important;
+    right:auto !important;
+    bottom:auto !important;
+    margin:0 !important;
+    transform:translateX(-50%) !important;
+    z-index:25 !important;
+  }
+
+  .saybon-logo{
+    position:absolute !important;
+    width:150px !important;
+    left:50% !important;
+    top:60.3% !important;
+    right:auto !important;
+    bottom:auto !important;
+    transform:translateX(-50%) !important;
+    z-index:20 !important;
+  }
+
+  .start-btn{
+    position:absolute !important;
+    width:200px !important;
+    left:50% !important;
+    top:73.6% !important;
+    transform:translateX(-50%) !important;
+    z-index:20 !important;
+  }
+
+  .login-btn{
+    position:absolute !important;
+    width:200px !important;
+    left:50% !important;
+    top:80.7% !important;
+    transform:translateX(-50%) !important;
+    z-index:20 !important;
+  }
+
+  .settings-image-btn{
+    width:50px !important;
+    right:5% !important;
+    bottom:5% !important;
+  }
+}
