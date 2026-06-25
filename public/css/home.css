@@ -586,14 +586,27 @@ body{
     filter:blur(2px) !important;
   }
 }
-/* === HOMEPAGE_LOAD_ANIMATION_V2 === */
+/* === HOMEPAGE_LOAD_ANIMATION_V3 === */
 /* =========================================================
    HOMEPAGE LOAD-IN ANIMATION
-   Prevents the homepage from rendering in broken pieces
-   and reveals the whole composition smoothly at once.
+   Blank-first reveal:
+   - page starts on dark shell
+   - background does NOT appear first
+   - background + homepage elements reveal together
 ========================================================= */
 
-/* Start hidden until JS marks the page ready */
+/* Keep the shell dark until homepage is ready */
+body.home-preload{
+  background:#000 !important;
+}
+
+/* Hide the native body background during preload so the
+   homepage background cannot "arrive first" behind the shell */
+body.home-preload{
+  background-image:none !important;
+}
+
+/* During preload, hide the homepage composition */
 body.home-preload .background-layer,
 body.home-preload .teacher-hitbox,
 body.home-preload .tap-icon,
@@ -605,16 +618,17 @@ body.home-preload .settings-image-btn{
   visibility:hidden;
 }
 
-/* Background fade */
+/* Background reveal timing */
 .background-layer{
   opacity:1;
   transition:
-    opacity 700ms ease,
-    transform 700ms ease;
-  will-change:opacity, transform;
+    opacity 760ms ease,
+    transform 760ms ease,
+    filter 760ms ease;
+  will-change:opacity, transform, filter;
 }
 
-/* Homepage elements all animate together */
+/* Homepage elements reveal timing */
 .teacher-hitbox,
 .tap-icon,
 .saybon-logo,
@@ -624,16 +638,17 @@ body.home-preload .settings-image-btn{
   opacity:1;
   visibility:visible;
   transition:
-    opacity 700ms ease,
-    transform 700ms cubic-bezier(.22,.82,.18,1),
-    filter 700ms ease;
+    opacity 760ms ease,
+    transform 760ms cubic-bezier(.22,.82,.18,1),
+    filter 760ms ease;
   will-change:opacity, transform, filter;
 }
 
-/* Initial hidden / softened state */
+/* Intro state */
 body.home-preload .background-layer{
   opacity:0;
-  transform:scale(1.015);
+  transform:scale(1.02);
+  filter:blur(8px);
 }
 
 body.home-preload .teacher-hitbox,
@@ -668,10 +683,16 @@ body.home-preload .settings-image-btn{
   transform:translateY(18px);
 }
 
-/* Ready state */
+/* Ready state — background + homepage elements reveal together */
+body.home-ready{
+  background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;
+}
+
 body.home-ready .background-layer{
   opacity:1;
+  visibility:visible;
   transform:none;
+  filter:blur(0);
 }
 
 body.home-ready .teacher-hitbox,
@@ -706,8 +727,17 @@ body.home-ready .settings-image-btn{
   transform:translateY(0);
 }
 
-/* Mobile: preserve centered X transforms */
+/* Mobile: preserve centered X transforms and mobile background */
 @media (max-width:900px){
+
+  body.home-preload{
+    background:#000 !important;
+    background-image:none !important;
+  }
+
+  body.home-ready{
+    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed !important;
+  }
 
   body.home-preload .teacher-hitbox{
     transform:translateX(-50%) translateY(18px) !important;
@@ -756,4 +786,3 @@ body.home-ready .settings-image-btn{
     transition:none !important;
   }
 }
-

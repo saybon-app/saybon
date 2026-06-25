@@ -2,9 +2,10 @@
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Do NOT wait for full window.load.
-   Wait only for critical homepage images so the whole scene
-   appears together without the fake "loading struggle" gap.
+   Blank-first reveal:
+   - page starts on dark shell
+   - wait only for critical homepage images
+   - reveal background + homepage elements together
 ========================================================= */
 
 function waitForImage(img) {
