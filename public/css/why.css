@@ -91,15 +91,14 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
-   We intentionally SHRINK the background artwork and center it
-   on a same-color page background so it looks like the reference.
+   Smaller background composition + larger cards
 ========================================================= */
 .why-stage-desktop{
   display:block;
   width:100%;
   min-height:100vh;
   background:var(--why-page-bg);
-  padding-top:18px;
+  padding-top:8px;
 }
 
 .why-bg-wrap-desktop{
@@ -111,7 +110,7 @@ body.why-page{
 
 .why-bg-desktop{
   display:block;
-  width:min(100%, 1320px);   /* shrink artwork block */
+  width:min(100%, 1120px);   /* SHRINK MORE */
   margin:0 auto;
 }
 
@@ -171,31 +170,30 @@ body.why-page{
 
 /* =========================================================
    DESKTOP CARD POSITIONS
-   tighter spacing + centered cluster
+   BIGGER + CLOSER
 ========================================================= */
 .why-option-desktop{
-  width:17.6%;
+  width:22.4%;
 }
 
-/* pull all 4 cards inward so they sit closer together */
 .why-option-personal{
-  left:13.2%;
-  top:51.9%;
+  left:9.2%;
+  top:51.7%;
 }
 
 .why-option-school{
-  left:32.0%;
-  top:51.9%;
+  left:28.5%;
+  top:51.7%;
 }
 
 .why-option-travel{
-  left:50.8%;
-  top:51.9%;
+  left:47.8%;
+  top:51.7%;
 }
 
 .why-option-career{
-  left:69.6%;
-  top:51.9%;
+  left:67.1%;
+  top:51.7%;
 }
 
 /* =========================================================
@@ -236,7 +234,7 @@ body.why-page{
   }
 
   .why-bg-desktop{
-    width:1320px;
+    width:1120px;
   }
 }
 
@@ -249,17 +247,17 @@ body.why-page{
   }
 
   .why-bg-desktop{
-    width:min(100%, 1140px);
+    width:min(100%, 1020px);
   }
 
   .why-option-desktop{
-    width:18.5%;
+    width:23%;
   }
 
-  .why-option-personal{ left:11.8%; top:52.2%; }
-  .why-option-school{   left:31.0%; top:52.2%; }
-  .why-option-travel{   left:50.2%; top:52.2%; }
-  .why-option-career{   left:69.4%; top:52.2%; }
+  .why-option-personal{ left:8.4%; top:52.0%; }
+  .why-option-school{   left:28.0%; top:52.0%; }
+  .why-option-travel{   left:47.6%; top:52.0%; }
+  .why-option-career{   left:67.2%; top:52.0%; }
 }
 
 /* =========================================================
