@@ -1,4 +1,4 @@
-*{
+﻿*{
   box-sizing:border-box;
   margin:0;
   padding:0;
@@ -442,7 +442,7 @@ body{
     position:absolute !important;
     width:104vw !important;
     max-width:none !important;
-    left:41% !important;
+    left:45% !important;
     top:11.8% !important;
     right:auto !important;
     bottom:auto !important;
@@ -465,7 +465,7 @@ body{
     position:absolute !important;
     width:56px !important;
     left:50% !important;
-    top:52.8% !important;
+    top:50.8% !important;
     right:auto !important;
     bottom:auto !important;
     margin:0 !important;
@@ -475,9 +475,9 @@ body{
 
   .saybon-logo{
     position:absolute !important;
-    width:150px !important;
+    width:155px !important;
     left:50% !important;
-    top:59.2% !important;
+    top:52.2% !important;
     right:auto !important;
     bottom:auto !important;
     transform:translateX(-50%) !important;
@@ -497,15 +497,15 @@ body{
     position:absolute !important;
     width:200px !important;
     left:50% !important;
-    top:77.1% !important;
+    top:75.1% !important;
     transform:translateX(-50%) !important;
     z-index:20 !important;
   }
 
   .settings-image-btn{
-    width:50px !important;
+    width:60px !important;
     right:5% !important;
-    bottom:5% !important;
+    bottom:2% !important;
   }
 }
 
