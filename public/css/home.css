@@ -112,19 +112,19 @@
   }
 
   #offerOverlay .overlay-pill.slot-1{
-    top:26.5% !important;
+    top: 34% !important;
   }
 
   #offerOverlay .overlay-pill.slot-2{
-    top:40.5% !important;
+    top: 48% !important;
   }
 
   #offerOverlay .overlay-pill.slot-3{
-    top:54.5% !important;
+    top: 62% !important;
   }
 
   #offerOverlay .overlay-pill.slot-4{
-    top:68.5% !important;
+    top: 76% !important;
   }
 
   #offerOverlay .overlay-pill.show{
@@ -164,19 +164,19 @@
 
   /* final landing positions to match Photo 7 */
   #offerOverlay .overlay-pill.slot-1{
-    top:43% !important;
+    top: 34% !important;
   }
 
   #offerOverlay .overlay-pill.slot-2{
-    top:55% !important;
+    top: 48% !important;
   }
 
   #offerOverlay .overlay-pill.slot-3{
-    top:67% !important;
+    top: 62% !important;
   }
 
   #offerOverlay .overlay-pill.slot-4{
-    top:79% !important;
+    top: 76% !important;
   }
 
   #offerOverlay .overlay-pill.show{
