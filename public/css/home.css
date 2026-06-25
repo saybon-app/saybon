@@ -1,5 +1,297 @@
-﻿*{  box-sizing:border-box;  margin:0;  padding:0;}html,body{  width:100%;  height:100%;  min-height:100vh;  overflow:hidden;  font-family:"Nunito",sans-serif;  background:#000;}body{  position:relative;  background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;}.home-shell{  position:relative;  width:100vw;  height:100vh;  overflow:hidden;}.background-layer{  position:absolute;  inset:0;  z-index:1;}.background-layer img{  width:100%;  height:100%;  object-fit:cover;  display:block;}.desktop-layout{  position:absolute;  inset:0;  z-index:5;}/* ==========================   TEACHER========================== */.teacher-hitbox{  position:absolute;  left:16%;  top:9%;  width:min(36vw,580px);  cursor:pointer;  z-index:20;}.teacher-img{  width:100%;  height:auto;  display:block;}.teacher-hitbox:hover{  transform:scale(1.02);}/* ==========================   TAP ICON========================== */.tap-icon{  position:absolute;  left:33%;  top:65%;  width:min(70px,5vw);  z-index:25;}/* ==========================   LOGO========================== */.saybon-logo{  position:absolute;  right:11%;  top:10%;  width:min(220px,15vw);  z-index:20;}/* ==========================   BUTTONS========================== */.image-btn{  position:absolute;  background:none;  border:none;  padding:0;  cursor:pointer;  z-index:20;}.image-btn img{  display:block;  width:100%;  height:auto;}.start-btn{  left:50%;  transform:translateX(-50%);  top:75%;  width:min(200px,35vw);}.login-btn{  left:50%;  transform:translateX(-50%);  top:83%;  width:min(200px,26vw);}.settings-image-btn{  position:absolute;  right:2%;  bottom:2%;  width:min(65px,4.5vw);  background:none;  border:none;  cursor:pointer;  z-index:20;}.settings-image-btn img{  width:100%;  display:block;}/* =========================================   SAYBON OFFER OVERLAY========================================= */.overlay{  position:fixed;  inset:0;  z-index:999;  opacity:0;  pointer-events:none;  transition:opacity 1.2s ease;}.overlay.hidden{  display:none;}.overlay.active{  opacity:1;  pointer-events:auto;}/* artwork background */.overlay-art{  position:absolute;  inset:0;  z-index:1;}.overlay-art img{  width:100%;  height:100%;  object-fit:cover;  display:block;  /* intro starts blurry */  filter:blur(18px);  opacity:.84;  transform:scale(1.02);  transition:    filter 1.8s ease,    opacity 1.8s ease,    transform 1.8s ease;}.overlay.active .overlay-art img{  filter:blur(0);  opacity:1;  transform:scale(1);}/* stage that all pills animate inside */.overlay-stage{  position:absolute;  inset:0;  z-index:3;  pointer-events:none;}/* =========================================================   PILLS   IMPORTANT:   - Each pill is absolutely positioned   - Starts from the same launch point near the bottom   - When .show is added it moves to its own parked slot========================================================= */.overlay-pill{  position:absolute;  left:50%;  /* same launch point for every pill */  top:78%;  transform:translate(-50%, 0);  width:min(72vw,620px);  opacity:0;  will-change:transform, opacity;  transition:    top 1.65s cubic-bezier(.22,.82,.18,1),    opacity .55s ease,    transform 1.65s cubic-bezier(.22,.82,.18,1);}.overlay-pill img{  width:100%;  display:block;}/* final parked positions */.overlay-pill.slot-1.show{  top:44%;  opacity:1;}.overlay-pill.slot-2.show{  top:56%;  opacity:1;}.overlay-pill.slot-3.show{  top:68%;  opacity:1;}.overlay-pill.slot-4.show{  top:80%;  opacity:1;}/* smooth overlay outro */.overlay.closing{  opacity:0;  transition:opacity 4.8s ease;}.overlay.closing .overlay-art img{  filter:blur(12px);  opacity:.76;  transform:scale(1.015);  transition:    filter 4.8s ease,    opacity 4.8s ease,    transform 4.8s ease;}/* =========================================================   MOBILE========================================================= */@media (max-width:900px){  body{    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed;  }  .background-layer img{    content:url("../assets/home/mobile-background.PNG");  }  /* Teacher bigger + lower */  .teacher-hitbox{    width:97vw;    left:50%;    top:14%;    transform:translateX(-50%);  }  /* Tap raised */  .tap-icon{    width:55px;    left:52%;    top:58%;    transform:translateX(-50%);  }  /* Logo smaller + higher */  .saybon-logo{    width:150px;    left:50%;    top:55%;    transform:translateX(-50%);  }  /* Buttons directly under logo */  .start-btn{    width:200px;    top:70%;  }  .login-btn{    width:200px;    top:76%;  }  .settings-image-btn{    width:50px;    right:5%;    bottom:5%;  }  /* mobile pills */  .overlay-pill{    width:88vw;    top:80%;  }  .overlay-pill.slot-1.show{    top:42%;  }  .overlay-pill.slot-2.show{    top:54%;  }  .overlay-pill.slot-3.show{    top:66%;  }  .overlay-pill.slot-4.show{    top:78%;  }}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
+html,
+body{
+  width:100%;
+  height:100%;
+  min-height:100vh;
+  overflow:hidden;
+  font-family:"Nunito",sans-serif;
+  background:#000;
+}
+
+body{
+  position:relative;
+  background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;
+}
+
+.home-shell{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
+
+.background-layer{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+
+.background-layer img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.desktop-layout{
+  position:absolute;
+  inset:0;
+  z-index:5;
+}
+
+/* ==========================
+   TEACHER
+========================== */
+
+.teacher-hitbox{
+  position:absolute;
+  left:16%;
+  top:9%;
+  width:min(36vw,580px);
+  cursor:pointer;
+  z-index:20;
+}
+
+.teacher-img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.teacher-hitbox:hover{
+  transform:scale(1.02);
+}
+
+/* ==========================
+   TAP ICON
+========================== */
+
+.tap-icon{
+  position:absolute;
+  left:33%;
+  top:65%;
+  width:min(70px,5vw);
+  z-index:25;
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.saybon-logo{
+  position:absolute;
+  right:11%;
+  top:10%;
+  width:min(220px,15vw);
+  z-index:20;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.image-btn{
+  position:absolute;
+  background:none;
+  border:none;
+  padding:0;
+  cursor:pointer;
+  z-index:20;
+}
+
+.image-btn img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.start-btn{
+  left:50%;
+  transform:translateX(-50%);
+  top:75%;
+  width:min(200px,35vw);
+}
+
+.login-btn{
+  left:50%;
+  transform:translateX(-50%);
+  top:83%;
+  width:min(200px,26vw);
+}
+
+.settings-image-btn{
+  position:absolute;
+  right:2%;
+  bottom:2%;
+  width:min(65px,4.5vw);
+  background:none;
+  border:none;
+  cursor:pointer;
+  z-index:20;
+}
+
+.settings-image-btn img{
+  width:100%;
+  display:block;
+}
+
+/* =========================================
+   SAYBON OFFER OVERLAY
+========================================= */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1.2s ease;
+}
+
+.overlay.hidden{
+  display:none;
+}
+
+.overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* artwork background */
+.overlay-art{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+
+.overlay-art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+
+  /* intro starts blurry */
+  filter:blur(18px);
+  opacity:.84;
+  transform:scale(1.02);
+
+  transition:
+    filter 1.8s ease,
+    opacity 1.8s ease,
+    transform 1.8s ease;
+}
+
+.overlay.active .overlay-art img{
+  filter:blur(0);
+  opacity:1;
+  transform:scale(1);
+}
+
+/* stage that all pills animate inside */
+.overlay-stage{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+
+/* =========================================================
+   PILLS
+   IMPORTANT:
+   - Each pill is absolutely positioned
+   - Starts from the same launch point near the bottom
+   - When .show is added it moves to its own parked slot
+========================================================= */
+
+.overlay-pill{
+  position:absolute;
+  left:50%;
+
+  /* same launch point for every pill */
+  top:78%;
+  transform:translate(-50%, 0);
+
+  width:min(72vw,620px);
+
+  opacity:0;
+  will-change:transform, opacity;
+
+  transition:
+    top 1.65s cubic-bezier(.22,.82,.18,1),
+    opacity .55s ease,
+    transform 1.65s cubic-bezier(.22,.82,.18,1);
+}
+
+.overlay-pill img{
+  width:100%;
+  display:block;
+}
+
+/* final parked positions */
+.overlay-pill.slot-1.show{
+  top:44%;
+  opacity:1;
+}
+
+.overlay-pill.slot-2.show{
+  top:56%;
+  opacity:1;
+}
+
+.overlay-pill.slot-3.show{
+  top:68%;
+  opacity:1;
+}
+
+.overlay-pill.slot-4.show{
+  top:80%;
+  opacity:1;
+}
+
+/* smooth overlay outro */
+.overlay.closing{
+  opacity:0;
+  transition:opacity 4.8s ease;
+}
+
+.overlay.closing .overlay-art img{
+  filter:blur(12px);
+  opacity:.76;
+  transform:scale(1.015);
+  transition:
+    filter 4.8s ease,
+    opacity 4.8s ease,
+    transform 4.8s ease;
+}
+
+/* =========================================================
+   BASE MOBILE
+   Keep this block minimal.
+   Final mobile homepage + intervention overrides live below.
+========================================================= */
+
+@media (max-width:900px){
+
+  body{
+    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed;
+  }
+
+  .background-layer img{
+    content:url("../assets/home/mobile-background.PNG");
+  }
+
+  .settings-image-btn{
+    width:50px;
+    right:5%;
+    bottom:5%;
+  }
+}
 
 /* =========================================================
    SAYBON INTERVENTION SURGICAL FIX
@@ -34,7 +326,6 @@
 }
 
 /* ---------- background art ---------- */
-/* We want the overlay art itself, not a dimmed broken homepage look */
 #offerOverlay .overlay-art{
   position:absolute !important;
   inset:0 !important;
@@ -105,106 +396,47 @@
    - below heading / dots
    - not giant
 ========================================================= */
-@media (min-width: 901px){
+@media (min-width:901px){
 
   #offerOverlay .overlay-pill{
-    width:min(30vw, 420px) !important;
+    width:min(30vw,420px) !important;
   }
 
   #offerOverlay .overlay-pill.slot-1{
-    top: 39% !important;
+    top:39% !important;
   }
 
   #offerOverlay .overlay-pill.slot-2{
-    top: 50.5% !important;
+    top:50.5% !important;
   }
 
   #offerOverlay .overlay-pill.slot-3{
-    top: 62% !important;
+    top:62% !important;
   }
 
   #offerOverlay .overlay-pill.slot-4{
-    top: 73.5% !important;
+    top:73.5% !important;
   }
 
   #offerOverlay .overlay-pill.show{
     opacity:1 !important;
-    transform:translate(-50%, 0) scale(1) !important;
+    transform:translate(-50%,0) scale(1) !important;
     filter:blur(0) !important;
   }
 
   #offerOverlay .overlay-pill.exit{
     opacity:0 !important;
-    transform:translate(-50%, 85px) scale(.98) !important;
+    transform:translate(-50%,85px) scale(.98) !important;
     filter:blur(2px) !important;
   }
 }
 
 /* =========================================================
-   MOBILE TARGET = PHOTO 7
-   - large readable pills
-   - stacked under heading
-   - no homepage drift / teacher shift
-========================================================= */
-@media (max-width: 900px){
-
-  /* keep homepage from visibly sliding around under overlay */
-  body.intervention-running .teacher-hitbox,
-  body.intervention-running .tap-icon,
-  body.intervention-running .saybon-logo,
-  body.intervention-running .start-btn,
-  body.intervention-running .login-btn,
-  body.intervention-running .settings-image-btn{
-    transform:none !important;
-  }
-
-  #offerOverlay .overlay-pill{
-    width:min(86vw, 650px) !important;
-  }
-
-  /* final landing positions to match Photo 7 */
-  #offerOverlay .overlay-pill.slot-1{
-    top: 39% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-2{
-    top: 50.5% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-3{
-    top: 62% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-4{
-    top: 73.5% !important;
-  }
-
-  #offerOverlay .overlay-pill.show{
-    opacity:1 !important;
-    transform:translate(-50%, 0) scale(1) !important;
-    filter:blur(0) !important;
-  }
-
-  #offerOverlay .overlay-pill.exit{
-    opacity:0 !important;
-    transform:translate(-50%, 70px) scale(.985) !important;
-    filter:blur(2px) !important;
-  }
-}
-
-
-/* =========================================================
-   SAYBON MOBILE HOMEPAGE HARD OVERRIDE
-   MOBILE ONLY — DO NOT TOUCH DESKTOP
-   Purpose:
-   - shift teacher LEFT on mobile because teacher art sits right-heavy inside PNG
-   - realign tap icon / logo / buttons to the intended mobile composition
+   FINAL MOBILE HOMEPAGE BLOCK
+   Single source of truth for homepage mobile layout
+   Desktop untouched
 ========================================================= */
 @media (max-width:900px){
-
-  /* -------------------------
-     MOBILE HOMEPAGE LAYOUT
-  ------------------------- */
 
   .teacher-hitbox{
     position:absolute !important;
@@ -233,7 +465,7 @@
     position:absolute !important;
     width:56px !important;
     left:50% !important;
-    top:56.6% !important;
+    top:52.8% !important;
     right:auto !important;
     bottom:auto !important;
     margin:0 !important;
@@ -245,7 +477,7 @@
     position:absolute !important;
     width:150px !important;
     left:50% !important;
-    top:60.3% !important;
+    top:59.2% !important;
     right:auto !important;
     bottom:auto !important;
     transform:translateX(-50%) !important;
@@ -256,7 +488,7 @@
     position:absolute !important;
     width:200px !important;
     left:50% !important;
-    top:73.6% !important;
+    top:69.9% !important;
     transform:translateX(-50%) !important;
     z-index:20 !important;
   }
@@ -265,7 +497,7 @@
     position:absolute !important;
     width:200px !important;
     left:50% !important;
-    top:80.7% !important;
+    top:77.1% !important;
     transform:translateX(-50%) !important;
     z-index:20 !important;
   }
@@ -277,48 +509,40 @@
   }
 }
 
-
 /* =========================================================
-   SAYBON MOBILE SURGICAL FIX
-   MOBILE ONLY — DESKTOP UNTOUCHED
+   FINAL MOBILE INTERVENTION BLOCK
+   Single source of truth for intervention mobile layout
+   Desktop untouched
 ========================================================= */
 @media (max-width:900px){
 
-  /* =====================================================
-     A) MOBILE HOMEPAGE: TAP ICON A BIT HIGHER
-  ===================================================== */
-  .tap-icon{
-    top:54.8% !important;
+  /* prevent homepage elements from visually shifting under overlay */
+  body.intervention-running .teacher-hitbox,
+  body.intervention-running .tap-icon,
+  body.intervention-running .saybon-logo,
+  body.intervention-running .start-btn,
+  body.intervention-running .login-btn,
+  body.intervention-running .settings-image-btn{
+    transform:none !important;
   }
 
-  /* =====================================================
-     B) MOBILE INTERVENTION: FIX PILL CLIPPING / STACKING
-     Target:
-     - keep pill size
-     - keep pills below the golden dots
-     - remove clipping / half-hidden look
-     - slightly tighter spacing
-  ===================================================== */
-
-  /* overlay shell / stage must not clip pills */
   #offerOverlay,
   #offerOverlay .overlay-stage{
     overflow:visible !important;
   }
 
-  /* ensure the pills sit above everything cleanly */
   #offerOverlay .overlay-stage{
     z-index:20 !important;
   }
 
   #offerOverlay .overlay-pill{
-    width:min(86vw, 650px) !important;
+    width:min(86vw,650px) !important;
     left:50% !important;
     opacity:0 !important;
     z-index:30 !important;
     overflow:visible !important;
     filter:blur(0) !important;
-    transform:translate(-50%, 18px) scale(1) !important;
+    transform:translate(-50%,18px) scale(1) !important;
     will-change:transform, opacity, top !important;
     transition:
       opacity .55s ease,
@@ -333,73 +557,7 @@
     max-width:none !important;
   }
 
-  /* parked positions — lower than before and tighter spacing */
-  #offerOverlay .overlay-pill.slot-1{
-    top:47.2% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-2{
-    top:60.0% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-3{
-    top:72.8% !important;
-  }
-
-  #offerOverlay .overlay-pill.slot-4{
-    top:85.6% !important;
-  }
-
-  #offerOverlay .overlay-pill.show{
-    opacity:1 !important;
-    transform:translate(-50%, 0) scale(1) !important;
-  }
-
-  #offerOverlay .overlay-pill.exit{
-    opacity:0 !important;
-    transform:translate(-50%, 42px) scale(.995) !important;
-  }
-}
-
-
-/* =========================================================
-   SAYBON MOBILE MICRO-FIX
-   MOBILE ONLY — DESKTOP UNTOUCHED
-========================================================= */
-@media (max-width:900px){
-
-  /* =====================================================
-     1) HOMEPAGE MOBILE SPACING RESTORE
-     - raise tap icon a bit more
-     - restore logo / buttons vertical rhythm
-  ===================================================== */
-  .tap-icon{
-    top:53.6% !important;
-  }
-
-  .saybon-logo{
-    top:60.8% !important;
-  }
-
-  .start-btn{
-    top:71.9% !important;
-  }
-
-  .login-btn{
-    top:79.0% !important;
-  }
-
-  /* =====================================================
-     2) MOBILE INTERVENTION PILL POSITIONS
-     Roll back the "too low" adjustment and place
-     pill 1 just beneath the gold dots, with enough room
-     for pill 4 to stay visible.
-  ===================================================== */
-
-  #offerOverlay .overlay-pill{
-    width:min(86vw, 650px) !important;
-  }
-
+  /* first pill just beneath gold dots, with room for pill 4 */
   #offerOverlay .overlay-pill.slot-1{
     top:43.2% !important;
   }
@@ -414,5 +572,17 @@
 
   #offerOverlay .overlay-pill.slot-4{
     top:78.9% !important;
+  }
+
+  #offerOverlay .overlay-pill.show{
+    opacity:1 !important;
+    transform:translate(-50%,0) scale(1) !important;
+    filter:blur(0) !important;
+  }
+
+  #offerOverlay .overlay-pill.exit{
+    opacity:0 !important;
+    transform:translate(-50%,42px) scale(.995) !important;
+    filter:blur(2px) !important;
   }
 }
