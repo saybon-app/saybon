@@ -1,11 +1,9 @@
 ﻿:root{
-  --why-page-bg:#f7f6ff;
-  --why-home-size:72px;
+  --why-page-bg:#f6f5ff;
+  --why-home-size:74px;
   --why-home-size-mobile:58px;
   --why-press-scale:.975;
   --why-press-y:1px;
-  --why-shadow-soft:0 14px 28px rgba(38, 52, 112, .14);
-  --why-shadow-strong:0 20px 38px rgba(38, 52, 112, .18);
 }
 
 *{
@@ -20,15 +18,11 @@ body{
 }
 
 body.why-page{
-  font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:var(--why-page-bg);
+  font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x:hidden;
-  color:#172d7b;
 }
 
-/* =========================================================
-   SHELL
-========================================================= */
 .why-shell{
   position:relative;
   width:100%;
@@ -40,21 +34,18 @@ body.why-page{
 ========================================================= */
 .why-home-btn{
   position:fixed;
-  top:22px;
-  left:22px;
+  top:20px;
+  left:20px;
   width:var(--why-home-size);
   height:var(--why-home-size);
   border:none;
   background:transparent;
   padding:0;
-  margin:0;
   cursor:pointer;
   z-index:200;
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
-  transition:
-    transform .18s cubic-bezier(.22,.82,.18,1),
-    filter .18s ease;
+  transition:transform .18s ease, filter .18s ease;
 }
 
 .why-home-btn img{
@@ -62,8 +53,6 @@ body.why-page{
   height:100%;
   object-fit:contain;
   display:block;
-  pointer-events:none;
-  filter:drop-shadow(0 8px 16px rgba(33,45,98,.18));
 }
 
 @media (hover:hover) and (pointer:fine){
@@ -83,19 +72,65 @@ body.why-page{
 .why-stage{
   position:relative;
   width:100%;
-  margin:0 auto;
+}
+
+.why-bg-wrap{
+  position:relative;
+  width:100%;
 }
 
 .why-bg{
-  width:100%;
   display:block;
+  width:100%;
+  height:auto;
   user-select:none;
   -webkit-user-drag:none;
   pointer-events:none;
 }
 
 /* =========================================================
-   OPTION BUTTONS (shared)
+   DESKTOP
+========================================================= */
+.why-stage-desktop{
+  display:block;
+  width:min(100%, 1540px);
+  margin:0 auto;
+  min-height:100vh;
+}
+
+.why-bg-wrap-desktop{
+  width:100%;
+}
+
+.why-bg-desktop{
+  width:100%;
+  max-width:1540px;
+  margin:0 auto;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+.why-stage-mobile{
+  display:none;
+  width:100%;
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+}
+
+.why-bg-wrap-mobile{
+  width:100%;
+}
+
+.why-bg-mobile{
+  width:100%;
+  max-width:430px;
+  margin:0 auto;
+}
+
+/* =========================================================
+   OPTION BUTTONS
 ========================================================= */
 .why-option{
   position:absolute;
@@ -104,22 +139,16 @@ body.why-page{
   padding:0;
   margin:0;
   cursor:pointer;
-  z-index:20;
+  z-index:30;
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
-  transition:
-    transform .18s cubic-bezier(.22,.82,.18,1),
-    filter .18s ease;
+  transition:transform .18s ease, filter .18s ease;
 }
 
 .why-option img{
   width:100%;
   height:auto;
   display:block;
-  pointer-events:none;
-  user-select:none;
-  -webkit-user-drag:none;
-  filter:drop-shadow(0 10px 20px rgba(36, 48, 100, .12));
 }
 
 @media (hover:hover) and (pointer:fine){
@@ -134,69 +163,36 @@ body.why-page{
 }
 
 /* =========================================================
-   DESKTOP LAYOUT
-   Background already contains title + top art.
-   We only place the 4 desktop image buttons to match Photo B.
+   DESKTOP CARD POSITIONS
+   tuned for Photo B composition
 ========================================================= */
-.why-stage-desktop{
-  display:block;
-  max-width:1540px;
-  min-height:100vh;
-  margin:0 auto;
-}
-
-.why-bg-desktop{
-  width:100%;
-  height:auto;
-}
-
-/* Desktop cards */
 .why-option-desktop{
-  width:19.35%;
+  width:19.4%;
 }
 
-/* Personal */
 .why-option-personal{
-  left:7.55%;
-  top:52.4%;
+  left:7.5%;
+  top:52.2%;
 }
 
-/* School */
 .why-option-school{
-  left:28.9%;
-  top:52.4%;
+  left:28.95%;
+  top:52.2%;
 }
 
-/* Travel */
 .why-option-travel{
   left:50.35%;
-  top:52.4%;
+  top:52.2%;
 }
 
-/* Career */
 .why-option-career{
   left:71.85%;
-  top:52.4%;
+  top:52.2%;
 }
 
 /* =========================================================
-   MOBILE LAYOUT
-   Background already contains title/top art.
-   Pills are layered over it.
+   MOBILE PILLS
 ========================================================= */
-.why-stage-mobile{
-  display:none;
-  width:100%;
-  max-width:430px;
-  min-height:100vh;
-  margin:0 auto;
-}
-
-.why-bg-mobile{
-  width:100%;
-  height:auto;
-}
-
 .why-option-mobile{
   left:50%;
   width:76%;
@@ -204,22 +200,21 @@ body.why-page{
 }
 
 .why-option-mobile-1{
-  top:35.2%;
+  top:35.5%;
 }
 
 .why-option-mobile-2{
-  top:52.2%;
+  top:52.4%;
 }
 
 .why-option-mobile-3{
-  top:69.2%;
+  top:69.3%;
 }
 
 .why-option-mobile-4{
   top:86.2%;
 }
 
-/* keep press effect centered on mobile */
 .why-option-mobile:active{
   transform:translateX(-50%) translateY(var(--why-press-y)) scale(var(--why-press-scale));
 }
@@ -237,19 +232,9 @@ body.why-page{
   }
 
   .why-home-btn{
-    top:16px;
+    top:14px;
     left:14px;
     width:var(--why-home-size-mobile);
     height:var(--why-home-size-mobile);
-  }
-}
-
-/* =========================================================
-   SAFETY: if viewport gets shorter/tighter on desktop,
-   keep the desktop stage usable without distortion.
-========================================================= */
-@media (min-width:901px){
-  .why-shell{
-    padding:0;
   }
 }

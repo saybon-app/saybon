@@ -2,13 +2,6 @@
   const HOME_URL = "/";
   const NEXT_URL = "/loader.html";
 
-  const reasonMap = {
-    personal: "personal",
-    school: "school",
-    travel: "travel",
-    career: "career"
-  };
-
   function saveReason(reason) {
     if (!reason) return;
     try {
@@ -22,18 +15,16 @@
     window.location.href = NEXT_URL;
   }
 
-  function bindReasonButtons() {
-    const buttons = document.querySelectorAll("[data-reason]");
-    buttons.forEach((button) => {
+  function bindReasons() {
+    document.querySelectorAll("[data-reason]").forEach((button) => {
       button.addEventListener("click", function () {
-        const raw = button.getAttribute("data-reason") || "";
-        const reason = reasonMap[raw] || raw;
+        const reason = button.getAttribute("data-reason");
         goNext(reason);
       });
     });
   }
 
-  function bindHomeButton() {
+  function bindHome() {
     const btn = document.getElementById("whyHomeBtn");
     if (!btn) return;
     btn.addEventListener("click", function () {
@@ -42,7 +33,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    bindHomeButton();
-    bindReasonButtons();
+    bindHome();
+    bindReasons();
   });
 })();
