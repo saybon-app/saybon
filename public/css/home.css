@@ -360,3 +360,59 @@
     transform:translate(-50%, 42px) scale(.995) !important;
   }
 }
+
+
+/* =========================================================
+   SAYBON MOBILE MICRO-FIX
+   MOBILE ONLY — DESKTOP UNTOUCHED
+========================================================= */
+@media (max-width:900px){
+
+  /* =====================================================
+     1) HOMEPAGE MOBILE SPACING RESTORE
+     - raise tap icon a bit more
+     - restore logo / buttons vertical rhythm
+  ===================================================== */
+  .tap-icon{
+    top:53.6% !important;
+  }
+
+  .saybon-logo{
+    top:60.8% !important;
+  }
+
+  .start-btn{
+    top:71.9% !important;
+  }
+
+  .login-btn{
+    top:79.0% !important;
+  }
+
+  /* =====================================================
+     2) MOBILE INTERVENTION PILL POSITIONS
+     Roll back the "too low" adjustment and place
+     pill 1 just beneath the gold dots, with enough room
+     for pill 4 to stay visible.
+  ===================================================== */
+
+  #offerOverlay .overlay-pill{
+    width:min(86vw, 650px) !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-1{
+    top:43.2% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-2{
+    top:55.1% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-3{
+    top:67.0% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-4{
+    top:78.9% !important;
+  }
+}
