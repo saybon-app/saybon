@@ -292,7 +292,6 @@ settingsBtn?.addEventListener("click", (e) => {
 /* ===== SAYBON HOMEPAGE PRESS SYSTEM ===== */
 
 const homepagePressTargets = [
-  teacher,
   startBtn,
   loginBtn,
   settingsBtn,
@@ -321,4 +320,5 @@ function attachPressFeedback(el) {
 homepagePressTargets.forEach(attachPressFeedback);
 
 /* ===== END SAYBON HOMEPAGE PRESS SYSTEM ===== */
+
 
