@@ -19,6 +19,17 @@ body{
   background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;
 }
 
+/* =========================================================
+   HOMEPAGE REVEAL SYSTEM
+   - No dead black waiting screen
+   - Background + elements fade in smoothly
+   - JS only flips classes; CSS handles the motion
+========================================================= */
+
+body.home-preload{
+  background:#000;
+}
+
 .home-shell{
   position:relative;
   width:100vw;
@@ -26,10 +37,35 @@ body{
   overflow:hidden;
 }
 
+/* soft veil so the page never feels like it's "broken" while assets settle */
+.home-shell::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(14,31,49,.18) 0%, rgba(3,9,18,.55) 100%),
+    #05080d;
+  opacity:0;
+  pointer-events:none;
+  z-index:90;
+  transition:opacity .55s ease;
+}
+
+body.home-preload .home-shell::before{
+  opacity:1;
+}
+
 .background-layer{
   position:absolute;
   inset:0;
   z-index:1;
+  opacity:0;
+  transform:scale(1.015);
+  filter:blur(10px);
+  transition:
+    opacity .9s ease,
+    transform 1.05s ease,
+    filter 1.05s ease;
 }
 
 .background-layer img{
@@ -141,6 +177,94 @@ body{
   display:block;
 }
 
+/* =========================================================
+   HOMEPAGE ELEMENT REVEAL
+========================================================= */
+
+/* everything that should assemble in smoothly */
+.teacher-hitbox,
+.tap-icon,
+.saybon-logo,
+.start-btn,
+.login-btn,
+.settings-image-btn{
+  opacity:0;
+  filter:blur(8px);
+  will-change:opacity, transform, filter;
+  transition:
+    opacity .78s ease,
+    transform .9s cubic-bezier(.22,.82,.18,1),
+    filter .9s ease;
+}
+
+/* desktop initial offsets */
+.teacher-hitbox{
+  transform:translateY(18px) scale(.992);
+}
+
+.tap-icon{
+  transform:translateY(16px) scale(.97);
+}
+
+.saybon-logo{
+  transform:translateY(18px) scale(.985);
+}
+
+.start-btn,
+.login-btn{
+  transform:translateX(-50%) translateY(18px) scale(.988);
+}
+
+.settings-image-btn{
+  transform:translateY(14px) scale(.97);
+}
+
+/* reveal states */
+body.home-bg-ready .background-layer{
+  opacity:1;
+  transform:scale(1);
+  filter:blur(0);
+}
+
+body.home-ui-ready .teacher-hitbox,
+body.home-ui-ready .tap-icon,
+body.home-ui-ready .saybon-logo,
+body.home-ui-ready .start-btn,
+body.home-ui-ready .login-btn,
+body.home-ui-ready .settings-image-btn{
+  opacity:1;
+  filter:blur(0);
+}
+
+body.home-ui-ready .teacher-hitbox{
+  transform:translateY(0) scale(1);
+}
+
+body.home-ui-ready .tap-icon{
+  transform:translateY(0) scale(1);
+}
+
+body.home-ui-ready .saybon-logo{
+  transform:translateY(0) scale(1);
+}
+
+body.home-ui-ready .start-btn,
+body.home-ui-ready .login-btn{
+  transform:translateX(-50%) translateY(0) scale(1);
+}
+
+body.home-ui-ready .settings-image-btn{
+  transform:translateY(0) scale(1);
+}
+
+/* smooth stagger so everything still feels polished */
+body.home-ui-ready .teacher-hitbox{ transition-delay:.03s; }
+body.home-ui-ready .tap-icon{ transition-delay:.08s; }
+body.home-ui-ready .saybon-logo{ transition-delay:.11s; }
+body.home-ui-ready .start-btn{ transition-delay:.15s; }
+body.home-ui-ready .login-btn{ transition-delay:.20s; }
+body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
+
 /* =========================================
    SAYBON OFFER OVERLAY
 ========================================= */
@@ -176,7 +300,6 @@ body{
   object-fit:cover;
   display:block;
 
-  /* intro starts blurry */
   filter:blur(18px);
   opacity:.84;
   transform:scale(1.02);
@@ -203,22 +326,14 @@ body{
 
 /* =========================================================
    PILLS
-   IMPORTANT:
-   - Each pill is absolutely positioned
-   - Starts from the same launch point near the bottom
-   - When .show is added it moves to its own parked slot
 ========================================================= */
 
 .overlay-pill{
   position:absolute;
   left:50%;
-
-  /* same launch point for every pill */
   top:78%;
   transform:translate(-50%, 0);
-
   width:min(72vw,620px);
-
   opacity:0;
   will-change:transform, opacity;
 
@@ -233,7 +348,7 @@ body{
   display:block;
 }
 
-/* final parked positions */
+/* base parked positions */
 .overlay-pill.slot-1.show{
   top:44%;
   opacity:1;
@@ -273,7 +388,6 @@ body{
 /* =========================================================
    BASE MOBILE
    Keep this block minimal.
-   Final mobile homepage + intervention overrides live below.
 ========================================================= */
 
 @media (max-width:900px){
@@ -295,8 +409,6 @@ body{
 
 /* =========================================================
    SAYBON INTERVENTION SURGICAL FIX
-   TARGET: PHOTO 7
-   APPENDED OVERRIDE BLOCK
 ========================================================= */
 
 /* ---------- overlay shell ---------- */
@@ -391,10 +503,7 @@ body{
 }
 
 /* =========================================================
-   DESKTOP TARGET
-   - smaller pills
-   - below heading / dots
-   - not giant
+   DESKTOP INTERVENTION
 ========================================================= */
 @media (min-width:901px){
 
@@ -433,8 +542,6 @@ body{
 
 /* =========================================================
    FINAL MOBILE HOMEPAGE BLOCK
-   Single source of truth for homepage mobile layout
-   Desktop untouched
 ========================================================= */
 @media (max-width:900px){
 
@@ -447,12 +554,16 @@ body{
     right:auto !important;
     bottom:auto !important;
     margin:0 !important;
-    transform:translateX(-50%) !important;
     z-index:20 !important;
+    transform:translateX(-50%) translateY(18px) scale(.992) !important;
   }
 
   .teacher-hitbox:hover{
-    transform:translateX(-50%) scale(1.02) !important;
+    transform:translateX(-50%) translateY(18px) scale(.992) !important;
+  }
+
+  body.home-ui-ready .teacher-hitbox{
+    transform:translateX(-50%) translateY(0) scale(1) !important;
   }
 
   .teacher-img{
@@ -469,8 +580,12 @@ body{
     right:auto !important;
     bottom:auto !important;
     margin:0 !important;
-    transform:translateX(-50%) !important;
     z-index:25 !important;
+    transform:translateX(-50%) translateY(16px) scale(.97) !important;
+  }
+
+  body.home-ui-ready .tap-icon{
+    transform:translateX(-50%) translateY(0) scale(1) !important;
   }
 
   .saybon-logo{
@@ -480,8 +595,12 @@ body{
     top:54.6% !important;
     right:auto !important;
     bottom:auto !important;
-    transform:translateX(-50%) !important;
     z-index:20 !important;
+    transform:translateX(-50%) translateY(18px) scale(.985) !important;
+  }
+
+  body.home-ui-ready .saybon-logo{
+    transform:translateX(-50%) translateY(0) scale(1) !important;
   }
 
   .start-btn{
@@ -489,8 +608,12 @@ body{
     width:200px !important;
     left:50% !important;
     top:69.9% !important;
-    transform:translateX(-50%) !important;
     z-index:20 !important;
+    transform:translateX(-50%) translateY(18px) scale(.988) !important;
+  }
+
+  body.home-ui-ready .start-btn{
+    transform:translateX(-50%) translateY(0) scale(1) !important;
   }
 
   .login-btn{
@@ -498,25 +621,31 @@ body{
     width:200px !important;
     left:50% !important;
     top:75.1% !important;
-    transform:translateX(-50%) !important;
     z-index:20 !important;
+    transform:translateX(-50%) translateY(18px) scale(.988) !important;
+  }
+
+  body.home-ui-ready .login-btn{
+    transform:translateX(-50%) translateY(0) scale(1) !important;
   }
 
   .settings-image-btn{
     width:60px !important;
     right:5% !important;
     bottom:2% !important;
+    transform:translateY(14px) scale(.97) !important;
+  }
+
+  body.home-ui-ready .settings-image-btn{
+    transform:translateY(0) scale(1) !important;
   }
 }
 
 /* =========================================================
    FINAL MOBILE INTERVENTION BLOCK
-   Single source of truth for intervention mobile layout
-   Desktop untouched
 ========================================================= */
 @media (max-width:900px){
 
-  /* prevent homepage elements from visually shifting under overlay */
   body.intervention-running .teacher-hitbox,
   body.intervention-running .tap-icon,
   body.intervention-running .saybon-logo,
@@ -557,7 +686,6 @@ body{
     max-width:none !important;
   }
 
-  /* first pill just beneath gold dots, with room for pill 4 */
   #offerOverlay .overlay-pill.slot-1{
     top:40.2% !important;
   }
@@ -584,296 +712,5 @@ body{
     opacity:0 !important;
     transform:translate(-50%,42px) scale(.995) !important;
     filter:blur(2px) !important;
-  }
-}
-/* === HOMEPAGE_LOAD_ANIMATION_V3 === */
-/* =========================================================
-   HOMEPAGE LOAD-IN ANIMATION
-   Blank-first reveal:
-   - page starts on dark shell
-   - background does NOT appear first
-   - background + homepage elements reveal together
-========================================================= */
-
-/* Keep the shell dark until homepage is ready */
-body.home-preload{
-  background:#000 !important;
-}
-
-/* Hide the native body background during preload so the
-   homepage background cannot "arrive first" behind the shell */
-body.home-preload{
-  background-image:none !important;
-}
-
-/* During preload, hide the homepage composition */
-body.home-preload .background-layer,
-body.home-preload .teacher-hitbox,
-body.home-preload .tap-icon,
-body.home-preload .saybon-logo,
-body.home-preload .start-btn,
-body.home-preload .login-btn,
-body.home-preload .settings-image-btn{
-  opacity:0;
-  visibility:hidden;
-}
-
-/* Background reveal timing */
-.background-layer{
-  opacity:1;
-  transition:
-    opacity 760ms ease,
-    transform 760ms ease,
-    filter 760ms ease;
-  will-change:opacity, transform, filter;
-}
-
-/* Homepage elements reveal timing */
-.teacher-hitbox,
-.tap-icon,
-.saybon-logo,
-.start-btn,
-.login-btn,
-.settings-image-btn{
-  opacity:1;
-  visibility:visible;
-  transition:
-    opacity 760ms ease,
-    transform 760ms cubic-bezier(.22,.82,.18,1),
-    filter 760ms ease;
-  will-change:opacity, transform, filter;
-}
-
-/* Intro state */
-body.home-preload .background-layer{
-  opacity:0;
-  transform:scale(1.02);
-  filter:blur(8px);
-}
-
-body.home-preload .teacher-hitbox,
-body.home-preload .tap-icon,
-body.home-preload .saybon-logo,
-body.home-preload .start-btn,
-body.home-preload .login-btn,
-body.home-preload .settings-image-btn{
-  opacity:0;
-  filter:blur(4px);
-}
-
-/* Desktop intro transforms */
-body.home-preload .teacher-hitbox{
-  transform:translateY(18px);
-}
-
-body.home-preload .tap-icon{
-  transform:translateY(18px);
-}
-
-body.home-preload .saybon-logo{
-  transform:translateY(18px);
-}
-
-body.home-preload .start-btn,
-body.home-preload .login-btn{
-  transform:translateX(-50%) translateY(18px);
-}
-
-body.home-preload .settings-image-btn{
-  transform:translateY(18px);
-}
-
-/* Ready state — background + homepage elements reveal together */
-body.home-ready{
-  background:url('/assets/home/desktop-background.PNG') center center / cover no-repeat fixed;
-}
-
-body.home-ready .background-layer{
-  opacity:1;
-  visibility:visible;
-  transform:none;
-  filter:blur(0);
-}
-
-body.home-ready .teacher-hitbox,
-body.home-ready .tap-icon,
-body.home-ready .saybon-logo,
-body.home-ready .start-btn,
-body.home-ready .login-btn,
-body.home-ready .settings-image-btn{
-  opacity:1;
-  visibility:visible;
-  filter:blur(0);
-}
-
-body.home-ready .teacher-hitbox{
-  transform:translateY(0);
-}
-
-body.home-ready .tap-icon{
-  transform:translateY(0);
-}
-
-body.home-ready .saybon-logo{
-  transform:translateY(0);
-}
-
-body.home-ready .start-btn,
-body.home-ready .login-btn{
-  transform:translateX(-50%) translateY(0);
-}
-
-body.home-ready .settings-image-btn{
-  transform:translateY(0);
-}
-
-/* Mobile: preserve centered X transforms and mobile background */
-@media (max-width:900px){
-
-  body.home-preload{
-    background:#000 !important;
-    background-image:none !important;
-  }
-
-  body.home-ready{
-    background:url('/assets/home/mobile-background.PNG') center top / cover no-repeat fixed !important;
-  }
-
-  body.home-preload .teacher-hitbox{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-preload .tap-icon{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-preload .saybon-logo{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-preload .start-btn,
-  body.home-preload .login-btn{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-ready .teacher-hitbox{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-
-  body.home-ready .tap-icon{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-
-  body.home-ready .saybon-logo{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-
-  body.home-ready .start-btn,
-  body.home-ready .login-btn{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .background-layer,
-  .teacher-hitbox,
-  .tap-icon,
-  .saybon-logo,
-  .start-btn,
-  .login-btn,
-  .settings-image-btn{
-    transition:none !important;
-  }
-}
-
-/* =========================================================
-   HOMEPAGE NON-BLOCKING ASSET FADE SYSTEM
-   These assets no longer pop in if they finish loading later.
-   JS adds:
-     .home-asset
-     .asset-ready
-========================================================= */
-
-.home-asset{
-  opacity:0 !important;
-  visibility:hidden !important;
-  filter:blur(4px) !important;
-  transition:
-    opacity 760ms ease,
-    transform 760ms cubic-bezier(.22,.82,.18,1),
-    filter 760ms ease !important;
-  will-change:opacity, transform, filter;
-}
-
-.home-asset.asset-ready{
-  opacity:1 !important;
-  visibility:visible !important;
-  filter:blur(0) !important;
-}
-
-/* Desktop asset intro offsets */
-body.home-ready .tap-icon.home-asset{
-  transform:translateY(18px);
-}
-
-body.home-ready .saybon-logo.home-asset{
-  transform:translateY(18px);
-}
-
-body.home-ready .start-btn.home-asset,
-body.home-ready .login-btn.home-asset{
-  transform:translateX(-50%) translateY(18px);
-}
-
-body.home-ready .settings-image-btn.home-asset{
-  transform:translateY(18px);
-}
-
-/* Desktop asset final state */
-body.home-ready .tap-icon.home-asset.asset-ready{
-  transform:translateY(0);
-}
-
-body.home-ready .saybon-logo.home-asset.asset-ready{
-  transform:translateY(0);
-}
-
-body.home-ready .start-btn.home-asset.asset-ready,
-body.home-ready .login-btn.home-asset.asset-ready{
-  transform:translateX(-50%) translateY(0);
-}
-
-body.home-ready .settings-image-btn.home-asset.asset-ready{
-  transform:translateY(0);
-}
-
-/* Mobile asset intro/final transforms must preserve centered X positioning */
-@media (max-width:900px){
-
-  body.home-ready .tap-icon.home-asset{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-ready .saybon-logo.home-asset{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-ready .start-btn.home-asset,
-  body.home-ready .login-btn.home-asset{
-    transform:translateX(-50%) translateY(18px) !important;
-  }
-
-  body.home-ready .tap-icon.home-asset.asset-ready{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-
-  body.home-ready .saybon-logo.home-asset.asset-ready{
-    transform:translateX(-50%) translateY(0) !important;
-  }
-
-  body.home-ready .start-btn.home-asset.asset-ready,
-  body.home-ready .login-btn.home-asset.asset-ready{
-    transform:translateX(-50%) translateY(0) !important;
   }
 }
