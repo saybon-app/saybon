@@ -586,3 +586,173 @@ body{
     filter:blur(2px) !important;
   }
 }
+/* === HOMEPAGE_LOAD_ANIMATION_V2 === */
+/* =========================================================
+   HOMEPAGE LOAD-IN ANIMATION
+   Prevents the homepage from rendering in broken pieces
+   and reveals the whole composition smoothly at once.
+========================================================= */
+
+/* Start hidden until JS marks the page ready */
+body.home-preload .background-layer,
+body.home-preload .teacher-hitbox,
+body.home-preload .tap-icon,
+body.home-preload .saybon-logo,
+body.home-preload .start-btn,
+body.home-preload .login-btn,
+body.home-preload .settings-image-btn{
+  opacity:0;
+  visibility:hidden;
+}
+
+/* Background fade */
+.background-layer{
+  opacity:1;
+  transition:
+    opacity 900ms ease,
+    transform 1200ms ease;
+  will-change:opacity, transform;
+}
+
+/* Homepage elements all animate together */
+.teacher-hitbox,
+.tap-icon,
+.saybon-logo,
+.start-btn,
+.login-btn,
+.settings-image-btn{
+  opacity:1;
+  visibility:visible;
+  transition:
+    opacity 900ms ease,
+    transform 900ms cubic-bezier(.22,.82,.18,1),
+    filter 900ms ease;
+  will-change:opacity, transform, filter;
+}
+
+/* Initial hidden / softened state */
+body.home-preload .background-layer{
+  opacity:0;
+  transform:scale(1.015);
+}
+
+body.home-preload .teacher-hitbox,
+body.home-preload .tap-icon,
+body.home-preload .saybon-logo,
+body.home-preload .start-btn,
+body.home-preload .login-btn,
+body.home-preload .settings-image-btn{
+  opacity:0;
+  filter:blur(4px);
+}
+
+/* Desktop intro transforms */
+body.home-preload .teacher-hitbox{
+  transform:translateY(18px);
+}
+
+body.home-preload .tap-icon{
+  transform:translateY(18px);
+}
+
+body.home-preload .saybon-logo{
+  transform:translateY(18px);
+}
+
+body.home-preload .start-btn,
+body.home-preload .login-btn{
+  transform:translateX(-50%) translateY(18px);
+}
+
+body.home-preload .settings-image-btn{
+  transform:translateY(18px);
+}
+
+/* Ready state */
+body.home-ready .background-layer{
+  opacity:1;
+  transform:none;
+}
+
+body.home-ready .teacher-hitbox,
+body.home-ready .tap-icon,
+body.home-ready .saybon-logo,
+body.home-ready .start-btn,
+body.home-ready .login-btn,
+body.home-ready .settings-image-btn{
+  opacity:1;
+  visibility:visible;
+  filter:blur(0);
+}
+
+body.home-ready .teacher-hitbox{
+  transform:translateY(0);
+}
+
+body.home-ready .tap-icon{
+  transform:translateY(0);
+}
+
+body.home-ready .saybon-logo{
+  transform:translateY(0);
+}
+
+body.home-ready .start-btn,
+body.home-ready .login-btn{
+  transform:translateX(-50%) translateY(0);
+}
+
+body.home-ready .settings-image-btn{
+  transform:translateY(0);
+}
+
+/* Mobile: preserve centered X transforms */
+@media (max-width:900px){
+
+  body.home-preload .teacher-hitbox{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-preload .tap-icon{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-preload .saybon-logo{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-preload .start-btn,
+  body.home-preload .login-btn{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-ready .teacher-hitbox{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+
+  body.home-ready .tap-icon{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+
+  body.home-ready .saybon-logo{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+
+  body.home-ready .start-btn,
+  body.home-ready .login-btn{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .background-layer,
+  .teacher-hitbox,
+  .tap-icon,
+  .saybon-logo,
+  .start-btn,
+  .login-btn,
+  .settings-image-btn{
+    transition:none !important;
+  }
+}
