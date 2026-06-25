@@ -559,19 +559,19 @@ body{
 
   /* first pill just beneath gold dots, with room for pill 4 */
   #offerOverlay .overlay-pill.slot-1{
-    top:43.2% !important;
+    top:44.2% !important;
   }
 
   #offerOverlay .overlay-pill.slot-2{
-    top:55.1% !important;
+    top:56.1% !important;
   }
 
   #offerOverlay .overlay-pill.slot-3{
-    top:67.0% !important;
+    top:68.0% !important;
   }
 
   #offerOverlay .overlay-pill.slot-4{
-    top:78.9% !important;
+    top:79.9% !important;
   }
 
   #offerOverlay .overlay-pill.show{
