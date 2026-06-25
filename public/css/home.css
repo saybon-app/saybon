@@ -786,3 +786,94 @@ body.home-ready .settings-image-btn{
     transition:none !important;
   }
 }
+
+/* =========================================================
+   HOMEPAGE NON-BLOCKING ASSET FADE SYSTEM
+   These assets no longer pop in if they finish loading later.
+   JS adds:
+     .home-asset
+     .asset-ready
+========================================================= */
+
+.home-asset{
+  opacity:0 !important;
+  visibility:hidden !important;
+  filter:blur(4px) !important;
+  transition:
+    opacity 760ms ease,
+    transform 760ms cubic-bezier(.22,.82,.18,1),
+    filter 760ms ease !important;
+  will-change:opacity, transform, filter;
+}
+
+.home-asset.asset-ready{
+  opacity:1 !important;
+  visibility:visible !important;
+  filter:blur(0) !important;
+}
+
+/* Desktop asset intro offsets */
+body.home-ready .tap-icon.home-asset{
+  transform:translateY(18px);
+}
+
+body.home-ready .saybon-logo.home-asset{
+  transform:translateY(18px);
+}
+
+body.home-ready .start-btn.home-asset,
+body.home-ready .login-btn.home-asset{
+  transform:translateX(-50%) translateY(18px);
+}
+
+body.home-ready .settings-image-btn.home-asset{
+  transform:translateY(18px);
+}
+
+/* Desktop asset final state */
+body.home-ready .tap-icon.home-asset.asset-ready{
+  transform:translateY(0);
+}
+
+body.home-ready .saybon-logo.home-asset.asset-ready{
+  transform:translateY(0);
+}
+
+body.home-ready .start-btn.home-asset.asset-ready,
+body.home-ready .login-btn.home-asset.asset-ready{
+  transform:translateX(-50%) translateY(0);
+}
+
+body.home-ready .settings-image-btn.home-asset.asset-ready{
+  transform:translateY(0);
+}
+
+/* Mobile asset intro/final transforms must preserve centered X positioning */
+@media (max-width:900px){
+
+  body.home-ready .tap-icon.home-asset{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-ready .saybon-logo.home-asset{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-ready .start-btn.home-asset,
+  body.home-ready .login-btn.home-asset{
+    transform:translateX(-50%) translateY(18px) !important;
+  }
+
+  body.home-ready .tap-icon.home-asset.asset-ready{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+
+  body.home-ready .saybon-logo.home-asset.asset-ready{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+
+  body.home-ready .start-btn.home-asset.asset-ready,
+  body.home-ready .login-btn.home-asset.asset-ready{
+    transform:translateX(-50%) translateY(0) !important;
+  }
+}

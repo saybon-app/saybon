@@ -2,12 +2,13 @@
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Faster blank-first reveal:
-   - page starts on dark shell
-   - wait ONLY for critical homepage images:
+   Strategy:
+   - Wait only for critical blockers:
        1) background image
        2) teacher image
-   - then reveal background + homepage elements together
+   - Reveal homepage shell quickly
+   - For non-blocking assets (logo/buttons/settings/tap),
+     reveal each one smoothly as soon as its own image is ready
 ========================================================= */
 
 function waitForImage(img) {
@@ -24,21 +25,67 @@ function waitForImage(img) {
   });
 }
 
-function revealHomepage() {
+function revealHomepageShell() {
   requestAnimationFrame(() => {
     document.body.classList.add("home-ready");
     document.body.classList.remove("home-preload");
   });
 }
 
+function revealAssetWhenReady(wrapperEl, imgEl) {
+  if (!wrapperEl) return;
+
+  const reveal = () => {
+    requestAnimationFrame(() => {
+      wrapperEl.classList.add("asset-ready");
+    });
+  };
+
+  if (!imgEl) {
+    reveal();
+    return;
+  }
+
+  if (imgEl.complete && imgEl.naturalWidth > 0) {
+    reveal();
+    return;
+  }
+
+  waitForImage(imgEl).then(reveal);
+}
+
 function initHomepageReveal() {
   const backgroundImg = document.querySelector(".background-layer img");
   const teacherImg = document.querySelector(".teacher-img");
 
+  const tapEl = document.querySelector(".tap-icon");
+  const logoEl = document.querySelector(".saybon-logo");
+  const startBtn = document.querySelector(".start-btn");
+  const loginBtn = document.querySelector(".login-btn");
+  const settingsBtn = document.querySelector(".settings-image-btn");
+
+  const startImg = startBtn ? startBtn.querySelector("img") : null;
+  const loginImg = loginBtn ? loginBtn.querySelector("img") : null;
+  const settingsImg = settingsBtn ? settingsBtn.querySelector("img") : null;
+
+  // Mark non-blocking homepage assets for smooth reveal handling
+  [tapEl, logoEl, startBtn, loginBtn, settingsBtn].forEach((el) => {
+    if (el) el.classList.add("home-asset");
+  });
+
   Promise.all([
     waitForImage(backgroundImg),
     waitForImage(teacherImg)
-  ]).then(revealHomepage);
+  ]).then(() => {
+    revealHomepageShell();
+
+    // Smoothly reveal each remaining homepage element
+    revealAssetWhenReady(tapEl, tapEl);
+    revealAssetWhenReady(logoEl, logoEl);
+    revealAssetWhenReady(startBtn, startImg);
+    revealAssetWhenReady(loginBtn, loginImg);
+    revealAssetWhenReady(settingsBtn, settingsImg);
+  });
 }
 
 if (document.readyState === "loading") {
@@ -122,25 +169,6 @@ teacher?.addEventListener("click", () => {
     audio.currentTime = 0;
     audio.play().catch(() => {});
   }
-
-  /* ---------------------------------------------------
-     TIMING PLAN
-     0s    overlay starts appearing
-     2s    pill 1 appears
-     4s    pill 1 moves to slot 1
-     5s    pill 2 appears
-     7s    pill 2 moves to slot 2
-     8s    pill 3 appears
-     10s   pill 3 moves to slot 3
-     11s   pill 4 appears
-     13s   pill 4 moves to slot 4
-     18s   pill 4 exits
-     19s   pill 3 exits
-     20s   pill 2 exits
-     21s   pill 1 exits
-     22s   overlay closing starts
-     25s   overlay removed
-  --------------------------------------------------- */
 
   queueOverlayTimer(() => { pill1?.classList.add("show"); }, 2000);
   queueOverlayTimer(() => { pill1?.classList.add("slot-1"); }, 4000);
