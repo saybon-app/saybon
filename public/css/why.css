@@ -91,7 +91,7 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
-   Full-width background image again
+   Larger full-page artwork pushed upward
 ========================================================= */
 .why-stage-desktop{
   display:block;
@@ -99,21 +99,24 @@ body.why-page{
   min-height:100vh;
   background:var(--why-page-bg);
   padding-top:0;
+  overflow:hidden;
 }
 
 .why-bg-wrap-desktop{
   position:relative;
   width:100%;
-  max-width:none;
   margin:0;
   background:var(--why-page-bg);
+  overflow:hidden;
 }
 
 .why-bg-desktop{
   display:block;
-  width:100%;
+  width:112%;
   max-width:none;
-  margin:0;
+  margin:-5.5vw auto 0;
+  margin-left:-6%;
+  height:auto;
 }
 
 /* =========================================================
@@ -172,31 +175,33 @@ body.why-page{
 }
 
 /* =========================================================
-   DESKTOP CARD POSITIONS
-   BIGGER cards + barely any space between them
+   DESKTOP
+   Larger full-page artwork pushed upward
 ========================================================= */
-.why-option-desktop{
-  width:22.6%;
+.why-stage-desktop{
+  display:block;
+  width:100%;
+  min-height:100vh;
+  background:var(--why-page-bg);
+  padding-top:0;
+  overflow:hidden;
 }
 
-.why-option-personal{
-  left:4.0%;
-  top:51.8%;
+.why-bg-wrap-desktop{
+  position:relative;
+  width:100%;
+  margin:0;
+  background:var(--why-page-bg);
+  overflow:hidden;
 }
 
-.why-option-school{
-  left:27.3%;
-  top:51.8%;
-}
-
-.why-option-travel{
-  left:50.6%;
-  top:51.8%;
-}
-
-.why-option-career{
-  left:73.9%;
-  top:51.8%;
+.why-bg-desktop{
+  display:block;
+  width:112%;
+  max-width:none;
+  margin:-5.5vw auto 0;
+  margin-left:-6%;
+  height:auto;
 }
 
 /* =========================================================
@@ -262,6 +267,7 @@ body.why-page{
     height:var(--why-home-size-mobile);
   }
 }
+
 
 
 
