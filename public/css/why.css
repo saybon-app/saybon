@@ -1,161 +1,289 @@
-/* ===========================================
-   GLOBAL
-=========================================== */
-
-* {
-  box-sizing: border-box;
+﻿*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: "Nunito", system-ui, sans-serif;
-  background: radial-gradient(circle at top, #fff6fb, #eef2ff, #e8fbff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+html,
+body{
+  width:100%;
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:"Nunito",system-ui,sans-serif;
+  background:#ffffff;
 }
 
-/* ===========================================
-   LAYOUT
-=========================================== */
-
-.why-container {
-  width: 90%;
-  max-width: 780px;
-  text-align: center;
+body.why-page{
+  position:relative;
 }
 
-/* Title */
-
-.why-title {
-  font-size: 32px;
-  font-weight: 800;
-  margin-bottom: 32px;
-  color: #1f2937;
+/* =========================================================
+   SHELL
+========================================================= */
+.why-shell{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  overflow:hidden;
+  background:#fff;
 }
 
-/* ===========================================
-   OPTIONS GRID
-=========================================== */
-
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  transition: all 0.6s ease;
+/* =========================================================
+   HOME BUTTON
+   Same asset on desktop + mobile
+========================================================= */
+.why-home-btn{
+  position:fixed;
+  top:24px;
+  right:28px;
+  width:58px;
+  height:58px;
+  border:none;
+  background:transparent;
+  padding:0;
+  cursor:pointer;
+  z-index:50;
+  transition:transform .18s ease, opacity .18s ease, filter .18s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 
-/* Base option style */
-
-.why-option {
-  padding: 22px 18px;
-  border-radius: 18px;
-  border: none;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  color: #1f2937;
-  transition: all 0.55s cubic-bezier(.22,.61,.36,1);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+.why-home-btn img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
-/* Hover effect */
-
-.why-option:hover {
-  transform: translateY(-3px) scale(1.02);
+.why-home-btn:hover{
+  transform:translateY(-1px) scale(1.02);
 }
 
-/* Distinct colorful styles — NO GREEN THEME */
-
-/* Travel */
-.travel {
-  background: linear-gradient(135deg, #ffb347, #ffcc33);
+.why-home-btn:active,
+.why-home-btn.is-pressed{
+  transform:scale(.94);
 }
 
-/* Career */
-.career {
-  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+/* =========================================================
+   DESKTOP LAYOUT
+========================================================= */
+.why-desktop{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  display:block;
 }
 
-/* School */
-.school {
-  background: linear-gradient(135deg, #84fab0, #8fd3f4);
+.why-desktop-bg{
+  position:absolute;
+  inset:0;
+  z-index:1;
 }
 
-/* Personal */
-.personal {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+.why-desktop-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
-/* ===========================================
-   FADE OUT OTHERS WHEN SELECTED
-=========================================== */
-
-.fade-out {
-  opacity: 0;
-  transform: scale(0.9);
-  pointer-events: none;
+.why-desktop-pills{
+  position:relative;
+  z-index:5;
+  width:100%;
+  min-height:100vh;
 }
 
-/* Selected stays centered */
-
-.selected {
-  grid-column: 1 / -1;
-  max-width: 520px;
-  margin: 0 auto;
+.why-option{
+  border:none;
+  background:none;
+  padding:0;
+  cursor:pointer;
+  position:absolute;
+  transition:
+    transform .42s cubic-bezier(.22,.82,.18,1),
+    opacity .42s ease,
+    filter .42s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 
-/* ===========================================
-   AFFIRMATION TAG (DIFFERENT LOOK + EMOJIS)
-=========================================== */
-
-.affirmation {
-  margin-top: 26px;
-  padding: 18px 22px;
-  border-radius: 18px;
-  font-family: "Patrick Hand", cursive;
-  font-size: 22px;
-  font-weight: 600;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
-  animation: popIn 0.8s ease forwards;
-  color: #0a0a2a;
+.why-option img{
+  width:100%;
+  height:auto;
+  display:block;
 }
 
-/* Hidden state */
-.hidden {
-  display: none;
+/* Desktop pill positions */
+.why-option-desktop.travel{
+  top:34%;
+  left:18%;
+  width:min(21vw,310px);
 }
 
-/* Cute pop animation */
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(10px);
+.why-option-desktop.school{
+  top:34%;
+  right:18%;
+  width:min(21vw,310px);
+}
+
+.why-option-desktop.personal{
+  top:57%;
+  left:18%;
+  width:min(21vw,310px);
+}
+
+.why-option-desktop.career{
+  top:57%;
+  right:18%;
+  width:min(21vw,310px);
+}
+
+/* =========================================================
+   MOBILE LAYOUT
+========================================================= */
+.why-mobile{
+  display:none;
+  position:relative;
+  width:100%;
+  min-height:100vh;
+}
+
+.why-mobile-bg{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+
+.why-mobile-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.why-mobile-pills{
+  position:relative;
+  z-index:5;
+  width:100%;
+  min-height:100vh;
+}
+
+.why-option-mobile{
+  left:50%;
+  transform:translateX(-50%);
+  width:min(82vw,360px);
+}
+
+.why-option-mobile.travel{ top:31%; }
+.why-option-mobile.school{ top:43%; }
+.why-option-mobile.personal{ top:55%; }
+.why-option-mobile.career{ top:67%; }
+
+/* =========================================================
+   INTERACTION
+========================================================= */
+.why-option:hover{
+  transform:translateY(-2px) scale(1.018);
+}
+
+.why-option-mobile:hover{
+  transform:translateX(-50%) translateY(-2px) scale(1.018);
+}
+
+.why-option.is-pressed{
+  transform:scale(.965);
+}
+
+.why-option-mobile.is-pressed{
+  transform:translateX(-50%) scale(.965);
+}
+
+/* fade others */
+.fade-out{
+  opacity:0;
+  transform:scale(.92);
+  pointer-events:none;
+}
+
+.why-option-mobile.fade-out{
+  opacity:0;
+  transform:translateX(-50%) scale(.92);
+}
+
+/* selected state */
+.selected{
+  z-index:20;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.14));
+  transform:scale(1.03);
+}
+
+.why-option-mobile.selected{
+  transform:translateX(-50%) scale(1.03);
+}
+
+/* =========================================================
+   AFFIRMATION
+========================================================= */
+.affirmation{
+  position:fixed;
+  left:50%;
+  bottom:7%;
+  transform:translateX(-50%);
+  z-index:40;
+
+  width:min(86vw,720px);
+  padding:18px 22px;
+  border-radius:22px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 14px 34px rgba(0,0,0,.14);
+
+  text-align:center;
+  font-size:clamp(16px,1.35vw,22px);
+  font-weight:800;
+  color:#1d2740;
+  animation:affirmIn .5s ease forwards;
+}
+
+.hidden{
+  display:none;
+}
+
+@keyframes affirmIn{
+  from{
+    opacity:0;
+    transform:translateX(-50%) translateY(10px) scale(.98);
   }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+  to{
+    opacity:1;
+    transform:translateX(-50%) translateY(0) scale(1);
   }
 }
 
-/* ===========================================
-   MOBILE FRIENDLY
-=========================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width:900px){
 
-@media (max-width: 700px) {
-  .options-grid {
-    grid-template-columns: 1fr;
+  .why-desktop{
+    display:none;
   }
 
-  .why-title {
-    font-size: 26px;
+  .why-mobile{
+    display:block;
   }
 
-  .why-option {
-    font-size: 17px;
+  .why-home-btn{
+    top:18px;
+    right:18px;
+    width:50px;
+    height:50px;
+  }
+
+  .affirmation{
+    bottom:5.5%;
+    width:min(88vw,520px);
+    padding:16px 18px;
+    font-size:15px;
+    line-height:1.35;
   }
 }

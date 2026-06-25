@@ -1,42 +1,73 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Why learn French? — SayBon</title>
 
   <link rel="stylesheet" href="/css/why.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+<body class="why-page">
 
-<body>
+  <main class="why-shell">
 
-  <main class="why-container">
+    <!-- HOME BUTTON -->
+    <button class="why-home-btn" id="whyHomeBtn" aria-label="Go home">
+      <img src="/assets/why/home-icon.png" alt="Home" />
+    </button>
 
-    <h1 class="why-title">Why do you want to learn French?</h1>
+    <!-- DESKTOP -->
+    <section class="why-desktop" aria-label="Why desktop layout">
+      <div class="why-desktop-bg">
+        <img src="/assets/why/desktop-background.png" alt="" />
+      </div>
 
-    <div class="options-grid" id="optionsGrid">
+      <div class="why-desktop-pills" id="optionsGridDesktop">
+        <button class="why-option why-option-desktop travel" data-reason="travel">
+          <img src="/assets/why/desktop-1.png" alt="Travel & Culture" />
+        </button>
 
-      <button class="why-option travel" data-reason="travel">
-        Travel & Culture
-      </button>
+        <button class="why-option why-option-desktop school" data-reason="school">
+          <img src="/assets/why/desktop-2.png" alt="School / Exams" />
+        </button>
 
-      <button class="why-option career" data-reason="career">
-        Career Growth
-      </button>
+        <button class="why-option why-option-desktop personal" data-reason="personal">
+          <img src="/assets/why/desktop-3.png" alt="Personal Interest" />
+        </button>
 
-      <button class="why-option school" data-reason="school">
-        School / Exams
-      </button>
+        <button class="why-option why-option-desktop career" data-reason="career">
+          <img src="/assets/why/desktop-4.png" alt="Career Growth" />
+        </button>
+      </div>
+    </section>
 
-      <button class="why-option personal" data-reason="personal">
-        Personal Interest
-      </button>
+    <!-- MOBILE -->
+    <section class="why-mobile" aria-label="Why mobile layout">
+      <div class="why-mobile-bg">
+        <img src="/assets/why/mobile-background.png" alt="" />
+      </div>
 
-    </div>
+      <div class="why-mobile-pills" id="optionsGridMobile">
+        <button class="why-option why-option-mobile travel" data-reason="travel">
+          <img src="/assets/why/mobile-1.png" alt="Travel & Culture" />
+        </button>
 
-    <!-- Affirmation appears here (CENTERED) -->
+        <button class="why-option why-option-mobile school" data-reason="school">
+          <img src="/assets/why/mobile-2.png" alt="School / Exams" />
+        </button>
+
+        <button class="why-option why-option-mobile personal" data-reason="personal">
+          <img src="/assets/why/mobile-3.png" alt="Personal Interest" />
+        </button>
+
+        <button class="why-option why-option-mobile career" data-reason="career">
+          <img src="/assets/why/mobile-4.png" alt="Career Growth" />
+        </button>
+      </div>
+    </section>
+
+    <!-- AFFIRMATION -->
     <div id="affirmationBox" class="affirmation hidden"></div>
 
   </main>

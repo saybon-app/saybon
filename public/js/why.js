@@ -1,10 +1,9 @@
 ﻿const options = document.querySelectorAll(".why-option");
 const affirmationBox = document.getElementById("affirmationBox");
+const homeBtn = document.getElementById("whyHomeBtn");
 
 /* =========================================================
    LOADER HISTORY REPAIR
-   If we arrived here through loader, rewrite this history
-   entry so Back skips loader and goes to the previous page.
 ========================================================= */
 (function repairLoaderHistoryOnWhy() {
   const prev = sessionStorage.getItem("saybon_prev");
@@ -27,6 +26,26 @@ const affirmationBox = document.getElementById("affirmationBox");
   }, { once: true });
 })();
 
+/* =========================================================
+   HOME BUTTON
+========================================================= */
+if (homeBtn) {
+  homeBtn.addEventListener("click", () => {
+    window.location.href = "/index.html";
+  });
+
+  const pressOn = () => homeBtn.classList.add("is-pressed");
+  const pressOff = () => homeBtn.classList.remove("is-pressed");
+
+  homeBtn.addEventListener("pointerdown", pressOn, { passive:true });
+  homeBtn.addEventListener("pointerup", pressOff, { passive:true });
+  homeBtn.addEventListener("pointercancel", pressOff, { passive:true });
+  homeBtn.addEventListener("pointerleave", pressOff, { passive:true });
+}
+
+/* =========================================================
+   AFFIRMATION TEXT
+========================================================= */
 const tags = {
   travel:
     "Better get your passport ready then… on y va ✈️🌍",
@@ -41,28 +60,47 @@ const tags = {
     "Whatever your reasons may be, we’ve got you covered. 💫"
 };
 
+/* =========================================================
+   OPTION PRESS FEEDBACK
+========================================================= */
+function bindPressFeedback(el) {
+  if (!el) return;
+
+  const pressOn = () => el.classList.add("is-pressed");
+  const pressOff = () => el.classList.remove("is-pressed");
+
+  el.addEventListener("pointerdown", pressOn, { passive:true });
+  el.addEventListener("pointerup", pressOff, { passive:true });
+  el.addEventListener("pointercancel", pressOff, { passive:true });
+  el.addEventListener("pointerleave", pressOff, { passive:true });
+}
+
+options.forEach(bindPressFeedback);
+
+/* =========================================================
+   OPTION SELECTION FLOW
+========================================================= */
 options.forEach(btn => {
   btn.addEventListener("click", () => {
 
-    // 1) Fade out all other options
+    // Fade out all other options
     options.forEach(o => {
       if (o !== btn) o.classList.add("fade-out");
     });
 
-    // 2) Center selected option
+    // Keep selected option visible and slightly emphasized
     btn.classList.add("selected");
 
-    // 3) Show affirmation tag
+    // Show affirmation
     const key = btn.dataset.reason;
-    affirmationBox.textContent = tags[key];
+    affirmationBox.textContent = tags[key] || "";
     affirmationBox.classList.remove("hidden");
 
-    // 4) After 3 seconds → loader → start.html
+    // Move to start page through loader
     setTimeout(() => {
-      // overwrite prev so the next hop knows it came from WHY
       sessionStorage.setItem("saybon_prev", window.location.pathname);
       sessionStorage.setItem("saybon_next", "/start.html");
       window.location.href = "/loader.html";
-    }, 3000);
+    }, 2200);
   });
 });
