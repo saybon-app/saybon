@@ -1047,14 +1047,13 @@ body.home-ui-in .settings-image-btn{
    RULES:
    - Hover effect ONLY for teacher + logo
    - Click press effect ONLY for teacher + start + login + settings
-   - Press must feel like a true inward click, NOT a jump
+   - IMPORTANT: button press happens on INNER IMAGE, not wrapper
 ========================================================= */
 
 :root{
   --sb-logo-hover-lift: -1px;
   --sb-logo-hover-scale: 1.01;
 
-  /* inward press only */
   --sb-press-scale: .965;
   --sb-press-brightness: .96;
 }
@@ -1085,17 +1084,26 @@ body.home-ui-in .settings-image-btn{
   touch-action: manipulation;
 }
 
-/* Clickable buttons that should press inward */
+/* Button WRAPPERS: keep them stable. No press transform here. */
 .start-btn,
 .login-btn,
 .settings-image-btn{
-  will-change:transform, filter, opacity;
-  transition:
-    transform .14s cubic-bezier(.22,.82,.18,1),
-    filter .14s ease,
-    opacity .14s ease !important;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+/* INNER button visuals are what should press inward */
+.start-btn img,
+.login-btn img,
+.settings-image-btn img{
+  display:block;
+  width:100%;
+  height:auto;
+  will-change:transform, filter;
+  transition:
+    transform .14s cubic-bezier(.22,.82,.18,1),
+    filter .14s ease !important;
+  transform-origin:center center;
 }
 
 /* -----------------------------------------
@@ -1119,48 +1127,23 @@ body.home-ui-in .settings-image-btn{
 /* -----------------------------------------
    CLICK / PRESS-IN STATES
    ONLY teacher + start + login + settings
-   IMPORTANT:
-   No translateY push. Only slight scale inward.
 ----------------------------------------- */
 
-/* teacher press */
+/* teacher presses inward on its own wrapper */
 .teacher-hitbox.is-pressed{
   transform:scale(.985) !important;
   filter:brightness(.985) saturate(.99) !important;
 }
 
-/* desktop buttons press inward */
-.start-btn.is-pressed,
-.login-btn.is-pressed{
-  transform:translateX(-50%) scale(var(--sb-press-scale)) !important;
-  filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
-}
-
-.settings-image-btn.is-pressed{
+/* IMPORTANT:
+   start/login/settings press the INNER IMAGE only
+   so the positioned wrapper does not shift/jump
+*/
+.start-btn.is-pressed img,
+.login-btn.is-pressed img,
+.settings-image-btn.is-pressed img{
   transform:scale(var(--sb-press-scale)) !important;
   filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
-}
-
-/* -----------------------------------------
-   MOBILE LAYOUT-AWARE PRESS STATES
------------------------------------------ */
-@media (max-width:900px){
-
-  .teacher-hitbox.is-pressed{
-    transform:translateX(-50%) scale(.985) !important;
-    filter:brightness(.985) saturate(.99) !important;
-  }
-
-  .start-btn.is-pressed,
-  .login-btn.is-pressed{
-    transform:translateX(-50%) scale(var(--sb-press-scale)) !important;
-    filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
-  }
-
-  .settings-image-btn.is-pressed{
-    transform:scale(var(--sb-press-scale)) !important;
-    filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
-  }
 }
 
 /* -----------------------------------------
@@ -1169,13 +1152,14 @@ body.home-ui-in .settings-image-btn{
 body.home-preload .teacher-hitbox:hover,
 body.home-preload .saybon-logo:hover,
 body.home-preload .teacher-hitbox.is-pressed,
-body.home-preload .start-btn.is-pressed,
-body.home-preload .login-btn.is-pressed,
-body.home-preload .settings-image-btn.is-pressed{
+body.home-preload .start-btn.is-pressed img,
+body.home-preload .login-btn.is-pressed img,
+body.home-preload .settings-image-btn.is-pressed img{
   filter:none !important;
 }
 
 /* ===== END SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
+
 
 
 
