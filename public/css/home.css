@@ -1050,9 +1050,9 @@ body.home-ui-in .settings-image-btn{
 ========================================================= */
 
 :root{
-  --sb-hover-lift-subtle: -1px;
-  --sb-hover-scale-subtle: 1.008;
-  --sb-hover-scale-icon: 1.01;
+  --sb-hover-lift-subtle: -0.5px;
+  --sb-hover-scale-subtle: 1.002;
+  --sb-hover-scale-icon: 1.005;
   --sb-press-scale: .972;
   --sb-press-y: 1px;
 }
