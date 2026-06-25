@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why learn French? — SayBon</title>
+  <title>Why Learn French? — SayBon</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/css/why.css" />
   <link rel="stylesheet" href="/css/page-transition.css" />
-  <script type="module" src="/js/nav-engine.js"></script>
-  <script defer src="/js/why.js"></script>
 </head>
 <body class="why-page">
 
@@ -23,49 +21,58 @@
       <img src="/assets/why/home-icon.png" alt="Home" />
     </button>
 
-    <!-- HERO -->
-    <section class="why-hero" aria-hidden="true">
-      <img class="why-globe" src="/assets/why/globe.png" alt="" />
+    <!-- DESKTOP STAGE -->
+    <section class="why-stage why-stage-desktop" aria-label="Why learn French options">
+      <img
+        class="why-bg why-bg-desktop"
+        src="/assets/why/desktop-background.png"
+        alt="Why do you want to learn French?"
+      />
+
+      <button class="why-option why-option-desktop why-option-personal" type="button" data-reason="personal" aria-label="Personal Interest">
+        <img src="/assets/why/desktop-1.png" alt="Personal Interest" />
+      </button>
+
+      <button class="why-option why-option-desktop why-option-school" type="button" data-reason="school" aria-label="School and Exams">
+        <img src="/assets/why/desktop-2.png" alt="School / Exams" />
+      </button>
+
+      <button class="why-option why-option-desktop why-option-travel" type="button" data-reason="travel" aria-label="Travel and Culture">
+        <img src="/assets/why/desktop-3.png" alt="Travel & Culture" />
+      </button>
+
+      <button class="why-option why-option-desktop why-option-career" type="button" data-reason="career" aria-label="Career Growth">
+        <img src="/assets/why/desktop-4.png" alt="Career Growth" />
+      </button>
     </section>
 
-    <!-- TITLE -->
-    <header class="why-header">
-      <h1 class="why-title">Why do you want to learn French?</h1>
-    </header>
+    <!-- MOBILE STAGE -->
+    <section class="why-stage why-stage-mobile" aria-label="Why learn French options mobile">
+      <img
+        class="why-bg why-bg-mobile"
+        src="/assets/why/mobile-background.png"
+        alt="Why do you want to learn French?"
+      />
 
-    <!-- OPTIONS -->
-    <section class="why-options" aria-label="Reasons for learning French">
-
-      <button class="why-option option-personal" type="button" data-reason="personal" aria-label="Personal Interest">
-        <span class="why-option-art">
-          <img src="/assets/why/desktop-1.png" alt="" />
-        </span>
-        <span class="why-option-label">Personal Interest</span>
+      <button class="why-option why-option-mobile why-option-mobile-1" type="button" data-reason="personal" aria-label="Personal Interest">
+        <img src="/assets/why/mobile-1.png" alt="Personal Interest" />
       </button>
 
-      <button class="why-option option-school" type="button" data-reason="school" aria-label="School">
-        <span class="why-option-art">
-          <img src="/assets/why/desktop-2.png" alt="" />
-        </span>
-        <span class="why-option-label">School</span>
+      <button class="why-option why-option-mobile why-option-mobile-2" type="button" data-reason="school" aria-label="School and Exams">
+        <img src="/assets/why/mobile-2.png" alt="School / Exams" />
       </button>
 
-      <button class="why-option option-travel" type="button" data-reason="travel" aria-label="Travel">
-        <span class="why-option-art">
-          <img src="/assets/why/desktop-3.png" alt="" />
-        </span>
-        <span class="why-option-label">Travel</span>
+      <button class="why-option why-option-mobile why-option-mobile-3" type="button" data-reason="travel" aria-label="Travel and Culture">
+        <img src="/assets/why/mobile-3.png" alt="Travel & Culture" />
       </button>
 
-      <button class="why-option option-career" type="button" data-reason="career" aria-label="Career">
-        <span class="why-option-art">
-          <img src="/assets/why/desktop-4.png" alt="" />
-        </span>
-        <span class="why-option-label">Career</span>
+      <button class="why-option why-option-mobile why-option-mobile-4" type="button" data-reason="career" aria-label="Career Growth">
+        <img src="/assets/why/mobile-4.png" alt="Career Growth" />
       </button>
-
     </section>
 
   </main>
+
+  <script src="/js/why.js"></script>
 </body>
 </html>
