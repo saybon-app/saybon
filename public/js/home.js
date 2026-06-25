@@ -16,12 +16,7 @@ let overlayTimers = [];
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Stable polished reveal:
-   - background in
-   - teacher in
-   - tap/logo/buttons/settings in as premium grouped sequence
 ========================================================= */
-
 function runHomepageReveal() {
   document.body.classList.add("home-preload");
 
@@ -65,7 +60,6 @@ if (document.readyState === "loading") {
 /* =========================================================
    INTERVENTION HELPERS
 ========================================================= */
-
 function addTimer(fn, delay) {
   const id = window.setTimeout(fn, delay);
   overlayTimers.push(id);
@@ -86,7 +80,7 @@ function resetPills() {
       "slot-2",
       "slot-3",
       "slot-4",
-      "hold",
+      "parked",
       "exit",
       "exit-left",
       "exit-right"
@@ -111,55 +105,77 @@ function openOverlay() {
   }
 }
 
+function finishOverlay() {
+  overlay.classList.remove("active", "closing");
+  overlay.classList.add("hidden");
+  overlay.style.pointerEvents = "none";
+  document.body.classList.remove("intervention-running");
+  resetPills();
+  clearOverlayTimers();
+  started = false;
+}
+
 function closeOverlay() {
   overlay.classList.add("closing");
-
   addTimer(() => {
-    overlay.classList.remove("active", "closing");
-    overlay.classList.add("hidden");
-    overlay.style.pointerEvents = "none";
-    document.body.classList.remove("intervention-running");
-    resetPills();
-    clearOverlayTimers();
-    started = false;
+    finishOverlay();
   }, 1200);
 }
 
-function showAndPark(pill, slotClass) {
+function launchPill(pill, slotClass) {
   if (!pill) return;
+
   pill.classList.add("show");
-  addTimer(() => {
-    pill.classList.add(slotClass);
-  }, 100);
+
+  /* next frame so the browser sees a real transition
+     from launch position -> parked slot */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      pill.classList.add(slotClass);
+    });
+  });
+}
+
+function parkPill(pill) {
+  if (!pill) return;
+  pill.classList.add("parked");
 }
 
 function exitPill(pill, direction) {
   if (!pill) return;
-  pill.classList.remove("hold");
+
+  pill.classList.remove("parked");
   pill.classList.add("exit");
-  pill.classList.add(direction === "left" ? "exit-left" : "exit-right");
+
+  if (direction === "left") {
+    pill.classList.add("exit-left");
+  } else {
+    pill.classList.add("exit-right");
+  }
 }
 
 /* =========================================================
    INTERVENTION SEQUENCE
-   28 seconds total
-   Exit order: 1 → 2 → 3 → 4
+   TOTAL = 28s
+   EXIT ORDER = 1, 2, 3, 4
 ========================================================= */
-
 function runInterventionSequence() {
   clearOverlayTimers();
   openOverlay();
 
-  /* --------------------------------------------
-     TIMELINE (28s total)
-
+  /* -----------------------------------------
      0.0   overlay starts
-     1.4   pill 1 enters + parks
-     4.6   pill 2 enters + parks
-     7.8   pill 3 enters + parks
-     11.0  pill 4 enters + parks
+     1.4   pill 1 launches
+     2.5   pill 1 becomes parked / alive
 
-     hold / presence / subtle movement handled by CSS
+     4.6   pill 2 launches
+     5.7   pill 2 becomes parked
+
+     7.8   pill 3 launches
+     8.9   pill 3 becomes parked
+
+     11.0  pill 4 launches
+     12.1  pill 4 becomes parked
 
      18.2  pill 1 exits RIGHT
      20.0  pill 2 exits LEFT
@@ -167,30 +183,44 @@ function runInterventionSequence() {
      23.6  pill 4 exits LEFT
 
      26.8  overlay closes
-     28.0  fully reset
-  --------------------------------------------- */
+     28.0  reset finished
+  ------------------------------------------ */
 
+  /* PILL 1 */
   addTimer(() => {
-    showAndPark(pill1, "slot-1");
+    launchPill(pill1, "slot-1");
   }, 1400);
 
   addTimer(() => {
-    showAndPark(pill2, "slot-2");
+    parkPill(pill1);
+  }, 2500);
+
+  /* PILL 2 */
+  addTimer(() => {
+    launchPill(pill2, "slot-2");
   }, 4600);
 
   addTimer(() => {
-    showAndPark(pill3, "slot-3");
+    parkPill(pill2);
+  }, 5700);
+
+  /* PILL 3 */
+  addTimer(() => {
+    launchPill(pill3, "slot-3");
   }, 7800);
 
   addTimer(() => {
-    showAndPark(pill4, "slot-4");
+    parkPill(pill3);
+  }, 8900);
+
+  /* PILL 4 */
+  addTimer(() => {
+    launchPill(pill4, "slot-4");
   }, 11000);
 
-  /* give each pill a hold state once parked */
-  addTimer(() => pill1?.classList.add("hold"), 2500);
-  addTimer(() => pill2?.classList.add("hold"), 5700);
-  addTimer(() => pill3?.classList.add("hold"), 8900);
-  addTimer(() => pill4?.classList.add("hold"), 12100);
+  addTimer(() => {
+    parkPill(pill4);
+  }, 12100);
 
   /* EXIT ORDER: 1 -> 2 -> 3 -> 4 */
   addTimer(() => {
@@ -209,7 +239,7 @@ function runInterventionSequence() {
     exitPill(pill4, "left");
   }, 23600);
 
-  /* overlay out */
+  /* overlay close */
   addTimer(() => {
     closeOverlay();
   }, 26800);
@@ -218,7 +248,6 @@ function runInterventionSequence() {
 /* =========================================================
    INTERACTION
 ========================================================= */
-
 teacher?.addEventListener("click", () => {
   if (started) return;
   started = true;
@@ -228,7 +257,6 @@ teacher?.addEventListener("click", () => {
 /* =========================================================
    NAVIGATION
 ========================================================= */
-
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_next", "/why.html");
