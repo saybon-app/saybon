@@ -112,10 +112,10 @@ body.why-page{
 
 .why-bg-desktop{
   display:block;
-  width:112%;
+  width:132%;
   max-width:none;
-  margin:-5.5vw auto 0;
-  margin-left:-6%;
+  margin:-12vw auto 0;
+  margin-left:-16%;
   height:auto;
 }
 
@@ -197,10 +197,10 @@ body.why-page{
 
 .why-bg-desktop{
   display:block;
-  width:112%;
+  width:132%;
   max-width:none;
-  margin:-5.5vw auto 0;
-  margin-left:-6%;
+  margin:-12vw auto 0;
+  margin-left:-16%;
   height:auto;
 }
 
@@ -267,6 +267,7 @@ body.why-page{
     height:var(--why-home-size-mobile);
   }
 }
+
 
 
 
