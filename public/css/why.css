@@ -1,5 +1,5 @@
 ﻿:root{
-  --why-page-bg:#f6f5ff;
+  --why-page-bg:#f4f2ff;   /* slightly closer to the artwork background */
   --why-home-size:74px;
   --why-home-size-mobile:58px;
   --why-press-scale:.975;
@@ -91,26 +91,28 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
-   Smaller background composition + larger cards
+   Smaller artwork, centred on matching page background
 ========================================================= */
 .why-stage-desktop{
   display:block;
   width:100%;
   min-height:100vh;
   background:var(--why-page-bg);
-  padding-top:8px;
+  padding-top:10px;
 }
 
 .why-bg-wrap-desktop{
   position:relative;
-  width:min(100%, 1500px);
+  width:100%;
+  max-width:1440px;
   margin:0 auto;
   background:var(--why-page-bg);
 }
 
 .why-bg-desktop{
   display:block;
-  width:min(100%, 1120px);   /* SHRINK MORE */
+  width:100%;
+  max-width:1180px;   /* SHRUNK MORE */
   margin:0 auto;
 }
 
@@ -123,6 +125,7 @@ body.why-page{
   max-width:430px;
   margin:0 auto;
   min-height:100vh;
+  background:var(--why-page-bg);
 }
 
 .why-bg-wrap-mobile{
@@ -170,30 +173,30 @@ body.why-page{
 
 /* =========================================================
    DESKTOP CARD POSITIONS
-   BIGGER + CLOSER
+   Bigger cards + much tighter grouping
 ========================================================= */
 .why-option-desktop{
-  width:22.4%;
+  width:22.8%;   /* BIGGER */
 }
 
 .why-option-personal{
-  left:9.2%;
-  top:51.7%;
+  left:11.4%;
+  top:48.9%;
 }
 
 .why-option-school{
-  left:28.5%;
-  top:51.7%;
+  left:30.2%;
+  top:48.9%;
 }
 
 .why-option-travel{
-  left:47.8%;
-  top:51.7%;
+  left:49.0%;
+  top:48.9%;
 }
 
 .why-option-career{
-  left:67.1%;
-  top:51.7%;
+  left:67.8%;
+  top:48.9%;
 }
 
 /* =========================================================
@@ -201,24 +204,24 @@ body.why-page{
 ========================================================= */
 .why-option-mobile{
   left:50%;
-  width:76%;
+  width:80%;
   transform:translateX(-50%);
 }
 
 .why-option-mobile-1{
-  top:35.5%;
+  top:34.8%;
 }
 
 .why-option-mobile-2{
-  top:52.4%;
+  top:51.7%;
 }
 
 .why-option-mobile-3{
-  top:69.3%;
+  top:68.6%;
 }
 
 .why-option-mobile-4{
-  top:86.2%;
+  top:85.5%;
 }
 
 .why-option-mobile:active{
@@ -226,38 +229,25 @@ body.why-page{
 }
 
 /* =========================================================
-   LARGE DESKTOP TUNING
-========================================================= */
-@media (min-width:1500px){
-  .why-bg-wrap-desktop{
-    width:1500px;
-  }
-
-  .why-bg-desktop{
-    width:1120px;
-  }
-}
-
-/* =========================================================
-   TABLET / SMALL DESKTOP
+   SMALLER DESKTOP / LARGE TABLET
 ========================================================= */
 @media (max-width:1200px){
   .why-bg-wrap-desktop{
-    width:min(100%, 1280px);
+    max-width:1240px;
   }
 
   .why-bg-desktop{
-    width:min(100%, 1020px);
+    max-width:1060px;
   }
 
   .why-option-desktop{
-    width:23%;
+    width:23.2%;
   }
 
-  .why-option-personal{ left:8.4%; top:52.0%; }
-  .why-option-school{   left:28.0%; top:52.0%; }
-  .why-option-travel{   left:47.6%; top:52.0%; }
-  .why-option-career{   left:67.2%; top:52.0%; }
+  .why-option-personal{ left:10.8%; top:49.2%; }
+  .why-option-school{   left:29.8%; top:49.2%; }
+  .why-option-travel{   left:48.8%; top:49.2%; }
+  .why-option-career{   left:67.8%; top:49.2%; }
 }
 
 /* =========================================================
