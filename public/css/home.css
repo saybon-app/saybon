@@ -609,8 +609,8 @@ body.home-preload .settings-image-btn{
 .background-layer{
   opacity:1;
   transition:
-    opacity 900ms ease,
-    transform 1200ms ease;
+    opacity 700ms ease,
+    transform 700ms ease;
   will-change:opacity, transform;
 }
 
@@ -624,9 +624,9 @@ body.home-preload .settings-image-btn{
   opacity:1;
   visibility:visible;
   transition:
-    opacity 900ms ease,
-    transform 900ms cubic-bezier(.22,.82,.18,1),
-    filter 900ms ease;
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(.22,.82,.18,1),
+    filter 700ms ease;
   will-change:opacity, transform, filter;
 }
 
@@ -756,3 +756,4 @@ body.home-ready .settings-image-btn{
     transition:none !important;
   }
 }
+

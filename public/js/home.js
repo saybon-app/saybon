@@ -1,5 +1,78 @@
 ﻿document.body.classList.add("home-preload");
 
+/* =========================================================
+   HOMEPAGE REVEAL
+   Do NOT wait for full window.load.
+   Wait only for critical homepage images so the whole scene
+   appears together without the fake "loading struggle" gap.
+========================================================= */
+
+function waitForImage(img) {
+  if (!img) return Promise.resolve();
+
+  if (img.complete && img.naturalWidth > 0) {
+    if (typeof img.decode === "function") {
+      return img.decode().catch(() => {});
+    }
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    const done = () => resolve();
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", done, { once: true });
+  }).then(() => {
+    if (typeof img.decode === "function") {
+      return img.decode().catch(() => {});
+    }
+  });
+}
+
+function revealHomepage() {
+  requestAnimationFrame(() => {
+    document.body.classList.add("home-ready");
+    document.body.classList.remove("home-preload");
+  });
+}
+
+function initHomepageReveal() {
+  const backgroundImg = document.querySelector(".background-layer img");
+  const teacherImg = document.querySelector(".teacher-img");
+  const startImg = document.querySelector(".start-btn img");
+  const loginImg = document.querySelector(".login-btn img");
+  const settingsImg = document.querySelector(".settings-image-btn img");
+
+  const logoElement = document.querySelector(".saybon-logo");
+  let logoImg = null;
+
+  if (logoElement) {
+    if (logoElement.tagName && logoElement.tagName.toLowerCase() === "img") {
+      logoImg = logoElement;
+    } else {
+      logoImg = logoElement.querySelector("img");
+    }
+  }
+
+  Promise.all([
+    waitForImage(backgroundImg),
+    waitForImage(teacherImg),
+    waitForImage(logoImg),
+    waitForImage(startImg),
+    waitForImage(loginImg),
+    waitForImage(settingsImg)
+  ]).then(revealHomepage);
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initHomepageReveal, { once: true });
+} else {
+  initHomepageReveal();
+}
+
+/* =========================================================
+   INTERVENTION
+========================================================= */
+
 const teacher = document.getElementById("teacher");
 const audio = document.getElementById("introAudio");
 const overlay = document.getElementById("offerOverlay");
@@ -51,13 +124,6 @@ function endOverlay() {
   started = false;
 }
 
-window.addEventListener("load", () => {
-  requestAnimationFrame(() => {
-    document.body.classList.add("home-ready");
-    document.body.classList.remove("home-preload");
-  });
-});
-
 teacher?.addEventListener("click", () => {
   if (started) return;
   started = true;
@@ -98,60 +164,23 @@ teacher?.addEventListener("click", () => {
      25s   overlay removed
   --------------------------------------------------- */
 
-  // PILL 1
-  queueOverlayTimer(() => {
-    pill1?.classList.add("show");
-  }, 2000);
+  queueOverlayTimer(() => { pill1?.classList.add("show"); }, 2000);
+  queueOverlayTimer(() => { pill1?.classList.add("slot-1"); }, 4000);
 
-  queueOverlayTimer(() => {
-    pill1?.classList.add("slot-1");
-  }, 4000);
+  queueOverlayTimer(() => { pill2?.classList.add("show"); }, 5000);
+  queueOverlayTimer(() => { pill2?.classList.add("slot-2"); }, 7000);
 
-  // PILL 2
-  queueOverlayTimer(() => {
-    pill2?.classList.add("show");
-  }, 5000);
+  queueOverlayTimer(() => { pill3?.classList.add("show"); }, 8000);
+  queueOverlayTimer(() => { pill3?.classList.add("slot-3"); }, 10000);
 
-  queueOverlayTimer(() => {
-    pill2?.classList.add("slot-2");
-  }, 7000);
+  queueOverlayTimer(() => { pill4?.classList.add("show"); }, 11000);
+  queueOverlayTimer(() => { pill4?.classList.add("slot-4"); }, 13000);
 
-  // PILL 3
-  queueOverlayTimer(() => {
-    pill3?.classList.add("show");
-  }, 8000);
+  queueOverlayTimer(() => { pill4?.classList.add("exit"); }, 18000);
+  queueOverlayTimer(() => { pill3?.classList.add("exit"); }, 19000);
+  queueOverlayTimer(() => { pill2?.classList.add("exit"); }, 20000);
+  queueOverlayTimer(() => { pill1?.classList.add("exit"); }, 21000);
 
-  queueOverlayTimer(() => {
-    pill3?.classList.add("slot-3");
-  }, 10000);
-
-  // PILL 4
-  queueOverlayTimer(() => {
-    pill4?.classList.add("show");
-  }, 11000);
-
-  queueOverlayTimer(() => {
-    pill4?.classList.add("slot-4");
-  }, 13000);
-
-  // EXITS
-  queueOverlayTimer(() => {
-    pill4?.classList.add("exit");
-  }, 18000);
-
-  queueOverlayTimer(() => {
-    pill3?.classList.add("exit");
-  }, 19000);
-
-  queueOverlayTimer(() => {
-    pill2?.classList.add("exit");
-  }, 20000);
-
-  queueOverlayTimer(() => {
-    pill1?.classList.add("exit");
-  }, 21000);
-
-  // Overlay close
   queueOverlayTimer(() => {
     overlay?.classList.add("closing");
   }, 22000);
@@ -161,7 +190,10 @@ teacher?.addEventListener("click", () => {
   }, 25000);
 });
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_next", "/why.html");
