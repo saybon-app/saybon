@@ -1047,28 +1047,29 @@ body.home-ui-in .settings-image-btn{
    RULES:
    - Hover effect ONLY for teacher + logo
    - Click press effect ONLY for teacher + start + login + settings
-   - No hover effect for tap icon / start / login / settings
+   - Press must feel like a true inward click, NOT a jump
 ========================================================= */
 
 :root{
   --sb-logo-hover-lift: -1px;
   --sb-logo-hover-scale: 1.01;
 
-  --sb-press-scale: .972;
-  --sb-press-y: 1px;
+  /* inward press only */
+  --sb-press-scale: .965;
+  --sb-press-brightness: .96;
 }
 
 /* -----------------------------------------
    BASE INTERACTIVE TRANSITIONS
 ----------------------------------------- */
 
-/* Teacher keeps its own hover personality */
+/* Teacher keeps its own hover personality + can press inward */
 .teacher-hitbox{
   will-change:transform, filter, opacity;
   transition:
-    transform .22s cubic-bezier(.22,.82,.18,1),
-    filter .22s ease,
-    opacity .22s ease !important;
+    transform .18s cubic-bezier(.22,.82,.18,1),
+    filter .18s ease,
+    opacity .18s ease !important;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -1084,15 +1085,15 @@ body.home-ui-in .settings-image-btn{
   touch-action: manipulation;
 }
 
-/* Clickable buttons that should press in */
+/* Clickable buttons that should press inward */
 .start-btn,
 .login-btn,
 .settings-image-btn{
   will-change:transform, filter, opacity;
   transition:
-    transform .18s cubic-bezier(.22,.82,.18,1),
-    filter .18s ease,
-    opacity .18s ease !important;
+    transform .14s cubic-bezier(.22,.82,.18,1),
+    filter .14s ease,
+    opacity .14s ease !important;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -1103,12 +1104,12 @@ body.home-ui-in .settings-image-btn{
 ----------------------------------------- */
 @media (hover:hover) and (pointer:fine){
 
-  /* keep teacher hover */
+  /* keep teacher hover exactly as requested */
   .teacher-hitbox:hover{
     transform:scale(1.02);
   }
 
-  /* logo subtle hover */
+  /* logo subtle hover only */
   .saybon-logo:hover{
     transform:translateY(var(--sb-logo-hover-lift)) scale(var(--sb-logo-hover-scale)) !important;
     filter:brightness(1.02) saturate(1.01);
@@ -1118,24 +1119,26 @@ body.home-ui-in .settings-image-btn{
 /* -----------------------------------------
    CLICK / PRESS-IN STATES
    ONLY teacher + start + login + settings
+   IMPORTANT:
+   No translateY push. Only slight scale inward.
 ----------------------------------------- */
 
-/* desktop teacher */
+/* teacher press */
 .teacher-hitbox.is-pressed{
   transform:scale(.985) !important;
   filter:brightness(.985) saturate(.99) !important;
 }
 
-/* desktop buttons */
+/* desktop buttons press inward */
 .start-btn.is-pressed,
 .login-btn.is-pressed{
-  transform:translateX(-50%) translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
-  filter:brightness(.985) saturate(.99) !important;
+  transform:translateX(-50%) scale(var(--sb-press-scale)) !important;
+  filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
 }
 
 .settings-image-btn.is-pressed{
-  transform:translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
-  filter:brightness(.985) saturate(.99) !important;
+  transform:scale(var(--sb-press-scale)) !important;
+  filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
 }
 
 /* -----------------------------------------
@@ -1150,11 +1153,13 @@ body.home-ui-in .settings-image-btn{
 
   .start-btn.is-pressed,
   .login-btn.is-pressed{
-    transform:translateX(-50%) translateY(1px) scale(.972) !important;
+    transform:translateX(-50%) scale(var(--sb-press-scale)) !important;
+    filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
   }
 
   .settings-image-btn.is-pressed{
-    transform:translateY(1px) scale(.972) !important;
+    transform:scale(var(--sb-press-scale)) !important;
+    filter:brightness(var(--sb-press-brightness)) saturate(.99) !important;
   }
 }
 
@@ -1171,6 +1176,7 @@ body.home-preload .settings-image-btn.is-pressed{
 }
 
 /* ===== END SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
+
 
 
 
