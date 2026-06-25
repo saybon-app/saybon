@@ -322,3 +322,24 @@ homepagePressTargets.forEach(attachPressFeedback);
 /* ===== END SAYBON HOMEPAGE PRESS SYSTEM ===== */
 
 
+/* ===== SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
+
+function bindPressFeedback(el) {
+  if (!el) return;
+
+  const pressOn = () => el.classList.add("is-pressed");
+  const pressOff = () => el.classList.remove("is-pressed");
+
+  el.addEventListener("mousedown", pressOn);
+  el.addEventListener("mouseup", pressOff);
+  el.addEventListener("mouseleave", pressOff);
+
+  el.addEventListener("touchstart", pressOn, { passive: true });
+  el.addEventListener("touchend", pressOff);
+  el.addEventListener("touchcancel", pressOff);
+}
+
+[teacher, startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+
+/* ===== END SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
+

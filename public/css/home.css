@@ -1044,25 +1044,37 @@ body.home-ui-in .settings-image-btn{
 
 /* =========================================================
    FINAL HOMEPAGE INTERACTION SYSTEM
-   - DO NOT TOUCH teacher hover behavior here
-   - subtle hover for tap / logo / buttons / settings
-   - visible press-in for clickable controls except teacher
+   RULES:
+   - Hover effect ONLY for teacher + logo
+   - Click press effect ONLY for teacher + start + login + settings
+   - No hover effect for tap icon / start / login / settings
 ========================================================= */
 
 :root{
-  --sb-hover-lift-subtle: -0.5px;
-  --sb-hover-scale-subtle: 0;
-  --sb-hover-scale-icon: 1;
+  --sb-logo-hover-lift: -1px;
+  --sb-logo-hover-scale: 1.01;
+
   --sb-press-scale: .972;
   --sb-press-y: 1px;
 }
 
-/* all interactive homepage visuals EXCEPT teacher */
-.tap-icon,
-.saybon-logo,
-.start-btn,
-.login-btn,
-.settings-image-btn{
+/* -----------------------------------------
+   BASE INTERACTIVE TRANSITIONS
+----------------------------------------- */
+
+/* Teacher keeps its own hover personality */
+.teacher-hitbox{
+  will-change:transform, filter, opacity;
+  transition:
+    transform .22s cubic-bezier(.22,.82,.18,1),
+    filter .22s ease,
+    opacity .22s ease !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Logo: hover only */
+.saybon-logo{
   will-change:transform, filter, opacity;
   transition:
     transform .20s cubic-bezier(.22,.82,.18,1),
@@ -1072,37 +1084,49 @@ body.home-ui-in .settings-image-btn{
   touch-action: manipulation;
 }
 
+/* Clickable buttons that should press in */
+.start-btn,
+.login-btn,
+.settings-image-btn{
+  will-change:transform, filter, opacity;
+  transition:
+    transform .18s cubic-bezier(.22,.82,.18,1),
+    filter .18s ease,
+    opacity .18s ease !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* -----------------------------------------
-   DESKTOP / HOVER DEVICES
+   HOVER EFFECTS
+   ONLY teacher + logo
 ----------------------------------------- */
 @media (hover:hover) and (pointer:fine){
 
-  .tap-icon:hover{
-    transform:translateY(var(--sb-hover-lift-subtle)) scale(var(--sb-hover-scale-icon)) !important;
-    filter:brightness(1.02) saturate(1.01);
+  /* keep teacher hover */
+  .teacher-hitbox:hover{
+    transform:scale(1.02);
   }
 
+  /* logo subtle hover */
   .saybon-logo:hover{
-    transform:translateY(var(--sb-hover-lift-subtle)) scale(var(--sb-hover-scale-icon)) !important;
-    filter:brightness(1.02) saturate(1.01);
-  }
-
-  .start-btn:hover,
-  .login-btn:hover{
-    transform:translateX(-50%) translateY(var(--sb-hover-lift-subtle)) scale(var(--sb-hover-scale-subtle)) !important;
-    filter:brightness(1.02) saturate(1.01);
-  }
-
-  .settings-image-btn:hover{
-    transform:translateY(var(--sb-hover-lift-subtle)) scale(var(--sb-hover-scale-icon)) !important;
+    transform:translateY(var(--sb-logo-hover-lift)) scale(var(--sb-logo-hover-scale)) !important;
     filter:brightness(1.02) saturate(1.01);
   }
 }
 
 /* -----------------------------------------
-   GUARANTEED PRESS-IN STATE
-   clickable controls only: start / login / settings
+   CLICK / PRESS-IN STATES
+   ONLY teacher + start + login + settings
 ----------------------------------------- */
+
+/* desktop teacher */
+.teacher-hitbox.is-pressed{
+  transform:scale(.985) !important;
+  filter:brightness(.985) saturate(.99) !important;
+}
+
+/* desktop buttons */
 .start-btn.is-pressed,
 .login-btn.is-pressed{
   transform:translateX(-50%) translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
@@ -1114,39 +1138,14 @@ body.home-ui-in .settings-image-btn{
   filter:brightness(.985) saturate(.99) !important;
 }
 
-/* optional soft touch feedback for non-button visuals */
-.tap-icon.is-pressed{
-  transform:translateY(0) scale(.996) !important;
-  filter:brightness(.99) !important;
-}
-
-.saybon-logo.is-pressed{
-  transform:translateY(0) scale(.996) !important;
-  filter:brightness(.99) !important;
-}
-
 /* -----------------------------------------
-   MOBILE LAYOUT-AWARE HOVER/PRESS
+   MOBILE LAYOUT-AWARE PRESS STATES
 ----------------------------------------- */
 @media (max-width:900px){
 
-  @media (hover:hover) and (pointer:fine){
-    .tap-icon:hover{
-      transform:translateX(-50%) translateY(-1px) scale(1.01) !important;
-    }
-
-    .saybon-logo:hover{
-      transform:translateX(-50%) translateY(-1px) scale(1.01) !important;
-    }
-
-    .start-btn:hover,
-    .login-btn:hover{
-      transform:translateX(-50%) translateY(-1px) scale(1.008) !important;
-    }
-
-    .settings-image-btn:hover{
-      transform:translateY(-1px) scale(1.01) !important;
-    }
+  .teacher-hitbox.is-pressed{
+    transform:translateX(-50%) scale(.985) !important;
+    filter:brightness(.985) saturate(.99) !important;
   }
 
   .start-btn.is-pressed,
@@ -1157,30 +1156,14 @@ body.home-ui-in .settings-image-btn{
   .settings-image-btn.is-pressed{
     transform:translateY(1px) scale(.972) !important;
   }
-
-  .tap-icon.is-pressed{
-    transform:translateX(-50%) translateY(0) scale(.996) !important;
-    filter:brightness(.99) !important;
-  }
-
-  .saybon-logo.is-pressed{
-    transform:translateX(-50%) translateY(0) scale(.996) !important;
-    filter:brightness(.99) !important;
-  }
 }
 
 /* -----------------------------------------
-   SAFETY:
-   while homepage is still in preload phase,
-   do not allow interaction transforms to fight reveal
+   SAFETY: no interaction transforms during preload
 ----------------------------------------- */
-body.home-preload .tap-icon:hover,
+body.home-preload .teacher-hitbox:hover,
 body.home-preload .saybon-logo:hover,
-body.home-preload .start-btn:hover,
-body.home-preload .login-btn:hover,
-body.home-preload .settings-image-btn:hover,
-body.home-preload .tap-icon.is-pressed,
-body.home-preload .saybon-logo.is-pressed,
+body.home-preload .teacher-hitbox.is-pressed,
 body.home-preload .start-btn.is-pressed,
 body.home-preload .login-btn.is-pressed,
 body.home-preload .settings-image-btn.is-pressed{
@@ -1188,5 +1171,6 @@ body.home-preload .settings-image-btn.is-pressed{
 }
 
 /* ===== END SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
+
 
 
