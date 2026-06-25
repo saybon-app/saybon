@@ -27,6 +27,7 @@ body.why-page{
   position:relative;
   width:100%;
   min-height:100vh;
+  background:var(--why-page-bg);
 }
 
 /* =========================================================
@@ -90,21 +91,27 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
+   We intentionally SHRINK the background artwork and center it
+   on a same-color page background so it looks like the reference.
 ========================================================= */
 .why-stage-desktop{
   display:block;
-  width:min(100%, 1540px);
-  margin:0 auto;
+  width:100%;
   min-height:100vh;
+  background:var(--why-page-bg);
+  padding-top:18px;
 }
 
 .why-bg-wrap-desktop{
-  width:100%;
+  position:relative;
+  width:min(100%, 1500px);
+  margin:0 auto;
+  background:var(--why-page-bg);
 }
 
 .why-bg-desktop{
-  width:100%;
-  max-width:1540px;
+  display:block;
+  width:min(100%, 1320px);   /* shrink artwork block */
   margin:0 auto;
 }
 
@@ -164,30 +171,31 @@ body.why-page{
 
 /* =========================================================
    DESKTOP CARD POSITIONS
-   tuned to sit exactly over desktop-background.png layout
+   tighter spacing + centered cluster
 ========================================================= */
 .why-option-desktop{
-  width:19.4%;
+  width:17.6%;
 }
 
+/* pull all 4 cards inward so they sit closer together */
 .why-option-personal{
-  left:7.5%;
-  top:52.2%;
+  left:13.2%;
+  top:51.9%;
 }
 
 .why-option-school{
-  left:28.95%;
-  top:52.2%;
+  left:32.0%;
+  top:51.9%;
 }
 
 .why-option-travel{
-  left:50.35%;
-  top:52.2%;
+  left:50.8%;
+  top:51.9%;
 }
 
 .why-option-career{
-  left:71.85%;
-  top:52.2%;
+  left:69.6%;
+  top:51.9%;
 }
 
 /* =========================================================
@@ -220,7 +228,42 @@ body.why-page{
 }
 
 /* =========================================================
-   RESPONSIVE SWITCH
+   LARGE DESKTOP TUNING
+========================================================= */
+@media (min-width:1500px){
+  .why-bg-wrap-desktop{
+    width:1500px;
+  }
+
+  .why-bg-desktop{
+    width:1320px;
+  }
+}
+
+/* =========================================================
+   TABLET / SMALL DESKTOP
+========================================================= */
+@media (max-width:1200px){
+  .why-bg-wrap-desktop{
+    width:min(100%, 1280px);
+  }
+
+  .why-bg-desktop{
+    width:min(100%, 1140px);
+  }
+
+  .why-option-desktop{
+    width:18.5%;
+  }
+
+  .why-option-personal{ left:11.8%; top:52.2%; }
+  .why-option-school{   left:31.0%; top:52.2%; }
+  .why-option-travel{   left:50.2%; top:52.2%; }
+  .why-option-career{   left:69.4%; top:52.2%; }
+}
+
+/* =========================================================
+   MOBILE SWITCH
 ========================================================= */
 @media (max-width:900px){
   .why-stage-desktop{
