@@ -1,5 +1,5 @@
 ﻿:root{
-  --why-page-bg:#f4f2ff;   /* slightly closer to the artwork background */
+  --why-page-bg:#f4f2ff;
   --why-home-size:74px;
   --why-home-size-mobile:58px;
   --why-press-scale:.975;
@@ -91,7 +91,7 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
-   Larger full-page artwork pushed upward
+   Larger artwork pushed upward
 ========================================================= */
 .why-stage-desktop{
   display:block;
@@ -175,33 +175,31 @@ body.why-page{
 }
 
 /* =========================================================
-   DESKTOP
-   Larger full-page artwork pushed upward
+   DESKTOP BUTTON ROW
+   Bigger buttons directly under title
 ========================================================= */
-.why-stage-desktop{
-  display:block;
-  width:100%;
-  min-height:100vh;
-  background:var(--why-page-bg);
-  padding-top:0;
-  overflow:hidden;
+.why-option-desktop{
+  width:22.8%;
 }
 
-.why-bg-wrap-desktop{
-  position:relative;
-  width:100%;
-  margin:0;
-  background:var(--why-page-bg);
-  overflow:hidden;
+.why-option-personal{
+  left:3.5%;
+  top:46.2%;
 }
 
-.why-bg-desktop{
-  display:block;
-  width:132%;
-  max-width:none;
-  margin:-12vw auto 0;
-  margin-left:-16%;
-  height:auto;
+.why-option-school{
+  left:27.2%;
+  top:46.2%;
+}
+
+.why-option-travel{
+  left:50.9%;
+  top:46.2%;
+}
+
+.why-option-career{
+  left:74.6%;
+  top:46.2%;
 }
 
 /* =========================================================
@@ -237,7 +235,6 @@ body.why-page{
    SMALLER DESKTOP / LARGE TABLET
 ========================================================= */
 @media (max-width:1200px){
-
   .why-option-desktop{
     width:16.8%;
   }
@@ -267,9 +264,3 @@ body.why-page{
     height:var(--why-home-size-mobile);
   }
 }
-
-
-
-
-
-
