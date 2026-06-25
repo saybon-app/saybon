@@ -91,29 +91,29 @@ body.why-page{
 
 /* =========================================================
    DESKTOP
-   Smaller artwork, centred on matching page background
+   Full-width background image again
 ========================================================= */
 .why-stage-desktop{
   display:block;
   width:100%;
   min-height:100vh;
   background:var(--why-page-bg);
-  padding-top:10px;
+  padding-top:0;
 }
 
 .why-bg-wrap-desktop{
   position:relative;
   width:100%;
-  max-width:1440px;
-  margin:0 auto;
+  max-width:none;
+  margin:0;
   background:var(--why-page-bg);
 }
 
 .why-bg-desktop{
   display:block;
   width:100%;
-  max-width:1180px;   /* SHRUNK MORE */
-  margin:0 auto;
+  max-width:none;
+  margin:0;
 }
 
 /* =========================================================
@@ -232,13 +232,6 @@ body.why-page{
    SMALLER DESKTOP / LARGE TABLET
 ========================================================= */
 @media (max-width:1200px){
-  .why-bg-wrap-desktop{
-    max-width:1240px;
-  }
-
-  .why-bg-desktop{
-    max-width:1060px;
-  }
 
   .why-option-desktop{
     width:23.2%;
@@ -269,5 +262,6 @@ body.why-page{
     height:var(--why-home-size-mobile);
   }
 }
+
 
 
