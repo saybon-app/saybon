@@ -2,19 +2,18 @@
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Blank-first reveal:
+   Faster blank-first reveal:
    - page starts on dark shell
-   - wait only for critical homepage images
-   - reveal background + homepage elements together
+   - wait ONLY for critical homepage images:
+       1) background image
+       2) teacher image
+   - then reveal background + homepage elements together
 ========================================================= */
 
 function waitForImage(img) {
   if (!img) return Promise.resolve();
 
   if (img.complete && img.naturalWidth > 0) {
-    if (typeof img.decode === "function") {
-      return img.decode().catch(() => {});
-    }
     return Promise.resolve();
   }
 
@@ -22,10 +21,6 @@ function waitForImage(img) {
     const done = () => resolve();
     img.addEventListener("load", done, { once: true });
     img.addEventListener("error", done, { once: true });
-  }).then(() => {
-    if (typeof img.decode === "function") {
-      return img.decode().catch(() => {});
-    }
   });
 }
 
@@ -39,28 +34,10 @@ function revealHomepage() {
 function initHomepageReveal() {
   const backgroundImg = document.querySelector(".background-layer img");
   const teacherImg = document.querySelector(".teacher-img");
-  const startImg = document.querySelector(".start-btn img");
-  const loginImg = document.querySelector(".login-btn img");
-  const settingsImg = document.querySelector(".settings-image-btn img");
-
-  const logoElement = document.querySelector(".saybon-logo");
-  let logoImg = null;
-
-  if (logoElement) {
-    if (logoElement.tagName && logoElement.tagName.toLowerCase() === "img") {
-      logoImg = logoElement;
-    } else {
-      logoImg = logoElement.querySelector("img");
-    }
-  }
 
   Promise.all([
     waitForImage(backgroundImg),
-    waitForImage(teacherImg),
-    waitForImage(logoImg),
-    waitForImage(startImg),
-    waitForImage(loginImg),
-    waitForImage(settingsImg)
+    waitForImage(teacherImg)
   ]).then(revealHomepage);
 }
 
