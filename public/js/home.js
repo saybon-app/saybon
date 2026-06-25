@@ -288,3 +288,37 @@ settingsBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   window.location.href = "/admin/passkey/";
 });
+
+/* ===== SAYBON HOMEPAGE PRESS SYSTEM ===== */
+
+const homepagePressTargets = [
+  teacher,
+  startBtn,
+  loginBtn,
+  settingsBtn,
+  document.querySelector(".tap-icon"),
+  document.querySelector(".saybon-logo")
+].filter(Boolean);
+
+function attachPressFeedback(el) {
+  const pressOn = () => el.classList.add("is-pressed");
+  const pressOff = () => el.classList.remove("is-pressed");
+
+  el.addEventListener("pointerdown", pressOn, { passive: true });
+  el.addEventListener("pointerup", pressOff, { passive: true });
+  el.addEventListener("pointercancel", pressOff, { passive: true });
+  el.addEventListener("pointerleave", pressOff, { passive: true });
+
+  el.addEventListener("touchstart", pressOn, { passive: true });
+  el.addEventListener("touchend", pressOff, { passive: true });
+  el.addEventListener("touchcancel", pressOff, { passive: true });
+
+  el.addEventListener("mousedown", pressOn);
+  el.addEventListener("mouseup", pressOff);
+  el.addEventListener("mouseleave", pressOff);
+}
+
+homepagePressTargets.forEach(attachPressFeedback);
+
+/* ===== END SAYBON HOMEPAGE PRESS SYSTEM ===== */
+

@@ -1040,5 +1040,168 @@ body.home-ui-in .settings-image-btn{
 
 /* ===== END SAYBON INTERVENTION RELAY HARD OVERRIDE ===== */
 
+/* ===== SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
 
+/* =========================================================
+   FINAL HOMEPAGE INTERACTION SYSTEM
+   - all homepage hero elements react on hover
+   - clickable controls visibly press inward on desktop + mobile
+   - built to sit AFTER homepage reveal/mobile layout rules
+========================================================= */
+
+:root{
+  --sb-hover-lift: -2px;
+  --sb-hover-scale: 1.02;
+  --sb-press-scale: .965;
+  --sb-press-y: 1px;
+}
+
+/* all interactive homepage visuals */
+.teacher-hitbox,
+.tap-icon,
+.saybon-logo,
+.start-btn,
+.login-btn,
+.settings-image-btn{
+  will-change:transform, filter, opacity;
+  transition:
+    transform .22s cubic-bezier(.22,.82,.18,1),
+    filter .22s ease,
+    opacity .22s ease !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* -----------------------------------------
+   DESKTOP / HOVER DEVICES
+----------------------------------------- */
+@media (hover:hover) and (pointer:fine){
+
+  .teacher-hitbox:hover{
+    transform:translateY(var(--sb-hover-lift)) scale(var(--sb-hover-scale)) !important;
+    filter:brightness(1.03) saturate(1.02);
+  }
+
+  .tap-icon:hover{
+    transform:translateY(var(--sb-hover-lift)) scale(1.02) !important;
+    filter:brightness(1.03) saturate(1.02);
+  }
+
+  .saybon-logo:hover{
+    transform:translateY(var(--sb-hover-lift)) scale(1.02) !important;
+    filter:brightness(1.03) saturate(1.02);
+  }
+
+  .start-btn:hover,
+  .login-btn:hover{
+    transform:translateX(-50%) translateY(var(--sb-hover-lift)) scale(1.02) !important;
+    filter:brightness(1.03) saturate(1.02);
+  }
+
+  .settings-image-btn:hover{
+    transform:translateY(var(--sb-hover-lift)) scale(1.02) !important;
+    filter:brightness(1.03) saturate(1.02);
+  }
+}
+
+/* -----------------------------------------
+   GUARANTEED PRESS-IN STATE
+   JS will add .is-pressed on press start
+----------------------------------------- */
+
+/* teacher */
+.teacher-hitbox.is-pressed{
+  transform:translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
+  filter:brightness(.985) saturate(.99) !important;
+}
+
+/* centered homepage buttons */
+.start-btn.is-pressed,
+.login-btn.is-pressed{
+  transform:translateX(-50%) translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
+  filter:brightness(.985) saturate(.99) !important;
+}
+
+/* settings */
+.settings-image-btn.is-pressed{
+  transform:translateY(var(--sb-press-y)) scale(var(--sb-press-scale)) !important;
+  filter:brightness(.985) saturate(.99) !important;
+}
+
+/* -----------------------------------------
+   MOBILE LAYOUT-AWARE HOVER/PRESS
+----------------------------------------- */
+@media (max-width:900px){
+
+  /* hover-capable tablets / trackpad devices */
+  @media (hover:hover) and (pointer:fine){
+    .teacher-hitbox:hover{
+      transform:translateX(-50%) translateY(-2px) scale(1.02) !important;
+    }
+
+    .tap-icon:hover{
+      transform:translateX(-50%) translateY(-2px) scale(1.02) !important;
+    }
+
+    .saybon-logo:hover{
+      transform:translateX(-50%) translateY(-2px) scale(1.02) !important;
+    }
+
+    .start-btn:hover,
+    .login-btn:hover{
+      transform:translateX(-50%) translateY(-2px) scale(1.02) !important;
+    }
+
+    .settings-image-btn:hover{
+      transform:translateY(-2px) scale(1.02) !important;
+    }
+  }
+
+  /* press states on mobile must preserve centered transforms */
+  .teacher-hitbox.is-pressed{
+    transform:translateX(-50%) translateY(1px) scale(.965) !important;
+  }
+
+  .start-btn.is-pressed,
+  .login-btn.is-pressed{
+    transform:translateX(-50%) translateY(1px) scale(.965) !important;
+  }
+
+  .settings-image-btn.is-pressed{
+    transform:translateY(1px) scale(.965) !important;
+  }
+
+  /* tap + logo are visual hover-reactive only, not deep click-in */
+  .tap-icon.is-pressed{
+    transform:translateX(-50%) translateY(0) scale(.992) !important;
+    filter:brightness(.99) !important;
+  }
+
+  .saybon-logo.is-pressed{
+    transform:translateX(-50%) translateY(0) scale(.992) !important;
+    filter:brightness(.99) !important;
+  }
+}
+
+/* -----------------------------------------
+   SAFETY:
+   while homepage is still in preload phase,
+   do not allow interaction transforms to fight reveal
+----------------------------------------- */
+body.home-preload .teacher-hitbox:hover,
+body.home-preload .tap-icon:hover,
+body.home-preload .saybon-logo:hover,
+body.home-preload .start-btn:hover,
+body.home-preload .login-btn:hover,
+body.home-preload .settings-image-btn:hover,
+body.home-preload .teacher-hitbox.is-pressed,
+body.home-preload .tap-icon.is-pressed,
+body.home-preload .saybon-logo.is-pressed,
+body.home-preload .start-btn.is-pressed,
+body.home-preload .login-btn.is-pressed,
+body.home-preload .settings-image-btn.is-pressed{
+  filter:none !important;
+}
+
+/* ===== END SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
 
