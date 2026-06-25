@@ -325,7 +325,7 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
 }
 
 /* =========================================================
-   PILLS
+   PILLS (BASE)
 ========================================================= */
 
 .overlay-pill{
@@ -336,37 +336,11 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
   width:min(72vw,620px);
   opacity:0;
   will-change:transform, opacity;
-
-  transition:
-    top 1.65s cubic-bezier(.22,.82,.18,1),
-    opacity .55s ease,
-    transform 1.65s cubic-bezier(.22,.82,.18,1);
 }
 
 .overlay-pill img{
   width:100%;
   display:block;
-}
-
-/* base parked positions */
-.overlay-pill.slot-1.show{
-  top:44%;
-  opacity:1;
-}
-
-.overlay-pill.slot-2.show{
-  top:56%;
-  opacity:1;
-}
-
-.overlay-pill.slot-3.show{
-  top:68%;
-  opacity:1;
-}
-
-.overlay-pill.slot-4.show{
-  top:80%;
-  opacity:1;
 }
 
 /* smooth overlay outro */
@@ -409,6 +383,7 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
 
 /* =========================================================
    SAYBON INTERVENTION SURGICAL FIX
+   OPTION A + SILK EXIT
 ========================================================= */
 
 /* ---------- overlay shell ---------- */
@@ -480,26 +455,106 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
   pointer-events:none !important;
 }
 
-/* ---------- default pill reset ---------- */
+/* =========================================================
+   INTERVENTION PILL MOTION SYSTEM
+   Entry = Lift -> Settle
+   Parked = Float + soft gloss
+   Exit = Silk diagonal dissolve
+========================================================= */
+
+@keyframes saybonPillFloat{
+  0%   { transform:translate(-50%,0) scale(1); }
+  50%  { transform:translate(-50%,-2px) scale(1.003); }
+  100% { transform:translate(-50%,0) scale(1); }
+}
+
+@keyframes saybonPillGloss{
+  0%   { opacity:0; transform:translateX(-130%); }
+  12%  { opacity:.24; }
+  42%  { opacity:.16; }
+  100% { opacity:0; transform:translateX(130%); }
+}
+
 #offerOverlay .overlay-pill{
   position:absolute !important;
   left:50% !important;
   opacity:0 !important;
-  transform:translate(-50%, 36px) scale(.985) !important;
-  filter:blur(2px) !important;
+  filter:blur(8px) !important;
+  transform:translate(-50%, 34px) scale(1.03) !important;
   will-change:transform, opacity, top, filter !important;
+  overflow:visible !important;
 
   transition:
     opacity .9s ease,
-    transform 1.2s cubic-bezier(.2,.82,.18,1),
-    top 1.2s cubic-bezier(.2,.82,.18,1),
-    filter .9s ease !important;
+    transform 1.05s cubic-bezier(.2,.82,.18,1),
+    top 1.05s cubic-bezier(.2,.82,.18,1),
+    filter .95s ease !important;
 }
 
 #offerOverlay .overlay-pill img{
   width:100% !important;
   height:auto !important;
   display:block !important;
+  position:relative;
+  z-index:2;
+}
+
+/* soft premium gloss sweep */
+#offerOverlay .overlay-pill::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,.16) 42%,
+      rgba(255,255,255,.28) 50%,
+      rgba(255,255,255,.10) 58%,
+      rgba(255,255,255,0) 100%
+    );
+  opacity:0;
+  pointer-events:none;
+  z-index:3;
+  mix-blend-mode:screen;
+}
+
+/* shown / parked */
+#offerOverlay .overlay-pill.show{
+  opacity:1 !important;
+  filter:blur(0) !important;
+}
+
+/* parked = alive state */
+#offerOverlay .overlay-pill.parked{
+  animation:saybonPillFloat 4.4s ease-in-out infinite;
+}
+
+#offerOverlay .overlay-pill.parked::after{
+  animation:saybonPillGloss 2.6s ease 1;
+  animation-delay:.25s;
+}
+
+/* silk exit directions */
+#offerOverlay .overlay-pill.exit-left{
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  transform:translate(calc(-50% - 14px), 30px) scale(.985) !important;
+  transition:
+    opacity .85s ease,
+    transform 1s cubic-bezier(.22,.82,.18,1),
+    filter .85s ease !important;
+}
+
+#offerOverlay .overlay-pill.exit-right{
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  transform:translate(calc(-50% + 14px), 30px) scale(.985) !important;
+  transition:
+    opacity .85s ease,
+    transform 1s cubic-bezier(.22,.82,.18,1),
+    filter .85s ease !important;
 }
 
 /* =========================================================
@@ -527,16 +582,12 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
     top:73.5% !important;
   }
 
-  #offerOverlay .overlay-pill.show{
-    opacity:1 !important;
+  /* when each pill lands, it settles into exact position */
+  #offerOverlay .overlay-pill.slot-1.show,
+  #offerOverlay .overlay-pill.slot-2.show,
+  #offerOverlay .overlay-pill.slot-3.show,
+  #offerOverlay .overlay-pill.slot-4.show{
     transform:translate(-50%,0) scale(1) !important;
-    filter:blur(0) !important;
-  }
-
-  #offerOverlay .overlay-pill.exit{
-    opacity:0 !important;
-    transform:translate(-50%,85px) scale(.98) !important;
-    filter:blur(2px) !important;
   }
 }
 
@@ -667,23 +718,7 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
   #offerOverlay .overlay-pill{
     width:min(86vw,650px) !important;
     left:50% !important;
-    opacity:0 !important;
     z-index:30 !important;
-    overflow:visible !important;
-    filter:blur(0) !important;
-    transform:translate(-50%,18px) scale(1) !important;
-    will-change:transform, opacity, top !important;
-    transition:
-      opacity .55s ease,
-      transform 1s cubic-bezier(.22,.82,.18,1),
-      top 1s cubic-bezier(.22,.82,.18,1) !important;
-  }
-
-  #offerOverlay .overlay-pill img{
-    display:block !important;
-    width:100% !important;
-    height:auto !important;
-    max-width:none !important;
   }
 
   #offerOverlay .overlay-pill.slot-1{
@@ -702,21 +737,21 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
     top:73.9% !important;
   }
 
-  #offerOverlay .overlay-pill.show{
-    opacity:1 !important;
+  #offerOverlay .overlay-pill.slot-1.show,
+  #offerOverlay .overlay-pill.slot-2.show,
+  #offerOverlay .overlay-pill.slot-3.show,
+  #offerOverlay .overlay-pill.slot-4.show{
     transform:translate(-50%,0) scale(1) !important;
-    filter:blur(0) !important;
   }
 
-  #offerOverlay .overlay-pill.exit{
-    opacity:0 !important;
-    transform:translate(-50%,42px) scale(.995) !important;
-    filter:blur(2px) !important;
+  #offerOverlay .overlay-pill.exit-left{
+    transform:translate(calc(-50% - 10px), 24px) scale(.988) !important;
+  }
+
+  #offerOverlay .overlay-pill.exit-right{
+    transform:translate(calc(-50% + 10px), 24px) scale(.988) !important;
   }
 }
-
-
-
 
 /* =========================================================
    SAYBON HOMEPAGE REVEAL SYSTEM (SAFE FADE VERSION)
@@ -796,4 +831,3 @@ body.home-ui-in .login-btn{
 body.home-ui-in .settings-image-btn{
   animation:saybonFadeUpSoft .82s ease both;
 }
-

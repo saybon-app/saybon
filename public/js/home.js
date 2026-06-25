@@ -15,11 +15,6 @@ let started = false;
 
 /* =========================================================
    HOMEPAGE REVEAL
-   Matches the CSS block currently at the bottom of home.css:
-   - home-preload
-   - home-bg-in
-   - home-teacher-in
-   - home-ui-in
 ========================================================= */
 
 function preloadImage(src) {
@@ -103,10 +98,25 @@ if (document.readyState === "loading") {
 
 /* =========================================================
    INTERVENTION / OFFER OVERLAY
+   OPTION A + SILK EXIT
 ========================================================= */
 
+const pills = [pill1, pill2, pill3, pill4];
+let interventionTimers = [];
+
+function schedule(fn, delay) {
+  const id = window.setTimeout(fn, delay);
+  interventionTimers.push(id);
+  return id;
+}
+
+function clearInterventionTimers() {
+  interventionTimers.forEach((id) => clearTimeout(id));
+  interventionTimers = [];
+}
+
 function resetPills() {
-  [pill1, pill2, pill3, pill4].forEach((pill) => {
+  pills.forEach((pill) => {
     if (!pill) return;
     pill.classList.remove(
       "show",
@@ -114,15 +124,40 @@ function resetPills() {
       "slot-2",
       "slot-3",
       "slot-4",
-      "exit"
+      "parked",
+      "exit-left",
+      "exit-right"
     );
   });
+}
+
+function showPill(pill, slotClass) {
+  if (!pill) return;
+
+  pill.classList.remove("parked", "exit-left", "exit-right");
+  pill.classList.add("show");
+
+  requestAnimationFrame(() => {
+    pill.classList.add(slotClass);
+  });
+
+  /* after the lift/settle finishes, let it breathe */
+  schedule(() => {
+    pill.classList.add("parked");
+  }, 1150);
+}
+
+function exitPill(pill, directionClass) {
+  if (!pill) return;
+  pill.classList.remove("parked");
+  pill.classList.add(directionClass);
 }
 
 teacher?.addEventListener("click", () => {
   if (started) return;
   started = true;
 
+  clearInterventionTimers();
   resetPills();
 
   overlay.classList.remove("hidden", "active", "closing");
@@ -139,85 +174,66 @@ teacher?.addEventListener("click", () => {
   }
 
   /* ---------------------------------------------------
-     TIMING PLAN
-     0s    overlay starts appearing
-     0-2s  overlay sharpens
-     2s    pill 1 appears
-     4s    pill 1 lands
-     5s    pill 2 appears
-     7s    pill 2 lands
-     8s    pill 3 appears
-     10s   pill 3 lands
-     11s   pill 4 appears
-     13s   pill 4 lands
-     18s   exit pill 4
-     19s   exit pill 3
-     20s   exit pill 2
-     21s   exit pill 1
-     22s   overlay closes
-     25s   overlay removed
+     OPTION A + SILK EXIT CHOREOGRAPHY
+
+     0ms    overlay opens / art begins sharpening
+     1500   pill 1 lift-in
+     3400   pill 2 lift-in
+     5300   pill 3 lift-in
+     7200   pill 4 lift-in
+
+     9800   stack is fully built and breathes / glosses
+     13800  silk exit starts
+     15850  overlay closes
+     17200  cleanup
   --------------------------------------------------- */
 
-  setTimeout(() => {
-    pill1?.classList.add("show");
-  }, 2000);
+  schedule(() => {
+    showPill(pill1, "slot-1");
+  }, 1500);
 
-  setTimeout(() => {
-    pill1?.classList.add("slot-1");
-  }, 4000);
+  schedule(() => {
+    showPill(pill2, "slot-2");
+  }, 3400);
 
-  setTimeout(() => {
-    pill2?.classList.add("show");
-  }, 5000);
+  schedule(() => {
+    showPill(pill3, "slot-3");
+  }, 5300);
 
-  setTimeout(() => {
-    pill2?.classList.add("slot-2");
-  }, 7000);
+  schedule(() => {
+    showPill(pill4, "slot-4");
+  }, 7200);
 
-  setTimeout(() => {
-    pill3?.classList.add("show");
-  }, 8000);
+  /* silk release */
+  schedule(() => {
+    exitPill(pill4, "exit-right");
+  }, 13800);
 
-  setTimeout(() => {
-    pill3?.classList.add("slot-3");
-  }, 10000);
+  schedule(() => {
+    exitPill(pill3, "exit-left");
+  }, 14020);
 
-  setTimeout(() => {
-    pill4?.classList.add("show");
-  }, 11000);
+  schedule(() => {
+    exitPill(pill2, "exit-right");
+  }, 14240);
 
-  setTimeout(() => {
-    pill4?.classList.add("slot-4");
-  }, 13000);
+  schedule(() => {
+    exitPill(pill1, "exit-left");
+  }, 14460);
 
-  setTimeout(() => {
-    pill4?.classList.add("exit");
-  }, 18000);
-
-  setTimeout(() => {
-    pill3?.classList.add("exit");
-  }, 19000);
-
-  setTimeout(() => {
-    pill2?.classList.add("exit");
-  }, 20000);
-
-  setTimeout(() => {
-    pill1?.classList.add("exit");
-  }, 21000);
-
-  setTimeout(() => {
+  schedule(() => {
     overlay.classList.add("closing");
-  }, 22000);
+  }, 15850);
 
-  setTimeout(() => {
+  schedule(() => {
     overlay.classList.remove("active", "closing");
     overlay.classList.add("hidden");
     overlay.style.pointerEvents = "none";
     document.body.classList.remove("intervention-running");
+    clearInterventionTimers();
     resetPills();
     started = false;
-  }, 25000);
+  }, 17200);
 });
 
 /* =========================================================
