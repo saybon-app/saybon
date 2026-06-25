@@ -910,3 +910,132 @@ body.home-ui-in .settings-image-btn{
 
 /* ===== END SAYBON INTERVENTION MOTION HARD OVERRIDE ===== */
 
+
+/* ===== SAYBON INTERVENTION RELAY HARD OVERRIDE ===== */
+
+/* -----------------------------------------
+   Pill float / alive state
+----------------------------------------- */
+@keyframes saybonPillFloatRelay{
+  0%   { transform:translate(-50%,0) scale(1); }
+  50%  { transform:translate(-50%,-2px) scale(1.003); }
+  100% { transform:translate(-50%,0) scale(1); }
+}
+
+#offerOverlay .overlay-pill{
+  opacity:0 !important;
+  filter:blur(8px) !important;
+  transform:translate(-50%, 34px) scale(1.03) !important;
+  transition:
+    opacity .9s ease,
+    top 1.05s cubic-bezier(.22,.82,.18,1),
+    transform 1.05s cubic-bezier(.22,.82,.18,1),
+    filter .95s ease !important;
+}
+
+/* visible state */
+#offerOverlay .overlay-pill.show{
+  opacity:1 !important;
+  filter:blur(0) !important;
+}
+
+/* parked slots */
+#offerOverlay .overlay-pill.slot-1.show{
+  top:39% !important;
+  transform:translate(-50%,0) scale(1) !important;
+}
+#offerOverlay .overlay-pill.slot-2.show{
+  top:50.5% !important;
+  transform:translate(-50%,0) scale(1) !important;
+}
+#offerOverlay .overlay-pill.slot-3.show{
+  top:62% !important;
+  transform:translate(-50%,0) scale(1) !important;
+}
+#offerOverlay .overlay-pill.slot-4.show{
+  top:73.5% !important;
+  transform:translate(-50%,0) scale(1) !important;
+}
+
+/* mobile parked slots */
+@media (max-width:900px){
+  #offerOverlay .overlay-pill.slot-1.show{
+    top:40.2% !important;
+  }
+  #offerOverlay .overlay-pill.slot-2.show{
+    top:52.1% !important;
+  }
+  #offerOverlay .overlay-pill.slot-3.show{
+    top:64.0% !important;
+  }
+  #offerOverlay .overlay-pill.slot-4.show{
+    top:73.9% !important;
+  }
+}
+
+/* alive / floating while parked */
+#offerOverlay .overlay-pill.parked{
+  animation:saybonPillFloatRelay 4.2s ease-in-out infinite !important;
+}
+
+/* -----------------------------------------
+   RELAY UP-MOVE TO SLOT 1
+   Pill 2 / 3 / 4 glide upward into pill 1 spot
+----------------------------------------- */
+#offerOverlay .overlay-pill.relay-to-1{
+  top:39% !important;
+  transform:translate(-50%,0) scale(1) !important;
+  transition:
+    top 1.05s cubic-bezier(.18,.78,.18,1),
+    transform 1.05s cubic-bezier(.18,.78,.18,1),
+    opacity .55s ease,
+    filter .55s ease !important;
+}
+
+@media (max-width:900px){
+  #offerOverlay .overlay-pill.relay-to-1{
+    top:40.2% !important;
+  }
+}
+
+/* -----------------------------------------
+   EXIT MOTION
+   Long smooth side glide, fade near the end
+----------------------------------------- */
+#offerOverlay .overlay-pill.exit{
+  animation:none !important;
+}
+
+#offerOverlay .overlay-pill.exit-right{
+  opacity:0 !important;
+  filter:blur(2px) !important;
+  transform:translate(calc(-50% + 220px), 0) scale(.992) !important;
+  transition:
+    transform 1.55s cubic-bezier(.16,.78,.16,1),
+    opacity 1.55s ease,
+    filter 1.2s ease !important;
+}
+
+#offerOverlay .overlay-pill.exit-left{
+  opacity:0 !important;
+  filter:blur(2px) !important;
+  transform:translate(calc(-50% - 220px), 0) scale(.992) !important;
+  transition:
+    transform 1.55s cubic-bezier(.16,.78,.16,1),
+    opacity 1.55s ease,
+    filter 1.2s ease !important;
+}
+
+/* mobile side distance */
+@media (max-width:900px){
+  #offerOverlay .overlay-pill.exit-right{
+    transform:translate(calc(-50% + 130px), 0) scale(.992) !important;
+  }
+
+  #offerOverlay .overlay-pill.exit-left{
+    transform:translate(calc(-50% - 130px), 0) scale(.992) !important;
+  }
+}
+
+/* ===== END SAYBON INTERVENTION RELAY HARD OVERRIDE ===== */
+
