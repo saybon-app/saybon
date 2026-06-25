@@ -125,10 +125,23 @@ function closeOverlay() {
 function launchPill(pill, slotClass) {
   if (!pill) return;
 
+  // launch from the base state first
+  pill.classList.remove(
+    "show",
+    "parked",
+    "exit",
+    "exit-left",
+    "exit-right",
+    "slot-1",
+    "slot-2",
+    "slot-3",
+    "slot-4"
+  );
+
+  // show at launch point
   pill.classList.add("show");
 
-  /* next frame so the browser sees a real transition
-     from launch position -> parked slot */
+  // next paint: add parked slot so it visibly travels upward
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       pill.classList.add(slotClass);
@@ -144,105 +157,70 @@ function parkPill(pill) {
 function exitPill(pill, direction) {
   if (!pill) return;
 
-  pill.classList.remove("parked");
+  // IMPORTANT:
+  // remove show + parked so slot/show transform no longer pins the pill
+  pill.classList.remove("parked", "show");
   pill.classList.add("exit");
 
   if (direction === "left") {
     pill.classList.add("exit-left");
+    pill.classList.remove("exit-right");
   } else {
     pill.classList.add("exit-right");
+    pill.classList.remove("exit-left");
   }
 }
 
 /* =========================================================
    INTERVENTION SEQUENCE
-   TOTAL = 28s
+   TOTAL ≈ 28s
    EXIT ORDER = 1, 2, 3, 4
 ========================================================= */
 function runInterventionSequence() {
   clearOverlayTimers();
   openOverlay();
 
-  /* -----------------------------------------
-     0.0   overlay starts
-     1.4   pill 1 launches
-     2.5   pill 1 becomes parked / alive
+  /*
+    0.0   overlay starts
+    1.4   pill 1 launch
+    2.6   pill 1 parked
 
-     4.6   pill 2 launches
-     5.7   pill 2 becomes parked
+    4.6   pill 2 launch
+    5.8   pill 2 parked
 
-     7.8   pill 3 launches
-     8.9   pill 3 becomes parked
+    7.8   pill 3 launch
+    9.0   pill 3 parked
 
-     11.0  pill 4 launches
-     12.1  pill 4 becomes parked
+    11.0  pill 4 launch
+    12.2  pill 4 parked
 
-     18.2  pill 1 exits RIGHT
-     20.0  pill 2 exits LEFT
-     21.8  pill 3 exits RIGHT
-     23.6  pill 4 exits LEFT
+    18.2  pill 1 exits RIGHT
+    20.0  pill 2 exits LEFT
+    21.8  pill 3 exits RIGHT
+    23.6  pill 4 exits LEFT
 
-     26.8  overlay closes
-     28.0  reset finished
-  ------------------------------------------ */
+    26.8  overlay closing
+    28.0  cleanup
+  */
 
-  /* PILL 1 */
-  addTimer(() => {
-    launchPill(pill1, "slot-1");
-  }, 1400);
+  addTimer(() => launchPill(pill1, "slot-1"), 1400);
+  addTimer(() => parkPill(pill1), 2600);
 
-  addTimer(() => {
-    parkPill(pill1);
-  }, 2500);
+  addTimer(() => launchPill(pill2, "slot-2"), 4600);
+  addTimer(() => parkPill(pill2), 5800);
 
-  /* PILL 2 */
-  addTimer(() => {
-    launchPill(pill2, "slot-2");
-  }, 4600);
+  addTimer(() => launchPill(pill3, "slot-3"), 7800);
+  addTimer(() => parkPill(pill3), 9000);
 
-  addTimer(() => {
-    parkPill(pill2);
-  }, 5700);
+  addTimer(() => launchPill(pill4, "slot-4"), 11000);
+  addTimer(() => parkPill(pill4), 12200);
 
-  /* PILL 3 */
-  addTimer(() => {
-    launchPill(pill3, "slot-3");
-  }, 7800);
+  addTimer(() => exitPill(pill1, "right"), 18200);
+  addTimer(() => exitPill(pill2, "left"), 20000);
+  addTimer(() => exitPill(pill3, "right"), 21800);
+  addTimer(() => exitPill(pill4, "left"), 23600);
 
-  addTimer(() => {
-    parkPill(pill3);
-  }, 8900);
-
-  /* PILL 4 */
-  addTimer(() => {
-    launchPill(pill4, "slot-4");
-  }, 11000);
-
-  addTimer(() => {
-    parkPill(pill4);
-  }, 12100);
-
-  /* EXIT ORDER: 1 -> 2 -> 3 -> 4 */
-  addTimer(() => {
-    exitPill(pill1, "right");
-  }, 18200);
-
-  addTimer(() => {
-    exitPill(pill2, "left");
-  }, 20000);
-
-  addTimer(() => {
-    exitPill(pill3, "right");
-  }, 21800);
-
-  addTimer(() => {
-    exitPill(pill4, "left");
-  }, 23600);
-
-  /* overlay close */
-  addTimer(() => {
-    closeOverlay();
-  }, 26800);
+  addTimer(() => closeOverlay(), 26800);
 }
 
 /* =========================================================

@@ -832,3 +832,81 @@ body.home-ui-in .settings-image-btn{
   animation:saybonFadeUpSoft .82s ease both;
 }
 
+
+/* ===== SAYBON INTERVENTION MOTION HARD OVERRIDE ===== */
+
+/* Base animated state */
+#offerOverlay .overlay-pill{
+  opacity:0 !important;
+  filter:blur(8px) !important;
+  transform:translate(-50%, 34px) scale(1.03) !important;
+  transition:
+    opacity .9s ease,
+    transform 1.05s cubic-bezier(.2,.82,.18,1),
+    top 1.05s cubic-bezier(.2,.82,.18,1),
+    filter .95s ease !important;
+}
+
+/* visible pill */
+#offerOverlay .overlay-pill.show{
+  opacity:1 !important;
+  filter:blur(0) !important;
+}
+
+/* parked / alive */
+#offerOverlay .overlay-pill.parked{
+  animation:saybonPillFloat 4.4s ease-in-out infinite !important;
+}
+
+#offerOverlay .overlay-pill.parked::after{
+  animation:saybonPillGloss 2.6s ease 1 !important;
+  animation-delay:.25s !important;
+}
+
+/* IMPORTANT:
+   when pill is in slot + show, it must sit in the actual parked position */
+#offerOverlay .overlay-pill.slot-1.show,
+#offerOverlay .overlay-pill.slot-2.show,
+#offerOverlay .overlay-pill.slot-3.show,
+#offerOverlay .overlay-pill.slot-4.show{
+  opacity:1 !important;
+  filter:blur(0) !important;
+  transform:translate(-50%, 0) scale(1) !important;
+}
+
+/* Exit must beat slot/show pinning */
+#offerOverlay .overlay-pill.exit.exit-right{
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  animation:none !important;
+  transform:translate(calc(-50% + 120px), 12px) scale(.985) !important;
+  transition:
+    opacity .85s ease,
+    transform 1s cubic-bezier(.22,.82,.18,1),
+    filter .85s ease !important;
+}
+
+#offerOverlay .overlay-pill.exit.exit-left{
+  opacity:0 !important;
+  filter:blur(3px) !important;
+  animation:none !important;
+  transform:translate(calc(-50% - 120px), 12px) scale(.985) !important;
+  transition:
+    opacity .85s ease,
+    transform 1s cubic-bezier(.22,.82,.18,1),
+    filter .85s ease !important;
+}
+
+/* Mobile tuning */
+@media (max-width:900px){
+  #offerOverlay .overlay-pill.exit.exit-right{
+    transform:translate(calc(-50% + 72px), 10px) scale(.988) !important;
+  }
+
+  #offerOverlay .overlay-pill.exit.exit-left{
+    transform:translate(calc(-50% - 72px), 10px) scale(.988) !important;
+  }
+}
+
+/* ===== END SAYBON INTERVENTION MOTION HARD OVERRIDE ===== */
+
