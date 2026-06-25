@@ -3,73 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why learn French? — SayBon</title>
+  <title>Why Learn French? | SayBon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/css/why.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="why-page">
 
+  <button class="why-home-btn" id="homeBtn" aria-label="Go home">
+    <img src="/assets/why/home-icon.png" alt="Home" />
+  </button>
+
   <main class="why-shell">
+    <section class="why-hero">
+      <div class="hero-line-wrap" aria-hidden="true">
+        <div class="hero-line hero-line-left"></div>
 
-    <!-- HOME BUTTON -->
-    <button class="why-home-btn" id="whyHomeBtn" aria-label="Go home">
-      <img src="/assets/why/home-icon.png" alt="Home" />
-    </button>
+        <div class="hero-top-icons">
+          <img class="hero-plus" src="/assets/why/plus.png" alt="" />
+          <img class="hero-globe" src="/assets/why/globe.png" alt="" />
+          <img class="hero-plane" src="/assets/why/plane.png" alt="" />
+        </div>
 
-    <!-- DESKTOP -->
-    <section class="why-desktop" aria-label="Why desktop layout">
-      <div class="why-desktop-bg">
-        <img src="/assets/why/desktop-background.png" alt="" />
+        <div class="hero-line hero-line-right"></div>
       </div>
 
-      <div class="why-desktop-pills" id="optionsGridDesktop">
-        <button class="why-option why-option-desktop travel" data-reason="travel">
-          <img src="/assets/why/desktop-1.png" alt="Travel & Culture" />
-        </button>
+      <h1 class="why-title">
+        Why do you want to<br />
+        learn French?
+      </h1>
 
-        <button class="why-option why-option-desktop school" data-reason="school">
-          <img src="/assets/why/desktop-2.png" alt="School / Exams" />
-        </button>
-
-        <button class="why-option why-option-desktop personal" data-reason="personal">
-          <img src="/assets/why/desktop-3.png" alt="Personal Interest" />
-        </button>
-
-        <button class="why-option why-option-desktop career" data-reason="career">
-          <img src="/assets/why/desktop-4.png" alt="Career Growth" />
-        </button>
-      </div>
+      <div class="hero-cloud cloud-left" aria-hidden="true"></div>
+      <div class="hero-cloud cloud-right" aria-hidden="true"></div>
     </section>
 
-    <!-- MOBILE -->
-    <section class="why-mobile" aria-label="Why mobile layout">
-      <div class="why-mobile-bg">
-        <img src="/assets/why/mobile-background.png" alt="" />
-      </div>
+    <section class="why-options" id="optionsContainer">
 
-      <div class="why-mobile-pills" id="optionsGridMobile">
-        <button class="why-option why-option-mobile travel" data-reason="travel">
-          <img src="/assets/why/mobile-1.png" alt="Travel & Culture" />
-        </button>
+      <button class="why-card pink" data-reason="personal" type="button">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <img class="card-main-icon" src="/assets/why/desktop-1.png" alt="Personal interest" />
+          </div>
+        </div>
 
-        <button class="why-option why-option-mobile school" data-reason="school">
-          <img src="/assets/why/mobile-2.png" alt="School / Exams" />
-        </button>
+        <div class="card-copy">
+          <h2>Personal Interest</h2>
+          <p>Learn something new and challenge yourself.</p>
+        </div>
 
-        <button class="why-option why-option-mobile personal" data-reason="personal">
-          <img src="/assets/why/mobile-3.png" alt="Personal Interest" />
-        </button>
+        <div class="card-decor">
+          <img src="/assets/why/desktop-1.png" alt="" />
+        </div>
+      </button>
 
-        <button class="why-option why-option-mobile career" data-reason="career">
-          <img src="/assets/why/mobile-4.png" alt="Career Growth" />
-        </button>
-      </div>
+      <button class="why-card green" data-reason="school" type="button">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <img class="card-main-icon" src="/assets/why/desktop-2.png" alt="School and exams" />
+          </div>
+        </div>
+
+        <div class="card-copy">
+          <h2>School / Exams</h2>
+          <p>Improve your grades and succeed in exams.</p>
+        </div>
+
+        <div class="card-decor">
+          <img src="/assets/why/desktop-2.png" alt="" />
+        </div>
+      </button>
+
+      <button class="why-card yellow" data-reason="travel" type="button">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <img class="card-main-icon" src="/assets/why/desktop-3.png" alt="Travel and culture" />
+          </div>
+        </div>
+
+        <div class="card-copy">
+          <h2>Travel &amp; Culture</h2>
+          <p>Explore new places, connect with people, and experience French culture.</p>
+        </div>
+
+        <div class="card-decor">
+          <img src="/assets/why/desktop-3.png" alt="" />
+        </div>
+      </button>
+
+      <button class="why-card purple" data-reason="career" type="button">
+        <div class="card-top">
+          <div class="card-icon-wrap">
+            <img class="card-main-icon" src="/assets/why/desktop-4.png" alt="Career growth" />
+          </div>
+        </div>
+
+        <div class="card-copy">
+          <h2>Career Growth</h2>
+          <p>Enhance your skills and open doors to new career opportunities.</p>
+        </div>
+
+        <div class="card-decor">
+          <img src="/assets/why/desktop-4.png" alt="" />
+        </div>
+      </button>
+
     </section>
 
-    <!-- AFFIRMATION -->
-    <div id="affirmationBox" class="affirmation hidden"></div>
-
+    <div class="why-affirmation hidden" id="affirmationBox"></div>
   </main>
 
   <script src="/js/why.js"></script>
