@@ -1,0 +1,16 @@
+﻿SAYBON LOADER FLOW SURGICAL DUMP
+Generated: 2026-06-25 18:17:38
+
+PROJECT ROOT: C:\SayBon
+
+INCLUDED FILES:
+
+public\index.html
+public\why.html
+public\start.html
+public\loader.html
+public\js\home.js
+public\js\why.js
+public\js\start.js
+public\loader\loader.css
+public\loader\loader.js

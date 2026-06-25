@@ -1,0 +1,691 @@
+﻿SAYBON LOADER FLOW SURGICAL CODE DUMP
+Generated: 2026-06-25 18:17:39
+
+PROJECT ROOT: C:\SayBon
+
+FILES INCLUDED:
+ - public\index.html
+ - public\why.html
+ - public\start.html
+ - public\loader.html
+ - public\js\home.js
+ - public\js\why.js
+ - public\js\start.js
+ - public\loader\loader.css
+ - public\loader\loader.js
+
+============================================================
+BEGIN CODE DUMP
+============================================================
+
+============================================================
+FILE: public\index.html
+============================================================
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SayBon � Easy Fun French</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/home.css?v=16"><script type="module" src="/js/nav-engine.js"></script></head><body><audio id="introAudio" preload="auto">    <source src="assets/sounds/intro-v2.mp3" type="audio/mpeg"></audio><div class="home-shell">    <picture class="background-layer">        <source media="(max-width:900px)" srcset="assets/home/mobile-background.PNG">        <img src="assets/home/desktop-background.PNG" alt="">    </picture>    <div class="desktop-layout">        <div id="teacher" class="teacher-hitbox">            <img                src="assets/home/teacher.PNG"                class="teacher-img"                alt="Teacher"            >        </div>        <img            src="assets/home/IMG_6479.PNG"            class="tap-icon"            alt=""        >        <img            src="assets/home/saybon-logo.PNG"            class="saybon-logo"            alt=""        >        <button id="startBtn" class="image-btn start-btn">            <img src="assets/home/get-started-button.PNG" alt="Get Started">        </button>        <button id="loginBtn" class="image-btn login-btn">            <img src="assets/home/login-button.PNG" alt="Login">        </button>        <button id="settingsBtn" class="settings-image-btn">            <img src="assets/home/admin-button.PNG" alt="Settings">        </button>    </div></div><!-- OFFER OVERLAY --><div id="offerOverlay" class="overlay hidden" aria-hidden="true">    <picture class="overlay-art">        <source media="(max-width:900px)" srcset="assets/home/overlay-mobile.png">        <img src="assets/home/overlay-desktop.png" alt="What we offer at SayBon">    </picture>    <!-- Pill launch/parking stage -->    <div class="overlay-stage">        <div class="overlay-pill slot-1" id="pill1">            <img src="assets/home/pill-1.png" alt="">        </div>        <div class="overlay-pill slot-2" id="pill2">            <img src="assets/home/pill-2.png" alt="">        </div>        <div class="overlay-pill slot-3" id="pill3">            <img src="assets/home/pill-3.png" alt="">        </div>        <div class="overlay-pill slot-4" id="pill4">            <img src="assets/home/pill-4.png" alt="">        </div>    </div></div><script src="js/home.js"></script></body></html>
+
+
+============================================================
+FILE: public\why.html
+============================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Why learn French? — SayBon</title>
+
+  <link rel="stylesheet" href="/css/why.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="why-container">
+
+    <h1 class="why-title">Why do you want to learn French?</h1>
+
+    <div class="options-grid" id="optionsGrid">
+
+      <button class="why-option travel" data-reason="travel">
+        Travel & Culture
+      </button>
+
+      <button class="why-option career" data-reason="career">
+        Career Growth
+      </button>
+
+      <button class="why-option school" data-reason="school">
+        School / Exams
+      </button>
+
+      <button class="why-option personal" data-reason="personal">
+        Personal Interest
+      </button>
+
+    </div>
+
+    <!-- Affirmation appears here (CENTERED) -->
+    <div id="affirmationBox" class="affirmation hidden"></div>
+
+  </main>
+
+  <script src="/js/why.js"></script>
+</body>
+</html>
+
+
+
+============================================================
+FILE: public\start.html
+============================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Start your journey — SayBon</title>
+
+  <link rel="stylesheet" href="/css/start.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="start-container">
+
+    <div class="header">
+      <span class="capsule">🌟 Start your journey</span>
+      <h1>How would you like to begin?</h1>
+      <p class="subtitle"></p>
+    </div>
+
+    <div class="paths">
+
+      <!-- LEFT PATH -->
+      <div class="path path-left" id="findLevel">
+        <div class="path-tag"></div>
+
+        <div class="path-card">
+          <h2>Find my level</h2>
+          <p>Take a quick smart test to meet your perfect match.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT PATH -->
+      <div class="path path-right" id="startScratch">
+        <div class="path-tag"></div>
+
+        <div class="path-card">
+          <h2>Start from scratch</h2>
+          <p>Begin with Absolute Beginner — step by step.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="/js/start.js"></script>
+</body>
+</html>
+
+
+
+============================================================
+FILE: public\loader.html
+============================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>SayBon — Loading</title>
+
+  <!-- ✅ IMPORTANT: POINT TO THE REAL LOADER CSS -->
+  <link rel="stylesheet" href="/loader/loader.css" />
+</head>
+
+<body>
+
+  <div class="loader-container">
+
+    <div class="spinner"></div>
+
+    <p id="loaderText" class="loader-text">
+      Loading SayBon...
+    </p>
+
+  </div>
+
+  <!-- ✅ IMPORTANT: POINT TO THE REAL LOADER JS -->
+  <script src="/loader/loader.js"></script>
+
+</body>
+</html>
+
+
+
+
+============================================================
+FILE: public\js\home.js
+============================================================
+const teacher = document.getElementById("teacher");
+const audio = document.getElementById("introAudio");
+const overlay = document.getElementById("offerOverlay");
+
+const pill1 = document.getElementById("pill1");
+const pill2 = document.getElementById("pill2");
+const pill3 = document.getElementById("pill3");
+const pill4 = document.getElementById("pill4");
+
+const startBtn = document.getElementById("startBtn");
+const loginBtn = document.getElementById("loginBtn");
+const settingsBtn = document.getElementById("settingsBtn");
+
+const pills = [pill1, pill2, pill3, pill4];
+
+let started = false;
+let overlayTimers = [];
+
+/* =========================================================
+   HOMEPAGE REVEAL
+========================================================= */
+function runHomepageReveal() {
+  document.body.classList.add("home-preload");
+
+  const bgImg = document.querySelector(".background-layer img");
+  const teacherImg = document.querySelector(".teacher-img");
+
+  const waitForImage = (img) => {
+    return new Promise((resolve) => {
+      if (!img) return resolve();
+      if (img.complete && img.naturalWidth > 0) return resolve();
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", resolve, { once: true });
+    });
+  };
+
+  Promise.all([
+    waitForImage(bgImg),
+    waitForImage(teacherImg)
+  ]).then(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("home-bg-in");
+
+      window.setTimeout(() => {
+        document.body.classList.add("home-teacher-in");
+      }, 220);
+
+      window.setTimeout(() => {
+        document.body.classList.add("home-ui-in");
+        document.body.classList.remove("home-preload");
+      }, 430);
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", runHomepageReveal, { once: true });
+} else {
+  runHomepageReveal();
+}
+
+/* =========================================================
+   INTERVENTION HELPERS
+========================================================= */
+function addTimer(fn, delay) {
+  const id = window.setTimeout(fn, delay);
+  overlayTimers.push(id);
+  return id;
+}
+
+function clearOverlayTimers() {
+  overlayTimers.forEach((id) => window.clearTimeout(id));
+  overlayTimers = [];
+}
+
+function resetPills() {
+  pills.forEach((pill) => {
+    if (!pill) return;
+    pill.classList.remove(
+      "show",
+      "parked",
+      "slot-1",
+      "slot-2",
+      "slot-3",
+      "slot-4",
+      "relay-to-1",
+      "relay-to-2",
+      "relay-to-3",
+      "relay-to-4",
+      "exit",
+      "exit-left",
+      "exit-right"
+    );
+  });
+}
+
+function openOverlay() {
+  document.body.classList.add("intervention-running");
+  resetPills();
+
+  overlay.classList.remove("hidden", "active", "closing");
+  overlay.style.pointerEvents = "auto";
+
+  requestAnimationFrame(() => {
+    overlay.classList.add("active");
+  });
+
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  }
+}
+
+function finishOverlay() {
+  overlay.classList.remove("active", "closing");
+  overlay.classList.add("hidden");
+  overlay.style.pointerEvents = "none";
+  document.body.classList.remove("intervention-running");
+  clearOverlayTimers();
+  resetPills();
+  started = false;
+}
+
+function closeOverlay() {
+  overlay.classList.add("closing");
+  addTimer(() => finishOverlay(), 1200);
+}
+
+function launchPill(pill, slotClass) {
+  if (!pill) return;
+
+  pill.classList.remove(
+    "show",
+    "parked",
+    "slot-1",
+    "slot-2",
+    "slot-3",
+    "slot-4",
+    "relay-to-1",
+    "relay-to-2",
+    "relay-to-3",
+    "relay-to-4",
+    "exit",
+    "exit-left",
+    "exit-right"
+  );
+
+  pill.classList.add("show");
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      pill.classList.add(slotClass);
+    });
+  });
+}
+
+function parkPill(pill) {
+  if (!pill) return;
+  pill.classList.add("parked");
+}
+
+function movePillToSlot1(pill, fromIndex) {
+  if (!pill) return;
+
+  pill.classList.remove("parked");
+
+  // remove old slot classes so the relay class wins cleanly
+  pill.classList.remove("slot-1", "slot-2", "slot-3", "slot-4");
+
+  if (fromIndex === 2) pill.classList.add("relay-to-1");
+  if (fromIndex === 3) pill.classList.add("relay-to-1");
+  if (fromIndex === 4) pill.classList.add("relay-to-1");
+}
+
+function exitPill(pill, direction) {
+  if (!pill) return;
+
+  pill.classList.remove("parked");
+  pill.classList.add("exit");
+
+  if (direction === "left") {
+    pill.classList.remove("exit-right");
+    pill.classList.add("exit-left");
+  } else {
+    pill.classList.remove("exit-left");
+    pill.classList.add("exit-right");
+  }
+}
+
+/* =========================================================
+   INTERVENTION TIMELINE
+   TOTAL ≈ 26s for pill action + close
+========================================================= */
+function runInterventionSequence() {
+  clearOverlayTimers();
+  openOverlay();
+
+  /*
+    INTRO / BUILD
+    0.0   overlay opens
+    1.2   pill 1 launch
+    2.3   pill 1 parked
+
+    3.8   pill 2 launch
+    4.9   pill 2 parked
+
+    6.4   pill 3 launch
+    7.5   pill 3 parked
+
+    9.0   pill 4 launch
+    10.1  pill 4 parked
+
+    HOLD / READ TIME
+    10.1 - 15.2  all 4 visible
+
+    RELAY EXIT PHASE
+    15.2  pill1 starts exit right
+    15.8  pill2 moves into slot1
+    16.6  pill2 exits left
+
+    17.2  pill3 moves into slot1
+    18.0  pill3 exits right
+
+    18.6  pill4 moves into slot1
+    19.4  pill4 exits left
+
+    22.8  overlay closes
+    24.0  cleanup
+  */
+
+  // Intro build
+  addTimer(() => launchPill(pill1, "slot-1"), 1200);
+  addTimer(() => parkPill(pill1), 2300);
+
+  addTimer(() => launchPill(pill2, "slot-2"), 3800);
+  addTimer(() => parkPill(pill2), 4900);
+
+  addTimer(() => launchPill(pill3, "slot-3"), 6400);
+  addTimer(() => parkPill(pill3), 7500);
+
+  addTimer(() => launchPill(pill4, "slot-4"), 9000);
+  addTimer(() => parkPill(pill4), 10100);
+
+  // Relay phase
+  // Pill 1 exits from slot 1
+  addTimer(() => exitPill(pill1, "right"), 15200);
+
+  // Pill 2 glides up into slot 1 as soon as pill 1 has vacated enough
+  addTimer(() => movePillToSlot1(pill2, 2), 15800);
+  addTimer(() => exitPill(pill2, "left"), 16600);
+
+  // Pill 3 glides up into slot 1
+  addTimer(() => movePillToSlot1(pill3, 3), 17200);
+  addTimer(() => exitPill(pill3, "right"), 18000);
+
+  // Pill 4 glides up into slot 1
+  addTimer(() => movePillToSlot1(pill4, 4), 18600);
+  addTimer(() => exitPill(pill4, "left"), 19400);
+
+  // close after a small breath
+  addTimer(() => closeOverlay(), 22800);
+}
+
+/* =========================================================
+   INTERACTION
+========================================================= */
+teacher?.addEventListener("click", () => {
+  if (started) return;
+  started = true;
+  runInterventionSequence();
+});
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+startBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  sessionStorage.setItem("saybon_next", "/why.html");
+  window.location.href = "/loader.html";
+});
+
+loginBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  window.location.href = "/auth/login.html";
+});
+
+settingsBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  window.location.href = "/admin/passkey/";
+});
+
+/* ===== SAYBON HOMEPAGE PRESS SYSTEM ===== */
+
+const homepagePressTargets = [
+  startBtn,
+  loginBtn,
+  settingsBtn,
+  document.querySelector(".tap-icon"),
+  document.querySelector(".saybon-logo")
+].filter(Boolean);
+
+function attachPressFeedback(el) {
+  const pressOn = () => el.classList.add("is-pressed");
+  const pressOff = () => el.classList.remove("is-pressed");
+
+  el.addEventListener("pointerdown", pressOn, { passive: true });
+  el.addEventListener("pointerup", pressOff, { passive: true });
+  el.addEventListener("pointercancel", pressOff, { passive: true });
+  el.addEventListener("pointerleave", pressOff, { passive: true });
+
+  el.addEventListener("touchstart", pressOn, { passive: true });
+  el.addEventListener("touchend", pressOff, { passive: true });
+  el.addEventListener("touchcancel", pressOff, { passive: true });
+
+  el.addEventListener("mousedown", pressOn);
+  el.addEventListener("mouseup", pressOff);
+  el.addEventListener("mouseleave", pressOff);
+}
+
+homepagePressTargets.forEach(attachPressFeedback);
+
+/* ===== END SAYBON HOMEPAGE PRESS SYSTEM ===== */
+
+
+/* ===== SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
+
+function bindPressFeedback(el) {
+  if (!el) return;
+
+  const pressOn = () => el.classList.add("is-pressed");
+  const pressOff = () => el.classList.remove("is-pressed");
+
+  el.addEventListener("mousedown", pressOn);
+  el.addEventListener("mouseup", pressOff);
+  el.addEventListener("mouseleave", pressOff);
+
+  el.addEventListener("touchstart", pressOn, { passive: true });
+  el.addEventListener("touchend", pressOff);
+  el.addEventListener("touchcancel", pressOff);
+}
+
+[teacher, startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+
+/* ===== END SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
+
+
+
+
+============================================================
+FILE: public\js\why.js
+============================================================
+const options = document.querySelectorAll(".why-option");
+const affirmationBox = document.getElementById("affirmationBox");
+
+const tags = {
+  travel:
+    "Better get your passport ready then… on y va ✈️🌍",
+
+  career:
+    "Ambition looks good on you… allez travailler 💼✨",
+
+  school:
+    "Brain glow activated… très studieux 📚✨",
+
+  personal:
+    "Whatever your reasons may be, we’ve got you covered. 💫"
+};
+
+options.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    // 1) Fade out all other options
+    options.forEach(o => {
+      if (o !== btn) o.classList.add("fade-out");
+    });
+
+    // 2) Center selected option
+    btn.classList.add("selected");
+
+    // 3) Show affirmation tag (different style + emojis)
+    const key = btn.dataset.reason;
+    affirmationBox.textContent = tags[key];
+    affirmationBox.classList.remove("hidden");
+
+    // 4) After 3 seconds → loader → start.html
+    setTimeout(() => {
+      sessionStorage.setItem("saybon_next", "/start.html");
+      window.location.href = "/loader.html";
+    }, 3000);
+  });
+});
+
+
+
+============================================================
+FILE: public\js\start.js
+============================================================
+// ================================
+// SAYBON START PAGE ROUTING — FIXED
+// ================================
+
+const findLevel = document.getElementById("findLevel");
+const startScratch = document.getElementById("startScratch");
+
+// ================================
+// FIND MY LEVEL
+// start → loader → placement
+// ================================
+if (findLevel) {
+  findLevel.addEventListener("click", () => {
+    sessionStorage.setItem("saybon_next", "/placement/");
+    window.location.href = "/loader.html";
+  });
+}
+
+// ================================
+// START FROM SCRATCH
+// start → loader → login
+// ================================
+if (startScratch) {
+  startScratch.addEventListener("click", () => {
+    sessionStorage.setItem("saybon_next", "/auth/login.html");
+    window.location.href = "/loader.html";
+  });
+}
+
+
+
+============================================================
+FILE: public\loader\loader.css
+============================================================
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #0f3f4b, #061c22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Nunito", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.loader-page {
+  text-align: center;
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(255,255,255,0.2);
+  border-top-color: #6fe7ff;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: #e6faff;
+  font-size: 16px;
+  font-weight: 600;
+  max-width: 520px;
+}
+
+
+
+============================================================
+FILE: public\loader\loader.js
+============================================================
+// ================================
+// SAYBON GLOBAL LOADER — MASTER ROUTER
+// ================================
+
+const quips = [
+  "Hold on… our hamsters are learning French 🐹… et toi ?",
+  "Stirring the brain soup… très délicieux 🧠🥣",
+  "Loading genius mode… doucement hein 😏",
+  "Downloading confidence… oui oui ✨",
+  "Waking up the pixels… bonjour pixels 👋",
+  "Bribing the server with croissants… ça marche 🥐",
+  "Connecting the dots… comme par magie 🪄",
+  "Sharpening your brain… très pointu 🧠✏️",
+  "Teaching the screen manners… s’il te plaît 😌",
+  "Loading vibes… très chic 💅",
+  "Convincing the app you’re brilliant… facile 😎",
+  "Calibrating your future fluency… presque parfait 🎯",
+  "Charging creativity… allez allez ⚡",
+  "Untangling digital spaghetti… mamma mia… pardon 😅",
+  "Giving the app a pep talk… tu peux le faire 💪",
+  "Buffering brilliance… c’est sérieux 🧠✨",
+  "Rolling out the red carpet… bienvenue 🌟",
+  "Polishing pixels and pronunciations… très propre 🧼",
+  "Tuning your experience… comme une guitare 🎸",
+  "Almost there… respire… inspire… expire… parfait 😮‍💨"
+];
+
+// rotate quips
+let index = Number(sessionStorage.getItem("saybon_quip_index")) || 0;
+document.getElementById("loaderText").textContent = quips[index];
+index = (index + 1) % quips.length;
+sessionStorage.setItem("saybon_quip_index", index);
+
+// CENTRALIZED ROUTING
+const next = sessionStorage.getItem("saybon_next");
+
+if (next) {
+  setTimeout(() => {
+    sessionStorage.removeItem("saybon_next");
+    window.location.href = next;
+  }, 2200);
+}
+
+
+
