@@ -3,116 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Why Learn French? | SayBon</title>
+  <title>Why learn French? — SayBon</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/why.css" />
+  <link rel="stylesheet" href="/css/page-transition.css" />
+  <script type="module" src="/js/nav-engine.js"></script>
 </head>
 <body class="why-page">
 
-  <button class="why-home-btn" id="homeBtn" aria-label="Go home">
-    <img src="/assets/why/home-icon.png" alt="Home" />
-  </button>
-
   <main class="why-shell">
-    <section class="why-hero">
-      <div class="hero-line-wrap" aria-hidden="true">
-        <div class="hero-line hero-line-left"></div>
 
-        <div class="hero-top-icons">
-          <img class="hero-plus" src="/assets/why/plus.png" alt="" />
-          <img class="hero-globe" src="/assets/why/globe.png" alt="" />
-          <img class="hero-plane" src="/assets/why/plane.png" alt="" />
-        </div>
+    <!-- HOME BUTTON -->
+    <button class="why-home-btn" id="whyHomeBtn" type="button" aria-label="Back home">
+      <img src="/assets/why/home-icon.png" alt="Home" />
+    </button>
 
-        <div class="hero-line hero-line-right"></div>
-      </div>
-
-      <h1 class="why-title">
-        Why do you want to<br />
-        learn French?
-      </h1>
-
-      <div class="hero-cloud cloud-left" aria-hidden="true"></div>
-      <div class="hero-cloud cloud-right" aria-hidden="true"></div>
+    <!-- HERO -->
+    <section class="why-hero" aria-hidden="true">
+      <img class="why-hero-globe" src="/assets/why/globe.png" alt="" />
+      <img class="why-hero-line" src="/assets/why/hero-line.png" alt="" />
     </section>
 
-    <section class="why-options" id="optionsContainer">
+    <!-- TITLE -->
+    <header class="why-header">
+      <h1 class="why-title">Why do you want to learn French?</h1>
+    </header>
 
-      <button class="why-card pink" data-reason="personal" type="button">
-        <div class="card-top">
-          <div class="card-icon-wrap">
-            <img class="card-main-icon" src="/assets/why/desktop-1.png" alt="Personal interest" />
+    <!-- DESKTOP GRID -->
+    <section class="why-desktop-grid" aria-label="Reasons for learning French">
+
+      <button class="why-card personal" type="button" data-reason="personal">
+        <div class="why-card-top">
+          <div class="why-card-icon">
+            <img src="/assets/why/desktop-1.png" alt="" />
           </div>
         </div>
 
-        <div class="card-copy">
+        <div class="why-card-body">
           <h2>Personal Interest</h2>
           <p>Learn something new and challenge yourself.</p>
         </div>
 
-        <div class="card-decor">
+        <div class="why-card-decor">
           <img src="/assets/why/desktop-1.png" alt="" />
         </div>
       </button>
 
-      <button class="why-card green" data-reason="school" type="button">
-        <div class="card-top">
-          <div class="card-icon-wrap">
-            <img class="card-main-icon" src="/assets/why/desktop-2.png" alt="School and exams" />
+      <button class="why-card school" type="button" data-reason="school">
+        <div class="why-card-top">
+          <div class="why-card-icon">
+            <img src="/assets/why/desktop-2.png" alt="" />
           </div>
         </div>
 
-        <div class="card-copy">
+        <div class="why-card-body">
           <h2>School / Exams</h2>
           <p>Improve your grades and succeed in exams.</p>
         </div>
 
-        <div class="card-decor">
+        <div class="why-card-decor">
           <img src="/assets/why/desktop-2.png" alt="" />
         </div>
       </button>
 
-      <button class="why-card yellow" data-reason="travel" type="button">
-        <div class="card-top">
-          <div class="card-icon-wrap">
-            <img class="card-main-icon" src="/assets/why/desktop-3.png" alt="Travel and culture" />
+      <button class="why-card travel" type="button" data-reason="travel">
+        <div class="why-card-top">
+          <div class="why-card-icon">
+            <img src="/assets/why/desktop-3.png" alt="" />
           </div>
         </div>
 
-        <div class="card-copy">
+        <div class="why-card-body">
           <h2>Travel &amp; Culture</h2>
           <p>Explore new places, connect with people, and experience French culture.</p>
         </div>
 
-        <div class="card-decor">
+        <div class="why-card-decor">
           <img src="/assets/why/desktop-3.png" alt="" />
         </div>
       </button>
 
-      <button class="why-card purple" data-reason="career" type="button">
-        <div class="card-top">
-          <div class="card-icon-wrap">
-            <img class="card-main-icon" src="/assets/why/desktop-4.png" alt="Career growth" />
+      <button class="why-card career" type="button" data-reason="career">
+        <div class="why-card-top">
+          <div class="why-card-icon">
+            <img src="/assets/why/desktop-4.png" alt="" />
           </div>
         </div>
 
-        <div class="card-copy">
+        <div class="why-card-body">
           <h2>Career Growth</h2>
           <p>Enhance your skills and open doors to new career opportunities.</p>
         </div>
 
-        <div class="card-decor">
+        <div class="why-card-decor">
           <img src="/assets/why/desktop-4.png" alt="" />
         </div>
       </button>
 
     </section>
 
-    <div class="why-affirmation hidden" id="affirmationBox"></div>
+    <!-- MOBILE STACK -->
+    <section class="why-mobile-stack" aria-label="Reasons for learning French">
+
+      <button class="why-mobile-card personal" type="button" data-reason="personal">
+        <div class="why-mobile-left">
+          <div class="why-mobile-badge">
+            <img src="/assets/why/mobile-1.png" alt="" />
+          </div>
+        </div>
+
+        <div class="why-mobile-copy">
+          <h2>Personal Interest</h2>
+          <p>Learn something new and challenge yourself.</p>
+        </div>
+
+        <div class="why-mobile-right">
+          <img src="/assets/why/mobile-1.png" alt="" />
+        </div>
+      </button>
+
+      <button class="why-mobile-card school" type="button" data-reason="school">
+        <div class="why-mobile-left">
+          <div class="why-mobile-badge">
+            <img src="/assets/why/mobile-2.png" alt="" />
+          </div>
+        </div>
+
+        <div class="why-mobile-copy">
+          <h2>School / Exams</h2>
+          <p>Improve your grades and succeed in exams.</p>
+        </div>
+
+        <div class="why-mobile-right">
+          <img src="/assets/why/mobile-2.png" alt="" />
+        </div>
+      </button>
+
+      <button class="why-mobile-card travel" type="button" data-reason="travel">
+        <div class="why-mobile-left">
+          <div class="why-mobile-badge">
+            <img src="/assets/why/mobile-3.png" alt="" />
+          </div>
+        </div>
+
+        <div class="why-mobile-copy">
+          <h2>Travel &amp; Culture</h2>
+          <p>Explore new places, connect with people, and experience French culture.</p>
+        </div>
+
+        <div class="why-mobile-right">
+          <img src="/assets/why/mobile-3.png" alt="" />
+        </div>
+      </button>
+
+      <button class="why-mobile-card career" type="button" data-reason="career">
+        <div class="why-mobile-left">
+          <div class="why-mobile-badge">
+            <img src="/assets/why/mobile-4.png" alt="" />
+          </div>
+        </div>
+
+        <div class="why-mobile-copy">
+          <h2>Career Growth</h2>
+          <p>Enhance your skills and open doors to new career opportunities.</p>
+        </div>
+
+        <div class="why-mobile-right">
+          <img src="/assets/why/mobile-4.png" alt="" />
+        </div>
+      </button>
+
+    </section>
+
   </main>
 
   <script src="/js/why.js"></script>
