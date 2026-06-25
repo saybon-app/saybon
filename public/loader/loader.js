@@ -1,4 +1,4 @@
-// ================================
+﻿// ================================
 // SAYBON GLOBAL LOADER — MASTER ROUTER
 // ================================
 
@@ -27,7 +27,10 @@ const quips = [
 
 // rotate quips
 let index = Number(sessionStorage.getItem("saybon_quip_index")) || 0;
-document.getElementById("loaderText").textContent = quips[index];
+const loaderText = document.getElementById("loaderText");
+if (loaderText) {
+  loaderText.textContent = quips[index];
+}
 index = (index + 1) % quips.length;
 sessionStorage.setItem("saybon_quip_index", index);
 
@@ -36,11 +39,12 @@ const next = sessionStorage.getItem("saybon_next");
 
 if (next) {
   setTimeout(() => {
+    // IMPORTANT:
+    // keep saybon_prev alive for the destination page
+    // so that destination page can repair history and skip loader on Back.
     sessionStorage.removeItem("saybon_next");
 
-    // IMPORTANT:
-    // replace() removes loader from history so Back goes to the page
-    // BEFORE the loader, not back to loader.html
+    // remove loader from history
     window.location.replace(next);
   }, 2200);
 }

@@ -163,8 +163,6 @@ function movePillToSlot1(pill, fromIndex) {
   if (!pill) return;
 
   pill.classList.remove("parked");
-
-  // remove old slot classes so the relay class wins cleanly
   pill.classList.remove("slot-1", "slot-2", "slot-3", "slot-4");
 
   if (fromIndex === 2) pill.classList.add("relay-to-1");
@@ -189,46 +187,11 @@ function exitPill(pill, direction) {
 
 /* =========================================================
    INTERVENTION TIMELINE
-   TOTAL ≈ 26s for pill action + close
 ========================================================= */
 function runInterventionSequence() {
   clearOverlayTimers();
   openOverlay();
 
-  /*
-    INTRO / BUILD
-    0.0   overlay opens
-    1.2   pill 1 launch
-    2.3   pill 1 parked
-
-    3.8   pill 2 launch
-    4.9   pill 2 parked
-
-    6.4   pill 3 launch
-    7.5   pill 3 parked
-
-    9.0   pill 4 launch
-    10.1  pill 4 parked
-
-    HOLD / READ TIME
-    10.1 - 15.2  all 4 visible
-
-    RELAY EXIT PHASE
-    15.2  pill1 starts exit right
-    15.8  pill2 moves into slot1
-    16.6  pill2 exits left
-
-    17.2  pill3 moves into slot1
-    18.0  pill3 exits right
-
-    18.6  pill4 moves into slot1
-    19.4  pill4 exits left
-
-    22.8  overlay closes
-    24.0  cleanup
-  */
-
-  // Intro build
   addTimer(() => launchPill(pill1, "slot-1"), 1200);
   addTimer(() => parkPill(pill1), 2300);
 
@@ -241,23 +204,17 @@ function runInterventionSequence() {
   addTimer(() => launchPill(pill4, "slot-4"), 9000);
   addTimer(() => parkPill(pill4), 10100);
 
-  // Relay phase
-  // Pill 1 exits from slot 1
   addTimer(() => exitPill(pill1, "right"), 15200);
 
-  // Pill 2 glides up into slot 1 as soon as pill 1 has vacated enough
   addTimer(() => movePillToSlot1(pill2, 2), 15800);
   addTimer(() => exitPill(pill2, "left"), 16600);
 
-  // Pill 3 glides up into slot 1
   addTimer(() => movePillToSlot1(pill3, 3), 17200);
   addTimer(() => exitPill(pill3, "right"), 18000);
 
-  // Pill 4 glides up into slot 1
   addTimer(() => movePillToSlot1(pill4, 4), 18600);
   addTimer(() => exitPill(pill4, "left"), 19400);
 
-  // close after a small breath
   addTimer(() => closeOverlay(), 22800);
 }
 
@@ -275,7 +232,13 @@ teacher?.addEventListener("click", () => {
 ========================================================= */
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
+
+  // store page before loader
+  sessionStorage.setItem("saybon_prev", window.location.pathname);
+
+  // loader destination
   sessionStorage.setItem("saybon_next", "/why.html");
+
   window.location.href = "/loader.html";
 });
 
@@ -321,7 +284,6 @@ homepagePressTargets.forEach(attachPressFeedback);
 
 /* ===== END SAYBON HOMEPAGE PRESS SYSTEM ===== */
 
-
 /* ===== SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
 
 function bindPressFeedback(el) {
@@ -342,4 +304,3 @@ function bindPressFeedback(el) {
 [teacher, startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
 
 /* ===== END SAYBON HOMEPAGE PRESS FEEDBACK SYSTEM ===== */
-
