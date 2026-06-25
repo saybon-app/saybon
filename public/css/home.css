@@ -134,30 +134,36 @@ body.home-preload .home-shell::before{
 
 .image-btn{
   position:absolute;
+  display:block;
   background:none;
   border:none;
   padding:0;
+  margin:0;
   cursor:pointer;
-  z-index:20;
+  z-index:40;
+  line-height:0;
+  appearance:none;
+  -webkit-appearance:none;
 }
 
 .image-btn img{
   display:block;
   width:100%;
   height:auto;
+  pointer-events:none;
 }
 
 .start-btn{
   left:50%;
   transform:translateX(-50%);
-  top:75%;
+  top:73.8%;
   width:min(200px,35vw);
 }
 
 .login-btn{
   left:50%;
   transform:translateX(-50%);
-  top:83%;
+  top:84.8%;
   width:min(200px,26vw);
 }
 
@@ -175,6 +181,7 @@ body.home-preload .home-shell::before{
 .settings-image-btn img{
   width:100%;
   display:block;
+  pointer-events:none;
 }
 
 /* =========================================================
@@ -658,8 +665,8 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
     position:absolute !important;
     width:200px !important;
     left:50% !important;
-    top:69.9% !important;
-    z-index:20 !important;
+    top:68.8% !important;
+    z-index:40 !important;
     transform:translateX(-50%) translateY(18px) scale(.988) !important;
   }
 
@@ -671,8 +678,8 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
     position:absolute !important;
     width:200px !important;
     left:50% !important;
-    top:75.1% !important;
-    z-index:20 !important;
+    top:77.8% !important;
+    z-index:40 !important;
     transform:translateX(-50%) translateY(18px) scale(.988) !important;
   }
 
@@ -1159,6 +1166,7 @@ body.home-preload .settings-image-btn.is-pressed img{
 }
 
 /* ===== END SAYBON HOMEPAGE INTERACTION SYSTEM ===== */
+
 
 
 
