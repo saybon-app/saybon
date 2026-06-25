@@ -276,3 +276,87 @@
     bottom:5% !important;
   }
 }
+
+
+/* =========================================================
+   SAYBON MOBILE SURGICAL FIX
+   MOBILE ONLY — DESKTOP UNTOUCHED
+========================================================= */
+@media (max-width:900px){
+
+  /* =====================================================
+     A) MOBILE HOMEPAGE: TAP ICON A BIT HIGHER
+  ===================================================== */
+  .tap-icon{
+    top:54.8% !important;
+  }
+
+  /* =====================================================
+     B) MOBILE INTERVENTION: FIX PILL CLIPPING / STACKING
+     Target:
+     - keep pill size
+     - keep pills below the golden dots
+     - remove clipping / half-hidden look
+     - slightly tighter spacing
+  ===================================================== */
+
+  /* overlay shell / stage must not clip pills */
+  #offerOverlay,
+  #offerOverlay .overlay-stage{
+    overflow:visible !important;
+  }
+
+  /* ensure the pills sit above everything cleanly */
+  #offerOverlay .overlay-stage{
+    z-index:20 !important;
+  }
+
+  #offerOverlay .overlay-pill{
+    width:min(86vw, 650px) !important;
+    left:50% !important;
+    opacity:0 !important;
+    z-index:30 !important;
+    overflow:visible !important;
+    filter:blur(0) !important;
+    transform:translate(-50%, 18px) scale(1) !important;
+    will-change:transform, opacity, top !important;
+    transition:
+      opacity .55s ease,
+      transform 1s cubic-bezier(.22,.82,.18,1),
+      top 1s cubic-bezier(.22,.82,.18,1) !important;
+  }
+
+  #offerOverlay .overlay-pill img{
+    display:block !important;
+    width:100% !important;
+    height:auto !important;
+    max-width:none !important;
+  }
+
+  /* parked positions — lower than before and tighter spacing */
+  #offerOverlay .overlay-pill.slot-1{
+    top:47.2% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-2{
+    top:60.0% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-3{
+    top:72.8% !important;
+  }
+
+  #offerOverlay .overlay-pill.slot-4{
+    top:85.6% !important;
+  }
+
+  #offerOverlay .overlay-pill.show{
+    opacity:1 !important;
+    transform:translate(-50%, 0) scale(1) !important;
+  }
+
+  #offerOverlay .overlay-pill.exit{
+    opacity:0 !important;
+    transform:translate(-50%, 42px) scale(.995) !important;
+  }
+}
