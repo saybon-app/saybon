@@ -13,97 +13,9 @@ const settingsBtn = document.getElementById("settingsBtn");
 
 let started = false;
 
-/* =========================================================
-   HOMEPAGE REVEAL
-========================================================= */
-
-function preloadImage(src) {
-  return new Promise((resolve) => {
-    if (!src) {
-      resolve();
-      return;
-    }
-
-    const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = () => resolve();
-    img.src = src;
-  });
-}
-
-function getBackgroundImageSrc() {
-  const bgPicture = document.querySelector(".background-layer");
-  if (!bgPicture) return "";
-
-  const mobileSource = bgPicture.querySelector('source[media*="max-width"]');
-  const img = bgPicture.querySelector("img");
-
-  if (window.matchMedia("(max-width: 900px)").matches && mobileSource?.srcset) {
-    return mobileSource.srcset;
-  }
-
-  return img?.currentSrc || img?.src || "";
-}
-
-function getTeacherImageSrc() {
-  const teacherImg = document.querySelector(".teacher-img");
-  return teacherImg?.currentSrc || teacherImg?.src || "";
-}
-
-function runHomepageReveal() {
-  const body = document.body;
-
-  body.classList.remove(
-    "home-bg-in",
-    "home-teacher-in",
-    "home-ui-in"
-  );
-
-  body.classList.add("home-preload");
-
-  const bgSrc = getBackgroundImageSrc();
-  const teacherSrc = getTeacherImageSrc();
-
-  Promise.all([
-    preloadImage(bgSrc),
-    preloadImage(teacherSrc)
-  ]).then(() => {
-    requestAnimationFrame(() => {
-      /* 1) background fades in */
-      body.classList.add("home-bg-in");
-
-      /* 2) teacher joins shortly after */
-      setTimeout(() => {
-        body.classList.add("home-teacher-in");
-      }, 160);
-
-      /* 3) premium UI group joins */
-      setTimeout(() => {
-        body.classList.add("home-ui-in");
-      }, 320);
-
-      /* remove preload state after animation has had time to finish */
-      setTimeout(() => {
-        body.classList.remove("home-preload");
-      }, 1200);
-    });
-  });
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", runHomepageReveal, { once: true });
-} else {
-  runHomepageReveal();
-}
-
-/* =========================================================
-   INTERVENTION / OFFER OVERLAY
-   OPTION A + SILK EXIT — 30s VERSION
-========================================================= */
-
 const pills = [pill1, pill2, pill3, pill4];
 let interventionTimers = [];
-let glossTimers = [];
+let glossIntervals = [];
 
 function schedule(fn, delay) {
   const id = window.setTimeout(fn, delay);
@@ -114,8 +26,8 @@ function schedule(fn, delay) {
 function clearInterventionTimers() {
   interventionTimers.forEach((id) => clearTimeout(id));
   interventionTimers = [];
-  glossTimers.forEach((id) => clearInterval(id));
-  glossTimers = [];
+  glossIntervals.forEach((id) => clearInterval(id));
+  glossIntervals = [];
 }
 
 function resetPills() {
@@ -129,49 +41,72 @@ function resetPills() {
       "slot-4",
       "parked",
       "gloss",
+      "exit",
       "exit-left",
       "exit-right"
     );
   });
 }
 
-function pulseGloss(pill, initialDelay = 0, interval = 4200) {
+function triggerGloss(pill) {
   if (!pill) return;
 
-  const trigger = () => {
+  pill.classList.remove("gloss");
+  void pill.offsetWidth;
+  pill.classList.add("gloss");
+
+  window.setTimeout(() => {
     pill.classList.remove("gloss");
-    void pill.offsetWidth;
-    pill.classList.add("gloss");
+  }, 2200);
+}
 
-    window.setTimeout(() => {
-      pill.classList.remove("gloss");
-    }, 2400);
-  };
+function startGlossLoop(pill, firstDelay = 650, interval = 4200) {
+  if (!pill) return;
 
-  const startId = window.setTimeout(() => {
-    trigger();
-    const intervalId = window.setInterval(trigger, interval);
-    glossTimers.push(intervalId);
-  }, initialDelay);
+  const starter = window.setTimeout(() => {
+    triggerGloss(pill);
 
-  interventionTimers.push(startId);
+    const loop = window.setInterval(() => {
+      triggerGloss(pill);
+    }, interval);
+
+    glossIntervals.push(loop);
+  }, firstDelay);
+
+  interventionTimers.push(starter);
 }
 
 function showPill(pill, slotClass, glossDelay = 600) {
   if (!pill) return;
 
-  pill.classList.remove("parked", "gloss", "exit-left", "exit-right");
+  pill.classList.remove(
+    "parked",
+    "gloss",
+    "exit",
+    "exit-left",
+    "exit-right",
+    "slot-1",
+    "slot-2",
+    "slot-3",
+    "slot-4"
+  );
+
   pill.classList.add("show");
 
   requestAnimationFrame(() => {
     pill.classList.add(slotClass);
   });
 
-  /* after the lift/settle finishes, the pill becomes alive */
   schedule(() => {
     pill.classList.add("parked");
-    pulseGloss(pill, glossDelay, 4300);
-  }, 1150);
+    startGlossLoop(pill, glossDelay, 4300);
+  }, 1200);
+}
+
+function movePillToSlot(pill, fromSlot, toSlot) {
+  if (!pill) return;
+  pill.classList.remove(fromSlot);
+  pill.classList.add(toSlot);
 }
 
 function exitPill(pill, directionClass) {
@@ -200,41 +135,74 @@ teacher?.addEventListener("click", () => {
     audio.play().catch(() => {});
   }
 
-  /* ---------------------------------------------------
-     30 SECOND CHOREOGRAPHY
+  /* =====================================================
+     28 SECOND CHOREOGRAPHY
 
-     0.0s   overlay opens / art sharpens
+     ENTRY
      2.0s   pill 1 enters
-     5.5s   pill 2 enters
-     9.0s   pill 3 enters
-     12.5s  pill 4 enters
+     5.0s   pill 2 enters
+     8.0s   pill 3 enters
+     11.0s  pill 4 enters
 
-     14s–24s parked phase:
-            pills breathe gently + sheen pulses
+     STACK LIVES / GLOSSES
 
-     24.2s  exit pill 4
-     25.0s  exit pill 3
-     25.8s  exit pill 2
-     26.6s  exit pill 1
+     EXIT ORDER
+     21.6s  pill 1 exits LEFT
+     22.35s pill 2 rises to slot-1
+     23.15s pill 2 exits RIGHT
+     23.90s pill 3 rises to slot-2
+     24.70s pill 3 exits LEFT
+     25.45s pill 4 rises to slot-3
+     26.25s pill 4 exits RIGHT
 
-     27.8s  overlay closing begins
-     30.0s  cleanup
-  --------------------------------------------------- */
+     26.9s  overlay closing
+     28.0s  cleanup
+  ===================================================== */
 
-  schedule(() => showPill(pill1, "slot-1", 350), 2000);
-  schedule(() => showPill(pill2, "slot-2", 650), 5500);
-  schedule(() => showPill(pill3, "slot-3", 950), 9000);
-  schedule(() => showPill(pill4, "slot-4", 1250), 12500);
+  /* ---------- ENTRY ---------- */
+  schedule(() => showPill(pill1, "slot-1", 300), 2000);
+  schedule(() => showPill(pill2, "slot-2", 650), 5000);
+  schedule(() => showPill(pill3, "slot-3", 950), 8000);
+  schedule(() => showPill(pill4, "slot-4", 1250), 11000);
 
-  /* silk exits */
-  schedule(() => exitPill(pill4, "exit-right"), 24200);
-  schedule(() => exitPill(pill3, "exit-left"), 25000);
-  schedule(() => exitPill(pill2, "exit-right"), 25800);
-  schedule(() => exitPill(pill1, "exit-left"), 26600);
+  /* ---------- EXIT SEQUENCE ---------- */
+
+  /* 1 exits first */
+  schedule(() => {
+    exitPill(pill1, "exit-left");
+  }, 21600);
+
+  /* 2 rises into 1's slot, then exits */
+  schedule(() => {
+    movePillToSlot(pill2, "slot-2", "slot-1");
+  }, 22350);
 
   schedule(() => {
+    exitPill(pill2, "exit-right");
+  }, 23150);
+
+  /* 3 rises into 2's old slot, then exits */
+  schedule(() => {
+    movePillToSlot(pill3, "slot-3", "slot-2");
+  }, 23900);
+
+  schedule(() => {
+    exitPill(pill3, "exit-left");
+  }, 24700);
+
+  /* 4 rises into 3's old slot, then exits */
+  schedule(() => {
+    movePillToSlot(pill4, "slot-4", "slot-3");
+  }, 25450);
+
+  schedule(() => {
+    exitPill(pill4, "exit-right");
+  }, 26250);
+
+  /* ---------- OVERLAY OUT ---------- */
+  schedule(() => {
     overlay.classList.add("closing");
-  }, 27800);
+  }, 26900);
 
   schedule(() => {
     overlay.classList.remove("active", "closing");
@@ -244,13 +212,10 @@ teacher?.addEventListener("click", () => {
     clearInterventionTimers();
     resetPills();
     started = false;
-  }, 30000);
+  }, 28000);
 });
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
+/* NAVIGATION */
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_next", "/why.html");
@@ -266,5 +231,3 @@ settingsBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   window.location.href = "/admin/passkey/";
 });
-
-
