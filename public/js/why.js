@@ -1,8 +1,9 @@
 ﻿(function () {
   const HOME_URL = "/";
-  const NEXT_URL = "/loader.html";
+  const LOADER_URL = "/loader.html";
+  const NEXT_URL = "/placement.html";
 
-  const reasonToLevel = {
+  const reasonMap = {
     personal: "personal",
     school: "school",
     travel: "travel",
@@ -15,17 +16,19 @@
     localStorage.setItem("saybon_reason", reason);
   }
 
-  function goNext(reason) {
-    saveReason(reason);
-    window.location.href = NEXT_URL;
+  function goToLoader(nextUrl) {
+    sessionStorage.setItem("saybon_next", nextUrl);
+    window.location.href = LOADER_URL;
   }
 
-  function bindReasonCards() {
-    const cards = document.querySelectorAll("[data-reason]");
-    cards.forEach((card) => {
-      card.addEventListener("click", () => {
-        const reason = card.getAttribute("data-reason");
-        goNext(reasonToLevel[reason] || reason);
+  function bindReasonOptions() {
+    const options = document.querySelectorAll("[data-reason]");
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        const raw = option.getAttribute("data-reason") || "";
+        const reason = reasonMap[raw] || raw;
+        saveReason(reason);
+        goToLoader(NEXT_URL);
       });
     });
   }
@@ -40,6 +43,6 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     bindHomeButton();
-    bindReasonCards();
+    bindReasonOptions();
   });
 })();
