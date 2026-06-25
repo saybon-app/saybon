@@ -715,3 +715,85 @@ body.home-ui-ready .settings-image-btn{ transition-delay:.23s; }
   }
 }
 
+
+
+
+/* =========================================================
+   SAYBON HOMEPAGE REVEAL SYSTEM (SAFE FADE VERSION)
+   - opacity only for positioned homepage elements
+   - no transform overrides on logo / tap / buttons / teacher
+   - background fades in first, then teacher + rest follow
+========================================================= */
+
+@keyframes saybonFadeUpSoft{
+  from{
+    opacity:0;
+    filter:blur(1px);
+  }
+  to{
+    opacity:1;
+    filter:blur(0);
+  }
+}
+
+/* initial hidden state */
+body.home-preload .teacher-hitbox,
+body.home-preload .tap-icon,
+body.home-preload .saybon-logo,
+body.home-preload .start-btn,
+body.home-preload .login-btn,
+body.home-preload .settings-image-btn{
+  opacity:0 !important;
+}
+
+/* background initial state */
+body.home-preload .background-layer{
+  opacity:0;
+  filter:blur(2px);
+}
+
+/* background reveal */
+body.home-bg-in .background-layer{
+  opacity:1;
+  filter:blur(0);
+  transition:
+    opacity .65s ease,
+    filter .9s ease;
+}
+
+/* teacher reveal */
+body.home-teacher-in .teacher-hitbox{
+  opacity:1 !important;
+  animation:saybonFadeUpSoft .7s ease both;
+}
+
+/* UI reveal */
+body.home-ui-in .tap-icon,
+body.home-ui-in .saybon-logo,
+body.home-ui-in .start-btn,
+body.home-ui-in .login-btn,
+body.home-ui-in .settings-image-btn{
+  opacity:1 !important;
+}
+
+/* staggered smooth fade-in without touching layout transforms */
+body.home-ui-in .tap-icon{
+  animation:saybonFadeUpSoft .50s ease both;
+}
+
+body.home-ui-in .saybon-logo{
+  animation:saybonFadeUpSoft .58s ease both;
+}
+
+body.home-ui-in .start-btn{
+  animation:saybonFadeUpSoft .66s ease both;
+}
+
+body.home-ui-in .login-btn{
+  animation:saybonFadeUpSoft .74s ease both;
+}
+
+body.home-ui-in .settings-image-btn{
+  animation:saybonFadeUpSoft .82s ease both;
+}
+

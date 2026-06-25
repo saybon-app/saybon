@@ -12,7 +12,6 @@ const loginBtn = document.getElementById("loginBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
 const backgroundImg = document.querySelector(".background-layer img");
-const backgroundSource = document.querySelector('.background-layer source[media="(max-width:900px)"]');
 const teacherImg = document.querySelector(".teacher-img");
 const tapIconImg = document.querySelector(".tap-icon");
 const logoImg = document.querySelector(".saybon-logo");
@@ -41,36 +40,16 @@ function waitForImage(img) {
   });
 }
 
-function waitForPicture(img, sourceEl) {
-  return new Promise((resolve) => {
-    if (!img) return resolve();
-
-    if (img.complete && img.naturalWidth > 0) {
-      resolve();
-      return;
-    }
-
-    const done = () => resolve();
-    img.addEventListener("load", done, { once: true });
-    img.addEventListener("error", done, { once: true });
-
-    if (sourceEl) {
-      sourceEl.addEventListener("load", done, { once: true });
-      sourceEl.addEventListener("error", done, { once: true });
-    }
-  });
-}
-
 async function runHomepageReveal() {
   const body = document.body;
   body.classList.add("home-preload");
 
-  const criticalAssets = [
-    waitForPicture(backgroundImg, backgroundSource),
+  const critical = [
+    waitForImage(backgroundImg),
     waitForImage(teacherImg)
   ];
 
-  const secondaryAssets = [
+  const secondary = [
     waitForImage(tapIconImg),
     waitForImage(logoImg),
     waitForImage(startBtnImg),
@@ -78,29 +57,36 @@ async function runHomepageReveal() {
     waitForImage(settingsBtnImg)
   ];
 
-  // Wait for the two things that must lead the reveal
-  await Promise.all(criticalAssets);
+  // wait for background + teacher first
+  await Promise.all(critical);
 
-  // Start background + teacher immediately together
+  // background first
   requestAnimationFrame(() => {
     body.classList.add("home-bg-in");
   });
 
-  // Give them just a short head start, not a long lag
-  setTimeout(async () => {
-    await Promise.all(secondaryAssets);
+  // teacher follows almost immediately
+  setTimeout(() => {
+    body.classList.add("home-teacher-in");
+  }, 90);
 
-    requestAnimationFrame(() => {
-      body.classList.add("home-ui-in");
-    });
-
-    // final ready state after all entrance transitions settle
+  // wait for the rest of the UI assets, then bring them in
+  Promise.all(secondary).then(() => {
     setTimeout(() => {
-      body.classList.remove("home-preload");
-      body.classList.add("home-ready");
-    }, 1100);
+      body.classList.add("home-ui-in");
+    }, 170);
+  });
 
-  }, 180);
+  // if one of the secondary assets is slow, don't let the page hang forever
+  setTimeout(() => {
+    body.classList.add("home-ui-in");
+  }, 550);
+
+  // clear preload after everything has had time to appear
+  setTimeout(() => {
+    body.classList.remove("home-preload");
+    body.classList.add("home-ready");
+  }, 1200);
 }
 
 if (document.readyState === "loading") {
