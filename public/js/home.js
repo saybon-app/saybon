@@ -98,11 +98,12 @@ if (document.readyState === "loading") {
 
 /* =========================================================
    INTERVENTION / OFFER OVERLAY
-   OPTION A + SILK EXIT
+   OPTION A + SILK EXIT — 30s VERSION
 ========================================================= */
 
 const pills = [pill1, pill2, pill3, pill4];
 let interventionTimers = [];
+let glossTimers = [];
 
 function schedule(fn, delay) {
   const id = window.setTimeout(fn, delay);
@@ -113,6 +114,8 @@ function schedule(fn, delay) {
 function clearInterventionTimers() {
   interventionTimers.forEach((id) => clearTimeout(id));
   interventionTimers = [];
+  glossTimers.forEach((id) => clearInterval(id));
+  glossTimers = [];
 }
 
 function resetPills() {
@@ -125,31 +128,55 @@ function resetPills() {
       "slot-3",
       "slot-4",
       "parked",
+      "gloss",
       "exit-left",
       "exit-right"
     );
   });
 }
 
-function showPill(pill, slotClass) {
+function pulseGloss(pill, initialDelay = 0, interval = 4200) {
   if (!pill) return;
 
-  pill.classList.remove("parked", "exit-left", "exit-right");
+  const trigger = () => {
+    pill.classList.remove("gloss");
+    void pill.offsetWidth;
+    pill.classList.add("gloss");
+
+    window.setTimeout(() => {
+      pill.classList.remove("gloss");
+    }, 2400);
+  };
+
+  const startId = window.setTimeout(() => {
+    trigger();
+    const intervalId = window.setInterval(trigger, interval);
+    glossTimers.push(intervalId);
+  }, initialDelay);
+
+  interventionTimers.push(startId);
+}
+
+function showPill(pill, slotClass, glossDelay = 600) {
+  if (!pill) return;
+
+  pill.classList.remove("parked", "gloss", "exit-left", "exit-right");
   pill.classList.add("show");
 
   requestAnimationFrame(() => {
     pill.classList.add(slotClass);
   });
 
-  /* after the lift/settle finishes, let it breathe */
+  /* after the lift/settle finishes, the pill becomes alive */
   schedule(() => {
     pill.classList.add("parked");
+    pulseGloss(pill, glossDelay, 4300);
   }, 1150);
 }
 
 function exitPill(pill, directionClass) {
   if (!pill) return;
-  pill.classList.remove("parked");
+  pill.classList.remove("parked", "gloss");
   pill.classList.add(directionClass);
 }
 
@@ -174,56 +201,40 @@ teacher?.addEventListener("click", () => {
   }
 
   /* ---------------------------------------------------
-     OPTION A + SILK EXIT CHOREOGRAPHY
+     30 SECOND CHOREOGRAPHY
 
-     0ms    overlay opens / art begins sharpening
-     1500   pill 1 lift-in
-     3400   pill 2 lift-in
-     5300   pill 3 lift-in
-     7200   pill 4 lift-in
+     0.0s   overlay opens / art sharpens
+     2.0s   pill 1 enters
+     5.5s   pill 2 enters
+     9.0s   pill 3 enters
+     12.5s  pill 4 enters
 
-     9800   stack is fully built and breathes / glosses
-     13800  silk exit starts
-     15850  overlay closes
-     17200  cleanup
+     14s–24s parked phase:
+            pills breathe gently + sheen pulses
+
+     24.2s  exit pill 4
+     25.0s  exit pill 3
+     25.8s  exit pill 2
+     26.6s  exit pill 1
+
+     27.8s  overlay closing begins
+     30.0s  cleanup
   --------------------------------------------------- */
 
-  schedule(() => {
-    showPill(pill1, "slot-1");
-  }, 1500);
+  schedule(() => showPill(pill1, "slot-1", 350), 2000);
+  schedule(() => showPill(pill2, "slot-2", 650), 5500);
+  schedule(() => showPill(pill3, "slot-3", 950), 9000);
+  schedule(() => showPill(pill4, "slot-4", 1250), 12500);
 
-  schedule(() => {
-    showPill(pill2, "slot-2");
-  }, 3400);
-
-  schedule(() => {
-    showPill(pill3, "slot-3");
-  }, 5300);
-
-  schedule(() => {
-    showPill(pill4, "slot-4");
-  }, 7200);
-
-  /* silk release */
-  schedule(() => {
-    exitPill(pill4, "exit-right");
-  }, 13800);
-
-  schedule(() => {
-    exitPill(pill3, "exit-left");
-  }, 14020);
-
-  schedule(() => {
-    exitPill(pill2, "exit-right");
-  }, 14240);
-
-  schedule(() => {
-    exitPill(pill1, "exit-left");
-  }, 14460);
+  /* silk exits */
+  schedule(() => exitPill(pill4, "exit-right"), 24200);
+  schedule(() => exitPill(pill3, "exit-left"), 25000);
+  schedule(() => exitPill(pill2, "exit-right"), 25800);
+  schedule(() => exitPill(pill1, "exit-left"), 26600);
 
   schedule(() => {
     overlay.classList.add("closing");
-  }, 15850);
+  }, 27800);
 
   schedule(() => {
     overlay.classList.remove("active", "closing");
@@ -233,7 +244,7 @@ teacher?.addEventListener("click", () => {
     clearInterventionTimers();
     resetPills();
     started = false;
-  }, 17200);
+  }, 30000);
 });
 
 /* =========================================================
@@ -255,3 +266,4 @@ settingsBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   window.location.href = "/admin/passkey/";
 });
+
