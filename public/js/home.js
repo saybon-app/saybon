@@ -23,6 +23,10 @@ let started = false;
 
 /* =========================================================
    HOMEPAGE REVEAL
+   Premium grouped fade choreography:
+   1) background
+   2) teacher
+   3) tap + logo + buttons as a tight staggered cluster
 ========================================================= */
 
 function waitForImage(img) {
@@ -44,12 +48,12 @@ async function runHomepageReveal() {
   const body = document.body;
   body.classList.add("home-preload");
 
-  const critical = [
+  const criticalAssets = [
     waitForImage(backgroundImg),
     waitForImage(teacherImg)
   ];
 
-  const secondary = [
+  const secondaryAssets = [
     waitForImage(tapIconImg),
     waitForImage(logoImg),
     waitForImage(startBtnImg),
@@ -57,36 +61,44 @@ async function runHomepageReveal() {
     waitForImage(settingsBtnImg)
   ];
 
-  // wait for background + teacher first
-  await Promise.all(critical);
+  // Wait for background + teacher first so the page doesn't feel broken
+  await Promise.all(criticalAssets);
 
-  // background first
+  // Background starts the reveal
   requestAnimationFrame(() => {
     body.classList.add("home-bg-in");
   });
 
-  // teacher follows almost immediately
+  // Teacher follows quickly, but still as a distinct beat
   setTimeout(() => {
     body.classList.add("home-teacher-in");
-  }, 90);
+  }, 120);
 
-  // wait for the rest of the UI assets, then bring them in
-  Promise.all(secondary).then(() => {
-    setTimeout(() => {
-      body.classList.add("home-ui-in");
-    }, 170);
+  // As soon as the rest are ready, bring them in as a tighter premium group
+  Promise.all(secondaryAssets).then(() => {
+    setTimeout(() => body.classList.add("home-tap-in"), 260);
+    setTimeout(() => body.classList.add("home-logo-in"), 340);
+    setTimeout(() => body.classList.add("home-start-in"), 420);
+    setTimeout(() => body.classList.add("home-login-in"), 500);
+    setTimeout(() => body.classList.add("home-settings-in"), 590);
   });
 
-  // if one of the secondary assets is slow, don't let the page hang forever
+  // Safety fallback so the page never hangs if one secondary asset is late
   setTimeout(() => {
-    body.classList.add("home-ui-in");
-  }, 550);
+    body.classList.add(
+      "home-tap-in",
+      "home-logo-in",
+      "home-start-in",
+      "home-login-in",
+      "home-settings-in"
+    );
+  }, 950);
 
-  // clear preload after everything has had time to appear
+  // Mark page ready after the reveal has settled
   setTimeout(() => {
     body.classList.remove("home-preload");
     body.classList.add("home-ready");
-  }, 1200);
+  }, 1850);
 }
 
 if (document.readyState === "loading") {
@@ -126,42 +138,15 @@ teacher?.addEventListener("click", () => {
     audio.play().catch(() => {});
   }
 
-  // PILL 1
-  setTimeout(() => {
-    pill1?.classList.add("show");
-  }, 2000);
+  setTimeout(() => { pill1?.classList.add("show"); }, 2000);
+  setTimeout(() => { pill2?.classList.add("show"); }, 5000);
+  setTimeout(() => { pill3?.classList.add("show"); }, 8000);
+  setTimeout(() => { pill4?.classList.add("show"); }, 11000);
 
-  // PILL 2
-  setTimeout(() => {
-    pill2?.classList.add("show");
-  }, 5000);
-
-  // PILL 3
-  setTimeout(() => {
-    pill3?.classList.add("show");
-  }, 8000);
-
-  // PILL 4
-  setTimeout(() => {
-    pill4?.classList.add("show");
-  }, 11000);
-
-  // EXIT
-  setTimeout(() => {
-    pill4?.classList.add("exit");
-  }, 18000);
-
-  setTimeout(() => {
-    pill3?.classList.add("exit");
-  }, 19000);
-
-  setTimeout(() => {
-    pill2?.classList.add("exit");
-  }, 20000);
-
-  setTimeout(() => {
-    pill1?.classList.add("exit");
-  }, 21000);
+  setTimeout(() => { pill4?.classList.add("exit"); }, 18000);
+  setTimeout(() => { pill3?.classList.add("exit"); }, 19000);
+  setTimeout(() => { pill2?.classList.add("exit"); }, 20000);
+  setTimeout(() => { pill1?.classList.add("exit"); }, 21000);
 
   setTimeout(() => {
     overlay.classList.add("closing");
