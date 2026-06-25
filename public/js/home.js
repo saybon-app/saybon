@@ -12,26 +12,73 @@ const loginBtn = document.getElementById("loginBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
 let started = false;
+let overlayTimers = [];
 
-const pills = [pill1, pill2, pill3, pill4];
-let interventionTimers = [];
-let glossIntervals = [];
+/* =========================================================
+   HOMEPAGE REVEAL
+   Stable polished reveal:
+   - background in
+   - teacher in
+   - tap/logo/buttons/settings in as premium grouped sequence
+========================================================= */
 
-function schedule(fn, delay) {
+function runHomepageReveal() {
+  document.body.classList.add("home-preload");
+
+  const bgImg = document.querySelector(".background-layer img");
+  const teacherImg = document.querySelector(".teacher-img");
+
+  const waitForImage = (img) => {
+    return new Promise((resolve) => {
+      if (!img) return resolve();
+      if (img.complete && img.naturalWidth > 0) return resolve();
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", resolve, { once: true });
+    });
+  };
+
+  Promise.all([
+    waitForImage(bgImg),
+    waitForImage(teacherImg)
+  ]).then(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("home-bg-in");
+
+      window.setTimeout(() => {
+        document.body.classList.add("home-teacher-in");
+      }, 220);
+
+      window.setTimeout(() => {
+        document.body.classList.add("home-ui-in");
+        document.body.classList.remove("home-preload");
+      }, 430);
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", runHomepageReveal, { once: true });
+} else {
+  runHomepageReveal();
+}
+
+/* =========================================================
+   INTERVENTION HELPERS
+========================================================= */
+
+function addTimer(fn, delay) {
   const id = window.setTimeout(fn, delay);
-  interventionTimers.push(id);
+  overlayTimers.push(id);
   return id;
 }
 
-function clearInterventionTimers() {
-  interventionTimers.forEach((id) => clearTimeout(id));
-  interventionTimers = [];
-  glossIntervals.forEach((id) => clearInterval(id));
-  glossIntervals = [];
+function clearOverlayTimers() {
+  overlayTimers.forEach((id) => window.clearTimeout(id));
+  overlayTimers = [];
 }
 
 function resetPills() {
-  pills.forEach((pill) => {
+  [pill1, pill2, pill3, pill4].forEach((pill) => {
     if (!pill) return;
     pill.classList.remove(
       "show",
@@ -39,8 +86,7 @@ function resetPills() {
       "slot-2",
       "slot-3",
       "slot-4",
-      "parked",
-      "gloss",
+      "hold",
       "exit",
       "exit-left",
       "exit-right"
@@ -48,83 +94,12 @@ function resetPills() {
   });
 }
 
-function triggerGloss(pill) {
-  if (!pill) return;
-
-  pill.classList.remove("gloss");
-  void pill.offsetWidth;
-  pill.classList.add("gloss");
-
-  window.setTimeout(() => {
-    pill.classList.remove("gloss");
-  }, 2200);
-}
-
-function startGlossLoop(pill, firstDelay = 650, interval = 4200) {
-  if (!pill) return;
-
-  const starter = window.setTimeout(() => {
-    triggerGloss(pill);
-
-    const loop = window.setInterval(() => {
-      triggerGloss(pill);
-    }, interval);
-
-    glossIntervals.push(loop);
-  }, firstDelay);
-
-  interventionTimers.push(starter);
-}
-
-function showPill(pill, slotClass, glossDelay = 600) {
-  if (!pill) return;
-
-  pill.classList.remove(
-    "parked",
-    "gloss",
-    "exit",
-    "exit-left",
-    "exit-right",
-    "slot-1",
-    "slot-2",
-    "slot-3",
-    "slot-4"
-  );
-
-  pill.classList.add("show");
-
-  requestAnimationFrame(() => {
-    pill.classList.add(slotClass);
-  });
-
-  schedule(() => {
-    pill.classList.add("parked");
-    startGlossLoop(pill, glossDelay, 4300);
-  }, 1200);
-}
-
-function movePillToSlot(pill, fromSlot, toSlot) {
-  if (!pill) return;
-  pill.classList.remove(fromSlot);
-  pill.classList.add(toSlot);
-}
-
-function exitPill(pill, directionClass) {
-  if (!pill) return;
-  pill.classList.remove("parked", "gloss");
-  pill.classList.add(directionClass);
-}
-
-teacher?.addEventListener("click", () => {
-  if (started) return;
-  started = true;
-
-  clearInterventionTimers();
+function openOverlay() {
+  document.body.classList.add("intervention-running");
   resetPills();
 
   overlay.classList.remove("hidden", "active", "closing");
   overlay.style.pointerEvents = "auto";
-  document.body.classList.add("intervention-running");
 
   requestAnimationFrame(() => {
     overlay.classList.add("active");
@@ -134,88 +109,126 @@ teacher?.addEventListener("click", () => {
     audio.currentTime = 0;
     audio.play().catch(() => {});
   }
+}
 
-  /* =====================================================
-     28 SECOND CHOREOGRAPHY
+function closeOverlay() {
+  overlay.classList.add("closing");
 
-     ENTRY
-     2.0s   pill 1 enters
-     5.0s   pill 2 enters
-     8.0s   pill 3 enters
-     11.0s  pill 4 enters
-
-     STACK LIVES / GLOSSES
-
-     EXIT ORDER
-     21.6s  pill 1 exits LEFT
-     22.35s pill 2 rises to slot-1
-     23.15s pill 2 exits RIGHT
-     23.90s pill 3 rises to slot-2
-     24.70s pill 3 exits LEFT
-     25.45s pill 4 rises to slot-3
-     26.25s pill 4 exits RIGHT
-
-     26.9s  overlay closing
-     28.0s  cleanup
-  ===================================================== */
-
-  /* ---------- ENTRY ---------- */
-  schedule(() => showPill(pill1, "slot-1", 300), 2000);
-  schedule(() => showPill(pill2, "slot-2", 650), 5000);
-  schedule(() => showPill(pill3, "slot-3", 950), 8000);
-  schedule(() => showPill(pill4, "slot-4", 1250), 11000);
-
-  /* ---------- EXIT SEQUENCE ---------- */
-
-  /* 1 exits first */
-  schedule(() => {
-    exitPill(pill1, "exit-left");
-  }, 21600);
-
-  /* 2 rises into 1's slot, then exits */
-  schedule(() => {
-    movePillToSlot(pill2, "slot-2", "slot-1");
-  }, 22350);
-
-  schedule(() => {
-    exitPill(pill2, "exit-right");
-  }, 23150);
-
-  /* 3 rises into 2's old slot, then exits */
-  schedule(() => {
-    movePillToSlot(pill3, "slot-3", "slot-2");
-  }, 23900);
-
-  schedule(() => {
-    exitPill(pill3, "exit-left");
-  }, 24700);
-
-  /* 4 rises into 3's old slot, then exits */
-  schedule(() => {
-    movePillToSlot(pill4, "slot-4", "slot-3");
-  }, 25450);
-
-  schedule(() => {
-    exitPill(pill4, "exit-right");
-  }, 26250);
-
-  /* ---------- OVERLAY OUT ---------- */
-  schedule(() => {
-    overlay.classList.add("closing");
-  }, 26900);
-
-  schedule(() => {
+  addTimer(() => {
     overlay.classList.remove("active", "closing");
     overlay.classList.add("hidden");
     overlay.style.pointerEvents = "none";
     document.body.classList.remove("intervention-running");
-    clearInterventionTimers();
     resetPills();
+    clearOverlayTimers();
     started = false;
-  }, 28000);
+  }, 1200);
+}
+
+function showAndPark(pill, slotClass) {
+  if (!pill) return;
+  pill.classList.add("show");
+  addTimer(() => {
+    pill.classList.add(slotClass);
+  }, 100);
+}
+
+function exitPill(pill, direction) {
+  if (!pill) return;
+  pill.classList.remove("hold");
+  pill.classList.add("exit");
+  pill.classList.add(direction === "left" ? "exit-left" : "exit-right");
+}
+
+/* =========================================================
+   INTERVENTION SEQUENCE
+   28 seconds total
+   Exit order: 1 → 2 → 3 → 4
+========================================================= */
+
+function runInterventionSequence() {
+  clearOverlayTimers();
+  openOverlay();
+
+  /* --------------------------------------------
+     TIMELINE (28s total)
+
+     0.0   overlay starts
+     1.4   pill 1 enters + parks
+     4.6   pill 2 enters + parks
+     7.8   pill 3 enters + parks
+     11.0  pill 4 enters + parks
+
+     hold / presence / subtle movement handled by CSS
+
+     18.2  pill 1 exits RIGHT
+     20.0  pill 2 exits LEFT
+     21.8  pill 3 exits RIGHT
+     23.6  pill 4 exits LEFT
+
+     26.8  overlay closes
+     28.0  fully reset
+  --------------------------------------------- */
+
+  addTimer(() => {
+    showAndPark(pill1, "slot-1");
+  }, 1400);
+
+  addTimer(() => {
+    showAndPark(pill2, "slot-2");
+  }, 4600);
+
+  addTimer(() => {
+    showAndPark(pill3, "slot-3");
+  }, 7800);
+
+  addTimer(() => {
+    showAndPark(pill4, "slot-4");
+  }, 11000);
+
+  /* give each pill a hold state once parked */
+  addTimer(() => pill1?.classList.add("hold"), 2500);
+  addTimer(() => pill2?.classList.add("hold"), 5700);
+  addTimer(() => pill3?.classList.add("hold"), 8900);
+  addTimer(() => pill4?.classList.add("hold"), 12100);
+
+  /* EXIT ORDER: 1 -> 2 -> 3 -> 4 */
+  addTimer(() => {
+    exitPill(pill1, "right");
+  }, 18200);
+
+  addTimer(() => {
+    exitPill(pill2, "left");
+  }, 20000);
+
+  addTimer(() => {
+    exitPill(pill3, "right");
+  }, 21800);
+
+  addTimer(() => {
+    exitPill(pill4, "left");
+  }, 23600);
+
+  /* overlay out */
+  addTimer(() => {
+    closeOverlay();
+  }, 26800);
+}
+
+/* =========================================================
+   INTERACTION
+========================================================= */
+
+teacher?.addEventListener("click", () => {
+  if (started) return;
+  started = true;
+  runInterventionSequence();
 });
 
-/* NAVIGATION */
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_next", "/why.html");
