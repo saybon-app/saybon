@@ -37,6 +37,10 @@ const next = sessionStorage.getItem("saybon_next");
 if (next) {
   setTimeout(() => {
     sessionStorage.removeItem("saybon_next");
-    window.location.href = next;
+
+    // IMPORTANT:
+    // replace() removes loader from history so Back goes to the page
+    // BEFORE the loader, not back to loader.html
+    window.location.replace(next);
   }, 2200);
 }
