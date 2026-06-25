@@ -980,7 +980,6 @@ body.home-ui-in .settings-image-btn{
 
 /* -----------------------------------------
    RELAY UP-MOVE TO SLOT 1
-   Pill 2 / 3 / 4 glide upward into pill 1 spot
 ----------------------------------------- */
 #offerOverlay .overlay-pill.relay-to-1{
   top:39% !important;
@@ -1000,42 +999,45 @@ body.home-ui-in .settings-image-btn{
 
 /* -----------------------------------------
    EXIT MOTION
-   Long smooth side glide, fade near the end
+   Travel almost to screen edge before fading out
 ----------------------------------------- */
 #offerOverlay .overlay-pill.exit{
   animation:none !important;
+  will-change:transform, opacity, filter !important;
 }
 
+/* Desktop: long side travel */
 #offerOverlay .overlay-pill.exit-right{
   opacity:0 !important;
   filter:blur(2px) !important;
-  transform:translate(calc(-50% + 220px), 0) scale(.992) !important;
+  transform:translate(calc(-50% + 42vw), 0) scale(.992) !important;
   transition:
-    transform 1.55s cubic-bezier(.16,.78,.16,1),
-    opacity 1.55s ease,
-    filter 1.2s ease !important;
+    transform 1.85s cubic-bezier(.16,.78,.16,1),
+    opacity 1.85s ease,
+    filter 1.25s ease !important;
 }
 
 #offerOverlay .overlay-pill.exit-left{
   opacity:0 !important;
   filter:blur(2px) !important;
-  transform:translate(calc(-50% - 220px), 0) scale(.992) !important;
+  transform:translate(calc(-50% - 42vw), 0) scale(.992) !important;
   transition:
-    transform 1.55s cubic-bezier(.16,.78,.16,1),
-    opacity 1.55s ease,
-    filter 1.2s ease !important;
+    transform 1.85s cubic-bezier(.16,.78,.16,1),
+    opacity 1.85s ease,
+    filter 1.25s ease !important;
 }
 
-/* mobile side distance */
+/* Mobile: still long, but tuned so it reaches close to the edge without overshooting weirdly */
 @media (max-width:900px){
   #offerOverlay .overlay-pill.exit-right{
-    transform:translate(calc(-50% + 130px), 0) scale(.992) !important;
+    transform:translate(calc(-50% + 34vw), 0) scale(.992) !important;
   }
 
   #offerOverlay .overlay-pill.exit-left{
-    transform:translate(calc(-50% - 130px), 0) scale(.992) !important;
+    transform:translate(calc(-50% - 34vw), 0) scale(.992) !important;
   }
 }
 
 /* ===== END SAYBON INTERVENTION RELAY HARD OVERRIDE ===== */
+
 
