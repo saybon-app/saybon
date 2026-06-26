@@ -111,14 +111,17 @@ body.why-page{
 }
 
 .why-bg-desktop{
-  display:block;
-  width:132%;
-  max-width:none;
-  margin:-12vw auto 0;
-  margin-left:-16%;
-  height:auto;
-}
+    display:block;
+    width:130%;
+    max-width:none;
+    height:auto;
 
+    margin:0;
+    margin-left:-16%;
+
+    position:relative;
+    transform:translateY(-200px);
+}
 /* =========================================================
    MOBILE
 ========================================================= */
