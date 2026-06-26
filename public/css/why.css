@@ -179,27 +179,27 @@ body.why-page{
    Bigger buttons directly under title
 ========================================================= */
 .why-option-desktop{
-  width:30%;
+  width:22.8%;
 }
 
 .why-option-personal{
-  left:19%;
-  top:32%;
+  left:3.5%;
+  top:46.2%;
 }
 
 .why-option-school{
-  left:32%;
-  top:32%;
+  left:27.2%;
+  top:46.2%;
 }
 
 .why-option-travel{
-  left:45%;
-  top:32%;
+  left:50.9%;
+  top:46.2%;
 }
 
 .why-option-career{
-  left: 58%;
-  top:32%;
+  left:74.6%;
+  top:46.2%;
 }
 
 /* =========================================================
@@ -236,13 +236,13 @@ body.why-page{
 ========================================================= */
 @media (max-width:1200px){
   .why-option-desktop{
-    width:50%;
+    width:16.8%;
   }
 
-  .why-option-personal{ left:40%; top:15.8%; }
-  .why-option-school{   left:40%; top:15%; }
-  .why-option-travel{   left:60%; top:15%; }
-  .why-option-career{   left:.80%; top:35.8%; }
+  .why-option-personal{ left:17.4%; top:41.8%; }
+  .why-option-school{   left:35.9%; top:41.8%; }
+  .why-option-travel{   left:54.4%; top:41.8%; }
+  .why-option-career{   left:72.9%; top:41.8%; }
 }
 
 /* =========================================================
