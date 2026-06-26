@@ -179,27 +179,27 @@ body.why-page{
    Bigger buttons directly under title
 ========================================================= */
 .why-option-desktop{
-  width:22.8%;
+  width:40%;
 }
 
 .why-option-personal{
-  left:3.5%;
-  top:46.2%;
+  left:1.8%;
+  top:30%;
 }
 
 .why-option-school{
-  left:27.2%;
-  top:46.2%;
+  left:25.6%;
+  top:40%;
 }
 
 .why-option-travel{
-  left:50.9%;
-  top:46.2%;
+  left:49.4%;
+  top:40%;
 }
 
 .why-option-career{
-  left:74.6%;
-  top:46.2%;
+  left:73.2%;
+  top:40%;
 }
 
 /* =========================================================
