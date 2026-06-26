@@ -94,38 +94,33 @@ body.why-page{
    Larger artwork pushed upward
 ========================================================= */
 .why-stage-desktop{
-    display:block;
-    width:100%;
-    min-height:100vh;
-    background:var(--why-page-bg);
-    padding-top:0;
-    overflow:hidden;
+  display:block;
+  width:100%;
+  min-height:100vh;
+  background:var(--why-page-bg);
+  padding-top:0;
+  overflow:hidden;
 }
 
 .why-bg-wrap-desktop{
-    position:relative;
-    width:100%;
-    margin:0;
-    background:var(--why-page-bg);
-    overflow:hidden;
+  position:relative;
+  width:100%;
+  margin:0;
+  background:var(--why-page-bg);
+  overflow:hidden;
 }
 
 .why-bg-desktop{
     display:block;
-
-    /* Artwork size */
-    width:148%;
+    width:132%;
     max-width:none;
     height:auto;
 
-    /* Horizontal alignment */
     margin:0;
-    margin-left:-24%;
+    margin-left:-16%;
 
-    /* Move artwork only */
-    transform:translateY(-320px);
-
-    will-change:transform;
+    position:relative;
+    transform:translateY(-180px);
 }
 /* =========================================================
    MOBILE
@@ -188,22 +183,22 @@ body.why-page{
 
 .why-option-personal{
   left:14%;
-  top:40%;
+  top:25%;
 }
 
 .why-option-school{
   left:32%;
-  top:40%;
+  top:25%;
 }
 
 .why-option-travel{
   left:49%;
-  top:40%;
+  top:25%;
 }
 
 .why-option-career{
   left:67%;
-  top:40%;
+  top:25%;
 }
 
 /* =========================================================
@@ -254,13 +249,8 @@ body.why-page{
 ========================================================= */
 @media (max-width:900px){
   .why-stage-desktop{
-    display:block;
-    width:100%;
-    min-height:100vh;
-    background:var(--why-page-bg);
-    padding-top:0;
-    overflow:hidden;
-}
+    display:none;
+  }
 
   .why-stage-mobile{
     display:block;
@@ -306,6 +296,4 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
-
-
 
