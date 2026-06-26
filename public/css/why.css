@@ -112,15 +112,20 @@ body.why-page{
 
 .why-bg-desktop{
     display:block;
-    width:132%;
+
+    /* Desktop artwork (much smaller) */
+    width:74%;
     max-width:none;
     height:auto;
 
-    margin:0;
-    margin-left:-16%;
+    /* Keep centered */
+    margin:0 auto;
+    margin-left:13%;
 
-    position:relative;
-    transform:translateY(-180px);
+    /* Keep current vertical position */
+    transform:translateY(-320px);
+
+    will-change:transform;
 }
 /* =========================================================
    MOBILE
@@ -296,4 +301,5 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
+
 
