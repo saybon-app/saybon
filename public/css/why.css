@@ -1,5 +1,5 @@
 ﻿:root{
-  --why-page-bg:#f4f2ff;
+  --why-page-bg:#e7f2fc;
   --why-home-size:74px;
   --why-home-size-mobile:58px;
   --why-press-scale:.975;
@@ -18,16 +18,23 @@ body{
 }
 
 body.why-page{
-  background:var(--why-page-bg);
-  font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  overflow-x:hidden;
+    background:linear-gradient(
+        180deg,
+        #DDDDF2 0%,
+        #DDDEF2 35%,
+        #D8DCF3 70%,
+        #D3D6F4 100%
+    );
+
+    font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow-x:hidden;
 }
 
 .why-shell{
   position:relative;
   width:100%;
   min-height:100vh;
-  background:var(--why-page-bg);
+  background:inherit;
 }
 
 /* =========================================================
@@ -94,33 +101,42 @@ body.why-page{
    Larger artwork pushed upward
 ========================================================= */
 .why-stage-desktop{
-  display:block;
-  width:100%;
-  min-height:100vh;
-  background:var(--why-page-bg);
-  padding-top:0;
-  overflow:hidden;
+    position:relative;
+    display:block;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    background:inherit;
 }
 
 .why-bg-wrap-desktop{
     position:relative;
     width:100%;
     height:100vh;
+
     overflow:hidden;
-    background:var(--why-page-bg);
+    background:inherit;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
 }
 
 .why-bg-desktop{
-    position:absolute;
 
-    /* Adjust ONLY these values */
-    top:-290px;
-    left:0;
-    width:100%;
+    /* MASTER CONTROLS */
+
+    width:78%;
     max-width:none;
     height:auto;
 
+    position:relative;
+
+    top:-150px;
+    left:0;
+
     display:block;
+
     pointer-events:none;
     user-select:none;
     -webkit-user-drag:none;
@@ -134,7 +150,7 @@ body.why-page{
   max-width:430px;
   margin:0 auto;
   min-height:100vh;
-  background:var(--why-page-bg);
+  background:inherit;
 }
 
 .why-bg-wrap-mobile{
@@ -181,7 +197,9 @@ body.why-page{
    Bigger buttons directly under title
 ========================================================= */
 .why-option-desktop{
-  width:17%;
+    width:17%;
+    position:absolute;
+    z-index:50;
 }
 
 .why-option-personal{
@@ -299,6 +317,10 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
+
+
+
+
 
 
 
