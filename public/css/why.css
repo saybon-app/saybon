@@ -103,29 +103,27 @@ body.why-page{
 }
 
 .why-bg-wrap-desktop{
-  position:relative;
-  width:100%;
-  margin:0;
-  background:var(--why-page-bg);
-  overflow:hidden;
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    background:var(--why-page-bg);
 }
 
 .why-bg-desktop{
-    display:block;
+    position:absolute;
 
-    /* Desktop artwork (much smaller) */
-    width:100%;
-    max-width:none;
+    /* Change ONLY these three values */
+    top:-320px;
+    left:-16%;
+    width:132%;
+
     height:auto;
-
-    /* Keep centered */
-    margin:0 auto;
-    margin-left:13%;
-
-    /* Keep current vertical position */
-    transform:translateY(-320px);
-
-    will-change:transform;
+    max-width:none;
+    display:block;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-drag:none;
 }
 /* =========================================================
    MOBILE
@@ -301,5 +299,6 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
+
 
 
