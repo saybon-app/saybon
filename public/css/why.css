@@ -157,11 +157,7 @@ body.why-page{
   transition:transform .18s ease, filter .18s ease;
 }
 
-.why-option img{
-  width:100%;
-  height:auto;
-  display:block;
-}
+
 
 @media (hover:hover) and (pointer:fine){
   .why-option:hover{
@@ -264,3 +260,37 @@ body.why-page{
     height:var(--why-home-size-mobile);
   }
 }
+
+/* =========================================================
+   OPTION FRAME
+   Keeps the existing button size while allowing the image
+   inside to be resized independently.
+========================================================= */
+
+.why-option-frame{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.why-option-frame img{
+    width:90%;
+    height:auto;
+    display:block;
+    pointer-events:none;
+}
+
+/* Desktop image scale */
+.why-option-desktop .why-option-frame img{
+    width:90%;
+}
+
+/* Mobile image scale */
+.why-option-mobile .why-option-frame img{
+    width:90%;
+}
+
