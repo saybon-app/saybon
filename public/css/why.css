@@ -114,7 +114,7 @@ body.why-page{
     position:absolute;
 
     /* Adjust ONLY these values */
-    top:-320px;
+    top:-290px;
     left:0;
     width:100%;
     max-width:none;
@@ -299,6 +299,7 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
+
 
 
 
