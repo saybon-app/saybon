@@ -123,7 +123,7 @@ body.why-page{
     margin-left:0%;
 
     /* Keep current vertical position */
-    transform:translateY(-320px);
+    transform:translateY(-317px);
 
     will-change:transform;
 }
@@ -301,6 +301,7 @@ body.why-page{
 .why-option-mobile .why-option-frame img{
     width:90%;
 }
+
 
 
 
