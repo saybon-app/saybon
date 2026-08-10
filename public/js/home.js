@@ -287,26 +287,52 @@ function runInterventionSequence() {
 
 
     /* ==========================================
-   HOLD
-   Wait 2 seconds after Pill 4 lands
+   EXIT RELAY
+   Each pill fully exits before the next relays up
+   into slot-1's position, holds briefly to settle,
+   then exits itself. Direction alternates: left,
+   right, left, right. Travel distance to near the
+   screen edge is controlled in CSS (.exit.exit-left
+   / .exit.exit-right under max-width:900px).
 ========================================== */
 
-const holdAfterLastPill = 2000;
+const holdAfterLastPill = 2000; // pause after pill 4 settles, before pill 1 starts leaving
+const exitDuration = 1000;      // matches .exit.exit-left/.exit.exit-right transition (1s)
+const relayDuration = 1050;     // matches .relay-to-1 transition (1.05s)
+const holdAfterRelay = 900;     // brief settle pause after a pill takes slot-1, before it exits
 
-/* Pill 1 leaves */
-addTimer(() => exitPill(pill1, "right"), 5300 + holdAfterLastPill);
+const pill1ExitStart = 5300 + holdAfterLastPill;
+const pill1Gone = pill1ExitStart + exitDuration;
 
-/* Pill 2 leaves */
-addTimer(() => exitPill(pill2, "left"), 9300);
+const pill2RelayStart = pill1Gone;
+const pill2ExitStart = pill2RelayStart + relayDuration + holdAfterRelay;
+const pill2Gone = pill2ExitStart + exitDuration;
 
-/* Pill 3 leaves */
-addTimer(() => exitPill(pill3, "right"), 11300);
+const pill3RelayStart = pill2Gone;
+const pill3ExitStart = pill3RelayStart + relayDuration + holdAfterRelay;
+const pill3Gone = pill3ExitStart + exitDuration;
 
-/* Pill 4 leaves */
-addTimer(() => exitPill(pill4, "left"), 13300);
+const pill4RelayStart = pill3Gone;
+const pill4ExitStart = pill4RelayStart + relayDuration + holdAfterRelay;
+const pill4Gone = pill4ExitStart + exitDuration;
 
-/* Fade overlay after every pill has gone */
-addTimer(() => closeOverlay(), 15300);
+/* Pill 1 leaves first, straight from its own slot */
+addTimer(() => exitPill(pill1, "left"), pill1ExitStart);
+
+/* Pill 2 relays into slot-1, settles, then exits right */
+addTimer(() => movePillToSlot1(pill2, 2), pill2RelayStart);
+addTimer(() => exitPill(pill2, "right"), pill2ExitStart);
+
+/* Pill 3 relays into slot-1, settles, then exits left */
+addTimer(() => movePillToSlot1(pill3, 3), pill3RelayStart);
+addTimer(() => exitPill(pill3, "left"), pill3ExitStart);
+
+/* Pill 4 relays into slot-1, settles, then exits right */
+addTimer(() => movePillToSlot1(pill4, 4), pill4RelayStart);
+addTimer(() => exitPill(pill4, "right"), pill4ExitStart);
+
+/* Fade overlay only once every pill has fully left */
+addTimer(() => closeOverlay(), pill4Gone + 150);
 }
 
 /* =========================================================
