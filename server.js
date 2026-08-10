@@ -9,7 +9,7 @@ const app=express()
 app.use(cors())
 app.use(bodyParser.json())
 
-admin.initializeApp()
+admin.initializeApp({credential:admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))})
 
 const db=admin.firestore()
 
@@ -58,6 +58,8 @@ applicationId:ref.id
 
 }catch(err){
 
+console.error(err);
+
 res.status(500).json({error:"evaluation failed"})
 
 }
@@ -88,6 +90,8 @@ res.json(doc.data())
 
 }catch(err){
 
+console.error(err);
+
 res.status(500).json({error:"failed"})
 
 }
@@ -117,6 +121,8 @@ return res.json({valid:false})
 res.json({valid:true})
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({valid:false})
 
@@ -160,6 +166,8 @@ res.json({jobId:ref.id})
 
 }catch(err){
 
+console.error(err);
+
 res.status(500).json({error:"job creation failed"})
 
 }
@@ -194,6 +202,8 @@ id:doc.id,
 res.json(jobs)
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({error:"failed"})
 
@@ -234,6 +244,8 @@ res.json({success:true})
 
 }catch(err){
 
+console.error(err);
+
 res.status(500).json({error:"claim failed"})
 
 }
@@ -270,6 +282,8 @@ status:"completed"
 res.json({success:true})
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({error:"submission failed"})
 
@@ -310,6 +324,8 @@ jobsCompleted:completed
 })
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({error:"stats failed"})
 
@@ -362,6 +378,8 @@ price:price
 })
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({error:"job creation failed"})
 
@@ -476,6 +494,8 @@ finalScore
 })
 
 }catch(err){
+
+console.error(err);
 
 res.status(500).json({error:"evaluation failed"})
 
