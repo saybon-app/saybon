@@ -61,7 +61,7 @@ Proceed to Payment
 
 const params=new URLSearchParams(location.search)
 
-const jobCode=params.get("jobCode")
+const jobCode=params.get("id")
 
 document.getElementById("jobCode").innerText="Job Code: "+jobCode
 
@@ -72,7 +72,7 @@ const res=await fetch(
 {
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({jobCode})
+body:JSON.stringify({id:jobCode})
 })
 
 const data=await res.json()

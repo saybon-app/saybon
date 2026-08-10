@@ -3,6 +3,7 @@ const express=require("express")
 const cors=require("cors")
 const bodyParser=require("body-parser")
 const admin=require("firebase-admin")
+const stripe=require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 const app=express()
 
@@ -145,16 +146,18 @@ app.post("/api/createJob", async(req,res)=>{
 
 try{
 
-const {clientEmail,sourceLanguage,targetLanguage,wordCount,price}=req.body
+const {words,plan}=req.body
+
+const wordCount=Number(words)||0
+const rate=plan==="express" ? 0.05 : 0.025
+const price=Math.round(wordCount*rate*100)/100
 
 const ref=db.collection("translationJobs").doc()
 
 await ref.set({
 
-clientEmail,
-sourceLanguage,
-targetLanguage,
 wordCount,
+plan,
 price,
 status:"open",
 translator:null,
@@ -162,7 +165,7 @@ created:new Date()
 
 })
 
-res.json({jobId:ref.id})
+res.json({id:ref.id})
 
 }catch(err){
 
@@ -503,3 +506,141 @@ res.status(500).json({error:"evaluation failed"})
 
 })
 
+
+
+// ------------------------------------------------
+// CREATE CHECKOUT (translation job payment)
+// ------------------------------------------------
+
+app.post("/api/createCheckout", async(req,res)=>{
+
+try{
+
+const {id}=req.body
+
+const jobDoc=await db.collection("translationJobs").doc(id).get()
+
+if(!jobDoc.exists){
+
+return res.status(404).json({error:"job not found"})
+
+}
+
+const job=jobDoc.data()
+const amount=Math.round(Number(job.price||0)*100)
+
+const session=await stripe.checkout.sessions.create({
+
+mode:"payment",
+payment_method_types:["card"],
+line_items:[{
+
+price_data:{
+
+currency:"usd",
+product_data:{name:"SayBon Translation Job"},
+unit_amount:amount
+
+},
+quantity:1
+
+}],
+metadata:{jobId:id},
+success_url:"https://saybonapp.com/translation/success.html?session_id={CHECKOUT_SESSION_ID}",
+cancel_url:"https://saybonapp.com/translation/job.html?id="+id
+
+})
+
+res.json({url:session.url})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"checkout creation failed"})
+
+}
+
+})
+
+// ------------------------------------------------
+// SESSION -> JOB LOOKUP (after Stripe redirect)
+// ------------------------------------------------
+
+app.get("/api/session-job", async(req,res)=>{
+
+try{
+
+const sessionId=req.query.session_id
+
+const session=await stripe.checkout.sessions.retrieve(sessionId)
+const jobId=session.metadata && session.metadata.jobId
+
+if(!jobId){
+
+return res.status(404).json({error:"job reference not found"})
+
+}
+
+if(session.payment_status==="paid"){
+
+await db.collection("translationJobs").doc(jobId).update({status:"paid"})
+
+}
+
+res.json({jobId})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"session lookup failed"})
+
+}
+
+})
+
+// ------------------------------------------------
+// CREATE DELF CHECKOUT
+// ------------------------------------------------
+
+app.post("/api/createDelfCheckout", async(req,res)=>{
+
+try{
+
+const {category,level,price}=req.body
+
+const amount=Math.round(Number(price||0)*100)
+
+const session=await stripe.checkout.sessions.create({
+
+mode:"payment",
+payment_method_types:["card"],
+line_items:[{
+
+price_data:{
+
+currency:"usd",
+product_data:{name:"DELF "+category+" "+level},
+unit_amount:amount
+
+},
+quantity:1
+
+}],
+success_url:"https://saybonapp.com/features/delf/success.html?category="+encodeURIComponent(category)+"&level="+encodeURIComponent(level),
+cancel_url:"https://saybonapp.com/features/delf/payment.html?category="+encodeURIComponent(category)+"&level="+encodeURIComponent(level)+"&price="+encodeURIComponent(price)
+
+})
+
+res.json({url:session.url})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"delf checkout creation failed"})
+
+}
+
+})
