@@ -6,7 +6,7 @@ const words = qs.get("words")
 document.getElementById("continueBtn").onclick = async ()=>{
 
   const res = await fetch(
-    "https://saybon-server.onrender.com/api/createJob",
+    "https://saybonapp-server.onrender.com/api/createJob",
     {
       method:"POST",
       headers:{

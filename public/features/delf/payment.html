@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script type="module" src="/js/auth-guard.js"></script>
@@ -86,7 +86,7 @@
 
     async function payNow(){
       try{
-        const res = await fetch("https://saybon-payment-server.onrender.com/api/createDelfCheckout", {
+        const res = await fetch("https://saybonapp-server.onrender.com/api/createDelfCheckout", {
           method:"POST",
           headers:{ "Content-Type":"application/json" },
           body:JSON.stringify({ category, level, price })
