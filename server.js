@@ -1,4 +1,4 @@
-﻿
+
 const express=require("express")
 const cors=require("cors")
 const bodyParser=require("body-parser")
@@ -19,9 +19,9 @@ return "SB-"+Math.random().toString(36).substring(2,10).toUpperCase()
 
 }
 
-# ----------------------------------------------
-# EVALUATE TRANSLATOR TEST
-# ----------------------------------------------
+// ----------------------------------------------
+// EVALUATE TRANSLATOR TEST
+// ----------------------------------------------
 
 app.post("/api/evaluateTranslator", async(req,res)=>{
 
@@ -64,9 +64,9 @@ res.status(500).json({error:"evaluation failed"})
 
 })
 
-# ----------------------------------------------
-# GET RESULT
-# ----------------------------------------------
+// ----------------------------------------------
+// GET RESULT
+// ----------------------------------------------
 
 app.get("/api/applicationResult", async(req,res)=>{
 
@@ -94,9 +94,9 @@ res.status(500).json({error:"failed"})
 
 })
 
-# ----------------------------------------------
-# VERIFY TRANSLATOR KEY
-# ----------------------------------------------
+// ----------------------------------------------
+// VERIFY TRANSLATOR KEY
+// ----------------------------------------------
 
 app.post("/api/verifyTranslatorKey", async(req,res)=>{
 
@@ -124,16 +124,16 @@ res.status(500).json({valid:false})
 
 })
 
-app.listen(3000,()=>{
+app.listen(process.env.PORT || 3000,()=>{
 
 console.log("Translator API running")
 
 })
 
 
-# ------------------------------------------------
-# CREATE TRANSLATION JOB
-# ------------------------------------------------
+// ------------------------------------------------
+// CREATE TRANSLATION JOB
+// ------------------------------------------------
 
 app.post("/api/createJob", async(req,res)=>{
 
@@ -166,9 +166,9 @@ res.status(500).json({error:"job creation failed"})
 
 })
 
-# ------------------------------------------------
-# GET JOB BOARD
-# ------------------------------------------------
+// ------------------------------------------------
+// GET JOB BOARD
+// ------------------------------------------------
 
 app.get("/api/jobs", async(req,res)=>{
 
@@ -201,9 +201,9 @@ res.status(500).json({error:"failed"})
 
 })
 
-# ------------------------------------------------
-# CLAIM JOB
-# ------------------------------------------------
+// ------------------------------------------------
+// CLAIM JOB
+// ------------------------------------------------
 
 app.post("/api/claimJob", async(req,res)=>{
 
@@ -240,9 +240,9 @@ res.status(500).json({error:"claim failed"})
 
 })
 
-# ------------------------------------------------
-# SUBMIT TRANSLATION
-# ------------------------------------------------
+// ------------------------------------------------
+// SUBMIT TRANSLATION
+// ------------------------------------------------
 
 app.post("/api/submitTranslation", async(req,res)=>{
 
@@ -277,9 +277,9 @@ res.status(500).json({error:"submission failed"})
 
 })
 
-# ------------------------------------------------
-# TRANSLATOR STATS
-# ------------------------------------------------
+// ------------------------------------------------
+// TRANSLATOR STATS
+// ------------------------------------------------
 
 app.get("/api/translatorStats", async(req,res)=>{
 
@@ -318,9 +318,9 @@ res.status(500).json({error:"stats failed"})
 })
 
 
-# ------------------------------------------------
-# CREATE TRANSLATION JOB AUTOMATICALLY
-# ------------------------------------------------
+// ------------------------------------------------
+// CREATE TRANSLATION JOB AUTOMATICALLY
+// ------------------------------------------------
 
 app.post("/api/createTranslationJob", async(req,res)=>{
 
@@ -370,9 +370,9 @@ res.status(500).json({error:"job creation failed"})
 })
 
 
-# ------------------------------------------------
-# EVALUATE TRANSLATION TEST
-# ------------------------------------------------
+// ------------------------------------------------
+// EVALUATE TRANSLATION TEST
+// ------------------------------------------------
 
 app.post("/api/evaluateTranslatorTest", async(req,res)=>{
 
@@ -395,17 +395,17 @@ const test=testDoc.data()
 const english=test.englishTranslation.toLowerCase()
 const french=test.frenchTranslation.toLowerCase()
 
-# --------------------------------------------
-# SIMPLE AI SCORING LOGIC
-# (can later be replaced with GPT evaluation)
-# --------------------------------------------
+// --------------------------------------------
+// SIMPLE AI SCORING LOGIC
+// (can later be replaced with GPT evaluation)
+// --------------------------------------------
 
 let accuracy=0
 let terminology=0
 let grammar=0
 let tone=0
 
-# expected keywords
+// expected keywords
 
 const englishKeywords=[
 "unauthorized",
