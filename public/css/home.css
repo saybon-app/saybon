@@ -1,4 +1,4 @@
-﻿*{
+*{
   box-sizing:border-box;
   margin:0;
   padding:0;
@@ -256,6 +256,14 @@ body.home-preload .home-shell::before{
   inset:0;
   z-index:3;
   pointer-events:none;
+}
+
+/* Desktop cards must not exist on screen at all below 901px.
+   They only get their real layout inside @media (min-width:901px)
+   further down, so without this, a phone renders them as plain
+   unstyled full-width <img> elements sitting in normal flow. */
+.desktop-pill-row{
+  display:none;
 }
 
 /* =========================================================
