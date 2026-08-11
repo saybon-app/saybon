@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Donate — SayBon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/support/support.css" />
+</head>
+<body>
+
+  <div class="card">
+    <h2>Support SayBon</h2>
+    <p>Your donation helps us teach French to the world 🌍</p>
+
+    <button class="primary" onclick="alert('Dummy payment page')">
+      Donate Now
+    </button>
+
+    <button class="secondary" onclick="location.href='/support/'">
+      Back
+    </button>
+  </div>
+
+</body>
+</html>

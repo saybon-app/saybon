@@ -1,0 +1,39 @@
+*{ box-sizing:border-box; font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%); color:#fff; }
+
+.thankyou-shell{
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  opacity:0; transform:scale(.985); filter:blur(6px);
+  animation: thankyouShellEnter 1.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes thankyouShellEnter{
+  from{ opacity:0; transform:scale(.985); filter:blur(6px); }
+  to{ opacity:1; transform:scale(1); filter:blur(0); }
+}
+
+.thankyou-card{
+  max-width:460px; width:100%; text-align:center; padding:44px 36px;
+  background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius:26px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.45);
+}
+
+.thankyou-icon{ font-size:40px; margin-bottom:14px; }
+
+.thankyou-card h1{ font-size:28px; font-weight:900; margin:0 0 18px; }
+
+.message{ font-size:15px; color:rgba(255,255,255,.75); line-height:1.7; margin:0 0 12px; }
+.message.soft{ margin-top:14px; color:rgba(255,255,255,.55); font-size:14px; }
+
+.dashboard-btn{
+  margin-top:26px; width:100%; padding:14px;
+  background: linear-gradient(135deg, #e0578a, #b83d70);
+  color:#fff; border:none; border-radius:14px;
+  font-weight:800; font-size:15px; cursor:pointer;
+  transition: transform .18s ease, filter .18s ease;
+}
+.dashboard-btn:hover{ transform:translateY(-2px); filter:brightness(1.08); }
