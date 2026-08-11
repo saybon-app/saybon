@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny - nothing is accessible unless explicitly allowed below.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Translation job board - read/update requires a signed-in user,
+    // matching job-board.html's auth-guard.js gating.
+    match /translationJobs/{jobId} {
+      allow read, update: if request.auth != null;
+    }
+
+    // Translator applications - public application flow (no login gate
+    // on register/test pages today). Create and update stay open to match
+    // existing behavior; reads and deletes are blocked since no client
+    // page currently reads this back, and it may contain applicant PII.
+    match /translatorApplications/{appId} {
+      allow create, update: if true;
+    }
+
+    // Community chat - only signed-in users can read messages, and a
+    // user can only ever write a message attributed to their own uid.
+    match /chatRooms/{roomId}/messages/{messageId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid;
+    }
+
+  }
+}
