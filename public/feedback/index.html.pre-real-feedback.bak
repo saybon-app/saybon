@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedback — SayBon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/feedback/feedback.css" />
+</head>
+<body>
+
+  <div class="form-card">
+    <h2>Feedback & Enquiries</h2>
+
+    <input type="text" placeholder="Your name" />
+    <input type="email" placeholder="Your email" />
+    <textarea placeholder="Your message"></textarea>
+
+    <button class="primary" onclick="alert('Submitted (dummy)')">
+      Submit
+    </button>
+
+    <button class="secondary" onclick="location.href='/dashboard/'">
+      Back to Dashboard
+    </button>
+  </div>
+
+</body>
+</html>

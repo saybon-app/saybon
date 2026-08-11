@@ -2,28 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Feedback — SayBon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/feedback/feedback.css" />
+  <title>Feedback — SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/feedback/feedback.css?v=20260811" />
 </head>
-<body>
+<body class="feedback-page">
 
-  <div class="form-card">
-    <h2>Feedback & Enquiries</h2>
+<button class="feedback-home-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 10.5L12 3l9 7.5"/>
+    <path d="M5 9.5V21h14V9.5"/>
+  </svg>
+</button>
 
-    <input type="text" placeholder="Your name" />
-    <input type="email" placeholder="Your email" />
-    <textarea placeholder="Your message"></textarea>
+<main class="feedback-shell">
 
-    <button class="primary" onclick="alert('Submitted (dummy)')">
-      Submit
-    </button>
+  <div class="feedback-card">
 
-    <button class="secondary" onclick="location.href='/dashboard/'">
-      Back to Dashboard
-    </button>
+    <h1>We'd love your feedback</h1>
+    <p class="subtitle">Your voice helps us improve SayBon — for you and for every learner.</p>
+
+    <form id="feedbackForm">
+
+      <label>Your name</label>
+      <input type="text" name="name" placeholder="Your name" />
+
+      <label>Email address</label>
+      <input type="email" name="email" placeholder="you@example.com" required />
+
+      <label>Type of feedback</label>
+      <select name="type" required>
+        <option value="">Select one</option>
+        <option>Bug or issue</option>
+        <option>Suggestion or idea</option>
+        <option>Something I loved</option>
+        <option>Content or lesson feedback</option>
+        <option>Other</option>
+      </select>
+
+      <label>Your message</label>
+      <textarea name="message" placeholder="Tell us what's on your mind..." required></textarea>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Send feedback</button>
+
+    </form>
+
   </div>
 
+</main>
+
+<script src="/feedback/feedback.js?v=20260811"></script>
 </body>
 </html>

@@ -705,3 +705,43 @@ res.status(500).json({error:"donation checkout creation failed"})
 }
 
 })
+
+// ------------------------------------------------
+// SUBMIT FEEDBACK
+// ------------------------------------------------
+
+app.post("/api/submitFeedback", async(req,res)=>{
+
+try{
+
+const {name,email,type,message}=req.body
+
+if(!email || !message){
+
+return res.status(400).json({error:"email and message are required"})
+
+}
+
+const ref=db.collection("feedbackSubmissions").doc()
+
+await ref.set({
+
+name:name||"",
+email,
+type:type||"Other",
+message,
+created:new Date()
+
+})
+
+res.json({success:true,id:ref.id})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"feedback submission failed"})
+
+}
+
+})
