@@ -10,7 +10,13 @@
 html, body{ margin:0; min-height:100%; }
 
 body.start-page{
-  background: radial-gradient(circle at top, #fff6fb, #eef2ff, #e8fbff);
+  background:linear-gradient(
+      180deg,
+      #c3c3f5 0%,
+      #d2d3ee 35%,
+      #b4bcee 70%,
+      #c7caf3 100%
+  );
   font-family:"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x:hidden;
   min-height:100vh;
@@ -23,6 +29,7 @@ body.start-page{
   position:relative;
   width:90%;
   max-width:900px;
+  min-height:70vh;
   text-align:center;
   opacity:0;
   transform:scale(.985);
@@ -52,9 +59,9 @@ body.start-page{
   height:var(--start-home-size);
   border:none;
   border-radius:50%;
-  background:linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.3));
+  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.22));
   backdrop-filter:blur(10px);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 6px 16px rgba(20,40,80,.14);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 6px 16px rgba(20,40,80,.18);
   padding:0;
   cursor:pointer;
   z-index:200;
@@ -73,26 +80,32 @@ body.start-page{
 .start-home-btn:active{ transform:translateY(var(--start-press-y)) scale(var(--start-press-scale)); }
 
 .start-title{
-  display:inline-flex;
+  position:absolute;
+  left:50%;
+  top:8%;
+  transform:translateX(-50%);
+  z-index:60;
+  max-width:70%;
+  display:flex;
   align-items:center;
   gap:14px;
-  margin:0 0 48px;
   padding:16px 16px 16px 34px;
   border-radius:999px;
-  background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.35));
+  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
   backdrop-filter:blur(14px);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 14px 30px rgba(20,40,80,.10);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 14px 30px rgba(20,40,80,.16);
   font-size:clamp(20px,2.4vw,32px);
   font-weight:800;
   color:#1f2937;
+  margin:0;
   opacity:0;
   animation: startTitleIn .8s cubic-bezier(.22,1,.36,1) forwards;
   animation-delay:.05s;
 }
 
 @keyframes startTitleIn{
-  from{ opacity:0; transform:translateY(22px); filter:blur(4px); }
-  to{ opacity:1; transform:translateY(0); filter:blur(0); }
+  from{ opacity:0; transform:translateX(-50%) translateY(22px); filter:blur(4px); }
+  to{ opacity:1; transform:translateX(-50%) translateY(0); filter:blur(0); }
 }
 
 .start-title-text{ white-space:nowrap; overflow:hidden; }
@@ -121,7 +134,13 @@ body.start-page{
 
 @keyframes startCursorBlink{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0; } }
 
-.paths{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.paths{
+  position:relative;
+  margin-top:150px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+}
 
 .start-path{
   border:none;
@@ -144,7 +163,12 @@ body.start-page{
 }
 
 .start-shell.start-cards-ready .start-path{
-  animation: startTitleIn .8s cubic-bezier(.22,1,.36,1) forwards;
+  animation: startPathIn .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes startPathIn{
+  from{ opacity:0; transform:translateY(22px); filter:blur(4px); }
+  to{ opacity:1; transform:translateY(0); filter:blur(0); }
 }
 
 .start-shell.start-cards-ready .start-path-left{ animation-delay:0s; }
@@ -206,8 +230,8 @@ body.start-page{
 .start-path.start-floating{ animation: startHeroFloat 2.4s ease-in-out infinite; }
 
 @media (max-width:800px){
-  .paths{ grid-template-columns:1fr; }
-  .start-title{ font-size:18px; padding:12px 12px 12px 22px; gap:8px; max-width:92%; margin:0 0 32px; }
+  .paths{ grid-template-columns:1fr; margin-top:170px; }
+  .start-title{ font-size:18px; padding:12px 12px 12px 22px; gap:8px; max-width:92%; }
   .start-title-icon{ width:28px; height:28px; }
   .start-home-btn{ top:14px; left:14px; width:var(--start-home-size-mobile); height:var(--start-home-size-mobile); }
 }

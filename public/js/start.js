@@ -94,10 +94,10 @@ paths.forEach(card => {
       const moveY = shellCenterY - cardCenterY;
 
       card.style.zIndex = "9999";
-      const heroTransform = \	ranslate(\px,\px)\;
+      const heroTransform = "translate(" + moveX + "px," + moveY + "px)";
       card.style.setProperty("--start-transform", heroTransform);
       card.style.transition = "transform 1.5s cubic-bezier(.22,1,.36,1)";
-      card.style.transform = \\ scale(1.06)\;
+      card.style.transform = heroTransform + " scale(1.06)";
 
       setTimeout(() => { card.classList.add("start-bounce"); }, 1550);
       setTimeout(() => {
