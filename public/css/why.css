@@ -335,9 +335,6 @@ body.why-page{
     transform .85s cubic-bezier(.4,0,.7,1),
     opacity .7s ease,
     filter .7s ease;
-  transform:translateY(150px) rotate(var(--why-fall-rotate, -7deg));
-  opacity:0;
-  filter:blur(3px);
   pointer-events:none;
 }
 

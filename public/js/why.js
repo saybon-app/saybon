@@ -61,14 +61,23 @@ cards.forEach((card, cardIndex)=>{
 
         others.forEach((other, i)=>{
 
-            other.style.setProperty(
-                "--why-fall-rotate",
-                i % 2 === 0 ? "-7deg" : "7deg"
-            );
+            other.style.animation = "none";
+            other.style.transform = "translateY(0)";
+            other.style.opacity = "1";
+            other.style.filter = "blur(0)";
+
+            void other.offsetWidth;
 
             other.style.transitionDelay = `${i * 130}ms`;
-
             other.classList.add("why-fall-out");
+
+            const rotateDeg = i % 2 === 0 ? "-7deg" : "7deg";
+
+            requestAnimationFrame(()=>{
+                other.style.transform = `translateY(150px) rotate(${rotateDeg})`;
+                other.style.opacity = "0";
+                other.style.filter = "blur(3px)";
+            });
 
         });
 
@@ -124,6 +133,11 @@ cards.forEach((card, cardIndex)=>{
             },4250);
 
             setTimeout(()=>{
+
+                sessionStorage.setItem(
+                    "saybon_prev",
+                    "/why.html"
+                );
 
                 sessionStorage.setItem(
                     "saybon_next",

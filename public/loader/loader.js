@@ -1,4 +1,4 @@
-﻿// ================================
+// ================================
 // SAYBON GLOBAL LOADER — MASTER ROUTER
 // ================================
 
@@ -46,5 +46,5 @@ if (next) {
 
     // remove loader from history
     window.location.replace(next);
-  }, 2200);
+  }, 700);
 }
