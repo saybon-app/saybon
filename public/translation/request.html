@@ -306,7 +306,7 @@ SAYBON TRANSLATION SERVICES
 </h2>
 
 <div class="subtitle">
-TRANSLATED BY EXPERTS • QUICK DELIVERY • CONFIDENTIAL
+TRANSLATED BY EXPERTS â€¢ QUICK DELIVERY â€¢ CONFIDENTIAL
 </div>
 
 <div class="container">
@@ -383,39 +383,39 @@ Delivery:
 </tr>
 
 <tr>
-<td>1 – 300</td>
-<td>1 – 3 hrs</td>
-<td>30 – 60 mins</td>
+<td>1â€“300</td>
+<td>1â€“3 hrs</td>
+<td>30â€“60 mins</td>
 </tr>
 
 <tr>
-<td>301 – 1000</td>
-<td>3 – 6 hrs</td>
-<td>1 – 3 hrs</td>
+<td>301â€“1000</td>
+<td>3â€“6 hrs</td>
+<td>1â€“3 hrs</td>
 </tr>
 
 <tr>
-<td>1001 – 3000</td>
-<td>6 – 12 hrs</td>
-<td>3 – 6 hrs</td>
+<td>1001â€“3000</td>
+<td>6â€“12 hrs</td>
+<td>3â€“6 hrs</td>
 </tr>
 
 <tr>
-<td>3001 – 6000</td>
-<td>12 – 24 hrs</td>
-<td>6 – 12 hrs</td>
+<td>3001â€“6000</td>
+<td>12â€“24 hrs</td>
+<td>6â€“12 hrs</td>
 </tr>
 
 <tr>
-<td>6001 – 10000</td>
-<td>24 – 48 hrs</td>
-<td>12 – 24 hrs</td>
+<td>6001â€“10000</td>
+<td>24â€“48 hrs</td>
+<td>12â€“24 hrs</td>
 </tr>
 
 <tr>
-<td>10001 – 20000</td>
-<td>2 – 4 days</td>
-<td>24 – 48 hrs</td>
+<td>10001â€“20000</td>
+<td>2â€“4 days</td>
+<td>24â€“48 hrs</td>
 </tr>
 
 <tr>
@@ -477,10 +477,10 @@ document.querySelector(".express .quote-price").innerText=
 "EXPRESS $"+expressPrice
 
 document.getElementById("standardDelivery").innerText =
-"Delivery: 1 – 3 hrs"
+"Delivery: 1â€“3 hrs"
 
 document.getElementById("expressDelivery").innerText =
-"Delivery: 30 – 60 mins"
+"Delivery: 30â€“60 mins"
 
 }
 
@@ -514,83 +514,8 @@ window.location.href=url
 </script>
 
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
-<script>
-
-const firebaseConfig = {
-apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-authDomain:"saybon-3e3c2.firebaseapp.com",
-projectId:"saybon-3e3c2",
-storageBucket:"saybon-3e3c2.firebasestorage.app",
-messagingSenderId:"75085012344",
-appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
-
-firebase.initializeApp(firebaseConfig)
-
-const storage = firebase.storage()
-
-async function uploadDocument(file, jobId){
-
-const storageRef = storage.ref("translations/" + jobId + "/" + file.name)
-
-await storageRef.put(file)
-
-const url = await storageRef.getDownloadURL()
-
-return {
-url:url,
-name:file.name
-}
-
-}
-
 </script>
 </body>
 </html>
-
-
-
-
-<script>
-
-async function createJob(){
-
-const wordCount=parseInt(
-document.getElementById("wordCount").innerText
-)
-
-const service=document.querySelector(
-"input[name=service]:checked"
-).value
-
-const email=document.getElementById("clientEmail").value
-
-const res=await fetch("/api/createTranslationJob",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-clientEmail:email,
-wordCount:wordCount,
-service:service
-
-})
-
-})
-
-const data=await res.json()
-
-alert("Translation job created. Job ID: "+data.jobId)
-
-}
-
-</script>
 
 

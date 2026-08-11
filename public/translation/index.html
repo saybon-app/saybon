@@ -130,19 +130,32 @@ background:#323844;
 
 /* DASHBOARD */
 
-.dashboard{
+.dashboard-icon-btn{
 
-margin-top:40px;
-font-size:14px;
-opacity:.7;
+position:fixed;
+top:20px;
+left:25px;
+
+width:44px;
+height:44px;
+
+border:none;
+border-radius:50%;
+
+background:#1f242d;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 cursor:pointer;
+transition:.25s;
 
 }
 
-.dashboard:hover{
+.dashboard-icon-btn:hover{
 
-opacity:1;
+background:#4ecdc4;
 
 }
 
@@ -210,7 +223,14 @@ margin-top:10px;
 
 <body>
 
-<div class="settings" onclick="openSettings()">?</div>
+<div class="settings" onclick="openSettings()">⚙️</div>
+
+<button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e6e6e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+<rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+</svg>
+</button>
 
 <div class="wrapper">
 
@@ -227,11 +247,6 @@ Request Translation
 onclick="location.href='/translation/translators.html'">
 Join Our Pool of Translators
 </button>
-
-<div class="dashboard"
-onclick="location.href='/dashboard/index.html'">
-? Back to Dashboard
-</div>
 
 </div>
 
