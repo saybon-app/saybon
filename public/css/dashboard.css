@@ -1,6 +1,6 @@
 *{ box-sizing:border-box; }
 
-html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-serif; background:#fdeeea; }
+html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-serif; background: linear-gradient(180deg, #12474d 0%, #0c3438 100%); }
 
 .dash-shell{
   display:flex;
@@ -47,10 +47,10 @@ html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-seri
 
 .dash-nav{ display:flex; flex-direction:column; gap:4px; padding:4px 4px; }
 .dash-nav-link{
-  color:#4b5563; text-decoration:none; font-weight:700; font-size:14px;
+  color:#e8f4f4; text-decoration:none; font-weight:700; font-size:14px;
   padding:10px 12px; border-radius:12px; transition:background .18s ease;
 }
-.dash-nav-link:hover{ background:rgba(224,87,138,.08); color:#e0578a; }
+.dash-nav-link:hover{ background:rgba(255,255,255,.1); color:#fff; }
 
 .dash-goal-card{ text-align:center; }
 .dash-goal-title{ font-weight:800; font-size:14px; color:#1f2937; margin-bottom:10px; }
