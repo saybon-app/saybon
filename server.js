@@ -644,3 +644,64 @@ res.status(500).json({error:"delf checkout creation failed"})
 }
 
 })
+
+// ------------------------------------------------
+// CREATE DONATION CHECKOUT (USD, via Stripe)
+// GHS donations stay on Paystack - this route only
+// handles the USD branch from the donate form.
+// ------------------------------------------------
+
+app.post("/api/createDonationCheckout", async(req,res)=>{
+
+try{
+
+const {firstName,lastName,email,amount,message}=req.body
+
+const cents=Math.round(Number(amount||0)*100)
+
+if(!email || !cents || cents<=0){
+
+return res.status(400).json({error:"invalid donation amount"})
+
+}
+
+const session=await stripe.checkout.sessions.create({
+
+mode:"payment",
+payment_method_types:["card"],
+customer_email:email,
+line_items:[{
+
+price_data:{
+
+currency:"usd",
+product_data:{name:"SayBon Donation"},
+unit_amount:cents
+
+},
+quantity:1
+
+}],
+metadata:{
+
+donorFirstName:firstName||"",
+donorLastName:lastName||"",
+donorMessage:message||""
+
+},
+success_url:"https://saybonapp.com/support/thank-you.html",
+cancel_url:"https://saybonapp.com/support/donate.html"
+
+})
+
+res.json({url:session.url})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"donation checkout creation failed"})
+
+}
+
+})
