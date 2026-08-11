@@ -186,8 +186,8 @@ body.start-page{
 
 .start-path:active{ transform:translateY(var(--start-press-y)) scale(var(--start-press-scale)); }
 
-.start-path-left{ background:linear-gradient(135deg, #7a9a3a, #556e28); color:#fff; }
-.start-path-right{ background:linear-gradient(135deg, #9c4a72, #6f3252); color:#fff; }
+.start-path-left{ background:linear-gradient(135deg, #4a9199, #2f6b71); color:#fff; }
+.start-path-right{ background:linear-gradient(135deg, #d9b8d0, #b98aa8); color:#1f2937; }
 
 .start-path-icon{
   width:72px;
@@ -201,7 +201,7 @@ body.start-page{
 }
 
 .start-path-left .start-path-icon{ background:rgba(169,216,220,.4); }
-.start-path-right .start-path-icon{ background:rgba(232,211,232,.4); }
+.start-path-right .start-path-icon{ background:rgba(255,255,255,.55); }
 
 .start-path h2{ margin:6px 0 0; font-size:22px; font-weight:800; }
 .start-path p{ margin:0; font-size:15px; opacity:.92; max-width:260px; }
