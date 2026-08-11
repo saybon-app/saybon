@@ -5,19 +5,85 @@
   <meta charset="UTF-8" />
   <title>Chat — SayBon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/chat/chat.css?v=20260811" />
 </head>
 <body>
 
-  <div class="card">
-    <h2>SayBon Chat Room</h2>
-    <p>Coming soon… 💬</p>
+<div class="chatroom-shell">
 
-    <button class="secondary" onclick="location.href='/dashboard/'">
-      Back to Dashboard
-    </button>
+  <aside class="sidebar">
+
+    <button class="sidebar-btn active" id="toggleBtn" aria-label="Welcome">ℹ️</button>
+
+    <button class="sidebar-btn room-btn" data-room="General" data-room-id="general" aria-label="General">💬</button>
+    <button class="sidebar-btn room-btn" data-room="Grammar &amp; Vocab" data-room-id="grammar-vocab" aria-label="Grammar and Vocab">📖</button>
+    <button class="sidebar-btn room-btn" data-room="Practice Partners" data-room-id="practice-partners" aria-label="Practice Partners">🗣️</button>
+    <button class="sidebar-btn room-btn" data-room="Culture Corner" data-room-id="culture-corner" aria-label="Culture Corner">🎭</button>
+
+    <button class="sidebar-btn" id="homeBtn" aria-label="Home">🏠</button>
+    <button class="sidebar-btn" id="dashboardBtn" aria-label="Dashboard">📊</button>
+
+  </aside>
+
+  <div class="workspace">
+
+    <div class="welcome-workspace" id="welcomeWorkspace">
+      <div class="welcome-inner">
+        <div class="welcome-overline">Welcome to the</div>
+        <h1 class="welcome-title">Community</h1>
+        <div class="welcome-divider">
+          <span class="divider-line"></span>
+          <span class="divider-leaf">🌿</span>
+          <span class="divider-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-workspace hidden" id="chatWorkspace">
+
+      <div class="chat-header">
+        <div>
+          <h2 class="room-title" id="roomTitle">General</h2>
+          <div class="room-subtitle">Chat with other SayBon learners</div>
+        </div>
+
+        <div class="avatar-shell">
+          <img class="avatar-preview" id="avatarPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23e8eef5'/%3E%3Ccircle cx='32' cy='24' r='12' fill='%23b7c4d6'/%3E%3Cellipse cx='32' cy='54' rx='20' ry='16' fill='%23b7c4d6'/%3E%3C/svg%3E" alt="" />
+          <button class="avatar-camera" id="avatarCamera" aria-label="Change photo">📷</button>
+          <input type="file" id="avatarInput" accept="image/*" hidden />
+          <div class="user-email" id="userEmail"></div>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input class="search-input" id="searchInput" placeholder="Search messages... (coming soon)" disabled />
+      </div>
+
+      <div class="messages-container" id="messagesContainer"></div>
+
+      <div class="media-preview hidden" id="mediaPreview"></div>
+
+      <div class="composer" id="composer">
+        <button class="composer-icon" id="mediaBtn" aria-label="Attach media">📎</button>
+        <input type="file" id="mediaInput" multiple hidden />
+        <input class="composer-input" id="composerInput" placeholder="Type a message..." />
+        <button class="composer-icon" id="voiceBtn" aria-label="Record voice note">🎤</button>
+        <button class="send-btn" id="sendBtn">Send</button>
+      </div>
+
+      <div class="recording-panel hidden" id="recordingPanel">
+        <span id="recordingTimer">0:00</span>
+        <button id="cancelRecording">Cancel</button>
+        <button id="sendRecording">Done</button>
+      </div>
+
+    </div>
+
   </div>
 
+</div>
+
+<script type="module" src="/chat/chat.js?v=20260811"></script>
 </body>
 </html>
-
