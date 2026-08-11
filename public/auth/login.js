@@ -16,10 +16,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-document.getElementById("backBtn").addEventListener("click", () => {
-  window.location.href = "/";
-});
-
 document.getElementById("loginBtn").addEventListener("click", async () => {
   try {
     await signInWithPopup(auth, provider);
