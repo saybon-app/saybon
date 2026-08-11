@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <title>Chat — SayBon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/chat/chat.css?v=20260811b" />
+</head>
+<body>
+
+<div class="chatroom-shell">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-top">
+      <div class="sidebar-title">SayBon Chat</div>
+      <button class="sidebar-btn sidebar-icon-btn active" id="toggleBtn">ℹ️ Welcome</button>
+    </div>
+
+    <div class="conversations-label">Rooms</div>
+
+    <div class="conversation-list">
+
+      <button class="sidebar-btn room-btn conversation-item" data-room="General" data-room-id="general">
+        <span class="conversation-avatar">💬</span>
+        <span class="conversation-body">
+          <span class="conversation-top-row">
+            <span class="conversation-name">General</span>
+            <span class="conversation-time" id="time-general"></span>
+          </span>
+          <span class="conversation-preview" id="preview-general">No messages yet</span>
+        </span>
+      </button>
+
+      <button class="sidebar-btn room-btn conversation-item" data-room="Grammar &amp; Vocab" data-room-id="grammar-vocab">
+        <span class="conversation-avatar">📖</span>
+        <span class="conversation-body">
+          <span class="conversation-top-row">
+            <span class="conversation-name">Grammar &amp; Vocab</span>
+            <span class="conversation-time" id="time-grammar-vocab"></span>
+          </span>
+          <span class="conversation-preview" id="preview-grammar-vocab">No messages yet</span>
+        </span>
+      </button>
+
+      <button class="sidebar-btn room-btn conversation-item" data-room="Practice Partners" data-room-id="practice-partners">
+        <span class="conversation-avatar">🗣️</span>
+        <span class="conversation-body">
+          <span class="conversation-top-row">
+            <span class="conversation-name">Practice Partners</span>
+            <span class="conversation-time" id="time-practice-partners"></span>
+          </span>
+          <span class="conversation-preview" id="preview-practice-partners">No messages yet</span>
+        </span>
+      </button>
+
+      <button class="sidebar-btn room-btn conversation-item" data-room="Culture Corner" data-room-id="culture-corner">
+        <span class="conversation-avatar">🎭</span>
+        <span class="conversation-body">
+          <span class="conversation-top-row">
+            <span class="conversation-name">Culture Corner</span>
+            <span class="conversation-time" id="time-culture-corner"></span>
+          </span>
+          <span class="conversation-preview" id="preview-culture-corner">No messages yet</span>
+        </span>
+      </button>
+
+    </div>
+
+    <div class="sidebar-bottom">
+      <button class="sidebar-btn sidebar-icon-btn" id="homeBtn">🏠 Home</button>
+      <button class="sidebar-btn sidebar-icon-btn" id="dashboardBtn">📊 Dashboard</button>
+    </div>
+
+  </aside>
+
+  <div class="workspace">
+
+    <div class="welcome-workspace" id="welcomeWorkspace">
+      <div class="welcome-inner">
+        <div class="welcome-overline">Welcome to the</div>
+        <h1 class="welcome-title">Community</h1>
+        <div class="welcome-divider">
+          <span class="divider-line"></span>
+          <span class="divider-leaf">🌿</span>
+          <span class="divider-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-workspace hidden" id="chatWorkspace">
+
+      <div class="chat-header">
+        <div>
+          <h2 class="room-title" id="roomTitle">General</h2>
+          <div class="room-subtitle">Chat with other SayBon learners</div>
+        </div>
+
+        <div class="avatar-shell">
+          <img class="avatar-preview" id="avatarPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23e8eef5'/%3E%3Ccircle cx='32' cy='24' r='12' fill='%23b7c4d6'/%3E%3Cellipse cx='32' cy='54' rx='20' ry='16' fill='%23b7c4d6'/%3E%3C/svg%3E" alt="" />
+          <button class="avatar-camera" id="avatarCamera">📷</button>
+          <input type="file" id="avatarInput" accept="image/*" hidden />
+          <div class="user-email" id="userEmail"></div>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input class="search-input" id="searchInput" placeholder="Search messages... (coming soon)" disabled />
+      </div>
+
+      <div class="messages-container" id="messagesContainer"></div>
+
+      <div class="media-preview hidden" id="mediaPreview"></div>
+
+      <div class="composer" id="composer">
+        <button class="composer-icon" id="mediaBtn">📎</button>
+        <input type="file" id="mediaInput" multiple hidden />
+        <input class="composer-input" id="composerInput" placeholder="Type a message..." />
+        <button class="composer-icon" id="voiceBtn">🎤</button>
+        <button class="send-btn" id="sendBtn">Send</button>
+      </div>
+
+      <div class="recording-panel hidden" id="recordingPanel">
+        <span id="recordingTimer">0:00</span>
+        <button id="cancelRecording">Cancel</button>
+        <button id="sendRecording">Done</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script type="module" src="/chat/chat.js?v=20260811b"></script>
+</body>
+</html>

@@ -1,27 +1,31 @@
 import { auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
-  collection, addDoc, doc, setDoc, query, where, documentId,
-  orderBy, onSnapshot, serverTimestamp
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  query,
+  where,
+  documentId,
+  orderBy,
+  onSnapshot,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const ROOM_IDS = ["general", "grammar-vocab", "practice-partners", "culture-corner"];
-const ROOM_AVATARS = { "general":"💬", "grammar-vocab":"📖", "practice-partners":"🗣️", "culture-corner":"🎭" };
 
 const roomButtons = document.querySelectorAll(".room-btn");
 const toggleBtn = document.getElementById("toggleBtn");
-const promoBtn = document.getElementById("promoBtn");
 const welcomeWorkspace = document.getElementById("welcomeWorkspace");
 const chatWorkspace = document.getElementById("chatWorkspace");
 const roomTitle = document.getElementById("roomTitle");
-const roomAvatar = document.getElementById("roomAvatar");
 const homeBtn = document.getElementById("homeBtn");
 const dashboardBtn = document.getElementById("dashboardBtn");
-const searchToggle = document.getElementById("searchToggle");
-const searchRow = document.getElementById("searchRow");
-const sidebarProfileAvatar = document.getElementById("sidebarProfileAvatar");
-const sidebarProfileName = document.getElementById("sidebarProfileName");
-const sidebarProfileEmail = document.getElementById("sidebarProfileEmail");
+const avatarInput = document.getElementById("avatarInput");
+const avatarPreview = document.getElementById("avatarPreview");
+const avatarCamera = document.getElementById("avatarCamera");
+const userEmailEl = document.getElementById("userEmail");
 const mediaBtn = document.getElementById("mediaBtn");
 const mediaInput = document.getElementById("mediaInput");
 const mediaPreview = document.getElementById("mediaPreview");
@@ -50,7 +54,8 @@ function formatPreviewTime(ts) {
   if (!ts || !ts.toDate) return "";
   const date = ts.toDate();
   const now = new Date();
-  if (date.toDateString() === now.toDateString()) {
+  const sameDay = date.toDateString() === now.toDateString();
+  if (sameDay) {
     return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   }
   const diffDays = Math.floor((now - date) / 86400000);
@@ -66,11 +71,9 @@ function formatPreviewTime(ts) {
 onAuthStateChanged(auth, user => {
   currentUser = user;
   if (user) {
-    const name = user.displayName || user.email || "Learner";
-    sidebarProfileName.textContent = name;
-    sidebarProfileEmail.textContent = user.email || "";
+    userEmailEl.textContent = user.email || "";
     if (user.photoURL) {
-      sidebarProfileAvatar.src = user.photoURL;
+      avatarPreview.src = user.photoURL;
     }
   }
 });
@@ -86,11 +89,14 @@ onSnapshot(
       const data = docSnap.data();
       const previewEl = document.getElementById("preview-" + docSnap.id);
       const timeEl = document.getElementById("time-" + docSnap.id);
+
       if (previewEl) {
         const sender = data.lastSenderName ? escapeHtml(data.lastSenderName) + ": " : "";
         previewEl.textContent = sender + escapeHtml(data.lastMessage || "");
       }
-      if (timeEl) timeEl.textContent = formatPreviewTime(data.lastMessageAt);
+      if (timeEl) {
+        timeEl.textContent = formatPreviewTime(data.lastMessageAt);
+      }
     });
   }
 );
@@ -99,38 +105,38 @@ onSnapshot(
 // ROOM SWITCHING
 // =========================================================
 
-function openRoom(roomId, roomName) {
-  document.querySelectorAll(".conversation-item, .new-chat-btn").forEach(b => b.classList.remove("active"));
-  const btn = document.querySelector('.room-btn[data-room-id="' + roomId + '"]');
-  if (btn) btn.classList.add("active");
-
-  welcomeWorkspace.classList.add("hidden");
-  chatWorkspace.classList.remove("hidden");
-
-  roomTitle.innerHTML = roomName;
-  roomAvatar.textContent = ROOM_AVATARS[roomId] || "💬";
-  currentRoomId = roomId;
-
-  subscribeToRoom(roomId);
-}
-
 roomButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    openRoom(btn.dataset.roomId, btn.dataset.room);
-  });
-});
 
-promoBtn.addEventListener("click", () => {
-  const generalBtn = document.querySelector('.room-btn[data-room-id="general"]');
-  openRoom("general", "General");
+  btn.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(".sidebar-btn")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    welcomeWorkspace.classList.add("hidden");
+    chatWorkspace.classList.remove("hidden");
+
+    roomTitle.innerHTML = btn.dataset.room;
+    currentRoomId = btn.dataset.roomId;
+
+    subscribeToRoom(currentRoomId);
+
+  });
+
 });
 
 // =========================================================
-// TOGGLE / WELCOME
+// TOGGLE BUTTON
 // =========================================================
 
 toggleBtn.addEventListener("click", () => {
-  document.querySelectorAll(".conversation-item, .new-chat-btn").forEach(b => b.classList.remove("active"));
+
+  document
+    .querySelectorAll(".sidebar-btn")
+    .forEach(b => b.classList.remove("active"));
+
   toggleBtn.classList.add("active");
 
   chatWorkspace.classList.add("hidden");
@@ -141,17 +147,28 @@ toggleBtn.addEventListener("click", () => {
     unsubscribeMessages = null;
   }
   currentRoomId = null;
+
 });
 
 // =========================================================
-// HOME / DASHBOARD / HEADER ICONS
+// HOME / DASHBOARD
 // =========================================================
 
 homeBtn.addEventListener("click", () => { window.location.href = "/"; });
 dashboardBtn.addEventListener("click", () => { window.location.href = "/dashboard/"; });
 
-searchToggle.addEventListener("click", () => {
-  searchRow.classList.toggle("hidden");
+// =========================================================
+// AVATAR UPLOAD (local preview only)
+// =========================================================
+
+avatarCamera.addEventListener("click", () => { avatarInput.click(); });
+
+avatarInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (event) { avatarPreview.src = event.target.result; };
+  reader.readAsDataURL(file);
 });
 
 // =========================================================
@@ -203,17 +220,20 @@ document.getElementById("sendRecording").addEventListener("click", () => {
 });
 
 // =========================================================
-// REAL MESSAGE SENDING
+// REAL MESSAGE SENDING (+ updates sidebar preview metadata)
 // =========================================================
 
 async function sendMessage() {
+
   const text = composerInput.value.trim();
   if (!text || !currentRoomId || !currentUser) return;
 
   composerInput.value = "";
+
   const displayName = currentUser.displayName || currentUser.email || "Learner";
 
   try {
+
     await addDoc(collection(db, "chatRooms", currentRoomId, "messages"), {
       uid: currentUser.uid,
       displayName: displayName,
@@ -233,9 +253,11 @@ async function sendMessage() {
     console.error("Send failed:", err);
     alert("Could not send message. Please try again.");
   }
+
 }
 
 sendBtn.addEventListener("click", sendMessage);
+
 composerInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -248,6 +270,7 @@ composerInput.addEventListener("keydown", (e) => {
 // =========================================================
 
 function subscribeToRoom(roomId) {
+
   if (unsubscribeMessages) {
     unsubscribeMessages();
     unsubscribeMessages = null;
@@ -255,12 +278,17 @@ function subscribeToRoom(roomId) {
 
   messagesContainer.innerHTML = "";
 
-  const q = query(collection(db, "chatRooms", roomId, "messages"), orderBy("createdAt"));
+  const q = query(
+    collection(db, "chatRooms", roomId, "messages"),
+    orderBy("createdAt")
+  );
 
   unsubscribeMessages = onSnapshot(q, (snapshot) => {
+
     messagesContainer.innerHTML = "";
 
     snapshot.forEach(docSnap => {
+
       const msg = docSnap.data();
       const isOwn = currentUser && msg.uid === currentUser.uid;
 
@@ -279,8 +307,11 @@ function subscribeToRoom(roomId) {
 
       row.innerHTML = inner;
       messagesContainer.appendChild(row);
+
     });
 
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
   });
+
 }
