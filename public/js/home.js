@@ -265,24 +265,38 @@ function runInterventionSequence() {
 
     /* ==========================================
        MOBILE ENTRANCE
-       Premium overlapping relay
+       Fully sequential - each pill fully lands
+       before the next starts climbing. No overlap.
        ========================================== */
 
-    // Pill 1
-    addTimer(() => launchPill(pill1, "slot-1"), 1200);
-    addTimer(() => parkPill(pill1), 2300);
+    const overlayOpenHold = 2000;
+    const climbDuration   = 1050;
+    const entranceGap     = 800;
 
-    // Pill 2 begins while Pill 1 is still settling
-    addTimer(() => launchPill(pill2, "slot-2"), 2200);
-    addTimer(() => parkPill(pill2), 3300);
+    const pill1Start = overlayOpenHold;
+    const pill1Land  = pill1Start + climbDuration;
+    const pill2Start = pill1Land + entranceGap;
+    const pill2Land  = pill2Start + climbDuration;
+    const pill3Start = pill2Land + entranceGap;
+    const pill3Land  = pill3Start + climbDuration;
+    const pill4Start = pill3Land + entranceGap;
+    const pill4Land  = pill4Start + climbDuration;
+
+    // Pill 1
+    addTimer(() => launchPill(pill1, "slot-1"), pill1Start);
+    addTimer(() => parkPill(pill1), pill1Land);
+
+    // Pill 2 - starts only after Pill 1 has fully landed
+    addTimer(() => launchPill(pill2, "slot-2"), pill2Start);
+    addTimer(() => parkPill(pill2), pill2Land);
 
     // Pill 3
-    addTimer(() => launchPill(pill3, "slot-3"), 3200);
-    addTimer(() => parkPill(pill3), 4300);
+    addTimer(() => launchPill(pill3, "slot-3"), pill3Start);
+    addTimer(() => parkPill(pill3), pill3Land);
 
     // Pill 4
-    addTimer(() => launchPill(pill4, "slot-4"), 4200);
-    addTimer(() => parkPill(pill4), 5300);
+    addTimer(() => launchPill(pill4, "slot-4"), pill4Start);
+    addTimer(() => parkPill(pill4), pill4Land);
 
 
 
@@ -296,24 +310,28 @@ function runInterventionSequence() {
    / .exit.exit-right under max-width:900px).
 ========================================== */
 
-const holdAfterLastPill = 4800; // pause after pill 4 settles, before pill 1 starts leaving
-const exitDuration = 1000;      // matches .exit.exit-left/.exit.exit-right transition (1s)
-const relayDuration = 1050;     // matches .relay-to-1 transition (1.05s)
-const holdAfterRelay = 2800;    // brief settle pause after a pill takes slot-1, before it exits
+const holdBeforeExit = 3000;  // pause after pill 4 lands, before pill 1 starts leaving
+const exitDuration   = 1000;  // matches .exit.exit-left/.exit.exit-right transition (1s)
+const relayDuration  = 1050;  // matches .relay-to-1 transition (1.05s)
+const exitGap        = 800;   // pause after a pill is fully gone, before the next relays up
+const relaySettle    = 1500;  // pause after a pill relays into place, before it exits
 
-const pill1ExitStart = 5300 + holdAfterLastPill;
+const pill1ExitStart = pill4Land + holdBeforeExit;
 const pill1Gone = pill1ExitStart + exitDuration;
 
-const pill2RelayStart = pill1Gone;
-const pill2ExitStart = pill2RelayStart + relayDuration + holdAfterRelay;
+const pill2RelayStart = pill1Gone + exitGap;
+const pill2Relayed = pill2RelayStart + relayDuration;
+const pill2ExitStart = pill2Relayed + relaySettle;
 const pill2Gone = pill2ExitStart + exitDuration;
 
-const pill3RelayStart = pill2Gone;
-const pill3ExitStart = pill3RelayStart + relayDuration + holdAfterRelay;
+const pill3RelayStart = pill2Gone + exitGap;
+const pill3Relayed = pill3RelayStart + relayDuration;
+const pill3ExitStart = pill3Relayed + relaySettle;
 const pill3Gone = pill3ExitStart + exitDuration;
 
-const pill4RelayStart = pill3Gone;
-const pill4ExitStart = pill4RelayStart + relayDuration + holdAfterRelay;
+const pill4RelayStart = pill3Gone + exitGap;
+const pill4Relayed = pill4RelayStart + relayDuration;
+const pill4ExitStart = pill4Relayed + relaySettle;
 const pill4Gone = pill4ExitStart + exitDuration;
 
 /* Pill 1 leaves first, straight from its own slot */
