@@ -1,3 +1,31 @@
+function typeDashLabel(el){
+  if(!el) return;
+  const text = el.getAttribute("data-text") || "";
+  el.textContent = "";
+
+  const cursor = document.createElement("span");
+  cursor.className = "dash-card-cursor";
+  el.appendChild(cursor);
+
+  let i = 0;
+  const speed = 34;
+
+  function step(){
+    if(i < text.length){
+      cursor.insertAdjacentText("beforebegin", text.charAt(i));
+      i++;
+      setTimeout(step, speed);
+    } else {
+      setTimeout(() => cursor.remove(), 400);
+    }
+  }
+  step();
+}
+
+document.querySelectorAll(".dash-card-label").forEach((el, i) => {
+  setTimeout(() => typeDashLabel(el), 150 + i * 180);
+});
+
 function goLevels(){ window.location.href="/levels/"; }
 function goTalkletics(){ window.location.href="/talkletics/"; }
 function goMusic(){ window.location.href="/music/"; }

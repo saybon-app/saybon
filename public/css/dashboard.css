@@ -77,22 +77,44 @@ html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-seri
 }
 
 .dash-card{
-  border-radius:24px;
+  position:relative;
   cursor:pointer;
-  transition: transform .25s ease, box-shadow .25s ease;
-  box-shadow:0 10px 26px rgba(0,0,0,.06);
-  overflow:hidden;
   line-height:0;
+  transition: transform .2s ease;
 }
 
-.dash-card:hover{ transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.12); }
+.dash-card:hover{ transform:translateY(-3px); }
 
 .dash-card-icon{
   width:100%;
-  height:100%;
-  object-fit:cover;
+  height:auto;
   display:block;
 }
+
+.dash-card-label{
+  position:absolute;
+  left:50%;
+  bottom:9%;
+  transform:translateX(-50%);
+  color:#fff;
+  font-weight:800;
+  font-size:clamp(13px, 1.4vw, 16px);
+  letter-spacing:.2px;
+  pointer-events:none;
+  white-space:nowrap;
+}
+
+.dash-card-cursor{
+  display:inline-block;
+  width:2px;
+  height:1em;
+  margin-left:2px;
+  vertical-align:middle;
+  background:#fff;
+  animation: dashCursorBlink .9s steps(1) infinite;
+}
+
+@keyframes dashCursorBlink{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0; } }
 
 .dash-mobile-bar{ display:none; }
 
