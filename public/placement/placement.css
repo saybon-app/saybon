@@ -206,7 +206,7 @@ body.placement-page{
 #intervention {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #fce9df 0%, #f6c9b8 45%, #e79a80 100%);
+  background: linear-gradient(160deg, #eaf6fb 0%, #dcf3ea 55%, #cdeee0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -215,22 +215,7 @@ body.placement-page{
   transition: opacity 2.8s ease;
   z-index: 999;
   overflow: hidden;
-  color: #4a2e22;
-}
-
-#intervention::before{
-  content:"";
-  position:absolute;
-  width:520px;
-  height:520px;
-  max-width:90vw;
-  max-height:90vw;
-  border:1px solid rgba(180,140,50,.4);
-  border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-58%);
-  pointer-events:none;
+  color: #2c5a5e;
 }
 
 #intervention.hidden {
@@ -267,14 +252,29 @@ body.placement-page{
   position: absolute;
   inset: -16px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
   z-index: 1;
-  animation: ripplePulse 3.2s ease-in-out infinite;
+  animation: softGlow 8s ease-in-out infinite;
 }
 
-@keyframes ripplePulse {
-  0%, 100% { transform: scale(1); opacity: .85; }
-  50% { transform: scale(1.08); opacity: 1; }
+.teacher-circle::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.55);
+  z-index: 0;
+  animation: breathingRing 8s ease-in-out infinite;
+}
+
+@keyframes softGlow {
+  0%, 100% { transform: scale(1); opacity: .8; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes breathingRing {
+  0%, 100% { transform: scale(1); opacity: .5; }
+  50% { transform: scale(1.18); opacity: .9; }
 }
 
 @keyframes gentleFloat {
@@ -298,6 +298,8 @@ body.placement-page{
 .oasis-leaf-2 { bottom: 10%; right: 8%; width: 110px; animation-delay: 2.5s; }
 .oasis-leaf-3 { top: 15%; right: 14%; width: 60px; animation-delay: 5s; }
 
+.oasis-leaf{ fill:#ffffff; opacity:.4; }
+
 @keyframes leafDrift {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-14px) rotate(4deg); }
@@ -307,7 +309,7 @@ body.placement-page{
   margin-top: 20px;
   font-size: 16px;
   font-weight: 600;
-  color: rgba(74,46,34,.85);
+  color: rgba(44,90,94,.8);
   font-style: italic;
   letter-spacing: .3px;
 }
@@ -320,31 +322,34 @@ body.placement-page{
 }
 
 .glass-btn {
-  min-width: 200px;
-  padding: 16px 28px;
+  min-width: 180px;
+  padding: 15px 30px;
   border-radius: 999px;
-  border: 2px solid #d4af37;
-  font-size: 17px;
+  border: 1px solid rgba(255,255,255,.7);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   cursor: pointer;
+  backdrop-filter: blur(14px);
 
-  background: linear-gradient(180deg, #12474d, #072023);
+  background: rgba(255,255,255,.5);
 
   box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.25),
-    inset 0 -2px 4px rgba(0,0,0,.4),
-    0 10px 24px rgba(0,0,0,.3);
+    inset 0 1px 1px rgba(255,255,255,.8),
+    0 10px 24px rgba(80,120,110,.18);
 
   transition: all 0.35s cubic-bezier(.22,.61,.36,1);
-  color:#fff;
+  color:#2c5a5e;
 }
+
+.glass-btn.back{ background: rgba(196,228,238,.55); }
+.glass-btn.reveal{ background: rgba(205,238,224,.6); }
 
 .glass-btn:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow:
-    inset 0 2px 3px rgba(255,255,255,0.7),
-    0 16px 34px rgba(0,0,0,0.28);
+    inset 0 1px 2px rgba(255,255,255,0.9),
+    0 14px 30px rgba(80,120,110,.24);
 }
 
 .glass-btn:active {
