@@ -9,6 +9,7 @@
 <title>SayBon Translation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- v20260811b -->
 
 <style>
 
@@ -50,12 +51,12 @@ transform:rotate(25deg);
 position:fixed;
 top:20px;
 left:25px;
-width:44px;
-height:44px;
+width:48px;
+height:48px;
 border:none;
 border-radius:50%;
-background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
-box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 6px 16px rgba(0,0,0,.4);
+background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.1));
+box-shadow: inset 0 1px 1px rgba(255,255,255,.45), 0 8px 20px rgba(0,0,0,.45);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -71,13 +72,13 @@ z-index:50;
 .glow-blob{
 position:fixed;
 border-radius:50%;
-filter: blur(90px);
-opacity:.28;
+filter: blur(100px);
+opacity:.16;
 pointer-events:none;
 z-index:0;
 }
 .glow-blob.one{ width:480px; height:480px; top:-160px; left:-140px; background:#e0578a; }
-.glow-blob.two{ width:420px; height:420px; bottom:-160px; right:-120px; background:#4a90d9; }
+.glow-blob.two{ width:420px; height:420px; bottom:-160px; right:-120px; background:#d4af37; }
 
 /* LAYOUT */
 
@@ -113,7 +114,15 @@ filter: drop-shadow(0 20px 50px rgba(0,0,0,.5));
 flex:1;
 display:flex;
 flex-direction:column;
-gap:26px;
+gap:22px;
+background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+backdrop-filter: blur(20px);
+border: 1px solid rgba(255,255,255,.14);
+border-radius:28px;
+padding:44px;
+box-shadow:
+  inset 0 1px 1px rgba(255,255,255,.15),
+  0 24px 55px rgba(0,0,0,.5);
 }
 
 .eyebrow{
@@ -184,22 +193,31 @@ font-family:inherit;
 .request{
 background: linear-gradient(135deg, #e0578a, #b83d70);
 color:white;
-box-shadow: 0 10px 24px rgba(224,87,138,.35);
+box-shadow:
+  inset 0 1px 1px rgba(255,255,255,.35),
+  inset 0 -2px 4px rgba(0,0,0,.25),
+  0 12px 26px rgba(224,87,138,.4);
 }
 
 .request:hover{
 transform:translateY(-3px);
-box-shadow:0 14px 30px rgba(224,87,138,.45);
+box-shadow:
+  inset 0 1px 1px rgba(255,255,255,.4),
+  inset 0 -2px 4px rgba(0,0,0,.25),
+  0 16px 32px rgba(224,87,138,.5);
 }
 
 .translators{
-background: rgba(255,255,255,.06);
-border: 1px solid rgba(255,255,255,.14);
-color:#e5e5e5;
+background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+border: 1px solid rgba(255,255,255,.18);
+color:#fff;
+box-shadow:
+  inset 0 1px 1px rgba(255,255,255,.2),
+  0 8px 20px rgba(0,0,0,.3);
 }
 
 .translators:hover{
-background: rgba(255,255,255,.12);
+background: rgba(255,255,255,.16);
 }
 
 /* ADMIN MODAL */
@@ -272,7 +290,7 @@ font-size:13px;
 <div class="settings" onclick="openSettings()">⚙️</div>
 
 <button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
-<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e6e6e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
 <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
 <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
 </svg>
