@@ -296,10 +296,10 @@ function runInterventionSequence() {
    / .exit.exit-right under max-width:900px).
 ========================================== */
 
-const holdAfterLastPill = 2000; // pause after pill 4 settles, before pill 1 starts leaving
+const holdAfterLastPill = 4800; // pause after pill 4 settles, before pill 1 starts leaving
 const exitDuration = 1000;      // matches .exit.exit-left/.exit.exit-right transition (1s)
 const relayDuration = 1050;     // matches .relay-to-1 transition (1.05s)
-const holdAfterRelay = 900;     // brief settle pause after a pill takes slot-1, before it exits
+const holdAfterRelay = 2800;    // brief settle pause after a pill takes slot-1, before it exits
 
 const pill1ExitStart = 5300 + holdAfterLastPill;
 const pill1Gone = pill1ExitStart + exitDuration;
