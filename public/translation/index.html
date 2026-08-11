@@ -8,250 +8,220 @@
 
 <title>SayBon Translation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<!-- v20260811b -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{ box-sizing:border-box; }
 
+html, body{ margin:0; min-height:100%; }
+
 body{
-margin:0;
 font-family:'Nunito', system-ui, sans-serif;
-background: radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);
-color:#e6e6e6;
+color:#2a2a2a;
 min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
 overflow-x:hidden;
-padding:40px 24px;
+
+background-image: url('/assets/images/translator-mobile-bg.png');
+background-size: cover;
+background-position: top center;
+background-repeat: no-repeat;
+
+display:flex;
+align-items:flex-end;
+justify-content:center;
 }
 
-.settings{
-position:fixed;
-top:20px;
-right:25px;
-font-size:22px;
-cursor:pointer;
-padding:10px 14px;
-border-radius:12px;
-background: rgba(255,255,255,.08);
-border: 1px solid rgba(255,255,255,.12);
-transition:.25s;
-z-index:50;
+@media (min-width:900px){
+  body{
+    background-image: url('/assets/images/translation-desktop-bg.png');
+    background-position: left center;
+    align-items:center;
+    justify-content:flex-end;
+    padding-right:6vw;
+  }
 }
 
-.settings:hover{
-background:#e0578a;
-transform:rotate(25deg);
-}
+/* ICON BUTTONS */
 
 .dashboard-icon-btn{
 position:fixed;
 top:20px;
-left:25px;
-width:48px;
-height:48px;
+left:22px;
+width:46px;
+height:46px;
 border:none;
-border-radius:50%;
-background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.1));
-box-shadow: inset 0 1px 1px rgba(255,255,255,.45), 0 8px 20px rgba(0,0,0,.45);
+border-radius:14px;
+background: linear-gradient(160deg, #c94f6d, #a63955);
+box-shadow: 0 8px 20px rgba(201,79,109,.4);
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-transition:.25s;
+transition:.2s;
 z-index:50;
 }
-
 .dashboard-icon-btn:active{ transform:scale(.94); }
 
-/* GLOW BLOBS */
-
-.glow-blob{
+.settings{
 position:fixed;
-border-radius:50%;
-filter: blur(100px);
-opacity:.16;
-pointer-events:none;
-z-index:0;
-}
-.glow-blob.one{ width:480px; height:480px; top:-160px; left:-140px; background:#e0578a; }
-.glow-blob.two{ width:420px; height:420px; bottom:-160px; right:-120px; background:#d4af37; }
-
-/* LAYOUT */
-
-.wrapper{
-position:relative;
-z-index:1;
+top:20px;
+right:22px;
+width:46px;
+height:46px;
+border-radius:14px;
+background: rgba(255,247,244,.9);
+box-shadow: 0 8px 20px rgba(0,0,0,.12);
 display:flex;
-gap:40px;
 align-items:center;
-max-width:1180px;
-width:100%;
+justify-content:center;
+cursor:pointer;
+font-size:20px;
+transition:.2s;
+z-index:50;
 }
+.settings:hover{ transform:rotate(20deg); }
 
-/* IMAGE - blended, not boxed */
-
-.hero-wrap{
-position:relative;
-width:440px;
-flex:0 0 auto;
-}
-
-.hero{
-width:100%;
-display:block;
--webkit-mask-image: radial-gradient(ellipse 78% 82% at center, #000 55%, transparent 100%);
-mask-image: radial-gradient(ellipse 78% 82% at center, #000 55%, transparent 100%);
-filter: drop-shadow(0 20px 50px rgba(0,0,0,.5));
-}
-
-/* TEXT + ACTIONS */
+/* GLASS CARD */
 
 .content{
-flex:1;
+position:relative;
+z-index:1;
+width:100%;
+max-width:520px;
+margin:0 20px;
 display:flex;
 flex-direction:column;
-gap:22px;
-background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
-backdrop-filter: blur(20px);
-border: 1px solid rgba(255,255,255,.14);
-border-radius:28px;
-padding:44px;
-box-shadow:
-  inset 0 1px 1px rgba(255,255,255,.15),
-  0 24px 55px rgba(0,0,0,.5);
+gap:20px;
+
+background: rgba(255,250,247,.86);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,.6);
+border-radius:28px 28px 0 0;
+padding:38px 34px 34px;
+box-shadow: 0 -20px 50px rgba(60,20,30,.18);
+}
+
+@media (min-width:900px){
+  .content{
+    border-radius:28px;
+    padding:44px 40px;
+    box-shadow: 0 30px 60px rgba(60,20,30,.22);
+  }
 }
 
 .eyebrow{
-font-size:13px;
+font-size:12px;
 font-weight:800;
-letter-spacing:1.5px;
+letter-spacing:1.6px;
 text-transform:uppercase;
-color:#e0578a;
+color:#a63955;
 }
 
 .heading{
 margin:0;
-font-size:clamp(30px,3.6vw,44px);
-font-weight:900;
-line-height:1.15;
-color:#fff;
+font-family:'Playfair Display', Georgia, serif;
+font-size:clamp(28px,3.6vw,38px);
+font-weight:700;
+line-height:1.2;
+color:#241a1a;
 }
+.heading em{ font-style:normal; color:#a63955; }
 
 .subtitle{
 margin:0;
-font-size:15px;
+font-size:14px;
 line-height:1.7;
-color:rgba(255,255,255,.65);
-max-width:480px;
+color:#5a4a48;
 }
 
 .feature-list{
 display:flex;
 flex-direction:column;
-gap:12px;
-margin:4px 0 6px;
+gap:11px;
+margin:2px 0 4px;
 }
 
 .feature-item{
 display:flex;
 align-items:center;
-gap:12px;
-font-size:14px;
-color:rgba(255,255,255,.8);
+gap:11px;
+font-size:13.5px;
+color:#3f3230;
 }
 
-.feature-dot{
-width:8px;
-height:8px;
+.feature-check{
+width:19px;
+height:19px;
 border-radius:50%;
-background:#e0578a;
+background: linear-gradient(160deg, #c94f6d, #a63955);
+display:flex;
+align-items:center;
+justify-content:center;
 flex:0 0 auto;
 }
 
 .actions{
 display:flex;
 flex-direction:column;
-gap:16px;
-max-width:340px;
+gap:14px;
 }
 
 button{
-padding:16px 20px;
+padding:15px 20px;
 font-size:15px;
 font-weight:800;
 border:none;
 border-radius:14px;
 cursor:pointer;
-transition:.25s;
+transition:.2s;
 font-family:inherit;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
 }
 
 .request{
-background: linear-gradient(135deg, #e0578a, #b83d70);
+background: linear-gradient(135deg, #d9587a, #a63955);
 color:white;
-box-shadow:
-  inset 0 1px 1px rgba(255,255,255,.35),
-  inset 0 -2px 4px rgba(0,0,0,.25),
-  0 12px 26px rgba(224,87,138,.4);
+box-shadow: 0 10px 24px rgba(201,79,109,.4);
 }
-
-.request:hover{
-transform:translateY(-3px);
-box-shadow:
-  inset 0 1px 1px rgba(255,255,255,.4),
-  inset 0 -2px 4px rgba(0,0,0,.25),
-  0 16px 32px rgba(224,87,138,.5);
-}
+.request:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(201,79,109,.5); }
 
 .translators{
-background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
-border: 1px solid rgba(255,255,255,.18);
-color:#fff;
-box-shadow:
-  inset 0 1px 1px rgba(255,255,255,.2),
-  0 8px 20px rgba(0,0,0,.3);
+background: rgba(255,255,255,.5);
+border: 1.5px solid #c94f6d;
+color:#a63955;
 }
-
-.translators:hover{
-background: rgba(255,255,255,.16);
-}
+.translators:hover{ background: rgba(255,255,255,.85); }
 
 /* ADMIN MODAL */
 
 .modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.7);
-display:none;
-align-items:center;
-justify-content:center;
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(40,20,25,.55);
+display:none; align-items:center; justify-content:center;
 z-index:100;
 }
 
 .modalCard{
-background:#1b1f26;
-padding:40px;
-border-radius:16px;
+background:#fffaf7;
+padding:38px;
+border-radius:18px;
 width:320px;
 text-align:center;
-border: 1px solid rgba(255,255,255,.1);
+box-shadow: 0 30px 60px rgba(0,0,0,.3);
 }
+.modalCard h3{ color:#241a1a; margin-top:0; }
 
 .modalCard input{
 width:100%;
 padding:12px;
 margin-top:15px;
-border-radius:8px;
-border:1px solid rgba(255,255,255,.16);
-background: rgba(255,255,255,.06);
-color:#fff;
+border-radius:10px;
+border:1px solid #e8d5d0;
+background:#fff;
 font-family:inherit;
 }
 
@@ -259,24 +229,14 @@ font-family:inherit;
 margin-top:15px;
 width:100%;
 padding:12px;
-background:#e0578a;
-border:none;
-border-radius:10px;
+background: linear-gradient(135deg, #d9587a, #a63955);
 color:white;
 }
 
 .error{
-color:#ff6b6b;
+color:#c0392b;
 margin-top:10px;
 font-size:13px;
-}
-
-@media (max-width:900px){
-  .wrapper{ flex-direction:column; text-align:center; }
-  .hero-wrap{ width:280px; }
-  .feature-item{ justify-content:center; }
-  .actions{ margin:0 auto; }
-  .subtitle{ margin:0 auto; }
 }
 
 </style>
@@ -284,53 +244,53 @@ font-size:13px;
 
 <body>
 
-<div class="glow-blob one"></div>
-<div class="glow-blob two"></div>
-
-<div class="settings" onclick="openSettings()">⚙️</div>
-
 <button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
-<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
 <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
 <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
 </svg>
 </button>
 
-<div class="wrapper">
-
-<div class="hero-wrap">
-<img src="/assets/images/translation-hero.jpg" class="hero">
-</div>
+<div class="settings" onclick="openSettings()">⚙️</div>
 
 <div class="content">
 
 <span class="eyebrow">SayBon Translation</span>
 
-<h1 class="heading">Professional French translation, done right.</h1>
+<h1 class="heading">Professional French translation,<br><em>done right.</em></h1>
 
 <p class="subtitle">
 Get documents translated by vetted, confidentiality-bound translators — or join the pool yourself and get paid for your language skills.
 </p>
 
 <div class="feature-list">
-  <div class="feature-item"><span class="feature-dot"></span> Fast turnaround, from 30 minutes for short documents</div>
-  <div class="feature-item"><span class="feature-dot"></span> Vetted translators, NDA-protected on every job</div>
-  <div class="feature-item"><span class="feature-dot"></span> Transparent per-word pricing, no hidden fees</div>
+  <div class="feature-item">
+    <span class="feature-check"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+    Fast turnaround, from 30 minutes for short documents
+  </div>
+  <div class="feature-item">
+    <span class="feature-check"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+    Vetted translators, NDA-protected on every job
+  </div>
+  <div class="feature-item">
+    <span class="feature-check"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+    Transparent per-word pricing, no hidden fees
+  </div>
 </div>
 
 <div class="actions">
 
-<button class="request"
-onclick="location.href='/translation/request.html'">
+<button class="request" onclick="location.href='/translation/request.html'">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z"/></svg>
 Request Translation
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
 </button>
 
-<button class="translators"
-onclick="location.href='/translation/translators.html'">
+<button class="translators" onclick="location.href='/translation/translators.html'">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 13.2c2.7.3 4.5 2 4.5 4.8"/></svg>
 Join Our Pool of Translators
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
 </button>
-
-</div>
 
 </div>
 
