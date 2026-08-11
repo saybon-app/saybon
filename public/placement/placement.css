@@ -91,7 +91,7 @@ body.placement-page{
   height:100%;
   width:0%;
   border-radius:999px;
-  background:linear-gradient(90deg, #A3533B, #A86855);
+  background:#ffffff;
   transition:width .5s cubic-bezier(.22,1,.36,1);
 }
 
@@ -152,17 +152,21 @@ body.placement-page{
 .options{
   display:flex;
   flex-direction:column;
+  align-items:center;
   gap:14px;
 }
 
 .option{
-  padding:18px;
-  border-radius:999px;
-  border:2px solid #d4af37;
+  padding:14px 34px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.22);
   font-size:16px;
   font-weight:700;
   background:linear-gradient(180deg, #12474d, #072023);
   color:#fff;
+  width:auto;
+  min-width:200px;
+  max-width:320px;
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,.25),
     inset 0 -2px 4px rgba(0,0,0,.4),
