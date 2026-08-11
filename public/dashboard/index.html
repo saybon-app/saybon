@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LEARNER DASHBOARD — SayBon</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/dashboard.css?v=20260811e" />
+  <link rel="stylesheet" href="/css/dashboard.css?v=20260811f" />
 </head>
 <body>
 
@@ -59,14 +59,15 @@
   <main class="dash-main">
 
     <header class="dash-mobile-topbar">
-      <span class="dash-mobile-topbar-title">LEARNER <em>DASHBOARD</em></span>
-      <button onclick="goHome()" class="dash-mobile-topbar-home" aria-label="Home">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 10.5L12 3l9 7.5"/>
-          <path d="M5 9.5V21h14V9.5"/>
-        </svg>
-      </button>
+      <span class="dash-mobile-topbar-title dash-logo-text">LEARNER<br><em>DASHBOARD</em></span>
     </header>
+
+    <button onclick="goHome()" class="dash-mobile-home-corner" aria-label="Home">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+      </svg>
+    </button>
 
     <div class="dash-mobile-summary">
       <div class="dash-mobile-summary-streak">
@@ -80,17 +81,52 @@
           <div class="dash-profile-level js-profile-level">–</div>
         </div>
       </div>
-      <div class="dash-mobile-summary-goal">
-        <div class="dash-goal-ring-wrap dash-goal-ring-wrap-sm">
-          <svg class="dash-goal-ring" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="42" class="ring-track"/>
-            <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
+    </div>
+
+    <nav class="dash-mobile-nav-icons">
+      <a href="#" class="dash-mobile-nav-icon">
+        <span class="dash-mobile-nav-icon-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 20V10M12 20V4M18 20V14"/>
           </svg>
-          <div class="dash-goal-ring-text dash-goal-ring-text-sm">
-            <span class="js-goal-minutes">0</span>
-          </div>
+        </span>
+        <span>My Progress</span>
+      </a>
+      <a href="#" class="dash-mobile-nav-icon">
+        <span class="dash-mobile-nav-icon-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 4h10v3a5 5 0 0 1-10 0V4z"/>
+            <path d="M7 5H4a3 3 0 0 0 3 4"/>
+            <path d="M17 5h3a3 3 0 0 1-3 4"/>
+            <path d="M12 12v3"/>
+            <path d="M9 19h6l-1-3h-4l-1 3z"/>
+          </svg>
+        </span>
+        <span>Achievements</span>
+      </a>
+      <a href="#" class="dash-mobile-nav-icon">
+        <span class="dash-mobile-nav-icon-circle">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+          </svg>
+        </span>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="dash-goal-card dash-goal-card-mobile">
+      <div class="dash-goal-title">Daily Goal 🎉</div>
+      <div class="dash-goal-ring-wrap">
+        <svg class="dash-goal-ring" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" class="ring-track"/>
+          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
+        </svg>
+        <div class="dash-goal-ring-text">
+          <span class="js-goal-minutes">0</span><small>/30 min</small>
         </div>
       </div>
+      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
     </div>
 
     <div class="dash-grid">
@@ -149,6 +185,6 @@
 
 </div>
 
-<script src="/dashboard/dashboard.js?v=20260811e"></script>
+<script src="/dashboard/dashboard.js?v=20260811f"></script>
 </body>
 </html>

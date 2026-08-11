@@ -69,6 +69,9 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
 
 .dash-mobile-summary{ display:none; }
 .dash-mobile-topbar{ display:none; }
+.dash-mobile-home-corner{ display:none; }
+.dash-mobile-nav-icons{ display:none; }
+.dash-goal-card-mobile{ display:none; }
 
 .dash-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
 
@@ -124,19 +127,21 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
 
 @media (max-width:800px){
   .dash-sidebar{ display:none; }
-  .dash-main{ height:auto; padding:24px 18px 90px; }
+  .dash-main{ height:auto; padding:24px 18px 90px; position:relative; }
   .dash-grid{ grid-template-columns:1fr; }
 
   .dash-mobile-topbar{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    margin:-24px -18px 18px; padding:14px 18px;
-    background: linear-gradient(180deg, #171d33 0%, #10142a 100%);
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    display:flex; align-items:center;
+    margin:-24px -18px 18px; padding:18px;
+    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 10px 24px rgba(0,0,0,.35);
     position: sticky; top:0; z-index:50;
   }
-  .dash-mobile-topbar-title{ font-weight:900; font-size:17px; letter-spacing:.4px; color:#fff; }
-  .dash-mobile-topbar-title em{ font-style:normal; color:#e0578a; margin-left:0; }
-  .dash-mobile-topbar-home{
+
+  .dash-mobile-home-corner{
+    display:flex; position:fixed; top:16px; right:16px; z-index:60;
     border:none;
     background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
     box-shadow:
@@ -144,16 +149,16 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
       0 6px 16px rgba(0,0,0,.35);
     width:38px; height:38px; border-radius:50%;
     cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
+    align-items:center; justify-content:center;
     -webkit-tap-highlight-color:transparent;
     touch-action:manipulation;
     transition:transform .18s ease, filter .18s ease;
   }
-  .dash-mobile-topbar-home:active{ transform:scale(.94); }
+  .dash-mobile-home-corner:active{ transform:scale(.94); }
 
   .dash-mobile-summary{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
-    margin-bottom:18px; padding:12px 14px;
+    margin-bottom:14px; padding:12px 14px;
     background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
     backdrop-filter: blur(14px);
     border: 1px solid rgba(255,255,255,.1);
@@ -164,6 +169,26 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
   .dash-mobile-summary-profile .dash-avatar{ width:34px; height:34px; font-size:14px; }
   .dash-mobile-summary-profile .dash-profile-name{ font-size:13px; }
   .dash-mobile-summary-profile .dash-profile-level{ font-size:11px; }
-  .dash-goal-ring-wrap-sm{ width:44px; height:44px; }
-  .dash-goal-ring-text-sm{ font-size:12px; }
+
+  .dash-mobile-nav-icons{
+    display:flex; justify-content:space-between; gap:10px;
+    margin-bottom:18px;
+  }
+  .dash-mobile-nav-icon{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:6px;
+    text-decoration:none;
+  }
+  .dash-mobile-nav-icon-circle{
+    width:44px; height:44px; border-radius:50%;
+    background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03));
+    border: 1px solid rgba(255,255,255,.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dash-mobile-nav-icon span:last-child{
+    font-size:11px; font-weight:700; color:rgba(255,255,255,.75); text-align:center;
+  }
+
+  .dash-goal-card-mobile{ display:block; margin-bottom:18px; }
+
+  .dash-grid{ grid-template-columns:1fr; }
 }
