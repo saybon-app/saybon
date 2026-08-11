@@ -21,10 +21,8 @@ html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-seri
   overflow-y:auto;
 }
 
-.dash-logo{ display:flex; align-items:center; gap:12px; }
-.dash-logo img{ width:44px; height:44px; object-fit:contain; }
-.dash-logo-title{ font-weight:900; font-size:15px; color:#1f2937; letter-spacing:.5px; }
-.dash-logo-sub{ font-weight:800; font-size:15px; color:#e0578a; letter-spacing:.5px; }
+.dash-logo{ display:flex; align-items:center; padding:4px 0 8px; }
+.dash-logo img{ width:100%; height:auto; object-fit:contain; }
 
 .dash-streak-card, .dash-profile-card, .dash-goal-card{
   background:#fff;
@@ -80,59 +78,21 @@ html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-seri
 
 .dash-card{
   border-radius:24px;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
   cursor:pointer;
   transition: transform .25s ease, box-shadow .25s ease;
   box-shadow:0 10px 26px rgba(0,0,0,.06);
+  overflow:hidden;
+  line-height:0;
 }
 
 .dash-card:hover{ transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.12); }
 
 .dash-card-icon{
-  width:64px; height:64px; object-fit:contain; border-radius:16px;
-  background:rgba(255,255,255,.55); padding:10px; margin-bottom:16px;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
-
-.dash-card h3{ margin:0 0 4px; font-size:20px; font-weight:800; color:#1f2937; }
-.dash-card span{ font-size:14px; color:#4b5563; margin-bottom:20px; display:block; }
-
-.dash-card-btn{
-  margin-top:auto;
-  align-self:flex-start;
-  border:none;
-  border-radius:999px;
-  padding:10px 18px;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  color:#fff;
-}
-
-.card-levels{ background:linear-gradient(160deg, #d9c8f0, #c9b2ea); }
-.card-levels .dash-card-btn{ background:#8b5cf6; }
-
-.card-talkletics{ background:linear-gradient(160deg, #cfe0fb, #b7d0f7); }
-.card-talkletics .dash-card-btn{ background:#3b82f6; }
-
-.card-music{ background:linear-gradient(160deg, #fbd2c8, #f7b3a3); }
-.card-music .dash-card-btn{ background:#ef5a3c; }
-
-.card-delf{ background:linear-gradient(160deg, #cdeee2, #a9e2cf); }
-.card-delf .dash-card-btn{ background:#0fa473; }
-
-.card-translation{ background:linear-gradient(160deg, #fbe3bd, #f7d191); }
-.card-translation .dash-card-btn{ background:#e08a1a; }
-
-.card-chat{ background:linear-gradient(160deg, #e5d4f5, #d5b8ec); }
-.card-chat .dash-card-btn{ background:#9333ea; }
-
-.card-feedback{ background:linear-gradient(160deg, #fbd7e4, #f6b7cf); }
-.card-feedback .dash-card-btn{ background:#e0578a; }
-
-.card-support{ background:linear-gradient(160deg, #d3f0d6, #b3e4b8); }
-.card-support .dash-card-btn{ background:#2f9e4f; }
 
 .dash-mobile-bar{ display:none; }
 
