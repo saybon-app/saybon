@@ -1,285 +1,170 @@
-/* =========================================
-   SAYBON DASHBOARD — GLASS FINAL
-========================================= */
+*{ box-sizing:border-box; }
 
-/* RESET */
-* {
-  box-sizing: border-box;
+html, body{ margin:0; min-height:100%; font-family:"Inter", system-ui, sans-serif; background:#fdeeea; }
+
+.dash-shell{
+  display:flex;
+  min-height:100vh;
+  align-items:flex-start;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #0f172a 0%, #030712 75%);
-  color: white;
-  min-height: 100vh;
+.dash-sidebar{
+  width:260px;
+  flex:0 0 260px;
+  padding:28px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
 }
 
-/* WRAPPER */
-.dashboard {
-  max-width: 1250px;          /* slightly wider */
-  margin: 0 auto;
-  padding: 60px 40px 40px 40px;   /* zoomed in feel */
+.dash-logo{ display:flex; align-items:center; gap:12px; }
+.dash-logo img{ width:44px; height:44px; object-fit:contain; }
+.dash-logo-title{ font-weight:900; font-size:15px; color:#1f2937; letter-spacing:.5px; }
+.dash-logo-sub{ font-weight:800; font-size:15px; color:#e0578a; letter-spacing:.5px; }
+
+.dash-streak-card, .dash-profile-card, .dash-goal-card{
+  background:#fff;
+  border-radius:20px;
+  padding:16px 18px;
+  box-shadow:0 6px 18px rgba(200,120,140,.12);
 }
 
-/* =========================================
-   HEADER
-========================================= */
+.dash-streak-card{ display:flex; align-items:center; gap:14px; }
+.dash-streak-flame{ font-size:26px; }
+.dash-streak-num{ font-size:22px; font-weight:900; color:#1f2937; }
+.dash-streak-label{ font-size:13px; color:#6b7280; }
 
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 45px;
+.dash-profile-card{ display:flex; align-items:center; gap:14px; }
+.dash-avatar{
+  width:44px; height:44px; border-radius:50%;
+  background:#e0578a; color:#fff; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:18px; flex:0 0 auto;
+}
+.dash-profile-name{ font-weight:800; font-size:15px; color:#1f2937; }
+.dash-profile-level{ font-size:13px; color:#6b7280; }
+
+.dash-nav{ display:flex; flex-direction:column; gap:4px; padding:4px 4px; }
+.dash-nav-link{
+  color:#4b5563; text-decoration:none; font-weight:700; font-size:14px;
+  padding:10px 12px; border-radius:12px; transition:background .18s ease;
+}
+.dash-nav-link:hover{ background:rgba(224,87,138,.08); color:#e0578a; }
+
+.dash-goal-card{ text-align:center; }
+.dash-goal-title{ font-weight:800; font-size:14px; color:#1f2937; margin-bottom:10px; }
+.dash-goal-ring-wrap{ position:relative; width:110px; height:110px; margin:0 auto; }
+.dash-goal-ring{ width:100%; height:100%; transform:rotate(-90deg); }
+.ring-track{ fill:none; stroke:#f3d9df; stroke-width:9; }
+.ring-fill{
+  fill:none; stroke:#e0578a; stroke-width:9; stroke-linecap:round;
+  transition: stroke-dashoffset .6s ease;
+}
+.dash-goal-ring-text{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  flex-direction:column; font-weight:900; font-size:18px; color:#1f2937;
+}
+.dash-goal-ring-text small{ font-size:11px; font-weight:600; color:#6b7280; }
+.dash-goal-caption{ margin-top:10px; font-size:12px; color:#6b7280; font-weight:600; }
+
+.dash-main{ flex:1; padding:32px 32px 100px; }
+
+.dash-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
 }
 
-.dashboard-header h1 {
-  font-size: 44px;        /* zoomed */
-  font-weight: 800;
-  letter-spacing: 1px;
-
-  background: linear-gradient(90deg, #ffffff, #b8c6ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: headerGlow 4s ease-in-out infinite alternate;
+.dash-card{
+  border-radius:24px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow:0 10px 26px rgba(0,0,0,.06);
 }
 
-.dashboard-header p {
-  margin-top: 10px;
-  opacity: 0.75;
-  font-size: 15px;
+.dash-card:hover{ transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.12); }
+
+.dash-card-icon{
+  width:64px; height:64px; object-fit:contain; border-radius:16px;
+  background:rgba(255,255,255,.55); padding:10px; margin-bottom:16px;
 }
 
-/* =========================================
-   GRID
-========================================= */
+.dash-card h3{ margin:0 0 4px; font-size:20px; font-weight:800; color:#1f2937; }
+.dash-card span{ font-size:14px; color:#4b5563; margin-bottom:20px; display:block; }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;              /* larger spacing */
+.dash-card-btn{
+  margin-top:auto;
+  align-self:flex-start;
+  border:none;
+  border-radius:999px;
+  padding:10px 18px;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  color:#fff;
 }
 
-/* =========================================
-   GLASS CARD BASE
-========================================= */
+.card-levels{ background:linear-gradient(160deg, #d9c8f0, #c9b2ea); }
+.card-levels .dash-card-btn{ background:#8b5cf6; }
 
-.dashboard-grid .card {
-  position: relative;
-  height: 190px;              /* zoomed in */
-  padding: 28px 26px;
-  border-radius: 26px;
-  cursor: pointer;
-  overflow: hidden;
+.card-talkletics{ background:linear-gradient(160deg, #cfe0fb, #b7d0f7); }
+.card-talkletics .dash-card-btn{ background:#3b82f6; }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.card-music{ background:linear-gradient(160deg, #fbd2c8, #f7b3a3); }
+.card-music .dash-card-btn{ background:#ef5a3c; }
 
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+.card-delf{ background:linear-gradient(160deg, #cdeee2, #a9e2cf); }
+.card-delf .dash-card-btn{ background:#0fa473; }
 
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.12),
-    0 20px 50px rgba(0,0,0,0.6);
+.card-translation{ background:linear-gradient(160deg, #fbe3bd, #f7d191); }
+.card-translation .dash-card-btn{ background:#e08a1a; }
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.card-chat{ background:linear-gradient(160deg, #e5d4f5, #d5b8ec); }
+.card-chat .dash-card-btn{ background:#9333ea; }
+
+.card-feedback{ background:linear-gradient(160deg, #fbd7e4, #f6b7cf); }
+.card-feedback .dash-card-btn{ background:#e0578a; }
+
+.card-support{ background:linear-gradient(160deg, #d3f0d6, #b3e4b8); }
+.card-support .dash-card-btn{ background:#2f9e4f; }
+
+.dash-mobile-bar{ display:none; }
+
+@media (max-width:1024px){
+  .dash-grid{ grid-template-columns:repeat(2, 1fr); }
 }
 
-/* 3D PRESS */
-.dashboard-grid .card:active {
-  transform: scale(0.95);
-  box-shadow:
-    inset 0 8px 25px rgba(0,0,0,0.7),
-    0 8px 20px rgba(0,0,0,0.5);
-}
+@media (max-width:800px){
+  .dash-sidebar{ display:none; }
+  .dash-main{ padding:24px 18px 90px; }
+  .dash-grid{ grid-template-columns:1fr; }
 
-/* SHIMMER SWEEP */
-.dashboard-grid .card::after {
-  content: "";
-  position: absolute;
-  top: -120%;
-  left: -40%;
-  width: 60%;
-  height: 300%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.25),
-    transparent
-  );
-  transform: rotate(25deg);
-  animation: shimmer 7s infinite;
-}
-
-/* =========================================
-   CARD TEXT
-========================================= */
-
-.card .emoji {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.card h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.card span {
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-/* =========================================
-   UPDATED GRADIENTS
-========================================= */
-
-/* Levels — #EA9AB2 */
-.levels {
-  background: linear-gradient(135deg, #EA9AB2, #d86a8a, #f4b5c8);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* Talkletics — #004D40 */
-.talkletics {
-  background: linear-gradient(135deg, #004D40, #00695c, #00332d);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* Music */
-.music {
-  background: linear-gradient(135deg, #FF5722, #ff7043, #ff8a65);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* DELF */
-.delf {
-  background: linear-gradient(135deg, #009B77, #00b894, #00a67d);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* Translation */
-.translation {
-  background: linear-gradient(135deg, #A2AD1E, #b5bf2b, #8c9616);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* Chat */
-.chat {
-  background: linear-gradient(135deg, #B17596, #9f5f80, #c58cab);
-  background-size: 200% 200%;
-  animation: gradientFlow 10s ease infinite;
-}
-
-/* =========================================
-   FOOTER — GLASS BUTTONS
-========================================= */
-
-.dashboard-footer {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.dashboard-footer button {
-  height: 44px;
-  padding: 0 28px;
-  border-radius: 25px;
-  border: 1px solid rgba(255,255,255,0.2);
-
-  font-family: "Playfair Display", serif;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-
-  color: white;
-  cursor: pointer;
-
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-
-  background: rgba(255,255,255,0.08);
-
-  box-shadow:
-    inset 0 0 15px rgba(255,255,255,0.15),
-    0 12px 25px rgba(0,0,0,0.5);
-
-  transition: 0.2s ease;
-}
-
-/* shimmer for buttons */
-.dashboard-footer button::after {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: -40%;
-  width: 60%;
-  height: 300%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.3),
-    transparent
-  );
-  transform: rotate(25deg);
-  animation: shimmer 8s infinite;
-}
-
-.dashboard-footer button:active {
-  transform: scale(0.95);
-}
-
-/* =========================================
-   ANIMATIONS
-========================================= */
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%) rotate(25deg); }
-  100% { transform: translateX(300%) rotate(25deg); }
-}
-
-@keyframes headerGlow {
-  from { text-shadow: 0 0 10px rgba(150,170,255,0.3); }
-  to   { text-shadow: 0 0 28px rgba(150,170,255,0.6); }
-}
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 768px) {
-
-  .dashboard {
-    padding: 30px 20px;
+  .dash-mobile-bar{
+    display:flex;
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    border-radius:999px;
+    padding:10px 18px;
+    gap:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    align-items:center;
   }
-
-  .dashboard-header h1 {
-    font-size: 22px;
+  .dash-mobile-bar button{
+    border:none; background:none; font-size:20px; cursor:pointer;
   }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-grid .card {
-    height: 150px;
-  }
-
-  .dashboard-footer {
-    margin-top: 25px;
+  .dash-mobile-home{
+    font-size:14px !important;
+    font-weight:800;
+    color:#e0578a;
+    padding:6px 14px !important;
   }
 }
