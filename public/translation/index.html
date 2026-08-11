@@ -8,220 +8,266 @@
 
 <title>SayBon Translation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
+*{ box-sizing:border-box; }
+
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
-background:#0f1115;
+font-family:'Nunito', system-ui, sans-serif;
+background: radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);
 color:#e6e6e6;
-height:100vh;
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
+overflow-x:hidden;
+padding:40px 24px;
 }
 
-/* SETTINGS BUTTON */
-
 .settings{
-
 position:fixed;
 top:20px;
 right:25px;
-
-font-size:24px;
+font-size:22px;
 cursor:pointer;
-
 padding:10px 14px;
-border-radius:8px;
-
-background:#1f242d;
+border-radius:12px;
+background: rgba(255,255,255,.08);
+border: 1px solid rgba(255,255,255,.12);
 transition:.25s;
-
+z-index:50;
 }
 
 .settings:hover{
-
-background:#4ecdc4;
-color:white;
+background:#e0578a;
 transform:rotate(25deg);
-
 }
+
+.dashboard-icon-btn{
+position:fixed;
+top:20px;
+left:25px;
+width:44px;
+height:44px;
+border:none;
+border-radius:50%;
+background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 6px 16px rgba(0,0,0,.4);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.25s;
+z-index:50;
+}
+
+.dashboard-icon-btn:active{ transform:scale(.94); }
+
+/* GLOW BLOBS */
+
+.glow-blob{
+position:fixed;
+border-radius:50%;
+filter: blur(90px);
+opacity:.28;
+pointer-events:none;
+z-index:0;
+}
+.glow-blob.one{ width:480px; height:480px; top:-160px; left:-140px; background:#e0578a; }
+.glow-blob.two{ width:420px; height:420px; bottom:-160px; right:-120px; background:#4a90d9; }
 
 /* LAYOUT */
 
 .wrapper{
-
+position:relative;
+z-index:1;
 display:flex;
-gap:60px;
+gap:40px;
 align-items:center;
-
-max-width:1100px;
-width:90%;
-
+max-width:1180px;
+width:100%;
 }
 
-/* IMAGE */
+/* IMAGE - blended, not boxed */
+
+.hero-wrap{
+position:relative;
+width:440px;
+flex:0 0 auto;
+}
 
 .hero{
-
-width:420px;
-border-radius:20px;
-box-shadow:0 20px 40px rgba(0,0,0,.6);
-
+width:100%;
+display:block;
+-webkit-mask-image: radial-gradient(ellipse 78% 82% at center, #000 55%, transparent 100%);
+mask-image: radial-gradient(ellipse 78% 82% at center, #000 55%, transparent 100%);
+filter: drop-shadow(0 20px 50px rgba(0,0,0,.5));
 }
 
-/* BUTTON COLUMN */
+/* TEXT + ACTIONS */
 
-.actions{
-
+.content{
+flex:1;
 display:flex;
 flex-direction:column;
-gap:25px;
-width:300px;
+gap:26px;
+}
 
+.eyebrow{
+font-size:13px;
+font-weight:800;
+letter-spacing:1.5px;
+text-transform:uppercase;
+color:#e0578a;
+}
+
+.heading{
+margin:0;
+font-size:clamp(30px,3.6vw,44px);
+font-weight:900;
+line-height:1.15;
+color:#fff;
+}
+
+.subtitle{
+margin:0;
+font-size:15px;
+line-height:1.7;
+color:rgba(255,255,255,.65);
+max-width:480px;
+}
+
+.feature-list{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin:4px 0 6px;
+}
+
+.feature-item{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:14px;
+color:rgba(255,255,255,.8);
+}
+
+.feature-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#e0578a;
+flex:0 0 auto;
+}
+
+.actions{
+display:flex;
+flex-direction:column;
+gap:16px;
+max-width:340px;
 }
 
 button{
-
-padding:16px;
-font-size:16px;
-
+padding:16px 20px;
+font-size:15px;
+font-weight:800;
 border:none;
-border-radius:12px;
+border-radius:14px;
 cursor:pointer;
-
 transition:.25s;
-
+font-family:inherit;
 }
 
-/* PRIMARY */
-
 .request{
-
-background:linear-gradient(135deg,#4ecdc4,#5dade2);
+background: linear-gradient(135deg, #e0578a, #b83d70);
 color:white;
-
+box-shadow: 0 10px 24px rgba(224,87,138,.35);
 }
 
 .request:hover{
-
 transform:translateY(-3px);
-box-shadow:0 10px 20px rgba(0,0,0,.4);
-
+box-shadow:0 14px 30px rgba(224,87,138,.45);
 }
 
-/* SECONDARY */
-
 .translators{
-
-background:#1f242d;
+background: rgba(255,255,255,.06);
+border: 1px solid rgba(255,255,255,.14);
 color:#e5e5e5;
-
 }
 
 .translators:hover{
-
-background:#323844;
-
-}
-
-/* DASHBOARD */
-
-.dashboard-icon-btn{
-
-position:fixed;
-top:20px;
-left:25px;
-
-width:44px;
-height:44px;
-
-border:none;
-border-radius:50%;
-
-background:#1f242d;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-transition:.25s;
-
-}
-
-.dashboard-icon-btn:hover{
-
-background:#4ecdc4;
-
+background: rgba(255,255,255,.12);
 }
 
 /* ADMIN MODAL */
 
 .modal{
-
 position:fixed;
 top:0;
 left:0;
-
 width:100%;
 height:100%;
-
 background:rgba(0,0,0,.7);
-
 display:none;
 align-items:center;
 justify-content:center;
-
+z-index:100;
 }
 
 .modalCard{
-
 background:#1b1f26;
 padding:40px;
 border-radius:16px;
 width:320px;
 text-align:center;
-
+border: 1px solid rgba(255,255,255,.1);
 }
 
 .modalCard input{
-
 width:100%;
 padding:12px;
 margin-top:15px;
 border-radius:8px;
-border:none;
-
+border:1px solid rgba(255,255,255,.16);
+background: rgba(255,255,255,.06);
+color:#fff;
+font-family:inherit;
 }
 
 .modalCard button{
-
 margin-top:15px;
 width:100%;
 padding:12px;
-
-background:#4ecdc4;
+background:#e0578a;
 border:none;
 border-radius:10px;
 color:white;
-
 }
 
 .error{
-
 color:#ff6b6b;
 margin-top:10px;
+font-size:13px;
+}
 
+@media (max-width:900px){
+  .wrapper{ flex-direction:column; text-align:center; }
+  .hero-wrap{ width:280px; }
+  .feature-item{ justify-content:center; }
+  .actions{ margin:0 auto; }
+  .subtitle{ margin:0 auto; }
 }
 
 </style>
 </head>
 
 <body>
+
+<div class="glow-blob one"></div>
+<div class="glow-blob two"></div>
 
 <div class="settings" onclick="openSettings()">⚙️</div>
 
@@ -234,7 +280,25 @@ margin-top:10px;
 
 <div class="wrapper">
 
+<div class="hero-wrap">
 <img src="/assets/images/translation-hero.jpg" class="hero">
+</div>
+
+<div class="content">
+
+<span class="eyebrow">SayBon Translation</span>
+
+<h1 class="heading">Professional French translation, done right.</h1>
+
+<p class="subtitle">
+Get documents translated by vetted, confidentiality-bound translators — or join the pool yourself and get paid for your language skills.
+</p>
+
+<div class="feature-list">
+  <div class="feature-item"><span class="feature-dot"></span> Fast turnaround, from 30 minutes for short documents</div>
+  <div class="feature-item"><span class="feature-dot"></span> Vetted translators, NDA-protected on every job</div>
+  <div class="feature-item"><span class="feature-dot"></span> Transparent per-word pricing, no hidden fees</div>
+</div>
 
 <div class="actions">
 
@@ -247,6 +311,8 @@ Request Translation
 onclick="location.href='/translation/translators.html'">
 Join Our Pool of Translators
 </button>
+
+</div>
 
 </div>
 
@@ -302,4 +368,3 @@ document.getElementById("error").innerText="Incorrect passcode"
 
 </body>
 </html>
-
