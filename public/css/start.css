@@ -233,8 +233,13 @@ body.start-page{
 .start-path.start-floating{ animation: startHeroFloat 2.4s ease-in-out infinite; }
 
 @media (max-width:800px){
-  .paths{ grid-template-columns:1fr; margin-top:170px; }
+  .paths{ grid-template-columns:1fr; margin-top:170px; gap:20px; }
   .start-title{ font-size:18px; padding:12px 12px 12px 22px; gap:8px; max-width:92%; }
   .start-title-icon{ width:28px; height:28px; }
   .start-home-btn{ top:14px; left:14px; width:var(--start-home-size-mobile); height:var(--start-home-size-mobile); }
+
+  .start-path{ padding:26px 20px; gap:10px; }
+  .start-path-icon{ width:52px; height:52px; }
+  .start-path h2{ font-size:19px; }
+  .start-path p{ font-size:14px; }
 }
