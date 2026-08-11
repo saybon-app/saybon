@@ -9,26 +9,25 @@ function goSupport(){ window.location.href="/support/"; }
 function goHome(){ window.location.href="/"; }
 
 const level = sessionStorage.getItem("saybon_level");
-document.getElementById("dashLevel").textContent = level || "Level not set";
+document.querySelectorAll(".js-profile-level").forEach(el => el.textContent = level || "Level not set");
 
 const streak = Number(localStorage.getItem("saybon_streak")) || 0;
-document.getElementById("streakNum").textContent = streak;
+document.querySelectorAll(".js-streak-num").forEach(el => el.textContent = streak);
 
 const dailyMinutes = Number(localStorage.getItem("saybon_daily_minutes")) || 0;
 const goalTarget = 30;
-document.getElementById("goalMinutes").textContent = dailyMinutes;
+document.querySelectorAll(".js-goal-minutes").forEach(el => el.textContent = dailyMinutes);
 
-const ringFill = document.getElementById("goalRingFill");
 const circumference = 2 * Math.PI * 42;
 const pct = Math.min(dailyMinutes / goalTarget, 1);
-ringFill.style.strokeDasharray = circumference;
-ringFill.style.strokeDashoffset = circumference * (1 - pct);
+document.querySelectorAll(".js-goal-ring-fill").forEach(ringFill => {
+  ringFill.style.strokeDasharray = circumference;
+  ringFill.style.strokeDashoffset = circumference * (1 - pct);
+});
 
-const goalCaption = document.getElementById("goalCaption");
-if (dailyMinutes === 0) {
-  goalCaption.textContent = "Start today's session";
-} else if (dailyMinutes >= goalTarget) {
-  goalCaption.textContent = "Goal reached! Keep it up";
-} else {
-  goalCaption.textContent = "Keep going, you're doing great";
-}
+const goalCaptionText = dailyMinutes === 0
+  ? "Start today's session"
+  : dailyMinutes >= goalTarget
+    ? "Goal reached! Keep it up"
+    : "Keep going, you're doing great";
+document.querySelectorAll(".js-goal-caption").forEach(el => el.textContent = goalCaptionText);

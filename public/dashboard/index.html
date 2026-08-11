@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LEARNER DASHBOARD — SayBon</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/dashboard.css?v=20260811d" />
+  <link rel="stylesheet" href="/css/dashboard.css?v=20260811e" />
 </head>
 <body>
 
@@ -21,16 +21,16 @@
     <div class="dash-streak-card">
       <span class="dash-streak-flame">🔥</span>
       <div>
-        <div class="dash-streak-num" id="streakNum">0</div>
+        <div class="dash-streak-num js-streak-num">0</div>
         <div class="dash-streak-label">Day streak</div>
       </div>
     </div>
 
     <div class="dash-profile-card">
-      <div class="dash-avatar" id="dashAvatar">A</div>
+      <div class="dash-avatar">A</div>
       <div>
-        <div class="dash-profile-name" id="dashName">Learner</div>
-        <div class="dash-profile-level" id="dashLevel">–</div>
+        <div class="dash-profile-name">Learner</div>
+        <div class="dash-profile-level js-profile-level">–</div>
       </div>
     </div>
 
@@ -45,18 +45,43 @@
       <div class="dash-goal-ring-wrap">
         <svg class="dash-goal-ring" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="42" class="ring-track"/>
-          <circle cx="50" cy="50" r="42" class="ring-fill" id="goalRingFill"/>
+          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
         </svg>
         <div class="dash-goal-ring-text">
-          <span id="goalMinutes">0</span><small>/30 min</small>
+          <span class="js-goal-minutes">0</span><small>/30 min</small>
         </div>
       </div>
-      <div class="dash-goal-caption" id="goalCaption">Start today's session</div>
+      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
     </div>
 
   </aside>
 
   <main class="dash-main">
+
+    <div class="dash-mobile-summary">
+      <div class="dash-mobile-summary-streak">
+        <span class="dash-streak-flame">🔥</span>
+        <span class="js-streak-num">0</span>
+      </div>
+      <div class="dash-mobile-summary-profile">
+        <div class="dash-avatar">A</div>
+        <div>
+          <div class="dash-profile-name">Learner</div>
+          <div class="dash-profile-level js-profile-level">–</div>
+        </div>
+      </div>
+      <div class="dash-mobile-summary-goal">
+        <div class="dash-goal-ring-wrap dash-goal-ring-wrap-sm">
+          <svg class="dash-goal-ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" class="ring-track"/>
+            <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
+          </svg>
+          <div class="dash-goal-ring-text dash-goal-ring-text-sm">
+            <span class="js-goal-minutes">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="dash-grid">
 
@@ -73,13 +98,13 @@
       </div>
 
       <div class="dash-card card-music" onclick="goMusic()">
-        <div class="emoji">🎵</div>
+        <div class="emoji">🎧</div>
         <h3>Music</h3>
         <span>Learn with rhythm</span>
       </div>
 
       <div class="dash-card card-delf" onclick="goDelf()">
-        <div class="emoji">📄</div>
+        <div class="emoji">📚</div>
         <h3>DELF Prep</h3>
         <span>Mock exams</span>
       </div>
@@ -91,7 +116,7 @@
       </div>
 
       <div class="dash-card card-chat" onclick="goChat()">
-        <div class="emoji">💬</div>
+        <div class="emoji">👥</div>
         <h3>Chat Room</h3>
         <span>Community space</span>
       </div>
@@ -104,8 +129,8 @@
 
       <div class="dash-card card-support" onclick="goSupport()">
         <div class="emoji">💚</div>
-        <h3>Support</h3>
-        <span>We are here for you</span>
+        <h3>Support SayBon</h3>
+        <span>Donations & investors</span>
       </div>
 
     </div>
@@ -114,12 +139,12 @@
 
   <nav class="dash-mobile-bar">
     <button onclick="goFeedback()" aria-label="Feedback">✍🏽</button>
-    <button onclick="goChat()" aria-label="Chat">💬</button>
+    <button onclick="goChat()" aria-label="Chat">👥</button>
     <button onclick="goHome()" class="dash-mobile-home" aria-label="Home">Home</button>
   </nav>
 
 </div>
 
-<script src="/dashboard/dashboard.js?v=20260811d"></script>
+<script src="/dashboard/dashboard.js?v=20260811e"></script>
 </body>
 </html>
