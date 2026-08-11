@@ -3,17 +3,11 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 import {
   collection,
   addDoc,
-  doc,
-  setDoc,
   query,
-  where,
-  documentId,
   orderBy,
   onSnapshot,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const ROOM_IDS = ["general", "grammar-vocab", "practice-partners", "culture-corner"];
 
 const roomButtons = document.querySelectorAll(".room-btn");
 const toggleBtn = document.getElementById("toggleBtn");
@@ -50,22 +44,8 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-function formatPreviewTime(ts) {
-  if (!ts || !ts.toDate) return "";
-  const date = ts.toDate();
-  const now = new Date();
-  const sameDay = date.toDateString() === now.toDateString();
-  if (sameDay) {
-    return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-  }
-  const diffDays = Math.floor((now - date) / 86400000);
-  if (diffDays === 1) return "Yesterday";
-  if (diffDays < 7) return diffDays + "d ago";
-  return date.toLocaleDateString([], { month: "short", day: "numeric" });
-}
-
 // =========================================================
-// AUTH STATE
+// AUTH STATE - populates real signed-in user details
 // =========================================================
 
 onAuthStateChanged(auth, user => {
@@ -77,29 +57,6 @@ onAuthStateChanged(auth, user => {
     }
   }
 });
-
-// =========================================================
-// LIVE SIDEBAR CONVERSATION PREVIEWS
-// =========================================================
-
-onSnapshot(
-  query(collection(db, "chatRooms"), where(documentId(), "in", ROOM_IDS)),
-  (snapshot) => {
-    snapshot.forEach(docSnap => {
-      const data = docSnap.data();
-      const previewEl = document.getElementById("preview-" + docSnap.id);
-      const timeEl = document.getElementById("time-" + docSnap.id);
-
-      if (previewEl) {
-        const sender = data.lastSenderName ? escapeHtml(data.lastSenderName) + ": " : "";
-        previewEl.textContent = sender + escapeHtml(data.lastMessage || "");
-      }
-      if (timeEl) {
-        timeEl.textContent = formatPreviewTime(data.lastMessageAt);
-      }
-    });
-  }
-);
 
 // =========================================================
 // ROOM SWITCHING
@@ -154,104 +111,141 @@ toggleBtn.addEventListener("click", () => {
 // HOME / DASHBOARD
 // =========================================================
 
-homeBtn.addEventListener("click", () => { window.location.href = "/"; });
-dashboardBtn.addEventListener("click", () => { window.location.href = "/dashboard/"; });
+homeBtn.addEventListener("click", () => {
+  window.location.href = "/";
+});
 
-// =========================================================
-// AVATAR UPLOAD (local preview only)
-// =========================================================
-
-avatarCamera.addEventListener("click", () => { avatarInput.click(); });
-
-avatarInput.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function (event) { avatarPreview.src = event.target.result; };
-  reader.readAsDataURL(file);
+dashboardBtn.addEventListener("click", () => {
+  window.location.href = "/dashboard/";
 });
 
 // =========================================================
-// MEDIA ATTACHMENTS (preview only)
+// AVATAR UPLOAD (local preview only - not saved anywhere yet)
 // =========================================================
 
-mediaBtn.addEventListener("click", () => { mediaInput.click(); });
+avatarCamera.addEventListener("click", () => {
+  avatarInput.click();
+});
+
+avatarInput.addEventListener("change", (e) => {
+
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+    avatarPreview.src = event.target.result;
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+// =========================================================
+// MEDIA ATTACHMENTS (preview only - not sent yet)
+// =========================================================
+
+mediaBtn.addEventListener("click", () => {
+  mediaInput.click();
+});
 
 mediaInput.addEventListener("change", (e) => {
+
   mediaPreview.innerHTML = "";
+
   const files = [...e.target.files];
-  if (!files.length) return;
+
+  if (!files.length) {
+    return;
+  }
+
   mediaPreview.classList.remove("hidden");
+
   files.forEach(file => {
+
     const card = document.createElement("div");
     card.className = "media-card";
     card.innerHTML = escapeHtml(file.name);
     mediaPreview.appendChild(card);
+
   });
+
 });
 
 // =========================================================
-// VOICE NOTE SYSTEM (recording UI only)
+// VOICE NOTE SYSTEM (recording UI only - not sent yet)
 // =========================================================
 
 voiceBtn.addEventListener("click", () => {
+
   composer.classList.add("hidden");
   recordingPanel.classList.remove("hidden");
+
   recordingSeconds = 0;
   recordingTimer.innerHTML = "0:00";
+
   recordingInterval = setInterval(() => {
+
     recordingSeconds++;
+
     const mins = Math.floor(recordingSeconds / 60);
     const secs = recordingSeconds % 60;
+
     recordingTimer.innerHTML = mins + ":" + secs.toString().padStart(2, "0");
+
   }, 1000);
+
 });
 
 cancelRecording.addEventListener("click", () => {
+
   clearInterval(recordingInterval);
+
   recordingPanel.classList.add("hidden");
   composer.classList.remove("hidden");
+
 });
 
-document.getElementById("sendRecording").addEventListener("click", () => {
-  clearInterval(recordingInterval);
-  recordingPanel.classList.add("hidden");
-  composer.classList.remove("hidden");
-});
+document
+  .getElementById("sendRecording")
+  .addEventListener("click", () => {
+
+    clearInterval(recordingInterval);
+
+    recordingPanel.classList.add("hidden");
+    composer.classList.remove("hidden");
+
+  });
 
 // =========================================================
-// REAL MESSAGE SENDING (+ updates sidebar preview metadata)
+// REAL MESSAGE SENDING
 // =========================================================
 
 async function sendMessage() {
 
   const text = composerInput.value.trim();
-  if (!text || !currentRoomId || !currentUser) return;
+
+  if (!text || !currentRoomId || !currentUser) {
+    return;
+  }
 
   composerInput.value = "";
-
-  const displayName = currentUser.displayName || currentUser.email || "Learner";
 
   try {
 
     await addDoc(collection(db, "chatRooms", currentRoomId, "messages"), {
       uid: currentUser.uid,
-      displayName: displayName,
+      displayName: currentUser.displayName || currentUser.email || "Learner",
       text: text,
       createdAt: serverTimestamp()
     });
 
-    const preview = text.length > 60 ? text.slice(0, 60) + "…" : text;
-
-    await setDoc(doc(db, "chatRooms", currentRoomId), {
-      lastMessage: preview,
-      lastMessageAt: serverTimestamp(),
-      lastSenderName: displayName
-    }, { merge: true });
-
   } catch (err) {
+
     console.error("Send failed:", err);
     alert("Could not send message. Please try again.");
+
   }
 
 }
@@ -300,12 +294,18 @@ function subscribeToRoom(roomId) {
       const text = escapeHtml(msg.text || "");
 
       let inner = "";
-      if (!isOwn) inner += "<div class=\"message-avatar\">" + initial + "</div>";
+      if (!isOwn) {
+        inner += "<div class=\"message-avatar\">" + initial + "</div>";
+      }
       inner += "<div class=\"message-bubble " + (isOwn ? "outgoing-bubble" : "incoming-bubble") + "\">";
-      if (!isOwn) inner += "<div class=\"message-user\">" + name + "</div>";
-      inner += "<div>" + text + "</div></div>";
+      if (!isOwn) {
+        inner += "<div class=\"message-user\">" + name + "</div>";
+      }
+      inner += "<div>" + text + "</div>";
+      inner += "</div>";
 
       row.innerHTML = inner;
+
       messagesContainer.appendChild(row);
 
     });
