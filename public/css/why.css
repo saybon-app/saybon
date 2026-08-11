@@ -104,7 +104,7 @@ body.why-page{
     position:relative;
     display:block;
     width:100%;
-    height:100vh;
+    height:72vh;
     overflow:hidden;
     background:inherit;
 }
@@ -112,7 +112,7 @@ body.why-page{
 .why-bg-wrap-desktop{
     position:relative;
     width:100%;
-    height:100vh;
+    height:72vh;
 
     overflow:hidden;
     background:inherit;
@@ -196,29 +196,29 @@ body.why-page{
    Bigger buttons directly under title
 ========================================================= */
 .why-option-desktop{
-    width:17%;
+    width:14.5%;
     position:absolute;
     z-index:50;
 }
 
 .why-option-personal{
-  left:14%;
-  top:28%;
+  left:15%;
+  top:40%;
 }
 
 .why-option-school{
-  left:32%;
-  top:28%;
+  left:33.5%;
+  top:40%;
 }
 
 .why-option-travel{
-  left:49%;
-  top:28%;
+  left:52%;
+  top:40%;
 }
 
 .why-option-career{
-  left:67%;
-  top:28%;
+  left:70.5%;
+  top:40%;
 }
 
 /* =========================================================
