@@ -27,6 +27,28 @@ const questions = [
   { id: 20, prompt: "Choisis la nuance correcte.", options: ["Il semble que ce soit vrai.", "Il semble que c'est vrai.", "Il semble est vrai.", "Il semble vrai que."], correct: 0, level: "C1" }
 ];
 
+/* ==================================================
+   SHUFFLE ANSWER ORDER
+   Runs once at load so the correct answer is not
+   always in the same position. Question 8 is excluded
+   because its options (A/B/C/D) refer to fixed labeled
+   regions inside the accompanying image.
+================================================== */
+function shuffleOptions(q){
+  const correctText = q.options[q.correct];
+  for(let i = q.options.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = q.options[i];
+    q.options[i] = q.options[j];
+    q.options[j] = tmp;
+  }
+  q.correct = q.options.indexOf(correctText);
+}
+
+questions.forEach(q => {
+  if (q.id !== 8) shuffleOptions(q);
+});
+
 let index = 0;
 let wrongStreak = 0;
 const scores = { A0:0, A1:0, A2:0, B1:0, B2:0, C1:0 };
