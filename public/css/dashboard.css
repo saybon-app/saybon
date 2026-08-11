@@ -2,12 +2,19 @@
 
 html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%); }
 
-.dash-shell{ display:flex; min-height:100vh; align-items:flex-start; }
+.dash-shell{ display:flex; height:100vh; align-items:flex-start; }
 
 .dash-sidebar{
-  width:260px; flex:0 0 260px; padding:28px 20px;
-  display:flex; flex-direction:column; gap:20px;
-  position:sticky; top:0; height:100vh; overflow-y:auto;
+  width:260px; flex:0 0 260px; padding:24px 20px;
+  display:flex; flex-direction:column; justify-content:space-between; gap:14px;
+  height:100vh; overflow:hidden;
+}
+
+.dash-sidebar-top{ display:flex; flex-direction:column; gap:14px; }
+
+.dash-main{
+  flex:1; height:100vh; overflow-y:auto;
+  padding:32px 32px 100px;
 }
 
 .dash-logo{ display:flex; align-items:center; gap:10px; padding:4px 0 10px; }
@@ -19,8 +26,8 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
   background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
   backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,.1);
-  border-radius:20px;
-  padding:16px 18px;
+  border-radius:18px;
+  padding:13px 16px;
   box-shadow: 0 10px 24px rgba(0,0,0,.3);
 }
 
@@ -48,7 +55,7 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
 
 .dash-goal-card{ text-align:center; }
 .dash-goal-title{ font-weight:800; font-size:14px; color:#fff; margin-bottom:10px; }
-.dash-goal-ring-wrap{ position:relative; width:110px; height:110px; margin:0 auto; }
+.dash-goal-ring-wrap{ position:relative; width:92px; height:92px; margin:0 auto; }
 .dash-goal-ring{ width:100%; height:100%; transform:rotate(-90deg); }
 .ring-track{ fill:none; stroke:rgba(255,255,255,.12); stroke-width:9; }
 .ring-fill{ fill:none; stroke:#e0578a; stroke-width:9; stroke-linecap:round; transition: stroke-dashoffset .6s ease; }
@@ -59,43 +66,53 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
 .dash-goal-ring-text small{ font-size:11px; font-weight:600; color:rgba(255,255,255,.6); }
 .dash-goal-caption{ margin-top:10px; font-size:12px; color:rgba(255,255,255,.55); font-weight:600; }
 
-.dash-main{ flex:1; padding:32px 32px 100px; }
-
-.dash-header{ margin-bottom:28px; }
-.dash-header h1{
-  margin:0 0 6px; font-size:32px; font-weight:900; color:#fff; letter-spacing:.5px;
-  text-shadow: 0 0 18px rgba(160,180,255,.45);
-}
-.dash-header-pin{ filter: drop-shadow(0 0 8px rgba(255,255,255,.5)); }
-.dash-header p{ margin:0; font-size:15px; color:rgba(255,255,255,.6); }
-
 .dash-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
 
 .dash-card{
   border-radius:22px; padding:26px; cursor:pointer;
   transition: transform .25s ease, box-shadow .25s ease;
-  box-shadow: 0 16px 34px rgba(0,0,0,.35);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.4),
+    inset 0 -10px 20px rgba(0,0,0,.2),
+    0 16px 34px rgba(0,0,0,.4);
   position:relative; overflow:hidden;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.22);
 }
 .dash-card::after{
   content:""; position:absolute; inset:0;
-  background: linear-gradient(135deg, rgba(255,255,255,.16), transparent 55%);
+  background: linear-gradient(135deg, rgba(255,255,255,.22), transparent 55%);
   pointer-events:none;
 }
-.dash-card:hover{ transform:translateY(-5px); box-shadow: 0 22px 44px rgba(0,0,0,.45); }
+.dash-card::before{
+  content:"";
+  position:absolute;
+  top:0; left:-60%;
+  width:40%; height:100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-20deg);
+  animation: cardShimmer 6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes cardShimmer{
+  0%{ left:-60%; }
+  18%{ left:140%; }
+  100%{ left:140%; }
+}
+.dash-card:hover{ transform:translateY(-5px); box-shadow: inset 0 1px 1px rgba(255,255,255,.5), inset 0 -10px 20px rgba(0,0,0,.22), 0 22px 44px rgba(0,0,0,.5); }
 
-.dash-card .emoji{ font-size:30px; margin-bottom:14px; }
-.dash-card h3{ margin:0 0 4px; font-size:21px; font-weight:800; color:#fff; }
+.dash-card .emoji{ font-size:30px; margin-bottom:14px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.3)); }
+.dash-card h3{ margin:0 0 4px; font-size:21px; font-weight:800; color:#fff; text-shadow: 0 2px 4px rgba(0,0,0,.25); }
 .dash-card span{ font-size:14px; color:rgba(255,255,255,.85); }
 
-.card-levels{ background: linear-gradient(135deg, #e6a8c4, #c97ea3); }
-.card-talkletics{ background: linear-gradient(135deg, #1d5c47, #0f3d30); }
-.card-music{ background: linear-gradient(135deg, #f0916a, #e07a52); }
-.card-delf{ background: linear-gradient(135deg, #4ecbb0, #2fa88f); }
-.card-translation{ background: linear-gradient(135deg, #e0a94a, #c78d2e); }
-.card-chat{ background: linear-gradient(135deg, #9370c9, #7050a8); }
-.card-feedback{ background: linear-gradient(135deg, #d9578f, #b83d70); }
-.card-support{ background: linear-gradient(135deg, #4a90d9, #3070b8); }
+.card-levels{ background: linear-gradient(135deg, rgba(230,168,196,.55), rgba(201,126,163,.4)); }
+.card-talkletics{ background: linear-gradient(135deg, rgba(29,92,71,.6), rgba(15,61,48,.45)); }
+.card-music{ background: linear-gradient(135deg, rgba(240,145,106,.55), rgba(224,122,82,.4)); }
+.card-delf{ background: linear-gradient(135deg, rgba(78,203,176,.55), rgba(47,168,143,.4)); }
+.card-translation{ background: linear-gradient(135deg, rgba(224,169,74,.55), rgba(199,141,46,.4)); }
+.card-chat{ background: linear-gradient(135deg, rgba(147,112,201,.55), rgba(112,80,168,.4)); }
+.card-feedback{ background: linear-gradient(135deg, rgba(217,87,143,.55), rgba(184,61,112,.4)); }
+.card-support{ background: linear-gradient(135deg, rgba(74,144,217,.55), rgba(48,112,184,.4)); }
 
 .dash-mobile-bar{ display:none; }
 
@@ -103,8 +120,7 @@ html, body{ margin:0; min-height:100%; background: radial-gradient(circle at 20%
 
 @media (max-width:800px){
   .dash-sidebar{ display:none; }
-  .dash-main{ padding:24px 18px 90px; }
-  .dash-header h1{ font-size:24px; }
+  .dash-main{ height:auto; padding:24px 18px 90px; }
   .dash-grid{ grid-template-columns:1fr; }
 
   .dash-mobile-bar{
