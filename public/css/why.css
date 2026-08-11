@@ -273,6 +273,11 @@ body.why-page{
 
 .why-option{
   opacity:0;
+  transform:translateY(22px);
+  filter:blur(4px);
+}
+
+.why-shell.why-cards-ready .why-option{
   animation:whyOptionIn .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 
@@ -292,7 +297,7 @@ body.why-page{
    Bigger buttons directly under title
 ========================================================= */
 .why-option-desktop{
-    width:14.5%;
+    width:17%;
     position:absolute;
     z-index:50;
 }
@@ -351,7 +356,7 @@ body.why-page{
 ========================================================= */
 @media (max-width:1200px){
   .why-option-desktop{
-    width:14.5%;
+    width:17%;
   }
 
   .why-option-personal{ left:17.4%; top:45%; }

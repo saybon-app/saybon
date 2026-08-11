@@ -1,5 +1,5 @@
 
-function typeTitle(el){
+function typeTitle(el, onDone){
   if(!el) return;
   const text = el.getAttribute("data-text") || "";
   el.textContent = "";
@@ -17,18 +17,25 @@ function typeTitle(el){
       i++;
       setTimeout(step, speed);
     } else {
-      setTimeout(() => cursor.remove(), 900);
+      setTimeout(() => {
+        cursor.remove();
+        if(typeof onDone === "function") onDone();
+      }, 900);
     }
   }
 
   step();
 }
 
+const shell = document.querySelector(".why-shell");
+
 document.querySelectorAll(".why-title").forEach(titleEl => {
   const textEl = titleEl.querySelector(".why-title-text");
   titleEl.addEventListener("animationend", (e) => {
     if(e.target === titleEl){
-      typeTitle(textEl);
+      typeTitle(textEl, () => {
+        shell?.classList.add("why-cards-ready");
+      });
     }
   }, { once:true });
 });
@@ -38,7 +45,6 @@ document.getElementById("whyHomeBtn")?.addEventListener("click", () => {
 });
 
 const cards=[...document.querySelectorAll(".why-option")];
-const shell=document.querySelector(".why-shell");
 
 let busy=false;
 
