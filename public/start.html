@@ -3,49 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Start your journey — SayBon</title>
-
-  <link rel="stylesheet" href="/css/start.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/start.css?v=20260811" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
+<body class="start-page">
 
-<body>
+  <button class="start-home-btn" id="startHomeBtn" aria-label="Back Home">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1f2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 10.5L12 3l9 7.5"/>
+      <path d="M5 9.5V21h14V9.5"/>
+    </svg>
+  </button>
 
-  <main class="start-container">
+  <main class="start-shell">
 
-    <div class="header">
-      <span class="capsule">🌟 Start your journey</span>
-      <h1>How would you like to begin?</h1>
-      <p class="subtitle"></p>
-    </div>
+    <h1 class="start-title" aria-label="How would you like to begin?">
+      <span class="start-title-text" data-text="How would you like to begin?"></span>
+      <span class="start-title-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </span>
+    </h1>
 
     <div class="paths">
 
-      <!-- LEFT PATH -->
-      <div class="path path-left" id="findLevel">
-        <div class="path-tag"></div>
-
-        <div class="path-card">
-          <h2>Find my level</h2>
-          <p>Take a quick smart test to meet your perfect match.</p>
+      <button class="start-path start-path-left" id="findLevel">
+        <div class="start-path-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="24"/>
+            <circle cx="32" cy="32" r="14"/>
+            <circle cx="32" cy="32" r="3" fill="#fff"/>
+          </svg>
         </div>
-      </div>
+        <h2>Find my level</h2>
+        <p>Take a quick smart test to meet your perfect match.</p>
+      </button>
 
-      <!-- RIGHT PATH -->
-      <div class="path path-right" id="startScratch">
-        <div class="path-tag"></div>
-
-        <div class="path-card">
-          <h2>Start from scratch</h2>
-          <p>Begin with Absolute Beginner — step by step.</p>
+      <button class="start-path start-path-right" id="startScratch">
+        <div class="start-path-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 56V30"/>
+            <path d="M32 30c0-10 -8-16-18-16 0 10 8 16 18 16z"/>
+            <path d="M32 38c0-8 8-14 18-14 0 8-8 14-18 14z"/>
+          </svg>
         </div>
-      </div>
+        <h2>Start from scratch</h2>
+        <p>Begin with Absolute Beginner — step by step.</p>
+      </button>
 
     </div>
 
   </main>
 
-  <script src="/js/start.js"></script>
+  <script src="/js/start.js?v=20260811"></script>
 </body>
 </html>
