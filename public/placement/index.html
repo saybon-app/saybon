@@ -4,19 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SayBon Placement Test</title>
-  <link rel="stylesheet" href="placement.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="placement.css?v=20260811" />
 </head>
-<body>
+<body class="placement-page">
 
-<main id="app">
-  <h2 id="questionPrompt"></h2>
-  <div id="mediaArea"></div>
-  <div id="options"></div>
+<button class="placement-home-btn" id="placementHomeBtn" aria-label="Back to start">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1f2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 10.5L12 3l9 7.5"/>
+    <path d="M5 9.5V21h14V9.5"/>
+  </svg>
+</button>
+
+<main class="placement-shell">
+
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+    <span class="progress-label" id="progressLabel">Question 1 of 20</span>
+  </div>
+
+  <div class="question-card">
+    <h2 id="questionPrompt" class="question-prompt"></h2>
+    <div id="mediaArea" class="media-area"></div>
+    <div id="options" class="options"></div>
+  </div>
+
 </main>
 
 <div id="intervention" class="hidden">
 
-  <!-- INTERVENTION TEACHER (NEW IMAGE ONLY HERE) -->
   <div class="teacher-box">
     <div class="teacher-circle">
       <img src="/assets/images/teacher-intervention.png" />
@@ -35,6 +53,6 @@
   </div>
 </div>
 
-<script src="./placement.js"></script>
+<script src="./placement.js?v=20260811"></script>
 </body>
 </html>
