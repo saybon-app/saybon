@@ -1,7 +1,7 @@
 :root{
   --why-page-bg:#e7f2fc;
-  --why-home-size:74px;
-  --why-home-size-mobile:58px;
+  --why-home-size:46px;
+  --why-home-size-mobile:40px;
   --why-press-scale:.975;
   --why-press-y:1px;
 }
@@ -47,10 +47,18 @@ body.why-page{
   width:var(--why-home-size);
   height:var(--why-home-size);
   border:none;
-  background:transparent;
+  border-radius:50%;
+  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.22));
+  backdrop-filter:blur(10px);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.6),
+    0 6px 16px rgba(20,40,80,.18);
   padding:0;
   cursor:pointer;
   z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
   transition:transform .18s ease, filter .18s ease;
@@ -68,6 +76,30 @@ body.why-page{
     transform:translateY(-1px) scale(1.02);
     filter:brightness(1.02);
   }
+}
+
+/* =========================================================
+   WHY PAGE TITLE (was previously baked into the art)
+========================================================= */
+.why-title{
+  position:absolute;
+  left:50%;
+  top:8%;
+  transform:translateX(-50%);
+  z-index:60;
+  max-width:70%;
+  padding:22px 46px;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.16));
+  backdrop-filter:blur(14px);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.6),
+    0 14px 30px rgba(20,40,80,.16);
+  font-size:clamp(22px,2.6vw,34px);
+  font-weight:800;
+  color:#1f2937;
+  text-align:center;
+  margin:0;
 }
 
 .why-home-btn:active{
@@ -104,7 +136,7 @@ body.why-page{
     position:relative;
     display:block;
     width:100%;
-    height:72vh;
+    height:100vh;
     overflow:hidden;
     background:inherit;
 }
@@ -112,7 +144,7 @@ body.why-page{
 .why-bg-wrap-desktop{
     position:relative;
     width:100%;
-    height:72vh;
+    height:100vh;
 
     overflow:hidden;
     background:inherit;
@@ -203,22 +235,22 @@ body.why-page{
 
 .why-option-personal{
   left:15%;
-  top:40%;
+  top:55%;
 }
 
 .why-option-school{
   left:33.5%;
-  top:40%;
+  top:55%;
 }
 
 .why-option-travel{
   left:52%;
-  top:40%;
+  top:55%;
 }
 
 .why-option-career{
   left:70.5%;
-  top:40%;
+  top:55%;
 }
 
 /* =========================================================
@@ -255,13 +287,13 @@ body.why-page{
 ========================================================= */
 @media (max-width:1200px){
   .why-option-desktop{
-    width:16.8%;
+    width:14.5%;
   }
 
-  .why-option-personal{ left:17.4%; top:41.8%; }
-  .why-option-school{   left:35.9%; top:41.8%; }
-  .why-option-travel{   left:54.4%; top:41.8%; }
-  .why-option-career{   left:72.9%; top:41.8%; }
+  .why-option-personal{ left:17.4%; top:56%; }
+  .why-option-school{   left:35.9%; top:56%; }
+  .why-option-travel{   left:54.4%; top:56%; }
+  .why-option-career{   left:72.9%; top:56%; }
 }
 
 /* =========================================================
