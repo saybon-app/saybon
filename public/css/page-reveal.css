@@ -1,0 +1,25 @@
+/* =========================================================
+   SAYBON GLOBAL PAGE REVEAL
+   One shared reveal system for every page EXCEPT the
+   homepage, which keeps its own bespoke system in
+   home.css / home.js. Do not touch that system.
+
+   USAGE PER PAGE (added one page at a time):
+     1. Add class="pr-preload" to <body>
+     2. Add <script src="/js/page-reveal.js" defer></script>
+        anywhere in <head> or before </body>
+   No other markup or per-page code needed.
+========================================================= */
+
+body.pr-preload{
+  opacity:0;
+  filter:blur(6px);
+}
+
+body.pr-in{
+  opacity:1;
+  filter:blur(0);
+  transition:
+    opacity .7s ease,
+    filter .8s ease;
+}
