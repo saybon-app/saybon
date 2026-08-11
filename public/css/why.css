@@ -281,10 +281,10 @@ body.why-page{
   animation:whyOptionIn .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 
-.why-option-personal, .why-option-mobile-1{ animation-delay:.15s; }
-.why-option-school, .why-option-mobile-2{ animation-delay:.30s; }
-.why-option-travel, .why-option-mobile-3{ animation-delay:.45s; }
-.why-option-career, .why-option-mobile-4{ animation-delay:.60s; }
+.why-option-personal, .why-option-mobile-1{ animation-delay:0s; }
+.why-option-school, .why-option-mobile-2{ animation-delay:.25s; }
+.why-option-travel, .why-option-mobile-3{ animation-delay:.5s; }
+.why-option-career, .why-option-mobile-4{ animation-delay:.75s; }
 
 .why-title{
   opacity:0;
