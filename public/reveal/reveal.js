@@ -31,22 +31,22 @@ function buildWreath(){
   defs.appendChild(grad);
   svg.appendChild(defs);
 
-  const leafCount = 7;
-  const radius = 105;
+  const leafCount = 8;
+  const radius = 72;
 
   [-1, 1].forEach(side => {
     for (let i = 0; i < leafCount; i++) {
       const t = i / (leafCount - 1);
-      const angleDeg = 100 + t * 85;
+      const angleDeg = 62 + t * 118;
       const angle = side * angleDeg;
 
       const leaf = document.createElementNS("http://www.w3.org/2000/svg","ellipse");
       leaf.setAttribute("cx", 0);
       leaf.setAttribute("cy", 0);
-      leaf.setAttribute("rx", 11);
-      leaf.setAttribute("ry", 22);
+      leaf.setAttribute("rx", 8);
+      leaf.setAttribute("ry", 15);
       leaf.setAttribute("class", "wreath-leaf");
-      leaf.setAttribute("transform", "rotate(" + angle + ") translate(0," + (-radius) + ")");
+      leaf.setAttribute("transform", "rotate(" + angle + ") translate(0," + (-radius) + ") rotate(" + (side * 30) + ")");
 
       svg.appendChild(leaf);
     }
