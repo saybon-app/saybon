@@ -1,4 +1,38 @@
 
+function typeTitle(el){
+  if(!el) return;
+  const text = el.getAttribute("data-text") || "";
+  el.textContent = "";
+
+  const cursor = document.createElement("span");
+  cursor.className = "why-title-cursor";
+  el.appendChild(cursor);
+
+  let i = 0;
+  const speed = 38;
+
+  function step(){
+    if(i < text.length){
+      cursor.insertAdjacentText("beforebegin", text.charAt(i));
+      i++;
+      setTimeout(step, speed);
+    } else {
+      setTimeout(() => cursor.remove(), 900);
+    }
+  }
+
+  step();
+}
+
+document.querySelectorAll(".why-title").forEach(titleEl => {
+  const textEl = titleEl.querySelector(".why-title-text");
+  titleEl.addEventListener("animationend", (e) => {
+    if(e.target === titleEl){
+      typeTitle(textEl);
+    }
+  }, { once:true });
+});
+
 document.getElementById("whyHomeBtn")?.addEventListener("click", () => {
   window.location.href = "/";
 });
