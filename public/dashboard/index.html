@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LEARNER DASHBOARD — SayBon</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/dashboard.css?v=20260811" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard.css?v=20260811c" />
 </head>
 
 <body>
@@ -62,45 +62,77 @@
 
     <div class="dash-grid">
 
-      <div class="dash-card card-levels" onclick="goLevels()">
-        <img src="/assets/dashboard/levels.PNG" alt="Levels: A0 to C1 structured path" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Continue learning"></span>
-      </div>
+      <button class="dash-card card-levels" onclick="goLevels()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 24 8l18 10-18 10z"/><path d="M14 22v9c0 3 4.5 6 10 6s10-3 10-6v-9"/><path d="M42 18v11"/></svg>
+        </span>
+        <h3>Levels</h3>
+        <span class="dash-card-sub">A0 → C1 structured path</span>
+        <span class="dash-card-btn">Continue learning →</span>
+      </button>
 
-      <div class="dash-card card-talkletics" onclick="goTalkletics()">
-        <img src="/assets/dashboard/talkletics.PNG" alt="Talkletics: skill building games" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Play games"></span>
-      </div>
+      <button class="dash-card card-talkletics" onclick="goTalkletics()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="17" width="36" height="17" rx="8"/><path d="M16 25h-4M14 23v4"/><circle cx="30" cy="23" r="1.6" fill="#fff"/><circle cx="35" cy="27" r="1.6" fill="#fff"/></svg>
+        </span>
+        <h3>Talkletics</h3>
+        <span class="dash-card-sub">Skill building games</span>
+        <span class="dash-card-btn">Play games →</span>
+      </button>
 
-      <div class="dash-card card-music" onclick="goMusic()">
-        <img src="/assets/dashboard/music.PNG" alt="Music: learn with rhythm" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Explore music"></span>
-      </div>
+      <button class="dash-card card-music" onclick="goMusic()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 32V10l20-4v22"/><circle cx="14" cy="34" r="4.5"/><circle cx="34" cy="30" r="4.5"/></svg>
+        </span>
+        <h3>Music</h3>
+        <span class="dash-card-sub">Learn with rhythm</span>
+        <span class="dash-card-btn">Explore music →</span>
+      </button>
 
-      <div class="dash-card card-delf" onclick="goDelf()">
-        <img src="/assets/dashboard/delf.PNG" alt="DELF Prep: mock exams" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Start mock exam"></span>
-      </div>
+      <button class="dash-card card-delf" onclick="goDelf()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8h18l6 6v26H12z"/><path d="M30 8v6h6"/><path d="M17 24h14M17 30h14M17 18h8"/></svg>
+        </span>
+        <h3>DELF Prep</h3>
+        <span class="dash-card-sub">Mock exams</span>
+        <span class="dash-card-btn">Start mock exam →</span>
+      </button>
 
-      <div class="dash-card card-translation" onclick="goTranslation()">
-        <img src="/assets/dashboard/translation.PNG" alt="Translation: clients and translators" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Request translation"></span>
-      </div>
+      <button class="dash-card card-translation" onclick="goTranslation()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c4.5 4.7 7 10.7 7 17s-2.5 12.3-7 17c-4.5-4.7-7-10.7-7-17s2.5-12.3 7-17z"/></svg>
+        </span>
+        <h3>Translation</h3>
+        <span class="dash-card-sub">Clients & translators</span>
+        <span class="dash-card-btn">Request translation →</span>
+      </button>
 
-      <div class="dash-card card-chat" onclick="goChat()">
-        <img src="/assets/dashboard/chatroom.PNG" alt="Chat Room: community space" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Join conversation"></span>
-      </div>
+      <button class="dash-card card-chat" onclick="goChat()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h32v20H20l-8 7v-7H8z"/><path d="M16 20h16M16 26h10"/></svg>
+        </span>
+        <h3>Chat Room</h3>
+        <span class="dash-card-sub">Community space</span>
+        <span class="dash-card-btn">Join conversation →</span>
+      </button>
 
-      <div class="dash-card card-feedback" onclick="goFeedback()">
-        <img src="/assets/dashboard/feedback.PNG" alt="Feedback: enquiries and suggestions" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Give feedback"></span>
-      </div>
+      <button class="dash-card card-feedback" onclick="goFeedback()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40c9-6.5 16-13 16-21a9 9 0 0 0-16-5.6A9 9 0 0 0 8 19c0 8 7 14.5 16 21z"/></svg>
+        </span>
+        <h3>Feedback</h3>
+        <span class="dash-card-sub">Enquiries & suggestions</span>
+        <span class="dash-card-btn">Give feedback →</span>
+      </button>
 
-      <div class="dash-card card-support" onclick="goSupport()">
-        <img src="/assets/dashboard/suppport.PNG" alt="Support: we are here for you" class="dash-card-icon" />
-        <span class="dash-card-label" data-text="Get support"></span>
-      </div>
+      <button class="dash-card card-support" onclick="goSupport()">
+        <span class="dash-card-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="8"/><path d="M11 11l7 7M37 11l-7 7M11 37l7-7M37 37l-7-7"/></svg>
+        </span>
+        <h3>Support</h3>
+        <span class="dash-card-sub">We are here for you</span>
+        <span class="dash-card-btn">Get support →</span>
+      </button>
 
     </div>
 
@@ -114,6 +146,6 @@
 
 </div>
 
-<script src="/dashboard/dashboard.js?v=20260811"></script>
+<script src="/dashboard/dashboard.js?v=20260811c"></script>
 </body>
 </html>
