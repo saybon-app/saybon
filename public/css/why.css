@@ -293,6 +293,54 @@ body.why-page{
 .why-shell.why-cards-ready .why-option-career,
 .why-shell.why-cards-ready .why-option-mobile-4{ animation-delay:.75s; }
 
+/* =========================================================
+   CARD SELECTION REACTION
+   Click pulse, hero bounce/float once centered, and a
+   staggered fall-off for the cards not chosen.
+========================================================= */
+
+@keyframes whyClickPulse{
+  0%{ transform:scale(1); }
+  40%{ transform:scale(1.06); }
+  100%{ transform:scale(1); }
+}
+
+.why-option.why-just-selected{
+  animation:whyClickPulse .28s ease;
+}
+
+@keyframes whyHeroBounce{
+  0%{ transform:var(--why-transform) scale(1.08); }
+  35%{ transform:var(--why-transform) translateY(-10px) scale(1.11); }
+  65%{ transform:var(--why-transform) translateY(3px) scale(1.06); }
+  100%{ transform:var(--why-transform) scale(1.08); }
+}
+
+.why-option.why-bounce{
+  animation:whyHeroBounce 1.05s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes whyHeroFloat{
+  0%{ transform:var(--why-transform) scale(1.08); }
+  50%{ transform:var(--why-transform) translateY(-3px) scale(1.082); }
+  100%{ transform:var(--why-transform) scale(1.08); }
+}
+
+.why-option.why-floating{
+  animation:whyHeroFloat 2.4s ease-in-out infinite;
+}
+
+.why-option.why-fall-out{
+  transition:
+    transform .85s cubic-bezier(.4,0,.7,1),
+    opacity .7s ease,
+    filter .7s ease;
+  transform:translateY(150px) rotate(var(--why-fall-rotate, -7deg));
+  opacity:0;
+  filter:blur(3px);
+  pointer-events:none;
+}
+
 .why-title{
   opacity:0;
   animation:whyOptionIn .8s cubic-bezier(.22,1,.36,1) forwards;

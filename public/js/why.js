@@ -48,80 +48,93 @@ const cards=[...document.querySelectorAll(".why-option")];
 
 let busy=false;
 
-cards.forEach(card=>{
+cards.forEach((card, cardIndex)=>{
 
     card.addEventListener("click",()=>{
 
         if(busy) return;
         busy=true;
 
-        const cardRect=card.getBoundingClientRect();
-        const shellRect=shell.getBoundingClientRect();
+        card.classList.add("why-just-selected");
 
-        const cardCenterX=cardRect.left+(cardRect.width/2);
-        const cardCenterY=cardRect.top+(cardRect.height/2);
+        const others = cards.filter(c => c !== card);
 
-        const shellCenterX=shellRect.left+(shellRect.width/2);
-        const shellCenterY=shellRect.top+(shellRect.height/2);
+        others.forEach((other, i)=>{
 
-        const moveX=shellCenterX-cardCenterX;
-        const moveY=shellCenterY-cardCenterY;
+            other.style.setProperty(
+                "--why-fall-rotate",
+                i % 2 === 0 ? "-7deg" : "7deg"
+            );
 
-        cards.forEach(other=>{
+            other.style.transitionDelay = `${i * 130}ms`;
 
-            if(other!==card){
-
-                other.classList.add("why-fade-out");
-
-            }
+            other.classList.add("why-fall-out");
 
         });
 
-        card.style.zIndex="9999";
-
-        const heroTransform=
-            `translate(${moveX}px,${moveY}px)`;
-
-        card.style.setProperty(
-            "--why-transform",
-            heroTransform
-        );
-
-        card.style.transition=
-            "transform 1.5s cubic-bezier(.22,1,.36,1)";
-
-        card.style.transform=
-            `${heroTransform} scale(1.08)`;
-
         setTimeout(()=>{
 
-            card.classList.add("why-bounce");
+            card.classList.remove("why-just-selected");
 
-        },1550);
+            const cardRect=card.getBoundingClientRect();
+            const shellRect=shell.getBoundingClientRect();
 
-        setTimeout(()=>{
+            const cardCenterX=cardRect.left+(cardRect.width/2);
+            const cardCenterY=cardRect.top+(cardRect.height/2);
 
-            card.classList.remove("why-bounce");
-            card.classList.add("why-floating");
+            const shellCenterX=shellRect.left+(shellRect.width/2);
+            const shellCenterY=shellRect.top+(shellRect.height/2);
 
-        },2600);
+            const moveX=shellCenterX-cardCenterX;
+            const moveY=shellCenterY-cardCenterY;
 
-        setTimeout(()=>{
+            card.style.zIndex="9999";
 
-            shell.classList.add("why-shell-exit");
+            const heroTransform=
+                `translate(${moveX}px,${moveY}px)`;
 
-        },4250);
-
-        setTimeout(()=>{
-
-            sessionStorage.setItem(
-                "saybon_next",
-                "/start.html"
+            card.style.setProperty(
+                "--why-transform",
+                heroTransform
             );
 
-            window.location.href="/loader.html";
+            card.style.transition=
+                "transform 1.5s cubic-bezier(.22,1,.36,1)";
 
-        },5000);
+            card.style.transform=
+                `${heroTransform} scale(1.08)`;
+
+            setTimeout(()=>{
+
+                card.classList.add("why-bounce");
+
+            },1550);
+
+            setTimeout(()=>{
+
+                card.classList.remove("why-bounce");
+                card.classList.add("why-floating");
+
+            },2600);
+
+            setTimeout(()=>{
+
+                shell.classList.add("why-shell-exit");
+
+            },4250);
+
+            setTimeout(()=>{
+
+                sessionStorage.setItem(
+                    "saybon_next",
+                    "/start.html"
+                );
+
+                window.location.href="/loader.html";
+
+            },5000);
+
+        }, 280);
 
     });
 
