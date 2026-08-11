@@ -69,34 +69,12 @@ body {
   100%{ opacity:1; transform: scale(1) rotate(360deg); }
 }
 
-.wreath-svg{ position: absolute; inset: 0; width: 100%; height: 100%; }
-
-.wreath-leaf{ fill: url(#leafGradient); }
-
-.badge-shield{
+.trophy-svg{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 118px;
-  height: 118px;
-  transform: translate(-50%,-50%) rotate(45deg);
-  border-radius: 22%;
-  background: linear-gradient(160deg, #ffe9a8 0%, #f0b429 35%, #c9860f 70%, #8f5c05 100%);
-  box-shadow:
-    0 0 0 4px rgba(255,225,150,.5),
-    0 0 40px 10px rgba(255,170,40,.55),
-    inset 0 2px 3px rgba(255,255,255,.6),
-    inset 0 -6px 10px rgba(90,50,0,.5);
-}
-
-.badge-shield-highlight{
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  width: 60%;
-  height: 60%;
-  background: linear-gradient(160deg, rgba(255,255,255,.9), rgba(255,255,255,0) 60%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 24px rgba(255,170,40,.55));
 }
 
 .badge-ribbon{
@@ -157,6 +135,5 @@ body {
 
 @media (max-width:480px){
   .badge-wrap{ width:200px; height:200px; }
-  .badge-shield{ width:96px; height:96px; }
   .badge-ribbon{ padding:12px 26px; margin-top:-26px; }
 }
