@@ -5,91 +5,127 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LEARNER DASHBOARD — SayBon</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-
-  <!-- External CSS ONLY -->
-  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard.css?v=20260811d" />
 </head>
-
 <body>
 
-<div class="dashboard">
+<div class="dash-shell">
 
-  <!-- ================= HEADER ================= -->
+  <aside class="dash-sidebar">
 
-  <header class="dashboard-header">
-    <h1>LEARNER 📌 DASHBOARD</h1>
-    <p>Your French journey at a glance</p>
-  </header>
-
-  <!-- ================= GRID ================= -->
-
-  <main class="dashboard-grid">
-
-    <div class="card levels" onclick="goLevels()">
-      <div class="emoji">🎓</div>
-      <h3>Levels</h3>
-      <span>A0 → C1 structured path</span>
+    <div class="dash-logo">
+      <span class="dash-logo-pin">📌</span>
+      <span class="dash-logo-text">LEARNER<br><em>DASHBOARD</em></span>
     </div>
 
-    <div class="card talkletics" onclick="goTalkletics()">
-      <div class="emoji">🧩</div>
-      <h3>Talkletics</h3>
-      <span>Skill building games</span>
+    <div class="dash-streak-card">
+      <span class="dash-streak-flame">🔥</span>
+      <div>
+        <div class="dash-streak-num" id="streakNum">0</div>
+        <div class="dash-streak-label">Day streak</div>
+      </div>
     </div>
 
-    <div class="card music" onclick="goMusic()">
-      <div class="emoji">🎵</div>
-      <h3>Music</h3>
-      <span>Learn with rhythm</span>
+    <div class="dash-profile-card">
+      <div class="dash-avatar" id="dashAvatar">A</div>
+      <div>
+        <div class="dash-profile-name" id="dashName">Learner</div>
+        <div class="dash-profile-level" id="dashLevel">–</div>
+      </div>
     </div>
 
-    <div class="card delf" onclick="goDelf()">
-      <div class="emoji">📄</div>
-      <h3>DELF Prep</h3>
-      <span>Mock exams</span>
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-link">My Progress</a>
+      <a href="#" class="dash-nav-link">Achievements</a>
+      <a href="#" class="dash-nav-link">Settings</a>
+    </nav>
+
+    <div class="dash-goal-card">
+      <div class="dash-goal-title">Daily Goal 🎉</div>
+      <div class="dash-goal-ring-wrap">
+        <svg class="dash-goal-ring" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" class="ring-track"/>
+          <circle cx="50" cy="50" r="42" class="ring-fill" id="goalRingFill"/>
+        </svg>
+        <div class="dash-goal-ring-text">
+          <span id="goalMinutes">0</span><small>/30 min</small>
+        </div>
+      </div>
+      <div class="dash-goal-caption" id="goalCaption">Start today's session</div>
     </div>
 
-    <div class="card translation" onclick="goTranslation()">
-      <div class="emoji">🌍</div>
-      <h3>Translation</h3>
-      <span>Clients & translators</span>
-    </div>
+  </aside>
 
-    <div class="card chat" onclick="goChat()">
-      <div class="emoji">💬</div>
-      <h3>Chat Room</h3>
-      <span>Community space</span>
+  <main class="dash-main">
+
+    <header class="dash-header">
+      <h1>LEARNER <span class="dash-header-pin">📌</span> DASHBOARD</h1>
+      <p>Your French journey at a glance</p>
+    </header>
+
+    <div class="dash-grid">
+
+      <div class="dash-card card-levels" onclick="goLevels()">
+        <div class="emoji">🎓</div>
+        <h3>Levels</h3>
+        <span>A0 → C1 structured path</span>
+      </div>
+
+      <div class="dash-card card-talkletics" onclick="goTalkletics()">
+        <div class="emoji">🧩</div>
+        <h3>Talkletics</h3>
+        <span>Skill building games</span>
+      </div>
+
+      <div class="dash-card card-music" onclick="goMusic()">
+        <div class="emoji">🎵</div>
+        <h3>Music</h3>
+        <span>Learn with rhythm</span>
+      </div>
+
+      <div class="dash-card card-delf" onclick="goDelf()">
+        <div class="emoji">📄</div>
+        <h3>DELF Prep</h3>
+        <span>Mock exams</span>
+      </div>
+
+      <div class="dash-card card-translation" onclick="goTranslation()">
+        <div class="emoji">🌍</div>
+        <h3>Translation</h3>
+        <span>Clients & translators</span>
+      </div>
+
+      <div class="dash-card card-chat" onclick="goChat()">
+        <div class="emoji">💬</div>
+        <h3>Chat Room</h3>
+        <span>Community space</span>
+      </div>
+
+      <div class="dash-card card-feedback" onclick="goFeedback()">
+        <div class="emoji">✍🏽</div>
+        <h3>Feedback</h3>
+        <span>Enquiries & suggestions</span>
+      </div>
+
+      <div class="dash-card card-support" onclick="goSupport()">
+        <div class="emoji">💚</div>
+        <h3>Support</h3>
+        <span>We are here for you</span>
+      </div>
+
     </div>
 
   </main>
 
-  <!-- ================= FOOTER ================= -->
-
-  <div class="dashboard-footer">
-    <button onclick="goFeedback()">Feedback ✍🏽 Enquiries</button>
-    <button onclick="goSupport()">Support 💚 SayBon</button>
-    <button onclick="goHome()">Home</button>
-  </div>
+  <nav class="dash-mobile-bar">
+    <button onclick="goFeedback()" aria-label="Feedback">✍🏽</button>
+    <button onclick="goChat()" aria-label="Chat">💬</button>
+    <button onclick="goHome()" class="dash-mobile-home" aria-label="Home">Home</button>
+  </nav>
 
 </div>
 
-<!-- ================= NAVIGATION ================= -->
-
-<script>
-function goLevels(){ window.location.href="/levels/"; }
-function goTalkletics(){ window.location.href="/talkletics/"; }
-function goMusic(){ window.location.href="/music/"; }
-function goDelf(){ window.location.href="/delf/"; }
-function goTranslation(){ window.location.href="/translation/"; }
-function goChat(){ window.location.href="/chat/"; }
-function goFeedback(){ window.location.href="/feedback/"; }
-function goSupport(){ window.location.href="/support/"; }
-function goHome(){ window.location.href="/"; }
-</script>
-
+<script src="/dashboard/dashboard.js?v=20260811d"></script>
 </body>
 </html>
-
