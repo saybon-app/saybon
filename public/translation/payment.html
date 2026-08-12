@@ -7,25 +7,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Confirm Translation – SayBon</title>
+<title>Confirm Translation â€” SayBon</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
+*{ box-sizing:border-box; }
+
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
+font-family:'Nunito', system-ui, sans-serif;
 background:linear-gradient(to bottom,#e9eef5,#dfe6ee);
 color:#6e6e73;
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
+min-height:100vh;
+padding:20px;
 }
+
+.nav-icon-btn{
+position:fixed;
+top:20px;
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background: rgba(255,255,255,.6);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(255,255,255,.8);
+box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 8px 20px rgba(30,40,30,.12);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.2s;
+z-index:50;
+}
+.nav-icon-btn:active{ transform:scale(.94); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
 
 .card{
 background:rgba(255,255,255,0.6);
@@ -33,42 +55,60 @@ backdrop-filter:blur(20px);
 border-radius:30px;
 padding:40px;
 width:420px;
+max-width:100%;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 text-align:center;
 }
 
 .title{
 letter-spacing:3px;
-font-weight:500;
+font-weight:800;
+font-size:15px;
 margin-bottom:20px;
+color:#1c1c1c;
+}
+
+.job-code{
+font-size:12px;
+color:#9a9f9a;
+margin-bottom:16px;
+min-height:16px;
 }
 
 .row{
 margin:10px 0;
 font-size:14px;
+text-align:left;
+display:flex;
+justify-content:space-between;
 }
+.row span:first-child{ color:#8a8f8a; }
+.row span:last-child{ font-weight:700; color:#3a3f3a; }
 
 .price{
-font-size:26px;
-font-weight:600;
-margin-top:15px;
+font-size:30px;
+font-weight:900;
+margin-top:18px;
+color:#2e7d32;
 }
 
 .payBtn{
 margin-top:25px;
 width:100%;
-background:#1e8e8e;
+background:#2e7d32;
 color:white;
 border:none;
-padding:14px;
-border-radius:12px;
+padding:15px;
+border-radius:14px;
+font-weight:800;
+font-size:15px;
 cursor:pointer;
 transition:0.2s;
 }
 
-.payBtn:active{
-transform:scale(0.96);
-}
+.payBtn:hover{ filter:brightness(1.08); }
+.payBtn:active{ transform:scale(0.97); }
+.payBtn:disabled{ opacity:.6; cursor:not-allowed; }
 
 </style>
 
@@ -76,75 +116,50 @@ transform:scale(0.96);
 
 <body>
 
+<button class="nav-icon-btn back-btn" onclick="history.back()" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2e7d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2e7d32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
 <div class="card">
 
-<div class="title">
-CONFIRM TRANSLATION
-</div>
+<div class="title">CONFIRM TRANSLATION</div>
 
-<div id="job"></div>
+<div class="job-code" id="jobCode"></div>
 
-<div class="row">
-Plan: <span id="plan"></span>
-</div>
-
-<div class="row">
-Words: <span id="words"></span>
-</div>
-
-<div class="row">
-Language: <span id="language"></span>
-</div>
+<div class="row"><span>Plan</span><span id="plan"></span></div>
+<div class="row"><span>Words</span><span id="words"></span></div>
+<div class="row"><span>Language</span><span id="language"></span></div>
 
 <div class="price" id="price"></div>
 
-<button class="payBtn" id="payButton">
-PAY SECURELY
-</button>
+<button class="payBtn" id="payButton">PAY SECURELY</button>
 
 </div>
 
 <script>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-  authDomain: "saybon-3e3c2.firebaseapp.com",
-  projectId: "saybon-3e3c2",
-  storageBucket: "saybon-3e3c2.firebasestorage.app",
-  messagingSenderId: "75085012344",
-  appId: "1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
-
-firebase.initializeApp(firebaseConfig)
-
-const db = firebase.firestore()
-
 const params = new URLSearchParams(window.location.search)
 
 const plan = params.get("plan")
-const words = parseInt(params.get("words"))
+const words = parseInt(params.get("words")) || 0
 const language = params.get("language")
 const email = params.get("email")
+const price = params.get("price")
 
 document.getElementById("plan").innerText = plan
 document.getElementById("words").innerText = words
 document.getElementById("language").innerText = language
 
-function generateJobId(){
-
-const rand = Math.random().toString(36).substring(2,6).toUpperCase()
-return "SB-" + Date.now() + "-" + rand
-
+if(price){
+  document.getElementById("price").innerText = "$" + Number(price).toFixed(2)
+} else {
+  document.getElementById("price").innerText = "Price unavailable"
+  document.getElementById("payButton").disabled = true
 }
-
-const job = generateJobId()
-
-document.getElementById("job").innerText = "Job Code: " + job
-
-let rate = plan === "express" ? 0.05 : 0.025
-let total = Math.max(words,100) * rate
-
-document.getElementById("price").innerText = "$" + total.toFixed(2)
 
 document.getElementById("payButton").addEventListener("click", startPayment)
 
@@ -155,32 +170,38 @@ const button = document.getElementById("payButton")
 button.innerText = "Processing..."
 button.disabled = true
 
-await db.collection("translationJobs").doc(job).set({
+try{
 
-jobId:job,
-email:email,
-plan:plan,
-wordCount:words,
-targetLanguage:language,
-price:total,
-status:"awaiting_payment",
-createdAt:new Date()
-
+const res = await fetch("https://saybonapp-server.onrender.com/api/createTranslationRequestCheckout", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    email: email,
+    plan: plan,
+    wordCount: words,
+    targetLanguage: language,
+    price: price
+  })
 })
 
-let link = ""
+const data = await res.json()
 
-if(plan === "express"){
-
-link = "https://buy.stripe.com/eVqfZi4rT47Ccxie2Zf7i05"
-
-}else{
-
-link = "https://buy.stripe.com/eVq7sM3nP8nSapa6Axf7i02"
-
+if(!res.ok || !data.url){
+  alert("Could not start payment. Please try again.")
+  button.innerText = "PAY SECURELY"
+  button.disabled = false
+  return
 }
 
-window.location = link + "?client_reference_id=" + job
+document.getElementById("jobCode").innerText = "Job Code: " + data.jobId
+
+window.location = data.url
+
+}catch(err){
+  alert("Could not start payment. Please try again.")
+  button.innerText = "PAY SECURELY"
+  button.disabled = false
+}
 
 }
 
@@ -188,4 +209,3 @@ window.location = link + "?client_reference_id=" + job
 
 </body>
 </html>
-

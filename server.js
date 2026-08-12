@@ -745,3 +745,77 @@ res.status(500).json({error:"feedback submission failed"})
 }
 
 })
+
+// ------------------------------------------------
+// CREATE TRANSLATION REQUEST CHECKOUT
+// (real dynamic price from the tiered package system
+// on request.html - creates the job doc server-side,
+// since client writes to translationJobs are not
+// permitted by the Firestore rules.)
+// ------------------------------------------------
+
+app.post("/api/createTranslationRequestCheckout", async(req,res)=>{
+
+try{
+
+const {email,plan,wordCount,targetLanguage,price}=req.body
+
+const amountNum=Number(price)
+const cents=Math.round(amountNum*100)
+
+if(!email || !cents || cents<=0){
+
+return res.status(400).json({error:"invalid translation request"})
+
+}
+
+const rand=Math.random().toString(36).substring(2,6).toUpperCase()
+const jobId="SB-"+Date.now()+"-"+rand
+
+await db.collection("translationJobs").doc(jobId).set({
+
+jobId,
+email,
+plan:plan||"standard",
+wordCount:Number(wordCount)||0,
+targetLanguage:targetLanguage||"",
+price:amountNum,
+status:"awaiting_payment",
+createdAt:new Date()
+
+})
+
+const session=await stripe.checkout.sessions.create({
+
+mode:"payment",
+payment_method_types:["card"],
+customer_email:email,
+line_items:[{
+
+price_data:{
+
+currency:"usd",
+product_data:{name:"SayBon Translation - "+(plan||"standard")+" ("+wordCount+" words)"},
+unit_amount:cents
+
+},
+quantity:1
+
+}],
+metadata:{jobId},
+success_url:"https://saybonapp.com/translation/success.html?session_id={CHECKOUT_SESSION_ID}",
+cancel_url:"https://saybonapp.com/translation/payment.html?plan="+encodeURIComponent(plan)+"&words="+encodeURIComponent(wordCount)+"&language="+encodeURIComponent(targetLanguage)+"&email="+encodeURIComponent(email)+"&price="+encodeURIComponent(price)
+
+})
+
+res.json({url:session.url,jobId:jobId})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"translation checkout creation failed"})
+
+}
+
+})
