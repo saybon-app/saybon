@@ -87,6 +87,28 @@ z-index:50;
 }
 .dashboard-icon-btn:active{ transform:scale(.94); }
 
+.dashboard-icon-btn{
+position:fixed;
+top:20px;
+left:22px;
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background: rgba(255,255,255,.22);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(255,255,255,.5);
+box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 20px rgba(60,20,30,.2);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-size:20px;
+transition:.2s;
+z-index:50;
+}
+.dashboard-icon-btn:active{ transform:scale(.94); }
+
 /* GLASS CARD */
 
 .content{
@@ -289,6 +311,8 @@ font-size:13px;
 <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
 </svg>
 </button>
+
+<button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">🎛️</button>
 
 <div class="settings" onclick="openSettings()">⚙️</div>
 
