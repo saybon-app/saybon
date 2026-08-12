@@ -4,31 +4,132 @@
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayBon Translator Jobs</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
+*{ box-sizing:border-box; }
+
 body{
-font-family:Arial;
-background:#f4f6f9;
-padding:40px;
+margin:0;
+font-family:'Nunito', system-ui, sans-serif;
+color:#3a2f28;
+min-height:100vh;
+
+background: radial-gradient(circle at 20% 0%, #fce9df 0%, #f6c9b8 55%, #e79a80 100%);
+
+padding:90px 20px 60px;
+}
+
+.nav-icon-btn{
+position:fixed;
+top:20px;
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background: rgba(255,255,255,.5);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(255,255,255,.7);
+box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 8px 20px rgba(60,20,30,.15);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.2s;
+z-index:50;
+}
+.nav-icon-btn:active{ transform:scale(.94); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
+
+.page{ max-width:900px; margin:0 auto; }
+
+header{ text-align:center; margin-bottom:32px; }
+
+h1{
+margin:0 0 6px;
+font-size:clamp(24px,4vw,32px);
+font-weight:900;
+color:#4a2e22;
+}
+
+.subtitle{
+font-size:14px;
+color:#6a4a3c;
 }
 
 .job{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:8px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
+background: rgba(255,251,246,.78);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,.7);
+border-radius:20px;
+padding:24px;
+margin-bottom:18px;
+box-shadow: 0 16px 34px rgba(60,20,10,.16);
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap;
 }
 
-button{
-background:#4f46e5;
+.job-info h3{
+margin:0 0 8px;
+font-size:17px;
+font-weight:800;
+color:#4a2e22;
+}
+
+.job-meta{
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+font-size:13px;
+color:#6a4a3c;
+}
+
+.job-meta span{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.job-price{
+font-weight:800;
+color:#a8593a;
+}
+
+.empty-state{
+text-align:center;
+padding:60px 20px;
+color:#6a4a3c;
+font-size:14px;
+}
+
+button.accept-btn{
+background: linear-gradient(135deg, #d9587a, #a63955);
 color:white;
 border:none;
-padding:10px 18px;
-border-radius:6px;
+padding:12px 22px;
+border-radius:12px;
+font-weight:800;
+font-size:14px;
 cursor:pointer;
+transition:.2s;
+flex:0 0 auto;
+}
+button.accept-btn:hover{ transform:translateY(-2px); box-shadow: 0 10px 22px rgba(166,57,85,.4); }
+button.accept-btn:active{ transform:scale(.97); }
+
+@media (max-width:600px){
+  .job{ flex-direction:column; align-items:stretch; }
+  button.accept-btn{ width:100%; }
 }
 
 </style>
@@ -37,9 +138,24 @@ cursor:pointer;
 
 <body>
 
+<button class="nav-icon-btn back-btn" onclick="location.href='/translation/'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a2e22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a2e22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
+<div class="page">
+
+<header>
 <h1>Available Translation Jobs</h1>
+<div class="subtitle">Accept a job to begin working on it in the editing workspace</div>
+</header>
 
 <div id="jobs"></div>
+
+</div>
 
 <script type="module">
 
@@ -56,38 +172,43 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 async function loadJobs(){
 
 const container = document.getElementById("jobs");
+container.innerHTML = "";
 
 const snapshot = await getDocs(
 collection(db,"translationJobs")
 );
 
+let openJobs = [];
+
 snapshot.forEach(job=>{
-
 const data = job.data();
-
 if(data.status === "open"){
+openJobs.push({ id: job.id, data });
+}
+});
+
+if(!openJobs.length){
+container.innerHTML = "<div class=\"empty-state\">No open jobs right now. Check back soon.</div>";
+return;
+}
+
+openJobs.forEach(({ id, data })=>{
 
 const div = document.createElement("div");
+div.className = "job";
 
-div.className="job";
-
-div.innerHTML = `
-<h3>${data.clientFile}</h3>
-
-<p>
-${data.sourceLanguage}
-?
-${data.targetLanguage}
-</p>
-
-<button onclick="acceptJob('${job.id}')">
-Accept Job
-</button>
-`;
+div.innerHTML =
+  "<div class=\"job-info\">" +
+    "<h3>" + (data.clientFile || "Untitled document") + "</h3>" +
+    "<div class=\"job-meta\">" +
+      "<span>" + (data.sourceLanguage || "?") + " \u2192 " + (data.targetLanguage || "?") + "</span>" +
+      "<span>" + (data.wordCount ?? "-") + " words</span>" +
+      "<span class=\"job-price\">$" + Number(data.price || 0).toFixed(2) + "</span>" +
+    "</div>" +
+  "</div>" +
+  "<button class=\"accept-btn\" onclick=\"acceptJob('" + id + "')\">Accept Job</button>";
 
 container.appendChild(div);
-
-}
 
 });
 
@@ -115,4 +236,3 @@ loadJobs();
 </body>
 
 </html>
-
