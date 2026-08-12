@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translator Jobs</title>
+<title>SayBon Translator Job Board</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -18,176 +18,243 @@
 body{
 margin:0;
 font-family:'Nunito', system-ui, sans-serif;
-color:#3a2f28;
-min-height:100vh;
-
-background: radial-gradient(circle at 20% 0%, #fce9df 0%, #f6c9b8 55%, #e79a80 100%);
-
-padding:90px 20px 60px;
+color:#2a2a2a;
+background:#f6f7f5;
+padding-bottom:76px;
 }
 
-.nav-icon-btn{
-position:fixed;
-top:20px;
-width:46px;
-height:46px;
-border:none;
-border-radius:14px;
-background: rgba(255,255,255,.5);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255,255,255,.7);
-box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 8px 20px rgba(60,20,30,.15);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-transition:.2s;
-z-index:50;
-}
-.nav-icon-btn:active{ transform:scale(.94); }
-.back-btn{ left:22px; }
-.dashboard-btn{ right:22px; }
+/* ===== HEADER ===== */
 
-.page{ max-width:960px; margin:0 auto; }
-
-header{ text-align:center; margin-bottom:24px; }
-
-h1{
-margin:0 0 6px;
-font-size:clamp(24px,4vw,32px);
-font-weight:900;
-color:#4a2e22;
+.topbar{
+position:sticky; top:0; z-index:60;
+display:flex; align-items:center; gap:20px;
+padding:14px 24px;
+background:#fff;
+border-bottom:1px solid #e6e8e4;
 }
 
-.subtitle{
-font-size:14px;
-color:#6a4a3c;
+.brand{ font-weight:900; font-size:15px; letter-spacing:.15em; color:#2f6f68; flex:0 0 auto; }
+
+.title-block{ flex:0 0 auto; }
+.title-block h1{ margin:0; font-size:18px; font-weight:900; color:#1c1c1c; }
+.title-block .sub{ font-size:11.5px; color:#8a8f8a; }
+
+.search-wrap{ flex:1; position:relative; max-width:420px; }
+.search-wrap input{
+width:100%; padding:10px 38px 10px 14px; border-radius:10px;
+border:1px solid #e0e3de; font-family:inherit; font-size:13px; background:#f9faf8;
+}
+.search-icon{ position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none; }
+
+.header-right{ display:flex; align-items:center; gap:14px; margin-left:auto; flex:0 0 auto; }
+.icon-btn{ position:relative; background:none; border:none; cursor:pointer; color:#4a4f4a; padding:4px; }
+
+.avatar-block{ display:flex; align-items:center; gap:8px; }
+.avatar-circle{
+width:34px; height:34px; border-radius:50%; background:#e0e3de; color:#6a6f6a;
+display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;
+}
+.avatar-text{ font-size:12.5px; }
+.avatar-text .name{ font-weight:800; color:#1c1c1c; display:block; }
+.avatar-text .role{ color:#8a8f8a; font-size:11px; }
+
+/* ===== LAYOUT ===== */
+
+.layout{ display:grid; grid-template-columns:230px 1fr 340px; gap:0; align-items:start; }
+
+@media (max-width:1100px){
+  .layout{ grid-template-columns:1fr; }
+  .sidebar, .detail-panel{ position:static; }
 }
 
-.tabs{
-display:flex;
-gap:8px;
-overflow-x:auto;
-margin-bottom:24px;
-padding-bottom:4px;
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+padding:22px 14px;
+position:sticky; top:63px;
+height:calc(100vh - 63px);
+overflow-y:auto;
+border-right:1px solid #e6e8e4;
 }
 
-.tab-btn{
-flex:0 0 auto;
-padding:11px 18px;
-border-radius:999px;
-border:1px solid rgba(255,255,255,.7);
-background: rgba(255,255,255,.4);
-color:#6a4a3c;
-font-weight:800;
-font-size:13px;
-cursor:pointer;
-white-space:nowrap;
-transition:.2s;
+.nav-section-label{
+font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+color:#a3a8a0; padding:14px 10px 6px;
 }
-.tab-btn.active{
-background: linear-gradient(135deg, #d9587a, #a63955);
-color:#fff;
-border-color:transparent;
-box-shadow: 0 10px 22px rgba(166,57,85,.35);
+.nav-section-label:first-child{ padding-top:0; }
+
+.nav-item{
+display:flex; align-items:center; justify-content:space-between; gap:10px;
+padding:10px 12px; border-radius:10px; margin-bottom:2px;
+font-size:13px; font-weight:700; color:#4a4f4a; cursor:pointer;
+border:none; background:none; width:100%; text-align:left;
 }
+.nav-item:hover{ background:#f0f2ee; }
+.nav-item.active{ background:#e6f3f0; color:#2f6f68; border-left:3px solid #2f6f68; }
+.nav-item.inert{ cursor:default; color:#b0b4ac; }
+.nav-item.inert:hover{ background:none; }
 
-.tab-panel{ display:none; }
-.tab-panel.active{ display:block; }
-
-.job{
-background: rgba(255,251,246,.78);
-backdrop-filter: blur(18px);
-border: 1px solid rgba(255,255,255,.7);
-border-radius:20px;
-padding:24px;
-margin-bottom:18px;
-box-shadow: 0 16px 34px rgba(60,20,10,.16);
+.nav-badge{
+font-size:10.5px; font-weight:800; background:#e6e8e4; color:#6a6f6a;
+padding:2px 7px; border-radius:999px;
 }
 
-.job-top{
-display:flex;
-align-items:flex-start;
-justify-content:space-between;
-gap:16px;
-flex-wrap:wrap;
-margin-bottom:16px;
+.quality-box{
+margin-top:18px; padding:14px; border-radius:14px;
+background:#eef6f1; border:1px solid #d6ebe1;
+}
+.quality-box .qtitle{ font-size:12.5px; font-weight:800; color:#2f6f68; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.quality-box p{ font-size:11.5px; color:#5a6f68; line-height:1.5; margin:0 0 8px; }
+.quality-box a{ font-size:11.5px; font-weight:700; color:#2f6f68; text-decoration:none; }
+
+/* ===== CENTER ===== */
+
+.center{ padding:22px 24px; min-width:0; }
+
+.center-header h2{ margin:0 0 4px; font-size:19px; font-weight:900; }
+.center-header .sub{ font-size:12.5px; color:#8a8f8a; margin-bottom:18px; }
+
+.filter-row{ display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+
+.filter-pill{
+padding:8px 14px; border-radius:999px; border:1px solid #e0e3de;
+background:#fff; font-size:12px; font-weight:700; color:#5a5f5a; cursor:pointer;
+}
+.filter-pill.active{ background:#2f6f68; color:#fff; border-color:#2f6f68; }
+
+.sort-select{
+margin-left:auto; padding:8px 12px; border-radius:10px; border:1px solid #e0e3de;
+font-size:12px; font-family:inherit; color:#5a5f5a; background:#fff;
 }
 
-.job-title-block h3{
-margin:0 0 4px;
-font-size:17px;
-font-weight:800;
-color:#4a2e22;
+.job-card{
+background:#fff; border:1px solid #e6e8e4; border-radius:16px;
+padding:20px; margin-bottom:16px; cursor:pointer; transition:.15s;
+}
+.job-card:hover{ border-color:#2f6f68; }
+.job-card.selected{ border-color:#2f6f68; box-shadow:0 0 0 2px rgba(47,111,104,.15); }
+
+.job-card-top{ display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+
+.file-icon{
+width:38px; height:38px; border-radius:10px; flex:0 0 auto;
+display:flex; align-items:center; justify-content:center;
+}
+.file-icon.docx{ background:#e6f3ec; color:#2f6f68; }
+.file-icon.txt{ background:#fdf2e3; color:#c78a2f; }
+.file-icon.pdf{ background:#fbe9e7; color:#c94f4f; }
+.file-icon.other{ background:#eceef0; color:#7a7f7a; }
+
+.job-card-title{ font-size:14.5px; font-weight:800; color:#1c1c1c; margin-bottom:2px; }
+.job-card-id{ font-size:11px; color:#a3a8a0; font-weight:700; }
+
+.status-pill{
+margin-left:auto; flex:0 0 auto;
+font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+padding:5px 11px; border-radius:999px; background:#e6f3ec; color:#2f6f68;
 }
 
-.job-id{ font-size:11.5px; color:#9a8073; font-weight:700; }
+.meta-row{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
+.meta-item{ font-size:11.5px; }
+.meta-item .ml{ display:block; color:#a3a8a0; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px; margin-bottom:2px; }
+.meta-item .mv{ font-weight:700; color:#2a2a2a; }
 
-.status-badge{
-flex:0 0 auto;
-font-size:11px;
-font-weight:800;
-text-transform:uppercase;
-letter-spacing:.04em;
-padding:6px 12px;
-border-radius:999px;
-background: rgba(47,158,145,.16);
-color:#2f6f68;
+.card-price-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.card-price{ font-size:20px; font-weight:900; color:#2f6f68; }
+
+.slots-block{ text-align:right; }
+.slots-label{ font-size:11px; color:#8a8f8a; font-weight:700; margin-bottom:4px; }
+.slot-dots{ display:flex; gap:5px; justify-content:flex-end; }
+.slot-dot{ width:16px; height:16px; border-radius:50%; border:2px solid #d6dad3; }
+.slot-dot.filled{ background:#2f6f68; border-color:#2f6f68; }
+
+.info-banner{
+background:#fdf8e8; border:1px solid #f0e4b8; border-radius:10px;
+padding:10px 12px; font-size:11.5px; color:#7a6a2a; margin-bottom:14px; line-height:1.5;
 }
 
-.field-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-gap:12px;
-margin-bottom:18px;
+.card-actions{ display:flex; gap:10px; }
+.btn-outline{
+flex:1; padding:10px; border-radius:10px; border:1px solid #d6dad3; background:#fff;
+font-weight:800; font-size:12.5px; color:#4a4f4a; cursor:pointer;
 }
-
-.field{ font-size:12.5px; }
-.field-label{ display:block; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:10px; color:#a0917f; margin-bottom:3px; }
-.field-value{ font-weight:700; color:#4a2e22; }
-
-.job-bottom{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:16px;
-flex-wrap:wrap;
-padding-top:14px;
-border-top:1px solid rgba(154,128,115,.2);
+.btn-solid{
+flex:1; padding:10px; border-radius:10px; border:none; background:#1f5c53;
+font-weight:800; font-size:12.5px; color:#fff; cursor:pointer;
 }
-
-.job-price{ font-size:18px; font-weight:900; color:#a8593a; }
-.slots-info{ font-size:12px; color:#6a4a3c; font-weight:700; }
 
 .empty-state{
-text-align:center;
-padding:50px 24px;
-color:#6a4a3c;
-font-size:14px;
-line-height:1.6;
-background: rgba(255,251,246,.5);
-border-radius:20px;
-border: 1px dashed rgba(154,128,115,.3);
+text-align:center; padding:50px 24px; color:#8a8f8a; font-size:13.5px; line-height:1.6;
+background:#fff; border-radius:16px; border:1px dashed #d6dad3;
 }
 
-button.accept-btn{
-background: linear-gradient(135deg, #d9587a, #a63955);
-color:white;
-border:none;
-padding:12px 22px;
-border-radius:12px;
-font-weight:800;
-font-size:14px;
-cursor:pointer;
-transition:.2s;
-flex:0 0 auto;
-}
-button.accept-btn:hover{ transform:translateY(-2px); box-shadow: 0 10px 22px rgba(166,57,85,.4); }
-button.accept-btn:active{ transform:scale(.97); }
+/* ===== RIGHT DETAIL PANEL ===== */
 
-@media (max-width:600px){
-  .job-bottom{ flex-direction:column; align-items:stretch; }
-  button.accept-btn{ width:100%; }
+.detail-panel{
+padding:22px; position:sticky; top:63px; height:calc(100vh - 63px); overflow-y:auto;
+border-left:1px solid #e6e8e4;
+}
+
+.detail-empty{ text-align:center; padding:60px 20px; color:#a3a8a0; font-size:13px; }
+
+.detail-header{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:4px; }
+.detail-title{ font-size:16px; font-weight:900; color:#1c1c1c; }
+.detail-id{ font-size:11px; color:#a3a8a0; font-weight:700; margin-bottom:14px; }
+
+.detail-price{ font-size:26px; font-weight:900; margin:6px 0 18px; }
+
+.detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px; }
+.detail-field .dl{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#a3a8a0; margin-bottom:3px; }
+.detail-field .dv{ font-size:13px; font-weight:700; color:#1c1c1c; }
+
+.about-block{ margin-bottom:18px; }
+.about-block h4{ font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#8a8f8a; margin:0 0 6px; }
+.about-block p{ font-size:12.5px; color:#4a4f4a; line-height:1.6; margin:0; }
+
+.secondary-row{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid #eceef0; }
+
+.split-boxes{ display:flex; flex-direction:column; gap:14px; margin-bottom:20px; }
+.split-box{ background:#f9faf8; border:1px solid #eceef0; border-radius:12px; padding:14px; }
+.split-box h4{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#8a8f8a; margin:0 0 10px; }
+.payout-row{ display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px; }
+.payout-row .amt{ font-weight:800; }
+.rubric-row{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; color:#5a5f5a; }
+.pass-mark{ margin-top:8px; padding-top:8px; border-top:1px solid #eceef0; font-size:12.5px; font-weight:800; color:#1f5c53; }
+
+.flow-row{ display:flex; align-items:center; gap:6px; margin-bottom:20px; overflow-x:auto; padding-bottom:4px; }
+.flow-step{ flex:0 0 auto; text-align:center; font-size:10px; color:#5a5f5a; width:62px; }
+.flow-icon{ width:34px; height:34px; border-radius:50%; background:#eceef0; display:flex; align-items:center; justify-content:center; margin:0 auto 4px; }
+.flow-arrow{ color:#c8ccc6; flex:0 0 auto; }
+
+.nda-box{
+background:#fdf2e8; border:1px solid #f0d8b8; border-radius:12px; padding:14px; margin-bottom:14px;
+}
+.nda-box .nt{ font-size:12px; font-weight:800; color:#8a5a1f; display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+.nda-box p{ font-size:11.5px; color:#7a5a2f; margin:0; line-height:1.5; }
+
+.nda-accept-btn{
+width:100%; padding:14px; border:none; border-radius:12px; background:#1f5c53; color:#fff;
+font-weight:800; font-size:13.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+}
+
+/* ===== FOOTER ===== */
+
+.earnings-bar{
+position:fixed; bottom:0; left:0; right:0; z-index:60;
+background:#fff; border-top:1px solid #e6e8e4;
+padding:12px 24px;
+display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+}
+
+.earn-item{ font-size:11px; }
+.earn-item .el{ display:block; color:#a3a8a0; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px; margin-bottom:2px; }
+.earn-item .ev{ font-weight:900; font-size:15px; color:#1c1c1c; }
+
+.earn-note{ font-size:10.5px; color:#a3a8a0; }
+
+.cashout-btn{
+margin-left:auto; padding:11px 20px; border-radius:10px; border:none;
+background:#e0e3de; color:#8a8f8a; font-weight:800; font-size:12.5px; cursor:not-allowed;
 }
 
 </style>
@@ -196,49 +263,103 @@ button.accept-btn:active{ transform:scale(.97); }
 
 <body>
 
-<button class="nav-icon-btn back-btn" onclick="location.href='/translation/'" aria-label="Back">
-<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a2e22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-</button>
-
-<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a2e22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-</button>
-
-<div class="page">
-
-<header>
-<h1>Translator Job Board</h1>
-<div class="subtitle">Accept a job to begin working on it in the editing workspace</div>
-</header>
-
-<div class="tabs">
-<button class="tab-btn active" data-tab="available">Available Jobs</button>
-<button class="tab-btn" data-tab="myjobs">My Jobs</button>
-<button class="tab-btn" data-tab="submitted">Submitted</button>
-<button class="tab-btn" data-tab="review">Under Review</button>
-<button class="tab-btn" data-tab="completed">Completed</button>
+<div class="topbar">
+<span class="brand">SAYBON</span>
+<div class="title-block"><h1>Translator Job Board</h1><div class="sub">Compete. Deliver Quality. Earn Fairly.</div></div>
+<div class="search-wrap">
+<input type="text" id="searchInput" placeholder="Search by job ID, language, filename..." />
+<svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a3a8a0" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+</div>
+<div class="header-right">
+<button class="icon-btn" aria-label="Notifications" title="No notifications yet"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4a4f4a" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+<button class="icon-btn" aria-label="Messages" title="Messaging not built yet"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4a4f4a" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+<div class="avatar-block">
+<div class="avatar-circle">?</div>
+<div class="avatar-text"><span class="name">Translator</span><span class="role">Not signed in yet</span></div>
+</div>
+</div>
 </div>
 
-<div class="tab-panel active" id="panel-available">
+<div class="layout">
+
+<aside class="sidebar">
+
+<div class="nav-section-label">Workspace</div>
+<button class="nav-item active" data-tab="available">Available Jobs</button>
+<button class="nav-item" data-tab="myjobs">My Jobs <span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="submitted">Submitted <span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="review">Under Review <span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="completed">Completed <span class="nav-badge">0</span></button>
+
+<div class="nav-section-label">Finance</div>
+<button class="nav-item" data-tab="earnings">Earnings</button>
+<button class="nav-item" data-tab="transactions">Transactions</button>
+<button class="nav-item" data-tab="payouts">Payouts &amp; Cash Out</button>
+
+<div class="nav-section-label">Account</div>
+<div class="nav-item inert">Profile</div>
+<div class="nav-item inert">Payment Methods</div>
+<div class="nav-item inert">Settings</div>
+<div class="nav-item inert">NDA &amp; Agreements</div>
+<div class="nav-item inert">Help Center</div>
+<div class="nav-item inert">Logout</div>
+
+<div class="quality-box">
+<div class="qtitle">🛡️ Quality Matters</div>
+<p>All submissions are evaluated using the same quality standards. Only quality work gets rewarded.</p>
+<a href="#">Learn more about our process →</a>
+</div>
+
+</aside>
+
+<main class="center">
+
+<div class="tab-content" id="content-available">
+
+<div class="center-header">
+<h2>Available Jobs</h2>
+<div class="sub">Choose an assignment and compete for the highest verified quality ranking.</div>
+</div>
+
+<div class="filter-row">
+<button class="filter-pill active" data-filter="all">All</button>
+<button class="filter-pill" data-filter="translation">Translation</button>
+<button class="filter-pill" data-filter="editing">Editing / Proofreading</button>
+<button class="filter-pill" data-filter="standard">Standard</button>
+<button class="filter-pill" data-filter="express">Express</button>
+<select class="sort-select" id="sortSelect">
+<option value="newest">Sort by: Newest First</option>
+<option value="price-high">Sort by: Price (High to Low)</option>
+<option value="price-low">Sort by: Price (Low to High)</option>
+</select>
+</div>
+
 <div id="jobs"></div>
+
 </div>
 
-<div class="tab-panel" id="panel-myjobs">
-<div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div>
+<div class="tab-content" id="content-myjobs" style="display:none;"><div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
+<div class="tab-content" id="content-submitted" style="display:none;"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
+<div class="tab-content" id="content-review" style="display:none;"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
+<div class="tab-content" id="content-completed" style="display:none;"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
+<div class="tab-content" id="content-earnings" style="display:none;"><div class="empty-state">Earnings tracking has not been built yet — no balance system exists in SayBon today.</div></div>
+<div class="tab-content" id="content-transactions" style="display:none;"><div class="empty-state">Transaction history has not been built yet.</div></div>
+<div class="tab-content" id="content-payouts" style="display:none;"><div class="empty-state">Payouts and cash-out have not been built yet. This will require a real payout mechanism (e.g. Stripe Connect) to be wired up first.</div></div>
+
+</main>
+
+<aside class="detail-panel" id="detailPanel">
+<div class="detail-empty">Select "View Details" on a job to see it here.</div>
+</aside>
+
 </div>
 
-<div class="tab-panel" id="panel-submitted">
-<div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div>
-</div>
-
-<div class="tab-panel" id="panel-review">
-<div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div>
-</div>
-
-<div class="tab-panel" id="panel-completed">
-<div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div>
-</div>
-
+<div class="earnings-bar">
+<div class="earn-item"><span class="el">Available Balance</span><span class="ev">$0.00</span></div>
+<div class="earn-item"><span class="el">Pending Clearance</span><span class="ev">$0.00</span><span class="earn-note">No payout system built yet</span></div>
+<div class="earn-item"><span class="el">Total Balance</span><span class="ev">$0.00</span></div>
+<div class="earn-item"><span class="el">Min. Cash Out</span><span class="ev">$10.00</span></div>
+<button class="cashout-btn" disabled title="Cash out is not available yet">🏛 Cash Out</button>
 </div>
 
 <script type="module">
@@ -253,14 +374,10 @@ updateDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-document.querySelectorAll(".tab-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
-  });
-});
+let allJobs = [];
+let activeFilter = "all";
+let searchTerm = "";
+let selectedJobId = null;
 
 const DELIVERY_TABLE = [
   { maxWords:200,   standard:"1\u20133 hrs",   express:"30\u201360 mins" },
@@ -276,73 +393,235 @@ function getExpectedDelivery(words, plan){
   return plan === "express" ? tier.express : tier.standard;
 }
 
+function getFileIconClass(filename){
+  const lower = (filename||"").toLowerCase();
+  if(lower.endsWith(".docx") || lower.endsWith(".doc")) return "docx";
+  if(lower.endsWith(".pdf")) return "pdf";
+  if(lower.endsWith(".txt")) return "txt";
+  return "other";
+}
+
+// ===== NAV TAB SWITCHING =====
+
+document.querySelectorAll(".nav-item[data-tab]").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".nav-item[data-tab]").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".tab-content").forEach(p=>p.style.display="none");
+    document.getElementById("content-"+btn.dataset.tab).style.display="block";
+  });
+});
+
+// ===== FILTER / SEARCH / SORT =====
+
+document.querySelectorAll(".filter-pill").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".filter-pill").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    renderJobs();
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input",(e)=>{
+  searchTerm = e.target.value.toLowerCase();
+  renderJobs();
+});
+
+document.getElementById("sortSelect").addEventListener("change", renderJobs);
+
+function getFilteredSortedJobs(){
+
+  let list = allJobs.slice();
+
+  if(activeFilter === "translation") list = list.filter(j=>true); // all current jobs are Translation type
+  if(activeFilter === "editing") list = []; // no editing job type exists yet
+  if(activeFilter === "standard") list = list.filter(j=>(j.data.plan||"standard")==="standard");
+  if(activeFilter === "express") list = list.filter(j=>j.data.plan==="express");
+
+  if(searchTerm){
+    list = list.filter(j=>{
+      const hay = (
+        (j.data.jobId||j.id) + " " +
+        (j.data.clientFile||"") + " " +
+        (j.data.sourceLanguage||"") + " " +
+        (j.data.targetLanguage||"")
+      ).toLowerCase();
+      return hay.includes(searchTerm);
+    });
+  }
+
+  const sortVal = document.getElementById("sortSelect").value;
+  if(sortVal === "price-high") list.sort((a,b)=>(b.data.price||0)-(a.data.price||0));
+  else if(sortVal === "price-low") list.sort((a,b)=>(a.data.price||0)-(b.data.price||0));
+  else list.sort((a,b)=>{
+    const at = a.data.createdAt && a.data.createdAt.toMillis ? a.data.createdAt.toMillis() : 0;
+    const bt = b.data.createdAt && b.data.createdAt.toMillis ? b.data.createdAt.toMillis() : 0;
+    return bt - at;
+  });
+
+  return list;
+
+}
+
+function buildJobCard({ id, data }){
+
+  const words = data.wordCount || 0;
+  const plan = data.plan || "standard";
+  const priorityLabel = plan === "express" ? "Express" : "Standard";
+  const expectedDelivery = getExpectedDelivery(words, plan);
+  const iconClass = getFileIconClass(data.clientFile);
+
+  const div = document.createElement("div");
+  div.className = "job-card" + (id === selectedJobId ? " selected" : "");
+  div.onclick = ()=> selectJob(id);
+
+  div.innerHTML =
+    "<div class=\"job-card-top\">" +
+      "<div class=\"file-icon " + iconClass + "\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+      "<div><div class=\"job-card-title\">" + (data.clientFile || "Untitled document") + "</div><div class=\"job-card-id\">" + (data.jobId || id) + "</div></div>" +
+      "<span class=\"status-pill\">Available</span>" +
+    "</div>" +
+    "<div class=\"meta-row\">" +
+      "<div class=\"meta-item\"><span class=\"ml\">Job Type</span><span class=\"mv\">Translation</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Language</span><span class=\"mv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Category</span><span class=\"mv\">\u2014</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Expected Delivery</span><span class=\"mv\">" + expectedDelivery + "</span></div>" +
+    "</div>" +
+    "<div class=\"card-price-row\">" +
+      "<div class=\"card-price\">$" + Number(data.price||0).toFixed(2) + "</div>" +
+      "<div class=\"slots-block\"><div class=\"slots-label\">0/3 slots filled</div><div class=\"slot-dots\"><span class=\"slot-dot\"></span><span class=\"slot-dot\"></span><span class=\"slot-dot\"></span></div></div>" +
+    "</div>" +
+    "<div class=\"info-banner\">Three participants may independently submit work. Final payment is determined by verified ranking.</div>" +
+    "<div class=\"card-actions\">" +
+      "<button class=\"btn-outline\" onclick=\"event.stopPropagation(); selectJob('" + id + "')\">View Details</button>" +
+      "<button class=\"btn-solid\" onclick=\"event.stopPropagation(); acceptJob('" + id + "')\">Accept Job</button>" +
+    "</div>";
+
+  return div;
+
+}
+
+function renderJobs(){
+
+  const container = document.getElementById("jobs");
+  container.innerHTML = "";
+
+  const list = getFilteredSortedJobs();
+
+  if(!list.length){
+    container.innerHTML = "<div class=\"empty-state\">No jobs match this view right now.</div>";
+    return;
+  }
+
+  list.forEach(job => container.appendChild(buildJobCard(job)));
+
+}
+
+window.selectJob = function(id){
+
+  selectedJobId = id;
+  const job = allJobs.find(j=>j.id===id);
+  if(!job) return;
+
+  renderJobs();
+  renderDetailPanel(job);
+
+}
+
+function renderDetailPanel({ id, data }){
+
+  const words = data.wordCount || 0;
+  const plan = data.plan || "standard";
+  const priorityLabel = plan === "express" ? "Express" : "Standard";
+  const expectedDelivery = getExpectedDelivery(words, plan);
+  const price = Number(data.price || 0);
+
+  const panel = document.getElementById("detailPanel");
+
+  panel.innerHTML =
+    "<div class=\"detail-header\"><div><div class=\"detail-title\">" + (data.clientFile||"Untitled document") + "</div><div class=\"detail-id\">" + (data.jobId||id) + "</div></div></div>" +
+    "<span class=\"status-pill\">Available</span> <span style=\"font-size:11px;color:#8a8f8a;margin-left:8px;\">0/3 slots filled</span>" +
+    "<div class=\"detail-price\">$" + price.toFixed(2) + "</div>" +
+
+    "<div class=\"detail-grid\">" +
+      "<div class=\"detail-field\"><div class=\"dl\">Job Type</div><div class=\"dv\">Translation</div></div>" +
+      "<div class=\"detail-field\"><div class=\"dl\">Language</div><div class=\"dv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</div></div>" +
+      "<div class=\"detail-field\"><div class=\"dl\">Expected Delivery</div><div class=\"dv\">" + expectedDelivery + "</div></div>" +
+      "<div class=\"detail-field\"><div class=\"dl\">Word Count</div><div class=\"dv\">" + words + "</div></div>" +
+    "</div>" +
+
+    "<div class=\"about-block\"><h4>About This Job</h4><p>Up to three translators/editors may participate in this assignment. All submissions are evaluated using the same quality standards and ranked according to verified scores.</p></div>" +
+
+    "<div class=\"secondary-row\">" +
+      "<div class=\"meta-item\"><span class=\"ml\">Priority</span><span class=\"mv\">" + priorityLabel + "</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Category</span><span class=\"mv\">\u2014</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Deadline</span><span class=\"mv\">\u2014</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Files</span><span class=\"mv\">1 file</span></div>" +
+    "</div>" +
+
+    "<div class=\"split-boxes\">" +
+      "<div class=\"split-box\">" +
+        "<h4>Payment by Position (from stated job price)</h4>" +
+        "<div class=\"payout-row\"><span>\uD83E\uDD47 1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>\uD83E\uDD48 2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>\uD83E\uDD49 3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>\u2717 Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
+      "</div>" +
+      "<div class=\"split-box\">" +
+        "<h4>Evaluation Standard (100 points)</h4>" +
+        "<div class=\"rubric-row\"><span>Accuracy / Meaning</span><span>40%</span></div>" +
+        "<div class=\"rubric-row\"><span>Grammar &amp; Language Quality</span><span>20%</span></div>" +
+        "<div class=\"rubric-row\"><span>Terminology</span><span>15%</span></div>" +
+        "<div class=\"rubric-row\"><span>Completeness</span><span>10%</span></div>" +
+        "<div class=\"rubric-row\"><span>Style / Naturalness</span><span>10%</span></div>" +
+        "<div class=\"rubric-row\"><span>Instructions / Formatting</span><span>5%</span></div>" +
+        "<div class=\"pass-mark\">Pass mark: 80/100</div>" +
+      "</div>" +
+    "</div>" +
+
+    "<div class=\"flow-row\">" +
+      "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83D\uDCC4</div>Accept &amp; NDA</div>" +
+      "<span class=\"flow-arrow\">\u2192</span>" +
+      "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83D\uDCC4</div>Work Independently</div>" +
+      "<span class=\"flow-arrow\">\u2192</span>" +
+      "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83D\uDCC4</div>Submit</div>" +
+      "<span class=\"flow-arrow\">\u2192</span>" +
+      "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83D\uDCC4</div>Human Review</div>" +
+      "<span class=\"flow-arrow\">\u2192</span>" +
+      "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83C\uDFC6</div>Ranked &amp; Paid</div>" +
+    "</div>" +
+
+    "<div class=\"nda-box\"><div class=\"nt\">\u2705 NDA Required</div><p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p></div>" +
+
+    "<button class=\"nda-accept-btn\" onclick=\"acceptJob('" + id + "')\">\uD83D\uDD12 Agree to NDA &amp; Accept Job</button>";
+
+}
+
+// ===== LOAD JOBS =====
+
 async function loadJobs(){
 
-const container = document.getElementById("jobs");
-container.innerHTML = "";
+const snapshot = await getDocs(collection(db,"translationJobs"));
 
-const snapshot = await getDocs(
-collection(db,"translationJobs")
-);
-
-let openJobs = [];
+allJobs = [];
 
 snapshot.forEach(job=>{
 const data = job.data();
 if(data.status === "open"){
-openJobs.push({ id: job.id, data });
+allJobs.push({ id: job.id, data });
 }
 });
 
-if(!openJobs.length){
-container.innerHTML = "<div class=\"empty-state\">No open jobs right now. Check back soon.</div>";
-return;
-}
-
-openJobs.forEach(({ id, data })=>{
-
-const words = data.wordCount || 0;
-const plan = data.plan || "standard";
-const priorityLabel = plan === "express" ? "Express" : "Standard";
-const expectedDelivery = getExpectedDelivery(words, plan);
-
-const div = document.createElement("div");
-div.className = "job";
-
-div.innerHTML =
-  "<div class=\"job-top\">" +
-    "<div class=\"job-title-block\">" +
-      "<h3>" + (data.clientFile || "Untitled document") + "</h3>" +
-      "<div class=\"job-id\">" + (data.jobId || id) + "</div>" +
-    "</div>" +
-    "<span class=\"status-badge\">Available</span>" +
-  "</div>" +
-
-  "<div class=\"field-grid\">" +
-    "<div class=\"field\"><span class=\"field-label\">Job Type</span><span class=\"field-value\">Translation</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Category</span><span class=\"field-value\">\u2014</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Language</span><span class=\"field-value\">" + (data.sourceLanguage || "?") + " \u2192 " + (data.targetLanguage || "?") + "</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Word Count</span><span class=\"field-value\">" + words + "</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Priority</span><span class=\"field-value\">" + priorityLabel + "</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Deadline</span><span class=\"field-value\">\u2014</span></div>" +
-    "<div class=\"field\"><span class=\"field-label\">Expected Delivery</span><span class=\"field-value\">" + expectedDelivery + "</span></div>" +
-  "</div>" +
-
-  "<div class=\"job-bottom\">" +
-    "<div>" +
-      "<div class=\"job-price\">$" + Number(data.price || 0).toFixed(2) + "</div>" +
-      "<div class=\"slots-info\">0/3 slots filled</div>" +
-    "</div>" +
-    "<button class=\"accept-btn\" onclick=\"acceptJob('" + id + "')\">Accept Job</button>" +
-  "</div>";
-
-container.appendChild(div);
-
-});
+renderJobs();
 
 }
 
 window.acceptJob = async function(id){
+
+// NOTE: real NDA gating logic is not yet implemented. This button
+// currently performs the same simple claim as before. The actual
+// NDA record + atomic 3-slot logic is a separate, upcoming build.
 
 await updateDoc(
 doc(db,"translationJobs",id),
