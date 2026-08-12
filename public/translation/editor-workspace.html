@@ -4,125 +4,125 @@
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayBon Editing Workspace</title>
 
 <style>
+
+*{ box-sizing:border-box; }
 
 body{
 font-family:Arial;
 background:#f6f8fb;
 margin:0;
-padding:40px;
+padding:90px 20px 40px;
 }
 
-.card{
+.nav-icon-btn{
+position:fixed;
+top:20px;
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background:#fff;
+box-shadow:0 6px 16px rgba(0,0,0,.12);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.2s;
+z-index:50;
+}
+.nav-icon-btn:active{ transform:scale(.94); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
 
+.card{
 max-width:1100px;
 margin:auto;
-
 background:white;
-
 border-radius:14px;
-
 box-shadow:0 10px 40px rgba(0,0,0,0.1);
-
 padding:30px;
-
 }
 
 .title{
-font-size:28px;
+font-size:26px;
 font-weight:bold;
+margin-bottom:6px;
+}
+
+.jobmeta{
+font-size:13px;
+color:#8a8f8a;
 margin-bottom:20px;
 }
 
 .segment{
-
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:20px;
-padding:16px;
-
+padding:16px 0;
 border-bottom:1px solid #eee;
-
 }
 
 .source{
-
 background:#f1f4f8;
-
 padding:12px;
-
 border-radius:6px;
-
 }
 
 .edit{
-
 width:100%;
-
 min-height:60px;
-
 border:1px solid #ccc;
-
 border-radius:6px;
-
 padding:10px;
-
 font-size:15px;
-
+font-family:inherit;
 }
 
 .keyboard{
-
 margin-top:20px;
-
-font-size:18px;
-
+font-size:16px;
 }
 
 .key{
-
 display:inline-block;
-
 padding:8px 12px;
-
 background:#e9edf3;
-
 border-radius:6px;
-
 margin-right:6px;
-
+margin-bottom:6px;
 cursor:pointer;
-
 }
+.key:hover{ background:#dbe1eb; }
 
 .progress{
-
 margin-top:20px;
-
 font-weight:bold;
-
 }
 
 .submit{
-
 margin-top:20px;
-
 padding:12px 30px;
-
 font-size:16px;
-
 background:#4a6cf7;
-
 color:white;
-
 border:none;
-
 border-radius:8px;
-
 cursor:pointer;
+}
+.submit:disabled{ opacity:.5; cursor:not-allowed; }
 
+.identity-note{
+margin-top:14px;
+font-size:11.5px;
+color:#9aa4b2;
+line-height:1.5;
 }
 
 </style>
@@ -131,183 +131,208 @@ cursor:pointer;
 
 <body>
 
+<button class="nav-icon-btn back-btn" onclick="location.href='/translation/job-board.html'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a6cf7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a6cf7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
 <div class="card">
 
-<div class="title">
-
-SAYBON EDITING WORKSPACE
-
-</div>
+<div class="title">SAYBON EDITING WORKSPACE</div>
+<div class="jobmeta" id="jobmeta">Loading jobâ€¦</div>
 
 <div id="segments"></div>
 
-<div class="keyboard">
+<div class="keyboard" id="keyboard"></div>
 
-<span class="key">é</span>
-<span class="key">è</span>
-<span class="key">ê</span>
-<span class="key">à</span>
-<span class="key">ç</span>
-<span class="key">ù</span>
-<span class="key">â</span>
-<span class="key">î</span>
-<span class="key">ô</span>
+<div class="progress" id="progress">Progress: 0%</div>
 
+<button class="submit" id="submitBtn" onclick="submitEdit()" disabled>Submit Editing</button>
+
+<div class="identity-note">
+Note: translator identity is not yet linked to submissions on this page â€” anyone with the job link can submit an edit. This will be tightened once translator sessions are wired up.
 </div>
 
-<div class="progress" id="progress">
-Progress: 0%
 </div>
-
-<button class="submit" onclick="submitEdit()">
-
-Submit Editing
-
-</button>
-
-</div>
-
 
 <script type="module">
 
-import {segmentText} from "./segment-engine.js";
+import { segmentText } from "/translation/segment-engine.js";
+import { db } from "/js/firebase-init.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const sampleText = Bonjour tout le monde.
-Nous sommes heureux de vous accueillir.
-Veuillez lire les instructions attentivement.
-Merci beaucoup.;
+const params = new URLSearchParams(window.location.search);
+const jobId = params.get("job");
 
+const specialChars = ["Ã©","Ã¨","Ãª","Ã ","Ã§","Ã¹","Ã´","Ã®","Å“"];
+const keyboardEl = document.getElementById("keyboard");
 
-const segments = segmentText(sampleText);
+specialChars.forEach(ch => {
+  const span = document.createElement("span");
+  span.className = "key";
+  span.textContent = ch;
+  span.addEventListener("click", () => insertChar(ch));
+  keyboardEl.appendChild(span);
+});
 
+let lastFocusedTextarea = null;
+
+document.addEventListener("focusin", (e) => {
+  if(e.target.classList.contains("edit")){
+    lastFocusedTextarea = e.target;
+  }
+});
+
+function insertChar(ch){
+  if(!lastFocusedTextarea) return;
+  const start = lastFocusedTextarea.selectionStart;
+  const end = lastFocusedTextarea.selectionEnd;
+  const val = lastFocusedTextarea.value;
+  lastFocusedTextarea.value = val.slice(0, start) + ch + val.slice(end);
+  lastFocusedTextarea.selectionStart = lastFocusedTextarea.selectionEnd = start + ch.length;
+  lastFocusedTextarea.dispatchEvent(new Event("input"));
+  lastFocusedTextarea.focus();
+}
+
+let segments = [];
 const container = document.getElementById("segments");
-
+const submitBtn = document.getElementById("submitBtn");
 
 function render(){
 
-container.innerHTML="";
+  container.innerHTML = "";
 
-segments.forEach(seg=>{
+  segments.forEach(seg => {
 
-const row = document.createElement("div");
+    const row = document.createElement("div");
+    row.className = "segment";
 
-row.className="segment";
+    const sourceDiv = document.createElement("div");
+    sourceDiv.className = "source";
+    sourceDiv.innerHTML = "<b>Segment " + seg.id + "</b><br><br>" + seg.source;
 
-row.innerHTML = 
+    const textarea = document.createElement("textarea");
+    textarea.className = "edit";
+    textarea.dataset.id = seg.id;
+    textarea.placeholder = "Edit translation here";
+    textarea.value = seg.edit;
 
-<div class="source">
+    row.appendChild(sourceDiv);
+    row.appendChild(textarea);
+    container.appendChild(row);
 
-<b>Segment \</b><br><br>
-
-\
-
-</div>
-
-<textarea class="edit"
-
-data-id="\"
-
-placeholder="Edit translation here">
-
-\
-
-</textarea>
-
-;
-
-container.appendChild(row);
-
-});
+  });
 
 }
 
-
-render();
-
-
-document.addEventListener("input",e=>{
-
-if(e.target.classList.contains("edit")){
-
-const id = e.target.dataset.id;
-
-const seg = segments.find(s=>s.id==id);
-
-seg.edit = e.target.value;
-
-updateProgress();
-
-trackStroke();
-
-}
-
+document.addEventListener("input", (e) => {
+  if(e.target.classList.contains("edit")){
+    const id = Number(e.target.dataset.id);
+    const seg = segments.find(s => s.id === id);
+    if(seg) seg.edit = e.target.value;
+    updateProgress();
+  }
 });
-
 
 function updateProgress(){
+  if(!segments.length) return;
+  const done = segments.filter(s => s.edit.trim().length > 0).length;
+  const percent = Math.round((done / segments.length) * 100);
+  document.getElementById("progress").innerText = "Progress: " + percent + "%";
+  submitBtn.disabled = percent === 0;
+}
 
-const done = segments.filter(s=>s.edit.trim().length>0).length;
+async function loadJob(){
 
-const percent = Math.round(done / segments.length * 100);
+  if(!jobId){
+    document.getElementById("jobmeta").innerText = "No job code was provided.";
+    return;
+  }
 
-document.getElementById("progress").innerText =
+  try{
 
-"Progress: " + percent + "%";
+    const jobSnap = await getDoc(doc(db, "translationJobs", jobId));
+
+    if(!jobSnap.exists()){
+      document.getElementById("jobmeta").innerText = "No job found for this code.";
+      return;
+    }
+
+    const data = jobSnap.data();
+
+    document.getElementById("jobmeta").innerText =
+      "Job " + (data.jobId || jobId) + " â€” " +
+      (data.sourceLanguage || "?") + " â†’ " + (data.targetLanguage || "?") +
+      " â€” " + (data.wordCount || 0) + " words";
+
+    const text = data.documentText && data.documentText.trim().length > 0
+      ? data.documentText
+      : null;
+
+    if(!text){
+      document.getElementById("jobmeta").innerText += " (no source text stored for this job)";
+      return;
+    }
+
+    segments = segmentText(text);
+    render();
+    updateProgress();
+
+  }catch(err){
+    console.error("EDITOR LOAD ERROR:", err);
+    document.getElementById("jobmeta").innerText = "There was a problem loading this job.";
+  }
 
 }
 
+window.submitEdit = async function(){
 
-async function trackStroke(){
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Submittingâ€¦";
 
-await fetch("/api/trackStroke",{
+  try{
 
-method:"POST",
+    const translation = segments.map(s => s.edit).join("\n");
 
-headers:{"Content-Type":"application/json"},
+    const res = await fetch("https://saybonapp-server.onrender.com/api/submitTranslation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        jobId: jobId,
+        passkey: "",
+        translation: translation
+      })
+    });
 
-body:JSON.stringify({
+    if(!res.ok){
+      alert("Could not submit. Please try again.");
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit Editing";
+      return;
+    }
 
-code:"TESTJOB"
+    alert("Editing submitted");
+    window.location.href = "/translation/job-board.html";
 
-})
-
-});
-
-}
-
-
-async function submitEdit(){
-
-await fetch("/api/editor/submit",{
-
-method:"POST",
-
-headers:{"Content-Type":"application/json"},
-
-body:JSON.stringify({
-
-editorId:"demo",
-
-jobCode:"TESTJOB",
-
-text:JSON.stringify(segments)
-
-})
-
-});
-
-alert("Editing submitted");
+  }catch(err){
+    alert("Could not submit. Please try again.");
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Editing";
+  }
 
 }
 
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
 
-document.addEventListener("copy",e=>e.preventDefault());
-document.addEventListener("paste",e=>e.preventDefault());
-document.addEventListener("contextmenu",e=>e.preventDefault());
+loadJob();
 
 </script>
 
 </body>
 
 </html>
-

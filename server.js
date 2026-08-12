@@ -584,7 +584,7 @@ return res.status(404).json({error:"job reference not found"})
 
 if(session.payment_status==="paid"){
 
-await db.collection("translationJobs").doc(jobId).update({status:"paid"})
+await db.collection("translationJobs").doc(jobId).update({status:"open",paid:true})
 
 }
 
@@ -758,7 +758,7 @@ app.post("/api/createTranslationRequestCheckout", async(req,res)=>{
 
 try{
 
-const {email,plan,wordCount,targetLanguage,price}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price}=req.body
 
 const amountNum=Number(price)
 const cents=Math.round(amountNum*100)
@@ -779,8 +779,13 @@ email,
 plan:plan||"standard",
 wordCount:Number(wordCount)||0,
 targetLanguage:targetLanguage||"",
+sourceLanguage:sourceLanguage||"",
+clientFile:clientFile||"Untitled document",
+documentText:documentText||"",
 price:amountNum,
+paid:false,
 status:"awaiting_payment",
+translator:null,
 createdAt:new Date()
 
 })

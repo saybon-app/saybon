@@ -475,6 +475,8 @@ let currentWords = 0
 let standardPrice = 0
 let expressPrice = 0
 let currentPackage = null
+let currentDocumentText = ""
+let currentFileName = ""
 
 const uploadBtn=document.getElementById("uploadBtn")
 const fileInput=document.getElementById("fileInput")
@@ -519,6 +521,9 @@ const reader=new FileReader()
 reader.onload=function(e){
 
 let text=e.target.result||""
+
+currentDocumentText = text
+currentFileName = file.name || "Untitled document"
 
 let words=text.trim().split(/\s+/).filter(Boolean).length
 
@@ -589,6 +594,12 @@ return
 }
 
 let price = type === "standard" ? standardPrice : expressPrice
+
+let sourceLanguage = language === "French" ? "English" : "French"
+
+sessionStorage.setItem("saybon_doc_text", currentDocumentText)
+sessionStorage.setItem("saybon_source_language", sourceLanguage)
+sessionStorage.setItem("saybon_client_file", currentFileName)
 
 let url="/translation/payment.html?plan="+type+
 "&words="+currentWords+

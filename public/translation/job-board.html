@@ -98,11 +98,11 @@ window.acceptJob = async function(id){
 await updateDoc(
 doc(db,"translationJobs",id),
 {
-status:"assigned"
+status:"claimed"
 }
 );
 
-alert("Job accepted");
+alert("Job accepted. Open the editing workspace to begin.");
 
 location.reload();
 

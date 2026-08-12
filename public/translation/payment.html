@@ -172,6 +172,10 @@ button.disabled = true
 
 try{
 
+const documentText = sessionStorage.getItem("saybon_doc_text") || ""
+const sourceLanguage = sessionStorage.getItem("saybon_source_language") || ""
+const clientFile = sessionStorage.getItem("saybon_client_file") || ""
+
 const res = await fetch("https://saybonapp-server.onrender.com/api/createTranslationRequestCheckout", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -180,6 +184,9 @@ const res = await fetch("https://saybonapp-server.onrender.com/api/createTransla
     plan: plan,
     wordCount: words,
     targetLanguage: language,
+    sourceLanguage: sourceLanguage,
+    clientFile: clientFile,
+    documentText: documentText,
     price: price
   })
 })
