@@ -8,7 +8,7 @@
 
 <title>SayBon Translation Desk</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Kalam&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,17 +16,14 @@
 
 body{
 margin:0;
-font-family:'Quicksand',sans-serif;
-color:#e5e5e5;
-
-background:
-linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-url("https://images.unsplash.com/photo-1524758631624-e2822e304c36");
-
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+font-family:'Nunito', system-ui, sans-serif;
+color:#3a2f28;
 min-height:100vh;
+
+background-image: url('/assets/images/desk-bg.png');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
 
 display:flex;
 flex-direction:column;
@@ -41,9 +38,10 @@ width:46px;
 height:46px;
 border:none;
 border-radius:14px;
-background: rgba(255,255,255,.12);
+background: rgba(255,255,255,.55);
 backdrop-filter: blur(16px);
-border: 1px solid rgba(255,255,255,.25);
+border: 1px solid rgba(255,255,255,.7);
+box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 8px 20px rgba(60,40,20,.15);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -55,97 +53,148 @@ z-index:50;
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.card{
-background:rgba(0,0,0,.55);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,.1);
-border-radius:16px;
-padding:30px;
-max-width:900px;
+.header-panel{
+background: rgba(255,251,246,.72);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,.7);
+border-radius:24px;
+padding:26px 30px;
+max-width:1000px;
 width:100%;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.6);
+text-align:center;
+margin-bottom:20px;
+box-shadow: 0 20px 50px rgba(60,40,20,.18);
 }
 
-.title{
-font-size:clamp(28px,5vw,44px);
-letter-spacing:.25em;
-text-align:center;
+.header-title{
+margin:0;
+font-size:clamp(22px,4vw,30px);
+font-weight:900;
+letter-spacing:.3em;
+color:#4a3423;
 }
+
+.divider{
+margin-top:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+}
+.divider-line{ width:60px; height:1px; background:#c9714f; }
+.divider-dot{ width:6px; height:6px; border-radius:50%; background:#c9714f; }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr 1fr;
 gap:20px;
-margin-top:20px;
+max-width:1000px;
+width:100%;
 }
 
-@media (max-width:800px){
+@media (max-width:900px){
   .grid{ grid-template-columns:1fr; }
 }
 
-.cell{
-border:1px solid #333;
-padding:20px;
-border-radius:12px;
-background:#111;
+.panel{
+background: rgba(255,251,246,.72);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,.7);
+border-radius:20px;
+padding:24px;
+box-shadow: 0 20px 50px rgba(60,40,20,.18);
 }
 
-.label{
+.panel-label{
 font-size:11px;
-letter-spacing:.1em;
-margin-bottom:6px;
-opacity:.6;
+font-weight:800;
+letter-spacing:.15em;
 text-transform:uppercase;
+color:#8a7a6d;
+margin-bottom:16px;
 }
 
-.value{
-font-size:15px;
-margin-bottom:14px;
-}
-
-.step-row{
+.detail-row{
 display:flex;
-align-items:center;
-gap:10px;
-margin:8px 0;
-font-size:13px;
+align-items:flex-start;
+gap:12px;
+margin-bottom:16px;
 }
+.detail-row:last-child{ margin-bottom:0; }
+
+.detail-icon{
+flex:0 0 auto;
+width:20px;
+height:20px;
+margin-top:1px;
+color:#c9714f;
+}
+
+.detail-text{ flex:1; min-width:0; }
+.detail-label{ font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#a0917f; margin-bottom:2px; }
+.detail-value{ font-size:14px; font-weight:700; color:#3a2f28; word-break:break-word; }
+
+.stepper{ position:relative; padding-left:6px; }
+
+.stepper-item{
+position:relative;
+display:flex;
+align-items:flex-start;
+gap:14px;
+padding-bottom:26px;
+}
+.stepper-item:last-child{ padding-bottom:0; }
+
+.stepper-item::before{
+content:"";
+position:absolute;
+left:9px;
+top:24px;
+bottom:0;
+width:0;
+border-left:2px dashed #d9c7b8;
+}
+.stepper-item:last-child::before{ display:none; }
 
 .step-dot{
-width:16px; height:16px;
-border-radius:50%;
 flex:0 0 auto;
+width:20px; height:20px;
+border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:10px;
+z-index:1;
 }
 
-.step-done{ background:#2ecc71; color:#062b12; }
-.step-pending{ background:#333; color:#666; }
+.step-done{ background:#2f6f68; }
+.step-pending{ background:transparent; border:2px solid #d9c7b8; }
+
+.step-label{ font-size:14px; font-weight:700; color:#3a2f28; padding-top:1px; }
+
+.deskBtn{
+margin-top:22px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background: linear-gradient(135deg, #c9714f, #a8593a);
+color:#fff;
+font-weight:800;
+font-size:14px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+transition:.2s;
+}
+.deskBtn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
 
 .notice{
-text-align:center;
-font-size:13px;
-color:#bcbcbc;
-margin-top:10px;
+font-size:13.5px;
+color:#5a4a3f;
+line-height:1.6;
 }
-
-button.deskBtn{
-position:fixed;
-bottom:25px;
-left:50%;
-transform:translateX(-50%);
-padding:14px 30px;
-background:#2f2f2f;
-border:none;
-border-radius:10px;
-color:#ddd;
-font-size:15px;
-cursor:pointer;
-}
-button.deskBtn:hover{ background:#444; }
 
 </style>
 </head>
@@ -153,61 +202,95 @@ button.deskBtn:hover{ background:#444; }
 <body>
 
 <button class="nav-icon-btn back-btn" onclick="location.href='/translation/'" aria-label="Back">
-<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a3423" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 </button>
 
 <button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#4a3423" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
 </button>
 
-<div class="card">
-<div class="title">SAYBON TRANSLATION DESK</div>
+<div class="header-panel">
+<h1 class="header-title">SAYBON TRANSLATION DESK</h1>
+<div class="divider"><span class="divider-line"></span><span class="divider-dot"></span><span class="divider-line"></span></div>
 </div>
-
-<div class="card">
 
 <div class="grid">
 
-<div class="cell">
-<div class="label">Job Code</div>
-<div class="value" id="job">Loading…</div>
+<div class="panel">
+<div class="panel-label">Job Details</div>
 
-<div class="label">Client</div>
-<div class="value" id="email">Loading…</div>
-
-<div class="label">Word Count</div>
-<div class="value" id="words">Loading…</div>
-
-<div class="label">Target Language</div>
-<div class="value" id="language">Loading…</div>
-
-<div class="label">Plan</div>
-<div class="value" id="plan">Loading…</div>
-
-<div class="label">Price</div>
-<div class="value" id="price">Loading…</div>
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+<div class="detail-text"><div class="detail-label">Job Code</div><div class="detail-value" id="job">Loading…</div></div>
 </div>
 
-<div class="cell">
-<div class="label">Status</div>
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+<div class="detail-text"><div class="detail-label">Client</div><div class="detail-value" id="email">Loading…</div></div>
+</div>
 
-<div class="step-row"><span class="step-dot" id="dot1">•</span> Payment received</div>
-<div class="step-row"><span class="step-dot" id="dot2">•</span> Posted for translators</div>
-<div class="step-row"><span class="step-dot" id="dot3">•</span> Translator assigned</div>
-<div class="step-row"><span class="step-dot" id="dot4">•</span> Completed</div>
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+<div class="detail-text"><div class="detail-label">Word Count</div><div class="detail-value" id="words">Loading…</div></div>
+</div>
+
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+<div class="detail-text"><div class="detail-label">Target Language</div><div class="detail-value" id="language">Loading…</div></div>
+</div>
+
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
+<div class="detail-text"><div class="detail-label">Plan</div><div class="detail-value" id="plan">Loading…</div></div>
+</div>
+
+<div class="detail-row">
+<svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+<div class="detail-text"><div class="detail-label">Price</div><div class="detail-value" id="price">Loading…</div></div>
+</div>
 
 </div>
 
-<div class="cell">
-<div class="label">Note</div>
+<div class="panel">
+<div class="panel-label">Status</div>
+
+<div class="stepper">
+
+<div class="stepper-item">
+<span class="step-dot" id="dot1"></span>
+<span class="step-label">Payment received</span>
+</div>
+
+<div class="stepper-item">
+<span class="step-dot" id="dot2"></span>
+<span class="step-label">Posted for translators</span>
+</div>
+
+<div class="stepper-item">
+<span class="step-dot" id="dot3"></span>
+<span class="step-label">Translator assigned</span>
+</div>
+
+<div class="stepper-item">
+<span class="step-dot" id="dot4"></span>
+<span class="step-label">Completed</span>
+</div>
+
+</div>
+
+<button class="deskBtn" onclick="location.href='/dashboard/'">
+Return to Dashboard
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</button>
+
+</div>
+
+<div class="panel">
+<div class="panel-label">Note</div>
 <div class="notice" id="message"></div>
 </div>
 
 </div>
-
-</div>
-
-<button class="deskBtn" onclick="location.href='/dashboard/'">Return to Dashboard</button>
 
 <script type="module">
 
@@ -220,7 +303,9 @@ const jobId = params.get("job");
 function setStep(dotId, done){
   const el = document.getElementById(dotId);
   el.className = "step-dot " + (done ? "step-done" : "step-pending");
-  el.textContent = done ? "✓" : "•";
+  el.innerHTML = done
+    ? '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+    : "";
 }
 
 async function loadJob(){
