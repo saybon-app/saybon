@@ -48,9 +48,9 @@ z-index:50;
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.page{ max-width:900px; margin:0 auto; }
+.page{ max-width:960px; margin:0 auto; }
 
-header{ text-align:center; margin-bottom:32px; }
+header{ text-align:center; margin-bottom:24px; }
 
 h1{
 margin:0 0 6px;
@@ -64,6 +64,37 @@ font-size:14px;
 color:#6a4a3c;
 }
 
+.tabs{
+display:flex;
+gap:8px;
+overflow-x:auto;
+margin-bottom:24px;
+padding-bottom:4px;
+}
+
+.tab-btn{
+flex:0 0 auto;
+padding:11px 18px;
+border-radius:999px;
+border:1px solid rgba(255,255,255,.7);
+background: rgba(255,255,255,.4);
+color:#6a4a3c;
+font-weight:800;
+font-size:13px;
+cursor:pointer;
+white-space:nowrap;
+transition:.2s;
+}
+.tab-btn.active{
+background: linear-gradient(135deg, #d9587a, #a63955);
+color:#fff;
+border-color:transparent;
+box-shadow: 0 10px 22px rgba(166,57,85,.35);
+}
+
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+
 .job{
 background: rgba(255,251,246,.78);
 backdrop-filter: blur(18px);
@@ -72,44 +103,71 @@ border-radius:20px;
 padding:24px;
 margin-bottom:18px;
 box-shadow: 0 16px 34px rgba(60,20,10,.16);
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:20px;
-flex-wrap:wrap;
 }
 
-.job-info h3{
-margin:0 0 8px;
+.job-top{
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:16px;
+flex-wrap:wrap;
+margin-bottom:16px;
+}
+
+.job-title-block h3{
+margin:0 0 4px;
 font-size:17px;
 font-weight:800;
 color:#4a2e22;
 }
 
-.job-meta{
-display:flex;
-flex-wrap:wrap;
-gap:14px;
-font-size:13px;
-color:#6a4a3c;
+.job-id{ font-size:11.5px; color:#9a8073; font-weight:700; }
+
+.status-badge{
+flex:0 0 auto;
+font-size:11px;
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:.04em;
+padding:6px 12px;
+border-radius:999px;
+background: rgba(47,158,145,.16);
+color:#2f6f68;
 }
 
-.job-meta span{
+.field-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+gap:12px;
+margin-bottom:18px;
+}
+
+.field{ font-size:12.5px; }
+.field-label{ display:block; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:10px; color:#a0917f; margin-bottom:3px; }
+.field-value{ font-weight:700; color:#4a2e22; }
+
+.job-bottom{
 display:flex;
 align-items:center;
-gap:6px;
+justify-content:space-between;
+gap:16px;
+flex-wrap:wrap;
+padding-top:14px;
+border-top:1px solid rgba(154,128,115,.2);
 }
 
-.job-price{
-font-weight:800;
-color:#a8593a;
-}
+.job-price{ font-size:18px; font-weight:900; color:#a8593a; }
+.slots-info{ font-size:12px; color:#6a4a3c; font-weight:700; }
 
 .empty-state{
 text-align:center;
-padding:60px 20px;
+padding:50px 24px;
 color:#6a4a3c;
 font-size:14px;
+line-height:1.6;
+background: rgba(255,251,246,.5);
+border-radius:20px;
+border: 1px dashed rgba(154,128,115,.3);
 }
 
 button.accept-btn{
@@ -128,7 +186,7 @@ button.accept-btn:hover{ transform:translateY(-2px); box-shadow: 0 10px 22px rgb
 button.accept-btn:active{ transform:scale(.97); }
 
 @media (max-width:600px){
-  .job{ flex-direction:column; align-items:stretch; }
+  .job-bottom{ flex-direction:column; align-items:stretch; }
   button.accept-btn{ width:100%; }
 }
 
@@ -149,11 +207,37 @@ button.accept-btn:active{ transform:scale(.97); }
 <div class="page">
 
 <header>
-<h1>Available Translation Jobs</h1>
+<h1>Translator Job Board</h1>
 <div class="subtitle">Accept a job to begin working on it in the editing workspace</div>
 </header>
 
+<div class="tabs">
+<button class="tab-btn active" data-tab="available">Available Jobs</button>
+<button class="tab-btn" data-tab="myjobs">My Jobs</button>
+<button class="tab-btn" data-tab="submitted">Submitted</button>
+<button class="tab-btn" data-tab="review">Under Review</button>
+<button class="tab-btn" data-tab="completed">Completed</button>
+</div>
+
+<div class="tab-panel active" id="panel-available">
 <div id="jobs"></div>
+</div>
+
+<div class="tab-panel" id="panel-myjobs">
+<div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div>
+</div>
+
+<div class="tab-panel" id="panel-submitted">
+<div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div>
+</div>
+
+<div class="tab-panel" id="panel-review">
+<div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div>
+</div>
+
+<div class="tab-panel" id="panel-completed">
+<div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div>
+</div>
 
 </div>
 
@@ -168,6 +252,29 @@ doc,
 updateDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+const DELIVERY_TABLE = [
+  { maxWords:200,   standard:"1\u20133 hrs",   express:"30\u201360 mins" },
+  { maxWords:500,   standard:"3\u20136 hrs",   express:"1\u20133 hrs" },
+  { maxWords:1000,  standard:"6\u201312 hrs",  express:"3\u20136 hrs" },
+  { maxWords:3000,  standard:"12\u201324 hrs", express:"6\u201312 hrs" },
+  { maxWords:10000, standard:"2\u20134 days",  express:"24\u201348 hrs" }
+];
+
+function getExpectedDelivery(words, plan){
+  const tier = DELIVERY_TABLE.find(t => words <= t.maxWords);
+  if(!tier) return "Custom";
+  return plan === "express" ? tier.express : tier.standard;
+}
 
 async function loadJobs(){
 
@@ -194,19 +301,40 @@ return;
 
 openJobs.forEach(({ id, data })=>{
 
+const words = data.wordCount || 0;
+const plan = data.plan || "standard";
+const priorityLabel = plan === "express" ? "Express" : "Standard";
+const expectedDelivery = getExpectedDelivery(words, plan);
+
 const div = document.createElement("div");
 div.className = "job";
 
 div.innerHTML =
-  "<div class=\"job-info\">" +
-    "<h3>" + (data.clientFile || "Untitled document") + "</h3>" +
-    "<div class=\"job-meta\">" +
-      "<span>" + (data.sourceLanguage || "?") + " \u2192 " + (data.targetLanguage || "?") + "</span>" +
-      "<span>" + (data.wordCount ?? "-") + " words</span>" +
-      "<span class=\"job-price\">$" + Number(data.price || 0).toFixed(2) + "</span>" +
+  "<div class=\"job-top\">" +
+    "<div class=\"job-title-block\">" +
+      "<h3>" + (data.clientFile || "Untitled document") + "</h3>" +
+      "<div class=\"job-id\">" + (data.jobId || id) + "</div>" +
     "</div>" +
+    "<span class=\"status-badge\">Available</span>" +
   "</div>" +
-  "<button class=\"accept-btn\" onclick=\"acceptJob('" + id + "')\">Accept Job</button>";
+
+  "<div class=\"field-grid\">" +
+    "<div class=\"field\"><span class=\"field-label\">Job Type</span><span class=\"field-value\">Translation</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Category</span><span class=\"field-value\">\u2014</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Language</span><span class=\"field-value\">" + (data.sourceLanguage || "?") + " \u2192 " + (data.targetLanguage || "?") + "</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Word Count</span><span class=\"field-value\">" + words + "</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Priority</span><span class=\"field-value\">" + priorityLabel + "</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Deadline</span><span class=\"field-value\">\u2014</span></div>" +
+    "<div class=\"field\"><span class=\"field-label\">Expected Delivery</span><span class=\"field-value\">" + expectedDelivery + "</span></div>" +
+  "</div>" +
+
+  "<div class=\"job-bottom\">" +
+    "<div>" +
+      "<div class=\"job-price\">$" + Number(data.price || 0).toFixed(2) + "</div>" +
+      "<div class=\"slots-info\">0/3 slots filled</div>" +
+    "</div>" +
+    "<button class=\"accept-btn\" onclick=\"acceptJob('" + id + "')\">Accept Job</button>" +
+  "</div>";
 
 container.appendChild(div);
 
