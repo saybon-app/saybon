@@ -20,6 +20,112 @@ return "SB-"+Math.random().toString(36).substring(2,10).toUpperCase()
 
 }
 
+// ------------------------------------------------
+// AZURE TRANSLATION HELPERS
+// ------------------------------------------------
+
+const LANG_CODES={
+
+English:"en",
+French:"fr"
+
+}
+
+function toLangCode(name){
+
+return LANG_CODES[name] || (name||"en").slice(0,2).toLowerCase()
+
+}
+
+function splitIntoSentences(text){
+
+return (text||"")
+.replace(/\n+/g," ")
+.split(/(?<=[.!?])\s+/)
+.map(s=>s.trim())
+.filter(s=>s.length>0)
+
+}
+
+async function translateSegmentsWithAzure(sentences,fromLang,toLang){
+
+if(!sentences.length) return []
+
+const key=process.env.AZURE_TRANSLATOR_KEY
+const endpoint=process.env.AZURE_TRANSLATOR_ENDPOINT
+const region=process.env.AZURE_TRANSLATOR_REGION
+
+if(!key || !endpoint || !region){
+
+throw new Error("Azure Translator environment variables are not configured")
+
+}
+
+const results=[]
+const batchSize=50
+
+for(let i=0;i<sentences.length;i+=batchSize){
+
+const batch=sentences.slice(i,i+batchSize)
+
+const url=endpoint.replace(/\/$/,"")+"/translate?api-version=3.0&from="+fromLang+"&to="+toLang
+
+const res=await fetch(url,{
+
+method:"POST",
+headers:{
+
+"Ocp-Apim-Subscription-Key":key,
+"Ocp-Apim-Subscription-Region":region,
+"Content-Type":"application/json"
+
+},
+body:JSON.stringify(batch.map(text=>({Text:text})))
+
+})
+
+if(!res.ok){
+
+const errText=await res.text()
+throw new Error("Azure Translator request failed: "+res.status+" "+errText)
+
+}
+
+const data=await res.json()
+
+data.forEach(item=>{
+
+results.push(item.translations && item.translations[0] ? item.translations[0].text : "")
+
+})
+
+}
+
+return results
+
+}
+
+async function generateAiDraftSegments(documentText,sourceLanguage,targetLanguage){
+
+const sentences=splitIntoSentences(documentText)
+
+if(!sentences.length) return []
+
+const fromCode=toLangCode(sourceLanguage)
+const toCode=toLangCode(targetLanguage)
+
+const translations=await translateSegmentsWithAzure(sentences,fromCode,toCode)
+
+return sentences.map((source,i)=>({
+
+id:i+1,
+source,
+translation:translations[i]||""
+
+}))
+
+}
+
 // ----------------------------------------------
 // EVALUATE TRANSLATOR TEST
 // ----------------------------------------------
@@ -584,7 +690,39 @@ return res.status(404).json({error:"job reference not found"})
 
 if(session.payment_status==="paid"){
 
-await db.collection("translationJobs").doc(jobId).update({status:"open",paid:true})
+const jobDoc=await db.collection("translationJobs").doc(jobId).get()
+const jobData=jobDoc.exists ? jobDoc.data() : {}
+
+let aiSegments=[]
+let aiTranslationStatus="skipped"
+
+try{
+
+aiSegments=await generateAiDraftSegments(
+
+jobData.documentText||"",
+jobData.sourceLanguage||"English",
+jobData.targetLanguage||"French"
+
+)
+
+aiTranslationStatus=aiSegments.length ? "completed" : "empty_document"
+
+}catch(aiErr){
+
+console.error("AZURE TRANSLATION ERROR:",aiErr)
+aiTranslationStatus="failed"
+
+}
+
+await db.collection("translationJobs").doc(jobId).update({
+
+status:"open",
+paid:true,
+aiSegments,
+aiTranslationStatus
+
+})
 
 }
 
