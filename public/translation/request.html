@@ -442,7 +442,10 @@ words=100
 currentWords=words
 
 standardPrice=(words*0.025).toFixed(2)
+if(Number(standardPrice)<5){ standardPrice="5.00" }
+
 expressPrice=(words*0.05).toFixed(2)
+if(Number(expressPrice)<5){ expressPrice="5.00" }
 
 document.querySelector(".word-count").innerText=
 "WORDS: "+words
