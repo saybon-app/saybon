@@ -44,6 +44,33 @@ justify-content:center;
 
 /* ICON BUTTONS */
 
+.icon-row{
+position:fixed;
+top:20px;
+left:22px;
+display:flex;
+gap:10px;
+z-index:50;
+}
+
+.icon-btn{
+width:46px;
+height:46px;
+border:none;
+border-radius:14px;
+background: rgba(255,255,255,.22);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(255,255,255,.5);
+box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 20px rgba(60,20,30,.2);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-size:20px;
+transition:.2s;
+}
+.icon-btn:active{ transform:scale(.94); }
+
 .settings{
 position:fixed;
 top:20px;
@@ -64,72 +91,6 @@ transition:.2s;
 z-index:50;
 }
 .settings:hover{ transform:rotate(20deg); }
-
-.dashboard-icon-btn{
-position:fixed;
-top:20px;
-left:22px;
-width:46px;
-height:46px;
-border:none;
-border-radius:14px;
-background: rgba(255,255,255,.22);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255,255,255,.5);
-box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 20px rgba(60,20,30,.2);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-font-size:20px;
-transition:.2s;
-z-index:50;
-}
-.dashboard-icon-btn:active{ transform:scale(.94); }
-
-.dashboard-icon-btn{
-position:fixed;
-top:20px;
-left:22px;
-width:46px;
-height:46px;
-border:none;
-border-radius:14px;
-background: rgba(255,255,255,.22);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255,255,255,.5);
-box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 20px rgba(60,20,30,.2);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-font-size:20px;
-transition:.2s;
-z-index:50;
-}
-.dashboard-icon-btn:active{ transform:scale(.94); }
-
-.dashboard-icon-btn{
-position:fixed;
-top:20px;
-left:22px;
-width:46px;
-height:46px;
-border:none;
-border-radius:14px;
-background: rgba(255,255,255,.22);
-backdrop-filter: blur(16px);
-border: 1px solid rgba(255,255,255,.5);
-box-shadow: inset 0 1px 1px rgba(255,255,255,.5), 0 8px 20px rgba(60,20,30,.2);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-font-size:20px;
-transition:.2s;
-z-index:50;
-}
-.dashboard-icon-btn:active{ transform:scale(.94); }
 
 /* GLASS CARD */
 
@@ -279,7 +240,7 @@ color:#a63955;
 }
 .translators:hover{ background: rgba(255,255,255,.85); }
 
-/* ADMIN MODAL */
+/* MODALS */
 
 .modal{
 position:fixed; top:0; left:0; width:100%; height:100%;
@@ -327,16 +288,28 @@ font-size:13px;
 
 <body>
 
-<button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
-<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+<div class="icon-row">
+
+<button class="icon-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
 <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
 <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
 </svg>
 </button>
 
-<button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">🎛️</button>
+<button class="icon-btn" onclick="openDeskLookup()" aria-label="My Translation Desk">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 4v-1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1"/>
+</svg>
+</button>
 
-<button class="dashboard-icon-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">📊</button>
+<button class="icon-btn" onclick="location.href='/translation/job-board.html'" aria-label="Job Board">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#a63955" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>
+</svg>
+</button>
+
+</div>
 
 <div class="settings" onclick="openSettings()">⚙️</div>
 
@@ -405,12 +378,32 @@ placeholder="Enter passcode..."
 
 </div>
 
+<!-- DESK LOOKUP -->
+
+<div id="deskModal" class="modal">
+
+<div class="modalCard">
+
+<h3>My Translation Desk</h3>
+
+<input
+type="text"
+id="deskCode"
+placeholder="Enter your job code..."
+>
+
+<button onclick="goToDesk()">View Status</button>
+
+<div id="deskError" class="error"></div>
+
+</div>
+
+</div>
+
 <script>
 
 function openSettings(){
-
 document.getElementById("settingsModal").style.display="flex"
-
 }
 
 function checkCode(){
@@ -426,6 +419,28 @@ window.location="/translation/admin.html"
 document.getElementById("error").innerText="Incorrect passcode"
 
 }
+
+}
+
+function openDeskLookup(){
+document.getElementById("deskModal").style.display="flex"
+}
+
+function goToDesk(){
+
+let code=document.getElementById("deskCode").value.trim()
+
+if(!code){
+document.getElementById("deskError").innerText="Please enter your job code"
+return
+}
+
+if(code==="963281"){
+window.location="/translation/admin.html"
+return
+}
+
+window.location="/translation/desk.html?job="+encodeURIComponent(code)
 
 }
 
