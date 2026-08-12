@@ -378,7 +378,7 @@ Pricing is based on flat-rate packages by word count — see the table for detai
 
 <div class="input-icon-wrap">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
-<input id="emailInput" placeholder="Customer Email">
+<input id="emailInput" type="email" placeholder="Customer Email" required>
 </div>
 
 <label class="field-label">Target Language</label>
@@ -577,10 +577,18 @@ window.location.href="mailto:saybon.fr@gmail.com?subject=Custom Translation Quot
 return
 }
 
-let price = type === "standard" ? standardPrice : expressPrice
-
 let language=document.getElementById("languageSelect").value
-let email=document.getElementById("emailInput").value
+let email=document.getElementById("emailInput").value.trim()
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+if(!email || !emailPattern.test(email)){
+alert("Please enter a valid email address before continuing.")
+document.getElementById("emailInput").focus()
+return
+}
+
+let price = type === "standard" ? standardPrice : expressPrice
 
 let url="/translation/payment.html?plan="+type+
 "&words="+currentWords+
