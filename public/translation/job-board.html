@@ -9,7 +9,7 @@
 
 <title>SayBon Translator Job Board</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,9 +17,9 @@
 
 body{
 margin:0;
-font-family:'Nunito', system-ui, sans-serif;
-color:#2a2a2a;
-background:#f6f7f5;
+font-family:'Inter', system-ui, sans-serif;
+color:#c9d3e6;
+background:#0f1729;
 padding-bottom:76px;
 }
 
@@ -27,234 +27,248 @@ padding-bottom:76px;
 
 .topbar{
 position:sticky; top:0; z-index:60;
-display:flex; align-items:center; gap:20px;
+display:flex; align-items:center; gap:18px;
 padding:14px 24px;
-background:#fff;
-border-bottom:1px solid #e6e8e4;
+background:#0f1729;
+border-bottom:1px solid #232f47;
 }
 
-.brand{ font-weight:900; font-size:15px; letter-spacing:.15em; color:#2f6f68; flex:0 0 auto; }
+.icon-square{
+width:38px; height:38px; border-radius:10px; flex:0 0 auto;
+background:#161f36; border:1px solid #232f47;
+display:flex; align-items:center; justify-content:center;
+cursor:pointer; transition:.15s;
+}
+.icon-square:hover{ border-color:#3b82f6; }
 
 .title-block{ flex:0 0 auto; }
-.title-block h1{ margin:0; font-size:18px; font-weight:900; color:#1c1c1c; }
-.title-block .sub{ font-size:11.5px; color:#8a8f8a; }
+.title-block h1{ margin:0; font-family:'Bitter', serif; font-weight:800; font-size:22px; color:#fff; }
+.title-block .sub{ font-size:12px; color:#8b9bc1; }
 
 .search-wrap{ flex:1; position:relative; max-width:420px; }
 .search-wrap input{
 width:100%; padding:10px 38px 10px 14px; border-radius:10px;
-border:1px solid #e0e3de; font-family:inherit; font-size:13px; background:#f9faf8;
+border:1px solid #232f47; font-family:inherit; font-size:13px;
+background:#161f36; color:#c9d3e6;
 }
+.search-wrap input::placeholder{ color:#5a6a8c; }
 .search-icon{ position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none; }
 
-.header-right{ display:flex; align-items:center; gap:14px; margin-left:auto; flex:0 0 auto; }
-.icon-btn{ position:relative; background:none; border:none; cursor:pointer; color:#4a4f4a; padding:4px; }
+.header-right{ display:flex; align-items:center; gap:12px; margin-left:auto; flex:0 0 auto; }
+.icon-btn{ position:relative; background:none; border:none; cursor:pointer; color:#8b9bc1; padding:4px; }
 
 .avatar-block{ display:flex; align-items:center; gap:8px; }
 .avatar-circle{
-width:34px; height:34px; border-radius:50%; background:#e0e3de; color:#6a6f6a;
+width:34px; height:34px; border-radius:50%; background:#161f36; border:1px solid #232f47; color:#8b9bc1;
 display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;
 }
 .avatar-text{ font-size:12.5px; }
-.avatar-text .name{ font-weight:800; color:#1c1c1c; display:block; }
-.avatar-text .role{ color:#8a8f8a; font-size:11px; }
+.avatar-text .name{ font-weight:700; color:#fff; display:block; }
+.avatar-text .role{ color:#5a6a8c; font-size:11px; }
 
 /* ===== LAYOUT ===== */
 
-.layout{ display:grid; grid-template-columns:230px 1fr 340px; gap:0; align-items:start; }
+.layout{ display:grid; grid-template-columns:230px 1fr 350px; gap:0; align-items:start; }
 
 @media (max-width:1100px){
   .layout{ grid-template-columns:1fr; }
-  .sidebar, .detail-panel{ position:static; }
+  .sidebar, .detail-panel{ position:static; height:auto; }
 }
 
 /* ===== SIDEBAR ===== */
 
 .sidebar{
 padding:22px 14px;
-position:sticky; top:63px;
-height:calc(100vh - 63px);
+position:sticky; top:67px;
+height:calc(100vh - 67px);
 overflow-y:auto;
-border-right:1px solid #e6e8e4;
+border-right:1px solid #232f47;
 }
 
 .nav-section-label{
-font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
-color:#a3a8a0; padding:14px 10px 6px;
+font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.1em;
+color:#5a6a8c; padding:14px 10px 6px;
 }
 .nav-section-label:first-child{ padding-top:0; }
 
 .nav-item{
 display:flex; align-items:center; justify-content:space-between; gap:10px;
 padding:10px 12px; border-radius:10px; margin-bottom:2px;
-font-size:13px; font-weight:700; color:#4a4f4a; cursor:pointer;
+font-size:13px; font-weight:600; color:#a3b1d1; cursor:pointer;
 border:none; background:none; width:100%; text-align:left;
 }
-.nav-item:hover{ background:#f0f2ee; }
-.nav-item.active{ background:#e6f3f0; color:#2f6f68; border-left:3px solid #2f6f68; }
-.nav-item.inert{ cursor:default; color:#b0b4ac; }
+.nav-item:hover{ background:#161f36; }
+.nav-item.active{ background:rgba(59,130,246,.15); color:#3b82f6; border-left:3px solid #3b82f6; }
+.nav-item.inert{ cursor:default; color:#3d4a68; }
 .nav-item.inert:hover{ background:none; }
 
 .nav-badge{
-font-size:10.5px; font-weight:800; background:#e6e8e4; color:#6a6f6a;
+font-size:10.5px; font-weight:700; background:#232f47; color:#8b9bc1;
 padding:2px 7px; border-radius:999px;
 }
 
 .quality-box{
-margin-top:18px; padding:14px; border-radius:14px;
-background:#eef6f1; border:1px solid #d6ebe1;
+margin-top:18px; padding:14px; border-radius:12px;
+background:#161f36; border:1px solid #232f47;
 }
-.quality-box .qtitle{ font-size:12.5px; font-weight:800; color:#2f6f68; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
-.quality-box p{ font-size:11.5px; color:#5a6f68; line-height:1.5; margin:0 0 8px; }
-.quality-box a{ font-size:11.5px; font-weight:700; color:#2f6f68; text-decoration:none; }
+.quality-box .qtitle{ font-size:12.5px; font-weight:700; color:#3b82f6; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.quality-box p{ font-size:11.5px; color:#8b9bc1; line-height:1.5; margin:0 0 8px; }
+.quality-box a{ font-size:11.5px; font-weight:700; color:#3b82f6; text-decoration:none; }
 
 /* ===== CENTER ===== */
 
 .center{ padding:22px 24px; min-width:0; }
 
-.center-header h2{ margin:0 0 4px; font-size:19px; font-weight:900; }
-.center-header .sub{ font-size:12.5px; color:#8a8f8a; margin-bottom:18px; }
+.center-header h2{ margin:0 0 4px; font-family:'Bitter', serif; font-size:20px; font-weight:800; color:#fff; }
+.center-header .sub{ font-size:12.5px; color:#8b9bc1; margin-bottom:18px; }
 
 .filter-row{ display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
 
 .filter-pill{
-padding:8px 14px; border-radius:999px; border:1px solid #e0e3de;
-background:#fff; font-size:12px; font-weight:700; color:#5a5f5a; cursor:pointer;
+padding:8px 16px; border-radius:999px; border:1px solid #232f47;
+background:#161f36; font-size:12px; font-weight:700; color:#a3b1d1; cursor:pointer;
 }
-.filter-pill.active{ background:#2f6f68; color:#fff; border-color:#2f6f68; }
+.filter-pill.active{ background:#3b82f6; color:#fff; border-color:#3b82f6; }
 
 .sort-select{
-margin-left:auto; padding:8px 12px; border-radius:10px; border:1px solid #e0e3de;
-font-size:12px; font-family:inherit; color:#5a5f5a; background:#fff;
+margin-left:auto; padding:8px 12px; border-radius:10px; border:1px solid #232f47;
+font-size:12px; font-family:inherit; color:#a3b1d1; background:#161f36;
 }
 
 .job-card{
-background:#fff; border:1px solid #e6e8e4; border-radius:16px;
-padding:20px; margin-bottom:16px; cursor:pointer; transition:.15s;
+background:#161f36; border:1px solid #232f47; border-radius:12px;
+padding:20px; margin-bottom:14px; cursor:pointer; transition:.15s;
 }
-.job-card:hover{ border-color:#2f6f68; }
-.job-card.selected{ border-color:#2f6f68; box-shadow:0 0 0 2px rgba(47,111,104,.15); }
+.job-card:hover{ border-color:#3b82f6; }
+.job-card.selected{ border-color:#3b82f6; box-shadow:0 0 0 2px rgba(59,130,246,.2); }
 
-.job-card-top{ display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.job-card-top{ display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
 
-.file-icon{
-width:38px; height:38px; border-radius:10px; flex:0 0 auto;
-display:flex; align-items:center; justify-content:center;
+.status-dot{
+width:8px; height:8px; border-radius:50%; background:#ec4899; flex:0 0 auto; margin-top:6px;
 }
-.file-icon.docx{ background:#e6f3ec; color:#2f6f68; }
-.file-icon.txt{ background:#fdf2e3; color:#c78a2f; }
-.file-icon.pdf{ background:#fbe9e7; color:#c94f4f; }
-.file-icon.other{ background:#eceef0; color:#7a7f7a; }
 
-.job-card-title{ font-size:14.5px; font-weight:800; color:#1c1c1c; margin-bottom:2px; }
-.job-card-id{ font-size:11px; color:#a3a8a0; font-weight:700; }
+.job-card-title{ font-size:14.5px; font-weight:700; color:#fff; margin-bottom:2px; }
+.job-card-id{ font-size:11px; color:#5a6a8c; font-weight:600; }
+
+.express-badge{
+margin-left:auto; flex:0 0 auto;
+display:flex; align-items:center; gap:4px;
+font-size:10.5px; font-weight:700;
+padding:5px 10px; border-radius:999px;
+background:rgba(139,158,255,.15); color:#8b9eff;
+}
 
 .status-pill{
-margin-left:auto; flex:0 0 auto;
-font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
-padding:5px 11px; border-radius:999px; background:#e6f3ec; color:#2f6f68;
+flex:0 0 auto;
+font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+padding:5px 11px; border-radius:999px; background:rgba(59,130,246,.15); color:#3b82f6;
 }
 
-.meta-row{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
+.chevron{ margin-left:8px; flex:0 0 auto; color:#5a6a8c; }
+
+.meta-row{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:14px; }
 .meta-item{ font-size:11.5px; }
-.meta-item .ml{ display:block; color:#a3a8a0; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px; margin-bottom:2px; }
-.meta-item .mv{ font-weight:700; color:#2a2a2a; }
+.meta-item .ml{ display:block; color:#5a6a8c; font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-size:9.5px; margin-bottom:3px; }
+.meta-item .mv{ font-weight:600; color:#e2e8f5; display:flex; align-items:center; gap:5px; }
 
 .card-price-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.card-price{ font-size:20px; font-weight:900; color:#2f6f68; }
+.card-price{ font-size:20px; font-weight:800; color:#fff; }
 
 .slots-block{ text-align:right; }
-.slots-label{ font-size:11px; color:#8a8f8a; font-weight:700; margin-bottom:4px; }
+.slots-label{ font-size:11px; color:#8b9bc1; font-weight:600; margin-bottom:4px; }
 .slot-dots{ display:flex; gap:5px; justify-content:flex-end; }
-.slot-dot{ width:16px; height:16px; border-radius:50%; border:2px solid #d6dad3; }
-.slot-dot.filled{ background:#2f6f68; border-color:#2f6f68; }
+.slot-dot{ width:16px; height:16px; border-radius:50%; border:2px solid #232f47; }
+.slot-dot.filled{ background:#3b82f6; border-color:#3b82f6; }
 
 .info-banner{
-background:#fdf8e8; border:1px solid #f0e4b8; border-radius:10px;
-padding:10px 12px; font-size:11.5px; color:#7a6a2a; margin-bottom:14px; line-height:1.5;
+background:#161f36; border:1px solid #232f47;
+border-radius:10px; padding:10px 12px; font-size:11.5px; color:#8b9bc1; margin-bottom:14px; line-height:1.5;
 }
 
-.card-actions{ display:flex; gap:10px; }
-.btn-outline{
-flex:1; padding:10px; border-radius:10px; border:1px solid #d6dad3; background:#fff;
-font-weight:800; font-size:12.5px; color:#4a4f4a; cursor:pointer;
+.card-actions{ display:flex; align-items:center; gap:16px; }
+.link-btn{
+background:none; border:none; color:#3b82f6; font-weight:700; font-size:12.5px; cursor:pointer;
+display:flex; align-items:center; gap:6px; padding:0;
 }
 .btn-solid{
-flex:1; padding:10px; border-radius:10px; border:none; background:#1f5c53;
-font-weight:800; font-size:12.5px; color:#fff; cursor:pointer;
+margin-left:auto;
+padding:11px 20px; border-radius:10px; border:none; background:#3b82f6;
+font-weight:700; font-size:12.5px; color:#fff; cursor:pointer;
 }
 
 .empty-state{
-text-align:center; padding:50px 24px; color:#8a8f8a; font-size:13.5px; line-height:1.6;
-background:#fff; border-radius:16px; border:1px dashed #d6dad3;
+text-align:center; padding:50px 24px; color:#5a6a8c; font-size:13.5px; line-height:1.6;
+background:#161f36; border-radius:12px; border:1px dashed #232f47;
 }
 
 /* ===== RIGHT DETAIL PANEL ===== */
 
 .detail-panel{
-padding:22px; position:sticky; top:63px; height:calc(100vh - 63px); overflow-y:auto;
-border-left:1px solid #e6e8e4;
+padding:22px; position:sticky; top:67px; height:calc(100vh - 67px); overflow-y:auto;
+border-left:1px solid #232f47;
 }
 
-.detail-empty{ text-align:center; padding:60px 20px; color:#a3a8a0; font-size:13px; }
+.detail-empty{ text-align:center; padding:60px 20px; color:#5a6a8c; font-size:13px; }
 
-.detail-header{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:4px; }
-.detail-title{ font-size:16px; font-weight:900; color:#1c1c1c; }
-.detail-id{ font-size:11px; color:#a3a8a0; font-weight:700; margin-bottom:14px; }
+.detail-header{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:6px; }
+.detail-title{ font-family:'Bitter', serif; font-size:16px; font-weight:800; color:#fff; }
+.detail-id{ font-size:11px; color:#5a6a8c; font-weight:600; margin-bottom:14px; }
 
-.detail-price{ font-size:26px; font-weight:900; margin:6px 0 18px; }
+.detail-price{ font-size:26px; font-weight:800; margin:6px 0 18px; color:#fff; }
 
 .detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px; }
-.detail-field .dl{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#a3a8a0; margin-bottom:3px; }
-.detail-field .dv{ font-size:13px; font-weight:700; color:#1c1c1c; }
+.detail-field .dl{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#5a6a8c; margin-bottom:3px; }
+.detail-field .dv{ font-size:13px; font-weight:600; color:#e2e8f5; }
 
 .about-block{ margin-bottom:18px; }
-.about-block h4{ font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#8a8f8a; margin:0 0 6px; }
-.about-block p{ font-size:12.5px; color:#4a4f4a; line-height:1.6; margin:0; }
+.about-block h4{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#8b9bc1; margin:0 0 6px; }
+.about-block p{ font-size:12.5px; color:#a3b1d1; line-height:1.6; margin:0; }
 
-.secondary-row{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid #eceef0; }
+.secondary-row{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid #232f47; }
 
 .split-boxes{ display:flex; flex-direction:column; gap:14px; margin-bottom:20px; }
-.split-box{ background:#f9faf8; border:1px solid #eceef0; border-radius:12px; padding:14px; }
-.split-box h4{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#8a8f8a; margin:0 0 10px; }
-.payout-row{ display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px; }
-.payout-row .amt{ font-weight:800; }
-.rubric-row{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; color:#5a5f5a; }
-.pass-mark{ margin-top:8px; padding-top:8px; border-top:1px solid #eceef0; font-size:12.5px; font-weight:800; color:#1f5c53; }
+.split-box{ background:#0f1729; border:1px solid #232f47; border-radius:12px; padding:14px; }
+.split-box h4{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#8b9bc1; margin:0 0 10px; }
+.payout-row{ display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:6px; color:#c9d3e6; }
+.payout-row .amt{ font-weight:700; color:#fff; }
+.rubric-row{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; color:#8b9bc1; }
+.pass-mark{ margin-top:8px; padding-top:8px; border-top:1px solid #232f47; font-size:12.5px; font-weight:700; color:#3b82f6; }
 
 .flow-row{ display:flex; align-items:center; gap:6px; margin-bottom:20px; overflow-x:auto; padding-bottom:4px; }
-.flow-step{ flex:0 0 auto; text-align:center; font-size:10px; color:#5a5f5a; width:62px; }
-.flow-icon{ width:34px; height:34px; border-radius:50%; background:#eceef0; display:flex; align-items:center; justify-content:center; margin:0 auto 4px; }
-.flow-arrow{ color:#c8ccc6; flex:0 0 auto; }
+.flow-step{ flex:0 0 auto; text-align:center; font-size:10px; color:#8b9bc1; width:62px; }
+.flow-icon{ width:34px; height:34px; border-radius:50%; background:#161f36; border:1px solid #232f47; display:flex; align-items:center; justify-content:center; margin:0 auto 4px; }
+.flow-arrow{ color:#3d4a68; flex:0 0 auto; }
 
 .nda-box{
-background:#fdf2e8; border:1px solid #f0d8b8; border-radius:12px; padding:14px; margin-bottom:14px;
+background:#161f36; border:1px solid #232f47; border-radius:12px; padding:14px; margin-bottom:14px;
 }
-.nda-box .nt{ font-size:12px; font-weight:800; color:#8a5a1f; display:flex; align-items:center; gap:6px; margin-bottom:4px; }
-.nda-box p{ font-size:11.5px; color:#7a5a2f; margin:0; line-height:1.5; }
+.nda-box .nt{ font-size:12px; font-weight:700; color:#3b82f6; display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+.nda-box p{ font-size:11.5px; color:#8b9bc1; margin:0; line-height:1.5; }
 
 .nda-accept-btn{
-width:100%; padding:14px; border:none; border-radius:12px; background:#1f5c53; color:#fff;
-font-weight:800; font-size:13.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+width:100%; padding:14px; border:none; border-radius:12px; background:#3b82f6; color:#fff;
+font-weight:700; font-size:13.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
 }
 
 /* ===== FOOTER ===== */
 
 .earnings-bar{
 position:fixed; bottom:0; left:0; right:0; z-index:60;
-background:#fff; border-top:1px solid #e6e8e4;
+background:#0f1729; border-top:1px solid #232f47;
 padding:12px 24px;
 display:flex; align-items:center; gap:28px; flex-wrap:wrap;
 }
 
 .earn-item{ font-size:11px; }
-.earn-item .el{ display:block; color:#a3a8a0; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px; margin-bottom:2px; }
-.earn-item .ev{ font-weight:900; font-size:15px; color:#1c1c1c; }
+.earn-item .el{ display:block; color:#5a6a8c; font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-size:9.5px; margin-bottom:2px; }
+.earn-item .ev{ font-weight:800; font-size:15px; color:#fff; }
 
-.earn-note{ font-size:10.5px; color:#a3a8a0; }
+.earn-note{ font-size:10.5px; color:#5a6a8c; }
 
 .cashout-btn{
-margin-left:auto; padding:11px 20px; border-radius:10px; border:none;
-background:#e0e3de; color:#8a8f8a; font-weight:800; font-size:12.5px; cursor:not-allowed;
+margin-left:auto; padding:11px 20px; border-radius:10px; border:1px solid #232f47;
+background:#161f36; color:#5a6a8c; font-weight:700; font-size:12.5px; cursor:not-allowed;
 }
 
 </style>
@@ -264,17 +278,22 @@ background:#e0e3de; color:#8a8f8a; font-weight:800; font-size:12.5px; cursor:not
 <body>
 
 <div class="topbar">
-<span class="brand">SAYBON</span>
-<div class="title-block"><h1>Translator Job Board</h1><div class="sub">Compete. Deliver Quality. Earn Fairly.</div></div>
+<div class="icon-square" onclick="location.href='/translation/'" title="Back">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a3b1d1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+</div>
+<div class="icon-square" onclick="location.href='/dashboard/'" title="Dashboard">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a3b1d1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</div>
+<div class="title-block"><h1>Translator Job Board</h1><div class="sub">Compete. Deliver quality. Earn fairly.</div></div>
 <div class="search-wrap">
 <input type="text" id="searchInput" placeholder="Search by job ID, language, filename..." />
-<svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a3a8a0" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+<svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5a6a8c" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
 </div>
 <div class="header-right">
-<button class="icon-btn" aria-label="Notifications" title="No notifications yet"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4a4f4a" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-<button class="icon-btn" aria-label="Messages" title="Messaging not built yet"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#4a4f4a" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+<button class="icon-btn" aria-label="Notifications" title="No notifications yet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b9bc1" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+<button class="icon-btn" aria-label="Messages" title="Messaging not built yet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b9bc1" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <div class="avatar-block">
-<div class="avatar-circle">?</div>
+<div class="avatar-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b9bc1" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div>
 <div class="avatar-text"><span class="name">Translator</span><span class="role">Not signed in yet</span></div>
 </div>
 </div>
@@ -359,7 +378,7 @@ background:#e0e3de; color:#8a8f8a; font-weight:800; font-size:12.5px; cursor:not
 <div class="earn-item"><span class="el">Pending Clearance</span><span class="ev">$0.00</span><span class="earn-note">No payout system built yet</span></div>
 <div class="earn-item"><span class="el">Total Balance</span><span class="ev">$0.00</span></div>
 <div class="earn-item"><span class="el">Min. Cash Out</span><span class="ev">$10.00</span></div>
-<button class="cashout-btn" disabled title="Cash out is not available yet">🏛 Cash Out</button>
+<button class="cashout-btn" disabled title="Cash out is not available yet">Cash Out</button>
 </div>
 
 <script type="module">
@@ -391,14 +410,6 @@ function getExpectedDelivery(words, plan){
   const tier = DELIVERY_TABLE.find(t => words <= t.maxWords);
   if(!tier) return "Custom";
   return plan === "express" ? tier.express : tier.standard;
-}
-
-function getFileIconClass(filename){
-  const lower = (filename||"").toLowerCase();
-  if(lower.endsWith(".docx") || lower.endsWith(".doc")) return "docx";
-  if(lower.endsWith(".pdf")) return "pdf";
-  if(lower.endsWith(".txt")) return "txt";
-  return "other";
 }
 
 // ===== NAV TAB SWITCHING =====
@@ -434,8 +445,8 @@ function getFilteredSortedJobs(){
 
   let list = allJobs.slice();
 
-  if(activeFilter === "translation") list = list.filter(j=>true); // all current jobs are Translation type
-  if(activeFilter === "editing") list = []; // no editing job type exists yet
+  if(activeFilter === "translation") list = list.filter(j=>true);
+  if(activeFilter === "editing") list = [];
   if(activeFilter === "standard") list = list.filter(j=>(j.data.plan||"standard")==="standard");
   if(activeFilter === "express") list = list.filter(j=>j.data.plan==="express");
 
@@ -470,7 +481,7 @@ function buildJobCard({ id, data }){
   const plan = data.plan || "standard";
   const priorityLabel = plan === "express" ? "Express" : "Standard";
   const expectedDelivery = getExpectedDelivery(words, plan);
-  const iconClass = getFileIconClass(data.clientFile);
+  const isExpress = plan === "express";
 
   const div = document.createElement("div");
   div.className = "job-card" + (id === selectedJobId ? " selected" : "");
@@ -478,15 +489,17 @@ function buildJobCard({ id, data }){
 
   div.innerHTML =
     "<div class=\"job-card-top\">" +
-      "<div class=\"file-icon " + iconClass + "\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+      "<span class=\"status-dot\"></span>" +
       "<div><div class=\"job-card-title\">" + (data.clientFile || "Untitled document") + "</div><div class=\"job-card-id\">" + (data.jobId || id) + "</div></div>" +
+      (isExpress ? "<span class=\"express-badge\">\u26A1 Express</span>" : "") +
       "<span class=\"status-pill\">Available</span>" +
+      "<svg class=\"chevron\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m9 18 6-6-6-6\"/></svg>" +
     "</div>" +
     "<div class=\"meta-row\">" +
       "<div class=\"meta-item\"><span class=\"ml\">Job Type</span><span class=\"mv\">Translation</span></div>" +
       "<div class=\"meta-item\"><span class=\"ml\">Language</span><span class=\"mv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</span></div>" +
       "<div class=\"meta-item\"><span class=\"ml\">Category</span><span class=\"mv\">\u2014</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Expected Delivery</span><span class=\"mv\">" + expectedDelivery + "</span></div>" +
+      "<div class=\"meta-item\"><span class=\"ml\">Expected Delivery</span><span class=\"mv\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/></svg>" + expectedDelivery + "</span></div>" +
     "</div>" +
     "<div class=\"card-price-row\">" +
       "<div class=\"card-price\">$" + Number(data.price||0).toFixed(2) + "</div>" +
@@ -494,7 +507,7 @@ function buildJobCard({ id, data }){
     "</div>" +
     "<div class=\"info-banner\">Three participants may independently submit work. Final payment is determined by verified ranking.</div>" +
     "<div class=\"card-actions\">" +
-      "<button class=\"btn-outline\" onclick=\"event.stopPropagation(); selectJob('" + id + "')\">View Details</button>" +
+      "<button class=\"link-btn\" onclick=\"event.stopPropagation(); selectJob('" + id + "')\">View Details \u2192</button>" +
       "<button class=\"btn-solid\" onclick=\"event.stopPropagation(); acceptJob('" + id + "')\">Accept Job</button>" +
     "</div>";
 
@@ -541,7 +554,7 @@ function renderDetailPanel({ id, data }){
 
   panel.innerHTML =
     "<div class=\"detail-header\"><div><div class=\"detail-title\">" + (data.clientFile||"Untitled document") + "</div><div class=\"detail-id\">" + (data.jobId||id) + "</div></div></div>" +
-    "<span class=\"status-pill\">Available</span> <span style=\"font-size:11px;color:#8a8f8a;margin-left:8px;\">0/3 slots filled</span>" +
+    "<span class=\"status-pill\">Available</span> <span style=\"font-size:11px;color:#8b9bc1;margin-left:8px;\">0/3 slots filled</span>" +
     "<div class=\"detail-price\">$" + price.toFixed(2) + "</div>" +
 
     "<div class=\"detail-grid\">" +
@@ -563,10 +576,10 @@ function renderDetailPanel({ id, data }){
     "<div class=\"split-boxes\">" +
       "<div class=\"split-box\">" +
         "<h4>Payment by Position (from stated job price)</h4>" +
-        "<div class=\"payout-row\"><span>\uD83E\uDD47 1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>\uD83E\uDD48 2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>\uD83E\uDD49 3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>\u2717 Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
+        "<div class=\"payout-row\"><span>1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
       "</div>" +
       "<div class=\"split-box\">" +
         "<h4>Evaluation Standard (100 points)</h4>" +
@@ -592,9 +605,9 @@ function renderDetailPanel({ id, data }){
       "<div class=\"flow-step\"><div class=\"flow-icon\">\uD83C\uDFC6</div>Ranked &amp; Paid</div>" +
     "</div>" +
 
-    "<div class=\"nda-box\"><div class=\"nt\">\u2705 NDA Required</div><p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p></div>" +
+    "<div class=\"nda-box\"><div class=\"nt\">NDA Required</div><p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p></div>" +
 
-    "<button class=\"nda-accept-btn\" onclick=\"acceptJob('" + id + "')\">\uD83D\uDD12 Agree to NDA &amp; Accept Job</button>";
+    "<button class=\"nda-accept-btn\" onclick=\"acceptJob('" + id + "')\">Agree to NDA &amp; Accept Job</button>";
 
 }
 
