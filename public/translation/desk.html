@@ -196,6 +196,55 @@ color:#5a4a3f;
 line-height:1.6;
 }
 
+.job-list-panel{
+max-width:1000px;
+width:100%;
+}
+
+.job-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.job-list-item{
+background: rgba(255,251,246,.72);
+backdrop-filter: blur(18px);
+border: 1px solid rgba(255,255,255,.7);
+border-radius:16px;
+padding:16px 20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+cursor:pointer;
+box-shadow: 0 12px 30px rgba(60,40,20,.14);
+transition:.2s;
+}
+.job-list-item:hover{ transform:translateY(-2px); box-shadow: 0 16px 36px rgba(60,40,20,.2); }
+
+.job-list-left{ min-width:0; }
+.job-list-code{ font-size:14px; font-weight:800; color:#3a2f28; }
+.job-list-meta{ font-size:12px; color:#8a7a6d; margin-top:2px; }
+
+.job-list-badge{
+flex:0 0 auto;
+font-size:10.5px;
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:.05em;
+padding:5px 10px;
+border-radius:999px;
+color:#fff;
+}
+
+.job-list-empty{
+text-align:center;
+font-size:13.5px;
+color:#5a4a3f;
+padding:20px;
+}
+
 </style>
 </head>
 
@@ -214,7 +263,11 @@ line-height:1.6;
 <div class="divider"><span class="divider-line"></span><span class="divider-dot"></span><span class="divider-line"></span></div>
 </div>
 
-<div class="grid">
+<div class="job-list-panel" id="jobListPanel" style="display:none;">
+<div class="job-list" id="jobList"></div>
+</div>
+
+<div class="grid" id="deskGrid">
 
 <div class="panel">
 <div class="panel-label">Job Details</div>
@@ -295,10 +348,70 @@ Return to Dashboard
 <script type="module">
 
 import { db } from "/js/firebase-init.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
 const jobId = params.get("job");
+const adminKey = params.get("admin");
+
+const STATUS_BADGE = {
+  awaiting_payment: { label: "Awaiting Payment", color: "#9a8b7d" },
+  open: { label: "Open", color: "#2f6f68" },
+  claimed: { label: "Claimed", color: "#c9714f" },
+  completed: { label: "Completed", color: "#3f8f5f" }
+};
+
+async function loadAllJobs(){
+
+  document.getElementById("deskGrid").style.display = "none";
+  document.getElementById("jobListPanel").style.display = "block";
+
+  const listEl = document.getElementById("jobList");
+  listEl.innerHTML = "";
+
+  try{
+
+    const snapshot = await getDocs(collection(db, "translationJobs"));
+
+    if(snapshot.empty){
+      listEl.innerHTML = "<div class=\"job-list-empty\">No jobs found.</div>";
+      return;
+    }
+
+    const jobs = [];
+    snapshot.forEach(docSnap => jobs.push({ id: docSnap.id, data: docSnap.data() }));
+
+    jobs.sort((a, b) => {
+      const aTime = a.data.createdAt && a.data.createdAt.toMillis ? a.data.createdAt.toMillis() : 0;
+      const bTime = b.data.createdAt && b.data.createdAt.toMillis ? b.data.createdAt.toMillis() : 0;
+      return bTime - aTime;
+    });
+
+    jobs.forEach(({ id, data }) => {
+
+      const badge = STATUS_BADGE[data.status] || { label: data.status || "Unknown", color: "#9a8b7d" };
+
+      const row = document.createElement("div");
+      row.className = "job-list-item";
+      row.onclick = () => { window.location.href = "/translation/desk.html?job=" + encodeURIComponent(id); };
+
+      row.innerHTML =
+        "<div class=\"job-list-left\">" +
+          "<div class=\"job-list-code\">" + (data.jobId || id) + "</div>" +
+          "<div class=\"job-list-meta\">" + (data.email || "-") + " · " + (data.wordCount ?? "-") + " words · $" + Number(data.price || 0).toFixed(2) + "</div>" +
+        "</div>" +
+        "<span class=\"job-list-badge\" style=\"background:" + badge.color + "\">" + badge.label + "</span>";
+
+      listEl.appendChild(row);
+
+    });
+
+  }catch(err){
+    console.error("ALL JOBS LOAD ERROR:", err);
+    listEl.innerHTML = "<div class=\"job-list-empty\">There was a problem loading jobs.</div>";
+  }
+
+}
 
 function setStep(dotId, done){
   const el = document.getElementById(dotId);
@@ -360,7 +473,11 @@ async function loadJob(){
 
 }
 
-loadJob();
+if(adminKey === "963281"){
+  loadAllJobs();
+}else{
+  loadJob();
+}
 
 </script>
 
