@@ -9,8 +9,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -39,9 +37,13 @@ position:relative;
 position:absolute;
 top:18px;
 right:22px;
-font-size:28px;
+width:32px;
+height:32px;
 cursor:pointer;
 transition:.2s;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 .pdfBtn:hover{
 transform:scale(1.2);
@@ -138,7 +140,9 @@ color:#9aa4b2;
 
 <div class="invoice" id="invoice">
 
-<div class="pdfBtn" onclick="downloadInvoice()">??</div>
+<div class="pdfBtn" onclick="downloadInvoice()">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4b16a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V8M8 12l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+</div>
 
 <div class="brand">
 SAYBON TRANSLATION SERVICES
@@ -212,18 +216,10 @@ TRANSLATION DESK
 
 </div>
 
-<script>
-const firebaseConfig = {
-apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-authDomain:"saybon-3e3c2.firebaseapp.com",
-projectId:"saybon-3e3c2",
-storageBucket:"saybon-3e3c2.firebasestorage.app",
-messagingSenderId:"75085012344",
-appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
+<script type="module">
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+import { db } from "/js/firebase-init.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get("session_id");
@@ -259,14 +255,14 @@ async function loadInvoice(){
       return;
     }
 
-    const doc = await db.collection("translationJobs").doc(jobId).get();
+    const jobSnap = await getDoc(doc(db, "translationJobs", jobId));
 
-    if(!doc.exists){
+    if(!jobSnap.exists()){
       document.getElementById("message").innerText = "Invoice data could not be found.";
       return;
     }
 
-    const data = doc.data();
+    const data = jobSnap.data();
 
     document.getElementById("job").innerText = data.jobId || "-";
     document.getElementById("email").innerText = data.email || "-";
@@ -286,17 +282,17 @@ async function loadInvoice(){
     let timeline = "";
 
     if(words <= 300){
-      timeline = isExpress ? "30�60 mins" : "1�3 hrs";
+      timeline = isExpress ? "30–60 mins" : "1–3 hrs";
     }else if(words <= 1000){
-      timeline = isExpress ? "1�3 hrs" : "3�6 hrs";
+      timeline = isExpress ? "1–3 hrs" : "3–6 hrs";
     }else if(words <= 3000){
-      timeline = isExpress ? "3�6 hrs" : "6�12 hrs";
+      timeline = isExpress ? "3–6 hrs" : "6–12 hrs";
     }else if(words <= 6000){
-      timeline = isExpress ? "6�12 hrs" : "12�24 hrs";
+      timeline = isExpress ? "6–12 hrs" : "12–24 hrs";
     }else if(words <= 10000){
-      timeline = isExpress ? "12�24 hrs" : "24�48 hrs";
+      timeline = isExpress ? "12–24 hrs" : "24–48 hrs";
     }else if(words <= 20000){
-      timeline = isExpress ? "24�48 hrs" : "2�4 days";
+      timeline = isExpress ? "24–48 hrs" : "2–4 days";
     }else{
       timeline = "Custom";
     }
@@ -323,11 +319,12 @@ function downloadInvoice(){
   html2pdf().from(document.getElementById("invoice")).save("SayBon-Invoice.pdf");
 }
 
+window.openDesk = openDesk;
+window.downloadInvoice = downloadInvoice;
+
 loadInvoice();
+
 </script>
 
 </body>
 </html>
-
-
-
