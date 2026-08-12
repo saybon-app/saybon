@@ -153,6 +153,19 @@ color:#1c1c1c;
 font-size:14px;
 }
 
+.package-badge{
+display:inline-block;
+margin-left:8px;
+padding:2px 10px;
+border-radius:999px;
+background:#eaf5ea;
+color:#2e7d32;
+font-size:11px;
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:.3px;
+}
+
 /* ============ INPUTS ============ */
 
 .input-icon-wrap{ position:relative; margin-top:12px; }
@@ -235,7 +248,7 @@ table{ width:100%; border-collapse:collapse; }
 
 th,td{
 padding:9px 6px;
-font-size:12px;
+font-size:11.5px;
 text-align:center;
 border-bottom:1px solid #eef2ee;
 }
@@ -243,17 +256,20 @@ border-bottom:1px solid #eef2ee;
 thead th{
 background:#f2f7f2;
 font-weight:800;
-font-size:11px;
-letter-spacing:.4px;
+font-size:10.5px;
+letter-spacing:.3px;
 text-transform:uppercase;
 }
-thead th:first-child{ color:#1c1c1c; }
+thead th:first-child{ color:#1c1c1c; text-align:left; }
 thead th.green{ color:#2e7d32; }
 thead th.red{ color:#d32f2f; }
 
-tbody td:first-child{ color:#3a3f3a; font-weight:700; }
-.green-cell{ color:#2e7d32; }
-.red-cell{ color:#d32f2f; }
+tbody td:first-child{ color:#3a3f3a; font-weight:700; text-align:left; }
+tbody .pkg-name{ display:block; font-weight:800; color:#1c1c1c; }
+tbody .pkg-range{ display:block; font-size:10px; color:#9a9f9a; font-weight:600; }
+.green-cell{ color:#2e7d32; font-weight:700; }
+.red-cell{ color:#d32f2f; font-weight:700; }
+.custom-row td{ color:#8a8f8a; font-style:italic; }
 
 /* ============ TRUST BANNER ============ */
 
@@ -324,10 +340,10 @@ UPLOAD
 
 <div class="minimum">
 <span class="info-icon">i</span>
-Minimum order is 100 words. Documents with fewer than 100 words are billed as 100 words.
+Pricing is based on flat-rate packages by word count — see the table for details. All documents are billed at the package covering their word count.
 </div>
 
-<div class="word-count">WORDS: 0</div>
+<div class="word-count">WORDS: 0 <span class="package-badge" id="packageBadge">—</span></div>
 
 <div class="input-icon-wrap">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
@@ -348,7 +364,7 @@ Minimum order is 100 words. Documents with fewer than 100 words are billed as 10
 <div class="quote-card standard" onclick="goToStripe('standard')">
 <span class="quote-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
 <span class="quote-text">
-<div class="quote-price">STANDARD $0.00</div>
+<div class="quote-price" id="standardPriceLabel">STANDARD $0.00</div>
 <div class="quote-delivery" id="standardDelivery">Delivery:</div>
 </span>
 <span class="quote-radio"></span>
@@ -357,7 +373,7 @@ Minimum order is 100 words. Documents with fewer than 100 words are billed as 10
 <div class="quote-card express" onclick="goToStripe('express')">
 <span class="quote-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
 <span class="quote-text">
-<div class="quote-price">EXPRESS $0.00</div>
+<div class="quote-price" id="expressPriceLabel">EXPRESS $0.00</div>
 <div class="quote-delivery" id="expressDelivery">Delivery:</div>
 </span>
 <span class="quote-radio"></span>
@@ -370,19 +386,41 @@ Minimum order is 100 words. Documents with fewer than 100 words are billed as 10
 <table>
 <thead>
 <tr>
-<th>WORD COUNT</th>
+<th>PACKAGE</th>
 <th class="green">STANDARD</th>
 <th class="red">EXPRESS</th>
 </tr>
 </thead>
 <tbody>
-<tr><td>1–300</td><td class="green-cell">1–3 hrs</td><td class="red-cell">30–60 mins</td></tr>
-<tr><td>301–1000</td><td class="green-cell">3–6 hrs</td><td class="red-cell">1–3 hrs</td></tr>
-<tr><td>1001–3000</td><td class="green-cell">6–12 hrs</td><td class="red-cell">3–6 hrs</td></tr>
-<tr><td>3001–6000</td><td class="green-cell">12–24 hrs</td><td class="red-cell">6–12 hrs</td></tr>
-<tr><td>6001–10000</td><td class="green-cell">24–48 hrs</td><td class="red-cell">12–24 hrs</td></tr>
-<tr><td>10001–20000</td><td class="green-cell">2–4 days</td><td class="red-cell">24–48 hrs</td></tr>
-<tr><td>20000+</td><td class="green-cell">Custom</td><td class="red-cell">Custom</td></tr>
+<tr>
+<td><span class="pkg-name">Starter</span><span class="pkg-range">Up to 200 words</span></td>
+<td class="green-cell">$5.00</td>
+<td class="red-cell">$10.00</td>
+</tr>
+<tr>
+<td><span class="pkg-name">Basic</span><span class="pkg-range">Up to 500 words</span></td>
+<td class="green-cell">$12.50</td>
+<td class="red-cell">$25.00</td>
+</tr>
+<tr>
+<td><span class="pkg-name">Standard</span><span class="pkg-range">Up to 1,000 words</span></td>
+<td class="green-cell">$25.00</td>
+<td class="red-cell">$50.00</td>
+</tr>
+<tr>
+<td><span class="pkg-name">Plus</span><span class="pkg-range">Up to 3,000 words</span></td>
+<td class="green-cell">$75.00</td>
+<td class="red-cell">$150.00</td>
+</tr>
+<tr>
+<td><span class="pkg-name">Business</span><span class="pkg-range">Up to 10,000 words</span></td>
+<td class="green-cell">$250.00</td>
+<td class="red-cell">$500.00</td>
+</tr>
+<tr class="custom-row">
+<td><span class="pkg-name">Custom</span><span class="pkg-range">10,000+ words</span></td>
+<td colspan="2">Contact us for a quote</td>
+</tr>
 </tbody>
 </table>
 
@@ -405,10 +443,28 @@ Minimum order is 100 words. Documents with fewer than 100 words are billed as 10
 let currentWords = 0
 let standardPrice = 0
 let expressPrice = 0
+let currentPackage = null
 
 const uploadBtn=document.getElementById("uploadBtn")
 const fileInput=document.getElementById("fileInput")
 const fileNameEl=document.getElementById("fileName")
+
+const PACKAGES = [
+  { name:"Starter",  maxWords:200,   standard:5.00,   express:10.00,  standardDelivery:"1–3 hrs",   expressDelivery:"30–60 mins" },
+  { name:"Basic",    maxWords:500,   standard:12.50,  express:25.00,  standardDelivery:"3–6 hrs",   expressDelivery:"1–3 hrs" },
+  { name:"Standard", maxWords:1000,  standard:25.00,  express:50.00,  standardDelivery:"6–12 hrs",  expressDelivery:"3–6 hrs" },
+  { name:"Plus",     maxWords:3000,  standard:75.00,  express:150.00, standardDelivery:"12–24 hrs", expressDelivery:"6–12 hrs" },
+  { name:"Business", maxWords:10000, standard:250.00, express:500.00, standardDelivery:"2–4 days",  expressDelivery:"24–48 hrs" }
+]
+
+function getPackageForWords(words){
+  for(let i=0; i<PACKAGES.length; i++){
+    if(words <= PACKAGES[i].maxWords){
+      return PACKAGES[i]
+    }
+  }
+  return null
+}
 
 fileInput.addEventListener("change",()=>{
   if(fileInput.files[0]){
@@ -435,32 +491,41 @@ let text=e.target.result||""
 
 let words=text.trim().split(/\s+/).filter(Boolean).length
 
-if(words<100){
-words=100
+if(words<1){
+words=1
 }
 
 currentWords=words
 
-standardPrice=(words*0.025).toFixed(2)
-if(Number(standardPrice)<5){ standardPrice="5.00" }
+const pkg = getPackageForWords(words)
+currentPackage = pkg
 
-expressPrice=(words*0.05).toFixed(2)
-if(Number(expressPrice)<5){ expressPrice="5.00" }
+document.querySelector(".word-count").innerHTML=
+"WORDS: "+words+' <span class="package-badge" id="packageBadge">'+(pkg?pkg.name:"Custom")+'</span>'
 
-document.querySelector(".word-count").innerText=
-"WORDS: "+words
+if(pkg){
 
-document.querySelector(".standard .quote-price").innerText=
-"STANDARD $"+standardPrice
+standardPrice = pkg.standard.toFixed(2)
+expressPrice = pkg.express.toFixed(2)
 
-document.querySelector(".express .quote-price").innerText=
-"EXPRESS $"+expressPrice
+document.getElementById("standardPriceLabel").innerText = "STANDARD $"+standardPrice
+document.getElementById("expressPriceLabel").innerText = "EXPRESS $"+expressPrice
 
-document.getElementById("standardDelivery").innerText =
-"Delivery: 1–3 hrs"
+document.getElementById("standardDelivery").innerText = "Delivery: "+pkg.standardDelivery
+document.getElementById("expressDelivery").innerText = "Delivery: "+pkg.expressDelivery
 
-document.getElementById("expressDelivery").innerText =
-"Delivery: 30–60 mins"
+} else {
+
+standardPrice = null
+expressPrice = null
+
+document.getElementById("standardPriceLabel").innerText = "STANDARD — Custom quote"
+document.getElementById("expressPriceLabel").innerText = "EXPRESS — Custom quote"
+
+document.getElementById("standardDelivery").innerText = "Delivery: contact us"
+document.getElementById("expressDelivery").innerText = "Delivery: contact us"
+
+}
 
 }
 
@@ -473,6 +538,11 @@ function goToStripe(type){
 
 if(currentWords===0){
 alert("Please upload a document first")
+return
+}
+
+if(!currentPackage){
+window.location.href="mailto:saybon.fr@gmail.com?subject=Custom Translation Quote Request&body=Word count: "+currentWords
 return
 }
 
