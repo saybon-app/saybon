@@ -15,47 +15,78 @@
 
 *{ box-sizing:border-box; }
 
+html, body{ margin:0; padding:0; width:100%; }
+
 body{
-margin:0;
 font-family:'Inter', system-ui, sans-serif;
-color:#102B2C;
-background:linear-gradient(135deg, #EAF3EF 0%, #F7F8F1 50%, #E8F1ED 100%);
+color:#DCE9E6;
+background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
+min-height:100vh;
+display:flex;
+justify-content:center;
 padding:60px 20px;
 }
 
-.page{ max-width:560px; margin:0 auto; }
+.page{ width:100%; max-width:560px; }
+
+.progress-strip{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:24px; }
+.progress-dot{ width:8px; height:8px; border-radius:50%; background:#0C8F96; }
 
 .card{
-background:rgba(255,255,255,.6); backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.7); border-radius:16px; padding:28px;
-box-shadow:0 8px 28px rgba(0,55,57,.06);
+background:rgba(255,255,255,.05); backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.1); border-radius:18px; padding:32px;
+box-shadow:0 8px 28px rgba(0,0,0,.2);
 }
 
-h1{ text-align:center; font-size:20px; font-weight:700; margin:0 0 20px; color:#00484B; }
+h1{ text-align:center; font-size:20px; font-weight:700; margin:0 0 6px; color:#fff; }
+.result-sub{ text-align:center; font-size:12.5px; color:#8FA8A3; margin-bottom:22px; }
 
-.status{ text-align:center; font-size:20px; font-weight:700; margin-bottom:20px; }
-.pass{ color:#0A756C; }
-.fail{ color:#C94A45; }
+.status{ text-align:center; font-size:21px; font-weight:700; margin-bottom:24px; }
+.pass{ color:#5FD3B8; }
+.fail{ color:#e08585; }
 
-table{ width:100%; border-collapse:collapse; margin-bottom:20px; }
-th, td{ border-bottom:1px solid rgba(0,72,75,.1); padding:10px; text-align:left; font-size:13px; }
-th{ color:#526668; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+.metric-list{ display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
+
+.metric-row{ display:flex; align-items:center; gap:12px; }
+.metric-icon{
+width:30px; height:30px; border-radius:9px; flex:0 0 auto;
+background:rgba(212,175,106,.14); color:#D4AF6A;
+display:flex; align-items:center; justify-content:center;
+}
+.metric-icon svg{ width:15px; height:15px; }
+
+.metric-body{ flex:1; min-width:0; }
+.metric-label{ font-size:12px; color:#A9C9C3; margin-bottom:4px; }
+.metric-bar-track{ height:6px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; }
+.metric-bar-fill{ height:100%; border-radius:999px; background:#5FD3B8; }
+.metric-value{ font-size:13px; font-weight:650; color:#fff; flex:0 0 auto; width:44px; text-align:right; }
+
+.final-row{
+display:flex; align-items:center; justify-content:space-between;
+padding-top:16px; margin-top:4px; border-top:1px solid rgba(255,255,255,.1);
+}
+.final-label{ font-size:13px; font-weight:650; color:#fff; }
+.final-value{ font-size:19px; font-weight:700; color:#D4AF6A; }
 
 .passkey-box{
-margin-top:10px; padding:20px; border-radius:12px;
-background:rgba(212,175,106,.1); border:2px solid #D4AF6A; text-align:center; display:none;
+margin-top:6px; padding:22px; border-radius:14px;
+background:rgba(212,175,106,.08); border:1.5px solid rgba(212,175,106,.35); text-align:center;
+display:none;
 }
+.passkey-title{ font-size:12px; font-weight:650; color:#D4AF6A; text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
 .passkey-code{
-display:inline-block; margin-top:10px; padding:12px 20px; border-radius:8px;
-background:#00484B; color:#fff; font-family:monospace; font-size:18px; letter-spacing:2px;
-cursor:pointer; user-select:all;
+display:inline-block; padding:13px 22px; border-radius:9px;
+background:#012225; color:#fff; font-family:monospace; font-size:17px; letter-spacing:2px;
+cursor:pointer; user-select:all; border:1px solid rgba(212,175,106,.3);
 }
-.passkey-note{ margin-top:10px; font-size:12px; color:#8a5f16; }
+.passkey-note{ margin-top:10px; font-size:11.5px; color:#8FA8A3; line-height:1.5; }
 
-.buttons{ margin-top:22px; display:flex; gap:12px; justify-content:center; }
-.btn{ padding:12px 20px; border-radius:9px; border:none; font-size:13px; font-weight:600; cursor:pointer; }
-.btn-primary{ background:#005C60; color:#fff; display:none; }
-.btn-secondary{ background:rgba(0,72,75,.08); color:#00484B; }
+.buttons{ margin-top:24px; display:flex; gap:12px; justify-content:center; }
+.btn{ padding:12px 22px; border-radius:10px; border:none; font-size:13px; font-weight:650; cursor:pointer; }
+.btn-primary{ background:#D4AF6A; color:#012225; display:none; }
+.btn-primary:hover{ background:#e0bd7c; }
+.btn-secondary{ background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.15); }
+.btn-secondary:hover{ background:rgba(255,255,255,.14); }
 
 </style>
 </head>
@@ -63,22 +94,57 @@ cursor:pointer; user-select:all;
 <body>
 
 <div class="page">
+
+<div class="progress-strip">
+<span class="progress-dot"></span>
+<span class="progress-dot"></span>
+<span class="progress-dot"></span>
+</div>
+
 <div class="card">
 
 <h1>Application Result</h1>
+<div class="result-sub">Job Code: <span id="jobCodeLabel">—</span></div>
 
 <div id="status" class="status">Loading…</div>
 
-<table id="scoreTable" style="display:none;">
-<tr><th>Measure</th><th>Score</th></tr>
-<tr><td>Content Accuracy (FR → EN)</td><td id="accuracy"></td></tr>
-<tr><td>Terminology (EN → FR)</td><td id="terminology"></td></tr>
-<tr><td>Completeness Check</td><td id="completeness"></td></tr>
-<tr><td><strong>Final Score</strong></td><td id="finalScore"></td></tr>
-</table>
+<div class="metric-list" id="metricList" style="display:none;">
+
+<div class="metric-row">
+<span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg></span>
+<div class="metric-body">
+<div class="metric-label">Content Accuracy (FR → EN)</div>
+<div class="metric-bar-track"><div class="metric-bar-fill" id="accuracyBar" style="width:0%"></div></div>
+</div>
+<div class="metric-value" id="accuracyValue">—</div>
+</div>
+
+<div class="metric-row">
+<span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg></span>
+<div class="metric-body">
+<div class="metric-label">Terminology (EN → FR)</div>
+<div class="metric-bar-track"><div class="metric-bar-fill" id="terminologyBar" style="width:0%"></div></div>
+</div>
+<div class="metric-value" id="terminologyValue">—</div>
+</div>
+
+<div class="metric-row">
+<span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+<div class="metric-body">
+<div class="metric-label">Completeness Check</div>
+</div>
+<div class="metric-value" id="completenessValue">—</div>
+</div>
+
+<div class="final-row">
+<span class="final-label">Final Score</span>
+<span class="final-value" id="finalScoreValue">—</span>
+</div>
+
+</div>
 
 <div class="passkey-box" id="passkeyBox">
-<div><strong>Your Translator Passkey</strong></div>
+<div class="passkey-title">Your Translator Passkey</div>
 <div class="passkey-code" id="passkeyCode"></div>
 <div class="passkey-note">This gives you access to SayBon translation jobs. Do not share it with anyone.</div>
 </div>
@@ -89,6 +155,7 @@ cursor:pointer; user-select:all;
 </div>
 
 </div>
+
 </div>
 
 <script>
@@ -103,6 +170,8 @@ async function load(){
     return;
   }
 
+  document.getElementById("jobCodeLabel").innerText = id;
+
   try{
 
     const res = await fetch("https://saybonapp-server.onrender.com/api/applicationResult?id=" + encodeURIComponent(id));
@@ -113,11 +182,16 @@ async function load(){
       return;
     }
 
-    document.getElementById("scoreTable").style.display = "table";
-    document.getElementById("accuracy").innerText = data.accuracy + "%";
-    document.getElementById("terminology").innerText = data.terminology + "%";
-    document.getElementById("completeness").innerText = data.completenessOk ? "Passed" : "Incomplete";
-    document.getElementById("finalScore").innerText = data.finalScore + "%";
+    document.getElementById("metricList").style.display = "flex";
+
+    document.getElementById("accuracyBar").style.width = data.accuracy + "%";
+    document.getElementById("accuracyValue").innerText = data.accuracy + "%";
+
+    document.getElementById("terminologyBar").style.width = data.terminology + "%";
+    document.getElementById("terminologyValue").innerText = data.terminology + "%";
+
+    document.getElementById("completenessValue").innerText = data.completenessOk ? "Passed" : "Incomplete";
+    document.getElementById("finalScoreValue").innerText = data.finalScore + "%";
 
     const statusEl = document.getElementById("status");
 
