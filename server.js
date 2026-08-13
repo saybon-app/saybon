@@ -1968,3 +1968,144 @@ res.status(500).json({error:"could not update profile"})
 }
 
 })
+
+// ------------------------------------------------
+// ADMIN: OVERVIEW STATS (real aggregates)
+// ------------------------------------------------
+
+app.get("/api/adminOverview", async(req,res)=>{
+
+try{
+
+const jobsSnapshot=await db.collection("translationJobs").get()
+
+let totalRevenue=0
+let openJobs=0
+let totalJobs=0
+
+jobsSnapshot.forEach(doc=>{
+
+const job=doc.data()
+totalJobs++
+
+if(job.paid===true){
+totalRevenue+=Number(job.price||0)
+}
+
+if(job.status==="open"){
+openJobs++
+}
+
+})
+
+const submissionsSnapshot=await db.collection("jobSubmissions").get()
+
+let awaitingReview=0
+
+submissionsSnapshot.forEach(doc=>{
+if(!doc.data().reviewed){
+awaitingReview++
+}
+})
+
+const applicationsSnapshot=await db.collection("translatorApplications").get()
+
+let totalTranslators=0
+let approvedTranslators=0
+
+applicationsSnapshot.forEach(doc=>{
+totalTranslators++
+if(doc.data().passed===true){
+approvedTranslators++
+}
+})
+
+const payoutsSnapshot=await db.collection("payouts").get()
+
+let pendingPayoutTotal=0
+let paidPayoutTotal=0
+
+payoutsSnapshot.forEach(doc=>{
+
+const p=doc.data()
+const amount=Number(p.amountOwed||0)
+
+if(p.status==="paid"){
+paidPayoutTotal+=amount
+}else{
+pendingPayoutTotal+=amount
+}
+
+})
+
+res.json({
+
+totalRevenue:Math.round(totalRevenue*100)/100,
+totalJobs,
+openJobs,
+awaitingReview,
+totalTranslators,
+approvedTranslators,
+pendingPayoutTotal:Math.round(pendingPayoutTotal*100)/100,
+paidPayoutTotal:Math.round(paidPayoutTotal*100)/100
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load overview"})
+
+}
+
+})
+
+// ------------------------------------------------
+// ADMIN: LIST ALL TRANSLATOR APPLICATIONS
+// ------------------------------------------------
+
+app.get("/api/adminTranslators", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("translatorApplications").orderBy("created","desc").get()
+
+const translators=[]
+
+snapshot.forEach(doc=>{
+
+const data=doc.data()
+
+translators.push({
+
+id:doc.id,
+name:data.name||"",
+email:data.email||"",
+phone:data.phone||"",
+country:data.country||"",
+experience:data.experience||"",
+accuracy:data.accuracy,
+terminology:data.terminology,
+finalScore:data.finalScore,
+passed:data.passed,
+passkey:data.passkey||null,
+photoUrl:data.photoUrl||"",
+documents:data.documents||{},
+created:data.created
+
+})
+
+})
+
+res.json(translators)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load translators"})
+
+}
+
+})

@@ -18,77 +18,111 @@
 
 *{ box-sizing:border-box; }
 
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #a8843f); border-radius:10px; border:2px solid #033539; background-clip:padding-box; }
+
+html{ overflow-x:hidden; }
+
 body{
 font-family:'Inter', system-ui, sans-serif;
-background:#f5f7fb;
+background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
 margin:0;
-padding:40px 24px;
-color:#22303a;
+padding:40px 24px 60px;
+color:#DCE9E6;
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#D4AF6A rgba(255,255,255,.04);
 }
 
 .container{
-max-width:1200px;
+max-width:1280px;
 margin:auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
-h1{ text-align:center; letter-spacing:1px; font-size:20px; font-weight:700; }
+h1{ text-align:center; letter-spacing:1px; font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+.header-sub{ text-align:center; font-size:12.5px; color:#A9C9C3; margin-bottom:24px; }
 
 .login{ text-align:center; margin-top:80px; }
+.login input{
+padding:11px 14px; border:1px solid rgba(255,255,255,.15); border-radius:9px;
+background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:13px;
+}
+.login button{ margin-left:8px; }
 
 input, select{
-padding:10px; border:1px solid #ccc; border-radius:6px; font-family:inherit; font-size:13px;
+padding:9px 11px; border:1px solid rgba(255,255,255,.15); border-radius:8px;
+font-family:inherit; font-size:12.5px; background:rgba(255,255,255,.06); color:#fff;
 }
 
 button{
-padding:9px 16px; border:none; border-radius:6px; cursor:pointer;
-background:#1f6feb; color:white; font-weight:600; font-size:12.5px;
+padding:9px 16px; border:none; border-radius:8px; cursor:pointer;
+background:#D4AF6A; color:#012225; font-weight:650; font-size:12.5px;
 }
 button:hover{ opacity:.9; }
-button:disabled{ opacity:.5; cursor:not-allowed; }
+button:disabled{ opacity:.4; cursor:not-allowed; }
 
-.tabs{ display:flex; gap:8px; margin:24px 0 20px; border-bottom:1px solid #eee; }
+.tabs{ display:flex; gap:6px; margin:24px 0 20px; flex-wrap:wrap; }
 .tab-btn{
-background:none; color:#526668; padding:10px 16px; border-radius:8px 8px 0 0;
-border-bottom:2px solid transparent;
+background:rgba(255,255,255,.05); color:#A9C9C3; padding:10px 16px; border-radius:9px;
+border:1px solid rgba(255,255,255,.1);
 }
-.tab-btn.active{ color:#1f6feb; border-bottom-color:#1f6feb; background:none; }
+.tab-btn.active{ background:rgba(212,175,106,.14); color:#D4AF6A; border-color:rgba(212,175,106,.3); }
 
 .tab-panel{ display:none; }
 .tab-panel.active{ display:block; }
 
-table{ width:100%; border-collapse:collapse; margin-top:10px; }
-th, td{ padding:10px; border-bottom:1px solid #eee; text-align:left; font-size:12.5px; vertical-align:top; }
-th{ font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:#8a939a; }
+/* ===== OVERVIEW STAT CARDS ===== */
+
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:10px; }
+.stat-card{
+background:rgba(255,255,255,.05); backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:18px;
+}
+.stat-label{ font-size:10px; font-weight:650; text-transform:uppercase; letter-spacing:.05em; color:#8FA8A3; margin-bottom:8px; }
+.stat-value{ font-size:24px; font-weight:700; color:#fff; }
+.stat-sub{ font-size:11px; color:#8FA8A3; margin-top:4px; }
+.stat-gold{ color:#D4AF6A; }
+.stat-green{ color:#5FD3B8; }
+.stat-red{ color:#e08585; }
+
+/* ===== TABLE ===== */
+
+.table-wrap{ overflow-x:auto; border-radius:14px; }
+table{ width:100%; border-collapse:collapse; margin-top:10px; background:rgba(255,255,255,.03); border-radius:14px; overflow:hidden; }
+th, td{ padding:12px; border-bottom:1px solid rgba(255,255,255,.06); text-align:left; font-size:12.5px; vertical-align:top; }
+th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#8FA8A3; background:rgba(255,255,255,.03); }
 
 .actions button{ margin-right:6px; margin-bottom:4px; }
-.btn-complete{ background:#16a34a; }
-.btn-pass{ background:#0A756C; }
-.btn-fail{ background:#C94A45; }
-.btn-paid{ background:#16a34a; }
+.btn-complete{ background:#5FD3B8; color:#012225; }
+.btn-pass{ background:#5FD3B8; color:#012225; }
+.btn-fail{ background:#e08585; color:#2a0d0d; }
+.btn-paid{ background:#5FD3B8; color:#012225; }
 
 .rank-select{ width:60px; margin-right:6px; }
 
 .translation-preview{
-max-width:260px; max-height:80px; overflow-y:auto; font-size:11.5px; color:#526668;
-background:#fafbfc; border:1px solid #eee; border-radius:6px; padding:6px;
+max-width:260px; max-height:80px; overflow-y:auto; font-size:11.5px; color:#A9C9C3;
+background:rgba(0,0,0,.15); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:6px;
 }
 
-.badge{
-display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; font-weight:600;
-}
-.badge-pending{ background:#FFF4DF; color:#8a5f16; }
-.badge-paid{ background:#DDEFE7; color:#0A756C; }
-.badge-reviewed{ background:#EAF3EF; color:#0A756C; }
-.badge-unreviewed{ background:#f1f1f1; color:#888; }
+.badge{ display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; font-weight:650; }
+.badge-pending{ background:rgba(217,144,36,.16); color:#F0C77E; }
+.badge-paid{ background:rgba(95,211,184,.16); color:#5FD3B8; }
+.badge-reviewed{ background:rgba(95,211,184,.16); color:#5FD3B8; }
+.badge-unreviewed{ background:rgba(255,255,255,.08); color:#A9C9C3; }
+.badge-passed{ background:rgba(95,211,184,.16); color:#5FD3B8; }
+.badge-failed{ background:rgba(224,133,133,.16); color:#e08585; }
 
-.empty-note{ padding:30px; text-align:center; color:#8a939a; font-size:12.5px; }
+.empty-note{ padding:30px; text-align:center; color:#8FA8A3; font-size:12.5px; }
 
-.pm-details{ font-size:11.5px; color:#526668; }
-.pm-missing{ font-size:11.5px; color:#C94A45; font-style:italic; }
+.pm-details{ font-size:11.5px; color:#A9C9C3; }
+.pm-missing{ font-size:11.5px; color:#e08585; font-style:italic; }
+
+.avatar-thumb{ width:32px; height:32px; border-radius:50%; object-fit:cover; background:rgba(212,175,106,.14); }
+
+.doc-link{ color:#D4AF6A; font-size:11.5px; text-decoration:none; display:block; margin-bottom:3px; }
+.doc-link:hover{ text-decoration:underline; }
 
 </style>
 
@@ -99,14 +133,13 @@ display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; fo
 <div class="container">
 
 <h1>SAYBON TRANSLATION ADMIN</h1>
+<div class="header-sub">Jobs · Submissions · Translators · Payouts, all in one place</div>
 
 <div id="login" class="login">
 
 <p>Enter Admin Passcode</p>
 
 <input id="passcode" type="password">
-
-<br><br>
 
 <button onclick="unlock()">Access Panel</button>
 
@@ -115,30 +148,51 @@ display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; fo
 <div id="panel" style="display:none;">
 
 <div class="tabs">
-<button class="tab-btn active" data-tab="jobs">Jobs</button>
+<button class="tab-btn active" data-tab="overview">Overview</button>
+<button class="tab-btn" data-tab="jobs">Jobs</button>
 <button class="tab-btn" data-tab="submissions">Submissions</button>
+<button class="tab-btn" data-tab="translators">Translators</button>
 <button class="tab-btn" data-tab="payouts">Payouts</button>
 </div>
 
-<div class="tab-panel active" id="panel-jobs">
+<div class="tab-panel active" id="panel-overview">
+<div class="stat-grid" id="statGrid"></div>
+</div>
+
+<div class="tab-panel" id="panel-jobs">
+<div class="table-wrap">
 <table>
 <tr><th>Job ID</th><th>Words</th><th>Plan</th><th>Status</th><th>Actions</th></tr>
 <tbody id="jobs"></tbody>
 </table>
 </div>
+</div>
 
 <div class="tab-panel" id="panel-submissions">
+<div class="table-wrap">
 <table>
 <tr><th>Job</th><th>Translator</th><th>Submitted</th><th>Translation</th><th>Flags</th><th>Status</th><th>Review</th></tr>
 <tbody id="submissions"></tbody>
 </table>
 </div>
+</div>
+
+<div class="tab-panel" id="panel-translators">
+<div class="table-wrap">
+<table>
+<tr><th>Applicant</th><th>Contact</th><th>Score</th><th>Status</th><th>Passkey</th><th>Documents</th></tr>
+<tbody id="translators"></tbody>
+</table>
+</div>
+</div>
 
 <div class="tab-panel" id="panel-payouts">
+<div class="table-wrap">
 <table>
 <tr><th>Job</th><th>Translator</th><th>Rank</th><th>Amount</th><th>Payment Details</th><th>Status</th><th>Action</th></tr>
 <tbody id="payouts"></tbody>
 </table>
+</div>
 </div>
 
 </div>
@@ -150,8 +204,6 @@ display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; fo
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 
-/* FIREBASE CONFIG (used only for the Jobs tab, unchanged from before) */
-
 const firebaseConfig={
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
 authDomain:"saybon-3e3c2.firebaseapp.com",
@@ -162,8 +214,6 @@ firebase.initializeApp(firebaseConfig);
 
 const db=firebase.firestore();
 
-
-/* LOGIN */
 
 function unlock(){
 
@@ -198,12 +248,12 @@ loadAll();
 }
 
 function loadAll(){
+  loadOverview();
   loadJobs();
   loadSubmissions();
+  loadTranslators();
   loadPayouts();
 }
-
-/* TAB SWITCHING */
 
 document.querySelectorAll(".tab-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
@@ -215,7 +265,39 @@ document.querySelectorAll(".tab-btn").forEach(btn=>{
 });
 
 
-/* ===== JOBS TAB (unchanged Firestore-direct read) ===== */
+/* ===== OVERVIEW TAB ===== */
+
+async function loadOverview(){
+
+  const res = await fetch(API_BASE + "/api/adminOverview");
+  const data = await res.json();
+
+  const grid = document.getElementById("statGrid");
+  grid.innerHTML = "";
+
+  const cards = [
+    { label: "Total Revenue", value: "$" + data.totalRevenue.toFixed(2), cls: "stat-gold" },
+    { label: "Open Jobs", value: data.openJobs, sub: data.totalJobs + " total jobs" },
+    { label: "Awaiting Review", value: data.awaitingReview, cls: data.awaitingReview > 0 ? "stat-red" : "" },
+    { label: "Approved Translators", value: data.approvedTranslators, sub: data.totalTranslators + " total applicants", cls: "stat-green" },
+    { label: "Pending Payouts", value: "$" + data.pendingPayoutTotal.toFixed(2), cls: "stat-red" },
+    { label: "Paid Out to Date", value: "$" + data.paidPayoutTotal.toFixed(2), cls: "stat-green" }
+  ];
+
+  cards.forEach(c=>{
+    const card = document.createElement("div");
+    card.className = "stat-card";
+    card.innerHTML =
+      "<div class='stat-label'>" + c.label + "</div>" +
+      "<div class='stat-value " + (c.cls||"") + "'>" + c.value + "</div>" +
+      (c.sub ? "<div class='stat-sub'>" + c.sub + "</div>" : "");
+    grid.appendChild(card);
+  });
+
+}
+
+
+/* ===== JOBS TAB ===== */
 
 async function loadJobs(){
 
@@ -286,7 +368,7 @@ const table = document.getElementById("submissions");
 table.innerHTML = "";
 
 if(!submissions.length){
-  table.innerHTML = "<tr><td colspan='6' class='empty-note'>No submissions yet.</td></tr>";
+  table.innerHTML = "<tr><td colspan='7' class='empty-note'>No submissions yet.</td></tr>";
   return;
 }
 
@@ -301,25 +383,25 @@ const statusBadge = s.reviewed
 const flags = [];
 
 if(s.keystrokeCount === 0){
-  flags.push("<span style='color:#C94A45;font-weight:600;'>⚠ No keystrokes detected</span>");
+  flags.push("<span style='color:#e08585;font-weight:600;'>⚠ No keystrokes detected</span>");
 }
 
 if(s.timeTakenSeconds > 0 && s.jobWordCount > 0 && s.timeTakenSeconds < (s.jobWordCount * 0.3)){
-  flags.push("<span style='color:#D99024;font-weight:600;'>⚠ Completed unusually fast (" + s.timeTakenSeconds + "s for " + s.jobWordCount + " words)</span>");
+  flags.push("<span style='color:#F0C77E;font-weight:600;'>⚠ Completed unusually fast (" + s.timeTakenSeconds + "s for " + s.jobWordCount + " words)</span>");
 }
 
 if(s.pasteAttempts > 0){
-  flags.push("<span style='color:#D99024;font-weight:600;'>⚠ " + s.pasteAttempts + " blocked paste attempt(s)</span>");
+  flags.push("<span style='color:#F0C77E;font-weight:600;'>⚠ " + s.pasteAttempts + " blocked paste attempt(s)</span>");
 }
 
 if(s.tabSwitches > 2){
-  flags.push("<span style='color:#8a939a;'>Switched tabs " + s.tabSwitches + "x</span>");
+  flags.push("<span style='color:#8FA8A3;'>Switched tabs " + s.tabSwitches + "x</span>");
 }
 
-const flagsHtml = flags.length ? flags.join("<br>") : "<span style='color:#8a939a;'>No flags</span>";
+const flagsHtml = flags.length ? flags.join("<br>") : "<span style='color:#8FA8A3;'>No flags</span>";
 
 row.innerHTML =
-  "<td>" + (s.jobFile || s.jobId) + "<br><span style='color:#8a939a;font-size:10.5px;'>" + s.jobId + "</span></td>" +
+  "<td>" + (s.jobFile || s.jobId) + "<br><span style='color:#8FA8A3;font-size:10.5px;'>" + s.jobId + "</span></td>" +
   "<td>" + s.translator + "</td>" +
   "<td>" + (s.submitted ? new Date(s.submitted._seconds ? s.submitted._seconds*1000 : s.submitted).toLocaleString() : "-") + "</td>" +
   "<td><div class='translation-preview'>" + (s.translation || "").replace(/</g,"&lt;") + "</div></td>" +
@@ -362,6 +444,57 @@ alert(passed ? ("Marked passed at rank " + rank + ". Payout: $" + data.amountOwe
 
 loadSubmissions();
 loadPayouts();
+loadOverview();
+
+}
+
+
+/* ===== TRANSLATORS TAB ===== */
+
+async function loadTranslators(){
+
+const res = await fetch(API_BASE + "/api/adminTranslators");
+const translators = await res.json();
+
+const table = document.getElementById("translators");
+table.innerHTML = "";
+
+if(!translators.length){
+  table.innerHTML = "<tr><td colspan='6' class='empty-note'>No applications yet.</td></tr>";
+  return;
+}
+
+translators.forEach(t=>{
+
+const row = document.createElement("tr");
+
+const statusBadge = t.passed
+  ? "<span class='badge badge-passed'>Approved</span>"
+  : "<span class='badge badge-failed'>Not Approved</span>";
+
+const scoreText = t.finalScore !== undefined ? t.finalScore + "%" : "-";
+
+let docsHtml = "<span style='color:#8FA8A3;font-size:11px;'>None on file</span>";
+
+if(t.documents){
+  const links = [];
+  if(t.documents.id) links.push("<a class='doc-link' href='" + t.documents.id + "' target='_blank'>National ID</a>");
+  if(t.documents.cv && t.documents.cv.length) links.push("<a class='doc-link' href='" + t.documents.cv[0] + "' target='_blank'>CV</a>");
+  if(t.documents.certifications && t.documents.certifications.length) links.push("<a class='doc-link' href='" + t.documents.certifications[0] + "' target='_blank'>Certification</a>");
+  if(links.length) docsHtml = links.join("");
+}
+
+row.innerHTML =
+  "<td>" + (t.photoUrl ? "<img class='avatar-thumb' src='" + t.photoUrl + "'>" : "") + " " + (t.name || "(no name)") + "</td>" +
+  "<td>" + t.email + "<br><span style='color:#8FA8A3;font-size:10.5px;'>" + (t.phone||"-") + " · " + (t.country||"-") + "</span></td>" +
+  "<td>" + scoreText + "</td>" +
+  "<td>" + statusBadge + "</td>" +
+  "<td>" + (t.passkey || "<span style='color:#8FA8A3;'>-</span>") + "</td>" +
+  "<td>" + docsHtml + "</td>";
+
+table.appendChild(row);
+
+});
 
 }
 
@@ -445,6 +578,7 @@ if(!res.ok){
 }
 
 loadPayouts();
+loadOverview();
 
 }
 
