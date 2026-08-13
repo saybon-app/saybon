@@ -148,6 +148,7 @@ display:flex; align-items:center; justify-content:center; gap:8px;
 <h3>Your Details</h3>
 </div>
 
+<div class="field"><label>Full Name <span style="color:#8FA8A3; font-weight:400; text-transform:none; letter-spacing:0;">(optional)</span></label><input id="fullName" placeholder="e.g. Sarah Mensah" /></div>
 <div class="field"><label>Email</label><input id="email" type="email" placeholder="you@example.com" /></div>
 <div class="field"><label>Phone</label><input id="phone" placeholder="+233 ..." /></div>
 <div class="field"><label>Country</label><input id="country" placeholder="e.g. Ghana" /></div>
@@ -240,7 +241,7 @@ if(!testId){
   document.getElementById("formError").innerText = "No test result found. Please take the translator test first.";
 }
 
-const fieldEls = [
+const requiredFieldEls = [
   document.getElementById("email"),
   document.getElementById("phone"),
   document.getElementById("country"),
@@ -334,10 +335,11 @@ cvUpload.onchange = () => {
   checkForm();
 };
 
-fieldEls.forEach(f => { f.oninput = checkForm; });
+requiredFieldEls.forEach(f => { f.oninput = checkForm; });
+document.getElementById("fullName").oninput = checkForm;
 
 function checkForm(){
-  const filled = fieldEls.every(f => f.value.trim().length > 0);
+  const filled = requiredFieldEls.every(f => f.value.trim().length > 0);
   submitBtn.disabled = !(filled && idValid && cvValid && testId);
 }
 
@@ -376,6 +378,7 @@ submitBtn.onclick = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         testId,
+        name: document.getElementById("fullName").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
         country: document.getElementById("country").value,

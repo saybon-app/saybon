@@ -20,6 +20,20 @@ return "SB-"+Math.random().toString(36).substring(2,10).toUpperCase()
 
 }
 
+function deriveNameFromEmail(email){
+
+const localPart=(email||"").split("@")[0] || ""
+const cleaned=localPart.replace(/[._0-9]+/g," ").trim()
+
+if(!cleaned) return ""
+
+return cleaned
+.split(/\s+/)
+.map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase())
+.join(" ")
+
+}
+
 // ------------------------------------------------
 // AZURE TRANSLATION HELPERS
 // ------------------------------------------------
@@ -1615,7 +1629,7 @@ app.post("/api/completeTranslatorApplication", async(req,res)=>{
 
 try{
 
-const {testId,email,phone,country,experience,idUrl,certUrls,cvUrls}=req.body
+const {testId,name,email,phone,country,experience,idUrl,certUrls,cvUrls}=req.body
 
 if(!testId || !email){
 
@@ -1644,6 +1658,7 @@ const passkey=test.passed ? generateKey() : null
 
 await db.collection("translatorApplications").doc(applicationId).set({
 
+name:name||"",
 email,
 phone:phone||"",
 country:country||"",
@@ -1704,6 +1719,11 @@ return res.status(400).json({error:"Invalid translator passkey"})
 
 }
 
+const translatorData=translatorSnapshot.docs[0].data()
+const translatorName=(translatorData.name && translatorData.name.trim())
+? translatorData.name
+: deriveNameFromEmail(translatorData.email)
+
 const submissionsSnapshot=await db.collection("jobSubmissions")
 .where("translator","==",passkey)
 .where("reviewed","==",true)
@@ -1730,7 +1750,8 @@ res.json({
 
 passedCount,
 totalReviewed,
-passRate
+passRate,
+name:translatorName
 
 })
 
@@ -1831,6 +1852,90 @@ clearanceDays:CLEARANCE_DAYS
 console.error(err);
 
 res.status(500).json({error:"could not load wallet"})
+
+}
+
+})
+
+app.get("/api/translatorProfile", async(req,res)=>{
+
+try{
+
+const passkey=req.query.key
+
+if(!passkey){
+
+return res.status(400).json({error:"Passkey is required"})
+
+}
+
+const snapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(snapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+const data=snapshot.docs[0].data()
+
+res.json({
+
+name:data.name||"",
+defaultName:deriveNameFromEmail(data.email),
+photoUrl:data.photoUrl||"",
+email:data.email||""
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load profile"})
+
+}
+
+})
+
+app.post("/api/updateTranslatorProfile", async(req,res)=>{
+
+try{
+
+const {passkey,name,photoUrl}=req.body
+
+if(!passkey){
+
+return res.status(400).json({error:"Passkey is required"})
+
+}
+
+const snapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(snapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+const updates={}
+
+if(name!==undefined) updates.name=name
+if(photoUrl!==undefined) updates.photoUrl=photoUrl
+
+await snapshot.docs[0].ref.update(updates)
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not update profile"})
 
 }
 
