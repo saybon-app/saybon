@@ -2676,7 +2676,8 @@ accuracyScore: pa.AccuracyScore || 0,
 fluencyScore: pa.FluencyScore || 0,
 completenessScore: pa.CompletenessScore || 0,
 finalScore,
-words: wordFeedback
+words: wordFeedback,
+_debugRawAzureResponse: azureData
 
 })
 
