@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Speaking Activity - SayBon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; font-family:"Nunito", system-ui, sans-serif; }
+
+body{
+margin:0;
+min-height:100vh;
+background: radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.card{
+max-width:520px;
+width:100%;
+background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.1);
+border-radius:24px;
+padding:32px;
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.step-label{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:#e0578a; margin-bottom:8px; }
+h1{ font-size:22px; font-weight:900; margin:0 0 8px; }
+.prompt-text{ font-size:19px; font-weight:800; color:#fff; margin-bottom:6px; }
+.prompt-sub{ font-size:13px; color:rgba(255,255,255,.6); margin-bottom:28px; }
+
+.mic-wrap{ text-align:center; margin-bottom:24px; }
+
+.mic-btn{
+width:88px; height:88px; border-radius:50%; border:none;
+background:linear-gradient(160deg, #e0578a, #b83d70);
+display:inline-flex; align-items:center; justify-content:center;
+cursor:pointer; box-shadow:0 10px 30px rgba(224,87,138,.4);
+transition:transform .15s ease;
+}
+.mic-btn:active{ transform:scale(.94); }
+.mic-btn.recording{ background:linear-gradient(160deg, #e05757, #b83d3d); animation:pulse 1.2s ease-in-out infinite; }
+
+@keyframes pulse{
+0%{ box-shadow:0 10px 30px rgba(224,87,87,.4); }
+50%{ box-shadow:0 10px 44px rgba(224,87,87,.7); }
+100%{ box-shadow:0 10px 30px rgba(224,87,87,.4); }
+}
+
+.mic-status{ margin-top:14px; font-size:13px; font-weight:700; color:rgba(255,255,255,.7); }
+
+.feedback-box{ display:none; margin-top:10px; }
+.score-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px; }
+.score-label{ font-size:13px; color:rgba(255,255,255,.6); font-weight:700; }
+.score-value{ font-size:38px; font-weight:900; color:#fff; }
+
+.breakdown{ display:flex; gap:10px; margin-bottom:20px; }
+.breakdown-item{ flex:1; text-align:center; background:rgba(255,255,255,.05); border-radius:12px; padding:10px; }
+.breakdown-num{ font-size:18px; font-weight:800; color:#fff; }
+.breakdown-name{ font-size:10px; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
+
+.recognized-text{ font-size:13px; color:rgba(255,255,255,.7); margin-bottom:16px; }
+.recognized-text b{ color:#fff; }
+
+.word-list{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:24px; }
+.word-chip{ padding:5px 11px; border-radius:8px; font-size:13px; font-weight:700; }
+.word-good{ background:rgba(90,200,120,.18); color:#8fe3a8; }
+.word-bad{ background:rgba(224,87,87,.2); color:#f2a3a3; }
+
+.error-box{ display:none; background:rgba(224,87,87,.15); border:1px solid rgba(224,87,87,.4); border-radius:12px; padding:14px; font-size:13px; color:#f2a3a3; margin-bottom:16px; }
+
+.btn{ width:100%; padding:14px; border:none; border-radius:12px; font-weight:800; font-size:14px; cursor:pointer; margin-top:6px; }
+.btn-primary{ background:linear-gradient(135deg, #e0578a, #b83d70); color:#fff; }
+.btn-primary:disabled{ opacity:.5; cursor:not-allowed; }
+.btn-next{ display:none; background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.15); }
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="step-label" id="stepLabel">Activity 1 of 2</div>
+<h1>Speaking Practice</h1>
+<div class="prompt-text" id="promptText">« Bonjour, comment allez-vous ? »</div>
+<div class="prompt-sub">Tap the microphone and say the phrase above out loud.</div>
+
+<div class="mic-wrap">
+<button class="mic-btn" id="micBtn">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg>
+</button>
+<div class="mic-status" id="micStatus">Tap to record</div>
+</div>
+
+<div class="error-box" id="errorBox"></div>
+
+<div class="feedback-box" id="feedbackBox">
+
+<div class="score-row">
+<span class="score-label">Overall Score</span>
+<span class="score-value" id="scoreValue">-</span>
+</div>
+
+<div class="breakdown">
+<div class="breakdown-item"><div class="breakdown-num" id="accuracyNum">-</div><div class="breakdown-name">Accuracy</div></div>
+<div class="breakdown-item"><div class="breakdown-num" id="fluencyNum">-</div><div class="breakdown-name">Fluency</div></div>
+<div class="breakdown-item"><div class="breakdown-num" id="completenessNum">-</div><div class="breakdown-name">Completeness</div></div>
+</div>
+
+<div class="recognized-text">We heard: <b id="recognizedText"></b></div>
+
+<div class="word-list" id="wordList"></div>
+
+</div>
+
+<button class="btn btn-primary" id="recordAgainBtn" style="display:none;">Record Again</button>
+<button class="btn btn-next" id="nextBtn">Next Activity →</button>
+
+</div>
+
+<script>
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+const activities = [
+  { prompt: "Bonjour, comment allez-vous ?", displayPrompt: "« Bonjour, comment allez-vous ? »" },
+  { prompt: "Je m'appelle Marie et j'habite à Paris.", displayPrompt: "« Je m'appelle Marie et j'habite à Paris. »" }
+];
+
+let activityIndex = 0;
+let mediaRecorder = null;
+let recordedChunks = [];
+let isRecording = false;
+
+const micBtn = document.getElementById("micBtn");
+const micStatus = document.getElementById("micStatus");
+const feedbackBox = document.getElementById("feedbackBox");
+const errorBox = document.getElementById("errorBox");
+const recordAgainBtn = document.getElementById("recordAgainBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadActivity(i){
+  const a = activities[i];
+  document.getElementById("stepLabel").innerText = "Activity " + (i + 1) + " of " + activities.length;
+  document.getElementById("promptText").innerText = a.displayPrompt;
+  feedbackBox.style.display = "none";
+  errorBox.style.display = "none";
+  recordAgainBtn.style.display = "none";
+  nextBtn.style.display = "none";
+  micBtn.style.display = "inline-flex";
+  micStatus.innerText = "Tap to record";
+}
+
+micBtn.addEventListener("click", async () => {
+
+  if(isRecording){
+    mediaRecorder.stop();
+    return;
+  }
+
+  try{
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    recordedChunks = [];
+
+    mediaRecorder.ondataavailable = (e) => {
+      if(e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      stream.getTracks().forEach(t => t.stop());
+      const blob = new Blob(recordedChunks, { type: "audio/webm" });
+      submitRecording(blob);
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+    micBtn.classList.add("recording");
+    micStatus.innerText = "Recording... tap to stop";
+
+  }catch(err){
+    errorBox.style.display = "block";
+    errorBox.innerText = "Could not access your microphone. Please allow microphone permission and try again.";
+  }
+
+});
+
+async function submitRecording(blob){
+
+  isRecording = false;
+  micBtn.classList.remove("recording");
+  micStatus.innerText = "Processing your recording...";
+  micBtn.disabled = true;
+  errorBox.style.display = "none";
+
+  const referenceText = activities[activityIndex].prompt;
+
+  try{
+
+    const res = await fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(referenceText), {
+      method: "POST",
+      headers: { "Content-Type": "audio/webm" },
+      body: blob
+    });
+
+    const data = await res.json();
+
+    micBtn.disabled = false;
+    micBtn.style.display = "none";
+    micStatus.innerText = "";
+
+    if(!res.ok){
+      errorBox.style.display = "block";
+      errorBox.innerText = data.error || "Could not assess your recording. Please try again.";
+      recordAgainBtn.style.display = "block";
+      return;
+    }
+
+    document.getElementById("scoreValue").innerText = data.finalScore;
+    document.getElementById("accuracyNum").innerText = Math.round(data.accuracyScore);
+    document.getElementById("fluencyNum").innerText = Math.round(data.fluencyScore);
+    document.getElementById("completenessNum").innerText = Math.round(data.completenessScore);
+    document.getElementById("recognizedText").innerText = data.recognizedText || "(nothing recognized)";
+
+    const wordList = document.getElementById("wordList");
+    wordList.innerHTML = "";
+    (data.words || []).forEach(w => {
+      const chip = document.createElement("span");
+      const isGood = !w.errorType || w.errorType === "None";
+      chip.className = "word-chip " + (isGood ? "word-good" : "word-bad");
+      chip.innerText = w.word + (isGood ? "" : " (" + w.errorType + ")");
+      wordList.appendChild(chip);
+    });
+
+    feedbackBox.style.display = "block";
+    recordAgainBtn.style.display = "block";
+
+    if(activityIndex < activities.length - 1){
+      nextBtn.style.display = "block";
+    }
+
+  }catch(err){
+    micBtn.disabled = false;
+    micBtn.style.display = "none";
+    micStatus.innerText = "";
+    errorBox.style.display = "block";
+    errorBox.innerText = "Could not reach the server. Please try again.";
+    recordAgainBtn.style.display = "block";
+  }
+
+}
+
+recordAgainBtn.addEventListener("click", () => {
+  feedbackBox.style.display = "none";
+  errorBox.style.display = "none";
+  recordAgainBtn.style.display = "none";
+  nextBtn.style.display = "none";
+  micBtn.style.display = "inline-flex";
+  micStatus.innerText = "Tap to record";
+});
+
+nextBtn.addEventListener("click", () => {
+  activityIndex++;
+  loadActivity(activityIndex);
+});
+
+loadActivity(0);
+
+</script>
+
+</body>
+</html>
