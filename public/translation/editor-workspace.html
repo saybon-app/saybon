@@ -15,9 +15,17 @@
 
 *{ box-sizing:border-box; }
 
-*::-webkit-scrollbar{ width:6px; height:6px; }
-*::-webkit-scrollbar-track{ background:transparent; }
-*::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:10px; }
+html{ overflow-x:hidden; }
+
+*::-webkit-scrollbar{ width:12px; height:12px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{
+background:linear-gradient(180deg, #D4AF6A, #a8843f);
+border-radius:10px;
+border:2px solid #033539;
+background-clip:padding-box;
+}
+*::-webkit-scrollbar-thumb:hover{ background:#e0bd7c; background-clip:padding-box; }
 
 body{
 margin:0;
@@ -25,6 +33,9 @@ font-family:'Inter', system-ui, sans-serif;
 color:#DCE9E6;
 background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
 padding:90px 20px 60px;
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#D4AF6A rgba(255,255,255,.04);
 }
 
 .nav-icon-btn{
@@ -86,6 +97,8 @@ color:#A9C9C3;
 font-size:13.5px;
 line-height:1.6;
 user-select:none;
+word-wrap:break-word;
+overflow-wrap:break-word;
 }
 .source b{ color:#D4AF6A; }
 
@@ -100,12 +113,26 @@ font-family:inherit;
 background:rgba(255,255,255,.06);
 color:#fff;
 resize:vertical;
+word-wrap:break-word;
+overflow-wrap:break-word;
 }
 .edit:focus{ outline:none; border-color:#D4AF6A; }
 .edit::placeholder{ color:rgba(255,255,255,.35); }
 
-.keyboard{ margin-top:22px; }
-.keyboard-label{ font-size:10.5px; font-weight:600; color:#8FA8A3; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+.mini-keyboard{ margin-top:8px; }
+.mini-keyboard .key{
+display:inline-block;
+padding:5px 10px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.12);
+border-radius:7px;
+margin-right:5px;
+margin-bottom:5px;
+cursor:pointer;
+color:#fff;
+font-size:12.5px;
+}
+.mini-keyboard .key:hover{ background:rgba(212,175,106,.15); border-color:rgba(212,175,106,.3); }
 .key{
 display:inline-block;
 padding:8px 13px;
@@ -200,11 +227,6 @@ Copying, pasting, and cutting are disabled in this workspace, and your activity 
 
 <div id="segments"></div>
 
-<div class="keyboard">
-<div class="keyboard-label">French Accents</div>
-<div id="keyboard"></div>
-</div>
-
 <div class="progress" id="progress">Progress: 0%</div>
 
 <button class="submit" id="submitBtn" onclick="submitEdit()" disabled>Submit Editing</button>
@@ -242,33 +264,28 @@ const jobId = params.get("job");
 let translatorPasskey = sessionStorage.getItem("saybonTranslatorPasskey") || "";
 
 const specialChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
-const keyboardEl = document.getElementById("keyboard");
 
-specialChars.forEach(ch => {
-  const span = document.createElement("span");
-  span.className = "key";
-  span.textContent = ch;
-  span.addEventListener("click", () => insertChar(ch));
-  keyboardEl.appendChild(span);
-});
+function buildMiniKeyboard(targetTextarea){
+  const row = document.createElement("div");
+  row.className = "mini-keyboard";
+  specialChars.forEach(ch => {
+    const span = document.createElement("span");
+    span.className = "key";
+    span.textContent = ch;
+    span.addEventListener("click", () => insertCharInto(targetTextarea, ch));
+    row.appendChild(span);
+  });
+  return row;
+}
 
-let lastFocusedTextarea = null;
-
-document.addEventListener("focusin", (e) => {
-  if(e.target.classList.contains("edit")){
-    lastFocusedTextarea = e.target;
-  }
-});
-
-function insertChar(ch){
-  if(!lastFocusedTextarea) return;
-  const start = lastFocusedTextarea.selectionStart;
-  const end = lastFocusedTextarea.selectionEnd;
-  const val = lastFocusedTextarea.value;
-  lastFocusedTextarea.value = val.slice(0, start) + ch + val.slice(end);
-  lastFocusedTextarea.selectionStart = lastFocusedTextarea.selectionEnd = start + ch.length;
-  lastFocusedTextarea.dispatchEvent(new Event("input"));
-  lastFocusedTextarea.focus();
+function insertCharInto(textarea, ch){
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const val = textarea.value;
+  textarea.value = val.slice(0, start) + ch + val.slice(end);
+  textarea.selectionStart = textarea.selectionEnd = start + ch.length;
+  textarea.dispatchEvent(new Event("input"));
+  textarea.focus();
 }
 
 let segments = [];
@@ -317,6 +334,7 @@ function render(){
 
     row.appendChild(sourceDiv);
     row.appendChild(textarea);
+    row.appendChild(buildMiniKeyboard(textarea));
     container.appendChild(row);
 
   });
