@@ -978,11 +978,17 @@ app.post("/api/acceptJobWithNda", async(req,res)=>{
 
 try{
 
-const {jobId,passkey}=req.body
+const {jobId,passkey,agreedToTerms,confirmedOriginalWork}=req.body
 
 if(!jobId || !passkey){
 
 return res.status(400).json({error:"Job ID and passkey are required"})
+
+}
+
+if(agreedToTerms!==true || confirmedOriginalWork!==true){
+
+return res.status(400).json({error:"You must agree to the NDA terms and confirm the work will be your own"})
 
 }
 
@@ -1051,6 +1057,8 @@ await db.collection("ndaAcceptances").add({
 translatorId:passkey,
 jobId,
 ndaVersion:NDA_VERSION,
+agreedToTerms:true,
+confirmedOriginalWork:true,
 acceptedAt:new Date(),
 status:"accepted"
 
