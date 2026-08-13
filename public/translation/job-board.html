@@ -480,13 +480,6 @@ padding:14px 28px;
 </div>
 <div class="header-title">SayBon Job Board</div>
 
-<div class="track-record-block" id="trackRecordBlock">
-<input type="text" id="headerPasskeyInput" class="track-passkey-input" placeholder="Your passkey" />
-<div class="track-check-btn" onclick="checkTrackRecord()" title="Check track record">
-<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-</div>
-</div>
-
 <div class="track-badge" id="trackBadge" style="display:none;" onclick="resetTrackRecord()" title="Click to check a different passkey">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4h2v5a5 5 0 0 1-2-4zM19 4h-2v5a5 5 0 0 0 2-4z"/></svg>
 <span id="trackBadgeText"></span>
@@ -629,7 +622,6 @@ By accepting this job, you also confirm that the work you submit reflects your o
 <input type="text" id="gatePasskeyInput" placeholder="e.g. SB-XXXXXXXX" />
 <div class="gate-error" id="gateError"></div>
 <button class="gate-continue-btn" id="gateContinueBtn" onclick="continueFromGate()">Continue</button>
-<button class="gate-skip-btn" onclick="skipGate()">Skip for now</button>
 </div>
 </div>
 
@@ -1009,7 +1001,6 @@ async function fetchTrackRecord(passkey){
 
 function renderTrackBadge(data){
 
-  document.getElementById("trackRecordBlock").style.display = "none";
   const badge = document.getElementById("trackBadge");
   const text = document.getElementById("trackBadgeText");
 
@@ -1046,28 +1037,13 @@ async function loadWallet(passkey){
 
 }
 
-async function checkTrackRecord(){
-
-  const passkey = document.getElementById("headerPasskeyInput").value.trim();
-  if(!passkey) return;
-
-  try{
-    const data = await fetchTrackRecord(passkey);
-    renderTrackBadge(data);
-    loadWallet(passkey);
-    sessionStorage.setItem("saybonTranslatorPasskey", passkey);
-  }catch(err){
-    alert(err.message || "Could not reach the server. Please try again.");
-  }
-
-}
-
 function resetTrackRecord(){
   sessionStorage.removeItem("saybonTranslatorPasskey");
   document.getElementById("trackBadge").style.display = "none";
-  document.getElementById("trackRecordBlock").style.display = "flex";
-  document.getElementById("headerPasskeyInput").value = "";
   document.getElementById("walletBar").style.display = "none";
+  document.getElementById("gatePasskeyInput").value = "";
+  document.getElementById("gateError").innerText = "";
+  document.getElementById("passkeyGateModal").style.display = "flex";
 }
 
 async function continueFromGate(){
@@ -1100,10 +1076,6 @@ async function continueFromGate(){
 
 }
 
-function skipGate(){
-  document.getElementById("passkeyGateModal").style.display = "none";
-}
-
 const storedTrackPasskey = sessionStorage.getItem("saybonTranslatorPasskey");
 
 if(storedTrackPasskey){
@@ -1114,9 +1086,7 @@ if(storedTrackPasskey){
   document.getElementById("passkeyGateModal").style.display = "flex";
 }
 
-window.skipGate = skipGate;
 window.continueFromGate = continueFromGate;
-window.checkTrackRecord = checkTrackRecord;
 window.resetTrackRecord = resetTrackRecord;
 
 </script>
