@@ -1065,7 +1065,6 @@ async function continueFromGate(){
     const data = await fetchTrackRecord(passkey);
     renderTrackBadge(data);
     loadWallet(passkey);
-    document.getElementById("headerPasskeyInput").value = passkey;
     sessionStorage.setItem("saybonTranslatorPasskey", passkey);
     document.getElementById("passkeyGateModal").style.display = "none";
   }catch(err){
@@ -1079,7 +1078,6 @@ async function continueFromGate(){
 const storedTrackPasskey = sessionStorage.getItem("saybonTranslatorPasskey");
 
 if(storedTrackPasskey){
-  document.getElementById("headerPasskeyInput").value = storedTrackPasskey;
   fetchTrackRecord(storedTrackPasskey).then(renderTrackBadge).catch(()=>{});
   loadWallet(storedTrackPasskey);
 }else{
