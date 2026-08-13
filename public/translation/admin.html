@@ -367,10 +367,27 @@ const row = document.createElement("tr");
 let pmHtml = "<span class='pm-missing'>No payment method on file</span>";
 
 if(p.paymentMethod){
-  if(p.paymentMethod.method === "bank"){
-    pmHtml = "<div class='pm-details'>Bank: " + p.paymentMethod.bankName + "<br>Acct: " + p.paymentMethod.accountNumber + "<br>Name: " + p.paymentMethod.accountName + "</div>";
+  const pm = p.paymentMethod;
+  if(pm.method === "bank"){
+    let lines = ["Bank: " + pm.bankName];
+    if(pm.bankRegion === "us"){
+      lines.push("Acct: " + pm.accountNumber);
+      lines.push("Routing: " + pm.routingNumber);
+    }else if(pm.bankRegion === "uk"){
+      lines.push("Acct: " + pm.accountNumber);
+      lines.push("Sort Code: " + pm.sortCode);
+    }else if(pm.bankRegion === "international"){
+      lines.push("IBAN: " + pm.iban);
+    }else{
+      lines.push("Acct: " + pm.accountNumber);
+    }
+    if(pm.swiftBic){
+      lines.push("SWIFT: " + pm.swiftBic);
+    }
+    lines.push("Name: " + pm.accountName);
+    pmHtml = "<div class='pm-details'>" + lines.join("<br>") + "</div>";
   } else {
-    pmHtml = "<div class='pm-details'>" + p.paymentMethod.momoNetwork + "<br>" + p.paymentMethod.momoNumber + "</div>";
+    pmHtml = "<div class='pm-details'>" + pm.momoNetwork + "<br>" + pm.momoNumber + "</div>";
   }
 }
 
