@@ -2137,7 +2137,8 @@ id:doc.id,
 title:d.title,
 artist:d.artist,
 genre:d.genre,
-youtubeId:d.youtubeId,
+youtubeId:d.youtubeId||null,
+fileUrl:d.fileUrl||null,
 views:d.views||0,
 likeCount:d.likeCount||0,
 createdAt:d.createdAt
@@ -2188,7 +2189,8 @@ id:doc.id,
 title:d.title,
 artist:d.artist,
 genre:d.genre,
-youtubeId:d.youtubeId,
+youtubeId:d.youtubeId||null,
+fileUrl:d.fileUrl||null,
 description:d.description||"",
 views:d.views||0,
 likeCount:d.likeCount||0,
@@ -2521,10 +2523,10 @@ app.post("/api/adminAddMusicVideo", async(req,res)=>{
 
 try{
 
-const {title,artist,genre,youtubeId,description}=req.body
+const {title,artist,genre,youtubeId,fileUrl,description}=req.body
 
-if(!title || !youtubeId || !genre){
-return res.status(400).json({error:"Title, YouTube ID, and genre are required"})
+if(!title || !genre || (!youtubeId && !fileUrl)){
+return res.status(400).json({error:"Title, genre, and either a YouTube ID or an uploaded file are required"})
 }
 
 const ref=await db.collection("musicVideos").add({
@@ -2532,7 +2534,8 @@ const ref=await db.collection("musicVideos").add({
 title,
 artist:artist||"",
 genre,
-youtubeId,
+youtubeId:youtubeId||null,
+fileUrl:fileUrl||null,
 description:description||"",
 views:0,
 likeCount:0,
