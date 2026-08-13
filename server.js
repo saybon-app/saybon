@@ -2579,6 +2579,117 @@ res.status(500).json({error:"could not delete video"})
 
 })
 
+// ================================================================
+// AZURE SPEECH PRONUNCIATION ASSESSMENT
+// Scores a recorded response against a reference text.
+// Weighted per requirements: content accuracy matters most,
+// but fluency and completeness are also factored in.
+// ================================================================
+
+app.post("/api/assessPronunciation", express.raw({type: () => true, limit: "10mb"}), async(req,res)=>{
+
+try{
+
+const referenceText = req.query.referenceText
+const audioBuffer = req.body
+
+if(!referenceText || !audioBuffer || !audioBuffer.length){
+
+return res.status(400).json({error:"Reference text and audio are required"})
+
+}
+
+const pronunciationConfig = {
+
+ReferenceText: referenceText,
+GradingSystem: "HundredMark",
+Granularity: "Word",
+EnableMiscue: true
+
+}
+
+const pronunciationAssessmentHeader = Buffer.from(JSON.stringify(pronunciationConfig)).toString("base64")
+
+const azureRegion = process.env.AZURE_SPEECH_REGION
+const azureKey = process.env.AZURE_SPEECH_KEY
+
+if(!azureRegion || !azureKey){
+
+return res.status(500).json({error:"Azure Speech is not configured on the server yet"})
+
+}
+
+const azureUrl = "https://" + azureRegion + ".stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=fr-FR&format=detailed"
+
+const azureRes = await fetch(azureUrl, {
+
+method: "POST",
+headers: {
+"Ocp-Apim-Subscription-Key": azureKey,
+"Content-Type": "audio/webm; codecs=opus",
+"Accept": "application/json",
+"Pronunciation-Assessment": pronunciationAssessmentHeader
+},
+body: audioBuffer
+
+})
+
+const azureData = await azureRes.json()
+
+if(!azureRes.ok){
+
+console.error("Azure Speech error:", azureData)
+return res.status(500).json({error:"Speech assessment failed", details: azureData})
+
+}
+
+const best = azureData.NBest && azureData.NBest[0]
+
+if(!best){
+
+return res.status(400).json({error:"Could not assess this recording. Please try again, speaking clearly.", raw: azureData})
+
+}
+
+const pa = best.PronunciationAssessment || {}
+
+const finalScore = Math.round(
+
+(pa.AccuracyScore||0) * 0.5 +
+(pa.CompletenessScore||0) * 0.2 +
+(pa.FluencyScore||0) * 0.3
+
+)
+
+const wordFeedback = (best.Words||[]).map(w => ({
+
+word: w.Word,
+accuracyScore: w.PronunciationAssessment ? w.PronunciationAssessment.AccuracyScore : null,
+errorType: w.PronunciationAssessment ? w.PronunciationAssessment.ErrorType : null
+
+}))
+
+res.json({
+
+recognizedText: best.Display || best.Lexical || "",
+accuracyScore: pa.AccuracyScore || 0,
+fluencyScore: pa.FluencyScore || 0,
+completenessScore: pa.CompletenessScore || 0,
+finalScore,
+words: wordFeedback
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not assess pronunciation"})
+
+}
+
+})
+
 app.get("/api/adminMusicOverview", async(req,res)=>{
 
 try{
