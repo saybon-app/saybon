@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SayBon Music Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; }
+
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #C9A0A5, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+
+html{ overflow-x:hidden; }
+
+body{
+font-family:'Inter', system-ui, sans-serif;
+background:linear-gradient(160deg, #150E10 0%, #0A0607 100%);
+margin:0;
+padding:90px 24px 60px;
+color:#E8DCDA;
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
+}
+
+.nav-icon-btn{
+position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
+background:rgba(255,255,255,.06); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.12);
+display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50;
+}
+.nav-icon-btn:hover{ background:rgba(255,255,255,.12); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
+
+.container{ max-width:1200px; margin:auto; }
+
+h1{ text-align:center; letter-spacing:1px; font-size:22px; font-weight:700; color:#fff; margin-bottom:24px; }
+
+.login{ text-align:center; margin-top:80px; }
+.login input{
+padding:11px 14px; border:1px solid rgba(255,255,255,.15); border-radius:9px;
+background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:13px;
+}
+
+input, select, textarea{
+padding:9px 11px; border:1px solid rgba(255,255,255,.15); border-radius:8px;
+font-family:inherit; font-size:12.5px; background:rgba(255,255,255,.06); color:#fff;
+}
+
+button{
+padding:9px 16px; border:none; border-radius:8px; cursor:pointer;
+background:#B76E79; color:#fff; font-weight:650; font-size:12.5px;
+}
+button:hover{ opacity:.9; }
+
+.tabs{ display:flex; gap:6px; margin:24px 0 20px; flex-wrap:wrap; }
+.tab-btn{
+background:rgba(255,255,255,.05); color:#9C8589; padding:10px 16px; border-radius:9px;
+border:1px solid rgba(255,255,255,.1);
+}
+.tab-btn.active{ background:rgba(183,110,121,.18); color:#C9A0A5; border-color:rgba(183,110,121,.4); }
+
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; }
+.stat-card{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px; }
+.stat-label{ font-size:10px; font-weight:650; text-transform:uppercase; letter-spacing:.05em; color:#786367; margin-bottom:8px; }
+.stat-value{ font-size:24px; font-weight:700; color:#fff; }
+
+.add-form{
+background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:20px; margin-bottom:20px;
+display:grid; grid-template-columns:1fr 1fr; gap:12px;
+}
+.add-form .full{ grid-column:1/-1; }
+.add-form label{ display:block; font-size:11px; color:#9C8589; margin-bottom:5px; }
+.add-form input, .add-form select, .add-form textarea{ width:100%; }
+.add-form-submit{ grid-column:1/-1; }
+
+.table-wrap{ overflow-x:auto; }
+table{ width:100%; border-collapse:collapse; margin-top:10px; }
+th, td{ padding:11px; border-bottom:1px solid rgba(255,255,255,.06); text-align:left; font-size:12.5px; }
+th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786367; }
+
+.thumb-sm{ width:64px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; }
+
+.btn-delete{ background:#8B4A4F; }
+
+.empty-note{ padding:30px; text-align:center; color:#786367; font-size:12.5px; }
+
+</style>
+</head>
+
+<body>
+
+<button class="nav-icon-btn back-btn" onclick="location.href='/music/index.html'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
+<div class="container">
+
+<h1>SAYBON MUSIC ADMIN</h1>
+
+<div id="login" class="login">
+<p>Enter Admin Passcode</p>
+<input id="passcode" type="password">
+<br><br>
+<button onclick="unlock()">Access Panel</button>
+</div>
+
+<div id="panel" style="display:none;">
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="overview">Overview</button>
+<button class="tab-btn" data-tab="videos">Videos</button>
+<button class="tab-btn" data-tab="comments">Comments</button>
+</div>
+
+<div class="tab-panel active" id="panel-overview">
+<div class="stat-grid" id="statGrid"></div>
+</div>
+
+<div class="tab-panel" id="panel-videos">
+
+<div class="add-form">
+<div><label>Title</label><input id="addTitle" /></div>
+<div><label>Artist</label><input id="addArtist" /></div>
+<div><label>Genre</label>
+<select id="addGenre">
+<option>Afro</option><option>Latin</option><option>Soul</option><option>Pop</option>
+<option>Jazz</option><option>Country</option><option>Reggae</option><option>Classical</option>
+</select>
+</div>
+<div><label>YouTube URL or Video ID</label><input id="addYoutube" placeholder="https://youtube.com/watch?v=..." /></div>
+<div class="full"><label>Description (optional)</label><textarea id="addDescription" rows="2"></textarea></div>
+<div class="add-form-submit"><button onclick="addVideo()">Add Video</button></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<tr><th>Thumbnail</th><th>Title</th><th>Genre</th><th>Views</th><th>Likes</th><th>Action</th></tr>
+<tbody id="videosTable"></tbody>
+</table>
+</div>
+
+</div>
+
+<div class="tab-panel" id="panel-comments">
+<div class="table-wrap">
+<table>
+<tr><th>Video</th><th>User</th><th>Comment</th><th>Action</th></tr>
+<tbody id="commentsTable"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+function unlock(){
+  const code = document.getElementById("passcode").value;
+  if(code === "963281"){
+    sessionStorage.setItem("saybonMusicAdminVerified", "true");
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+    loadAll();
+  }else{
+    alert("Incorrect passcode");
+  }
+}
+
+if(sessionStorage.getItem("saybonMusicAdminVerified") === "true"){
+  document.getElementById("login").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+  loadAll();
+}
+
+function loadAll(){
+  loadOverview();
+  loadVideos();
+  loadCommentsTab();
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+async function loadOverview(){
+
+  const res = await fetch(API_BASE + "/api/adminMusicOverview");
+  const data = await res.json();
+
+  const grid = document.getElementById("statGrid");
+  grid.innerHTML = "";
+
+  const cards = [
+    { label: "Total Videos", value: data.totalVideos },
+    { label: "Total Views", value: data.totalViews },
+    { label: "Total Likes", value: data.totalLikes },
+    { label: "Total Comments", value: data.totalComments },
+    { label: "Playlists Created", value: data.totalPlaylists }
+  ];
+
+  cards.forEach(c=>{
+    const card = document.createElement("div");
+    card.className = "stat-card";
+    card.innerHTML = "<div class='stat-label'>" + c.label + "</div><div class='stat-value'>" + c.value + "</div>";
+    grid.appendChild(card);
+  });
+
+}
+
+function extractYoutubeId(input){
+  input = input.trim();
+  if(/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
+    /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+    /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/
+  ];
+  for(const p of patterns){
+    const m = input.match(p);
+    if(m) return m[1];
+  }
+  return null;
+}
+
+async function loadVideos(){
+
+  const res = await fetch(API_BASE + "/api/musicVideos");
+  const videos = await res.json();
+
+  const table = document.getElementById("videosTable");
+
+  if(!videos.length){
+    table.innerHTML = "<tr><td colspan='6' class='empty-note'>No videos yet. Add one above.</td></tr>";
+    return;
+  }
+
+  table.innerHTML = "";
+
+  videos.forEach(v=>{
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td><img class='thumb-sm' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'></td>" +
+      "<td>" + v.title + "<br><span style='color:#786367;font-size:10.5px;'>" + (v.artist||"") + "</span></td>" +
+      "<td>" + v.genre + "</td>" +
+      "<td>" + v.views + "</td>" +
+      "<td>" + v.likeCount + "</td>" +
+      "<td><button class='btn-delete' onclick=\"deleteVideo('" + v.id + "')\">Delete</button></td>";
+    table.appendChild(row);
+  });
+
+}
+
+window.addVideo = async function(){
+
+  const title = document.getElementById("addTitle").value.trim();
+  const artist = document.getElementById("addArtist").value.trim();
+  const genre = document.getElementById("addGenre").value;
+  const youtubeInput = document.getElementById("addYoutube").value.trim();
+  const description = document.getElementById("addDescription").value.trim();
+
+  const youtubeId = extractYoutubeId(youtubeInput);
+
+  if(!title || !youtubeId){
+    alert("Please provide a title and a valid YouTube URL or 11-character video ID.");
+    return;
+  }
+
+  const res = await fetch(API_BASE + "/api/adminAddMusicVideo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, artist, genre, youtubeId, description })
+  });
+
+  if(res.ok){
+    document.getElementById("addTitle").value = "";
+    document.getElementById("addArtist").value = "";
+    document.getElementById("addYoutube").value = "";
+    document.getElementById("addDescription").value = "";
+    loadVideos();
+    loadOverview();
+  }else{
+    alert("Could not add video.");
+  }
+
+}
+
+window.deleteVideo = async function(videoId){
+
+  if(!confirm("Delete this video? This cannot be undone.")) return;
+
+  await fetch(API_BASE + "/api/adminDeleteMusicVideo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ videoId })
+  });
+
+  loadVideos();
+  loadOverview();
+
+}
+
+async function loadCommentsTab(){
+
+  const videosRes = await fetch(API_BASE + "/api/musicVideos");
+  const videos = await videosRes.json();
+
+  const table = document.getElementById("commentsTable");
+  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loading…</td></tr>";
+
+  let allComments = [];
+
+  for(const v of videos){
+    const cRes = await fetch(API_BASE + "/api/musicComments?videoId=" + v.id);
+    const comments = await cRes.json();
+    comments.forEach(c => allComments.push({ ...c, videoTitle: v.title }));
+  }
+
+  if(!allComments.length){
+    table.innerHTML = "<tr><td colspan='4' class='empty-note'>No comments yet.</td></tr>";
+    return;
+  }
+
+  table.innerHTML = "";
+
+  allComments.forEach(c=>{
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td>" + c.videoTitle + "</td>" +
+      "<td>" + c.userName + "</td>" +
+      "<td>" + c.text.replace(/</g,"&lt;") + "</td>" +
+      "<td><button class='btn-delete' onclick=\"deleteComment('" + c.id + "')\">Delete</button></td>";
+    table.appendChild(row);
+  });
+
+}
+
+window.deleteComment = async function(commentId){
+
+  if(!confirm("Delete this comment?")) return;
+
+  await fetch(API_BASE + "/api/musicDeleteComment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ commentId })
+  });
+
+  loadCommentsTab();
+  loadOverview();
+
+}
+
+</script>
+
+</body>
+</html>

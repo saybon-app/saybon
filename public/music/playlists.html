@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Playlists - SayBon Music</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; }
+
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #C9A0A5, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+
+html{ overflow-x:hidden; }
+
+body{
+margin:0;
+font-family:'Inter', system-ui, sans-serif;
+color:#E8DCDA;
+background:linear-gradient(160deg, #150E10 0%, #0A0607 100%);
+padding:90px 20px 60px;
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
+}
+
+.nav-icon-btn{
+position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
+background:rgba(255,255,255,.06); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.12);
+display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50;
+}
+.nav-icon-btn:hover{ background:rgba(255,255,255,.12); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
+
+.page{ max-width:760px; margin:0 auto; }
+
+header{ text-align:center; margin-bottom:24px; }
+h1{ margin:0 0 6px; font-size:22px; font-weight:700; color:#fff; }
+.subtitle{ font-size:13px; color:#9C8589; }
+
+.new-row{ display:flex; gap:10px; margin-bottom:26px; }
+.new-row input{
+flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+background:rgba(255,255,255,.05); color:#fff; font-family:inherit; font-size:13px;
+}
+.new-row button{
+padding:12px 20px; border:none; border-radius:10px; background:#B76E79; color:#fff; font-weight:650; font-size:12.5px; cursor:pointer;
+}
+
+.playlist-card{
+background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px;
+margin-bottom:14px; overflow:hidden;
+}
+
+.playlist-header{ padding:16px 18px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+.playlist-name{ font-size:14px; font-weight:650; color:#fff; }
+.playlist-count{ font-size:11.5px; color:#9C8589; }
+
+.playlist-videos{ display:none; padding:0 18px 16px; }
+.playlist-videos.open{ display:block; }
+
+.pv-row{
+display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; border-top:1px solid rgba(255,255,255,.06);
+}
+.pv-row:first-child{ border-top:none; }
+.pv-thumb{ width:70px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; flex:0 0 auto; }
+.pv-title{ font-size:12.5px; color:#E8DCDA; }
+.pv-sub{ font-size:10.5px; color:#786367; }
+
+.empty-note{ text-align:center; padding:60px 20px; color:#786367; font-size:13px; }
+
+</style>
+</head>
+
+<body>
+
+<button class="nav-icon-btn back-btn" onclick="location.href='/music/index.html'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
+<div class="page">
+
+<header>
+<h1>My Playlists</h1>
+<div class="subtitle">Build your own collection from any genre</div>
+</header>
+
+<div class="new-row">
+<input type="text" id="newPlaylistName" placeholder="New playlist name" />
+<button onclick="createPlaylist()">Create</button>
+</div>
+
+<div id="playlistContainer"><div class="empty-note">Loading…</div></div>
+
+</div>
+
+<script type="module">
+
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  loadPlaylists();
+});
+
+async function loadPlaylists(){
+
+  const container = document.getElementById("playlistContainer");
+
+  if(!currentUser){
+    container.innerHTML = "<div class='empty-note'>Please sign in to see your playlists.</div>";
+    return;
+  }
+
+  const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(currentUser.uid));
+  const playlists = await res.json();
+
+  if(!playlists.length){
+    container.innerHTML = "<div class='empty-note'>You haven't made any playlists yet. Create one above.</div>";
+    return;
+  }
+
+  container.innerHTML = "";
+
+  playlists.forEach(p => {
+
+    const card = document.createElement("div");
+    card.className = "playlist-card";
+
+    const header = document.createElement("div");
+    header.className = "playlist-header";
+    header.innerHTML =
+      "<span class='playlist-name'>" + p.name + "</span>" +
+      "<span class='playlist-count'>" + p.videoIds.length + " video" + (p.videoIds.length === 1 ? "" : "s") + "</span>";
+
+    const videosDiv = document.createElement("div");
+    videosDiv.className = "playlist-videos";
+    videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>Loading…</div>";
+
+    let loaded = false;
+
+    header.onclick = async () => {
+
+      const isOpen = videosDiv.classList.toggle("open");
+
+      if(isOpen && !loaded){
+
+        loaded = true;
+
+        const detailRes = await fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id);
+        const detail = await detailRes.json();
+
+        if(!detail.videos.length){
+          videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>No videos in this playlist yet.</div>";
+          return;
+        }
+
+        videosDiv.innerHTML = "";
+
+        detail.videos.forEach(v => {
+          const row = document.createElement("div");
+          row.className = "pv-row";
+          row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
+          row.innerHTML =
+            "<img class='pv-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>" +
+            "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</div></div>";
+          videosDiv.appendChild(row);
+        });
+
+      }
+
+    };
+
+    card.appendChild(header);
+    card.appendChild(videosDiv);
+    container.appendChild(card);
+
+  });
+
+}
+
+window.createPlaylist = async function(){
+
+  if(!currentUser){
+    alert("Please sign in to create a playlist.");
+    return;
+  }
+
+  const name = document.getElementById("newPlaylistName").value.trim();
+
+  if(!name) return;
+
+  const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: currentUser.uid, name })
+  });
+
+  if(res.ok){
+    document.getElementById("newPlaylistName").value = "";
+    loadPlaylists();
+  }
+
+}
+
+</script>
+
+</body>
+</html>
