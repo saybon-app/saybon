@@ -1,38 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Music</title>
 
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/music/music.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayBon Music</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; }
+
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #C9A0A5, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+
+html{ overflow-x:hidden; }
+
+body{
+margin:0;
+font-family:'Inter', system-ui, sans-serif;
+color:#E8DCDA;
+background:linear-gradient(160deg, #150E10 0%, #0A0607 100%);
+padding:90px 20px 60px;
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
+}
+
+.nav-icon-btn{
+position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
+background:rgba(255,255,255,.06); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.12);
+box-shadow:0 8px 22px rgba(0,0,0,.3);
+display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s; z-index:50;
+}
+.nav-icon-btn:hover{ background:rgba(255,255,255,.12); }
+.back-btn{ left:22px; }
+.dashboard-btn{ right:22px; }
+.playlists-btn{ right:76px; }
+
+.page{ max-width:1200px; margin:0 auto; }
+
+header{ text-align:center; margin-bottom:22px; }
+h1{ margin:0 0 6px; font-size:24px; font-weight:700; color:#fff; }
+.subtitle{ font-size:13px; color:#9C8589; }
+
+.genre-row{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:28px; }
+.genre-pill{
+padding:9px 18px; border-radius:999px; font-size:12.5px; font-weight:600; cursor:pointer;
+background:rgba(255,255,255,.05); color:#C9A0A5; border:1px solid rgba(255,255,255,.1);
+}
+.genre-pill.active{ background:#B76E79; color:#fff; border-color:#B76E79; }
+.genre-pill:hover{ background:rgba(183,110,121,.2); }
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+gap:18px;
+}
+
+.video-card{
+background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+border-radius:14px; overflow:hidden; cursor:pointer; transition:.15s;
+}
+.video-card:hover{ transform:translateY(-3px); border-color:rgba(183,110,121,.4); }
+
+.thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; background:rgba(255,255,255,.05); }
+
+.card-body{ padding:12px 14px; }
+.card-title{ font-size:13.5px; font-weight:650; color:#fff; margin-bottom:4px; line-height:1.4; }
+.card-artist{ font-size:11.5px; color:#9C8589; }
+.card-meta{ font-size:10.5px; color:#786367; margin-top:6px; }
+
+.empty-state{
+text-align:center; padding:60px 20px; color:#786367; font-size:13px;
+grid-column:1/-1;
+}
+
+</style>
 </head>
+
 <body>
 
-  <header class="page-header">
-    <h1>SayBon Music</h1>
-    <p>Learn French through rhythm 🎵</p>
-  </header>
+<button class="nav-icon-btn back-btn" onclick="location.href='/dashboard/'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
 
-  <main class="playlist-grid">
+<button class="nav-icon-btn playlists-btn" onclick="location.href='/music/playlists.html'" aria-label="My Playlists">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M21 15V6M18.5 18a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM12.5 20.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM9.5 6.5v14M21 6l-11.5.5"/></svg>
+</button>
 
-    <div class="playlist">Afro</div>
-    <div class="playlist">Latin</div>
-    <div class="playlist">Soul</div>
-    <div class="playlist">Pop</div>
-    <div class="playlist">Jazz</div>
-    <div class="playlist">Country</div>
-    <div class="playlist">Reggae</div>
-    <div class="playlist">Classical</div>
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
 
-  </main>
+<div class="page">
 
-  <button class="back-btn" onclick="window.location.href='/dashboard/'">
-    ← Back to Dashboard
-  </button>
+<header>
+<h1>SayBon Music</h1>
+<div class="subtitle">Learn French through rhythm</div>
+</header>
+
+<div class="genre-row" id="genreRow"></div>
+
+<div class="grid" id="videoGrid"></div>
+
+</div>
+
+<script>
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+const genres = ["All","Afro","Latin","Soul","Pop","Jazz","Country","Reggae","Classical"];
+
+let currentGenre = "All";
+
+const genreRow = document.getElementById("genreRow");
+
+genres.forEach(g => {
+  const pill = document.createElement("div");
+  pill.className = "genre-pill" + (g === "All" ? " active" : "");
+  pill.textContent = g;
+  pill.onclick = () => {
+    currentGenre = g;
+    document.querySelectorAll(".genre-pill").forEach(p => p.classList.remove("active"));
+    pill.classList.add("active");
+    loadVideos();
+  };
+  genreRow.appendChild(pill);
+});
+
+async function loadVideos(){
+
+  const grid = document.getElementById("videoGrid");
+  grid.innerHTML = "<div class='empty-state'>Loading…</div>";
+
+  try{
+
+    const url = API_BASE + "/api/musicVideos" + (currentGenre !== "All" ? "?genre=" + encodeURIComponent(currentGenre) : "");
+    const res = await fetch(url);
+    const videos = await res.json();
+
+    if(!videos.length){
+      grid.innerHTML = "<div class='empty-state'>No videos in this genre yet — check back soon.</div>";
+      return;
+    }
+
+    grid.innerHTML = "";
+
+    videos.forEach(v => {
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.onclick = () => location.href = "/music/watch.html?v=" + v.id;
+      card.innerHTML =
+        "<img class='thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg' loading='lazy'>" +
+        "<div class='card-body'>" +
+          "<div class='card-title'>" + v.title + "</div>" +
+          "<div class='card-artist'>" + (v.artist || "SayBon Music") + "</div>" +
+          "<div class='card-meta'>" + v.views + " views · " + v.genre + "</div>" +
+        "</div>";
+      grid.appendChild(card);
+    });
+
+  }catch(err){
+    grid.innerHTML = "<div class='empty-state'>Could not load videos. Please try again.</div>";
+  }
+
+}
+
+loadVideos();
+
+</script>
 
 </body>
 </html>
-
