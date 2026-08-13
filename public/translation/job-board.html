@@ -410,6 +410,11 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <a href="#">Learn more →</a>
 </div>
 
+<div class="quality-box">
+<div class="qtitle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>Track Record Matters</div>
+<p>Joining the pool does not guarantee a fixed volume of work. Your performance and completion history influence which jobs you can access over time.</p>
+</div>
+
 </aside>
 
 <div class="main-col">
@@ -441,7 +446,7 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
 <h2>Available Jobs</h2>
 </div>
-<div class="section-sub">Choose an assignment and compete for the highest verified quality ranking.</div>
+<div class="section-sub">Choose an assignment and complete it accurately \u2014 the sooner your work passes review, the more you earn.</div>
 
 <div id="newJobAlert"></div>
 
@@ -488,7 +493,7 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
 <div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 10h6M9 14h4"/></svg></div><span>Human Review</span></div>
 <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4h2v5a5 5 0 0 1-2-4zM19 4h-2v5a5 5 0 0 0 2-4z"/></svg></div><span>Ranked &amp; Paid</span></div>
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4h2v5a5 5 0 0 1-2-4zM19 4h-2v5a5 5 0 0 0 2-4z"/></svg></div><span>Reviewed &amp; Paid</span></div>
 </div>
 </div>
 
@@ -673,16 +678,16 @@ function buildExpandedJob({ id, data }){
 
     "<div class=\"about-block\">" +
       "<h4>About this job</h4>" +
-      "<p>Up to three translators/editors may participate in this assignment. All submissions are evaluated using the same quality standards and ranked according to verified scores.</p>" +
+      "<p>Up to three translators/editors may participate in this assignment. Payment is based on submission order and passing quality review, not on comparing scores between participants.</p>" +
     "</div>" +
 
     "<div class=\"split-boxes\">" +
       "<div class=\"split-box\">" +
         "<h5>Payment by position</h5><div class=\"subh\">From stated job price</div>" +
-        "<div class=\"payout-row\"><span>1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
+        "<div class=\"payout-row\"><span>1st to Pass Review (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>2nd to Pass Review (40%)</span><span class=\"amt\">$" + (price*0.4).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>3rd to Pass Review (20%)</span><span class=\"amt\">$" + (price*0.2).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>Fail (Below 85)</span><span class=\"amt\">$0.00</span></div>" +
       "</div>" +
       "<div class=\"split-box\">" +
         "<h5>Evaluation standard</h5><div class=\"subh\">100 points</div>" +
@@ -692,7 +697,7 @@ function buildExpandedJob({ id, data }){
         "<div class=\"rubric-row\"><span>Completeness</span><span>10%</span></div>" +
         "<div class=\"rubric-row\"><span>Style / Naturalness</span><span>10%</span></div>" +
         "<div class=\"rubric-row\"><span>Formatting</span><span>5%</span></div>" +
-        "<div class=\"pass-mark\"><span>Pass mark</span><span>80/100</span></div>" +
+        "<div class=\"pass-mark\"><span>Pass mark</span><span>85/100</span></div>" +
       "</div>" +
     "</div>";
 
