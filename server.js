@@ -371,20 +371,18 @@ try{
 
 const {jobId,passkey,translation}=req.body
 
+// NOTE: job status is governed by the 3-slot participant
+// system (open/closed) and is intentionally NOT changed here.
+// A single submission must not close the job for the other
+// participants still working on it. The job is marked done
+// through the admin review process instead.
+
 await db.collection("jobSubmissions").add({
 
 jobId,
 translator:passkey,
 translation,
 submitted:new Date()
-
-})
-
-await db.collection("translationJobs")
-.doc(jobId)
-.update({
-
-status:"completed"
 
 })
 
@@ -1087,6 +1085,335 @@ return res.status(400).json({error:"This job is full"})
 console.error(err);
 
 res.status(500).json({error:"job acceptance failed"})
+
+}
+
+})
+
+// ------------------------------------------------
+// SAVE TRANSLATOR PAYMENT METHOD (bank or mobile money)
+// ------------------------------------------------
+
+app.post("/api/savePaymentMethod", async(req,res)=>{
+
+try{
+
+const {passkey,method,bankName,accountNumber,accountName,momoNetwork,momoNumber}=req.body
+
+if(!passkey || !method){
+
+return res.status(400).json({error:"Passkey and payment method type are required"})
+
+}
+
+const translatorSnapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(translatorSnapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+if(method==="bank" && (!bankName || !accountNumber || !accountName)){
+
+return res.status(400).json({error:"Bank name, account number, and account name are required"})
+
+}
+
+if(method==="momo" && (!momoNetwork || !momoNumber)){
+
+return res.status(400).json({error:"Mobile money network and number are required"})
+
+}
+
+await db.collection("translatorPaymentMethods").doc(passkey).set({
+
+passkey,
+method,
+bankName:bankName||"",
+accountNumber:accountNumber||"",
+accountName:accountName||"",
+momoNetwork:momoNetwork||"",
+momoNumber:momoNumber||"",
+updatedAt:new Date()
+
+})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not save payment method"})
+
+}
+
+})
+
+// ------------------------------------------------
+// GET TRANSLATOR PAYMENT METHOD (pre-fill on return visits)
+// ------------------------------------------------
+
+app.get("/api/paymentMethod", async(req,res)=>{
+
+try{
+
+const passkey=req.query.key
+
+const doc=await db.collection("translatorPaymentMethods").doc(passkey).get()
+
+if(!doc.exists){
+
+return res.json({exists:false})
+
+}
+
+res.json({exists:true,...doc.data()})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load payment method"})
+
+}
+
+})
+
+// ------------------------------------------------
+// ADMIN: LIST SUBMISSIONS FOR REVIEW
+// ------------------------------------------------
+
+app.get("/api/adminSubmissions", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("jobSubmissions").orderBy("submitted","desc").get()
+
+const submissions=[]
+
+for(const doc of snapshot.docs){
+
+const data=doc.data()
+
+let jobPrice=0
+let jobFile=""
+
+try{
+
+const jobDoc=await db.collection("translationJobs").doc(data.jobId).get()
+
+if(jobDoc.exists){
+
+jobPrice=jobDoc.data().price||0
+jobFile=jobDoc.data().clientFile||""
+
+}
+
+}catch(e){}
+
+submissions.push({
+
+id:doc.id,
+jobId:data.jobId,
+jobFile,
+jobPrice,
+translator:data.translator,
+translation:data.translation,
+submitted:data.submitted,
+reviewed:data.reviewed||false,
+rank:data.rank||null,
+passed:data.passed!==undefined ? data.passed : null
+
+})
+
+}
+
+res.json(submissions)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load submissions"})
+
+}
+
+})
+
+// ------------------------------------------------
+// ADMIN: REVIEW A SUBMISSION (manual human review step)
+// Assigns rank + pass/fail, computes the real payout
+// amount from the job's actual price using the 100/40/20
+// split, and creates or updates the payout entry.
+// ------------------------------------------------
+
+const PAYOUT_PERCENTAGES={1:100,2:40,3:20}
+
+app.post("/api/reviewSubmission", async(req,res)=>{
+
+try{
+
+const {submissionId,rank,passed}=req.body
+
+if(!submissionId || ![1,2,3].includes(Number(rank))){
+
+return res.status(400).json({error:"A valid submission and rank (1, 2, or 3) are required"})
+
+}
+
+const subRef=db.collection("jobSubmissions").doc(submissionId)
+const subDoc=await subRef.get()
+
+if(!subDoc.exists){
+
+return res.status(404).json({error:"Submission not found"})
+
+}
+
+const submission=subDoc.data()
+
+const jobDoc=await db.collection("translationJobs").doc(submission.jobId).get()
+const jobPrice=jobDoc.exists ? Number(jobDoc.data().price||0) : 0
+
+const percentage=passed ? (PAYOUT_PERCENTAGES[Number(rank)]||0) : 0
+const amountOwed=Math.round(jobPrice*percentage/100*100)/100
+
+await subRef.update({
+
+reviewed:true,
+rank:Number(rank),
+passed:passed===true
+
+})
+
+const payoutQuery=await db.collection("payouts")
+.where("jobId","==",submission.jobId)
+.where("translatorPasskey","==",submission.translator)
+.limit(1)
+.get()
+
+const payoutData={
+
+jobId:submission.jobId,
+translatorPasskey:submission.translator,
+rank:Number(rank),
+passed:passed===true,
+percentage,
+amountOwed,
+status:"pending",
+updatedAt:new Date()
+
+}
+
+if(payoutQuery.empty){
+
+payoutData.createdAt=new Date()
+await db.collection("payouts").add(payoutData)
+
+}else{
+
+await payoutQuery.docs[0].ref.update(payoutData)
+
+}
+
+res.json({success:true,amountOwed})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not review submission"})
+
+}
+
+})
+
+// ------------------------------------------------
+// ADMIN: LIST PAYOUTS (with translator payment details)
+// ------------------------------------------------
+
+app.get("/api/adminPayouts", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("payouts").orderBy("createdAt","desc").get()
+
+const payouts=[]
+
+for(const doc of snapshot.docs){
+
+const data=doc.data()
+
+let paymentMethod=null
+
+try{
+
+const pmDoc=await db.collection("translatorPaymentMethods").doc(data.translatorPasskey).get()
+
+if(pmDoc.exists){
+
+paymentMethod=pmDoc.data()
+
+}
+
+}catch(e){}
+
+payouts.push({
+
+id:doc.id,
+...data,
+paymentMethod
+
+})
+
+}
+
+res.json(payouts)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load payouts"})
+
+}
+
+})
+
+// ------------------------------------------------
+// ADMIN: MARK PAYOUT AS PAID (after manual bank/MoMo transfer)
+// ------------------------------------------------
+
+app.post("/api/markPayoutPaid", async(req,res)=>{
+
+try{
+
+const {payoutId}=req.body
+
+if(!payoutId){
+
+return res.status(400).json({error:"Payout ID is required"})
+
+}
+
+await db.collection("payouts").doc(payoutId).update({
+
+status:"paid",
+paidAt:new Date()
+
+})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not mark payout as paid"})
 
 }
 
