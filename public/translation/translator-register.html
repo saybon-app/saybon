@@ -211,6 +211,7 @@ Submit Application
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
@@ -223,6 +224,12 @@ appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
+const auth = getAuth(app);
+
+// Storage rules require an authenticated request. Applicants
+// aren't asked to create an account, so this signs them in
+// anonymously behind the scenes just so uploads are permitted.
+signInAnonymously(auth).catch(err => console.error("Anonymous sign-in failed:", err));
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 
@@ -347,6 +354,10 @@ submitBtn.onclick = async () => {
   document.getElementById("formError").innerText = "";
 
   try{
+
+    if(!auth.currentUser){
+      await signInAnonymously(auth);
+    }
 
     const idUrl = await uploadFile(idFiles[0], "translatorDocs/id");
 
