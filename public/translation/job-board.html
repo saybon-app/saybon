@@ -104,6 +104,25 @@ cursor:pointer; transition:.15s;
 
 .header-right{ display:flex; align-items:center; gap:10px; margin-left:auto; }
 .bell-wrap{ position:relative; }
+
+.track-record-block{ display:flex; align-items:center; gap:6px; margin-left:20px; }
+.track-passkey-input{
+width:150px; padding:8px 10px; border-radius:9px; border:1px solid rgba(255,255,255,.2);
+background:rgba(255,255,255,.08); color:#fff; font-size:11.5px; font-family:inherit;
+}
+.track-passkey-input::placeholder{ color:rgba(255,255,255,.5); }
+.track-check-btn{
+width:34px; height:34px; border-radius:9px; border:1px solid rgba(255,255,255,.15);
+background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; cursor:pointer; flex:0 0 auto;
+}
+.track-check-btn svg{ width:15px; height:15px; }
+.track-badge{
+display:flex; align-items:center; gap:7px; margin-left:20px;
+padding:8px 14px; border-radius:999px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15);
+cursor:pointer;
+}
+.track-badge svg{ width:15px; height:15px; color:#0C8F96; flex:0 0 auto; }
+.track-badge span{ font-size:11.5px; font-weight:600; color:#fff; }
 .notif-dot{ position:absolute; top:9px; right:9px; width:7px; height:7px; border-radius:50%; background:#0C8F96; }
 
 /* ===== MAIN CONTENT ===== */
@@ -368,6 +387,42 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 .modal-confirm-btn:hover{ background:#00484B; }
 .modal-confirm-btn:disabled{ opacity:.5; cursor:not-allowed; }
 
+.gate-overlay{
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,43,44,.75); backdrop-filter:blur(6px);
+display:flex; align-items:center; justify-content:center; z-index:300; padding:20px;
+}
+.gate-box{
+width:100%; max-width:380px; background:#0f1c1d; border:1px solid rgba(255,255,255,.12);
+border-radius:16px; padding:28px; text-align:center;
+}
+.gate-box h3{ margin:0 0 8px; font-size:17px; font-weight:650; color:#fff; }
+.gate-box p{ margin:0 0 18px; font-size:12.5px; color:#A9C9C3; line-height:1.5; }
+.gate-box input{
+width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.15);
+background:rgba(255,255,255,.06); color:#fff; font-family:inherit; font-size:13px; margin-bottom:8px; box-sizing:border-box;
+}
+.gate-error{ font-size:11.5px; color:#e08585; min-height:16px; margin-bottom:8px; }
+.gate-continue-btn{
+width:100%; padding:12px; border:none; border-radius:10px; background:#0C8F96; color:#fff;
+font-weight:600; font-size:13px; cursor:pointer; margin-bottom:8px;
+}
+.gate-continue-btn:disabled{ opacity:.6; cursor:not-allowed; }
+.gate-skip-btn{
+width:100%; padding:8px; border:none; background:none; color:#8FA8A3; font-size:12px; cursor:pointer; text-decoration:underline;
+}
+
+.wallet-bar{
+display:flex; gap:28px; flex-wrap:wrap;
+background:rgba(0,72,75,.94); backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.1);
+padding:14px 28px;
+}
+.wallet-item{ display:flex; flex-direction:column; gap:3px; }
+.wallet-item .wl{ font-size:9.5px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.55); }
+.wallet-item .wv{ font-size:17px; font-weight:700; color:#fff; }
+.wallet-note{ font-size:9.5px; color:rgba(255,255,255,.4); }
+
 </style>
 
 </head>
@@ -424,6 +479,19 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 </div>
 <div class="header-title">SayBon Job Board</div>
+
+<div class="track-record-block" id="trackRecordBlock">
+<input type="text" id="headerPasskeyInput" class="track-passkey-input" placeholder="Your passkey" />
+<div class="track-check-btn" onclick="checkTrackRecord()" title="Check track record">
+<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+</div>
+</div>
+
+<div class="track-badge" id="trackBadge" style="display:none;" onclick="resetTrackRecord()" title="Click to check a different passkey">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4h2v5a5 5 0 0 1-2-4zM19 4h-2v5a5 5 0 0 0 2-4z"/></svg>
+<span id="trackBadgeText"></span>
+</div>
+
 <div class="header-right">
 <div class="icon-square bell-wrap" title="No notifications yet">
 <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
@@ -433,6 +501,13 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
 </div>
 </div>
+</div>
+
+<div class="wallet-bar" id="walletBar" style="display:none;">
+<div class="wallet-item"><span class="wl">Available Balance</span><span class="wv" id="walletAvailable">$0.00</span></div>
+<div class="wallet-item"><span class="wl">Pending Clearance</span><span class="wv" id="walletPending">$0.00</span><span class="wallet-note" id="walletClearanceNote"></span></div>
+<div class="wallet-item"><span class="wl">Total Balance</span><span class="wv" id="walletTotal">$0.00</span></div>
+<div class="wallet-item"><span class="wl">Paid Out to Date</span><span class="wv" id="walletPaid">$0.00</span></div>
 </div>
 
 <div class="content-bg">
@@ -476,7 +551,7 @@ background:#005C60; color:#fff; font-weight:600; font-size:12.5px; cursor:pointe
 <div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
 <div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet — no balance system exists in SayBon today.</div></div>
 <div class="tab-content" id="content-transactions"><div class="empty-state">Transaction history has not been built yet.</div></div>
-<div class="tab-content" id="content-payouts"><div class="empty-state">Payouts and cash-out have not been built yet. This will require a real payout mechanism (e.g. Stripe Connect) to be wired up first.</div></div>
+<div class="tab-content" id="content-payouts"><div class="empty-state">Your Wallet at the top of this page always shows your current balance. Earnings appear there the moment your work passes review, become available to cash out 3 business days later, and are paid directly to your bank or mobile money account in weekly batches once your available balance reaches $10. Payouts are currently processed manually by the SayBon team rather than through an automated banking system.</div></div>
 
 </div>
 
@@ -544,6 +619,17 @@ By accepting this job, you also confirm that the work you submit reflects your o
 <button class="modal-cancel-btn" id="ndaCancelBtn">Cancel</button>
 <button class="modal-confirm-btn" id="ndaConfirmBtn" disabled>I Agree &amp; Accept Job</button>
 </div>
+</div>
+</div>
+
+<div id="passkeyGateModal" class="gate-overlay" style="display:none;">
+<div class="gate-box">
+<h3>Welcome, Translator</h3>
+<p>Enter your passkey to see your track record and wallet before browsing the board.</p>
+<input type="text" id="gatePasskeyInput" placeholder="e.g. SB-XXXXXXXX" />
+<div class="gate-error" id="gateError"></div>
+<button class="gate-continue-btn" id="gateContinueBtn" onclick="continueFromGate()">Continue</button>
+<button class="gate-skip-btn" onclick="skipGate()">Skip for now</button>
 </div>
 </div>
 
@@ -907,6 +993,126 @@ renderJobs();
 }
 
 loadJobs();
+
+async function fetchTrackRecord(passkey){
+
+  const res = await fetch("https://saybonapp-server.onrender.com/api/translatorTrackRecord?key=" + encodeURIComponent(passkey));
+  const data = await res.json();
+
+  if(!res.ok){
+    throw new Error(data.error || "Could not find that passkey.");
+  }
+
+  return data;
+
+}
+
+function renderTrackBadge(data){
+
+  document.getElementById("trackRecordBlock").style.display = "none";
+  const badge = document.getElementById("trackBadge");
+  const text = document.getElementById("trackBadgeText");
+
+  if(data.totalReviewed === 0){
+    text.innerText = "New Translator";
+  }else{
+    text.innerText = data.passedCount + " passed \u00b7 " + data.passRate + "% pass rate";
+  }
+
+  badge.style.display = "flex";
+
+}
+
+async function loadWallet(passkey){
+
+  try{
+
+    const res = await fetch("https://saybonapp-server.onrender.com/api/translatorWallet?key=" + encodeURIComponent(passkey));
+    const data = await res.json();
+
+    if(!res.ok) return;
+
+    document.getElementById("walletAvailable").innerText = "$" + data.availableBalance.toFixed(2);
+    document.getElementById("walletPending").innerText = "$" + data.pendingClearance.toFixed(2);
+    document.getElementById("walletTotal").innerText = "$" + data.totalBalance.toFixed(2);
+    document.getElementById("walletPaid").innerText = "$" + data.paidOut.toFixed(2);
+    document.getElementById("walletClearanceNote").innerText = "Clears " + data.clearanceDays + " business days after passing review";
+
+    document.getElementById("walletBar").style.display = "flex";
+
+  }catch(err){
+    // fails silently, wallet stays hidden
+  }
+
+}
+
+async function checkTrackRecord(){
+
+  const passkey = document.getElementById("headerPasskeyInput").value.trim();
+  if(!passkey) return;
+
+  try{
+    const data = await fetchTrackRecord(passkey);
+    renderTrackBadge(data);
+    loadWallet(passkey);
+    sessionStorage.setItem("saybonTranslatorPasskey", passkey);
+  }catch(err){
+    alert(err.message || "Could not reach the server. Please try again.");
+  }
+
+}
+
+function resetTrackRecord(){
+  sessionStorage.removeItem("saybonTranslatorPasskey");
+  document.getElementById("trackBadge").style.display = "none";
+  document.getElementById("trackRecordBlock").style.display = "flex";
+  document.getElementById("headerPasskeyInput").value = "";
+  document.getElementById("walletBar").style.display = "none";
+}
+
+async function continueFromGate(){
+
+  const passkey = document.getElementById("gatePasskeyInput").value.trim();
+  const errorEl = document.getElementById("gateError");
+  const btn = document.getElementById("gateContinueBtn");
+
+  if(!passkey){
+    errorEl.innerText = "Please enter your passkey.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerText = "Checking...";
+  errorEl.innerText = "";
+
+  try{
+    const data = await fetchTrackRecord(passkey);
+    renderTrackBadge(data);
+    loadWallet(passkey);
+    document.getElementById("headerPasskeyInput").value = passkey;
+    sessionStorage.setItem("saybonTranslatorPasskey", passkey);
+    document.getElementById("passkeyGateModal").style.display = "none";
+  }catch(err){
+    errorEl.innerText = err.message || "Could not verify that passkey.";
+    btn.disabled = false;
+    btn.innerText = "Continue";
+  }
+
+}
+
+function skipGate(){
+  document.getElementById("passkeyGateModal").style.display = "none";
+}
+
+const storedTrackPasskey = sessionStorage.getItem("saybonTranslatorPasskey");
+
+if(storedTrackPasskey){
+  document.getElementById("headerPasskeyInput").value = storedTrackPasskey;
+  fetchTrackRecord(storedTrackPasskey).then(renderTrackBadge).catch(()=>{});
+  loadWallet(storedTrackPasskey);
+}else{
+  document.getElementById("passkeyGateModal").style.display = "flex";
+}
 
 </script>
 
