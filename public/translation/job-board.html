@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translator Job Board</title>
+<title>SayBon Job Board</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,263 +17,297 @@
 
 *::-webkit-scrollbar{ width:6px; height:6px; }
 *::-webkit-scrollbar-track{ background:transparent; }
-*::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.14); border-radius:10px; }
-*{ scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.14) transparent; }
+*::-webkit-scrollbar-thumb{ background:rgba(0,72,75,.18); border-radius:10px; }
+*{ scrollbar-width:thin; scrollbar-color:rgba(0,72,75,.18) transparent; }
 
 body{
-margin:0;
-font-family:'Inter', system-ui, sans-serif;
-font-weight:400;
-color:#b8b8bc;
-background:#1b1b1d;
-padding-bottom:70px;
+margin:0; padding:0;
+width:100vw; min-height:100vh;
+font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+color:#102B2C;
+background:#EAF3EF;
 }
 
-/* accent color used for ALL emphasis instead of bold */
-:root{ --accent:#c9a668; }
-
-/* ===== HEADER ===== */
-
-.topbar{
-position:sticky; top:0; z-index:60;
-display:flex; align-items:center; gap:16px;
-padding:16px 22px;
-background:rgba(201,166,104,.03);
-backdrop-filter:blur(14px);
-border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.icon-square{
-width:36px; height:36px; border-radius:10px; flex:0 0 auto;
-background:rgba(201,166,104,.05); border:1px solid rgba(255,255,255,.08);
-display:flex; align-items:center; justify-content:center;
-cursor:pointer; transition:.15s;
-}
-.icon-square:hover{ background:rgba(201,166,104,.1); }
-
-.title-block h1{ margin:0; font-size:16px; font-weight:600; color:#efeff0; }
-
-.search-wrap{ flex:1; position:relative; max-width:380px; }
-.search-wrap input{
-width:100%; padding:9px 34px 9px 13px; border-radius:9px;
-border:1px solid rgba(255,255,255,.08); font-family:inherit; font-weight:400; font-size:12.5px;
-background:rgba(201,166,104,.04); color:#b8b8bc;
-}
-.search-wrap input::placeholder{ color:#68686e; }
-.search-icon{ position:absolute; right:11px; top:50%; transform:translateY(-50%); pointer-events:none; }
-
-.header-right{ display:flex; align-items:center; gap:10px; margin-left:auto; flex:0 0 auto; }
-.icon-btn{ background:none; border:none; cursor:pointer; color:#8a8a90; padding:4px; }
-
-.avatar-block{ display:flex; align-items:center; gap:8px; }
-.avatar-circle{
-width:32px; height:32px; border-radius:50%; background:rgba(201,166,104,.06); border:1px solid rgba(255,255,255,.08); color:#8a8a90;
-display:flex; align-items:center; justify-content:center;
-}
-.avatar-text{ font-size:12px; }
-.avatar-text .name{ font-weight:500; color:#efeff0; display:block; }
-.avatar-text .role{ color:#68686e; font-size:10.5px; }
-
-/* ===== LAYOUT ===== */
-
-.layout{ display:grid; grid-template-columns:220px 1fr 340px; gap:0; align-items:start; }
-
-@media (max-width:1100px){
-  .layout{ grid-template-columns:1fr; }
-  .sidebar, .detail-panel{ position:static; height:auto; }
-}
+.app{ display:flex; min-height:100vh; }
 
 /* ===== SIDEBAR ===== */
 
 .sidebar{
-padding:18px 14px;
-position:sticky; top:69px;
-height:calc(100vh - 69px);
-overflow-y:auto;
-border-right:1px solid rgba(255,255,255,.06);
+width:240px; flex:0 0 auto;
+min-height:100vh;
+background:linear-gradient(180deg, #075B5F 0%, #00484B 100%);
+padding:84px 20px 24px;
+position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
 }
 
 .nav-section-label{
-font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:.08em;
-color:#68686e; padding:18px 10px 8px;
+font-size:10.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
+color:rgba(255,255,255,.65); margin-bottom:12px; padding:0 4px;
 }
-.nav-section-label:first-child{ padding-top:0; }
+.nav-section{ margin-bottom:22px; }
 
 .nav-item{
-display:flex; align-items:center; justify-content:space-between; gap:10px;
-padding:10px 12px; border-radius:9px; margin-bottom:2px;
-font-size:12.5px; font-weight:400; color:#a3a3a8; cursor:pointer;
-border:none; background:none; width:100%; text-align:left;
+display:flex; align-items:center; gap:12px;
+height:43px; padding:0 14px; border-radius:11px; margin-bottom:2px;
+font-size:14px; font-weight:500; color:rgba(255,255,255,.75);
+border:1px solid transparent; background:transparent; width:100%; text-align:left; cursor:pointer;
 }
-.nav-item:hover{ background:rgba(201,166,104,.05); }
-.nav-item.active{ background:rgba(201,166,104,.08); color:var(--accent); }
-.nav-item.inert{ cursor:default; color:#4a4a4e; }
-.nav-item.inert:hover{ background:none; }
+.nav-item:hover{ background:rgba(255,255,255,.07); }
+.nav-item.active{ background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.12); }
+.nav-item.inert{ cursor:default; color:rgba(255,255,255,.35); }
+.nav-item.inert:hover{ background:transparent; }
+.nav-item svg{ flex:0 0 auto; width:18px; height:18px; }
 
 .nav-badge{
-font-size:10px; font-weight:400; background:rgba(255,255,255,.06); color:#8a8a90;
-padding:2px 7px; border-radius:999px;
+margin-left:auto; flex:0 0 auto;
+width:21px; height:21px; border-radius:50%;
+background:rgba(255,255,255,.15); color:#fff;
+font-size:11px; font-weight:600;
+display:flex; align-items:center; justify-content:center;
 }
 
 .quality-box{
-margin-top:18px; padding:18px; border-radius:12px;
-background:rgba(201,166,104,.04); border:1px solid rgba(255,255,255,.06);
-backdrop-filter:blur(10px);
+margin-top:8px; width:100%;
+padding:15px; border-radius:13px;
+background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
 }
-.quality-box .qtitle{ font-size:12px; font-weight:500; color:var(--accent); margin-bottom:6px; }
-.quality-box p{ font-size:11px; color:#7c7c82; line-height:1.5; margin:0 0 8px; }
-.quality-box a{ font-size:11px; font-weight:500; color:var(--accent); text-decoration:none; }
+.quality-box .qtitle{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:#fff; margin-bottom:6px; }
+.quality-box p{ font-size:11.5px; line-height:1.5; color:rgba(255,255,255,.7); margin:0 0 8px; }
+.quality-box a{ font-size:11.5px; font-weight:600; color:#8FE0D8; text-decoration:none; }
 
-/* ===== CENTER ===== */
+/* ===== MAIN COLUMN ===== */
 
-.center{ padding:18px 22px; min-width:0; }
+.main-col{ flex:1; min-width:0; display:flex; flex-direction:column; }
 
-.center-header h2{ margin:0 0 18px; font-size:15px; font-weight:500; color:var(--accent); }
+/* ===== HEADER ===== */
 
-.filter-row{ display:flex; align-items:center; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.topbar{
+height:72px; flex:0 0 auto;
+position:sticky; top:0; z-index:60;
+display:flex; align-items:center; gap:20px;
+padding:0 28px;
+background:rgba(0,72,75,.94);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.icon-square{
+width:44px; height:44px; border-radius:11px; flex:0 0 auto;
+background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+display:flex; align-items:center; justify-content:center;
+cursor:pointer; transition:.15s;
+}
+.icon-square:hover{ background:rgba(255,255,255,.14); }
+.icon-square svg{ width:22px; height:22px; }
+
+.header-title{ font-size:23px; font-weight:650; color:#fff; }
+
+.header-right{ display:flex; align-items:center; gap:10px; margin-left:auto; }
+.bell-wrap{ position:relative; }
+.notif-dot{ position:absolute; top:9px; right:9px; width:7px; height:7px; border-radius:50%; background:#0C8F96; }
+
+/* ===== MAIN CONTENT ===== */
+
+.content-bg{
+flex:1;
+background:linear-gradient(135deg, #EAF3EF 0%, #F7F8F1 50%, #E8F1ED 100%);
+}
+
+.content-inner{
+padding:30px 28px;
+display:flex; gap:22px; align-items:flex-start;
+}
+
+.job-col{ flex:1 1 74%; min-width:0; }
+.right-col{ flex:0 0 375px; }
+
+@media (max-width:1150px){
+  .content-inner{ flex-direction:column; }
+  .right-col{ width:100%; flex:1 1 auto; }
+  .sidebar{ display:none; }
+}
+
+.tab-content{ display:none; }
+.tab-content.active{ display:block; }
+
+.section-heading{ display:flex; align-items:center; gap:10px; margin-bottom:5px; }
+.section-heading svg{ width:23px; height:23px; color:#087B80; flex:0 0 auto; }
+.section-heading h2{ margin:0; font-size:24px; font-weight:650; color:#102B2C; }
+.section-sub{ font-size:12.5px; color:#526668; margin:5px 0 20px; }
+
+/* ===== NEW JOB ALERT ===== */
+
+.new-job-alert{
+display:flex; align-items:center; gap:12px;
+height:60px; padding:0 18px; margin-bottom:16px;
+border-radius:13px;
+background:rgba(255,255,255,.55);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.7);
+box-shadow:0 8px 28px rgba(0,55,57,.06);
+}
+.new-job-alert svg{ flex:0 0 auto; width:20px; height:20px; color:#0C8F96; }
+.alert-text .at1{ font-size:12.5px; font-weight:600; color:#102B2C; }
+.alert-text .at2{ font-size:11px; color:#718385; }
+.blinker{ margin-left:auto; width:9px; height:9px; border-radius:50%; background:#0C8F96; animation:pulse 1.4s ease-in-out infinite; }
+@keyframes pulse{ 0%{opacity:1;} 50%{opacity:.35;} 100%{opacity:1;} }
+
+/* ===== FILTER BAR ===== */
+
+.filter-row{ display:flex; align-items:center; gap:8px; margin-bottom:18px; flex-wrap:wrap; height:36px; }
 
 .filter-pill{
-padding:8px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.08);
-background:rgba(201,166,104,.04); font-size:11.5px; font-weight:400; color:#8a8a90; cursor:pointer;
+height:35px; padding:0 17px; border-radius:18px; border:1px solid rgba(0,72,75,.10);
+background:rgba(255,255,255,.6); font-size:12px; font-weight:500; color:#526668; cursor:pointer;
 }
-.filter-pill.active{ background:var(--accent); color:#1b1b1d; border-color:var(--accent); }
+.filter-pill.active{ background:#00484B; color:#fff; border-color:#00484B; }
 
+.sort-wrap{ margin-left:auto; display:flex; align-items:center; gap:8px; font-size:12px; color:#718385; }
 .sort-select{
-margin-left:auto; padding:8px 12px; border-radius:9px; border:1px solid rgba(255,255,255,.08);
-font-size:11.5px; font-weight:400; font-family:inherit; color:#a3a3a8; background:rgba(201,166,104,.04);
+height:36px; padding:0 10px; border-radius:9px; border:1px solid rgba(0,72,75,.10);
+font-size:12px; font-family:inherit; color:#102B2C; background:rgba(255,255,255,.6);
 }
 
-.job-card{
-background:rgba(201,166,104,.035);
-backdrop-filter:blur(16px);
-border:1px solid rgba(255,255,255,.07);
-border-radius:14px;
-padding:18px; margin-bottom:18px; cursor:pointer; transition:.15s;
-}
-.job-card:hover{ background:rgba(201,166,104,.06); border-color:rgba(255,255,255,.12); }
-.job-card.selected{ border-color:var(--accent); background:rgba(201,166,104,.08); }
+/* ===== EXPANDED JOB ===== */
 
-.job-card-top{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
-
-.status-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); flex:0 0 auto; }
-
-.job-card-title{ font-size:13.5px; font-weight:500; color:var(--accent); line-height:1.3; }
-.job-card-id{ font-size:10.5px; color:#68686e; }
-
-.express-badge{
-margin-left:auto; flex:0 0 auto;
-font-size:10px; font-weight:400;
-padding:4px 9px; border-radius:999px;
-background:rgba(201,166,104,.08); color:var(--accent); border:1px solid rgba(201,166,104,.2);
+.expanded-job{
+background:rgba(255,255,255,.58);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.70);
+border-radius:15px;
+padding:18px;
+box-shadow:0 8px 28px rgba(0,55,57,.06);
+margin-bottom:16px;
+transition:height .22s cubic-bezier(.22,1,.36,1);
 }
 
-.status-pill{
-flex:0 0 auto;
-font-size:10px; font-weight:400; text-transform:uppercase; letter-spacing:.03em;
-padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.06); color:#a3a3a8;
+.exp-top{ display:flex; align-items:flex-start; gap:12px; margin-bottom:16px; }
+
+.file-icon-box{
+width:42px; height:42px; border-radius:10px; flex:0 0 auto;
+background:rgba(8,123,128,.10); color:#087B80;
+display:flex; align-items:center; justify-content:center;
 }
 
-.meta-row{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,.05); }
-.meta-item{ font-size:11px; }
-.meta-item .ml{ display:block; color:#68686e; font-weight:500; text-transform:uppercase; letter-spacing:.04em; font-size:9px; margin-bottom:4px; }
-.meta-item .mv{ font-weight:400; color:#d4d4d8; }
+.exp-filename{ font-size:17px; font-weight:650; color:#102B2C; margin-bottom:2px; }
+.exp-jobid{ font-size:11px; color:#607274; }
 
-.card-price-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.card-price{ font-size:17px; font-weight:500; color:var(--accent); }
+.exp-right{ margin-left:auto; text-align:right; flex:0 0 auto; }
+.exp-price{ font-size:20px; font-weight:700; color:#006B68; }
 
-.slots-block{ text-align:right; }
-.slots-label{ font-size:10.5px; color:#7c7c82; margin-bottom:4px; }
-.slot-dots{ display:flex; gap:4px; justify-content:flex-end; }
-.slot-dot{ width:13px; height:13px; border-radius:50%; border:1.5px solid rgba(255,255,255,.15); }
-.slot-dot.filled{ background:var(--accent); border-color:var(--accent); }
-
-.info-line{
-font-size:11px; color:#68686e; margin-bottom:18px; line-height:1.5;
+.avail-badge{
+display:inline-block; margin-top:4px;
+font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.03em;
+padding:4px 10px; border-radius:999px; background:#DDEFE7; color:#0A756C;
 }
 
-.card-actions{ display:flex; align-items:center; gap:14px; }
-.link-btn{
-background:none; border:none; color:var(--accent); font-weight:400; font-size:12px; cursor:pointer; padding:0;
+.exp-slots{ margin-top:8px; font-size:10.5px; color:#718385; }
+.exp-slot-dots{ display:flex; gap:5px; justify-content:flex-end; margin-top:5px; }
+.exp-slot-dot{ width:14px; height:14px; border-radius:50%; border:1.5px solid rgba(0,72,75,.18); }
+
+.exp-meta-row{ display:flex; margin-bottom:16px; padding:14px 0; border-top:1px solid rgba(0,72,75,.08); border-bottom:1px solid rgba(0,72,75,.08); }
+.exp-meta-item{ flex:1; display:flex; align-items:flex-start; gap:8px; padding:0 10px; border-left:1px solid rgba(0,72,75,.08); }
+.exp-meta-item:first-child{ border-left:none; padding-left:0; }
+.exp-meta-item svg{ width:16px; height:16px; color:#087B80; flex:0 0 auto; margin-top:1px; }
+.exp-meta-item .eml{ font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:.04em; color:#718385; margin-bottom:2px; display:block; }
+.exp-meta-item .emv{ font-size:12.5px; font-weight:600; color:#102B2C; }
+
+.about-block{ margin-bottom:16px; }
+.about-block h4{ font-size:13px; font-weight:650; color:#102B2C; margin:0 0 6px; }
+.about-block p{ font-size:11.5px; line-height:1.55; color:#526668; margin:0; }
+.about-block .readmore{ font-size:11px; font-weight:600; color:#005C60; cursor:pointer; margin-top:4px; display:inline-block; background:none; border:none; padding:0; }
+
+.split-boxes{ display:flex; gap:14px; flex-wrap:wrap; }
+.split-box{ flex:1 1 190px; background:rgba(255,255,255,.5); border:1px solid rgba(0,72,75,.08); border-radius:12px; padding:13px; }
+.split-box h5{ font-size:11.5px; font-weight:650; color:#102B2C; margin:0 0 2px; }
+.split-box .subh{ font-size:9.5px; color:#718385; margin:0 0 9px; }
+.payout-row{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:#526668; margin-bottom:6px; }
+.payout-row svg{ width:13px; height:13px; flex:0 0 auto; }
+.payout-row .amt{ margin-left:auto; font-weight:650; color:#102B2C; }
+.rubric-row{ display:flex; justify-content:space-between; font-size:11px; color:#718385; margin-bottom:5px; }
+.pass-mark{ margin-top:7px; padding-top:7px; border-top:1px solid rgba(0,72,75,.08); font-size:11.5px; font-weight:650; color:#006B68; display:flex; justify-content:space-between; }
+
+/* ===== COMPACT ROWS ===== */
+
+.compact-row{
+display:flex; align-items:center; gap:14px;
+height:56px; padding:0 14px; margin-bottom:10px;
+border-radius:11px;
+background:rgba(255,255,255,.40);
+border:1px solid rgba(255,255,255,.45);
+cursor:pointer; transition:.15s;
 }
-.btn-solid{
-margin-left:auto;
-padding:10px 18px; border-radius:9px; border:none; background:var(--accent);
-font-weight:500; font-size:12px; color:#1b1b1d; cursor:pointer;
-}
-.btn-solid:hover{ opacity:.9; }
+.compact-row:hover{ background:rgba(255,255,255,.58); border-color:rgba(8,123,128,.25); transform:translateY(-1px); }
 
-.empty-state{
-text-align:center; padding:44px 22px; color:#68686e; font-size:12.5px; line-height:1.6;
-background:rgba(201,166,104,.03); border-radius:14px; border:1px dashed rgba(255,255,255,.08);
-}
+.compact-icon{ width:30px; height:30px; border-radius:8px; flex:0 0 auto; background:rgba(8,123,128,.10); color:#087B80; display:flex; align-items:center; justify-content:center; }
+.compact-icon svg{ width:15px; height:15px; }
 
-/* ===== RIGHT DETAIL PANEL ===== */
+.compact-name{ font-size:12.5px; font-weight:600; color:#102B2C; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:180px; }
+.compact-meta{ font-size:11px; color:#718385; white-space:nowrap; }
+.compact-price{ font-size:13px; font-weight:650; color:#006B68; margin-left:auto; flex:0 0 auto; }
+.compact-see{ display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:600; color:#005C60; flex:0 0 auto; }
+.compact-see svg{ width:13px; height:13px; }
 
-.detail-panel{
-padding:18px 22px; position:sticky; top:69px; height:calc(100vh - 69px); overflow-y:auto;
-border-left:1px solid rgba(255,255,255,.06);
+@media (max-width:700px){
+  .compact-meta{ display:none; }
 }
 
-.detail-empty{ text-align:center; padding:56px 18px; color:#68686e; font-size:12px; }
+/* ===== PAGINATION ===== */
 
-.detail-title{ font-size:14.5px; font-weight:500; color:var(--accent); margin-bottom:2px; }
-.detail-id{ font-size:10.5px; color:#68686e; margin-bottom:18px; }
-
-.detail-price{ font-size:22px; font-weight:500; margin:18px 0; color:var(--accent); }
-
-.detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,.06); }
-.detail-field .dl{ font-size:9px; font-weight:500; text-transform:uppercase; letter-spacing:.04em; color:#68686e; margin-bottom:4px; }
-.detail-field .dv{ font-size:12px; font-weight:400; color:#d4d4d8; }
-
-.about-block{ margin-bottom:18px; }
-.about-block h4{ font-size:10.5px; font-weight:500; text-transform:uppercase; letter-spacing:.03em; color:#7c7c82; margin:0 0 8px; }
-.about-block p{ font-size:12px; color:#a3a3a8; line-height:1.6; margin:0; }
-
-.secondary-row{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid rgba(255,255,255,.06); }
-
-.split-boxes{ display:flex; flex-direction:column; gap:18px; margin-bottom:18px; }
-.split-box{ background:rgba(201,166,104,.03); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:18px; backdrop-filter:blur(10px); }
-.split-box h4{ font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:.03em; color:#7c7c82; margin:0 0 10px; }
-.payout-row{ display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px; color:#a3a3a8; }
-.payout-row .amt{ font-weight:500; color:var(--accent); }
-.rubric-row{ display:flex; justify-content:space-between; font-size:11.5px; margin-bottom:6px; color:#7c7c82; }
-.pass-mark{ margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); font-size:12px; font-weight:500; color:var(--accent); }
-
-.flow-row{ font-size:11px; color:#7c7c82; margin-bottom:18px; line-height:1.9; }
-.flow-row b{ font-weight:500; color:var(--accent); }
-
-.nda-box{
-background:rgba(201,166,104,.04); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:18px; margin-bottom:18px;
-backdrop-filter:blur(10px);
+.pagination{ display:flex; align-items:center; justify-content:center; gap:6px; margin-top:20px; }
+.page-btn{
+width:33px; height:33px; border-radius:9px; border:1px solid rgba(0,72,75,.10);
+background:rgba(255,255,255,.5); font-size:12px; color:#526668; cursor:pointer;
+display:flex; align-items:center; justify-content:center;
 }
-.nda-box .nt{ font-size:11.5px; font-weight:500; color:var(--accent); margin-bottom:4px; }
-.nda-box p{ font-size:11px; color:#7c7c82; margin:0; line-height:1.5; }
+.page-btn.active{ background:#00484B; color:#fff; border-color:#00484B; }
+.page-btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ===== RIGHT PANEL ===== */
+
+.right-card{
+background:rgba(255,255,255,.55);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.7);
+border-radius:16px;
+padding:19px;
+margin-bottom:16px;
+box-shadow:0 8px 28px rgba(0,55,57,.06);
+}
+
+.right-card h4{ margin:0 0 16px; font-size:15.5px; font-weight:650; color:#102B2C; }
+
+.flow-row{ display:flex; align-items:flex-start; gap:4px; overflow-x:auto; padding-bottom:2px; }
+.flow-step{ flex:0 0 auto; text-align:center; width:64px; }
+.flow-circle{ width:46px; height:46px; border-radius:50%; background:rgba(8,123,128,.10); color:#087B80; display:flex; align-items:center; justify-content:center; margin:0 auto 6px; }
+.flow-circle svg{ width:20px; height:20px; }
+.flow-step span{ font-size:10px; color:#526668; line-height:1.3; }
+.flow-arrow{ flex:0 0 auto; color:rgba(0,72,75,.25); margin-top:16px; }
+.flow-arrow svg{ width:15px; height:15px; }
+
+.nda-card{
+background:rgba(255,255,255,.48);
+border:1px solid rgba(255,255,255,.65);
+border-radius:15px;
+padding:19px;
+}
+.nda-icon-row{ display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+.nda-icon-row svg{ width:19px; height:19px; color:#005C60; }
+.nda-icon-row h4{ margin:0; font-size:15.5px; font-weight:650; color:#102B2C; }
+.nda-card p{ font-size:12.5px; line-height:1.5; color:#526668; margin:0 0 16px; }
 
 .nda-accept-btn{
-width:100%; padding:14px; border:none; border-radius:11px; background:var(--accent); color:#1b1b1d;
-font-weight:500; font-size:13px; cursor:pointer;
+width:100%; height:48px; border:none; border-radius:10px;
+background:#005C60; color:#fff; font-weight:600; font-size:13px; cursor:pointer;
+display:flex; align-items:center; justify-content:center; gap:8px;
 }
-.nda-accept-btn:hover{ opacity:.9; }
+.nda-accept-btn:hover{ background:#00484B; }
 
-/* ===== FOOTER ===== */
+.no-selection{ text-align:center; padding:30px 16px; color:#718385; font-size:12.5px; }
 
-.earnings-bar{
-position:fixed; bottom:0; left:0; right:0; z-index:60;
-background:rgba(201,166,104,.03); backdrop-filter:blur(14px);
-border-top:1px solid rgba(255,255,255,.06);
-padding:14px 22px;
-display:flex; align-items:center; gap:26px; flex-wrap:wrap;
-}
-
-.earn-item{ font-size:10.5px; }
-.earn-item .el{ display:block; color:#68686e; font-weight:500; text-transform:uppercase; letter-spacing:.04em; font-size:9px; margin-bottom:4px; }
-.earn-item .ev{ font-weight:500; font-size:14px; color:var(--accent); }
-
-.earn-note{ font-size:10px; color:#68686e; }
-
-.cashout-btn{
-margin-left:auto; padding:10px 18px; border-radius:9px; border:1px solid rgba(255,255,255,.08);
-background:rgba(255,255,255,.04); color:#68686e; font-weight:400; font-size:11.5px; cursor:not-allowed;
+.empty-state{
+text-align:center; padding:44px 22px; color:#718385; font-size:12.5px; line-height:1.6;
+background:rgba(255,255,255,.4); border-radius:14px; border:1px dashed rgba(0,72,75,.12);
 }
 
 </style>
@@ -282,67 +316,76 @@ background:rgba(255,255,255,.04); color:#68686e; font-weight:400; font-size:11.5
 
 <body>
 
-<div class="topbar">
-<div class="icon-square" onclick="location.href='/translation/'" title="Back">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a3a3a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-</div>
-<div class="icon-square" onclick="location.href='/dashboard/'" title="Dashboard">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a3a3a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-</div>
-<div class="title-block"><h1>Translator Job Board</h1></div>
-<div class="search-wrap">
-<input type="text" id="searchInput" placeholder="Search by job ID, language, filename..." />
-<svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#68686e" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-</div>
-<div class="header-right">
-<button class="icon-btn" aria-label="Notifications" title="No notifications yet"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8a8a90" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-<button class="icon-btn" aria-label="Messages" title="Messaging not built yet"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8a8a90" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
-<div class="avatar-block">
-<div class="avatar-circle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a8a90" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div>
-<div class="avatar-text"><span class="name">Translator</span><span class="role">Not signed in yet</span></div>
-</div>
-</div>
-</div>
-
-<div class="layout">
+<div class="app">
 
 <aside class="sidebar">
 
+<div class="nav-section">
 <div class="nav-section-label">Workspace</div>
-<button class="nav-item active" data-tab="available">Available Jobs</button>
-<button class="nav-item" data-tab="myjobs">My Jobs <span class="nav-badge">0</span></button>
-<button class="nav-item" data-tab="submitted">Submitted <span class="nav-badge">0</span></button>
-<button class="nav-item" data-tab="review">Under Review <span class="nav-badge">0</span></button>
-<button class="nav-item" data-tab="completed">Completed <span class="nav-badge">0</span></button>
+<button class="nav-item active" data-tab="available"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Available Jobs</button>
+<button class="nav-item" data-tab="myjobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>My Jobs<span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="submitted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>Submitted<span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="m13.3 16.3 1.4 1.4"/></svg>Under Review<span class="nav-badge">0</span></button>
+<button class="nav-item" data-tab="completed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Completed<span class="nav-badge">0</span></button>
+</div>
 
+<div class="nav-section">
 <div class="nav-section-label">Finance</div>
-<button class="nav-item" data-tab="earnings">Earnings</button>
-<button class="nav-item" data-tab="transactions">Transactions</button>
-<button class="nav-item" data-tab="payouts">Payouts &amp; Cash Out</button>
+<button class="nav-item" data-tab="earnings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>Earnings</button>
+<button class="nav-item" data-tab="transactions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></svg>Transactions</button>
+<button class="nav-item" data-tab="payouts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>Payouts &amp; Cash Out</button>
+</div>
 
+<div class="nav-section">
 <div class="nav-section-label">Account</div>
-<div class="nav-item inert">Profile</div>
-<div class="nav-item inert">Payment Methods</div>
-<div class="nav-item inert">Settings</div>
-<div class="nav-item inert">NDA &amp; Agreements</div>
-<div class="nav-item inert">Help Center</div>
-<div class="nav-item inert">Logout</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Profile</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Payment Methods</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg>NDA &amp; Agreements</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help Center</div>
+<div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Logout</div>
+</div>
 
 <div class="quality-box">
-<div class="qtitle">Quality Matters</div>
+<div class="qtitle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg>Quality Matters</div>
 <p>All submissions are evaluated using the same quality standards. Only quality work gets rewarded.</p>
-<a href="#">Learn more about our process</a>
+<a href="#">Learn more →</a>
 </div>
 
 </aside>
 
-<main class="center">
+<div class="main-col">
 
-<div class="tab-content" id="content-available">
-
-<div class="center-header">
-<h2>Choose an assignment and compete for the highest verified quality ranking.</h2>
+<div class="topbar">
+<div class="icon-square" onclick="location.href='/translation/'" title="Back">
+<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 </div>
+<div class="header-title">SayBon Job Board</div>
+<div class="header-right">
+<div class="icon-square bell-wrap" title="No notifications yet">
+<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span class="notif-dot"></span>
+</div>
+<div class="icon-square" onclick="location.href='/dashboard/'" title="Dashboard">
+<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</div>
+</div>
+</div>
+
+<div class="content-bg">
+<div class="content-inner">
+
+<div class="job-col">
+
+<div class="tab-content active" id="content-available">
+
+<div class="section-heading">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+<h2>Available Jobs</h2>
+</div>
+<div class="section-sub">Choose an assignment and compete for the highest verified quality ranking.</div>
+
+<div id="newJobAlert"></div>
 
 <div class="filter-row">
 <button class="filter-pill active" data-filter="all">All</button>
@@ -350,39 +393,63 @@ background:rgba(255,255,255,.04); color:#68686e; font-weight:400; font-size:11.5
 <button class="filter-pill" data-filter="editing">Editing / Proofreading</button>
 <button class="filter-pill" data-filter="standard">Standard</button>
 <button class="filter-pill" data-filter="express">Express</button>
+<div class="sort-wrap">Sort by
 <select class="sort-select" id="sortSelect">
 <option value="newest">Newest First</option>
 <option value="price-high">Price (High to Low)</option>
 <option value="price-low">Price (Low to High)</option>
 </select>
 </div>
+</div>
 
 <div id="jobs"></div>
+<div id="pagination" class="pagination"></div>
 
 </div>
 
-<div class="tab-content" id="content-myjobs" style="display:none;"><div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
-<div class="tab-content" id="content-submitted" style="display:none;"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
-<div class="tab-content" id="content-review" style="display:none;"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
-<div class="tab-content" id="content-completed" style="display:none;"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
-<div class="tab-content" id="content-earnings" style="display:none;"><div class="empty-state">Earnings tracking has not been built yet — no balance system exists in SayBon today.</div></div>
-<div class="tab-content" id="content-transactions" style="display:none;"><div class="empty-state">Transaction history has not been built yet.</div></div>
-<div class="tab-content" id="content-payouts" style="display:none;"><div class="empty-state">Payouts and cash-out have not been built yet. This will require a real payout mechanism (e.g. Stripe Connect) to be wired up first.</div></div>
-
-</main>
-
-<aside class="detail-panel" id="detailPanel">
-<div class="detail-empty">Select "View Details" on a job to see it here.</div>
-</aside>
+<div class="tab-content" id="content-myjobs"><div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
+<div class="tab-content" id="content-submitted"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
+<div class="tab-content" id="content-review"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
+<div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
+<div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet — no balance system exists in SayBon today.</div></div>
+<div class="tab-content" id="content-transactions"><div class="empty-state">Transaction history has not been built yet.</div></div>
+<div class="tab-content" id="content-payouts"><div class="empty-state">Payouts and cash-out have not been built yet. This will require a real payout mechanism (e.g. Stripe Connect) to be wired up first.</div></div>
 
 </div>
 
-<div class="earnings-bar">
-<div class="earn-item"><span class="el">Available Balance</span><span class="ev">$0.00</span></div>
-<div class="earn-item"><span class="el">Pending Clearance</span><span class="ev">$0.00</span><span class="earn-note">No payout system built yet</span></div>
-<div class="earn-item"><span class="el">Total Balance</span><span class="ev">$0.00</span></div>
-<div class="earn-item"><span class="el">Min. Cash Out</span><span class="ev">$10.00</span></div>
-<button class="cashout-btn" disabled title="Cash out is not available yet">Cash Out</button>
+<div class="right-col">
+
+<div class="right-card">
+<h4>How this job works</h4>
+<div class="flow-row">
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span>Accept &amp; NDA</span></div>
+<div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div><span>Work Independently</span></div>
+<div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><span>Submit</span></div>
+<div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 10h6M9 14h4"/></svg></div><span>Human Review</span></div>
+<div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+<div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M5 4h2v5a5 5 0 0 1-2-4zM19 4h-2v5a5 5 0 0 0 2-4z"/></svg></div><span>Ranked &amp; Paid</span></div>
+</div>
+</div>
+
+<div class="nda-card" id="ndaCard">
+<div class="nda-icon-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><h4>NDA Required</h4></div>
+<p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p>
+<button class="nda-accept-btn" id="ndaAcceptBtn" disabled>
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+Agree to NDA &amp; Accept Job
+</button>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
 </div>
 
 <script type="module">
@@ -399,8 +466,9 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 let allJobs = [];
 let activeFilter = "all";
-let searchTerm = "";
-let selectedJobId = null;
+let currentPage = 1;
+const JOBS_PER_PAGE = 5;
+let expandedJobId = null;
 
 const DELIVERY_TABLE = [
   { maxWords:200,   standard:"1\u20133 hrs",   express:"30\u201360 mins" },
@@ -420,8 +488,8 @@ document.querySelectorAll(".nav-item[data-tab]").forEach(btn=>{
   btn.addEventListener("click", ()=>{
     document.querySelectorAll(".nav-item[data-tab]").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
-    document.querySelectorAll(".tab-content").forEach(p=>p.style.display="none");
-    document.getElementById("content-"+btn.dataset.tab).style.display="block";
+    document.querySelectorAll(".tab-content").forEach(p=>p.classList.remove("active"));
+    document.getElementById("content-"+btn.dataset.tab).classList.add("active");
   });
 });
 
@@ -430,37 +498,25 @@ document.querySelectorAll(".filter-pill").forEach(btn=>{
     document.querySelectorAll(".filter-pill").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
     activeFilter = btn.dataset.filter;
+    currentPage = 1;
+    expandedJobId = null;
     renderJobs();
   });
 });
 
-document.getElementById("searchInput").addEventListener("input",(e)=>{
-  searchTerm = e.target.value.toLowerCase();
+document.getElementById("sortSelect").addEventListener("change", ()=>{
+  currentPage = 1;
+  expandedJobId = null;
   renderJobs();
 });
-
-document.getElementById("sortSelect").addEventListener("change", renderJobs);
 
 function getFilteredSortedJobs(){
 
   let list = allJobs.slice();
 
-  if(activeFilter === "translation") list = list.filter(j=>true);
   if(activeFilter === "editing") list = [];
   if(activeFilter === "standard") list = list.filter(j=>(j.data.plan||"standard")==="standard");
   if(activeFilter === "express") list = list.filter(j=>j.data.plan==="express");
-
-  if(searchTerm){
-    list = list.filter(j=>{
-      const hay = (
-        (j.data.jobId||j.id) + " " +
-        (j.data.clientFile||"") + " " +
-        (j.data.sourceLanguage||"") + " " +
-        (j.data.targetLanguage||"")
-      ).toLowerCase();
-      return hay.includes(searchTerm);
-    });
-  }
 
   const sortVal = document.getElementById("sortSelect").value;
   if(sortVal === "price-high") list.sort((a,b)=>(b.data.price||0)-(a.data.price||0));
@@ -475,40 +531,96 @@ function getFilteredSortedJobs(){
 
 }
 
-function buildJobCard({ id, data }){
+function renderNewJobAlert(count){
+  const el = document.getElementById("newJobAlert");
+  if(count > 0){
+    el.innerHTML =
+      "<div class=\"new-job-alert\">" +
+        "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z\"/></svg>" +
+        "<div class=\"alert-text\"><div class=\"at1\">Brand new jobs available for bidding!</div><div class=\"at2\">Be the first to bid and win.</div></div>" +
+        "<span class=\"blinker\"></span>" +
+      "</div>";
+  } else {
+    el.innerHTML = "";
+  }
+}
+
+function buildExpandedJob({ id, data }){
 
   const words = data.wordCount || 0;
   const plan = data.plan || "standard";
   const priorityLabel = plan === "express" ? "Express" : "Standard";
   const expectedDelivery = getExpectedDelivery(words, plan);
-  const isExpress = plan === "express";
+  const price = Number(data.price || 0);
 
   const div = document.createElement("div");
-  div.className = "job-card" + (id === selectedJobId ? " selected" : "");
+  div.className = "expanded-job";
+
+  div.innerHTML =
+    "<div class=\"exp-top\">" +
+      "<div class=\"file-icon-box\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+      "<div><div class=\"exp-filename\">" + (data.clientFile||"Untitled document") + "</div><div class=\"exp-jobid\">" + (data.jobId||id) + "</div></div>" +
+      "<div class=\"exp-right\">" +
+        "<div class=\"exp-price\">$" + price.toFixed(2) + "</div>" +
+        "<div class=\"avail-badge\">Available</div>" +
+        "<div class=\"exp-slots\">0/3 slots filled</div>" +
+        "<div class=\"exp-slot-dots\"><span class=\"exp-slot-dot\"></span><span class=\"exp-slot-dot\"></span><span class=\"exp-slot-dot\"></span></div>" +
+      "</div>" +
+    "</div>" +
+
+    "<div class=\"exp-meta-row\">" +
+      "<div class=\"exp-meta-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg><div><span class=\"eml\">Type</span><span class=\"emv\">Translation</span></div></div>" +
+      "<div class=\"exp-meta-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6\"/></svg><div><span class=\"eml\">Language</span><span class=\"emv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</span></div></div>" +
+      "<div class=\"exp-meta-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M9 13h6M9 17h6\"/></svg><div><span class=\"eml\">Word Count</span><span class=\"emv\">" + words + "</span></div></div>" +
+      "<div class=\"exp-meta-item\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 6v6l4 2\"/></svg><div><span class=\"eml\">Delivery</span><span class=\"emv\">" + expectedDelivery + "</span></div></div>" +
+    "</div>" +
+
+    "<div class=\"about-block\">" +
+      "<h4>About this job</h4>" +
+      "<p>Up to three translators/editors may participate in this assignment. All submissions are evaluated using the same quality standards and ranked according to verified scores.</p>" +
+    "</div>" +
+
+    "<div class=\"split-boxes\">" +
+      "<div class=\"split-box\">" +
+        "<h5>Payment by position</h5><div class=\"subh\">From stated job price</div>" +
+        "<div class=\"payout-row\"><span>1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
+        "<div class=\"payout-row\"><span>Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
+      "</div>" +
+      "<div class=\"split-box\">" +
+        "<h5>Evaluation standard</h5><div class=\"subh\">100 points</div>" +
+        "<div class=\"rubric-row\"><span>Accuracy / Meaning</span><span>40%</span></div>" +
+        "<div class=\"rubric-row\"><span>Grammar &amp; Language</span><span>20%</span></div>" +
+        "<div class=\"rubric-row\"><span>Terminology</span><span>15%</span></div>" +
+        "<div class=\"rubric-row\"><span>Completeness</span><span>10%</span></div>" +
+        "<div class=\"rubric-row\"><span>Style / Naturalness</span><span>10%</span></div>" +
+        "<div class=\"rubric-row\"><span>Formatting</span><span>5%</span></div>" +
+        "<div class=\"pass-mark\"><span>Pass mark</span><span>80/100</span></div>" +
+      "</div>" +
+    "</div>";
+
+  return div;
+
+}
+
+function buildCompactRow({ id, data }){
+
+  const words = data.wordCount || 0;
+  const plan = data.plan || "standard";
+  const priorityLabel = plan === "express" ? "Express" : "Standard";
+  const expectedDelivery = getExpectedDelivery(words, plan);
+
+  const div = document.createElement("div");
+  div.className = "compact-row";
   div.onclick = ()=> selectJob(id);
 
   div.innerHTML =
-    "<div class=\"job-card-top\">" +
-      "<span class=\"status-dot\"></span>" +
-      "<div><div class=\"job-card-title\">" + (data.clientFile || "Untitled document") + "</div><div class=\"job-card-id\">" + (data.jobId || id) + "</div></div>" +
-      (isExpress ? "<span class=\"express-badge\">Express</span>" : "") +
-      "<span class=\"status-pill\">Available</span>" +
-    "</div>" +
-    "<div class=\"meta-row\">" +
-      "<div class=\"meta-item\"><span class=\"ml\">Type</span><span class=\"mv\">Translation</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Language</span><span class=\"mv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Words</span><span class=\"mv\">" + words + "</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Delivery</span><span class=\"mv\">" + expectedDelivery + "</span></div>" +
-    "</div>" +
-    "<div class=\"card-price-row\">" +
-      "<div class=\"card-price\">$" + Number(data.price||0).toFixed(2) + "</div>" +
-      "<div class=\"slots-block\"><div class=\"slots-label\">0/3 slots</div><div class=\"slot-dots\"><span class=\"slot-dot\"></span><span class=\"slot-dot\"></span><span class=\"slot-dot\"></span></div></div>" +
-    "</div>" +
-    "<div class=\"info-line\">Up to three translators may independently submit work. Final payment is determined by verified ranking.</div>" +
-    "<div class=\"card-actions\">" +
-      "<button class=\"link-btn\" onclick=\"event.stopPropagation(); selectJob('" + id + "')\">View Details</button>" +
-      "<button class=\"btn-solid\" onclick=\"event.stopPropagation(); acceptJob('" + id + "')\">Accept Job</button>" +
-    "</div>";
+    "<div class=\"compact-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+    "<div class=\"compact-name\">" + (data.clientFile||"Untitled document") + "</div>" +
+    "<div class=\"compact-meta\">Translation \u00b7 " + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + " \u00b7 " + words + " words \u00b7 " + priorityLabel + " \u00b7 " + expectedDelivery + "</div>" +
+    "<div class=\"compact-price\">$" + Number(data.price||0).toFixed(2) + "</div>" +
+    "<div class=\"compact-see\">See more<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m6 9 6 6 6-6\"/></svg></div>";
 
   return div;
 
@@ -519,86 +631,86 @@ function renderJobs(){
   const container = document.getElementById("jobs");
   container.innerHTML = "";
 
-  const list = getFilteredSortedJobs();
+  const fullList = getFilteredSortedJobs();
 
-  if(!list.length){
+  renderNewJobAlert(fullList.length);
+
+  if(!fullList.length){
     container.innerHTML = "<div class=\"empty-state\">No jobs match this view right now.</div>";
+    document.getElementById("pagination").innerHTML = "";
+    updateNdaCard(null);
     return;
   }
 
-  list.forEach(job => container.appendChild(buildJobCard(job)));
+  const totalPages = Math.ceil(fullList.length / JOBS_PER_PAGE);
+  if(currentPage > totalPages) currentPage = totalPages;
 
+  const pageStart = (currentPage - 1) * JOBS_PER_PAGE;
+  const pageList = fullList.slice(pageStart, pageStart + JOBS_PER_PAGE);
+
+  if(!expandedJobId || !pageList.find(j=>j.id===expandedJobId)){
+    expandedJobId = pageList[0].id;
+  }
+
+  pageList.forEach(job=>{
+    if(job.id === expandedJobId){
+      container.appendChild(buildExpandedJob(job));
+    } else {
+      container.appendChild(buildCompactRow(job));
+    }
+  });
+
+  renderPagination(totalPages);
+  updateNdaCard(fullList.find(j=>j.id===expandedJobId));
+
+}
+
+function renderPagination(totalPages){
+
+  const el = document.getElementById("pagination");
+  el.innerHTML = "";
+
+  if(totalPages <= 1) return;
+
+  const prev = document.createElement("button");
+  prev.className = "page-btn";
+  prev.textContent = "\u2039";
+  prev.disabled = currentPage === 1;
+  prev.onclick = ()=>{ currentPage--; expandedJobId=null; renderJobs(); };
+  el.appendChild(prev);
+
+  for(let p=1; p<=totalPages; p++){
+    const btn = document.createElement("button");
+    btn.className = "page-btn" + (p===currentPage ? " active" : "");
+    btn.textContent = p;
+    btn.onclick = ()=>{ currentPage=p; expandedJobId=null; renderJobs(); };
+    el.appendChild(btn);
+  }
+
+  const next = document.createElement("button");
+  next.className = "page-btn";
+  next.textContent = "\u203a";
+  next.disabled = currentPage === totalPages;
+  next.onclick = ()=>{ currentPage++; expandedJobId=null; renderJobs(); };
+  el.appendChild(next);
+
+}
+
+function updateNdaCard(job){
+  const btn = document.getElementById("ndaAcceptBtn");
+  if(!job){
+    btn.disabled = true;
+    btn.onclick = null;
+    return;
+  }
+  btn.disabled = false;
+  btn.onclick = ()=> acceptJob(job.id);
 }
 
 window.selectJob = function(id){
-
-  selectedJobId = id;
-  const job = allJobs.find(j=>j.id===id);
-  if(!job) return;
-
+  expandedJobId = id;
   renderJobs();
-  renderDetailPanel(job);
-
-}
-
-function renderDetailPanel({ id, data }){
-
-  const words = data.wordCount || 0;
-  const plan = data.plan || "standard";
-  const priorityLabel = plan === "express" ? "Express" : "Standard";
-  const expectedDelivery = getExpectedDelivery(words, plan);
-  const price = Number(data.price || 0);
-
-  const panel = document.getElementById("detailPanel");
-
-  panel.innerHTML =
-    "<div class=\"detail-title\">" + (data.clientFile||"Untitled document") + "</div>" +
-    "<div class=\"detail-id\">" + (data.jobId||id) + "</div>" +
-    "<span class=\"status-pill\">Available</span> <span style=\"font-size:10.5px;color:#68686e;margin-left:8px;\">0/3 slots filled</span>" +
-    "<div class=\"detail-price\">$" + price.toFixed(2) + "</div>" +
-
-    "<div class=\"detail-grid\">" +
-      "<div class=\"detail-field\"><div class=\"dl\">Job Type</div><div class=\"dv\">Translation</div></div>" +
-      "<div class=\"detail-field\"><div class=\"dl\">Language</div><div class=\"dv\">" + (data.sourceLanguage||"?") + " \u2192 " + (data.targetLanguage||"?") + "</div></div>" +
-      "<div class=\"detail-field\"><div class=\"dl\">Expected Delivery</div><div class=\"dv\">" + expectedDelivery + "</div></div>" +
-      "<div class=\"detail-field\"><div class=\"dl\">Word Count</div><div class=\"dv\">" + words + "</div></div>" +
-    "</div>" +
-
-    "<div class=\"about-block\"><h4>About This Job</h4><p>Up to three translators/editors may participate in this assignment. All submissions are evaluated using the same quality standards and ranked according to verified scores.</p></div>" +
-
-    "<div class=\"secondary-row\">" +
-      "<div class=\"meta-item\"><span class=\"ml\">Priority</span><span class=\"mv\">" + priorityLabel + "</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Category</span><span class=\"mv\">\u2014</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Deadline</span><span class=\"mv\">\u2014</span></div>" +
-      "<div class=\"meta-item\"><span class=\"ml\">Files</span><span class=\"mv\">1 file</span></div>" +
-    "</div>" +
-
-    "<div class=\"split-boxes\">" +
-      "<div class=\"split-box\">" +
-        "<h4>Payment by Position</h4>" +
-        "<div class=\"payout-row\"><span>1st Place (100%)</span><span class=\"amt\">$" + price.toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>2nd Place (60%)</span><span class=\"amt\">$" + (price*0.6).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>3rd Place (30%)</span><span class=\"amt\">$" + (price*0.3).toFixed(2) + "</span></div>" +
-        "<div class=\"payout-row\"><span>Fail (Below 80)</span><span class=\"amt\">$0.00</span></div>" +
-      "</div>" +
-      "<div class=\"split-box\">" +
-        "<h4>Evaluation Standard (100 pts)</h4>" +
-        "<div class=\"rubric-row\"><span>Accuracy / Meaning</span><span>40%</span></div>" +
-        "<div class=\"rubric-row\"><span>Grammar &amp; Language</span><span>20%</span></div>" +
-        "<div class=\"rubric-row\"><span>Terminology</span><span>15%</span></div>" +
-        "<div class=\"rubric-row\"><span>Completeness</span><span>10%</span></div>" +
-        "<div class=\"rubric-row\"><span>Style / Naturalness</span><span>10%</span></div>" +
-        "<div class=\"rubric-row\"><span>Formatting</span><span>5%</span></div>" +
-        "<div class=\"pass-mark\">Pass mark: 80/100</div>" +
-      "</div>" +
-    "</div>" +
-
-    "<div class=\"flow-row\"><b>How this works:</b> Accept &amp; sign NDA \u2192 Work independently \u2192 Submit \u2192 Human review \u2192 Ranked &amp; paid</div>" +
-
-    "<div class=\"nda-box\"><div class=\"nt\">NDA Required</div><p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p></div>" +
-
-    "<button class=\"nda-accept-btn\" onclick=\"acceptJob('" + id + "')\">Agree to NDA &amp; Accept Job</button>";
-
+  document.getElementById("jobs").scrollIntoView({ behavior:"smooth", block:"start" });
 }
 
 async function loadJobs(){
@@ -618,11 +730,12 @@ renderJobs();
 
 }
 
-window.acceptJob = async function(id){
+async function acceptJob(id){
 
-// NOTE: real NDA gating logic is not yet implemented. This button
-// currently performs the same simple claim as before. The actual
-// NDA record + atomic 3-slot logic is a separate, upcoming build.
+// NOTE: real NDA gating logic (recording acceptance, atomic
+// 3-slot increment) is not yet implemented. This performs the
+// same simple claim as before. The full NDA record + slot system
+// is a separate, upcoming build.
 
 await updateDoc(
 doc(db,"translationJobs",id),
