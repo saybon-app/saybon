@@ -413,6 +413,13 @@ width:100%; padding:12px; border:none; border-radius:10px; background:#0C8F96; c
 font-weight:600; font-size:13px; cursor:pointer; margin-bottom:8px;
 }
 .gate-continue-btn:disabled{ opacity:.6; cursor:not-allowed; }
+.success-icon{
+width:52px; height:52px; border-radius:50%; margin:0 auto 14px;
+background:rgba(95,211,184,.14); color:#5FD3B8;
+display:flex; align-items:center; justify-content:center;
+}
+.success-icon svg{ width:26px; height:26px; }
+
 .gate-skip-btn{
 width:100%; padding:8px; border:none; background:none; color:#8FA8A3; font-size:12px; cursor:pointer; text-decoration:underline;
 }
@@ -629,6 +636,16 @@ By accepting this job, you also confirm that the work you submit reflects your o
 <input type="text" id="gatePasskeyInput" placeholder="e.g. SB-XXXXXXXX" />
 <div class="gate-error" id="gateError"></div>
 <button class="gate-continue-btn" id="gateContinueBtn" onclick="continueFromGate()">Continue</button>
+</div>
+</div>
+
+<div id="acceptSuccessModal" class="gate-overlay" style="display:none;">
+<div class="gate-box">
+<div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+<h3>Job Accepted</h3>
+<p>You are all set. Open the editing workspace to begin translating.</p>
+<button class="gate-continue-btn" id="goToWorkspaceBtn">Open Editing Workspace</button>
+<button class="gate-skip-btn" onclick="location.reload()">Stay on Job Board</button>
 </div>
 </div>
 
@@ -957,8 +974,11 @@ document.getElementById("ndaConfirmBtn").addEventListener("click", async ()=>{
       return;
     }
 
-    alert("Job accepted. Open the editing workspace to begin.");
-    location.reload();
+    document.getElementById("ndaModal").style.display = "none";
+    document.getElementById("goToWorkspaceBtn").onclick = () => {
+      window.location.href = "editor-workspace.html?job=" + encodeURIComponent(ndaModalJobId);
+    };
+    document.getElementById("acceptSuccessModal").style.display = "flex";
 
   }catch(err){
     errorEl.innerText = "Could not reach the server. Please try again.";
