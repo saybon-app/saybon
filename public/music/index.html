@@ -9,7 +9,7 @@
 
 <title>SayBon Music</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,7 +17,10 @@
 
 *::-webkit-scrollbar{ width:10px; height:10px; }
 *::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
-*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #C9A0A5, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+
+.shelf-row::-webkit-scrollbar{ height:6px; }
+.pill-row::-webkit-scrollbar{ height:6px; }
 
 html{ overflow-x:hidden; }
 
@@ -28,16 +31,24 @@ color:#E8DCDA;
 background:#0A0607;
 overflow-x:hidden;
 scrollbar-width:thin;
-scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
+scrollbar-color:#D4AF6A rgba(255,255,255,.04);
+position:relative;
 }
 
+.glow-orb{ position:fixed; border-radius:50%; filter:blur(130px); opacity:.16; pointer-events:none; z-index:0; }
+.glow-orb-1{ width:520px; height:520px; background:#D4AF6A; top:-140px; right:-120px; }
+.glow-orb-2{ width:420px; height:420px; background:#8B5A5F; bottom:-100px; left:180px; }
+
 .topbar{
-position:fixed; top:0; left:0; right:0; height:60px; z-index:100;
+position:fixed; top:0; left:0; right:0; height:66px; z-index:100;
 background:rgba(10,6,7,.96); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,.08);
 display:flex; align-items:center; padding:0 18px; gap:16px;
 }
-.topbar-logo{ font-size:16px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
-.topbar-logo svg{ color:#C9A0A5; flex:0 0 auto; }
+.topbar-logo{ display:flex; align-items:center; gap:9px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
+.topbar-logo svg{ color:#D4AF6A; flex:0 0 auto; }
+.topbar-logo-text{ line-height:1.2; }
+.topbar-logo-title{ font-size:16px; font-weight:700; color:#fff; font-family:'Playfair Display', serif; }
+.topbar-logo-tag{ font-size:9.5px; color:#8FA8A3; letter-spacing:.03em; }
 .search-wrap{ flex:1; max-width:560px; margin:0 auto; display:flex; }
 .search-wrap input{
 flex:1; padding:9px 16px; border-radius:20px 0 0 20px; border:1px solid rgba(255,255,255,.15); border-right:none;
@@ -46,68 +57,142 @@ background:rgba(255,255,255,.05); color:#fff; font-size:12.5px; font-family:inhe
 .search-wrap input:focus{ outline:none; }
 .search-wrap button{
 padding:9px 16px; border-radius:0 20px 20px 0; border:1px solid rgba(255,255,255,.15);
-background:rgba(255,255,255,.08); color:#C9A0A5; cursor:pointer; flex:0 0 auto;
+background:rgba(255,255,255,.08); color:#D4AF6A; cursor:pointer; flex:0 0 auto;
 }
-.topbar-right{ display:flex; gap:8px; flex:0 0 auto; }
+.topbar-right{ display:flex; gap:8px; flex:0 0 auto; align-items:center; }
 .topbar-icon-btn{
 width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.06);
 display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff;
 }
 .topbar-icon-btn:hover{ background:rgba(255,255,255,.12); }
+.user-avatar{ width:34px; height:34px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(212,175,106,.4); }
 
 .sidebar{
-position:fixed; top:60px; left:0; bottom:0; width:220px; overflow-y:auto;
+position:fixed; top:66px; left:0; bottom:0; width:220px; overflow-y:auto;
 background:#0A0607; border-right:1px solid rgba(255,255,255,.06); padding:14px 0; z-index:90;
 }
 .sb-item{
 display:flex; align-items:center; gap:14px; padding:11px 20px; cursor:pointer; font-size:13px; color:#C9A0A5;
 }
 .sb-item:hover{ background:rgba(255,255,255,.05); }
-.sb-item.active{ background:rgba(183,110,121,.15); color:#fff; font-weight:600; }
+.sb-item.active{ background:rgba(212,175,106,.14); color:#fff; font-weight:600; }
 .sb-item svg{ width:17px; height:17px; flex:0 0 auto; }
 .sb-section-label{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#5c4b4e; padding:16px 20px 8px; }
 .sb-divider{ height:1px; background:rgba(255,255,255,.06); margin:10px 0; }
 
-.main-content{ margin-left:220px; margin-top:60px; padding:22px 26px 60px; }
+.main-content{ position:relative; z-index:1; margin-left:220px; margin-top:66px; padding:24px 26px 60px; }
 
 @media (max-width:860px){
   .sidebar{ display:none; }
   .main-content{ margin-left:0; }
-  .search-wrap{ max-width:220px; }
+  .search-wrap{ max-width:200px; }
+  .topbar-logo-tag{ display:none; }
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
-gap:18px 16px;
+/* ===== HERO CAROUSEL ===== */
+
+.hero{
+position:relative; width:100%; height:420px; border-radius:20px; overflow:hidden; margin-bottom:26px; cursor:pointer;
+border:1px solid rgba(255,255,255,.08); display:none;
+}
+.hero-slide{ position:absolute; inset:0; opacity:0; transition:opacity .5s ease; }
+.hero-slide.active{ opacity:1; z-index:2; }
+.hero-bg{ position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(.5) saturate(1.15); transform:scale(1.04); }
+.hero-bg.fallback{ background:linear-gradient(135deg, #4a3320 0%, #150E10 100%); }
+.hero-overlay{
+position:absolute; inset:0;
+background:linear-gradient(180deg, rgba(10,6,7,0) 0%, rgba(10,6,7,.55) 60%, #0A0607 100%),
+           linear-gradient(90deg, rgba(10,6,7,.78) 0%, rgba(10,6,7,0) 62%);
+}
+.hero-content{ position:absolute; bottom:56px; left:36px; right:36px; max-width:600px; }
+.hero-badge{
+display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:999px; background:rgba(212,175,106,.18);
+border:1px solid #D4AF6A; color:#F0D9A8; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; margin-bottom:14px;
+}
+.hero-title{ font-family:'Playfair Display', serif; font-size:33px; font-weight:700; color:#fff; margin:0 0 8px; line-height:1.15; text-shadow:0 4px 24px rgba(0,0,0,.5); }
+.hero-sub{ font-size:13px; color:#D9C4C1; margin-bottom:20px; }
+.hero-btns{ display:flex; gap:12px; }
+.hero-play-btn{
+display:inline-flex; align-items:center; gap:9px; padding:13px 26px; border-radius:12px; border:none;
+background:#D4AF6A; color:#0A0607; font-weight:700; font-size:13.5px; cursor:pointer;
+}
+.hero-play-btn:hover{ background:#e0bd7c; }
+.hero-play-btn svg{ width:16px; height:16px; }
+.hero-explore-btn{
+padding:13px 24px; border-radius:12px; border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.06);
+color:#fff; font-weight:600; font-size:13.5px; cursor:pointer;
 }
 
-.video-card{ cursor:pointer; }
-.thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; background:rgba(255,255,255,.05); }
+.hero-dots{ position:absolute; bottom:20px; left:36px; display:flex; gap:7px; z-index:5; }
+.hero-dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:.2s; }
+.hero-dot.active{ background:#D4AF6A; width:20px; border-radius:4px; }
 
-.card-info{ display:flex; gap:10px; margin-top:9px; }
+/* ===== GENRE PILL ROW ===== */
+
+.pill-row-wrap{ margin-bottom:32px; }
+.pill-row{ display:flex; gap:12px; overflow-x:auto; padding-bottom:6px; }
+.genre-pill-card{
+flex:0 0 auto; display:flex; align-items:center; gap:11px; padding:11px 18px 11px 12px; border-radius:14px;
+background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); cursor:pointer; transition:.15s;
+}
+.genre-pill-card:hover{ border-color:rgba(212,175,106,.4); background:rgba(212,175,106,.06); }
+.pill-icon{
+width:36px; height:36px; border-radius:50%; background:rgba(212,175,106,.16); color:#D4AF6A;
+display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+}
+.pill-icon svg{ width:17px; height:17px; }
+.pill-name{ font-size:12.5px; font-weight:650; color:#fff; }
+.pill-count{ font-size:10.5px; color:#786367; }
+
+/* ===== SECTIONS ===== */
+
+.section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.section-title{ font-size:16px; font-weight:700; color:#fff; }
+.section-viewall{ font-size:11.5px; color:#D4AF6A; cursor:pointer; font-weight:600; }
+.section-viewall:hover{ text-decoration:underline; }
+
+.shelf{ margin-bottom:34px; }
+.shelf-row{ display:flex; gap:16px; overflow-x:auto; padding-bottom:10px; scroll-behavior:smooth; }
+
+.shelf-card{ flex:0 0 auto; width:210px; cursor:pointer; }
+.thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; background:rgba(255,255,255,.05); transition:.2s; }
+.shelf-card:hover .thumb{ transform:scale(1.03); box-shadow:0 10px 30px rgba(212,175,106,.2); }
+.thumb-fallback{
+width:100%; aspect-ratio:16/9; border-radius:12px;
+background:linear-gradient(135deg, rgba(212,175,106,.3), rgba(20,10,12,.9));
+display:flex; align-items:center; justify-content:center; color:#F0D9A8;
+}
+
+.card-info{ display:flex; gap:9px; margin-top:9px; }
 .channel-avatar{
-width:34px; height:34px; border-radius:50%; flex:0 0 auto; background:rgba(183,110,121,.25);
-display:flex; align-items:center; justify-content:center; color:#C9A0A5;
+width:30px; height:30px; border-radius:50%; flex:0 0 auto; background:rgba(212,175,106,.16); color:#D4AF6A;
+display:flex; align-items:center; justify-content:center;
 }
-.channel-avatar svg{ width:17px; height:17px; }
-.card-title{ font-size:13px; font-weight:650; color:#fff; line-height:1.35; margin-bottom:3px; }
-.card-channel{ font-size:11.5px; color:#9C8589; }
-.card-meta{ font-size:11px; color:#786367; }
+.channel-avatar svg{ width:15px; height:15px; }
+.card-title{ font-size:12.5px; font-weight:650; color:#fff; line-height:1.35; margin-bottom:3px; }
+.card-channel{ font-size:11px; color:#9C8589; }
+.card-meta{ font-size:10.5px; color:#786367; }
 
-.empty-state{ text-align:center; padding:60px 20px; color:#786367; font-size:13px; grid-column:1/-1; }
+.grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:18px 16px; }
+.video-card{ cursor:pointer; }
 
-.section-title{ font-size:16px; font-weight:700; color:#fff; margin-bottom:16px; }
+.empty-state{ text-align:center; padding:60px 20px; color:#786367; font-size:13px; }
 
 </style>
 </head>
 
 <body>
 
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
 <div class="topbar">
 <div class="topbar-logo" onclick="location.href='/music/index.html'">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-SayBon Music
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+<div class="topbar-logo-text">
+<div class="topbar-logo-title">SayBon</div>
+<div class="topbar-logo-tag">Music. Language. Culture.</div>
+</div>
 </div>
 <div class="search-wrap">
 <input type="text" id="searchInput" placeholder="Search titles or artists" />
@@ -116,18 +201,22 @@ SayBon Music
 </button>
 </div>
 <div class="topbar-right">
+<button class="topbar-icon-btn" onclick="location.href='/music/admin.html'" aria-label="Music Admin">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
 <button class="topbar-icon-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
 </button>
+<img class="user-avatar" id="userAvatar" style="display:none;" />
 </div>
 </div>
 
 <div class="sidebar" id="sidebar">
-<div class="sb-item active" id="sb-home" onclick="selectGenre(''All'')">
+<div class="sb-item active" id="sb-home" onclick="selectGenre('All')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 12 9-9 9 9M5 10v10h14V10"/></svg>
 Home
 </div>
-<div class="sb-item" onclick="location.href=''/music/playlists.html''">
+<div class="sb-item" onclick="location.href='/music/playlists.html'">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15V6M18.5 18a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM12.5 20.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM9.5 6.5v14M21 6l-11.5.5"/></svg>
 My Playlists
 </div>
@@ -138,19 +227,37 @@ My Playlists
 
 <div class="main-content">
 
-<div class="section-title" id="sectionTitle">Recommended</div>
+<div class="hero" id="heroSection"></div>
 
-<div class="grid" id="videoGrid"></div>
+<div class="pill-row-wrap" id="pillRowWrap" style="display:none;">
+<div class="pill-row" id="pillRow"></div>
+</div>
+
+<div id="contentArea"></div>
 
 </div>
 
-<script>
+<script type="module">
+
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 const genres = ["Afro","Latin","Soul","Pop","Jazz","Country","Reggae","Classical"];
 
 let currentGenre = "All";
 let allVideos = [];
+let heroVideos = [];
+let heroIndex = 0;
+let heroTimer = null;
+
+onAuthStateChanged(auth, (user) => {
+  if(user && user.photoURL){
+    const img = document.getElementById("userAvatar");
+    img.src = user.photoURL;
+    img.style.display = "block";
+  }
+});
 
 const genreItemsEl = document.getElementById("genreItems");
 
@@ -164,61 +271,221 @@ genres.forEach(g => {
   genreItemsEl.appendChild(item);
 });
 
+function thumbHtml(v){
+  if(v.youtubeId){
+    return "<img class='thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg' loading='lazy'>";
+  }
+  return "<div class='thumb-fallback'><svg width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg></div>";
+}
+
+function cardHtml(v, wide){
+  return "<div class='" + (wide ? "video-card" : "shelf-card") + "' onclick=\"location.href='/music/watch.html?v=" + v.id + "'\">" +
+    thumbHtml(v) +
+    "<div class='card-info'>" +
+      "<div class='channel-avatar'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg></div>" +
+      "<div>" +
+        "<div class='card-title'>" + v.title + "</div>" +
+        "<div class='card-channel'>" + (v.artist || "SayBon Music") + "</div>" +
+        "<div class='card-meta'>" + v.views + " views" + (wide ? " · " + v.genre : "") + "</div>" +
+      "</div>" +
+    "</div>" +
+  "</div>";
+}
+
+function buildHero(){
+
+  const heroEl = document.getElementById("heroSection");
+
+  if(!heroVideos.length){
+    heroEl.style.display = "none";
+    return;
+  }
+
+  heroEl.style.display = "block";
+  heroEl.innerHTML = "";
+
+  heroVideos.forEach((v, i) => {
+
+    const slide = document.createElement("div");
+    slide.className = "hero-slide" + (i === 0 ? " active" : "");
+    slide.dataset.index = i;
+
+    const bgClass = v.youtubeId ? "hero-bg" : "hero-bg fallback";
+    const bgStyle = v.youtubeId ? "background-image:url('https://img.youtube.com/vi/" + v.youtubeId + "/maxresdefault.jpg')" : "";
+
+    slide.innerHTML =
+      "<div class='" + bgClass + "' style=\"" + bgStyle + "\"></div>" +
+      "<div class='hero-overlay'></div>" +
+      "<div class='hero-content'>" +
+        "<span class='hero-badge'>" + (i === 0 ? "Featured" : "Trending") + "</span>" +
+        "<h1 class='hero-title'>" + v.title + "</h1>" +
+        "<p class='hero-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</p>" +
+        "<div class='hero-btns'>" +
+          "<button class='hero-play-btn' onclick=\"location.href='/music/watch.html?v=" + v.id + "'\"><svg viewBox='0 0 24 24' fill='currentColor'><path d='M8 5v14l11-7z'/></svg>Play Now</button>" +
+          "<button class='hero-explore-btn' onclick=\"document.getElementById('contentArea').scrollIntoView({behavior:'smooth'})\">Explore</button>" +
+        "</div>" +
+      "</div>";
+
+    heroEl.appendChild(slide);
+
+  });
+
+  if(heroVideos.length > 1){
+    const dots = document.createElement("div");
+    dots.className = "hero-dots";
+    heroVideos.forEach((v, i) => {
+      const dot = document.createElement("div");
+      dot.className = "hero-dot" + (i === 0 ? " active" : "");
+      dot.onclick = (e) => { e.stopPropagation(); goToHeroSlide(i); };
+      dots.appendChild(dot);
+    });
+    heroEl.appendChild(dots);
+  }
+
+  heroIndex = 0;
+  startHeroTimer();
+
+}
+
+function goToHeroSlide(i){
+  heroIndex = i;
+  document.querySelectorAll(".hero-slide").forEach((s, idx) => s.classList.toggle("active", idx === i));
+  document.querySelectorAll(".hero-dot").forEach((d, idx) => d.classList.toggle("active", idx === i));
+  startHeroTimer();
+}
+
+function startHeroTimer(){
+  clearInterval(heroTimer);
+  if(heroVideos.length <= 1) return;
+  heroTimer = setInterval(() => {
+    goToHeroSlide((heroIndex + 1) % heroVideos.length);
+  }, 6000);
+}
+
 function selectGenre(genre){
   currentGenre = genre;
   document.querySelectorAll(".sb-item").forEach(i => i.classList.remove("active"));
   if(genre === "All"){
     document.getElementById("sb-home").classList.add("active");
-    document.getElementById("sectionTitle").innerText = "Recommended";
   }else{
     document.getElementById("sb-genre-" + genre).classList.add("active");
-    document.getElementById("sectionTitle").innerText = genre;
   }
-  loadVideos();
+  renderContent();
 }
 window.selectGenre = selectGenre;
 
-function renderGrid(videos){
+function renderPillRow(){
 
-  const grid = document.getElementById("videoGrid");
+  const wrap = document.getElementById("pillRowWrap");
+  const row = document.getElementById("pillRow");
 
-  if(!videos.length){
-    grid.innerHTML = "<div class='empty-state'>No videos here yet — check back soon.</div>";
+  const counts = {};
+  allVideos.forEach(v => { counts[v.genre] = (counts[v.genre]||0) + 1; });
+
+  const present = genres.filter(g => counts[g]);
+
+  if(!present.length){
+    wrap.style.display = "none";
     return;
   }
 
-  grid.innerHTML = "";
+  wrap.style.display = "block";
+  row.innerHTML = "";
 
-  videos.forEach(v => {
-    const card = document.createElement("div");
-    card.className = "video-card";
-    card.onclick = () => location.href = "/music/watch.html?v=" + v.id;
-    card.innerHTML =
-      "<img class='thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg' loading='lazy'>" +
-      "<div class='card-info'>" +
-        "<div class='channel-avatar'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg></div>" +
-        "<div>" +
-          "<div class='card-title'>" + v.title + "</div>" +
-          "<div class='card-channel'>" + (v.artist || "SayBon Music") + "</div>" +
-          "<div class='card-meta'>" + v.views + " views · " + v.genre + "</div>" +
-        "</div>" +
-      "</div>";
-    grid.appendChild(card);
+  present.forEach(g => {
+    const pill = document.createElement("div");
+    pill.className = "genre-pill-card";
+    pill.onclick = () => selectGenre(g);
+    pill.innerHTML =
+      "<div class='pill-icon'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg></div>" +
+      "<div><div class='pill-name'>" + g + "</div><div class='pill-count'>" + counts[g] + " video" + (counts[g]===1?"":"s") + "</div></div>";
+    row.appendChild(pill);
+  });
+
+}
+
+function renderContent(){
+
+  const area = document.getElementById("contentArea");
+
+  if(!allVideos.length){
+    area.innerHTML = "<div class='empty-state'>No videos yet — check back soon.</div>";
+    heroVideos = [];
+    buildHero();
+    return;
+  }
+
+  const sorted = [...allVideos].sort((a,b) => b.views - a.views);
+
+  if(currentGenre === "All"){
+    heroVideos = sorted.slice(0, 3);
+  }else{
+    heroVideos = sorted.filter(v => v.genre === currentGenre).slice(0, 1);
+  }
+  buildHero();
+
+  if(currentGenre !== "All"){
+
+    const genreVideos = sorted.filter(v => v.genre === currentGenre);
+    const rest = heroVideos.length ? genreVideos.filter(v => v.id !== heroVideos[0].id) : genreVideos;
+
+    area.innerHTML = "<div class='section-header'><div class='section-title'>" + currentGenre + "</div></div><div class='grid' id='flatGrid'></div>";
+    const grid = document.getElementById("flatGrid");
+
+    if(!rest.length){
+      grid.innerHTML = "<div class='empty-state'>That is the only video in this genre so far.</div>";
+      return;
+    }
+
+    grid.innerHTML = rest.map(v => cardHtml(v, true)).join("");
+    return;
+
+  }
+
+  area.innerHTML = "";
+
+  // Trending shelf (top 8 by views, real data)
+  const heroIds = heroVideos.map(v => v.id);
+  const trending = sorted.filter(v => !heroIds.includes(v.id)).slice(0, 8);
+
+  if(trending.length){
+    const trendingShelf = document.createElement("div");
+    trendingShelf.className = "shelf";
+    trendingShelf.innerHTML =
+      "<div class='section-header'><div class='section-title'>Trending</div></div>" +
+      "<div class='shelf-row'>" + trending.map(v => cardHtml(v, false)).join("") + "</div>";
+    area.appendChild(trendingShelf);
+  }
+
+  const byGenre = {};
+  allVideos.forEach(v => {
+    if(!byGenre[v.genre]) byGenre[v.genre] = [];
+    byGenre[v.genre].push(v);
+  });
+
+  genres.forEach(g => {
+    if(!byGenre[g] || !byGenre[g].length) return;
+    const shelf = document.createElement("div");
+    shelf.className = "shelf";
+    shelf.innerHTML =
+      "<div class='section-header'><div class='section-title'>" + g + "</div><div class='section-viewall' onclick=\"selectGenre('" + g + "')\">View All</div></div>" +
+      "<div class='shelf-row'>" + byGenre[g].map(v => cardHtml(v, false)).join("") + "</div>";
+    area.appendChild(shelf);
   });
 
 }
 
 async function loadVideos(){
 
-  document.getElementById("videoGrid").innerHTML = "<div class='empty-state'>Loading…</div>";
+  document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Loading…</div>";
 
   try{
-    const url = API_BASE + "/api/musicVideos" + (currentGenre !== "All" ? "?genre=" + encodeURIComponent(currentGenre) : "");
-    const res = await fetch(url);
+    const res = await fetch(API_BASE + "/api/musicVideos");
     allVideos = await res.json();
-    renderGrid(allVideos);
+    renderPillRow();
+    renderContent();
   }catch(err){
-    document.getElementById("videoGrid").innerHTML = "<div class='empty-state'>Could not load videos.</div>";
+    document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Could not load videos.</div>";
   }
 
 }
@@ -228,16 +495,26 @@ window.searchVideos = function(){
   const q = document.getElementById("searchInput").value.trim().toLowerCase();
 
   if(!q){
-    renderGrid(allVideos);
-    document.getElementById("sectionTitle").innerText = currentGenre === "All" ? "Recommended" : currentGenre;
+    renderContent();
     return;
   }
 
-  document.getElementById("sectionTitle").innerText = "Search results";
+  document.getElementById("heroSection").style.display = "none";
+  clearInterval(heroTimer);
+
   const filtered = allVideos.filter(v =>
     v.title.toLowerCase().includes(q) || (v.artist||"").toLowerCase().includes(q)
   );
-  renderGrid(filtered);
+
+  const area = document.getElementById("contentArea");
+
+  if(!filtered.length){
+    area.innerHTML = "<div class='empty-state'>No results for that search.</div>";
+    return;
+  }
+
+  area.innerHTML = "<div class='section-header'><div class='section-title'>Search results</div></div><div class='grid' id='flatGrid'></div>";
+  document.getElementById("flatGrid").innerHTML = filtered.map(v => cardHtml(v, true)).join("");
 
 }
 
