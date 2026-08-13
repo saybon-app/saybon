@@ -18,65 +18,66 @@
 body{
 margin:0;
 font-family:'Inter', system-ui, sans-serif;
-color:#102B2C;
-background:linear-gradient(135deg, #EAF3EF 0%, #F7F8F1 50%, #E8F1ED 100%);
+color:#DCE9E6;
+background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
 padding:90px 20px 60px;
 }
 
 .nav-icon-btn{
 position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
-background:rgba(255,255,255,.55); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.7);
-box-shadow:0 8px 22px rgba(0,55,57,.08);
+background:rgba(255,255,255,.08); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.15);
+box-shadow:0 8px 22px rgba(0,0,0,.2);
 display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s; z-index:50;
 }
-.nav-icon-btn:hover{ background:rgba(255,255,255,.8); }
+.nav-icon-btn:hover{ background:rgba(255,255,255,.14); }
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
 .page{ max-width:600px; margin:0 auto; }
 
 header{ text-align:center; margin-bottom:26px; }
-h1{ margin:0 0 8px; font-size:23px; font-weight:700; color:#00484B; }
-.subtitle{ font-size:13px; color:#526668; line-height:1.6; }
+h1{ margin:0 0 8px; font-size:23px; font-weight:700; color:#fff; }
+.subtitle{ font-size:13px; color:#A9C9C3; line-height:1.6; }
 
 .progress-strip{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:28px; }
-.progress-dot{ width:8px; height:8px; border-radius:50%; background:rgba(0,72,75,.15); }
-.progress-dot.done{ background:#0A756C; }
+.progress-dot{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.15); }
+.progress-dot.done{ background:#0C8F96; }
 .progress-dot.active{ background:#D4AF6A; width:22px; border-radius:4px; }
 
 .section-card{
-background:rgba(255,255,255,.6); backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.7); border-radius:16px; padding:24px;
-box-shadow:0 8px 28px rgba(0,55,57,.06);
+background:rgba(255,255,255,.05); backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:24px;
+box-shadow:0 8px 28px rgba(0,0,0,.15);
 margin-bottom:16px;
 }
 
 .section-heading{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
 .section-heading .sic{
 width:32px; height:32px; border-radius:9px; flex:0 0 auto;
-background:rgba(8,123,128,.10); color:#087B80;
+background:rgba(212,175,106,.14); color:#D4AF6A;
 display:flex; align-items:center; justify-content:center;
 }
 .section-heading .sic svg{ width:16px; height:16px; }
-.section-heading h3{ margin:0; font-size:14px; font-weight:650; color:#102B2C; }
+.section-heading h3{ margin:0; font-size:14px; font-weight:650; color:#fff; }
 
 .field{ margin-bottom:16px; }
 .field:last-child{ margin-bottom:0; }
-.field label{ display:block; font-size:11.5px; font-weight:600; color:#102B2C; margin-bottom:6px; }
+.field label{ display:block; font-size:11.5px; font-weight:600; color:#DCE9E6; margin-bottom:6px; }
 .field input{
-width:100%; padding:11px 13px; border-radius:9px; border:1px solid rgba(0,72,75,.15);
-font-family:inherit; font-size:13px; background:#fff; color:#102B2C;
+width:100%; padding:11px 13px; border-radius:9px; border:1px solid rgba(255,255,255,.15);
+font-family:inherit; font-size:13px; background:rgba(255,255,255,.06); color:#fff;
 }
-.field input:focus{ outline:none; border-color:#0A756C; }
+.field input::placeholder{ color:rgba(255,255,255,.35); }
+.field input:focus{ outline:none; border-color:#D4AF6A; }
 
 .upload-row{ display:flex; flex-direction:column; gap:10px; }
 
 .upload-slot{
-border:1.5px dashed rgba(0,72,75,.22); border-radius:12px; padding:16px;
+border:1.5px dashed rgba(255,255,255,.2); border-radius:12px; padding:16px;
 display:flex; align-items:center; gap:12px; cursor:pointer; transition:.15s;
-background:rgba(255,255,255,.35); position:relative;
+background:rgba(255,255,255,.03); position:relative;
 }
-.upload-slot:hover{ border-color:#0A756C; background:rgba(255,255,255,.55); }
+.upload-slot:hover{ border-color:#D4AF6A; background:rgba(255,255,255,.07); }
 .upload-slot input[type="file"]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
 
 .upload-icon{
@@ -87,33 +88,33 @@ display:flex; align-items:center; justify-content:center;
 .upload-icon svg{ width:18px; height:18px; }
 
 .upload-text{ flex:1; min-width:0; }
-.upload-title{ font-size:12.5px; font-weight:650; color:#102B2C; }
-.upload-sub{ font-size:11px; color:#8a939a; margin-top:1px; }
-.upload-required{ font-size:9.5px; font-weight:700; color:#D99024; text-transform:uppercase; letter-spacing:.04em; margin-left:6px; }
+.upload-title{ font-size:12.5px; font-weight:650; color:#fff; }
+.upload-sub{ font-size:11px; color:#8FA8A3; margin-top:1px; }
+.upload-required{ font-size:9.5px; font-weight:700; color:#F0C77E; text-transform:uppercase; letter-spacing:.04em; margin-left:6px; }
 
 .notice{ font-size:11px; margin-top:8px; line-height:1.5; }
-.accept{ color:#0A756C; }
-.reject{ color:#C94A45; }
+.accept{ color:#5FD3B8; }
+.reject{ color:#e08585; }
 
-.bucket-heading{ font-size:11.5px; font-weight:600; color:#102B2C; margin:18px 0 8px; }
+.bucket-heading{ font-size:11.5px; font-weight:600; color:#DCE9E6; margin:18px 0 8px; }
 #uploadBucket{ display:flex; flex-direction:column; gap:6px; }
-.bucket-empty{ font-size:12px; color:#8a939a; padding:8px 0; }
+.bucket-empty{ font-size:12px; color:#8FA8A3; padding:8px 0; }
 .bucket-row{
-display:flex; align-items:center; gap:8px; font-size:12px; color:#3a4a4c;
-background:rgba(255,255,255,.5); border-radius:8px; padding:8px 10px;
+display:flex; align-items:center; gap:8px; font-size:12px; color:#DCE9E6;
+background:rgba(255,255,255,.05); border-radius:8px; padding:8px 10px;
 }
-.bucket-row svg{ width:14px; height:14px; color:#0A756C; flex:0 0 auto; }
+.bucket-row svg{ width:14px; height:14px; color:#5FD3B8; flex:0 0 auto; }
 .bucket-row span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 .submit-btn{
 width:100%; margin-top:6px; padding:14px; border-radius:11px; border:none;
-background:#005C60; color:#fff; font-weight:650; font-size:13.5px; cursor:pointer;
+background:#D4AF6A; color:#012225; font-weight:650; font-size:13.5px; cursor:pointer;
 display:flex; align-items:center; justify-content:center; gap:8px;
 }
-.submit-btn:disabled{ opacity:.45; cursor:not-allowed; }
-.submit-btn:hover:not(:disabled){ background:#00484B; }
+.submit-btn:disabled{ opacity:.4; cursor:not-allowed; }
+.submit-btn:hover:not(:disabled){ background:#e0bd7c; }
 
-.form-error{ font-size:12px; color:#C94A45; margin-top:10px; text-align:center; min-height:16px; }
+.form-error{ font-size:12px; color:#e08585; margin-top:10px; text-align:center; min-height:16px; }
 
 </style>
 </head>
@@ -121,11 +122,11 @@ display:flex; align-items:center; justify-content:center; gap:8px;
 <body>
 
 <button class="nav-icon-btn back-btn" onclick="location.href='translator-test.html'" aria-label="Back">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#00484B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
 </button>
 
 <button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#00484B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
 </button>
 
 <div class="page">
@@ -175,7 +176,7 @@ display:flex; align-items:center; justify-content:center; gap:8px;
 <input type="file" id="certUpload" multiple />
 <span class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg></span>
 <div class="upload-text">
-<div class="upload-title">Certification<span class="upload-required" style="color:#8a939a;">Optional</span></div>
+<div class="upload-title">Certification<span class="upload-required" style="color:#8FA8A3;">Optional</span></div>
 <div class="upload-sub">Any relevant qualifications</div>
 </div>
 </div>
@@ -199,7 +200,7 @@ display:flex; align-items:center; justify-content:center; gap:8px;
 </div>
 
 <button id="submitBtn" class="submit-btn" disabled>
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#012225" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 Submit Application
 </button>
 <div class="form-error" id="formError"></div>
@@ -379,7 +380,7 @@ submitBtn.onclick = async () => {
     if(!res.ok){
       document.getElementById("formError").innerText = data.error || "Could not submit your application.";
       submitBtn.disabled = false;
-      submitBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit Application';
+      submitBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#012225" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit Application';
       return;
     }
 
@@ -388,7 +389,7 @@ submitBtn.onclick = async () => {
   }catch(err){
     document.getElementById("formError").innerText = "Something went wrong while uploading. Please try again.";
     submitBtn.disabled = false;
-    submitBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit Application';
+    submitBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#012225" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit Application';
   }
 
 };
