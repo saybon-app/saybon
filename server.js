@@ -962,3 +962,124 @@ res.status(500).json({error:"translation checkout creation failed"})
 }
 
 })
+
+// ------------------------------------------------
+// ACCEPT JOB WITH NDA (three-slot competitive model)
+// Verifies the translator's passkey, atomically adds them
+// to the job's participants array (max 3, using a Firestore
+// transaction so two people can never both take the last
+// slot), closes the job once full, and records a separate
+// NDA acceptance audit entry.
+// ------------------------------------------------
+
+const NDA_VERSION="1.0"
+
+app.post("/api/acceptJobWithNda", async(req,res)=>{
+
+try{
+
+const {jobId,passkey}=req.body
+
+if(!jobId || !passkey){
+
+return res.status(400).json({error:"Job ID and passkey are required"})
+
+}
+
+const translatorSnapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(translatorSnapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+const jobRef=db.collection("translationJobs").doc(jobId)
+
+let finalParticipantCount=0
+
+await db.runTransaction(async(t)=>{
+
+const jobDoc=await t.get(jobRef)
+
+if(!jobDoc.exists){
+
+throw new Error("JOB_NOT_FOUND")
+
+}
+
+const job=jobDoc.data()
+
+if(job.status!=="open"){
+
+throw new Error("JOB_NOT_OPEN")
+
+}
+
+const participants=job.participants||[]
+
+if(participants.includes(passkey)){
+
+throw new Error("ALREADY_ACCEPTED")
+
+}
+
+if(participants.length>=3){
+
+throw new Error("JOB_FULL")
+
+}
+
+const newParticipants=[...participants,passkey]
+finalParticipantCount=newParticipants.length
+
+const newStatus=newParticipants.length>=3 ? "closed" : "open"
+
+t.update(jobRef,{
+
+participants:newParticipants,
+status:newStatus
+
+})
+
+})
+
+await db.collection("ndaAcceptances").add({
+
+translatorId:passkey,
+jobId,
+ndaVersion:NDA_VERSION,
+acceptedAt:new Date(),
+status:"accepted"
+
+})
+
+res.json({success:true,slotsFilled:finalParticipantCount})
+
+}catch(err){
+
+if(err.message==="JOB_NOT_FOUND"){
+return res.status(404).json({error:"Job not found"})
+}
+
+if(err.message==="JOB_NOT_OPEN"){
+return res.status(400).json({error:"This job is no longer accepting participants"})
+}
+
+if(err.message==="ALREADY_ACCEPTED"){
+return res.status(400).json({error:"You have already accepted this job"})
+}
+
+if(err.message==="JOB_FULL"){
+return res.status(400).json({error:"This job is full"})
+}
+
+console.error(err);
+
+res.status(500).json({error:"job acceptance failed"})
+
+}
+
+})
