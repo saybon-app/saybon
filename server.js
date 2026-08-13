@@ -2109,3 +2109,504 @@ res.status(500).json({error:"could not load translators"})
 }
 
 })
+
+// ================================================================
+// SAYBON MUSIC
+// ================================================================
+
+app.get("/api/musicVideos", async(req,res)=>{
+
+try{
+
+const genre=req.query.genre
+
+let query=db.collection("musicVideos").orderBy("createdAt","desc")
+
+if(genre && genre!=="All"){
+query=query.where("genre","==",genre)
+}
+
+const snapshot=await query.get()
+
+const videos=[]
+
+snapshot.forEach(doc=>{
+const d=doc.data()
+videos.push({
+id:doc.id,
+title:d.title,
+artist:d.artist,
+genre:d.genre,
+youtubeId:d.youtubeId,
+views:d.views||0,
+likeCount:d.likeCount||0,
+createdAt:d.createdAt
+})
+})
+
+res.json(videos)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load videos"})
+
+}
+
+})
+
+app.get("/api/musicVideo", async(req,res)=>{
+
+try{
+
+const id=req.query.id
+const userId=req.query.userId
+
+const doc=await db.collection("musicVideos").doc(id).get()
+
+if(!doc.exists){
+
+return res.status(404).json({error:"Video not found"})
+
+}
+
+const d=doc.data()
+
+let userHasLiked=false
+
+if(userId){
+
+const reactionDoc=await db.collection("musicReactions").doc(id+"_"+userId).get()
+userHasLiked=reactionDoc.exists
+
+}
+
+res.json({
+
+id:doc.id,
+title:d.title,
+artist:d.artist,
+genre:d.genre,
+youtubeId:d.youtubeId,
+description:d.description||"",
+views:d.views||0,
+likeCount:d.likeCount||0,
+userHasLiked
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load video"})
+
+}
+
+})
+
+app.post("/api/musicIncrementView", async(req,res)=>{
+
+try{
+
+const {videoId}=req.body
+
+if(!videoId){
+return res.status(400).json({error:"Video ID is required"})
+}
+
+await db.collection("musicVideos").doc(videoId).update({
+
+views:admin.firestore.FieldValue.increment(1)
+
+})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not record view"})
+
+}
+
+})
+
+app.post("/api/musicToggleReaction", async(req,res)=>{
+
+try{
+
+const {videoId,userId}=req.body
+
+if(!videoId || !userId){
+return res.status(400).json({error:"Video ID and user ID are required"})
+}
+
+const reactionRef=db.collection("musicReactions").doc(videoId+"_"+userId)
+const reactionDoc=await reactionRef.get()
+
+const videoRef=db.collection("musicVideos").doc(videoId)
+
+let liked
+
+if(reactionDoc.exists){
+
+await reactionRef.delete()
+await videoRef.update({likeCount:admin.firestore.FieldValue.increment(-1)})
+liked=false
+
+}else{
+
+await reactionRef.set({videoId,userId,createdAt:new Date()})
+await videoRef.update({likeCount:admin.firestore.FieldValue.increment(1)})
+liked=true
+
+}
+
+res.json({success:true,liked})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not update reaction"})
+
+}
+
+})
+
+app.get("/api/musicComments", async(req,res)=>{
+
+try{
+
+const videoId=req.query.videoId
+
+const snapshot=await db.collection("musicComments")
+.where("videoId","==",videoId)
+.orderBy("createdAt","desc")
+.get()
+
+const comments=[]
+
+snapshot.forEach(doc=>{
+const d=doc.data()
+comments.push({
+id:doc.id,
+userId:d.userId,
+userName:d.userName,
+userPhoto:d.userPhoto||"",
+text:d.text,
+createdAt:d.createdAt
+})
+})
+
+res.json(comments)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load comments"})
+
+}
+
+})
+
+app.post("/api/musicAddComment", async(req,res)=>{
+
+try{
+
+const {videoId,userId,userName,userPhoto,text}=req.body
+
+if(!videoId || !userId || !text || !text.trim()){
+return res.status(400).json({error:"Video ID, user, and comment text are required"})
+}
+
+const ref=await db.collection("musicComments").add({
+
+videoId,
+userId,
+userName:userName||"SayBon User",
+userPhoto:userPhoto||"",
+text:text.trim(),
+createdAt:new Date()
+
+})
+
+res.json({success:true,id:ref.id})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not add comment"})
+
+}
+
+})
+
+app.post("/api/musicDeleteComment", async(req,res)=>{
+
+try{
+
+const {commentId}=req.body
+
+if(!commentId){
+return res.status(400).json({error:"Comment ID is required"})
+}
+
+await db.collection("musicComments").doc(commentId).delete()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not delete comment"})
+
+}
+
+})
+
+app.get("/api/musicPlaylists", async(req,res)=>{
+
+try{
+
+const userId=req.query.userId
+
+if(!userId){
+return res.status(400).json({error:"User ID is required"})
+}
+
+const snapshot=await db.collection("musicPlaylists")
+.where("userId","==",userId)
+.orderBy("createdAt","desc")
+.get()
+
+const playlists=[]
+
+snapshot.forEach(doc=>{
+const d=doc.data()
+playlists.push({
+id:doc.id,
+name:d.name,
+videoIds:d.videoIds||[],
+createdAt:d.createdAt
+})
+})
+
+res.json(playlists)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load playlists"})
+
+}
+
+})
+
+app.post("/api/musicCreatePlaylist", async(req,res)=>{
+
+try{
+
+const {userId,name}=req.body
+
+if(!userId || !name || !name.trim()){
+return res.status(400).json({error:"User ID and playlist name are required"})
+}
+
+const ref=await db.collection("musicPlaylists").add({
+
+userId,
+name:name.trim(),
+videoIds:[],
+createdAt:new Date()
+
+})
+
+res.json({success:true,id:ref.id})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not create playlist"})
+
+}
+
+})
+
+app.post("/api/musicAddToPlaylist", async(req,res)=>{
+
+try{
+
+const {playlistId,videoId}=req.body
+
+if(!playlistId || !videoId){
+return res.status(400).json({error:"Playlist ID and video ID are required"})
+}
+
+const ref=db.collection("musicPlaylists").doc(playlistId)
+const doc=await ref.get()
+
+if(!doc.exists){
+return res.status(404).json({error:"Playlist not found"})
+}
+
+const videoIds=doc.data().videoIds||[]
+
+if(!videoIds.includes(videoId)){
+videoIds.push(videoId)
+await ref.update({videoIds})
+}
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not add video to playlist"})
+
+}
+
+})
+
+app.get("/api/musicPlaylistDetail", async(req,res)=>{
+
+try{
+
+const id=req.query.id
+
+const doc=await db.collection("musicPlaylists").doc(id).get()
+
+if(!doc.exists){
+return res.status(404).json({error:"Playlist not found"})
+}
+
+const data=doc.data()
+const videoIds=data.videoIds||[]
+
+const videos=[]
+
+for(const vid of videoIds){
+
+const vDoc=await db.collection("musicVideos").doc(vid).get()
+
+if(vDoc.exists){
+const d=vDoc.data()
+videos.push({id:vDoc.id,title:d.title,artist:d.artist,genre:d.genre,youtubeId:d.youtubeId,views:d.views||0})
+}
+
+}
+
+res.json({id:doc.id,name:data.name,videos})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load playlist"})
+
+}
+
+})
+
+app.post("/api/adminAddMusicVideo", async(req,res)=>{
+
+try{
+
+const {title,artist,genre,youtubeId,description}=req.body
+
+if(!title || !youtubeId || !genre){
+return res.status(400).json({error:"Title, YouTube ID, and genre are required"})
+}
+
+const ref=await db.collection("musicVideos").add({
+
+title,
+artist:artist||"",
+genre,
+youtubeId,
+description:description||"",
+views:0,
+likeCount:0,
+createdAt:new Date()
+
+})
+
+res.json({success:true,id:ref.id})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not add video"})
+
+}
+
+})
+
+app.post("/api/adminDeleteMusicVideo", async(req,res)=>{
+
+try{
+
+const {videoId}=req.body
+
+if(!videoId){
+return res.status(400).json({error:"Video ID is required"})
+}
+
+await db.collection("musicVideos").doc(videoId).delete()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not delete video"})
+
+}
+
+})
+
+app.get("/api/adminMusicOverview", async(req,res)=>{
+
+try{
+
+const videosSnapshot=await db.collection("musicVideos").get()
+
+let totalViews=0
+let totalLikes=0
+let totalVideos=0
+
+videosSnapshot.forEach(doc=>{
+const d=doc.data()
+totalVideos++
+totalViews+=d.views||0
+totalLikes+=d.likeCount||0
+})
+
+const commentsSnapshot=await db.collection("musicComments").get()
+const totalComments=commentsSnapshot.size
+
+const playlistsSnapshot=await db.collection("musicPlaylists").get()
+const totalPlaylists=playlistsSnapshot.size
+
+res.json({totalVideos,totalViews,totalLikes,totalComments,totalPlaylists})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load music overview"})
+
+}
+
+})
