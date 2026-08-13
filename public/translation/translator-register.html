@@ -9,169 +9,101 @@
 
 <title>SayBon Translator Registration</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
 
 <style>
 
+*{ box-sizing:border-box; }
+
 body{
-font-family:Poppins;
-background:#f4f6fb;
 margin:0;
-padding:40px;
-color:#444;
+font-family:'Inter', system-ui, sans-serif;
+color:#102B2C;
+background:linear-gradient(135deg, #EAF3EF 0%, #F7F8F1 50%, #E8F1ED 100%);
+padding:40px 20px 60px;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-background:white;
-padding:40px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+.page{ max-width:600px; margin:0 auto; }
+
+header{ text-align:center; margin-bottom:24px; }
+h1{ margin:0 0 8px; font-size:22px; font-weight:700; color:#00484B; }
+.subtitle{ font-size:13px; color:#526668; line-height:1.6; }
+
+.card{
+background:rgba(255,255,255,.6); backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.7); border-radius:16px; padding:26px;
+box-shadow:0 8px 28px rgba(0,55,57,.06);
 }
 
-h1{
-text-align:center;
-margin-bottom:40px;
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:11.5px; font-weight:600; color:#102B2C; margin-bottom:6px; }
+.field input{
+width:100%; padding:11px 13px; border-radius:9px; border:1px solid rgba(0,72,75,.15);
+font-family:inherit; font-size:13px; background:#fff; color:#102B2C;
 }
 
-.field{
-margin-bottom:25px;
-}
-
-label{
-display:block;
-margin-bottom:6px;
-font-weight:600;
-}
-
-input{
-width:100%;
-padding:10px;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:15px;
-}
-
-.notice{
-font-size:13px;
-margin-top:6px;
-}
-
-.accept{color:green}
-.reject{color:red}
+.notice{ font-size:11.5px; margin-top:6px; }
+.accept{ color:#0A756C; }
+.reject{ color:#C94A45; }
 
 #uploadBucket{
-border:1px solid #ddd;
-border-radius:8px;
-padding:12px;
-background:#fafafa;
-min-height:60px;
-font-size:14px;
+border:1px solid rgba(0,72,75,.12); border-radius:10px; padding:12px;
+background:rgba(255,255,255,.4); min-height:44px; font-size:12.5px; color:#526668;
 }
+.bucket-row{ display:flex; justify-content:space-between; align-items:center; padding:4px 0; }
+.remove-btn{ background:none; border:none; color:#C94A45; font-size:13px; cursor:pointer; }
 
-.buttons{
-margin-top:30px;
-display:flex;
-gap:20px;
+.submit-btn{
+width:100%; margin-top:20px; padding:14px; border-radius:11px; border:none;
+background:#005C60; color:#fff; font-weight:650; font-size:13.5px; cursor:pointer;
 }
-
-.btn{
-padding:12px 20px;
-border-radius:8px;
-border:none;
-font-size:15px;
-cursor:pointer;
-box-shadow:0 6px 0 rgba(0,0,0,0.25);
-transition:all .15s ease;
-}
-
-.btn:disabled{
-opacity:0.5;
-cursor:not-allowed;
-box-shadow:none;
-}
-
-.btn:hover:not(:disabled){
-transform:translateY(-2px);
-}
-
-.btn:active:not(:disabled){
-transform:translateY(4px);
-box-shadow:0 2px 0 rgba(0,0,0,0.25);
-}
-
-.submitBtn{
-background:#2563eb;
-color:white;
-}
-
-.removeBtn{
-background:none;
-border:none;
-color:red;
-font-size:16px;
-cursor:pointer;
-}
+.submit-btn:disabled{ opacity:.5; cursor:not-allowed; }
+.submit-btn:hover:not(:disabled){ background:#00484B; }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
+<header>
 <h1>Translator Registration</h1>
+<div class="subtitle">Complete your profile to finish your application.</div>
+</header>
 
-<div class="field">
-<label>Email</label>
-<input id="email">
-</div>
+<div class="card">
 
-<div class="field">
-<label>Phone</label>
-<input id="phone">
-</div>
-
-<div class="field">
-<label>Country</label>
-<input id="country">
-</div>
-
-<div class="field">
-<label>Years of Translation Experience</label>
-<input id="experience" type="number">
-</div>
+<div class="field"><label>Email</label><input id="email" type="email" /></div>
+<div class="field"><label>Phone</label><input id="phone" /></div>
+<div class="field"><label>Country</label><input id="country" /></div>
+<div class="field"><label>Years of Translation Experience</label><input id="experience" type="number" /></div>
 
 <div class="field">
 <label>Upload National ID</label>
-<input type="file" id="idUpload">
+<input type="file" id="idUpload" />
 <div class="notice" id="idNotice"></div>
 </div>
 
 <div class="field">
-<label>Upload Certification</label>
-<input type="file" id="certUpload" multiple>
+<label>Upload Certification (optional)</label>
+<input type="file" id="certUpload" multiple />
 <div class="notice" id="certNotice"></div>
 </div>
 
 <div class="field">
 <label>Upload CV</label>
-<input type="file" id="cvUpload" multiple>
+<input type="file" id="cvUpload" multiple />
 <div class="notice" id="cvNotice"></div>
 </div>
 
 <div class="field">
-<label>Uploaded Documents</label>
-<div id="uploadBucket"></div>
+<label>Files Ready to Upload</label>
+<div id="uploadBucket">No files selected yet</div>
 </div>
 
-<div class="buttons">
-
-<button id="submitBtn" class="btn submitBtn" disabled>
-Submit Application
-</button>
+<button id="submitBtn" class="submit-btn" disabled>Submit Application</button>
+<div class="notice" id="formError"></div>
 
 </div>
 
@@ -179,9 +111,8 @@ Submit Application
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const firebaseConfig = {
 apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
@@ -192,194 +123,181 @@ messagingSenderId:"75085012344",
 appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
 };
 
-const app=initializeApp(firebaseConfig)
-const db=getFirestore(app)
-const storage=getStorage(app)
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
-/* FIELDS */
+const API_BASE = "https://saybonapp-server.onrender.com";
 
-const fields=[
-email,
-phone,
-country,
-experience
-]
+const params = new URLSearchParams(window.location.search);
+const testId = params.get("testId");
 
-const idUpload=document.getElementById("idUpload")
-const certUpload=document.getElementById("certUpload")
-const cvUpload=document.getElementById("cvUpload")
-
-const idNotice=document.getElementById("idNotice")
-const certNotice=document.getElementById("certNotice")
-const cvNotice=document.getElementById("cvNotice")
-
-const uploadBucket=document.getElementById("uploadBucket")
-const submitBtn=document.getElementById("submitBtn")
-
-const allowed=["pdf","doc","docx","png","jpg","jpeg"]
-
-let idValid=false
-let certValid=false
-let cvValid=false
-
-let uploaded=[]
-
-function validateFiles(files,notice){
-
-let valid=true
-notice.innerHTML=""
-
-for(let file of files){
-
-let ext=file.name.split(".").pop().toLowerCase()
-
-if(!allowed.includes(ext)){
-notice.innerHTML+="? "+file.name+" invalid<br>"
-valid=false
-continue
+if(!testId){
+  document.getElementById("formError").className = "notice reject";
+  document.getElementById("formError").innerText = "No test result found. Please take the translator test first.";
 }
 
-if(file.size>10000000){
-notice.innerHTML+="? "+file.name+" too large<br>"
-valid=false
-continue
-}
+const fieldEls = [
+  document.getElementById("email"),
+  document.getElementById("phone"),
+  document.getElementById("country"),
+  document.getElementById("experience")
+];
 
-notice.innerHTML+="? "+file.name+" accepted<br>"
+const idUpload = document.getElementById("idUpload");
+const certUpload = document.getElementById("certUpload");
+const cvUpload = document.getElementById("cvUpload");
 
-}
+const idNotice = document.getElementById("idNotice");
+const certNotice = document.getElementById("certNotice");
+const cvNotice = document.getElementById("cvNotice");
 
-notice.className=valid?"notice accept":"notice reject"
+const uploadBucket = document.getElementById("uploadBucket");
+const submitBtn = document.getElementById("submitBtn");
 
-return valid
+const allowed = ["pdf","doc","docx","png","jpg","jpeg"];
 
+let idValid = false;
+let cvValid = false;
+
+let idFiles = [];
+let certFiles = [];
+let cvFiles = [];
+
+function validateFiles(files, notice, required){
+  let valid = files.length > 0 || !required;
+  notice.innerHTML = "";
+
+  for(const file of files){
+    const ext = file.name.split(".").pop().toLowerCase();
+
+    if(!allowed.includes(ext)){
+      notice.innerHTML += "✗ " + file.name + " - unsupported file type<br>";
+      valid = false;
+      continue;
+    }
+
+    if(file.size > 10000000){
+      notice.innerHTML += "✗ " + file.name + " - too large (max 10MB)<br>";
+      valid = false;
+      continue;
+    }
+
+    notice.innerHTML += "✓ " + file.name + " accepted<br>";
+  }
+
+  notice.className = valid ? "notice accept" : "notice reject";
+  return valid;
 }
 
 function renderBucket(){
+  const all = [...idFiles, ...certFiles, ...cvFiles];
 
-uploadBucket.innerHTML=""
+  if(!all.length){
+    uploadBucket.innerText = "No files selected yet";
+    return;
+  }
 
-uploaded.forEach((file,index)=>{
+  uploadBucket.innerHTML = "";
 
-let row=document.createElement("div")
-
-let name=document.createElement("span")
-name.innerHTML="?? "+file.name
-
-let remove=document.createElement("button")
-remove.innerHTML="?"
-remove.className="removeBtn"
-
-remove.onclick=()=>{
-uploaded.splice(index,1)
-renderBucket()
+  all.forEach(file => {
+    const row = document.createElement("div");
+    row.className = "bucket-row";
+    row.innerHTML = "<span>" + file.name + "</span>";
+    uploadBucket.appendChild(row);
+  });
 }
 
-row.appendChild(name)
-row.appendChild(remove)
+idUpload.onchange = () => {
+  idFiles = Array.from(idUpload.files);
+  idValid = validateFiles(idFiles, idNotice, true);
+  renderBucket();
+  checkForm();
+};
 
-uploadBucket.appendChild(row)
+certUpload.onchange = () => {
+  certFiles = Array.from(certUpload.files);
+  validateFiles(certFiles, certNotice, false);
+  renderBucket();
+  checkForm();
+};
 
-})
+cvUpload.onchange = () => {
+  cvFiles = Array.from(cvUpload.files);
+  cvValid = validateFiles(cvFiles, cvNotice, true);
+  renderBucket();
+  checkForm();
+};
 
-}
-
-function addToBucket(files){
-
-for(let file of files){
-uploaded.push(file)
-}
-
-renderBucket()
-
-}
-
-idUpload.onchange=()=>{
-idValid=validateFiles(idUpload.files,idNotice)
-addToBucket(idUpload.files)
-checkForm()
-}
-
-certUpload.onchange=()=>{
-certValid=validateFiles(certUpload.files,certNotice)
-addToBucket(certUpload.files)
-checkForm()
-}
-
-cvUpload.onchange=()=>{
-cvValid=validateFiles(cvUpload.files,cvNotice)
-addToBucket(cvUpload.files)
-checkForm()
-}
-
-fields.forEach(f=>{
-f.oninput=checkForm
-})
+fieldEls.forEach(f => { f.oninput = checkForm; });
 
 function checkForm(){
-
-let filled=true
-
-fields.forEach(f=>{
-if(!f.value) filled=false
-})
-
-submitBtn.disabled=!(filled && idValid && certValid && cvValid)
-
+  const filled = fieldEls.every(f => f.value.trim().length > 0);
+  submitBtn.disabled = !(filled && idValid && cvValid && testId);
 }
 
-async function uploadFile(file,folder){
-
-const fileRef=ref(storage,folder+"/"+Date.now()+"_"+file.name)
-
-await uploadBytes(fileRef,file)
-
-return await getDownloadURL(fileRef)
-
+async function uploadFile(file, folder){
+  const fileRef = ref(storage, folder + "/" + Date.now() + "_" + file.name);
+  await uploadBytes(fileRef, file);
+  return await getDownloadURL(fileRef);
 }
 
-submitBtn.onclick=async()=>{
+submitBtn.onclick = async () => {
 
-submitBtn.disabled=true
-submitBtn.innerText="Submitting..."
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Submitting...";
+  document.getElementById("formError").innerText = "";
 
-const idUrl=await uploadFile(idUpload.files[0],"translatorDocs")
+  try{
 
-const certUrls=[]
-for(let f of certUpload.files){
-certUrls.push(await uploadFile(f,"translatorDocs"))
-}
+    const idUrl = await uploadFile(idFiles[0], "translatorDocs/id");
 
-const cvUrls=[]
-for(let f of cvUpload.files){
-cvUrls.push(await uploadFile(f,"translatorDocs"))
-}
+    const certUrls = [];
+    for(const f of certFiles){
+      certUrls.push(await uploadFile(f, "translatorDocs/certifications"));
+    }
 
-const applicationId=crypto.randomUUID()
+    const cvUrls = [];
+    for(const f of cvFiles){
+      cvUrls.push(await uploadFile(f, "translatorDocs/cv"));
+    }
 
-await setDoc(doc(db,"translatorApplications",applicationId),{
+    const res = await fetch(API_BASE + "/api/completeTranslatorApplication", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        testId,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        country: document.getElementById("country").value,
+        experience: document.getElementById("experience").value,
+        idUrl,
+        certUrls,
+        cvUrls
+      })
+    });
 
-email:email.value,
-phone:phone.value,
-country:country.value,
-experience:experience.value,
+    const data = await res.json();
 
-documents:{
-id:idUrl,
-certifications:certUrls,
-cv:cvUrls
-},
+    if(!res.ok){
+      document.getElementById("formError").className = "notice reject";
+      document.getElementById("formError").innerText = data.error || "Could not submit your application.";
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit Application";
+      return;
+    }
 
-created:new Date()
+    window.location = "/translation/translator-result.html?id=" + encodeURIComponent(data.applicationId);
 
-})
+  }catch(err){
+    document.getElementById("formError").className = "notice reject";
+    document.getElementById("formError").innerText = "Something went wrong while uploading. Please try again.";
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Application";
+  }
 
-window.location="/translation/translator-result.html?id="+applicationId
-
-}
+};
 
 </script>
 
 </body>
 </html>
-

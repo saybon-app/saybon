@@ -7,293 +7,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayBon Translation Test</title>
+<title>SayBon Translator Test</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
 
 <style>
 
+*{ box-sizing:border-box; }
+
 body{
-font-family:'Inter',sans-serif;
-background:#f4f6f9;
 margin:0;
-padding:40px;
-color:#2c2c2c;
+font-family:'Inter', system-ui, sans-serif;
+color:#102B2C;
+background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
+padding:30px 20px 60px;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-background:white;
-padding:50px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
+.page{ max-width:760px; margin:0 auto; }
 
-h1{
-text-align:center;
-font-weight:600;
-margin-bottom:10px;
-}
-
-.subtitle{
-text-align:center;
-color:#6b7280;
-margin-bottom:30px;
-}
+header{ text-align:center; margin-bottom:20px; }
+h1{ margin:0 0 6px; font-size:22px; font-weight:700; color:#fff; }
+.subtitle{ font-size:13px; color:#A9C9C3; line-height:1.6; }
 
 .timer{
-text-align:center;
-font-size:20px;
-font-weight:600;
-color:#c0392b;
-margin-bottom:30px;
+text-align:center; font-size:22px; font-weight:700; color:#F0C77E;
+margin:16px 0; padding:12px; border-radius:12px;
+background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
 }
 
-.section{
-margin-top:25px;
+.notice-box{
+background:rgba(212,175,106,.1); border:1px solid rgba(212,175,106,.25);
+border-radius:12px; padding:14px 16px; margin-bottom:20px;
+font-size:12px; color:#D4AF6A; line-height:1.6;
 }
 
-.label{
-font-weight:500;
-margin-bottom:12px;
+.card{
+background:rgba(255,255,255,.05); backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,.1); border-radius:16px;
+padding:22px; margin-bottom:16px;
 }
+
+.label{ font-size:12.5px; font-weight:650; color:#fff; margin-bottom:10px; }
 
 .source{
-font-style:italic;
-margin-bottom:16px;
-color:#444;
-user-select:none;
-pointer-events:none;
+font-style:italic; font-size:13.5px; line-height:1.7; color:#A9C9C3;
+padding:14px; border-radius:10px; background:rgba(0,0,0,.15);
+margin-bottom:14px; user-select:none;
 }
 
 textarea{
-width:100%;
-height:170px;
-border:1px solid #dcdcdc;
-border-radius:8px;
-padding:16px;
-font-size:15px;
-resize:none;
-background:#fafafa;
-box-sizing:border-box;
+width:100%; height:140px; border-radius:10px; padding:14px;
+font-size:13.5px; font-family:inherit; resize:none; box-sizing:border-box;
+background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15); color:#fff;
 }
+textarea:focus{ outline:none; border-color:#D4AF6A; }
+textarea::placeholder{ color:rgba(255,255,255,.35); }
 
-textarea:focus{
-outline:none;
-border-color:#4f46e5;
-background:white;
-}
-
-.divider{
-margin:45px 0;
-height:1px;
-background:#e5e7eb;
-}
-
-.accent-keyboard{
-margin-top:15px;
-display:flex;
-gap:6px;
-overflow-x:auto;
-}
-
+.accent-keyboard{ margin-top:10px; display:flex; gap:6px; flex-wrap:wrap; }
 .accent-key{
-font-size:20px;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-background:#eef2ff;
+font-size:15px; padding:6px 11px; border-radius:7px; cursor:pointer;
+background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.12);
 }
+.accent-key:hover{ background:rgba(255,255,255,.14); }
 
-.submit-wrap{
-margin-top:40px;
-text-align:center;
-}
-
+.submit-wrap{ text-align:center; margin-top:8px; }
 .submit-btn{
-background:linear-gradient(135deg,#4f46e5,#6366f1);
-color:white;
-border:none;
-padding:14px 32px;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
+background:#D4AF6A; color:#012225; border:none;
+padding:14px 34px; font-size:14px; font-weight:650; border-radius:11px; cursor:pointer;
 }
+.submit-btn:hover{ background:#e0bd7c; }
+.submit-btn:disabled{ opacity:.6; cursor:not-allowed; }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-<h1>SayBon Translation Test</h1>
+<header>
+<h1>SayBon Translator Test</h1>
+<div class="subtitle">Translate both passages below. This test measures how accurately you capture real meaning â€” take your time and translate naturally.</div>
+</header>
 
-<div class="subtitle">
-Translate the quoted text into the appropriate language.
+<div class="timer" id="timer">08:00</div>
+
+<div class="notice-box">
+This test must be completed entirely within this window. Copying, pasting, and cutting are disabled, and switching to another tab is tracked as part of your submission.
 </div>
 
-<div class="timer" id="timer">
-05:00
+<div class="card">
+<div class="label">Translate into English</div>
+<div class="source" id="frSource">Loading passageâ€¦</div>
+<textarea id="frToEnAnswer" placeholder="Type your English translation here"></textarea>
 </div>
 
-<div class="section">
-
-<div class="label">
-English Translation
-</div>
-
-<div class="source">
-" Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites conformément aux lois applicables. "
-</div>
-
-<textarea id="englishBox"></textarea>
-
-</div>
-
-<div class="divider"></div>
-
-<div class="section">
-
-<div class="label">
-Traduction Française
-</div>
-
-<div class="source">
-" The system automatically encrypts all sensitive information before it is transmitted to the server. "
-</div>
-
-<textarea id="frenchBox"></textarea>
-
-<div class="accent-keyboard">
-
-<span class="accent-key">à</span>
-<span class="accent-key">â</span>
-<span class="accent-key">ç</span>
-<span class="accent-key">é</span>
-<span class="accent-key">è</span>
-<span class="accent-key">ê</span>
-<span class="accent-key">ë</span>
-<span class="accent-key">î</span>
-<span class="accent-key">ï</span>
-<span class="accent-key">ô</span>
-<span class="accent-key">ù</span>
-<span class="accent-key">û</span>
-
-</div>
-
+<div class="card">
+<div class="label">Traduisez en franÃ§ais</div>
+<div class="source" id="enSource">Loading passageâ€¦</div>
+<textarea id="enToFrAnswer" placeholder="Tapez votre traduction franÃ§aise ici"></textarea>
+<div class="accent-keyboard" id="accentKeyboard"></div>
 </div>
 
 <div class="submit-wrap">
-
-<button class="submit-btn" onclick="submitTest()">
-Submit Translation
-</button>
-
+<button class="submit-btn" id="submitBtn" onclick="submitTest()">Submit Test</button>
 </div>
 
 </div>
 
-<script type="module">
+<script>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const API_BASE = "https://saybonapp-server.onrender.com";
 
-const firebaseConfig={
-apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
-authDomain:"saybon-3e3c2.firebaseapp.com",
-projectId:"saybon-3e3c2",
-storageBucket:"saybon-3e3c2.firebasestorage.app",
-messagingSenderId:"75085012344",
-appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
-};
+let timeLeft = 480; // 8 minutes
+let timerStarted = false;
+let timerInterval = null;
+let tabSwitches = 0;
+let submitted = false;
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-/* TIMER */
-
-let started=false;
-let timeLeft=300;
+async function loadPassages(){
+  try{
+    const res = await fetch(API_BASE + "/api/translatorTestPassages");
+    const data = await res.json();
+    document.getElementById("frSource").innerText = data.frToEnSource;
+    document.getElementById("enSource").innerText = data.enToFrSource;
+  }catch(err){
+    document.getElementById("frSource").innerText = "Could not load the test passage. Please refresh the page.";
+    document.getElementById("enSource").innerText = "Could not load the test passage. Please refresh the page.";
+  }
+}
 
 function startTimer(){
+  if(timerStarted) return;
+  timerStarted = true;
 
-if(started) return;
-started=true;
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60);
+    const s = timeLeft%60;
+    document.getElementById("timer").innerText = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
 
-setInterval(()=>{
-
-timeLeft--;
-
-let m=Math.floor(timeLeft/60);
-let s=timeLeft%60;
-
-document.getElementById("timer").innerText=
-String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-
-if(timeLeft<=0){
-submitTest();
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      submitTest();
+    }
+  },1000);
 }
 
-},1000);
+document.getElementById("frToEnAnswer").addEventListener("focus", startTimer);
+document.getElementById("enToFrAnswer").addEventListener("focus", startTimer);
 
-}
-
-document.getElementById("englishBox").addEventListener("focus",startTimer);
-document.getElementById("frenchBox").addEventListener("focus",startTimer);
-
-/* ACCENTS */
-
-document.querySelectorAll(".accent-key").forEach(key=>{
-
-key.onclick=()=>{
-
-let box=document.getElementById("frenchBox");
-
-let start=box.selectionStart;
-
-box.value=
-box.value.slice(0,start)+
-key.innerText+
-box.value.slice(start);
-
-box.selectionStart=box.selectionEnd=start+1;
-
-};
-
+document.addEventListener("visibilitychange", ()=>{
+  if(document.hidden && timerStarted && !submitted){
+    tabSwitches++;
+  }
 });
 
-/* SUBMIT */
+const accents = ["Ã©","Ã¨","Ãª","Ã ","Ã§","Ã¹","Ã´","Ã®","Å“","Â«","Â»"];
+const keyboardEl = document.getElementById("accentKeyboard");
+
+accents.forEach(ch=>{
+  const span = document.createElement("span");
+  span.className = "accent-key";
+  span.textContent = ch;
+  span.onclick = ()=>{
+    const box = document.getElementById("enToFrAnswer");
+    const start = box.selectionStart;
+    box.value = box.value.slice(0,start) + ch + box.value.slice(start);
+    box.selectionStart = box.selectionEnd = start + ch.length;
+    box.focus();
+  };
+  keyboardEl.appendChild(span);
+});
 
 async function submitTest(){
 
-const english=document.getElementById("englishBox").value;
-const french=document.getElementById("frenchBox").value;
+  if(submitted) return;
+  submitted = true;
 
-const testId=crypto.randomUUID();
+  clearInterval(timerInterval);
 
-await setDoc(doc(db,"translatorTests",testId),{
+  const submitBtn = document.getElementById("submitBtn");
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Submitting...";
 
-englishTranslation:english,
-frenchTranslation:french,
-submitted:new Date()
+  const frToEnAnswer = document.getElementById("frToEnAnswer").value;
+  const enToFrAnswer = document.getElementById("enToFrAnswer").value;
+  const timeTakenSeconds = 480 - timeLeft;
 
-});
+  try{
 
-window.location="/translation/translator-register.html?testId="+testId;
+    const res = await fetch(API_BASE + "/api/submitTranslatorTest", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ frToEnAnswer, enToFrAnswer, tabSwitches, timeTakenSeconds })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      alert(data.error || "Could not submit your test. Please try again.");
+      submitted = false;
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit Test";
+      return;
+    }
+
+    window.location = "/translation/translator-register.html?testId=" + encodeURIComponent(data.testId);
+
+  }catch(err){
+    alert("Could not reach the server. Please try again.");
+    submitted = false;
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Test";
+  }
 
 }
 
-/* BLOCK COPY */
+window.submitTest = submitTest;
 
-document.addEventListener("copy",e=>e.preventDefault());
-document.addEventListener("paste",e=>e.preventDefault());
-document.addEventListener("cut",e=>e.preventDefault());
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+loadPassages();
 
 </script>
 
 </body>
 </html>
-

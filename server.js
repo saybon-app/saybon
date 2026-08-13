@@ -1098,7 +1098,7 @@ app.post("/api/savePaymentMethod", async(req,res)=>{
 
 try{
 
-const {passkey,method,bankName,accountNumber,accountName,momoNetwork,momoNumber}=req.body
+const {passkey,method,bankRegion,bankName,accountNumber,accountName,routingNumber,sortCode,iban,swiftBic,momoNetwork,momoNumber}=req.body
 
 if(!passkey || !method){
 
@@ -1116,9 +1116,37 @@ return res.status(400).json({error:"Invalid translator passkey"})
 
 }
 
-if(method==="bank" && (!bankName || !accountNumber || !accountName)){
+if(method==="bank"){
 
-return res.status(400).json({error:"Bank name, account number, and account name are required"})
+if(!bankName || !accountName){
+
+return res.status(400).json({error:"Bank name and account name are required"})
+
+}
+
+if(bankRegion==="us" && (!accountNumber || !routingNumber)){
+
+return res.status(400).json({error:"Account number and routing number are required for US banks"})
+
+}
+
+if(bankRegion==="uk" && (!accountNumber || !sortCode)){
+
+return res.status(400).json({error:"Account number and sort code are required for UK banks"})
+
+}
+
+if(bankRegion==="international" && (!iban || !swiftBic)){
+
+return res.status(400).json({error:"IBAN and SWIFT/BIC code are required for international banks"})
+
+}
+
+if((!bankRegion || bankRegion==="ghana") && !accountNumber){
+
+return res.status(400).json({error:"Account number is required"})
+
+}
 
 }
 
@@ -1132,9 +1160,14 @@ await db.collection("translatorPaymentMethods").doc(passkey).set({
 
 passkey,
 method,
+bankRegion:bankRegion||"ghana",
 bankName:bankName||"",
 accountNumber:accountNumber||"",
 accountName:accountName||"",
+routingNumber:routingNumber||"",
+sortCode:sortCode||"",
+iban:iban||"",
+swiftBic:swiftBic||"",
 momoNetwork:momoNetwork||"",
 momoNumber:momoNumber||"",
 updatedAt:new Date()
@@ -1414,6 +1447,390 @@ res.json({success:true})
 console.error(err);
 
 res.status(500).json({error:"could not mark payout as paid"})
+
+}
+
+})
+
+// ------------------------------------------------
+// TRANSLATOR TRACK RECORD (real, from reviewed submissions)
+// ------------------------------------------------
+
+// ------------------------------------------------
+// TRANSLATOR ENTRY TEST - fixed passages, real
+// Azure-backed reference translation scoring.
+// ------------------------------------------------
+
+const TRANSLATOR_TEST_PASSAGES={
+
+frToEn:{
+source:"Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites judiciaires conformément à la législation en vigueur. Les informations contenues dans ce rapport sont confidentielles et ne doivent être divulguées à aucun tiers sans le consentement écrit préalable de l'entreprise.",
+sourceLang:"fr",
+targetLang:"en"
+},
+
+enToFr:{
+source:"The system automatically encrypts all sensitive information before it is transmitted to the server. Any attempt to bypass this security protocol will be logged and reported to the compliance department for further investigation.",
+sourceLang:"en",
+targetLang:"fr"
+}
+
+}
+
+function normalizeWords(text){
+
+return (text||"")
+.toLowerCase()
+.replace(/[.,;:!?"'""«»]/g,"")
+.split(/\s+/)
+.filter(w=>w.length>2)
+
+}
+
+function computeOverlapScore(userText,referenceText){
+
+const refWords=normalizeWords(referenceText)
+
+if(!refWords.length) return 0
+
+const uniqueRefWords=[...new Set(refWords)]
+const userWordSet=new Set(normalizeWords(userText))
+
+let matched=0
+
+uniqueRefWords.forEach(w=>{
+if(userWordSet.has(w)) matched++
+})
+
+return Math.round((matched/uniqueRefWords.length)*100)
+
+}
+
+function checkCompleteness(userText,sourceText){
+
+const trimmed=(userText||"").trim()
+
+if(trimmed.length<20) return false
+
+if(trimmed.toLowerCase()===sourceText.toLowerCase()) return false
+
+const wordCount=trimmed.split(/\s+/).length
+const sourceWordCount=sourceText.split(/\s+/).length
+
+if(wordCount < sourceWordCount*0.5) return false
+
+return true
+
+}
+
+app.get("/api/translatorTestPassages", async(req,res)=>{
+
+res.json({
+
+frToEnSource:TRANSLATOR_TEST_PASSAGES.frToEn.source,
+enToFrSource:TRANSLATOR_TEST_PASSAGES.enToFr.source
+
+})
+
+})
+
+app.post("/api/submitTranslatorTest", async(req,res)=>{
+
+try{
+
+const {frToEnAnswer,enToFrAnswer,tabSwitches,timeTakenSeconds}=req.body
+
+if(!frToEnAnswer || !enToFrAnswer){
+
+return res.status(400).json({error:"Both translations are required"})
+
+}
+
+const frToEnRef=await translateSegmentsWithAzure(
+[TRANSLATOR_TEST_PASSAGES.frToEn.source],
+TRANSLATOR_TEST_PASSAGES.frToEn.sourceLang,
+TRANSLATOR_TEST_PASSAGES.frToEn.targetLang
+)
+
+const enToFrRef=await translateSegmentsWithAzure(
+[TRANSLATOR_TEST_PASSAGES.enToFr.source],
+TRANSLATOR_TEST_PASSAGES.enToFr.sourceLang,
+TRANSLATOR_TEST_PASSAGES.enToFr.targetLang
+)
+
+const accuracy=computeOverlapScore(frToEnAnswer,frToEnRef[0]||"")
+const terminology=computeOverlapScore(enToFrAnswer,enToFrRef[0]||"")
+
+const completenessOk=
+checkCompleteness(frToEnAnswer,TRANSLATOR_TEST_PASSAGES.frToEn.source) &&
+checkCompleteness(enToFrAnswer,TRANSLATOR_TEST_PASSAGES.enToFr.source)
+
+let finalScore=Math.round((accuracy+terminology)/2)
+
+if(!completenessOk){
+finalScore=Math.min(finalScore,50)
+}
+
+const passed=finalScore>=75
+
+const testId=generateKey()
+
+await db.collection("translatorTests").doc(testId).set({
+
+testId,
+frToEnAnswer,
+enToFrAnswer,
+accuracy,
+terminology,
+completenessOk,
+finalScore,
+passed,
+tabSwitches:Number(tabSwitches)||0,
+timeTakenSeconds:Number(timeTakenSeconds)||0,
+used:false,
+submittedAt:new Date()
+
+})
+
+res.json({testId,accuracy,terminology,completenessOk,finalScore,passed})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not score test"})
+
+}
+
+})
+
+// ------------------------------------------------
+// COMPLETE TRANSLATOR APPLICATION
+// Combines the real test score with registration
+// details into one application record. Only issues
+// a real passkey if the test was genuinely passed.
+// ------------------------------------------------
+
+app.post("/api/completeTranslatorApplication", async(req,res)=>{
+
+try{
+
+const {testId,email,phone,country,experience,idUrl,certUrls,cvUrls}=req.body
+
+if(!testId || !email){
+
+return res.status(400).json({error:"Test ID and email are required"})
+
+}
+
+const testDoc=await db.collection("translatorTests").doc(testId).get()
+
+if(!testDoc.exists){
+
+return res.status(404).json({error:"Test result not found"})
+
+}
+
+const test=testDoc.data()
+
+if(test.used){
+
+return res.status(400).json({error:"This test has already been used for an application"})
+
+}
+
+const applicationId=generateKey()
+const passkey=test.passed ? generateKey() : null
+
+await db.collection("translatorApplications").doc(applicationId).set({
+
+email,
+phone:phone||"",
+country:country||"",
+experience:experience||"",
+
+accuracy:test.accuracy,
+terminology:test.terminology,
+completenessOk:test.completenessOk,
+finalScore:test.finalScore,
+passed:test.passed,
+
+passkey,
+
+documents:{
+id:idUrl||"",
+certifications:certUrls||[],
+cv:cvUrls||[]
+},
+
+testId,
+created:new Date()
+
+})
+
+await db.collection("translatorTests").doc(testId).update({used:true})
+
+res.json({applicationId,passed:test.passed})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not complete application"})
+
+}
+
+})
+
+app.get("/api/translatorTrackRecord", async(req,res)=>{
+
+try{
+
+const passkey=req.query.key
+
+if(!passkey){
+
+return res.status(400).json({error:"Passkey is required"})
+
+}
+
+const translatorSnapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(translatorSnapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+const submissionsSnapshot=await db.collection("jobSubmissions")
+.where("translator","==",passkey)
+.where("reviewed","==",true)
+.get()
+
+let passedCount=0
+let totalReviewed=0
+
+submissionsSnapshot.forEach(doc=>{
+
+totalReviewed++
+
+if(doc.data().passed===true){
+
+passedCount++
+
+}
+
+})
+
+const passRate=totalReviewed>0 ? Math.round((passedCount/totalReviewed)*100) : 0
+
+res.json({
+
+passedCount,
+totalReviewed,
+passRate
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load track record"})
+
+}
+
+})
+
+// ------------------------------------------------
+// TRANSLATOR WALLET (real balances from payouts)
+// Available Balance = earnings that have cleared the
+// waiting period after being marked passed.
+// Pending Clearance = earnings still within the window.
+// Paid Out = amount already manually transferred.
+// ------------------------------------------------
+
+const CLEARANCE_DAYS=3
+const MIN_CASH_OUT=10
+
+app.get("/api/translatorWallet", async(req,res)=>{
+
+try{
+
+const passkey=req.query.key
+
+if(!passkey){
+
+return res.status(400).json({error:"Passkey is required"})
+
+}
+
+const translatorSnapshot=await db.collection("translatorApplications")
+.where("passkey","==",passkey)
+.get()
+
+if(translatorSnapshot.empty){
+
+return res.status(400).json({error:"Invalid translator passkey"})
+
+}
+
+const payoutsSnapshot=await db.collection("payouts")
+.where("translatorPasskey","==",passkey)
+.get()
+
+const now=Date.now()
+
+let pendingClearance=0
+let availableBalance=0
+let paidOut=0
+
+payoutsSnapshot.forEach(doc=>{
+
+const p=doc.data()
+const amount=Number(p.amountOwed||0)
+
+if(p.status==="paid"){
+
+paidOut+=amount
+
+}else{
+
+const createdMs=p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now
+const daysElapsed=(now-createdMs)/(1000*60*60*24)
+
+if(daysElapsed>=CLEARANCE_DAYS){
+
+availableBalance+=amount
+
+}else{
+
+pendingClearance+=amount
+
+}
+
+}
+
+})
+
+res.json({
+
+pendingClearance:Math.round(pendingClearance*100)/100,
+availableBalance:Math.round(availableBalance*100)/100,
+paidOut:Math.round(paidOut*100)/100,
+totalBalance:Math.round((pendingClearance+availableBalance)*100)/100,
+minCashOut:MIN_CASH_OUT,
+clearanceDays:CLEARANCE_DAYS
+
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load wallet"})
 
 }
 
