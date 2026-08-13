@@ -11,6 +11,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 <style>
 
 *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -360,7 +363,7 @@ justify-content:center;
 <span class="file-picker-name" id="fileName">No file chosen</span>
 </label>
 
-<input type="file" id="fileInput" hidden>
+<input type="file" id="fileInput" accept=".txt,.docx,.pdf" hidden>
 
 <button id="uploadBtn" type="button">
 UPLOAD
@@ -507,23 +510,49 @@ fileInput.addEventListener("change",()=>{
   }
 })
 
-uploadBtn.addEventListener("click",()=>{
-
-const file=fileInput.files[0]
-
-if(!file){
-alert("Please choose a document first")
-return
+if(window.pdfjsLib){
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
 }
 
-const reader=new FileReader()
+function readFileAsText(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = e => resolve(e.target.result || "")
+    reader.onerror = reject
+    reader.readAsText(file)
+  })
+}
 
-reader.onload=function(e){
+function readFileAsArrayBuffer(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = e => resolve(e.target.result)
+    reader.onerror = reject
+    reader.readAsArrayBuffer(file)
+  })
+}
 
-let text=e.target.result||""
+async function extractDocxText(file){
+  const arrayBuffer = await readFileAsArrayBuffer(file)
+  const result = await mammoth.extractRawText({ arrayBuffer })
+  return result.value || ""
+}
+
+async function extractPdfText(file){
+  const arrayBuffer = await readFileAsArrayBuffer(file)
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise
+  let fullText = ""
+  for(let i = 1; i <= pdf.numPages; i++){
+    const page = await pdf.getPage(i)
+    const content = await page.getTextContent()
+    fullText += content.items.map(item => item.str).join(" ") + "\n"
+  }
+  return fullText
+}
+
+function processExtractedText(text){
 
 currentDocumentText = text
-currentFileName = file.name || "Untitled document"
 
 let words=text.trim().split(/\s+/).filter(Boolean).length
 
@@ -565,7 +594,56 @@ document.getElementById("expressDelivery").innerText = "Delivery: contact us"
 
 }
 
-reader.readAsText(file)
+uploadBtn.addEventListener("click", async () => {
+
+const file=fileInput.files[0]
+
+if(!file){
+alert("Please choose a document first")
+return
+}
+
+currentFileName = file.name || "Untitled document"
+
+const ext = file.name.split(".").pop().toLowerCase()
+
+uploadBtn.disabled = true
+const originalUploadHtml = uploadBtn.innerHTML
+uploadBtn.innerHTML = "PROCESSING..."
+
+try{
+
+let text = ""
+
+if(ext === "txt"){
+  text = await readFileAsText(file)
+}else if(ext === "docx"){
+  text = await extractDocxText(file)
+}else if(ext === "pdf"){
+  text = await extractPdfText(file)
+}else{
+  alert("Please upload a .txt, .docx, or .pdf file.")
+  uploadBtn.disabled = false
+  uploadBtn.innerHTML = originalUploadHtml
+  return
+}
+
+if(!text || !text.trim()){
+  alert("We could not read any text from that file. Please check the document and try again.")
+  uploadBtn.disabled = false
+  uploadBtn.innerHTML = originalUploadHtml
+  return
+}
+
+processExtractedText(text)
+
+}catch(err){
+  console.error("DOCUMENT EXTRACTION ERROR:", err)
+  alert("We could not read that file. Please make sure it is a valid .txt, .docx, or .pdf document.")
+}
+
+uploadBtn.disabled = false
+uploadBtn.innerHTML = originalUploadHtml
 
 })
 
