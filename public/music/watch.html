@@ -236,8 +236,16 @@ async function loadVideo(){
 
     currentVideo = data;
 
-    document.getElementById("playerWrap").innerHTML =
-      "<iframe src='https://www.youtube.com/embed/" + data.youtubeId + "?modestbranding=1&rel=0' allow='autoplay; encrypted-media' allowfullscreen></iframe>";
+    if(data.fileUrl){
+      document.getElementById("playerWrap").innerHTML =
+        "<video controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#000;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
+    }else if(data.youtubeId){
+      document.getElementById("playerWrap").innerHTML =
+        "<iframe src='https://www.youtube.com/embed/" + data.youtubeId + "?modestbranding=1&rel=0' allow='autoplay; encrypted-media' allowfullscreen></iframe>";
+    }else{
+      document.getElementById("playerWrap").innerHTML =
+        "<div style='display:flex;align-items:center;justify-content:center;height:100%;color:#786367;font-size:13px;'>Video unavailable</div>";
+    }
 
     document.getElementById("videoTitle").innerText = data.title;
     document.getElementById("videoArtist").innerText = data.artist || "SayBon Music";

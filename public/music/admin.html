@@ -144,9 +144,23 @@ th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786
 <option>Jazz</option><option>Country</option><option>Reggae</option><option>Classical</option>
 </select>
 </div>
-<div><label>YouTube URL or Video ID</label><input id="addYoutube" placeholder="https://youtube.com/watch?v=..." /></div>
+<div class="full">
+<div style="display:flex;gap:8px;margin-bottom:10px;">
+<button type="button" id="modeYoutubeBtn" onclick="setUploadMode('youtube')">YouTube Link</button>
+<button type="button" id="modeFileBtn" onclick="setUploadMode('file')" style="background:rgba(255,255,255,.08);color:#9C8589;">Upload File</button>
+</div>
+</div>
+<div class="full" id="youtubeModeField">
+<label>YouTube URL or Video ID</label>
+<input id="addYoutube" placeholder="https://youtube.com/watch?v=..." />
+</div>
+<div class="full" id="fileModeField" style="display:none;">
+<label>Video File</label>
+<input type="file" id="addVideoFile" accept="video/*" />
+<div id="uploadProgress" style="font-size:11px;color:#9C8589;margin-top:6px;"></div>
+</div>
 <div class="full"><label>Description (optional)</label><textarea id="addDescription" rows="2"></textarea></div>
-<div class="add-form-submit"><button onclick="addVideo()">Add Video</button></div>
+<div class="add-form-submit"><button id="addVideoBtn" onclick="addVideo()">Add Video</button></div>
 </div>
 
 <div class="table-wrap">
@@ -171,9 +185,40 @@ th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786
 
 </div>
 
-<script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+authDomain:"saybon-3e3c2.firebaseapp.com",
+projectId:"saybon-3e3c2",
+storageBucket:"saybon-3e3c2.firebasestorage.app",
+messagingSenderId:"75085012344",
+appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const storage = getStorage(fbApp);
+const auth = getAuth(fbApp);
+
+signInAnonymously(auth).catch(err => console.error("Anonymous sign-in failed:", err));
 
 const API_BASE = "https://saybonapp-server.onrender.com";
+
+let uploadMode = "youtube";
+
+window.setUploadMode = function(mode){
+  uploadMode = mode;
+  document.getElementById("youtubeModeField").style.display = mode === "youtube" ? "block" : "none";
+  document.getElementById("fileModeField").style.display = mode === "file" ? "block" : "none";
+  document.getElementById("modeYoutubeBtn").style.background = mode === "youtube" ? "#B76E79" : "rgba(255,255,255,.08)";
+  document.getElementById("modeYoutubeBtn").style.color = mode === "youtube" ? "#fff" : "#9C8589";
+  document.getElementById("modeFileBtn").style.background = mode === "file" ? "#B76E79" : "rgba(255,255,255,.08)";
+  document.getElementById("modeFileBtn").style.color = mode === "file" ? "#fff" : "#9C8589";
+}
 
 function unlock(){
   const code = document.getElementById("passcode").value;
@@ -265,7 +310,7 @@ async function loadVideos(){
   videos.forEach(v=>{
     const row = document.createElement("tr");
     row.innerHTML =
-      "<td><img class='thumb-sm' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'></td>" +
+      "<td>" + (v.youtubeId ? "<img class='thumb-sm' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>" : "<div class='thumb-sm' style='display:flex;align-items:center;justify-content:center;background:rgba(183,110,121,.15);color:#C9A0A5;font-size:10px;'>File</div>") + "</td>" +
       "<td>" + v.title + "<br><span style='color:#786367;font-size:10.5px;'>" + (v.artist||"") + "</span></td>" +
       "<td>" + v.genre + "</td>" +
       "<td>" + v.views + "</td>" +
@@ -281,27 +326,88 @@ window.addVideo = async function(){
   const title = document.getElementById("addTitle").value.trim();
   const artist = document.getElementById("addArtist").value.trim();
   const genre = document.getElementById("addGenre").value;
-  const youtubeInput = document.getElementById("addYoutube").value.trim();
   const description = document.getElementById("addDescription").value.trim();
+  const btn = document.getElementById("addVideoBtn");
+  const progressEl = document.getElementById("uploadProgress");
 
-  const youtubeId = extractYoutubeId(youtubeInput);
-
-  if(!title || !youtubeId){
-    alert("Please provide a title and a valid YouTube URL or 11-character video ID.");
+  if(!title){
+    alert("Please provide a title.");
     return;
+  }
+
+  let youtubeId = null;
+  let fileUrl = null;
+
+  if(uploadMode === "youtube"){
+
+    const youtubeInput = document.getElementById("addYoutube").value.trim();
+    youtubeId = extractYoutubeId(youtubeInput);
+
+    if(!youtubeId){
+      alert("Please provide a valid YouTube URL or 11-character video ID.");
+      return;
+    }
+
+  }else{
+
+    const fileInput = document.getElementById("addVideoFile");
+    const file = fileInput.files[0];
+
+    if(!file){
+      alert("Please choose a video file to upload.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = "Uploading...";
+
+    try{
+
+      if(!auth.currentUser){
+        await signInAnonymously(auth);
+      }
+
+      const fileRef = ref(storage, "musicVideos/" + genre + "/" + Date.now() + "_" + file.name);
+      const uploadTask = uploadBytesResumable(fileRef, file);
+
+      fileUrl = await new Promise((resolve, reject) => {
+        uploadTask.on("state_changed",
+          (snapshot) => {
+            const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            progressEl.innerText = "Uploading: " + pct + "%";
+          },
+          (err) => reject(err),
+          async () => resolve(await getDownloadURL(uploadTask.snapshot.ref))
+        );
+      });
+
+      progressEl.innerText = "Upload complete.";
+
+    }catch(err){
+      alert("Video upload failed. Please try again.");
+      btn.disabled = false;
+      btn.innerText = "Add Video";
+      return;
+    }
+
   }
 
   const res = await fetch(API_BASE + "/api/adminAddMusicVideo", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, artist, genre, youtubeId, description })
+    body: JSON.stringify({ title, artist, genre, youtubeId, fileUrl, description })
   });
+
+  btn.disabled = false;
+  btn.innerText = "Add Video";
 
   if(res.ok){
     document.getElementById("addTitle").value = "";
     document.getElementById("addArtist").value = "";
     document.getElementById("addYoutube").value = "";
     document.getElementById("addDescription").value = "";
+    document.getElementById("addVideoFile").value = "";
+    progressEl.innerText = "";
     loadVideos();
     loadOverview();
   }else{
