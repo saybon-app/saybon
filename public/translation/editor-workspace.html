@@ -113,6 +113,7 @@ font-family:inherit;
 background:rgba(255,255,255,.06);
 color:#fff;
 resize:vertical;
+overflow-y:hidden;
 word-wrap:break-word;
 overflow-wrap:break-word;
 }
@@ -288,6 +289,11 @@ function insertCharInto(textarea, ch){
   textarea.focus();
 }
 
+function autoGrow(textarea){
+  textarea.style.height = "auto";
+  textarea.style.height = (textarea.scrollHeight + 2) + "px";
+}
+
 let segments = [];
 const container = document.getElementById("segments");
 const submitBtn = document.getElementById("submitBtn");
@@ -327,6 +333,8 @@ function render(){
     textarea.placeholder = "Edit translation here";
     textarea.value = seg.edit;
 
+    setTimeout(() => autoGrow(textarea), 0);
+
     textarea.addEventListener("keydown", () => {
       ensureTimerStarted();
       keystrokeCount++;
@@ -346,6 +354,7 @@ document.addEventListener("input", (e) => {
     const id = Number(e.target.dataset.id);
     const seg = segments.find(s => s.id === id);
     if(seg) seg.edit = e.target.value;
+    autoGrow(e.target);
     updateProgress();
   }
 });
