@@ -129,7 +129,7 @@ display:inline-block; padding:3px 9px; border-radius:999px; font-size:10.5px; fo
 
 <div class="tab-panel" id="panel-submissions">
 <table>
-<tr><th>Job</th><th>Translator</th><th>Submitted</th><th>Translation</th><th>Status</th><th>Review</th></tr>
+<tr><th>Job</th><th>Translator</th><th>Submitted</th><th>Translation</th><th>Flags</th><th>Status</th><th>Review</th></tr>
 <tbody id="submissions"></tbody>
 </table>
 </div>
@@ -298,11 +298,32 @@ const statusBadge = s.reviewed
   ? "<span class='badge badge-reviewed'>Reviewed - Rank " + s.rank + (s.passed ? " (Passed)" : " (Failed)") + "</span>"
   : "<span class='badge badge-unreviewed'>Awaiting Review</span>";
 
+const flags = [];
+
+if(s.keystrokeCount === 0){
+  flags.push("<span style='color:#C94A45;font-weight:600;'>⚠ No keystrokes detected</span>");
+}
+
+if(s.timeTakenSeconds > 0 && s.jobWordCount > 0 && s.timeTakenSeconds < (s.jobWordCount * 0.3)){
+  flags.push("<span style='color:#D99024;font-weight:600;'>⚠ Completed unusually fast (" + s.timeTakenSeconds + "s for " + s.jobWordCount + " words)</span>");
+}
+
+if(s.pasteAttempts > 0){
+  flags.push("<span style='color:#D99024;font-weight:600;'>⚠ " + s.pasteAttempts + " blocked paste attempt(s)</span>");
+}
+
+if(s.tabSwitches > 2){
+  flags.push("<span style='color:#8a939a;'>Switched tabs " + s.tabSwitches + "x</span>");
+}
+
+const flagsHtml = flags.length ? flags.join("<br>") : "<span style='color:#8a939a;'>No flags</span>";
+
 row.innerHTML =
   "<td>" + (s.jobFile || s.jobId) + "<br><span style='color:#8a939a;font-size:10.5px;'>" + s.jobId + "</span></td>" +
   "<td>" + s.translator + "</td>" +
   "<td>" + (s.submitted ? new Date(s.submitted._seconds ? s.submitted._seconds*1000 : s.submitted).toLocaleString() : "-") + "</td>" +
   "<td><div class='translation-preview'>" + (s.translation || "").replace(/</g,"&lt;") + "</div></td>" +
+  "<td style='font-size:11px;line-height:1.6;'>" + flagsHtml + "</td>" +
   "<td>" + statusBadge + "</td>" +
   "<td>" +
     "<select class='rank-select' id='rank-" + s.id + "'>" +

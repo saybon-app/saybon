@@ -383,7 +383,24 @@ app.post("/api/submitTranslation", async(req,res)=>{
 
 try{
 
-const {jobId,passkey,translation}=req.body
+const {jobId,passkey,translation,keystrokeCount,timeTakenSeconds,tabSwitches,pasteAttempts}=req.body
+
+if(!jobId || !passkey){
+
+return res.status(400).json({error:"Job ID and passkey are required"})
+
+}
+
+const existing=await db.collection("jobSubmissions")
+.where("jobId","==",jobId)
+.where("translator","==",passkey)
+.get()
+
+if(!existing.empty){
+
+return res.status(400).json({error:"You have already submitted work for this job"})
+
+}
 
 // NOTE: job status is governed by the 3-slot participant
 // system (open/closed) and is intentionally NOT changed here.
@@ -396,6 +413,10 @@ await db.collection("jobSubmissions").add({
 jobId,
 translator:passkey,
 translation,
+keystrokeCount:Number(keystrokeCount)||0,
+timeTakenSeconds:Number(timeTakenSeconds)||0,
+tabSwitches:Number(tabSwitches)||0,
+pasteAttempts:Number(pasteAttempts)||0,
 submitted:new Date()
 
 })
@@ -1248,6 +1269,7 @@ const data=doc.data()
 
 let jobPrice=0
 let jobFile=""
+let jobWordCount=0
 
 try{
 
@@ -1257,6 +1279,7 @@ if(jobDoc.exists){
 
 jobPrice=jobDoc.data().price||0
 jobFile=jobDoc.data().clientFile||""
+jobWordCount=jobDoc.data().wordCount||0
 
 }
 
@@ -1268,12 +1291,17 @@ id:doc.id,
 jobId:data.jobId,
 jobFile,
 jobPrice,
+jobWordCount,
 translator:data.translator,
 translation:data.translation,
 submitted:data.submitted,
 reviewed:data.reviewed||false,
 rank:data.rank||null,
-passed:data.passed!==undefined ? data.passed : null
+passed:data.passed!==undefined ? data.passed : null,
+keystrokeCount:data.keystrokeCount||0,
+timeTakenSeconds:data.timeTakenSeconds||0,
+tabSwitches:data.tabSwitches||0,
+pasteAttempts:data.pasteAttempts||0
 
 })
 
