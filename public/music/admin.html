@@ -231,6 +231,7 @@ function unlock(){
     alert("Incorrect passcode");
   }
 }
+window.unlock = unlock;
 
 if(sessionStorage.getItem("saybonMusicAdminVerified") === "true"){
   document.getElementById("login").style.display = "none";
