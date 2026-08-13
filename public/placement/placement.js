@@ -1,38 +1,69 @@
 console.log("placement.js loaded");
 
 /* ==================================================
-   LOCKED QUESTION SET - DO NOT MODIFY
+   QUESTION BANK - grouped by CEFR level
+   Staircase design: a level's questions only appear
+   after the previous level has genuinely been passed.
+   The test stops the moment a level is failed, so
+   nobody is ever exposed to questions far above their
+   real ability where a lucky guess could inflate the
+   result. Multiple choice questions are auto-graded;
+   typed questions require real recall and production,
+   not just recognition.
 ================================================== */
 
 const questions = [
-  { id: 1, prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q1_bonjour.mp3", options: ["Bonjour", "Merci", "Bonsoir", "Pardon"], correct: 0, level: "A0" },
-  { id: 2, prompt: "Which word means morning?", options: ["Le matin", "Le soir", "La nuit", "L'après-midi"], correct: 0, level: "A0" },
-  { id: 3, prompt: "What does « merci » mean?", options: ["Thank you", "Hello", "Sorry", "Bye"], correct: 0, level: "A0" },
-  { id: 4, prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3", options: ["Au revoir", "Bonjour", "Merci", "Salut"], correct: 0, level: "A0" },
-  { id: 5, prompt: "Choose the correct sentence.", options: ["Je suis étudiant.", "Je être étudiant.", "Je suis être étudiant.", "Je étudiant suis."], correct: 0, level: "A1" },
-  { id: 6, prompt: "What does « j'ai 10 ans » mean?", options: ["I am 10 years old", "I have 10 years", "I had 10 years", "I am ten years"], correct: 0, level: "A1" },
-  { id: 7, prompt: "Choose the correct article.", options: ["une maison", "un maison", "le maison", "des maison"], correct: 0, level: "A1" },
-  { id: 8, prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.png", options: ["A","B","C","D"], correct: 0, level: "A1" },
-  { id: 9, prompt: "Choisis la bonne réponse.", options: ["Je vais au travail.", "Je va travail.", "Je vais travail.", "Je allé travail."], correct: 0, level: "A2" },
-  { id: 10, prompt: "Quel est le passé correct ?", options: ["J'ai mangé","Je mange","Je manger","Il a mangé"], correct: 0, level: "A2" },
-  { id: 11, prompt: "Choose the meaning of « souvent ».", options: ["Often","Never","Yesterday","Slowly"], correct: 0, level: "A2" },
-  { id: 12, prompt: "Choisis la phrase correcte.", options: ["Il y a beaucoup de monde.", "Il est beaucoup monde.", "Il y a monde beaucoup.", "Il beaucoup y a monde."], correct: 0, level: "A2" },
-  { id: 13, prompt: "Choisis la bonne structure.", options: ["Je le lui ai donné.", "Je lui le ai donné.", "Je ai le lui donné.", "Je donné le lui ai."], correct: 0, level: "B1" },
-  { id: 14, prompt: "Écoute et choisis.", audio: "/assets/sounds/placement/b1_q10_bus.mp3", options: ["Prendre le bus","Acheter une maison","Cuisiner","Dormir"], correct: 0, level: "B1" },
-  { id: 15, prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il était fatigué.", "Parce qu'il fatigue.", "Parce qu'il est fatigué.", "Parce fatigué."], correct: 0, level: "B1" },
-  { id: 16, prompt: "Choisis la phrase la plus naturelle.", options: ["Ça dépend de la situation.", "Ça dépend la situation.", "Ça dépend pour la situation.", "Ça dépend à la situation."], correct: 0, level: "B1" },
-  { id: 17, prompt: "Quelle formulation est la plus diplomatique ?", options: ["Je comprends votre point de vue.", "Vous avez tort.", "C'est faux.", "Impossible."], correct: 0, level: "B2" },
-  { id: 18, prompt: "Choisis la formulation la plus formelle.", audio: "/assets/sounds/placement/c1_q18_formel.mp3", options: ["Je vous saurais gré de bien vouloir…", "Tu peux faire ça ?", "Fais-le.", "Dis-moi."], correct: 0, level: "C1" },
-  { id: 19, prompt: "Quelle phrase est stylistiquement correcte ?", options: ["N'eût-il pas été prévenu…", "Il n'a pas été prévenu pas.", "Il n'était pas prévenir.", "Pas été prévenu il."], correct: 0, level: "C1" },
-  { id: 20, prompt: "Choisis la nuance correcte.", options: ["Il semble que ce soit vrai.", "Il semble que c'est vrai.", "Il semble est vrai.", "Il semble vrai que."], correct: 0, level: "C1" }
+
+  // ===== A0 - Absolute Beginner (3 questions, need 3/3) =====
+  { id: 1, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q1_bonjour.mp3", options: ["Merci", "Bonsoir", "Bonjour", "Pardon"], correct: 2 },
+  { id: 2, level: "A0", type: "mc", prompt: "What does « merci » mean?", options: ["Hello", "Thank you", "Sorry", "Bye"], correct: 1 },
+  { id: 3, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3", options: ["Bonjour", "Merci", "Au revoir", "Salut"], correct: 2 },
+
+  // ===== A1 - Beginner (4 MC + 2 typed = 6, need 5/6) =====
+  { id: 4, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Mes parents ___ à Lyon, mais moi, j'habite à Marseille. »", options: ["habite", "habites", "habitent", "habitez"], correct: 2 },
+  { id: 5, level: "A1", type: "mc", prompt: "Read: « Sophie a deux frères. Le plus jeune a 8 ans. Son frère aîné a 6 ans de plus que lui. » Quel âge a le frère aîné ?", options: ["8 ans", "2 ans", "6 ans", "14 ans"], correct: 3 },
+  { id: 6, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Il n'y a pas ___ pain dans le frigo. »", options: ["le", "du", "des", "de"], correct: 3 },
+  { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.png", options: ["A","B","C","D"], correct: 0 },
+  { id: 24, level: "A1", type: "typed", prompt: "Écris la forme correcte : « Je ___ (avoir) 20 ans. »", acceptableAnswers: ["ai"] },
+  { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on « Good evening » en français ?", acceptableAnswers: ["bonsoir"] },
+
+  // ===== A2 - Elementary (4 MC + 2 typed = 6, need 5/6) =====
+  { id: 8, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Hier, je ___ au cinéma quand il a commencé à pleuvoir. »", options: ["suis allé", "vais", "allais", "irai"], correct: 2 },
+  { id: 9, level: "A2", type: "mc", prompt: "Read: « Le document a été rédigé lundi matin. Il a été envoyé le jour suivant, avant midi. » Que peut-on dire du document ?", options: ["Il a été envoyé le lundi.", "Il n'a jamais été envoyé.", "Il a été envoyé le vendredi.", "Il a été envoyé le mardi."], correct: 3 },
+  { id: 10, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Elle travaille beaucoup, ___ elle réussit tous ses examens. »", options: ["mais", "ou", "donc", "si"], correct: 2 },
+  { id: 11, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Tu as des questions ? Oui, j'___ ai plusieurs. »", options: ["y", "le", "en", "lui"], correct: 2 },
+  { id: 26, level: "A2", type: "typed", prompt: "Complète au passé composé : « Hier, nous ___ (visiter) le musée. »", acceptableAnswers: ["avons visite", "avons visité"] },
+  { id: 27, level: "A2", type: "typed", prompt: "Écris le contraire de « facile ».", acceptableAnswers: ["difficile"] },
+
+  // ===== B1 - Intermediate (4 MC + 1 typed = 5, need 4/5) =====
+  { id: 12, level: "B1", type: "mc", prompt: "Choisis la bonne structure.", options: ["Je lui le ai donné.", "Je le lui ai donné.", "Je ai le lui donné.", "Je donné le lui ai."], correct: 1 },
+  { id: 13, level: "B1", type: "mc", prompt: "Écoute et choisis.", audio: "/assets/sounds/placement/b1_q10_bus.mp3", options: ["Acheter une maison", "Prendre le bus", "Cuisiner", "Dormir"], correct: 1 },
+  { id: 14, level: "B1", type: "mc", prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il fatigue.", "Parce qu'il est fatigué.", "Parce qu'il était fatigué.", "Parce fatigué."], correct: 2 },
+  { id: 15, level: "B1", type: "mc", prompt: "Choisis la phrase la plus naturelle.", options: ["Ça dépend la situation.", "Ça dépend pour la situation.", "Ça dépend à la situation.", "Ça dépend de la situation."], correct: 3 },
+  { id: 28, level: "B1", type: "typed", prompt: "Complète avec le bon pronom : « Je ne connais pas ce restaurant, je n'___ ai jamais mangé. »", acceptableAnswers: ["y"] },
+
+  // ===== B2 - Upper Intermediate (4 MC + 1 typed = 5, need 4/5) =====
+  { id: 16, level: "B2", type: "mc", prompt: "Quelle formulation est la plus diplomatique ?", options: ["Vous avez tort.", "C'est faux.", "Je comprends votre point de vue.", "Impossible."], correct: 2 },
+  { id: 17, level: "B2", type: "mc", prompt: "Choisis la meilleure formulation pour exprimer un désaccord poli.", options: ["T'as tort.", "Je ne suis pas tout à fait d'accord, mais je comprends votre point.", "C'est n'importe quoi.", "Non."], correct: 1 },
+  { id: 18, level: "B2", type: "mc", prompt: "Quelle phrase utilise correctement le conditionnel ?", options: ["Si j'ai le temps, je viendrais.", "Si j'avais le temps, je viens.", "Si j'avais le temps, je viendrais.", "Si j'aurais le temps, je viendrais."], correct: 2 },
+  { id: 19, level: "B2", type: "mc", prompt: "Choisis la phrase qui exprime une nuance d'incertitude.", options: ["Il pleut demain.", "Il se peut qu'il pleuve demain.", "Il va pleuvoir demain, c'est sûr.", "Il pleuvra demain absolument."], correct: 1 },
+  { id: 29, level: "B2", type: "typed", prompt: "Reformule au conditionnel pour être plus poli : « Je veux un café. »", acceptableAnswers: ["je voudrais un cafe", "je voudrais un café"] },
+
+  // ===== C1 - Advanced (4 MC + 1 typed = 5, need 4/5) =====
+  { id: 20, level: "C1", type: "mc", prompt: "Choisis la formulation la plus formelle.", audio: "/assets/sounds/placement/c1_q18_formel.mp3", options: ["Tu peux faire ça ?", "Fais-le.", "Je vous saurais gré de bien vouloir…", "Dis-moi."], correct: 2 },
+  { id: 21, level: "C1", type: "mc", prompt: "Quelle phrase est stylistiquement correcte ?", options: ["Il n'a pas été prévenu pas.", "N'eût-il pas été prévenu…", "Il n'était pas prévenir.", "Pas été prévenu il."], correct: 1 },
+  { id: 22, level: "C1", type: "mc", prompt: "Choisis la nuance correcte.", options: ["Il semble que c'est vrai.", "Il semble est vrai.", "Il semble que ce soit vrai.", "Il semble vrai que."], correct: 2 },
+  { id: 23, level: "C1", type: "mc", prompt: "Quelle phrase illustre le mieux l'emploi du subjonctif passé ?", options: ["Bien qu'il a terminé son travail, il est resté tard.", "Bien qu'il termine son travail, il est resté tard.", "Bien qu'il terminait son travail, il est resté tard.", "Bien qu'il ait terminé son travail, il est resté tard."], correct: 3 },
+  { id: 30, level: "C1", type: "typed", prompt: "Complète au subjonctif : « Il faut que tu ___ (être) à l'heure. »", acceptableAnswers: ["sois"] }
+
 ];
 
 /* ==================================================
-   SHUFFLE ANSWER ORDER
-   Runs once at load so the correct answer is not
-   always in the same position. Question 8 is excluded
-   because its options (A/B/C/D) refer to fixed labeled
-   regions inside the accompanying image.
+   SHUFFLE ANSWER ORDER (multiple choice only)
+   Adds an extra layer of per-session randomization
+   on top of the source already varying positions.
+   Image-based questions are excluded since their
+   options (A/B/C/D) refer to fixed regions in the image.
 ================================================== */
 function shuffleOptions(q){
   const correctText = q.options[q.correct];
@@ -46,12 +77,25 @@ function shuffleOptions(q){
 }
 
 questions.forEach(q => {
-  if (q.id !== 8) shuffleOptions(q);
+  if (q.type === "mc" && !q.image) shuffleOptions(q);
 });
 
-let index = 0;
-let wrongStreak = 0;
-const scores = { A0:0, A1:0, A2:0, B1:0, B2:0, C1:0 };
+/* ==================================================
+   LEVEL STAIRCASE CONFIGURATION
+   Threshold is roughly 75% correct, rounded up.
+================================================== */
+
+const levelOrder = ["A0","A1","A2","B1","B2","C1"];
+const levelThreshold = { A0:3, A1:5, A2:5, B1:4, B2:4, C1:4 };
+
+const accentChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
+
+let levelIdx = 0;
+let levelQueue = [];
+let levelPos = 0;
+let levelCorrect = 0;
+let wrongStreakInLevel = 0;
+let confirmedLevel = null;
 
 const promptEl = document.getElementById("questionPrompt");
 const optionsEl = document.getElementById("options");
@@ -95,13 +139,58 @@ function typePrompt(text, onDone){
 }
 
 function updateProgress(){
-  const pct = ((index + 1) / questions.length) * 100;
+  const level = levelOrder[levelIdx];
+  const pct = ((levelPos + 1) / levelQueue.length) * 100;
   progressBar.style.width = pct + "%";
-  progressLabel.textContent = "Question " + (index + 1) + " of " + questions.length;
+  progressLabel.textContent = "Level " + level + " · Question " + (levelPos + 1) + " of " + levelQueue.length;
+}
+
+function startLevel(idx){
+  levelIdx = idx;
+  const level = levelOrder[levelIdx];
+  levelQueue = questions.filter(q => q.level === level);
+  levelPos = 0;
+  levelCorrect = 0;
+  wrongStreakInLevel = 0;
+  loadQuestion();
+}
+
+function normalizeAnswer(str){
+  return (str || "").trim().toLowerCase().replace(/[.!?]+$/, "");
+}
+
+function buildAccentKeyboard(targetInput){
+  const wrap = document.createElement("div");
+  wrap.style.marginTop = "10px";
+  wrap.style.display = "flex";
+  wrap.style.flexWrap = "wrap";
+  wrap.style.gap = "6px";
+
+  accentChars.forEach(ch => {
+    const key = document.createElement("span");
+    key.textContent = ch;
+    key.style.display = "inline-block";
+    key.style.padding = "6px 11px";
+    key.style.borderRadius = "7px";
+    key.style.cursor = "pointer";
+    key.style.background = "rgba(0,0,0,.06)";
+    key.style.fontSize = "15px";
+    key.onclick = () => {
+      const start = targetInput.selectionStart;
+      const end = targetInput.selectionEnd;
+      const val = targetInput.value;
+      targetInput.value = val.slice(0, start) + ch + val.slice(end);
+      targetInput.selectionStart = targetInput.selectionEnd = start + ch.length;
+      targetInput.focus();
+    };
+    wrap.appendChild(key);
+  });
+
+  return wrap;
 }
 
 function loadQuestion() {
-  const q = questions[index];
+  const q = levelQueue[levelPos];
 
   optionsEl.innerHTML = "";
   optionsEl.classList.remove("options-ready");
@@ -127,6 +216,41 @@ function loadQuestion() {
       mediaArea.appendChild(img);
     }
 
+    if (q.type === "typed") {
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Type your answer";
+      input.style.width = "100%";
+      input.style.padding = "12px 14px";
+      input.style.fontSize = "15px";
+      input.style.borderRadius = "10px";
+      input.style.border = "1px solid rgba(0,0,0,.2)";
+      input.style.boxSizing = "border-box";
+      optionsEl.appendChild(input);
+
+      optionsEl.appendChild(buildAccentKeyboard(input));
+
+      const submitBtn = document.createElement("button");
+      submitBtn.className = "option";
+      submitBtn.textContent = "Submit Answer";
+      submitBtn.style.marginTop = "14px";
+      submitBtn.onclick = () => answerTyped(input.value);
+      optionsEl.appendChild(submitBtn);
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") answerTyped(input.value);
+      });
+
+      requestAnimationFrame(() => {
+        optionsEl.classList.add("options-ready");
+        input.focus();
+      });
+
+      return;
+
+    }
+
     q.options.forEach((opt, i) => {
       const btn = document.createElement("button");
       btn.className = "option";
@@ -143,24 +267,61 @@ function loadQuestion() {
   });
 }
 
-function answer(choice) {
-  const q = questions[index];
-
-  if (choice === q.correct) {
-    wrongStreak = 0;
-    scores[q.level]++;
+function registerResult(isCorrect){
+  if (isCorrect) {
+    wrongStreakInLevel = 0;
+    levelCorrect++;
   } else {
-    wrongStreak++;
+    wrongStreakInLevel++;
   }
 
-  if (wrongStreak >= 3) {
+  if (wrongStreakInLevel >= 2) {
     triggerIntervention();
     return;
   }
 
-  index++;
-  if (index >= questions.length) finish();
-  else loadQuestion();
+  advance();
+}
+
+function answer(choice) {
+  const q = levelQueue[levelPos];
+  registerResult(choice === q.correct);
+}
+
+function answerTyped(userInput) {
+  const q = levelQueue[levelPos];
+  const normalized = normalizeAnswer(userInput);
+  const isCorrect = q.acceptableAnswers.some(a => normalizeAnswer(a) === normalized);
+  registerResult(isCorrect);
+}
+
+function advance(){
+  levelPos++;
+
+  if (levelPos >= levelQueue.length) {
+    finishLevel();
+    return;
+  }
+
+  loadQuestion();
+}
+
+function finishLevel(){
+  const level = levelOrder[levelIdx];
+
+  if (levelCorrect >= levelThreshold[level]) {
+
+    confirmedLevel = level;
+
+    if (levelIdx + 1 < levelOrder.length) {
+      startLevel(levelIdx + 1);
+    } else {
+      finish();
+    }
+
+  } else {
+    finish();
+  }
 }
 
 function triggerIntervention() {
@@ -198,22 +359,21 @@ function triggerIntervention() {
 
 continueBtn.onclick = () => {
   overlay.classList.add("hidden");
-  wrongStreak = 0;
+  wrongStreakInLevel = 0;
+  advance();
 };
 
-revealBtn.onclick = finish;
+revealBtn.onclick = () => {
+  overlay.classList.add("hidden");
+  finish();
+};
 
 function finish() {
-  let level = "Absolute Beginner";
-
-  if (scores.C1 > 0) level = "Advanced";
-  else if (scores.B2 > 0 || scores.B1 > 0) level = "Semi Advanced";
-  else if (scores.A2 > 0) level = "Intermediate";
-  else if (scores.A1 > 0) level = "Beginner";
+  const level = confirmedLevel || "Pre-A0";
 
   sessionStorage.setItem("saybon_level", level);
   sessionStorage.setItem("saybon_next", "/reveal/");
   window.location.href = "/loader.html";
 }
 
-loadQuestion();
+startLevel(0);
