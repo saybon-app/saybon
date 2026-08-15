@@ -260,12 +260,19 @@ micBtn.addEventListener("click", async () => {
     recordedChunks = [];
 
     const meterCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    if(meterCtx.state === "suspended"){
+      await meterCtx.resume();
+    }
+
     const meterSource = meterCtx.createMediaStreamSource(stream);
     const analyser = meterCtx.createAnalyser();
     analyser.fftSize = 256;
     meterSource.connect(analyser);
     const meterData = new Uint8Array(analyser.frequencyBinCount);
     let peakLevel = 0;
+
+    micStatus.innerText = "AudioContext state: " + meterCtx.state;
 
     function updateMeter(){
       if(!isRecording) return;
