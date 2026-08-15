@@ -272,7 +272,7 @@ micBtn.addEventListener("click", async () => {
     const meterData = new Uint8Array(analyser.frequencyBinCount);
     let peakLevel = 0;
 
-    micStatus.innerText = "AudioContext state: " + meterCtx.state;
+    document.getElementById("levelMeterLabel").innerText = "AudioContext state at start: " + meterCtx.state;
 
     function updateMeter(){
       if(!isRecording) return;
