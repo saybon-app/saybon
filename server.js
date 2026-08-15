@@ -2582,6 +2582,30 @@ res.status(500).json({error:"could not delete video"})
 
 })
 
+app.post("/api/adminUpdateMusicThumbnail", async(req,res)=>{
+
+try{
+
+const {videoId,thumbnailUrl}=req.body
+
+if(!videoId || !thumbnailUrl){
+return res.status(400).json({error:"Video ID and thumbnail URL are required"})
+}
+
+await db.collection("musicVideos").doc(videoId).update({thumbnailUrl})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not update thumbnail"})
+
+}
+
+})
+
 // ================================================================
 // AZURE SPEECH PRONUNCIATION ASSESSMENT
 // Scores a recorded response against a reference text.

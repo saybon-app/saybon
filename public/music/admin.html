@@ -33,7 +33,7 @@ scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
 }
 
 .nav-icon-btn{
-position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
+position:fixed; top:20px; width:52px; height:52px; border:none; border-radius:13px;
 background:rgba(255,255,255,.06); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.12);
 display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50;
 }
@@ -99,7 +99,7 @@ th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786
 
 @media (max-width:860px){
   body{ padding:80px 14px 50px; }
-  .nav-icon-btn{ width:38px; height:38px; }
+  .nav-icon-btn{ width:46px; height:46px; }
   .back-btn{ left:12px; }
   .dashboard-btn{ right:12px; }
   .add-form{ grid-template-columns:1fr; }
@@ -327,7 +327,11 @@ async function loadVideos(){
       "<td>" + v.genre + "</td>" +
       "<td>" + v.views + "</td>" +
       "<td>" + v.likeCount + "</td>" +
-      "<td><button class='btn-delete' onclick=\"deleteVideo('" + v.id + "')\">Delete</button></td>";
+      "<td>" +
+      "<button onclick=\"triggerThumbnailEdit('" + v.id + "', '" + v.genre + "')\">Edit Thumbnail</button> " +
+      "<button class='btn-delete' onclick=\"deleteVideo('" + v.id + "')\">Delete</button>" +
+      "<input type='file' accept='image/*' style='display:none;' id='thumbEdit-" + v.id + "' onchange=\"handleThumbnailEdit('" + v.id + "', '" + v.genre + "')\" />" +
+      "</td>";
     table.appendChild(row);
   });
 
@@ -459,6 +463,45 @@ window.deleteVideo = async function(videoId){
 
   loadVideos();
   loadOverview();
+
+}
+
+window.triggerThumbnailEdit = function(videoId, genre){
+  document.getElementById("thumbEdit-" + videoId).click();
+}
+
+window.handleThumbnailEdit = async function(videoId, genre){
+
+  const input = document.getElementById("thumbEdit-" + videoId);
+  const file = input.files[0];
+
+  if(!file) return;
+
+  if(!auth.currentUser){
+    await signInAnonymously(auth);
+  }
+
+  try{
+
+    const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + file.name);
+    await uploadBytesResumable(thumbRef, file);
+    const thumbnailUrl = await getDownloadURL(thumbRef);
+
+    const res = await fetch(API_BASE + "/api/adminUpdateMusicThumbnail", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoId, thumbnailUrl })
+    });
+
+    if(res.ok){
+      loadVideos();
+    }else{
+      alert("Could not update thumbnail.");
+    }
+
+  }catch(err){
+    alert("Thumbnail upload failed. Please try again.");
+  }
 
 }
 
