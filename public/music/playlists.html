@@ -25,7 +25,7 @@ body{
 margin:0;
 font-family:'Inter', system-ui, sans-serif;
 color:#E8DCDA;
-background:linear-gradient(160deg, #150E10 0%, #0A0607 100%);
+background:linear-gradient(160deg, #2B0E17 0%, #1A0810 55%, #0D0408 100%);
 padding:90px 20px 60px;
 overflow-x:hidden;
 scrollbar-width:thin;
@@ -77,6 +77,16 @@ display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; borde
 .pv-sub{ font-size:10.5px; color:#786367; }
 
 .empty-note{ text-align:center; padding:60px 20px; color:#786367; font-size:13px; }
+
+@media (max-width:860px){
+  body{ padding:80px 14px 50px; }
+  .nav-icon-btn{ width:38px; height:38px; }
+  .back-btn{ left:12px; }
+  .settings-btn{ right:58px !important; }
+  .dashboard-btn{ right:12px; }
+  .new-row{ flex-direction:column; }
+  .new-row button{ width:100%; }
+}
 
 </style>
 </head>
