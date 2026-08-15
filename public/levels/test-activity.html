@@ -142,7 +142,18 @@ async function convertToWav(blob){
 
   const arrayBuffer = await blob.arrayBuffer();
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+  let audioBuffer;
+  try{
+    audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+  } finally {
+    // Always release this AudioContext, whether decoding
+    // succeeded or failed. Leaving these open across repeated
+    // recordings in the same session can degrade or silently
+    // break later attempts once the browser's context limit
+    // is approached.
+    audioContext.close();
+  }
 
   const targetSampleRate = 16000;
   const offlineContext = new OfflineAudioContext(1, Math.ceil(audioBuffer.duration * targetSampleRate), targetSampleRate);
