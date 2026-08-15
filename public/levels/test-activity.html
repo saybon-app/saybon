@@ -138,6 +138,61 @@ transition:transform .15s ease;
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 
+async function convertToWav(blob){
+
+  const arrayBuffer = await blob.arrayBuffer();
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+  const targetSampleRate = 16000;
+  const offlineContext = new OfflineAudioContext(1, Math.ceil(audioBuffer.duration * targetSampleRate), targetSampleRate);
+  const source = offlineContext.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(offlineContext.destination);
+  source.start();
+  const renderedBuffer = await offlineContext.startRendering();
+
+  const pcmData = renderedBuffer.getChannelData(0);
+
+  return encodeWav(pcmData, targetSampleRate);
+
+}
+
+function encodeWav(samples, sampleRate){
+
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+
+  function writeString(offset, string){
+    for(let i = 0; i < string.length; i++){
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
+
+  writeString(0, "RIFF");
+  view.setUint32(4, 36 + samples.length * 2, true);
+  writeString(8, "WAVE");
+  writeString(12, "fmt ");
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, "data");
+  view.setUint32(40, samples.length * 2, true);
+
+  let offset = 44;
+  for(let i = 0; i < samples.length; i++, offset += 2){
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+
+  return new Blob([view], { type: "audio/wav" });
+
+}
+
 const activities = [
   { prompt: "Bonjour, comment allez-vous ?", displayPrompt: "« Bonjour, comment allez-vous ? »" },
   { prompt: "Je m'appelle Marie et j'habite à Paris.", displayPrompt: "« Je m'appelle Marie et j'habite à Paris. »" }
@@ -184,10 +239,18 @@ micBtn.addEventListener("click", async () => {
       if(e.data.size > 0) recordedChunks.push(e.data);
     };
 
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = async () => {
       stream.getTracks().forEach(t => t.stop());
-      const blob = new Blob(recordedChunks, { type: "audio/webm" });
-      submitRecording(blob);
+      const webmBlob = new Blob(recordedChunks, { type: "audio/webm" });
+
+      try{
+        const wavBlob = await convertToWav(webmBlob);
+        submitRecording(wavBlob);
+      }catch(err){
+        errorBox.style.display = "block";
+        errorBox.innerText = "Could not process the recording. Please try again.";
+        micStatus.innerText = "Tap to record";
+      }
     };
 
     mediaRecorder.start();
@@ -216,7 +279,7 @@ async function submitRecording(blob){
 
     const res = await fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(referenceText) + "&_cb=" + Date.now(), {
       method: "POST",
-      headers: { "Content-Type": "audio/webm" },
+      headers: { "Content-Type": "audio/wav" },
       body: blob,
       cache: "no-store"
     });

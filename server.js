@@ -2626,7 +2626,7 @@ const azureRes = await fetch(azureUrl, {
 method: "POST",
 headers: {
 "Ocp-Apim-Subscription-Key": azureKey,
-"Content-Type": "audio/webm; codecs=opus",
+"Content-Type": "audio/wav; codecs=audio/pcm; samplerate=16000",
 "Accept": "application/json",
 "Pronunciation-Assessment": pronunciationAssessmentHeader
 },
