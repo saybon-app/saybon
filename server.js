@@ -2139,6 +2139,7 @@ artist:d.artist,
 genre:d.genre,
 youtubeId:d.youtubeId||null,
 fileUrl:d.fileUrl||null,
+thumbnailUrl:d.thumbnailUrl||null,
 views:d.views||0,
 likeCount:d.likeCount||0,
 createdAt:d.createdAt
@@ -2191,6 +2192,7 @@ artist:d.artist,
 genre:d.genre,
 youtubeId:d.youtubeId||null,
 fileUrl:d.fileUrl||null,
+thumbnailUrl:d.thumbnailUrl||null,
 description:d.description||"",
 views:d.views||0,
 likeCount:d.likeCount||0,
@@ -2502,7 +2504,7 @@ const vDoc=await db.collection("musicVideos").doc(vid).get()
 
 if(vDoc.exists){
 const d=vDoc.data()
-videos.push({id:vDoc.id,title:d.title,artist:d.artist,genre:d.genre,youtubeId:d.youtubeId,views:d.views||0})
+videos.push({id:vDoc.id,title:d.title,artist:d.artist,genre:d.genre,youtubeId:d.youtubeId,thumbnailUrl:d.thumbnailUrl||null,views:d.views||0})
 }
 
 }
@@ -2523,7 +2525,7 @@ app.post("/api/adminAddMusicVideo", async(req,res)=>{
 
 try{
 
-const {title,artist,genre,youtubeId,fileUrl,description}=req.body
+const {title,artist,genre,youtubeId,fileUrl,thumbnailUrl,description}=req.body
 
 if(!title || !genre || (!youtubeId && !fileUrl)){
 return res.status(400).json({error:"Title, genre, and either a YouTube ID or an uploaded file are required"})
@@ -2536,6 +2538,7 @@ artist:artist||"",
 genre,
 youtubeId:youtubeId||null,
 fileUrl:fileUrl||null,
+thumbnailUrl:thumbnailUrl||null,
 description:description||"",
 views:0,
 likeCount:0,

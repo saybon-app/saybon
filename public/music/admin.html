@@ -169,6 +169,7 @@ th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786
 <input type="file" id="addVideoFile" accept="video/*" />
 <div id="uploadProgress" style="font-size:11px;color:#9C8589;margin-top:6px;"></div>
 </div>
+<div class="full"><label>Thumbnail Image (optional)</label><input type="file" id="addThumbnail" accept="image/*" /></div>
 <div class="full"><label>Description (optional)</label><textarea id="addDescription" rows="2"></textarea></div>
 <div class="add-form-submit"><button id="addVideoBtn" onclick="addVideo()">Add Video</button></div>
 </div>
@@ -321,7 +322,7 @@ async function loadVideos(){
   videos.forEach(v=>{
     const row = document.createElement("tr");
     row.innerHTML =
-      "<td>" + (v.youtubeId ? "<img class='thumb-sm' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>" : "<div class='thumb-sm' style='display:flex;align-items:center;justify-content:center;background:rgba(183,110,121,.15);color:#C9A0A5;font-size:10px;'>File</div>") + "</td>" +
+      "<td>" + (v.thumbnailUrl ? "<img class='thumb-sm' src='" + v.thumbnailUrl + "'>" : v.youtubeId ? "<img class='thumb-sm' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>" : "<div class='thumb-sm' style='display:flex;align-items:center;justify-content:center;background:rgba(183,110,121,.15);color:#C9A0A5;font-size:10px;'>File</div>") + "</td>" +
       "<td>" + v.title + "<br><span style='color:#786367;font-size:10.5px;'>" + (v.artist||"") + "</span></td>" +
       "<td>" + v.genre + "</td>" +
       "<td>" + v.views + "</td>" +
@@ -340,6 +341,7 @@ window.addVideo = async function(){
   const description = document.getElementById("addDescription").value.trim();
   const btn = document.getElementById("addVideoBtn");
   const progressEl = document.getElementById("uploadProgress");
+  const thumbnailFile = document.getElementById("addThumbnail").files[0];
 
   if(!title){
     alert("Please provide a title.");
@@ -348,6 +350,23 @@ window.addVideo = async function(){
 
   let youtubeId = null;
   let fileUrl = null;
+  let thumbnailUrl = null;
+
+  if(thumbnailFile){
+
+    if(!auth.currentUser){
+      await signInAnonymously(auth);
+    }
+
+    try{
+      const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + thumbnailFile.name);
+      await uploadBytesResumable(thumbRef, thumbnailFile);
+      thumbnailUrl = await getDownloadURL(thumbRef);
+    }catch(err){
+      alert("Thumbnail upload failed. Continuing without a custom thumbnail.");
+    }
+
+  }
 
   if(uploadMode === "youtube"){
 
@@ -406,7 +425,7 @@ window.addVideo = async function(){
   const res = await fetch(API_BASE + "/api/adminAddMusicVideo", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, artist, genre, youtubeId, fileUrl, description })
+    body: JSON.stringify({ title, artist, genre, youtubeId, fileUrl, thumbnailUrl, description })
   });
 
   btn.disabled = false;
@@ -418,6 +437,7 @@ window.addVideo = async function(){
     document.getElementById("addYoutube").value = "";
     document.getElementById("addDescription").value = "";
     document.getElementById("addVideoFile").value = "";
+    document.getElementById("addThumbnail").value = "";
     progressEl.innerText = "";
     loadVideos();
     loadOverview();
