@@ -269,12 +269,20 @@ micBtn.addEventListener("click", async () => {
 
     function updateMeter(){
       if(!isRecording) return;
-      analyser.getByteFrequencyData(meterData);
-      const avg = meterData.reduce((a,b) => a + b, 0) / meterData.length;
-      const pct = Math.min(100, Math.round((avg / 130) * 100));
+
+      analyser.getByteTimeDomainData(meterData);
+
+      let sumSquares = 0;
+      for(let i = 0; i < meterData.length; i++){
+        const normalized = (meterData[i] - 128) / 128;
+        sumSquares += normalized * normalized;
+      }
+      const rms = Math.sqrt(sumSquares / meterData.length);
+      const pct = Math.min(100, Math.round(rms * 400));
+
       peakLevel = Math.max(peakLevel, pct);
       document.getElementById("levelMeter").style.width = pct + "%";
-      document.getElementById("levelMeterLabel").innerText = pct > 3 ? "Picking up sound" : "No sound detected yet - try speaking louder or check your mic";
+      document.getElementById("levelMeterLabel").innerText = "Raw level: " + pct + "% (RMS: " + rms.toFixed(4) + ")";
       requestAnimationFrame(updateMeter);
     }
 
