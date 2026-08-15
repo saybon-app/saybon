@@ -253,7 +253,7 @@ micBtn.addEventListener("click", async () => {
       }
     };
 
-    mediaRecorder.start(250); // request data every 250ms instead of one chunk at the end, prevents truncation
+    mediaRecorder.start();
     isRecording = true;
     micBtn.classList.add("recording");
     micStatus.innerText = "Recording... tap to stop";
