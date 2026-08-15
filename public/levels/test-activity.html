@@ -106,6 +106,14 @@ transition:transform .15s ease;
 <div class="mic-status" id="micStatus">Tap to record</div>
 </div>
 
+<div id="reviewWrap" style="display:none; margin-bottom:20px;">
+<audio id="reviewPlayer" controls style="width:100%; margin-bottom:12px;"></audio>
+<div style="display:flex; gap:10px;">
+<button class="btn btn-primary" id="useRecordingBtn" style="margin:0;">Use This Recording</button>
+<button class="btn" id="reRecordBtn" style="margin:0; background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.15);">Re-record</button>
+</div>
+</div>
+
 <div class="error-box" id="errorBox"></div>
 
 <div class="feedback-box" id="feedbackBox">
@@ -213,6 +221,7 @@ let activityIndex = 0;
 let mediaRecorder = null;
 let recordedChunks = [];
 let isRecording = false;
+let pendingBlob = null;
 
 const micBtn = document.getElementById("micBtn");
 const micStatus = document.getElementById("micStatus");
@@ -250,18 +259,16 @@ micBtn.addEventListener("click", async () => {
       if(e.data.size > 0) recordedChunks.push(e.data);
     };
 
-    mediaRecorder.onstop = async () => {
+    mediaRecorder.onstop = () => {
       stream.getTracks().forEach(t => t.stop());
-      const webmBlob = new Blob(recordedChunks, { type: "audio/webm" });
+      pendingBlob = new Blob(recordedChunks, { type: "audio/webm" });
 
-      try{
-        const wavBlob = await convertToWav(webmBlob);
-        submitRecording(wavBlob);
-      }catch(err){
-        errorBox.style.display = "block";
-        errorBox.innerText = "Could not process the recording. Please try again.";
-        micStatus.innerText = "Tap to record";
-      }
+      const url = URL.createObjectURL(pendingBlob);
+      document.getElementById("reviewPlayer").src = url;
+
+      micBtn.style.display = "none";
+      micStatus.innerText = "";
+      document.getElementById("reviewWrap").style.display = "block";
     };
 
     mediaRecorder.start();
@@ -343,6 +350,30 @@ async function submitRecording(blob){
   }
 
 }
+
+document.getElementById("useRecordingBtn").addEventListener("click", async () => {
+
+  document.getElementById("reviewWrap").style.display = "none";
+  micStatus.innerText = "Processing your recording...";
+
+  try{
+    const wavBlob = await convertToWav(pendingBlob);
+    submitRecording(wavBlob);
+  }catch(err){
+    errorBox.style.display = "block";
+    errorBox.innerText = "Could not process the recording. Please try again.";
+    micBtn.style.display = "inline-flex";
+    micStatus.innerText = "Tap to record";
+  }
+
+});
+
+document.getElementById("reRecordBtn").addEventListener("click", () => {
+  document.getElementById("reviewWrap").style.display = "none";
+  micBtn.style.display = "inline-flex";
+  micStatus.innerText = "Tap to record";
+  pendingBlob = null;
+});
 
 recordAgainBtn.addEventListener("click", () => {
   feedbackBox.style.display = "none";
