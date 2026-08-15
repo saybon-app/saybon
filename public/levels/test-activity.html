@@ -259,6 +259,12 @@ micBtn.addEventListener("click", async () => {
     mediaRecorder = new MediaRecorder(stream);
     recordedChunks = [];
 
+    const livePassthrough = document.createElement("audio");
+    livePassthrough.srcObject = stream;
+    livePassthrough.autoplay = true;
+    livePassthrough.id = "livePassthroughAudio";
+    document.body.appendChild(livePassthrough);
+
     const meterCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     if(meterCtx.state === "suspended"){
