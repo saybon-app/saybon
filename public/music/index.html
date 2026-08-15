@@ -17,7 +17,7 @@
 
 *::-webkit-scrollbar{ width:10px; height:10px; }
 *::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
-*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B5A2E); border-radius:10px; border:2px solid #241510; background-clip:padding-box; }
 
 .shelf-row::-webkit-scrollbar{ height:6px; }
 .pill-row::-webkit-scrollbar{ height:6px; }
@@ -27,21 +27,24 @@ html{ overflow-x:hidden; }
 body{
 margin:0;
 font-family:'Manrope', system-ui, sans-serif;
-color:#E8DCDA;
-background:#0A0607;
+color:#EDE0D3;
+background:
+  repeating-linear-gradient(95deg, rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 2px, transparent 2px, transparent 7px),
+  repeating-linear-gradient(95deg, rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px, transparent 1px, transparent 9px),
+  linear-gradient(160deg, #4A2F24 0%, #3A2419 45%, #241510 100%);
 overflow-x:hidden;
 scrollbar-width:thin;
-scrollbar-color:#D4AF6A rgba(255,255,255,.04);
+scrollbar-color:#D4AF6A #241510;
 position:relative;
 }
 
 .glow-orb{ position:fixed; border-radius:50%; filter:blur(130px); opacity:.16; pointer-events:none; z-index:0; }
 .glow-orb-1{ width:520px; height:520px; background:#D4AF6A; top:-140px; right:-120px; }
-.glow-orb-2{ width:420px; height:420px; background:#8B5A5F; bottom:-100px; left:180px; }
+.glow-orb-2{ width:420px; height:420px; background:#C9915A; bottom:-100px; left:180px; }
 
 .topbar{
 position:fixed; top:0; left:0; right:0; height:66px; z-index:100;
-background:rgba(10,6,7,.96); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,.08);
+background:rgba(36,21,16,.94); backdrop-filter:blur(16px); border-bottom:1px solid rgba(212,175,106,.14);
 display:flex; align-items:center; padding:0 18px; gap:16px;
 }
 .topbar-logo{ display:flex; align-items:center; gap:9px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
@@ -69,7 +72,7 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; color:
 
 .sidebar{
 position:fixed; top:66px; left:0; bottom:0; width:220px; overflow-y:auto;
-background:#0A0607; border-right:1px solid rgba(255,255,255,.06); padding:14px 0; z-index:90;
+background:#241510; border-right:1px solid rgba(212,175,106,.12); padding:14px 0; z-index:90;
 }
 .sb-item{
 display:flex; align-items:center; gap:14px; padding:11px 20px; cursor:pointer; font-size:13px; color:#C9A0A5;
