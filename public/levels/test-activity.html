@@ -104,6 +104,10 @@ transition:transform .15s ease;
 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg>
 </button>
 <div class="mic-status" id="micStatus">Tap to record</div>
+<div style="width:100%; height:8px; background:rgba(255,255,255,.08); border-radius:6px; margin-top:12px; overflow:hidden;">
+<div id="levelMeter" style="height:100%; width:0%; background:linear-gradient(90deg, #5ac878, #e0578a); transition:width .05s linear;"></div>
+</div>
+<div style="font-size:11px; color:rgba(255,255,255,.5); margin-top:6px;" id="levelMeterLabel"></div>
 </div>
 
 <div id="reviewWrap" style="display:none; margin-bottom:20px;">
@@ -255,12 +259,32 @@ micBtn.addEventListener("click", async () => {
     mediaRecorder = new MediaRecorder(stream);
     recordedChunks = [];
 
+    const meterCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const meterSource = meterCtx.createMediaStreamSource(stream);
+    const analyser = meterCtx.createAnalyser();
+    analyser.fftSize = 256;
+    meterSource.connect(analyser);
+    const meterData = new Uint8Array(analyser.frequencyBinCount);
+    let peakLevel = 0;
+
+    function updateMeter(){
+      if(!isRecording) return;
+      analyser.getByteFrequencyData(meterData);
+      const avg = meterData.reduce((a,b) => a + b, 0) / meterData.length;
+      const pct = Math.min(100, Math.round((avg / 130) * 100));
+      peakLevel = Math.max(peakLevel, pct);
+      document.getElementById("levelMeter").style.width = pct + "%";
+      document.getElementById("levelMeterLabel").innerText = pct > 3 ? "Picking up sound" : "No sound detected yet - try speaking louder or check your mic";
+      requestAnimationFrame(updateMeter);
+    }
+
     mediaRecorder.ondataavailable = (e) => {
       if(e.data.size > 0) recordedChunks.push(e.data);
     };
 
     mediaRecorder.onstop = () => {
       stream.getTracks().forEach(t => t.stop());
+      meterCtx.close();
       pendingBlob = new Blob(recordedChunks, { type: "audio/webm" });
 
       const url = URL.createObjectURL(pendingBlob);
@@ -268,6 +292,9 @@ micBtn.addEventListener("click", async () => {
 
       micBtn.style.display = "none";
       micStatus.innerText = "";
+      document.getElementById("levelMeterLabel").innerText = peakLevel > 3
+        ? "Peak level detected: " + peakLevel + "% - the mic was receiving sound"
+        : "No real sound was detected during this recording - check your microphone";
       document.getElementById("reviewWrap").style.display = "block";
     };
 
@@ -275,6 +302,8 @@ micBtn.addEventListener("click", async () => {
     isRecording = true;
     micBtn.classList.add("recording");
     micStatus.innerText = "Recording... tap to stop";
+    peakLevel = 0;
+    updateMeter();
 
   }catch(err){
     errorBox.style.display = "block";
