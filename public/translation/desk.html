@@ -64,13 +64,6 @@ width:100%;
 text-align:center;
 margin-bottom:20px;
 box-shadow: 0 20px 50px rgba(60,40,20,.18);
-
-opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
-animation: headerPanelEnter .8s cubic-bezier(.22,1,.36,1) forwards;
-}
-@keyframes headerPanelEnter{
-from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
-to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
 }
 
 .header-title{
@@ -281,32 +274,32 @@ padding:20px;
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
-<div class="detail-text"><div class="detail-label">Job Code</div><div class="detail-value" id="job">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Job Code</div><div class="detail-value" id="job">Loading…</div></div>
 </div>
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
-<div class="detail-text"><div class="detail-label">Client</div><div class="detail-value" id="email">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Client</div><div class="detail-value" id="email">Loading…</div></div>
 </div>
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-<div class="detail-text"><div class="detail-label">Word Count</div><div class="detail-value" id="words">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Word Count</div><div class="detail-value" id="words">Loading…</div></div>
 </div>
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-<div class="detail-text"><div class="detail-label">Target Language</div><div class="detail-value" id="language">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Target Language</div><div class="detail-value" id="language">Loading…</div></div>
 </div>
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
-<div class="detail-text"><div class="detail-label">Plan</div><div class="detail-value" id="plan">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Plan</div><div class="detail-value" id="plan">Loading…</div></div>
 </div>
 
 <div class="detail-row">
 <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-<div class="detail-text"><div class="detail-label">Price</div><div class="detail-value" id="price">Loadingâ€¦</div></div>
+<div class="detail-text"><div class="detail-label">Price</div><div class="detail-value" id="price">Loading…</div></div>
 </div>
 
 </div>
@@ -405,7 +398,7 @@ async function loadAllJobs(){
       row.innerHTML =
         "<div class=\"job-list-left\">" +
           "<div class=\"job-list-code\">" + (data.jobId || id) + "</div>" +
-          "<div class=\"job-list-meta\">" + (data.email || "-") + " Â· " + (data.wordCount ?? "-") + " words Â· $" + Number(data.price || 0).toFixed(2) + "</div>" +
+          "<div class=\"job-list-meta\">" + (data.email || "-") + " · " + (data.wordCount ?? "-") + " words · $" + Number(data.price || 0).toFixed(2) + "</div>" +
         "</div>" +
         "<span class=\"job-list-badge\" style=\"background:" + badge.color + "\">" + badge.label + "</span>";
 
