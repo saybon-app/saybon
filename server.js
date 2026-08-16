@@ -2603,6 +2603,337 @@ res.status(500).json({error:"could not delete video"})
 
 })
 
+// ================================================================
+// CHAT MODERATION SYSTEM
+// ================================================================
+
+const CHAT_BANNED_TERMS = [
+"fuck","shit","bitch","asshole","cunt","nigger","nigga","faggot","retard",
+"kill yourself","kys"
+]
+
+const CHAT_VIOLATION_BLOCK_THRESHOLD = 3
+
+function checkChatContent(text){
+
+const lower = (text||"").toLowerCase()
+
+for(const term of CHAT_BANNED_TERMS){
+if(lower.includes(term)){
+return {allowed:false, matchedTerm:term}
+}
+}
+
+return {allowed:true, matchedTerm:null}
+
+}
+
+app.post("/api/chatCheckContent", (req,res)=>{
+
+try{
+
+const {text}=req.body
+
+if(typeof text !== "string"){
+return res.status(400).json({error:"Text is required"})
+}
+
+const result = checkChatContent(text)
+
+res.json(result)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not check content"})
+
+}
+
+})
+
+app.get("/api/chatUserStatus", async(req,res)=>{
+
+try{
+
+const uid=req.query.uid
+
+if(!uid){
+return res.status(400).json({error:"UID is required"})
+}
+
+const docSnap = await db.collection("chatUserStatus").doc(uid).get()
+
+if(!docSnap.exists){
+return res.json({blocked:false, flagged:false, violationCount:0})
+}
+
+const d = docSnap.data()
+
+res.json({
+blocked: d.blocked||false,
+flagged: d.flagged||false,
+violationCount: d.violationCount||0
+})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not get user status"})
+
+}
+
+})
+
+app.post("/api/chatRecordViolation", async(req,res)=>{
+
+try{
+
+const {uid,displayName,roomId,messageText,matchedTerm}=req.body
+
+if(!uid || !roomId){
+return res.status(400).json({error:"UID and room are required"})
+}
+
+await db.collection("chatViolations").add({
+uid,
+displayName: displayName||"Unknown",
+roomId,
+messageText: messageText||"",
+matchedTerm: matchedTerm||"",
+createdAt: new Date()
+})
+
+const statusRef = db.collection("chatUserStatus").doc(uid)
+const statusSnap = await statusRef.get()
+
+const currentCount = statusSnap.exists ? (statusSnap.data().violationCount||0) : 0
+const newCount = currentCount + 1
+const shouldBlock = newCount >= CHAT_VIOLATION_BLOCK_THRESHOLD
+
+await statusRef.set({
+uid,
+displayName: displayName||"Unknown",
+violationCount: newCount,
+blocked: shouldBlock,
+lastViolationAt: new Date()
+}, {merge:true})
+
+res.json({violationCount:newCount, blocked:shouldBlock})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not record violation"})
+
+}
+
+})
+
+app.get("/api/adminChatUsers", async(req,res)=>{
+
+try{
+
+const snapshot = await db.collection("chatUserStatus").get()
+
+const users = []
+
+snapshot.forEach(doc=>{
+const d = doc.data()
+users.push({
+uid: doc.id,
+displayName: d.displayName||"Unknown",
+violationCount: d.violationCount||0,
+blocked: d.blocked||false,
+flagged: d.flagged||false
+})
+})
+
+users.sort((a,b) => b.violationCount - a.violationCount)
+
+res.json(users)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load users"})
+
+}
+
+})
+
+app.post("/api/adminBlockUser", async(req,res)=>{
+
+try{
+
+const {uid,displayName}=req.body
+
+if(!uid){
+return res.status(400).json({error:"UID is required"})
+}
+
+await db.collection("chatUserStatus").doc(uid).set({
+uid, displayName: displayName||"Unknown", blocked:true
+}, {merge:true})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not block user"})
+
+}
+
+})
+
+app.post("/api/adminUnblockUser", async(req,res)=>{
+
+try{
+
+const {uid}=req.body
+
+if(!uid){
+return res.status(400).json({error:"UID is required"})
+}
+
+await db.collection("chatUserStatus").doc(uid).set({blocked:false}, {merge:true})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not unblock user"})
+
+}
+
+})
+
+app.post("/api/adminFlagUser", async(req,res)=>{
+
+try{
+
+const {uid,displayName,flagged}=req.body
+
+if(!uid){
+return res.status(400).json({error:"UID is required"})
+}
+
+await db.collection("chatUserStatus").doc(uid).set({
+uid, displayName: displayName||"Unknown", flagged: !!flagged
+}, {merge:true})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not update flag"})
+
+}
+
+})
+
+app.get("/api/adminChatViolations", async(req,res)=>{
+
+try{
+
+const snapshot = await db.collection("chatViolations").get()
+
+const violations = []
+
+snapshot.forEach(doc=>{
+const d = doc.data()
+violations.push({
+id: doc.id,
+uid: d.uid,
+displayName: d.displayName,
+roomId: d.roomId,
+messageText: d.messageText,
+matchedTerm: d.matchedTerm,
+createdAt: d.createdAt
+})
+})
+
+violations.sort((a,b) => {
+const aT = a.createdAt && a.createdAt._seconds ? a.createdAt._seconds : 0
+const bT = b.createdAt && b.createdAt._seconds ? b.createdAt._seconds : 0
+return bT - aT
+})
+
+res.json(violations)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load violations"})
+
+}
+
+})
+
+app.get("/api/adminChatCustomRooms", async(req,res)=>{
+
+try{
+
+const snapshot = await db.collection("chatRooms").where("isCustom","==",true).get()
+
+const rooms = []
+
+snapshot.forEach(doc=>{
+const d = doc.data()
+rooms.push({
+id: doc.id,
+name: d.name,
+createdBy: d.createdBy,
+lastMessage: d.lastMessage||""
+})
+})
+
+res.json(rooms)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load custom rooms"})
+
+}
+
+})
+
+app.post("/api/adminDeleteChatRoom", async(req,res)=>{
+
+try{
+
+const {roomId}=req.body
+
+if(!roomId){
+return res.status(400).json({error:"Room ID is required"})
+}
+
+await db.collection("chatRooms").doc(roomId).delete()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not delete room"})
+
+}
+
+})
+
 app.post("/api/adminUpdateMusicThumbnail", async(req,res)=>{
 
 try{
