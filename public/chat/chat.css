@@ -302,6 +302,12 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 }
 .modal-btn-primary:disabled{ opacity:.5; cursor:not-allowed; }
 
+.sidebar-profile{ cursor:pointer; }
+.sidebar-profile:hover{ background:#2A3942; }
+
+.profile-photo-row{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.profile-photo-preview{ width:64px; height:64px; border-radius:50%; object-fit:cover; background:#2A3942; }
+
 @media (max-width:800px){
   body{ padding:0; }
   .chatroom-shell{ width:100vw; height:100vh; border-radius:0; grid-template-columns:1fr; }

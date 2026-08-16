@@ -1,5 +1,6 @@
 import { auth, db } from "/js/firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import {
   collection, addDoc, doc, setDoc, getDocs, query, where, documentId,
   orderBy, onSnapshot, serverTimestamp
@@ -249,6 +250,90 @@ async function loadCustomRooms(){
 }
 
 loadCustomRooms();
+
+// =========================================================
+// PROFILE EDIT MODAL (username + photo)
+// =========================================================
+
+const storage = getStorage();
+
+const sidebarProfileTrigger = document.getElementById("sidebarProfileTrigger");
+const profileModal = document.getElementById("profileModal");
+const profilePhotoPreview = document.getElementById("profilePhotoPreview");
+const changePhotoBtn = document.getElementById("changePhotoBtn");
+const profilePhotoInput = document.getElementById("profilePhotoInput");
+const profileNameInput = document.getElementById("profileNameInput");
+const cancelProfileEdit = document.getElementById("cancelProfileEdit");
+const saveProfileEdit = document.getElementById("saveProfileEdit");
+
+let pendingPhotoFile = null;
+
+sidebarProfileTrigger.addEventListener("click", () => {
+
+  if (!currentUser) {
+    alert("Please sign in to edit your profile.");
+    return;
+  }
+
+  pendingPhotoFile = null;
+  profilePhotoPreview.src = sidebarProfileAvatar.src;
+  profileNameInput.value = currentUser.displayName || "";
+  profileModal.classList.remove("hidden");
+
+});
+
+cancelProfileEdit.addEventListener("click", () => {
+  profileModal.classList.add("hidden");
+});
+
+changePhotoBtn.addEventListener("click", () => {
+  profilePhotoInput.click();
+});
+
+profilePhotoInput.addEventListener("change", () => {
+  const file = profilePhotoInput.files[0];
+  if (!file) return;
+  pendingPhotoFile = file;
+  profilePhotoPreview.src = URL.createObjectURL(file);
+});
+
+saveProfileEdit.addEventListener("click", async () => {
+
+  const newName = profileNameInput.value.trim();
+  if (!newName) {
+    alert("Please enter a name.");
+    return;
+  }
+
+  saveProfileEdit.disabled = true;
+  saveProfileEdit.textContent = "Saving...";
+
+  try {
+
+    let photoURL = currentUser.photoURL || "";
+
+    if (pendingPhotoFile) {
+      const fileRef = ref(storage, "chatAvatars/" + currentUser.uid + "/" + Date.now() + "_" + pendingPhotoFile.name);
+      await uploadBytesResumable(fileRef, pendingPhotoFile);
+      photoURL = await getDownloadURL(fileRef);
+    }
+
+    await updateProfile(currentUser, { displayName: newName, photoURL });
+
+    sidebarProfileName.textContent = newName;
+    if (photoURL) sidebarProfileAvatar.src = photoURL;
+
+    profileModal.classList.add("hidden");
+
+  } catch (err) {
+    console.error("Profile update failed:", err);
+    alert("Could not update your profile. Please try again.");
+  } finally {
+    saveProfileEdit.disabled = false;
+    saveProfileEdit.textContent = "Save";
+  }
+
+});
 
 promoBtn.addEventListener("click", () => {
   const generalBtn = document.querySelector('.room-btn[data-room-id="general"]');
