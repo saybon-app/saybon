@@ -1,12 +1,18 @@
 import { auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
-  collection, addDoc, doc, setDoc, query, where, documentId,
+  collection, addDoc, doc, setDoc, getDocs, query, where, documentId,
   orderBy, onSnapshot, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const ROOM_IDS = ["general", "grammar-vocab", "practice-partners", "culture-corner"];
-const ROOM_AVATARS = { "general":"💬", "grammar-vocab":"📖", "practice-partners":"🗣️", "culture-corner":"🎭" };
+const ROOM_IDS = [
+  "general",
+  "lesson-a0","lesson-a1","lesson-a2","lesson-b1","lesson-b2","lesson-c1",
+  "delf-a1","delf-a2","delf-b1","delf-b2",
+  "practice-partners","culture-corner",
+  "translation-clients","translation-translators",
+  "feedback","support"
+];
 
 const roomButtons = document.querySelectorAll(".room-btn");
 const toggleBtn = document.getElementById("toggleBtn");
@@ -110,17 +116,139 @@ function openRoom(roomId, roomName) {
   document.querySelector(".chatroom-shell").classList.add("mobile-chat-open");
 
   roomTitle.innerHTML = roomName;
-  roomAvatar.textContent = ROOM_AVATARS[roomId] || "💬";
+  if (btn) {
+    const srcAvatar = btn.querySelector(".conversation-avatar");
+    roomAvatar.innerHTML = srcAvatar ? srcAvatar.innerHTML : "";
+  }
   currentRoomId = roomId;
 
   subscribeToRoom(roomId);
 }
 
-roomButtons.forEach(btn => {
+function wireRoomButton(btn){
   btn.addEventListener("click", () => {
     openRoom(btn.dataset.roomId, btn.dataset.room);
   });
+}
+
+roomButtons.forEach(wireRoomButton);
+
+// =========================================================
+// CATEGORY EXPAND/COLLAPSE (Lessons, DELF, Translation Service)
+// =========================================================
+
+document.querySelectorAll(".category-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const cat = header.dataset.category;
+    const children = document.querySelector('[data-category-children="' + cat + '"]');
+    const isHidden = children.classList.toggle("hidden");
+    header.classList.toggle("expanded", !isHidden);
+  });
 });
+
+// =========================================================
+// CREATE NEW ROOM
+// =========================================================
+
+const createRoomBtn = document.getElementById("createRoomBtn");
+const createRoomModal = document.getElementById("createRoomModal");
+const newRoomNameInput = document.getElementById("newRoomName");
+const confirmCreateRoomBtn = document.getElementById("confirmCreateRoom");
+const cancelCreateRoomBtn = document.getElementById("cancelCreateRoom");
+const customRoomsList = document.getElementById("customRoomsList");
+const customRoomsLabel = document.getElementById("customRoomsLabel");
+
+createRoomBtn.addEventListener("click", () => {
+  newRoomNameInput.value = "";
+  createRoomModal.classList.remove("hidden");
+  newRoomNameInput.focus();
+});
+
+cancelCreateRoomBtn.addEventListener("click", () => {
+  createRoomModal.classList.add("hidden");
+});
+
+function slugify(name){
+  return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 30);
+}
+
+function buildCustomRoomButton(roomId, name){
+  const btn = document.createElement("button");
+  btn.className = "room-btn conversation-item";
+  btn.dataset.room = name;
+  btn.dataset.roomId = roomId;
+  btn.innerHTML =
+    "<span class='conversation-avatar'><svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='1.8'><circle cx='12' cy='12' r='10'/><path d='M12 8v8M8 12h8'/></svg></span>" +
+    "<span class='conversation-body'>" +
+      "<span class='conversation-top-row'><span class='conversation-name'>" + escapeHtml(name) + "</span><span class='conversation-time' id='time-" + roomId + "'></span></span>" +
+      "<span class='conversation-preview' id='preview-" + roomId + "'>No messages yet</span>" +
+    "</span>";
+  wireRoomButton(btn);
+  return btn;
+}
+
+confirmCreateRoomBtn.addEventListener("click", async () => {
+
+  if (!currentUser) {
+    alert("Please sign in to create a room.");
+    return;
+  }
+
+  const name = newRoomNameInput.value.trim();
+  if (!name) return;
+
+  const roomId = "custom-" + slugify(name) + "-" + Date.now().toString(36).slice(-4);
+
+  confirmCreateRoomBtn.disabled = true;
+
+  try{
+
+    await setDoc(doc(db, "chatRooms", roomId), {
+      name,
+      isCustom: true,
+      createdBy: currentUser.uid,
+      createdAt: serverTimestamp()
+    });
+
+    customRoomsLabel.style.display = "block";
+    const btn = buildCustomRoomButton(roomId, name);
+    customRoomsList.appendChild(btn);
+
+    createRoomModal.classList.add("hidden");
+    openRoom(roomId, name);
+
+  }catch(err){
+    alert("Could not create the room. Please try again.");
+  }finally{
+    confirmCreateRoomBtn.disabled = false;
+  }
+
+});
+
+async function loadCustomRooms(){
+  try{
+    const snap = await getDocs(query(collection(db, "chatRooms"), where("isCustom","==",true)));
+    if (snap.empty) return;
+
+    const rooms = [];
+    snap.forEach(d => rooms.push({ id: d.id, ...d.data() }));
+    rooms.sort((a,b) => {
+      const aT = a.createdAt && a.createdAt.seconds ? a.createdAt.seconds : 0;
+      const bT = b.createdAt && b.createdAt.seconds ? b.createdAt.seconds : 0;
+      return aT - bT;
+    });
+
+    customRoomsLabel.style.display = "block";
+    rooms.forEach(r => {
+      customRoomsList.appendChild(buildCustomRoomButton(r.id, r.name));
+    });
+
+  }catch(err){
+    console.error("Could not load custom rooms:", err);
+  }
+}
+
+loadCustomRooms();
 
 promoBtn.addEventListener("click", () => {
   const generalBtn = document.querySelector('.room-btn[data-room-id="general"]');
