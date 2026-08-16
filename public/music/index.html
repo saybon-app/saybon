@@ -83,7 +83,16 @@ display:flex; align-items:center; gap:14px; padding:11px 20px; cursor:pointer; f
 .sb-section-label{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#5F6270; padding:16px 20px 8px; }
 .sb-divider{ height:1px; background:rgba(255,255,255,.06); margin:10px 0; }
 
-.main-content{ position:relative; z-index:1; margin-left:220px; margin-top:68px; padding:22px 26px 60px; }
+.main-content{
+position:relative; z-index:1; margin-left:220px; margin-top:68px; padding:22px 26px 60px;
+opacity:0; transform:scale(.985); filter:blur(6px);
+animation: mainContentEnter 1.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes mainContentEnter{
+from{ opacity:0; transform:scale(.985); filter:blur(6px); }
+to{ opacity:1; transform:scale(1); filter:blur(0); }
+}
 
 @media (max-width:860px){
   .sidebar{ display:none; }
