@@ -313,7 +313,7 @@ saveProfileEdit.addEventListener("click", async () => {
     let photoURL = currentUser.photoURL || "";
 
     if (pendingPhotoFile) {
-      const fileRef = ref(storage, "chatAvatars/" + currentUser.uid + "/" + Date.now() + "_" + pendingPhotoFile.name);
+      const fileRef = storageRef(storage, "chatAvatars/" + currentUser.uid + "/" + Date.now() + "_" + pendingPhotoFile.name);
       await uploadBytesResumable(fileRef, pendingPhotoFile);
       photoURL = await getDownloadURL(fileRef);
     }
@@ -559,7 +559,7 @@ async function sendMessage() {
       createdAt: serverTimestamp()
     });
 
-    const preview = text.length > 60 ? text.slice(0, 60) + "…" : text;
+    const preview = text.length > 60 ? text.slice(0, 60) + "â€¦" : text;
 
     await setDoc(doc(db, "chatRooms", currentRoomId), {
       lastMessage: preview,
