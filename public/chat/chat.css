@@ -16,8 +16,17 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
   z-index:100; transition: transform .18s ease;
 }
 .global-home-btn:active, .global-dashboard-btn:active{ transform:scale(.94); }
-.global-home-btn{ right:78px; }
+.global-home-btn{ right:136px; }
+.global-admin-btn{ right:78px; }
 .global-dashboard-btn{ right:20px; }
+.global-admin-btn{ position:fixed; top:20px; border:none; border-radius:50%; background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06)); box-shadow: inset 0 1px 1px rgba(255,255,255,.25), 0 6px 16px rgba(0,0,0,.4); width:46px; height:46px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:100; transition: transform .18s ease; }
+.global-admin-btn:active{ transform:scale(.94); }
+
+.chat-warning-banner{
+  padding:10px 16px; background:rgba(224,87,87,.15); color:#f2a3a3; font-size:12.5px;
+  border-top:1px solid rgba(224,87,87,.3);
+}
+.chat-warning-banner.hidden{ display:none; }
 
 .chatroom-shell{
   width:min(90vw,1320px); height:92vh;
@@ -317,6 +326,8 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 .message-file-card span{ font-size:13px; word-break:break-word; }
 .message-bubble audio{ display:block; }
 
+.sidebar-mobile-nav{ display:none; }
+
 @media (max-width:800px){
   body{ padding:0; }
   .chatroom-shell{ width:100vw; height:100vh; border-radius:0; grid-template-columns:1fr; }
@@ -329,5 +340,14 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 
   .mobile-back-btn{ display:flex; }
 
-  .global-home-btn, .global-dashboard-btn{ display:none; }
+  .global-home-btn, .global-dashboard-btn, .global-admin-btn{ display:none; }
+
+  .sidebar-brand{ justify-content:space-between; }
+  .sidebar-mobile-nav{ display:flex; gap:6px; margin-left:auto; }
+  .sidebar-mobile-nav button{
+    width:32px; height:32px; border-radius:50%; border:none;
+    background:rgba(255,255,255,.08); color:#E9EDEF; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sidebar-mobile-nav button:active{ background:rgba(255,255,255,.16); }
 }
