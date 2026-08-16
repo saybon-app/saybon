@@ -16,38 +16,44 @@
 *{ box-sizing:border-box; }
 
 *::-webkit-scrollbar{ width:10px; height:10px; }
-*::-webkit-scrollbar-track{ background:rgba(232,83,107,.06); border-radius:10px; }
-*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #E8536B, #D4AF6A); border-radius:10px; border:2px solid #FFF6ED; background-clip:padding-box; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B6F3E); border-radius:10px; border:2px solid #1A1C24; background-clip:padding-box; }
 
 html{ overflow-x:hidden; }
 
 body{
 margin:0;
 font-family:'Manrope', system-ui, sans-serif;
-color:#5C2430;
-background:linear-gradient(160deg, #FFF6ED 0%, #FDEEDC 45%, #FBE0D3 100%);
+color:#E4E6EC;
+background:linear-gradient(160deg, #262832 0%, #1E2028 55%, #181A20 100%);
 overflow-x:hidden;
 scrollbar-width:thin;
-scrollbar-color:#E8536B #FFF6ED;
+scrollbar-color:#D4AF6A #1A1C24;
 }
 
 .topbar{
-position:fixed; top:0; left:0; right:0; height:66px; z-index:100;
-background:rgba(255,251,245,.92); backdrop-filter:blur(16px); border-bottom:1px solid rgba(232,83,107,.14);
+position:fixed; top:0; left:0; right:0; height:68px; z-index:100;
+background:rgba(30,32,40,.92); backdrop-filter:blur(18px); border-bottom:1px solid rgba(212,175,106,.14);
 display:flex; align-items:center; padding:0 18px; gap:16px;
-box-shadow:0 4px 20px rgba(232,83,107,.06);
 }
-.topbar-logo{ font-size:16px; font-weight:700; color:#5C2430; display:flex; align-items:center; gap:8px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
-.topbar-logo svg{ color:#D4AF6A; flex:0 0 auto; }
+.topbar-logo{ display:flex; align-items:center; gap:10px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
+.topbar-logo-icon{
+width:36px; height:36px; border-radius:10px; flex:0 0 auto;
+background:linear-gradient(160deg, #D4AF6A, #8B6F3E);
+display:flex; align-items:center; justify-content:center; color:#1A1C24;
+}
+.topbar-logo-icon svg{ width:19px; height:19px; }
+.topbar-logo-title{ font-size:18px; font-weight:700; color:#fff; font-family:'Cormorant Garamond', serif; }
+.topbar-logo-title em{ font-style:normal; color:#D4AF6A; }
 .topbar-right{ margin-left:auto; display:flex; gap:8px; }
 .topbar-icon-btn{
-width:36px; height:36px; border-radius:50%; border:none; background:rgba(232,83,107,.08);
-display:flex; align-items:center; justify-content:center; cursor:pointer; color:#5C2430;
+width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.06);
+display:flex; align-items:center; justify-content:center; cursor:pointer; color:#E4E6EC;
 }
-.topbar-icon-btn:hover{ background:rgba(232,83,107,.16); }
+.topbar-icon-btn:hover{ background:rgba(255,255,255,.12); }
 
 .watch-layout{
-margin-top:66px; padding:22px 22px 60px;
+margin-top:68px; padding:22px 22px 60px;
 display:flex; gap:26px; align-items:flex-start; max-width:1500px; margin-left:auto; margin-right:auto;
 flex-wrap:wrap;
 }
@@ -55,80 +61,85 @@ flex-wrap:wrap;
 .main-col{ flex:2 1 560px; min-width:0; }
 .side-col{ flex:1 1 320px; max-width:400px; }
 
-.player-wrap{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#1a0a0d; margin-bottom:16px; box-shadow:0 12px 36px rgba(232,83,107,.15); }
+.player-wrap{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#0A0B0E; margin-bottom:16px; box-shadow:0 12px 36px rgba(0,0,0,.4); }
 .player-wrap iframe, .player-wrap video{ width:100%; height:100%; border:none; }
 
-.title{ font-size:18px; font-weight:700; color:#5C2430; margin-bottom:10px; line-height:1.3; }
+.title{ font-size:19px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; font-family:'Cormorant Garamond', serif; }
 
 .channel-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
 .channel-avatar{
-width:40px; height:40px; border-radius:50%; background:rgba(212,175,106,.18);
+width:40px; height:40px; border-radius:50%; background:rgba(212,175,106,.16);
 display:flex; align-items:center; justify-content:center; color:#D4AF6A; flex:0 0 auto;
 }
-.channel-name{ font-size:13px; font-weight:650; color:#5C2430; }
-.channel-genre{ font-size:11.5px; color:#9C6B72; }
+.channel-name{ font-size:13px; font-weight:650; color:#fff; }
+.channel-genre{ font-size:11.5px; color:#9CA0AC; }
 
-.action-row{ display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+.action-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
 
 .action-btn{
-display:flex; align-items:center; gap:7px; padding:9px 15px; border-radius:20px; border:1px solid rgba(232,83,107,.18);
-background:rgba(255,255,255,.6); color:#5C2430; cursor:pointer; font-size:12.5px; font-weight:600;
+display:flex; align-items:center; gap:7px; padding:9px 15px; border-radius:20px; border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05); color:#E4E6EC; cursor:pointer; font-size:12.5px; font-weight:600;
 }
-.action-btn.liked{ background:rgba(232,83,107,.14); border-color:#E8536B; color:#E8536B; }
+.action-btn.liked{ background:rgba(212,175,106,.16); border-color:#D4AF6A; color:#D4AF6A; }
+.action-btn.active{ background:rgba(212,175,106,.16); border-color:#D4AF6A; color:#D4AF6A; }
 .action-btn svg{ width:16px; height:16px; }
-.views-count{ font-size:12px; color:#C79AA0; margin-left:auto; }
+.views-count{ font-size:12px; color:#5F6270; margin-left:auto; }
+
+.repeat-hint{ font-size:11px; color:#5F6270; margin-bottom:18px; }
 
 .description{
-background:rgba(255,255,255,.55); border-radius:12px; padding:14px 16px; margin-bottom:26px;
-font-size:12.5px; color:#7A4750; line-height:1.6; border:1px solid rgba(232,83,107,.1);
+background:rgba(255,255,255,.04); border-radius:12px; padding:14px 16px; margin-bottom:26px;
+font-size:12.5px; color:#B0B3BE; line-height:1.6; border:1px solid rgba(255,255,255,.06);
 }
 
-.comments-heading{ font-size:14px; font-weight:650; color:#5C2430; margin-bottom:14px; }
+.comments-heading{ font-size:14px; font-weight:650; color:#fff; margin-bottom:14px; }
 
 .comment-form{ display:flex; gap:10px; margin-bottom:22px; }
 .comment-form textarea{
-flex:1; min-height:44px; padding:11px 13px; border-radius:10px; border:1px solid rgba(232,83,107,.18);
-background:#fff; color:#5C2430; font-family:inherit; font-size:12.5px; resize:vertical;
+flex:1; min-height:44px; padding:11px 13px; border-radius:10px; border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05); color:#fff; font-family:inherit; font-size:12.5px; resize:vertical;
 }
 .comment-form button{
-padding:10px 18px; border:none; border-radius:10px; background:#E8536B; color:#fff; font-weight:650; font-size:12.5px; cursor:pointer;
+padding:10px 18px; border:none; border-radius:10px; background:#D4AF6A; color:#1A1C24; font-weight:650; font-size:12.5px; cursor:pointer;
 }
-.comment-form button:hover{ background:#D63F58; }
+.comment-form button:disabled{ opacity:.5; cursor:not-allowed; }
 
 .comment{ display:flex; gap:10px; margin-bottom:16px; }
-.comment-avatar{ width:34px; height:34px; border-radius:50%; flex:0 0 auto; background:rgba(212,175,106,.18); object-fit:cover; }
+.comment-avatar{ width:34px; height:34px; border-radius:50%; flex:0 0 auto; background:rgba(212,175,106,.16); object-fit:cover; }
 .comment-body{ flex:1; }
-.comment-name{ font-size:12.5px; font-weight:650; color:#5C2430; }
-.comment-text{ font-size:12.5px; color:#7A4750; margin-top:2px; line-height:1.5; }
+.comment-name{ font-size:12.5px; font-weight:650; color:#fff; }
+.comment-text{ font-size:12.5px; color:#B0B3BE; margin-top:2px; line-height:1.5; }
 
-.empty-note{ color:#C79AA0; font-size:12.5px; padding:16px 0; }
+.empty-note{ color:#5F6270; font-size:12.5px; padding:16px 0; }
+.error-note{ color:#E08787; font-size:12px; padding:8px 0; }
 
-.side-heading{ font-size:13px; font-weight:650; color:#5C2430; margin-bottom:12px; }
+.side-heading{ font-size:13px; font-weight:650; color:#fff; margin-bottom:12px; }
 
 .up-next-row{ display:flex; gap:10px; margin-bottom:12px; cursor:pointer; }
-.un-thumb{ width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:8px; flex:0 0 auto; box-shadow:0 4px 12px rgba(232,83,107,.12); }
-.un-thumb-fallback{ width:120px; aspect-ratio:16/9; border-radius:8px; flex:0 0 auto; background:linear-gradient(135deg, #E8536B 0%, #D4AF6A 100%); }
-.un-title{ font-size:12px; font-weight:600; color:#5C2430; line-height:1.35; margin-bottom:3px; }
-.un-sub{ font-size:11px; color:#C79AA0; }
+.up-next-row.playing{ background:rgba(212,175,106,.08); border-radius:8px; padding:6px; margin-left:-6px; margin-right:-6px; }
+.un-thumb{ width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:8px; flex:0 0 auto; background:#0A0B0E; }
+.un-thumb-fallback{ width:120px; aspect-ratio:16/9; border-radius:8px; flex:0 0 auto; background:linear-gradient(135deg, rgba(212,175,106,.25), #0A0B0E); }
+.un-title{ font-size:12px; font-weight:600; color:#fff; line-height:1.35; margin-bottom:3px; }
+.un-sub{ font-size:11px; color:#5F6270; }
 
 .playlist-modal-overlay{
-position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(92,36,48,.4);
+position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6);
 display:none; align-items:center; justify-content:center; z-index:200; padding:20px;
 }
-.playlist-modal{ width:100%; max-width:360px; background:#FFFBF5; border:1px solid rgba(232,83,107,.15); border-radius:16px; padding:22px; box-shadow:0 20px 50px rgba(92,36,48,.2); }
-.playlist-modal h3{ margin:0 0 14px; font-size:15px; color:#5C2430; }
-.playlist-item{ padding:10px 12px; border-radius:9px; background:rgba(232,83,107,.05); margin-bottom:8px; cursor:pointer; font-size:12.5px; color:#5C2430; }
-.playlist-item:hover{ background:rgba(232,83,107,.12); }
+.playlist-modal{ width:100%; max-width:360px; background:#1E2028; border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:22px; }
+.playlist-modal h3{ margin:0 0 14px; font-size:15px; color:#fff; }
+.playlist-item{ padding:10px 12px; border-radius:9px; background:rgba(255,255,255,.05); margin-bottom:8px; cursor:pointer; font-size:12.5px; color:#E4E6EC; }
+.playlist-item:hover{ background:rgba(212,175,106,.12); }
 .new-playlist-row{ display:flex; gap:8px; margin-top:14px; }
-.new-playlist-row input{ flex:1; padding:9px 11px; border-radius:8px; border:1px solid rgba(232,83,107,.18); background:#fff; color:#5C2430; font-size:12px; }
-.new-playlist-row button{ padding:9px 14px; border:none; border-radius:8px; background:#E8536B; color:#fff; font-weight:650; font-size:12px; cursor:pointer; }
-.close-modal{ display:block; margin-top:14px; text-align:center; color:#C79AA0; font-size:11.5px; cursor:pointer; }
+.new-playlist-row input{ flex:1; padding:9px 11px; border-radius:8px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:#fff; font-size:12px; }
+.new-playlist-row button{ padding:9px 14px; border:none; border-radius:8px; background:#D4AF6A; color:#1A1C24; font-weight:650; font-size:12px; cursor:pointer; }
+.close-modal{ display:block; margin-top:14px; text-align:center; color:#5F6270; font-size:11.5px; cursor:pointer; }
 
 @media (max-width:860px){
   .watch-layout{ padding:16px 14px 60px; flex-direction:column; }
   .main-col{ flex:1 1 100%; width:100%; }
   .side-col{ flex:1 1 100%; width:100%; max-width:100%; }
-  .title{ font-size:16px; }
+  .title{ font-size:17px; }
   .topbar{ padding:0 12px; gap:10px; }
 }
 
@@ -139,8 +150,10 @@ display:none; align-items:center; justify-content:center; z-index:200; padding:2
 
 <div class="topbar">
 <div class="topbar-logo" onclick="location.href='/music/index.html'">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-SayBon Music
+<div class="topbar-logo-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+</div>
+<div class="topbar-logo-title">SayBon <em>Music</em></div>
 </div>
 <div class="topbar-right">
 <button class="topbar-icon-btn" onclick="location.href='/music/admin.html'" aria-label="Music Admin">
@@ -177,8 +190,14 @@ SayBon Music
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
 Save
 </button>
+<button class="action-btn" id="repeatBtn" onclick="cycleRepeatMode()">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+<span id="repeatLabel">Repeat: Off</span>
+</button>
 <span class="views-count" id="viewsCount"></span>
 </div>
+
+<div class="repeat-hint">Click Repeat to cycle: Off → Repeat Current → Repeat All</div>
 
 <div class="description" id="videoDescription" style="display:none;"></div>
 
@@ -186,8 +205,9 @@ Save
 
 <div class="comment-form">
 <textarea id="commentInput" placeholder="Add a comment..."></textarea>
-<button onclick="postComment()">Post</button>
+<button id="postCommentBtn" onclick="postComment()">Post</button>
 </div>
+<div id="commentError" class="error-note" style="display:none;"></div>
 
 <div id="commentsList"></div>
 
@@ -212,6 +232,8 @@ Save
 </div>
 </div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script type="module">
 
 import { auth } from "/js/firebase-init.js";
@@ -223,6 +245,11 @@ const videoId = params.get("v");
 
 let currentUser = null;
 let currentVideo = null;
+let ytPlayer = null;
+let htmlVideoEl = null;
+let repeatMode = "off";
+let upNextQueue = [];
+let ytApiReady = false;
 
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
@@ -230,16 +257,95 @@ onAuthStateChanged(auth, (user) => {
   loadComments();
 });
 
-async function loadVideo(){
+window.onYouTubeIframeAPIReady = function(){
+  ytApiReady = true;
+};
 
-  if(!videoId){
-    document.getElementById("videoTitle").innerText = "No video specified.";
-    return;
+window.cycleRepeatMode = function(){
+  if(repeatMode === "off") repeatMode = "current";
+  else if(repeatMode === "current") repeatMode = "all";
+  else repeatMode = "off";
+
+  const label = repeatMode === "off" ? "Repeat: Off" : repeatMode === "current" ? "Repeat: Current" : "Repeat: All";
+  document.getElementById("repeatLabel").innerText = label;
+  document.getElementById("repeatBtn").classList.toggle("active", repeatMode !== "off");
+}
+
+function handleVideoEnded(){
+  if(repeatMode === "current"){
+    if(htmlVideoEl){
+      htmlVideoEl.currentTime = 0;
+      htmlVideoEl.play();
+    }else if(ytPlayer && ytPlayer.seekTo){
+      ytPlayer.seekTo(0);
+      ytPlayer.playVideo();
+    }
+  }else if(repeatMode === "all"){
+    playNextInQueue();
   }
+}
+
+function playNextInQueue(){
+  if(!upNextQueue.length) return;
+  const currentIdx = upNextQueue.findIndex(v => v.id === videoId);
+  const nextIdx = (currentIdx + 1) % upNextQueue.length;
+  loadVideoById(upNextQueue[nextIdx].id);
+}
+
+function buildPlayer(data){
+
+  htmlVideoEl = null;
+  ytPlayer = null;
+
+  if(data.fileUrl){
+
+    document.getElementById("playerWrap").innerHTML =
+      "<video id='mainVideoEl' controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
+
+    htmlVideoEl = document.getElementById("mainVideoEl");
+    htmlVideoEl.addEventListener("ended", handleVideoEnded);
+
+  }else if(data.youtubeId){
+
+    document.getElementById("playerWrap").innerHTML = "<div id='ytPlayerTarget' style='width:100%;height:100%;'></div>";
+
+    const createPlayer = () => {
+      ytPlayer = new YT.Player('ytPlayerTarget', {
+        videoId: data.youtubeId,
+        playerVars: { modestbranding: 1, rel: 0 },
+        events: {
+          onStateChange: (event) => {
+            if(event.data === YT.PlayerState.ENDED){
+              handleVideoEnded();
+            }
+          }
+        }
+      });
+    };
+
+    if(ytApiReady){
+      createPlayer();
+    }else{
+      const waitForApi = setInterval(() => {
+        if(ytApiReady){
+          clearInterval(waitForApi);
+          createPlayer();
+        }
+      }, 200);
+    }
+
+  }else{
+    document.getElementById("playerWrap").innerHTML =
+      "<div style='display:flex;align-items:center;justify-content:center;height:100%;color:#5F6270;font-size:13px;'>Video unavailable</div>";
+  }
+
+}
+
+async function loadVideoById(id, pushHistory){
 
   try{
 
-    const url = API_BASE + "/api/musicVideo?id=" + encodeURIComponent(videoId) + (currentUser ? "&userId=" + encodeURIComponent(currentUser.uid) : "");
+    const url = API_BASE + "/api/musicVideo?id=" + encodeURIComponent(id) + (currentUser ? "&userId=" + encodeURIComponent(currentUser.uid) : "");
     const res = await fetch(url);
     const data = await res.json();
 
@@ -250,16 +356,11 @@ async function loadVideo(){
 
     currentVideo = data;
 
-    if(data.fileUrl){
-      document.getElementById("playerWrap").innerHTML =
-        "<video controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#1a0a0d;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
-    }else if(data.youtubeId){
-      document.getElementById("playerWrap").innerHTML =
-        "<iframe src='https://www.youtube.com/embed/" + data.youtubeId + "?modestbranding=1&rel=0' allow='autoplay; encrypted-media' allowfullscreen></iframe>";
-    }else{
-      document.getElementById("playerWrap").innerHTML =
-        "<div style='display:flex;align-items:center;justify-content:center;height:100%;color:#C79AA0;font-size:13px;'>Video unavailable</div>";
+    if(pushHistory){
+      window.history.replaceState({}, "", "/music/watch.html?v=" + id);
     }
+
+    buildPlayer(data);
 
     document.getElementById("videoTitle").innerText = data.title;
     document.getElementById("videoArtist").innerText = data.artist || "SayBon Music";
@@ -267,27 +368,36 @@ async function loadVideo(){
     document.getElementById("viewsCount").innerText = data.views + " views";
     document.getElementById("likeCount").innerText = data.likeCount;
 
-    if(data.userHasLiked){
-      document.getElementById("likeBtn").classList.add("liked");
-    }
+    document.getElementById("likeBtn").classList.toggle("liked", !!data.userHasLiked);
 
     if(data.description){
       document.getElementById("videoDescription").style.display = "block";
       document.getElementById("videoDescription").innerText = data.description;
+    }else{
+      document.getElementById("videoDescription").style.display = "none";
     }
 
     fetch(API_BASE + "/api/musicIncrementView", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ videoId })
+      body: JSON.stringify({ videoId: id })
     });
 
-    loadUpNext(data.genre);
+    loadUpNext(data.genre, id);
+    loadComments(id);
 
   }catch(err){
     document.getElementById("videoTitle").innerText = "Could not load this video.";
   }
 
+}
+
+function loadVideo(){
+  if(!videoId){
+    document.getElementById("videoTitle").innerText = "No video specified.";
+    return;
+  }
+  loadVideoById(videoId, false);
 }
 
 function upNextThumb(v){
@@ -296,13 +406,14 @@ function upNextThumb(v){
   return "<div class='un-thumb-fallback'></div>";
 }
 
-async function loadUpNext(genre){
+async function loadUpNext(genre, activeId){
 
   const res = await fetch(API_BASE + "/api/musicVideos?genre=" + encodeURIComponent(genre));
   const videos = await res.json();
 
-  const others = videos.filter(v => v.id !== videoId);
+  upNextQueue = videos;
 
+  const others = videos.filter(v => v.id !== activeId);
   const list = document.getElementById("upNextList");
 
   if(!others.length){
@@ -315,7 +426,7 @@ async function loadUpNext(genre){
   others.forEach(v => {
     const row = document.createElement("div");
     row.className = "up-next-row";
-    row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
+    row.onclick = () => loadVideoById(v.id, true);
     row.innerHTML =
       upNextThumb(v) +
       "<div><div class='un-title'>" + v.title + "</div><div class='un-sub'>" + (v.artist||"SayBon Music") + " · " + v.views + " views</div></div>";
@@ -326,7 +437,9 @@ async function loadUpNext(genre){
 
 document.getElementById("likeBtn").addEventListener("click", async () => {
 
-  if(!currentUser){
+  const realUser = auth.currentUser;
+
+  if(!realUser){
     alert("Please sign in to react to videos.");
     return;
   }
@@ -334,7 +447,7 @@ document.getElementById("likeBtn").addEventListener("click", async () => {
   const res = await fetch(API_BASE + "/api/musicToggleReaction", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ videoId, userId: currentUser.uid })
+    body: JSON.stringify({ videoId: currentVideo.id, userId: realUser.uid })
   });
 
   const data = await res.json();
@@ -353,11 +466,12 @@ document.getElementById("likeBtn").addEventListener("click", async () => {
 
 });
 
-async function loadComments(){
+async function loadComments(id){
 
-  if(!videoId) return;
+  const idToUse = id || videoId;
+  if(!idToUse) return;
 
-  const res = await fetch(API_BASE + "/api/musicComments?videoId=" + encodeURIComponent(videoId));
+  const res = await fetch(API_BASE + "/api/musicComments?videoId=" + encodeURIComponent(idToUse));
   const comments = await res.json();
 
   const list = document.getElementById("commentsList");
@@ -385,41 +499,73 @@ async function loadComments(){
 
 window.postComment = async function(){
 
-  if(!currentUser){
-    alert("Please sign in to comment.");
+  const errorEl = document.getElementById("commentError");
+  errorEl.style.display = "none";
+
+  const realUser = auth.currentUser || currentUser;
+
+  if(!realUser){
+    errorEl.innerText = "Please sign in to comment.";
+    errorEl.style.display = "block";
+    return;
+  }
+
+  if(!currentVideo || !currentVideo.id){
+    errorEl.innerText = "Video not loaded yet - please wait a moment and try again.";
+    errorEl.style.display = "block";
     return;
   }
 
   const text = document.getElementById("commentInput").value.trim();
   if(!text) return;
 
-  const res = await fetch(API_BASE + "/api/musicAddComment", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      videoId,
-      userId: currentUser.uid,
-      userName: currentUser.displayName || "SayBon User",
-      userPhoto: currentUser.photoURL || "",
-      text
-    })
-  });
+  const btn = document.getElementById("postCommentBtn");
+  btn.disabled = true;
+  btn.innerText = "Posting...";
 
-  if(res.ok){
-    document.getElementById("commentInput").value = "";
-    loadComments();
+  try{
+
+    const res = await fetch(API_BASE + "/api/musicAddComment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        videoId: currentVideo.id,
+        userId: realUser.uid,
+        userName: realUser.displayName || "SayBon User",
+        userPhoto: realUser.photoURL || "",
+        text
+      })
+    });
+
+    if(res.ok){
+      document.getElementById("commentInput").value = "";
+      loadComments(currentVideo.id);
+    }else{
+      const data = await res.json().catch(() => ({}));
+      errorEl.innerText = data.error || "Could not post your comment. Please try again.";
+      errorEl.style.display = "block";
+    }
+
+  }catch(err){
+    errorEl.innerText = "Could not reach the server. Please try again.";
+    errorEl.style.display = "block";
+  }finally{
+    btn.disabled = false;
+    btn.innerText = "Post";
   }
 
 }
 
 window.openPlaylistModal = async function(){
 
-  if(!currentUser){
+  const realUser = auth.currentUser || currentUser;
+
+  if(!realUser){
     alert("Please sign in to use playlists.");
     return;
   }
 
-  const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(currentUser.uid));
+  const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(realUser.uid));
   const playlists = await res.json();
 
   const list = document.getElementById("playlistList");
@@ -448,7 +594,7 @@ async function addToPlaylist(playlistId){
   await fetch(API_BASE + "/api/musicAddToPlaylist", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ playlistId, videoId })
+    body: JSON.stringify({ playlistId, videoId: currentVideo.id })
   });
 
   document.getElementById("playlistModal").style.display = "none";
@@ -458,13 +604,14 @@ async function addToPlaylist(playlistId){
 
 window.createAndAdd = async function(){
 
+  const realUser = auth.currentUser || currentUser;
   const name = document.getElementById("newPlaylistName").value.trim();
   if(!name) return;
 
   const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: currentUser.uid, name })
+    body: JSON.stringify({ userId: realUser.uid, name })
   });
 
   const data = await res.json();
