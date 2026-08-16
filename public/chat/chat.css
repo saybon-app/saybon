@@ -326,7 +326,7 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 .message-file-card span{ font-size:13px; word-break:break-word; }
 .message-bubble audio{ display:block; }
 
-.sidebar-mobile-nav{ display:none; }
+.sidebar-mobile-nav{ display:none; flex:0 0 auto; }
 
 @media (max-width:800px){
   body{ padding:0; }
@@ -340,10 +340,13 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 
   .mobile-back-btn{ display:flex; }
 
+.sidebar-profile{ padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+.messages-container{ padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+
   .global-home-btn, .global-dashboard-btn, .global-admin-btn{ display:none; }
 
   .sidebar-brand{ justify-content:space-between; }
-  .sidebar-mobile-nav{ display:flex; gap:6px; margin-left:auto; }
+  .sidebar-mobile-nav{ display:flex; gap:6px; }
   .sidebar-mobile-nav button{
     width:32px; height:32px; border-radius:50%; border:none;
     background:rgba(255,255,255,.08); color:#E9EDEF; cursor:pointer;
