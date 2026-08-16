@@ -16,7 +16,7 @@ const ROOM_IDS = [
 ];
 
 const roomButtons = document.querySelectorAll(".room-btn");
-const toggleBtn = document.getElementById("toggleBtn");
+const toggleBtn = document.querySelector(".sidebar-brand");
 // promoBtn reference removed - element no longer exists in the rebuilt sidebar
 const welcomeWorkspace = document.getElementById("welcomeWorkspace");
 const chatWorkspace = document.getElementById("chatWorkspace");
@@ -342,8 +342,7 @@ saveProfileEdit.addEventListener("click", async () => {
 // =========================================================
 
 toggleBtn.addEventListener("click", () => {
-  document.querySelectorAll(".conversation-item, .new-chat-btn").forEach(b => b.classList.remove("active"));
-  toggleBtn.classList.add("active");
+  document.querySelectorAll(".conversation-item").forEach(b => b.classList.remove("active"));
 
   chatWorkspace.classList.add("hidden");
   welcomeWorkspace.classList.remove("hidden");
@@ -556,7 +555,7 @@ async function sendMessage() {
       createdAt: serverTimestamp()
     });
 
-    const preview = text.length > 60 ? text.slice(0, 60) + "ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦" : text;
+    const preview = text.length > 60 ? text.slice(0, 60) + "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦" : text;
 
     await setDoc(doc(db, "chatRooms", currentRoomId), {
       lastMessage: preview,
