@@ -308,6 +308,15 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 .profile-photo-row{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
 .profile-photo-preview{ width:64px; height:64px; border-radius:50%; object-fit:cover; background:#2A3942; }
 
+.message-image{ max-width:260px; border-radius:8px; cursor:pointer; display:block; }
+.message-file-card{
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px;
+  background:rgba(255,255,255,.06); cursor:pointer; min-width:180px;
+}
+.message-file-card:hover{ background:rgba(255,255,255,.12); }
+.message-file-card span{ font-size:13px; word-break:break-word; }
+.message-bubble audio{ display:block; }
+
 @media (max-width:800px){
   body{ padding:0; }
   .chatroom-shell{ width:100vw; height:100vh; border-radius:0; grid-template-columns:1fr; }

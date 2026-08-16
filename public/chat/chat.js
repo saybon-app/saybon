@@ -1,6 +1,6 @@
 import { auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import {
   collection, addDoc, doc, setDoc, getDocs, query, where, documentId,
   orderBy, onSnapshot, serverTimestamp
@@ -379,48 +379,165 @@ searchToggle.addEventListener("click", () => {
 // MEDIA ATTACHMENTS (preview only)
 // =========================================================
 
+const chatStorage = getStorage();
+
 mediaBtn.addEventListener("click", () => { mediaInput.click(); });
 
-mediaInput.addEventListener("change", (e) => {
-  mediaPreview.innerHTML = "";
+mediaInput.addEventListener("change", async (e) => {
+
   const files = [...e.target.files];
-  if (!files.length) return;
+  mediaInput.value = "";
+  if (!files.length || !currentRoomId || !currentUser) return;
+
+  const displayName = currentUser.displayName || currentUser.email || "Learner";
   mediaPreview.classList.remove("hidden");
-  files.forEach(file => {
+
+  for (const file of files) {
+
     const card = document.createElement("div");
     card.className = "media-card";
-    card.innerHTML = escapeHtml(file.name);
+    card.textContent = "Uploading " + file.name + "...";
     mediaPreview.appendChild(card);
-  });
+
+    try {
+
+      const fileRef = storageRef(chatStorage, "chatMedia/" + currentRoomId + "/" + Date.now() + "_" + file.name);
+      await uploadBytesResumable(fileRef, file);
+      const fileUrl = await getDownloadURL(fileRef);
+
+      await addDoc(collection(db, "chatRooms", currentRoomId, "messages"), {
+        uid: currentUser.uid,
+        displayName,
+        type: "file",
+        fileUrl,
+        fileName: file.name,
+        fileType: file.type,
+        createdAt: serverTimestamp()
+      });
+
+      await setDoc(doc(db, "chatRooms", currentRoomId), {
+        lastMessage: "Sent: " + file.name,
+        lastMessageAt: serverTimestamp(),
+        lastSenderName: displayName
+      }, { merge: true });
+
+      card.remove();
+
+    } catch (err) {
+      console.error("File upload failed:", err);
+      card.textContent = "Failed to upload " + file.name;
+    }
+
+  }
+
+  setTimeout(() => {
+    mediaPreview.classList.add("hidden");
+    mediaPreview.innerHTML = "";
+  }, 1200);
+
 });
 
 // =========================================================
-// VOICE NOTE SYSTEM (recording UI only)
+// VOICE NOTE SYSTEM (real recording, upload, and send)
 // =========================================================
 
-voiceBtn.addEventListener("click", () => {
+let mediaRecorder = null;
+let recordedChunks = [];
+let micStream = null;
+
+function stopMicStream(){
+  if (micStream) {
+    micStream.getTracks().forEach(t => t.stop());
+    micStream = null;
+  }
+}
+
+voiceBtn.addEventListener("click", async () => {
+
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (err) {
+    alert("Could not access your microphone. Please allow microphone permission and try again.");
+    return;
+  }
+
   composer.classList.add("hidden");
   recordingPanel.classList.remove("hidden");
   recordingSeconds = 0;
   recordingTimer.innerHTML = "0:00";
+
+  recordedChunks = [];
+  mediaRecorder = new MediaRecorder(micStream);
+  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+  mediaRecorder.start();
+
   recordingInterval = setInterval(() => {
     recordingSeconds++;
     const mins = Math.floor(recordingSeconds / 60);
     const secs = recordingSeconds % 60;
     recordingTimer.innerHTML = mins + ":" + secs.toString().padStart(2, "0");
   }, 1000);
+
 });
 
 cancelRecording.addEventListener("click", () => {
   clearInterval(recordingInterval);
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.onstop = null;
+    mediaRecorder.stop();
+  }
+  stopMicStream();
   recordingPanel.classList.add("hidden");
   composer.classList.remove("hidden");
 });
 
 document.getElementById("sendRecording").addEventListener("click", () => {
+
   clearInterval(recordingInterval);
   recordingPanel.classList.add("hidden");
   composer.classList.remove("hidden");
+
+  if (!mediaRecorder || mediaRecorder.state === "inactive" || !currentRoomId || !currentUser) {
+    stopMicStream();
+    return;
+  }
+
+  mediaRecorder.onstop = async () => {
+
+    stopMicStream();
+
+    const blob = new Blob(recordedChunks, { type: "audio/webm" });
+    const displayName = currentUser.displayName || currentUser.email || "Learner";
+
+    try {
+
+      const fileRef = storageRef(chatStorage, "chatVoiceNotes/" + currentRoomId + "/" + Date.now() + ".webm");
+      await uploadBytesResumable(fileRef, blob);
+      const fileUrl = await getDownloadURL(fileRef);
+
+      await addDoc(collection(db, "chatRooms", currentRoomId, "messages"), {
+        uid: currentUser.uid,
+        displayName,
+        type: "voice",
+        fileUrl,
+        createdAt: serverTimestamp()
+      });
+
+      await setDoc(doc(db, "chatRooms", currentRoomId), {
+        lastMessage: "Voice note",
+        lastMessageAt: serverTimestamp(),
+        lastSenderName: displayName
+      }, { merge: true });
+
+    } catch (err) {
+      console.error("Voice note upload failed:", err);
+      alert("Could not send voice note. Please try again.");
+    }
+
+  };
+
+  mediaRecorder.stop();
+
 });
 
 // =========================================================
@@ -496,7 +613,31 @@ function subscribeToRoom(roomId) {
       if (!isOwn) inner += "<div class=\"message-avatar\">" + initial + "</div>";
       inner += "<div class=\"message-bubble " + (isOwn ? "outgoing-bubble" : "incoming-bubble") + "\">";
       if (!isOwn) inner += "<div class=\"message-user\">" + name + "</div>";
-      inner += "<div>" + text + "</div></div>";
+
+      if (msg.type === "file") {
+
+        const isImage = msg.fileType && msg.fileType.indexOf("image/") === 0;
+
+        if (isImage) {
+          inner += "<img class=\"message-image\" src=\"" + msg.fileUrl + "\" onclick=\"window.open('" + msg.fileUrl + "','_blank')\">";
+        } else {
+          inner += "<div class=\"message-file-card\" onclick=\"window.open('" + msg.fileUrl + "','_blank')\">" +
+            "<svg viewBox='0 0 24 24' width='20' height='20' fill='none' stroke='currentColor' stroke-width='1.8'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><path d='M14 2v6h6'/></svg>" +
+            "<span>" + escapeHtml(msg.fileName || "File") + "</span>" +
+            "</div>";
+        }
+
+      } else if (msg.type === "voice") {
+
+        inner += "<audio controls src=\"" + msg.fileUrl + "\" style=\"max-width:220px;\"></audio>";
+
+      } else {
+
+        inner += "<div>" + text + "</div>";
+
+      }
+
+      inner += "</div>";
 
       row.innerHTML = inner;
       messagesContainer.appendChild(row);
