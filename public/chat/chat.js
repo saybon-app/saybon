@@ -107,6 +107,8 @@ function openRoom(roomId, roomName) {
   welcomeWorkspace.classList.add("hidden");
   chatWorkspace.classList.remove("hidden");
 
+  document.querySelector(".chatroom-shell").classList.add("mobile-chat-open");
+
   roomTitle.innerHTML = roomName;
   roomAvatar.textContent = ROOM_AVATARS[roomId] || "💬";
   currentRoomId = roomId;
@@ -136,6 +138,8 @@ toggleBtn.addEventListener("click", () => {
   chatWorkspace.classList.add("hidden");
   welcomeWorkspace.classList.remove("hidden");
 
+  document.querySelector(".chatroom-shell").classList.remove("mobile-chat-open");
+
   if (unsubscribeMessages) {
     unsubscribeMessages();
     unsubscribeMessages = null;
@@ -149,6 +153,10 @@ toggleBtn.addEventListener("click", () => {
 
 homeBtn.addEventListener("click", () => { window.location.href = "/"; });
 dashboardBtn.addEventListener("click", () => { window.location.href = "/dashboard/"; });
+
+document.getElementById("mobileBackBtn").addEventListener("click", () => {
+  document.querySelector(".chatroom-shell").classList.remove("mobile-chat-open");
+});
 
 searchToggle.addEventListener("click", () => {
   searchRow.classList.toggle("hidden");
