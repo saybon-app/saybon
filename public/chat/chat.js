@@ -17,7 +17,7 @@ const ROOM_IDS = [
 
 const roomButtons = document.querySelectorAll(".room-btn");
 const toggleBtn = document.getElementById("toggleBtn");
-const promoBtn = document.getElementById("promoBtn");
+// promoBtn reference removed - element no longer exists in the rebuilt sidebar
 const welcomeWorkspace = document.getElementById("welcomeWorkspace");
 const chatWorkspace = document.getElementById("chatWorkspace");
 const roomTitle = document.getElementById("roomTitle");
@@ -335,10 +335,7 @@ saveProfileEdit.addEventListener("click", async () => {
 
 });
 
-promoBtn.addEventListener("click", () => {
-  const generalBtn = document.querySelector('.room-btn[data-room-id="general"]');
-  openRoom("general", "General");
-});
+// promoBtn removed along with the old promo card when the sidebar was rebuilt for the new room hierarchy
 
 // =========================================================
 // TOGGLE / WELCOME
@@ -559,7 +556,7 @@ async function sendMessage() {
       createdAt: serverTimestamp()
     });
 
-    const preview = text.length > 60 ? text.slice(0, 60) + "â€¦" : text;
+    const preview = text.length > 60 ? text.slice(0, 60) + "ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦" : text;
 
     await setDoc(doc(db, "chatRooms", currentRoomId), {
       lastMessage: preview,
