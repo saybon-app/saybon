@@ -41,7 +41,22 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; z-inde
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.container{ max-width:1200px; margin:auto; }
+.container{
+max-width:1200px; margin:auto;
+opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px);
+animation: containerEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes containerEnter{
+from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+
+.cascade-card{ opacity:0; animation: cascadeIn .5s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes cascadeIn{
+from{ opacity:0; transform:translateY(14px); filter:blur(4px); }
+to{ opacity:1; transform:translateY(0); filter:blur(0); }
+}
 
 h1{ text-align:center; letter-spacing:1px; font-size:22px; font-weight:700; color:#fff; margin-bottom:24px; }
 
@@ -281,9 +296,10 @@ async function loadOverview(){
     { label: "Playlists Created", value: data.totalPlaylists }
   ];
 
-  cards.forEach(c=>{
+  cards.forEach((c,i)=>{
     const card = document.createElement("div");
-    card.className = "stat-card";
+    card.className = "stat-card cascade-card";
+    card.style.animationDelay = (i * 0.08) + "s";
     card.innerHTML = "<div class='stat-label'>" + c.label + "</div><div class='stat-value'>" + c.value + "</div>";
     grid.appendChild(card);
   });
