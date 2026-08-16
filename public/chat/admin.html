@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+<meta charset="UTF-8" />
+<title>Chat Admin — SayBon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+*{ box-sizing:border-box; font-family:"Inter", system-ui, sans-serif; }
+html, body{ margin:0; min-height:100%; background:#0B141A; color:#E9EDEF; }
+body{ padding:24px; }
+
+.nav-icon-btn{
+position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:50%;
+background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50;
+}
+.back-btn{ left:20px; }
+.dashboard-btn{ right:20px; }
+
+h1{ text-align:center; font-size:22px; font-weight:800; margin:0 0 24px; }
+
+.login{ text-align:center; margin-top:100px; }
+.login input{
+padding:11px 14px; border-radius:8px; border:none; background:#202C33; color:#fff; font-size:14px;
+}
+.login button{ margin-left:8px; padding:11px 18px; border:none; border-radius:8px; background:#00A884; color:#0B141A; font-weight:700; cursor:pointer; }
+
+.container{ max-width:1100px; margin:0 auto; }
+
+.tabs{ display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+.tab-btn{ padding:10px 16px; border-radius:8px; border:none; background:#202C33; color:#8696A0; cursor:pointer; font-weight:600; font-size:13px; }
+.tab-btn.active{ background:#00A884; color:#0B141A; }
+
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:14px; margin-bottom:20px; }
+.stat-card{ background:#111B21; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:16px; }
+.stat-label{ font-size:10px; text-transform:uppercase; color:#8696A0; margin-bottom:6px; }
+.stat-value{ font-size:24px; font-weight:800; }
+
+table{ width:100%; border-collapse:collapse; }
+th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,.06); font-size:13px; }
+th{ color:#8696A0; font-size:11px; text-transform:uppercase; }
+
+.badge{ padding:3px 9px; border-radius:999px; font-size:11px; font-weight:700; }
+.badge-blocked{ background:rgba(224,87,87,.2); color:#f2a3a3; }
+.badge-flagged{ background:rgba(224,168,87,.2); color:#f2c98a; }
+.badge-clean{ background:rgba(0,168,132,.15); color:#00D9A6; }
+
+button.action-btn{ padding:6px 12px; border:none; border-radius:6px; font-size:11.5px; font-weight:700; cursor:pointer; margin-right:6px; }
+.btn-block{ background:#8B2C2C; color:#fff; }
+.btn-unblock{ background:#2A3942; color:#E9EDEF; }
+.btn-flag{ background:#8B6A2C; color:#fff; }
+.btn-delete{ background:#8B2C2C; color:#fff; }
+
+.empty-note{ padding:30px; text-align:center; color:#8696A0; font-size:13px; }
+
+</style>
+</head>
+<body>
+
+<button class="nav-icon-btn back-btn" onclick="location.href='/chat/'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
+<h1>CHAT MODERATION</h1>
+
+<div id="login" class="login">
+<p>Enter Admin Passcode</p>
+<input id="passcode" type="password">
+<button onclick="unlock()">Access Panel</button>
+</div>
+
+<div id="panel" style="display:none;">
+<div class="container">
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="overview">Overview</button>
+<button class="tab-btn" data-tab="users">Users</button>
+<button class="tab-btn" data-tab="violations">Violations</button>
+<button class="tab-btn" data-tab="rooms">Custom Rooms</button>
+</div>
+
+<div class="tab-panel active" id="panel-overview">
+<div class="stat-grid" id="statGrid"></div>
+</div>
+
+<div class="tab-panel" id="panel-users">
+<table>
+<tr><th>User</th><th>Violations</th><th>Status</th><th>Actions</th></tr>
+<tbody id="usersTable"></tbody>
+</table>
+</div>
+
+<div class="tab-panel" id="panel-violations">
+<table>
+<tr><th>User</th><th>Room</th><th>Term Matched</th><th>Message</th></tr>
+<tbody id="violationsTable"></tbody>
+</table>
+</div>
+
+<div class="tab-panel" id="panel-rooms">
+<table>
+<tr><th>Room Name</th><th>Last Message</th><th>Action</th></tr>
+<tbody id="roomsTable"></tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+function unlock(){
+  if(document.getElementById("passcode").value === "963281"){
+    sessionStorage.setItem("chatAdminVerified","true");
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+    loadAll();
+  }else{
+    alert("Incorrect passcode");
+  }
+}
+window.unlock = unlock;
+
+if(sessionStorage.getItem("chatAdminVerified") === "true"){
+  document.getElementById("login").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+  loadAll();
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+function loadAll(){
+  loadUsers();
+  loadViolations();
+  loadRooms();
+}
+
+let cachedUsers = [];
+let cachedViolations = [];
+let cachedRooms = [];
+
+function renderOverview(){
+  const grid = document.getElementById("statGrid");
+  const blockedCount = cachedUsers.filter(u=>u.blocked).length;
+  const flaggedCount = cachedUsers.filter(u=>u.flagged).length;
+  const cards = [
+    {label:"Total Users Tracked", value:cachedUsers.length},
+    {label:"Blocked Users", value:blockedCount},
+    {label:"Flagged Users", value:flaggedCount},
+    {label:"Total Violations", value:cachedViolations.length},
+    {label:"Custom Rooms", value:cachedRooms.length}
+  ];
+  grid.innerHTML = cards.map(c=>"<div class='stat-card'><div class='stat-label'>"+c.label+"</div><div class='stat-value'>"+c.value+"</div></div>").join("");
+}
+
+async function loadUsers(){
+
+  const table = document.getElementById("usersTable");
+  const res = await fetch(API_BASE + "/api/adminChatUsers");
+  cachedUsers = await res.json();
+
+  if(!cachedUsers.length){
+    table.innerHTML = "<tr><td colspan='4' class='empty-note'>No user activity tracked yet.</td></tr>";
+    renderOverview();
+    return;
+  }
+
+  table.innerHTML = "";
+
+  cachedUsers.forEach(u=>{
+    const row = document.createElement("tr");
+    const statusBadge = u.blocked ? "<span class='badge badge-blocked'>Blocked</span>" : u.flagged ? "<span class='badge badge-flagged'>Flagged</span>" : "<span class='badge badge-clean'>Clean</span>";
+    row.innerHTML =
+      "<td>"+escapeHtml(u.displayName)+"</td>"+
+      "<td>"+u.violationCount+"</td>"+
+      "<td>"+statusBadge+"</td>"+
+      "<td>"+
+        (u.blocked
+          ? "<button class='action-btn btn-unblock' onclick=\"unblockUser('"+u.uid+"')\">Unblock</button>"
+          : "<button class='action-btn btn-block' onclick=\"blockUser('"+u.uid+"','"+escapeHtml(u.displayName).replace(/'/g,"\\'")+"')\">Block</button>")+
+        "<button class='action-btn btn-flag' onclick=\"toggleFlag('"+u.uid+"','"+escapeHtml(u.displayName).replace(/'/g,"\\'")+"',"+(!u.flagged)+")\">"+(u.flagged?"Unflag":"Flag")+"</button>"+
+      "</td>";
+    table.appendChild(row);
+  });
+
+  renderOverview();
+
+}
+
+window.blockUser = async function(uid, displayName){
+  await fetch(API_BASE + "/api/adminBlockUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({uid, displayName})});
+  loadUsers();
+}
+
+window.unblockUser = async function(uid){
+  await fetch(API_BASE + "/api/adminUnblockUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({uid})});
+  loadUsers();
+}
+
+window.toggleFlag = async function(uid, displayName, flagged){
+  await fetch(API_BASE + "/api/adminFlagUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({uid, displayName, flagged})});
+  loadUsers();
+}
+
+async function loadViolations(){
+
+  const table = document.getElementById("violationsTable");
+  const res = await fetch(API_BASE + "/api/adminChatViolations");
+  cachedViolations = await res.json();
+
+  if(!cachedViolations.length){
+    table.innerHTML = "<tr><td colspan='4' class='empty-note'>No violations logged yet.</td></tr>";
+    renderOverview();
+    return;
+  }
+
+  table.innerHTML = "";
+
+  cachedViolations.forEach(v=>{
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td>"+escapeHtml(v.displayName)+"</td>"+
+      "<td>"+escapeHtml(v.roomId)+"</td>"+
+      "<td>"+escapeHtml(v.matchedTerm)+"</td>"+
+      "<td>"+escapeHtml(v.messageText)+"</td>";
+    table.appendChild(row);
+  });
+
+  renderOverview();
+
+}
+
+async function loadRooms(){
+
+  const table = document.getElementById("roomsTable");
+  const res = await fetch(API_BASE + "/api/adminChatCustomRooms");
+  cachedRooms = await res.json();
+
+  if(!cachedRooms.length){
+    table.innerHTML = "<tr><td colspan='3' class='empty-note'>No custom rooms created yet.</td></tr>";
+    renderOverview();
+    return;
+  }
+
+  table.innerHTML = "";
+
+  cachedRooms.forEach(r=>{
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td>"+escapeHtml(r.name)+"</td>"+
+      "<td>"+escapeHtml(r.lastMessage||"")+"</td>"+
+      "<td><button class='action-btn btn-delete' onclick=\"deleteRoom('"+r.id+"')\">Delete</button></td>";
+    table.appendChild(row);
+  });
+
+  renderOverview();
+
+}
+
+window.deleteRoom = async function(roomId){
+  if(!confirm("Delete this custom room? This cannot be undone.")) return;
+  await fetch(API_BASE + "/api/adminDeleteChatRoom", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({roomId})});
+  loadRooms();
+}
+
+function escapeHtml(str){
+  const div = document.createElement("div");
+  div.textContent = str == null ? "" : String(str);
+  return div.innerHTML;
+}
+
+</script>
+
+</body>
+</html>
