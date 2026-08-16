@@ -2287,9 +2287,14 @@ try{
 
 const videoId=req.query.videoId
 
+// NOTE: sorting happens in JS below rather than via .orderBy()
+// in the query, since combining .where() on one field with
+// .orderBy() on a different field requires a manually-created
+// Firestore composite index. Without that index, this exact
+// query silently throws every time, which was why comments
+// could be posted successfully but never appeared when loaded.
 const snapshot=await db.collection("musicComments")
 .where("videoId","==",videoId)
-.orderBy("createdAt","desc")
 .get()
 
 const comments=[]
@@ -2304,6 +2309,12 @@ userPhoto:d.userPhoto||"",
 text:d.text,
 createdAt:d.createdAt
 })
+})
+
+comments.sort((a,b) => {
+const aTime = a.createdAt && a.createdAt._seconds ? a.createdAt._seconds : (a.createdAt ? new Date(a.createdAt).getTime()/1000 : 0)
+const bTime = b.createdAt && b.createdAt._seconds ? b.createdAt._seconds : (b.createdAt ? new Date(b.createdAt).getTime()/1000 : 0)
+return bTime - aTime
 })
 
 res.json(comments)
