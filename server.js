@@ -2396,9 +2396,13 @@ if(!userId){
 return res.status(400).json({error:"User ID is required"})
 }
 
+// NOTE: sorting in JS below instead of via .orderBy(), same
+// fix as musicComments - .where() on one field combined with
+// .orderBy() on a different field requires a Firestore
+// composite index that doesn't exist here, causing this exact
+// query to silently fail every time.
 const snapshot=await db.collection("musicPlaylists")
 .where("userId","==",userId)
-.orderBy("createdAt","desc")
 .get()
 
 const playlists=[]
@@ -2411,6 +2415,12 @@ name:d.name,
 videoIds:d.videoIds||[],
 createdAt:d.createdAt
 })
+})
+
+playlists.sort((a,b) => {
+const aTime = a.createdAt && a.createdAt._seconds ? a.createdAt._seconds : (a.createdAt ? new Date(a.createdAt).getTime()/1000 : 0)
+const bTime = b.createdAt && b.createdAt._seconds ? b.createdAt._seconds : (b.createdAt ? new Date(b.createdAt).getTime()/1000 : 0)
+return bTime - aTime
 })
 
 res.json(playlists)
