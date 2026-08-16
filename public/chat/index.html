@@ -3,7 +3,7 @@
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
   <meta charset="UTF-8" />
-  <title>Chat â€” SayBon</title>
+  <title>Chat Ã¢â‚¬â€ SayBon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/chat/chat.css?v=20260816b" />
@@ -310,6 +310,22 @@
   </div>
 </div>
 
-<script type="module" src="/chat/chat.js?v=20260816b"></script>
+<div id="errorBanner" style="display:none; position:fixed; top:0; left:0; right:0; background:#c0392b; color:#fff; padding:14px 18px; font-family:monospace; font-size:12px; z-index:99999; white-space:pre-wrap; max-height:50vh; overflow-y:auto;"></div>
+
+<script>
+function showJsError(msg){
+  var el = document.getElementById("errorBanner");
+  el.style.display = "block";
+  el.textContent += msg + "\n\n";
+}
+window.addEventListener("error", function(e){
+  showJsError("ERROR: " + e.message + " (line " + e.lineno + ", col " + e.colno + ")\nFile: " + e.filename);
+});
+window.addEventListener("unhandledrejection", function(e){
+  showJsError("UNHANDLED PROMISE REJECTION: " + (e.reason && e.reason.message ? e.reason.message : e.reason));
+});
+</script>
+
+<script type="module" src="/chat/chat.js?v=20260816c"></script>
 </body>
 </html>
