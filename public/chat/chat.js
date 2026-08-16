@@ -540,12 +540,67 @@ document.getElementById("sendRecording").addEventListener("click", () => {
 // REAL MESSAGE SENDING
 // =========================================================
 
+const chatWarningBanner = document.getElementById("chatWarningBanner");
+
+function showChatWarning(msg){
+  chatWarningBanner.textContent = msg;
+  chatWarningBanner.classList.remove("hidden");
+  setTimeout(() => chatWarningBanner.classList.add("hidden"), 6000);
+}
+
 async function sendMessage() {
   const text = composerInput.value.trim();
   if (!text || !currentRoomId || !currentUser) return;
 
-  composerInput.value = "";
   const displayName = currentUser.displayName || currentUser.email || "Learner";
+
+  try {
+
+    const statusRes = await fetch(API_BASE + "/api/chatUserStatus?uid=" + encodeURIComponent(currentUser.uid));
+    const status = await statusRes.json();
+
+    if (status.blocked) {
+      showChatWarning("Your account has been blocked from sending messages due to repeated violations. Contact support if you believe this is a mistake.");
+      return;
+    }
+
+    const checkRes = await fetch(API_BASE + "/api/chatCheckContent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+    const check = await checkRes.json();
+
+    if (!check.allowed) {
+
+      const violationRes = await fetch(API_BASE + "/api/chatRecordViolation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uid: currentUser.uid,
+          displayName,
+          roomId: currentRoomId,
+          messageText: text,
+          matchedTerm: check.matchedTerm
+        })
+      });
+      const violation = await violationRes.json();
+
+      if (violation.blocked) {
+        showChatWarning("This message was not sent, and your account has now been blocked after repeated violations of our content guidelines.");
+      } else {
+        showChatWarning("This message was not sent - it contains content that is not allowed here. Warning " + violation.violationCount + " of 3. Continued violations will result in a block.");
+      }
+
+      return;
+
+    }
+
+  } catch (err) {
+    console.error("Content check failed:", err);
+  }
+
+  composerInput.value = "";
 
   try {
     await addDoc(collection(db, "chatRooms", currentRoomId, "messages"), {
@@ -555,7 +610,7 @@ async function sendMessage() {
       createdAt: serverTimestamp()
     });
 
-    const preview = text.length > 60 ? text.slice(0, 60) + "ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦" : text;
+    const preview = text.length > 60 ? text.slice(0, 60) + "..." : text;
 
     await setDoc(doc(db, "chatRooms", currentRoomId), {
       lastMessage: preview,
@@ -565,10 +620,9 @@ async function sendMessage() {
 
   } catch (err) {
     console.error("Send failed:", err);
-    alert("Could not send message. Please try again.");
+    showChatWarning("Could not send message. Please try again.");
   }
 }
-
 sendBtn.addEventListener("click", sendMessage);
 composerInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
