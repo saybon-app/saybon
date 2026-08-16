@@ -17,44 +17,56 @@
 
 *::-webkit-scrollbar{ width:10px; height:10px; }
 *::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
-*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #C9A0A5, #8B5A5F); border-radius:10px; border:2px solid #0A0607; background-clip:padding-box; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B6F3E); border-radius:10px; border:2px solid #1A1C24; background-clip:padding-box; }
 
 html{ overflow-x:hidden; }
 
 body{
 margin:0;
 font-family:'Manrope', system-ui, sans-serif;
-color:#E8DCDA;
-background:linear-gradient(160deg, #150E10 0%, #0A0607 100%);
-padding:90px 20px 60px;
+color:#E4E6EC;
+background:linear-gradient(160deg, #262832 0%, #1E2028 55%, #181A20 100%);
 overflow-x:hidden;
 scrollbar-width:thin;
-scrollbar-color:#C9A0A5 rgba(255,255,255,.04);
+scrollbar-color:#D4AF6A #1A1C24;
 }
 
-.nav-icon-btn{
-position:fixed; top:20px; width:44px; height:44px; border:none; border-radius:11px;
-background:rgba(255,255,255,.06); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.12);
-display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:50;
+.topbar{
+position:fixed; top:0; left:0; right:0; height:68px; z-index:100;
+background:rgba(30,32,40,.92); backdrop-filter:blur(18px); border-bottom:1px solid rgba(212,175,106,.14);
+display:flex; align-items:center; padding:0 18px; gap:16px;
 }
-.nav-icon-btn:hover{ background:rgba(255,255,255,.12); }
-.back-btn{ left:22px; }
-.dashboard-btn{ right:22px; }
+.topbar-logo{ display:flex; align-items:center; gap:10px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
+.topbar-logo-icon{
+width:36px; height:36px; border-radius:10px; flex:0 0 auto;
+background:linear-gradient(160deg, #D4AF6A, #8B6F3E);
+display:flex; align-items:center; justify-content:center; color:#1A1C24;
+}
+.topbar-logo-icon svg{ width:19px; height:19px; }
+.topbar-logo-title{ font-size:18px; font-weight:700; color:#fff; font-family:'Cormorant Garamond', serif; }
+.topbar-logo-title em{ font-style:normal; color:#D4AF6A; }
+.topbar-right{ margin-left:auto; display:flex; gap:8px; }
+.topbar-icon-btn{
+width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.06);
+display:flex; align-items:center; justify-content:center; cursor:pointer; color:#E4E6EC;
+}
+.topbar-icon-btn:hover{ background:rgba(255,255,255,.12); }
 
-.page{ max-width:760px; margin:0 auto; }
+.page{ max-width:760px; margin:0 auto; padding:90px 20px 60px; }
 
 header{ text-align:center; margin-bottom:24px; }
-h1{ margin:0 0 6px; font-size:22px; font-weight:700; color:#fff; }
-.subtitle{ font-size:13px; color:#9C8589; }
+h1{ margin:0 0 6px; font-size:24px; font-weight:700; color:#fff; font-family:'Cormorant Garamond', serif; }
+.subtitle{ font-size:13px; color:#9CA0AC; }
 
 .new-row{ display:flex; gap:10px; margin-bottom:26px; }
 .new-row input{
-flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.1);
 background:rgba(255,255,255,.05); color:#fff; font-family:inherit; font-size:13px;
 }
 .new-row button{
-padding:12px 20px; border:none; border-radius:10px; background:#B76E79; color:#fff; font-weight:650; font-size:12.5px; cursor:pointer;
+padding:12px 20px; border:none; border-radius:10px; background:#D4AF6A; color:#1A1C24; font-weight:650; font-size:12.5px; cursor:pointer;
 }
+.new-row button:disabled{ opacity:.5; cursor:not-allowed; }
 
 .playlist-card{
 background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px;
@@ -63,7 +75,7 @@ margin-bottom:14px; overflow:hidden;
 
 .playlist-header{ padding:16px 18px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
 .playlist-name{ font-size:14px; font-weight:650; color:#fff; }
-.playlist-count{ font-size:11.5px; color:#9C8589; }
+.playlist-count{ font-size:11.5px; color:#9CA0AC; }
 
 .playlist-videos{ display:none; padding:0 18px 16px; }
 .playlist-videos.open{ display:block; }
@@ -72,18 +84,24 @@ margin-bottom:14px; overflow:hidden;
 display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; border-top:1px solid rgba(255,255,255,.06);
 }
 .pv-row:first-child{ border-top:none; }
-.pv-thumb{ width:70px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; flex:0 0 auto; }
-.pv-title{ font-size:12.5px; color:#E8DCDA; }
-.pv-sub{ font-size:10.5px; color:#786367; }
+.pv-thumb{ width:70px; aspect-ratio:16/9; object-fit:cover; border-radius:6px; flex:0 0 auto; background:#0A0B0E; }
+.pv-thumb-fallback{ width:70px; aspect-ratio:16/9; border-radius:6px; flex:0 0 auto; background:linear-gradient(135deg, rgba(212,175,106,.25), #0A0B0E); }
+.pv-title{ font-size:12.5px; color:#E4E6EC; }
+.pv-sub{ font-size:10.5px; color:#5F6270; }
 
-.empty-note{ text-align:center; padding:60px 20px; color:#786367; font-size:13px; }
+.empty-note{ text-align:center; padding:60px 20px; color:#5F6270; font-size:13px; }
+
+.toast{
+position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
+background:#1E2028; border:1px solid rgba(212,175,106,.3); color:#fff;
+padding:13px 22px; border-radius:12px; font-size:13px; font-weight:600;
+box-shadow:0 12px 30px rgba(0,0,0,.4); z-index:300;
+opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
 @media (max-width:860px){
-  body{ padding:80px 14px 50px; }
-  .nav-icon-btn{ width:38px; height:38px; }
-  .back-btn{ left:12px; }
-  .settings-btn{ right:58px !important; }
-  .dashboard-btn{ right:12px; }
+  .page{ padding:80px 14px 50px; }
   .new-row{ flex-direction:column; }
   .new-row button{ width:100%; }
 }
@@ -93,17 +111,22 @@ display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; borde
 
 <body>
 
-<button class="nav-icon-btn back-btn" onclick="location.href='/music/index.html'" aria-label="Back">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+<div class="topbar">
+<div class="topbar-logo" onclick="location.href='/music/index.html'">
+<div class="topbar-logo-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+</div>
+<div class="topbar-logo-title">SayBon <em>Music</em></div>
+</div>
+<div class="topbar-right">
+<button class="topbar-icon-btn" onclick="location.href='/music/admin.html'" aria-label="Music Admin">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
 </button>
-
-<button class="nav-icon-btn settings-btn" onclick="location.href='/music/admin.html'" aria-label="Music Admin" style="right:76px;">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+<button class="topbar-icon-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
 </button>
-
-<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-</button>
+</div>
+</div>
 
 <div class="page">
 
@@ -114,12 +137,14 @@ display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; borde
 
 <div class="new-row">
 <input type="text" id="newPlaylistName" placeholder="New playlist name" />
-<button onclick="createPlaylist()">Create</button>
+<button id="createPlaylistBtn" onclick="createPlaylist()">Create</button>
 </div>
 
 <div id="playlistContainer"><div class="empty-note">Loading…</div></div>
 
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script type="module">
 
@@ -128,108 +153,153 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 let currentUser = null;
+let toastTimer = null;
+
+function showToast(message){
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2600);
+}
+window.showToast = showToast;
 
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   loadPlaylists();
 });
 
+function pvThumb(v){
+  if(v.thumbnailUrl) return "<img class='pv-thumb' src='" + v.thumbnailUrl + "'>";
+  if(v.youtubeId) return "<img class='pv-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
+  return "<div class='pv-thumb-fallback'></div>";
+}
+
 async function loadPlaylists(){
 
   const container = document.getElementById("playlistContainer");
+  const realUser = auth.currentUser || currentUser;
 
-  if(!currentUser){
+  if(!realUser){
     container.innerHTML = "<div class='empty-note'>Please sign in to see your playlists.</div>";
     return;
   }
 
-  const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(currentUser.uid));
-  const playlists = await res.json();
+  try{
 
-  if(!playlists.length){
-    container.innerHTML = "<div class='empty-note'>You haven't made any playlists yet. Create one above.</div>";
-    return;
-  }
+    const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(realUser.uid));
+    const playlists = await res.json();
 
-  container.innerHTML = "";
+    if(!res.ok || !Array.isArray(playlists)){
+      container.innerHTML = "<div class='empty-note'>Could not load your playlists. Please try again.</div>";
+      return;
+    }
 
-  playlists.forEach(p => {
+    if(!playlists.length){
+      container.innerHTML = "<div class='empty-note'>You haven't made any playlists yet. Create one above.</div>";
+      return;
+    }
 
-    const card = document.createElement("div");
-    card.className = "playlist-card";
+    container.innerHTML = "";
 
-    const header = document.createElement("div");
-    header.className = "playlist-header";
-    header.innerHTML =
-      "<span class='playlist-name'>" + p.name + "</span>" +
-      "<span class='playlist-count'>" + p.videoIds.length + " video" + (p.videoIds.length === 1 ? "" : "s") + "</span>";
+    playlists.forEach(p => {
 
-    const videosDiv = document.createElement("div");
-    videosDiv.className = "playlist-videos";
-    videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>Loading…</div>";
+      const card = document.createElement("div");
+      card.className = "playlist-card";
 
-    let loaded = false;
+      const header = document.createElement("div");
+      header.className = "playlist-header";
+      header.innerHTML =
+        "<span class='playlist-name'>" + p.name + "</span>" +
+        "<span class='playlist-count'>" + p.videoIds.length + " video" + (p.videoIds.length === 1 ? "" : "s") + "</span>";
 
-    header.onclick = async () => {
+      const videosDiv = document.createElement("div");
+      videosDiv.className = "playlist-videos";
+      videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>Loading…</div>";
 
-      const isOpen = videosDiv.classList.toggle("open");
+      let loaded = false;
 
-      if(isOpen && !loaded){
+      header.onclick = async () => {
 
-        loaded = true;
+        const isOpen = videosDiv.classList.toggle("open");
 
-        const detailRes = await fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id);
-        const detail = await detailRes.json();
+        if(isOpen && !loaded){
 
-        if(!detail.videos.length){
-          videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>No videos in this playlist yet.</div>";
-          return;
+          loaded = true;
+
+          const detailRes = await fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id);
+          const detail = await detailRes.json();
+
+          if(!detail.videos || !detail.videos.length){
+            videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>No videos in this playlist yet.</div>";
+            return;
+          }
+
+          videosDiv.innerHTML = "";
+
+          detail.videos.forEach(v => {
+            const row = document.createElement("div");
+            row.className = "pv-row";
+            row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
+            row.innerHTML =
+              pvThumb(v) +
+              "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</div></div>";
+            videosDiv.appendChild(row);
+          });
+
         }
 
-        videosDiv.innerHTML = "";
+      };
 
-        detail.videos.forEach(v => {
-          const row = document.createElement("div");
-          row.className = "pv-row";
-          row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
-          row.innerHTML =
-            "<img class='pv-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>" +
-            "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</div></div>";
-          videosDiv.appendChild(row);
-        });
+      card.appendChild(header);
+      card.appendChild(videosDiv);
+      container.appendChild(card);
 
-      }
+    });
 
-    };
-
-    card.appendChild(header);
-    card.appendChild(videosDiv);
-    container.appendChild(card);
-
-  });
+  }catch(err){
+    container.innerHTML = "<div class='empty-note'>Could not load your playlists. Please try again.</div>";
+  }
 
 }
 
 window.createPlaylist = async function(){
 
-  if(!currentUser){
-    alert("Please sign in to create a playlist.");
+  const realUser = auth.currentUser || currentUser;
+
+  if(!realUser){
+    showToast("Please sign in to create a playlist.");
     return;
   }
 
   const name = document.getElementById("newPlaylistName").value.trim();
-
   if(!name) return;
 
-  const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: currentUser.uid, name })
-  });
+  const btn = document.getElementById("createPlaylistBtn");
+  btn.disabled = true;
 
-  if(res.ok){
-    document.getElementById("newPlaylistName").value = "";
-    loadPlaylists();
+  try{
+
+    const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: realUser.uid, name })
+    });
+
+    if(res.ok){
+      document.getElementById("newPlaylistName").value = "";
+      showToast("Playlist created.");
+      loadPlaylists();
+    }else{
+      showToast("Could not create playlist. Please try again.");
+    }
+
+  }catch(err){
+    showToast("Could not reach the server. Please try again.");
+  }finally{
+    btn.disabled = false;
   }
 
 }
