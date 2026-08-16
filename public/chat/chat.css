@@ -330,7 +330,7 @@ body{ display:flex; align-items:center; justify-content:center; padding:24px; po
 
 @media (max-width:800px){
   body{ padding:0; }
-  .chatroom-shell{ width:100vw; height:100vh; border-radius:0; grid-template-columns:1fr; }
+  .chatroom-shell{ width:100vw; height:100vh; height:100dvh; border-radius:0; grid-template-columns:1fr; }
 
   .sidebar{ display:flex; }
   .workspace{ display:none; }
