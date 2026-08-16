@@ -48,7 +48,8 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; transi
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.page{ max-width:1100px; margin:0 auto; }
+.page{ max-width:1100px; margin:0 auto; opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes pageEnter{ from{ opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
 
 .card{
 background:rgba(255,255,255,.05); backdrop-filter:blur(18px);
@@ -212,7 +213,7 @@ font-weight:650; font-size:13px; cursor:pointer;
 <div class="card">
 
 <div class="title">SayBon Editing Workspace</div>
-<div class="jobmeta" id="jobmeta">Loading job…</div>
+<div class="jobmeta" id="jobmeta">Loading jobâ€¦</div>
 
 <div class="notice-box">
 Copying, pasting, and cutting are disabled in this workspace, and your activity is monitored as part of every submission's quality review.
@@ -264,7 +265,7 @@ const jobId = params.get("job");
 
 let translatorPasskey = sessionStorage.getItem("saybonTranslatorPasskey") || "";
 
-const specialChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
+const specialChars = ["Ã©","Ã¨","Ãª","Ã ","Ã§","Ã¹","Ã´","Ã®","Å“","Â«","Â»"];
 
 function buildMiniKeyboard(targetTextarea){
   const row = document.createElement("div");
@@ -389,9 +390,9 @@ async function loadJob(){
     currentJobWordCount = data.wordCount || 0;
 
     document.getElementById("jobmeta").innerText =
-      "Job " + (data.jobId || jobId) + " — " +
-      (data.sourceLanguage || "?") + " → " + (data.targetLanguage || "?") +
-      " — " + (data.wordCount || 0) + " words";
+      "Job " + (data.jobId || jobId) + " â€” " +
+      (data.sourceLanguage || "?") + " â†’ " + (data.targetLanguage || "?") +
+      " â€” " + (data.wordCount || 0) + " words";
 
     const text = data.documentText && data.documentText.trim().length > 0
       ? data.documentText
@@ -434,7 +435,7 @@ window.confirmPasskey = function(){
 window.submitEdit = async function(){
 
   submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting…";
+  submitBtn.innerText = "Submittingâ€¦";
 
   try{
 

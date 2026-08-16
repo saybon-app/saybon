@@ -137,6 +137,8 @@ margin:0;
 display:flex;
 flex-direction:column;
 gap:20px;
+opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px);
+animation: contentEnter .8s cubic-bezier(.22,1,.36,1) forwards;
 
 background: rgba(255,250,247,.4);
 backdrop-filter: blur(30px);
@@ -317,6 +319,7 @@ margin-top:10px;
 font-size:13px;
 }
 
+@keyframes contentEnter{ from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
 </style>
 </head>
 
@@ -348,7 +351,7 @@ font-size:13px;
 
 </div>
 
-<div class="settings" onclick="openSettings()">⚙️</div>
+<div class="settings" onclick="openSettings()">âš™ï¸</div>
 
 <div class="content">
 
@@ -357,7 +360,7 @@ font-size:13px;
 <h1 class="heading">Professional French translation,<br><em>done right.</em></h1>
 
 <p class="subtitle">
-Get documents translated by vetted, confidentiality-bound translators — or join the pool yourself and get paid for your language skills.
+Get documents translated by vetted, confidentiality-bound translators â€” or join the pool yourself and get paid for your language skills.
 </p>
 
 <div class="feature-list">

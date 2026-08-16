@@ -28,7 +28,8 @@ color:#102B2C;
 background:#EAF3EF;
 }
 
-.app{ display:flex; min-height:100vh; }
+.app{ display:flex; min-height:100vh; min-height:100dvh; opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); animation: appEnter .8s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes appEnter{ from{ opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
 
 /* ===== SIDEBAR ===== */
 
@@ -474,7 +475,7 @@ padding:14px 28px;
 <div class="quality-box">
 <div class="qtitle"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg>Quality Matters</div>
 <p>All submissions are evaluated using the same quality standards. Only quality work gets rewarded.</p>
-<a href="#">Learn more →</a>
+<a href="#">Learn more â†’</a>
 </div>
 
 <div class="quality-box">
@@ -556,7 +557,7 @@ padding:14px 28px;
 <div class="tab-content" id="content-submitted"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
 <div class="tab-content" id="content-review"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
 <div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
-<div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet — no balance system exists in SayBon today.</div></div>
+<div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet â€” no balance system exists in SayBon today.</div></div>
 <div class="tab-content" id="content-transactions"><div class="empty-state">Transaction history has not been built yet.</div></div>
 <div class="tab-content" id="content-payouts"><div class="empty-state">Your Wallet at the top of this page always shows your current balance. Earnings appear there the moment your work passes review, become available to cash out 3 business days later, and are paid directly to your bank or mobile money account in weekly batches once your available balance reaches $10. Payouts are currently processed manually by the SayBon team rather than through an automated banking system.</div></div>
 
@@ -609,7 +610,7 @@ This obligation continues after the job is completed and after your participatio
 <br><br>
 Violating these confidentiality terms may result in immediate removal from the SayBon translator program, forfeiture of payment for this and any other pending assignments, and disqualification from future jobs. Serious or repeated violations may also lead to further legal consequences.
 <br><br>
-By accepting this job, you also confirm that the work you submit reflects your own genuine review, judgment, and effort — not simply copied from another source or submitted without meaningful review.
+By accepting this job, you also confirm that the work you submit reflects your own genuine review, judgment, and effort â€” not simply copied from another source or submitted without meaningful review.
 </div>
 <label class="nda-passkey-label">Your Translator Passkey</label>
 <input type="text" id="ndaPasskeyInput" class="nda-passkey-input" placeholder="e.g. SB-XXXXXXXX" />
