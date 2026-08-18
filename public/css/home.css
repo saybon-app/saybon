@@ -94,17 +94,31 @@ body.home-preload .home-shell::before{
   top:100%;
   left:50%;
   transform:translateX(-50%);
-  margin-top:-10px;
+  margin-top:-18px;
   width:100%;
-  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
   font-family:"Nunito", system-ui, sans-serif;
   font-weight:800;
   font-size:15px;
   letter-spacing:.03em;
   color:#d4af37;
-  text-shadow:0 2px 6px rgba(0,0,0,.5);
+  -webkit-text-stroke:1px #0d3d3d;
+  text-shadow:
+    -1px -1px 0 #0d3d3d,
+    1px -1px 0 #0d3d3d,
+    -1px 1px 0 #0d3d3d,
+    1px 1px 0 #0d3d3d,
+    0 2px 6px rgba(0,0,0,.4);
   pointer-events:none;
   z-index:20;
+}
+
+.click-label-arrow{
+  color:#0d3d3d;
+  filter:drop-shadow(0 0 2px #d4af37);
 }
 
 @media (max-width:900px){
