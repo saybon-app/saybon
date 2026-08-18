@@ -91,10 +91,12 @@ body.home-preload .home-shell::before{
 
 .teacher-glass-arrow{
   position:absolute;
-  top:38%;
-  right:-6%;
-  width:48px;
-  height:48px;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  margin-top:2px;
+  width:36px;
+  height:36px;
   border-radius:50%;
   background:rgba(255,255,255,.18);
   backdrop-filter:blur(6px);
@@ -110,20 +112,18 @@ body.home-preload .home-shell::before{
 }
 
 @keyframes teacherArrowBounce{
-  0%, 100%{ transform:translateY(0); }
-  50%{ transform:translateY(-10px); }
+  0%, 100%{ transform:translateX(-50%) translateY(0); }
+  50%{ transform:translateX(-50%) translateY(-8px); }
 }
 
 @media (max-width:900px){
   .teacher-glass-arrow{
-    width:38px;
-    height:38px;
-    top:36%;
-    right:-4%;
+    width:30px;
+    height:30px;
   }
   .teacher-glass-arrow svg{
-    width:16px;
-    height:16px;
+    width:14px;
+    height:14px;
   }
 }
 
