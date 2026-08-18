@@ -1119,10 +1119,7 @@ body.home-ui-in .settings-image-btn{
   }
 
   /* logo subtle hover only */
-  .saybon-logo:hover{
-    transform:translateY(var(--sb-logo-hover-lift)) scale(var(--sb-logo-hover-scale)) !important;
-    filter:brightness(1.02) saturate(1.01);
-  }
+  
 }
 
 /* -----------------------------------------
@@ -1158,7 +1155,6 @@ body.home-ui-in .settings-image-btn{
    SAFETY: no interaction transforms during preload
 ----------------------------------------- */
 body.home-preload .teacher-hitbox:hover,
-body.home-preload .saybon-logo:hover,
 body.home-preload .teacher-hitbox.is-pressed,
 body.home-preload .start-btn.is-pressed img,
 body.home-preload .login-btn.is-pressed img,
@@ -1306,7 +1302,5 @@ body.home-preload .settings-image-btn.is-pressed img{
     transform:translateX(-50%) scale(.978) !important;
   }
 
-  .saybon-logo:hover{
-    transform:translateX(-50%) translateY(var(--sb-logo-hover-lift)) scale(var(--sb-logo-hover-scale)) !important;
-  }
+  
 }
