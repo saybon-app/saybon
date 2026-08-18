@@ -89,6 +89,29 @@ body.home-preload .home-shell::before{
   z-index:20;
 }
 
+.teacher-click-label{
+  position:absolute;
+  left:16%;
+  top:7%;
+  width:min(36vw,580px);
+  margin-top:min(34vw,540px);
+  text-align:center;
+  font-family:"Nunito", system-ui, sans-serif;
+  font-weight:800;
+  font-size:15px;
+  letter-spacing:.03em;
+  color:#d4af37;
+  text-shadow:0 2px 6px rgba(0,0,0,.5);
+  pointer-events:none;
+  z-index:20;
+}
+
+@media (max-width:900px){
+  .teacher-click-label{
+    font-size:12px;
+  }
+}
+
 .teacher-img{
   width:100%;
   height:auto;
@@ -103,34 +126,11 @@ body.home-preload .home-shell::before{
    TAP ICON
 ========================== */
 
-.tap-icon{
-  position:absolute;
-  left:40%;
-  top:55%;
-  width:min(70px,5vw);
-  z-index:25;
-}
 
-.tap-icon-label{
-  position:absolute;
-  left:40%;
-  top:calc(55% + min(38px,3.2vw));
-  transform:translateX(-6%);
-  z-index:25;
-  font-family:"Nunito", system-ui, sans-serif;
-  font-weight:700;
-  font-size:11px;
-  color:#fff;
-  text-shadow:0 1px 3px rgba(0,0,0,.6);
-  white-space:nowrap;
-  pointer-events:none;
-}
 
-@media (max-width:900px){
-  .tap-icon-label{
-    font-size:10px;
-  }
-}
+
+
+
 
 /* ==========================
    LOGO
@@ -212,7 +212,6 @@ body.home-preload .home-shell::before{
 ========================================================= */
 
 .teacher-hitbox,
-.tap-icon,
 .saybon-logo,
 .start-btn,
 .login-btn,
@@ -606,17 +605,7 @@ body.home-preload .home-shell::before{
     display:block !important;
   }
 
-  .tap-icon{
-    position:absolute !important;
-    width:56px !important;
-    left:50% !important;
-    top:50.8% !important;
-    right:auto !important;
-    bottom:auto !important;
-    margin:0 !important;
-    z-index:25 !important;
-    transform:translateX(-50%) !important;
-  }
+  
 
   .saybon-logo{
     position:absolute !important;
@@ -739,8 +728,7 @@ body.home-preload .home-shell::before{
 
 /* initial hidden state */
 body.home-preload .teacher-hitbox,
-body.home-preload .tap-icon,
-body.home-preload .saybon-logo,
+body.home-preload body.home-preload .saybon-logo,
 body.home-preload .start-btn,
 body.home-preload .login-btn,
 body.home-preload .settings-image-btn{
@@ -769,8 +757,7 @@ body.home-teacher-in .teacher-hitbox{
 }
 
 /* UI reveal */
-body.home-ui-in .tap-icon,
-body.home-ui-in .saybon-logo,
+body.home-ui-in body.home-ui-in .saybon-logo,
 body.home-ui-in .start-btn,
 body.home-ui-in .login-btn,
 body.home-ui-in .settings-image-btn{
@@ -778,9 +765,7 @@ body.home-ui-in .settings-image-btn{
 }
 
 /* staggered smooth fade-in without touching layout transforms */
-body.home-ui-in .tap-icon{
-  animation:saybonFadeUpSoft .50s ease both;
-}
+body.home-ui-in 
 
 body.home-ui-in .saybon-logo{
   animation:saybonFadeUpSoft .58s ease both;
@@ -837,8 +822,7 @@ body.home-teacher-in .teacher-hitbox{
   animation:saybonFadeUpSoftDesktop 1.1s cubic-bezier(.16,.84,.44,1) both;
 }
 
-body.home-ui-in .tap-icon,
-body.home-ui-in .saybon-logo,
+body.home-ui-in body.home-ui-in .saybon-logo,
 body.home-ui-in .start-btn,
 body.home-ui-in .login-btn,
 body.home-ui-in .settings-image-btn{
@@ -848,9 +832,7 @@ body.home-ui-in .settings-image-btn{
   animation-fill-mode:both;
 }
 
-body.home-ui-in .tap-icon{
-  animation-delay:0s;
-}
+body.home-ui-in 
 body.home-ui-in .saybon-logo{
   animation-delay:.12s;
 }
