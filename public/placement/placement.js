@@ -2,14 +2,19 @@ console.log("placement.js loaded");
 
 /* ==================================================
    QUESTION BANK - grouped by CEFR level
-   Staircase design: a level's questions only appear
-   after the previous level has genuinely been passed.
-   The test stops the moment a level is failed, so
-   nobody is ever exposed to questions far above their
-   real ability where a lucky guess could inflate the
-   result. Multiple choice questions are auto-graded;
-   typed questions require real recall and production,
-   not just recognition.
+   The test now runs as ONE continuous sequence through
+   all 30 questions - no visible pass/fail, no stopping.
+   The test-taker just answers question after question
+   with real-time right/wrong feedback and a running score.
+
+   The actual confirmed level is calculated BACKSTAGE once
+   the test ends (or is stopped early): it is the TOP of
+   the longest unbroken run of consecutively PASSED levels
+   (3/4-ish correct on that level's full question block).
+   This is deliberately stricter than passing any single
+   level - randomly guessing 3/4 on one level is roughly a
+   5% chance, but doing it on three levels in a row by pure
+   luck is closer to 1 in 7,700.
 ================================================== */
 
 const questions = [
@@ -58,13 +63,6 @@ const questions = [
 
 ];
 
-/* ==================================================
-   SHUFFLE ANSWER ORDER (multiple choice only)
-   Adds an extra layer of per-session randomization
-   on top of the source already varying positions.
-   Image-based questions are excluded since their
-   options (A/B/C/D) refer to fixed regions in the image.
-================================================== */
 function shuffleOptions(q){
   const correctText = q.options[q.correct];
   for(let i = q.options.length - 1; i > 0; i--){
@@ -81,21 +79,28 @@ questions.forEach(q => {
 });
 
 /* ==================================================
-   LEVEL STAIRCASE CONFIGURATION
-   Threshold is roughly 75% correct, rounded up.
+   LEVEL CONFIGURATION (used only for backstage scoring)
 ================================================== */
 
 const levelOrder = ["A0","A1","A2","B1","B2","C1"];
 const levelThreshold = { A0:3, A1:5, A2:5, B1:4, B2:4, C1:4 };
 
+const levelTotalQuestions = {};
+levelOrder.forEach(lvl => {
+  levelTotalQuestions[lvl] = questions.filter(q => q.level === lvl).length;
+});
+
 const accentChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
 
-let levelIdx = 0;
-let levelQueue = [];
-let levelPos = 0;
-let levelCorrect = 0;
-let wrongStreakInLevel = 0;
-let confirmedLevel = null;
+const FEEDBACK_PAUSE_MS = 1100;
+const CONSECUTIVE_WRONG_THRESHOLD = 4;
+const CUMULATIVE_WRONG_THRESHOLD = 7;
+
+let currentIndex = 0;
+let correctSoFar = 0;
+let consecutiveWrong = 0;
+let cumulativeWrong = 0;
+let levelResults = {};
 
 const promptEl = document.getElementById("questionPrompt");
 const optionsEl = document.getElementById("options");
@@ -113,6 +118,19 @@ const interventionAudio = document.getElementById("interventionAudio");
 document.getElementById("placementHomeBtn")?.addEventListener("click", () => {
   window.location.href = "/start.html";
 });
+
+/* ==================================================
+   RUNNING SCORE DISPLAY - injected next to the progress bar
+================================================== */
+
+const scoreDisplay = document.createElement("div");
+scoreDisplay.id = "scoreDisplay";
+scoreDisplay.style.cssText = "text-align:center;font-size:13px;font-weight:600;color:inherit;opacity:.75;margin-top:4px;";
+progressLabel.insertAdjacentElement("afterend", scoreDisplay);
+
+function updateScoreDisplay(){
+  scoreDisplay.textContent = "Score: " + correctSoFar + " / " + (currentIndex + 1);
+}
 
 function typePrompt(text, onDone){
   promptEl.textContent = "";
@@ -139,20 +157,9 @@ function typePrompt(text, onDone){
 }
 
 function updateProgress(){
-  const level = levelOrder[levelIdx];
-  const pct = ((levelPos + 1) / levelQueue.length) * 100;
+  const pct = ((currentIndex + 1) / questions.length) * 100;
   progressBar.style.width = pct + "%";
-  progressLabel.textContent = "Level " + level + " · Question " + (levelPos + 1) + " of " + levelQueue.length;
-}
-
-function startLevel(idx){
-  levelIdx = idx;
-  const level = levelOrder[levelIdx];
-  levelQueue = questions.filter(q => q.level === level);
-  levelPos = 0;
-  levelCorrect = 0;
-  wrongStreakInLevel = 0;
-  loadQuestion();
+  progressLabel.textContent = "Question " + (currentIndex + 1) + " of " + questions.length;
 }
 
 function normalizeAnswer(str){
@@ -190,13 +197,14 @@ function buildAccentKeyboard(targetInput){
 }
 
 function loadQuestion() {
-  const q = levelQueue[levelPos];
+  const q = questions[currentIndex];
 
   optionsEl.innerHTML = "";
   optionsEl.classList.remove("options-ready");
   mediaArea.innerHTML = "";
 
   updateProgress();
+  updateScoreDisplay();
 
   typePrompt(q.prompt, () => {
 
@@ -231,8 +239,14 @@ function loadQuestion() {
 
       optionsEl.appendChild(buildAccentKeyboard(input));
 
+      const feedbackMsg = document.createElement("div");
+      feedbackMsg.id = "typedFeedbackMsg";
+      feedbackMsg.style.cssText = "margin-top:8px;font-size:13px;font-weight:600;min-height:18px;";
+      optionsEl.appendChild(feedbackMsg);
+
       const submitBtn = document.createElement("button");
       submitBtn.className = "option";
+      submitBtn.id = "typedSubmitBtn";
       submitBtn.textContent = "Submit Answer";
       submitBtn.style.marginTop = "14px";
       submitBtn.onclick = () => answerTyped(input.value);
@@ -256,7 +270,7 @@ function loadQuestion() {
       btn.className = "option";
       btn.style.animationDelay = (i * 0.12) + "s";
       btn.textContent = opt;
-      btn.onclick = () => answer(i);
+      btn.onclick = () => answer(i, btn);
       optionsEl.appendChild(btn);
     });
 
@@ -267,62 +281,148 @@ function loadQuestion() {
   });
 }
 
-function registerResult(isCorrect){
-  if (isCorrect) {
-    wrongStreakInLevel = 0;
-    levelCorrect++;
-  } else {
-    wrongStreakInLevel++;
-  }
+/* ==================================================
+   REAL-TIME FEEDBACK + RESULT HANDLING
+================================================== */
 
-  if (wrongStreakInLevel >= 2) {
-    triggerIntervention();
-    return;
-  }
-
-  advance();
+function recordLevelResult(level, isCorrect){
+  if(!levelResults[level]) levelResults[level] = { correct: 0, total: 0 };
+  levelResults[level].total++;
+  if(isCorrect) levelResults[level].correct++;
 }
 
-function answer(choice) {
-  const q = levelQueue[levelPos];
-  registerResult(choice === q.correct);
+function registerResult(isCorrect){
+
+  const q = questions[currentIndex];
+  recordLevelResult(q.level, isCorrect);
+
+  if(isCorrect){
+    correctSoFar++;
+    consecutiveWrong = 0;
+  }else{
+    consecutiveWrong++;
+    cumulativeWrong++;
+  }
+
+  updateScoreDisplay();
+
+  const disableInputs = () => {
+    optionsEl.querySelectorAll("button, input").forEach(el => el.disabled = true);
+  };
+  disableInputs();
+
+  setTimeout(() => {
+
+    if(consecutiveWrong >= CONSECUTIVE_WRONG_THRESHOLD || cumulativeWrong >= CUMULATIVE_WRONG_THRESHOLD){
+      triggerIntervention();
+      return;
+    }
+
+    advance();
+
+  }, FEEDBACK_PAUSE_MS);
+
+}
+
+function answer(choice, clickedBtn) {
+  const q = questions[currentIndex];
+  const isCorrect = choice === q.correct;
+
+  const allButtons = optionsEl.querySelectorAll("button.option");
+  if(isCorrect){
+    clickedBtn.style.background = "#DFF5E1";
+    clickedBtn.style.borderColor = "#4CAF50";
+  }else{
+    clickedBtn.style.background = "#FBE1E1";
+    clickedBtn.style.borderColor = "#E05757";
+    allButtons.forEach((b, i) => {
+      if(i === q.correct){
+        b.style.background = "#DFF5E1";
+        b.style.borderColor = "#4CAF50";
+      }
+    });
+  }
+
+  registerResult(isCorrect);
 }
 
 function answerTyped(userInput) {
-  const q = levelQueue[levelPos];
+  const q = questions[currentIndex];
   const normalized = normalizeAnswer(userInput);
   const isCorrect = q.acceptableAnswers.some(a => normalizeAnswer(a) === normalized);
+
+  const msg = document.getElementById("typedFeedbackMsg");
+  if(msg){
+    if(isCorrect){
+      msg.textContent = "Correct!";
+      msg.style.color = "#2e7d32";
+    }else{
+      msg.textContent = "Not quite - accepted answer: " + q.acceptableAnswers[0];
+      msg.style.color = "#c62828";
+    }
+  }
+
   registerResult(isCorrect);
 }
 
 function advance(){
-  levelPos++;
+  currentIndex++;
 
-  if (levelPos >= levelQueue.length) {
-    finishLevel();
+  if (currentIndex >= questions.length) {
+    finish();
     return;
   }
 
   loadQuestion();
 }
 
-function finishLevel(){
-  const level = levelOrder[levelIdx];
+/* ==================================================
+   BACKSTAGE LEVEL CALCULATION
+   The confirmed level is the TOP of the longest unbroken
+   run of consecutively passed levels, based on whatever
+   has actually been completed - works identically whether
+   someone finishes all 30 questions or stops early via
+   the intervention screen's Reveal option.
+================================================== */
 
-  if (levelCorrect >= levelThreshold[level]) {
+function computeConfirmedLevel(){
 
-    confirmedLevel = level;
+  let bestEndIdx = -1;
+  let bestLength = 0;
+  let curLength = 0;
 
-    if (levelIdx + 1 < levelOrder.length) {
-      startLevel(levelIdx + 1);
-    } else {
-      finish();
+  for(let i = 0; i < levelOrder.length; i++){
+
+    const lvl = levelOrder[i];
+    const r = levelResults[lvl];
+    const passed = r && r.total === levelTotalQuestions[lvl] && r.correct >= levelThreshold[lvl];
+
+    if(passed){
+      curLength++;
+      if(curLength > bestLength){
+        bestLength = curLength;
+        bestEndIdx = i;
+      }
+    }else{
+      curLength = 0;
     }
 
-  } else {
-    finish();
   }
+
+  if(bestEndIdx === -1) return "Pre-A0";
+  return levelOrder[bestEndIdx];
+
 }
+
+/* ==================================================
+   INTERVENTION (encouragement screen)
+   Purely a supportive pause - has ZERO effect on the
+   confirmed level either way. Continue resets only the
+   consecutive-wrong counter (cumulative keeps counting)
+   and resumes exactly where the test left off. Reveal
+   ends the test early and runs the same backstage
+   calculation on whatever was actually completed.
+================================================== */
 
 function triggerIntervention() {
   overlay.classList.remove("hidden");
@@ -359,7 +459,7 @@ function triggerIntervention() {
 
 continueBtn.onclick = () => {
   overlay.classList.add("hidden");
-  wrongStreakInLevel = 0;
+  consecutiveWrong = 0;
   advance();
 };
 
@@ -369,11 +469,11 @@ revealBtn.onclick = () => {
 };
 
 function finish() {
-  const level = confirmedLevel || "Pre-A0";
+  const level = computeConfirmedLevel();
 
   sessionStorage.setItem("saybon_level", level);
   sessionStorage.setItem("saybon_next", "/reveal/");
   window.location.href = "/loader.html";
 }
 
-startLevel(0);
+loadQuestion();
