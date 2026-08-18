@@ -792,16 +792,18 @@ body.home-ui-in .settings-image-btn{
   }
 }
 
-body.home-preload .background-layer{
-  transform:scale(1.035);
-}
+@media (min-width:901px){
+  body.home-preload .background-layer{
+    transform:scale(1.035);
+  }
 
-body.home-bg-in .background-layer{
-  transform:scale(1);
-  transition:
-    opacity 1.6s ease-out,
-    filter 1.6s ease-out,
-    transform 2.2s ease-out;
+  body.home-bg-in .background-layer{
+    transform:scale(1);
+    transition:
+      opacity 1.6s ease-out,
+      filter 1.6s ease-out,
+      transform 2.2s ease-out;
+  }
 }
 
 body.home-teacher-in .teacher-hitbox{
