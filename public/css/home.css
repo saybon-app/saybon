@@ -94,7 +94,7 @@ body.home-preload .home-shell::before{
   top:100%;
   left:50%;
   transform:translateX(-50%);
-  margin-top:6px;
+  margin-top:-10px;
   width:100%;
   text-align:center;
   font-family:"Nunito", system-ui, sans-serif;
