@@ -91,10 +91,11 @@ body.home-preload .home-shell::before{
 
 .teacher-click-label{
   position:absolute;
-  left:16%;
-  top:7%;
-  width:min(36vw,580px);
-  margin-top:min(34vw,540px);
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  margin-top:6px;
+  width:100%;
   text-align:center;
   font-family:"Nunito", system-ui, sans-serif;
   font-weight:800;
