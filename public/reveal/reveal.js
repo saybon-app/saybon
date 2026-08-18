@@ -5,7 +5,6 @@ const levelText = document.getElementById("levelText");
 levelText.textContent = level;
 
 const levelFriendlyLabels = {
-  "Pre-A0": "Just Getting Started",
   "A0": "Absolute Beginner",
   "A1": "Beginner",
   "A2": "Elementary",

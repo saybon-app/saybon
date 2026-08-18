@@ -409,7 +409,7 @@ function computeConfirmedLevel(){
 
   }
 
-  if(bestEndIdx === -1) return "Pre-A0";
+  if(bestEndIdx === -1) return "A0";
   return levelOrder[bestEndIdx];
 
 }
