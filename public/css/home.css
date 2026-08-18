@@ -111,6 +111,27 @@ body.home-preload .home-shell::before{
   z-index:25;
 }
 
+.tap-icon-label{
+  position:absolute;
+  left:40%;
+  top:calc(55% + min(38px,3.2vw));
+  transform:translateX(-6%);
+  z-index:25;
+  font-family:"Nunito", system-ui, sans-serif;
+  font-weight:700;
+  font-size:11px;
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+@media (max-width:900px){
+  .tap-icon-label{
+    font-size:10px;
+  }
+}
+
 /* ==========================
    LOGO
 ========================== */
@@ -278,6 +299,12 @@ body.home-preload .home-shell::before{
   width:min(90vw,720px);
   opacity:0;
   will-change:transform, opacity;
+}
+
+@media (max-width:900px){
+  .overlay-pill{
+    width:min(65vw,440px);
+  }
 }
 
 .overlay-pill img{
