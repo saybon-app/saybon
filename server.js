@@ -3104,3 +3104,121 @@ res.status(500).json({error:"could not load music overview"})
 }
 
 })
+
+// ================================================================
+// TALKLETICS LOCATIONS (World Map)
+// ================================================================
+
+app.get("/api/locations", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("talkleticsLocations").orderBy("order","asc").get()
+
+let locations=[]
+
+snapshot.forEach(doc=>{
+
+locations.push({
+
+id:doc.id,
+...doc.data()
+
+})
+
+})
+
+res.json(locations)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load locations"})
+
+}
+
+})
+
+app.post("/api/adminAddLocation", async(req,res)=>{
+
+try{
+
+const {name,imageUrl}=req.body
+
+if(!name || !imageUrl){
+return res.status(400).json({error:"Name and image are required"})
+}
+
+const existingSnapshot=await db.collection("talkleticsLocations").get()
+const order=existingSnapshot.size+1
+const unlocked=order===1
+
+const ref=db.collection("talkleticsLocations").doc()
+
+await ref.set({
+
+name,
+imageUrl,
+order,
+unlocked,
+created:new Date()
+
+})
+
+res.json({id:ref.id,order,unlocked})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not add location"})
+
+}
+
+})
+
+app.post("/api/adminDeleteLocation", async(req,res)=>{
+
+try{
+
+const {locationId}=req.body
+
+if(!locationId){
+return res.status(400).json({error:"Location ID is required"})
+}
+
+await db.collection("talkleticsLocations").doc(locationId).delete()
+
+const snapshot=await db.collection("talkleticsLocations").orderBy("order","asc").get()
+
+const batch=db.batch()
+
+let i=0
+
+snapshot.forEach(doc=>{
+
+i++
+
+batch.update(doc.ref,{
+
+order:i,
+unlocked:i===1
+
+})
+
+})
+
+await batch.commit()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not delete location"})
+
+}
+
+})

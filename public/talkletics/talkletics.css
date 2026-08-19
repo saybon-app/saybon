@@ -1,28 +1,164 @@
-.games-grid {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow:hidden;}
+
+.tk-stage{
+  position:relative;
+  width:100vw;
+  height:100dvh;
+  opacity:0;
+  transform:translateY(18px) scale(.97);
+  filter:blur(8px);
+  animation:tkEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes tkEnter{
+  from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
 }
 
-.game-tile {
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all .25s ease;
+.tk-bg-picture{position:absolute;inset:0;z-index:0;}
+.tk-bg-img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 20%;
+  display:block;
 }
 
-/* CONSOLE-STYLE LOOK */
-.console {
-  background: linear-gradient(135deg, #1b2838, #0f172a);
-  color: #6fe7ff;
-  box-shadow: 0 8px 20px rgba(0,0,0,.25);
-  border: 2px solid rgba(111, 231, 255, 0.4);
+.tk-corner-icon{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+  color:#1e3a5f;
+  cursor:pointer;
+}
+.tk-corner-icon svg{width:19px;height:19px;}
+.tk-corner-back{position:absolute;top:14px;left:14px;z-index:20;}
+.tk-corner-icon-group{position:absolute;top:14px;right:14px;display:flex;gap:8px;z-index:20;}
+
+.tk-platform{
+  position:absolute;
+  bottom:10px;left:50%;
+  transform:translateX(-50%);
+  display:flex;align-items:flex-end;
+  gap:22px;
+  z-index:10;
 }
 
-.console:hover {
-  transform: translateY(-3px);
+.tk-start-btn{
+  height:56px;
+  padding:0 30px;
+  align-self:center;
+  margin-bottom:60px;
+  background:linear-gradient(180deg,#5fbf5f,#3f9f3f);
+  color:#fff;font-weight:800;font-size:1rem;
+  border:none;border-radius:26px;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  cursor:pointer;
+  transition:transform .15s ease;
+}
+.tk-start-btn:active{transform:scale(.96);}
+
+.tk-guide-wrap{
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+}
+.tk-guide{
+  height:min(42vh,380px);
+  object-fit:contain;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));
+  animation:tkIdleBob 4.2s ease-in-out infinite;
+}
+@keyframes tkIdleBob{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-6px) scale(1.012);}
+}
+
+/* ===== speech bubble ===== */
+.tk-bubble-shape{
+  position:absolute;
+  bottom:90%;
+  left:95%;
+  width:250px;
+  aspect-ratio:320/225;
+  transform-origin:14% 90%;
+  transform:scaleX(0);
+  opacity:0;
+  z-index:15;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.25));
+}
+.tk-bubble-shape.tk-bubble-unroll{
+  transition:transform .65s cubic-bezier(.34,1.56,.64,1), opacity .45s ease;
+  transform:scaleX(1);
+  opacity:1;
+}
+.tk-bubble-shape.tk-bubble-rollaway{
+  transition:transform .5s cubic-bezier(.5,0,.75,0), opacity .4s ease .1s;
+  transform:scaleX(0);
+  opacity:0;
+}
+
+/* inner wrapper bops in sync with the guide once bubble is shown */
+.tk-bubble-bop{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.tk-bubble-shape.tk-bubble-unroll .tk-bubble-bop{
+  animation:tkIdleBob 4.2s ease-in-out infinite;
+}
+
+.tk-bubble-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.tk-bubble-content{
+  position:absolute;
+  top:10%;
+  left:15%;
+  right:16%;
+  bottom:27%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.tk-bubble-content strong{
+  font-family:"Baloo 2",sans-serif;
+  font-weight:700;
+  font-size:1.05rem;
+  color:#c8862f;
+  margin-bottom:4px;
+}
+.tk-bubble-content p{
+  font-family:"Baloo 2",sans-serif;
+  font-weight:500;
+  font-size:.8rem;
+  color:#334049;
+  line-height:1.4;
+}
+
+@media (max-width:480px){
+  .tk-platform{bottom:40px;gap:14px;}
+  .tk-guide{height:min(38vh,300px);}
+  .tk-start-btn{height:48px;padding:0 22px;font-size:.9rem;margin-bottom:40px;}
+
+  .tk-bubble-shape{
+    width:230px;
+    left:-96%;
+    bottom:100%;
+    margin-bottom:14px;
+    transform-origin:86% 100%;
+  }
+  .tk-bubble-content{left:16%;right:18%;}
+  .tk-bubble-content strong{font-size:1rem;}
+  .tk-bubble-content p{font-size:.78rem;}
+  .tk-corner-icon{width:34px;height:34px;}
+  .tk-corner-icon svg{width:16px;height:16px;}
 }

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Talkletics Map Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;}
+body{
+  font-family:'Manrope',system-ui,sans-serif;
+  background:linear-gradient(160deg,#150E10 0%,#0A0607 100%);
+  margin:0;padding:90px 24px 60px;color:#E8DCDA;
+}
+.nav-icon-btn{
+  position:fixed;top:20px;width:52px;height:52px;border:none;border-radius:13px;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;
+}
+.back-btn{left:22px;} .dashboard-btn{right:22px;}
+.container{max-width:900px;margin:auto;}
+h1{text-align:center;font-size:22px;font-weight:700;color:#fff;margin-bottom:24px;}
+.login{text-align:center;margin-top:80px;}
+.login input{padding:11px 14px;border:1px solid rgba(255,255,255,.15);border-radius:9px;background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:13px;}
+input,select{padding:9px 11px;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-family:inherit;font-size:12.5px;background:rgba(255,255,255,.06);color:#fff;}
+button{padding:9px 16px;border:none;border-radius:8px;cursor:pointer;background:#B76E79;color:#fff;font-weight:650;font-size:12.5px;}
+button:hover{opacity:.9;}
+.add-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.add-form .full{grid-column:1/-1;}
+.add-form label{display:block;font-size:11px;color:#9C8589;margin-bottom:5px;}
+.add-form input{width:100%;}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+th,td{padding:11px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;font-size:12.5px;}
+th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;}
+.thumb-sm{width:64px;aspect-ratio:1;object-fit:cover;border-radius:6px;}
+.btn-delete{background:#8B4A4F;}
+.empty-note{padding:30px;text-align:center;color:#786367;font-size:12.5px;}
+.badge-locked{color:#786367;} .badge-unlocked{color:#7FB88A;font-weight:700;}
+</style>
+</head>
+<body>
+
+<button class="nav-icon-btn back-btn" onclick="location.href='/talkletics/map.html'" aria-label="Back">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+<button class="nav-icon-btn dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+
+<div class="container">
+<h1>TALKLETICS MAP ADMIN</h1>
+
+<div id="login" class="login">
+<p>Enter Admin Passcode</p>
+<input id="passcode" type="password">
+<br><br>
+<button onclick="unlock()">Access Panel</button>
+</div>
+
+<div id="panel" style="display:none;">
+
+<div class="add-form">
+<div class="full"><label>Location Name</label><input id="addName" placeholder="e.g. Marché" /></div>
+<div class="full"><label>Location Image</label><input type="file" id="addImage" accept="image/*" /></div>
+<div class="full" id="uploadProgress" style="font-size:11px;color:#9C8589;"></div>
+<div class="full"><button id="addLocationBtn" onclick="addLocation()">Add Location</button></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<tr><th>Image</th><th>Name</th><th>Order</th><th>Status</th><th>Action</th></tr>
+<tbody id="locationsTable"></tbody>
+</table>
+</div>
+
+</div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyB2aKUdE1NSt0kN332BwTYSX52D0lxj1g0",
+  authDomain:"saybon-3e3c2.firebaseapp.com",
+  projectId:"saybon-3e3c2",
+  storageBucket:"saybon-3e3c2.firebasestorage.app",
+  messagingSenderId:"75085012344",
+  appId:"1:75085012344:web:0b18581cb0a30c3df47c8d"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const storage = getStorage(fbApp);
+const auth = getAuth(fbApp);
+
+signInAnonymously(auth).catch(err => console.error("Anonymous sign-in failed:", err));
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+window.unlock = function(){
+  const val = document.getElementById("passcode").value;
+  if(val === "963281"){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+    loadLocations();
+  } else {
+    alert("Incorrect passcode.");
+  }
+};
+
+async function loadLocations(){
+
+  const table = document.getElementById("locationsTable");
+  table.innerHTML = "<tr><td colspan='5' class='empty-note'>Loading…</td></tr>";
+
+  const res = await fetch(API_BASE + "/api/locations");
+  const locations = await res.json();
+
+  if(!locations.length){
+    table.innerHTML = "<tr><td colspan='5' class='empty-note'>No locations yet. Add your first one above.</td></tr>";
+    return;
+  }
+
+  table.innerHTML = "";
+
+  locations.forEach(loc => {
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td><img class='thumb-sm' src='" + loc.imageUrl + "'></td>" +
+      "<td>" + loc.name + "</td>" +
+      "<td>" + loc.order + "</td>" +
+      "<td>" + (loc.unlocked ? "<span class='badge-unlocked'>Unlocked</span>" : "<span class='badge-locked'>Locked</span>") + "</td>" +
+      "<td><button class='btn-delete' onclick=\"deleteLocation('" + loc.id + "')\">Delete</button></td>";
+    table.appendChild(row);
+  });
+
+}
+
+window.addLocation = async function(){
+
+  const name = document.getElementById("addName").value.trim();
+  const imageFile = document.getElementById("addImage").files[0];
+  const btn = document.getElementById("addLocationBtn");
+  const progressEl = document.getElementById("uploadProgress");
+
+  if(!name){
+    alert("Please provide a location name.");
+    return;
+  }
+  if(!imageFile){
+    alert("Please choose an image.");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerText = "Uploading...";
+
+  try{
+
+    if(!auth.currentUser){
+      await signInAnonymously(auth);
+    }
+
+    const imgRef = ref(storage, "talkleticsLocations/" + Date.now() + "_" + imageFile.name);
+    const uploadTask = uploadBytesResumable(imgRef, imageFile);
+
+    const imageUrl = await new Promise((resolve, reject) => {
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          progressEl.innerText = "Uploading: " + pct + "%";
+        },
+        (err) => reject(err),
+        async () => resolve(await getDownloadURL(uploadTask.snapshot.ref))
+      );
+    });
+
+    const res = await fetch(API_BASE + "/api/adminAddLocation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, imageUrl })
+    });
+
+    if(res.ok){
+      document.getElementById("addName").value = "";
+      document.getElementById("addImage").value = "";
+      progressEl.innerText = "Location added.";
+      loadLocations();
+    } else {
+      alert("Could not add location.");
+    }
+
+  }catch(err){
+    console.error(err);
+    alert("Upload failed. Please try again.");
+  }
+
+  btn.disabled = false;
+  btn.innerText = "Add Location";
+
+};
+
+window.deleteLocation = async function(locationId){
+
+  if(!confirm("Delete this location? This cannot be undone.")) return;
+
+  await fetch(API_BASE + "/api/adminDeleteLocation", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ locationId })
+  });
+
+  loadLocations();
+
+};
+
+</script>
+</body>
+</html>

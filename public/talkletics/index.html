@@ -1,50 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talkletics — SayBon</title>
-
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/talkletics/talkletics.css" />
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Talkletics — Speak To Survive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="talkletics.css?v=13">
 </head>
 <body>
+<div class="tk-stage">
 
-  <header class="page-header">
-    <h1>Talkletics Games</h1>
-    <p>Play, practice, and level up your French 🎮</p>
-  </header>
+  <picture class="tk-bg-picture">
+    <source media="(max-width:768px)" srcset="/assets/talkletics/landing-bg-mobile.webp">
+    <img class="tk-bg-img" src="/assets/talkletics/landing-bg-desk.webp" alt="">
+  </picture>
 
-  <main class="games-grid">
-
-    <div class="game-tile console">Accent Arena</div>
-    <div class="game-tile console">Verb Voyager</div>
-    <div class="game-tile console">Word Warp</div>
-    <div class="game-tile console">Sentence Sprint</div>
-    <div class="game-tile console">Pronunciation Quest</div>
-    <div class="game-tile console">Grammar Galaxy</div>
-    <div class="game-tile console">Listening Lab</div>
-    <div class="game-tile console">Conversation Craze</div>
-    <div class="game-tile console">Tense Trek</div>
-    <div class="game-tile console">Vocabulary Vault</div>
-    <div class="game-tile console">Accent Arcade</div>
-    <div class="game-tile console">Dialogue Dash</div>
-    <div class="game-tile console">Syntax Safari</div>
-    <div class="game-tile console">French Frenzy</div>
-    <div class="game-tile console">Memory Match</div>
-    <div class="game-tile console">Phrase Fighter</div>
-    <div class="game-tile console">Word Wrestle</div>
-    <div class="game-tile console">Speed Speak</div>
-    <div class="game-tile console">Listening Legends</div>
-    <div class="game-tile console">Grammar Gladiators</div>
-
-  </main>
-
-  <button class="back-btn" onclick="window.location.href='/dashboard/'">
-    ← Back to Dashboard
+  <button class="tk-corner-icon tk-corner-back" onclick="location.href='/dashboard/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
   </button>
 
+  <div class="tk-corner-icon-group">
+    <button class="tk-corner-icon" onclick="location.href='/'" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11.5 12 4l9 7.5"></path>
+        <path d="M5.5 10v9a1 1 0 0 0 1 1H9v-6h6v6h2.5a1 1 0 0 0 1-1v-9"></path>
+      </svg>
+    </button>
+    <button class="tk-corner-icon" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+      </svg>
+    </button>
+  </div>
+
+  <div class="tk-platform">
+
+    <button class="tk-start-btn" id="tkStartBtn">Start Adventure</button>
+
+    <div class="tk-guide-wrap">
+      <img class="tk-guide" src="/assets/talkletics/guide.webp" alt="Your guide">
+
+      <div class="tk-bubble-shape" id="tkSpeechBubble">
+        <div class="tk-bubble-bop">
+          <picture>
+            <source media="(max-width:768px)" srcset="/assets/talkletics/bubble-glass-flipped.svg">
+            <img src="/assets/talkletics/bubble-glass.svg" class="tk-bubble-svg" alt="">
+          </picture>
+          <div class="tk-bubble-content">
+            <strong id="tkGreetText"></strong>
+            <p id="tkTypeText"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="talkletics.js?v=15"></script>
 </body>
 </html>
-

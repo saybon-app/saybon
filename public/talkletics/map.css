@@ -1,0 +1,154 @@
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;}
+
+.tkm-stage{
+  position:relative;
+  width:100vw;
+  min-height:100dvh;
+  background:linear-gradient(180deg,#f6efe0 0%,#f0e6ce 100%);
+  padding-bottom:80px;
+  opacity:0;
+  transform:translateY(18px) scale(.97);
+  filter:blur(8px);
+  animation:tkmEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes tkmEnter{
+  from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+}
+
+.tkm-glass-sheen{
+  position:fixed;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+  background:
+    linear-gradient(120deg,
+      rgba(255,255,255,0) 38%,
+      rgba(255,255,255,.16) 46%,
+      rgba(255,255,255,.22) 50%,
+      rgba(255,255,255,.16) 54%,
+      rgba(255,255,255,0) 62%
+    );
+}
+
+.tkm-corner-icon{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.8);
+  display:flex;align-items:center;justify-content:center;
+  color:#1e3a5f;
+  cursor:pointer;
+}
+.tkm-corner-icon svg{width:19px;height:19px;}
+.tkm-corner-back{position:fixed;top:14px;left:14px;z-index:31;}
+.tkm-corner-icon-group{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:31;}
+
+.tkm-title-card{
+  position:absolute;
+  top:14px;left:50%;
+  transform:translateX(-50%);
+  z-index:15;
+  background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.35));
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1.5px solid rgba(255,255,255,.85);
+  border-radius:22px;
+  padding:16px 30px;
+  box-shadow:0 10px 26px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.tkm-title{
+  font-size:1.4rem;
+  font-weight:800;
+  color:#0d2a4d;
+  letter-spacing:.02em;
+  text-align:center;
+  white-space:nowrap;
+}
+
+.tkm-path-svg{
+  position:absolute;
+  top:120px;left:50%;
+  transform:translateX(-50%);
+  width:min(92vw,420px);
+  z-index:1;
+}
+.tkm-path-mobile{display:none;}
+
+.tkm-nodes{
+  position:relative;
+  width:min(92vw,420px);
+  margin:0 auto;
+  top:120px;
+  z-index:2;
+}
+
+.tkm-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  background:none;border:none;
+  display:flex;flex-direction:column;align-items:center;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+
+.tkm-node[data-side="left"]{left:15%;}
+.tkm-node[data-side="right"]{left:85%;}
+.tkm-node[data-side="center"]{left:50%;}
+
+.tkm-node-img{
+  width:150px;height:150px;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 16px rgba(0,0,0,.28));
+}
+
+.tkm-node-badge{
+  position:relative;
+  margin-bottom:-8px;
+  width:30px;height:30px;
+  border-radius:50%;
+  background:#0d2a4d;
+  color:#fff;
+  font-size:.75rem;
+  font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 8px rgba(0,0,0,.3), 0 0 0 3px rgba(255,255,255,.85);
+  z-index:1;
+}
+
+.tkm-node-unlocked{cursor:pointer;}
+.tkm-node-unlocked .tkm-node-img{
+  animation:tkmPulse 1.8s ease-in-out infinite;
+}
+@keyframes tkmPulse{
+  0%,100%{filter:drop-shadow(0 10px 16px rgba(0,0,0,.28)) drop-shadow(0 0 0 rgba(255,215,106,.6));}
+  50%{filter:drop-shadow(0 10px 16px rgba(0,0,0,.28)) drop-shadow(0 0 20px rgba(255,215,106,.9));}
+}
+.tkm-node-unlocked:hover{transform:translate(-50%,-50%) scale(1.08);}
+.tkm-node-unlocked:active{transform:translate(-50%,-50%) scale(1.14);}
+
+.tkm-unlock-pop{animation:tkmUnlockPop .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes tkmUnlockPop{
+  0%{transform:translate(-50%,-50%) scale(1);}
+  40%{transform:translate(-50%,-50%) scale(1.35);}
+  70%{transform:translate(-50%,-50%) scale(.95);}
+  100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+.tkm-node-locked{pointer-events:none;opacity:.85;}
+
+@media (max-width:480px){
+  .tkm-title{font-size:1.1rem;}
+  .tkm-title-card{padding:12px 22px;}
+
+  .tkm-path-desktop{display:none;}
+  .tkm-path-mobile{display:block;}
+
+  .tkm-node[data-side="left"]{left:35%;}
+  .tkm-node[data-side="right"]{left:65%;}
+  .tkm-node[data-side="center"]{left:50%;}
+
+  .tkm-node-img{width:118px;height:118px;}
+  .tkm-node-badge{width:26px;height:26px;font-size:.68rem;}
+}

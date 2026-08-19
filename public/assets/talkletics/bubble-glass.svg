@@ -1,0 +1,31 @@
+<svg width="320" height="225" viewBox="0 0 320 225" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tkGlassBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffdf6" stop-opacity="0.97"/>
+      <stop offset="100%" stop-color="#f3ead4" stop-opacity="0.97"/>
+    </linearGradient>
+    <linearGradient id="tkGlassStreak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="tkClip">
+      <path d="M28,16 H264 a24,24 0 0 1 24,24 V147 a24,24 0 0 1 -24,24 H90 L48,221 L56,171 H28 a24,24 0 0 1 -24,-24 V40 a24,24 0 0 1 24,-24 Z"/>
+    </clipPath>
+  </defs>
+
+  <path d="M28,16 H264 a24,24 0 0 1 24,24 V147 a24,24 0 0 1 -24,24 H90 L48,221 L56,171 H28 a24,24 0 0 1 -24,-24 V40 a24,24 0 0 1 24,-24 Z"
+        fill="url(#tkGlassBase)"
+        stroke="rgba(255,255,255,0.85)"
+        stroke-width="1.5"/>
+
+  <g clip-path="url(#tkClip)">
+    <polygon points="0,0 60,0 10,190 -50,190" fill="url(#tkGlassStreak)"/>
+    <polygon points="230,0 260,0 210,190 180,190" fill="url(#tkGlassStreak)" opacity="0.4"/>
+  </g>
+
+  <path d="M28,16 H264 a24,24 0 0 1 24,24 V147 a24,24 0 0 1 -24,24 H90 L48,221 L56,171 H28 a24,24 0 0 1 -24,-24 V40 a24,24 0 0 1 24,-24 Z"
+        fill="none"
+        stroke="rgba(201,168,102,0.5)"
+        stroke-width="1.5"/>
+</svg>
