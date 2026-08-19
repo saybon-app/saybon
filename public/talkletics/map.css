@@ -5,12 +5,22 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   position:relative;
   width:100vw;
   min-height:100dvh;
-  background:linear-gradient(180deg,#f6efe0 0%,#f0e6ce 100%);
+  background-image:url('/assets/talkletics/map/map-desk-bg.webp');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
   padding-bottom:80px;
   opacity:0;
   transform:translateY(18px) scale(.97);
   filter:blur(8px);
   animation:tkmEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@media (max-width:768px){
+  .tkm-stage{
+    background-image:url('/assets/talkletics/map/map-mobile-bg.webp');
+    background-attachment:scroll;
+  }
 }
 @keyframes tkmEnter{
   from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}
