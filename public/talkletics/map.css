@@ -5,18 +5,28 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   position:relative;
   width:100vw;
   min-height:100dvh;
-  background-image:url('/assets/talkletics/map/map-desk-bg.webp');
-  background-size:cover;
-  background-position:top center;
-  background-repeat:no-repeat;
   padding-bottom:80px;
   opacity:0;
   transform:translateY(18px) scale(.97);
   filter:blur(8px);
   animation:tkmEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+  overflow:hidden;
+}
+
+.tkm-bg-blur{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background-image:url('/assets/talkletics/map/map-desk-bg.webp');
+  background-size:cover;
+  background-position:top center;
+  background-repeat:no-repeat;
+  filter:blur(6px);
+  transform:scale(1.08);
+  pointer-events:none;
 }
 @media (max-width:768px){
-  .tkm-stage{
+  .tkm-bg-blur{
     background-image:url('/assets/talkletics/map/map-mobile-bg.webp');
   }
 }
@@ -24,10 +34,8 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 .tkm-scrim{
   position:absolute;
   inset:0;
-  z-index:5;
-  background:rgba(10,15,25,.28);
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
+  z-index:1;
+  background:rgba(10,15,25,.32);
   pointer-events:none;
 }
 @keyframes tkmEnter{
@@ -95,15 +103,14 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   top:120px;left:50%;
   transform:translateX(-50%);
   width:min(92vw,420px);
-  z-index:1;
+  z-index:2;
 }
 .tkm-path-mobile{display:none;}
 
 .tkm-nodes{
   position:relative;
   width:min(92vw,420px);
-  margin:0 auto;
-  top:120px;
+  margin:120px auto 0;
   z-index:2;
 }
 
