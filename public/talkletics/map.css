@@ -15,7 +15,8 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 
 .tkm-bg-blur{
   position:absolute;
-  inset:0;
+  top:0;left:0;right:0;
+  height:100vh;
   z-index:0;
   background-image:url('/assets/talkletics/map/map-desk-bg.webp');
   background-size:cover;
@@ -29,6 +30,24 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   .tkm-bg-blur{
     background-image:url('/assets/talkletics/map/map-mobile-bg.webp');
   }
+}
+
+/* CSS-generated extension picking up the photo's sunlit-grass tone,
+   stretches infinitely below the static image with no seam or asset needed */
+.tkm-bg-extend{
+  position:absolute;
+  top:100vh;left:0;right:0;bottom:0;
+  z-index:0;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      rgba(255,255,255,.04) 0px,
+      rgba(255,255,255,.04) 2px,
+      rgba(0,0,0,.03) 2px,
+      rgba(0,0,0,.03) 4px
+    ),
+    linear-gradient(180deg, #8fbf4a 0%, #6ea83a 35%, #4f8a2c 70%, #3d701f 100%);
+  pointer-events:none;
 }
 
 .tkm-scrim{
