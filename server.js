@@ -3030,30 +3030,32 @@ return res.status(400).json({error:"Could not assess this recording. Please try 
 
 }
 
-const pa = best.PronunciationAssessment || {}
+const accuracyScore = best.AccuracyScore || 0
+const fluencyScore = best.FluencyScore || 0
+const completenessScore = best.CompletenessScore || 0
 
 const finalScore = Math.round(
 
-(pa.AccuracyScore||0) * 0.5 +
-(pa.CompletenessScore||0) * 0.2 +
-(pa.FluencyScore||0) * 0.3
+accuracyScore * 0.5 +
+completenessScore * 0.2 +
+fluencyScore * 0.3
 
 )
 
 const wordFeedback = (best.Words||[]).map(w => ({
 
 word: w.Word,
-accuracyScore: w.PronunciationAssessment ? w.PronunciationAssessment.AccuracyScore : null,
-errorType: w.PronunciationAssessment ? w.PronunciationAssessment.ErrorType : null
+accuracyScore: w.AccuracyScore != null ? w.AccuracyScore : null,
+errorType: w.ErrorType || null
 
 }))
 
 res.json({
 
 recognizedText: best.Display || best.Lexical || "",
-accuracyScore: pa.AccuracyScore || 0,
-fluencyScore: pa.FluencyScore || 0,
-completenessScore: pa.CompletenessScore || 0,
+accuracyScore,
+fluencyScore,
+completenessScore,
 finalScore,
 words: wordFeedback,
 _debugRawAzureResponse: azureData
