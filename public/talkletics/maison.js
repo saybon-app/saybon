@@ -52,7 +52,6 @@
   var preloaderEl = document.getElementById("msPreloader");
   var preloaderVideo = document.getElementById("msPreloaderVideo");
   var preloaderNote = document.getElementById("msPreloaderNote");
-  var skipPreloaderBtn = document.getElementById("msSkipPreloader");
   var cardEl = document.querySelector(".ms-card");
 
   var encourageMessages = [
@@ -322,11 +321,14 @@
     window.location.href = "mission2.html";
   });
 
-  skipPreloaderBtn.addEventListener("click", showGuideIntro);
+  // preloader skip removed - video always plays through
 
   function showGuideIntro(){
-    preloaderEl.style.display = "none";
-    document.getElementById("msGuideIntro").style.display = "flex";
+    preloaderEl.classList.add("ms-preloader-fadeout");
+    setTimeout(function(){
+      preloaderEl.style.display = "none";
+      document.getElementById("msGuideIntro").style.display = "flex";
+    }, 600);
   }
 
   function startMission(){

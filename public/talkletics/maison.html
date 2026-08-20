@@ -7,7 +7,7 @@
 <title>Talkletics — Maison — Mission 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="maison.css?v=5">
+<link rel="stylesheet" href="maison.css?v=6">
 </head>
 <body>
 <div class="ms-stage">
@@ -31,17 +31,16 @@
 
   <div class="ms-preloader" id="msPreloader">
     <video id="msPreloaderVideo" class="ms-preloader-video" playsinline poster=""></video>
-    <button class="ms-skip-btn" id="msSkipPreloader">Skip &rarr;</button>
-    <p class="ms-preloader-note" id="msPreloaderNote">Loading...</p>
+    <p class="ms-preloader-note" id="msPreloaderNote" style="display:none;">Preloader video not uploaded yet — continuing…</p>
   </div>
 
   <div class="ms-guide-intro" id="msGuideIntro" style="display:none;">
-    <p class="ms-guide-intro-label">Tap your guide for instructions</p>
-    <button class="ms-guide-avatar-btn ms-guide-avatar-btn-large" id="msGuideAvatarBtn" aria-label="Play instructions">
+    <button class="ms-guide-tap" id="msGuideAvatarBtn" aria-label="Play instructions">
       <img id="msGuideAvatarImg" src="" alt="Guide">
+      <span class="ms-guide-tap-hint">Tap to hear instructions</span>
     </button>
     <div class="ms-guide-intro-actions">
-      <button class="ms-btn ms-btn-secondary" id="msGuideSkipBtn">Skip</button>
+      <button class="ms-btn ms-btn-skip" id="msGuideSkipBtn">Skip</button>
       <button class="ms-btn ms-btn-primary" id="msGuideStartBtn">Start Mission</button>
     </div>
   </div>
@@ -98,6 +97,6 @@
 <audio id="msRefAudio"></audio>
 <audio id="msGuideAudio"></audio>
 <script src="talkletics-audio.js?v=1"></script>
-<script src="maison.js?v=5"></script>
+<script src="maison.js?v=6"></script>
 </body>
 </html>

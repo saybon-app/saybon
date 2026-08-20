@@ -34,6 +34,11 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
   width:100vw;height:100dvh;
   background:#0a0f19;
   overflow:hidden;
+  transition:opacity .6s ease;
+}
+.ms-preloader.ms-preloader-fadeout{
+  opacity:0;
+  pointer-events:none;
 }
 .ms-preloader-video{
   position:absolute;
@@ -42,24 +47,12 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
   height:100%;
   object-fit:cover;
 }
-.ms-skip-btn{
-  position:absolute;
-  bottom:max(28px, env(safe-area-inset-bottom));
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(0,0,0,.45);
-  backdrop-filter:blur(10px);
-  color:#fff;border:1px solid rgba(255,255,255,.35);
-  padding:11px 26px;border-radius:22px;
-  font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer;
-  z-index:2;
-}
 .ms-preloader-note{
   position:absolute;
-  bottom:max(80px, calc(env(safe-area-inset-bottom) + 52px));
+  bottom:max(40px, env(safe-area-inset-bottom));
   left:50%;transform:translateX(-50%);
   width:80%;text-align:center;
-  color:#c7ccd3;font-size:.8rem;
+  color:#c7ccd3;font-size:.85rem;
   z-index:2;
 }
 
@@ -142,44 +135,59 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:20px;
+  gap:22px;
   padding:20px;
+  opacity:0;
+  animation:msIntroFadeIn .6s ease forwards;
 }
-.ms-guide-intro-label{
-  background:rgba(255,255,255,.94);
-  color:#12335c;font-size:.9rem;font-weight:700;
-  padding:8px 20px;border-radius:16px;
-  box-shadow:0 3px 10px rgba(0,0,0,.2);
-}
-.ms-guide-avatar-btn{
-  border-radius:50%;
-  overflow:hidden;
-  cursor:pointer;background:transparent;padding:0;border:none;
-  transition:box-shadow .25s ease;
-}
-.ms-guide-avatar-btn img{width:100%;height:100%;object-fit:cover;display:block;}
-
-.ms-guide-avatar-btn-large{
-  width:220px;height:220px;
-  border:4px solid rgba(255,255,255,.9);
-  box-shadow:0 10px 24px rgba(0,0,0,.35);
+@keyframes msIntroFadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
 }
 
-.ms-guide-avatar-btn.ms-guide-active{
-  animation:msGuideBounce 1s ease-in-out infinite, msGuideGlow 1.4s ease-in-out infinite;
+.ms-guide-tap{
+  background:none;border:none;cursor:pointer;padding:0;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.ms-guide-tap img{
+  height:min(48vh,420px);
+  width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 12px 20px rgba(0,0,0,.4));
+  display:block;
+  transition:filter .25s ease;
+}
+.ms-guide-tap-hint{
+  color:#fff;
+  font-size:.78rem;
+  font-weight:600;
+  opacity:.85;
+  text-shadow:0 2px 6px rgba(0,0,0,.6);
+  animation:msTapPulse 1.8s ease-in-out infinite;
+}
+@keyframes msTapPulse{
+  0%,100%{opacity:.6;}
+  50%{opacity:1;}
+}
+
+.ms-guide-tap.ms-guide-active img{
+  animation:msGuideBounce 1s ease-in-out infinite;
+  filter:drop-shadow(0 0 26px rgba(255,215,106,.9)) drop-shadow(0 12px 20px rgba(0,0,0,.4));
 }
 @keyframes msGuideBounce{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-14px);}
 }
-@keyframes msGuideGlow{
-  0%,100%{box-shadow:0 0 0 0 rgba(255,215,106,.65), 0 10px 24px rgba(0,0,0,.35);}
-  50%{box-shadow:0 0 30px 12px rgba(255,215,106,.85), 0 10px 24px rgba(0,0,0,.35);}
+
+.ms-guide-intro-actions{display:flex;gap:12px;margin-top:4px;}
+
+.ms-btn-skip{
+  background:rgba(255,255,255,.95);
+  color:#12335c;
+  border:2px solid rgba(255,255,255,1);
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
 }
 
-.ms-guide-intro-actions{display:flex;gap:12px;margin-top:6px;}
-
 @media (max-width:480px){
-  .ms-guide-avatar-btn-large{width:170px;height:170px;}
-  .ms-guide-intro-label{font-size:.8rem;padding:7px 16px;}
+  .ms-guide-tap img{height:min(38vh,300px);}
 }
