@@ -187,8 +187,19 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 .tkm-node-locked{pointer-events:none;opacity:.85;}
 
 @media (max-width:480px){
-  .tkm-title{font-size:1.3rem;}
-  .tkm-title-card{padding:12px 22px;}
+  .tkm-title-card{
+    top:64px;
+    left:50%;
+    max-width:calc(100vw - 28px);
+    padding:10px 18px;
+  }
+  .tkm-title{
+    font-size:1.05rem;
+    white-space:normal;
+    line-height:1.2;
+  }
+  .tkm-corner-back{top:14px;}
+  .tkm-corner-icon-group{top:14px;}
 
   .tkm-path-desktop{display:none;}
   .tkm-path-mobile{display:block;}
