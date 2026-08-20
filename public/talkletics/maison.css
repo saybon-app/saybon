@@ -221,3 +221,7 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
   margin-bottom:20px;line-height:1.4;
 }
 .ms-confirm-actions{display:flex;gap:10px;justify-content:center;}
+#msPlayRecordingBtn, #msRerecordBtn{
+  font-size:.9rem;
+  padding:11px 22px;
+}

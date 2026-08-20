@@ -58,6 +58,10 @@
   var confirmOverlay = document.getElementById("msConfirmOverlay");
   var confirmCancel = document.getElementById("msConfirmCancel");
   var confirmYes = document.getElementById("msConfirmYes");
+  var playRecordingBtn = document.getElementById("msPlayRecordingBtn");
+  var rerecordBtn = document.getElementById("msRerecordBtn");
+  var playbackAudioEl = new Audio();
+  var recordedBlobUrl = null;
 
   var encourageMessages = [
     "So close! Give it another go.",
@@ -130,6 +134,8 @@
     recordBtn.style.display = "none";
     stopBtn.style.display = "none";
     submitBtn.style.display = "none";
+    playRecordingBtn.style.display = "none";
+    rerecordBtn.style.display = "none";
     statusEl.textContent = "";
     feedbackEl.style.display = "none";
     cardEl.style.display = "block";
@@ -206,8 +212,33 @@
     mediaRecorder.stop();
     currentStream.getTracks().forEach(function(t){ t.stop(); });
     stopBtn.style.display = "none";
-    submitBtn.style.display = "inline-block";
-    statusEl.textContent = "Ready to submit.";
+
+    mediaRecorder.addEventListener("stop", function(){
+      var blob = new Blob(recordedChunks);
+      if(recordedBlobUrl){
+        URL.revokeObjectURL(recordedBlobUrl);
+      }
+      recordedBlobUrl = URL.createObjectURL(blob);
+      playbackAudioEl.src = recordedBlobUrl;
+
+      playRecordingBtn.style.display = "inline-block";
+      rerecordBtn.style.display = "inline-block";
+      submitBtn.style.display = "inline-block";
+      statusEl.textContent = "Listen back, re-record, or submit when ready.";
+    }, { once: true });
+  });
+
+  playRecordingBtn.addEventListener("click", function(){
+    playbackAudioEl.currentTime = 0;
+    playbackAudioEl.play();
+  });
+
+  rerecordBtn.addEventListener("click", function(){
+    playRecordingBtn.style.display = "none";
+    rerecordBtn.style.display = "none";
+    submitBtn.style.display = "none";
+    recordBtn.style.display = "inline-block";
+    statusEl.textContent = "";
   });
 
   submitBtn.addEventListener("click", async function(){
