@@ -70,12 +70,16 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   box-shadow:0 10px 26px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.9);
 }
 .tkm-title{
-  font-size:1.4rem;
+  font-family:"Baloo 2",sans-serif;
+  font-size:1.7rem;
   font-weight:800;
-  color:#0d2a4d;
-  letter-spacing:.02em;
+  color:#1a4fa0;
+  letter-spacing:.01em;
   text-align:center;
   white-space:nowrap;
+  text-shadow:
+    0 2px 0 #ffffff,
+    0 4px 8px rgba(0,0,0,.2);
 }
 
 .tkm-path-svg{
@@ -149,7 +153,7 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 .tkm-node-locked{pointer-events:none;opacity:.85;}
 
 @media (max-width:480px){
-  .tkm-title{font-size:1.1rem;}
+  .tkm-title{font-size:1.3rem;}
   .tkm-title-card{padding:12px 22px;}
 
   .tkm-path-desktop{display:none;}
