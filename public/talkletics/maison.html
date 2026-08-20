@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Talkletics — Maison — Mission 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="maison.css?v=1">
+</head>
+<body>
+<div class="ms-stage">
+
+  <div class="ms-bg-blur"></div>
+  <div class="ms-scrim"></div>
+
+  <button class="ms-corner-icon ms-corner-back" onclick="location.href='map.html'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="ms-corner-icon ms-corner-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="ms-preloader" id="msPreloader">
+    <video id="msPreloaderVideo" class="ms-preloader-video" playsinline></video>
+    <button class="ms-skip-btn" id="msSkipPreloader">Skip &rarr;</button>
+    <p class="ms-preloader-note" id="msPreloaderNote">Loading...</p>
+  </div>
+
+  <div class="ms-mission" id="msMission" style="display:none;">
+
+    <div class="ms-topbar">
+      <span class="ms-item-counter" id="msItemCounter">Item 1 of 12</span>
+      <span class="ms-tier-label" id="msTierLabel">Words</span>
+    </div>
+
+    <div class="ms-card">
+      <p class="ms-french" id="msFrench">—</p>
+      <p class="ms-english" id="msEnglish">—</p>
+
+      <div class="ms-dots" id="msDots">
+        <span class="ms-dot"></span><span class="ms-dot"></span><span class="ms-dot"></span>
+        <span class="ms-dot"></span><span class="ms-dot"></span><span class="ms-dot"></span>
+      </div>
+
+      <p class="ms-phase-label" id="msPhaseLabel">Listen carefully</p>
+
+      <button class="ms-btn ms-btn-primary" id="msListenBtn">▶ Listen</button>
+      <button class="ms-btn ms-btn-record" id="msRecordBtn" style="display:none;">● Record</button>
+      <button class="ms-btn ms-btn-stop" id="msStopBtn" style="display:none;">■ Stop</button>
+      <button class="ms-btn ms-btn-primary" id="msSubmitBtn" style="display:none;">Submit</button>
+
+      <p class="ms-status" id="msStatus"></p>
+    </div>
+
+    <div class="ms-feedback" id="msFeedback" style="display:none;">
+      <p class="ms-feedback-score" id="msFeedbackScore">—</p>
+      <p class="ms-feedback-msg" id="msFeedbackMsg">—</p>
+      <button class="ms-btn ms-btn-primary" id="msTryAgainBtn">Try Again</button>
+      <button class="ms-btn ms-btn-secondary" id="msNextBtn">Next</button>
+    </div>
+
+    <div class="ms-final" id="msFinal" style="display:none;">
+      <p class="ms-final-title">Mission Complete</p>
+      <p class="ms-final-score" id="msFinalScore">—</p>
+      <p class="ms-final-pass" id="msFinalPass">—</p>
+      <button class="ms-btn ms-btn-secondary" id="msRetakeBtn">Retake Mission</button>
+      <button class="ms-btn ms-btn-primary" id="msContinueBtn">Continue to Mission 2</button>
+    </div>
+
+  </div>
+
+</div>
+<audio id="msRefAudio"></audio>
+<script src="talkletics-audio.js?v=1"></script>
+<script src="maison.js?v=1"></script>
+</body>
+</html>
