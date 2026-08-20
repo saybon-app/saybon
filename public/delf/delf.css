@@ -80,30 +80,12 @@ body{
 }
 
 .df-peek-band{
-  padding-top:130px;
+  padding-top:24px;
   text-align:center;
   position:relative;
 }
 
-.df-see-full-btn{
-  background:none;
-  border:none;
-  color:#d4af6a;
-  font-weight:700;
-  font-size:.9rem;
-  letter-spacing:.03em;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  cursor:pointer;
-  padding:10px 20px;
-  border-radius:999px;
-  transition:background .15s ease, transform .15s ease;
-}
-.df-see-full-btn:hover{background:rgba(212,175,106,.08);}
-.df-see-full-btn:active{transform:scale(.95);}
-.df-see-full-btn svg{width:16px;height:16px;transition:transform .3s ease;}
-.df-see-full-btn.df-flipped svg{transform:rotate(180deg);}
+
 
 .df-content{
   max-height:0;
@@ -225,7 +207,7 @@ body{
 @media (max-width:480px){
   .df-hero{padding:86px 20px 128px;}
   .df-hero-circle-wrap{width:168px;height:168px;bottom:-80px;}
-  .df-peek-band{padding-top:106px;}
+  .df-peek-band{padding-top:20px;}
   .df-card{padding:26px 20px;}
   .df-skills-grid{gap:16px;}
 }
