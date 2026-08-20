@@ -367,7 +367,7 @@
       : encourageMessages[Math.floor(Math.random()*encourageMessages.length)];
 
     tryAgainBtn.style.display = "inline-block";
-    nextBtn.textContent = passed ? "Next" : "Skip";
+    nextBtn.textContent = passed ? "Next" : "Nah, I'm good";
   }
 
   tryAgainBtn.addEventListener("click", function(){
