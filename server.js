@@ -3293,3 +3293,95 @@ res.status(500).json({error:"could not reorder location"})
 }
 
 })
+
+// ================================================================
+// TALKLETICS ASSETS (general media: video, audio, images)
+// ================================================================
+
+app.get("/api/assets", async(req,res)=>{
+
+try{
+
+const snapshot=await db.collection("talkleticsAssets").orderBy("created","desc").get()
+
+let assets=[]
+
+snapshot.forEach(doc=>{
+
+assets.push({
+
+id:doc.id,
+...doc.data()
+
+})
+
+})
+
+res.json(assets)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not load assets"})
+
+}
+
+})
+
+app.post("/api/adminAddAsset", async(req,res)=>{
+
+try{
+
+const {name,type,url}=req.body
+
+if(!name || !type || !url){
+return res.status(400).json({error:"Name, type, and URL are required"})
+}
+
+const ref=db.collection("talkleticsAssets").doc()
+
+await ref.set({
+
+name,
+type,
+url,
+created:new Date()
+
+})
+
+res.json({id:ref.id})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not add asset"})
+
+}
+
+})
+
+app.post("/api/adminDeleteAsset", async(req,res)=>{
+
+try{
+
+const {assetId}=req.body
+
+if(!assetId){
+return res.status(400).json({error:"Asset ID is required"})
+}
+
+await db.collection("talkleticsAssets").doc(assetId).delete()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not delete asset"})
+
+}
+
+})

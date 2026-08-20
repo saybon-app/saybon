@@ -4,7 +4,7 @@
 <script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Talkletics Map Admin</title>
+<title>Talkletics Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;}
@@ -26,10 +26,15 @@ h1{text-align:center;font-size:22px;font-weight:700;color:#fff;margin-bottom:24p
 input,select{padding:9px 11px;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-family:inherit;font-size:12.5px;background:rgba(255,255,255,.06);color:#fff;}
 button{padding:9px 16px;border:none;border-radius:8px;cursor:pointer;background:#B76E79;color:#fff;font-weight:650;font-size:12.5px;}
 button:hover{opacity:.9;}
+.tabs{display:flex;gap:6px;margin:24px 0 20px;}
+.tab-btn{background:rgba(255,255,255,.05);color:#9C8589;padding:10px 16px;border-radius:9px;border:1px solid rgba(255,255,255,.1);}
+.tab-btn.active{background:rgba(183,110,121,.18);color:#C9A0A5;border-color:rgba(183,110,121,.4);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
 .add-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .add-form .full{grid-column:1/-1;}
 .add-form label{display:block;font-size:11px;color:#9C8589;margin-bottom:5px;}
-.add-form input{width:100%;}
+.add-form input,.add-form select{width:100%;}
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;margin-top:10px;}
 th,td{padding:11px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;font-size:12.5px;}
@@ -40,6 +45,7 @@ th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;
 .btn-move:disabled{opacity:.3;cursor:not-allowed;}
 .empty-note{padding:30px;text-align:center;color:#786367;font-size:12.5px;}
 .badge-locked{color:#786367;} .badge-unlocked{color:#7FB88A;font-weight:700;}
+.asset-link{color:#C9A0A5;font-size:11px;word-break:break-all;}
 </style>
 </head>
 <body>
@@ -52,7 +58,7 @@ th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;
 </button>
 
 <div class="container">
-<h1>TALKLETICS MAP ADMIN</h1>
+<h1>TALKLETICS ADMIN</h1>
 
 <div id="login" class="login">
 <p>Enter Admin Passcode</p>
@@ -62,6 +68,13 @@ th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;
 </div>
 
 <div id="panel" style="display:none;">
+
+<div class="tabs">
+<button class="tab-btn active" data-tab="locations" onclick="switchTab('locations')">Locations</button>
+<button class="tab-btn" data-tab="assets" onclick="switchTab('assets')">Media Assets</button>
+</div>
+
+<div class="tab-panel active" id="panel-locations">
 
 <div class="add-form">
 <div class="full"><label>Location Name</label><input id="addName" placeholder="e.g. Marché" /></div>
@@ -75,6 +88,34 @@ th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;
 <tr><th>Image</th><th>Name</th><th>Order</th><th>Status</th><th>Action</th></tr>
 <tbody id="locationsTable"></tbody>
 </table>
+</div>
+
+</div>
+
+<div class="tab-panel" id="panel-assets">
+
+<div class="add-form">
+<div class="full"><label>Asset Name</label><input id="assetName" placeholder="e.g. background-music, guide-walkin" /></div>
+<div class="full"><label>Asset Type</label>
+<select id="assetType">
+<option value="audio">Audio</option>
+<option value="video">Video</option>
+<option value="image">Image</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="full"><label>File</label><input type="file" id="assetFile" /></div>
+<div class="full" id="assetUploadProgress" style="font-size:11px;color:#9C8589;"></div>
+<div class="full"><button id="addAssetBtn" onclick="addAsset()">Add Asset</button></div>
+</div>
+
+<div class="table-wrap">
+<table>
+<tr><th>Name</th><th>Type</th><th>URL</th><th>Action</th></tr>
+<tbody id="assetsTable"></tbody>
+</table>
+</div>
+
 </div>
 
 </div>
@@ -109,10 +150,20 @@ window.unlock = function(){
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
     loadLocations();
+    loadAssets();
   } else {
     alert("Incorrect passcode.");
   }
 };
+
+window.switchTab = function(tab){
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  document.querySelector('.tab-btn[data-tab="' + tab + '"]').classList.add("active");
+  document.getElementById("panel-" + tab).classList.add("active");
+};
+
+// ===== LOCATIONS =====
 
 async function loadLocations(){
 
@@ -153,23 +204,15 @@ window.addLocation = async function(){
   const btn = document.getElementById("addLocationBtn");
   const progressEl = document.getElementById("uploadProgress");
 
-  if(!name){
-    alert("Please provide a location name.");
-    return;
-  }
-  if(!imageFile){
-    alert("Please choose an image.");
-    return;
-  }
+  if(!name){ alert("Please provide a location name."); return; }
+  if(!imageFile){ alert("Please choose an image."); return; }
 
   btn.disabled = true;
   btn.innerText = "Uploading...";
 
   try{
 
-    if(!auth.currentUser){
-      await signInAnonymously(auth);
-    }
+    if(!auth.currentUser){ await signInAnonymously(auth); }
 
     const imgRef = ref(storage, "talkleticsLocations/" + Date.now() + "_" + imageFile.name);
     const uploadTask = uploadBytesResumable(imgRef, imageFile);
@@ -211,29 +254,118 @@ window.addLocation = async function(){
 };
 
 window.moveLocation = async function(locationId, direction){
-
   await fetch(API_BASE + "/api/adminMoveLocation", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ locationId, direction })
   });
-
   loadLocations();
-
 };
 
 window.deleteLocation = async function(locationId){
-
   if(!confirm("Delete this location? This cannot be undone.")) return;
-
   await fetch(API_BASE + "/api/adminDeleteLocation", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ locationId })
   });
-
   loadLocations();
+};
 
+// ===== MEDIA ASSETS =====
+
+async function loadAssets(){
+
+  const table = document.getElementById("assetsTable");
+  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loading…</td></tr>";
+
+  const res = await fetch(API_BASE + "/api/assets");
+  const assets = await res.json();
+
+  if(!assets.length){
+    table.innerHTML = "<tr><td colspan='4' class='empty-note'>No assets yet. Add your first one above.</td></tr>";
+    return;
+  }
+
+  table.innerHTML = "";
+
+  assets.forEach(a => {
+    const row = document.createElement("tr");
+    row.innerHTML =
+      "<td>" + a.name + "</td>" +
+      "<td>" + a.type + "</td>" +
+      "<td><a class='asset-link' href='" + a.url + "' target='_blank'>" + a.url.slice(0,50) + "…</a></td>" +
+      "<td><button class='btn-delete' onclick=\"deleteAsset('" + a.id + "')\">Delete</button></td>";
+    table.appendChild(row);
+  });
+
+}
+
+window.addAsset = async function(){
+
+  const name = document.getElementById("assetName").value.trim();
+  const type = document.getElementById("assetType").value;
+  const file = document.getElementById("assetFile").files[0];
+  const btn = document.getElementById("addAssetBtn");
+  const progressEl = document.getElementById("assetUploadProgress");
+
+  if(!name){ alert("Please provide an asset name."); return; }
+  if(!file){ alert("Please choose a file."); return; }
+
+  btn.disabled = true;
+  btn.innerText = "Uploading...";
+
+  try{
+
+    if(!auth.currentUser){ await signInAnonymously(auth); }
+
+    const fileRef = ref(storage, "talkleticsAssets/" + Date.now() + "_" + file.name);
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    const url = await new Promise((resolve, reject) => {
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          progressEl.innerText = "Uploading: " + pct + "%";
+        },
+        (err) => reject(err),
+        async () => resolve(await getDownloadURL(uploadTask.snapshot.ref))
+      );
+    });
+
+    const res = await fetch(API_BASE + "/api/adminAddAsset", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, type, url })
+    });
+
+    if(res.ok){
+      document.getElementById("assetName").value = "";
+      document.getElementById("assetFile").value = "";
+      progressEl.innerText = "Asset added.";
+      loadAssets();
+    } else {
+      alert("Could not add asset.");
+    }
+
+  }catch(err){
+    console.error(err);
+    alert("Upload failed. Please try again.");
+  }
+
+  btn.disabled = false;
+  btn.innerText = "Add Asset";
+
+};
+
+window.deleteAsset = async function(assetId){
+  if(!confirm("Delete this asset?")) return;
+  await fetch(API_BASE + "/api/adminDeleteAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetId })
+  });
+  loadAssets();
 };
 
 </script>
