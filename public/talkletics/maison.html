@@ -7,7 +7,7 @@
 <title>Talkletics — Maison — Mission 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="maison.css?v=10">
+<link rel="stylesheet" href="maison.css?v=11">
 </head>
 <body>
 <div class="ms-stage">
@@ -64,6 +64,7 @@
       <p class="ms-phase-label" id="msPhaseLabel">Listen carefully</p>
 
       <button class="ms-btn ms-btn-primary" id="msListenBtn">▶ Listen</button>
+      <canvas id="msWaveCanvas" class="ms-wave-canvas" width="280" height="56" style="display:none;"></canvas>
       <button class="ms-btn ms-btn-record" id="msRecordBtn" style="display:none;">● Record</button>
       <button class="ms-btn ms-btn-stop" id="msStopBtn" style="display:none;">■ Stop</button>
       <button class="ms-btn ms-btn-secondary" id="msPlayRecordingBtn" style="display:none;">▶ Play My Recording</button>
@@ -109,6 +110,6 @@
 </div>
 <audio id="msRefAudio"></audio>
 <audio id="msGuideAudio"></audio>
-<script src="maison.js?v=9"></script>
+<script src="maison.js?v=10"></script>
 </body>
 </html>

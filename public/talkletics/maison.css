@@ -225,3 +225,36 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
   font-size:.9rem;
   padding:11px 22px;
 }
+.ms-wave-canvas{
+  display:block;
+  margin:14px auto;
+  width:100%;
+  max-width:280px;
+  height:56px;
+  border-radius:12px;
+  background:rgba(0,0,0,.06);
+}
+
+.ms-btn, .ms-guide-tap, .ms-corner-icon, .ms-skip-link{
+  transition:transform .12s ease, opacity .12s ease;
+}
+.ms-btn:active, .ms-btn.ms-pressed,
+.ms-guide-tap:active, .ms-guide-tap.ms-pressed,
+.ms-corner-icon:active, .ms-corner-icon.ms-pressed,
+.ms-skip-link:active, .ms-skip-link.ms-pressed{
+  transform:scale(.93);
+  opacity:.85;
+}
+
+.ms-loading-pulse{
+  display:inline-block;
+  width:10px;height:10px;border-radius:50%;
+  background:#5fbf5f;
+  animation:msLoadPulse .7s ease-in-out infinite;
+  margin-right:6px;
+  vertical-align:middle;
+}
+@keyframes msLoadPulse{
+  0%,100%{opacity:.3;transform:scale(.8);}
+  50%{opacity:1;transform:scale(1.15);}
+}

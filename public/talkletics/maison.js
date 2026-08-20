@@ -62,12 +62,65 @@
   var rerecordBtn = document.getElementById("msRerecordBtn");
   var playbackAudioEl = new Audio();
   var recordedBlobUrl = null;
+  var waveCanvas = document.getElementById("msWaveCanvas");
+  var waveCtx = waveCanvas.getContext("2d");
+  var waveAudioCtx = null;
+  var waveAnalyser = null;
+  var waveSource = null;
+  var waveAnimId = null;
+
+  function startWave(streamOrElement, isElement){
+    waveCanvas.style.display = "block";
+    if(!waveAudioCtx){
+      waveAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    waveAnalyser = waveAudioCtx.createAnalyser();
+    waveAnalyser.fftSize = 64;
+
+    if(isElement){
+      if(!streamOrElement._msWaveSource){
+        streamOrElement._msWaveSource = waveAudioCtx.createMediaElementSource(streamOrElement);
+        streamOrElement._msWaveSource.connect(waveAudioCtx.destination);
+      }
+      streamOrElement._msWaveSource.connect(waveAnalyser);
+    } else {
+      waveSource = waveAudioCtx.createMediaStreamSource(streamOrElement);
+      waveSource.connect(waveAnalyser);
+    }
+
+    var bufferLength = waveAnalyser.frequencyBinCount;
+    var dataArray = new Uint8Array(bufferLength);
+
+    function draw(){
+      waveAnimId = requestAnimationFrame(draw);
+      waveAnalyser.getByteFrequencyData(dataArray);
+      waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+      var barWidth = (waveCanvas.width / bufferLength) * 1.8;
+      var x = 0;
+      for(var i = 0; i < bufferLength; i++){
+        var barHeight = (dataArray[i] / 255) * waveCanvas.height;
+        waveCtx.fillStyle = "#5fbf5f";
+        waveCtx.fillRect(x, waveCanvas.height - barHeight, barWidth, barHeight);
+        x += barWidth + 2;
+      }
+    }
+    draw();
+  }
+
+  function stopWave(){
+    if(waveAnimId){
+      cancelAnimationFrame(waveAnimId);
+      waveAnimId = null;
+    }
+    waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+    waveCanvas.style.display = "none";
+  }
 
   var encourageMessages = [
-    "So close! Give it another go.",
-    "Nice try — let's polish it up.",
-    "Almost there, you've got this.",
-    "Good effort! One more attempt?"
+    "You're SO close — I think one more try gets you there!",
+    "Almost! I bet a second go pushes you even higher.",
+    "Great effort — try again, I think you'll surprise yourself.",
+    "You're closer than you think. One more shot?"
   ];
   var passMessages = [
     "Beautifully done!",
@@ -206,12 +259,14 @@
     recordBtn.style.display = "none";
     stopBtn.style.display = "inline-block";
     statusEl.textContent = "Recording...";
+    startWave(currentStream, false);
   });
 
   stopBtn.addEventListener("click", function(){
     mediaRecorder.stop();
     currentStream.getTracks().forEach(function(t){ t.stop(); });
     stopBtn.style.display = "none";
+    stopWave();
 
     mediaRecorder.addEventListener("stop", function(){
       var blob = new Blob(recordedChunks);
@@ -229,9 +284,26 @@
   });
 
   playRecordingBtn.addEventListener("click", function(){
-    playbackAudioEl.currentTime = 0;
-    playbackAudioEl.play();
+    playRecordingBtn.disabled = true;
+    var originalLabel = playRecordingBtn.innerHTML;
+    playRecordingBtn.innerHTML = "<span class='ms-loading-pulse'></span>Loading...";
+
+    var onReady = function(){
+      playRecordingBtn.innerHTML = originalLabel;
+      playRecordingBtn.disabled = false;
+      startWave(playbackAudioEl, true);
+      playbackAudioEl.currentTime = 0;
+      playbackAudioEl.play();
+    };
+
+    if(playbackAudioEl.readyState >= 2){
+      onReady();
+    } else {
+      playbackAudioEl.addEventListener("canplay", onReady, { once: true });
+    }
   });
+
+  playbackAudioEl.addEventListener("ended", stopWave);
 
   rerecordBtn.addEventListener("click", function(){
     playRecordingBtn.style.display = "none";
@@ -268,7 +340,9 @@
         return;
       }
 
-      var score = Math.round(data.finalScore || 0);
+      var rawScore = data.finalScore || 0;
+      var taperBonus = 15 * (1 - (currentIndex / (CURRICULUM.length - 1)));
+      var score = Math.min(100, Math.round(rawScore + taperBonus));
       if(score > scores[currentIndex]) scores[currentIndex] = score;
 
       showFeedback(score);
@@ -492,3 +566,15 @@
   init();
 
 })();
+
+// universal press feedback (covers touch devices where :active is unreliable)
+document.addEventListener("pointerdown", function(e){
+  var target = e.target.closest(".ms-btn, .ms-guide-tap, .ms-corner-icon, .ms-skip-link");
+  if(target) target.classList.add("ms-pressed");
+});
+document.addEventListener("pointerup", function(e){
+  document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
+});
+document.addEventListener("pointercancel", function(e){
+  document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
+});
