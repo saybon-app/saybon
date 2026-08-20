@@ -1,3 +1,11 @@
+import { app, auth, db } from "/js/firebase-init.js";
+import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+var storage = getStorage(app);
+signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
+
 // ================================================================
 // DELF PLACEMENT ENGINE
 // Staircase: start at chosen level, must clear 70% (Listening+Reading
@@ -155,22 +163,6 @@ var state = {
   speakingBlob: null,
   clearedLevels: []
 };
-
-var firebaseConfig = window.SAYBON_FIREBASE_CONFIG || null;
-var auth = null;
-var db = null;
-var storage = null;
-
-try{
-  if(firebase.apps.length === 0 && firebaseConfig){
-    firebase.initializeApp(firebaseConfig);
-  }
-  auth = firebase.auth();
-  db = firebase.firestore();
-  storage = firebase.storage();
-}catch(e){
-  console.warn("Firebase not fully initialized on this page:", e);
-}
 
 var delfAssetsMap = {};
 
@@ -471,8 +463,8 @@ function finalizeResult(){
 // ---------------- FIRESTORE SAVE ----------------
 
 function saveResultToFirestore(levelId, result, passed){
-  if(!db || !auth || !auth.currentUser){
-    console.warn("Not saving placement result - no authenticated user or Firestore unavailable");
+  if(!auth.currentUser){
+    console.warn("Not saving placement result - no authenticated user");
     return;
   }
 
@@ -486,14 +478,14 @@ function saveResultToFirestore(levelId, result, passed){
     writingResponse: state.writingText || null,
     writingStatus: "pending_ai_grading",
     speakingStatus: state.speakingBlob ? "recorded_pending_ai_grading" : "not_recorded",
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    timestamp: serverTimestamp()
   };
 
-  db.collection("delfPlacements").doc(uid).collection("attempts").add(docData)
+  addDoc(collection(db, "delfPlacements", uid, "attempts"), docData)
     .then(function(){
-      if(state.speakingBlob && storage){
-        var ref = storage.ref().child("delfPlacements/" + uid + "/" + levelId + "-speaking-" + Date.now() + ".webm");
-        ref.put(state.speakingBlob).catch(function(err){
+      if(state.speakingBlob){
+        var speakingRef = storageRef(storage, "delfPlacements/" + uid + "/" + levelId + "-speaking-" + Date.now() + ".webm");
+        uploadBytes(speakingRef, state.speakingBlob).catch(function(err){
           console.error("Speaking upload failed:", err);
         });
       }
@@ -506,3 +498,15 @@ function saveResultToFirestore(levelId, result, passed){
 // ---------------- INIT ----------------
 
 renderLevelPicker();
+
+
+// Expose functions referenced by dynamically-generated HTML onclick attributes,
+// since module scope does not attach them to window automatically.
+window.renderLevelPicker = renderLevelPicker;
+window.startLevel = startLevel;
+window.selectListening = selectListening;
+window.selectReading = selectReading;
+window.submitWriting = submitWriting;
+window.toggleRecording = toggleRecording;
+window.finishLevel = finishLevel;
+window.finalizeResult = finalizeResult;

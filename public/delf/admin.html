@@ -15,11 +15,8 @@ body{
   padding:40px 20px;
 }
 .ad-stage{max-width:640px;margin:0 auto;}
-.ad-title{
-  font-size:1.5rem;font-weight:800;color:#f6f1e4;margin-bottom:8px;
-}
+.ad-title{font-size:1.5rem;font-weight:800;color:#f6f1e4;margin-bottom:8px;}
 .ad-subtitle{font-size:.9rem;color:#8b92a3;margin-bottom:30px;}
-
 .ad-gate{text-align:center;padding:60px 20px;}
 .ad-gate input{
   background:rgba(255,255,255,.05);border:1px solid rgba(212,175,106,.3);
@@ -31,20 +28,17 @@ body{
   border:none;border-radius:14px;padding:14px 26px;font-weight:800;
   font-size:.9rem;cursor:pointer;
 }
-
 .ad-card{
   background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);
   border-radius:20px;padding:24px;margin-bottom:20px;
 }
 .ad-card h2{font-size:1.1rem;font-weight:700;color:#f6f1e4;margin-bottom:16px;}
-
 .ad-field{margin-bottom:14px;}
 .ad-field label{display:block;font-size:.8rem;color:#8b92a3;margin-bottom:6px;}
 .ad-field input, .ad-field select{
   width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);
   border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;
 }
-
 .ad-list{display:flex;flex-direction:column;gap:10px;}
 .ad-row{
   display:flex;justify-content:space-between;align-items:center;
@@ -58,7 +52,6 @@ body{
   border-radius:8px;padding:6px 12px;font-size:.75rem;cursor:pointer;margin-left:6px;
 }
 .ad-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}
-
 .ad-status{font-size:.82rem;color:#8b92a3;margin-top:10px;}
 .ad-status.ad-success{color:#7cc576;}
 .ad-status.ad-error{color:#e07a7a;}
@@ -71,7 +64,7 @@ body{
     <p class="ad-subtitle">Enter admin passcode</p>
     <input type="password" id="adPasscodeInput" placeholder="Passcode">
     <br>
-    <button onclick="checkPasscode()">Enter</button>
+    <button id="adGateBtn">Enter</button>
     <p class="ad-status ad-error" id="adGateError"></p>
   </div>
 
@@ -97,7 +90,7 @@ body{
         <label>File</label>
         <input type="file" id="adFileInput">
       </div>
-      <button class="ad-btn" onclick="uploadAsset()">Upload</button>
+      <button class="ad-btn" id="adUploadBtn">Upload</button>
       <p class="ad-status" id="adUploadStatus"></p>
     </div>
 
@@ -111,11 +104,17 @@ body{
 
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-<script>
-var ADMIN_PASSCODE = "963281";
+<script type="module">
+import { app, auth } from "/js/firebase-init.js";
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const storage = getStorage(app);
+const ADMIN_PASSCODE = "963281";
+
+signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
+
+document.getElementById("adGateBtn").addEventListener("click", checkPasscode);
 
 function checkPasscode(){
   var input = document.getElementById("adPasscodeInput").value;
@@ -128,15 +127,7 @@ function checkPasscode(){
   }
 }
 
-var firebaseConfig = window.SAYBON_FIREBASE_CONFIG || null;
-try{
-  if(firebase.apps.length === 0 && firebaseConfig){
-    firebase.initializeApp(firebaseConfig);
-  }
-  firebase.auth().signInAnonymously().catch(function(e){ console.warn("Anon auth failed:", e); });
-}catch(e){
-  console.warn("Firebase not initialized:", e);
-}
+document.getElementById("adUploadBtn").addEventListener("click", uploadAsset);
 
 function uploadAsset(){
   var name = document.getElementById("adNameInput").value.trim();
@@ -154,10 +145,10 @@ function uploadAsset(){
   status.className = "ad-status";
 
   var file = fileInput.files[0];
-  var storageRef = firebase.storage().ref().child("delfAssets/" + name + "-" + Date.now() + "-" + file.name);
+  var storageRef = ref(storage, "delfAssets/" + name + "-" + Date.now() + "-" + file.name);
 
-  storageRef.put(file).then(function(snapshot){
-    return snapshot.ref.getDownloadURL();
+  uploadBytes(storageRef, file).then(function(snapshot){
+    return getDownloadURL(snapshot.ref);
   }).then(function(url){
     return fetch("/api/delfAdminAddAsset", {
       method: "POST",
@@ -174,7 +165,7 @@ function uploadAsset(){
     loadAssets();
   }).catch(function(err){
     console.error(err);
-    status.textContent = "Upload failed - check console";
+    status.textContent = "Upload failed: " + (err.message || "check console");
     status.className = "ad-status ad-error";
   });
 }
@@ -192,10 +183,17 @@ function loadAssets(){
       return '<div class="ad-row">' +
         '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">' + a.type + '</div></div>' +
         '<div class="ad-row-actions">' +
-        '<button onclick="renameAsset(\'' + a.id + '\')">Rename</button>' +
-        '<button onclick="deleteAsset(\'' + a.id + '\')">Delete</button>' +
+        '<button class="ad-rename-btn" data-id="' + a.id + '">Rename</button>' +
+        '<button class="ad-delete-btn" data-id="' + a.id + '">Delete</button>' +
         '</div></div>';
     }).join("");
+
+    document.querySelectorAll(".ad-delete-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){ deleteAsset(btn.getAttribute("data-id")); });
+    });
+    document.querySelectorAll(".ad-rename-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){ renameAsset(btn.getAttribute("data-id")); });
+    });
   }).catch(function(err){
     console.error(err);
     list.innerHTML = '<p class="ad-empty">Could not load assets</p>';
