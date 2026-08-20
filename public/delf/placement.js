@@ -172,6 +172,17 @@ try{
   console.warn("Firebase not fully initialized on this page:", e);
 }
 
+var delfAssetsMap = {};
+
+function loadDelfAssets(){
+  return fetch("/api/delfAssets").then(function(res){ return res.json(); }).then(function(assets){
+    delfAssetsMap = {};
+    (assets || []).forEach(function(a){ delfAssetsMap[a.name] = a.url; });
+  }).catch(function(err){
+    console.warn("Could not load DELF assets:", err);
+  });
+}
+
 function render(html){
   root.innerHTML = html;
 }
@@ -225,7 +236,10 @@ function startLevel(levelId){
   state.writingText = "";
   state.speakingBlob = null;
 
-  renderListening();
+  root.innerHTML = '<p class="pl-loading">Loading...</p>';
+  loadDelfAssets().then(function(){
+    renderListening();
+  });
 }
 
 // ---------------- LISTENING ----------------
@@ -244,12 +258,20 @@ function renderListening(){
 
   var allAnswered = state.listeningAnswers.length === qs.length && state.listeningAnswers.every(function(a){ return a !== undefined; });
 
+  var audioUrl = delfAssetsMap["delf-" + state.currentLevelId + "-listening"];
+  var audioBlock;
+  if(audioUrl){
+    audioBlock = '<div style="margin-bottom:22px;"><audio controls style="width:100%;" src="' + audioUrl + '"></audio></div>';
+  } else {
+    audioBlock = '<p style="font-size:.85rem;color:#8b92a3;margin-bottom:22px;">Audio for this level has not been uploaded yet. You may still answer the questions below.</p>';
+  }
+
   render(
     '<div class="pl-progress-row"><span class="pl-progress-label">Listening</span><span class="pl-progress-level">Level ' + lvl.label + '</span></div>' +
     '<div class="pl-card">' +
     '<span class="pl-skill-pill">Listen &amp; Answer</span>' +
-    '<p class="pl-passage" style="font-style:italic;">"' + lvl.listening.script + '"</p>' +
-    '<p style="font-size:.8rem;color:#8b92a3;margin-bottom:22px;">Read the passage above carefully, then answer as if you had heard it spoken aloud.</p>' +
+    '<p style="font-size:.85rem;color:#8b92a3;margin-bottom:16px;">Listen carefully, then answer the questions below.</p>' +
+    audioBlock +
     qHtml +
     '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" ' + (allAnswered ? "" : "disabled") + ' onclick="renderReading()">Continue to Reading</button></div>' +
     '</div>'
