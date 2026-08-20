@@ -7,7 +7,7 @@
 <title>Talkletics — Maison — Mission 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="maison.css?v=3">
+<link rel="stylesheet" href="maison.css?v=4">
 </head>
 <body>
 <div class="ms-stage">
@@ -33,6 +33,13 @@
     <video id="msPreloaderVideo" class="ms-preloader-video" playsinline poster=""></video>
     <button class="ms-skip-btn" id="msSkipPreloader">Skip &rarr;</button>
     <p class="ms-preloader-note" id="msPreloaderNote">Loading...</p>
+  </div>
+
+  <div class="ms-guide-help" id="msGuideHelp" style="display:none;">
+    <p class="ms-guide-help-label">Tap your guide for instructions</p>
+    <button class="ms-guide-avatar-btn" id="msGuideAvatarBtn" aria-label="Play instructions">
+      <img id="msGuideAvatarImg" src="" alt="Guide">
+    </button>
   </div>
 
   <div class="ms-mission" id="msMission" style="display:none;">
@@ -85,7 +92,8 @@
 
 </div>
 <audio id="msRefAudio"></audio>
+<audio id="msGuideAudio"></audio>
 <script src="talkletics-audio.js?v=1"></script>
-<script src="maison.js?v=3"></script>
+<script src="maison.js?v=4"></script>
 </body>
 </html>

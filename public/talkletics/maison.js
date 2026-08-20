@@ -329,7 +329,40 @@
     missionEl.style.display = "flex";
     missionEl.style.flexDirection = "column";
     missionEl.style.alignItems = "center";
+    document.getElementById("msGuideHelp").style.display = "flex";
     renderItem(0);
+  }
+
+  function setupGuideHelp(){
+    var avatarImg = document.getElementById("msGuideAvatarImg");
+    var avatarBtn = document.getElementById("msGuideAvatarBtn");
+    var guideAudio = document.getElementById("msGuideAudio");
+
+    if(assetMap["guide-photo"]){
+      avatarImg.src = assetMap["guide-photo"];
+    }
+
+    if(assetMap["guide-instructions"]){
+      guideAudio.src = assetMap["guide-instructions"];
+    }
+
+    avatarBtn.addEventListener("click", function(){
+      if(!guideAudio.src){
+        return;
+      }
+      if(guideAudio.paused){
+        guideAudio.currentTime = 0;
+        guideAudio.play();
+        avatarBtn.classList.add("ms-guide-active");
+      } else {
+        guideAudio.pause();
+        avatarBtn.classList.remove("ms-guide-active");
+      }
+    });
+
+    guideAudio.addEventListener("ended", function(){
+      avatarBtn.classList.remove("ms-guide-active");
+    });
   }
 
   async function init(){
@@ -354,6 +387,8 @@
     } else {
       preloaderNote.textContent = "Preloader video not uploaded yet — tap Skip to continue.";
     }
+
+    setupGuideHelp();
 
   }
 
