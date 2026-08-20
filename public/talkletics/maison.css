@@ -90,3 +90,23 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
 .ms-final-title{font-size:1.4rem;font-weight:800;color:#1a4fa0;margin-bottom:10px;}
 .ms-final-score{font-size:2.6rem;font-weight:800;color:#333;}
 .ms-final-pass{font-size:1.1rem;font-weight:700;margin:8px 0 22px;}
+.ms-hype-video{
+  position:fixed;
+  bottom:80px;right:16px;
+  width:180px;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 26px rgba(0,0,0,.4);
+  z-index:100;
+  background:#000;
+}
+.ms-hype-video video{width:100%;display:block;}
+.ms-hype-close{
+  position:absolute;top:6px;right:6px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(0,0,0,.6);color:#fff;border:none;
+  font-size:16px;line-height:1;cursor:pointer;z-index:2;
+}
+@media (max-width:480px){
+  .ms-hype-video{width:130px;bottom:70px;right:10px;}
+}

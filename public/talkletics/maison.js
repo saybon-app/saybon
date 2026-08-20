@@ -274,6 +274,40 @@
       ? "Pass mark: " + PASS_MARK + "% — You passed!"
       : "Pass mark: " + PASS_MARK + "% — Not quite yet.";
     finalPassEl.style.color = passed ? "#3f9f3f" : "#c23e3e";
+
+    playHypeVideo();
+  }
+
+  function playHypeVideo(){
+    var lastShown = localStorage.getItem("tkHypeLastShown");
+    var nextAsset = lastShown === "1" ? "mission-complete-hype-2" : "mission-complete-hype-1";
+    var nextFlag = lastShown === "1" ? "2" : "1";
+
+    var url = assetMap[nextAsset];
+    if(!url) return;
+
+    var hypeWrap = document.getElementById("msHypeVideo");
+    var hypeVideo = document.getElementById("msHypeVideoEl");
+    var hypeClose = document.getElementById("msHypeClose");
+
+    hypeVideo.src = url;
+    hypeWrap.style.display = "block";
+    hypeVideo.play().catch(function(){});
+
+    hypeVideo.addEventListener("click", function(){
+      hypeVideo.muted = !hypeVideo.muted;
+    });
+
+    hypeClose.addEventListener("click", function(){
+      hypeVideo.pause();
+      hypeWrap.style.display = "none";
+    });
+
+    hypeVideo.addEventListener("ended", function(){
+      hypeWrap.style.display = "none";
+    });
+
+    localStorage.setItem("tkHypeLastShown", nextFlag);
   }
 
   retakeBtn.addEventListener("click", function(){
