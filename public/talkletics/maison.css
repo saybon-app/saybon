@@ -171,12 +171,12 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
 }
 
 .ms-guide-tap.ms-guide-active img{
-  animation:msGuideBounce 1s ease-in-out infinite;
+  animation:msGuideBounce 2.4s cubic-bezier(.45,0,.55,1) infinite;
   filter:drop-shadow(0 0 26px rgba(255,215,106,.9)) drop-shadow(0 12px 20px rgba(0,0,0,.4));
 }
 @keyframes msGuideBounce{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-14px);}
+  50%{transform:translateY(-10px);}
 }
 
 .ms-guide-intro-actions{display:flex;gap:12px;margin-top:4px;}
