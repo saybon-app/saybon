@@ -3411,3 +3411,102 @@ res.status(500).json({error:"could not rename asset"})
 }
 
 })
+
+// ================================================================
+// DELF AI GRADING (Writing / Speaking, scored against DELF rubric)
+// ================================================================
+
+app.post("/api/gradeDelfResponse", express.json(), async(req,res)=>{
+
+try{
+
+const {skill, level, prompt, response} = req.body
+
+if(!skill || !level || !prompt || !response){
+return res.status(400).json({error:"skill, level, prompt, and response are all required"})
+}
+
+if(skill !== "writing" && skill !== "speaking"){
+return res.status(400).json({error:"skill must be either writing or speaking"})
+}
+
+const azureEndpoint = process.env.AZURE_OPENAI_ENDPOINT
+const azureKey = process.env.AZURE_OPENAI_KEY
+const azureDeployment = process.env.AZURE_OPENAI_DEPLOYMENT
+
+if(!azureEndpoint || !azureKey || !azureDeployment){
+return res.status(500).json({error:"Azure OpenAI is not configured on the server yet"})
+}
+
+const systemPrompt =
+"You are an official DELF examiner grading French language exam responses. " +
+"You grade strictly according to real DELF assessment criteria for the " + skill + " section at level " + level + ". " +
+"Score out of 25, matching the real DELF's per-skill scoring. " +
+"Respond ONLY with valid JSON in this exact shape, no markdown, no extra text: " +
+'{"score": <number 0-25>, "strengths": "<2-3 sentences>", "improvements": "<2-3 sentences>", "corrected_example": "<one short corrected phrase from their response, or empty string if not applicable>"}'
+
+const userPrompt =
+"DELF Level: " + level + "\n" +
+"Skill: " + skill + "\n" +
+"Task prompt given to the candidate: " + prompt + "\n\n" +
+"Candidate's response:\n" + response
+
+const azureUrl = azureEndpoint.replace(/\/$/, "") +
+"/openai/deployments/" + azureDeployment +
+"/chat/completions?api-version=2024-08-01-preview"
+
+const azureRes = await fetch(azureUrl, {
+
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+"api-key": azureKey
+},
+body: JSON.stringify({
+messages: [
+{ role: "system", content: systemPrompt },
+{ role: "user", content: userPrompt }
+],
+temperature: 0.3,
+max_tokens: 500
+})
+
+})
+
+const azureData = await azureRes.json()
+
+if(!azureRes.ok){
+
+console.error("Azure OpenAI error:", azureData)
+return res.status(500).json({error:"Grading request failed", details: azureData})
+
+}
+
+const rawText = azureData.choices && azureData.choices[0] && azureData.choices[0].message
+? azureData.choices[0].message.content
+: null
+
+if(!rawText){
+return res.status(500).json({error:"No grading response received"})
+}
+
+let parsed
+
+try{
+parsed = JSON.parse(rawText)
+}catch(parseErr){
+console.error("Could not parse grading JSON:", rawText)
+return res.status(500).json({error:"Could not parse grading result", raw: rawText})
+}
+
+res.json(parsed)
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not grade DELF response"})
+
+}
+
+})
