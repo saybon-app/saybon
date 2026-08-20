@@ -25,6 +25,7 @@
   var mediaRecorder = null;
   var recordedChunks = [];
   var currentStream = null;
+  var sequenceToken = 0;
 
   var refAudio = document.getElementById("msRefAudio");
   var listenBtn = document.getElementById("msListenBtn");
@@ -53,6 +54,10 @@
   var preloaderVideo = document.getElementById("msPreloaderVideo");
   var preloaderNote = document.getElementById("msPreloaderNote");
   var cardEl = document.querySelector(".ms-card");
+  var preSkipBtn = document.getElementById("msPreSkipBtn");
+  var confirmOverlay = document.getElementById("msConfirmOverlay");
+  var confirmCancel = document.getElementById("msConfirmCancel");
+  var confirmYes = document.getElementById("msConfirmYes");
 
   var encourageMessages = [
     "So close! Give it another go.",
@@ -67,6 +72,7 @@
     "You nailed it!"
   ];
 
+  // ===== WAV encoding (proven pattern from Levels prototype) =====
   function encodeWAV(samples, sampleRate){
     var buffer = new ArrayBuffer(44 + samples.length * 2);
     var view = new DataView(buffer);
@@ -127,10 +133,12 @@
     statusEl.textContent = "";
     feedbackEl.style.display = "none";
     cardEl.style.display = "block";
-    phaseLabelEl.textContent = "Listen carefully";
+    preSkipBtn.style.display = "block";
+    phaseLabelEl.textContent = "Tap Listen to begin";
   }
 
   function renderItem(index){
+    sequenceToken++;
     var item = CURRICULUM[index];
     frenchEl.textContent = item.french;
     englishEl.textContent = item.english;
@@ -140,32 +148,42 @@
     resetItemUI();
   }
 
+  // ===== Locked auto-play sequence: one click starts everything =====
   listenBtn.addEventListener("click", function(){
     if(!refAudio.src){
       statusEl.textContent = "Reference audio not uploaded yet for this item.";
       return;
     }
-    listenBtn.disabled = true;
-    refAudio.currentTime = 0;
-    refAudio.play();
+    listenBtn.style.display = "none";
+    phaseLabelEl.textContent = "Listen intently...";
+    runAutoSequence(sequenceToken);
   });
 
+  function runAutoSequence(token){
+    if(token !== sequenceToken) return;
+    refAudio.currentTime = 0;
+    refAudio.play();
+  }
+
   refAudio.addEventListener("ended", function(){
+    var token = sequenceToken;
+
     listenCount++;
     updateDots();
-    listenBtn.disabled = false;
 
-    if(listenCount < 3){
-      phaseLabelEl.textContent = "Listen carefully (" + listenCount + "/3)";
-    } else if(listenCount < 6){
-      phaseLabelEl.textContent = "Listen again, get ready to repeat (" + (listenCount-3) + "/3)";
+    if(listenCount === 3){
+      phaseLabelEl.textContent = "Get ready — you'll record exactly what you hear once the audio stops.";
     }
 
     if(listenCount >= 6){
-      listenBtn.style.display = "none";
+      phaseLabelEl.textContent = "Record a replica — the closer, the higher your score!";
       recordBtn.style.display = "inline-block";
-      phaseLabelEl.textContent = "Now record yourself";
+      return;
     }
+
+    setTimeout(function(){
+      runAutoSequence(token);
+    }, 500);
   });
 
   recordBtn.addEventListener("click", async function(){
@@ -195,6 +213,7 @@
   submitBtn.addEventListener("click", async function(){
 
     submitBtn.disabled = true;
+    preSkipBtn.style.display = "none";
     statusEl.textContent = "Analyzing your pronunciation...";
 
     try{
@@ -214,6 +233,7 @@
       if(!res.ok){
         statusEl.textContent = "Could not assess that recording. Please try again.";
         submitBtn.disabled = false;
+        preSkipBtn.style.display = "block";
         return;
       }
 
@@ -226,6 +246,7 @@
       console.error(err);
       statusEl.textContent = "Something went wrong. Please try again.";
       submitBtn.disabled = false;
+      preSkipBtn.style.display = "block";
     }
 
   });
@@ -249,7 +270,7 @@
     renderItem(currentIndex);
   });
 
-  nextBtn.addEventListener("click", function(){
+  function advanceItem(){
     submitBtn.disabled = false;
     currentIndex++;
     if(currentIndex >= CURRICULUM.length){
@@ -257,6 +278,22 @@
     } else {
       renderItem(currentIndex);
     }
+  }
+
+  nextBtn.addEventListener("click", advanceItem);
+
+  // ===== Pre-submit skip, with confirmation =====
+  preSkipBtn.addEventListener("click", function(){
+    confirmOverlay.style.display = "flex";
+  });
+  confirmCancel.addEventListener("click", function(){
+    confirmOverlay.style.display = "none";
+  });
+  confirmYes.addEventListener("click", function(){
+    confirmOverlay.style.display = "none";
+    sequenceToken++;
+    refAudio.pause();
+    advanceItem();
   });
 
   function showFinal(){
@@ -296,12 +333,10 @@
     hypeVideo.addEventListener("click", function(){
       hypeVideo.muted = !hypeVideo.muted;
     });
-
     hypeClose.addEventListener("click", function(){
       hypeVideo.pause();
       hypeWrap.style.display = "none";
     });
-
     hypeVideo.addEventListener("ended", function(){
       hypeWrap.style.display = "none";
     });
@@ -321,16 +356,7 @@
     window.location.href = "mission2.html";
   });
 
-  // preloader skip removed - video always plays through
-
-  function showGuideIntro(){
-    preloaderEl.classList.add("ms-preloader-fadeout");
-    setTimeout(function(){
-      preloaderEl.style.display = "none";
-      document.getElementById("msGuideIntro").style.display = "flex";
-    }, 600);
-  }
-
+  // ===== Guide intro screen =====
   function startMission(){
     var guideAudio = document.getElementById("msGuideAudio");
     guideAudio.pause();
@@ -343,6 +369,14 @@
     renderItem(0);
   }
 
+  function showGuideIntro(){
+    preloaderEl.classList.add("ms-preloader-fadeout");
+    setTimeout(function(){
+      preloaderEl.style.display = "none";
+      document.getElementById("msGuideIntro").style.display = "flex";
+    }, 600);
+  }
+
   function setupGuideHelp(){
     var avatarImg = document.getElementById("msGuideAvatarImg");
     var avatarBtn = document.getElementById("msGuideAvatarBtn");
@@ -353,15 +387,12 @@
     if(assetMap["guide-photo"]){
       avatarImg.src = assetMap["guide-photo"];
     }
-
     if(assetMap["guide-instructions"]){
       guideAudio.src = assetMap["guide-instructions"];
     }
 
     avatarBtn.addEventListener("click", function(){
-      if(!guideAudio.src){
-        return;
-      }
+      if(!guideAudio.src) return;
       if(guideAudio.paused){
         guideAudio.currentTime = 0;
         guideAudio.play();
@@ -371,7 +402,6 @@
         avatarBtn.classList.remove("ms-guide-active");
       }
     });
-
     guideAudio.addEventListener("ended", function(){
       avatarBtn.classList.remove("ms-guide-active");
     });
@@ -380,6 +410,7 @@
     skipBtn.addEventListener("click", startMission);
   }
 
+  // ===== Init: load assets, run preloader with mobile-safe fallback =====
   async function init(){
 
     try{
@@ -390,17 +421,37 @@
       console.error(err);
     }
 
-    if(assetMap["guide-photo"]){
-      preloaderVideo.poster = assetMap["guide-photo"];
-    }
-
     if(assetMap["mission-preloader"]){
       preloaderVideo.src = assetMap["mission-preloader"];
+      preloaderVideo.muted = true;
+      preloaderVideo.defaultMuted = true;
       preloaderNote.style.display = "none";
-      preloaderVideo.play().catch(function(){});
-      preloaderVideo.addEventListener("ended", showGuideIntro);
+      preloaderVideo.load();
+
+      var advanced = false;
+      var safeAdvance = function(){
+        if(advanced) return;
+        advanced = true;
+        showGuideIntro();
+      };
+
+      var attemptPlay = function(){
+        preloaderVideo.play().catch(function(){});
+      };
+      attemptPlay();
+      preloaderVideo.addEventListener("canplay", attemptPlay);
+      preloaderVideo.addEventListener("ended", safeAdvance);
+
+      setTimeout(function(){
+        if(preloaderVideo.paused){
+          safeAdvance();
+        }
+      }, 1800);
+
     } else {
-      preloaderNote.textContent = "Preloader video not uploaded yet — tap Skip to continue.";
+      preloaderNote.style.display = "block";
+      preloaderNote.textContent = "Preloader video not uploaded yet — continuing…";
+      setTimeout(showGuideIntro, 1500);
     }
 
     setupGuideHelp();
