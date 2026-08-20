@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DELF Admin — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);
+  color:#e6e1d3;
+  min-height:100vh;
+  padding:40px 20px;
+}
+.ad-stage{max-width:640px;margin:0 auto;}
+.ad-title{
+  font-size:1.5rem;font-weight:800;color:#f6f1e4;margin-bottom:8px;
+}
+.ad-subtitle{font-size:.9rem;color:#8b92a3;margin-bottom:30px;}
+
+.ad-gate{text-align:center;padding:60px 20px;}
+.ad-gate input{
+  background:rgba(255,255,255,.05);border:1px solid rgba(212,175,106,.3);
+  border-radius:14px;padding:14px 18px;color:#e6e1d3;font-size:1rem;
+  width:100%;max-width:240px;text-align:center;margin-bottom:16px;
+}
+.ad-gate button, .ad-btn{
+  background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;
+  border:none;border-radius:14px;padding:14px 26px;font-weight:800;
+  font-size:.9rem;cursor:pointer;
+}
+
+.ad-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);
+  border-radius:20px;padding:24px;margin-bottom:20px;
+}
+.ad-card h2{font-size:1.1rem;font-weight:700;color:#f6f1e4;margin-bottom:16px;}
+
+.ad-field{margin-bottom:14px;}
+.ad-field label{display:block;font-size:.8rem;color:#8b92a3;margin-bottom:6px;}
+.ad-field input, .ad-field select{
+  width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);
+  border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;
+}
+
+.ad-list{display:flex;flex-direction:column;gap:10px;}
+.ad-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.12);
+  border-radius:14px;padding:12px 16px;
+}
+.ad-row-name{font-size:.88rem;font-weight:600;color:#f6f1e4;}
+.ad-row-type{font-size:.75rem;color:#8b92a3;}
+.ad-row-actions button{
+  background:none;border:1px solid rgba(212,175,106,.25);color:#d4af6a;
+  border-radius:8px;padding:6px 12px;font-size:.75rem;cursor:pointer;margin-left:6px;
+}
+.ad-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}
+
+.ad-status{font-size:.82rem;color:#8b92a3;margin-top:10px;}
+.ad-status.ad-success{color:#7cc576;}
+.ad-status.ad-error{color:#e07a7a;}
+</style>
+</head>
+<body>
+<div class="ad-stage">
+
+  <div id="adGate" class="ad-gate">
+    <p class="ad-subtitle">Enter admin passcode</p>
+    <input type="password" id="adPasscodeInput" placeholder="Passcode">
+    <br>
+    <button onclick="checkPasscode()">Enter</button>
+    <p class="ad-status ad-error" id="adGateError"></p>
+  </div>
+
+  <div id="adPanel" style="display:none;">
+    <p class="ad-title">DELF Placement — Media Assets</p>
+    <p class="ad-subtitle">Upload listening audio for each level. Name uploads exactly as shown below so the placement test can find them: <strong>delf-a1-listening</strong>, <strong>delf-a2-listening</strong>, <strong>delf-b1-listening</strong>, <strong>delf-b2-listening</strong>, <strong>delf-c1-listening</strong></p>
+
+    <div class="ad-card">
+      <h2>Upload New Asset</h2>
+      <div class="ad-field">
+        <label>Asset Name (use the naming convention above)</label>
+        <input type="text" id="adNameInput" placeholder="e.g. delf-a1-listening">
+      </div>
+      <div class="ad-field">
+        <label>Type</label>
+        <select id="adTypeInput">
+          <option value="Audio">Audio</option>
+          <option value="Image">Image</option>
+          <option value="Video">Video</option>
+        </select>
+      </div>
+      <div class="ad-field">
+        <label>File</label>
+        <input type="file" id="adFileInput">
+      </div>
+      <button class="ad-btn" onclick="uploadAsset()">Upload</button>
+      <p class="ad-status" id="adUploadStatus"></p>
+    </div>
+
+    <div class="ad-card">
+      <h2>Existing Assets</h2>
+      <div class="ad-list" id="adAssetList">
+        <p class="ad-empty">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script>
+var ADMIN_PASSCODE = "963281";
+
+function checkPasscode(){
+  var input = document.getElementById("adPasscodeInput").value;
+  if(input === ADMIN_PASSCODE){
+    document.getElementById("adGate").style.display = "none";
+    document.getElementById("adPanel").style.display = "block";
+    loadAssets();
+  } else {
+    document.getElementById("adGateError").textContent = "Incorrect passcode";
+  }
+}
+
+var firebaseConfig = window.SAYBON_FIREBASE_CONFIG || null;
+try{
+  if(firebase.apps.length === 0 && firebaseConfig){
+    firebase.initializeApp(firebaseConfig);
+  }
+  firebase.auth().signInAnonymously().catch(function(e){ console.warn("Anon auth failed:", e); });
+}catch(e){
+  console.warn("Firebase not initialized:", e);
+}
+
+function uploadAsset(){
+  var name = document.getElementById("adNameInput").value.trim();
+  var type = document.getElementById("adTypeInput").value;
+  var fileInput = document.getElementById("adFileInput");
+  var status = document.getElementById("adUploadStatus");
+
+  if(!name || !fileInput.files[0]){
+    status.textContent = "Name and file are both required";
+    status.className = "ad-status ad-error";
+    return;
+  }
+
+  status.textContent = "Uploading...";
+  status.className = "ad-status";
+
+  var file = fileInput.files[0];
+  var storageRef = firebase.storage().ref().child("delfAssets/" + name + "-" + Date.now() + "-" + file.name);
+
+  storageRef.put(file).then(function(snapshot){
+    return snapshot.ref.getDownloadURL();
+  }).then(function(url){
+    return fetch("/api/delfAdminAddAsset", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name, type: type, url: url })
+    });
+  }).then(function(res){
+    return res.json();
+  }).then(function(data){
+    status.textContent = "Uploaded successfully";
+    status.className = "ad-status ad-success";
+    document.getElementById("adNameInput").value = "";
+    fileInput.value = "";
+    loadAssets();
+  }).catch(function(err){
+    console.error(err);
+    status.textContent = "Upload failed - check console";
+    status.className = "ad-status ad-error";
+  });
+}
+
+function loadAssets(){
+  var list = document.getElementById("adAssetList");
+  list.innerHTML = '<p class="ad-empty">Loading...</p>';
+
+  fetch("/api/delfAssets").then(function(res){ return res.json(); }).then(function(assets){
+    if(!assets || assets.length === 0){
+      list.innerHTML = '<p class="ad-empty">No assets uploaded yet</p>';
+      return;
+    }
+    list.innerHTML = assets.map(function(a){
+      return '<div class="ad-row">' +
+        '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">' + a.type + '</div></div>' +
+        '<div class="ad-row-actions">' +
+        '<button onclick="renameAsset(\'' + a.id + '\')">Rename</button>' +
+        '<button onclick="deleteAsset(\'' + a.id + '\')">Delete</button>' +
+        '</div></div>';
+    }).join("");
+  }).catch(function(err){
+    console.error(err);
+    list.innerHTML = '<p class="ad-empty">Could not load assets</p>';
+  });
+}
+
+function deleteAsset(id){
+  if(!confirm("Delete this asset?")) return;
+  fetch("/api/delfAdminDeleteAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetId: id })
+  }).then(function(){ loadAssets(); });
+}
+
+function renameAsset(id){
+  var newName = prompt("New name for this asset:");
+  if(!newName) return;
+  fetch("/api/delfAdminRenameAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetId: id, newName: newName })
+  }).then(function(){ loadAssets(); });
+}
+</script>
+</body>
+</html>

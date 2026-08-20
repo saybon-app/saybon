@@ -3510,3 +3510,62 @@ res.status(500).json({error:"could not grade DELF response"})
 }
 
 })
+
+// ================================================================
+// DELF PLACEMENT MEDIA ASSETS
+// ================================================================
+
+app.get("/api/delfAssets", async(req,res)=>{
+try{
+const snapshot = await db.collection("delfAssets").orderBy("created","desc").get();
+const assets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+res.json(assets);
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch delf assets"});
+}
+});
+
+app.post("/api/delfAdminAddAsset", express.json(), async(req,res)=>{
+try{
+const {name, type, url} = req.body;
+if(!name || !type || !url){
+return res.status(400).json({error:"name, type, and url are all required"});
+}
+const docRef = await db.collection("delfAssets").add({
+name, type, url, created: admin.firestore.FieldValue.serverTimestamp()
+});
+res.json({id: docRef.id});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not add delf asset"});
+}
+});
+
+app.post("/api/delfAdminDeleteAsset", express.json(), async(req,res)=>{
+try{
+const {assetId} = req.body;
+if(!assetId){
+return res.status(400).json({error:"assetId is required"});
+}
+await db.collection("delfAssets").doc(assetId).delete();
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not delete delf asset"});
+}
+});
+
+app.post("/api/delfAdminRenameAsset", express.json(), async(req,res)=>{
+try{
+const {assetId, newName} = req.body;
+if(!assetId || !newName){
+return res.status(400).json({error:"assetId and newName are both required"});
+}
+await db.collection("delfAssets").doc(assetId).update({name: newName});
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not rename delf asset"});
+}
+});
