@@ -7,9 +7,8 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   min-height:100dvh;
   background-image:url('/assets/talkletics/map/map-desk-bg.webp');
   background-size:cover;
-  background-position:center;
+  background-position:top center;
   background-repeat:no-repeat;
-  background-attachment:fixed;
   padding-bottom:80px;
   opacity:0;
   transform:translateY(18px) scale(.97);
@@ -19,8 +18,17 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 @media (max-width:768px){
   .tkm-stage{
     background-image:url('/assets/talkletics/map/map-mobile-bg.webp');
-    background-attachment:scroll;
   }
+}
+
+.tkm-scrim{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  background:rgba(10,15,25,.28);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  pointer-events:none;
 }
 @keyframes tkmEnter{
   from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}
