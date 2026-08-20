@@ -25,12 +25,12 @@
     var points = [];
 
     for(var i = 0; i < n; i++){
-      var top = containerHeight - BOTTOM_PADDING - i * ROW_HEIGHT;
+      var top = TOP_PADDING + i * ROW_HEIGHT;
       var side;
-      if(i === n - 1){
+      if(i === 0){
         side = "center";
       } else {
-        side = (i % 2 === 0) ? "left" : "right";
+        side = (i % 2 === 1) ? "left" : "right";
       }
       points.push({ top: top, side: side, loc: locations[i] });
     }
@@ -86,7 +86,12 @@
 
     if(points.length === 0) return "";
 
-    var d = "M" + xmap[points[0].side] + "," + points[0].top;
+    var firstX = xmap[points[0].side];
+    var entryY = points[0].top - RUNOFF;
+    var entryMid = points[0].top - RUNOFF / 2;
+
+    var d = "M" + firstX + "," + entryY;
+    d += " C" + firstX + "," + entryMid + " " + firstX + "," + entryMid + " " + firstX + "," + points[0].top;
 
     for(var i = 1; i < points.length; i++){
       var prev = points[i-1];
@@ -101,10 +106,10 @@
 
     var last = points[points.length - 1];
     var lastX = xmap[last.side];
-    var runoffY = last.top - RUNOFF;
-    var midRunoff = last.top - RUNOFF / 2;
+    var tailY = last.top + (RUNOFF * 0.5);
+    var tailMid = last.top + (RUNOFF * 0.25);
 
-    d += " C" + lastX + "," + midRunoff + " " + xmap.center + "," + midRunoff + " " + xmap.center + "," + runoffY;
+    d += " C" + lastX + "," + tailMid + " " + lastX + "," + tailMid + " " + lastX + "," + tailY;
 
     return d;
 
@@ -113,7 +118,7 @@
   function renderPath(points, containerHeight){
 
     var minY = -RUNOFF;
-    var vbHeight = containerHeight + RUNOFF;
+    var vbHeight = containerHeight + RUNOFF + (RUNOFF * 0.5);
     var viewBox = "0 " + minY + " 400 " + vbHeight;
 
     document.getElementById("tkmPathDesktop").setAttribute("viewBox", viewBox);
