@@ -3385,3 +3385,27 @@ res.status(500).json({error:"could not delete asset"})
 }
 
 })
+
+app.post("/api/adminRenameAsset", async(req,res)=>{
+
+try{
+
+const {assetId,newName}=req.body
+
+if(!assetId || !newName){
+return res.status(400).json({error:"Asset ID and new name are required"})
+}
+
+await db.collection("talkleticsAssets").doc(assetId).update({name:newName})
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not rename asset"})
+
+}
+
+})

@@ -342,6 +342,10 @@
       console.error(err);
     }
 
+    if(assetMap["guide-photo"]){
+      preloaderVideo.poster = assetMap["guide-photo"];
+    }
+
     if(assetMap["mission-preloader"]){
       preloaderVideo.src = assetMap["mission-preloader"];
       preloaderNote.style.display = "none";

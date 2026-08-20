@@ -295,7 +295,10 @@ async function loadAssets(){
       "<td>" + a.name + "</td>" +
       "<td>" + a.type + "</td>" +
       "<td><a class='asset-link' href='" + a.url + "' target='_blank'>" + a.url.slice(0,50) + "…</a></td>" +
-      "<td><button class='btn-delete' onclick=\"deleteAsset('" + a.id + "')\">Delete</button></td>";
+      "<td>" +
+      "<button onclick=\"renameAsset('" + a.id + "','" + a.name.replace(/'/g, "\\'") + "')\">Rename</button> " +
+      "<button class='btn-delete' onclick=\"deleteAsset('" + a.id + "')\">Delete</button>" +
+      "</td>";
     table.appendChild(row);
   });
 
@@ -356,6 +359,17 @@ window.addAsset = async function(){
   btn.disabled = false;
   btn.innerText = "Add Asset";
 
+};
+
+window.renameAsset = async function(assetId, currentName){
+  var newName = prompt("Rename asset:", currentName);
+  if(!newName || newName === currentName) return;
+  await fetch(API_BASE + "/api/adminRenameAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetId, newName })
+  });
+  loadAssets();
 };
 
 window.deleteAsset = async function(assetId){
