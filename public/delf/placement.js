@@ -3,7 +3,7 @@ import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-var storage = getStorage(app);
+var storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
 signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
 
 // ================================================================

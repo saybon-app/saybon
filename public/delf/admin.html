@@ -109,7 +109,7 @@ import { app, auth } from "/js/firebase-init.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-const storage = getStorage(app);
+const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
 const ADMIN_PASSCODE = "963281";
 
 signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
