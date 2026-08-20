@@ -36,6 +36,8 @@ th,td{padding:11px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left
 th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;}
 .thumb-sm{width:64px;aspect-ratio:1;object-fit:cover;border-radius:6px;}
 .btn-delete{background:#8B4A4F;}
+.btn-move{background:rgba(255,255,255,.1);color:#C9A0A5;padding:6px 10px;font-size:11px;}
+.btn-move:disabled{opacity:.3;cursor:not-allowed;}
 .empty-note{padding:30px;text-align:center;color:#786367;font-size:12.5px;}
 .badge-locked{color:#786367;} .badge-unlocked{color:#7FB88A;font-weight:700;}
 </style>
@@ -127,14 +129,18 @@ async function loadLocations(){
 
   table.innerHTML = "";
 
-  locations.forEach(loc => {
+  locations.forEach((loc, i) => {
     const row = document.createElement("tr");
     row.innerHTML =
       "<td><img class='thumb-sm' src='" + loc.imageUrl + "'></td>" +
       "<td>" + loc.name + "</td>" +
       "<td>" + loc.order + "</td>" +
       "<td>" + (loc.unlocked ? "<span class='badge-unlocked'>Unlocked</span>" : "<span class='badge-locked'>Locked</span>") + "</td>" +
-      "<td><button class='btn-delete' onclick=\"deleteLocation('" + loc.id + "')\">Delete</button></td>";
+      "<td>" +
+      "<button class='btn-move' " + (i===0 ? "disabled" : "") + " onclick=\"moveLocation('" + loc.id + "','up')\">&#9650;</button> " +
+      "<button class='btn-move' " + (i===locations.length-1 ? "disabled" : "") + " onclick=\"moveLocation('" + loc.id + "','down')\">&#9660;</button> " +
+      "<button class='btn-delete' onclick=\"deleteLocation('" + loc.id + "')\">Delete</button>" +
+      "</td>";
     table.appendChild(row);
   });
 
@@ -201,6 +207,18 @@ window.addLocation = async function(){
 
   btn.disabled = false;
   btn.innerText = "Add Location";
+
+};
+
+window.moveLocation = async function(locationId, direction){
+
+  await fetch(API_BASE + "/api/adminMoveLocation", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ locationId, direction })
+  });
+
+  loadLocations();
 
 };
 

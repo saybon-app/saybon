@@ -3222,3 +3222,74 @@ res.status(500).json({error:"could not delete location"})
 }
 
 })
+
+app.post("/api/adminMoveLocation", async(req,res)=>{
+
+try{
+
+const {locationId,direction}=req.body
+
+if(!locationId || (direction!=="up" && direction!=="down")){
+return res.status(400).json({error:"Location ID and a valid direction are required"})
+}
+
+const snapshot=await db.collection("talkleticsLocations").orderBy("order","asc").get()
+
+let docs=[]
+
+snapshot.forEach(doc=>{
+
+docs.push({
+
+id:doc.id,
+ref:doc.ref,
+...doc.data()
+
+})
+
+})
+
+const index=docs.findIndex(d=>d.id===locationId)
+
+if(index===-1){
+return res.status(404).json({error:"Location not found"})
+}
+
+const swapIndex=direction==="up" ? index-1 : index+1
+
+if(swapIndex<0 || swapIndex>=docs.length){
+return res.json({success:true})
+}
+
+const currentOrder=docs[index].order
+const swapOrder=docs[swapIndex].order
+
+const batch=db.batch()
+
+batch.update(docs[index].ref,{
+
+order:swapOrder,
+unlocked:swapOrder===1
+
+})
+
+batch.update(docs[swapIndex].ref,{
+
+order:currentOrder,
+unlocked:currentOrder===1
+
+})
+
+await batch.commit()
+
+res.json({success:true})
+
+}catch(err){
+
+console.error(err);
+
+res.status(500).json({error:"could not reorder location"})
+
+}
+
+})
