@@ -322,14 +322,22 @@
     window.location.href = "mission2.html";
   });
 
-  skipPreloaderBtn.addEventListener("click", startMission);
+  skipPreloaderBtn.addEventListener("click", showGuideIntro);
+
+  function showGuideIntro(){
+    preloaderEl.style.display = "none";
+    document.getElementById("msGuideIntro").style.display = "flex";
+  }
 
   function startMission(){
-    preloaderEl.style.display = "none";
+    var guideAudio = document.getElementById("msGuideAudio");
+    guideAudio.pause();
+    document.getElementById("msGuideAvatarBtn").classList.remove("ms-guide-active");
+
+    document.getElementById("msGuideIntro").style.display = "none";
     missionEl.style.display = "flex";
     missionEl.style.flexDirection = "column";
     missionEl.style.alignItems = "center";
-    document.getElementById("msGuideHelp").style.display = "flex";
     renderItem(0);
   }
 
@@ -337,6 +345,8 @@
     var avatarImg = document.getElementById("msGuideAvatarImg");
     var avatarBtn = document.getElementById("msGuideAvatarBtn");
     var guideAudio = document.getElementById("msGuideAudio");
+    var startBtn = document.getElementById("msGuideStartBtn");
+    var skipBtn = document.getElementById("msGuideSkipBtn");
 
     if(assetMap["guide-photo"]){
       avatarImg.src = assetMap["guide-photo"];
@@ -363,6 +373,9 @@
     guideAudio.addEventListener("ended", function(){
       avatarBtn.classList.remove("ms-guide-active");
     });
+
+    startBtn.addEventListener("click", startMission);
+    skipBtn.addEventListener("click", startMission);
   }
 
   async function init(){
@@ -383,7 +396,7 @@
       preloaderVideo.src = assetMap["mission-preloader"];
       preloaderNote.style.display = "none";
       preloaderVideo.play().catch(function(){});
-      preloaderVideo.addEventListener("ended", startMission);
+      preloaderVideo.addEventListener("ended", showGuideIntro);
     } else {
       preloaderNote.textContent = "Preloader video not uploaded yet — tap Skip to continue.";
     }
