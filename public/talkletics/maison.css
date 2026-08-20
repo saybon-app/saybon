@@ -148,10 +148,14 @@ body{font-family:"Baloo 2",sans-serif;overflow-x:hidden;}
 .ms-guide-tap{
   background:none;border:none;cursor:pointer;padding:0;
   display:flex;flex-direction:column;align-items:center;gap:10px;
+  width:100%;
+  max-width:280px;
+  margin:0 auto;
 }
 .ms-guide-tap img{
   height:min(48vh,420px);
   width:auto;
+  max-width:100%;
   object-fit:contain;
   filter:drop-shadow(0 12px 20px rgba(0,0,0,.4));
   display:block;
