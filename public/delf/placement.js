@@ -1,4 +1,5 @@
 const API_BASE = "https://saybonapp-server.onrender.com";
+const API_BASE = "https://saybonapp-server.onrender.com";
 import { app, auth, db } from "/js/firebase-init.js";
 import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";

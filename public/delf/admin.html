@@ -105,6 +105,7 @@ body{
 </div>
 
 <script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
 import { app, auth } from "/js/firebase-init.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
@@ -150,7 +151,7 @@ function uploadAsset(){
   uploadBytes(storageRef, file).then(function(snapshot){
     return getDownloadURL(snapshot.ref);
   }).then(function(url){
-    return fetch("/api/delfAdminAddAsset", {
+    return fetch(API_BASE + "/api/delfAdminAddAsset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, type: type, url: url })
@@ -174,7 +175,7 @@ function loadAssets(){
   var list = document.getElementById("adAssetList");
   list.innerHTML = '<p class="ad-empty">Loading...</p>';
 
-  fetch("/api/delfAssets").then(function(res){ return res.json(); }).then(function(assets){
+  fetch(API_BASE + "/api/delfAssets").then(function(res){ return res.json(); }).then(function(assets){
     if(!assets || assets.length === 0){
       list.innerHTML = '<p class="ad-empty">No assets uploaded yet</p>';
       return;
@@ -202,7 +203,7 @@ function loadAssets(){
 
 function deleteAsset(id){
   if(!confirm("Delete this asset?")) return;
-  fetch("/api/delfAdminDeleteAsset", {
+  fetch(API_BASE + "/api/delfAdminDeleteAsset", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ assetId: id })
@@ -212,7 +213,7 @@ function deleteAsset(id){
 function renameAsset(id){
   var newName = prompt("New name for this asset:");
   if(!newName) return;
-  fetch("/api/delfAdminRenameAsset", {
+  fetch(API_BASE + "/api/delfAdminRenameAsset", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ assetId: id, newName: newName })
