@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito&display=swap");
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,#0d1b2a,#1b3a5c);color:#e8d9b0;font-family:"Nunito",system-ui,sans-serif;padding:24px;}
+.page-header{text-align:center;margin-bottom:24px;}
+.page-header h1{font-family:"Merriweather",serif;font-size:2.1rem;font-weight:900;color:#e8d9b0;}
+.lesson-grid{max-width:900px;margin:20px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+.lesson{padding:18px;border-radius:0;transform:rotate(45deg);border:none;font-weight:700;aspect-ratio:1;display:flex;align-items:center;justify-content:center;}
+.lesson span{transform:rotate(-45deg);display:block;}
+.unlocked{background:linear-gradient(135deg,#e0a458,#c98a2c);color:#1b1206;}
+.locked{background:rgba(232,217,176,.1);color:#8a8060;opacity:.7;}
+.back-btn{display:block;margin:28px auto 0;padding:12px 20px;border-radius:999px;border:1px solid rgba(232,217,176,.3);background:none;color:#e8d9b0;cursor:pointer;}
