@@ -5,33 +5,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Levels — SayBon</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/levels/levels.css" />
+  <link rel="stylesheet" href="/levels/levels.css?v=2" />
 </head>
 <body>
 
-  <header class="page-header">
-    <h1>Choose Your Level</h1>
-    <p>Select a level to enter its lesson hub.</p>
-  </header>
-
-  <main class="levels-grid">
-
-    <button class="level-tile" onclick="goLevel('A0')">A0 — Absolute Beginner</button>
-    <button class="level-tile" onclick="goLevel('A1')">A1 — Beginner</button>
-    <button class="level-tile" onclick="goLevel('A2')">A2 — Elementary</button>
-    <button class="level-tile" onclick="goLevel('B1')">B1 — Intermediate</button>
-    <button class="level-tile" onclick="goLevel('B2')">B2 — Upper Intermediate</button>
-    <button class="level-tile" onclick="goLevel('C1')">C1 — Advanced</button>
-
-  </main>
-
-  <button class="back-btn" onclick="window.location.href='/dashboard/'">
-    ← Back to Dashboard
+  <button class="lv-corner-icon lv-corner-back" onclick="window.location.href='/dashboard/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
   </button>
+  <button class="lv-corner-icon lv-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="lv-stage">
+
+    <header class="lv-page-header">
+      <p class="lv-eyebrow">SayBon Levels</p>
+      <h1>Choose Your Level</h1>
+      <p class="lv-subtitle">Each level is its own world — pick where your French journey begins.</p>
+    </header>
+
+    <main class="levels-grid">
+
+      <button class="level-tile lv-accent-a0" onclick="goLevel('A0')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A0</span>
+        <span class="lv-tile-sub">Absolute Beginner</span>
+      </button>
+
+      <button class="level-tile lv-accent-a1" onclick="goLevel('A1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A1</span>
+        <span class="lv-tile-sub">Beginner</span>
+      </button>
+
+      <button class="level-tile lv-accent-a2" onclick="goLevel('A2')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A2</span>
+        <span class="lv-tile-sub">Elementary</span>
+      </button>
+
+      <button class="level-tile lv-accent-b1" onclick="goLevel('B1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">B1</span>
+        <span class="lv-tile-sub">Intermediate</span>
+      </button>
+
+      <button class="level-tile lv-accent-b2" onclick="goLevel('B2')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">B2</span>
+        <span class="lv-tile-sub">Upper Intermediate</span>
+      </button>
+
+      <button class="level-tile lv-accent-c1" onclick="goLevel('C1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">C1</span>
+        <span class="lv-tile-sub">Advanced</span>
+      </button>
+
+    </main>
+
+  </div>
 
   <script src="/levels/levels.js"></script>
 </body>
 </html>
-
