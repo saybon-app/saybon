@@ -3,13 +3,16 @@
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Levels — SayBon</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/levels/levels.css?v=2" />
+  <link rel="stylesheet" href="/levels/levels.css?v=3" />
 </head>
 <body>
+
+  <div class="lv-bg" style="background-image:url('/assets/levels/levels.webp');"></div>
+  <div class="lv-scrim"></div>
 
   <button class="lv-corner-icon lv-corner-back" onclick="window.location.href='/dashboard/'" aria-label="Back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -35,37 +38,37 @@
 
     <main class="levels-grid">
 
-      <button class="level-tile lv-accent-a0" onclick="goLevel('A0')">
+      <button class="level-tile" onclick="goLevel('A0')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">A0</span>
         <span class="lv-tile-sub">Absolute Beginner</span>
       </button>
 
-      <button class="level-tile lv-accent-a1" onclick="goLevel('A1')">
+      <button class="level-tile" onclick="goLevel('A1')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">A1</span>
         <span class="lv-tile-sub">Beginner</span>
       </button>
 
-      <button class="level-tile lv-accent-a2" onclick="goLevel('A2')">
+      <button class="level-tile" onclick="goLevel('A2')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">A2</span>
         <span class="lv-tile-sub">Elementary</span>
       </button>
 
-      <button class="level-tile lv-accent-b1" onclick="goLevel('B1')">
+      <button class="level-tile" onclick="goLevel('B1')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">B1</span>
         <span class="lv-tile-sub">Intermediate</span>
       </button>
 
-      <button class="level-tile lv-accent-b2" onclick="goLevel('B2')">
+      <button class="level-tile" onclick="goLevel('B2')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">B2</span>
         <span class="lv-tile-sub">Upper Intermediate</span>
       </button>
 
-      <button class="level-tile lv-accent-c1" onclick="goLevel('C1')">
+      <button class="level-tile" onclick="goLevel('C1')">
         <span class="lv-tile-accent"></span>
         <span class="lv-tile-label">C1</span>
         <span class="lv-tile-sub">Advanced</span>
