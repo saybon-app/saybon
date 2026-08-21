@@ -1,10 +1,3 @@
-import { auth } from "/js/firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-window.lsCurrentUid = null;
-onAuthStateChanged(auth, function(user){
-  window.lsCurrentUid = user ? user.uid : null;
-});
 const API_BASE = "https://saybonapp-server.onrender.com";
 const LEVEL = "a0-les-petits";
 const LESSON = parseInt((location.pathname.match(/lesson(\d+)\.html/) || [null, "1"])[1]);
@@ -228,7 +221,6 @@ window.lsGoNext = function(){
   if(currentPart === 1){ currentPart = 2; renderPart(2, "Part 2 — Activity"); }
   else if(currentPart === 2){ currentPart = 3; renderPart(3, "Part 3 — Scenario Practice"); }
   else {
-    markLessonComplete();
     render(
       '<div class="ls-card" style="text-align:center;">' +
       '<p class="ls-part-label">Lesson Complete!</p>' +
@@ -238,16 +230,6 @@ window.lsGoNext = function(){
     );
   }
 };
-
-function markLessonComplete(){
-  var uid = window.lsCurrentUid;
-  if(!uid) return;
-  fetch(API_BASE + "/api/levelProgressComplete", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uid: uid, level: LEVEL, lesson: LESSON })
-  }).catch(function(err){ console.error("Could not save progress:", err); });
-}
 
 fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
   .then(function(res){ return res.json(); })

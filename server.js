@@ -3647,3 +3647,42 @@ console.error(err);
 res.status(500).json({error:"could not update level asset"});
 }
 });
+
+// ================================================================
+// LEVELS PROGRESS TRACKING (sequential lesson unlock)
+// ================================================================
+
+app.get("/api/levelProgress", async(req,res)=>{
+try{
+const {uid, level} = req.query;
+if(!uid || !level){
+return res.status(400).json({error:"uid and level are required"});
+}
+const doc = await db.collection("levelProgress").doc(uid).get();
+const data = doc.exists ? doc.data() : {};
+const completedLessons = (data[level] && data[level].completedLessons) || [];
+res.json({completedLessons});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch progress"});
+}
+});
+
+app.post("/api/levelProgressComplete", express.json(), async(req,res)=>{
+try{
+const {uid, level, lesson} = req.body;
+if(!uid || !level || !lesson){
+return res.status(400).json({error:"uid, level, and lesson are all required"});
+}
+const fieldPath = level + ".completedLessons";
+await db.collection("levelProgress").doc(uid).set({
+[level]: {
+completedLessons: admin.firestore.FieldValue.arrayUnion(lesson)
+}
+}, { merge: true });
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not save progress"});
+}
+});
