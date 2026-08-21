@@ -384,7 +384,7 @@ loginBtn?.addEventListener("click", (e) => {
 
 settingsBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  window.location.href = "/admin/passkey/";
+  window.location.href = "/admin/panel.html";
 });
 
 /* ===== SAYBON HOMEPAGE PRESS SYSTEM ===== */
