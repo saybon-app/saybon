@@ -504,6 +504,8 @@ renderLevelPicker();
 // Expose functions referenced by dynamically-generated HTML onclick attributes,
 // since module scope does not attach them to window automatically.
 window.renderLevelPicker = renderLevelPicker;
+window.renderReading = renderReading;
+window.renderWriting = renderWriting;
 window.startLevel = startLevel;
 window.selectListening = selectListening;
 window.selectReading = selectReading;
