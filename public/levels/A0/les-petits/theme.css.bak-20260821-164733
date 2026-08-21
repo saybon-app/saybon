@@ -86,20 +86,3 @@ body::after{
   .lp-stage{padding:80px 16px 50px;}
   .lesson-grid{grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:10px;}
 }
-
-/* ===== Standard subtle hover bounce for unlocked lessons - all levels ===== */
-
-@keyframes lvSubtleBounce{
-  0%{transform:translateY(0);}
-  10%{transform:translateY(-7px);}
-  22%{transform:translateY(0);}
-  34%{transform:translateY(-4px);}
-  46%{transform:translateY(0);}
-  58%{transform:translateY(-2px);}
-  70%{transform:translateY(0);}
-  100%{transform:translateY(0);}
-}
-
-.unlocked:hover{
-  animation:lvSubtleBounce 2s ease-out 1;
-}

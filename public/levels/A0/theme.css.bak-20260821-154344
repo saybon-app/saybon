@@ -1,0 +1,127 @@
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"Fraunces",serif;}
+
+.a0-corner-icon{
+  position:fixed;top:16px;width:40px;height:40px;border-radius:50%;
+  background:rgba(0,0,0,.3);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;cursor:pointer;z-index:100;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+}
+.a0-corner-icon svg{width:18px;height:18px;}
+.a0-corner-back{left:16px;} .a0-corner-dash{right:16px;}
+
+.a0-split{
+  display:flex;
+  flex-direction:row;
+  height:100vh;
+  width:100%;
+}
+
+.a0-half{
+  position:relative;
+  flex:1;
+  border:none;
+  cursor:pointer;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:60px 24px;
+  transition:flex .5s cubic-bezier(.22,1,.36,1);
+}
+.a0-half:hover{flex:1.15;}
+.a0-half:active{filter:brightness(.92);}
+
+.a0-half-kids{
+  background:
+    linear-gradient(180deg, rgba(255,120,150,.35), rgba(60,20,40,.75)),
+    url('/assets/levels/a0.webp');
+  background-size:220% 100%, cover;
+  background-position:left center, left center;
+}
+
+.a0-half-adult{
+  background:
+    linear-gradient(180deg, rgba(20,50,60,.4), rgba(8,20,26,.82)),
+    url('/assets/levels/a0.webp');
+  background-size:220% 100%, cover;
+  background-position:right center, right center;
+}
+
+.a0-half-content{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+
+.a0-half-eyebrow{
+  font-family:"Manrope",sans-serif;
+  font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+}
+
+.a0-half h2{
+  font-weight:600;font-style:normal;
+  font-size:clamp(1.8rem,7vw,2.6rem);
+  color:#fff;
+  text-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+.a0-half-kids h2{
+  font-family:"Baloo 2",cursive;
+  font-weight:800;
+}
+
+.a0-half-sub{
+  font-family:"Manrope",sans-serif;
+  font-size:.85rem;font-weight:400;color:rgba(255,255,255,.85);
+}
+
+/* kids bubbles rising */
+.a0-bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.a0-bubbles span{
+  position:absolute;bottom:-40px;
+  width:14px;height:14px;border-radius:50%;
+  background:rgba(255,255,255,.35);
+  animation:a0Rise 7s linear infinite;
+}
+.a0-bubbles span:nth-child(1){left:15%;width:10px;height:10px;animation-delay:0s;animation-duration:6s;}
+.a0-bubbles span:nth-child(2){left:35%;width:16px;height:16px;animation-delay:1.5s;animation-duration:8s;}
+.a0-bubbles span:nth-child(3){left:55%;width:8px;height:8px;animation-delay:.7s;animation-duration:5.5s;}
+.a0-bubbles span:nth-child(4){left:70%;width:12px;height:12px;animation-delay:2.5s;animation-duration:7s;}
+.a0-bubbles span:nth-child(5){left:85%;width:18px;height:18px;animation-delay:3.2s;animation-duration:9s;}
+
+@keyframes a0Rise{
+  0%{transform:translateY(0) translateX(0);opacity:0;}
+  10%{opacity:.7;}
+  90%{opacity:.4;}
+  100%{transform:translateY(-100vh) translateX(20px);opacity:0;}
+}
+
+/* adult shimmer sweep */
+.a0-shimmer{
+  position:absolute;inset:0;
+  background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,.08) 50%, transparent 60%);
+  background-size:200% 200%;
+  animation:a0Shimmer 6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes a0Shimmer{
+  0%{background-position:200% 200%;}
+  50%{background-position:0% 0%;}
+  100%{background-position:200% 200%;}
+}
+
+@media (max-width:680px){
+  .a0-split{flex-direction:column;}
+  .a0-half{padding:40px 20px;}
+  .a0-half-kids{background-position:left top, left top;}
+  .a0-half-adult{background-position:right bottom, right bottom;}
+  .a0-half:hover{flex:1;}
+}
