@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap");
-body{margin:0;min-height:100vh;background:transparent;color:#e6e1d3;font-family:"Cormorant Garamond",serif;padding:24px;}
+body{margin:0;min-height:100vh;background:linear-gradient(165deg,#0c1016,#1b2230);color:#e6e1d3;font-family:"Cormorant Garamond",serif;padding:24px;}
 .page-header{text-align:center;margin-bottom:30px;}
 .page-header h1{font-style:italic;font-weight:600;font-size:2.6rem;color:#f6f1e4;}
 .lesson-grid{max-width:900px;margin:20px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
@@ -14,6 +14,3 @@ body{margin:0;min-height:100vh;background:transparent;color:#e6e1d3;font-family:
   opacity:.55;
   letter-spacing:.03em;
 }
-
-body::before{content:'';position:fixed;inset:0;background-image:url('/assets/levels/c1.webp');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-2;}
-body::after{content:'';position:fixed;inset:0;background:rgba(8,10,14,.45);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);z-index:-1;}
