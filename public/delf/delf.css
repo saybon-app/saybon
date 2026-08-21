@@ -211,3 +211,18 @@ body{
   .df-card{padding:26px 20px;}
   .df-skills-grid{gap:16px;}
 }
+.df-dashboard-btn{
+  background:rgba(255,255,255,.06);
+  color:#f6f1e4;
+  border:1px solid rgba(212,175,106,.35);
+  border-radius:999px;
+  padding:14px 30px;
+  font-weight:700;
+  font-size:.88rem;
+  letter-spacing:.02em;
+  cursor:pointer;
+  margin-bottom:14px;
+  transition:transform .15s ease, background .15s ease;
+}
+.df-dashboard-btn:active{transform:scale(.96);}
+.df-dashboard-btn:hover{background:rgba(255,255,255,.1);}
