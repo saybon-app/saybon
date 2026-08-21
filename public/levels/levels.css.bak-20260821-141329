@@ -41,13 +41,13 @@ body{
   color:#d4af6a;margin-bottom:14px;
 }
 .lv-page-header h1{
-  font-family:"Fraunces",serif;
+  font-family:"Bodoni Moda",serif;
   font-weight:700;font-style:normal;
   font-size:clamp(2rem,6vw,2.8rem);
   color:#f6f1e4;margin-bottom:14px;
   text-shadow:0 2px 20px rgba(0,0,0,.4);
 }
-
+.lv-subtitle{color:#d9d4c8;font-size:.95rem;max-width:420px;margin:0 auto;line-height:1.6;text-shadow:0 1px 8px rgba(0,0,0,.4);}
 
 .levels-grid{
   display:grid;
@@ -77,11 +77,11 @@ body{
 
 
 .lv-tile-label{
-  font-family:"Fraunces",serif;
+  font-family:"Bodoni Moda",serif;
   font-weight:700;font-style:normal;
   font-size:1.9rem;color:#f6f1e4;
 }
-.lv-tile-sub{font-size:.72rem;color:rgba(217,212,200,.55);font-weight:300;letter-spacing:.03em;}
+.lv-tile-sub{font-size:.85rem;color:#d9d4c8;font-weight:600;}
 
 @media (max-width:480px){
   .lv-stage{padding:80px 16px 50px;}
