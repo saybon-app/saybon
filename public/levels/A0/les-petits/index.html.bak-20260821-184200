@@ -33,7 +33,7 @@
     </header>
 
     <main class="lesson-grid">
-      <button class="lesson unlocked" onclick="window.location.href='lesson1.html'">
+      <button class="lesson unlocked">
         <span class="lp-num">1</span>
       </button>
 
