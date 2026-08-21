@@ -544,6 +544,8 @@ renderLevelPicker();
 window.renderLevelPicker = renderLevelPicker;
 window.renderReading = renderReading;
 window.renderWriting = renderWriting;
+window.renderReading = renderReading;
+window.renderWriting = renderWriting;
 window.startLevel = startLevel;
 window.selectListening = selectListening;
 window.selectReading = selectReading;
