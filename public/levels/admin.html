@@ -220,18 +220,68 @@ function renderAssetList(assets){
   list.innerHTML = assets.map(function(a){
     return '<div class="ad-row">' +
       '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">Part ' + a.part + ' — ' + a.type + '</div></div>' +
-      '<div class="ad-row-actions"><button class="ad-delete-btn" data-id="' + a.id + '">Delete</button></div>' +
+      '<div class="ad-row-actions"><button class="ad-edit-btn" data-id="' + a.id + '">Edit</button><button class="ad-delete-btn" data-id="' + a.id + '">Delete</button></div>' +
       '</div>';
   }).join("");
   document.querySelectorAll(".ad-delete-btn").forEach(function(btn){
     btn.addEventListener("click", function(){ deleteAsset(btn.getAttribute("data-id")); });
   });
+  document.querySelectorAll(".ad-edit-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){ startEditAsset(btn.getAttribute("data-id")); });
+  });
+}
+
+var editingAssetId = null;
+
+function startEditAsset(id){
+  var asset = currentAssets.find(function(a){ return a.id === id; });
+  if(!asset) return;
+
+  editingAssetId = id;
+  partEl.value = asset.part;
+  typeEl.value = asset.type;
+  toggleFields();
+
+  if(asset.type === "text"){
+    document.getElementById("adTextInput").value = asset.content || "";
+  }
+  if(asset.type === "image" || asset.type === "video"){
+    document.getElementById("adSize").value = asset.size || "medium";
+  }
+  if(asset.recordPrompt){
+    document.getElementById("adRecordPrompt").value = asset.recordPrompt || "";
+    document.getElementById("adExpectedText").value = asset.expectedText || "";
+  }
+
+  document.getElementById("adUploadBtn").textContent = "Save Changes";
+  previewName.textContent = "Editing: " + asset.name + " (file optional - only upload to replace)";
+
+  var status = document.getElementById("adUploadStatus");
+  status.innerHTML = '<span id="adCancelEdit" style="cursor:pointer;text-decoration:underline;color:#d4af6a;">Cancel edit</span>';
+  document.getElementById("adCancelEdit").addEventListener("click", cancelEdit);
+
+  document.getElementById("adPanel").scrollIntoView({ behavior: "smooth" });
+}
+
+function cancelEdit(){
+  editingAssetId = null;
+  document.getElementById("adUploadBtn").textContent = "Add to Lesson";
+  document.getElementById("adUploadStatus").textContent = "";
+  document.getElementById("adTextInput").value = "";
+  document.getElementById("adFileInput").value = "";
+  updatePreviewAndList();
 }
 
 document.getElementById("adUploadBtn").addEventListener("click", uploadAsset);
 
 function uploadAsset(){
   var status = document.getElementById("adUploadStatus");
+
+  if(editingAssetId){
+    saveEditedAsset(status);
+    return;
+  }
+
   var sameTypeCount = currentAssets.filter(function(a){ return a.type === typeEl.value && a.part == partEl.value; }).length;
   var name = "l" + lessonEl.value + "-" + typeEl.value + (sameTypeCount + 1);
 
@@ -273,6 +323,63 @@ function uploadAsset(){
   }).catch(function(err){
     console.error(err);
     status.textContent = "Upload failed: " + (err.message || "check console");
+    status.className = "ad-status ad-error";
+  });
+}
+
+function saveEditedAsset(status){
+  status.textContent = "Saving changes...";
+  status.className = "ad-status";
+
+  var updatePayload = {
+    assetId: editingAssetId,
+    part: parseInt(partEl.value),
+    recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
+    expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null,
+    size: (typeEl.value === "image" || typeEl.value === "video") ? document.getElementById("adSize").value : null
+  };
+
+  if(typeEl.value === "text"){
+    updatePayload.content = document.getElementById("adTextInput").value;
+    finishEditSave(updatePayload, status);
+    return;
+  }
+
+  var fileInput = document.getElementById("adFileInput");
+  if(fileInput.files[0]){
+    var file = fileInput.files[0];
+    var storageRef = ref(storage, "levelAssets/" + levelEl.value + "/edit-" + Date.now() + "-" + file.name);
+    uploadBytes(storageRef, file).then(function(snapshot){
+      return getDownloadURL(snapshot.ref);
+    }).then(function(url){
+      updatePayload.url = url;
+      finishEditSave(updatePayload, status);
+    }).catch(function(err){
+      console.error(err);
+      status.textContent = "Upload failed: " + (err.message || "check console");
+      status.className = "ad-status ad-error";
+    });
+  } else {
+    finishEditSave(updatePayload, status);
+  }
+}
+
+function finishEditSave(payload, status){
+  fetch(API_BASE + "/api/levelAdminUpdateAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function(res){ return res.json(); }).then(function(){
+    status.textContent = "Changes saved";
+    status.className = "ad-status ad-success";
+    editingAssetId = null;
+    document.getElementById("adUploadBtn").textContent = "Add to Lesson";
+    document.getElementById("adFileInput").value = "";
+    document.getElementById("adTextInput").value = "";
+    updatePreviewAndList();
+  }).catch(function(err){
+    console.error(err);
+    status.textContent = "Save failed - check console";
     status.className = "ad-status ad-error";
   });
 }

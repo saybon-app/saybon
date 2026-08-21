@@ -3625,3 +3625,25 @@ console.error(err);
 res.status(500).json({error:"could not delete level asset"});
 }
 });
+
+app.post("/api/levelAdminUpdateAsset", express.json(), async(req,res)=>{
+try{
+const {assetId, part, type, url, content, recordPrompt, expectedText, size} = req.body;
+if(!assetId){
+return res.status(400).json({error:"assetId is required"});
+}
+const updateData = {};
+if(part !== undefined) updateData.part = part;
+if(type !== undefined) updateData.type = type;
+if(url !== undefined) updateData.url = url;
+if(content !== undefined) updateData.content = content;
+if(recordPrompt !== undefined) updateData.recordPrompt = recordPrompt;
+if(expectedText !== undefined) updateData.expectedText = expectedText;
+if(size !== undefined) updateData.size = size;
+await db.collection("levelAssets").doc(assetId).update(updateData);
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not update level asset"});
+}
+});
