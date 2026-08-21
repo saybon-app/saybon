@@ -15,7 +15,7 @@ body::before{
 body::after{
   content:"";position:fixed;inset:0;
   background:rgba(8,10,14,.4);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   z-index:-1;
 }
 
@@ -88,28 +88,40 @@ body::after{
   display:flex;align-items:center;gap:18px;
   padding:22px 22px !important;
   border-radius:22px;
-  border:1px solid rgba(255,255,255,.24);
-  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.3);
+  border-bottom:1px solid rgba(0,0,0,.35);
+  background:linear-gradient(165deg, rgba(255,255,255,.22), rgba(255,255,255,.06) 55%, rgba(0,0,0,.08));
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   cursor:pointer;
   text-align:left;
-  box-shadow:0 16px 36px rgba(0,0,0,.35);
-  transition:transform .2s ease, background .2s ease, border-color .2s ease;
+  box-shadow:
+    0 22px 44px rgba(0,0,0,.45),
+    0 2px 0 rgba(255,255,255,.35) inset,
+    0 -6px 14px rgba(0,0,0,.22) inset;
+  transform:perspective(800px) rotateX(0deg) translateY(0);
+  transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, background .25s ease, border-color .25s ease;
 }
 .path-btn:hover{
-  transform:translateY(-4px);
-  background:rgba(255,255,255,.16);
-  border-color:rgba(255,217,138,.6);
+  transform:perspective(800px) rotateX(4deg) translateY(-6px);
+  background:linear-gradient(165deg, rgba(255,255,255,.3), rgba(255,255,255,.1) 55%, rgba(0,0,0,.08));
+  border-color:rgba(255,217,138,.65);
+  box-shadow:
+    0 30px 56px rgba(0,0,0,.5),
+    0 2px 0 rgba(255,255,255,.4) inset,
+    0 -6px 14px rgba(0,0,0,.22) inset;
 }
-.path-btn:active{transform:scale(.97);}
+.path-btn:active{
+  transform:perspective(800px) rotateX(1deg) translateY(-1px) scale(.98);
+}
 
 .a0-path-icon{
   flex-shrink:0;
   width:50px;height:50px;border-radius:50%;
-  background:rgba(255,217,138,.16);
-  border:1px solid rgba(255,217,138,.4);
+  background:linear-gradient(160deg, rgba(255,217,138,.28), rgba(255,217,138,.1));
+  border:1px solid rgba(255,217,138,.5);
   color:#ffd98a;
   display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.3) inset;
 }
 .a0-path-icon svg{width:24px;height:24px;}
 
