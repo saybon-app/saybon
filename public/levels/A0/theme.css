@@ -67,9 +67,9 @@ body::after{
 .paths{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:22px;
+  gap:34px;
   width:100%;
-  max-width:400px;
+  max-width:480px;
   opacity:0;
   transform:translateY(20px);
   animation:a0FadeUp .8s cubic-bezier(.22,1,.36,1) .2s forwards;
@@ -90,7 +90,7 @@ body::after{
 }
 
 .a0-path-kids{
-  background:linear-gradient(160deg, #ff9a8b, #ffb199 55%, #ff8c69);
+  background:linear-gradient(160deg, #ffd93d, #ff6ec7 60%, #ff4d8d);
   animation:a0Bounce 2.8s ease-in-out .9s infinite;
 }
 .a0-path-adult{
@@ -123,5 +123,5 @@ body::after{
 
 @media (max-width:420px){
   .a0-stage{padding:100px 18px 50px;gap:36px;}
-  .paths{max-width:320px;gap:16px;}
+  .paths{max-width:360px;gap:22px;}
 }
