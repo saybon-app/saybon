@@ -3569,3 +3569,58 @@ console.error(err);
 res.status(500).json({error:"could not rename delf asset"});
 }
 });
+
+// ================================================================
+// LEVELS LESSON MEDIA (Part 1/2/3 content blocks)
+// ================================================================
+
+app.get("/api/levelAssets", async(req,res)=>{
+try{
+const {level, lesson} = req.query;
+let ref = db.collection("levelAssets");
+if(level) ref = ref.where("level","==",level);
+if(lesson) ref = ref.where("lesson","==",parseInt(lesson));
+const snapshot = await ref.get();
+const assets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+assets.sort((a,b) => (a.part - b.part) || (a.name > b.name ? 1 : -1));
+res.json(assets);
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch level assets"});
+}
+});
+
+app.post("/api/levelAdminAddAsset", express.json(), async(req,res)=>{
+try{
+const {level, lesson, part, type, name, url, content, recordPrompt, expectedText} = req.body;
+if(!level || !lesson || !part || !type || !name){
+return res.status(400).json({error:"level, lesson, part, type, and name are all required"});
+}
+const docRef = await db.collection("levelAssets").add({
+level, lesson, part, type, name,
+url: url || null,
+content: content || null,
+recordPrompt: recordPrompt || null,
+expectedText: expectedText || null,
+created: admin.firestore.FieldValue.serverTimestamp()
+});
+res.json({id: docRef.id});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not add level asset"});
+}
+});
+
+app.post("/api/levelAdminDeleteAsset", express.json(), async(req,res)=>{
+try{
+const {assetId} = req.body;
+if(!assetId){
+return res.status(400).json({error:"assetId is required"});
+}
+await db.collection("levelAssets").doc(assetId).delete();
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not delete level asset"});
+}
+});
