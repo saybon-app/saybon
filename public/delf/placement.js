@@ -386,7 +386,7 @@ function renderSpeaking(){
     '<button class="pl-record-btn" id="plRecordBtn" onclick="toggleRecording()">● Record</button>' +
     '<span class="pl-record-status" id="plRecordStatus">' + (state.speakingBlob ? "Recording captured" : "Not recorded yet") + '</span>' +
     '</div>' +
-    '<div class="pl-pending-note">Your recording is saved. Scoring for Speaking will appear once our AI grading feature is live — this does not block your placement result today.</div>' +
+    '<div class="pl-pending-note">Your recording is saved and will be scored shortly.</div>' +
     '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finishLevel()">See My Result</button></div>' +
     '</div>'
   );
