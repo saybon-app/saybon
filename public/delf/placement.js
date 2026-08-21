@@ -154,6 +154,40 @@ var LEVELS = {
 var LEVEL_ORDER = ["a1", "a2", "b1", "b2", "c1"];
 var PASS_THRESHOLD = 0.70;
 
+var accentChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
+
+function buildAccentKeyboard(targetInput){
+  var wrap = document.createElement("div");
+  wrap.style.display = "flex";
+  wrap.style.flexWrap = "wrap";
+  wrap.style.gap = "6px";
+  wrap.style.marginBottom = "20px";
+
+  accentChars.forEach(function(ch){
+    var key = document.createElement("span");
+    key.textContent = ch;
+    key.style.display = "inline-block";
+    key.style.padding = "6px 11px";
+    key.style.borderRadius = "7px";
+    key.style.cursor = "pointer";
+    key.style.background = "rgba(212,175,106,.12)";
+    key.style.color = "#d4af6a";
+    key.style.fontSize = "15px";
+    key.style.border = "1px solid rgba(212,175,106,.25)";
+    key.onclick = function(){
+      var start = targetInput.selectionStart;
+      var end = targetInput.selectionEnd;
+      var val = targetInput.value;
+      targetInput.value = val.slice(0, start) + ch + val.slice(end);
+      targetInput.selectionStart = targetInput.selectionEnd = start + ch.length;
+      targetInput.focus();
+    };
+    wrap.appendChild(key);
+  });
+
+  return wrap;
+}
+
 var root = document.getElementById("plRoot");
 
 var state = {
@@ -319,10 +353,14 @@ function renderWriting(){
     '<span class="pl-skill-pill">Written Response</span>' +
     '<p class="pl-question">' + lvl.writing.prompt + '</p>' +
     '<textarea class="pl-textarea" id="plWritingInput" placeholder="Écrivez votre réponse ici...">' + state.writingText + '</textarea>' +
-    '<div class="pl-pending-note">Your written response is saved. Scoring for Writing will appear once our AI grading feature is live — this does not block your placement result today.</div>' +
+    '<div class="pl-accent-row" id="plAccentRow"></div>' +
     '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="submitWriting()">Continue to Speaking</button></div>' +
     '</div>'
   );
+
+  var accentTarget = document.getElementById("plWritingInput");
+  var accentRow = document.getElementById("plAccentRow");
+  accentRow.appendChild(buildAccentKeyboard(accentTarget));
 }
 
 function submitWriting(){
