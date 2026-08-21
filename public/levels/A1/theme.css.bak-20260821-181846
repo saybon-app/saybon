@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap");
+body{margin:0;min-height:100vh;background:transparent;color:#3d2b1f;font-family:"Poppins",system-ui,sans-serif;padding:24px;}
+.page-header{text-align:center;margin-bottom:24px;}
+.page-header h1{font-size:2.2rem;font-weight:800;}
+.lesson-grid{max-width:900px;margin:20px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+.lesson{padding:18px;border-radius:6px;border:none;font-weight:700;}
+.unlocked{background:linear-gradient(135deg,#bc6c25,#dda15e);color:#fff;box-shadow:0 6px 14px rgba(188,108,37,.35);}
+.locked{background:rgba(61,43,31,.1);color:#7a6a58;opacity:.7;}
+.back-btn{display:block;margin:28px auto 0;padding:12px 20px;border-radius:6px;border:none;background:rgba(61,43,31,.12);color:#3d2b1f;cursor:pointer;}
+
+.page-header p{
+  font-weight:300;
+  font-size:.8rem;
+  opacity:.55;
+  letter-spacing:.03em;
+}
+
+body::before{content:'';position:fixed;inset:0;background-image:url('/assets/levels/a1.webp');background-size:cover;background-position:center;background-repeat:no-repeat;z-index:-2;}
+body::after{content:'';position:fixed;inset:0;background:rgba(8,10,14,.45);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);z-index:-1;}
+
+
+/* ===== Classy warm neat lesson hub design - unified across all levels ===== */
+
+body{background:transparent !important;}
+
+.page-header h1{
+  font-family:"Fraunces",serif !important;
+  font-weight:600 !important;
+  font-style:normal !important;
+  text-shadow:0 2px 16px rgba(0,0,0,.4);
+}
+.page-header p{
+  font-weight:300 !important;
+  font-size:.8rem !important;
+  opacity:.55 !important;
+  letter-spacing:.03em !important;
+}
+
+.lesson-grid{
+  max-width:900px;margin:24px auto 0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;
+}
+
+.lesson{
+  padding:20px 16px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  background:rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:#f6f1e4 !important;
+  font-weight:600 !important;
+  font-size:.95rem !important;
+  font-family:"Manrope",sans-serif !important;
+  transform:none !important;
+  aspect-ratio:auto !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+  transition:transform .15s ease, border-color .15s ease;
+}
+.lesson span{transform:none !important;display:inline !important;}
+.lesson:hover{transform:translateY(-3px) !important;}
+.lesson:active{transform:scale(.97) !important;}
+
+.unlocked{
+  background:linear-gradient(135deg,rgba(212,175,106,.22),rgba(232,201,138,.15)) !important;
+  border-color:rgba(212,175,106,.55) !important;
+  color:#f6ecd8 !important;
+  box-shadow:0 12px 26px rgba(212,175,106,.2) !important;
+}
+.locked{
+  background:rgba(255,255,255,.04) !important;
+  border-color:rgba(255,255,255,.1) !important;
+  color:rgba(246,241,228,.4) !important;
+  opacity:1 !important;
+}
+
+.path-btn{
+  border-radius:16px !important;
+  background:rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.18) !important;
+  color:#f6f1e4 !important;
+  font-family:"Manrope",sans-serif !important;
+}
+
+.back-btn{
+  border-radius:999px !important;
+  background:rgba(255,255,255,.08) !important;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.18) !important;
+  color:#f6f1e4 !important;
+}
+
+/* ===== Standard subtle hover bounce for unlocked lessons - all levels ===== */
+
+@keyframes lvSubtleBounce{
+  0%{transform:translateY(0);}
+  10%{transform:translateY(-7px);}
+  22%{transform:translateY(0);}
+  34%{transform:translateY(-4px);}
+  46%{transform:translateY(0);}
+  58%{transform:translateY(-2px);}
+  70%{transform:translateY(0);}
+  100%{transform:translateY(0);}
+}
+
+.unlocked:hover{
+  animation:lvSubtleBounce 2s ease-out 1;
+}
