@@ -56,38 +56,3 @@
 .ls-btn-primary{background:linear-gradient(160deg,#ffd93d,#ff6ec7 60%,#ff4d8d);color:#3a0d22;}
 .ls-btn-primary:disabled{opacity:.4;}
 .ls-btn-secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);}
-
-.ls-size-small{max-width:40%;margin:0 auto;}
-.ls-size-medium{max-width:65%;margin:0 auto;}
-.ls-size-large{max-width:85%;margin:0 auto;}
-.ls-size-full{max-width:100%;}
-
-.ls-wave-canvas{
-  display:block;
-  width:100%;
-  max-width:280px;
-  height:56px;
-  margin:0 auto 14px;
-  border-radius:12px;
-  background:rgba(0,0,0,.15);
-}
-
-.ls-playback-row{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:16px;
-}
-
-.ls-loading-pulse{
-  display:inline-block;
-  width:9px;height:9px;border-radius:50%;
-  background:#3a0d22;
-  animation:lsLoadPulse .7s ease-in-out infinite;
-  margin-right:6px;
-  vertical-align:middle;
-}
-@keyframes lsLoadPulse{
-  0%,100%{opacity:.3;transform:scale(.8);}
-  50%{opacity:1;transform:scale(1.15);}
-}
