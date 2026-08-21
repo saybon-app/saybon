@@ -1,57 +1,35 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>A1 Lesson 1</title>
-
-<style>
-body{
-margin:0;
-font-family:sans-serif;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-background:linear-gradient(145deg,#CBA37E,#111);
-color:#fff;
-text-align:center;
-}
-
-.card{
-padding:40px;
-border-radius:30px;
-background:rgba(255,255,255,.1);
-backdrop-filter:blur(20px);
-}
-
-button{
-margin-top:20px;
-padding:12px 22px;
-border:none;
-border-radius:999px;
-font-weight:bold;
-cursor:pointer;
-}
-</style>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Lesson 1 — A1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+  <link rel="stylesheet" href="/levels/lesson-tp.css?v=1" />
 </head>
-
 <body>
 
-<div class="card">
-<h1>A1 Lesson 1</h1>
-<p>Confidence is building.</p>
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='./'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
 
-<button onclick="complete()">Complete Lesson</button>
+  <div id="lsRoot" class="ls-stage"><p class="ls-loading">Loading lesson...</p></div>
+
 </div>
 
-<script>
-function complete(){
-localStorage.setItem("saybon_A1_lesson1_complete","true");
-window.location.href="/levels/A1/";
-}
-</script>
-
+<script type="module" src="/levels/lesson-engine-tp.js?v=1"></script>
 </body>
 </html>
