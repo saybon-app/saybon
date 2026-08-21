@@ -15,7 +15,7 @@ body::before{
 body::after{
   content:"";position:fixed;inset:0;
   background:rgba(8,10,14,.4);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
   z-index:-1;
 }
 
@@ -119,15 +119,16 @@ body::after{
 
 .a0-path-icon{
   flex-shrink:0;
-  width:68px;height:68px;border-radius:50%;
-  background:rgba(255,255,255,.95);
-  border:2px solid rgba(255,255,255,.6);
-  color:#c65d3b;
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  border:1.5px solid rgba(255,255,255,.35);
+  color:#ffffff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.5) inset;
+  box-shadow:0 8px 18px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.25) inset;
 }
-.path-btn:nth-child(2) .a0-path-icon{color:#2c6fa8;}
-.a0-path-icon svg{width:30px;height:30px;}
+.path-btn:nth-child(1) .a0-path-icon{border-color:rgba(232,138,106,.6);background:rgba(232,138,106,.16);}
+.path-btn:nth-child(2) .a0-path-icon{border-color:rgba(106,180,232,.6);background:rgba(106,180,232,.16);}
+.a0-path-icon svg{width:28px;height:28px;stroke:#ffffff;stroke-width:2.4;}
 .a0-path-icon svg{width:24px;height:24px;}
 
 .a0-path-text{
