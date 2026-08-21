@@ -13,10 +13,11 @@ var currentStream = null;
 function render(html){ root.innerHTML = html; }
 
 function renderBlock(block){
+  var sizeClass = block.size ? "ls-size-" + block.size : "ls-size-large";
   if(block.type === "text") return '<div class="ls-block ls-block-text">' + block.content + '</div>';
-  if(block.type === "image") return '<div class="ls-block"><img src="' + block.url + '"></div>';
+  if(block.type === "image") return '<div class="ls-block '+ sizeClass +'"><img src="' + block.url + '"></div>';
   if(block.type === "audio") return '<div class="ls-block"><audio controls src="' + block.url + '"></audio></div>';
-  if(block.type === "video") return '<div class="ls-block"><video controls src="' + block.url + '"></video></div>';
+  if(block.type === "video") return '<div class="ls-block '+ sizeClass +'"><video controls src="' + block.url + '"></video></div>';
   return "";
 }
 

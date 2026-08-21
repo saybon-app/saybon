@@ -3592,7 +3592,7 @@ res.status(500).json({error:"could not fetch level assets"});
 
 app.post("/api/levelAdminAddAsset", express.json(), async(req,res)=>{
 try{
-const {level, lesson, part, type, name, url, content, recordPrompt, expectedText} = req.body;
+const {level, lesson, part, type, name, url, content, recordPrompt, expectedText, size} = req.body;
 if(!level || !lesson || !part || !type || !name){
 return res.status(400).json({error:"level, lesson, part, type, and name are all required"});
 }
@@ -3602,6 +3602,7 @@ url: url || null,
 content: content || null,
 recordPrompt: recordPrompt || null,
 expectedText: expectedText || null,
+size: size || null,
 created: admin.firestore.FieldValue.serverTimestamp()
 });
 res.json({id: docRef.id});

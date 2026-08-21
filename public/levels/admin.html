@@ -109,6 +109,15 @@ body{
           <option value="text">Text</option>
         </select>
       </div>
+      <div class="ad-field" id="adSizeField" style="display:none;">
+        <label>Display Size (image/video only)</label>
+        <select id="adSize">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+          <option value="full">Full Width</option>
+        </select>
+      </div>
       <div class="ad-field" id="adFileField">
         <label>File</label>
         <input type="file" id="adFileInput">
@@ -177,6 +186,7 @@ var previewName = document.getElementById("adPreviewName");
 function toggleFields(){
   typeEl.value === "text" ? (textField.style.display = "block", fileField.style.display = "none") : (textField.style.display = "none", fileField.style.display = "block");
   recordPromptField.style.display = (partEl.value === "2" || partEl.value === "3") ? "block" : "none";
+  document.getElementById("adSizeField").style.display = (typeEl.value === "image" || typeEl.value === "video") ? "block" : "none";
 }
 typeEl.addEventListener("change", toggleFields);
 partEl.addEventListener("change", toggleFields);
@@ -232,7 +242,8 @@ function uploadAsset(){
     type: typeEl.value,
     name: name,
     recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
-    expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null
+    expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null,
+    size: (typeEl.value === "image" || typeEl.value === "video") ? document.getElementById("adSize").value : null
   };
 
   status.textContent = "Saving...";
