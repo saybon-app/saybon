@@ -27,9 +27,9 @@ body{font-family:"Fraunces",serif;}
   cursor:pointer;
   overflow:hidden;
   display:flex;
-  align-items:flex-end;
+  align-items:center;
   justify-content:center;
-  padding:60px 24px;
+  padding:24px;
   transition:flex .5s cubic-bezier(.22,1,.36,1);
 }
 .a0-half:hover{flex:1.15;}
@@ -58,7 +58,7 @@ body{font-family:"Fraunces",serif;}
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:6px;
+  gap:8px;
 }
 
 .a0-half-eyebrow{
@@ -124,4 +124,30 @@ body{font-family:"Fraunces",serif;}
   .a0-half-kids{background-position:left top, left top;}
   .a0-half-adult{background-position:right bottom, right bottom;}
   .a0-half:hover{flex:1;}
+}
+
+.a0-cta{
+  margin-top:18px;
+  padding:14px 30px;
+  border-radius:999px;
+  font-family:"Manrope",sans-serif;
+  font-weight:700;
+  font-size:.88rem;
+  border:1.5px solid rgba(255,255,255,.4);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 10px 22px rgba(0,0,0,.3);
+  transition:transform .2s ease, background .2s ease;
+}
+.a0-half:hover .a0-cta{transform:translateY(-2px) scale(1.03);}
+
+.a0-cta-kids{
+  background:linear-gradient(160deg, #ffd93d, #ff6ec7 60%, #ff4d8d);
+  color:#3a0d22;
+  border-color:rgba(255,255,255,.6);
+}
+
+.a0-cta-adult{
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  border-color:rgba(255,255,255,.35);
 }
