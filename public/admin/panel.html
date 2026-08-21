@@ -1,31 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <title>Admin Panel — SayBon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/admin/admin.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Admin — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);
+  color:#e6e1d3;
+  min-height:100vh;
+  padding:40px 20px;
+}
+.ah-stage{max-width:640px;margin:0 auto;}
+.ah-gate{text-align:center;padding:80px 20px;}
+.ah-gate p{font-size:.9rem;color:#8b92a3;margin-bottom:20px;}
+.ah-gate input{
+  background:rgba(255,255,255,.05);border:1px solid rgba(212,175,106,.3);
+  border-radius:14px;padding:14px 18px;color:#e6e1d3;font-size:1rem;
+  width:100%;max-width:240px;text-align:center;margin-bottom:16px;
+}
+.ah-gate button{
+  background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;
+  border:none;border-radius:14px;padding:14px 26px;font-weight:800;
+  font-size:.9rem;cursor:pointer;display:block;margin:0 auto;
+}
+.ah-error{font-size:.82rem;color:#e07a7a;margin-top:14px;}
+.ah-title{font-size:1.5rem;font-weight:800;color:#f6f1e4;margin-bottom:6px;}
+.ah-subtitle{font-size:.88rem;color:#8b92a3;margin-bottom:28px;}
+.ah-section-label{
+  font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#8b92a3;margin:26px 0 12px;
+}
+.ah-section-label:first-of-type{margin-top:0;}
+.ah-grid{display:flex;flex-direction:column;gap:10px;}
+.ah-btn{
+  background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);
+  border-radius:16px;padding:16px 18px;color:#f6f1e4;font-size:.92rem;font-weight:600;
+  cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.ah-btn:active{transform:scale(.98);}
+.ah-btn:hover{border-color:rgba(212,175,106,.4);}
+.ah-btn span{color:#d4af6a;}
+</style>
 </head>
 <body>
+<div class="ah-stage">
 
-  <div class="card">
-    <h1>Admin Panel</h1>
-    <p id="adminWelcome"></p>
-    <p>— Placeholder dashboard —</p>
-
-    <button class="secondary" onclick="location.href='/'">
-      ← Back to Homepage
-    </button>
+  <div id="ahGate" class="ah-gate">
+    <p>Enter admin passcode</p>
+    <input type="password" id="ahPasscodeInput" placeholder="Passcode">
+    <button id="ahGateBtn">Enter</button>
+    <p class="ah-error" id="ahGateError"></p>
   </div>
 
-<script>
-  const name = sessionStorage.getItem("saybon_admin") || "Admin";
-  document.getElementById("adminWelcome").textContent =
-    "Welcome, " + name + " 👑";
-</script>
+  <div id="ahPanel" style="display:none;">
+    <p class="ah-title">Admin</p>
+    <p class="ah-subtitle">Every admin tool across SayBon, in one place.</p>
 
+    <div class="ah-section-label">Content &amp; Media</div>
+    <div class="ah-grid">
+      <button class="ah-btn" data-href="/delf/admin.html">DELF Placement Assets <span>-&gt;</span></button>
+      <button class="ah-btn" data-href="/talkletics/admin-map.html">Talkletics <span>-&gt;</span></button>
+      <button class="ah-btn" data-href="/music/admin.html">Music <span>-&gt;</span></button>
+      <button class="ah-btn" data-href="/chat/admin.html">Chat Moderation <span>-&gt;</span></button>
+      <button class="ah-btn" data-href="/translation/admin.html">Translation <span>-&gt;</span></button>
+    </div>
+
+    <div class="ah-section-label">Business &amp; Operations</div>
+    <div class="ah-grid">
+      <button class="ah-btn" data-href="/features/admin/">Business Admin Suite <span>-&gt;</span></button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var ADMIN_PASSCODE = "963281";
+var SESSION_KEY = "saybon_admin_unlocked";
+
+if(sessionStorage.getItem(SESSION_KEY) === "true"){
+  showPanel();
+}
+
+document.getElementById("ahGateBtn").addEventListener("click", checkPasscode);
+document.getElementById("ahPasscodeInput").addEventListener("keydown", function(e){
+  if(e.key === "Enter") checkPasscode();
+});
+
+function checkPasscode(){
+  var input = document.getElementById("ahPasscodeInput").value;
+  if(input === ADMIN_PASSCODE){
+    sessionStorage.setItem(SESSION_KEY, "true");
+    showPanel();
+  } else {
+    document.getElementById("ahGateError").textContent = "Incorrect passcode";
+  }
+}
+
+function showPanel(){
+  document.getElementById("ahGate").style.display = "none";
+  document.getElementById("ahPanel").style.display = "block";
+}
+
+document.querySelectorAll(".ah-btn").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    location.href = btn.getAttribute("data-href");
+  });
+});
+</script>
 </body>
 </html>
-
