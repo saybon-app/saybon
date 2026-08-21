@@ -27,9 +27,9 @@ body{font-family:"Fraunces",serif;}
   cursor:pointer;
   overflow:hidden;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
-  padding:24px;
+  padding:110px 24px 24px;
   transition:flex .5s cubic-bezier(.22,1,.36,1);
 }
 .a0-half:hover{flex:1.15;}
@@ -141,9 +141,9 @@ body{font-family:"Fraunces",serif;}
 .a0-half:hover .a0-cta{transform:translateY(-2px) scale(1.03);}
 
 .a0-cta-kids{
-  background:linear-gradient(160deg, #ffd93d, #ff6ec7 60%, #ff4d8d);
-  color:#3a0d22;
-  border-color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  border-color:rgba(255,255,255,.4);
 }
 
 .a0-cta-adult{
