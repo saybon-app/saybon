@@ -1388,3 +1388,27 @@ body.home-preload .settings-image-btn.is-pressed img{
   from{ opacity:0; transform:translateY(60px); }
   to{ opacity:1; transform:translateY(0); }
 }
+
+/* =========================================================
+   ENTRANCE BUG FIXES
+   1) body's own baked-in background image was always visible
+      underneath .background-layer, making the carpet-unroll
+      clip-path invisible - .background-layer is now the sole
+      visible background.
+   2) #teacher's opacity was only held at 1 by sb-teacher-fall's
+      forwards fill; the moment sb-teacher-idle replaced it as
+      the active animation (which never touches opacity), it
+      fell back to the old unconditional opacity:0 safety-net
+      rule elsewhere in this file. Explicit static opacity:1 on
+      the higher-specificity #teacher.sb-teacher-idle selector
+      fixes this regardless of which animation is active.
+========================================================= */
+
+body{
+  background:transparent !important;
+}
+
+#teacher.sb-teacher-fall,
+#teacher.sb-teacher-idle{
+  opacity:1 !important;
+}
