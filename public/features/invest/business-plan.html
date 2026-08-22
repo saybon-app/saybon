@@ -11,16 +11,16 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .iv-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:22px;padding:30px;margin-bottom:24px;}
 .iv-card p, .iv-card li{color:#c9c3b4;line-height:1.7;font-size:.92rem;}
 .iv-card ul{padding-left:20px;margin-bottom:14px;}
-.iv-field{margin-bottom:16px;}
-.iv-field label{display:block;font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
-.iv-field input{width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);border-radius:12px;padding:13px 15px;color:#e6e1d3;font-size:.9rem;font-family:inherit;}
-.iv-checkbox{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:.85rem;color:#c9c3b4;}
-.iv-btn{display:inline-block;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:999px;padding:13px 26px;font-weight:800;font-size:.88rem;cursor:pointer;text-decoration:none;width:100%;text-align:center;}
-.iv-back-link{display:block;text-align:center;margin-top:20px;font-size:.82rem;color:#8b92a3;text-decoration:none;}
 .iv-plan-section{margin-bottom:32px;}
 .iv-plan-section h2{font-family:"Fraunces",serif;font-weight:600;font-size:1.3rem;color:#d4af6a;margin-bottom:14px;}
 .iv-plan-section h3{font-size:.95rem;font-weight:800;color:#f6f1e4;margin:16px 0 8px;}
-.iv-plan-footer{text-align:center;color:#6d7488;font-size:.78rem;margin-top:40px;}</style></head><body>
+.iv-plan-footer{text-align:center;color:#6d7488;font-size:.78rem;margin-top:40px;}
+.iv-back-link{display:block;text-align:center;margin-top:20px;font-size:.82rem;color:#8b92a3;text-decoration:none;}
+.iv-placeholder{color:#e0a458;font-style:italic;}
+.iv-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:16px;}
+.iv-stat-box{background:rgba(212,175,106,.06);border:1px solid rgba(212,175,106,.18);border-radius:14px;padding:16px;text-align:center;}
+.iv-stat-num{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;color:#d4af6a;}
+.iv-stat-label{font-size:.72rem;color:#8b92a3;margin-top:4px;}</style></head><body>
 <a class="iv-corner-icon" href="index.html" aria-label="Back to Investment Options"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
 <div class="iv-stage">
 <p class="iv-eyebrow">SayBon</p>
@@ -29,37 +29,54 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 
 <div class="iv-card iv-plan-section">
 <h2>1. Executive Summary</h2>
-<p>SayBon is a Ghanaian-owned and built language learning platform designed to make French education accessible, engaging, and practically usable worldwide.</p>
-<p>The platform integrates structured international-standard language learning, original music-based education, affordable DELF exam preparation, and professional French-English translation services into one scalable ecosystem.</p>
-<p>SayBon is not simply a language-learning application. It is a complete language ecosystem connecting learning, certification, engagement, and real-world language use.</p>
+<p>SayBon is a Ghanaian-built, unified French-learning ecosystem — not a single app, but seven interconnected products working together: structured CEFR-aligned lessons with live pronunciation scoring, gamified speaking practice, DELF exam preparation, an original educational music catalog, a two-sided professional translation marketplace, and a community chat system, all sitting on top of real operational infrastructure most companies at this stage don't yet have.</p>
+<p>Unlike single-purpose language apps, SayBon is designed so that learning, certification, practice, and real-world language use reinforce each other inside one platform — reducing the fragmentation that causes most learners to give up.</p>
 </div>
 
 <div class="iv-card iv-plan-section">
 <h2>2. The Global Problem</h2>
 <ul>
-<li>High cost of quality French education</li>
-<li>Over 80-90% learner dropout on traditional platforms</li>
-<li>Fragmented and expensive DELF exam preparation</li>
-<li>Weak transition from learning to real-world usage</li>
+<li>High cost of quality French education, especially outside major Western markets</li>
+<li>Learner dropout rates of 80-90% are common across traditional language platforms</li>
+<li>DELF exam preparation is fragmented, expensive, and rarely tailored to a learner's actual level</li>
+<li>Most platforms teach language in isolation, with no real bridge from lessons to real-world speaking confidence</li>
 </ul>
-<p>Language education remains fragmented across multiple platforms, reducing learner confidence and long-term success.</p>
 </div>
 
 <div class="iv-card iv-plan-section">
-<h2>3. The SayBon Solution</h2>
-<p>SayBon unifies language learning, certification, engagement, and application into one coherent experience.</p>
-<h3>Structured CEFR-Aligned Learning</h3>
-<ul><li>Absolute Beginner</li><li>Beginner</li><li>Intermediate</li><li>Semi-Advanced</li><li>Advanced</li></ul>
-<h3>Original Music-Based Education</h3>
-<p>SayBon produces 100% original educational music across gospel, pop, jazz, classical, hip hop, reggae, afrobeats, and Latin genres - accessed exclusively inside the SayBon platform.</p>
-<h3>Accessible DELF Exam Preparation</h3>
-<p>One-time payment per exam level with structured exam-aligned preparation, mock assessments, and guided strategies.</p>
-<h3>Professional Translation Services</h3>
-<p>French &harr; English translation services for individuals, institutions, NGOs, and corporate organizations.</p>
+<h2>3. The SayBon Platform</h2>
+<p>SayBon is built as a genuine ecosystem, with each product reinforcing the others:</p>
+
+<h3>Levels — Structured CEFR Learning</h3>
+<p>Seven distinct learning tracks spanning A0 through C1, each with its own real visual identity, working through a consistent teach-practice-apply lesson structure: learners are taught new material, then record themselves speaking and receive live pronunciation scoring powered by Azure Speech AI, then apply what they've learned in a realistic scenario. Progression unlocks sequentially, so learners build real competence rather than skipping ahead.</p>
+
+<h3>Talkletics — Gamified Speaking Practice</h3>
+<p>A companion pronunciation game with a world-map progression, guided by an interactive character, giving learners a lower-pressure space to build speaking confidence outside the structured curriculum.</p>
+
+<h3>DELF Exam Preparation</h3>
+<p>A genuine placement-to-certification pathway: a full diagnostic placement test determines a learner's real level, followed by structured, level-specific preparation with tracked progress toward the internationally recognized DELF certification.</p>
+
+<h3>SayBon Music</h3>
+<p>An original, wholly-owned catalog of educational music spanning multiple genres, designed to help vocabulary and pronunciation stick through the same repetition and emotional engagement that makes songs memorable in any language.</p>
+
+<h3>Translation Services — A Real Two-Sided Marketplace</h3>
+<p>A working marketplace connecting clients with verified, tested French-English translators, supported by an AI-assisted draft workflow to accelerate turnaround, with real payment processing already live and operational.</p>
+
+<h3>Community &amp; Support</h3>
+<p>An integrated chat system giving learners a space to practice and connect, with content moderation built in from the start.</p>
 </div>
 
 <div class="iv-card iv-plan-section">
-<h2>4. Target Market</h2>
+<h2>4. Technology &amp; Differentiation</h2>
+<ul>
+<li><strong>Live AI pronunciation assessment</strong> — every speaking exercise across Levels, DELF, and Talkletics is scored in real time using Azure Speech, not just self-reported or peer-reviewed</li>
+<li><strong>One ecosystem, not a bundle</strong> — learning, certification prep, gamified practice, and real-world application are built as one connected product, not separate apps stitched together</li>
+<li><strong>Real operational maturity for this stage</strong> — SayBon already runs on a genuine internal business operations suite: live financial tracking, real-time payment verification, cap table management, and document infrastructure — the kind of operational backbone most companies build well after their first funding round, not before it</li>
+</ul>
+</div>
+
+<div class="iv-card iv-plan-section">
+<h2>5. Target Market</h2>
 <h3>Learners</h3>
 <ul><li>Students and young professionals</li><li>Study-abroad and migration candidates</li><li>Independent certification seekers</li></ul>
 <h3>Institutions</h3>
@@ -67,35 +84,44 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 </div>
 
 <div class="iv-card iv-plan-section">
-<h2>5. Competitive Advantage</h2>
+<h2>6. Business Model &amp; Revenue Streams</h2>
 <ul>
-<li>CEFR international standard foundation</li>
-<li>Ghanaian-built innovation with global relevance</li>
-<li>Entirely original music-based content</li>
-<li>Embedded DELF certification pathway</li>
-<li>Learning + real-world usage integration</li>
+<li>One-time payments for learning level access</li>
+<li>One-time payments per DELF exam preparation level</li>
+<li>Commission on completed translation jobs through the marketplace</li>
+<li>Institutional licensing for schools and organizations</li>
+<li>Voluntary donations from supporters of the mission</li>
+</ul>
+<p>Payment infrastructure for translation services and donations is <strong>already live</strong>, processing through Stripe and Paystack with real server-side verification — not a planned integration, but operational today.</p>
+</div>
+
+<div class="iv-card iv-plan-section">
+<h2>7. Operational Readiness</h2>
+<p>Ahead of most companies at the pre-seed stage, SayBon already operates with real internal infrastructure:</p>
+<div class="iv-stat-grid">
+<div class="iv-stat-box"><div class="iv-stat-num">7</div><div class="iv-stat-label">Live Product Lines</div></div>
+<div class="iv-stat-box"><div class="iv-stat-num">2</div><div class="iv-stat-label">Live Payment Processors</div></div>
+<div class="iv-stat-box"><div class="iv-stat-num">6</div><div class="iv-stat-label">CEFR Levels Covered</div></div>
+</div>
+<p style="margin-top:16px;">This includes automated financial tracking that logs real revenue the moment a payment is verified, a live cap table, and organized company documentation — the operational discipline investors typically expect a company to grow into, already in place from day one.</p>
+</div>
+
+<div class="iv-card iv-plan-section">
+<h2>8. Growth Vision</h2>
+<ul>
+<li>Full public platform launch across all seven product lines</li>
+<li>Expansion of the original music catalog</li>
+<li>Institutional partnerships and licensing agreements</li>
+<li>DELF payment processing brought fully live, matching Translation and Donations</li>
+<li>Long-term multilingual expansion beyond French</li>
 </ul>
 </div>
 
 <div class="iv-card iv-plan-section">
-<h2>6. Business Model</h2>
-<ul>
-<li>One-time payments for learning levels</li>
-<li>One-time payments per DELF exam level</li>
-<li>Institutional licensing</li>
-<li>Translation service contracts</li>
-<li>Educational partnerships</li>
-</ul>
-</div>
-
-<div class="iv-card iv-plan-section">
-<h2>7. Growth Vision</h2>
-<ul><li>Public platform launch</li><li>Music expansion</li><li>Institutional adoption</li><li>Multilingual expansion</li></ul>
-</div>
-
-<div class="iv-card iv-plan-section">
-<h2>8. Investment Opportunity</h2>
-<p>SayBon is raising a pre-seed round to accelerate product development, content production, partnerships, and market expansion.</p>
+<h2>9. Investment Opportunity</h2>
+<p>SayBon is raising a pre-seed round to accelerate content production, platform expansion, and market reach.</p>
+<p class="iv-placeholder">[Funding ask amount to be added]</p>
+<p class="iv-placeholder">[Use-of-funds breakdown to be added — e.g. content production, marketing, team expansion, infrastructure]</p>
 <p>Equity allocation is determined based on investment size, strategic value, and long-term alignment.</p>
 </div>
 
