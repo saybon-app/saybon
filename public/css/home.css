@@ -1333,3 +1333,58 @@ body.home-preload .settings-image-btn.is-pressed img{
   0%,100%{ filter:drop-shadow(0 0 0 rgba(212,175,106,0)); }
   50%{ filter:drop-shadow(0 0 14px rgba(212,175,106,.45)); }
 }
+
+/* ===== Sequential homepage entrance choreography (new) ===== */
+
+.background-layer.sb-carpet-hidden{
+  clip-path: inset(0 0 100% 0);
+}
+.background-layer.sb-carpet-reveal{
+  animation: sbCarpetUnroll .9s cubic-bezier(.22,.9,.24,1) forwards;
+}
+@keyframes sbCarpetUnroll{
+  from{ clip-path: inset(0 0 100% 0); }
+  to{ clip-path: inset(0 0 0% 0); }
+}
+
+#teacher.sb-teacher-hidden{ opacity:0; transform:translateY(-150px); }
+#teacher.sb-teacher-fall{
+  animation: sbTeacherFall .7s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes sbTeacherFall{
+  0%{ opacity:0; transform:translateY(-150px); }
+  55%{ opacity:1; transform:translateY(10px); }
+  75%{ transform:translateY(-5px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+#teacher.sb-teacher-idle{
+  animation: sbTeacherIdle 2.6s ease-in-out infinite;
+}
+@keyframes sbTeacherIdle{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-6px); }
+}
+
+.saybon-logo.sb-logo-hidden{ opacity:0; transform:translateX(-130px); }
+.saybon-logo.sb-logo-in{
+  animation: sbLogoSlideIn .6s cubic-bezier(.22,.9,.24,1) forwards;
+}
+@keyframes sbLogoSlideIn{
+  from{ opacity:0; transform:translateX(-130px); }
+  to{ opacity:1; transform:translateX(0); }
+}
+
+.start-btn.sb-btn-hidden,
+.login-btn.sb-btn-hidden,
+.settings-image-btn.sb-btn-hidden{
+  opacity:0; transform:translateY(60px);
+}
+.start-btn.sb-btn-in,
+.login-btn.sb-btn-in,
+.settings-image-btn.sb-btn-in{
+  animation: sbBtnRiseIn .5s cubic-bezier(.22,.9,.24,1) forwards;
+}
+@keyframes sbBtnRiseIn{
+  from{ opacity:0; transform:translateY(60px); }
+  to{ opacity:1; transform:translateY(0); }
+}
