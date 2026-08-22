@@ -4149,3 +4149,53 @@ await db.collection("docReceipts").doc(id).delete();
 res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete from docReceipts"}); }
 });
+
+// ================================================================
+// INVESTORS - Cap Table, Terms
+// ================================================================
+
+app.get("/api/capTableList", async(req,res)=>{
+try{
+const snapshot = await db.collection("capTable").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch cap table"}); }
+});
+app.post("/api/capTableAdd", express.json(), async(req,res)=>{
+try{
+const {name, percent, date, notes} = req.body;
+if(!name || percent === undefined) return res.status(400).json({error:"name and percent required"});
+const docRef = await db.collection("capTable").add({name, percent, date: date||"", notes: notes||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add cap table entry"}); }
+});
+app.post("/api/capTableDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("capTable").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete cap table entry"}); }
+});
+
+app.get("/api/investorTermsList", async(req,res)=>{
+try{
+const snapshot = await db.collection("investorTerms").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch terms"}); }
+});
+app.post("/api/investorTermsAdd", express.json(), async(req,res)=>{
+try{
+const {title, details, date} = req.body;
+if(!title) return res.status(400).json({error:"title required"});
+const docRef = await db.collection("investorTerms").add({title, details: details||"", date: date||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add term"}); }
+});
+app.post("/api/investorTermsDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("investorTerms").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete term"}); }
+});
