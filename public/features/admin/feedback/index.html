@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback & Issues — SayBon Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.fb-stage{max-width:720px;margin:0 auto;}
+.fb-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.fb-corner-icon svg{width:18px;height:18px;}
+.fb-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.8rem;color:#f6f1e4;margin-bottom:6px;}
+.fb-sub{color:#8b92a3;font-size:.88rem;margin-bottom:30px;}
+.fb-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:20px;padding:24px;margin-bottom:24px;}
+.fb-field{margin-bottom:14px;}
+.fb-field label{display:block;font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
+.fb-field select, .fb-field textarea{width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;}
+.fb-field textarea{min-height:80px;resize:vertical;}
+.fb-btn{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:13px 24px;font-weight:800;font-size:.88rem;cursor:pointer;}
+.fb-list{display:flex;flex-direction:column;gap:12px;}
+.fb-item{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.12);border-radius:16px;padding:16px 18px;}
+.fb-item.resolved{opacity:.45;}
+.fb-item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.fb-tag{font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:999px;flex-shrink:0;}
+.fb-tag-bug{background:rgba(224,122,122,.16);color:#e07a7a;}
+.fb-tag-feedback{background:rgba(106,180,232,.16);color:#6ab4e8;}
+.fb-tag-idea{background:rgba(212,175,106,.16);color:#d4af6a;}
+.fb-item-text{font-size:.9rem;line-height:1.5;}
+.fb-item-date{font-size:.72rem;color:#6d7488;margin-top:8px;}
+.fb-item-actions{display:flex;gap:8px;margin-top:10px;}
+.fb-item-actions button{background:none;border:1px solid rgba(212,175,106,.25);color:#d4af6a;border-radius:8px;padding:5px 12px;font-size:.72rem;cursor:pointer;}
+.fb-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:24px;}
+</style>
+</head>
+<body>
+
+<button class="fb-corner-icon" onclick="location.href='../'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="fb-stage">
+  <p class="fb-title">Feedback &amp; Issues</p>
+  <p class="fb-sub">Log what users tell you, and what you notice yourself, in one running list.</p>
+
+  <div class="fb-card">
+    <div class="fb-field">
+      <label>Type</label>
+      <select id="fbType">
+        <option value="bug">Bug</option>
+        <option value="feedback">User Feedback</option>
+        <option value="idea">Idea</option>
+      </select>
+    </div>
+    <div class="fb-field">
+      <label>Description</label>
+      <textarea id="fbText" placeholder="What happened, or what someone said..."></textarea>
+    </div>
+    <button class="fb-btn" id="fbAddBtn">Add to List</button>
+  </div>
+
+  <div class="fb-list" id="fbList"><p class="fb-empty">Loading...</p></div>
+</div>
+
+<script>
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+function loadItems(){
+  fetch(API_BASE + "/api/adminFeedbackList")
+    .then(function(res){ return res.json(); })
+    .then(renderItems)
+    .catch(function(){ document.getElementById("fbList").innerHTML = '<p class="fb-empty">Could not load list</p>'; });
+}
+
+function renderItems(items){
+  const list = document.getElementById("fbList");
+  if(!items || items.length === 0){
+    list.innerHTML = '<p class="fb-empty">Nothing logged yet</p>';
+    return;
+  }
+  list.innerHTML = items.map(function(it){
+    const date = it.created ? new Date(it.created._seconds * 1000).toLocaleDateString() : "";
+    return '<div class="fb-item ' + (it.resolved ? "resolved" : "") + '">' +
+      '<div class="fb-item-top"><span class="fb-tag fb-tag-' + it.type + '">' + it.type + '</span></div>' +
+      '<div class="fb-item-text">' + it.text + '</div>' +
+      '<div class="fb-item-date">' + date + '</div>' +
+      '<div class="fb-item-actions">' +
+      '<button onclick="toggleResolved(\'' + it.id + '\', ' + !it.resolved + ')">' + (it.resolved ? "Reopen" : "Mark Resolved") + '</button>' +
+      '<button onclick="deleteItem(\'' + it.id + '\')">Delete</button>' +
+      '</div></div>';
+  }).join("");
+}
+
+document.getElementById("fbAddBtn").addEventListener("click", function(){
+  const type = document.getElementById("fbType").value;
+  const text = document.getElementById("fbText").value.trim();
+  if(!text) return;
+
+  fetch(API_BASE + "/api/adminFeedbackAdd", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ type: type, text: text })
+  }).then(function(){
+    document.getElementById("fbText").value = "";
+    loadItems();
+  });
+});
+
+function toggleResolved(id, resolved){
+  fetch(API_BASE + "/api/adminFeedbackUpdate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: id, resolved: resolved })
+  }).then(loadItems);
+}
+
+function deleteItem(id){
+  if(!confirm("Delete this item?")) return;
+  fetch(API_BASE + "/api/adminFeedbackDelete", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: id })
+  }).then(loadItems);
+}
+
+loadItems();
+</script>
+</body>
+</html>

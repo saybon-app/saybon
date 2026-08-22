@@ -1,33 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SayBon Admin</title>
-
-  <link rel="stylesheet" href="admin.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayBon Business Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Manrope",-apple-system,sans-serif;
+  background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);
+  color:#e6e1d3;min-height:100vh;padding:60px 24px;
+}
+.bh-stage{max-width:900px;margin:0 auto;}
+.bh-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:12px;}
+.bh-title{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);color:#f6f1e4;margin-bottom:8px;}
+.bh-sub{color:#8b92a3;font-size:.92rem;margin-bottom:40px;}
+.bh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.bh-card{
+  display:block;text-decoration:none;color:inherit;
+  background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);
+  border-radius:20px;padding:26px 22px;
+  box-shadow:0 14px 30px rgba(0,0,0,.3);
+  transition:transform .2s ease, border-color .2s ease;
+}
+.bh-card:hover{transform:translateY(-4px);border-color:rgba(212,175,106,.45);}
+.bh-card-icon{width:42px;height:42px;border-radius:12px;background:rgba(212,175,106,.1);border:1px solid rgba(212,175,106,.3);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:#d4af6a;}
+.bh-card-icon svg{width:22px;height:22px;}
+.bh-card-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;color:#f6f1e4;margin-bottom:4px;}
+.bh-card-sub{font-size:.8rem;color:#8b92a3;}
+.bh-card.bh-new .bh-card-icon{background:rgba(124,197,118,.12);border-color:rgba(124,197,118,.35);color:#7cc576;}
+</style>
 </head>
-
 <body>
+<div class="bh-stage">
+  <p class="bh-eyebrow">SayBon</p>
+  <h1 class="bh-title">Business Admin</h1>
+  <p class="bh-sub">Everything behind running the company, in one place.</p>
 
-  <div class="admin-wrapper">
+  <div class="bh-grid">
 
-    <h1>SayBon Admin Panel</h1>
-    <p class="subtitle">Internal management dashboard</p>
+    <a href="financials/index.html" class="bh-card">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.7 5.7-4-4-4.7 4.7"/></svg></div>
+      <div class="bh-card-title">Financials</div>
+      <div class="bh-card-sub">Income, expenses, founder draw, reports</div>
+    </a>
 
-    <div class="admin-grid">
+    <a href="assets/index.html" class="bh-card">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7l3-4h12l3 4"/></svg></div>
+      <div class="bh-card-title">Company Assets</div>
+      <div class="bh-card-sub">Domains, IP, tools</div>
+    </a>
 
-      <a href="financials/index.html" class="admin-card">📊 Financials</a>
-      <a href="assets/index.html" class="admin-card">🏷 Company Assets</a>
-      <a href="documents/index.html" class="admin-card">📁 Documents</a>
-      <a href="investors/index.html" class="admin-card">💼 Investors</a>
-      <a href="settings/index.html" class="admin-card">⚙️ Settings</a>
-      <a href="logs/activity.html" class="admin-card">🧾 Activity Logs</a>
+    <a href="documents/index.html" class="bh-card">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+      <div class="bh-card-title">Documents</div>
+      <div class="bh-card-sub">Business plan, contracts, NDAs, receipts</div>
+    </a>
 
-    </div>
+    <a href="investors/index.html" class="bh-card">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
+      <div class="bh-card-title">Investors</div>
+      <div class="bh-card-sub">Cap table, terms, exports</div>
+    </a>
+
+    <a href="feedback/index.html" class="bh-card bh-new">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <div class="bh-card-title">Feedback &amp; Issues</div>
+      <div class="bh-card-sub">New — log user feedback and bugs in one place</div>
+    </a>
+
+    <a href="settings/index.html" class="bh-card">
+      <div class="bh-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+      <div class="bh-card-title">Settings</div>
+      <div class="bh-card-sub">Access control, feature locks</div>
+    </a>
 
   </div>
+</div>
 
-  <script src="auth/admin-guard.js"></script>
+<script src="auth/admin-guard.js"></script>
 </body>
 </html>

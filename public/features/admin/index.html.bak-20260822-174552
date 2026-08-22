@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SayBon Admin</title>
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+  <div class="admin-wrapper">
+
+    <h1>SayBon Admin Panel</h1>
+    <p class="subtitle">Internal management dashboard</p>
+
+    <div class="admin-grid">
+
+      <a href="financials/index.html" class="admin-card">📊 Financials</a>
+      <a href="assets/index.html" class="admin-card">🏷 Company Assets</a>
+      <a href="documents/index.html" class="admin-card">📁 Documents</a>
+      <a href="investors/index.html" class="admin-card">💼 Investors</a>
+      <a href="settings/index.html" class="admin-card">⚙️ Settings</a>
+      <a href="logs/activity.html" class="admin-card">🧾 Activity Logs</a>
+
+    </div>
+
+  </div>
+
+  <script src="auth/admin-guard.js"></script>
+</body>
+</html>

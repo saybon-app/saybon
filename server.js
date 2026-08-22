@@ -3686,3 +3686,62 @@ console.error(err);
 res.status(500).json({error:"could not save progress"});
 }
 });
+
+// ================================================================
+// BUSINESS ADMIN - FEEDBACK & ISSUES TRACKER
+// ================================================================
+
+app.get("/api/adminFeedbackList", async(req,res)=>{
+try{
+const snapshot = await db.collection("adminFeedback").orderBy("created","desc").get();
+const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+res.json(items);
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch feedback list"});
+}
+});
+
+app.post("/api/adminFeedbackAdd", express.json(), async(req,res)=>{
+try{
+const {type, text} = req.body;
+if(!type || !text){
+return res.status(400).json({error:"type and text are required"});
+}
+const docRef = await db.collection("adminFeedback").add({
+type, text, resolved:false, created: admin.firestore.FieldValue.serverTimestamp()
+});
+res.json({id: docRef.id});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not add feedback item"});
+}
+});
+
+app.post("/api/adminFeedbackUpdate", express.json(), async(req,res)=>{
+try{
+const {id, resolved} = req.body;
+if(!id){
+return res.status(400).json({error:"id is required"});
+}
+await db.collection("adminFeedback").doc(id).update({resolved: !!resolved});
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not update feedback item"});
+}
+});
+
+app.post("/api/adminFeedbackDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id){
+return res.status(400).json({error:"id is required"});
+}
+await db.collection("adminFeedback").doc(id).delete();
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not delete feedback item"});
+}
+});
