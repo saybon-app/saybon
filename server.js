@@ -4199,3 +4199,56 @@ await db.collection("investorTerms").doc(id).delete();
 res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete term"}); }
 });
+
+// ================================================================
+// SETTINGS - Access Control, Feature Locks
+// ================================================================
+
+app.get("/api/accessControlList", async(req,res)=>{
+try{
+const snapshot = await db.collection("accessControl").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch admin list"}); }
+});
+app.post("/api/accessControlAdd", express.json(), async(req,res)=>{
+try{
+const {email} = req.body;
+if(!email) return res.status(400).json({error:"email required"});
+const docRef = await db.collection("accessControl").add({email: email.toLowerCase(), created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add admin"}); }
+});
+app.post("/api/accessControlRemove", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("accessControl").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not remove admin"}); }
+});
+app.get("/api/accessControlCheck", async(req,res)=>{
+try{
+const email = (req.query.email || "").toLowerCase();
+if(!email) return res.json({authorized:false});
+const snapshot = await db.collection("accessControl").where("email","==",email).limit(1).get();
+res.json({authorized: !snapshot.empty});
+}catch(err){
+console.error(err);
+res.status(500).json({authorized:false});
+}
+});
+
+app.get("/api/featureLocksGet", async(req,res)=>{
+try{
+const doc = await db.collection("appSettings").doc("featureLocks").get();
+res.json(doc.exists ? doc.data() : {});
+}catch(err){ console.error(err); res.status(500).json({}); }
+});
+app.post("/api/featureLocksSet", express.json(), async(req,res)=>{
+try{
+const {name, enabled} = req.body;
+if(!name) return res.status(400).json({error:"name required"});
+await db.collection("appSettings").doc("featureLocks").set({ [name]: enabled }, {merge:true});
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not save feature lock"}); }
+});
