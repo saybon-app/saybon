@@ -1,3 +1,4 @@
+const https = require("https");
 
 const express=require("express")
 const cors=require("cors")
@@ -723,6 +724,14 @@ return res.status(404).json({error:"job reference not found"})
 
 if(session.payment_status==="paid"){
 
+await logAutoIncomeOnce(
+"translation_" + jobId,
+(session.amount_total || 0) / 100,
+(session.currency || "usd").toUpperCase(),
+"Translation Job",
+"Auto-logged from translation job " + jobId
+);
+
 const jobDoc=await db.collection("translationJobs").doc(jobId).get()
 const jobData=jobDoc.exists ? jobDoc.data() : {}
 
@@ -860,7 +869,7 @@ donorLastName:lastName||"",
 donorMessage:message||""
 
 },
-success_url:"https://saybonapp.com/support/thank-you.html",
+success_url:"https://saybonapp.com/support/thank-you.html?session_id={CHECKOUT_SESSION_ID}",
 cancel_url:"https://saybonapp.com/support/donate.html"
 
 })
