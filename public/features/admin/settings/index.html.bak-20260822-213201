@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="en"><head>
-<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<script src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feature Locks — SayBon Settings</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}
+<title>Settings — SayBon Admin</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
 .se-stage{max-width:760px;margin:0 auto;}
 .se-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
@@ -26,30 +27,17 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .se-toggle-slider::before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
 .se-toggle input:checked + .se-toggle-slider{background:#7cc576;}
 .se-toggle input:checked + .se-toggle-slider::before{transform:translateX(20px);}
-.se-note{font-size:.78rem;color:#8b92a3;margin-top:16px;line-height:1.5;background:rgba(212,175,106,.06);border:1px solid rgba(212,175,106,.15);border-radius:12px;padding:12px 14px;}</style></head><body>
+.se-note{font-size:.78rem;color:#8b92a3;margin-top:16px;line-height:1.5;background:rgba(212,175,106,.06);border:1px solid rgba(212,175,106,.15);border-radius:12px;padding:12px 14px;}
+.se-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
+.se-nav-card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);border-radius:18px;padding:22px 20px;}
+.se-nav-card-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#f6f1e4;}
+</style></head><body>
 <button class="se-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <div class="se-stage">
-<p class="se-eyebrow">Settings</p><p class="se-title">Feature Locks</p><p class="se-sub">Toggle which parts of SayBon are marked active.</p>
-<div class="se-card"><h2>Features</h2><div class="se-list" id="flList"><p class="se-empty">Loading...</p></div>
-<p class="se-note">These toggles record intended state only. Actually blocking access on each live page (DELF, Levels, Talkletics, Music, Chat, Translation) is a separate follow-up - flipping a switch here does not yet hide anything from users.</p>
+<p class="se-eyebrow">Business Admin</p><p class="se-title">Settings</p><p class="se-sub">Access control and feature state.</p>
+<div class="se-grid">
+<a href="access-control.html" class="se-nav-card"><div class="se-nav-card-title">Access Control</div></a>
+<a href="feature-locks.html" class="se-nav-card"><div class="se-nav-card-title">Feature Locks</div></a>
 </div>
 </div>
-<script>
-const API_BASE = "https://saybonapp-server.onrender.com";
-const features = ["DELF","Levels","Talkletics","Music","Chat","Translation"];
-
-function loadLocks(){
-  fetch(API_BASE + "/api/featureLocksGet").then(r=>r.json()).then(function(state){
-    const list = document.getElementById("flList");
-    list.innerHTML = features.map(function(f){
-      const isOn = state[f] !== false;
-      return '<div class="se-item"><div class="se-item-title">'+f+'</div><label class="se-toggle"><input type="checkbox" '+(isOn?'checked':'')+' onchange="toggleFeature(\''+f+'\', this.checked)"><span class="se-toggle-slider"></span></label></div>';
-    }).join("");
-  }).catch(function(){ document.getElementById("flList").innerHTML = '<p class="se-empty">Could not load</p>'; });
-}
-window.toggleFeature = function(name, enabled){
-  fetch(API_BASE + "/api/featureLocksSet", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name, enabled})});
-};
-loadLocks();
-</script>
 </body></html>

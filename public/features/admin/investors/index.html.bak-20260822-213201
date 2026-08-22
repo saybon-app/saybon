@@ -1,7 +1,8 @@
 <!DOCTYPE html><html lang="en"><head>
-<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<script src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms — SayBon Investors</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}
+<title>Investors — SayBon Admin</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
 .iv-stage{max-width:760px;margin:0 auto;}
 .iv-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
@@ -26,40 +27,18 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .iv-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}
 .iv-total-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:14px;}
 .iv-total-fill{height:100%;background:linear-gradient(90deg,#d4af6a,#e8c98a);}
-.iv-total-label{font-size:.78rem;color:#8b92a3;margin-top:8px;text-align:center;}</style></head><body>
+.iv-total-label{font-size:.78rem;color:#8b92a3;margin-top:8px;text-align:center;}
+.iv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;}
+.iv-nav-card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);border-radius:18px;padding:22px 20px;}
+.iv-nav-card-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#f6f1e4;}
+</style></head><body>
 <button class="iv-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <div class="iv-stage">
-<p class="iv-eyebrow">Investors</p><p class="iv-title">Terms</p><p class="iv-sub">Agreements and terms with anyone who has a stake or offer on the table.</p>
-<div class="iv-card"><h2>Add Terms Record</h2>
-<div class="iv-field"><label>Title</label><input type="text" id="tTitle" placeholder="e.g. Advisor agreement with..."></div>
-<div class="iv-field"><label>Details</label><textarea id="tDetails" placeholder="What was agreed"></textarea></div>
-<div class="iv-field"><label>Date</label><input type="date" id="tDate"></div>
-<button class="iv-btn" id="tAddBtn">Add Record</button>
+<p class="iv-eyebrow">Business Admin</p><p class="iv-title">Investors</p><p class="iv-sub">Cap table, terms, and investor-ready exports.</p>
+<div class="iv-grid">
+<a href="cap-table.html" class="iv-nav-card"><div class="iv-nav-card-title">Cap Table</div></a>
+<a href="terms.html" class="iv-nav-card"><div class="iv-nav-card-title">Terms</div></a>
+<a href="investor-exports.html" class="iv-nav-card"><div class="iv-nav-card-title">Investor Exports</div></a>
 </div>
-<div class="iv-card"><h2>All Terms</h2><div class="iv-list" id="tList"><p class="iv-empty">Loading...</p></div></div>
 </div>
-<script>
-const API_BASE = "https://saybonapp-server.onrender.com";
-function loadTerms(){
-  fetch(API_BASE + "/api/investorTermsList").then(r=>r.json()).then(function(items){
-    const list = document.getElementById("tList");
-    if(!items || !items.length){ list.innerHTML = '<p class="iv-empty">No terms recorded yet</p>'; return; }
-    list.innerHTML = items.map(function(it){
-      return '<div class="iv-item"><div><div class="iv-item-title">'+it.title+'</div><div class="iv-item-meta">'+(it.details||'')+' - '+(it.date||'')+'</div></div><div class="iv-item-actions"><button onclick="deleteTerm(\''+it.id+'\')">Delete</button></div></div>';
-    }).join("");
-  }).catch(function(){ document.getElementById("tList").innerHTML = '<p class="iv-empty">Could not load</p>'; });
-}
-window.deleteTerm = function(id){
-  if(!confirm("Delete this record?")) return;
-  fetch(API_BASE + "/api/investorTermsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadTerms);
-};
-document.getElementById("tAddBtn").addEventListener("click", function(){
-  const title = document.getElementById("tTitle").value.trim();
-  if(!title) return;
-  fetch(API_BASE + "/api/investorTermsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-    title, details: document.getElementById("tDetails").value, date: document.getElementById("tDate").value
-  })}).then(function(){ document.getElementById("tTitle").value=""; document.getElementById("tDetails").value=""; loadTerms(); });
-});
-loadTerms();
-</script>
 </body></html>

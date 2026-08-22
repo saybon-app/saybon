@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
-<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<script src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tools — SayBon Assets</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}
+<title>Domains — SayBon Assets</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
 .as-stage{max-width:760px;margin:0 auto;}
 .as-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
@@ -24,39 +24,39 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .as-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}</style></head><body>
 <button class="as-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <div class="as-stage">
-<p class="as-eyebrow">Company Assets</p><p class="as-title">Tools &amp; Subscriptions</p><p class="as-sub">Every service the business pays for, and who owns the account.</p>
-<div class="as-card"><h2>Add Tool</h2>
-<div class="as-field"><label>Tool Name</label><input type="text" id="tName" placeholder="e.g. Render, Firebase, Figma"></div>
+<p class="as-eyebrow">Company Assets</p><p class="as-title">Domains</p><p class="as-sub">Every domain the business owns, with renewal dates.</p>
+<div class="as-card"><h2>Add Domain</h2>
+<div class="as-field"><label>Domain Name</label><input type="text" id="dName" placeholder="saybonapp.com"></div>
 <div class="as-row2">
-<div class="as-field"><label>Monthly Cost (USD)</label><input type="number" step="0.01" id="tCost"></div>
-<div class="as-field"><label>Category</label><select id="tCategory"><option>Hosting</option><option>Development</option><option>Design</option><option>Marketing</option><option>Communication</option><option>Other</option></select></div>
+<div class="as-field"><label>Registrar</label><input type="text" id="dRegistrar" placeholder="e.g. Namecheap"></div>
+<div class="as-field"><label>Annual Cost (USD)</label><input type="number" step="0.01" id="dCost"></div>
 </div>
-<div class="as-field"><label>Account Owner / Email</label><input type="text" id="tOwner"></div>
-<button class="as-btn" id="tAddBtn">Add Tool</button></div>
-<div class="as-card"><h2>All Tools</h2><div class="as-list" id="tList"><p class="as-empty">Loading...</p></div></div>
+<div class="as-field"><label>Renewal Date</label><input type="date" id="dRenewal"></div>
+<button class="as-btn" id="dAddBtn">Add Domain</button></div>
+<div class="as-card"><h2>All Domains</h2><div class="as-list" id="dList"><p class="as-empty">Loading...</p></div></div>
 </div>
 <script>
 const API_BASE = "https://saybonapp-server.onrender.com";
-function loadTools(){
-  fetch(API_BASE + "/api/assetToolsList").then(r=>r.json()).then(function(items){
-    const list = document.getElementById("tList");
-    if(!items || !items.length){ list.innerHTML = '<p class="as-empty">No tools added yet</p>'; return; }
+function loadDomains(){
+  fetch(API_BASE + "/api/assetDomainsList").then(r=>r.json()).then(function(items){
+    const list = document.getElementById("dList");
+    if(!items || !items.length){ list.innerHTML = '<p class="as-empty">No domains added yet</p>'; return; }
     list.innerHTML = items.map(function(it){
-      return '<div class="as-item"><div><div class="as-item-title">'+it.name+'</div><div class="as-item-meta">'+it.category+' - $'+Number(it.cost).toFixed(2)+'/mo - '+(it.owner||'')+'</div></div><div class="as-item-actions"><button onclick="deleteTool(\''+it.id+'\')">Delete</button></div></div>';
+      return '<div class="as-item"><div><div class="as-item-title">'+it.name+'</div><div class="as-item-meta">'+it.registrar+' - renews '+it.renewalDate+' - $'+Number(it.cost).toFixed(2)+'/yr</div></div><div class="as-item-actions"><button onclick="deleteDomain(\''+it.id+'\')">Delete</button></div></div>';
     }).join("");
-  }).catch(function(){ document.getElementById("tList").innerHTML = '<p class="as-empty">Could not load</p>'; });
+  }).catch(function(){ document.getElementById("dList").innerHTML = '<p class="as-empty">Could not load</p>'; });
 }
-window.deleteTool = function(id){
-  if(!confirm("Delete this tool?")) return;
-  fetch(API_BASE + "/api/assetToolsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadTools);
+window.deleteDomain = function(id){
+  if(!confirm("Delete this domain?")) return;
+  fetch(API_BASE + "/api/assetDomainsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadDomains);
 };
-document.getElementById("tAddBtn").addEventListener("click", function(){
-  const name = document.getElementById("tName").value.trim();
+document.getElementById("dAddBtn").addEventListener("click", function(){
+  const name = document.getElementById("dName").value.trim();
   if(!name) return;
-  fetch(API_BASE + "/api/assetToolsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-    name, cost: parseFloat(document.getElementById("tCost").value)||0, category: document.getElementById("tCategory").value, owner: document.getElementById("tOwner").value
-  })}).then(function(){ document.getElementById("tName").value=""; document.getElementById("tCost").value=""; document.getElementById("tOwner").value=""; loadTools(); });
+  fetch(API_BASE + "/api/assetDomainsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+    name, registrar: document.getElementById("dRegistrar").value, cost: parseFloat(document.getElementById("dCost").value)||0, renewalDate: document.getElementById("dRenewal").value
+  })}).then(function(){ document.getElementById("dName").value=""; document.getElementById("dRegistrar").value=""; document.getElementById("dCost").value=""; loadDomains(); });
 });
-loadTools();
+loadDomains();
 </script>
 </body></html>

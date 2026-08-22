@@ -79,6 +79,6 @@ body{
   </div>
 </div>
 
-<script type="module" src="auth/admin-guard.js"></script>
+<script src="auth/admin-guard.js"></script>
 </body>
 </html>

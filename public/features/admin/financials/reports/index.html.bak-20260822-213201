@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<script src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Financials — SayBon Admin</title>
+<title>Reports — SayBon Financials</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
+<style>*{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
 .fn-stage{max-width:800px;margin:0 auto;}
 .fn-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
@@ -38,27 +37,48 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .fn-summary-label{font-size:.72rem;color:#8b92a3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
 .fn-summary-value{font-family:"Fraunces",serif;font-weight:600;font-size:1.6rem;color:#f6f1e4;}
 .fn-summary-value.income{color:#7cc576;} .fn-summary-value.expense{color:#e07a7a;} .fn-summary-value.profit{color:#d4af6a;}
-.fn-receipt-link{font-size:.72rem;color:#d4af6a;text-decoration:underline;}
-.fn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
-.fn-nav-card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);border-radius:18px;padding:22px 20px;transition:transform .2s ease, border-color .2s ease;}
-.fn-nav-card:hover{transform:translateY(-3px);border-color:rgba(212,175,106,.4);}
-.fn-nav-card-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#f6f1e4;margin-bottom:4px;}
-.fn-nav-card-sub{font-size:.78rem;color:#8b92a3;}
-</style>
+.fn-receipt-link{font-size:.72rem;color:#d4af6a;text-decoration:underline;}</style>
 </head>
 <body>
 <button class="fn-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <div class="fn-stage">
-  <p class="fn-eyebrow">Business Admin</p>
-  <p class="fn-title">Financials</p>
-  <p class="fn-sub">Income, expenses, founder draw, and the full picture.</p>
+  <p class="fn-eyebrow">Financials</p>
+  <p class="fn-title">Reports</p>
+  <p class="fn-sub">The full financial picture, all time.</p>
 
-  <div class="fn-grid">
-    <a href="income/index.html" class="fn-nav-card"><div class="fn-nav-card-title">Income</div><div class="fn-nav-card-sub">Log and review every dollar in</div></a>
-    <a href="expenses/index.html" class="fn-nav-card"><div class="fn-nav-card-title">Expenses</div><div class="fn-nav-card-sub">Log and review every dollar out</div></a>
-    <a href="founder/index.html" class="fn-nav-card"><div class="fn-nav-card-title">Founder Draw</div><div class="fn-nav-card-sub">What you can pay yourself</div></a>
-    <a href="reports/index.html" class="fn-nav-card"><div class="fn-nav-card-title">Reports</div><div class="fn-nav-card-sub">The full financial picture</div></a>
+  <div class="fn-card">
+    <div class="fn-summary-grid">
+      <div class="fn-summary-box"><div class="fn-summary-label">Total Income</div><div class="fn-summary-value income" id="rpIncome">-</div></div>
+      <div class="fn-summary-box"><div class="fn-summary-label">Total Expenses</div><div class="fn-summary-value expense" id="rpExpenses">-</div></div>
+      <div class="fn-summary-box"><div class="fn-summary-label">Net Profit</div><div class="fn-summary-value profit" id="rpProfit">-</div></div>
+      <div class="fn-summary-box"><div class="fn-summary-label">Founder Draws</div><div class="fn-summary-value expense" id="rpDraws">-</div></div>
+    </div>
+  </div>
+
+  <div class="fn-card">
+    <h2>Expenses by Category</h2>
+    <div class="fn-list" id="rpCategoryList"><p class="fn-empty">Loading...</p></div>
   </div>
 </div>
+
+<script>
+const API_BASE = "https://saybonapp-server.onrender.com";
+
+fetch(API_BASE + "/api/financeReportsSummary").then(r=>r.json()).then(function(data){
+  document.getElementById("rpIncome").textContent = "USD " + Number(data.totalIncome).toFixed(2);
+  document.getElementById("rpExpenses").textContent = "USD " + Number(data.totalExpenses).toFixed(2);
+  document.getElementById("rpProfit").textContent = "USD " + Number(data.netProfit).toFixed(2);
+  document.getElementById("rpDraws").textContent = "USD " + Number(data.totalDraws).toFixed(2);
+
+  const catList = document.getElementById("rpCategoryList");
+  const cats = Object.keys(data.byCategory || {});
+  if(!cats.length){ catList.innerHTML = '<p class="fn-empty">No expense data yet</p>'; return; }
+  catList.innerHTML = cats.map(function(cat){
+    return '<div class="fn-item"><div class="fn-item-left"><div class="fn-item-note">'+cat+'</div></div><div class="fn-item-amount expense">USD '+Number(data.byCategory[cat]).toFixed(2)+'</div></div>';
+  }).join("");
+}).catch(function(){
+  document.getElementById("rpCategoryList").innerHTML = '<p class="fn-empty">Could not load report</p>';
+});
+</script>
 </body>
 </html>
