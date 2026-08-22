@@ -3880,3 +3880,103 @@ byCategory[d.category] = (byCategory[d.category] || 0) + (Number(d.amount) || 0)
 res.json({ totalIncome, totalExpenses, netProfit: profit, totalDraws, byCategory });
 }catch(err){ console.error(err); res.status(500).json({error:"could not build report"}); }
 });
+
+// ================================================================
+// AUTOMATIC INCOME LOGGING FROM REAL PAYMENTS
+// Idempotent via sourceRef check - re-visiting a success page
+// never double-logs.
+// ================================================================
+
+async function logAutoIncomeOnce(sourceRef, amount, currency, category, note){
+try{
+const existing = await db.collection("financeIncome").where("sourceRef","==",sourceRef).limit(1).get();
+if(!existing.empty) return { alreadyLogged:true };
+
+await db.collection("financeIncome").add({
+date: new Date().toISOString().slice(0,10),
+amount, currency, method:"Stripe", category, note,
+sourceRef, receiptUrl:null,
+created: admin.firestore.FieldValue.serverTimestamp()
+});
+return { alreadyLogged:false };
+}catch(err){
+console.error("logAutoIncomeOnce failed:", err);
+return { error:true };
+}
+}
+
+app.get("/api/verifyDonationSession", async(req,res)=>{
+try{
+const sessionId = req.query.session_id;
+if(!sessionId) return res.status(400).json({error:"session_id required"});
+
+const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+if(session.payment_status === "paid"){
+await logAutoIncomeOnce(
+"stripe_donation_" + session.id,
+(session.amount_total || 0) / 100,
+(session.currency || "usd").toUpperCase(),
+"Donation",
+"Auto-logged Stripe donation from " + (session.customer_email || "unknown")
+);
+res.json({verified:true});
+}else{
+res.json({verified:false});
+}
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not verify donation session"});
+}
+});
+
+app.post("/api/verifyPaystackDonation", express.json(), async(req,res)=>{
+try{
+const {reference} = req.body;
+if(!reference) return res.status(400).json({error:"reference required"});
+
+const secretKey = process.env.PAYSTACK_SECRET_KEY;
+if(!secretKey){
+console.error("PAYSTACK_SECRET_KEY not set");
+return res.status(500).json({error:"server not configured for Paystack verification"});
+}
+
+const paystackData = await new Promise((resolve, reject) => {
+const options = {
+hostname: "api.paystack.co",
+path: "/transaction/verify/" + encodeURIComponent(reference),
+method: "GET",
+headers: { Authorization: "Bearer " + secretKey }
+};
+const request = https.request(options, (response) => {
+let body = "";
+response.on("data", (chunk) => { body += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(body)); }
+catch(e){ reject(e); }
+});
+});
+request.on("error", reject);
+request.end();
+});
+
+if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+const amountInMainUnit = paystackData.data.amount / 100;
+const currency = paystackData.data.currency || "GHS";
+
+await logAutoIncomeOnce(
+"paystack_donation_" + reference,
+amountInMainUnit,
+currency,
+"Donation",
+"Auto-logged Paystack donation from " + (paystackData.data.customer ? paystackData.data.customer.email : "unknown")
+);
+res.json({verified:true});
+}else{
+res.json({verified:false});
+}
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not verify Paystack donation"});
+}
+});
