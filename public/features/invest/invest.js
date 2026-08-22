@@ -1,13 +1,20 @@
-document.getElementById("angelForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function(){
+  var forms = ["angelForm", "seedForm", "strategicForm"];
 
-  // trigger global loader
-  if (window.showGlobalLoader) {
-    window.showGlobalLoader();
-  }
+  forms.forEach(function(id){
+    var form = document.getElementById(id);
+    if(!form) return;
 
-  // redirect to support page
-  setTimeout(() => {
-    window.location.href = "/support/index.html";
-  }, 1800);
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      if (window.showGlobalLoader) {
+        window.showGlobalLoader();
+      }
+
+      setTimeout(function(){
+        window.location.href = "/support/index.html";
+      }, 1800);
+    });
+  });
 });
