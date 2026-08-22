@@ -238,8 +238,6 @@ body.placement-page{
 
 .teacher-circle {
   width: 280px;
-  height: 280px;
-  border-radius: 50%;
   position: relative;
   display: flex;
   align-items: center;
@@ -248,19 +246,18 @@ body.placement-page{
 
 .teacher-circle img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+  height: auto;
+  display: block;
   z-index: 2;
 }
 
 .teacher-circle{
-  animation: circleGlowPulse 3.4s ease-in-out infinite;
+  animation: teacherGlowPulse 3.4s ease-in-out infinite;
 }
 
-@keyframes circleGlowPulse {
-  0%, 100% { box-shadow: 0 0 26px 4px rgba(212,175,55,.4); }
-  50% { box-shadow: 0 0 52px 14px rgba(212,175,55,.75); }
+@keyframes teacherGlowPulse {
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(212,175,55,.45)); }
+  50% { filter: drop-shadow(0 0 34px rgba(212,175,55,.8)); }
 }
 
 @keyframes gentleFloat {
