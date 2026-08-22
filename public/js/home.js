@@ -38,10 +38,10 @@ function playIntroAudio() {
 ========================================================= */
 
 const DURATIONS = {
-  carpet: 900,
-  teacherFall: 700,
-  logo: 600,
-  btn: 500
+  carpet: 1700,
+  teacherFall: 1300,
+  logo: 1100,
+  btn: 900
 };
 
 function hideInitially() {
