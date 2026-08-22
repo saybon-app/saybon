@@ -8,6 +8,6 @@ document.getElementById("angelForm").addEventListener("submit", function (e) {
 
   // redirect to support page
   setTimeout(() => {
-    window.location.href = "/features/support/index.html";
+    window.location.href = "/support/index.html";
   }, 1800);
 });
