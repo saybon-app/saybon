@@ -96,21 +96,21 @@ paths.forEach(card => {
       card.style.zIndex = "9999";
       const heroTransform = "translate(" + moveX + "px," + moveY + "px)";
       card.style.setProperty("--start-transform", heroTransform);
-      card.style.transition = "transform 1.5s cubic-bezier(.22,1,.36,1)";
+      card.style.transition = "transform .85s cubic-bezier(.22,1,.36,1)";
       card.style.transform = heroTransform + " scale(1.06)";
 
-      setTimeout(() => { card.classList.add("start-bounce"); }, 1550);
+      setTimeout(() => { card.classList.add("start-bounce"); }, 900);
       setTimeout(() => {
         card.classList.remove("start-bounce");
         card.classList.add("start-floating");
-      }, 2600);
-      setTimeout(() => { shell.classList.add("start-shell-exit"); }, 4250);
+      }, 1500);
+      setTimeout(() => { shell.classList.add("start-shell-exit"); }, 2350);
       setTimeout(() => {
         sessionStorage.setItem("saybon_prev", "/start.html");
         sessionStorage.setItem("saybon_next", destinations[card.id]);
         window.location.href = "/loader.html";
-      }, 5000);
+      }, 2800);
 
-    }, 280);
+    }, 160);
   });
 });

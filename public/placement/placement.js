@@ -125,7 +125,7 @@ document.getElementById("placementHomeBtn")?.addEventListener("click", () => {
 
 const scoreDisplay = document.createElement("div");
 scoreDisplay.id = "scoreDisplay";
-scoreDisplay.style.cssText = "text-align:center;font-size:13px;font-weight:600;color:inherit;opacity:.75;margin-top:4px;";
+scoreDisplay.className = "score-pill";
 progressLabel.insertAdjacentElement("afterend", scoreDisplay);
 
 function updateScoreDisplay(){
@@ -324,25 +324,50 @@ function registerResult(isCorrect){
 
 }
 
+function celebrateAnswer(isCorrect, originEl){
+  scoreDisplay.classList.remove("score-flash-correct", "score-flash-wrong");
+  void scoreDisplay.offsetWidth;
+  scoreDisplay.classList.add(isCorrect ? "score-flash-correct" : "score-flash-wrong");
+
+  if(isCorrect && originEl){
+    const originRect = originEl.getBoundingClientRect();
+    const targetRect = scoreDisplay.getBoundingClientRect();
+
+    const flyEl = document.createElement("div");
+    flyEl.className = "score-fly-plus-one";
+    flyEl.textContent = "+1";
+    flyEl.style.left = (originRect.left + originRect.width / 2) + "px";
+    flyEl.style.top = (originRect.top + originRect.height / 2) + "px";
+    document.body.appendChild(flyEl);
+
+    requestAnimationFrame(() => {
+      flyEl.style.left = (targetRect.left + targetRect.width / 2) + "px";
+      flyEl.style.top = (targetRect.top + targetRect.height / 2) + "px";
+      flyEl.style.transform = "translate(-50%,-50%) scale(.6)";
+      flyEl.style.opacity = "0";
+    });
+
+    setTimeout(() => flyEl.remove(), 850);
+  }
+}
+
 function answer(choice, clickedBtn) {
   const q = questions[currentIndex];
   const isCorrect = choice === q.correct;
 
   const allButtons = optionsEl.querySelectorAll("button.option");
   if(isCorrect){
-    clickedBtn.style.background = "#DFF5E1";
-    clickedBtn.style.borderColor = "#4CAF50";
+    clickedBtn.classList.add("option-correct");
   }else{
-    clickedBtn.style.background = "#FBE1E1";
-    clickedBtn.style.borderColor = "#E05757";
+    clickedBtn.classList.add("option-wrong");
     allButtons.forEach((b, i) => {
       if(i === q.correct){
-        b.style.background = "#DFF5E1";
-        b.style.borderColor = "#4CAF50";
+        b.classList.add("option-correct");
       }
     });
   }
 
+  celebrateAnswer(isCorrect, clickedBtn);
   registerResult(isCorrect);
 }
 
@@ -355,12 +380,18 @@ function answerTyped(userInput) {
   if(msg){
     if(isCorrect){
       msg.textContent = "Correct!";
-      msg.style.color = "#2e7d32";
+      msg.style.color = "#22c55e";
     }else{
       msg.textContent = "Not quite - accepted answer: " + q.acceptableAnswers[0];
-      msg.style.color = "#c62828";
+      msg.style.color = "#ef4444";
     }
   }
+
+  const submitBtn = document.getElementById("typedSubmitBtn");
+  if(submitBtn){
+    submitBtn.classList.add(isCorrect ? "option-correct" : "option-wrong");
+  }
+  celebrateAnswer(isCorrect, submitBtn);
 
   registerResult(isCorrect);
 }

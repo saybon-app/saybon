@@ -108,7 +108,7 @@ cards.forEach((card, cardIndex)=>{
             );
 
             card.style.transition=
-                "transform 1.5s cubic-bezier(.22,1,.36,1)";
+                "transform .85s cubic-bezier(.22,1,.36,1)";
 
             card.style.transform=
                 `${heroTransform} scale(1.08)`;
@@ -117,20 +117,20 @@ cards.forEach((card, cardIndex)=>{
 
                 card.classList.add("why-bounce");
 
-            },1550);
+            },900);
 
             setTimeout(()=>{
 
                 card.classList.remove("why-bounce");
                 card.classList.add("why-floating");
 
-            },2600);
+            },1500);
 
             setTimeout(()=>{
 
                 shell.classList.add("why-shell-exit");
 
-            },4250);
+            },2350);
 
             setTimeout(()=>{
 
@@ -146,9 +146,9 @@ cards.forEach((card, cardIndex)=>{
 
                 window.location.href="/loader.html";
 
-            },5000);
+            },2800);
 
-        }, 280);
+        }, 160);
 
     });
 
