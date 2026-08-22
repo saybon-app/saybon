@@ -300,7 +300,10 @@ function handleVideoEnded(){
 }
 
 function playNextInQueue(){
-  if(!upNextQueue.length) return;
+  if(!upNextQueue.length){
+    if(repeatMode !== "current") showUpNextSuggestion();
+    return;
+  }
 
   const currentIdx = upNextQueue.findIndex(v => v.id === videoId);
   const isLastTrack = currentIdx === -1 || currentIdx === upNextQueue.length - 1;
@@ -308,12 +311,76 @@ function playNextInQueue(){
   if(isLastTrack){
     if(repeatMode === "all"){
       loadVideoById(upNextQueue[0].id);
+      return;
     }
-    // repeatMode "off" at the end of the queue: stop, same as real YouTube.
+    showUpNextSuggestion();
     return;
   }
 
   loadVideoById(upNextQueue[currentIdx + 1].id);
+}
+
+let upNextTimer = null;
+let upNextCancelled = false;
+
+async function showUpNextSuggestion(){
+  upNextCancelled = false;
+
+  try{
+    const res = await fetch(API_BASE + "/api/musicVideos");
+    const allVideos = await res.json();
+    const candidates = allVideos.filter(v => v.id !== videoId);
+    if(!candidates.length) return;
+
+    const suggestion = candidates[Math.floor(Math.random() * candidates.length)];
+
+    const overlay = document.createElement("div");
+    overlay.id = "upNextOverlay";
+    overlay.style.cssText = "position:fixed;bottom:24px;right:24px;width:280px;background:#1a1b20;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,.5);color:#fff;font-family:inherit;";
+
+    overlay.innerHTML =
+      '<div style="font-size:11px;color:#9a9da5;margin-bottom:8px;">Up next in <span id="upNextCountdown">5</span>s</div>' +
+      '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">' +
+      '<img src="' + (suggestion.thumbnailUrl || "") + '" style="width:64px;height:36px;object-fit:cover;border-radius:6px;background:#333;">' +
+      '<div style="flex:1;min-width:0;">' +
+      '<div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + suggestion.title + '</div>' +
+      '<div style="font-size:11px;color:#9a9da5;">' + (suggestion.artist || "SayBon Music") + '</div>' +
+      '</div></div>' +
+      '<div style="display:flex;gap:8px;">' +
+      '<button id="upNextPlayNowBtn" style="flex:1;background:#fff;color:#000;border:none;border-radius:8px;padding:8px;font-weight:600;font-size:12px;cursor:pointer;">Play now</button>' +
+      '<button id="upNextCancelBtn" style="flex:1;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;padding:8px;font-weight:600;font-size:12px;cursor:pointer;">Cancel</button>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    document.getElementById("upNextCancelBtn").onclick = function(){
+      upNextCancelled = true;
+      clearInterval(upNextTimer);
+      overlay.remove();
+    };
+    document.getElementById("upNextPlayNowBtn").onclick = function(){
+      clearInterval(upNextTimer);
+      overlay.remove();
+      loadVideoById(suggestion.id);
+    };
+
+    let secondsLeft = 5;
+    upNextTimer = setInterval(function(){
+      secondsLeft--;
+      var el = document.getElementById("upNextCountdown");
+      if(el) el.innerText = secondsLeft;
+      if(secondsLeft <= 0){
+        clearInterval(upNextTimer);
+        if(!upNextCancelled){
+          overlay.remove();
+          loadVideoById(suggestion.id);
+        }
+      }
+    }, 1000);
+
+  }catch(err){
+    console.error("Could not load Up Next suggestion:", err);
+  }
 }
 
 function buildPlayer(data){
