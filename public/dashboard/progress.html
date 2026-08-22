@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Progress — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
+html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);min-height:100vh;color:#fff;}
+.pg-stage{max-width:640px;margin:0 auto;padding:90px 20px 60px;}
+.pg-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:50;}
+.pg-corner-icon svg{width:18px;height:18px;}
+.pg-title{font-weight:900;font-size:1.6rem;margin-bottom:6px;}
+.pg-sub{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:28px;}
+.pg-section-label{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:26px 0 12px;}
+.pg-card{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px 18px;box-shadow:0 10px 24px rgba(0,0,0,.3);margin-bottom:10px;}
+.pg-row{display:flex;justify-content:space-between;align-items:center;}
+.pg-row-title{font-weight:800;font-size:.95rem;}
+.pg-row-sub{font-size:.78rem;color:rgba(255,255,255,.55);margin-top:2px;}
+.pg-score{font-weight:900;font-size:1.15rem;color:#e0578a;}
+.pg-empty{color:rgba(255,255,255,.5);font-size:.85rem;text-align:center;padding:16px;}
+.pg-bar-track{height:8px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:8px;}
+.pg-bar-fill{height:100%;background:linear-gradient(90deg,#e0578a,#b83d70);border-radius:999px;transition:width .5s ease;}
+</style>
+</head>
+<body>
+
+<button class="pg-corner-icon" onclick="location.href='/dashboard/'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="pg-stage">
+  <p class="pg-title">My Progress</p>
+  <p class="pg-sub">Everything you've completed across SayBon, in one place.</p>
+
+  <div class="pg-section-label">DELF Placement</div>
+  <div id="pgDelf"><div class="pg-empty">Loading...</div></div>
+
+  <div class="pg-section-label">Levels Progress</div>
+  <div id="pgLevels"><div class="pg-empty">Loading...</div></div>
+</div>
+
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { app } from "/js/firebase-init.js";
+
+const db = getFirestore(app);
+const LEVEL_LABELS = { "a0-les-petits":"A0 Les Petits", "a0-tout-public":"A0 Tout Public", a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1" };
+
+onAuthStateChanged(auth, async function(user){
+  if(!user){
+    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Log in to see your progress</div>';
+    document.getElementById("pgLevels").innerHTML = '';
+    return;
+  }
+
+  try {
+    const attemptsRef = collection(db, "delfPlacements", user.uid, "attempts");
+    const q = query(attemptsRef, orderBy("timestamp", "desc"));
+    const snapshot = await getDocs(q);
+    if(snapshot.empty){
+      document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">No DELF placement attempts yet</div>';
+    } else {
+      let html = "";
+      snapshot.forEach(function(d){
+        const a = d.data();
+        const pct = Math.round((a.pct || 0) * 100);
+        html += '<div class="pg-card"><div class="pg-row"><div><div class="pg-row-title">' + (a.level || "").toUpperCase() + ' Placement</div><div class="pg-row-sub">' + (a.passed ? "Cleared" : "Below threshold") + '</div></div><div class="pg-score">' + pct + '%</div></div></div>';
+      });
+      document.getElementById("pgDelf").innerHTML = html;
+    }
+  } catch(e){
+    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Could not load DELF progress</div>';
+  }
+
+  try {
+    const progressDoc = await getDoc(doc(db, "levelProgress", user.uid));
+    if(!progressDoc.exists()){
+      document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">No lessons completed yet</div>';
+    } else {
+      const data = progressDoc.data();
+      let html = "";
+      Object.keys(data).forEach(function(levelKey){
+        const completed = (data[levelKey].completedLessons || []).length;
+        const pct = Math.round((completed / 25) * 100);
+        html += '<div class="pg-card"><div class="pg-row-title">' + (LEVEL_LABELS[levelKey] || levelKey) + '</div><div class="pg-row-sub">' + completed + ' of 25 lessons</div><div class="pg-bar-track"><div class="pg-bar-fill" style="width:' + pct + '%"></div></div></div>';
+      });
+      document.getElementById("pgLevels").innerHTML = html || '<div class="pg-empty">No lessons completed yet</div>';
+    }
+  } catch(e){
+    document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">Could not load Levels progress</div>';
+  }
+});
+</script>
+</body>
+</html>

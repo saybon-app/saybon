@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
+html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);min-height:100vh;color:#fff;}
+.st-stage{max-width:480px;margin:0 auto;padding:90px 20px 60px;}
+.st-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:50;}
+.st-corner-icon svg{width:18px;height:18px;}
+.st-title{font-weight:900;font-size:1.6rem;margin-bottom:28px;}
+.st-card{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;box-shadow:0 10px 24px rgba(0,0,0,.3);margin-bottom:16px;}
+.st-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(160deg, #e0578a, #b83d70);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;margin-bottom:14px;}
+.st-field-label{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+.st-field-value{font-weight:700;font-size:.95rem;margin-bottom:14px;}
+.st-btn{width:100%;padding:14px;border-radius:14px;border:none;font-weight:800;font-size:.9rem;cursor:pointer;}
+.st-btn-logout{background:linear-gradient(180deg,#f87171,#dc2626);color:#fff;}
+</style>
+</head>
+<body>
+
+<button class="st-corner-icon" onclick="location.href='/dashboard/'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="st-stage">
+  <p class="st-title">Settings</p>
+
+  <div class="st-card" id="stAccountCard">
+    <div class="st-avatar" id="stAvatar">?</div>
+    <div class="st-field-label">Name</div>
+    <div class="st-field-value" id="stName">-</div>
+    <div class="st-field-label">Email</div>
+    <div class="st-field-value" id="stEmail">-</div>
+  </div>
+
+  <button class="st-btn st-btn-logout" id="stLogoutBtn">Log Out</button>
+</div>
+
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+onAuthStateChanged(auth, function(user){
+  if(!user){
+    document.getElementById("stName").textContent = "Not logged in";
+    document.getElementById("stEmail").textContent = "-";
+    return;
+  }
+  const name = user.displayName || "Learner";
+  document.getElementById("stName").textContent = name;
+  document.getElementById("stEmail").textContent = user.email || "-";
+  document.getElementById("stAvatar").textContent = name.charAt(0).toUpperCase();
+});
+
+document.getElementById("stLogoutBtn").addEventListener("click", function(){
+  signOut(auth).then(function(){
+    window.location.href = "/";
+  }).catch(function(err){
+    console.error("Logout failed:", err);
+  });
+});
+</script>
+</body>
+</html>

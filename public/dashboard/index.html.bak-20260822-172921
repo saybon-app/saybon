@@ -41,9 +41,9 @@
           <path d="M5 9.5V21h14V9.5"/>
         </svg>
       </button>
-      <a href="/dashboard/progress.html" class="dash-nav-link">My Progress</a>
-      <a href="/dashboard/achievements.html" class="dash-nav-link">Achievements</a>
-      <a href="/dashboard/settings.html" class="dash-nav-link">Settings</a>
+      <a href="#" class="dash-nav-link">My Progress</a>
+      <a href="#" class="dash-nav-link">Achievements</a>
+      <a href="#" class="dash-nav-link">Settings</a>
     </nav>
 
     <div class="dash-goal-card">

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achievements — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
+html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);min-height:100vh;color:#fff;}
+.ac-stage{max-width:640px;margin:0 auto;padding:90px 20px 60px;}
+.ac-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:50;}
+.ac-corner-icon svg{width:18px;height:18px;}
+.ac-title{font-weight:900;font-size:1.6rem;margin-bottom:6px;}
+.ac-sub{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:28px;}
+.ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.ac-badge{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px 14px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.3);}
+.ac-badge.locked{opacity:.35;}
+.ac-badge-icon{font-size:2rem;margin-bottom:8px;}
+.ac-badge-title{font-weight:800;font-size:.85rem;}
+.ac-badge-sub{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:4px;}
+</style>
+</head>
+<body>
+
+<button class="ac-corner-icon" onclick="location.href='/dashboard/'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="ac-stage">
+  <p class="ac-title">Achievements</p>
+  <p class="ac-sub">Earned automatically as you learn.</p>
+  <div class="ac-grid" id="acGrid"></div>
+</div>
+
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { app } from "/js/firebase-init.js";
+
+const db = getFirestore(app);
+const grid = document.getElementById("acGrid");
+
+function renderBadges(unlocked){
+  const badges = [
+    { key:"first_lesson", icon:"🎯", title:"First Steps", sub:"Complete your first lesson" },
+    { key:"five_lessons", icon:"📘", title:"Dedicated Learner", sub:"Complete 5 lessons" },
+    { key:"placement_done", icon:"🏆", title:"Placement Pioneer", sub:"Complete a DELF placement" },
+    { key:"streak_3", icon:"🔥", title:"Streak Keeper", sub:"3-day streak" },
+    { key:"streak_7", icon:"⚡", title:"On Fire", sub:"7-day streak" }
+  ];
+  grid.innerHTML = badges.map(function(b){
+    const isUnlocked = unlocked.has(b.key);
+    return '<div class="ac-badge ' + (isUnlocked ? "" : "locked") + '"><div class="ac-badge-icon">' + b.icon + '</div><div class="ac-badge-title">' + b.title + '</div><div class="ac-badge-sub">' + b.sub + '</div></div>';
+  }).join("");
+}
+
+onAuthStateChanged(auth, async function(user){
+  if(!user){ renderBadges(new Set()); return; }
+
+  const unlocked = new Set();
+
+  try {
+    const progressDoc = await getDoc(doc(db, "levelProgress", user.uid));
+    if(progressDoc.exists()){
+      const data = progressDoc.data();
+      let totalLessons = 0;
+      Object.keys(data).forEach(function(k){ totalLessons += (data[k].completedLessons || []).length; });
+      if(totalLessons >= 1) unlocked.add("first_lesson");
+      if(totalLessons >= 5) unlocked.add("five_lessons");
+    }
+  } catch(e){}
+
+  try {
+    const attemptsRef = collection(db, "delfPlacements", user.uid, "attempts");
+    const snapshot = await getDocs(attemptsRef);
+    if(!snapshot.empty) unlocked.add("placement_done");
+  } catch(e){}
+
+  const streak = Number(localStorage.getItem("saybon_streak")) || 0;
+  if(streak >= 3) unlocked.add("streak_3");
+  if(streak >= 7) unlocked.add("streak_7");
+
+  renderBadges(unlocked);
+});
+</script>
+</body>
+</html>
