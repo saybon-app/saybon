@@ -36,6 +36,12 @@ position:fixed; top:0; left:0; right:0; height:68px; z-index:100;
 background:rgba(30,32,40,.92); backdrop-filter:blur(18px); border-bottom:1px solid rgba(212,175,106,.14);
 display:flex; align-items:center; padding:0 18px; gap:16px;
 }
+.watch-back-btn{
+width:36px;height:36px;border-radius:50%;border:none;
+background:rgba(255,255,255,.08);color:#fff;cursor:pointer;
+display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.watch-back-btn svg{width:18px;height:18px;}
 .topbar-logo{ display:flex; align-items:center; gap:10px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
 .topbar-logo-icon{
 width:36px; height:36px; border-radius:10px; flex:0 0 auto;
@@ -299,6 +305,28 @@ function handleVideoEnded(){
   playNextInQueue();
 }
 
+async function loadMoreLikeThis(){
+  try{
+    const res = await fetch(API_BASE + "/api/musicVideos");
+    const allVideos = await res.json();
+    const others = allVideos.filter(v => v.id !== videoId).slice(0, 12);
+
+    const list = document.getElementById("upNextList");
+    if(!list) return;
+
+    list.innerHTML = others.map(v =>
+      '<div class="more-like-item" onclick="loadVideoById(\'' + v.id + '\', true)" style="display:flex;gap:10px;padding:8px;cursor:pointer;border-radius:8px;">' +
+      '<img src="' + (v.thumbnailUrl || "") + '" style="width:120px;height:68px;object-fit:cover;border-radius:6px;background:#333;flex-shrink:0;">' +
+      '<div style="min-width:0;">' +
+      '<div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">' + v.title + '</div>' +
+      '<div style="font-size:12px;color:#9a9da5;margin-top:4px;">' + (v.artist || "SayBon Music") + '</div>' +
+      '</div></div>'
+    ).join("");
+  }catch(err){
+    console.error("Could not load More Like This:", err);
+  }
+}
+
 function playNextInQueue(){
   if(!upNextQueue.length){
     if(repeatMode !== "current") showUpNextSuggestion();
@@ -391,10 +419,11 @@ function buildPlayer(data){
   if(data.fileUrl){
 
     document.getElementById("playerWrap").innerHTML =
-      "<video id='mainVideoEl' controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
+      "<video id='mainVideoEl' autoplay controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
 
     htmlVideoEl = document.getElementById("mainVideoEl");
     htmlVideoEl.addEventListener("ended", handleVideoEnded);
+    htmlVideoEl.play().catch(function(err){ console.warn("Autoplay blocked:", err); });
 
   }else if(data.youtubeId){
 
@@ -403,7 +432,7 @@ function buildPlayer(data){
     const createPlayer = () => {
       ytPlayer = new YT.Player('ytPlayerTarget', {
         videoId: data.youtubeId,
-        playerVars: { modestbranding: 1, rel: 0 },
+        playerVars: { modestbranding: 1, rel: 0, autoplay: 1 },
         events: {
           onStateChange: (event) => {
             if(event.data === YT.PlayerState.ENDED){
@@ -447,6 +476,7 @@ async function loadVideoById(id, pushHistory){
 
     currentVideo = data;
     videoId = id;
+    loadMoreLikeThis();
 
     if(pushHistory){
       window.history.replaceState({}, "", "/music/watch.html?v=" + id);
