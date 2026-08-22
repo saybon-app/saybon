@@ -1,10 +1,131 @@
-<h2>Expenses</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/features/admin/auth/admin-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expenses — SayBon Financials</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.fn-stage{max-width:800px;margin:0 auto;}
+.fn-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.fn-corner-icon svg{width:18px;height:18px;}
+.fn-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px;}
+.fn-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.8rem;color:#f6f1e4;margin-bottom:6px;}
+.fn-sub{color:#8b92a3;font-size:.88rem;margin-bottom:30px;}
+.fn-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:20px;padding:24px;margin-bottom:20px;}
+.fn-card h2{font-family:"Fraunces",serif;font-weight:600;font-size:1.1rem;color:#f6f1e4;margin-bottom:16px;}
+.fn-field{margin-bottom:14px;}
+.fn-field label{display:block;font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
+.fn-field input, .fn-field select{width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;}
+.fn-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fn-btn{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:13px 24px;font-weight:800;font-size:.88rem;cursor:pointer;}
+.fn-list{display:flex;flex-direction:column;gap:10px;}
+.fn-item{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.12);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.fn-item-left{min-width:0;}
+.fn-item-cat{font-size:.68rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#d4af6a;}
+.fn-item-note{font-size:.85rem;color:#e6e1d3;margin-top:3px;}
+.fn-item-meta{font-size:.72rem;color:#6d7488;margin-top:4px;}
+.fn-item-amount{font-weight:800;font-size:1rem;flex-shrink:0;}
+.fn-item-amount.income{color:#7cc576;}
+.fn-item-amount.expense{color:#e07a7a;}
+.fn-item-actions button{background:none;border:1px solid rgba(212,175,106,.25);color:#d4af6a;border-radius:8px;padding:5px 10px;font-size:.7rem;cursor:pointer;margin-left:6px;}
+.fn-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}
+.fn-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.fn-summary-box{text-align:center;}
+.fn-summary-label{font-size:.72rem;color:#8b92a3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+.fn-summary-value{font-family:"Fraunces",serif;font-weight:600;font-size:1.6rem;color:#f6f1e4;}
+.fn-summary-value.income{color:#7cc576;} .fn-summary-value.expense{color:#e07a7a;} .fn-summary-value.profit{color:#d4af6a;}
+.fn-receipt-link{font-size:.72rem;color:#d4af6a;text-decoration:underline;}</style>
+</head>
+<body>
+<button class="fn-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<div class="fn-stage">
+  <p class="fn-eyebrow">Financials</p>
+  <p class="fn-title">Expenses</p>
+  <p class="fn-sub">Every dollar going out of the business.</p>
 
-<table border="1" cellpadding="10">
-<tr>
-  <th>Date</th>
-  <th>Item</th>
-  <th>Amount</th>
-  <th>Category</th>
-</tr>
-</table>
+  <div class="fn-card">
+    <h2>Add Expense</h2>
+    <div class="fn-row2">
+      <div class="fn-field"><label>Date</label><input type="date" id="expDate"></div>
+      <div class="fn-field"><label>Amount</label><input type="number" step="0.01" id="expAmount" placeholder="0.00"></div>
+    </div>
+    <div class="fn-row2">
+      <div class="fn-field"><label>Currency</label>
+        <select id="expCurrency"><option>USD</option><option>GHS</option><option>EUR</option><option>GBP</option></select>
+      </div>
+      <div class="fn-field"><label>Payment Method</label>
+        <select id="expMethod"><option>Bank Transfer</option><option>Mobile Money</option><option>Card</option><option>PayPal</option><option>Stripe</option><option>Cash</option><option>Other</option></select>
+      </div>
+    </div>
+    <div class="fn-field"><label>Category</label>
+      <select id="expCategory"><option>Hosting / Infrastructure</option><option>Software / Tools</option><option>Marketing</option><option>Contractors</option><option>Content Production</option><option>Legal / Admin</option><option>Other</option></select>
+    </div>
+    <div class="fn-field"><label>Note</label><input type="text" id="expNote" placeholder="Optional description"></div>
+    <div class="fn-field"><label>Receipt / Document (optional)</label><input type="file" id="expFile"></div>
+    <button class="fn-btn" id="expAddBtn">Add Expense</button>
+    <p id="expStatus" style="margin-top:10px;font-size:.8rem;color:#8b92a3;"></p>
+  </div>
+
+  <div class="fn-card"><h2>All Expenses</h2><div class="fn-list" id="expList"><p class="fn-empty">Loading...</p></div></div>
+</div>
+
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { app, auth } from "/js/firebase-init.js";
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
+
+function loadExpenses(){
+  fetch(API_BASE + "/api/financeExpenseList").then(r=>r.json()).then(renderExpenses).catch(()=>{ document.getElementById("expList").innerHTML = '<p class="fn-empty">Could not load</p>'; });
+}
+function renderExpenses(items){
+  const list = document.getElementById("expList");
+  if(!items || !items.length){ list.innerHTML = '<p class="fn-empty">No expenses logged yet</p>'; return; }
+  list.innerHTML = items.map(it => {
+    const receiptHtml = it.receiptUrl ? '<a class="fn-receipt-link" href="'+it.receiptUrl+'" target="_blank">Receipt</a>' : '';
+    return '<div class="fn-item"><div class="fn-item-left"><div class="fn-item-cat">'+it.category+'</div><div class="fn-item-note">'+(it.note||'')+'</div><div class="fn-item-meta">'+it.date+' - '+it.method+' '+receiptHtml+'</div></div><div class="fn-item-amount expense">-'+it.currency+' '+Number(it.amount).toFixed(2)+'</div><div class="fn-item-actions"><button onclick="deleteExpense(\''+it.id+'\')">Delete</button></div></div>';
+  }).join("");
+}
+window.deleteExpense = function(id){
+  if(!confirm("Delete this entry?")) return;
+  fetch(API_BASE + "/api/financeExpenseDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadExpenses);
+};
+
+signInAnonymously(auth).catch(()=>{});
+
+document.getElementById("expAddBtn").addEventListener("click", async function(){
+  const status = document.getElementById("expStatus");
+  const amount = document.getElementById("expAmount").value;
+  const date = document.getElementById("expDate").value;
+  if(!amount || !date){ status.textContent = "Amount and date are required"; return; }
+
+  status.textContent = "Saving...";
+  const payload = {
+    date, amount: parseFloat(amount),
+    currency: document.getElementById("expCurrency").value,
+    method: document.getElementById("expMethod").value,
+    category: document.getElementById("expCategory").value,
+    note: document.getElementById("expNote").value,
+    receiptUrl: null
+  };
+
+  const file = document.getElementById("expFile").files[0];
+  if(file){
+    const storageRef = ref(storage, "financeReceipts/expenses/" + Date.now() + "-" + file.name);
+    const snap = await uploadBytes(storageRef, file);
+    payload.receiptUrl = await getDownloadURL(snap.ref);
+  }
+
+  fetch(API_BASE + "/api/financeExpenseAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+    .then(()=>{ status.textContent = "Added"; document.getElementById("expAmount").value=""; document.getElementById("expNote").value=""; document.getElementById("expFile").value=""; loadExpenses(); })
+    .catch(()=>{ status.textContent = "Failed to save"; });
+});
+
+loadExpenses();
+</script>
+</body>
+</html>

@@ -3745,3 +3745,129 @@ console.error(err);
 res.status(500).json({error:"could not delete feedback item"});
 }
 });
+
+// ================================================================
+// BUSINESS FINANCIALS - Income, Expenses, Founder Draw, Reports
+// ================================================================
+
+app.get("/api/financeIncomeList", async(req,res)=>{
+try{
+const snapshot = await db.collection("financeIncome").orderBy("date","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch income"}); }
+});
+
+app.post("/api/financeIncomeAdd", express.json(), async(req,res)=>{
+try{
+const {date, amount, currency, method, category, note, receiptUrl} = req.body;
+if(!date || amount === undefined){ return res.status(400).json({error:"date and amount are required"}); }
+const docRef = await db.collection("financeIncome").add({date, amount, currency, method, category, note: note||"", receiptUrl: receiptUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add income"}); }
+});
+
+app.post("/api/financeIncomeDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("financeIncome").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete income"}); }
+});
+
+app.get("/api/financeExpenseList", async(req,res)=>{
+try{
+const snapshot = await db.collection("financeExpenses").orderBy("date","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch expenses"}); }
+});
+
+app.post("/api/financeExpenseAdd", express.json(), async(req,res)=>{
+try{
+const {date, amount, currency, method, category, note, receiptUrl} = req.body;
+if(!date || amount === undefined){ return res.status(400).json({error:"date and amount are required"}); }
+const docRef = await db.collection("financeExpenses").add({date, amount, currency, method, category, note: note||"", receiptUrl: receiptUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add expense"}); }
+});
+
+app.post("/api/financeExpenseDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("financeExpenses").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete expense"}); }
+});
+
+async function computeProfitUSD(){
+const [incomeSnap, expenseSnap] = await Promise.all([
+db.collection("financeIncome").get(),
+db.collection("financeExpenses").get()
+]);
+let totalIncome = 0, totalExpenses = 0;
+incomeSnap.forEach(doc => { totalIncome += Number(doc.data().amount) || 0; });
+expenseSnap.forEach(doc => { totalExpenses += Number(doc.data().amount) || 0; });
+return { totalIncome, totalExpenses, profit: totalIncome - totalExpenses };
+}
+
+app.get("/api/financeFounderSummary", async(req,res)=>{
+try{
+const {profit} = await computeProfitUSD();
+const settingsDoc = await db.collection("financeSettings").doc("founder").get();
+const percent = settingsDoc.exists ? (settingsDoc.data().percent || 20) : 20;
+const available = (profit * percent) / 100;
+
+const drawsSnap = await db.collection("financeFounderDraws").orderBy("date","desc").get();
+const draws = drawsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+let taken = 0;
+draws.forEach(d => { taken += Number(d.amount) || 0; });
+
+res.json({ profit, percent, available, taken, draws });
+}catch(err){ console.error(err); res.status(500).json({error:"could not compute founder summary"}); }
+});
+
+app.post("/api/financeFounderSetPercent", express.json(), async(req,res)=>{
+try{
+const {percent} = req.body;
+if(percent === undefined) return res.status(400).json({error:"percent required"});
+await db.collection("financeSettings").doc("founder").set({percent}, {merge:true});
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not save percent"}); }
+});
+
+app.post("/api/financeFounderDrawAdd", express.json(), async(req,res)=>{
+try{
+const {date, amount, currency, note} = req.body;
+if(!date || amount === undefined) return res.status(400).json({error:"date and amount required"});
+const docRef = await db.collection("financeFounderDraws").add({date, amount, currency, note: note||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add draw"}); }
+});
+
+app.post("/api/financeFounderDrawDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("financeFounderDraws").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete draw"}); }
+});
+
+app.get("/api/financeReportsSummary", async(req,res)=>{
+try{
+const {totalIncome, totalExpenses, profit} = await computeProfitUSD();
+const drawsSnap = await db.collection("financeFounderDraws").get();
+let totalDraws = 0;
+drawsSnap.forEach(doc => { totalDraws += Number(doc.data().amount) || 0; });
+
+const expenseSnap = await db.collection("financeExpenses").get();
+const byCategory = {};
+expenseSnap.forEach(doc => {
+const d = doc.data();
+byCategory[d.category] = (byCategory[d.category] || 0) + (Number(d.amount) || 0);
+});
+
+res.json({ totalIncome, totalExpenses, netProfit: profit, totalDraws, byCategory });
+}catch(err){ console.error(err); res.status(500).json({error:"could not build report"}); }
+});
