@@ -245,3 +245,18 @@ body{ position:relative; }
   88%{ opacity:0; }
   100%{ background-position:-60% 0; opacity:0; }
 }
+
+/* ===== Button hover feedback (desktop/pointer devices only) ===== */
+@media (hover:hover) and (pointer:fine){
+  .start-btn img,
+  .login-btn img,
+  .settings-image-btn img{
+    transition:transform .28s cubic-bezier(.22,.9,.24,1), filter .26s ease;
+  }
+  .start-btn:hover img,
+  .login-btn:hover img,
+  .settings-image-btn:hover img{
+    transform:scale(1.035);
+    filter:brightness(1.05);
+  }
+}
