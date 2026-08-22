@@ -179,6 +179,10 @@ display:none; align-items:center; justify-content:center; z-index:200; padding:2
   .sidebar.open{ transform:translateX(0); }
   .main-content{ margin-left:0 !important; }
 }
+
+@media (max-width:860px){
+  .watch-layout{ margin-left:0 !important; }
+}
 </style>
 </head>
 
@@ -252,9 +256,21 @@ Save
 </div>
 
 <div class="side-col">
-<div class="side-heading">More like this</div>
+<div class="side-heading" id="moreLikeThisToggle" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+<span>More like this</span>
+<span id="moreLikeThisChevron" style="transition:transform .2s ease;">&#9662;</span>
+</div>
 <div id="upNextList"></div>
 </div>
+<script>
+document.getElementById("moreLikeThisToggle").addEventListener("click", function(){
+  var list = document.getElementById("upNextList");
+  var chevron = document.getElementById("moreLikeThisChevron");
+  var collapsed = list.style.display === "none";
+  list.style.display = collapsed ? "block" : "none";
+  chevron.style.transform = collapsed ? "rotate(0deg)" : "rotate(-90deg)";
+});
+</script>
 
 </div>
 
