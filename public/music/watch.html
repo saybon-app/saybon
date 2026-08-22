@@ -252,7 +252,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 const params = new URLSearchParams(window.location.search);
-const videoId = params.get("v");
+let videoId = params.get("v");
 
 let currentUser = null;
 let currentVideo = null;
@@ -291,16 +291,29 @@ function handleVideoEnded(){
       ytPlayer.seekTo(0);
       ytPlayer.playVideo();
     }
-  }else if(repeatMode === "all"){
-    playNextInQueue();
+    return;
   }
+
+  // Default behavior (repeatMode "off" or "all"): auto-advance within the queue,
+  // matching real YouTube - autoplay-next happens regardless of the repeat toggle.
+  playNextInQueue();
 }
 
 function playNextInQueue(){
   if(!upNextQueue.length) return;
+
   const currentIdx = upNextQueue.findIndex(v => v.id === videoId);
-  const nextIdx = (currentIdx + 1) % upNextQueue.length;
-  loadVideoById(upNextQueue[nextIdx].id);
+  const isLastTrack = currentIdx === -1 || currentIdx === upNextQueue.length - 1;
+
+  if(isLastTrack){
+    if(repeatMode === "all"){
+      loadVideoById(upNextQueue[0].id);
+    }
+    // repeatMode "off" at the end of the queue: stop, same as real YouTube.
+    return;
+  }
+
+  loadVideoById(upNextQueue[currentIdx + 1].id);
 }
 
 function buildPlayer(data){
@@ -366,6 +379,7 @@ async function loadVideoById(id, pushHistory){
     }
 
     currentVideo = data;
+    videoId = id;
 
     if(pushHistory){
       window.history.replaceState({}, "", "/music/watch.html?v=" + id);
