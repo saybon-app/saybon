@@ -70,21 +70,12 @@ body{ position:relative; }
   left:16%;
   top:7%;
   width:min(36vw,580px);
-  cursor:pointer;
+  cursor:default;
   z-index:20;
+  pointer-events:none;
   will-change:transform, opacity;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
 }
 .teacher-img{ width:100%; height:auto; display:block; }
-@media (hover:hover) and (pointer:fine){
-  .teacher-hitbox:hover{ transform:scale(1.012); }
-}
-.teacher-hitbox.is-pressed{
-  transform:scale(.978) !important;
-  filter:brightness(.98) saturate(.99) !important;
-  transition:transform .09s cubic-bezier(.4,0,.2,1), filter .09s ease, opacity 1s ease !important;
-}
 #teacher.sb-teacher-idle{
   animation:sbTeacherIdle 2.6s ease-in-out infinite;
 }

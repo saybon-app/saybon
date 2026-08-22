@@ -104,4 +104,4 @@ function bindPressFeedback(el) {
   el.addEventListener("touchend", pressOff);
   el.addEventListener("touchcancel", pressOff);
 }
-[teacher, startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+[startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
