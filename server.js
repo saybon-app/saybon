@@ -3980,3 +3980,76 @@ console.error(err);
 res.status(500).json({error:"could not verify Paystack donation"});
 }
 });
+
+// ================================================================
+// COMPANY ASSETS - Domains, IP, Tools
+// ================================================================
+
+app.get("/api/assetDomainsList", async(req,res)=>{
+try{
+const snapshot = await db.collection("assetDomains").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch domains"}); }
+});
+app.post("/api/assetDomainsAdd", express.json(), async(req,res)=>{
+try{
+const {name, registrar, cost, renewalDate} = req.body;
+if(!name) return res.status(400).json({error:"name required"});
+const docRef = await db.collection("assetDomains").add({name, registrar: registrar||"", cost: cost||0, renewalDate: renewalDate||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add domain"}); }
+});
+app.post("/api/assetDomainsDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("assetDomains").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete domain"}); }
+});
+
+app.get("/api/assetIpList", async(req,res)=>{
+try{
+const snapshot = await db.collection("assetIp").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch IP records"}); }
+});
+app.post("/api/assetIpAdd", express.json(), async(req,res)=>{
+try{
+const {name, type, status, filingDate} = req.body;
+if(!name) return res.status(400).json({error:"name required"});
+const docRef = await db.collection("assetIp").add({name, type: type||"Other", status: status||"Not Filed", filingDate: filingDate||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add IP record"}); }
+});
+app.post("/api/assetIpDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("assetIp").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete IP record"}); }
+});
+
+app.get("/api/assetToolsList", async(req,res)=>{
+try{
+const snapshot = await db.collection("assetTools").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch tools"}); }
+});
+app.post("/api/assetToolsAdd", express.json(), async(req,res)=>{
+try{
+const {name, cost, category, owner} = req.body;
+if(!name) return res.status(400).json({error:"name required"});
+const docRef = await db.collection("assetTools").add({name, cost: cost||0, category: category||"Other", owner: owner||"", created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add tool"}); }
+});
+app.post("/api/assetToolsDelete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("assetTools").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete tool"}); }
+});
