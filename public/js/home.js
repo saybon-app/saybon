@@ -26,7 +26,8 @@ function playIntroAudio() {
 
 const DURATIONS = {
   bgZoom: 1900,
-  fadeSettle: 200
+  elementsStartOffset: 900,
+  fadeSettle: 1000
 };
 
 function runEntrance() {
@@ -41,9 +42,11 @@ function runEntrance() {
 
     window.setTimeout(() => {
       if (teacher) teacher.classList.add("sb-teacher-idle");
+      if (startBtn) startBtn.classList.add("sb-btn-idle");
+      if (loginBtn) loginBtn.classList.add("sb-btn-idle");
     }, DURATIONS.fadeSettle);
 
-  }, DURATIONS.bgZoom);
+  }, DURATIONS.bgZoom - DURATIONS.elementsStartOffset);
 }
 
 function waitForImage(img) {

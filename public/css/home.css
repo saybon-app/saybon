@@ -207,3 +207,49 @@ body{ position:relative; }
     bottom:2%;
   }
 }
+
+/* ===== Start/Login buttons: subtle idle bounce + occasional shimmer ===== */
+
+.start-btn.sb-btn-idle img,
+.login-btn.sb-btn-idle img{
+  animation: sbBtnSubtleBounce 3.2s ease-in-out infinite;
+}
+@keyframes sbBtnSubtleBounce{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-2px); }
+}
+
+.start-btn.sb-btn-idle,
+.login-btn.sb-btn-idle{
+  position:relative;
+  overflow:hidden;
+}
+.start-btn.sb-btn-idle::after,
+.login-btn.sb-btn-idle::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255,255,255,.16) 46%,
+    rgba(255,255,255,.28) 50%,
+    rgba(255,255,255,.16) 54%,
+    transparent 70%
+  );
+  background-size:220% 100%;
+  background-position:150% 0;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  animation: sbBtnShimmer 6s ease-in-out infinite;
+  animation-delay:2.5s;
+}
+.login-btn.sb-btn-idle::after{
+  animation-delay:5.2s;
+}
+@keyframes sbBtnShimmer{
+  0%{ background-position:150% 0; opacity:0; }
+  4%{ opacity:1; }
+  14%{ background-position:-50% 0; opacity:0; }
+  100%{ background-position:-50% 0; opacity:0; }
+}
