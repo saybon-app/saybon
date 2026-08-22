@@ -25,41 +25,25 @@ function playIntroAudio() {
 }
 
 const DURATIONS = {
-  carpet: 1700,
-  teacherFall: 1300,
-  logo: 1100,
-  btn: 900
+  bgZoom: 1900,
+  fadeSettle: 200
 };
 
 function runEntrance() {
   playIntroAudio();
 
-  if (bgLayer) bgLayer.classList.add("sb-carpet-reveal");
+  if (bgLayer) bgLayer.classList.add("sb-bg-zoom-in");
 
   window.setTimeout(() => {
-    if (teacher) teacher.classList.add("sb-teacher-fall");
+    [teacher, logo, startBtn, loginBtn, settingsBtn].forEach(function(el){
+      if (el) el.classList.add("sb-visible");
+    });
 
     window.setTimeout(() => {
       if (teacher) teacher.classList.add("sb-teacher-idle");
-      if (logo) logo.classList.add("sb-logo-in");
+    }, DURATIONS.fadeSettle);
 
-      window.setTimeout(() => {
-        if (startBtn) startBtn.classList.add("sb-btn-in");
-
-        window.setTimeout(() => {
-          if (loginBtn) loginBtn.classList.add("sb-btn-in");
-
-          window.setTimeout(() => {
-            if (settingsBtn) settingsBtn.classList.add("sb-btn-in");
-          }, DURATIONS.btn);
-
-        }, DURATIONS.btn);
-
-      }, DURATIONS.logo);
-
-    }, DURATIONS.teacherFall);
-
-  }, DURATIONS.carpet);
+  }, DURATIONS.bgZoom);
 }
 
 function waitForImage(img) {
