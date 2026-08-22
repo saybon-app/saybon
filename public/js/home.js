@@ -26,7 +26,7 @@ function playIntroAudio() {
 
 const DURATIONS = {
   bgZoom: 1900,
-  elementsStartOffset: 900,
+  elementsStartOffset: 1500,
   fadeSettle: 1000
 };
 

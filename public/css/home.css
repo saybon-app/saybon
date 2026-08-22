@@ -55,7 +55,7 @@ body{ position:relative; }
 .image-btn,
 .settings-image-btn{
   opacity:0;
-  transition:opacity 1s ease;
+  transition:opacity 2.8s ease;
 }
 .teacher-hitbox.sb-visible,
 .saybon-logo.sb-visible,
@@ -221,7 +221,6 @@ body{ position:relative; }
 
 .start-btn.sb-btn-idle,
 .login-btn.sb-btn-idle{
-  position:relative;
   overflow:hidden;
 }
 .start-btn.sb-btn-idle::after,
@@ -231,25 +230,27 @@ body{ position:relative; }
   inset:0;
   background:linear-gradient(
     100deg,
-    transparent 30%,
-    rgba(255,255,255,.16) 46%,
-    rgba(255,255,255,.28) 50%,
-    rgba(255,255,255,.16) 54%,
-    transparent 70%
+    transparent 35%,
+    rgba(255,255,255,.14) 47%,
+    rgba(255,255,255,.24) 50%,
+    rgba(255,255,255,.14) 53%,
+    transparent 65%
   );
-  background-size:220% 100%;
-  background-position:150% 0;
+  background-size:260% 100%;
+  background-position:160% 0;
   pointer-events:none;
   mix-blend-mode:screen;
-  animation: sbBtnShimmer 6s ease-in-out infinite;
-  animation-delay:2.5s;
+  animation: sbBtnShimmer 8s ease-in-out infinite;
+  animation-delay:3s;
 }
 .login-btn.sb-btn-idle::after{
-  animation-delay:5.2s;
+  animation-delay:3s;
 }
 @keyframes sbBtnShimmer{
-  0%{ background-position:150% 0; opacity:0; }
-  4%{ opacity:1; }
-  14%{ background-position:-50% 0; opacity:0; }
-  100%{ background-position:-50% 0; opacity:0; }
+  0%{ background-position:160% 0; opacity:0; }
+  38%{ background-position:160% 0; opacity:0; }
+  52%{ opacity:.8; }
+  72%{ background-position:-60% 0; opacity:.8; }
+  88%{ opacity:0; }
+  100%{ background-position:-60% 0; opacity:0; }
 }
