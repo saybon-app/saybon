@@ -7,10 +7,6 @@ const startBtn = document.getElementById("startBtn");
 const loginBtn = document.getElementById("loginBtn");
 const settingsBtn = document.getElementById("settingsBtn");
 
-/* =========================================================
-   INTRO AUDIO - plays immediately, with fallback if the
-   browser blocks autoplay before any user interaction.
-========================================================= */
 function playIntroAudio() {
   if (!audio) return;
   audio.currentTime = 0;
@@ -28,15 +24,6 @@ function playIntroAudio() {
   }
 }
 
-/* =========================================================
-   SEQUENTIAL ENTRANCE CHOREOGRAPHY
-   Each step is hidden via an explicit inline style the moment
-   the page loads, then revealed by adding a class that plays
-   a dedicated keyframe animation - and the NEXT step only
-   begins after the current one's animation duration has
-   actually elapsed.
-========================================================= */
-
 const DURATIONS = {
   carpet: 1700,
   teacherFall: 1300,
@@ -44,54 +31,26 @@ const DURATIONS = {
   btn: 900
 };
 
-function hideInitially() {
-  if (bgLayer) bgLayer.classList.add("sb-carpet-hidden");
-  if (teacher) teacher.classList.add("sb-teacher-hidden");
-  if (logo) logo.classList.add("sb-logo-hidden");
-  if (startBtn) startBtn.classList.add("sb-btn-hidden");
-  if (loginBtn) loginBtn.classList.add("sb-btn-hidden");
-  if (settingsBtn) settingsBtn.classList.add("sb-btn-hidden");
-}
-
 function runEntrance() {
   playIntroAudio();
 
-  if (bgLayer) {
-    bgLayer.classList.remove("sb-carpet-hidden");
-    bgLayer.classList.add("sb-carpet-reveal");
-  }
+  if (bgLayer) bgLayer.classList.add("sb-carpet-reveal");
 
   window.setTimeout(() => {
-    if (teacher) {
-      teacher.classList.remove("sb-teacher-hidden");
-      teacher.classList.add("sb-teacher-fall");
-    }
+    if (teacher) teacher.classList.add("sb-teacher-fall");
 
     window.setTimeout(() => {
       if (teacher) teacher.classList.add("sb-teacher-idle");
-
-      if (logo) {
-        logo.classList.remove("sb-logo-hidden");
-        logo.classList.add("sb-logo-in");
-      }
+      if (logo) logo.classList.add("sb-logo-in");
 
       window.setTimeout(() => {
-        if (startBtn) {
-          startBtn.classList.remove("sb-btn-hidden");
-          startBtn.classList.add("sb-btn-in");
-        }
+        if (startBtn) startBtn.classList.add("sb-btn-in");
 
         window.setTimeout(() => {
-          if (loginBtn) {
-            loginBtn.classList.remove("sb-btn-hidden");
-            loginBtn.classList.add("sb-btn-in");
-          }
+          if (loginBtn) loginBtn.classList.add("sb-btn-in");
 
           window.setTimeout(() => {
-            if (settingsBtn) {
-              settingsBtn.classList.remove("sb-btn-hidden");
-              settingsBtn.classList.add("sb-btn-in");
-            }
+            if (settingsBtn) settingsBtn.classList.add("sb-btn-in");
           }, DURATIONS.btn);
 
         }, DURATIONS.btn);
@@ -113,7 +72,6 @@ function waitForImage(img) {
 }
 
 function init() {
-  hideInitially();
   const bgImg = document.querySelector(".background-layer img");
   const teacherImg = document.querySelector(".teacher-img");
   Promise.all([waitForImage(bgImg), waitForImage(teacherImg)]).then(() => {
@@ -127,9 +85,6 @@ if (document.readyState === "loading") {
   init();
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
   sessionStorage.setItem("saybon_prev", window.location.pathname);
@@ -147,9 +102,6 @@ settingsBtn?.addEventListener("click", (e) => {
   window.location.href = "/admin/panel.html";
 });
 
-/* =========================================================
-   PRESS FEEDBACK
-========================================================= */
 function bindPressFeedback(el) {
   if (!el) return;
   const pressOn = () => el.classList.add("is-pressed");
@@ -165,4 +117,4 @@ function bindPressFeedback(el) {
   el.addEventListener("touchend", pressOff);
   el.addEventListener("touchcancel", pressOff);
 }
-[startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+[teacher, startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
