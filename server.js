@@ -4053,3 +4053,99 @@ await db.collection("assetTools").doc(id).delete();
 res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete tool"}); }
 });
+
+// ================================================================
+// DOCUMENTS - Business Plan, Contracts, NDA Records, Receipts
+// ================================================================
+
+app.get("/api/docBusinessPlan" + "List", async(req,res)=>{
+try{
+const snapshot = await db.collection("docBusinessPlan").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch docBusinessPlan"}); }
+});
+app.post("/api/docBusinessPlan" + "Add", express.json(), async(req,res)=>{
+try{
+const {title, meta, fileUrl} = req.body;
+if(!title) return res.status(400).json({error:"title required"});
+const docRef = await db.collection("docBusinessPlan").add({title, meta: meta||"", fileUrl: fileUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add to docBusinessPlan"}); }
+});
+app.post("/api/docBusinessPlan" + "Delete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("docBusinessPlan").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete from docBusinessPlan"}); }
+});
+
+app.get("/api/docContracts" + "List", async(req,res)=>{
+try{
+const snapshot = await db.collection("docContracts").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch docContracts"}); }
+});
+app.post("/api/docContracts" + "Add", express.json(), async(req,res)=>{
+try{
+const {title, meta, fileUrl} = req.body;
+if(!title) return res.status(400).json({error:"title required"});
+const docRef = await db.collection("docContracts").add({title, meta: meta||"", fileUrl: fileUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add to docContracts"}); }
+});
+app.post("/api/docContracts" + "Delete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("docContracts").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete from docContracts"}); }
+});
+
+app.get("/api/docNda" + "List", async(req,res)=>{
+try{
+const snapshot = await db.collection("docNda").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch docNda"}); }
+});
+app.post("/api/docNda" + "Add", express.json(), async(req,res)=>{
+try{
+const {title, meta, fileUrl} = req.body;
+if(!title) return res.status(400).json({error:"title required"});
+const docRef = await db.collection("docNda").add({title, meta: meta||"", fileUrl: fileUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add to docNda"}); }
+});
+app.post("/api/docNda" + "Delete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("docNda").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete from docNda"}); }
+});
+
+app.get("/api/docReceipts" + "List", async(req,res)=>{
+try{
+const snapshot = await db.collection("docReceipts").orderBy("created","desc").get();
+res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+}catch(err){ console.error(err); res.status(500).json({error:"could not fetch docReceipts"}); }
+});
+app.post("/api/docReceipts" + "Add", express.json(), async(req,res)=>{
+try{
+const {title, meta, fileUrl} = req.body;
+if(!title) return res.status(400).json({error:"title required"});
+const docRef = await db.collection("docReceipts").add({title, meta: meta||"", fileUrl: fileUrl||null, created: admin.firestore.FieldValue.serverTimestamp()});
+res.json({id: docRef.id});
+}catch(err){ console.error(err); res.status(500).json({error:"could not add to docReceipts"}); }
+});
+app.post("/api/docReceipts" + "Delete", express.json(), async(req,res)=>{
+try{
+const {id} = req.body;
+if(!id) return res.status(400).json({error:"id required"});
+await db.collection("docReceipts").doc(id).delete();
+res.json({success:true});
+}catch(err){ console.error(err); res.status(500).json({error:"could not delete from docReceipts"}); }
+});
