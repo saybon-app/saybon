@@ -23,6 +23,7 @@ const questions = [
   { id: 1, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q1_bonjour.mp3", options: ["Merci", "Bonsoir", "Bonjour", "Pardon"], correct: 2 },
   { id: 2, level: "A0", type: "mc", prompt: "What does « merci » mean?", options: ["Hello", "Thank you", "Sorry", "Bye"], correct: 1 },
   { id: 3, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3", options: ["Bonjour", "Merci", "Au revoir", "Salut"], correct: 2 },
+  { id: 101, level: "A0", type: "oral", prompt: "Say: Bonjour", expectedText: "Bonjour" },
 
   // ===== A1 - Beginner (4 MC + 2 typed = 6, need 5/6) =====
   { id: 4, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Mes parents ___ à Lyon, mais moi, j'habite à Marseille. »", options: ["habite", "habites", "habitent", "habitez"], correct: 2 },
@@ -31,6 +32,7 @@ const questions = [
   { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.png", options: ["A","B","C","D"], correct: 0 },
   { id: 24, level: "A1", type: "typed", prompt: "Écris la forme correcte : « Je ___ (avoir) 20 ans. »", acceptableAnswers: ["ai"] },
   { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on « Good evening » en français ?", acceptableAnswers: ["bonsoir"] },
+  { id: 102, level: "A1", type: "oral", prompt: "Say: J'ai vingt ans", expectedText: "J'ai vingt ans" },
 
   // ===== A2 - Elementary (4 MC + 2 typed = 6, need 5/6) =====
   { id: 8, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Hier, je ___ au cinéma quand il a commencé à pleuvoir. »", options: ["suis allé", "vais", "allais", "irai"], correct: 2 },
@@ -39,6 +41,7 @@ const questions = [
   { id: 11, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Tu as des questions ? Oui, j'___ ai plusieurs. »", options: ["y", "le", "en", "lui"], correct: 2 },
   { id: 26, level: "A2", type: "typed", prompt: "Complète au passé composé : « Hier, nous ___ (visiter) le musée. »", acceptableAnswers: ["avons visite", "avons visité"] },
   { id: 27, level: "A2", type: "typed", prompt: "Écris le contraire de « facile ».", acceptableAnswers: ["difficile"] },
+  { id: 103, level: "A2", type: "oral", prompt: "Say: Nous avons visité le musée hier", expectedText: "Nous avons visité le musée hier" },
 
   // ===== B1 - Intermediate (4 MC + 1 typed = 5, need 4/5) =====
   { id: 12, level: "B1", type: "mc", prompt: "Choisis la bonne structure.", options: ["Je lui le ai donné.", "Je le lui ai donné.", "Je ai le lui donné.", "Je donné le lui ai."], correct: 1 },
@@ -46,6 +49,7 @@ const questions = [
   { id: 14, level: "B1", type: "mc", prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il fatigue.", "Parce qu'il est fatigué.", "Parce qu'il était fatigué.", "Parce fatigué."], correct: 2 },
   { id: 15, level: "B1", type: "mc", prompt: "Choisis la phrase la plus naturelle.", options: ["Ça dépend la situation.", "Ça dépend pour la situation.", "Ça dépend à la situation.", "Ça dépend de la situation."], correct: 3 },
   { id: 28, level: "B1", type: "typed", prompt: "Complète avec le bon pronom : « Je ne connais pas ce restaurant, je n'___ ai jamais mangé. »", acceptableAnswers: ["y"] },
+  { id: 104, level: "B1", type: "oral", prompt: "Say: Ça dépend de la situation", expectedText: "Ça dépend de la situation" },
 
   // ===== B2 - Upper Intermediate (4 MC + 1 typed = 5, need 4/5) =====
   { id: 16, level: "B2", type: "mc", prompt: "Quelle formulation est la plus diplomatique ?", options: ["Vous avez tort.", "C'est faux.", "Je comprends votre point de vue.", "Impossible."], correct: 2 },
@@ -53,13 +57,15 @@ const questions = [
   { id: 18, level: "B2", type: "mc", prompt: "Quelle phrase utilise correctement le conditionnel ?", options: ["Si j'ai le temps, je viendrais.", "Si j'avais le temps, je viens.", "Si j'avais le temps, je viendrais.", "Si j'aurais le temps, je viendrais."], correct: 2 },
   { id: 19, level: "B2", type: "mc", prompt: "Choisis la phrase qui exprime une nuance d'incertitude.", options: ["Il pleut demain.", "Il se peut qu'il pleuve demain.", "Il va pleuvoir demain, c'est sûr.", "Il pleuvra demain absolument."], correct: 1 },
   { id: 29, level: "B2", type: "typed", prompt: "Reformule au conditionnel pour être plus poli : « Je veux un café. »", acceptableAnswers: ["je voudrais un cafe", "je voudrais un café"] },
+  { id: 105, level: "B2", type: "oral", prompt: "Say: Je ne suis pas tout à fait d'accord, mais je comprends votre point", expectedText: "Je ne suis pas tout à fait d'accord mais je comprends votre point" },
 
   // ===== C1 - Advanced (4 MC + 1 typed = 5, need 4/5) =====
   { id: 20, level: "C1", type: "mc", prompt: "Choisis la formulation la plus formelle.", audio: "/assets/sounds/placement/c1_q18_formel.mp3", options: ["Tu peux faire ça ?", "Fais-le.", "Je vous saurais gré de bien vouloir…", "Dis-moi."], correct: 2 },
   { id: 21, level: "C1", type: "mc", prompt: "Quelle phrase est stylistiquement correcte ?", options: ["Il n'a pas été prévenu pas.", "N'eût-il pas été prévenu…", "Il n'était pas prévenir.", "Pas été prévenu il."], correct: 1 },
   { id: 22, level: "C1", type: "mc", prompt: "Choisis la nuance correcte.", options: ["Il semble que c'est vrai.", "Il semble est vrai.", "Il semble que ce soit vrai.", "Il semble vrai que."], correct: 2 },
   { id: 23, level: "C1", type: "mc", prompt: "Quelle phrase illustre le mieux l'emploi du subjonctif passé ?", options: ["Bien qu'il a terminé son travail, il est resté tard.", "Bien qu'il termine son travail, il est resté tard.", "Bien qu'il terminait son travail, il est resté tard.", "Bien qu'il ait terminé son travail, il est resté tard."], correct: 3 },
-  { id: 30, level: "C1", type: "typed", prompt: "Complète au subjonctif : « Il faut que tu ___ (être) à l'heure. »", acceptableAnswers: ["sois"] }
+  { id: 30, level: "C1", type: "typed", prompt: "Complète au subjonctif : « Il faut que tu ___ (être) à l'heure. »", acceptableAnswers: ["sois"] },
+  { id: 106, level: "C1", type: "oral", prompt: "Say: Il faut que tu sois à l'heure", expectedText: "Il faut que tu sois à l'heure" }
 
 ];
 
@@ -87,7 +93,7 @@ const levelThreshold = { A0:3, A1:5, A2:5, B1:4, B2:4, C1:4 };
 
 const levelTotalQuestions = {};
 levelOrder.forEach(lvl => {
-  levelTotalQuestions[lvl] = questions.filter(q => q.level === lvl).length;
+  levelTotalQuestions[lvl] = questions.filter(q => q.level === lvl && q.type !== "oral").length;
 });
 
 const accentChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
@@ -222,6 +228,33 @@ function loadQuestion() {
       img.src = q.image;
       img.className = "question-image";
       mediaArea.appendChild(img);
+    }
+
+    if (q.type === "oral") {
+
+      const oralWrap = document.createElement("div");
+      oralWrap.innerHTML =
+        '<canvas id="oralWaveCanvas" class="oral-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
+        '<div class="oral-record-row">' +
+        '<button class="option oral-record-btn" id="oralRecordBtn">● Record</button>' +
+        '<span class="oral-record-status" id="oralRecordStatus">Not recorded yet</span>' +
+        '</div>' +
+        '<div class="oral-playback-row" id="oralPlaybackRow" style="display:none;">' +
+        '<button class="option oral-secondary-btn" id="oralPlayBtn">&#9658; Play My Recording</button>' +
+        '<button class="option oral-secondary-btn" id="oralRerecordBtn">&#8635; Re-record</button>' +
+        '</div>' +
+        '<audio id="oralPlaybackAudio" style="display:none;"></audio>' +
+        '<div id="oralFeedback" class="oral-feedback" style="display:none;"></div>' +
+        '<div class="oral-btn-row"><button class="option" id="oralSubmitBtn" disabled>Submit</button></div>';
+      optionsEl.appendChild(oralWrap);
+
+      setupOralRecording();
+
+      requestAnimationFrame(() => {
+        optionsEl.classList.add("options-ready");
+      });
+
+      return;
     }
 
     if (q.type === "typed") {
@@ -394,6 +427,174 @@ function answerTyped(userInput) {
   celebrateAnswer(isCorrect, submitBtn);
 
   registerResult(isCorrect);
+}
+
+var oralMediaRecorder = null;
+var oralRecordedChunks = [];
+var oralCurrentStream = null;
+var oralAudioCtx = null;
+var oralWaveAnimId = null;
+var oralRecordedBlob = null;
+
+var oralPassMessages = ["Beautifully done!", "That was great!", "Parfait !", "You nailed it!"];
+var oralEncourageMessages = ["Good effort - keep going!", "Nice try - onward!", "That's alright, you're making progress!"];
+
+function setupOralRecording(){
+  oralRecordedBlob = null;
+  document.getElementById("oralRecordBtn").addEventListener("click", toggleOralRecording);
+  document.getElementById("oralPlayBtn").addEventListener("click", playOralRecording);
+  document.getElementById("oralRerecordBtn").addEventListener("click", reRecordOral);
+  document.getElementById("oralSubmitBtn").addEventListener("click", submitOralRecording);
+}
+
+function startOralWave(streamOrElement, isElement){
+  var canvas = document.getElementById("oralWaveCanvas");
+  var ctx = canvas.getContext("2d");
+  canvas.style.display = "block";
+  if(!oralAudioCtx){
+    oralAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  var analyser = oralAudioCtx.createAnalyser();
+  analyser.fftSize = 64;
+
+  if(isElement){
+    if(!streamOrElement._oralWaveSource){
+      streamOrElement._oralWaveSource = oralAudioCtx.createMediaElementSource(streamOrElement);
+      streamOrElement._oralWaveSource.connect(oralAudioCtx.destination);
+    }
+    streamOrElement._oralWaveSource.connect(analyser);
+  } else {
+    var source = oralAudioCtx.createMediaStreamSource(streamOrElement);
+    source.connect(analyser);
+  }
+
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+
+  function draw(){
+    oralWaveAnimId = requestAnimationFrame(draw);
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var barWidth = (canvas.width / bufferLength) * 1.8;
+    var x = 0;
+    for(var i = 0; i < bufferLength; i++){
+      var barHeight = (dataArray[i] / 255) * canvas.height;
+      ctx.fillStyle = "#5fbf5f";
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+      x += barWidth + 2;
+    }
+  }
+  draw();
+}
+
+function stopOralWave(){
+  if(oralWaveAnimId){
+    cancelAnimationFrame(oralWaveAnimId);
+    oralWaveAnimId = null;
+  }
+  var canvas = document.getElementById("oralWaveCanvas");
+  if(canvas){
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = "none";
+  }
+}
+
+function toggleOralRecording(){
+  var btn = document.getElementById("oralRecordBtn");
+  var status = document.getElementById("oralRecordStatus");
+
+  if(!oralMediaRecorder || oralMediaRecorder.state === "inactive"){
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+      oralCurrentStream = stream;
+      oralRecordedChunks = [];
+      oralMediaRecorder = new MediaRecorder(stream);
+      oralMediaRecorder.ondataavailable = function(e){ oralRecordedChunks.push(e.data); };
+      oralMediaRecorder.onstop = function(){
+        oralRecordedBlob = new Blob(oralRecordedChunks, { type: "audio/webm" });
+        stopOralWave();
+        document.getElementById("oralRecordBtn").style.display = "none";
+        document.getElementById("oralPlaybackRow").style.display = "flex";
+        document.getElementById("oralSubmitBtn").disabled = false;
+        oralCurrentStream.getTracks().forEach(function(t){ t.stop(); });
+      };
+      oralMediaRecorder.start();
+      startOralWave(stream, false);
+      btn.textContent = "■ Stop";
+      status.textContent = "Recording...";
+    }).catch(function(err){
+      status.textContent = "Microphone access denied";
+      console.error(err);
+    });
+  } else {
+    oralMediaRecorder.stop();
+  }
+}
+
+function playOralRecording(){
+  var playBtn = document.getElementById("oralPlayBtn");
+  var audioEl = document.getElementById("oralPlaybackAudio");
+  var originalLabel = playBtn.innerHTML;
+  playBtn.innerHTML = "Loading...";
+  playBtn.disabled = true;
+
+  audioEl.src = URL.createObjectURL(oralRecordedBlob);
+
+  var onReady = function(){
+    playBtn.innerHTML = originalLabel;
+    playBtn.disabled = false;
+    startOralWave(audioEl, true);
+    audioEl.currentTime = 0;
+    audioEl.play();
+  };
+
+  audioEl.addEventListener("canplay", onReady, { once: true });
+  audioEl.addEventListener("ended", stopOralWave, { once: true });
+}
+
+function reRecordOral(){
+  oralRecordedBlob = null;
+  document.getElementById("oralPlaybackRow").style.display = "none";
+  var btn = document.getElementById("oralRecordBtn");
+  btn.style.display = "inline-block";
+  btn.textContent = "● Record";
+  document.getElementById("oralRecordStatus").textContent = "Not recorded yet";
+  document.getElementById("oralSubmitBtn").disabled = true;
+}
+
+function submitOralRecording(){
+  var q = questions[currentIndex];
+  var submitBtn = document.getElementById("oralSubmitBtn");
+  var feedbackEl = document.getElementById("oralFeedback");
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Scoring...";
+
+  fetch("https://saybonapp-server.onrender.com/api/assessPronunciation?referenceText=" + encodeURIComponent(q.expectedText || ""), {
+    method: "POST",
+    body: oralRecordedBlob
+  }).then(function(res){ return res.json(); }).then(function(data){
+    var score = Math.round(data.finalScore ?? data.score ?? data.AccuracyScore ?? data.accuracyScore ?? 0);
+    var passed = score >= 70;
+    var msg = passed
+      ? oralPassMessages[Math.floor(Math.random() * oralPassMessages.length)]
+      : oralEncourageMessages[Math.floor(Math.random() * oralEncourageMessages.length)];
+
+    document.querySelectorAll("#options button").forEach(function(b){ b.disabled = true; });
+
+    feedbackEl.style.display = "block";
+    feedbackEl.innerHTML =
+      '<div style="font-size:1.6rem;font-weight:800;">' + score + '%</div>' +
+      '<div style="font-size:.9rem;margin-top:4px;">' + msg + '</div>';
+
+    setTimeout(function(){
+      advance();
+    }, 2500);
+  }).catch(function(err){
+    console.error(err);
+    feedbackEl.style.display = "block";
+    feedbackEl.textContent = "Could not score - moving on.";
+    setTimeout(function(){ advance(); }, 1800);
+  });
 }
 
 function advance(){

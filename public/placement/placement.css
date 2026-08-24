@@ -422,3 +422,10 @@ body.placement-page{
   transition: left .8s cubic-bezier(.22,.9,.24,1), top .8s cubic-bezier(.22,.9,.24,1), transform .8s ease, opacity .8s ease;
   opacity:1;
 }
+
+.oral-wave-canvas{display:block;width:100%;max-width:280px;height:56px;margin:0 auto 14px;border-radius:12px;background:rgba(0,0,0,.08);}
+.oral-record-row{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:14px;}
+.oral-playback-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px;}
+.oral-btn-row{margin-top:10px;}
+.oral-feedback{text-align:center;padding:12px;margin-top:10px;}
+.oral-secondary-btn{opacity:.85;}
