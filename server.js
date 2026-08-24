@@ -4727,3 +4727,19 @@ console.error(err);
 res.status(500).json({error:"could not convert currency"});
 }
 });
+
+// One-off/manual correction utility - lets a job's price field
+// be fixed directly, e.g. for jobs created before a pricing bug
+// was fixed.
+app.post("/api/adminUpdateJobPrice", express.json(), async(req,res)=>{
+try{
+const {jobId, price} = req.body;
+if(!jobId || price === undefined) return res.status(400).json({error:"jobId and price are required"});
+
+await db.collection("translationJobs").doc(jobId).update({ price: Number(price) });
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not update job price"});
+}
+});
