@@ -382,14 +382,109 @@ function renderSpeaking(){
     '<div class="pl-card">' +
     '<span class="pl-skill-pill">Spoken Response</span>' +
     '<p class="pl-question">' + lvl.speaking.prompt + '</p>' +
+    '<canvas id="plWaveCanvas" class="pl-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
     '<div class="pl-record-row">' +
     '<button class="pl-record-btn" id="plRecordBtn" onclick="toggleRecording()">● Record</button>' +
     '<span class="pl-record-status" id="plRecordStatus">' + (state.speakingBlob ? "Recording captured" : "Not recorded yet") + '</span>' +
     '</div>' +
+    '<div class="pl-playback-row" id="plPlaybackRow" style="display:none;">' +
+    '<button class="pl-btn pl-btn-secondary" id="plPlayBtn">&#9658; Play My Recording</button>' +
+    '<button class="pl-btn pl-btn-secondary" id="plRerecordBtn">&#8635; Re-record</button>' +
+    '</div>' +
+    '<audio id="plPlaybackAudio" style="display:none;"></audio>' +
     '<div class="pl-pending-note">Your recording is saved and will be scored shortly.</div>' +
     '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finishLevel()">See My Result</button></div>' +
     '</div>'
   );
+
+  document.getElementById("plPlayBtn").addEventListener("click", playRecording);
+  document.getElementById("plRerecordBtn").addEventListener("click", reRecordSpeaking);
+}
+
+var plAudioCtx = null;
+var plWaveAnimId = null;
+
+function startWave(streamOrElement, isElement){
+  var canvas = document.getElementById("plWaveCanvas");
+  var ctx = canvas.getContext("2d");
+  canvas.style.display = "block";
+  if(!plAudioCtx){
+    plAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  var analyser = plAudioCtx.createAnalyser();
+  analyser.fftSize = 64;
+
+  if(isElement){
+    if(!streamOrElement._plWaveSource){
+      streamOrElement._plWaveSource = plAudioCtx.createMediaElementSource(streamOrElement);
+      streamOrElement._plWaveSource.connect(plAudioCtx.destination);
+    }
+    streamOrElement._plWaveSource.connect(analyser);
+  } else {
+    var source = plAudioCtx.createMediaStreamSource(streamOrElement);
+    source.connect(analyser);
+  }
+
+  var bufferLength = analyser.frequencyBinCount;
+  var dataArray = new Uint8Array(bufferLength);
+
+  function draw(){
+    plWaveAnimId = requestAnimationFrame(draw);
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var barWidth = (canvas.width / bufferLength) * 1.8;
+    var x = 0;
+    for(var i = 0; i < bufferLength; i++){
+      var barHeight = (dataArray[i] / 255) * canvas.height;
+      ctx.fillStyle = "#d4af6a";
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+      x += barWidth + 2;
+    }
+  }
+  draw();
+}
+
+function stopWave(){
+  if(plWaveAnimId){
+    cancelAnimationFrame(plWaveAnimId);
+    plWaveAnimId = null;
+  }
+  var canvas = document.getElementById("plWaveCanvas");
+  if(canvas){
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = "none";
+  }
+}
+
+function playRecording(){
+  var playBtn = document.getElementById("plPlayBtn");
+  var audioEl = document.getElementById("plPlaybackAudio");
+  var originalLabel = playBtn.innerHTML;
+  playBtn.innerHTML = '<span class="pl-loading-pulse"></span>Loading...';
+  playBtn.disabled = true;
+
+  audioEl.src = URL.createObjectURL(state.speakingBlob);
+
+  var onReady = function(){
+    playBtn.innerHTML = originalLabel;
+    playBtn.disabled = false;
+    startWave(audioEl, true);
+    audioEl.currentTime = 0;
+    audioEl.play();
+  };
+
+  audioEl.addEventListener("canplay", onReady, { once: true });
+  audioEl.addEventListener("ended", stopWave, { once: true });
+}
+
+function reRecordSpeaking(){
+  state.speakingBlob = null;
+  document.getElementById("plPlaybackRow").style.display = "none";
+  var btn = document.getElementById("plRecordBtn");
+  btn.style.display = "inline-block";
+  btn.textContent = "● Record";
+  btn.classList.remove("pl-recording");
+  document.getElementById("plRecordStatus").textContent = "Not recorded yet";
 }
 
 function toggleRecording(){
@@ -404,10 +499,13 @@ function toggleRecording(){
       mediaRecorder.ondataavailable = function(e){ recordedChunks.push(e.data); };
       mediaRecorder.onstop = function(){
         state.speakingBlob = new Blob(recordedChunks, { type: "audio/webm" });
-        status.textContent = "Recording captured";
+        stopWave();
+        document.getElementById("plRecordBtn").style.display = "none";
+        document.getElementById("plPlaybackRow").style.display = "flex";
         currentStream.getTracks().forEach(function(t){ t.stop(); });
       };
       mediaRecorder.start();
+      startWave(stream, false);
       btn.textContent = "■ Stop";
       btn.classList.add("pl-recording");
       status.textContent = "Recording...";
@@ -417,8 +515,6 @@ function toggleRecording(){
     });
   } else {
     mediaRecorder.stop();
-    btn.textContent = "● Record Again";
-    btn.classList.remove("pl-recording");
   }
 }
 

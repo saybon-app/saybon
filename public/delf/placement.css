@@ -154,3 +154,16 @@ body{
   .pl-stage{padding:80px 14px 50px;}
   .pl-card{padding:26px 20px;}
 }
+
+
+.pl-wave-canvas{
+  display:block;width:100%;max-width:280px;height:56px;
+  margin:0 auto 14px;border-radius:12px;background:rgba(0,0,0,.15);
+}
+.pl-playback-row{display:flex;gap:10px;justify-content:center;margin-bottom:16px;}
+.pl-loading-pulse{
+  display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:currentColor;animation:plLoadPulse .7s ease-in-out infinite;
+  margin-right:6px;vertical-align:middle;
+}
+@keyframes plLoadPulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1.15);}}
