@@ -54,12 +54,13 @@ body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#DCE9E6;background:
 <div class="status-msg" id="formattingStatus"></div>
 </div>
 </div>
+<script type="module"> import { app } from "/js/firebase-init.js"; import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js"; const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app"); window.uploadFormattedDocToStorage = async function(blob, ext){ const storageRef = ref(storage, "translationFinal/" + Date.now() + "." + ext); const snap = await uploadBytes(storageRef, blob); return await getDownloadURL(snap.ref); }; </script>
 <script>
 const API_BASE = "https://saybonapp-server.onrender.com";
 const params = new URLSearchParams(window.location.search);
 const jobId = params.get("job");
 const translatorPasskey = sessionStorage.getItem("saybonTranslatorPasskey") || "";
-let quill = null;
+let quill = null; let currentFileType = ""; let currentJobId = "";
 async function renderOrigPreview(fileUrl, fileType){
   var body = document.getElementById("origPreview");
   if(!fileUrl){ body.innerHTML = "No original document available."; return; }
@@ -97,7 +98,7 @@ async function init(){
       return;
     }
     document.getElementById("jobmeta").innerText = "Job: " + (data.clientFile || jobId) + " - " + data.targetLanguage;
-    renderOrigPreview(data.originalFileUrl, data.originalFileType);
+    currentFileType = data.originalFileType; currentJobId = jobId; renderOrigPreview(data.originalFileUrl, data.originalFileType);
     quill = new Quill("#quillEditor", { theme: "snow" });
     quill.setText(data.translation || "");
     document.getElementById("submitFormattingBtn").disabled = false;
@@ -110,4 +111,7 @@ init();
 </script>
 </body>
 </html>
+
+
+
 
