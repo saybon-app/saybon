@@ -52,9 +52,20 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 <div class="tp-price" id="price"></div>
 
 <div class="tp-provider-row">
-<button class="tp-provider-btn selected" id="providerStripeBtn">Card (Stripe)</button>
-<button class="tp-provider-btn" id="providerPaystackBtn">Mobile Money / GH Bank</button>
+<button class="tp-provider-btn selected" id="providerStripeBtn">Stripe</button>
+<button class="tp-provider-btn" id="providerPaystackBtn">Paystack</button>
 </div>
+
+<div class="tp-field" id="paystackLocationWrap" style="display:none;margin-bottom:14px;">
+<label style="display:block;font-size:.78rem;color:#8b92a3;margin-bottom:6px;text-align:left;">Your Location</label>
+<select id="paystackLocationSelect" style="width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;">
+<option value="GHS">Ghana</option>
+<option value="NGN">Nigeria</option>
+<option value="KES">Kenya</option>
+<option value="ZAR">South Africa</option>
+</select>
+</div>
+
 <p class="tp-ghs-note" id="ghsNote"></p>
 
 <button class="tp-btn" id="payButton">Pay Securely</button>
@@ -73,7 +84,8 @@ const email = params.get("email");
 const price = params.get("price");
 
 let selectedProvider = "stripe";
-let ghsAmount = null;
+let convertedAmount = null;
+let selectedCurrency = "GHS";
 
 document.getElementById("plan").innerText = plan;
 document.getElementById("words").innerText = words;
@@ -91,10 +103,31 @@ const paystackBtn = document.getElementById("providerPaystackBtn");
 const ghsNote = document.getElementById("ghsNote");
 const payButton = document.getElementById("payButton");
 
+const paystackLocationWrap = document.getElementById("paystackLocationWrap");
+const paystackLocationSelect = document.getElementById("paystackLocationSelect");
+
+function loadPaystackQuote(){
+  if(!price) return;
+  selectedCurrency = paystackLocationSelect.value;
+  ghsNote.textContent = "Converting price...";
+  fetch(API_BASE + "/api/convertUsdToCurrency?amount=" + encodeURIComponent(price) + "&currency=" + encodeURIComponent(selectedCurrency))
+    .then(r => r.json())
+    .then(function(data){
+      if(data.convertedAmount){
+        convertedAmount = data.convertedAmount;
+        ghsNote.textContent = "You will be charged " + selectedCurrency + " " + convertedAmount.toFixed(2);
+      } else {
+        ghsNote.textContent = "Could not load exchange rate - try Stripe instead";
+      }
+    })
+    .catch(function(){ ghsNote.textContent = "Could not load exchange rate - try Stripe instead"; });
+}
+
 stripeBtn.addEventListener("click", function(){
   selectedProvider = "stripe";
   stripeBtn.classList.add("selected");
   paystackBtn.classList.remove("selected");
+  paystackLocationWrap.style.display = "none";
   ghsNote.textContent = "";
 });
 
@@ -102,21 +135,11 @@ paystackBtn.addEventListener("click", function(){
   selectedProvider = "paystack";
   paystackBtn.classList.add("selected");
   stripeBtn.classList.remove("selected");
-
-  if(!price) return;
-  ghsNote.textContent = "Converting to GHS...";
-  fetch(API_BASE + "/api/convertUsdToGhs?amount=" + encodeURIComponent(price))
-    .then(r => r.json())
-    .then(function(data){
-      if(data.ghsAmount){
-        ghsAmount = data.ghsAmount;
-        ghsNote.textContent = "You will be charged GHS " + ghsAmount.toFixed(2);
-      } else {
-        ghsNote.textContent = "Could not load GHS rate - try Card instead";
-      }
-    })
-    .catch(function(){ ghsNote.textContent = "Could not load GHS rate - try Card instead"; });
+  paystackLocationWrap.style.display = "block";
+  loadPaystackQuote();
 });
+
+paystackLocationSelect.addEventListener("change", loadPaystackQuote);
 
 payButton.addEventListener("click", function(){
   if(selectedProvider === "stripe"){
@@ -166,8 +189,8 @@ async function startStripePayment(){
 }
 
 async function startPaystackPayment(){
-  if(!ghsAmount){
-    document.getElementById("payStatus").textContent = "Please wait for the GHS amount to load first.";
+  if(!convertedAmount){
+    document.getElementById("payStatus").textContent = "Please wait for the price to load first.";
     return;
   }
 
@@ -186,7 +209,7 @@ async function startPaystackPayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, priceGhs: ghsAmount
+        clientFile: clientFile, documentText: documentText, priceGhs: convertedAmount
       })
     });
     const jobData = await jobRes.json();
@@ -203,8 +226,8 @@ async function startPaystackPayment(){
     var handler = PaystackPop.setup({
       key: PAYSTACK_PUBLIC_KEY,
       email: email,
-      amount: Math.round(ghsAmount * 100),
-      currency: "GHS",
+      amount: Math.round(convertedAmount * 100),
+      currency: selectedCurrency,
       ref: "SB-PS-" + Date.now(),
       callback: function(response){
         document.getElementById("payStatus").textContent = "Verifying payment...";
