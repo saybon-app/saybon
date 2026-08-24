@@ -4256,18 +4256,126 @@ res.json({success:true});
 app.get("/api/getDelfPrice", async(req,res)=>{
 try{
 const exam = req.query.exam;
+const currency = (req.query.currency || "usd").toLowerCase();
 const priceCents = DELF_PRICES_CENTS[exam];
 if(!priceCents){
 return res.status(404).json({error:"unknown exam"});
 }
+
+if(currency === "ghs"){
+const rate = await getUsdToGhsRate();
+const ghsAmount = Math.round((priceCents / 100) * rate);
+return res.json({
+exam,
+examLabel: DELF_LABELS[exam],
+currency: "GHS",
+priceMainUnit: ghsAmount,
+priceDisplay: "GH₵" + ghsAmount
+});
+}
+
 res.json({
 exam,
 examLabel: DELF_LABELS[exam],
+currency: "USD",
 priceCents,
 priceDisplay: "$" + (priceCents / 100).toFixed(0)
 });
 }catch(err){
 console.error(err);
 res.status(500).json({error:"could not fetch price"});
+}
+});
+
+// ================================================================
+// LIVE USD -> GHS EXCHANGE RATE (short cache, safe fallback)
+// ================================================================
+
+let _ghsRateCache = { rate: null, fetchedAt: 0 };
+const GHS_RATE_CACHE_MS = 60 * 60 * 1000; // 1 hour
+const GHS_RATE_FALLBACK = 15.5; // used only if the live lookup fails
+
+async function getUsdToGhsRate(){
+const now = Date.now();
+if(_ghsRateCache.rate && (now - _ghsRateCache.fetchedAt) < GHS_RATE_CACHE_MS){
+return _ghsRateCache.rate;
+}
+try{
+const data = await new Promise((resolve, reject) => {
+https.get("https://open.er-api.com/v6/latest/USD", (response) => {
+let body = "";
+response.on("data", (chunk) => { body += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(body)); }
+catch(e){ reject(e); }
+});
+});
+}).catch(err => { throw err; });
+
+const rate = data && data.rates && data.rates.GHS;
+if(rate){
+_ghsRateCache = { rate, fetchedAt: now };
+return rate;
+}
+throw new Error("no GHS rate in response");
+}catch(err){
+console.error("Live GHS rate lookup failed, using fallback:", err.message);
+return GHS_RATE_FALLBACK;
+}
+}
+
+app.post("/api/verifyPaystackDelf", express.json(), async(req,res)=>{
+try{
+const {reference, exam, uid} = req.body;
+if(!reference || !exam || !uid) return res.status(400).json({error:"reference, exam, and uid are required"});
+
+const secretKey = process.env.PAYSTACK_SECRET_KEY;
+if(!secretKey){
+console.error("PAYSTACK_SECRET_KEY not set");
+return res.status(500).json({error:"server not configured for Paystack verification"});
+}
+
+const paystackData = await new Promise((resolve, reject) => {
+const options = {
+hostname: "api.paystack.co",
+path: "/transaction/verify/" + encodeURIComponent(reference),
+method: "GET",
+headers: { Authorization: "Bearer " + secretKey }
+};
+const request = https.request(options, (response) => {
+let body = "";
+response.on("data", (chunk) => { body += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(body)); }
+catch(e){ reject(e); }
+});
+});
+request.on("error", reject);
+request.end();
+});
+
+if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+await db.collection("delfAccess").doc(uid).set({
+[exam]: { granted:true, sessionId: "paystack_" + reference, purchasedAt: admin.firestore.FieldValue.serverTimestamp() }
+}, { merge:true });
+
+const amountInMainUnit = paystackData.data.amount / 100;
+const currency = paystackData.data.currency || "GHS";
+
+await logAutoIncomeOnce(
+"delf_paystack_" + reference,
+amountInMainUnit,
+currency,
+"DELF Exam Prep",
+"Auto-logged DELF Paystack payment for " + (DELF_LABELS[exam] || exam)
+);
+
+res.json({verified:true, examLabel: DELF_LABELS[exam] || exam, exam: exam});
+}else{
+res.json({verified:false});
+}
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not verify Paystack DELF payment"});
 }
 });
