@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/features/admin/auth/admin-guard.js" type="module"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Translator Payouts — SayBon Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.py-stage{max-width:760px;margin:0 auto;}
+.py-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.py-corner-icon svg{width:18px;height:18px;}
+.py-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px;}
+.py-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.8rem;color:#f6f1e4;margin-bottom:6px;}
+.py-sub{color:#8b92a3;font-size:.88rem;margin-bottom:30px;}
+.py-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:20px;padding:22px;margin-bottom:16px;}
+.py-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.py-name{font-weight:800;font-size:1rem;color:#f6f1e4;}
+.py-meta{font-size:.8rem;color:#8b92a3;margin-top:4px;}
+.py-balance{font-family:"Fraunces",serif;font-weight:600;font-size:1.4rem;color:#d4af6a;text-align:right;}
+.py-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:3px 10px;border-radius:999px;margin-top:8px;}
+.py-tag-auto{background:rgba(124,197,118,.14);color:#7cc576;}
+.py-tag-manual{background:rgba(224,164,88,.14);color:#e0a458;}
+.py-btn{width:100%;margin-top:14px;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:12px;padding:12px;font-weight:800;font-size:.85rem;cursor:pointer;}
+.py-btn-secondary{background:rgba(255,255,255,.08);color:#f6f1e4;border:1px solid rgba(255,255,255,.15);}
+.py-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:30px;}
+.py-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:100;padding:20px;}
+.py-modal{background:#151b26;border:1px solid rgba(212,175,106,.3);border-radius:20px;padding:26px;max-width:420px;width:100%;}
+.py-modal h2{font-family:"Fraunces",serif;font-size:1.2rem;margin-bottom:14px;}
+.py-field{margin-bottom:14px;}
+.py-field label{display:block;font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
+.py-field select, .py-field input{width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;}
+.py-status{font-size:.82rem;color:#8b92a3;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<button class="py-corner-icon" onclick="location.href='../'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="py-stage">
+  <p class="py-eyebrow">Business Admin</p>
+  <p class="py-title">Translator Payouts</p>
+  <p class="py-sub">Ghana pays out automatically via Paystack with your approval. Everywhere else, wire directly and confirm here.</p>
+  <div id="pyList"><p class="py-empty">Loading...</p></div>
+</div>
+
+<div class="py-modal-overlay" id="pyPaystackModal">
+  <div class="py-modal">
+    <h2 id="pyModalTitle">Confirm Payout</h2>
+    <div id="pyModalStep1">
+      <div class="py-field" id="pyBankFieldWrap">
+        <label>Confirm Bank</label>
+        <select id="pyBankSelect"><option>Loading banks...</option></select>
+      </div>
+      <button class="py-btn" id="pyInitiateBtn">Send Payout</button>
+      <button class="py-btn py-btn-secondary" onclick="closePaystackModal()">Cancel</button>
+    </div>
+    <div id="pyModalStep2" style="display:none;">
+      <p style="font-size:.85rem;color:#c9c3b4;margin-bottom:14px;">A one-time code has been sent to confirm this transfer. Enter it below to complete the payout.</p>
+      <div class="py-field">
+        <label>OTP Code</label>
+        <input type="text" id="pyOtpInput" placeholder="Enter code">
+      </div>
+      <button class="py-btn" id="pyFinalizeBtn">Confirm & Send</button>
+    </div>
+    <p class="py-status" id="pyModalStatus"></p>
+  </div>
+</div>
+
+<script>
+const API_BASE = "https://saybonapp-server.onrender.com";
+let currentCandidate = null;
+let currentTransferCode = null;
+
+function loadCandidates(){
+  fetch(API_BASE + "/api/adminListPayoutCandidates").then(r => r.json()).then(function(items){
+    const list = document.getElementById("pyList");
+    if(!items || !items.length){ list.innerHTML = '<p class="py-empty">No translators currently owed a payable balance</p>'; return; }
+
+    list.innerHTML = items.map(function(c){
+      const methodDesc = c.method === "momo"
+        ? c.momoNetwork + " - " + c.momoNumber
+        : c.bankName + " - " + c.accountNumber;
+      const actionBtn = c.isGhanaAutomatable
+        ? '<button class="py-btn" onclick=\'openPaystackModal(' + JSON.stringify(c) + ')\'>Pay via Paystack</button>'
+        : '<button class="py-btn py-btn-secondary" onclick="markManualPaid(\'' + c.passkey + '\', this)">Mark as Paid (Wired Manually)</button>';
+
+      return '<div class="py-card"><div class="py-row"><div><div class="py-name">' + c.name + '</div><div class="py-meta">' + methodDesc + '</div><div class="py-tag ' + (c.isGhanaAutomatable ? 'py-tag-auto' : 'py-tag-manual') + '">' + (c.isGhanaAutomatable ? 'Ghana - Automated' : 'Manual') + '</div></div><div class="py-balance">$' + c.availableBalance.toFixed(2) + '</div></div>' + actionBtn + '</div>';
+    }).join("");
+  }).catch(function(){ document.getElementById("pyList").innerHTML = '<p class="py-empty">Could not load payout candidates</p>'; });
+}
+
+window.markManualPaid = function(passkey, btn){
+  if(!confirm("Confirm you have already wired this payout manually?")) return;
+  btn.disabled = true;
+  btn.textContent = "Confirming...";
+  fetch(API_BASE + "/api/adminMarkPayoutPaidManually", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ passkey })
+  }).then(r => r.json()).then(function(data){
+    if(data.success){ loadCandidates(); }
+    else { btn.textContent = "Failed - try again"; btn.disabled = false; }
+  });
+};
+
+window.openPaystackModal = function(candidate){
+  currentCandidate = candidate;
+  document.getElementById("pyPaystackModal").style.display = "flex";
+  document.getElementById("pyModalStep1").style.display = "block";
+  document.getElementById("pyModalStep2").style.display = "none";
+  document.getElementById("pyModalStatus").textContent = "";
+  document.getElementById("pyModalTitle").textContent = "Pay " + candidate.name + " - $" + candidate.availableBalance.toFixed(2);
+
+  if(candidate.method === "momo"){
+    document.getElementById("pyBankFieldWrap").style.display = "none";
+  } else {
+    document.getElementById("pyBankFieldWrap").style.display = "block";
+    var select = document.getElementById("pyBankSelect");
+    select.innerHTML = "<option>Loading banks...</option>";
+    fetch(API_BASE + "/api/paystackBankList").then(r => r.json()).then(function(banks){
+      select.innerHTML = banks.map(function(b){ return '<option value="' + b.code + '">' + b.name + '</option>'; }).join("");
+    }).catch(function(){ select.innerHTML = "<option>Could not load banks</option>"; });
+  }
+};
+
+function closePaystackModal(){
+  document.getElementById("pyPaystackModal").style.display = "none";
+  currentCandidate = null;
+  currentTransferCode = null;
+}
+
+document.getElementById("pyInitiateBtn").addEventListener("click", function(){
+  const status = document.getElementById("pyModalStatus");
+  status.textContent = "Initiating transfer...";
+
+  var momoNetworkCodeMap = { "MTN": "MTN", "Vodafone": "VOD", "AirtelTigo": "ATL" };
+
+  var body = {
+    passkey: currentCandidate.passkey,
+    amount: currentCandidate.availableBalance,
+    method: currentCandidate.method,
+    accountName: currentCandidate.accountName
+  };
+
+  if(currentCandidate.method === "momo"){
+    body.momoNumber = currentCandidate.momoNumber;
+    body.momoNetworkCode = momoNetworkCodeMap[currentCandidate.momoNetwork] || currentCandidate.momoNetwork;
+  } else {
+    body.accountNumber = currentCandidate.accountNumber;
+    body.bankCode = document.getElementById("pyBankSelect").value;
+  }
+
+  fetch(API_BASE + "/api/adminInitiatePaystackPayout", {
+    method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(body)
+  }).then(r => r.json()).then(function(data){
+    if(data.error){ status.textContent = data.error; return; }
+    currentTransferCode = data.transferCode;
+    if(data.requiresOtp){
+      document.getElementById("pyModalStep1").style.display = "none";
+      document.getElementById("pyModalStep2").style.display = "block";
+      status.textContent = "";
+    } else {
+      status.textContent = "Transfer initiated - status: " + data.status;
+    }
+  }).catch(function(){ status.textContent = "Could not initiate transfer"; });
+});
+
+document.getElementById("pyFinalizeBtn").addEventListener("click", function(){
+  const status = document.getElementById("pyModalStatus");
+  const otp = document.getElementById("pyOtpInput").value.trim();
+  if(!otp){ status.textContent = "Enter the OTP code"; return; }
+
+  status.textContent = "Finalizing...";
+  fetch(API_BASE + "/api/adminFinalizePaystackPayout", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ passkey: currentCandidate.passkey, transferCode: currentTransferCode, otp })
+  }).then(r => r.json()).then(function(data){
+    if(data.success){
+      closePaystackModal();
+      loadCandidates();
+    } else {
+      status.textContent = data.error || "Could not finalize transfer";
+    }
+  }).catch(function(){ status.textContent = "Could not finalize transfer"; });
+});
+
+loadCandidates();
+</script>
+</body>
+</html>
