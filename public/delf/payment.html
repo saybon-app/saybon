@@ -47,22 +47,22 @@ const API_BASE = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const EXAM_LABELS = {
-  "a1":"DELF A1","a2":"DELF A2","b1":"DELF B1","b2":"DELF B2",
-  "prim-a1":"DELF Prim A1","prim-a2":"DELF Prim A2",
-  "junior-a1":"DELF Junior A1","junior-a2":"DELF Junior A2","junior-b1":"DELF Junior B1"
-};
-const EXAM_PRICES_DISPLAY = {
-  "a1":"$12","a2":"$17","b1":"$25","b2":"$29",
-  "prim-a1":"$12","prim-a2":"$12",
-  "junior-a1":"$12","junior-a2":"$12","junior-b1":"$12"
-};
-
 const params = new URLSearchParams(window.location.search);
 const examCode = params.get("exam") || "";
+let examLabel = "";
 
-document.getElementById("pmExamName").textContent = EXAM_LABELS[examCode] || "Unknown exam";
-document.getElementById("pmPrice").textContent = EXAM_PRICES_DISPLAY[examCode] || "-";
+fetch(API_BASE + "/api/getDelfPrice?exam=" + encodeURIComponent(examCode))
+  .then(function(res){ if(!res.ok) throw new Error("not found"); return res.json(); })
+  .then(function(data){
+    examLabel = data.examLabel;
+    document.getElementById("pmExamName").textContent = data.examLabel;
+    document.getElementById("pmPrice").textContent = data.priceDisplay;
+  })
+  .catch(function(){
+    document.getElementById("pmExamName").textContent = "Unknown exam";
+    document.getElementById("pmPrice").textContent = "-";
+    document.getElementById("pmPayBtn").disabled = true;
+  });
 
 let currentUser = null;
 onAuthStateChanged(auth, function(user){ currentUser = user; });

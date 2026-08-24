@@ -4252,3 +4252,22 @@ await db.collection("appSettings").doc("featureLocks").set({ [name]: enabled }, 
 res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not save feature lock"}); }
 });
+
+app.get("/api/getDelfPrice", async(req,res)=>{
+try{
+const exam = req.query.exam;
+const priceCents = DELF_PRICES_CENTS[exam];
+if(!priceCents){
+return res.status(404).json({error:"unknown exam"});
+}
+res.json({
+exam,
+examLabel: DELF_LABELS[exam],
+priceCents,
+priceDisplay: "$" + (priceCents / 100).toFixed(0)
+});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch price"});
+}
+});
