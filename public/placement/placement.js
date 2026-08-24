@@ -539,17 +539,31 @@ function playOralRecording(){
   playBtn.innerHTML = "Loading...";
   playBtn.disabled = true;
 
+  var settled = false;
+  var fallbackTimer = setTimeout(function(){
+    if(settled) return;
+    settled = true;
+    playBtn.innerHTML = originalLabel;
+    playBtn.disabled = false;
+    console.warn("Playback canplay event never fired - fallback triggered");
+  }, 3000);
+
   audioEl.src = URL.createObjectURL(oralRecordedBlob);
+  audioEl.load();
 
   var onReady = function(){
+    if(settled) return;
+    settled = true;
+    clearTimeout(fallbackTimer);
     playBtn.innerHTML = originalLabel;
     playBtn.disabled = false;
     startOralWave(audioEl, true);
     audioEl.currentTime = 0;
-    audioEl.play();
+    audioEl.play().catch(function(err){ console.error("Playback failed:", err); });
   };
 
   audioEl.addEventListener("canplay", onReady, { once: true });
+  audioEl.addEventListener("loadeddata", onReady, { once: true });
   audioEl.addEventListener("ended", stopOralWave, { once: true });
 }
 
