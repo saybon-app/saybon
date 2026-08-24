@@ -41,7 +41,7 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 
 <div class="tp-card">
 <p class="tp-eyebrow">Confirm Translation</p>
-<p class="tp-job-code" id="jobCode"></p>
+<p class="tp-job-code" id="jobCode" style="cursor:pointer;" onclick="copyJobCode()" title="Click to copy"></p>
 
 <div class="tp-summary">
 <div class="tp-row"><span>Plan</span><span id="plan"></span></div>
@@ -237,8 +237,11 @@ async function startPaystackPayment(){
           body: JSON.stringify({ reference: response.reference, jobId: jobData.jobId })
         }).then(r => r.json()).then(function(verifyData){
           if(verifyData.verified){
-            document.getElementById("payStatus").textContent = "Payment confirmed! Your translation job is now open.";
-            payButton.style.display = "none";
+            document.getElementById("payStatus").textContent = "Payment confirmed! Redirecting...";
+            localStorage.setItem("saybon_last_job", jobData.jobId);
+            setTimeout(function(){
+              window.location = "/translation/success.html";
+            }, 1200);
           } else {
             document.getElementById("payStatus").textContent = "Could not verify payment. Please contact support with your job code.";
             payButton.innerText = "Pay Securely";
@@ -262,6 +265,36 @@ async function startPaystackPayment(){
     payButton.innerText = "Pay Securely";
     payButton.disabled = false;
   }
+}
+function copyJobCode(){
+  var el = document.getElementById("jobCode");
+  var text = el.innerText.replace("Job Code: ", "");
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var original = el.innerText;
+    el.innerText = "Copied!";
+    setTimeout(function(){ el.innerText = original; }, 1200);
+  });
+}
+function copyJobCode(){
+  var el = document.getElementById("jobCode");
+  var text = el.innerText.replace("Job Code: ", "");
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var original = el.innerText;
+    el.innerText = "Copied!";
+    setTimeout(function(){ el.innerText = original; }, 1200);
+  });
+}
+function copyJobCode(){
+  var el = document.getElementById("jobCode");
+  var text = el.innerText.replace("Job Code: ", "");
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(function(){
+    var original = el.innerText;
+    el.innerText = "Copied!";
+    setTimeout(function(){ el.innerText = original; }, 1200);
+  });
 }
 </script>
 </body>
