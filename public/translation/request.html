@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -473,9 +473,7 @@ Pricing is based on flat-rate packages by word count &mdash; see the table for d
 
 </div>
 
-<script>
-
-let currentWords = 0
+<script type="module"> import { app } from "/js/firebase-init.js"; import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js"; const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app"); window.uploadOriginalToStorage = async function(file){ const storageRef = ref(storage, "translationOriginals/" + Date.now() + "-" + file.name); const snap = await uploadBytes(storageRef, file); return await getDownloadURL(snap.ref); }; </script> <script> let currentWords = 0
 let standardPrice = 0
 let expressPrice = 0
 let currentPackage = null
@@ -604,7 +602,7 @@ alert("Please choose a document first")
 return
 }
 
-currentFileName = file.name || "Untitled document"
+currentFileName = file.name || "Untitled document"; try{ const originalFileUrl = await window.uploadOriginalToStorage(file); sessionStorage.setItem("saybon_original_file_url", originalFileUrl); }catch(uploadErr){ console.error("ORIGINAL FILE UPLOAD ERROR:", uploadErr); }
 
 const ext = file.name.split(".").pop().toLowerCase()
 
@@ -694,3 +692,4 @@ window.location.href=url
 
 </body>
 </html>
+

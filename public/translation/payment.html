@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <script type="module" src="/js/auth-guard.js"></script>
@@ -157,7 +157,7 @@ async function startStripePayment(){
   try{
     const documentText = sessionStorage.getItem("saybon_doc_text") || "";
     const sourceLanguage = sessionStorage.getItem("saybon_source_language") || "";
-    const clientFile = sessionStorage.getItem("saybon_client_file") || "";
+    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || "";
 
     const res = await fetch(API_BASE + "/api/createTranslationRequestCheckout", {
       method: "POST",
@@ -165,8 +165,7 @@ async function startStripePayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, price: price
-      })
+        clientFile: clientFile, documentText: documentText, price: price, originalFileUrl: originalFileUrl      })
     });
 
     const data = await res.json();
@@ -201,7 +200,7 @@ async function startPaystackPayment(){
   try{
     const documentText = sessionStorage.getItem("saybon_doc_text") || "";
     const sourceLanguage = sessionStorage.getItem("saybon_source_language") || "";
-    const clientFile = sessionStorage.getItem("saybon_client_file") || "";
+    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || "";
 
     const jobRes = await fetch(API_BASE + "/api/createTranslationJobForPaystack", {
       method: "POST",
@@ -209,7 +208,7 @@ async function startPaystackPayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, price: price, priceGhs: convertedAmount
+        clientFile: clientFile, documentText: documentText, price: price, priceGhs: convertedAmount, originalFileUrl: originalFileUrl
       })
     });
     const jobData = await jobRes.json();
@@ -299,3 +298,5 @@ function copyJobCode(){
 </script>
 </body>
 </html>
+
+
