@@ -4698,3 +4698,31 @@ console.error(err);
 res.status(500).json({error:"could not convert currency"});
 }
 });
+
+app.get("/api/convertUsdToCurrency", async(req,res)=>{
+try{
+const usdAmount = Number(req.query.amount);
+const targetCurrency = (req.query.currency || "GHS").toUpperCase();
+if(!usdAmount || usdAmount <= 0) return res.status(400).json({error:"valid amount required"});
+
+const data = await new Promise((resolve, reject) => {
+https.get("https://open.er-api.com/v6/latest/USD", (response) => {
+let body = "";
+response.on("data", (chunk) => { body += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(body)); }
+catch(e){ reject(e); }
+});
+});
+}).catch(err => { throw err; });
+
+const rate = data && data.rates && data.rates[targetCurrency];
+if(!rate) return res.status(400).json({error:"unsupported currency"});
+
+const convertedAmount = Math.round(usdAmount * rate * 100) / 100;
+res.json({ usdAmount, currency: targetCurrency, convertedAmount, rate });
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not convert currency"});
+}
+});
