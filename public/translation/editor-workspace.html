@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -213,7 +213,7 @@ font-weight:650; font-size:13px; cursor:pointer;
 <div class="card">
 
 <div class="title">SayBon Editing Workspace</div>
-<div class="jobmeta" id="jobmeta">Loading jobâ€¦</div>
+<div class="jobmeta" id="jobmeta">Loading job...</div>
 
 <div class="notice-box">
 Copying, pasting, and cutting are disabled in this workspace, and your activity is monitored as part of every submission's quality review.
@@ -265,7 +265,7 @@ const jobId = params.get("job");
 
 let translatorPasskey = sessionStorage.getItem("saybonTranslatorPasskey") || "";
 
-const specialChars = ["Ã©","Ã¨","Ãª","Ã ","Ã§","Ã¹","Ã´","Ã®","Å“","Â«","Â»"];
+const specialChars = [String.fromCharCode(233),String.fromCharCode(232),String.fromCharCode(234),String.fromCharCode(224),String.fromCharCode(231),String.fromCharCode(249),String.fromCharCode(244),String.fromCharCode(238),String.fromCharCode(339),String.fromCharCode(171),String.fromCharCode(187)];
 
 function buildMiniKeyboard(targetTextarea){
   const row = document.createElement("div");
@@ -390,22 +390,9 @@ async function loadJob(){
     currentJobWordCount = data.wordCount || 0;
 
     document.getElementById("jobmeta").innerText =
-      "Job " + (data.jobId || jobId) + " â€” " +
-      (data.sourceLanguage || "?") + " â†’ " + (data.targetLanguage || "?") +
-      " â€” " + (data.wordCount || 0) + " words";
+      "Job " + (data.jobId || jobId) + "" + (data.sourceLanguage || "?") + " to " + (data.targetLanguage || "?") + " - " + (data.wordCount || 0) + " words";
 
-    const text = data.documentText && data.documentText.trim().length > 0
-      ? data.documentText
-      : null;
-
-    if(!text){
-      document.getElementById("jobmeta").innerText += " (no source text stored for this job)";
-      return;
-    }
-
-    segments = segmentText(text);
-    render();
-    updateProgress();
+    if(data.aiTranslationStatus === "completed" && Array.isArray(data.aiSegments) && data.aiSegments.length > 0){ segments = data.aiSegments.map(s => ({ id: s.id, source: s.source, edit: s.translation || "" })); document.getElementById("jobmeta").innerText += " - AI draft provided"; } else { const text = data.documentText && data.documentText.trim().length > 0 ? data.documentText : null; if(!text){ document.getElementById("jobmeta").innerText += " (no source text stored)"; return; } segments = segmentText(text); document.getElementById("jobmeta").innerText += " - no AI draft, translate from source"; } render(); updateProgress();
 
   }catch(err){
     console.error("EDITOR LOAD ERROR:", err);
@@ -435,7 +422,7 @@ window.confirmPasskey = function(){
 window.submitEdit = async function(){
 
   submitBtn.disabled = true;
-  submitBtn.innerText = "Submittingâ€¦";
+  submitBtn.innerText = "Submitting...";
 
   try{
 
@@ -492,3 +479,5 @@ loadJob();
 </body>
 
 </html>
+
+
