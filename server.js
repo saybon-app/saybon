@@ -723,49 +723,12 @@ return res.status(404).json({error:"job reference not found"})
 }
 
 if(session.payment_status==="paid"){
-
-await logAutoIncomeOnce(
+await confirmTranslationJobPaid(
+jobId,
 "translation_" + jobId,
 (session.amount_total || 0) / 100,
-(session.currency || "usd").toUpperCase(),
-"Translation Job",
-"Auto-logged from translation job " + jobId
+(session.currency || "usd").toUpperCase()
 );
-
-const jobDoc=await db.collection("translationJobs").doc(jobId).get()
-const jobData=jobDoc.exists ? jobDoc.data() : {}
-
-let aiSegments=[]
-let aiTranslationStatus="skipped"
-
-try{
-
-aiSegments=await generateAiDraftSegments(
-
-jobData.documentText||"",
-jobData.sourceLanguage||"English",
-jobData.targetLanguage||"French"
-
-)
-
-aiTranslationStatus=aiSegments.length ? "completed" : "empty_document"
-
-}catch(aiErr){
-
-console.error("AZURE TRANSLATION ERROR:",aiErr)
-aiTranslationStatus="failed"
-
-}
-
-await db.collection("translationJobs").doc(jobId).update({
-
-status:"open",
-paid:true,
-aiSegments,
-aiTranslationStatus
-
-})
-
 }
 
 res.json({jobId})
@@ -4377,5 +4340,134 @@ res.json({verified:false});
 }catch(err){
 console.error(err);
 res.status(500).json({error:"could not verify Paystack DELF payment"});
+}
+});
+
+// ================================================================
+// SHARED TRANSLATION JOB CONFIRMATION LOGIC
+// Used by both Stripe (/api/session-job) and Paystack
+// (/api/verifyPaystackTranslation) so a paid job ends up in
+// exactly the same state regardless of payment method.
+// ================================================================
+
+async function confirmTranslationJobPaid(jobId, incomeSourceRef, amount, currency){
+await logAutoIncomeOnce(
+incomeSourceRef,
+amount,
+currency,
+"Translation Job",
+"Auto-logged from translation job " + jobId
+);
+
+const jobDoc = await db.collection("translationJobs").doc(jobId).get();
+const jobData = jobDoc.exists ? jobDoc.data() : {};
+
+let aiSegments = [];
+let aiTranslationStatus = "skipped";
+
+try{
+aiSegments = await generateAiDraftSegments(
+jobData.documentText || "",
+jobData.sourceLanguage || "English",
+jobData.targetLanguage || "French"
+);
+aiTranslationStatus = aiSegments.length ? "completed" : "empty_document";
+}catch(aiErr){
+console.error("AZURE TRANSLATION ERROR:", aiErr);
+aiTranslationStatus = "failed";
+}
+
+await db.collection("translationJobs").doc(jobId).update({
+status: "open",
+paid: true,
+aiSegments,
+aiTranslationStatus
+});
+}
+
+// Creates the job doc only, no Stripe session - used by the Paystack
+// path, which needs a real jobId to exist before its popup launches.
+app.post("/api/createTranslationJobForPaystack", async(req,res)=>{
+try{
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,priceGhs}=req.body
+
+if(!email || !priceGhs || priceGhs<=0){
+return res.status(400).json({error:"invalid translation request"})
+}
+
+const rand=Math.random().toString(36).substring(2,6).toUpperCase()
+const jobId="SB-"+Date.now()+"-"+rand
+
+await db.collection("translationJobs").doc(jobId).set({
+jobId,
+email,
+plan:plan||"standard",
+wordCount:Number(wordCount)||0,
+targetLanguage:targetLanguage||"",
+sourceLanguage:sourceLanguage||"",
+clientFile:clientFile||"Untitled document",
+documentText:documentText||"",
+priceGhs:Number(priceGhs),
+paid:false,
+status:"awaiting_payment",
+translator:null,
+createdAt:new Date()
+})
+
+res.json({jobId})
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not create translation job"})
+}
+});
+
+app.post("/api/verifyPaystackTranslation", express.json(), async(req,res)=>{
+try{
+const {reference, jobId} = req.body;
+if(!reference || !jobId) return res.status(400).json({error:"reference and jobId are required"});
+
+const secretKey = process.env.PAYSTACK_SECRET_KEY;
+if(!secretKey){
+console.error("PAYSTACK_SECRET_KEY not set");
+return res.status(500).json({error:"server not configured for Paystack verification"});
+}
+
+const paystackData = await new Promise((resolve, reject) => {
+const options = {
+hostname: "api.paystack.co",
+path: "/transaction/verify/" + encodeURIComponent(reference),
+method: "GET",
+headers: { Authorization: "Bearer " + secretKey }
+};
+const request = https.request(options, (response) => {
+let body = "";
+response.on("data", (chunk) => { body += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(body)); }
+catch(e){ reject(e); }
+});
+});
+request.on("error", reject);
+request.end();
+});
+
+if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+const amountInMainUnit = paystackData.data.amount / 100;
+const currency = paystackData.data.currency || "GHS";
+
+await confirmTranslationJobPaid(
+jobId,
+"translation_paystack_" + reference,
+amountInMainUnit,
+currency
+);
+
+res.json({verified:true, jobId});
+}else{
+res.json({verified:false});
+}
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not verify Paystack translation payment"});
 }
 });
