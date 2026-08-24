@@ -4471,3 +4471,204 @@ console.error(err);
 res.status(500).json({error:"could not verify Paystack translation payment"});
 }
 });
+
+// ================================================================
+// TRANSLATOR PAYOUTS
+// Ghana (bank or mobile money): automated via Paystack Transfers,
+// requiring OTP approval sent to the SayBon account owner before
+// the transfer actually executes.
+// Everyone else: manual - SayBon wires directly, then confirms
+// here so the balance record stays accurate.
+// ================================================================
+
+async function paystackRequest(method, path, body){
+const secretKey = process.env.PAYSTACK_SECRET_KEY;
+if(!secretKey) throw new Error("PAYSTACK_SECRET_KEY not set");
+
+return new Promise((resolve, reject) => {
+const payload = body ? JSON.stringify(body) : null;
+const options = {
+hostname: "api.paystack.co",
+path: path,
+method: method,
+headers: {
+Authorization: "Bearer " + secretKey,
+"Content-Type": "application/json"
+}
+};
+const request = https.request(options, (response) => {
+let responseBody = "";
+response.on("data", (chunk) => { responseBody += chunk; });
+response.on("end", () => {
+try{ resolve(JSON.parse(responseBody)); }
+catch(e){ reject(e); }
+});
+});
+request.on("error", reject);
+if(payload) request.write(payload);
+request.end();
+});
+}
+
+// Lists translators who have cleared enough balance to be paid,
+// along with their saved payment method and region.
+app.get("/api/adminListPayoutCandidates", async(req,res)=>{
+try{
+const paymentMethodsSnapshot = await db.collection("translatorPaymentMethods").get();
+const candidates = [];
+
+for(const doc of paymentMethodsSnapshot.docs){
+const pm = doc.data();
+const passkey = pm.passkey;
+
+const payoutsSnapshot = await db.collection("payouts").where("translatorPasskey","==",passkey).get();
+const now = Date.now();
+let availableBalance = 0;
+
+payoutsSnapshot.forEach(pDoc => {
+const p = pDoc.data();
+if(p.status === "paid") return;
+const amount = Number(p.amountOwed || 0);
+const createdMs = p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now;
+const daysElapsed = (now - createdMs) / (1000*60*60*24);
+if(daysElapsed >= CLEARANCE_DAYS) availableBalance += amount;
+});
+
+if(availableBalance >= MIN_CASH_OUT){
+const translatorSnap = await db.collection("translatorApplications").where("passkey","==",passkey).get();
+const translatorName = translatorSnap.empty ? "Unknown" : (translatorSnap.docs[0].data().name || "Unknown");
+
+candidates.push({
+passkey,
+name: translatorName,
+availableBalance: Math.round(availableBalance*100)/100,
+method: pm.method,
+bankRegion: pm.bankRegion,
+bankName: pm.bankName,
+accountNumber: pm.accountNumber,
+accountName: pm.accountName,
+momoNetwork: pm.momoNetwork,
+momoNumber: pm.momoNumber,
+isGhanaAutomatable: (pm.bankRegion === "ghana" || !pm.bankRegion) && (pm.method === "bank" || pm.method === "momo")
+});
+}
+}
+
+res.json(candidates);
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not load payout candidates"});
+}
+});
+
+// Ghana Paystack automation - step 1: create recipient + initiate transfer
+app.post("/api/adminInitiatePaystackPayout", express.json(), async(req,res)=>{
+try{
+const {passkey, amount, method, bankCode, accountNumber, accountName, momoNetworkCode, momoNumber} = req.body;
+if(!passkey || !amount) return res.status(400).json({error:"passkey and amount are required"});
+
+let recipientBody;
+if(method === "momo"){
+recipientBody = {
+type: "mobile_money",
+name: accountName,
+account_number: momoNumber,
+bank_code: momoNetworkCode,
+currency: "GHS"
+};
+} else {
+recipientBody = {
+type: "ghipss",
+name: accountName,
+account_number: accountNumber,
+bank_code: bankCode,
+currency: "GHS"
+};
+}
+
+const recipientRes = await paystackRequest("POST", "/transferrecipient", recipientBody);
+if(!recipientRes.status){
+return res.status(400).json({error: recipientRes.message || "could not create Paystack recipient"});
+}
+const recipientCode = recipientRes.data.recipient_code;
+
+const transferRes = await paystackRequest("POST", "/transfer", {
+source: "balance",
+amount: Math.round(amount * 100),
+recipient: recipientCode,
+reason: "SayBon translator payout"
+});
+
+if(!transferRes.status){
+return res.status(400).json({error: transferRes.message || "could not initiate transfer"});
+}
+
+res.json({
+transferCode: transferRes.data.transfer_code,
+status: transferRes.data.status,
+requiresOtp: transferRes.data.status === "otp"
+});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not initiate Paystack payout"});
+}
+});
+
+// Ghana Paystack automation - step 2: finalize with the OTP sent to the account owner
+app.post("/api/adminFinalizePaystackPayout", express.json(), async(req,res)=>{
+try{
+const {passkey, transferCode, otp} = req.body;
+if(!passkey || !transferCode || !otp) return res.status(400).json({error:"passkey, transferCode, and otp are required"});
+
+const finalizeRes = await paystackRequest("POST", "/transfer/finalize_transfer", {
+transfer_code: transferCode,
+otp: otp
+});
+
+if(!finalizeRes.status){
+return res.status(400).json({error: finalizeRes.message || "could not finalize transfer"});
+}
+
+await markTranslatorPayoutsPaid(passkey);
+
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not finalize Paystack payout"});
+}
+});
+
+// Manual payout confirmation - for translators outside Ghana,
+// where SayBon wires the money directly and confirms it here.
+app.post("/api/adminMarkPayoutPaidManually", express.json(), async(req,res)=>{
+try{
+const {passkey} = req.body;
+if(!passkey) return res.status(400).json({error:"passkey is required"});
+
+await markTranslatorPayoutsPaid(passkey);
+
+res.json({success:true});
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not mark payout as paid"});
+}
+});
+
+// Shared: marks every outstanding cleared payout record for a
+// translator as paid, used by both the Paystack and manual paths.
+async function markTranslatorPayoutsPaid(passkey){
+const now = Date.now();
+const payoutsSnapshot = await db.collection("payouts").where("translatorPasskey","==",passkey).get();
+
+const batch = db.batch();
+payoutsSnapshot.forEach(doc => {
+const p = doc.data();
+if(p.status === "paid") return;
+const createdMs = p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now;
+const daysElapsed = (now - createdMs) / (1000*60*60*24);
+if(daysElapsed >= CLEARANCE_DAYS){
+batch.update(doc.ref, { status: "paid", paidAt: admin.firestore.FieldValue.serverTimestamp() });
+}
+});
+await batch.commit();
+}
