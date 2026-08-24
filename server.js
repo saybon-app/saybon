@@ -409,7 +409,7 @@ return res.status(400).json({error:"You have already submitted work for this job
 // participants still working on it. The job is marked done
 // through the admin review process instead.
 
-await db.collection("jobSubmissions").add({
+const submissionRef = await db.collection("jobSubmissions").add({
 
 jobId,
 translator:passkey,
@@ -417,12 +417,7 @@ translation,
 keystrokeCount:Number(keystrokeCount)||0,
 timeTakenSeconds:Number(timeTakenSeconds)||0,
 tabSwitches:Number(tabSwitches)||0,
-pasteAttempts:Number(pasteAttempts)||0,
-submitted:new Date()
-
-})
-
-res.json({success:true})
+pasteAttempts:Number(pasteAttempts)||0,submitted:new Date()}) var scoringResult = null; try{ scoringResult = await scoreTranslationSubmission(submissionRef.id); }catch(scoreErr){ console.error("SCORING ERROR:", scoreErr); } res.json({success:true, score: scoringResult})
 
 }catch(err){
 
@@ -4748,3 +4743,8 @@ res.status(500).json({error:"could not update job price"});
 
 
 
+
+
+
+
+function computeTextSimilarity(textA, textB){ var wordsA = textA.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var wordsB = textB.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var setA = {}; wordsA.forEach(function(w){ setA[w]=true; }); var setB = {}; wordsB.forEach(function(w){ setB[w]=true; }); var intersection = 0; Object.keys(setA).forEach(function(w){ if(setB[w]) intersection++; }); var unionObj = {}; wordsA.concat(wordsB).forEach(function(w){ unionObj[w]=true; }); var unionSize = Object.keys(unionObj).length; if(unionSize === 0) return 0; return (intersection / unionSize) * 100; } function computeBehavioralScore(keystrokeCount, timeTakenSeconds, tabSwitches, pasteAttempts, wordCount){ var score = 100; if(pasteAttempts > 0){ score -= Math.min(pasteAttempts * 8, 40); } var secondsPerWord = wordCount > 0 ? timeTakenSeconds / wordCount : 0; if(secondsPerWord < 1.5 && wordCount > 20){ score -= 25; } var keystrokesPerWord = wordCount > 0 ? keystrokeCount / wordCount : 0; if(keystrokesPerWord < 2 && wordCount > 20){ score -= 20; } if(tabSwitches > 15){ score -= 10; } return Math.max(0, score); } async function scoreTranslationSubmission(submissionId){ var subDoc = await db.collection("jobSubmissions").doc(submissionId).get(); if(!subDoc.exists) return null; var sub = subDoc.data(); var jobDoc = await db.collection("translationJobs").doc(sub.jobId).get(); if(!jobDoc.exists) return null; var job = jobDoc.data(); var backTranslated = ""; try{ var fromCode = toLangCode(job.targetLanguage); var toCode = toLangCode(job.sourceLanguage); var sentences = splitIntoSentences(sub.translation || ""); var results = await translateSegmentsWithAzure(sentences, fromCode, toCode); backTranslated = results.join(" "); }catch(backErr){ console.error("BACK-TRANSLATION SCORING ERROR:", backErr); } var similarityScore = backTranslated ? computeTextSimilarity(backTranslated, job.documentText || "") : 0; var behavioralScore = computeBehavioralScore(sub.keystrokeCount||0, sub.timeTakenSeconds||0, sub.tabSwitches||0, sub.pasteAttempts||0, job.wordCount||0); var finalScore = Math.round((similarityScore * 0.85) + (behavioralScore * 0.15)); var passed = finalScore >= 85; await db.collection("jobSubmissions").doc(submissionId).update({ similarityScore: Math.round(similarityScore), behavioralScore: Math.round(behavioralScore), finalScore: finalScore, passed: passed, scoredAt: admin.firestore.FieldValue.serverTimestamp() }); if(passed){ var jobRef = db.collection("translationJobs").doc(sub.jobId); await db.runTransaction(async function(tx){ var freshJob = await tx.get(jobRef); var freshData = freshJob.data(); if(!freshData.selectedSubmissionId){ tx.update(jobRef, { selectedSubmissionId: submissionId, pendingClientReview: true, autoSelectedAt: admin.firestore.FieldValue.serverTimestamp() }); } }); } return { finalScore: finalScore, passed: passed }; }
