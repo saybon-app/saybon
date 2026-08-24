@@ -9,7 +9,7 @@
 
 <title>SayBon Editing Workspace</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet"><script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
 <style>
 
@@ -194,7 +194,7 @@ width:100%; padding:12px; border:none; border-radius:10px; background:#D4AF6A; c
 font-weight:650; font-size:13px; cursor:pointer;
 }
 
-</style>
+.preview-panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:22px;} .preview-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;} .preview-title{font-weight:650;font-size:13px;color:#D4AF6A;} .preview-toggle-btn{background:none;border:none;color:#D4AF6A;font-size:12px;cursor:pointer;} .preview-body{margin-top:12px;max-height:340px;overflow-y:auto;background:#fff;border-radius:8px;} .preview-body iframe{width:100%;height:340px;border:none;border-radius:8px;} .preview-body-html{padding:16px;color:#222;font-size:13px;line-height:1.6;} .preview-body-html h1,.preview-body-html h2,.preview-body-html h3{color:#111;} .preview-body pre{padding:16px;margin:0;white-space:pre-wrap;color:#222;font-size:12.5px;} .preview-empty{padding:16px;color:#8FA8A3;font-size:12px;} </style>
 
 </head>
 
@@ -227,7 +227,7 @@ Copying, pasting, and cutting are disabled in this workspace, and your activity 
 
 <div id="workAreaContent" style="display:none;">
 
-<div id="segments"></div>
+<div class="preview-panel"><div class="preview-header" onclick="togglePreview()"><span class="preview-title">Original Document Preview</span><button class="preview-toggle-btn" id="previewToggleBtn">Hide</button></div><div class="preview-body" id="previewBody"><div class="preview-empty">Loading preview...</div></div></div><div id="segments"></div>
 
 <div class="progress" id="progress">Progress: 0%</div>
 
@@ -315,7 +315,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-function render(){
+window.togglePreview = function(){ var body = document.getElementById("previewBody"); var btn = document.getElementById("previewToggleBtn"); if(body.style.display === "none"){ body.style.display = "block"; btn.innerText = "Hide"; } else { body.style.display = "none"; btn.innerText = "Show"; } }; async function renderPreview(fileUrl, fileType){ var body = document.getElementById("previewBody"); if(!fileUrl){ body.innerHTML = (String.fromCharCode(60) + "div class=" + String.fromCharCode(34) + "preview-empty" + String.fromCharCode(34) + String.fromCharCode(62)) + "No original document was stored for this job." + "</div>"; return; } try{ if(fileType === "pdf"){ body.innerHTML = "<iframe src=" + JSON.stringify(fileUrl) + "></iframe>"; } else if(fileType === "docx"){ var resp = await fetch(fileUrl); var buf = await resp.arrayBuffer(); var result = await mammoth.convertToHtml({ arrayBuffer: buf }); body.innerHTML = "<div class=" + JSON.stringify("preview-body-html") + ">" + result.value + "</div>"; } else { var resp2 = await fetch(fileUrl); var txt = await resp2.text(); var pre = document.createElement("pre"); pre.textContent = txt; body.innerHTML = ""; body.appendChild(pre); } }catch(err){ console.error("PREVIEW RENDER ERROR:", err); body.innerHTML = "<div class=" + JSON.stringify("preview-empty") + ">Could not load a preview for this document.</div>"; } } function render(){
 
   container.innerHTML = "";
 
@@ -386,7 +386,7 @@ async function loadJob(){
       return;
     }
 
-    const data = jobSnap.data();
+    const data = jobSnap.data(); renderPreview(data.originalFileUrl, data.originalFileType);
     currentJobWordCount = data.wordCount || 0;
 
     document.getElementById("jobmeta").innerText =
@@ -479,5 +479,10 @@ loadJob();
 </body>
 
 </html>
+
+
+
+
+
 
 
