@@ -4672,3 +4672,16 @@ batch.update(doc.ref, { status: "paid", paidAt: admin.firestore.FieldValue.serve
 });
 await batch.commit();
 }
+
+app.get("/api/paystackBankList", async(req,res)=>{
+try{
+const data = await paystackRequest("GET", "/bank?currency=GHS&country=ghana", null);
+if(!data.status){
+return res.status(400).json({error: data.message || "could not fetch bank list"});
+}
+res.json(data.data.map(b => ({ name: b.name, code: b.code, type: b.type })));
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not fetch Paystack bank list"});
+}
+});
