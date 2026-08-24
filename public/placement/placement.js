@@ -439,6 +439,49 @@ var oralRecordedBlob = null;
 var oralPassMessages = ["Beautifully done!", "That was great!", "Parfait !", "You nailed it!"];
 var oralEncourageMessages = ["Good effort - keep going!", "Nice try - onward!", "That's alright, you're making progress!"];
 
+// ===== WAV encoding (proven pattern already working in Talkletics) =====
+function encodeWAV(samples, sampleRate){
+  var buffer = new ArrayBuffer(44 + samples.length * 2);
+  var view = new DataView(buffer);
+  function writeString(offset, str){
+    for(var i=0;i<str.length;i++) view.setUint8(offset+i, str.charCodeAt(i));
+  }
+  writeString(0,"RIFF");
+  view.setUint32(4, 36 + samples.length*2, true);
+  writeString(8,"WAVE");
+  writeString(12,"fmt ");
+  view.setUint32(16,16,true);
+  view.setUint16(20,1,true);
+  view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true);
+  view.setUint32(28,sampleRate*2,true);
+  view.setUint16(32,2,true);
+  view.setUint16(34,16,true);
+  writeString(36,"data");
+  view.setUint32(40, samples.length*2, true);
+  var offset = 44;
+  for(var i=0;i<samples.length;i++, offset+=2){
+    var s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s<0 ? s*0x8000 : s*0x7FFF, true);
+  }
+  return buffer;
+}
+
+async function convertOralBlobToWav(blob){
+  var arrayBuffer = await blob.arrayBuffer();
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var decoded = await audioCtx.decodeAudioData(arrayBuffer);
+  var offlineCtx = new OfflineAudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
+  var source = offlineCtx.createBufferSource();
+  source.buffer = decoded;
+  source.connect(offlineCtx.destination);
+  source.start(0);
+  var rendered = await offlineCtx.startRendering();
+  var wavBuffer = encodeWAV(rendered.getChannelData(0), 16000);
+  audioCtx.close();
+  return new Blob([wavBuffer], { type: "audio/wav" });
+}
+
 function setupOralRecording(){
   oralRecordedBlob = null;
   document.getElementById("oralRecordBtn").addEventListener("click", toggleOralRecording);
@@ -510,11 +553,29 @@ function toggleOralRecording(){
       oralMediaRecorder = new MediaRecorder(stream);
       oralMediaRecorder.ondataavailable = function(e){ oralRecordedChunks.push(e.data); };
       oralMediaRecorder.onstop = function(){
-        oralRecordedBlob = new Blob(oralRecordedChunks, { type: "audio/webm" });
+        var rawType = (oralMediaRecorder.mimeType) || "audio/webm";
+        var rawBlob = new Blob(oralRecordedChunks, { type: rawType });
         stopOralWave();
-        document.getElementById("oralRecordBtn").style.display = "none";
-        document.getElementById("oralPlaybackRow").style.display = "flex";
-        document.getElementById("oralSubmitBtn").disabled = false;
+
+        var submitBtn = document.getElementById("oralSubmitBtn");
+        var status = document.getElementById("oralRecordStatus");
+        status.textContent = "Processing recording...";
+
+        convertOralBlobToWav(rawBlob).then(function(wavBlob){
+          oralRecordedBlob = wavBlob;
+          document.getElementById("oralRecordBtn").style.display = "none";
+          document.getElementById("oralPlaybackRow").style.display = "flex";
+          submitBtn.disabled = false;
+          status.textContent = "Recording captured";
+        }).catch(function(err){
+          console.error("WAV conversion failed:", err);
+          oralRecordedBlob = rawBlob;
+          document.getElementById("oralRecordBtn").style.display = "none";
+          document.getElementById("oralPlaybackRow").style.display = "flex";
+          submitBtn.disabled = false;
+          status.textContent = "Recording captured";
+        });
+
         oralCurrentStream.getTracks().forEach(function(t){ t.stop(); });
       };
       oralMediaRecorder.start();
