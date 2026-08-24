@@ -1,4 +1,4 @@
-const https = require("https");
+﻿const https = require("https");
 
 const express=require("express")
 const cors=require("cors")
@@ -584,7 +584,7 @@ if(english.includes(k)) accuracy+=8
 accuracy=Math.min(accuracy,40)
 
 const frenchKeywords=[
-"système",
+"systÃ¨me",
 "chiffre",
 "informations",
 "sensibles",
@@ -901,7 +901,7 @@ app.post("/api/createTranslationRequestCheckout", async(req,res)=>{
 
 try{
 
-const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,originalFileUrl}=req.body
 
 const amountNum=Number(price)
 const cents=Math.round(amountNum*100)
@@ -924,8 +924,7 @@ wordCount:Number(wordCount)||0,
 targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
-documentText:documentText||"",
-price:amountNum,
+documentText:documentText||"",originalFileUrl:originalFileUrl||"",price:amountNum,
 paid:false,
 status:"awaiting_payment",
 translator:null,
@@ -1478,7 +1477,7 @@ res.status(500).json({error:"could not mark payout as paid"})
 const TRANSLATOR_TEST_PASSAGES={
 
 frToEn:{
-source:"Toute utilisation non autorisée de ce document est strictement interdite et peut entraîner des poursuites judiciaires conformément à la législation en vigueur. Les informations contenues dans ce rapport sont confidentielles et ne doivent être divulguées à aucun tiers sans le consentement écrit préalable de l'entreprise.",
+source:"Toute utilisation non autorisÃ©e de ce document est strictement interdite et peut entraÃ®ner des poursuites judiciaires conformÃ©ment Ã  la lÃ©gislation en vigueur. Les informations contenues dans ce rapport sont confidentielles et ne doivent Ãªtre divulguÃ©es Ã  aucun tiers sans le consentement Ã©crit prÃ©alable de l'entreprise.",
 sourceLang:"fr",
 targetLang:"en"
 },
@@ -1495,7 +1494,7 @@ function normalizeWords(text){
 
 return (text||"")
 .toLowerCase()
-.replace(/[.,;:!?"'""«»]/g,"")
+.replace(/[.,;:!?"'""Â«Â»]/g,"")
 .split(/\s+/)
 .filter(w=>w.length>2)
 
@@ -4233,7 +4232,7 @@ exam,
 examLabel: DELF_LABELS[exam],
 currency: "GHS",
 priceMainUnit: ghsAmount,
-priceDisplay: "GH₵" + ghsAmount
+priceDisplay: "GHâ‚µ" + ghsAmount
 });
 }
 
@@ -4389,7 +4388,7 @@ aiTranslationStatus
 // path, which needs a real jobId to exist before its popup launches.
 app.post("/api/createTranslationJobForPaystack", async(req,res)=>{
 try{
-const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs,originalFileUrl}=req.body
 
 if(!email || !priceGhs || priceGhs<=0){
 return res.status(400).json({error:"invalid translation request"})
@@ -4407,8 +4406,7 @@ targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
 documentText:documentText||"",
-price:Number(price)||0,
-priceGhs:Number(priceGhs),
+price:Number(price)||0,priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",
 paid:false,
 status:"awaiting_payment",
 translator:null,
@@ -4743,3 +4741,6 @@ console.error(err);
 res.status(500).json({error:"could not update job price"});
 }
 });
+
+
+
