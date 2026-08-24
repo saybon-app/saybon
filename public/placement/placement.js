@@ -526,6 +526,8 @@ function toggleOralRecording(){
       console.error(err);
     });
   } else {
+    btn.textContent = "Processing...";
+    btn.disabled = true;
     oralMediaRecorder.stop();
   }
 }

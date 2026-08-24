@@ -424,8 +424,26 @@ body.placement-page{
 }
 
 .oral-wave-canvas{display:block;width:100%;max-width:280px;height:56px;margin:0 auto 14px;border-radius:12px;background:rgba(0,0,0,.08);}
-.oral-record-row{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:14px;}
-.oral-playback-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px;}
-.oral-btn-row{margin-top:10px;}
+.oral-record-row{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+.oral-playback-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+.oral-btn-row{margin-top:10px;display:flex;justify-content:center;}
 .oral-feedback{text-align:center;padding:12px;margin-top:10px;}
+
+.oral-record-row .option,
+.oral-playback-row .option,
+.oral-btn-row .option{
+  min-width:0 !important;
+  max-width:none !important;
+  width:auto !important;
+  padding:11px 20px !important;
+  font-size:14px !important;
+}
 .oral-secondary-btn{opacity:.85;}
+
+@media (max-width:420px){
+  .oral-record-row .option,
+  .oral-playback-row .option{
+    flex:1 1 auto;
+    text-align:center;
+  }
+}
