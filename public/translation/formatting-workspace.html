@@ -107,10 +107,35 @@ async function init(){
     document.getElementById("jobmeta").innerText = "There was a problem loading this job.";
   }
 }
+document.getElementById("submitFormattingBtn").addEventListener("click", async function(){
+  var btn = document.getElementById("submitFormattingBtn");
+  var status = document.getElementById("formattingStatus");
+  btn.disabled = true;
+  if(currentFileType !== "pdf"){
+    status.innerText = "DOCX final documents are not yet supported - coming soon.";
+    btn.disabled = false;
+    return;
+  }
+  status.innerText = "Generating final PDF...";
+  try{
+    var el = document.querySelector(".ql-editor");
+    var pdfBlob = await html2pdf().from(el).outputPdf("blob");
+    status.innerText = "Uploading final document...";
+    var finalUrl = await window.uploadFormattedDocToStorage(pdfBlob, "pdf");
+    status.innerText = "Finalizing...";
+    await fetch(API_BASE + "/api/completeFormatting", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ jobId: currentJobId, finalDeliverableUrl: finalUrl }) });
+    status.innerText = "Submitted! Your formatted document has been recorded.";
+  }catch(err){
+    console.error("SUBMIT ERROR:", err);
+    status.innerText = "Could not submit. Please try again.";
+    btn.disabled = false;
+  }
+});
 init();
 </script>
 </body>
 </html>
+
 
 
 
