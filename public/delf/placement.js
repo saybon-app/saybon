@@ -494,8 +494,9 @@ function finalizeResult(){
     '<p class="pl-subtitle">This is saved as your baseline on your DELF dashboard. Every test score from your preparation will be added right alongside it, so you can watch your progress from here.</p>' +
     '<div class="pl-btn-row">' +
     '<button class="pl-btn pl-btn-secondary" onclick="renderLevelPicker()">Test Another Level</button>' +
-    '<button class="pl-btn pl-btn-primary" onclick="location.href=\'/dashboard/\'">Go to Dashboard</button>' +
-    '</div>'
+    '<button class="pl-btn pl-btn-primary" onclick="location.href=\'/delf/tout-public/\'">Begin Your Preparation</button>' +
+    '</div>' +
+    '<div class="pl-btn-row"><button class="pl-btn pl-btn-secondary" onclick="location.href=\'/dashboard/\'">Go to Dashboard</button></div>'
   );
 }
 

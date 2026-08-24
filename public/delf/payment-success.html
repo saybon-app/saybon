@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8" />
+<title>Payment Confirmed — SayBon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#1a120b 0%,#2b1b10 50%,#1a120b 100%);color:#f6f1e4;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.sc-card{max-width:440px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:22px;padding:36px 28px;}
+.sc-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.6rem;color:#fff;margin-bottom:12px;}
+.sc-msg{font-size:.92rem;color:#c9c3b4;line-height:1.6;margin-bottom:24px;}
+.sc-btn{display:block;width:100%;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="sc-card">
+  <p class="sc-title" id="scTitle">Confirming your payment...</p>
+  <p class="sc-msg" id="scMsg">Please wait a moment.</p>
+  <a class="sc-btn" href="/dashboard/">Go to Dashboard</a>
+</div>
+<script>
+const API_BASE = "https://saybonapp-server.onrender.com";
+const sessionId = new URLSearchParams(window.location.search).get("session_id");
+
+if(!sessionId){
+  document.getElementById("scTitle").textContent = "Something went wrong";
+  document.getElementById("scMsg").textContent = "We could not find your payment session.";
+} else {
+  fetch(API_BASE + "/api/verifyDelfSession?session_id=" + encodeURIComponent(sessionId))
+    .then(r => r.json())
+    .then(data => {
+      if(data.verified){
+        document.getElementById("scTitle").textContent = "Payment Confirmed";
+        document.getElementById("scMsg").textContent = "Your access to " + (data.examLabel || "this DELF level") + " is recorded. Full lesson content for this level is still being built — you'll be notified the moment it's ready.";
+      } else {
+        document.getElementById("scTitle").textContent = "Payment Not Confirmed";
+        document.getElementById("scMsg").textContent = "We could not confirm this payment. Please contact support if you believe this is an error.";
+      }
+    })
+    .catch(() => {
+      document.getElementById("scTitle").textContent = "Something went wrong";
+      document.getElementById("scMsg").textContent = "Please contact support to confirm your payment.";
+    });
+}
+</script>
+</body>
+</html>

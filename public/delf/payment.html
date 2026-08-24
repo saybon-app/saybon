@@ -1,36 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <title>DELF Payment — SayBon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/delf/delf.css" />
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8" />
+<title>DELF Payment — SayBon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#1a120b 0%,#2b1b10 50%,#1a120b 100%);color:#f6f1e4;min-height:100vh;padding:60px 24px;}
+.pm-stage{max-width:440px;margin:0 auto;}
+.pm-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.pm-corner-icon svg{width:18px;height:18px;}
+.pm-card{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:22px;padding:32px;text-align:center;margin-top:60px;}
+.pm-eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px;}
+.pm-exam{font-family:"Fraunces",serif;font-weight:600;font-size:1.6rem;color:#fff;margin-bottom:6px;}
+.pm-price{font-size:2.2rem;font-weight:800;color:#d4af6a;margin:16px 0;}
+.pm-note{font-size:.8rem;color:#b9ab90;margin-bottom:24px;}
+.pm-btn{display:block;width:100%;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:15px;font-weight:800;font-size:.92rem;cursor:pointer;margin-bottom:10px;}
+.pm-btn:disabled{opacity:.5;cursor:not-allowed;}
+.pm-btn-secondary{background:rgba(255,255,255,.08);color:#f6f1e4;border:1px solid rgba(255,255,255,.15);}
+.pm-status{font-size:.82rem;color:#b9ab90;margin-top:12px;}
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>Mock Payment</h2>
-    <p id="examName">Loading exam…</p>
+<button class="pm-corner-icon" onclick="location.href='/delf/'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
 
-    <p class="price">Price: $99 (dummy)</p>
-
-    <button class="primary" onclick="alert('Payment simulated')">
-      Proceed to Payment
-    </button>
-
-    <button class="secondary" onclick="location.href='/delf/'">
-      Cancel
-    </button>
+<div class="pm-stage">
+  <div class="pm-card">
+    <p class="pm-eyebrow">DELF Preparation</p>
+    <p class="pm-exam" id="pmExamName">Loading...</p>
+    <div class="pm-price" id="pmPrice">-</div>
+    <p class="pm-note">One-time payment. Full access to your DELF preparation level.</p>
+    <button class="pm-btn" id="pmPayBtn">Proceed to Payment</button>
+    <button class="pm-btn pm-btn-secondary" onclick="location.href='/delf/'">Cancel</button>
+    <p class="pm-status" id="pmStatus"></p>
   </div>
+</div>
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  document.getElementById("examName").textContent =
-    "Exam: " + (params.get("exam") || "Unknown");
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const EXAM_LABELS = {
+  "a1":"DELF A1","a2":"DELF A2","b1":"DELF B1","b2":"DELF B2",
+  "prim-a1":"DELF Prim A1","prim-a2":"DELF Prim A2",
+  "junior-a1":"DELF Junior A1","junior-a2":"DELF Junior A2","junior-b1":"DELF Junior B1"
+};
+const EXAM_PRICES_DISPLAY = {
+  "a1":"$12","a2":"$17","b1":"$25","b2":"$29",
+  "prim-a1":"$12","prim-a2":"$12",
+  "junior-a1":"$12","junior-a2":"$12","junior-b1":"$12"
+};
+
+const params = new URLSearchParams(window.location.search);
+const examCode = params.get("exam") || "";
+
+document.getElementById("pmExamName").textContent = EXAM_LABELS[examCode] || "Unknown exam";
+document.getElementById("pmPrice").textContent = EXAM_PRICES_DISPLAY[examCode] || "-";
+
+let currentUser = null;
+onAuthStateChanged(auth, function(user){ currentUser = user; });
+
+document.getElementById("pmPayBtn").addEventListener("click", async function(){
+  const btn = document.getElementById("pmPayBtn");
+  const status = document.getElementById("pmStatus");
+
+  if(!EXAM_LABELS[examCode]){
+    status.textContent = "Invalid exam selected.";
+    return;
+  }
+  if(!currentUser){
+    status.textContent = "Please log in to continue.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Redirecting to payment...";
+
+  try{
+    const res = await fetch(API_BASE + "/api/createDelfCheckout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ exam: examCode, uid: currentUser.uid, email: currentUser.email })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.url){
+      status.textContent = "Could not start payment. Please try again.";
+      btn.disabled = false;
+      btn.textContent = "Proceed to Payment";
+      return;
+    }
+    window.location.href = data.url;
+  }catch(err){
+    status.textContent = "Could not start payment. Please try again.";
+    btn.disabled = false;
+    btn.textContent = "Proceed to Payment";
+  }
+});
 </script>
-
 </body>
 </html>
-
