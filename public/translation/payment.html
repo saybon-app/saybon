@@ -209,7 +209,7 @@ async function startPaystackPayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, priceGhs: convertedAmount
+        clientFile: clientFile, documentText: documentText, price: price, priceGhs: convertedAmount
       })
     });
     const jobData = await jobRes.json();

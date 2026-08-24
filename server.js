@@ -4389,7 +4389,7 @@ aiTranslationStatus
 // path, which needs a real jobId to exist before its popup launches.
 app.post("/api/createTranslationJobForPaystack", async(req,res)=>{
 try{
-const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,priceGhs}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs}=req.body
 
 if(!email || !priceGhs || priceGhs<=0){
 return res.status(400).json({error:"invalid translation request"})
@@ -4407,6 +4407,7 @@ targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
 documentText:documentText||"",
+price:Number(price)||0,
 priceGhs:Number(priceGhs),
 paid:false,
 status:"awaiting_payment",
