@@ -417,7 +417,7 @@ translation,
 keystrokeCount:Number(keystrokeCount)||0,
 timeTakenSeconds:Number(timeTakenSeconds)||0,
 tabSwitches:Number(tabSwitches)||0,
-pasteAttempts:Number(pasteAttempts)||0,submitted:new Date()}) var scoringResult = null; try{ scoringResult = await scoreTranslationSubmission(submissionRef.id); }catch(scoreErr){ console.error("SCORING ERROR:", scoreErr); } res.json({success:true, score: scoringResult})
+pasteAttempts:Number(pasteAttempts)||0,submitted:new Date()}); var scoringResult = null; try{ scoringResult = await scoreTranslationSubmission(submissionRef.id); }catch(scoreErr){ console.error("SCORING ERROR:", scoreErr); } res.json({success:true, score: scoringResult})
 
 }catch(err){
 
