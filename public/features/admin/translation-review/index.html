@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Translation Review — SayBon Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.rv-stage{max-width:760px;margin:0 auto;}
+.rv-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.rv-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px;}
+.rv-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.8rem;color:#f6f1e4;margin-bottom:6px;}
+.rv-sub{color:#8b92a3;font-size:.88rem;margin-bottom:30px;}
+.rv-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:20px;padding:22px;margin-bottom:18px;}
+.rv-job-title{font-weight:800;font-size:.95rem;color:#f6f1e4;}
+.rv-meta{font-size:.78rem;color:#8b92a3;margin:8px 0;}
+.rv-score{display:inline-block;font-family:"Fraunces",serif;font-weight:600;font-size:1.3rem;color:#7cc576;}
+.rv-preview{background:rgba(0,0,0,.2);border-radius:10px;padding:12px;font-size:.82rem;color:#c9c3b4;margin:10px 0;max-height:120px;overflow-y:auto;}
+.rv-btn-row{display:flex;gap:10px;margin-top:12px;}
+.rv-btn{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:10px;padding:10px 18px;font-weight:800;font-size:.8rem;cursor:pointer;}
+.rv-btn-secondary{background:rgba(255,255,255,.08);color:#f6f1e4;border:1px solid rgba(255,255,255,.15);}
+.rv-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:30px;}
+.rv-alt-list{margin-top:10px;display:none;}
+.rv-alt-item{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.1);border-radius:10px;padding:10px;margin-top:8px;font-size:.8rem;}
+</style>
+</head>
+<body>
+<button class="rv-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<div class="rv-stage">
+<p class="rv-eyebrow">Business Admin</p>
+<p class="rv-title">Translation Review</p>
+<p class="rv-sub">Submissions that crossed 85% and were auto-selected, waiting for your confirmation before formatting begins.</p>
+<div id="rvList"><p class="rv-empty">Loading...</p></div>
+</div>
+<script>
+const API_BASE = "https://saybonapp-server.onrender.com";
+function loadReviews(){
+  fetch(API_BASE + "/api/adminPendingReviews").then(function(r){ return r.json(); }).then(function(items){
+    var list = document.getElementById("rvList");
+    if(!items || !items.length){ list.innerHTML = '<p class="rv-empty">No submissions waiting for review</p>'; return; }
+    list.innerHTML = items.map(function(it){
+      return '<div class="rv-card"><div class="rv-job-title">' + (it.clientFile||"Untitled") + ' — ' + it.targetLanguage + '</div><div class="rv-meta">Translator: ' + it.translator + '</div><div class="rv-score">' + it.finalScore + '%</div><div class="rv-meta">Similarity: ' + it.similarityScore + '% · Behavioral: ' + it.behavioralScore + '%</div><div class="rv-preview">' + it.translationPreview + '</div><div class="rv-btn-row"><button class="rv-btn" onclick="confirmSelection(&quot;' + it.jobId + '&quot;)">Confirm</button><button class="rv-btn rv-btn-secondary" onclick="showAlternatives(&quot;' + it.jobId + '&quot;, this)">See Other Submissions</button></div><div class="rv-alt-list" id="alt-' + it.jobId + '"></div></div>';
+    }).join("");
+  }).catch(function(){ document.getElementById("rvList").innerHTML = '<p class="rv-empty">Could not load reviews</p>'; });
+}
+window.confirmSelection = function(jobId){
+  fetch(API_BASE + "/api/adminConfirmSelection", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({jobId: jobId}) }).then(function(){ loadReviews(); });
+};
+window.showAlternatives = function(jobId, btn){
+  var altBox = document.getElementById("alt-" + jobId);
+  if(altBox.style.display === "block"){ altBox.style.display = "none"; return; }
+  fetch(API_BASE + "/api/adminJobSubmissions?jobId=" + encodeURIComponent(jobId)).then(function(r){ return r.json(); }).then(function(subs){
+    altBox.innerHTML = subs.map(function(s){
+      return '<div class="rv-alt-item"><div>' + s.translator + ' — ' + (s.finalScore||"not scored") + '%</div><div class="rv-preview">' + s.translationPreview + '</div><button class="rv-btn rv-btn-secondary" onclick="overrideSelection(&quot;' + jobId + '&quot;,&quot;' + s.submissionId + '&quot;)">Use This One</button></div>';
+    }).join("");
+    altBox.style.display = "block";
+  });
+};
+window.overrideSelection = function(jobId, submissionId){
+  fetch(API_BASE + "/api/adminOverrideSelection", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({jobId: jobId, submissionId: submissionId}) }).then(function(){ loadReviews(); });
+};
+loadReviews();
+</script>
+</body>
+</html>
