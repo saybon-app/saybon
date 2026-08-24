@@ -563,14 +563,18 @@ function toggleOralRecording(){
 
         convertOralBlobToWav(rawBlob).then(function(wavBlob){
           oralRecordedBlob = wavBlob;
-          document.getElementById("oralRecordBtn").style.display = "none";
+          var rBtn = document.getElementById("oralRecordBtn");
+          rBtn.style.display = "none";
+          rBtn.disabled = false;
           document.getElementById("oralPlaybackRow").style.display = "flex";
           submitBtn.disabled = false;
           status.textContent = "Recording captured";
         }).catch(function(err){
           console.error("WAV conversion failed:", err);
           oralRecordedBlob = rawBlob;
-          document.getElementById("oralRecordBtn").style.display = "none";
+          var rBtn2 = document.getElementById("oralRecordBtn");
+          rBtn2.style.display = "none";
+          rBtn2.disabled = false;
           document.getElementById("oralPlaybackRow").style.display = "flex";
           submitBtn.disabled = false;
           status.textContent = "Recording captured";
@@ -634,6 +638,7 @@ function reRecordOral(){
   var btn = document.getElementById("oralRecordBtn");
   btn.style.display = "inline-block";
   btn.textContent = "● Record";
+  btn.disabled = false;
   document.getElementById("oralRecordStatus").textContent = "Not recorded yet";
   document.getElementById("oralSubmitBtn").disabled = true;
 }
