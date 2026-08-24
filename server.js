@@ -4685,3 +4685,16 @@ console.error(err);
 res.status(500).json({error:"could not fetch Paystack bank list"});
 }
 });
+
+app.get("/api/convertUsdToGhs", async(req,res)=>{
+try{
+const usdAmount = Number(req.query.amount);
+if(!usdAmount || usdAmount <= 0) return res.status(400).json({error:"valid amount required"});
+const rate = await getUsdToGhsRate();
+const ghsAmount = Math.round(usdAmount * rate * 100) / 100;
+res.json({ usdAmount, ghsAmount, rate });
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not convert currency"});
+}
+});
