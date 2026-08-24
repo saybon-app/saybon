@@ -901,7 +901,7 @@ app.post("/api/createTranslationRequestCheckout", async(req,res)=>{
 
 try{
 
-const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,originalFileUrl}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,originalFileUrl,originalFileType}=req.body
 
 const amountNum=Number(price)
 const cents=Math.round(amountNum*100)
@@ -924,7 +924,7 @@ wordCount:Number(wordCount)||0,
 targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
-documentText:documentText||"",originalFileUrl:originalFileUrl||"",price:amountNum,
+documentText:documentText||"",originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",price:amountNum,
 paid:false,
 status:"awaiting_payment",
 translator:null,
@@ -4388,7 +4388,7 @@ aiTranslationStatus
 // path, which needs a real jobId to exist before its popup launches.
 app.post("/api/createTranslationJobForPaystack", async(req,res)=>{
 try{
-const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs,originalFileUrl}=req.body
+const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs,originalFileUrl,originalFileType}=req.body
 
 if(!email || !priceGhs || priceGhs<=0){
 return res.status(400).json({error:"invalid translation request"})
@@ -4406,7 +4406,7 @@ targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
 documentText:documentText||"",
-price:Number(price)||0,priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",
+price:Number(price)||0,priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",
 paid:false,
 status:"awaiting_payment",
 translator:null,
@@ -4741,6 +4741,10 @@ console.error(err);
 res.status(500).json({error:"could not update job price"});
 }
 });
+
+
+
+
 
 
 
