@@ -602,7 +602,7 @@ alert("Please choose a document first")
 return
 }
 
-currentFileName = file.name || "Untitled document"; try{ const originalFileUrl = await window.uploadOriginalToStorage(file); sessionStorage.setItem("saybon_original_file_url", originalFileUrl); }catch(uploadErr){ console.error("ORIGINAL FILE UPLOAD ERROR:", uploadErr); }
+currentFileName = file.name || "Untitled document"; try{ const originalFileUrl = await window.uploadOriginalToStorage(file); sessionStorage.setItem("saybon_original_file_url", originalFileUrl); sessionStorage.setItem("saybon_original_file_type", ext); }catch(uploadErr){ console.error("ORIGINAL FILE UPLOAD ERROR:", uploadErr); }
 
 const ext = file.name.split(".").pop().toLowerCase()
 
@@ -692,4 +692,5 @@ window.location.href=url
 
 </body>
 </html>
+
 

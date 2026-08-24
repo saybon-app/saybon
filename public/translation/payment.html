@@ -157,7 +157,7 @@ async function startStripePayment(){
   try{
     const documentText = sessionStorage.getItem("saybon_doc_text") || "";
     const sourceLanguage = sessionStorage.getItem("saybon_source_language") || "";
-    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || "";
+    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || ""; const originalFileType = sessionStorage.getItem("saybon_original_file_type") || "";
 
     const res = await fetch(API_BASE + "/api/createTranslationRequestCheckout", {
       method: "POST",
@@ -165,7 +165,7 @@ async function startStripePayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, price: price, originalFileUrl: originalFileUrl      })
+        clientFile: clientFile, documentText: documentText, price: price, originalFileUrl: originalFileUrl, originalFileType: originalFileType      })
     });
 
     const data = await res.json();
@@ -200,7 +200,7 @@ async function startPaystackPayment(){
   try{
     const documentText = sessionStorage.getItem("saybon_doc_text") || "";
     const sourceLanguage = sessionStorage.getItem("saybon_source_language") || "";
-    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || "";
+    const clientFile = sessionStorage.getItem("saybon_client_file") || ""; const originalFileUrl = sessionStorage.getItem("saybon_original_file_url") || ""; const originalFileType = sessionStorage.getItem("saybon_original_file_type") || "";
 
     const jobRes = await fetch(API_BASE + "/api/createTranslationJobForPaystack", {
       method: "POST",
@@ -208,7 +208,7 @@ async function startPaystackPayment(){
       body: JSON.stringify({
         email: email, plan: plan, wordCount: words,
         targetLanguage: language, sourceLanguage: sourceLanguage,
-        clientFile: clientFile, documentText: documentText, price: price, priceGhs: convertedAmount, originalFileUrl: originalFileUrl
+        clientFile: clientFile, documentText: documentText, price: price, priceGhs: convertedAmount, originalFileUrl: originalFileUrl, originalFileType: originalFileType
       })
     });
     const jobData = await jobRes.json();
@@ -298,5 +298,9 @@ function copyJobCode(){
 </script>
 </body>
 </html>
+
+
+
+
 
 
