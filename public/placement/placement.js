@@ -1,4 +1,4 @@
-console.log("placement.js loaded");
+﻿console.log("placement.js loaded");
 
 /* ==================================================
    QUESTION BANK - grouped by CEFR level
@@ -21,51 +21,51 @@ const questions = [
 
   // ===== A0 - Absolute Beginner (3 questions, need 3/3) =====
   { id: 1, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q1_bonjour.mp3", options: ["Merci", "Bonsoir", "Bonjour", "Pardon"], correct: 2 },
-  { id: 2, level: "A0", type: "mc", prompt: "What does « merci » mean?", options: ["Hello", "Thank you", "Sorry", "Bye"], correct: 1 },
+  { id: 2, level: "A0", type: "mc", prompt: "What does Â« merci Â» mean?", options: ["Hello", "Thank you", "Sorry", "Bye"], correct: 1 },
   { id: 3, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3", options: ["Bonjour", "Merci", "Au revoir", "Salut"], correct: 2 },
   { id: 101, level: "A0", type: "oral", prompt: "Say: Bonjour", expectedText: "Bonjour" },
 
   // ===== A1 - Beginner (4 MC + 2 typed = 6, need 5/6) =====
-  { id: 4, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Mes parents ___ à Lyon, mais moi, j'habite à Marseille. »", options: ["habite", "habites", "habitent", "habitez"], correct: 2 },
-  { id: 5, level: "A1", type: "mc", prompt: "Read: « Sophie a deux frères. Le plus jeune a 8 ans. Son frère aîné a 6 ans de plus que lui. » Quel âge a le frère aîné ?", options: ["8 ans", "2 ans", "6 ans", "14 ans"], correct: 3 },
-  { id: 6, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Il n'y a pas ___ pain dans le frigo. »", options: ["le", "du", "des", "de"], correct: 3 },
+  { id: 4, level: "A1", type: "mc", prompt: "Complete the sentence correctly: Â« Mes parents ___ Ã  Lyon, mais moi, j'habite Ã  Marseille. Â»", options: ["habite", "habites", "habitent", "habitez"], correct: 2 },
+  { id: 5, level: "A1", type: "mc", prompt: "Read: Â« Sophie a deux frÃ¨res. Le plus jeune a 8 ans. Son frÃ¨re aÃ®nÃ© a 6 ans de plus que lui. Â» Quel Ã¢ge a le frÃ¨re aÃ®nÃ© ?", options: ["8 ans", "2 ans", "6 ans", "14 ans"], correct: 3 },
+  { id: 6, level: "A1", type: "mc", prompt: "Complete the sentence correctly: Â« Il n'y a pas ___ pain dans le frigo. Â»", options: ["le", "du", "des", "de"], correct: 3 },
   { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.png", options: ["A","B","C","D"], correct: 0 },
-  { id: 24, level: "A1", type: "typed", prompt: "Écris la forme correcte : « Je ___ (avoir) 20 ans. »", acceptableAnswers: ["ai"] },
-  { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on « Good evening » en français ?", acceptableAnswers: ["bonsoir"] },
+  { id: 24, level: "A1", type: "typed", prompt: "Ã‰cris la forme correcte : Â« Je ___ (avoir) 20 ans. Â»", acceptableAnswers: ["ai"] },
+  { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on Â« Good evening Â» en franÃ§ais ?", acceptableAnswers: ["bonsoir"] },
   { id: 102, level: "A1", type: "oral", prompt: "Say: J'ai vingt ans", expectedText: "J'ai vingt ans" },
 
   // ===== A2 - Elementary (4 MC + 2 typed = 6, need 5/6) =====
-  { id: 8, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Hier, je ___ au cinéma quand il a commencé à pleuvoir. »", options: ["suis allé", "vais", "allais", "irai"], correct: 2 },
-  { id: 9, level: "A2", type: "mc", prompt: "Read: « Le document a été rédigé lundi matin. Il a été envoyé le jour suivant, avant midi. » Que peut-on dire du document ?", options: ["Il a été envoyé le lundi.", "Il n'a jamais été envoyé.", "Il a été envoyé le vendredi.", "Il a été envoyé le mardi."], correct: 3 },
-  { id: 10, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Elle travaille beaucoup, ___ elle réussit tous ses examens. »", options: ["mais", "ou", "donc", "si"], correct: 2 },
-  { id: 11, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Tu as des questions ? Oui, j'___ ai plusieurs. »", options: ["y", "le", "en", "lui"], correct: 2 },
-  { id: 26, level: "A2", type: "typed", prompt: "Complète au passé composé : « Hier, nous ___ (visiter) le musée. »", acceptableAnswers: ["avons visite", "avons visité"] },
-  { id: 27, level: "A2", type: "typed", prompt: "Écris le contraire de « facile ».", acceptableAnswers: ["difficile"] },
-  { id: 103, level: "A2", type: "oral", prompt: "Say: Nous avons visité le musée hier", expectedText: "Nous avons visité le musée hier" },
+  { id: 8, level: "A2", type: "mc", prompt: "Complete the sentence correctly: Â« Hier, je ___ au cinÃ©ma quand il a commencÃ© Ã  pleuvoir. Â»", options: ["suis allÃ©", "vais", "allais", "irai"], correct: 2 },
+  { id: 9, level: "A2", type: "mc", prompt: "Read: Â« Le document a Ã©tÃ© rÃ©digÃ© lundi matin. Il a Ã©tÃ© envoyÃ© le jour suivant, avant midi. Â» Que peut-on dire du document ?", options: ["Il a Ã©tÃ© envoyÃ© le lundi.", "Il n'a jamais Ã©tÃ© envoyÃ©.", "Il a Ã©tÃ© envoyÃ© le vendredi.", "Il a Ã©tÃ© envoyÃ© le mardi."], correct: 3 },
+  { id: 10, level: "A2", type: "mc", prompt: "Complete the sentence correctly: Â« Elle travaille beaucoup, ___ elle rÃ©ussit tous ses examens. Â»", options: ["mais", "ou", "donc", "si"], correct: 2 },
+  { id: 11, level: "A2", type: "mc", prompt: "Complete the sentence correctly: Â« Tu as des questions ? Oui, j'___ ai plusieurs. Â»", options: ["y", "le", "en", "lui"], correct: 2 },
+  { id: 26, level: "A2", type: "typed", prompt: "ComplÃ¨te au passÃ© composÃ© : Â« Hier, nous ___ (visiter) le musÃ©e. Â»", acceptableAnswers: ["avons visite", "avons visitÃ©"] },
+  { id: 27, level: "A2", type: "typed", prompt: "Ã‰cris le contraire de Â« facile Â».", acceptableAnswers: ["difficile"] },
+  { id: 103, level: "A2", type: "oral", prompt: "Say: Nous avons visitÃ© le musÃ©e hier", expectedText: "Nous avons visitÃ© le musÃ©e hier" },
 
   // ===== B1 - Intermediate (4 MC + 1 typed = 5, need 4/5) =====
-  { id: 12, level: "B1", type: "mc", prompt: "Choisis la bonne structure.", options: ["Je lui le ai donné.", "Je le lui ai donné.", "Je ai le lui donné.", "Je donné le lui ai."], correct: 1 },
-  { id: 13, level: "B1", type: "mc", prompt: "Écoute et choisis.", audio: "/assets/sounds/placement/b1_q10_bus.mp3", options: ["Acheter une maison", "Prendre le bus", "Cuisiner", "Dormir"], correct: 1 },
-  { id: 14, level: "B1", type: "mc", prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il fatigue.", "Parce qu'il est fatigué.", "Parce qu'il était fatigué.", "Parce fatigué."], correct: 2 },
-  { id: 15, level: "B1", type: "mc", prompt: "Choisis la phrase la plus naturelle.", options: ["Ça dépend la situation.", "Ça dépend pour la situation.", "Ça dépend à la situation.", "Ça dépend de la situation."], correct: 3 },
-  { id: 28, level: "B1", type: "typed", prompt: "Complète avec le bon pronom : « Je ne connais pas ce restaurant, je n'___ ai jamais mangé. »", acceptableAnswers: ["y"] },
-  { id: 104, level: "B1", type: "oral", prompt: "Say: Ça dépend de la situation", expectedText: "Ça dépend de la situation" },
+  { id: 12, level: "B1", type: "mc", prompt: "Choisis la bonne structure.", options: ["Je lui le ai donnÃ©.", "Je le lui ai donnÃ©.", "Je ai le lui donnÃ©.", "Je donnÃ© le lui ai."], correct: 1 },
+  { id: 13, level: "B1", type: "mc", prompt: "Ã‰coute et choisis.", audio: "/assets/sounds/placement/b1_q10_bus.mp3", options: ["Acheter une maison", "Prendre le bus", "Cuisiner", "Dormir"], correct: 1 },
+  { id: 14, level: "B1", type: "mc", prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il fatigue.", "Parce qu'il est fatiguÃ©.", "Parce qu'il Ã©tait fatiguÃ©.", "Parce fatiguÃ©."], correct: 2 },
+  { id: 15, level: "B1", type: "mc", prompt: "Choisis la phrase la plus naturelle.", options: ["Ã‡a dÃ©pend la situation.", "Ã‡a dÃ©pend pour la situation.", "Ã‡a dÃ©pend Ã  la situation.", "Ã‡a dÃ©pend de la situation."], correct: 3 },
+  { id: 28, level: "B1", type: "typed", prompt: "ComplÃ¨te avec le bon pronom : Â« Je ne connais pas ce restaurant, je n'___ ai jamais mangÃ©. Â»", acceptableAnswers: ["y"] },
+  { id: 104, level: "B1", type: "oral", prompt: "Say: Ã‡a dÃ©pend de la situation", expectedText: "Ã‡a dÃ©pend de la situation" },
 
   // ===== B2 - Upper Intermediate (4 MC + 1 typed = 5, need 4/5) =====
   { id: 16, level: "B2", type: "mc", prompt: "Quelle formulation est la plus diplomatique ?", options: ["Vous avez tort.", "C'est faux.", "Je comprends votre point de vue.", "Impossible."], correct: 2 },
-  { id: 17, level: "B2", type: "mc", prompt: "Choisis la meilleure formulation pour exprimer un désaccord poli.", options: ["T'as tort.", "Je ne suis pas tout à fait d'accord, mais je comprends votre point.", "C'est n'importe quoi.", "Non."], correct: 1 },
+  { id: 17, level: "B2", type: "mc", prompt: "Choisis la meilleure formulation pour exprimer un dÃ©saccord poli.", options: ["T'as tort.", "Je ne suis pas tout Ã  fait d'accord, mais je comprends votre point.", "C'est n'importe quoi.", "Non."], correct: 1 },
   { id: 18, level: "B2", type: "mc", prompt: "Quelle phrase utilise correctement le conditionnel ?", options: ["Si j'ai le temps, je viendrais.", "Si j'avais le temps, je viens.", "Si j'avais le temps, je viendrais.", "Si j'aurais le temps, je viendrais."], correct: 2 },
-  { id: 19, level: "B2", type: "mc", prompt: "Choisis la phrase qui exprime une nuance d'incertitude.", options: ["Il pleut demain.", "Il se peut qu'il pleuve demain.", "Il va pleuvoir demain, c'est sûr.", "Il pleuvra demain absolument."], correct: 1 },
-  { id: 29, level: "B2", type: "typed", prompt: "Reformule au conditionnel pour être plus poli : « Je veux un café. »", acceptableAnswers: ["je voudrais un cafe", "je voudrais un café"] },
-  { id: 105, level: "B2", type: "oral", prompt: "Say: Je ne suis pas tout à fait d'accord, mais je comprends votre point", expectedText: "Je ne suis pas tout à fait d'accord mais je comprends votre point" },
+  { id: 19, level: "B2", type: "mc", prompt: "Choisis la phrase qui exprime une nuance d'incertitude.", options: ["Il pleut demain.", "Il se peut qu'il pleuve demain.", "Il va pleuvoir demain, c'est sÃ»r.", "Il pleuvra demain absolument."], correct: 1 },
+  { id: 29, level: "B2", type: "typed", prompt: "Reformule au conditionnel pour Ãªtre plus poli : Â« Je veux un cafÃ©. Â»", acceptableAnswers: ["je voudrais un cafe", "je voudrais un cafÃ©"] },
+  { id: 105, level: "B2", type: "oral", prompt: "Say: Je ne suis pas tout Ã  fait d'accord, mais je comprends votre point", expectedText: "Je ne suis pas tout Ã  fait d'accord mais je comprends votre point" },
 
   // ===== C1 - Advanced (4 MC + 1 typed = 5, need 4/5) =====
-  { id: 20, level: "C1", type: "mc", prompt: "Choisis la formulation la plus formelle.", audio: "/assets/sounds/placement/c1_q18_formel.mp3", options: ["Tu peux faire ça ?", "Fais-le.", "Je vous saurais gré de bien vouloir…", "Dis-moi."], correct: 2 },
-  { id: 21, level: "C1", type: "mc", prompt: "Quelle phrase est stylistiquement correcte ?", options: ["Il n'a pas été prévenu pas.", "N'eût-il pas été prévenu…", "Il n'était pas prévenir.", "Pas été prévenu il."], correct: 1 },
+  { id: 20, level: "C1", type: "mc", prompt: "Choisis la formulation la plus formelle.", audio: "/assets/sounds/placement/c1_q18_formel.mp3", options: ["Tu peux faire Ã§a ?", "Fais-le.", "Je vous saurais grÃ© de bien vouloirâ€¦", "Dis-moi."], correct: 2 },
+  { id: 21, level: "C1", type: "mc", prompt: "Quelle phrase est stylistiquement correcte ?", options: ["Il n'a pas Ã©tÃ© prÃ©venu pas.", "N'eÃ»t-il pas Ã©tÃ© prÃ©venuâ€¦", "Il n'Ã©tait pas prÃ©venir.", "Pas Ã©tÃ© prÃ©venu il."], correct: 1 },
   { id: 22, level: "C1", type: "mc", prompt: "Choisis la nuance correcte.", options: ["Il semble que c'est vrai.", "Il semble est vrai.", "Il semble que ce soit vrai.", "Il semble vrai que."], correct: 2 },
-  { id: 23, level: "C1", type: "mc", prompt: "Quelle phrase illustre le mieux l'emploi du subjonctif passé ?", options: ["Bien qu'il a terminé son travail, il est resté tard.", "Bien qu'il termine son travail, il est resté tard.", "Bien qu'il terminait son travail, il est resté tard.", "Bien qu'il ait terminé son travail, il est resté tard."], correct: 3 },
-  { id: 30, level: "C1", type: "typed", prompt: "Complète au subjonctif : « Il faut que tu ___ (être) à l'heure. »", acceptableAnswers: ["sois"] },
-  { id: 106, level: "C1", type: "oral", prompt: "Say: Il faut que tu sois à l'heure", expectedText: "Il faut que tu sois à l'heure" }
+  { id: 23, level: "C1", type: "mc", prompt: "Quelle phrase illustre le mieux l'emploi du subjonctif passÃ© ?", options: ["Bien qu'il a terminÃ© son travail, il est restÃ© tard.", "Bien qu'il termine son travail, il est restÃ© tard.", "Bien qu'il terminait son travail, il est restÃ© tard.", "Bien qu'il ait terminÃ© son travail, il est restÃ© tard."], correct: 3 },
+  { id: 30, level: "C1", type: "typed", prompt: "ComplÃ¨te au subjonctif : Â« Il faut que tu ___ (Ãªtre) Ã  l'heure. Â»", acceptableAnswers: ["sois"] },
+  { id: 106, level: "C1", type: "oral", prompt: "Say: Il faut que tu sois Ã  l'heure", expectedText: "Il faut que tu sois Ã  l'heure" }
 
 ];
 
@@ -96,11 +96,11 @@ levelOrder.forEach(lvl => {
   levelTotalQuestions[lvl] = questions.filter(q => q.level === lvl && q.type !== "oral").length;
 });
 
-const accentChars = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
+const accentChars = ["Ã©","Ã¨","Ãª","Ã ","Ã§","Ã¹","Ã´","Ã®","Å“","Â«","Â»"];
 
 const FEEDBACK_PAUSE_MS = 1100;
-const CONSECUTIVE_WRONG_THRESHOLD = 4;
-const CUMULATIVE_WRONG_THRESHOLD = 7;
+const CONSECUTIVE_WRONG_THRESHOLD = 3;
+const CUMULATIVE_WRONG_THRESHOLD = 5;
 
 let currentIndex = 0;
 let correctSoFar = 0;
@@ -236,7 +236,7 @@ function loadQuestion() {
       oralWrap.innerHTML =
         '<canvas id="oralWaveCanvas" class="oral-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
         '<div class="oral-record-row">' +
-        '<button class="option oral-record-btn" id="oralRecordBtn">● Record</button>' +
+        '<button class="option oral-record-btn" id="oralRecordBtn">â— Record</button>' +
         '<span class="oral-record-status" id="oralRecordStatus">Not recorded yet</span>' +
         '</div>' +
         '<div class="oral-playback-row" id="oralPlaybackRow" style="display:none;">' +
@@ -584,7 +584,7 @@ function toggleOralRecording(){
       };
       oralMediaRecorder.start();
       startOralWave(stream, false);
-      btn.textContent = "■ Stop";
+      btn.textContent = "â–  Stop";
       status.textContent = "Recording...";
     }).catch(function(err){
       status.textContent = "Microphone access denied";
@@ -637,7 +637,7 @@ function reRecordOral(){
   document.getElementById("oralPlaybackRow").style.display = "none";
   var btn = document.getElementById("oralRecordBtn");
   btn.style.display = "inline-block";
-  btn.textContent = "● Record";
+  btn.textContent = "â— Record";
   btn.disabled = false;
   document.getElementById("oralRecordStatus").textContent = "Not recorded yet";
   document.getElementById("oralSubmitBtn").disabled = true;
