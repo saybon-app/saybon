@@ -4167,7 +4167,7 @@ const snapshot = await db.collection("accessControl").orderBy("created","desc").
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch admin list"}); }
 });
-app.post("/api/accessControlAdd", express.json(), async(req,res)=>{
+app.post("/api/accessControlAdd", express.json(), requireAdminAuth, async(req,res)=>{
 try{
 const {email} = req.body;
 if(!email) return res.status(400).json({error:"email required"});
@@ -4175,7 +4175,7 @@ const docRef = await db.collection("accessControl").add({email: email.toLowerCas
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add admin"}); }
 });
-app.post("/api/accessControlRemove", express.json(), async(req,res)=>{
+app.post("/api/accessControlRemove", express.json(), requireAdminAuth, async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4757,5 +4757,7 @@ app.post("/api/completeFormatting", express.json(), async(req,res)=>{ try{ var j
 
 
 async function requireAdminAuth(req, res, next){ try{ var authHeader = req.headers.authorization || ""; var token = authHeader.indexOf("Bearer ") === 0 ? authHeader.slice(7) : null; if(!token){ return res.status(401).json({error:"authentication required"}); } var decoded = await admin.auth().verifyIdToken(token); var email = (decoded.email || "").toLowerCase(); var snapshot = await db.collection("accessControl").where("email","==",email).limit(1).get(); if(snapshot.empty){ return res.status(403).json({error:"not authorized"}); } req.adminEmail = email; next(); }catch(err){ console.error("ADMIN AUTH CHECK FAILED:", err); res.status(401).json({error:"authentication failed"}); } }
+
+
 
 
