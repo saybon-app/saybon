@@ -1,0 +1,12 @@
+﻿User-agent: *
+Disallow: /admin/
+Disallow: /features/admin/
+Disallow: /chat/admin.html
+Disallow: /delf/admin.html
+Disallow: /levels/admin.html
+Disallow: /music/admin.html
+Disallow: /talkletics/admin-map.html
+Disallow: /translation/admin.html
+Allow: /
+
+Sitemap: https://saybonapp.com/sitemap.xml
