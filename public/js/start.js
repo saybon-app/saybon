@@ -1,4 +1,4 @@
-function typeTitle(el, onDone){
+﻿function typeTitle(el, onDone){
   if(!el) return;
   const text = el.getAttribute("data-text") || "";
   el.textContent = "";
@@ -99,17 +99,17 @@ paths.forEach(card => {
       card.style.transition = "transform .85s cubic-bezier(.22,1,.36,1)";
       card.style.transform = heroTransform + " scale(1.06)";
 
-      setTimeout(() => { card.classList.add("start-bounce"); }, 900);
+      setTimeout(() => { card.classList.add("start-bounce"); }, 550);
       setTimeout(() => {
         card.classList.remove("start-bounce");
         card.classList.add("start-floating");
-      }, 1500);
-      setTimeout(() => { shell.classList.add("start-shell-exit"); }, 2350);
+      }, 900);
+      setTimeout(() => { shell.classList.add("start-shell-exit"); }, 1400);
       setTimeout(() => {
         sessionStorage.setItem("saybon_prev", "/start.html");
         sessionStorage.setItem("saybon_next", destinations[card.id]);
         window.location.href = "/loader.html";
-      }, 2800);
+      }, 1700);
 
     }, 160);
   });
