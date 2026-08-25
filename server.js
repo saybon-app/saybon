@@ -4556,7 +4556,7 @@ res.status(500).json({error:"could not load payout candidates"});
 });
 
 // Ghana Paystack automation - step 1: create recipient + initiate transfer
-app.post("/api/adminInitiatePaystackPayout", express.json(), async(req,res)=>{
+app.post("/api/adminInitiatePaystackPayout", express.json(), requireAdminAuth, async(req,res)=>{
 try{
 const {passkey, amount, method, bankCode, accountNumber, accountName, momoNetworkCode, momoNumber} = req.body;
 if(!passkey || !amount) return res.status(400).json({error:"passkey and amount are required"});
@@ -4609,7 +4609,7 @@ res.status(500).json({error:"could not initiate Paystack payout"});
 });
 
 // Ghana Paystack automation - step 2: finalize with the OTP sent to the account owner
-app.post("/api/adminFinalizePaystackPayout", express.json(), async(req,res)=>{
+app.post("/api/adminFinalizePaystackPayout", express.json(), requireAdminAuth, async(req,res)=>{
 try{
 const {passkey, transferCode, otp} = req.body;
 if(!passkey || !transferCode || !otp) return res.status(400).json({error:"passkey, transferCode, and otp are required"});
@@ -4634,7 +4634,7 @@ res.status(500).json({error:"could not finalize Paystack payout"});
 
 // Manual payout confirmation - for translators outside Ghana,
 // where SayBon wires the money directly and confirms it here.
-app.post("/api/adminMarkPayoutPaidManually", express.json(), async(req,res)=>{
+app.post("/api/adminMarkPayoutPaidManually", express.json(), requireAdminAuth, async(req,res)=>{
 try{
 const {passkey} = req.body;
 if(!passkey) return res.status(400).json({error:"passkey is required"});
@@ -4757,3 +4757,5 @@ app.post("/api/completeFormatting", express.json(), async(req,res)=>{ try{ var j
 
 
 async function requireAdminAuth(req, res, next){ try{ var authHeader = req.headers.authorization || ""; var token = authHeader.indexOf("Bearer ") === 0 ? authHeader.slice(7) : null; if(!token){ return res.status(401).json({error:"authentication required"}); } var decoded = await admin.auth().verifyIdToken(token); var email = (decoded.email || "").toLowerCase(); var snapshot = await db.collection("accessControl").where("email","==",email).limit(1).get(); if(snapshot.empty){ return res.status(403).json({error:"not authorized"}); } req.adminEmail = email; next(); }catch(err){ console.error("ADMIN AUTH CHECK FAILED:", err); res.status(401).json({error:"authentication failed"}); } }
+
+
