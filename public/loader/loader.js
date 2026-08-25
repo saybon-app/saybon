@@ -1,29 +1,8 @@
-// ================================
-// SAYBON GLOBAL LOADER — MASTER ROUTER
+﻿// ================================
+// SAYBON GLOBAL LOADER - MASTER ROUTER
 // ================================
 
-const quips = [
-  "Hold on… our hamsters are learning French 🐹… et toi ?",
-  "Stirring the brain soup… très délicieux 🧠🥣",
-  "Loading genius mode… doucement hein 😏",
-  "Downloading confidence… oui oui ✨",
-  "Waking up the pixels… bonjour pixels 👋",
-  "Bribing the server with croissants… ça marche 🥐",
-  "Connecting the dots… comme par magie 🪄",
-  "Sharpening your brain… très pointu 🧠✏️",
-  "Teaching the screen manners… s’il te plaît 😌",
-  "Loading vibes… très chic 💅",
-  "Convincing the app you’re brilliant… facile 😎",
-  "Calibrating your future fluency… presque parfait 🎯",
-  "Charging creativity… allez allez ⚡",
-  "Untangling digital spaghetti… mamma mia… pardon 😅",
-  "Giving the app a pep talk… tu peux le faire 💪",
-  "Buffering brilliance… c’est sérieux 🧠✨",
-  "Rolling out the red carpet… bienvenue 🌟",
-  "Polishing pixels and pronunciations… très propre 🧼",
-  "Tuning your experience… comme une guitare 🎸",
-  "Almost there… respire… inspire… expire… parfait 😮‍💨"
-];
+const quips = ["Hold on... our hamsters are learning French... et toi?", "Stirring the brain soup... tres delicieux", "Loading genius mode... doucement hein", "Downloading confidence... oui oui", "Waking up the pixels... bonjour pixels", "Bribing the server with croissants... ca marche", "Connecting the dots... comme par magie", "Sharpening your brain... tres pointu", "Teaching the screen manners... sil te plait", "Loading vibes... tres chic", "Convincing the app you are brilliant... facile", "Calibrating your future fluency... presque parfait", "Charging creativity... allez allez", "Untangling digital spaghetti... mamma mia... pardon", "Giving the app a pep talk... tu peux le faire", "Buffering brilliance... cest serieux", "Rolling out the red carpet... bienvenue", "Polishing pixels and pronunciations... tres propre", "Tuning your experience... comme une guitare", "Almost there... respire... inspire... expire... parfait"];
 
 // rotate quips
 let index = Number(sessionStorage.getItem("saybon_quip_index")) || 0;
@@ -48,3 +27,5 @@ if (next) {
     window.location.replace(next);
   }, 700);
 }
+
+
