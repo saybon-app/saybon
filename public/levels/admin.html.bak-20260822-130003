@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Levels Admin — SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);
+  color:#e6e1d3;min-height:100vh;padding:40px 20px;
+}
+.ad-stage{max-width:640px;margin:0 auto;}
+.ad-title{font-size:1.5rem;font-weight:800;color:#f6f1e4;margin-bottom:8px;}
+.ad-subtitle{font-size:.9rem;color:#8b92a3;margin-bottom:30px;}
+.ad-gate{text-align:center;padding:60px 20px;}
+.ad-gate input{
+  background:rgba(255,255,255,.05);border:1px solid rgba(212,175,106,.3);
+  border-radius:14px;padding:14px 18px;color:#e6e1d3;font-size:1rem;
+  width:100%;max-width:240px;text-align:center;margin-bottom:16px;
+}
+.ad-gate button,.ad-btn{
+  background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;
+  border:none;border-radius:14px;padding:14px 26px;font-weight:800;
+  font-size:.9rem;cursor:pointer;
+}
+.ad-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);
+  border-radius:20px;padding:24px;margin-bottom:20px;
+}
+.ad-card h2{font-size:1.1rem;font-weight:700;color:#f6f1e4;margin-bottom:16px;}
+.ad-field{margin-bottom:14px;}
+.ad-field label{display:block;font-size:.8rem;color:#8b92a3;margin-bottom:6px;}
+.ad-field input,.ad-field select,.ad-field textarea{
+  width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(212,175,106,.2);
+  border-radius:10px;padding:11px 14px;color:#e6e1d3;font-size:.9rem;font-family:inherit;
+}
+.ad-field textarea{min-height:90px;resize:vertical;}
+.ad-preview-name{
+  font-size:.85rem;color:#d4af6a;font-weight:700;margin-bottom:14px;
+  background:rgba(212,175,106,.08);padding:10px 14px;border-radius:10px;
+}
+.ad-list{display:flex;flex-direction:column;gap:10px;}
+.ad-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.12);
+  border-radius:14px;padding:12px 16px;
+}
+.ad-row-name{font-size:.88rem;font-weight:600;color:#f6f1e4;}
+.ad-row-type{font-size:.75rem;color:#8b92a3;}
+.ad-row-actions button{
+  background:none;border:1px solid rgba(212,175,106,.25);color:#d4af6a;
+  border-radius:8px;padding:6px 12px;font-size:.75rem;cursor:pointer;margin-left:6px;
+}
+.ad-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:20px;}
+.ad-status{font-size:.82rem;color:#8b92a3;margin-top:10px;}
+.ad-status.ad-success{color:#7cc576;}
+.ad-status.ad-error{color:#e07a7a;}
+</style>
+</head>
+<body>
+<div class="ad-stage">
+
+  <div id="adGate" class="ad-gate">
+    <p class="ad-subtitle">Enter admin passcode</p>
+    <input type="password" id="adPasscodeInput" placeholder="Passcode">
+    <br><button id="adGateBtn">Enter</button>
+    <p class="ad-status ad-error" id="adGateError"></p>
+  </div>
+
+  <div id="adPanel" style="display:none;">
+    <p class="ad-title">Levels — Lesson Media</p>
+    <p class="ad-subtitle">Feed text, images, audio, or video into any part of any lesson. Names are auto-generated as l{lesson}-{type}{index}.</p>
+
+    <div class="ad-card">
+      <h2>Add Content</h2>
+      <div class="ad-field">
+        <label>Level / Track</label>
+        <select id="adLevel">
+          <option value="a0-les-petits">A0 — Les Petits</option>
+          <option value="a0-tout-public">A0 — Tout Public</option>
+          <option value="a1">A1</option>
+          <option value="a2">A2</option>
+          <option value="b1">B1</option>
+          <option value="b2">B2</option>
+          <option value="c1">C1</option>
+        </select>
+      </div>
+      <div class="ad-field">
+        <label>Lesson Number</label>
+        <input type="number" id="adLesson" value="1" min="1" max="25">
+      </div>
+      <div class="ad-field">
+        <label>Part</label>
+        <select id="adPart">
+          <option value="1">Part 1 — Teaching</option>
+          <option value="2">Part 2 — Activity</option>
+          <option value="3">Part 3 — Scenario Practice</option>
+        </select>
+      </div>
+      <div class="ad-field">
+        <label>Block Type</label>
+        <select id="adType">
+          <option value="image">Image</option>
+          <option value="audio">Audio</option>
+          <option value="video">Video</option>
+          <option value="text">Text</option>
+        </select>
+      </div>
+      <div class="ad-field" id="adSizeField" style="display:none;">
+        <label>Display Size (image/video only)</label>
+        <select id="adSize">
+          <option value="small">Small</option>
+          <option value="medium" selected>Medium</option>
+          <option value="large">Large</option>
+          <option value="full">Full Width</option>
+        </select>
+      </div>
+      <div class="ad-field" id="adFileField">
+        <label>File</label>
+        <input type="file" id="adFileInput">
+      </div>
+      <div class="ad-field" id="adTextField" style="display:none;">
+        <label>Text Content</label>
+        <textarea id="adTextInput" placeholder="Enter the text for this block..."></textarea>
+      </div>
+      <div class="ad-field" id="adRecordPromptField" style="display:none;">
+        <label>Record Prompt (only used once per Part, for Parts 2 & 3)</label>
+        <input type="text" id="adRecordPrompt" placeholder="e.g. Say: Bonjour">
+        <label style="margin-top:10px;">Expected Text (what they're scored against)</label>
+        <input type="text" id="adExpectedText" placeholder="e.g. Bonjour">
+      </div>
+      <div class="ad-preview-name" id="adPreviewName">Name: l1-image1</div>
+      <button class="ad-btn" id="adUploadBtn">Add to Lesson</button>
+      <p class="ad-status" id="adUploadStatus"></p>
+    </div>
+
+    <div class="ad-card">
+      <h2>Existing Content for This Lesson</h2>
+      <div class="ad-list" id="adAssetList">
+        <p class="ad-empty">Select a level and lesson to view content</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { app, auth } from "/js/firebase-init.js";
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
+const ADMIN_PASSCODE = "963281";
+
+signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
+
+document.getElementById("adGateBtn").addEventListener("click", checkPasscode);
+function checkPasscode(){
+  var input = document.getElementById("adPasscodeInput").value;
+  if(input === ADMIN_PASSCODE){
+    document.getElementById("adGate").style.display = "none";
+    document.getElementById("adPanel").style.display = "block";
+    updatePreviewAndList();
+  } else {
+    document.getElementById("adGateError").textContent = "Incorrect passcode";
+  }
+}
+
+var levelEl = document.getElementById("adLevel");
+var lessonEl = document.getElementById("adLesson");
+var partEl = document.getElementById("adPart");
+var typeEl = document.getElementById("adType");
+var fileField = document.getElementById("adFileField");
+var textField = document.getElementById("adTextField");
+var recordPromptField = document.getElementById("adRecordPromptField");
+var previewName = document.getElementById("adPreviewName");
+
+[levelEl, lessonEl, partEl, typeEl].forEach(function(el){
+  el.addEventListener("change", updatePreviewAndList);
+});
+
+function toggleFields(){
+  typeEl.value === "text" ? (textField.style.display = "block", fileField.style.display = "none") : (textField.style.display = "none", fileField.style.display = "block");
+  recordPromptField.style.display = (partEl.value === "2" || partEl.value === "3") ? "block" : "none";
+  document.getElementById("adSizeField").style.display = (typeEl.value === "image" || typeEl.value === "video") ? "block" : "none";
+}
+typeEl.addEventListener("change", toggleFields);
+partEl.addEventListener("change", toggleFields);
+toggleFields();
+
+var currentAssets = [];
+
+function updatePreviewAndList(){
+  toggleFields();
+  loadAssetsForLesson().then(function(assets){
+    currentAssets = assets;
+    var sameTypeCount = assets.filter(function(a){ return a.type === typeEl.value && a.part == partEl.value; }).length;
+    var nextIndex = sameTypeCount + 1;
+    previewName.textContent = "Name: l" + lessonEl.value + "-" + typeEl.value + nextIndex;
+    renderAssetList(assets);
+  });
+}
+
+function loadAssetsForLesson(){
+  return fetch(API_BASE + "/api/levelAssets?level=" + levelEl.value + "&lesson=" + lessonEl.value)
+    .then(function(res){ return res.json(); })
+    .catch(function(){ return []; });
+}
+
+function renderAssetList(assets){
+  var list = document.getElementById("adAssetList");
+  if(!assets || assets.length === 0){
+    list.innerHTML = '<p class="ad-empty">No content added yet for this lesson</p>';
+    return;
+  }
+  list.innerHTML = assets.map(function(a){
+    return '<div class="ad-row">' +
+      '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">Part ' + a.part + ' — ' + a.type + '</div></div>' +
+      '<div class="ad-row-actions"><button class="ad-edit-btn" data-id="' + a.id + '">Edit</button><button class="ad-delete-btn" data-id="' + a.id + '">Delete</button></div>' +
+      '</div>';
+  }).join("");
+  document.querySelectorAll(".ad-delete-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){ deleteAsset(btn.getAttribute("data-id")); });
+  });
+  document.querySelectorAll(".ad-edit-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){ startEditAsset(btn.getAttribute("data-id")); });
+  });
+}
+
+var editingAssetId = null;
+
+function startEditAsset(id){
+  var asset = currentAssets.find(function(a){ return a.id === id; });
+  if(!asset) return;
+
+  editingAssetId = id;
+  partEl.value = asset.part;
+  typeEl.value = asset.type;
+  toggleFields();
+
+  if(asset.type === "text"){
+    document.getElementById("adTextInput").value = asset.content || "";
+  }
+  if(asset.type === "image" || asset.type === "video"){
+    document.getElementById("adSize").value = asset.size || "medium";
+  }
+  if(asset.recordPrompt){
+    document.getElementById("adRecordPrompt").value = asset.recordPrompt || "";
+    document.getElementById("adExpectedText").value = asset.expectedText || "";
+  }
+
+  document.getElementById("adUploadBtn").textContent = "Save Changes";
+  previewName.textContent = "Editing: " + asset.name + " (file optional - only upload to replace)";
+
+  var status = document.getElementById("adUploadStatus");
+  status.innerHTML = '<span id="adCancelEdit" style="cursor:pointer;text-decoration:underline;color:#d4af6a;">Cancel edit</span>';
+  document.getElementById("adCancelEdit").addEventListener("click", cancelEdit);
+
+  document.getElementById("adPanel").scrollIntoView({ behavior: "smooth" });
+}
+
+function cancelEdit(){
+  editingAssetId = null;
+  document.getElementById("adUploadBtn").textContent = "Add to Lesson";
+  document.getElementById("adUploadStatus").textContent = "";
+  document.getElementById("adTextInput").value = "";
+  document.getElementById("adFileInput").value = "";
+  updatePreviewAndList();
+}
+
+document.getElementById("adUploadBtn").addEventListener("click", uploadAsset);
+
+function uploadAsset(){
+  var status = document.getElementById("adUploadStatus");
+
+  if(editingAssetId){
+    saveEditedAsset(status);
+    return;
+  }
+
+  var sameTypeCount = currentAssets.filter(function(a){ return a.type === typeEl.value && a.part == partEl.value; }).length;
+  var name = "l" + lessonEl.value + "-" + typeEl.value + (sameTypeCount + 1);
+
+  var basePayload = {
+    level: levelEl.value,
+    lesson: parseInt(lessonEl.value),
+    part: parseInt(partEl.value),
+    type: typeEl.value,
+    name: name,
+    recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
+    expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null,
+    size: (typeEl.value === "image" || typeEl.value === "video") ? document.getElementById("adSize").value : null
+  };
+
+  status.textContent = "Saving...";
+  status.className = "ad-status";
+
+  if(typeEl.value === "text"){
+    basePayload.content = document.getElementById("adTextInput").value;
+    saveAssetRecord(basePayload, status);
+    return;
+  }
+
+  var fileInput = document.getElementById("adFileInput");
+  if(!fileInput.files[0]){
+    status.textContent = "Please choose a file";
+    status.className = "ad-status ad-error";
+    return;
+  }
+
+  var file = fileInput.files[0];
+  var storageRef = ref(storage, "levelAssets/" + levelEl.value + "/" + name + "-" + Date.now() + "-" + file.name);
+
+  uploadBytes(storageRef, file).then(function(snapshot){
+    return getDownloadURL(snapshot.ref);
+  }).then(function(url){
+    basePayload.url = url;
+    saveAssetRecord(basePayload, status);
+  }).catch(function(err){
+    console.error(err);
+    status.textContent = "Upload failed: " + (err.message || "check console");
+    status.className = "ad-status ad-error";
+  });
+}
+
+function saveEditedAsset(status){
+  status.textContent = "Saving changes...";
+  status.className = "ad-status";
+
+  var updatePayload = {
+    assetId: editingAssetId,
+    part: parseInt(partEl.value),
+    recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
+    expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null,
+    size: (typeEl.value === "image" || typeEl.value === "video") ? document.getElementById("adSize").value : null
+  };
+
+  if(typeEl.value === "text"){
+    updatePayload.content = document.getElementById("adTextInput").value;
+    finishEditSave(updatePayload, status);
+    return;
+  }
+
+  var fileInput = document.getElementById("adFileInput");
+  if(fileInput.files[0]){
+    var file = fileInput.files[0];
+    var storageRef = ref(storage, "levelAssets/" + levelEl.value + "/edit-" + Date.now() + "-" + file.name);
+    uploadBytes(storageRef, file).then(function(snapshot){
+      return getDownloadURL(snapshot.ref);
+    }).then(function(url){
+      updatePayload.url = url;
+      finishEditSave(updatePayload, status);
+    }).catch(function(err){
+      console.error(err);
+      status.textContent = "Upload failed: " + (err.message || "check console");
+      status.className = "ad-status ad-error";
+    });
+  } else {
+    finishEditSave(updatePayload, status);
+  }
+}
+
+function finishEditSave(payload, status){
+  fetch(API_BASE + "/api/levelAdminUpdateAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function(res){ return res.json(); }).then(function(){
+    status.textContent = "Changes saved";
+    status.className = "ad-status ad-success";
+    editingAssetId = null;
+    document.getElementById("adUploadBtn").textContent = "Add to Lesson";
+    document.getElementById("adFileInput").value = "";
+    document.getElementById("adTextInput").value = "";
+    updatePreviewAndList();
+  }).catch(function(err){
+    console.error(err);
+    status.textContent = "Save failed - check console";
+    status.className = "ad-status ad-error";
+  });
+}
+
+function saveAssetRecord(payload, status){
+  fetch(API_BASE + "/api/levelAdminAddAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function(res){ return res.json(); }).then(function(){
+    status.textContent = "Added successfully";
+    status.className = "ad-status ad-success";
+    document.getElementById("adFileInput").value = "";
+    document.getElementById("adTextInput").value = "";
+    updatePreviewAndList();
+  }).catch(function(err){
+    console.error(err);
+    status.textContent = "Save failed - check console";
+    status.className = "ad-status ad-error";
+  });
+}
+
+function deleteAsset(id){
+  if(!confirm("Delete this content block?")) return;
+  fetch(API_BASE + "/api/levelAdminDeleteAsset", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetId: id })
+  }).then(function(){ updatePreviewAndList(); });
+}
+</script>
+</body>
+</html>
