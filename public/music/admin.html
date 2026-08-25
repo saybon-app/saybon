@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -213,7 +213,7 @@ th{ font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:#786
 
 </div>
 
-<script type="module">
+<script type="module" src="/features/admin/auth/admin-guard.js"></script><script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
@@ -250,7 +250,7 @@ window.setUploadMode = function(mode){
 
 function unlock(){
   const code = document.getElementById("passcode").value;
-  if(code === "963281"){
+  if(false){
     sessionStorage.setItem("saybonMusicAdminVerified", "true");
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
@@ -529,7 +529,7 @@ async function loadCommentsTab(){
   const videos = await videosRes.json();
 
   const table = document.getElementById("commentsTable");
-  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loading…</td></tr>";
+  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loadingâ€¦</td></tr>";
 
   let allComments = [];
 
@@ -577,3 +577,4 @@ window.deleteComment = async function(commentId){
 
 </body>
 </html>
+
