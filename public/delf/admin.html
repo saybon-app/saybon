@@ -116,7 +116,7 @@ const ADMIN_PASSCODE = "963281";
 
 
 
-document.getElementById("adGateBtn").addEventListener("click", checkPasscode);
+document.getElementById("adGateBtn").addEventListener("click", checkPasscode); window.addEventListener("adminAuthorized", function(){ document.getElementById("adGate").style.display = "none"; document.getElementById("adPanel").style.display = "block"; loadAssets(); });
 
 function checkPasscode(){
   var input = document.getElementById("adPasscodeInput").value;
@@ -223,6 +223,7 @@ function renameAsset(id){
 </script>
 </body>
 </html>
+
 
 
 
