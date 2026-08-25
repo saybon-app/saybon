@@ -1,4 +1,4 @@
-const teacher = document.getElementById("teacher");
+﻿const teacher = document.getElementById("teacher");
 const audio = document.getElementById("introAudio");
 const bgLayer = document.querySelector(".background-layer");
 const logo = document.querySelector(".saybon-logo");
@@ -74,9 +74,7 @@ if (document.readyState === "loading") {
 
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  sessionStorage.setItem("saybon_prev", window.location.pathname);
-  sessionStorage.setItem("saybon_next", "/why.html");
-  window.location.href = "/loader.html";
+  window.location.href = "/why.html";
 });
 
 loginBtn?.addEventListener("click", (e) => {
