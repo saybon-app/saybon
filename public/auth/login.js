@@ -79,3 +79,11 @@ document.getElementById("emailAuthForm").addEventListener("submit", async (e) =>
     }
   }
 });
+
+document.getElementById("emailIconBtn").addEventListener("click", () => {
+  const form = document.getElementById("emailAuthForm");
+  const divider = document.querySelector(".email-divider");
+  const isOpen = form.style.display === "flex";
+  form.style.display = isOpen ? "none" : "flex";
+  divider.style.display = isOpen ? "none" : "flex";
+});
