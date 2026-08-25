@@ -1,4 +1,4 @@
-(function(){
+﻿(function(){
 
   var API_BASE = "https://saybonapp-server.onrender.com";
 
@@ -45,7 +45,7 @@
     var nodesEl = document.getElementById("tkmNodes");
     nodesEl.innerHTML = "";
 
-    points.forEach(function(p){
+    points.forEach(function(p, tkmIndex){
 
       var loc = p.loc;
 
@@ -77,6 +77,8 @@
       }
 
       nodesEl.appendChild(btn);
+
+      setTimeout(function(){ btn.classList.add("tkm-node-visible"); }, tkmIndex * 90);
 
     });
 
