@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DELF Admin — SayBon</title>
+<title>DELF Admin â€” SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -70,7 +70,7 @@ body{
   </div>
 
   <div id="adPanel" style="display:none;">
-    <p class="ad-title">DELF Placement — Media Assets</p>
+    <p class="ad-title">DELF Placement â€” Media Assets</p>
     <p class="ad-subtitle">Upload listening audio for each level. Name uploads exactly as shown below so the placement test can find them: <strong>delf-a1-listening</strong>, <strong>delf-a2-listening</strong>, <strong>delf-b1-listening</strong>, <strong>delf-b2-listening</strong>, <strong>delf-c1-listening</strong></p>
 
     <div class="ad-card">
@@ -105,7 +105,7 @@ body{
 
 </div>
 
-<script type="module">
+<script type="module" src="/features/admin/auth/admin-guard.js"></script><script type="module">
 const API_BASE = "https://saybonapp-server.onrender.com";
 import { app, auth } from "/js/firebase-init.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -120,7 +120,7 @@ document.getElementById("adGateBtn").addEventListener("click", checkPasscode);
 
 function checkPasscode(){
   var input = document.getElementById("adPasscodeInput").value;
-  if(input === ADMIN_PASSCODE){
+  if(false){
     document.getElementById("adGate").style.display = "none";
     document.getElementById("adPanel").style.display = "block";
     loadAssets();
@@ -223,3 +223,6 @@ function renameAsset(id){
 </script>
 </body>
 </html>
+
+
+
