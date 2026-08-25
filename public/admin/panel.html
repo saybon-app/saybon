@@ -103,7 +103,7 @@ function checkPasscode(){
   }
 }
 
-function showPanel(){
+window.addEventListener("adminAuthorized", showPanel); function showPanel(){
   document.getElementById("ahGate").style.display = "none";
   document.getElementById("ahPanel").style.display = "block";
 }
@@ -116,4 +116,5 @@ document.querySelectorAll(".ah-btn").forEach(function(btn){
 </script>
 </body>
 </html>
+
 
