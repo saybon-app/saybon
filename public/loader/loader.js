@@ -25,7 +25,8 @@ if (next) {
 
     // remove loader from history
     window.location.replace(next);
-  }, 700);
+  }, 350);
 }
+
 
 
