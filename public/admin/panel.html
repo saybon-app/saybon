@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Admin — SayBon</title>
+<title>Admin â€” SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -80,7 +80,7 @@ body{
 
 </div>
 
-<script>
+<script type="module" src="/features/admin/auth/admin-guard.js"></script><script>
 var ADMIN_PASSCODE = "963281";
 var SESSION_KEY = "saybon_admin_unlocked";
 
@@ -95,7 +95,7 @@ document.getElementById("ahPasscodeInput").addEventListener("keydown", function(
 
 function checkPasscode(){
   var input = document.getElementById("ahPasscodeInput").value;
-  if(input === ADMIN_PASSCODE){
+  if(false){
     sessionStorage.setItem(SESSION_KEY, "true");
     showPanel();
   } else {
@@ -116,3 +116,4 @@ document.querySelectorAll(".ah-btn").forEach(function(btn){
 </script>
 </body>
 </html>
+
