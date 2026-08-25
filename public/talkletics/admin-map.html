@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="module" src="/js/auth-guard.js"></script>
+<script type="module" src="/js/auth-guard.js"></script><script type="module" src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Talkletics Admin</title>
@@ -78,7 +78,7 @@ th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#786367;
 <div class="tab-panel active" id="panel-locations">
 
 <div class="add-form">
-<div class="full"><label>Location Name</label><input id="addName" placeholder="e.g. Marché" /></div>
+<div class="full"><label>Location Name</label><input id="addName" placeholder="e.g. MarchÃ©" /></div>
 <div class="full"><label>Location Image</label><input type="file" id="addImage" accept="image/*" /></div>
 <div class="full" id="uploadProgress" style="font-size:11px;color:#9C8589;"></div>
 <div class="full"><button id="addLocationBtn" onclick="addLocation()">Add Location</button></div>
@@ -147,7 +147,7 @@ const API_BASE = "https://saybonapp-server.onrender.com";
 
 window.unlock = function(){
   const val = document.getElementById("passcode").value;
-  if(val === "963281"){
+  if(false){
     document.getElementById("login").style.display = "none";
     document.getElementById("panel").style.display = "block";
     loadLocations();
@@ -169,7 +169,7 @@ window.switchTab = function(tab){
 async function loadLocations(){
 
   const table = document.getElementById("locationsTable");
-  table.innerHTML = "<tr><td colspan='5' class='empty-note'>Loading…</td></tr>";
+  table.innerHTML = "<tr><td colspan='5' class='empty-note'>Loadingâ€¦</td></tr>";
 
   const res = await fetch(API_BASE + "/api/locations");
   const locations = await res.json();
@@ -278,7 +278,7 @@ window.deleteLocation = async function(locationId){
 async function loadAssets(){
 
   const table = document.getElementById("assetsTable");
-  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loading…</td></tr>";
+  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loadingâ€¦</td></tr>";
 
   const res = await fetch(API_BASE + "/api/assets");
   const assets = await res.json();
@@ -295,7 +295,7 @@ async function loadAssets(){
     row.innerHTML =
       "<td>" + a.name + "</td>" +
       "<td>" + a.type + "</td>" +
-      "<td><a class='asset-link' href='" + a.url + "' target='_blank'>" + a.url.slice(0,50) + "…</a></td>" +
+      "<td><a class='asset-link' href='" + a.url + "' target='_blank'>" + a.url.slice(0,50) + "â€¦</a></td>" +
       "<td>" +
       "<button onclick=\"renameAsset('" + a.id + "','" + a.name.replace(/'/g, "\\'") + "')\">Rename</button> " +
       "<button class='btn-delete' onclick=\"deleteAsset('" + a.id + "')\">Delete</button>" +
@@ -386,3 +386,4 @@ window.deleteAsset = async function(assetId){
 </script>
 </body>
 </html>
+
