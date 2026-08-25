@@ -157,9 +157,9 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstati
 const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
 const ADMIN_PASSCODE = "963281";
 
-signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
 
-document.getElementById("adGateBtn").addEventListener("click", checkPasscode);
+
+document.getElementById("adGateBtn").addEventListener("click", checkPasscode); window.addEventListener("adminAuthorized", function(){ document.getElementById("adGate").style.display = "none"; document.getElementById("adPanel").style.display = "block"; updatePreviewAndList(); });
 function checkPasscode(){
   var input = document.getElementById("adPasscodeInput").value;
   if(false){
@@ -414,4 +414,6 @@ function deleteAsset(id){
 </script>
 </body>
 </html>
+
+
 
