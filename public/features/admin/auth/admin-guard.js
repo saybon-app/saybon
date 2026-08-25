@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+﻿import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const API_BASE = "https://saybonapp-server.onrender.com";
@@ -15,9 +15,7 @@ onAuthStateChanged(auth, async function(user){
     const res = await fetch(API_BASE + "/api/accessControlCheck?email=" + encodeURIComponent(user.email || ""));
     const data = await res.json();
 
-    if(data.authorized){
-      document.body.style.visibility = "visible";
-    } else {
+    if(data.authorized){ document.body.style.visibility = "visible"; window.dispatchEvent(new Event("adminAuthorized")); } else {
       document.body.innerHTML = "<div style='font-family:sans-serif;color:#fff;background:#0c1016;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;'><div><h1>Access Denied</h1><p>Your account is not authorized for Business Admin.</p></div></div>";
       document.body.style.visibility = "visible";
     }
