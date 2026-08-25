@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +23,14 @@ background:linear-gradient(160deg, #075B5F 0%, #033539 60%, #012225 100%);
 padding:30px 20px 60px;
 }
 
-.page{ max-width:760px; margin:0 auto; }
+.page{ max-width:760px; margin:0 auto; 
+opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes pageEnter{
+from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
 
 header{ text-align:center; margin-bottom:20px; }
 h1{ margin:0 0 6px; font-size:22px; font-weight:700; color:#fff; }
@@ -87,7 +94,7 @@ padding:14px 34px; font-size:14px; font-weight:650; border-radius:11px; cursor:p
 
 <header>
 <h1>SayBon Translator Test</h1>
-<div class="subtitle">Translate both passages below. This test measures how accurately you capture real meaning — take your time and translate naturally.</div>
+<div class="subtitle">Translate both passages below. This test measures how accurately you capture real meaning -  take your time and translate naturally.</div>
 </header>
 
 <div class="timer" id="timer">08:00</div>
@@ -98,14 +105,14 @@ This test must be completed entirely within this window. Copying, pasting, and c
 
 <div class="card">
 <div class="label">Translate into English</div>
-<div class="source" id="frSource">Loading passage…</div>
+<div class="source" id="frSource">Loading passage...</div>
 <textarea id="frToEnAnswer" placeholder="Type your English translation here"></textarea>
 </div>
 
 <div class="card">
-<div class="label">Traduisez en français</div>
-<div class="source" id="enSource">Loading passage…</div>
-<textarea id="enToFrAnswer" placeholder="Tapez votre traduction française ici"></textarea>
+<div class="label">Traduisez en franÃƒÂ§ais</div>
+<div class="source" id="enSource">Loading passageââ‚¬Â¦</div>
+<textarea id="enToFrAnswer" placeholder="Tapez votre traduction franÃƒÂ§aise ici"></textarea>
 <div class="accent-keyboard" id="accentKeyboard"></div>
 </div>
 
@@ -163,7 +170,7 @@ document.addEventListener("visibilitychange", ()=>{
   }
 });
 
-const accents = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
+const accents = ["ÃƒÂ©","ÃƒÂ¨","ÃƒÂª","ÃƒÂ ","ÃƒÂ§","ÃƒÂ¹","ÃƒÂ´","ÃƒÂ®","Ã…-œ","Ã‚«","Ã‚»"];
 const keyboardEl = document.getElementById("accentKeyboard");
 
 accents.forEach(ch=>{
@@ -237,3 +244,4 @@ loadPassages();
 
 </body>
 </html>
+

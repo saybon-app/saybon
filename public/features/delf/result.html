@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -135,15 +135,15 @@ h1{
     <div class="box">
       <div class="row">
         <div class="label">Candidate ID</div>
-        <div class="value" id="candidate">—</div>
+        <div class="value" id="candidate">-</div>
       </div>
       <div class="row">
         <div class="label">Estimated Readiness</div>
-        <div class="value" id="readiness">—</div>
+        <div class="value" id="readiness">-</div>
       </div>
       <div class="row">
         <div class="label">Recommended Entry Point</div>
-        <div class="value" id="entry">—</div>
+        <div class="value" id="entry">-</div>
       </div>
     </div>
 
@@ -165,7 +165,7 @@ h1{
 (function(){
   const p = new URLSearchParams(window.location.search);
 
-  const candidate = p.get("candidate") || "—";
+  const candidate = p.get("candidate") || "-";
   const level = p.get("level") || "A1";
   const score = parseInt(p.get("score") || "0");
 
@@ -196,3 +196,4 @@ h1{
 
 </body>
 </html>
+

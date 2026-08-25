@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+﻿import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 window.lsCurrentUid = null;
@@ -55,7 +55,7 @@ function renderPart(partNum, label){
       '<div class="ls-prompt-bubble">' + promptText + '</div>' +
       '<canvas id="lsWaveCanvas" class="ls-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
       '<div class="ls-record-row">' +
-      '<button class="ls-record-btn" id="lsRecordBtn">● Record</button>' +
+      '<button class="ls-record-btn" id="lsRecordBtn">â— Record</button>' +
       '<span class="ls-record-status" id="lsRecordStatus">' + (recordedBlob ? "Recorded" : "Not recorded yet") + '</span>' +
       '</div>' +
       '<div class="ls-playback-row" id="lsPlaybackRow" style="display:none;">' +
@@ -157,7 +157,7 @@ function toggleRecording(){
       };
       mediaRecorder.start();
       startWave(stream, false);
-      btn.textContent = "■ Stop";
+      btn.textContent = "â–  Stop";
       btn.classList.add("ls-recording");
       status.textContent = "Recording...";
     }).catch(function(err){
@@ -195,7 +195,7 @@ function reRecord(){
   document.getElementById("lsPlaybackRow").style.display = "none";
   var btn = document.getElementById("lsRecordBtn");
   btn.style.display = "inline-block";
-  btn.textContent = "● Record";
+  btn.textContent = "â— Record";
   btn.classList.remove("ls-recording");
   document.getElementById("lsRecordStatus").textContent = "Not recorded yet";
   document.getElementById("lsSubmitBtn").disabled = true;
@@ -227,19 +227,19 @@ function submitRecording(expectedText, partNum){
 
 window.lsRetryRecording = function(){
   recordedBlob = null;
-  renderPart(currentPart, currentPart === 2 ? "Part 2 — Activity" : "Part 3 — Scenario Practice");
+  renderPart(currentPart, currentPart === 2 ? "Part 2 - Activity" : "Part 3 - Scenario Practice");
 };
 
 window.lsGoNext = function(){
   recordedBlob = null;
-  if(currentPart === 1){ currentPart = 2; renderPart(2, "Part 2 — Activity"); }
-  else if(currentPart === 2){ currentPart = 3; renderPart(3, "Part 3 — Scenario Practice"); }
+  if(currentPart === 1){ currentPart = 2; renderPart(2, "Part 2 - Activity"); }
+  else if(currentPart === 2){ currentPart = 3; renderPart(3, "Part 3 - Scenario Practice"); }
   else {
     markLessonComplete();
     render(
       '<div class="ls-card" style="text-align:center;">' +
       '<p class="ls-part-label">Lesson Complete!</p>' +
-      '<p style="color:#fff;font-size:1.1rem;margin-bottom:20px;">You did it! 🎉</p>' +
+      '<p style="color:#fff;font-size:1.1rem;margin-bottom:20px;">You did it! ðŸŽ‰</p>' +
       '<button class="ls-btn ls-btn-primary" onclick="window.location.href=\'./\'">Back to Lessons</button>' +
       '</div>'
     );
@@ -264,9 +264,10 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
       render('<div class="ls-card" style="text-align:center;"><p style="color:#fff;">This lesson\'s content hasn\'t been added yet.</p></div>');
       return;
     }
-    renderPart(1, "Part 1 — Teaching");
+    renderPart(1, "Part 1 - Teaching");
   })
   .catch(function(err){
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+

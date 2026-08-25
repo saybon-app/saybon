@@ -1,22 +1,22 @@
-// ===============================
+﻿// ===============================
 // SAYBON PLACEMENT TEST
 // ===============================
 
 const questions = [
   {
     level: "A0",
-    text: "What does “Bonjour” mean?",
+    text: "What does -œBonjour- mean?",
     options: ["Good night", "Hello", "Thank you", "Goodbye"],
     correct: 1
   },
   {
     level: "A0",
-    text: "Which sentence means “My name is Anna”?",
+    text: "Which sentence means -œMy name is Anna-?",
     options: [
       "Je suis Anna",
       "Je vais Anna",
-      "Je m’appelle Anna",
-      "J’aime Anna"
+      "Je m-™appelle Anna",
+      "J-™aime Anna"
     ],
     correct: 2
   },
@@ -49,9 +49,9 @@ const questions = [
     text: "Which sentence is grammatically correct?",
     options: [
       "Je mange hier",
-      "J’ai mangé hier",
-      "Je mangé hier",
-      "Je vais mangé hier"
+      "J-™ai mangÉ hier",
+      "Je mangÉ hier",
+      "Je vais mangÉ hier"
     ],
     correct: 1
   },
@@ -71,10 +71,10 @@ const questions = [
     level: "B2",
     text: "Which sentence expresses an opinion?",
     options: [
-      "Il pleut aujourd’hui",
-      "Je mange à midi",
-      "À mon avis, cette idée est importante",
-      "Il y a un café ici"
+      "Il pleut aujourd-™hui",
+      "Je mange à  midi",
+      "Ã€ mon avis, cette idÉe est importante",
+      "Il y a un cafÉ ici"
     ],
     correct: 2
   },
@@ -82,9 +82,9 @@ const questions = [
     level: "C1",
     text: "Which sentence sounds the most natural?",
     options: [
-      "Je suis très fatigué car j’ai trop travaillé",
-      "Je suis fatigué parce que travail",
-      "Fatigué je travaille trop",
+      "Je suis très fatiguÉ car j-™ai trop travaillÉ",
+      "Je suis fatiguÉ parce que travail",
+      "FatiguÉ je travaille trop",
       "Je fatigue travail"
     ],
     correct: 0
@@ -165,9 +165,11 @@ function finishTest() {
 
   localStorage.setItem("saybon_level", level);
 
-  // placement test → loader → dashboard
+  // placement test â†’ loader â†’ dashboard
   sessionStorage.setItem("saybon_next", "../dashboard/index.html");
   window.location.href = "../loader.html";
 }
 
 loadQuestion();
+
+

@@ -33,7 +33,14 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; transi
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.page{ max-width:520px; margin:0 auto; }
+.page{ max-width:520px; margin:0 auto; 
+opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes pageEnter{
+from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
 
 header{ text-align:center; margin-bottom:24px; }
 h1{ margin:0 0 8px; font-size:22px; font-weight:700; color:#00484B; }
@@ -72,6 +79,8 @@ background:#005C60; color:#fff; font-weight:600; font-size:13.5px; cursor:pointe
 .msg.error{ color:#C94A45; }
 .msg.success{ color:#0A756C; }
 
+.region-hint{ font-size:10.5px; color:#8a939a; margin-top:-10px; margin-bottom:16px; }
+
 </style>
 </head>
 
@@ -105,9 +114,32 @@ background:#005C60; color:#fff; font-weight:600; font-size:13.5px; cursor:pointe
 </div>
 
 <div id="bankFields">
+
+<div class="field">
+<label>Bank Region</label>
+<select id="bankRegion" onchange="updateBankRegionFields()">
+<option value="ghana">Ghana</option>
+<option value="us">United States</option>
+<option value="uk">United Kingdom</option>
+<option value="international">International (IBAN)</option>
+</select>
+</div>
+<div class="region-hint">This determines which bank details are needed below.</div>
+
 <div class="field"><label>Bank Name</label><input type="text" id="bankName" placeholder="e.g. GCB Bank" /></div>
-<div class="field"><label>Account Number</label><input type="text" id="accountNumber" placeholder="Account number" /></div>
+
+<div class="field" id="accountNumberField"><label>Account Number</label><input type="text" id="accountNumber" placeholder="Account number" /></div>
+
+<div class="field hidden" id="routingNumberField"><label>Routing Number (ABA)</label><input type="text" id="routingNumber" placeholder="9-digit routing number" /></div>
+
+<div class="field hidden" id="sortCodeField"><label>Sort Code</label><input type="text" id="sortCode" placeholder="e.g. 12-34-56" /></div>
+
+<div class="field hidden" id="ibanField"><label>IBAN</label><input type="text" id="iban" placeholder="International bank account number" /></div>
+
+<div class="field hidden" id="swiftField"><label>SWIFT / BIC Code</label><input type="text" id="swiftBic" placeholder="e.g. ABCDGHAC" /></div>
+
 <div class="field"><label>Account Name</label><input type="text" id="accountName" placeholder="Name on the account" /></div>
+
 </div>
 
 <div id="momoFields" class="hidden">
@@ -142,6 +174,16 @@ function setMethod(method){
   document.getElementById("momoFields").classList.toggle("hidden", method !== "momo");
 }
 
+function updateBankRegionFields(){
+  const region = document.getElementById("bankRegion").value;
+
+  document.getElementById("accountNumberField").classList.toggle("hidden", region === "international");
+  document.getElementById("routingNumberField").classList.toggle("hidden", region !== "us");
+  document.getElementById("sortCodeField").classList.toggle("hidden", region !== "uk");
+  document.getElementById("ibanField").classList.toggle("hidden", region !== "international");
+  document.getElementById("swiftField").classList.toggle("hidden", region === "ghana");
+}
+
 async function savePaymentMethod(){
 
   const passkey = document.getElementById("passkeyInput").value.trim();
@@ -157,8 +199,13 @@ async function savePaymentMethod(){
   const body = { passkey, method: currentMethod };
 
   if(currentMethod === "bank"){
+    body.bankRegion = document.getElementById("bankRegion").value;
     body.bankName = document.getElementById("bankName").value.trim();
     body.accountNumber = document.getElementById("accountNumber").value.trim();
+    body.routingNumber = document.getElementById("routingNumber").value.trim();
+    body.sortCode = document.getElementById("sortCode").value.trim();
+    body.iban = document.getElementById("iban").value.trim();
+    body.swiftBic = document.getElementById("swiftBic").value.trim();
     body.accountName = document.getElementById("accountName").value.trim();
   } else {
     body.momoNetwork = document.getElementById("momoNetwork").value;

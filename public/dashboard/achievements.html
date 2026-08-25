@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <script type='module' src='/js/auth-guard.js'></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Achievements — SayBon</title>
+<title>Achievements - SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
@@ -45,11 +45,11 @@ const grid = document.getElementById("acGrid");
 
 function renderBadges(unlocked){
   const badges = [
-    { key:"first_lesson", icon:"🎯", title:"First Steps", sub:"Complete your first lesson" },
-    { key:"five_lessons", icon:"📘", title:"Dedicated Learner", sub:"Complete 5 lessons" },
-    { key:"placement_done", icon:"🏆", title:"Placement Pioneer", sub:"Complete a DELF placement" },
-    { key:"streak_3", icon:"🔥", title:"Streak Keeper", sub:"3-day streak" },
-    { key:"streak_7", icon:"⚡", title:"On Fire", sub:"7-day streak" }
+    { key:"first_lesson", icon:"ðŸŽ¯", title:"First Steps", sub:"Complete your first lesson" },
+    { key:"five_lessons", icon:"ðŸ“˜", title:"Dedicated Learner", sub:"Complete 5 lessons" },
+    { key:"placement_done", icon:"ðŸ†", title:"Placement Pioneer", sub:"Complete a DELF placement" },
+    { key:"streak_3", icon:"ðŸ”¥", title:"Streak Keeper", sub:"3-day streak" },
+    { key:"streak_7", icon:"âš¡", title:"On Fire", sub:"7-day streak" }
   ];
   grid.innerHTML = badges.map(function(b){
     const isUnlocked = unlocked.has(b.key);
@@ -88,3 +88,4 @@ onAuthStateChanged(auth, async function(user){
 </script>
 </body>
 </html>
+

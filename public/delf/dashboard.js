@@ -1,4 +1,4 @@
-const API_BASE = "https://saybonapp-server.onrender.com";
+﻿const API_BASE = "https://saybonapp-server.onrender.com";
 import { app, auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -57,8 +57,8 @@ function renderDashboard(attempts){
       '</div>'
     : '<div class="dd-summary-card">' +
       '<div class="dd-summary-label">Current Placement</div>' +
-      '<div class="dd-summary-level">—</div>' +
-      '<div class="dd-summary-sub">No level cleared yet — every attempt still counts toward your picture</div>' +
+      '<div class="dd-summary-level">-</div>' +
+      '<div class="dd-summary-sub">No level cleared yet - every attempt still counts toward your picture</div>' +
       '</div>';
 
   var listHtml = attempts.map(function(a){
@@ -114,3 +114,4 @@ onAuthStateChanged(auth, function(user){
     render('<p class="dd-eyebrow">DELF Progress</p><div class="dd-empty-card">Could not load your progress right now. Please try again shortly.</div>');
   });
 });
+

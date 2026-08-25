@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,7 +33,14 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; transi
 .back-btn{ left:22px; }
 .dashboard-btn{ right:22px; }
 
-.page{ max-width:520px; margin:0 auto; }
+.page{ max-width:520px; margin:0 auto; 
+opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes pageEnter{
+from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
 
 header{ text-align:center; margin-bottom:24px; }
 h1{ margin:0 0 8px; font-size:22px; font-weight:700; color:#fff; }
@@ -195,7 +202,7 @@ window.lookupProfile = async function(){
 
     document.getElementById("nameHint").innerText = data.name
       ? "This is what other pages will greet you by."
-      : "This default was derived from your email — feel free to change it.";
+      : "This default was derived from your email ââ‚¬- feel free to change it.";
 
     const avatarEl = document.getElementById("avatarPreview");
     if(currentPhotoUrl){
@@ -291,3 +298,4 @@ window.saveProfile = async function(){
 
 </body>
 </html>
+

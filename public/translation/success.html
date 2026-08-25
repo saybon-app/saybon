@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -289,17 +289,17 @@ async function loadInvoice(){
     let timeline = "";
 
     if(words <= 300){
-      timeline = isExpress ? "30â€“60 mins" : "1â€“3 hrs";
+      timeline = isExpress ? "30ââ‚¬-œ60 mins" : "1ââ‚¬-œ3 hrs";
     }else if(words <= 1000){
-      timeline = isExpress ? "1â€“3 hrs" : "3â€“6 hrs";
+      timeline = isExpress ? "1ââ‚¬-œ3 hrs" : "3ââ‚¬-œ6 hrs";
     }else if(words <= 3000){
-      timeline = isExpress ? "3â€“6 hrs" : "6â€“12 hrs";
+      timeline = isExpress ? "3ââ‚¬-œ6 hrs" : "6ââ‚¬-œ12 hrs";
     }else if(words <= 6000){
-      timeline = isExpress ? "6â€“12 hrs" : "12â€“24 hrs";
+      timeline = isExpress ? "6ââ‚¬-œ12 hrs" : "12ââ‚¬-œ24 hrs";
     }else if(words <= 10000){
-      timeline = isExpress ? "12â€“24 hrs" : "24â€“48 hrs";
+      timeline = isExpress ? "12ââ‚¬-œ24 hrs" : "24ââ‚¬-œ48 hrs";
     }else if(words <= 20000){
-      timeline = isExpress ? "24â€“48 hrs" : "2â€“4 days";
+      timeline = isExpress ? "24ââ‚¬-œ48 hrs" : "2ââ‚¬-œ4 days";
     }else{
       timeline = "Custom";
     }
@@ -371,3 +371,4 @@ loadInvoice();
 
 </body>
 </html>
+

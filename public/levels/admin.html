@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Levels Admin â€” SayBon</title>
+<title>Levels Admin - SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -72,7 +72,7 @@ body{
   </div>
 
   <div id="adPanel" style="display:none;">
-    <p class="ad-title">Levels â€” Lesson Media</p>
+    <p class="ad-title">Levels - Lesson Media</p>
     <p class="ad-subtitle">Feed text, images, audio, or video into any part of any lesson. Names are auto-generated as l{lesson}-{type}{index}.</p>
 
     <div class="ad-card">
@@ -80,8 +80,8 @@ body{
       <div class="ad-field">
         <label>Level / Track</label>
         <select id="adLevel">
-          <option value="a0-les-petits">A0 â€” Les Petits</option>
-          <option value="a0-tout-public">A0 â€” Tout Public</option>
+          <option value="a0-les-petits">A0 - Les Petits</option>
+          <option value="a0-tout-public">A0 - Tout Public</option>
           <option value="a1">A1</option>
           <option value="a2">A2</option>
           <option value="b1">B1</option>
@@ -96,9 +96,9 @@ body{
       <div class="ad-field">
         <label>Part</label>
         <select id="adPart">
-          <option value="1">Part 1 â€” Teaching</option>
-          <option value="2">Part 2 â€” Activity</option>
-          <option value="3">Part 3 â€” Scenario Practice</option>
+          <option value="1">Part 1 - Teaching</option>
+          <option value="2">Part 2 - Activity</option>
+          <option value="3">Part 3 - Scenario Practice</option>
         </select>
       </div>
       <div class="ad-field">
@@ -220,7 +220,7 @@ function renderAssetList(assets){
   }
   list.innerHTML = assets.map(function(a){
     return '<div class="ad-row">' +
-      '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">Part ' + a.part + ' â€” ' + a.type + '</div></div>' +
+      '<div><div class="ad-row-name">' + a.name + '</div><div class="ad-row-type">Part ' + a.part + ' - ' + a.type + '</div></div>' +
       '<div class="ad-row-actions"><button class="ad-edit-btn" data-id="' + a.id + '">Edit</button><button class="ad-delete-btn" data-id="' + a.id + '">Delete</button></div>' +
       '</div>';
   }).join("");
@@ -414,6 +414,8 @@ function deleteAsset(id){
 </script>
 </body>
 </html>
+
+
 
 
 

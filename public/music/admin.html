@@ -529,7 +529,7 @@ async function loadCommentsTab(){
   const videos = await videosRes.json();
 
   const table = document.getElementById("commentsTable");
-  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loadingâ€¦</td></tr>";
+  table.innerHTML = "<tr><td colspan='4' class='empty-note'>Loading…</td></tr>";
 
   let allComments = [];
 
@@ -577,5 +577,6 @@ window.deleteComment = async function(commentId){
 
 </body>
 </html>
+
 
 

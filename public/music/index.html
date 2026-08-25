@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -313,7 +313,7 @@ function cardHtml(v, wide, i){
       "<div>" +
         "<div class='card-title'>" + v.title + "</div>" +
         "<div class='card-channel'>" + (v.artist || "SayBon Music") + "</div>" +
-        "<div class='card-meta'>" + v.views + " views" + (wide ? " Â· " + v.genre : "") + "</div>" +
+        "<div class='card-meta'>" + v.views + " views" + (wide ? " Ã‚Â· " + v.genre : "") + "</div>" +
       "</div>" +
     "</div>" +
   "</div>";
@@ -334,7 +334,7 @@ function renderHeroSlide(v, i){
     "<div class='hero-content'>" +
       "<span class='hero-badge'>" + (i === 0 ? "Featured" : "Trending") + "</span>" +
       "<h1 class='hero-title'>" + v.title + "</h1>" +
-      "<p class='hero-sub'>" + (v.artist || "SayBon Music") + " Â· " + v.views + " views</p>" +
+      "<p class='hero-sub'>" + (v.artist || "SayBon Music") + " Ã‚Â· " + v.views + " views</p>" +
       "<button class='hero-play-btn' onclick=\"location.href='/music/watch.html?v=" + v.id + "'\"><svg viewBox='0 0 24 24' fill='currentColor'><path d='M8 5v14l11-7z'/></svg>Play Now</button>" +
     "</div>" +
   "</div>";
@@ -432,7 +432,7 @@ function renderContent(){
   const area = document.getElementById("contentArea");
 
   if(!allVideos.length){
-    area.innerHTML = "<div class='empty-state'>No videos yet â€” check back soon.</div>";
+    area.innerHTML = "<div class='empty-state'>No videos yet ââ‚¬- check back soon.</div>";
     heroVideos = [];
     buildHero();
     return;
@@ -500,7 +500,7 @@ function renderContent(){
 
 async function loadVideos(){
 
-  document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Loadingâ€¦</div>";
+  document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Loadingââ‚¬Â¦</div>";
 
   try{
     const res = await fetch(API_BASE + "/api/musicVideos");
@@ -563,3 +563,4 @@ sidebarOverlay.addEventListener("click", closeSidebar);
 
 </body>
 </html>
+

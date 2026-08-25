@@ -27,7 +27,14 @@ justify-content:center;
 padding:60px 20px;
 }
 
-.page{ width:100%; max-width:560px; }
+.page{ width:100%; max-width:560px; 
+opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes pageEnter{
+from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
 
 .progress-strip{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:24px; }
 .progress-dot{ width:8px; height:8px; border-radius:50%; background:#0C8F96; }
@@ -104,28 +111,28 @@ cursor:pointer; user-select:all; border:1px solid rgba(212,175,106,.3);
 <div class="card">
 
 <h1>Application Result</h1>
-<div class="result-sub">Job Code: <span id="jobCodeLabel">—</span></div>
+<div class="result-sub">Job Code: <span id="jobCodeLabel">-</span></div>
 
-<div id="status" class="status">Loading…</div>
+<div id="status" class="status">Loading...</div>
 
 <div class="metric-list" id="metricList" style="display:none;">
 
 <div class="metric-row">
 <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg></span>
 <div class="metric-body">
-<div class="metric-label">Content Accuracy (FR → EN)</div>
+<div class="metric-label">Content Accuracy (FR to EN)</div>
 <div class="metric-bar-track"><div class="metric-bar-fill" id="accuracyBar" style="width:0%"></div></div>
 </div>
-<div class="metric-value" id="accuracyValue">—</div>
+<div class="metric-value" id="accuracyValue">-</div>
 </div>
 
 <div class="metric-row">
 <span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg></span>
 <div class="metric-body">
-<div class="metric-label">Terminology (EN → FR)</div>
+<div class="metric-label">Terminology (EN to FR)</div>
 <div class="metric-bar-track"><div class="metric-bar-fill" id="terminologyBar" style="width:0%"></div></div>
 </div>
-<div class="metric-value" id="terminologyValue">—</div>
+<div class="metric-value" id="terminologyValue">-</div>
 </div>
 
 <div class="metric-row">
@@ -133,12 +140,12 @@ cursor:pointer; user-select:all; border:1px solid rgba(212,175,106,.3);
 <div class="metric-body">
 <div class="metric-label">Completeness Check</div>
 </div>
-<div class="metric-value" id="completenessValue">—</div>
+<div class="metric-value" id="completenessValue">-</div>
 </div>
 
 <div class="final-row">
 <span class="final-label">Final Score</span>
-<span class="final-value" id="finalScoreValue">—</span>
+<span class="final-value" id="finalScoreValue">-</span>
 </div>
 
 </div>

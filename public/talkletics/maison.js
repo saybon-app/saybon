@@ -1,4 +1,4 @@
-(function(){
+﻿(function(){
 
   var API_BASE = "https://saybonapp-server.onrender.com";
   var PASS_MARK = 70;
@@ -9,10 +9,10 @@
     { french:"Merci", english:"Thanks", asset:"mission1-item3", tier:"Words" },
     { french:"Bonsoir", english:"Good evening", asset:"mission1-item4", tier:"Words" },
     { french:"Pardon", english:"Excuse me", asset:"mission1-item5", tier:"Words" },
-    { french:"Comment ça va ?", english:"How are you?", asset:"mission1-item6", tier:"Phrases" },
+    { french:"Comment Ça va ?", english:"How are you?", asset:"mission1-item6", tier:"Phrases" },
     { french:"Très bien, merci", english:"Very well, thanks", asset:"mission1-item7", tier:"Phrases" },
-    { french:"À bientôt", english:"See you soon", asset:"mission1-item8", tier:"Phrases" },
-    { french:"Enchanté", english:"Nice to meet you", asset:"mission1-item9", tier:"Phrases" },
+    { french:"Ã€ bientôt", english:"See you soon", asset:"mission1-item8", tier:"Phrases" },
+    { french:"EnchantÉ", english:"Nice to meet you", asset:"mission1-item9", tier:"Phrases" },
     { french:"Je m'appelle Marie", english:"My name is Marie", asset:"mission1-item10", tier:"Sentences" },
     { french:"Comment vous appelez-vous ?", english:"What is your name?", asset:"mission1-item11", tier:"Sentences" },
     { french:"Bonjour, comment allez-vous aujourd'hui ?", english:"Hello, how are you today?", asset:"mission1-item12", tier:"Sentences" }
@@ -117,9 +117,9 @@
   }
 
   var encourageMessages = [
-    "You're SO close — I think one more try gets you there!",
+    "You're SO close - I think one more try gets you there!",
     "Almost! I bet a second go pushes you even higher.",
-    "Great effort — try again, I think you'll surprise yourself.",
+    "Great effort - try again, I think you'll surprise yourself.",
     "You're closer than you think. One more shot?"
   ];
   var passMessages = [
@@ -183,7 +183,7 @@
     updateDots();
     listenBtn.style.display = "inline-block";
     listenBtn.disabled = false;
-    listenBtn.textContent = "▶ Listen";
+    listenBtn.textContent = "â–¶ Listen";
     recordBtn.style.display = "none";
     stopBtn.style.display = "none";
     submitBtn.style.display = "none";
@@ -231,11 +231,11 @@
     updateDots();
 
     if(listenCount === 3){
-      phaseLabelEl.textContent = "Get ready — you'll record exactly what you hear once the audio stops.";
+      phaseLabelEl.textContent = "Get ready - you'll record exactly what you hear once the audio stops.";
     }
 
     if(listenCount >= 6){
-      phaseLabelEl.textContent = "Record a replica — the closer, the higher your score!";
+      phaseLabelEl.textContent = "Record a replica - the closer, the higher your score!";
       recordBtn.style.display = "inline-block";
       return;
     }
@@ -412,8 +412,8 @@
 
     finalScoreEl.textContent = avg + "%";
     finalPassEl.textContent = passed
-      ? "Pass mark: " + PASS_MARK + "% — You passed!"
-      : "Pass mark: " + PASS_MARK + "% — Not quite yet.";
+      ? "Pass mark: " + PASS_MARK + "% - You passed!"
+      : "Pass mark: " + PASS_MARK + "% - Not quite yet.";
     finalPassEl.style.color = passed ? "#3f9f3f" : "#c23e3e";
 
     playHypeVideo();
@@ -555,7 +555,7 @@
 
     } else {
       preloaderNote.style.display = "block";
-      preloaderNote.textContent = "Preloader video not uploaded yet — continuing…";
+      preloaderNote.textContent = "Preloader video not uploaded yet - continuing…";
       setTimeout(showGuideIntro, 1500);
     }
 
@@ -578,3 +578,5 @@ document.addEventListener("pointerup", function(e){
 document.addEventListener("pointercancel", function(e){
   document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
 });
+
+

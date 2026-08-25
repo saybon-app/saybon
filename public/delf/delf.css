@@ -1,4 +1,4 @@
-*{box-sizing:border-box;margin:0;padding:0;}
+﻿*{box-sizing:border-box;margin:0;padding:0;}
 body{
   font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
   background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);
@@ -189,7 +189,7 @@ body{
   font-size:.92rem;color:#aeb4c2;padding-left:28px;position:relative;line-height:1.6;
 }
 .df-why-list li::before{
-  content:"—";position:absolute;left:0;top:0;color:#d4af6a;font-weight:800;
+  content:"-";position:absolute;left:0;top:0;color:#d4af6a;font-weight:800;
 }
 .df-why-list li strong{color:#f6f1e4;}
 
@@ -229,3 +229,4 @@ body{
 }
 .df-dashboard-btn:active{transform:scale(.96);}
 .df-dashboard-btn:hover{background:rgba(255,255,255,.1);}
+

@@ -408,15 +408,15 @@ const statusBadge = s.reviewed
 const flags = [];
 
 if(s.keystrokeCount === 0){
-  flags.push("<span style='color:#e08585;font-weight:600;'>Ã¢Å¡Â  No keystrokes detected</span>");
+  flags.push("<span style='color:#e08585;font-weight:600;'>âÅ¡Â  No keystrokes detected</span>");
 }
 
 if(s.timeTakenSeconds > 0 && s.jobWordCount > 0 && s.timeTakenSeconds < (s.jobWordCount * 0.3)){
-  flags.push("<span style='color:#F0C77E;font-weight:600;'>Ã¢Å¡Â  Completed unusually fast (" + s.timeTakenSeconds + "s for " + s.jobWordCount + " words)</span>");
+  flags.push("<span style='color:#F0C77E;font-weight:600;'>âÅ¡Â  Completed unusually fast (" + s.timeTakenSeconds + "s for " + s.jobWordCount + " words)</span>");
 }
 
 if(s.pasteAttempts > 0){
-  flags.push("<span style='color:#F0C77E;font-weight:600;'>Ã¢Å¡Â  " + s.pasteAttempts + " blocked paste attempt(s)</span>");
+  flags.push("<span style='color:#F0C77E;font-weight:600;'>âÅ¡Â  " + s.pasteAttempts + " blocked paste attempt(s)</span>");
 }
 
 if(s.tabSwitches > 2){
@@ -612,5 +612,6 @@ loadOverview();
 </body>
 
 </html>
+
 
 
