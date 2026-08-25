@@ -37,20 +37,6 @@ document.getElementById("startHomeBtn")?.addEventListener("click", () => {
   window.location.href = "/";
 });
 
-(function repairLoaderHistoryOnStart() {
-  const prev = sessionStorage.getItem("saybon_prev");
-  if (!prev) return;
-  try {
-    history.replaceState({ ...(history.state || {}), saybonLoaderPrev: prev }, "", window.location.href);
-  } catch (_) {}
-  let repaired = false;
-  window.addEventListener("popstate", () => {
-    if (repaired) return;
-    repaired = true;
-    window.location.replace(prev);
-  }, { once: true });
-})();
-
 const paths = [...document.querySelectorAll(".start-path")];
 let busy = false;
 
@@ -106,11 +92,11 @@ paths.forEach(card => {
       }, 900);
       setTimeout(() => { shell.classList.add("start-shell-exit"); }, 1400);
       setTimeout(() => {
-        sessionStorage.setItem("saybon_prev", "/start.html");
-        sessionStorage.setItem("saybon_next", destinations[card.id]);
-        window.location.href = "/loader.html";
+        window.location.href = destinations[card.id];
       }, 1700);
 
     }, 160);
   });
 });
+
+
