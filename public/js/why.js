@@ -1,4 +1,4 @@
-
+﻿
 function typeTitle(el, onDone){
   if(!el) return;
   const text = el.getAttribute("data-text") || "";
@@ -117,20 +117,20 @@ cards.forEach((card, cardIndex)=>{
 
                 card.classList.add("why-bounce");
 
-            },900);
+            },550);
 
             setTimeout(()=>{
 
                 card.classList.remove("why-bounce");
                 card.classList.add("why-floating");
 
-            },1500);
+            },900);
 
             setTimeout(()=>{
 
                 shell.classList.add("why-shell-exit");
 
-            },2350);
+            },1400);
 
             setTimeout(()=>{
 
@@ -146,12 +146,13 @@ cards.forEach((card, cardIndex)=>{
 
                 window.location.href="/loader.html";
 
-            },2800);
+            },1700);
 
         }, 160);
 
     });
 
 });
+
 
 
