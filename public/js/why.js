@@ -134,17 +134,7 @@ cards.forEach((card, cardIndex)=>{
 
             setTimeout(()=>{
 
-                sessionStorage.setItem(
-                    "saybon_prev",
-                    "/why.html"
-                );
-
-                sessionStorage.setItem(
-                    "saybon_next",
-                    "/start.html"
-                );
-
-                window.location.href="/loader.html";
+                window.location.href="/start.html";
 
             },1700);
 
@@ -153,6 +143,7 @@ cards.forEach((card, cardIndex)=>{
     });
 
 });
+
 
 
 
