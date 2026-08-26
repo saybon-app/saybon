@@ -141,9 +141,9 @@ const fbApp = initializeApp(firebaseConfig);
 const storage = getStorage(fbApp);
 const auth = getAuth(fbApp);
 
-signInAnonymously(auth).catch(err => console.error("Anonymous sign-in failed:", err));
 
-const API_BASE = "https://saybonapp-server.onrender.com";
+
+const API_BASE = "https://saybonapp-server.onrender.com"; window.addEventListener("adminAuthorized", function(){ document.getElementById("login").style.display = "none"; document.getElementById("panel").style.display = "block"; loadLocations(); loadAssets(); });
 
 window.unlock = function(){
   const val = document.getElementById("passcode").value;
@@ -386,6 +386,7 @@ window.deleteAsset = async function(assetId){
 </script>
 </body>
 </html>
+
 
 
 
