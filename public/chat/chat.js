@@ -360,7 +360,7 @@ toggleBtn.addEventListener("click", () => {
 // HOME / DASHBOARD / HEADER ICONS
 // =========================================================
 
-homeBtn.addEventListener("click", () => { window.if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href = "/"; });
+homeBtn.addEventListener("click", () => { if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/"; });
 dashboardBtn.addEventListener("click", () => { window.location.href = "/dashboard/"; });
 
 document.getElementById("mobileBackBtn").addEventListener("click", () => {
@@ -696,4 +696,5 @@ function subscribeToRoom(roomId) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   });
 }
+
 

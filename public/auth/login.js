@@ -19,7 +19,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  window.if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href = "/";
+  if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/";
 });
 
 document.getElementById("loginBtn").addEventListener("click", async () => {
@@ -87,3 +87,4 @@ document.getElementById("emailIconBtn").addEventListener("click", () => {
   form.style.display = isOpen ? "none" : "flex";
   divider.style.display = isOpen ? "none" : "flex";
 });
+
