@@ -221,14 +221,14 @@ function renderLevelPicker(){
     var lvl = LEVELS[id];
     return '<button class="pl-level-btn" onclick="startLevel(\'' + id + '\')">' +
       '<div><h3>' + lvl.label + '</h3><p>' + (lvl.hasContent ? "Ready" : "Content coming soon") + '</p></div>' +
-      '<span class="pl-arrow">â†’</span></button>';
+      '<span class="pl-arrow">→</span></button>';
   }).join("");
 
   var kids = ["prim", "junior"].map(function(id){
     var lvl = LEVELS[id];
     return '<button class="pl-level-btn" onclick="startLevel(\'' + id + '\')">' +
       '<div><h3>' + lvl.label + '</h3><p>' + (lvl.hasContent ? "Ready" : "Content coming soon") + '</p></div>' +
-      '<span class="pl-arrow">â†’</span></button>';
+      '<span class="pl-arrow">→</span></button>';
   }).join("");
 
   render(
@@ -650,6 +650,7 @@ window.submitWriting = submitWriting;
 window.toggleRecording = toggleRecording;
 window.finishLevel = finishLevel;
 window.finalizeResult = finalizeResult;
+
 
 
 
