@@ -232,7 +232,7 @@ const fbApp = initializeApp(firebaseConfig);
 const storage = getStorage(fbApp);
 const auth = getAuth(fbApp);
 
-signInAnonymously(auth).catch(err => console.error("Anonymous sign-in failed:", err));
+
 
 const API_BASE = "https://saybonapp-server.onrender.com";
 
@@ -259,7 +259,7 @@ function unlock(){
     alert("Incorrect passcode");
   }
 }
-window.unlock = unlock;
+window.unlock = unlock; window.addEventListener("adminAuthorized", function(){ document.getElementById("login").style.display = "none"; document.getElementById("panel").style.display = "block"; loadAll(); });
 
 if(sessionStorage.getItem("saybonMusicAdminVerified") === "true"){
   document.getElementById("login").style.display = "none";
@@ -577,6 +577,7 @@ window.deleteComment = async function(commentId){
 
 </body>
 </html>
+
 
 
 
