@@ -500,7 +500,7 @@ function renderContent(){
 
 async function loadVideos(){
 
-  document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Loadingââ‚¬Â¦</div>";
+  document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Loading...</div>";
 
   try{
     const res = await fetch(API_BASE + "/api/musicVideos");
@@ -563,6 +563,7 @@ sidebarOverlay.addEventListener("click", closeSidebar);
 
 </body>
 </html>
+
 
 
 

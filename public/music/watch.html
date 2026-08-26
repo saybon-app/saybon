@@ -234,7 +234,7 @@ Save
 <span class="views-count" id="viewsCount"></span>
 </div>
 
-<div class="repeat-hint">Click Repeat to cycle: Off â†’ Repeat Current â†’ Repeat All</div>
+<div class="repeat-hint">Click Repeat to cycle: Off → Repeat Current → Repeat All</div>
 
 <div class="description" id="videoDescription" style="display:none;"></div>
 
@@ -587,7 +587,7 @@ async function loadUpNext(genre, activeId){
     row.onclick = () => loadVideoById(v.id, true);
     row.innerHTML =
       upNextThumb(v) +
-      "<div><div class='un-title'>" + v.title + "</div><div class='un-sub'>" + (v.artist||"SayBon Music") + " Â· " + v.views + " views</div></div>";
+      "<div><div class='un-title'>" + v.title + "</div><div class='un-sub'>" + (v.artist||"SayBon Music") + " · " + v.views + " views</div></div>";
     list.appendChild(row);
   });
 
@@ -828,3 +828,5 @@ wSidebarOverlay.addEventListener("click", wCloseSidebar);
 
 </body>
 </html>
+
+

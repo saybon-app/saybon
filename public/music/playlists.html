@@ -272,7 +272,7 @@ async function loadPlaylists(){
             row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
             row.innerHTML =
               pvThumb(v) +
-              "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " Â· " + v.views + " views</div></div>";
+              "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</div></div>";
             videosDiv.appendChild(row);
           });
 
@@ -377,3 +377,4 @@ wSidebarOverlay.addEventListener("click", wCloseSidebar);
 
 </body>
 </html>
+
