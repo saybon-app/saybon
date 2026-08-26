@@ -39,7 +39,7 @@ function renderPart(partNum, label){
       '<div class="ls-prompt-bubble">' + promptText + '</div>' +
       '<canvas id="lsWaveCanvas" class="ls-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
       '<div class="ls-record-row">' +
-      '<button class="ls-record-btn" id="lsRecordBtn">â— Record</button>' +
+      '<button class="ls-record-btn" id="lsRecordBtn">● Record</button>' +
       '<span class="ls-record-status" id="lsRecordStatus">' + (recordedBlob ? "Recorded" : "Not recorded yet") + '</span>' +
       '</div>' +
       '<div class="ls-playback-row" id="lsPlaybackRow" style="display:none;">' +
@@ -144,7 +144,7 @@ function toggleRecording(){
       };
       mediaRecorder.start();
       startWave(stream, false);
-      btn.textContent = "â–  Stop";
+      btn.textContent = "■ Stop";
       btn.classList.add("ls-recording");
       status.textContent = "Recording...";
     }).catch(function(err){
@@ -182,7 +182,7 @@ function reRecord(){
   document.getElementById("lsPlaybackRow").style.display = "none";
   var btn = document.getElementById("lsRecordBtn");
   btn.style.display = "inline-block";
-  btn.textContent = "â— Record";
+  btn.textContent = "● Record";
   btn.classList.remove("ls-recording");
   document.getElementById("lsRecordStatus").textContent = "Not recorded yet";
   document.getElementById("lsSubmitBtn").disabled = true;
@@ -225,7 +225,7 @@ window.lsGoNext = function(){
     render(
       '<div class="ls-card" style="text-align:center;">' +
       '<p class="ls-part-label">Lesson Complete!</p>' +
-      '<p style="color:#fff;font-size:1.1rem;margin-bottom:20px;">You did it! ðŸŽ‰</p>' +
+      '<p style="color:#fff;font-size:1.1rem;margin-bottom:20px;">You did it! 🎉</p>' +
       '<button class="ls-btn ls-btn-primary" onclick="window.location.href=\'./\'">Back to Lessons</button>' +
       '</div>'
     );
@@ -246,4 +246,5 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
