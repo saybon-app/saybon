@@ -130,7 +130,7 @@ function unlock(){
     alert("Incorrect passcode");
   }
 }
-window.unlock = unlock;
+window.unlock = unlock; window.addEventListener("adminAuthorized", function(){ document.getElementById("login").style.display = "none"; document.getElementById("panel").style.display = "block"; loadAll(); });
 
 if(sessionStorage.getItem("chatAdminVerified") === "true"){
   document.getElementById("login").style.display = "none";
@@ -291,6 +291,7 @@ function escapeHtml(str){
 
 </body>
 </html>
+
 
 
 
