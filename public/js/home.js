@@ -74,12 +74,12 @@ if (document.readyState === "loading") {
 
 startBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  window.location.href = "/why.html";
+  if(window.startAppBgMusic){ window.startAppBgMusic(); } window.location.href = "/why.html";
 });
 
 loginBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  window.location.href = "/auth/login.html";
+  if(window.startAppBgMusic){ window.startAppBgMusic(); } window.location.href = "/auth/login.html";
 });
 
 settingsBtn?.addEventListener("click", (e) => {
@@ -103,3 +103,4 @@ function bindPressFeedback(el) {
   el.addEventListener("touchcancel", pressOff);
 }
 [startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+
