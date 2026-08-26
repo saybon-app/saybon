@@ -1005,7 +1005,7 @@ allJobs = [];
 
 snapshot.forEach(job=>{
 const data = job.data();
-if(data.status === "open"){
+if(data.status === "open" && !data.formattingUnlocked){
 allJobs.push({ id: job.id, data });
 }
 });
@@ -1173,6 +1173,7 @@ window.resetTrackRecord = resetTrackRecord;
 </body>
 
 </html>
+
 
 
 
