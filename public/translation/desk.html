@@ -352,6 +352,13 @@ Return to Dashboard
 
 </div>
 
+<div class="job-list-panel" id="otherJobsPanel" style="display:none;">
+<div class="panel" style="margin-bottom:0;">
+<div class="panel-label">Your Other Jobs</div>
+<div class="job-list" id="otherJobsList"></div>
+</div>
+</div>
+
 <script type="module">
 
 import { db, auth } from "/js/firebase-init.js";
@@ -421,6 +428,37 @@ async function loadAllJobs(){
 
 }
 
+
+async function loadOtherJobs(email, currentJobId){
+  try{
+    const res = await fetch("https://saybonapp-server.onrender.com/api/jobsByEmail?email=" + encodeURIComponent(email) + "&excludeJobId=" + encodeURIComponent(currentJobId));
+    const jobs = await res.json();
+    if(!jobs || jobs.length === 0) return;
+
+    const panel = document.getElementById("otherJobsPanel");
+    const listEl = document.getElementById("otherJobsList");
+    listEl.innerHTML = "";
+
+    jobs.forEach(function(job){
+      const badge = STATUS_BADGE[job.status] || { label: job.status || "Unknown", color: "#9a8b7d" };
+      const row = document.createElement("div");
+      row.className = "job-list-item";
+      row.onclick = function(){ window.location.href = "/translation/desk.html?job=" + encodeURIComponent(job.jobId); };
+      row.innerHTML =
+        "<div class=\"job-list-left\">" +
+          "<div class=\"job-list-code\">" + job.jobId + "</div>" +
+          "<div class=\"job-list-meta\">" + job.plan + " · " + job.wordCount + " words · $" + Number(job.price).toFixed(2) + "</div>" +
+        "</div>" +
+        "<span class=\"job-list-badge\" style=\"background:" + badge.color + "\">" + badge.label + "</span>";
+      listEl.appendChild(row);
+    });
+
+    panel.style.display = "block";
+  }catch(err){
+    console.error("OTHER JOBS LOAD ERROR:", err);
+  }
+}
+
 function setStep(dotId, done){
   const el = document.getElementById(dotId);
   el.className = "step-dot " + (done ? "step-done" : "step-pending");
@@ -474,6 +512,8 @@ async function loadJob(){
       document.getElementById("message").innerText = "Awaiting payment confirmation.";
     }
 
+    if(data.email){ loadOtherJobs(data.email, jobId); }
+
   }catch(err){
     console.error("DESK LOAD ERROR:", err);
     document.getElementById("message").innerText = "There was a problem loading this job.";
@@ -498,6 +538,10 @@ if(adminKey === "true"){
 
 </body>
 </html>
+
+
+
+
 
 
 
