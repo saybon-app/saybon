@@ -4769,7 +4769,7 @@ app.get("/api/proxyFile", function(req,res){ try{ var fileUrl = req.query.url ||
 
 
 async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang, targetLang){
-  var promptText = "You are grading a professional translation submission for quality assurance. Source language: " + sourceLang + ". Target language: " + targetLang + ".\n\nSOURCE TEXT:\n" + sourceText + "\n\nSUBMITTED TRANSLATION:\n" + translatedText + "\n\nGrade this translation on accuracy, fluency, grammar, and completeness. Respond with ONLY a JSON object in this exact format, no other text, no markdown fences: {\"score\": (a number 0-100), \"feedback\": \"(a brief 1-2 sentence explanation)\"}";
+ var promptText = "You are a strict, discerning professional translation grader. Source language: " + sourceLang + ". Target language: " + targetLang + ".\n\nSOURCE TEXT:\n" + sourceText + "\n\nSUBMITTED TRANSLATION:\n" + translatedText + "\n\nGrade this translation on accuracy, fluency, grammar, and completeness. Be fair but demanding: deduct points for any imperfection in word choice, tone, naturalness, or grammar, however minor. A perfect score of 100 should never be given, no matter how good the translation is - the maximum possible score is 90, reserved only for translations that are essentially flawless. Respond with ONLY a JSON object in this exact format, no other text, no markdown fences: {\"score\": (a number 0-90), \"feedback\": \"(a brief 1-2 sentence explanation)\"}";
   var response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
@@ -4789,6 +4789,7 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
   var parsed = JSON.parse(cleaned);
   return { score: Number(parsed.score) || 0, feedback: parsed.feedback || "" };
 }
+
 
 
 
