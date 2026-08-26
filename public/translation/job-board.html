@@ -578,7 +578,7 @@ padding:14px 28px;
 <div class="tab-content" id="content-submitted"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
 <div class="tab-content" id="content-review"><div class="empty-state">Loading...</div></div>
 <div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
-<div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet - no balance system exists in SayBon today.</div></div>
+<div class="tab-content" id="content-earnings"><div class="empty-state">Loading...</div></div>
 <div class="tab-content" id="content-transactions"><div class="empty-state">Transaction history has not been built yet.</div></div>
 <div class="tab-content" id="content-payouts"><div class="empty-state">Your Wallet at the top of this page always shows your current balance. Earnings appear there the moment your work passes review, become available to cash out 3 business days later, and are paid directly to your bank or mobile money account in weekly batches once your available balance reaches $10. Payouts are currently processed manually by the SayBon team rather than through an automated banking system.</div></div>
 
@@ -1140,6 +1140,40 @@ function showJustGradedAlert(){
   }
 }
 showJustGradedAlert();
+async function loadEarnings(){
+  const passkey = sessionStorage.getItem("saybonTranslatorPasskey");
+  const container = document.getElementById("content-earnings");
+  if(!passkey){
+    container.innerHTML = "<div class=\"empty-state\">Enter your passkey above to see your earnings.</div>";
+    return;
+  }
+  try{
+    const res = await fetch("https://saybonapp-server.onrender.com/api/translatorWallet?key=" + encodeURIComponent(passkey));
+    const data = await res.json();
+    if(!res.ok){
+      container.innerHTML = "<div class=\"empty-state\">There was a problem loading your earnings.</div>";
+      return;
+    }
+    container.innerHTML =
+      "<div class=\"panel\" style=\"margin-bottom:14px;\">" +
+        "<div class=\"panel-label\">Available to cash out</div>" +
+        "<div style=\"font-size:28px;font-weight:800;color:#3a2f28;\">$" + data.availableBalance.toFixed(2) + "</div>" +
+      "</div>" +
+      "<div class=\"panel\" style=\"margin-bottom:14px;\">" +
+        "<div class=\"panel-label\">Pending clearance</div>" +
+        "<div style=\"font-size:20px;font-weight:700;color:#8a7a6d;\">$" + data.pendingClearance.toFixed(2) + "</div>" +
+        "<div style=\"font-size:12px;color:#8a7a6d;margin-top:4px;\">Becomes available " + data.clearanceDays + " days after approval</div>" +
+      "</div>" +
+      "<div class=\"panel\">" +
+        "<div class=\"panel-label\">Already paid out</div>" +
+        "<div style=\"font-size:20px;font-weight:700;color:#3a2f28;\">$" + data.paidOut.toFixed(2) + "</div>" +
+      "</div>";
+  }catch(err){
+    console.error("EARNINGS LOAD ERROR:", err);
+    container.innerHTML = "<div class=\"empty-state\">There was a problem loading your earnings.</div>";
+  }
+}
+loadEarnings();
 
 async function fetchTrackRecord(passkey){
 
@@ -1256,6 +1290,8 @@ window.resetTrackRecord = resetTrackRecord;
 </body>
 
 </html>
+
+
 
 
 
