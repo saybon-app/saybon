@@ -36,7 +36,7 @@
       <span class="sidebar-brand-name">SayBon Chat</span>
     
       <div class="sidebar-mobile-nav">
-        <button onclick="location.href='/'" aria-label="Home">
+        <button onclick="if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href='/'" aria-label="Home">
           <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
         </button>
         <button onclick="location.href='/dashboard/'" aria-label="Dashboard">
@@ -342,4 +342,5 @@ window.addEventListener("unhandledrejection", function(e){
 <script type="module" src="/chat/chat.js?v=20260816g"></script>
 </body>
 </html>
+
 

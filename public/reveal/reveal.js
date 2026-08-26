@@ -1,4 +1,4 @@
-const level =
+﻿const level =
   sessionStorage.getItem("saybon_level") || "Absolute Beginner";
 
 const levelText = document.getElementById("levelText");
@@ -25,5 +25,6 @@ document.getElementById("startJourney").onclick = () => {
 };
 
 document.getElementById("backHome").onclick = () => {
-  window.location.href = "/";
+  if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/";
 };
+

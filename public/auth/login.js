@@ -19,7 +19,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 document.getElementById("backBtn").addEventListener("click", () => {
-  window.location.href = "/";
+  window.if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href = "/";
 });
 
 document.getElementById("loginBtn").addEventListener("click", async () => {

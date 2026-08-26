@@ -59,7 +59,7 @@ onAuthStateChanged(auth, function(user){
 
 document.getElementById("stLogoutBtn").addEventListener("click", function(){
   signOut(auth).then(function(){
-    window.location.href = "/";
+    if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/";
   }).catch(function(err){
     console.error("Logout failed:", err);
   });
@@ -67,5 +67,7 @@ document.getElementById("stLogoutBtn").addEventListener("click", function(){
 </script>
 </body>
 </html>
+
+
 
 

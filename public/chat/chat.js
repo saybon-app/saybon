@@ -1,4 +1,4 @@
-import { auth, db } from "/js/firebase-init.js";
+﻿import { auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import {
@@ -360,7 +360,7 @@ toggleBtn.addEventListener("click", () => {
 // HOME / DASHBOARD / HEADER ICONS
 // =========================================================
 
-homeBtn.addEventListener("click", () => { window.location.href = "/"; });
+homeBtn.addEventListener("click", () => { window.if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href = "/"; });
 dashboardBtn.addEventListener("click", () => { window.location.href = "/dashboard/"; });
 
 document.getElementById("mobileBackBtn").addEventListener("click", () => {

@@ -34,7 +34,7 @@ document.querySelectorAll(".start-title").forEach(titleEl => {
 });
 
 document.getElementById("startHomeBtn")?.addEventListener("click", () => {
-  window.location.href = "/";
+  if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/";
 });
 
 const paths = [...document.querySelectorAll(".start-path")];
@@ -98,5 +98,7 @@ paths.forEach(card => {
     }, 160);
   });
 });
+
+
 
 

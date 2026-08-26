@@ -1,4 +1,4 @@
-function goLevels(){ window.location.href="/levels/"; }
+﻿function goLevels(){ window.location.href="/levels/"; }
 function goTalkletics(){ window.location.href="/talkletics/"; }
 function goMusic(){ window.location.href="/music/"; }
 function goDelf(){ window.location.href="/delf/"; }
@@ -6,7 +6,7 @@ function goTranslation(){ window.location.href="/translation/"; }
 function goChat(){ window.location.href="/chat/"; }
 function goFeedback(){ window.location.href="/feedback/"; }
 function goSupport(){ window.location.href="/support/"; }
-function goHome(){ window.location.href="/"; }
+function goHome(){ if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href="/"; }
 
 const level = sessionStorage.getItem("saybon_level");
 document.querySelectorAll(".js-profile-level").forEach(el => el.textContent = level || "Level not set");
@@ -31,3 +31,4 @@ const goalCaptionText = dailyMinutes === 0
     ? "Goal reached! Keep it up"
     : "Keep going, you're doing great";
 document.querySelectorAll(".js-goal-caption").forEach(el => el.textContent = goalCaptionText);
+

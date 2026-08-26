@@ -41,7 +41,7 @@ document.querySelectorAll(".why-title").forEach(titleEl => {
 });
 
 document.getElementById("whyHomeBtn")?.addEventListener("click", () => {
-  window.location.href = "/";
+  if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href = "/";
 });
 
 const cards=[...document.querySelectorAll(".why-option")];
@@ -143,6 +143,8 @@ cards.forEach((card, cardIndex)=>{
     });
 
 });
+
+
 
 
 
