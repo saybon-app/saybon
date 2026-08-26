@@ -4761,3 +4761,6 @@ async function requireAdminAuth(req, res, next){ try{ var authHeader = req.heade
 
 
 
+
+
+app.get("/api/jobsByEmail", async(req,res)=>{ try{ var email = (req.query.email || "").toLowerCase(); var excludeJobId = req.query.excludeJobId || ""; if(!email) return res.json([]); var snapshot = await db.collection("translationJobs").where("email","==",email).get(); var results = []; snapshot.forEach(function(docSnap){ if(docSnap.id === excludeJobId) return; var data = docSnap.data(); results.push({ jobId: data.jobId || docSnap.id, status: data.status || "", paid: data.paid === true, price: data.price || 0, wordCount: data.wordCount || 0, plan: data.plan || "" }); }); res.json(results); }catch(err){ console.error(err); res.status(500).json([]); } });
