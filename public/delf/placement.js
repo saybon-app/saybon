@@ -23,127 +23,127 @@ var LEVELS = {
       questions: [
         { q: "Quel est le nom de famille de Claire ?", options: ["Dubois", "Dupont", "Durand"], correct: 0 },
         { q: "Quel âge a Claire ?", options: ["18 ans", "28 ans", "38 ans"], correct: 1 },
-        { q: "Avec qui habite-t-elle ?", options: ["sa sÅ“ur", "son frère", "ses parents"], correct: 1 },
-        { q: "Que fait Claire comme mÉtier ?", options: ["infirmière", "professeure", "vendeuse"], correct: 1 },
+        { q: "Avec qui habite-t-elle ?", options: ["sa sœur", "son frère", "ses parents"], correct: 1 },
+        { q: "Que fait Claire comme métier ?", options: ["infirmière", "professeure", "vendeuse"], correct: 1 },
         { q: "Comment va-t-elle au travail ?", options: ["en voiture", "à  pied", "en bus"], correct: 2 }
       ]
     },
     reading: {
-      passage: "Paul travaille dans un grand bureau au centre-ville. Il commence à  huit heures et demie et termine à  dix-sept heures trente. Le midi, il mange avec ses collègues dans un petit restaurant près du bureau. Il aime son travail parce que l'ambiance est agrÉable, même si parfois il trouve les journÉes un peu longues.",
+      passage: "Paul travaille dans un grand bureau au centre-ville. Il commence à  huit heures et demie et termine à  dix-sept heures trente. Le midi, il mange avec ses collègues dans un petit restaurant près du bureau. Il aime son travail parce que l'ambiance est agréable, même si parfois il trouve les journées un peu longues.",
       questions: [
         { q: "Où travaille Paul ?", options: ["dans une usine", "dans un bureau", "dans un magasin"], correct: 1 },
         { q: "Ã€ quelle heure commence-t-il ?", options: ["8h", "8h30", "9h"], correct: 1 },
         { q: "Où mange-t-il le midi ?", options: ["chez lui", "au bureau", "dans un restaurant"], correct: 2 },
         { q: "Pourquoi aime-t-il son travail ?", options: ["le bon salaire", "la bonne ambiance", "les horaires courts"], correct: 1 },
-        { q: "Comment sont ses journÉes, parfois ?", options: ["courtes", "longues", "difficiles"], correct: 1 }
+        { q: "Comment sont ses journées, parfois ?", options: ["courtes", "longues", "difficiles"], correct: 1 }
       ]
     },
-    writing: { prompt: "PrÉsentez-vous en quelques phrases : votre nom, votre âge, et ce que vous aimez faire." },
+    writing: { prompt: "Présentez-vous en quelques phrases : votre nom, votre âge, et ce que vous aimez faire." },
     speaking: { prompt: "Parlez de votre famille pendant une minute." }
   },
 
   a2: {
     id: "a2", label: "A2", group: "Tout Public", hasContent: true,
     listening: {
-      script: "Hier, Sophie a visitÉ le musÉe avec sa meilleure amie, LÉa. Elles sont arrivÉes à  dix heures du matin et sont restÉes jusqu'à  midi. Après la visite, elles ont dÉjeunÉ dans un cafÉ en face du musÉe. Sophie a achetÉ deux cartes postales pour sa grand-mère, qui habite en Belgique.",
+      script: "Hier, Sophie a visité le musée avec sa meilleure amie, Léa. Elles sont arrivées à  dix heures du matin et sont restées jusqu'à  midi. Après la visite, elles ont déjeuné dans un café en face du musée. Sophie a acheté deux cartes postales pour sa grand-mère, qui habite en Belgique.",
       questions: [
-        { q: "Avec qui Sophie a-t-elle visitÉ le musÉe ?", options: ["sa sÅ“ur", "sa meilleure amie", "sa grand-mère"], correct: 1 },
-        { q: "Ã€ quelle heure sont-elles arrivÉes ?", options: ["9h", "10h", "11h"], correct: 1 },
-        { q: "Où ont-elles dÉjeunÉ ?", options: ["au musÉe", "dans un cafÉ", "chez LÉa"], correct: 1 },
-        { q: "Qu'est-ce que Sophie a achetÉ ?", options: ["un livre", "deux cartes postales", "un souvenir"], correct: 1 },
+        { q: "Avec qui Sophie a-t-elle visité le musée ?", options: ["sa sœur", "sa meilleure amie", "sa grand-mère"], correct: 1 },
+        { q: "Ã€ quelle heure sont-elles arrivées ?", options: ["9h", "10h", "11h"], correct: 1 },
+        { q: "Où ont-elles déjeuné ?", options: ["au musée", "dans un café", "chez Léa"], correct: 1 },
+        { q: "Qu'est-ce que Sophie a acheté ?", options: ["un livre", "deux cartes postales", "un souvenir"], correct: 1 },
         { q: "Où habite la grand-mère de Sophie ?", options: ["en France", "en Belgique", "en Italie"], correct: 1 }
       ]
     },
     reading: {
-      passage: "Un nouveau restaurant italien a ouvert ses portes le mois dernier au centre-ville. Le propriÉtaire, originaire de Naples, prÉpare chaque plat de faÇon traditionnelle, avec des ingrÉdients importÉs d'Italie. Les prix sont raisonnables pour la qualitÉ proposÉe. Cependant, plusieurs clients se plaignent que le service est parfois très lent, surtout le week-end.",
+      passage: "Un nouveau restaurant italien a ouvert ses portes le mois dernier au centre-ville. Le propriétaire, originaire de Naples, prépare chaque plat de faÇon traditionnelle, avec des ingrédients importés d'Italie. Les prix sont raisonnables pour la qualité proposée. Cependant, plusieurs clients se plaignent que le service est parfois très lent, surtout le week-end.",
       questions: [
-        { q: "Quand le restaurant a-t-il ouvert ?", options: ["la semaine dernière", "le mois dernier", "l'annÉe dernière"], correct: 1 },
-        { q: "D'où vient le propriÉtaire ?", options: ["Rome", "Naples", "Milan"], correct: 1 },
-        { q: "Comment sont prÉparÉs les plats ?", options: ["de faÇon moderne", "de faÇon traditionnelle", "de faÇon rapide"], correct: 1 },
+        { q: "Quand le restaurant a-t-il ouvert ?", options: ["la semaine dernière", "le mois dernier", "l'année dernière"], correct: 1 },
+        { q: "D'où vient le propriétaire ?", options: ["Rome", "Naples", "Milan"], correct: 1 },
+        { q: "Comment sont préparés les plats ?", options: ["de faÇon moderne", "de faÇon traditionnelle", "de faÇon rapide"], correct: 1 },
         { q: "Que pensent les clients des prix ?", options: ["trop chers", "raisonnables", "trop bas"], correct: 1 },
-        { q: "Quel est le problème principal signalÉ ?", options: ["la nourriture", "le service lent", "les prix"], correct: 1 }
+        { q: "Quel est le problème principal signalé ?", options: ["la nourriture", "le service lent", "les prix"], correct: 1 }
       ]
     },
-    writing: { prompt: "Racontez votre dernier week-end : où êtes-vous allÉ(e), avec qui, et qu'avez-vous fait ?" },
-    speaking: { prompt: "DÉcrivez votre quartier pendant une minute : ce que vous aimez et ce que vous n'aimez pas." }
+    writing: { prompt: "Racontez votre dernier week-end : où êtes-vous allé(e), avec qui, et qu'avez-vous fait ?" },
+    speaking: { prompt: "Décrivez votre quartier pendant une minute : ce que vous aimez et ce que vous n'aimez pas." }
   },
 
   b1: {
     id: "b1", label: "B1", group: "Tout Public", hasContent: true,
     listening: {
-      script: "Beaucoup de gens pensent que le tÉlÉtravail amÉliore la qualitÉ de vie parce qu'il permet d'Éviter les longs trajets et d'organiser sa journÉe plus librement. Cependant, certains employÉs trouvent qu'il est difficile de sÉparer vie professionnelle et vie personnelle, et ils se sentent parfois isolÉs sans contact rÉgulier avec leurs collègues. La plupart des experts s'accordent à  dire que le tÉlÉtravail fonctionne mieux quand il est combinÉ avec quelques jours au bureau chaque semaine.",
+      script: "Beaucoup de gens pensent que le télétravail améliore la qualité de vie parce qu'il permet d'Éviter les longs trajets et d'organiser sa journée plus librement. Cependant, certains employés trouvent qu'il est difficile de séparer vie professionnelle et vie personnelle, et ils se sentent parfois isolés sans contact régulier avec leurs collègues. La plupart des experts s'accordent à  dire que le télétravail fonctionne mieux quand il est combiné avec quelques jours au bureau chaque semaine.",
       questions: [
-        { q: "Selon certains, quel est l'avantage du tÉlÉtravail ?", options: ["un meilleur salaire", "Éviter les trajets", "plus de vacances"], correct: 1 },
-        { q: "Quelle difficultÉ certains employÉs rencontrent-ils ?", options: ["le manque d'Équipement", "sÉparer vie pro et vie perso", "trouver un emploi"], correct: 1 },
-        { q: "Que ressentent parfois les employÉs en tÉlÉtravail ?", options: ["de la fatigue", "de l'isolement", "de l'ennui"], correct: 1 },
-        { q: "Que recommandent la plupart des experts ?", options: ["tÉlÉtravail uniquement", "bureau uniquement", "un mÉlange des deux"], correct: 2 },
-        { q: "Quel est le ton gÉnÉral de ce passage ?", options: ["entièrement positif", "entièrement nÉgatif", "nuancÉ"], correct: 2 }
+        { q: "Selon certains, quel est l'avantage du télétravail ?", options: ["un meilleur salaire", "Éviter les trajets", "plus de vacances"], correct: 1 },
+        { q: "Quelle difficulté certains employés rencontrent-ils ?", options: ["le manque d'Équipement", "séparer vie pro et vie perso", "trouver un emploi"], correct: 1 },
+        { q: "Que ressentent parfois les employés en télétravail ?", options: ["de la fatigue", "de l'isolement", "de l'ennui"], correct: 1 },
+        { q: "Que recommandent la plupart des experts ?", options: ["télétravail uniquement", "bureau uniquement", "un mélange des deux"], correct: 2 },
+        { q: "Quel est le ton général de ce passage ?", options: ["entièrement positif", "entièrement négatif", "nuancé"], correct: 2 }
       ]
     },
     reading: {
-      passage: "L'utilisation des rÉseaux sociaux chez les adolescents suscite un dÉbat animÉ. D'un côtÉ, ces plateformes permettent de rester en contact avec des amis et de dÉcouvrir de nouvelles idÉes. De l'autre, certains chercheurs s'inquiètent de leur effet sur le sommeil et la concentration. MalgrÉ ces prÉoccupations, la plupart des parents choisissent de superviser l'utilisation plutôt que de l'interdire complètement.",
+      passage: "L'utilisation des réseaux sociaux chez les adolescents suscite un débat animé. D'un côté, ces plateformes permettent de rester en contact avec des amis et de découvrir de nouvelles idées. De l'autre, certains chercheurs s'inquiètent de leur effet sur le sommeil et la concentration. Malgré ces préoccupations, la plupart des parents choisissent de superviser l'utilisation plutôt que de l'interdire complètement.",
       questions: [
-        { q: "Quel est un avantage mentionnÉ des rÉseaux sociaux ?", options: ["amÉliorer le sommeil", "rester en contact avec des amis", "gagner de l'argent"], correct: 1 },
-        { q: "Quelle est une inquiÉtude des chercheurs ?", options: ["le coût", "l'effet sur le sommeil et la concentration", "la sÉcuritÉ des donnÉes"], correct: 1 },
+        { q: "Quel est un avantage mentionné des réseaux sociaux ?", options: ["améliorer le sommeil", "rester en contact avec des amis", "gagner de l'argent"], correct: 1 },
+        { q: "Quelle est une inquiétude des chercheurs ?", options: ["le coût", "l'effet sur le sommeil et la concentration", "la sécurité des données"], correct: 1 },
         { q: "Que font la plupart des parents ?", options: ["ils interdisent tout", "ils supervisent l'utilisation", "ils ignorent le problème"], correct: 1 },
-        { q: "Le ton du passage est-il...", options: ["pour l'interdiction totale", "entièrement favorable", "ÉquilibrÉ"], correct: 2 },
-        { q: "Quel groupe est concernÉ par ce dÉbat ?", options: ["les adolescents", "les retraitÉs", "les enseignants"], correct: 0 }
+        { q: "Le ton du passage est-il...", options: ["pour l'interdiction totale", "entièrement favorable", "Équilibré"], correct: 2 },
+        { q: "Quel groupe est concerné par ce débat ?", options: ["les adolescents", "les retraités", "les enseignants"], correct: 0 }
       ]
     },
-    writing: { prompt: "Donnez votre opinion sur l'effet des rÉseaux sociaux sur les jeunes, en justifiant votre point de vue." },
-    speaking: { prompt: "Donnez votre opinion sur un sujet d'actualitÉ, avec au moins deux arguments." }
+    writing: { prompt: "Donnez votre opinion sur l'effet des réseaux sociaux sur les jeunes, en justifiant votre point de vue." },
+    speaking: { prompt: "Donnez votre opinion sur un sujet d'actualité, avec au moins deux arguments." }
   },
 
   b2: {
     id: "b2", label: "B2", group: "Tout Public", hasContent: true,
     listening: {
-      script: "La transition ÉnergÉtique fait l'objet de dÉbats intenses. Certains soulignent qu'elle crÉera de nombreux emplois dans les Énergies renouvelables et rÉduira notre dÉpendance aux combustibles fossiles. D'autres craignent que cette transition menace des milliers d'emplois dans les industries traditionnelles, notamment le charbon et le pÉtrole, sans offrir de reconversion suffisante aux travailleurs concernÉs. Les dÉcideurs politiques tentent de trouver un Équilibre entre ces deux rÉalitÉs.",
+      script: "La transition Énergétique fait l'objet de débats intenses. Certains soulignent qu'elle créera de nombreux emplois dans les Énergies renouvelables et réduira notre dépendance aux combustibles fossiles. D'autres craignent que cette transition menace des milliers d'emplois dans les industries traditionnelles, notamment le charbon et le pétrole, sans offrir de reconversion suffisante aux travailleurs concernés. Les décideurs politiques tentent de trouver un Équilibre entre ces deux réalités.",
       questions: [
-        { q: "Quel est un argument en faveur de la transition ÉnergÉtique ?", options: ["baisse des impôts", "crÉation d'emplois dans le renouvelable", "plus de vacances"], correct: 1 },
-        { q: "Quelle est une crainte exprimÉe ?", options: ["la hausse des prix", "la perte d'emplois traditionnels", "le manque d'ÉlectricitÉ"], correct: 1 },
-        { q: "Quel secteur est mentionnÉ comme menacÉ ?", options: ["l'agriculture", "le charbon et le pÉtrole", "la technologie"], correct: 1 },
-        { q: "Que cherchent à  faire les dÉcideurs politiques ?", options: ["ignorer le problème", "trouver un Équilibre", "choisir un seul camp"], correct: 1 },
-        { q: "Quel est le ton gÉnÉral de cet extrait ?", options: ["optimiste", "alarmiste", "ÉquilibrÉ"], correct: 2 }
+        { q: "Quel est un argument en faveur de la transition Énergétique ?", options: ["baisse des impôts", "création d'emplois dans le renouvelable", "plus de vacances"], correct: 1 },
+        { q: "Quelle est une crainte exprimée ?", options: ["la hausse des prix", "la perte d'emplois traditionnels", "le manque d'Électricité"], correct: 1 },
+        { q: "Quel secteur est mentionné comme menacé ?", options: ["l'agriculture", "le charbon et le pétrole", "la technologie"], correct: 1 },
+        { q: "Que cherchent à  faire les décideurs politiques ?", options: ["ignorer le problème", "trouver un Équilibre", "choisir un seul camp"], correct: 1 },
+        { q: "Quel est le ton général de cet extrait ?", options: ["optimiste", "alarmiste", "Équilibré"], correct: 2 }
       ]
     },
     reading: {
-      passage: "La santÉ mentale occupe une place de plus en plus importante dans le dÉbat public, ce qui reprÉsente une avancÉe significative après des dÉcennies de silence. Toutefois, l'accès aux soins reste inÉgal : certaines personnes bÉnÉficient rapidement d'un accompagnement de qualitÉ, tandis que d'autres attendent des mois, faute de moyens ou de professionnels disponibles dans leur rÉgion. Ce système à  deux vitesses inquiète de nombreux spÉcialistes.",
+      passage: "La santé mentale occupe une place de plus en plus importante dans le débat public, ce qui représente une avancée significative après des décennies de silence. Toutefois, l'accès aux soins reste inégal : certaines personnes bénéficient rapidement d'un accompagnement de qualité, tandis que d'autres attendent des mois, faute de moyens ou de professionnels disponibles dans leur région. Ce système à  deux vitesses inquiète de nombreux spécialistes.",
       questions: [
-        { q: "Comment la place de la santÉ mentale dans le dÉbat public a-t-elle ÉvoluÉ ?", options: ["elle a diminuÉ", "elle a augmentÉ", "elle est restÉe stable"], correct: 1 },
-        { q: "Quel problème est mentionnÉ concernant l'accès aux soins ?", options: ["le coût uniquement", "l'inÉgalitÉ d'accès", "le manque d'intÉrêt du public"], correct: 1 },
-        { q: "Pourquoi certaines personnes attendent-elles des mois ?", options: ["manque de moyens ou de professionnels", "manque d'intÉrêt", "trop de demandes urgentes"], correct: 0 },
-        { q: "Comment est dÉcrit le système actuel ?", options: ["parfaitement Équitable", "à  deux vitesses", "entièrement gratuit"], correct: 1 },
-        { q: "Qui s'inquiète de cette situation ?", options: ["les patients uniquement", "de nombreux spÉcialistes", "le gouvernement uniquement"], correct: 1 }
+        { q: "Comment la place de la santé mentale dans le débat public a-t-elle Évolué ?", options: ["elle a diminué", "elle a augmenté", "elle est restée stable"], correct: 1 },
+        { q: "Quel problème est mentionné concernant l'accès aux soins ?", options: ["le coût uniquement", "l'inégalité d'accès", "le manque d'intérêt du public"], correct: 1 },
+        { q: "Pourquoi certaines personnes attendent-elles des mois ?", options: ["manque de moyens ou de professionnels", "manque d'intérêt", "trop de demandes urgentes"], correct: 0 },
+        { q: "Comment est décrit le système actuel ?", options: ["parfaitement Équitable", "à  deux vitesses", "entièrement gratuit"], correct: 1 },
+        { q: "Qui s'inquiète de cette situation ?", options: ["les patients uniquement", "de nombreux spécialistes", "le gouvernement uniquement"], correct: 1 }
       ]
     },
-    writing: { prompt: "RÉdigez un texte argumentÉ sur les avantages et les inconvÉnients du tÉlÉtravail gÉnÉralisÉ." },
-    speaking: { prompt: "PrÉsentez et dÉfendez un point de vue sur un sujet de sociÉtÉ pendant deux minutes, en anticipant un argument contraire." }
+    writing: { prompt: "Rédigez un texte argumenté sur les avantages et les inconvénients du télétravail généralisé." },
+    speaking: { prompt: "Présentez et défendez un point de vue sur un sujet de société pendant deux minutes, en anticipant un argument contraire." }
   },
 
   c1: {
     id: "c1", label: "C1", group: "Tout Public", hasContent: true,
     listening: {
-      script: "Dans le monde de l'artisanat, un dÉbat subtil oppose les dÉfenseurs de la tradition à  ceux qui prônent l'innovation. Certains artisans estiment que prÉserver des techniques ancestrales est essentiel pour ne pas perdre un savoir-faire unique, tandis que d'autres soutiennent que refuser toute Évolution condamne ces mÉtiers à  disparaître faute de rentabilitÉ. Il ne s'agit pas tant de choisir un camp que de trouver comment faire dialoguer hÉritage et modernitÉ sans que l'un n'efface l'autre.",
+      script: "Dans le monde de l'artisanat, un débat subtil oppose les défenseurs de la tradition à  ceux qui prônent l'innovation. Certains artisans estiment que préserver des techniques ancestrales est essentiel pour ne pas perdre un savoir-faire unique, tandis que d'autres soutiennent que refuser toute Évolution condamne ces métiers à  disparaître faute de rentabilité. Il ne s'agit pas tant de choisir un camp que de trouver comment faire dialoguer héritage et modernité sans que l'un n'efface l'autre.",
       questions: [
-        { q: "Que dÉfendent certains artisans traditionalistes ?", options: ["la rentabilitÉ avant tout", "la prÉservation du savoir-faire ancestral", "l'abandon des mÉthodes anciennes"], correct: 1 },
-        { q: "Quel risque Évoquent les partisans de l'innovation ?", options: ["la disparition des mÉtiers par manque de rentabilitÉ", "la perte de qualitÉ", "la concurrence Étrangère"], correct: 0 },
-        { q: "Que suggère le passage comme solution ?", options: ["choisir dÉfinitivement un camp", "faire dialoguer hÉritage et modernitÉ", "abandonner l'artisanat"], correct: 1 },
-        { q: "Quel est le ton de ce passage ?", options: ["tranchÉ", "nuancÉ", "indiffÉrent"], correct: 1 },
-        { q: "Ce dÉbat concerne principalement...", options: ["l'industrie technologique", "l'artisanat", "l'agriculture"], correct: 1 }
+        { q: "Que défendent certains artisans traditionalistes ?", options: ["la rentabilité avant tout", "la préservation du savoir-faire ancestral", "l'abandon des méthodes anciennes"], correct: 1 },
+        { q: "Quel risque Évoquent les partisans de l'innovation ?", options: ["la disparition des métiers par manque de rentabilité", "la perte de qualité", "la concurrence Étrangère"], correct: 0 },
+        { q: "Que suggère le passage comme solution ?", options: ["choisir définitivement un camp", "faire dialoguer héritage et modernité", "abandonner l'artisanat"], correct: 1 },
+        { q: "Quel est le ton de ce passage ?", options: ["tranché", "nuancé", "indifférent"], correct: 1 },
+        { q: "Ce débat concerne principalement...", options: ["l'industrie technologique", "l'artisanat", "l'agriculture"], correct: 1 }
       ]
     },
     reading: {
-      passage: "La rÉgulation de l'intelligence artificielle soulève une tension difficile à  rÉsoudre. D'une part, une rÉgulation stricte pourrait freiner l'innovation et dÉsavantager les entreprises locales face à  une concurrence internationale moins contrainte. D'autre part, l'absence de cadre clair risque d'aggraver les inÉgalitÉs dÉjà  provoquÉes par l'automatisation, en laissant le champ libre aux acteurs les plus puissants. Aucune solution ne semble pleinement satisfaisante, et les experts eux-mêmes restent divisÉs.",
+      passage: "La régulation de l'intelligence artificielle soulève une tension difficile à  résoudre. D'une part, une régulation stricte pourrait freiner l'innovation et désavantager les entreprises locales face à  une concurrence internationale moins contrainte. D'autre part, l'absence de cadre clair risque d'aggraver les inégalités déjà  provoquées par l'automatisation, en laissant le champ libre aux acteurs les plus puissants. Aucune solution ne semble pleinement satisfaisante, et les experts eux-mêmes restent divisés.",
       questions: [
-        { q: "Quel est un risque d'une rÉgulation stricte ?", options: ["freiner l'innovation", "trop de contrôle gouvernemental", "rien de spÉcifique"], correct: 0 },
-        { q: "Quel est un risque de l'absence de rÉgulation ?", options: ["moins d'innovation", "aggravation des inÉgalitÉs", "hausse des impôts"], correct: 1 },
-        { q: "Que dit le texte sur les experts ?", options: ["ils sont tous d'accord", "ils restent divisÉs", "ils n'ont pas d'opinion"], correct: 1 },
+        { q: "Quel est un risque d'une régulation stricte ?", options: ["freiner l'innovation", "trop de contrôle gouvernemental", "rien de spécifique"], correct: 0 },
+        { q: "Quel est un risque de l'absence de régulation ?", options: ["moins d'innovation", "aggravation des inégalités", "hausse des impôts"], correct: 1 },
+        { q: "Que dit le texte sur les experts ?", options: ["ils sont tous d'accord", "ils restent divisés", "ils n'ont pas d'opinion"], correct: 1 },
         { q: "Le texte prend-il position pour une solution ?", options: ["oui, clairement", "non, il reste neutre", "il ne mentionne pas ce sujet"], correct: 1 },
-        { q: "Quel thème central traverse ce passage ?", options: ["la tension entre innovation et rÉgulation", "le coût de la technologie", "l'histoire de l'IA"], correct: 0 }
+        { q: "Quel thème central traverse ce passage ?", options: ["la tension entre innovation et régulation", "le coût de la technologie", "l'histoire de l'IA"], correct: 0 }
       ]
     },
-    writing: { prompt: "RÉdigez un essai nuancÉ sur la nÉcessitÉ de rÉguler les technologies en Évolution rapide." },
-    speaking: { prompt: "PrÉsentez un argument structurÉ sur un sujet complexe pendant deux à  trois minutes, en rÉpondant à  un point de vue opposÉ." }
+    writing: { prompt: "Rédigez un essai nuancé sur la nécessité de réguler les technologies en Évolution rapide." },
+    speaking: { prompt: "Présentez un argument structuré sur un sujet complexe pendant deux à  trois minutes, en répondant à  un point de vue opposé." }
   },
 
   prim: { id: "prim", label: "DELF Prim", group: "Kids", hasContent: false },
@@ -154,7 +154,7 @@ var LEVELS = {
 var LEVEL_ORDER = ["a1", "a2", "b1", "b2", "c1"];
 var PASS_THRESHOLD = 0.70;
 
-var accentChars = ["É","è","ê","à ","Ç","ù","ô","î","Å“","«","»"];
+var accentChars = ["É","è","ê","à ","Ç","ù","ô","î","œ","«","»"];
 
 function buildAccentKeyboard(targetInput){
   var wrap = document.createElement("div");
@@ -352,7 +352,7 @@ function renderWriting(){
     '<div class="pl-card">' +
     '<span class="pl-skill-pill">Written Response</span>' +
     '<p class="pl-question">' + lvl.writing.prompt + '</p>' +
-    '<textarea class="pl-textarea" id="plWritingInput" placeholder="Écrivez votre rÉponse ici...">' + state.writingText + '</textarea>' +
+    '<textarea class="pl-textarea" id="plWritingInput" placeholder="Écrivez votre réponse ici...">' + state.writingText + '</textarea>' +
     '<div class="pl-accent-row" id="plAccentRow"></div>' +
     '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="submitWriting()">Continue to Speaking</button></div>' +
     '</div>'
@@ -384,7 +384,7 @@ function renderSpeaking(){
     '<p class="pl-question">' + lvl.speaking.prompt + '</p>' +
     '<canvas id="plWaveCanvas" class="pl-wave-canvas" width="280" height="56" style="display:none;"></canvas>' +
     '<div class="pl-record-row">' +
-    '<button class="pl-record-btn" id="plRecordBtn" onclick="toggleRecording()">â— Record</button>' +
+    '<button class="pl-record-btn" id="plRecordBtn" onclick="toggleRecording()">● Record</button>' +
     '<span class="pl-record-status" id="plRecordStatus">' + (state.speakingBlob ? "Recording captured" : "Not recorded yet") + '</span>' +
     '</div>' +
     '<div class="pl-playback-row" id="plPlaybackRow" style="display:none;">' +
@@ -482,7 +482,7 @@ function reRecordSpeaking(){
   document.getElementById("plPlaybackRow").style.display = "none";
   var btn = document.getElementById("plRecordBtn");
   btn.style.display = "inline-block";
-  btn.textContent = "â— Record";
+  btn.textContent = "● Record";
   btn.classList.remove("pl-recording");
   document.getElementById("plRecordStatus").textContent = "Not recorded yet";
 }
@@ -506,7 +506,7 @@ function toggleRecording(){
       };
       mediaRecorder.start();
       startWave(stream, false);
-      btn.textContent = "â–  Stop";
+      btn.textContent = "■ Stop";
       btn.classList.add("pl-recording");
       status.textContent = "Recording...";
     }).catch(function(err){
@@ -650,6 +650,10 @@ window.submitWriting = submitWriting;
 window.toggleRecording = toggleRecording;
 window.finishLevel = finishLevel;
 window.finalizeResult = finalizeResult;
+
+
+
+
 
 
 
