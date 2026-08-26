@@ -4803,3 +4803,34 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
 
 
 
+
+
+app.get("/api/debugSubmissionsByPasskey", async(req,res)=>{
+  try{
+    var passkey = req.query.key || "";
+    var subsSnap = await db.collection("jobSubmissions").where("translator","==",passkey).get();
+    var results = [];
+    for(var i=0;i<subsSnap.docs.length;i++){
+      var subDoc = subsSnap.docs[i];
+      var sub = subDoc.data();
+      var jobDoc = await db.collection("translationJobs").doc(sub.jobId).get();
+      var job = jobDoc.exists ? jobDoc.data() : null;
+      results.push({
+        submissionId: subDoc.id,
+        jobId: sub.jobId,
+        passed: sub.passed,
+        finalScore: sub.finalScore,
+        similarityScore: sub.similarityScore,
+        claudeFeedback: sub.claudeFeedback,
+        jobExists: !!job,
+        jobStatus: job ? job.status : null,
+        selectedSubmissionId: job ? job.selectedSubmissionId : null,
+        pendingClientReview: job ? job.pendingClientReview : null,
+        formattingComplete: job ? job.formattingComplete : null
+      });
+    }
+    res.json(results);
+  }catch(err){
+    res.status(500).json({ error: err.message });
+  }
+});
