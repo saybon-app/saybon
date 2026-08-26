@@ -392,7 +392,7 @@ async function loadJob(){
     document.getElementById("jobmeta").innerText =
       "Job " + (data.jobId || jobId) + "" + (data.sourceLanguage || "?") + " to " + (data.targetLanguage || "?") + " - " + (data.wordCount || 0) + " words";
 
-    if(data.aiTranslationStatus === "completed" && Array.isArray(data.aiSegments) && data.aiSegments.length > 0){ segments = data.aiSegments.map(s => ({ id: s.id, source: s.source, edit: s.translation || "" })); document.getElementById("jobmeta").innerText += " - AI draft provided"; } else { const text = data.documentText && data.documentText.trim().length > 0 ? data.documentText : null; if(!text){ document.getElementById("jobmeta").innerText += " (no source text stored)"; return; } segments = segmentText(text); document.getElementById("jobmeta").innerText += " - no AI draft, translate from source"; } render(); updateProgress();
+    if(data.aiTranslationStatus === "completed" && Array.isArray(data.aiSegments) && data.aiSegments.length > 0){ segments = data.aiSegments.map(s => ({ id: s.id, source: s.source, edit: s.translation || "" })); } else { const text = data.documentText && data.documentText.trim().length > 0 ? data.documentText : null; if(!text){ document.getElementById("jobmeta").innerText += " (no source text stored)"; return; } segments = segmentText(text); document.getElementById("jobmeta").innerText += " - no AI draft, translate from source"; } render(); updateProgress();
 
   }catch(err){
     console.error("EDITOR LOAD ERROR:", err);
@@ -479,6 +479,7 @@ loadJob();
 </body>
 
 </html>
+
 
 
 
