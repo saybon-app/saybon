@@ -553,7 +553,7 @@ padding:14px 28px;
 
 </div>
 
-<div class="tab-content" id="content-myjobs"><div class="empty-state">This section will show jobs you've personally accepted, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
+<div class="tab-content" id="content-myjobs"><div class="empty-state">Loading...</div></div>
 <div class="tab-content" id="content-submitted"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
 <div class="tab-content" id="content-review"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
 <div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
@@ -658,7 +658,9 @@ import {
 collection,
 getDocs,
 doc,
-updateDoc
+updateDoc,
+query,
+where
 }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -1014,6 +1016,48 @@ renderJobs();
 
 loadJobs();
 
+async function loadMyJobs(){
+  const passkey = sessionStorage.getItem("saybonTranslatorPasskey");
+  const container = document.getElementById("content-myjobs");
+  const badge = document.querySelector('.nav-item[data-tab="myjobs"] .nav-badge');
+  if(!passkey){
+    container.innerHTML = "<div class=\"empty-state\">Enter your passkey above to see jobs you have accepted.</div>";
+    return;
+  }
+  try{
+    const q = query(collection(db,"translationJobs"), where("participants","array-contains",passkey));
+    const snapshot = await getDocs(q);
+    if(snapshot.empty){
+      container.innerHTML = "<div class=\"empty-state\">You have not accepted any jobs yet.</div>";
+      if(badge) badge.textContent = "0";
+      return;
+    }
+    container.innerHTML = "";
+    let count = 0;
+    snapshot.forEach(function(docSnap){
+      const data = docSnap.data();
+      const id = docSnap.id;
+      count++;
+      const words = data.wordCount || 0;
+      const div = document.createElement("div");
+      div.className = "compact-row";
+      div.onclick = function(){ window.location.href = "/translation/editor-workspace.html?job=" + encodeURIComponent(id); };
+      div.innerHTML =
+        "<div class=\"compact-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+        "<div class=\"compact-name\">" + (data.clientFile||"Untitled document") + "</div>" +
+        "<div class=\"compact-meta\">" + (data.sourceLanguage||"?") + " to " + (data.targetLanguage||"?") + " - " + words + " words - Status: " + (data.status||"open") + "</div>" +
+        "<div class=\"compact-price\">$" + (Number(data.price||0)*0.6).toFixed(2) + "</div>" +
+        "<div class=\"compact-see\">Open Workspace<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m6 9 6 6 6-6\"/></svg></div>";
+      container.appendChild(div);
+    });
+    if(badge) badge.textContent = String(count);
+  }catch(err){
+    console.error("MY JOBS LOAD ERROR:", err);
+    container.innerHTML = "<div class=\"empty-state\">There was a problem loading your jobs.</div>";
+  }
+}
+loadMyJobs();
+
 async function fetchTrackRecord(passkey){
 
   const res = await fetch("https://saybonapp-server.onrender.com/api/translatorTrackRecord?key=" + encodeURIComponent(passkey));
@@ -1129,6 +1173,9 @@ window.resetTrackRecord = resetTrackRecord;
 </body>
 
 </html>
+
+
+
 
 
 
