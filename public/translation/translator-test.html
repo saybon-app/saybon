@@ -110,9 +110,9 @@ This test must be completed entirely within this window. Copying, pasting, and c
 </div>
 
 <div class="card">
-<div class="label">Traduisez en franÃƒÂ§ais</div>
-<div class="source" id="enSource">Loading passageââ‚¬Â¦</div>
-<textarea id="enToFrAnswer" placeholder="Tapez votre traduction franÃƒÂ§aise ici"></textarea>
+<div class="label">Traduisez en français</div>
+<div class="source" id="enSource">Loading passage...</div>
+<textarea id="enToFrAnswer" placeholder="Tapez votre traduction française ici"></textarea>
 <div class="accent-keyboard" id="accentKeyboard"></div>
 </div>
 
@@ -170,7 +170,7 @@ document.addEventListener("visibilitychange", ()=>{
   }
 });
 
-const accents = ["ÃƒÂ©","ÃƒÂ¨","ÃƒÂª","ÃƒÂ ","ÃƒÂ§","ÃƒÂ¹","ÃƒÂ´","ÃƒÂ®","Ã…-œ","Ã‚«","Ã‚»"];
+const accents = ["é","è","ê","à","ç","ù","ô","î","œ","«","»"];
 const keyboardEl = document.getElementById("accentKeyboard");
 
 accents.forEach(ch=>{
@@ -244,4 +244,8 @@ loadPassages();
 
 </body>
 </html>
+
+
+
+
 
