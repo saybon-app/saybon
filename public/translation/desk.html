@@ -354,8 +354,9 @@ Return to Dashboard
 
 <script type="module">
 
-import { db } from "/js/firebase-init.js";
+import { db, auth } from "/js/firebase-init.js";
 import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const params = new URLSearchParams(window.location.search);
 const jobId = params.get("job");
@@ -480,8 +481,15 @@ async function loadJob(){
 
 }
 
-if(adminKey === "963281"){
-  loadAllJobs();
+if(adminKey === "true"){
+  onAuthStateChanged(auth, async function(user){
+    if(!user){ loadJob(); return; }
+    try{
+      const res = await fetch("https://saybonapp-server.onrender.com/api/accessControlCheck?email=" + encodeURIComponent(user.email || ""));
+      const data = await res.json();
+      if(data.authorized){ loadAllJobs(); } else { loadJob(); }
+    }catch(err){ loadJob(); }
+  });
 }else{
   loadJob();
 }
@@ -490,6 +498,8 @@ if(adminKey === "963281"){
 
 </body>
 </html>
+
+
 
 
 
