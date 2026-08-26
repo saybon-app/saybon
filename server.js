@@ -4793,3 +4793,22 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
 
 
 
+
+
+app.get("/api/testClaudeGrading", async(req,res)=>{
+  try{
+    var result = await gradeTranslationWithClaude(
+      "My name is Hugo and I am sixteen years old.",
+      "Je m'appelle Hugo et j'ai seize ans.",
+      "English",
+      "French"
+    );
+    res.json({ success: true, result: result });
+  }catch(err){
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
+
+
