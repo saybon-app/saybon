@@ -195,7 +195,7 @@ display:flex; align-items:center; justify-content:center; gap:8px;
 <span class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>
 <div class="upload-text">
 <div class="upload-title">CV / RÃƒÂ©sumÃƒÂ©<span class="upload-required">Required</span></div>
-<div class="upload-sub">PDF, DOC, or image ââ‚¬- up to 10MB</div>
+<div class="upload-sub">PDF, DOC, or image - up to 10MB</div>
 </div>
 </div>
 <div class="notice" id="cvNotice"></div>
@@ -283,13 +283,13 @@ function validateFiles(files, notice, required){
     const ext = file.name.split(".").pop().toLowerCase();
 
     if(!allowed.includes(ext)){
-      notice.innerHTML += "âÅ“- " + file.name + " ââ‚¬- unsupported file type<br>";
+      notice.innerHTML += "âÅ“- " + file.name + " - unsupported file type<br>";
       valid = false;
       continue;
     }
 
     if(file.size > 10000000){
-      notice.innerHTML += "âÅ“- " + file.name + " ââ‚¬- too large (max 10MB)<br>";
+      notice.innerHTML += "âÅ“- " + file.name + " - too large (max 10MB)<br>";
       valid = false;
       continue;
     }
@@ -419,5 +419,6 @@ submitBtn.onclick = async () => {
 
 </body>
 </html>
+
 
 
