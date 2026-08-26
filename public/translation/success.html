@@ -341,36 +341,13 @@ function copyInvoiceId(){
 }
 window.copyInvoiceId = copyInvoiceId;
 
-function copyInvoiceId(){
-  var el = document.getElementById("job");
-  var text = el.innerText;
-  if(!text || text === "-" || text === "Loading...") return;
-  navigator.clipboard.writeText(text).then(function(){
-    var original = el.innerText;
-    el.innerText = "Copied!";
-    setTimeout(function(){ el.innerText = original; }, 1200);
-  });
-}
-window.copyInvoiceId = copyInvoiceId;
-
-function copyInvoiceId(){
-  var el = document.getElementById("job");
-  var text = el.innerText;
-  if(!text || text === "-" || text === "Loading...") return;
-  navigator.clipboard.writeText(text).then(function(){
-    var original = el.innerText;
-    el.innerText = "Copied!";
-    setTimeout(function(){ el.innerText = original; }, 1200);
-  });
-}
-window.copyInvoiceId = copyInvoiceId;
-
 loadInvoice();
 
 </script>
 
 </body>
 </html>
+
 
 
 
