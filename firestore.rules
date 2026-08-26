@@ -1,4 +1,4 @@
-rules_version = '2';
+﻿rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -11,6 +11,13 @@ service cloud.firestore {
     // matching job-board.html's auth-guard.js gating.
     match /translationJobs/{jobId} {
       allow read, update: if request.auth != null;
+    }
+
+    // Job submissions - a translator needs to read their own past
+    // submissions (My Jobs, Under Review tabs on the job board), gated
+    // the same way as translationJobs above.
+    match /jobSubmissions/{submissionId} {
+      allow read: if request.auth != null;
     }
 
     // Translator applications - public application flow (no login gate
