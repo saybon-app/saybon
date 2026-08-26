@@ -1096,8 +1096,9 @@ async function loadUnderReview(){
       const jobSnap = jobDoc.docs.find(function(d){ return d.id === sub.jobId; });
       if(!jobSnap) continue;
       const job = jobSnap.data();
-      if(job.selectedSubmissionId === docSnap.id && job.pendingClientReview === true){
-        rows.push({ id: sub.jobId, job: job, sub: sub });
+      if(!job.formattingComplete){
+        const isWinner = job.selectedSubmissionId === docSnap.id;
+        rows.push({ id: sub.jobId, job: job, sub: sub, isWinner: isWinner });
       }
     }
     if(rows.length === 0){
@@ -1112,8 +1113,8 @@ async function loadUnderReview(){
       div.innerHTML =
         "<div class=\"compact-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
         "<div class=\"compact-name\">" + (r.job.clientFile||"Untitled document") + "</div>" +
-        "<div class=\"compact-meta\">Score: " + r.sub.finalScore + " - Awaiting client confirmation</div>" +
-        "<div class=\"compact-price\">$" + (Number(r.job.price||0)*0.6).toFixed(2) + "</div>";
+        "<div class=\"compact-meta\">Score: " + r.sub.finalScore + " - " + (r.isWinner ? "Leading submission, awaiting client confirmation" : "Passed, not currently the winning submission") + "</div>" +
+        "<div class=\"compact-price\">$" + (Number(r.job.price||0)*(r.isWinner?0.6:0.1)).toFixed(2) + "</div>";
       container.appendChild(div);
     });
     if(badge) badge.textContent = String(rows.length);
@@ -1290,6 +1291,8 @@ window.resetTrackRecord = resetTrackRecord;
 </body>
 
 </html>
+
+
 
 
 
