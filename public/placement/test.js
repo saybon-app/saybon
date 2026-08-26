@@ -165,11 +165,12 @@ function finishTest() {
 
   localStorage.setItem("saybon_level", level);
 
-  // placement test â†’ loader â†’ dashboard
+  // placement test → loader → dashboard
   sessionStorage.setItem("saybon_next", "../dashboard/index.html");
   window.location.href = "../loader.html";
 }
 
 loadQuestion();
+
 
 

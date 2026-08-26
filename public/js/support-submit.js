@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
 
   const forms = document.querySelectorAll(".support-form");
 
@@ -21,3 +21,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+

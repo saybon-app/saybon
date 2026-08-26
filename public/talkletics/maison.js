@@ -183,7 +183,7 @@
     updateDots();
     listenBtn.style.display = "inline-block";
     listenBtn.disabled = false;
-    listenBtn.textContent = "â–¶ Listen";
+    listenBtn.textContent = "▶ Listen";
     recordBtn.style.display = "none";
     stopBtn.style.display = "none";
     submitBtn.style.display = "none";
@@ -578,5 +578,6 @@ document.addEventListener("pointerup", function(e){
 document.addEventListener("pointercancel", function(e){
   document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
 });
+
 
 

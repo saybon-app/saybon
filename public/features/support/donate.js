@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
 
   const payBtn = document.getElementById("payBtn");
   const form = document.getElementById("donationForm");
@@ -54,3 +54,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+

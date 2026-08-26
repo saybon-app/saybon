@@ -1,4 +1,4 @@
-const teacherBtn = document.getElementById("teacherBtn");
+﻿const teacherBtn = document.getElementById("teacherBtn");
 const audio = document.getElementById("placementAudio");
 const startBtn = document.getElementById("startTestBtn");
 
@@ -12,3 +12,4 @@ startBtn.addEventListener("click", () => {
   sessionStorage.setItem("saybon_next", "placement/test.html");
   window.location.href = "../loader.html";
 });
+
