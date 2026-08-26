@@ -555,7 +555,7 @@ padding:14px 28px;
 
 <div class="tab-content" id="content-myjobs"><div class="empty-state">Loading...</div></div>
 <div class="tab-content" id="content-submitted"><div class="empty-state">This section will show your work awaiting evaluation, once translator accounts are linked to a real identity. Not wired up yet.</div></div>
-<div class="tab-content" id="content-review"><div class="empty-state">This section will show submissions currently being scored, once the evaluation system is built. Not wired up yet.</div></div>
+<div class="tab-content" id="content-review"><div class="empty-state">Loading...</div></div>
 <div class="tab-content" id="content-completed"><div class="empty-state">This section will show your completed jobs, final scores, and payment status, once the ranking and payment system is built. Not wired up yet.</div></div>
 <div class="tab-content" id="content-earnings"><div class="empty-state">Earnings tracking has not been built yet - no balance system exists in SayBon today.</div></div>
 <div class="tab-content" id="content-transactions"><div class="empty-state">Transaction history has not been built yet.</div></div>
@@ -1057,6 +1057,51 @@ async function loadMyJobs(){
   }
 }
 loadMyJobs();
+async function loadUnderReview(){
+  const passkey = sessionStorage.getItem("saybonTranslatorPasskey");
+  const container = document.getElementById("content-review");
+  const badge = document.querySelector('.nav-item[data-tab="review"] .nav-badge');
+  if(!passkey){
+    container.innerHTML = "<div class=\"empty-state\">Enter your passkey above to see your submissions under review.</div>";
+    return;
+  }
+  try{
+    const q = query(collection(db,"jobSubmissions"), where("translator","==",passkey), where("passed","==",true));
+    const snapshot = await getDocs(q);
+    const rows = [];
+    for(const docSnap of snapshot.docs){
+      const sub = docSnap.data();
+      const jobDoc = await getDocs(query(collection(db,"translationJobs")));
+      const jobSnap = jobDoc.docs.find(function(d){ return d.id === sub.jobId; });
+      if(!jobSnap) continue;
+      const job = jobSnap.data();
+      if(job.selectedSubmissionId === docSnap.id && job.pendingClientReview === true){
+        rows.push({ id: sub.jobId, job: job, sub: sub });
+      }
+    }
+    if(rows.length === 0){
+      container.innerHTML = "<div class=\"empty-state\">You have no submissions currently under review.</div>";
+      if(badge) badge.textContent = "0";
+      return;
+    }
+    container.innerHTML = "";
+    rows.forEach(function(r){
+      const div = document.createElement("div");
+      div.className = "compact-row";
+      div.innerHTML =
+        "<div class=\"compact-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/></svg></div>" +
+        "<div class=\"compact-name\">" + (r.job.clientFile||"Untitled document") + "</div>" +
+        "<div class=\"compact-meta\">Score: " + r.sub.finalScore + " - Awaiting client confirmation</div>" +
+        "<div class=\"compact-price\">$" + (Number(r.job.price||0)*0.6).toFixed(2) + "</div>";
+      container.appendChild(div);
+    });
+    if(badge) badge.textContent = String(rows.length);
+  }catch(err){
+    console.error("UNDER REVIEW LOAD ERROR:", err);
+    container.innerHTML = "<div class=\"empty-state\">There was a problem loading your submissions.</div>";
+  }
+}
+loadUnderReview();
 
 async function fetchTrackRecord(passkey){
 
@@ -1173,6 +1218,8 @@ window.resetTrackRecord = resetTrackRecord;
 </body>
 
 </html>
+
+
 
 
 
