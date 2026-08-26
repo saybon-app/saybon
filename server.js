@@ -4766,3 +4766,28 @@ async function requireAdminAuth(req, res, next){ try{ var authHeader = req.heade
 app.get("/api/jobsByEmail", async(req,res)=>{ try{ var email = (req.query.email || "").toLowerCase(); var excludeJobId = req.query.excludeJobId || ""; if(!email) return res.json([]); var snapshot = await db.collection("translationJobs").where("email","==",email).get(); var results = []; snapshot.forEach(function(docSnap){ if(docSnap.id === excludeJobId) return; var data = docSnap.data(); results.push({ jobId: data.jobId || docSnap.id, status: data.status || "", paid: data.paid === true, price: data.price || 0, wordCount: data.wordCount || 0, plan: data.plan || "" }); }); res.json(results); }catch(err){ console.error(err); res.status(500).json([]); } });
 
 app.get("/api/proxyFile", function(req,res){ try{ var fileUrl = req.query.url || ""; if(!fileUrl.startsWith("https://firebasestorage.googleapis.com/")){ return res.status(400).json({error:"invalid file URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", proxyRes.headers["content-type"] || "application/octet-stream"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); } });
+
+
+async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang, targetLang){
+  var promptText = "You are grading a professional translation submission for quality assurance. Source language: " + sourceLang + ". Target language: " + targetLang + ".\n\nSOURCE TEXT:\n" + sourceText + "\n\nSUBMITTED TRANSLATION:\n" + translatedText + "\n\nGrade this translation on accuracy, fluency, grammar, and completeness. Respond with ONLY a JSON object in this exact format, no other text, no markdown fences: {\"score\": (a number 0-100), \"feedback\": \"(a brief 1-2 sentence explanation)\"}";
+  var response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01"
+    },
+    body: JSON.stringify({
+      model: "claude-sonnet-5",
+      max_tokens: 300,
+      messages: [{ role: "user", content: promptText }]
+    })
+  });
+  var data = await response.json();
+  var text = data.content[0].text;
+  var cleaned = text.replace(/```json|```/g, "").trim();
+  var parsed = JSON.parse(cleaned);
+  return { score: Number(parsed.score) || 0, feedback: parsed.feedback || "" };
+}
+
+
