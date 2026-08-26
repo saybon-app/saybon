@@ -552,7 +552,7 @@ function toggleOralRecording(){
       oralRecordedChunks = [];
       oralMediaRecorder = new MediaRecorder(stream);
       oralMediaRecorder.ondataavailable = function(e){ oralRecordedChunks.push(e.data); };
-      oralMediaRecorder.onstop = function(){
+      oralMediaRecorder.onstop = function(){ if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
         var rawType = (oralMediaRecorder.mimeType) || "audio/webm";
         var rawBlob = new Blob(oralRecordedChunks, { type: rawType });
         stopOralWave();
@@ -582,7 +582,7 @@ function toggleOralRecording(){
 
         oralCurrentStream.getTracks().forEach(function(t){ t.stop(); });
       };
-      oralMediaRecorder.start();
+      if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } oralMediaRecorder.start();
       startOralWave(stream, false);
       btn.textContent = "■  Stop";
       status.textContent = "Recording...";
@@ -791,6 +791,7 @@ function finish() {
 }
 
 loadQuestion();
+
 
 
 

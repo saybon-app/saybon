@@ -249,7 +249,7 @@ function loadActivity(i){
 micBtn.addEventListener("click", async () => {
 
   if(isRecording){
-    mediaRecorder.stop();
+    mediaRecorder.stop(); if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
     return;
   }
 
@@ -319,7 +319,7 @@ micBtn.addEventListener("click", async () => {
       document.getElementById("reviewWrap").style.display = "block";
     };
 
-    mediaRecorder.start();
+    if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
     isRecording = true;
     micBtn.classList.add("recording");
     micStatus.innerText = "Recording... tap to stop";
@@ -445,5 +445,6 @@ loadActivity(0);
 
 </body>
 </html>
+
 
 

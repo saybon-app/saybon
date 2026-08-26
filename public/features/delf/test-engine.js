@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   "use strict";
 
   // ==========================================
@@ -406,7 +406,7 @@
           stream.getTracks().forEach(track => track.stop());
         };
 
-        mediaRecorder.start();
+        if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
         status.textContent = "Recording...";
         startBtn.disabled = true;
         stopBtn.disabled = false;
@@ -421,7 +421,7 @@
 
     stopBtn.addEventListener("click", () => {
       if (mediaRecorder && mediaRecorder.state !== "inactive") {
-        mediaRecorder.stop();
+        mediaRecorder.stop(); if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
       }
     });
 
@@ -651,7 +651,7 @@ window.location.href = resultUrl;
 
   function stopRecorderIfNeeded() {
     if (mediaRecorder && mediaRecorder.state !== "inactive") {
-      mediaRecorder.stop();
+      mediaRecorder.stop(); if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
     }
   }
 

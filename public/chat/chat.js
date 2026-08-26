@@ -465,7 +465,7 @@ voiceBtn.addEventListener("click", async () => {
   recordedChunks = [];
   mediaRecorder = new MediaRecorder(micStream);
   mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
-  mediaRecorder.start();
+  if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
 
   recordingInterval = setInterval(() => {
     recordingSeconds++;
@@ -480,7 +480,7 @@ cancelRecording.addEventListener("click", () => {
   clearInterval(recordingInterval);
   if (mediaRecorder && mediaRecorder.state !== "inactive") {
     mediaRecorder.onstop = null;
-    mediaRecorder.stop();
+    mediaRecorder.stop(); if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
   }
   stopMicStream();
   recordingPanel.classList.add("hidden");
@@ -532,7 +532,7 @@ document.getElementById("sendRecording").addEventListener("click", () => {
 
   };
 
-  mediaRecorder.stop();
+  mediaRecorder.stop(); if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
 
 });
 
@@ -696,3 +696,4 @@ function subscribeToRoom(roomId) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   });
 }
+

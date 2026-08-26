@@ -134,7 +134,7 @@ function toggleRecording(){
       recordedChunks = [];
       mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.ondataavailable = function(e){ recordedChunks.push(e.data); };
-      mediaRecorder.onstop = function(){
+      mediaRecorder.onstop = function(){ if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
         recordedBlob = new Blob(recordedChunks, { type: "audio/webm" });
         stopWave();
         document.getElementById("lsRecordBtn").style.display = "none";
@@ -142,7 +142,7 @@ function toggleRecording(){
         document.getElementById("lsSubmitBtn").disabled = false;
         currentStream.getTracks().forEach(function(t){ t.stop(); });
       };
-      mediaRecorder.start();
+      if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
       startWave(stream, false);
       btn.textContent = "■ Stop";
       btn.classList.add("ls-recording");
@@ -246,5 +246,6 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 

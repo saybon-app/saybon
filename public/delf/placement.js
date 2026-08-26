@@ -497,14 +497,14 @@ function toggleRecording(){
       recordedChunks = [];
       mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.ondataavailable = function(e){ recordedChunks.push(e.data); };
-      mediaRecorder.onstop = function(){
+      mediaRecorder.onstop = function(){ if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
         state.speakingBlob = new Blob(recordedChunks, { type: "audio/webm" });
         stopWave();
         document.getElementById("plRecordBtn").style.display = "none";
         document.getElementById("plPlaybackRow").style.display = "flex";
         currentStream.getTracks().forEach(function(t){ t.stop(); });
       };
-      mediaRecorder.start();
+      if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
       startWave(stream, false);
       btn.textContent = "■ Stop";
       btn.classList.add("pl-recording");
@@ -650,6 +650,7 @@ window.submitWriting = submitWriting;
 window.toggleRecording = toggleRecording;
 window.finishLevel = finishLevel;
 window.finalizeResult = finalizeResult;
+
 
 
 

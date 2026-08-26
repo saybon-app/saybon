@@ -255,6 +255,7 @@
     recordedChunks = [];
     mediaRecorder = new MediaRecorder(currentStream);
     mediaRecorder.ondataavailable = function(e){ recordedChunks.push(e.data); };
+    if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); }
     mediaRecorder.start();
     recordBtn.style.display = "none";
     stopBtn.style.display = "inline-block";
@@ -264,6 +265,7 @@
 
   stopBtn.addEventListener("click", function(){
     mediaRecorder.stop();
+    if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
     currentStream.getTracks().forEach(function(t){ t.stop(); });
     stopBtn.style.display = "none";
     stopWave();
@@ -578,6 +580,7 @@ document.addEventListener("pointerup", function(e){
 document.addEventListener("pointercancel", function(e){
   document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
 });
+
 
 
 
