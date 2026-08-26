@@ -4790,3 +4790,14 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
   return { score: Number(parsed.score) || 0, feedback: parsed.feedback || "" };
 }
 
+
+
+app.get("/api/debugRescore", async(req,res)=>{
+  try{
+    var submissionId = req.query.id || "";
+    var result = await scoreTranslationSubmission(submissionId);
+    res.json({ success: true, result: result });
+  }catch(err){
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
