@@ -315,7 +315,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-window.togglePreview = function(){ var body = document.getElementById("previewBody"); var btn = document.getElementById("previewToggleBtn"); if(body.style.display === "none"){ body.style.display = "block"; btn.innerText = "Hide"; } else { body.style.display = "none"; btn.innerText = "Show"; } }; async function renderPreview(fileUrl, fileType){ var body = document.getElementById("previewBody"); if(!fileUrl){ body.innerHTML = (String.fromCharCode(60) + "div class=" + String.fromCharCode(34) + "preview-empty" + String.fromCharCode(34) + String.fromCharCode(62)) + "No original document was stored for this job." + "</div>"; return; } try{ if(fileType === "pdf"){ body.innerHTML = "<iframe src=" + JSON.stringify(fileUrl) + "></iframe>"; } else if(fileType === "docx"){ var resp = await fetch(fileUrl); var buf = await resp.arrayBuffer(); var result = await mammoth.convertToHtml({ arrayBuffer: buf }); body.innerHTML = "<div class=" + JSON.stringify("preview-body-html") + ">" + result.value + "</div>"; } else { var resp2 = await fetch(fileUrl); var txt = await resp2.text(); var pre = document.createElement("pre"); pre.textContent = txt; body.innerHTML = ""; body.appendChild(pre); } }catch(err){ console.error("PREVIEW RENDER ERROR:", err); body.innerHTML = "<div class=" + JSON.stringify("preview-empty") + ">Could not load a preview for this document.</div>"; } } function render(){
+window.togglePreview = function(){ var body = document.getElementById("previewBody"); var btn = document.getElementById("previewToggleBtn"); if(body.style.display === "none"){ body.style.display = "block"; btn.innerText = "Hide"; } else { body.style.display = "none"; btn.innerText = "Show"; } }; async function renderPreview(fileUrl, fileType){ var body = document.getElementById("previewBody"); if(!fileUrl){ body.innerHTML = (String.fromCharCode(60) + "div class=" + String.fromCharCode(34) + "preview-empty" + String.fromCharCode(34) + String.fromCharCode(62)) + "No original document was stored for this job." + "</div>"; return; } try{ if(fileType === "pdf"){ body.innerHTML = "<iframe src=" + JSON.stringify(fileUrl) + "></iframe>"; } else if(fileType === "docx"){ var resp = await fetch("https://saybonapp-server.onrender.com/api/proxyFile?url=" + encodeURIComponent(fileUrl)); var buf = await resp.arrayBuffer(); var result = await mammoth.convertToHtml({ arrayBuffer: buf }); body.innerHTML = "<div class=" + JSON.stringify("preview-body-html") + ">" + result.value + "</div>"; } else { var resp2 = await fetch("https://saybonapp-server.onrender.com/api/proxyFile?url=" + encodeURIComponent(fileUrl)); var txt = await resp2.text(); var pre = document.createElement("pre"); pre.textContent = txt; body.innerHTML = ""; body.appendChild(pre); } }catch(err){ console.error("PREVIEW RENDER ERROR:", err); body.innerHTML = "<div class=" + JSON.stringify("preview-empty") + ">Could not load a preview for this document.</div>"; } } function render(){
 
   container.innerHTML = "";
 
@@ -479,6 +479,7 @@ loadJob();
 </body>
 
 </html>
+
 
 
 
