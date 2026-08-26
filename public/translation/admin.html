@@ -262,7 +262,7 @@ alert("Incorrect passcode");
 
 }
 
-if(sessionStorage.getItem("saybonAdminVerified")==="true"){
+window.addEventListener("adminAuthorized", function(){ document.getElementById("login").style.display="none"; document.getElementById("panel").style.display="block"; loadAll(); }); if(sessionStorage.getItem("saybonAdminVerified")==="true"){
 
 document.getElementById("login").style.display="none";
 
@@ -612,6 +612,7 @@ loadOverview();
 </body>
 
 </html>
+
 
 
 
