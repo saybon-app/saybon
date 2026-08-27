@@ -4853,3 +4853,9 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
 
 
 
+
+
+app.get("/api/listGeneratedAudio", requireAdminAuth, async(req,res)=>{ try{ var snapshot = await db.collection("generatedAudio").orderBy("createdAt","desc").limit(200).get(); var results = snapshot.docs.map(function(d){ var data = d.data(); return { id: d.id, url: data.url, text: data.text, language: data.language, voice: data.voice, destinationSection: data.destinationSection, destinationItem: data.destinationItem, purpose: data.purpose }; }); res.json(results); }catch(err){ console.error(err); res.status(500).json({error:"could not load audio library"}); } });
+
+
+app.get("/api/downloadAudio", function(req,res){ try{ var fileUrl = req.query.url || ""; if(!fileUrl.startsWith("https://storage.googleapis.com/saybon-3e3c2.firebasestorage.app/")){ return res.status(400).json({error:"invalid audio URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", "audio/mpeg"); res.set("Content-Disposition", "attachment; filename=lesson-audio.mp3"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not download file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not download file"}); } });
