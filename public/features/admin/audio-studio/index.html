@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Studio - SayBon Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.as-stage{max-width:900px;margin:0 auto;}
+.as-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.as-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px;}
+.as-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.8rem;color:#f6f1e4;margin-bottom:6px;}
+.as-sub{color:#8b92a3;font-size:.88rem;margin-bottom:30px;}
+.as-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.14);border-radius:20px;padding:24px;margin-bottom:20px;}
+.as-label{font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8b92a3;margin-bottom:8px;display:block;}
+.as-input,.as-select,.as-textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 14px;color:#f6f1e4;font-family:inherit;font-size:.88rem;margin-bottom:16px;}
+.as-textarea{min-height:100px;resize:vertical;}
+.as-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.as-btn{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:10px;padding:12px 24px;font-weight:800;font-size:.85rem;cursor:pointer;}
+.as-btn:disabled{opacity:.5;cursor:not-allowed;}
+.as-status{font-size:.82rem;color:#8b92a3;margin-top:12px;}
+.as-preview{margin-top:16px;width:100%;}
+.as-lib-item{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,106,.1);border-radius:12px;padding:14px;margin-bottom:10px;}
+.as-lib-meta{font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
+.as-lib-text{font-size:.85rem;color:#e6e1d3;margin-bottom:8px;}
+.as-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:30px;}
+</style>
+</head>
+<body>
+<button class="as-corner-icon" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<div class="as-stage">
+<p class="as-eyebrow">Business Admin</p>
+<p class="as-title">Audio Studio</p>
+<p class="as-sub">Generate spoken audio for Lessons, DELF, and Talkletics using Soniox text-to-speech.</p>
+
+<div class="as-card">
+<label class="as-label">Text to speak</label>
+<textarea class="as-textarea" id="asText" placeholder="Enter the lesson text or dialogue to convert to speech..."></textarea>
+
+<div class="as-row">
+<div>
+<label class="as-label">Language</label>
+<select class="as-select" id="asLanguage">
+<option value="fr">French</option>
+<option value="en">English</option>
+</select>
+</div>
+<div>
+<label class="as-label">Voice</label>
+<select class="as-select" id="asVoice"><option value="">Loading voices...</option></select>
+</div>
+</div>
+
+<div class="as-row">
+<div>
+<label class="as-label">Destination section</label>
+<select class="as-select" id="asSection">
+<option value="Lessons">Lessons</option>
+<option value="DELF">DELF</option>
+<option value="Talkletics">Talkletics</option>
+</select>
+</div>
+<div>
+<label class="as-label">Destination item</label>
+<input class="as-input" id="asItem" placeholder="e.g. Les Petits Lesson 3" />
+</div>
+</div>
+
+<label class="as-label">Purpose</label>
+<input class="as-input" id="asPurpose" placeholder="e.g. Dialogue example, Listening exercise" />
+
+<button class="as-btn" id="asGenerateBtn">Generate Audio</button>
+<div class="as-status" id="asStatus"></div>
+<audio class="as-preview" id="asPreview" controls style="display:none;"></audio>
+</div>
+
+<div class="as-card">
+<p class="as-eyebrow" style="margin-bottom:16px;">Audio Library</p>
+<div id="asLibrary"><p class="as-empty">Loading...</p></div>
+</div>
+
+</div>
+
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+let idToken = "";
+
+async function loadVoices(){
+  try{
+    const res = await fetch(API_BASE + "/api/sonioxVoices");
+    const models = await res.json();
+    const voiceSelect = document.getElementById("asVoice");
+    voiceSelect.innerHTML = "";
+    const model = models.find(m => m.id === "tts-rt-v2") || models[0];
+    model.voices.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.id;
+      opt.textContent = v.id + " (" + v.gender + ") - " + v.description.slice(0, 60);
+      voiceSelect.appendChild(opt);
+    });
+  }catch(err){
+    console.error("VOICES LOAD ERROR:", err);
+  }
+}
+
+async function loadLibrary(){
+  const container = document.getElementById("asLibrary");
+  try{
+    const res = await fetch(API_BASE + "/api/listGeneratedAudio", {
+      headers: { "Authorization": "Bearer " + idToken }
+    });
+    const items = await res.json();
+    if(!items || !items.length){
+      container.innerHTML = '<p class="as-empty">No audio generated yet.</p>';
+      return;
+    }
+    container.innerHTML = "";
+    items.forEach(it => {
+      const div = document.createElement("div");
+      div.className = "as-lib-item";
+      div.innerHTML =
+        '<div class="as-lib-meta">' + (it.destinationSection||"-") + ' &middot; ' + (it.destinationItem||"-") + ' &middot; ' + (it.purpose||"-") + ' &middot; ' + (it.voice||"-") + '</div>' +
+        '<div class="as-lib-text">' + (it.text||"").slice(0,150) + '</div>' +
+        '<audio controls style="width:100%;" src="' + it.url + '"></audio>';
+      container.appendChild(div);
+    });
+  }catch(err){
+    console.error("LIBRARY LOAD ERROR:", err);
+    container.innerHTML = '<p class="as-empty">Could not load audio library.</p>';
+  }
+}
+
+document.getElementById("asGenerateBtn").addEventListener("click", async function(){
+  const btn = document.getElementById("asGenerateBtn");
+  const status = document.getElementById("asStatus");
+  const text = document.getElementById("asText").value.trim();
+  const voice = document.getElementById("asVoice").value;
+  if(!text || !voice){
+    status.innerText = "Please enter text and select a voice.";
+    return;
+  }
+  btn.disabled = true;
+  status.innerText = "Generating audio...";
+  try{
+    const res = await fetch(API_BASE + "/api/generateLessonAudio", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text: text,
+        language: document.getElementById("asLanguage").value,
+        voice: voice,
+        destinationSection: document.getElementById("asSection").value,
+        destinationItem: document.getElementById("asItem").value,
+        purpose: document.getElementById("asPurpose").value
+      })
+    });
+    const data = await res.json();
+    if(!data.success){
+      status.innerText = data.error || "Could not generate audio.";
+      btn.disabled = false;
+      return;
+    }
+    const preview = document.getElementById("asPreview");
+    preview.src = data.url;
+    preview.style.display = "block";
+    status.innerText = "Generated and saved to library.";
+    btn.disabled = false;
+    loadLibrary();
+  }catch(err){
+    console.error("GENERATE ERROR:", err);
+    status.innerText = "Could not generate audio.";
+    btn.disabled = false;
+  }
+});
+
+onAuthStateChanged(auth, async function(user){
+  if(user){
+    idToken = await user.getIdToken();
+    loadLibrary();
+  }
+});
+
+loadVoices();
+</script>
+</body>
+</html>
