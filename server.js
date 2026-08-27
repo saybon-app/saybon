@@ -4800,7 +4800,7 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
 
 app.get("/api/sonioxVoices", async(req,res)=>{
   try{
-    var voices = await sonioxClient.voices.list();
+    var voices = await sonioxClient.tts.listModels();
     res.json(voices);
   }catch(err){
     console.error("SONIOX VOICES ERROR:", err);
@@ -4836,6 +4836,8 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
     res.status(500).json({error:"could not generate audio", details: err.message});
   }
 });
+
+
 
 
 
