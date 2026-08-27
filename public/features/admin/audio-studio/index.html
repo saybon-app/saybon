@@ -81,6 +81,7 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 <button class="as-btn" id="asGenerateBtn">Generate Audio</button>
 <div class="as-status" id="asStatus"></div>
 <audio class="as-preview" id="asPreview" controls style="display:none;"></audio>
+<a id="asDownloadLink" href="#" download style="display:none;color:#d4af6a;font-size:.82rem;font-weight:700;text-decoration:none;margin-top:8px;display:inline-block;">Download Audio</a>
 </div>
 
 <div class="as-card">
@@ -175,6 +176,9 @@ document.getElementById("asGenerateBtn").addEventListener("click", async functio
     const preview = document.getElementById("asPreview");
     preview.src = data.url;
     preview.style.display = "block";
+    const downloadLink = document.getElementById("asDownloadLink");
+    downloadLink.href = data.url;
+    downloadLink.style.display = "inline-block";
     status.innerText = "Generated and saved to library.";
     btn.disabled = false;
     loadLibrary();
@@ -218,5 +222,6 @@ loadVoices();
 </script>
 </body>
 </html>
+
 
 
