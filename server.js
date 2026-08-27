@@ -5,6 +5,8 @@ const cors=require("cors")
 const bodyParser=require("body-parser")
 const admin=require("firebase-admin")
 const stripe=require("stripe")(process.env.STRIPE_SECRET_KEY)
+const { SonioxNodeClient } = require("@soniox/node")
+const sonioxClient = new SonioxNodeClient()
 
 const app=express()
 
@@ -4791,5 +4793,48 @@ async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang
 }
 
 
+
+
+
+
+
+app.get("/api/sonioxVoices", async(req,res)=>{
+  try{
+    var voices = await sonioxClient.voices.list();
+    res.json(voices);
+  }catch(err){
+    console.error("SONIOX VOICES ERROR:", err);
+    res.status(500).json({error:"could not load voices"});
+  }
+});
+
+app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
+  try{
+    var text = req.body.text || "";
+    var language = req.body.language || "fr";
+    var voice = req.body.voice || "";
+    var destPath = req.body.destPath || "";
+    if(!text || !voice){
+      return res.status(400).json({error:"text and voice are required"});
+    }
+    var audioBuffer = await sonioxClient.tts.generate({
+      text: text,
+      voice: voice,
+      language: language,
+      model: "tts-rt-v2",
+      audio_format: "mp3"
+    });
+    var fileName = destPath || ("lessonAudio/" + Date.now() + ".mp3");
+    var bucket = admin.storage().bucket();
+    var file = bucket.file(fileName);
+    await file.save(Buffer.from(audioBuffer), { metadata: { contentType: "audio/mpeg" } });
+    await file.makePublic();
+    var publicUrl = "https://storage.googleapis.com/" + bucket.name + "/" + fileName;
+    res.json({ success: true, url: publicUrl });
+  }catch(err){
+    console.error("GENERATE LESSON AUDIO ERROR:", err);
+    res.status(500).json({error:"could not generate audio", details: err.message});
+  }
+});
 
 
