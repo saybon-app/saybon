@@ -134,7 +134,8 @@ async function loadLibrary(){
       div.innerHTML =
         '<div class="as-lib-meta">' + (it.destinationSection||"-") + ' &middot; ' + (it.destinationItem||"-") + ' &middot; ' + (it.purpose||"-") + ' &middot; ' + (it.voice||"-") + '</div>' +
         '<div class="as-lib-text">' + (it.text||"").slice(0,150) + '</div>' +
-        '<audio controls style="width:100%;" src="' + it.url + '"></audio>';
+        '<audio controls style="width:100%;" src="' + it.url + '"></audio>' +
+        '<a href="https://saybonapp-server.onrender.com/api/downloadAudio?url=' + encodeURIComponent(it.url) + '" style="color:#d4af6a;font-size:.75rem;font-weight:700;text-decoration:none;margin-top:6px;display:inline-block;">Download</a>';
       container.appendChild(div);
     });
   }catch(err){
@@ -177,7 +178,7 @@ document.getElementById("asGenerateBtn").addEventListener("click", async functio
     preview.src = data.url;
     preview.style.display = "block";
     const downloadLink = document.getElementById("asDownloadLink");
-    downloadLink.href = data.url;
+    downloadLink.href = "https://saybonapp-server.onrender.com/api/downloadAudio?url=" + encodeURIComponent(data.url);
     downloadLink.style.display = "inline-block";
     status.innerText = "Generated and saved to library.";
     btn.disabled = false;
@@ -222,6 +223,8 @@ loadVoices();
 </script>
 </body>
 </html>
+
+
 
 
 
