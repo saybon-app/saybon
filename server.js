@@ -4804,7 +4804,7 @@ app.get("/api/sonioxVoices", async(req,res)=>{
     res.json(voices);
   }catch(err){
     console.error("SONIOX VOICES ERROR:", err);
-    res.status(500).json({error:"could not load voices", message: err.message, name: err.name});
+    res.status(500).json({error:"could not load voices"});
   }
 });
 
@@ -4836,6 +4836,7 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
     res.status(500).json({error:"could not generate audio", details: err.message});
   }
 });
+
 
 
 
