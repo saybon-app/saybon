@@ -248,7 +248,8 @@ Copying, pasting, and cutting are disabled in this workspace, and your activity 
 
 <div class="progress" id="progress">Progress: 0%</div>
 
-<button class="submit" id="submitBtn" onclick="submitEdit()" disabled>Submit Editing</button>
+<button class="submit" id="submitBtn" onclick="submitEdit()" disabled>Proceed to Format</button>
+<div style="font-size:12px;color:#8b92a3;margin-top:8px;max-width:320px;">Formatting comes next - you will lay out your translation to match the original document, then grading happens once you submit the formatted version.</div>
 
 <div class="identity-note">
 Your submission is tracked under your passkey and reviewed by SayBon before ranking and payment.
@@ -439,7 +440,7 @@ window.confirmPasskey = function(){
 window.submitEdit = async function(){
 
   submitBtn.disabled = true;
-  submitBtn.innerHTML = "<span class=\"submit-spinner\"></span>Grading your work...";
+  submitBtn.innerHTML = "<span class=\"submit-spinner\"></span>Saving...";
 
   try{
 
@@ -465,11 +466,11 @@ window.submitEdit = async function(){
     if(!res.ok){
       alert(data.error || "Could not submit. Please try again.");
       submitBtn.disabled = false;
-      submitBtn.innerText = "Submit Editing";
+      submitBtn.innerText = "Proceed to Format";
       return;
     }
 
-    if(data.score && data.score.passed){ sessionStorage.setItem("saybonJustGraded", JSON.stringify({ score: data.score.finalScore, earned: data.score.payoutAmount, becameWinner: data.score.becameWinner })); } document.getElementById("successOverlay").style.display = "flex";
+    window.location.href = "/translation/formatting-workspace.html?job=" + encodeURIComponent(jobId);
 
   }catch(err){
     alert("Could not submit. Please try again.");
@@ -496,6 +497,9 @@ loadJob();
 </body>
 
 </html>
+
+
+
 
 
 

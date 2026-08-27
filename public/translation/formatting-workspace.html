@@ -18,15 +18,16 @@ body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#DCE9E6;background:
 .page{max-width:1300px;margin:0 auto;}
 .title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
 .jobmeta{font-size:12.5px;color:#A9C9C3;margin-bottom:20px;}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.split{display:grid;grid-template-columns:1fr 2fr;gap:20px;}
 @media (max-width:900px){.split{grid-template-columns:1fr;}}
 .panel{background:rgba(255,255,255,.05);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;}
 .panel-title{font-weight:650;font-size:13px;color:#D4AF6A;margin-bottom:12px;}
-.orig-preview{max-height:600px;overflow-y:auto;background:#fff;border-radius:8px;}
-.orig-preview iframe{width:100%;height:600px;border:none;}
+.orig-preview{max-height:340px;overflow-y:auto;background:#fff;border-radius:8px;}
+.orig-preview iframe{width:100%;height:340px;border:none;}
+.orig-preview img{max-width:100%;height:auto;display:block;margin:0 auto;}
 .orig-preview-html{padding:16px;color:#222;font-size:13px;line-height:1.6;}
 .orig-preview pre{padding:16px;margin:0;white-space:pre-wrap;color:#222;font-size:12.5px;}
-#quillEditor{height:520px;background:#fff;border-radius:8px;color:#111;}
+#quillEditor{height:600px;background:#fff;border-radius:8px;color:#111;}
 .submit-row{margin-top:20px;text-align:center;}
 .submit{padding:14px 34px;font-size:14px;font-weight:650;background:#D4AF6A;color:#012225;border:none;border-radius:12px;cursor:pointer;}
 .submit:disabled{opacity:.5;cursor:not-allowed;}
@@ -60,7 +61,7 @@ const API_BASE = "https://saybonapp-server.onrender.com";
 const params = new URLSearchParams(window.location.search);
 const jobId = params.get("job");
 const translatorPasskey = sessionStorage.getItem("saybonTranslatorPasskey") || "";
-let quill = null; let currentFileType = ""; let currentJobId = "";
+let quill = null; let currentFileType = ""; let currentJobId = ""; let currentSubmissionId = "";
 async function renderOrigPreview(fileUrl, fileType){
   var body = document.getElementById("origPreview");
   if(!fileUrl){ body.innerHTML = "No original document available."; return; }
@@ -98,7 +99,7 @@ async function init(){
       return;
     }
     document.getElementById("jobmeta").innerText = "Job: " + (data.clientFile || jobId) + " - " + data.targetLanguage;
-    currentFileType = data.originalFileType; currentJobId = jobId; renderOrigPreview(data.originalFileUrl, data.originalFileType);
+    currentFileType = data.originalFileType; currentJobId = jobId; currentSubmissionId = data.submissionId; renderOrigPreview(data.originalFileUrl, data.originalFileType);
     quill = new Quill("#quillEditor", { theme: "snow" });
     quill.setText(data.translation || "");
     document.getElementById("submitFormattingBtn").disabled = false;
@@ -111,20 +112,19 @@ document.getElementById("submitFormattingBtn").addEventListener("click", async f
   var btn = document.getElementById("submitFormattingBtn");
   var status = document.getElementById("formattingStatus");
   btn.disabled = true;
-  if(currentFileType !== "pdf"){
-    status.innerText = "DOCX final documents are not yet supported - coming soon.";
-    btn.disabled = false;
-    return;
-  }
   status.innerText = "Generating final PDF...";
   try{
     var el = document.querySelector(".ql-editor");
     var pdfBlob = await html2pdf().from(el).outputPdf("blob");
     status.innerText = "Uploading final document...";
     var finalUrl = await window.uploadFormattedDocToStorage(pdfBlob, "pdf");
-    status.innerText = "Finalizing...";
-    await fetch(API_BASE + "/api/completeFormatting", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ jobId: currentJobId, finalDeliverableUrl: finalUrl }) });
-    status.innerText = "Submitted! Your formatted document has been recorded.";
+    status.innerText = "Grading your work...";
+    var gradeRes = await fetch(API_BASE + "/api/completeFormatting", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({ submissionId: currentSubmissionId, finalDeliverableUrl: finalUrl }) });
+    var gradeData = await gradeRes.json();
+    if(gradeData.score){
+      sessionStorage.setItem("saybonJustGraded", JSON.stringify({ passed: gradeData.score.passed, score: gradeData.score.finalScore, earned: gradeData.score.payoutAmount || 0, becameWinner: gradeData.score.becameWinner || false, claudeScore: gradeData.score.claudeScore, behavioralScore: gradeData.score.behavioralScore, claudeFeedback: gradeData.score.claudeFeedback }));
+    }
+    window.location.href = "/translation/job-board.html";
   }catch(err){
     console.error("SUBMIT ERROR:", err);
     status.innerText = "Could not submit. Please try again.";
@@ -135,6 +135,8 @@ init();
 </script>
 </body>
 </html>
+
+
 
 
 
