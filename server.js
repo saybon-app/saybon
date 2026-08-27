@@ -4814,6 +4814,12 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
     var language = req.body.language || "fr";
     var voice = req.body.voice || "";
     var destPath = req.body.destPath || "";
+    var destinationSection = req.body.destinationSection || "";
+    var destinationItem = req.body.destinationItem || "";
+    var purpose = req.body.purpose || "";
+    var destinationSection = req.body.destinationSection || "";
+    var destinationItem = req.body.destinationItem || "";
+    var purpose = req.body.purpose || "";
     if(!text || !voice){
       return res.status(400).json({error:"text and voice are required"});
     }
@@ -4830,12 +4836,15 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
     await file.save(Buffer.from(audioBuffer), { metadata: { contentType: "audio/mpeg" } });
     await file.makePublic();
     var publicUrl = "https://storage.googleapis.com/" + bucket.name + "/" + fileName;
-    res.json({ success: true, url: publicUrl });
+    var audioDocRef = await db.collection("generatedAudio").add({ url: publicUrl, text: text, language: language, voice: voice, destinationSection: destinationSection, destinationItem: destinationItem, purpose: purpose, createdAt: admin.firestore.FieldValue.serverTimestamp() }); res.json({ success: true, url: publicUrl, audioId: audioDocRef.id });
   }catch(err){
     console.error("GENERATE LESSON AUDIO ERROR:", err);
     res.status(500).json({error:"could not generate audio", details: err.message});
   }
 });
+
+
+
 
 
 
