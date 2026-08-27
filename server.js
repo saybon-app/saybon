@@ -4825,7 +4825,7 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
       audio_format: "mp3"
     });
     var fileName = destPath || ("lessonAudio/" + Date.now() + ".mp3");
-    var bucket = admin.storage().bucket();
+    var bucket = admin.storage().bucket("saybon-3e3c2.firebasestorage.app");
     var file = bucket.file(fileName);
     await file.save(Buffer.from(audioBuffer), { metadata: { contentType: "audio/mpeg" } });
     await file.makePublic();
@@ -4836,6 +4836,7 @@ app.post("/api/generateLessonAudio", express.json(), async(req,res)=>{
     res.status(500).json({error:"could not generate audio", details: err.message});
   }
 });
+
 
 
 
