@@ -27,6 +27,10 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .as-lib-meta{font-size:.78rem;color:#8b92a3;margin-bottom:6px;}
 .as-lib-text{font-size:.85rem;color:#e6e1d3;margin-bottom:8px;}
 .as-empty{color:#6d7488;font-size:.85rem;text-align:center;padding:30px;}
+.as-tag-hint{font-size:.76rem;color:#8b92a3;margin:-10px 0 16px;}
+.as-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:-10px 0 16px;}
+.as-tag-btn{background:rgba(212,175,106,.1);border:1px solid rgba(212,175,106,.25);color:#d4af6a;border-radius:8px;padding:5px 10px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.as-tag-btn:hover{background:rgba(212,175,106,.2);}
 </style>
 </head>
 <body>
@@ -39,6 +43,8 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 <div class="as-card">
 <label class="as-label">Text to speak</label>
 <textarea class="as-textarea" id="asText" placeholder="Enter the lesson text or dialogue to convert to speech..."></textarea>
+<p class="as-tag-hint">Click a tag to insert it at your cursor - it directs tone and delivery when the audio is generated.</p>
+<div class="as-tag-row" id="asTagRow"></div>
 
 <div class="as-row">
 <div>
@@ -186,7 +192,31 @@ onAuthStateChanged(auth, async function(user){
   }
 });
 
+function setupTagButtons(){
+  var tags = ["whispering","excited","laughing","sad","happy","hesitant","shouting","calm","curious","nervous","gasp","sighing"];
+  var row = document.getElementById("asTagRow");
+  tags.forEach(function(tag){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "as-tag-btn";
+    btn.textContent = "[" + tag + "]";
+    btn.onclick = function(){
+      var textarea = document.getElementById("asText");
+      var start = textarea.selectionStart;
+      var end = textarea.selectionEnd;
+      var insertText = "[" + tag + "] ";
+      textarea.value = textarea.value.slice(0, start) + insertText + textarea.value.slice(end);
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
+    };
+    row.appendChild(btn);
+  });
+}
+
+setupTagButtons();
 loadVoices();
 </script>
 </body>
 </html>
+
+
