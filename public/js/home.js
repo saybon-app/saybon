@@ -84,7 +84,7 @@ loginBtn?.addEventListener("click", (e) => {
 
 settingsBtn?.addEventListener("click", (e) => {
   e.stopPropagation();
-  window.location.href = "/admin/panel.html";
+  if(window.checkAdminAccessAndNavigate){ window.checkAdminAccessAndNavigate(); }
 });
 
 function bindPressFeedback(el) {
@@ -103,4 +103,5 @@ function bindPressFeedback(el) {
   el.addEventListener("touchcancel", pressOff);
 }
 [startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+
 
