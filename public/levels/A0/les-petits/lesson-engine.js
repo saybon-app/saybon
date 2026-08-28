@@ -5,13 +5,6 @@ window.lsCurrentUid = null;
 onAuthStateChanged(auth, function(user){
   window.lsCurrentUid = user ? user.uid : null;
 });
-import { auth } from "/js/firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-window.lsCurrentUid = null;
-onAuthStateChanged(auth, function(user){
-  window.lsCurrentUid = user ? user.uid : null;
-});
 const API_BASE = "https://saybonapp-server.onrender.com";
 const LEVEL = "a0-les-petits";
 const LESSON = parseInt((location.pathname.match(/lesson(\d+)\.html/) || [null, "1"])[1]);
@@ -270,6 +263,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
