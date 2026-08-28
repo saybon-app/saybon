@@ -30,8 +30,17 @@ const DURATIONS = {
   fadeSettle: 1000
 };
 
+function shouldPlayIntroMusic(){
+  var lastVisit = localStorage.getItem("sb_last_homepage_visit");
+  var now = Date.now();
+  var THIRTY_MINUTES = 30 * 60 * 1000;
+  var isLongGap = !lastVisit || (now - parseInt(lastVisit)) > THIRTY_MINUTES;
+  localStorage.setItem("sb_last_homepage_visit", String(now));
+  return isLongGap;
+}
+
 function runEntrance() {
-  playIntroAudio();
+  if(shouldPlayIntroMusic()){ playIntroAudio(); }
 
   if (bgLayer) bgLayer.classList.add("sb-bg-zoom-in");
 
@@ -103,5 +112,6 @@ function bindPressFeedback(el) {
   el.addEventListener("touchcancel", pressOff);
 }
 [startBtn, loginBtn, settingsBtn].forEach(bindPressFeedback);
+
 
 
