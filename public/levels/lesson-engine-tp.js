@@ -6,6 +6,21 @@ onAuthStateChanged(auth, function(user){
   window.lsCurrentUid = user ? user.uid : null;
 });
 const API_BASE = "https://saybonapp-server.onrender.com";
+document.addEventListener("play", function(e){
+  if(e.target && (e.target.tagName === "AUDIO" || e.target.tagName === "VIDEO")){
+    if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); }
+  }
+}, true);
+document.addEventListener("pause", function(e){
+  if(e.target && (e.target.tagName === "AUDIO" || e.target.tagName === "VIDEO")){
+    if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
+  }
+}, true);
+document.addEventListener("ended", function(e){
+  if(e.target && (e.target.tagName === "AUDIO" || e.target.tagName === "VIDEO")){
+    if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
+  }
+}, true);
 
 var pathParts = location.pathname.split("/").filter(Boolean);
 var LEVEL;
@@ -267,6 +282,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
