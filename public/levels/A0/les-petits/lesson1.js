@@ -39,11 +39,16 @@ function renderBlock(block){
 function getPartAssets(partNum){
   return allAssets.filter(function(a){ return a.part === partNum; });
 }
+function getMaxPart(){ var max = 1; allAssets.forEach(function(a){ if(a.part > max) max = a.part; }); return max; }
+function getPartLabel(partNum){ var match = allAssets.find(function(a){ return a.part === partNum; }); return (match && match.partTitle) ? ("Part " + partNum + " - " + match.partTitle) : ("Part " + partNum); }
+function getPartTransitionMode(partNum){ var match = allAssets.find(function(a){ return a.part === partNum; }); return (match && match.transitionMode) ? match.transitionMode : "button"; }
+window.lsGoToPart1 = function(){ recordedBlob = null; currentPart = 1; renderPart(1, getPartLabel(1)); };
 
 function renderPart(partNum, label){
   var blocks = getPartAssets(partNum);
   var promptBlock = blocks.find(function(b){ return b.recordPrompt; });
-  var needsRecording = partNum === 2 || partNum === 3;
+  var needsRecording = !!promptBlock;
+  var transitionMode = getPartTransitionMode(partNum);
 
   var blocksHtml = blocks.map(renderBlock).join("");
 
@@ -66,14 +71,21 @@ function renderPart(partNum, label){
       '<div class="ls-btn-row"><button class="ls-btn ls-btn-primary" id="lsSubmitBtn" disabled>Submit</button></div>';
   }
 
-  var continueBtn = needsRecording ? "" :
+  var continueBtn = (needsRecording || transitionMode === "auto") ? "" :
     '<div class="ls-btn-row"><button class="ls-btn ls-btn-primary" onclick="window.lsGoNext()">Continue</button></div>';
+
+  var back1Btn = partNum > 1 ?
+    '<div style="text-align:center;margin-top:10px;"><button class="ls-btn ls-btn-secondary" onclick="window.lsGoToPart1()">&#8634; Back to Part 1</button></div>' : '';
 
   render(
     '<p class="ls-part-label">' + label + '</p>' +
     '<div class="ls-card">' + blocksHtml + recordSection + '</div>' +
-    continueBtn
+    continueBtn + back1Btn
   );
+
+  if(!needsRecording && transitionMode === "auto"){
+    setTimeout(function(){ window.lsGoNext(); }, 2500);
+  }
 
   if(needsRecording){
     document.getElementById("lsRecordBtn").addEventListener("click", toggleRecording);
@@ -229,13 +241,16 @@ function submitRecording(expectedText, partNum){
 
 window.lsRetryRecording = function(){
   recordedBlob = null;
-  renderPart(currentPart, currentPart === 2 ? "Part 2 - Activity" : "Part 3 - Scenario Practice");
+  renderPart(currentPart, getPartLabel(currentPart));
 };
 
 window.lsGoNext = function(){
   recordedBlob = null;
-  if(currentPart === 1){ currentPart = 2; renderPart(2, "Part 2 - Activity"); }
-  else if(currentPart === 2){ currentPart = 3; renderPart(3, "Part 3 - Scenario Practice"); }
+  var nextPart = currentPart + 1;
+  if(getPartAssets(nextPart).length > 0){
+    currentPart = nextPart;
+    renderPart(nextPart, getPartLabel(nextPart));
+  }
   else {
     render(
       '<div class="ls-card" style="text-align:center;">' +
@@ -255,12 +270,13 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
       render('<div class="ls-card" style="text-align:center;"><p style="color:#fff;">This lesson\'s content hasn\'t been added yet.</p></div>');
       return;
     }
-    renderPart(1, "Part 1 - Teaching");
+    renderPart(1, getPartLabel(1));
   })
   .catch(function(err){
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
