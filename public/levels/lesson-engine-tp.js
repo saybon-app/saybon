@@ -29,8 +29,8 @@ function renderBlock(block){
   var sizeClass = block.size ? "ls-size-" + block.size : "ls-size-large";
   if(block.type === "text") return '<div class="ls-block ls-block-text">' + block.content + '</div>';
   if(block.type === "image") return '<div class="ls-block ' + sizeClass + '"><img src="' + block.url + '"></div>';
-  if(block.type === "audio") return '<div class="ls-block"><audio controls src="' + block.url + '"></audio></div>';
-  if(block.type === "video") return '<div class="ls-block ' + sizeClass + '"><video controls src="' + block.url + '"></video></div>';
+  if(block.type === "audio") return '<div class="ls-block"><audio controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></audio></div>';
+  if(block.type === "video") return '<div class="ls-block ' + sizeClass + '"><video controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></video></div>';
   return "";
 }
 
@@ -59,7 +59,7 @@ function renderPart(partNum, label){
       '<button class="ls-btn ls-btn-secondary" id="lsPlayBtn">&#9658; Play My Recording</button>' +
       '<button class="ls-btn ls-btn-secondary" id="lsRerecordBtn">&#8635; Re-record</button>' +
       '</div>' +
-      '<audio id="lsPlaybackAudio" style="display:none;"></audio>' +
+      '<audio id="lsPlaybackAudio" controlsList="nodownload" style="display:none;"></audio>' +
       '<div id="lsScoreDisplay"></div>' +
       '<div class="ls-btn-row"><button class="ls-btn ls-btn-primary" id="lsSubmitBtn" disabled>Submit</button></div>';
   }
@@ -267,6 +267,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
