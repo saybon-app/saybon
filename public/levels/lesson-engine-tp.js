@@ -40,12 +40,65 @@ var lsWaveAnimId = null;
 
 function render(html){ root.innerHTML = html; }
 
+var lsTeacherAudioCounter = 0;
+var lsPendingTeacherAudioSetups = [];
+function injectTeacherAudioStyles(){
+  if(document.getElementById("lsTeacherAudioStyles")) return;
+  var style = document.createElement("style");
+  style.id = "lsTeacherAudioStyles";
+  style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, box-shadow .12s ease-out; border-radius: 16px; max-width: 260px; display: block; margin: 0 auto; }";
+  document.head.appendChild(style);
+}
+function setupTeacherAudioAnimation(imgId, audioId){
+  injectTeacherAudioStyles();
+  var img = document.getElementById(imgId);
+  var audioEl = document.getElementById(audioId);
+  if(!img || !audioEl) return;
+  try{
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var source = audioCtx.createMediaElementSource(audioEl);
+    var analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    var dataArray = new Uint8Array(analyser.frequencyBinCount);
+    function animate(){
+      if(audioEl.paused || audioEl.ended){
+        img.style.transform = "scale(1)";
+        img.style.boxShadow = "none";
+        requestAnimationFrame(animate);
+        return;
+      }
+      analyser.getByteFrequencyData(dataArray);
+      var avg = dataArray.reduce(function(a,b){ return a+b; }, 0) / dataArray.length;
+      var intensity = Math.min(avg / 80, 1);
+      var scale = 1 + (intensity * 0.06);
+      var glow = 10 + (intensity * 30);
+      img.style.transform = "scale(" + scale.toFixed(3) + ")";
+      img.style.boxShadow = "0 0 " + glow.toFixed(0) + "px rgba(212,175,106," + (0.3 + intensity * 0.5).toFixed(2) + ")";
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }catch(err){
+    console.error("TEACHER AUDIO ANIMATION ERROR:", err);
+  }
+}
 function renderBlock(block){
   var sizeClass = block.size ? "ls-size-" + block.size : "ls-size-large";
   if(block.type === "text") return '<div class="ls-block ls-block-text">' + block.content + '</div>';
   if(block.type === "image") return '<div class="ls-block ' + sizeClass + '"><img src="' + block.url + '"></div>';
   if(block.type === "audio") return '<div class="ls-block"><audio controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></audio></div>';
   if(block.type === "video") return '<div class="ls-block ' + sizeClass + '"><video controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></video></div>';
+  if(block.type === "teacher-audio"){
+    var idx = lsTeacherAudioCounter++;
+    var imgId = "lsTeacherImg" + idx;
+    var audioId = "lsTeacherAudioEl" + idx;
+    lsPendingTeacherAudioSetups.push({ imgId: imgId, audioId: audioId });
+    return '<div class="ls-block" style="text-align:center;">' +
+      '<img id="' + imgId + '" class="ls-teacher-audio-img" src="' + block.imageUrl + '">' +
+      '<audio id="' + audioId + '" controlsList="nodownload" style="display:none;" autoplay src="' + block.url + '"></audio>' +
+      '</div>';
+  }
   return "";
 }
 
@@ -95,6 +148,11 @@ function renderPart(partNum, label){
     '<div class="ls-card">' + blocksHtml + recordSection + '</div>' +
     continueBtn + back1Btn
   );
+
+  lsPendingTeacherAudioSetups.forEach(function(setup){
+    setupTeacherAudioAnimation(setup.imgId, setup.audioId);
+  });
+  lsPendingTeacherAudioSetups = [];
 
   if(!needsRecording && transitionMode === "auto"){
     var autoMedia = root.querySelector("video, audio");
@@ -302,6 +360,9 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
+
 
 
 
