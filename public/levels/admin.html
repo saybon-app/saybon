@@ -115,6 +115,7 @@ body{
           <option value="audio">Audio</option>
           <option value="video">Video</option>
           <option value="text">Text</option>
+          <option value="teacher-audio">Teacher Audio (Animated)</option>
         </select>
       </div>
       <div class="ad-field" id="adSizeField" style="display:none;">
@@ -129,6 +130,10 @@ body{
       <div class="ad-field" id="adFileField">
         <label>File</label>
         <input type="file" id="adFileInput">
+      </div>
+      <div class="ad-field" id="adTeacherImageField" style="display:none;">
+        <label>Teacher Image (the file above should be the audio)</label>
+        <input type="file" id="adTeacherImageInput" accept="image/*">
       </div>
       <div class="ad-field" id="adTextField" style="display:none;">
         <label>Text Content</label>
@@ -195,6 +200,7 @@ function toggleFields(){
   typeEl.value === "text" ? (textField.style.display = "block", fileField.style.display = "none") : (textField.style.display = "none", fileField.style.display = "block");
   recordPromptField.style.display = (partEl.value !== "1") ? "block" : "none";
   document.getElementById("adSizeField").style.display = (typeEl.value === "image" || typeEl.value === "video") ? "block" : "none";
+  document.getElementById("adTeacherImageField").style.display = (typeEl.value === "teacher-audio") ? "block" : "none";
 }
 typeEl.addEventListener("change", toggleFields);
 partEl.addEventListener("change", toggleFields);
@@ -331,7 +337,28 @@ function uploadAsset(){
     return getDownloadURL(snapshot.ref);
   }).then(function(url){
     basePayload.url = url;
-    saveAssetRecord(basePayload, status);
+    if(typeEl.value === "teacher-audio"){
+      var imgInput = document.getElementById("adTeacherImageInput");
+      if(!imgInput.files[0]){
+        status.textContent = "Please choose a teacher image";
+        status.className = "ad-status ad-error";
+        return;
+      }
+      var imgFile = imgInput.files[0];
+      var imgRef = ref(storage, "levelAssets/" + levelEl.value + "/" + name + "-img-" + Date.now() + "-" + imgFile.name);
+      uploadBytes(imgRef, imgFile).then(function(snap2){
+        return getDownloadURL(snap2.ref);
+      }).then(function(imgUrl){
+        basePayload.imageUrl = imgUrl;
+        saveAssetRecord(basePayload, status);
+      }).catch(function(err){
+        console.error(err);
+        status.textContent = "Teacher image upload failed: " + (err.message || "check console");
+        status.className = "ad-status ad-error";
+      });
+    } else {
+      saveAssetRecord(basePayload, status);
+    }
   }).catch(function(err){
     console.error(err);
     status.textContent = "Upload failed: " + (err.message || "check console");
@@ -360,6 +387,17 @@ function saveEditedAsset(status){
   }
 
   var fileInput = document.getElementById("adFileInput");
+  var imgInput2 = document.getElementById("adTeacherImageInput");
+
+  function maybeUploadTeacherImage(){
+    if(typeEl.value === "teacher-audio" && imgInput2.files[0]){
+      var imgFile = imgInput2.files[0];
+      var imgRef = ref(storage, "levelAssets/" + levelEl.value + "/edit-img-" + Date.now() + "-" + imgFile.name);
+      return uploadBytes(imgRef, imgFile).then(function(snap){ return getDownloadURL(snap.ref); }).then(function(imgUrl){ updatePayload.imageUrl = imgUrl; });
+    }
+    return Promise.resolve();
+  }
+
   if(fileInput.files[0]){
     var file = fileInput.files[0];
     var storageRef = ref(storage, "levelAssets/" + levelEl.value + "/edit-" + Date.now() + "-" + file.name);
@@ -367,6 +405,8 @@ function saveEditedAsset(status){
       return getDownloadURL(snapshot.ref);
     }).then(function(url){
       updatePayload.url = url;
+      return maybeUploadTeacherImage();
+    }).then(function(){
       finishEditSave(updatePayload, status);
     }).catch(function(err){
       console.error(err);
@@ -374,7 +414,13 @@ function saveEditedAsset(status){
       status.className = "ad-status ad-error";
     });
   } else {
-    finishEditSave(updatePayload, status);
+    maybeUploadTeacherImage().then(function(){
+      finishEditSave(updatePayload, status);
+    }).catch(function(err){
+      console.error(err);
+      status.textContent = "Upload failed: " + (err.message || "check console");
+      status.className = "ad-status ad-error";
+    });
   }
 }
 
@@ -427,6 +473,10 @@ function deleteAsset(id){
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
