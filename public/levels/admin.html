@@ -258,6 +258,13 @@ function startEditAsset(id){
   typeEl.value = asset.type;
   toggleFields();
 
+  var fileLabel = document.querySelector("#adFileField label");
+  fileLabel.textContent = asset.url ? "File (already attached - choose a new one only to replace it)" : "File";
+  var imgLabel = document.querySelector("#adTeacherImageField label");
+  if(imgLabel){
+    imgLabel.textContent = asset.imageUrl ? "Teacher Image (already attached - choose a new one only to replace it)" : "Teacher Image (the file above should be the audio)";
+  }
+
   if(asset.type === "text"){
     document.getElementById("adTextInput").value = asset.content || "";
   }
@@ -337,6 +344,8 @@ function uploadAsset(){
     return getDownloadURL(snapshot.ref);
   }).then(function(url){
     basePayload.url = url;
+    status.textContent = "File uploaded successfully.";
+    status.className = "ad-status ad-success";
     if(typeEl.value === "teacher-audio"){
       var imgInput = document.getElementById("adTeacherImageInput");
       if(!imgInput.files[0]){
@@ -344,12 +353,14 @@ function uploadAsset(){
         status.className = "ad-status ad-error";
         return;
       }
+      status.textContent = "File uploaded. Uploading teacher image...";
       var imgFile = imgInput.files[0];
       var imgRef = ref(storage, "levelAssets/" + levelEl.value + "/" + name + "-img-" + Date.now() + "-" + imgFile.name);
       uploadBytes(imgRef, imgFile).then(function(snap2){
         return getDownloadURL(snap2.ref);
       }).then(function(imgUrl){
         basePayload.imageUrl = imgUrl;
+        status.textContent = "Teacher image uploaded successfully. Saving...";
         saveAssetRecord(basePayload, status);
       }).catch(function(err){
         console.error(err);
@@ -473,6 +484,9 @@ function deleteAsset(id){
 </script>
 </body>
 </html>
+
+
+
 
 
 
