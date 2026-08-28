@@ -94,11 +94,18 @@ body{
         <input type="number" id="adLesson" value="1" min="1" max="25">
       </div>
       <div class="ad-field">
-        <label>Part</label>
-        <select id="adPart">
-          <option value="1">Part 1 - Teaching</option>
-          <option value="2">Part 2 - Activity</option>
-          <option value="3">Part 3 - Scenario Practice</option>
+        <label>Part Number</label>
+        <input type="number" id="adPart" min="1" value="1" />
+      </div>
+      <div class="ad-field">
+        <label>Part Title</label>
+        <input type="text" id="adPartTitle" placeholder="e.g. Teaching, Activity, Scenario Practice" value="Teaching" />
+      </div>
+      <div class="ad-field">
+        <label>Transition to Next Part</label>
+        <select id="adTransitionMode">
+          <option value="button">Wait for button click</option>
+          <option value="auto">Auto-advance when finished</option>
         </select>
       </div>
       <div class="ad-field">
@@ -186,7 +193,7 @@ var previewName = document.getElementById("adPreviewName");
 
 function toggleFields(){
   typeEl.value === "text" ? (textField.style.display = "block", fileField.style.display = "none") : (textField.style.display = "none", fileField.style.display = "block");
-  recordPromptField.style.display = (partEl.value === "2" || partEl.value === "3") ? "block" : "none";
+  recordPromptField.style.display = (partEl.value !== "1") ? "block" : "none";
   document.getElementById("adSizeField").style.display = (typeEl.value === "image" || typeEl.value === "video") ? "block" : "none";
 }
 typeEl.addEventListener("change", toggleFields);
@@ -240,6 +247,8 @@ function startEditAsset(id){
 
   editingAssetId = id;
   partEl.value = asset.part;
+  document.getElementById("adPartTitle").value = asset.partTitle || "Part " + asset.part;
+  document.getElementById("adTransitionMode").value = asset.transitionMode || "button";
   typeEl.value = asset.type;
   toggleFields();
 
@@ -290,6 +299,8 @@ function uploadAsset(){
     level: levelEl.value,
     lesson: parseInt(lessonEl.value),
     part: parseInt(partEl.value),
+    partTitle: document.getElementById("adPartTitle").value || "Part " + partEl.value,
+    transitionMode: document.getElementById("adTransitionMode").value,
     type: typeEl.value,
     name: name,
     recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
@@ -335,6 +346,8 @@ function saveEditedAsset(status){
   var updatePayload = {
     assetId: editingAssetId,
     part: parseInt(partEl.value),
+    partTitle: document.getElementById("adPartTitle").value || "Part " + partEl.value,
+    transitionMode: document.getElementById("adTransitionMode").value,
     recordPrompt: recordPromptField.style.display !== "none" ? document.getElementById("adRecordPrompt").value : null,
     expectedText: recordPromptField.style.display !== "none" ? document.getElementById("adExpectedText").value : null,
     size: (typeEl.value === "image" || typeEl.value === "video") ? document.getElementById("adSize").value : null
@@ -414,6 +427,11 @@ function deleteAsset(id){
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
