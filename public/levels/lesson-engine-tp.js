@@ -46,7 +46,7 @@ function injectTeacherAudioStyles(){
   if(document.getElementById("lsTeacherAudioStyles")) return;
   var style = document.createElement("style");
   style.id = "lsTeacherAudioStyles";
-  style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, box-shadow .12s ease-out; border-radius: 16px; max-width: 260px; display: block; margin: 0 auto; }";
+  style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, filter .12s ease-out; max-width: 260px; display: block; margin: 0 auto; }";
   document.head.appendChild(style);
 }
 function setupTeacherAudioAnimation(imgId, audioId){
@@ -56,6 +56,11 @@ function setupTeacherAudioAnimation(imgId, audioId){
   if(!img || !audioEl) return;
   try{
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === "suspended"){ audioCtx.resume(); }
+    var playPromise = audioEl.play();
+    if(playPromise && playPromise.catch){
+      playPromise.catch(function(err){ console.error("TEACHER AUDIO PLAY BLOCKED:", err); });
+    }
     var source = audioCtx.createMediaElementSource(audioEl);
     var analyser = audioCtx.createAnalyser();
     analyser.fftSize = 256;
@@ -65,7 +70,7 @@ function setupTeacherAudioAnimation(imgId, audioId){
     function animate(){
       if(audioEl.paused || audioEl.ended){
         img.style.transform = "scale(1)";
-        img.style.boxShadow = "none";
+        img.style.filter = "none";
         requestAnimationFrame(animate);
         return;
       }
@@ -75,7 +80,7 @@ function setupTeacherAudioAnimation(imgId, audioId){
       var scale = 1 + (intensity * 0.06);
       var glow = 10 + (intensity * 30);
       img.style.transform = "scale(" + scale.toFixed(3) + ")";
-      img.style.boxShadow = "0 0 " + glow.toFixed(0) + "px rgba(212,175,106," + (0.3 + intensity * 0.5).toFixed(2) + ")";
+      img.style.filter = "drop-shadow(0 0 " + glow.toFixed(0) + "px rgba(212,175,106," + (0.3 + intensity * 0.5).toFixed(2) + "))";
       requestAnimationFrame(animate);
     }
     animate();
@@ -360,6 +365,8 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
 
 
 
