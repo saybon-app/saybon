@@ -4448,14 +4448,14 @@ request.end();
 });
 
 if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
-const amountInMainUnit = paystackData.data.amount / 100;
-const currency = paystackData.data.currency || "GHS";
+const jobDocForIncome = await db.collection("translationJobs").doc(jobId).get();
+const jobPriceUsd = jobDocForIncome.exists ? (Number(jobDocForIncome.data().price) || 0) : 0;
 
 await confirmTranslationJobPaid(
 jobId,
 "translation_paystack_" + reference,
-amountInMainUnit,
-currency
+jobPriceUsd,
+"USD"
 );
 
 res.json({verified:true, jobId});
@@ -4859,3 +4859,7 @@ app.get("/api/listGeneratedAudio", requireAdminAuth, async(req,res)=>{ try{ var 
 
 
 app.get("/api/downloadAudio", function(req,res){ try{ var fileUrl = req.query.url || ""; if(!fileUrl.startsWith("https://storage.googleapis.com/saybon-3e3c2.firebasestorage.app/")){ return res.status(400).json({error:"invalid audio URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", "audio/mpeg"); res.set("Content-Disposition", "attachment; filename=lesson-audio.mp3"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not download file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not download file"}); } });
+
+
+
+
