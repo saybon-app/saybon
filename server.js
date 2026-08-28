@@ -3560,7 +3560,7 @@ res.status(500).json({error:"could not fetch level assets"});
 
 app.post("/api/levelAdminAddAsset", express.json(), async(req,res)=>{
 try{
-const {level, lesson, part, partTitle, transitionMode, type, name, url, content, recordPrompt, expectedText, size} = req.body;
+const {level, lesson, part, partTitle, transitionMode, type, name, url, imageUrl, content, recordPrompt, expectedText, size} = req.body;
 if(!level || !lesson || !part || !type || !name){
 return res.status(400).json({error:"level, lesson, part, type, and name are all required"});
 }
@@ -3569,6 +3569,7 @@ level, lesson, part, type, name,
 partTitle: partTitle || null,
 transitionMode: transitionMode || "button",
 url: url || null,
+imageUrl: imageUrl || null,
 content: content || null,
 recordPrompt: recordPrompt || null,
 expectedText: expectedText || null,
@@ -3598,7 +3599,7 @@ res.status(500).json({error:"could not delete level asset"});
 
 app.post("/api/levelAdminUpdateAsset", express.json(), async(req,res)=>{
 try{
-const {assetId, part, partTitle, transitionMode, type, url, content, recordPrompt, expectedText, size} = req.body;
+const {assetId, part, partTitle, transitionMode, type, url, imageUrl, content, recordPrompt, expectedText, size} = req.body;
 if(!assetId){
 return res.status(400).json({error:"assetId is required"});
 }
@@ -3606,6 +3607,7 @@ const updateData = {};
 if(part !== undefined) updateData.part = part;
 if(partTitle !== undefined) updateData.partTitle = partTitle;
 if(transitionMode !== undefined) updateData.transitionMode = transitionMode;
+if(imageUrl !== undefined) updateData.imageUrl = imageUrl;
 if(type !== undefined) updateData.type = type;
 if(url !== undefined) updateData.url = url;
 if(content !== undefined) updateData.content = content;
@@ -4863,6 +4865,8 @@ app.get("/api/listGeneratedAudio", requireAdminAuth, async(req,res)=>{ try{ var 
 
 
 app.get("/api/downloadAudio", function(req,res){ try{ var fileUrl = req.query.url || ""; if(!fileUrl.startsWith("https://storage.googleapis.com/saybon-3e3c2.firebasestorage.app/")){ return res.status(400).json({error:"invalid audio URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", "audio/mpeg"); res.set("Content-Disposition", "attachment; filename=lesson-audio.mp3"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not download file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not download file"}); } });
+
+
 
 
 
