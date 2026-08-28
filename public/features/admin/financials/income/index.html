@@ -95,7 +95,7 @@ window.deleteIncome = function(id){
   fetch(API_BASE + "/api/financeIncomeDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadIncome);
 };
 
-signInAnonymously(auth).catch(()=>{});
+
 
 document.getElementById("incAddBtn").addEventListener("click", async function(){
   const status = document.getElementById("incStatus");
@@ -129,4 +129,5 @@ loadIncome();
 </script>
 </body>
 </html>
+
 

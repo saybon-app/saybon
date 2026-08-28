@@ -95,7 +95,7 @@ window.deleteExpense = function(id){
   fetch(API_BASE + "/api/financeExpenseDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})}).then(loadExpenses);
 };
 
-signInAnonymously(auth).catch(()=>{});
+
 
 document.getElementById("expAddBtn").addEventListener("click", async function(){
   const status = document.getElementById("expStatus");
@@ -129,4 +129,5 @@ loadExpenses();
 </script>
 </body>
 </html>
+
 

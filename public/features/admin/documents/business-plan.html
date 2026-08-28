@@ -42,7 +42,7 @@ import { app, auth } from "/js/firebase-init.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
-signInAnonymously(auth).catch(()=>{});
+
 
 function loadDocs(){
   fetch(API_BASE + "/api/docBusinessPlan" + "List").then(r=>r.json()).then(function(items){
@@ -83,4 +83,5 @@ document.getElementById("docAddBtn").addEventListener("click", async function(){
 loadDocs();
 </script>
 </body></html>
+
 
