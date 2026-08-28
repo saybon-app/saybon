@@ -97,7 +97,12 @@ function renderPart(partNum, label){
   );
 
   if(!needsRecording && transitionMode === "auto"){
-    setTimeout(function(){ window.lsGoNext(); }, 2500);
+    var autoMedia = root.querySelector("video, audio");
+    if(autoMedia){
+      autoMedia.addEventListener("ended", function(){ window.lsGoNext(); });
+    } else {
+      setTimeout(function(){ window.lsGoNext(); }, 2500);
+    }
   }
 
   if(needsRecording){
@@ -297,6 +302,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
