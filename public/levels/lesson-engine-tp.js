@@ -68,21 +68,24 @@ function setupTeacherAudioAnimation(imgId, audioId){
     analyser.connect(audioCtx.destination);
     var dataArray = new Uint8Array(analyser.frequencyBinCount);
     function animate(){
+      if(!img.isConnected || !audioEl.isConnected){ return; }
       if(audioEl.paused || audioEl.ended){
         img.style.transform = "scale(1)";
         img.style.filter = "none";
-        requestAnimationFrame(animate);
         return;
       }
       analyser.getByteFrequencyData(dataArray);
       var avg = dataArray.reduce(function(a,b){ return a+b; }, 0) / dataArray.length;
       var intensity = Math.min(avg / 80, 1);
       var scale = 1 + (intensity * 0.06);
+      var bounce = intensity * 8;
       var glow = 10 + (intensity * 30);
-      img.style.transform = "scale(" + scale.toFixed(3) + ")";
+      img.style.transform = "scale(" + scale.toFixed(3) + ") translateY(-" + bounce.toFixed(2) + "px)";
       img.style.filter = "drop-shadow(0 0 " + glow.toFixed(0) + "px rgba(212,175,106," + (0.3 + intensity * 0.5).toFixed(2) + "))";
       requestAnimationFrame(animate);
     }
+    audioEl.addEventListener("play", function(){ requestAnimationFrame(animate); });
+    audioEl.addEventListener("playing", function(){ requestAnimationFrame(animate); });
     animate();
   }catch(err){
     console.error("TEACHER AUDIO ANIMATION ERROR:", err);
@@ -365,6 +368,8 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
 
 
 
