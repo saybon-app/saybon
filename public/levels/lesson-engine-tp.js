@@ -49,23 +49,33 @@ function injectTeacherAudioStyles(){
   style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, filter .12s ease-out; max-width: 260px; display: block; margin: 0 auto; }";
   document.head.appendChild(style);
 }
-function setupTeacherAudioAnimation(imgId, audioId){
+async function setupTeacherAudioAnimation(imgId, audioId){
   injectTeacherAudioStyles();
   var img = document.getElementById(imgId);
   var audioEl = document.getElementById(audioId);
   if(!img || !audioEl) return;
+  img.style.opacity = "0";
+  img.style.transition = "opacity .5s ease-in";
+  if(img.complete){
+    img.style.opacity = "1";
+  } else {
+    img.addEventListener("load", function(){ img.style.opacity = "1"; });
+  }
   try{
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if(audioCtx.state === "suspended"){ audioCtx.resume(); }
-    var playPromise = audioEl.play();
-    if(playPromise && playPromise.catch){
-      playPromise.catch(function(err){ console.error("TEACHER AUDIO PLAY BLOCKED:", err); });
+    if(audioCtx.state === "suspended"){
+      await audioCtx.resume();
     }
     var source = audioCtx.createMediaElementSource(audioEl);
     var analyser = audioCtx.createAnalyser();
     analyser.fftSize = 256;
     source.connect(analyser);
     analyser.connect(audioCtx.destination);
+    try{
+      await audioEl.play();
+    }catch(playErr){
+      console.error("TEACHER AUDIO PLAY BLOCKED:", playErr);
+    }
     var dataArray = new Uint8Array(analyser.frequencyBinCount);
     function animate(){
       if(!img.isConnected || !audioEl.isConnected){ return; }
@@ -368,6 +378,8 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
 
 
 
