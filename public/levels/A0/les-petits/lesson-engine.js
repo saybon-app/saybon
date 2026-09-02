@@ -121,15 +121,9 @@ function renderBlock(block){
   if(block.type === "audio") return '<div class="ls-block"><audio controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></audio></div>';
   if(block.type === "video") return '<div class="ls-block ' + sizeClass + '"><video controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></video></div>';
   if(block.type === "teacher-audio"){
-    var idx = lsTeacherAudioCounter++;
-    var imgId = "lsTeacherImg" + idx;
-    var audioId = "lsTeacherAudioEl" + idx;
-    lsPendingTeacherAudioSetups.push({ imgId: imgId, audioId: audioId, btnId: btnId });
-    var btnId = "lsTeacherPlayBtn" + idx;
-    return '<div class="ls-block" style="text-align:center;position:relative;">' +
-      '<img id="' + imgId + '" class="ls-teacher-audio-img" src="' + block.imageUrl + '">' +
-      '<audio id="' + audioId + '" controlsList="nodownload" style="display:none;" autoplay src="' + block.url + '"></audio>' +
-      '<button id="' + btnId + '" class="ls-btn ls-btn-primary" style="display:none;margin-top:14px;">Tap to hear the teacher</button>' +
+    return '<div class="ls-block" style="text-align:center;">' +
+      '<img src="' + block.imageUrl + '" style="max-width:260px;border-radius:16px;display:block;margin:0 auto;">' +
+      '<audio controls controlsList="nodownload" oncontextmenu="return false;" style="margin-top:14px;width:100%;max-width:400px;" src="' + block.url + '"></audio>' +
       '</div>';
   }
   return "";
@@ -393,6 +387,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
