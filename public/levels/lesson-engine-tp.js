@@ -49,10 +49,11 @@ function injectTeacherAudioStyles(){
   style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, filter .12s ease-out; max-width: 260px; display: block; margin: 0 auto; }";
   document.head.appendChild(style);
 }
-async function setupTeacherAudioAnimation(imgId, audioId){
+async function setupTeacherAudioAnimation(imgId, audioId, btnId){
   injectTeacherAudioStyles();
   var img = document.getElementById(imgId);
   var audioEl = document.getElementById(audioId);
+  var playBtn = btnId ? document.getElementById(btnId) : null;
   if(!img || !audioEl) return;
   img.style.opacity = "0";
   img.style.transition = "opacity .5s ease-in";
@@ -60,6 +61,18 @@ async function setupTeacherAudioAnimation(imgId, audioId){
     img.style.opacity = "1";
   } else {
     img.addEventListener("load", function(){ img.style.opacity = "1"; });
+  }
+  function showPlayButton(){
+    if(playBtn){ playBtn.style.display = "inline-block"; }
+  }
+  if(playBtn){
+    playBtn.addEventListener("click", function(){
+      audioEl.play().then(function(){
+        playBtn.style.display = "none";
+      }).catch(function(err){
+        console.error("TEACHER AUDIO MANUAL PLAY FAILED:", err);
+      });
+    });
   }
   try{
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -73,8 +86,12 @@ async function setupTeacherAudioAnimation(imgId, audioId){
     analyser.connect(audioCtx.destination);
     try{
       await audioEl.play();
+      setTimeout(function(){
+        if(audioEl.paused){ showPlayButton(); }
+      }, 400);
     }catch(playErr){
       console.error("TEACHER AUDIO PLAY BLOCKED:", playErr);
+      showPlayButton();
     }
     var dataArray = new Uint8Array(analyser.frequencyBinCount);
     function animate(){
@@ -111,10 +128,12 @@ function renderBlock(block){
     var idx = lsTeacherAudioCounter++;
     var imgId = "lsTeacherImg" + idx;
     var audioId = "lsTeacherAudioEl" + idx;
-    lsPendingTeacherAudioSetups.push({ imgId: imgId, audioId: audioId });
-    return '<div class="ls-block" style="text-align:center;">' +
+    lsPendingTeacherAudioSetups.push({ imgId: imgId, audioId: audioId, btnId: btnId });
+    var btnId = "lsTeacherPlayBtn" + idx;
+    return '<div class="ls-block" style="text-align:center;position:relative;">' +
       '<img id="' + imgId + '" class="ls-teacher-audio-img" src="' + block.imageUrl + '">' +
       '<audio id="' + audioId + '" controlsList="nodownload" style="display:none;" autoplay src="' + block.url + '"></audio>' +
+      '<button id="' + btnId + '" class="ls-btn ls-btn-primary" style="display:none;margin-top:14px;">Tap to hear the teacher</button>' +
       '</div>';
   }
   return "";
@@ -168,7 +187,7 @@ function renderPart(partNum, label){
   );
 
   lsPendingTeacherAudioSetups.forEach(function(setup){
-    setupTeacherAudioAnimation(setup.imgId, setup.audioId);
+    setupTeacherAudioAnimation(setup.imgId, setup.audioId, setup.btnId);
   });
   lsPendingTeacherAudioSetups = [];
 
@@ -378,6 +397,10 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
+
+
 
 
 
