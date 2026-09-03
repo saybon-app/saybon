@@ -37,12 +37,30 @@ var lsWaveAnimId = null;
 function render(html){ root.innerHTML = html; }
 
 var lsTeacherAudioCounter = 0;
+document.addEventListener("play", function(e){
+  if(e.target && e.target.classList && e.target.classList.contains("ls-teacher-audio-el")){
+    var img = e.target.previousElementSibling;
+    if(img){ img.classList.add("ls-teacher-bouncing"); }
+  }
+}, true);
+document.addEventListener("pause", function(e){
+  if(e.target && e.target.classList && e.target.classList.contains("ls-teacher-audio-el")){
+    var img = e.target.previousElementSibling;
+    if(img){ img.classList.remove("ls-teacher-bouncing"); }
+  }
+}, true);
+document.addEventListener("ended", function(e){
+  if(e.target && e.target.classList && e.target.classList.contains("ls-teacher-audio-el")){
+    var img = e.target.previousElementSibling;
+    if(img){ img.classList.remove("ls-teacher-bouncing"); }
+  }
+}, true);
 var lsPendingTeacherAudioSetups = [];
 function injectTeacherAudioStyles(){
   if(document.getElementById("lsTeacherAudioStyles")) return;
   var style = document.createElement("style");
   style.id = "lsTeacherAudioStyles";
-  style.textContent = ".ls-teacher-audio-img{ transition: transform .12s ease-out, filter .12s ease-out; max-width: 260px; display: block; margin: 0 auto; }";
+  style.textContent = ".ls-teacher-audio-img{ max-width: 260px; display: block; margin: 0 auto; } .ls-teacher-audio-img.ls-teacher-bouncing{ animation: lsTeacherBounce 1.1s ease-in-out infinite; } @keyframes lsTeacherBounce { 0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 8px rgba(212,175,106,.25)); } 50% { transform: scale(1.05) translateY(-6px); filter: drop-shadow(0 0 28px rgba(212,175,106,.65)); } }";
   document.head.appendChild(style);
 }
 async function setupTeacherAudioAnimation(imgId, audioId, btnId){
@@ -121,9 +139,10 @@ function renderBlock(block){
   if(block.type === "audio") return '<div class="ls-block"><audio controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></audio></div>';
   if(block.type === "video") return '<div class="ls-block ' + sizeClass + '"><video controls controlsList="nodownload" oncontextmenu="return false;" src="' + block.url + '"></video></div>';
   if(block.type === "teacher-audio"){
+    injectTeacherAudioStyles();
     return '<div class="ls-block" style="text-align:center;">' +
-      '<img src="' + block.imageUrl + '" style="max-width:260px;border-radius:16px;display:block;margin:0 auto;">' +
-      '<audio controls controlsList="nodownload" oncontextmenu="return false;" style="margin-top:14px;width:100%;max-width:400px;" src="' + block.url + '"></audio>' +
+      '<img class="ls-teacher-audio-img" src="' + block.imageUrl + '">' +
+      '<audio class="ls-teacher-audio-el" controls controlsList="nodownload" oncontextmenu="return false;" style="margin-top:14px;width:100%;max-width:400px;" src="' + block.url + '"></audio>' +
       '</div>';
   }
   return "";
@@ -387,6 +406,8 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
 
 
 
