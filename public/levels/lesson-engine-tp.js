@@ -165,9 +165,9 @@ function renderBlock(block){
   if(block.type === "teacher-audio"){
     injectTeacherAudioStyles();
     return '<div class="ls-block" style="text-align:center;">' +
-      '<div style="position:relative;display:inline-block;">' +
+      '<div style="position:relative;display:inline-block;min-width:220px;min-height:280px;">' +
       '<img class="ls-teacher-audio-img" src="' + block.imageUrl + '">' +
-      '<div class="ls-teacher-tap-overlay">Tap to hear the teacher</div>' +
+      '<div class="ls-teacher-tap-overlay ls-teacher-tap-hidden">Tap to hear the teacher</div>' +
       '</div>' +
       '<audio class="ls-teacher-audio-el" controlsList="nodownload" oncontextmenu="return false;" style="display:none;" autoplay src="' + block.url + '"></audio>' +
       '</div>';
@@ -222,10 +222,15 @@ function renderPart(partNum, label){
     continueBtn + back1Btn
   );
 
-  lsPendingTeacherAudioSetups.forEach(function(setup){
-    setupTeacherAudioAnimation(setup.imgId, setup.audioId, setup.btnId);
+  root.querySelectorAll(".ls-teacher-audio-el").forEach(function(audioEl){
+    setTimeout(function(){
+      if(audioEl.paused){
+        var wrapper = audioEl.previousElementSibling;
+        var overlay = wrapper ? wrapper.querySelector(".ls-teacher-tap-overlay") : null;
+        if(overlay){ overlay.classList.remove("ls-teacher-tap-hidden"); }
+      }
+    }, 500);
   });
-  lsPendingTeacherAudioSetups = [];
 
   if(!needsRecording && transitionMode === "auto"){
     var autoMedia = root.querySelector("video, audio");
@@ -433,6 +438,8 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
+
 
 
 
