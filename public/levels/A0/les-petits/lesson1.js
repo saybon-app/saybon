@@ -71,7 +71,7 @@ function injectTeacherAudioStyles(){
   if(document.getElementById("lsTeacherAudioStyles")) return;
   var style = document.createElement("style");
   style.id = "lsTeacherAudioStyles";
-  style.textContent = ".ls-teacher-audio-img{ max-width: 260px; display: block; margin: 0 auto; border-radius: 16px; } .ls-teacher-tap-overlay{ position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(20,16,10,.4); border-radius: 16px; cursor: pointer; color: #fff; font-weight: 700; font-size: .9rem; text-align: center; padding: 20px; opacity: 1; transition: opacity .3s ease; } .ls-teacher-tap-overlay.ls-teacher-tap-hidden{ opacity: 0; pointer-events: none; } .ls-teacher-audio-img.ls-teacher-bouncing{ animation: lsTeacherBounce 2.6s ease-in-out infinite; } @keyframes lsTeacherBounce { 0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(212,175,106,.22)); } 18% { transform: scale(1.025); filter: drop-shadow(0 0 16px rgba(212,175,106,.4)); } 34% { transform: scale(1.005); filter: drop-shadow(0 0 10px rgba(212,175,106,.28)); } 52% { transform: scale(1.035); filter: drop-shadow(0 0 22px rgba(212,175,106,.5)); } 68% { transform: scale(1.01); filter: drop-shadow(0 0 12px rgba(212,175,106,.3)); } 84% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(212,175,106,.46)); } 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(212,175,106,.22)); } }";
+  style.textContent = ".ls-teacher-audio-img{ max-width: 260px; display: block; margin: 0 auto; border-radius: 16px; } .ls-teacher-tap-overlay{ position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(20,16,10,.4); border-radius: 16px; cursor: pointer; color: #fff; font-weight: 700; font-size: .9rem; text-align: center; padding: 20px; opacity: 1; transition: opacity .3s ease; } .ls-teacher-tap-overlay.ls-teacher-tap-hidden{ opacity: 0; pointer-events: none; } .ls-teacher-audio-img.ls-teacher-bouncing{ animation: lsTeacherBounce 2.4s cubic-bezier(.45,0,.55,1) infinite; filter: drop-shadow(0 0 26px rgba(255,215,106,.9)) drop-shadow(0 12px 20px rgba(0,0,0,.4)); } @keyframes lsTeacherBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }";
   document.head.appendChild(style);
 }
 async function setupTeacherAudioAnimation(imgId, audioId, btnId){
@@ -412,6 +412,7 @@ fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
     console.error(err);
     render('<div class="ls-card" style="text-align:center;"><p style="color:#ff8a8a;">Could not load this lesson.</p></div>');
   });
+
 
 
 
