@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Talkletics - Jouer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="play.css?v=1">
+</head>
+<body>
+<header class="pl-top">
+  <button class="pl-icon" id="plBack" aria-label="Back">&#8249;</button>
+  <div class="pl-title"><b id="plGame">-</b><small id="plPlace">-</small></div>
+  <span class="pl-count" id="plCount"></span>
+</header>
+<div class="pl-bar"><div id="plBarFill"></div></div>
+<main class="pl-main" id="plMain"><p class="pl-loading">Chargement…</p></main>
+<script src="curriculum.js?v=1"></script>
+<script type="module" src="play.js?v=1"></script>
+</body>
+</html>

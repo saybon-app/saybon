@@ -17,6 +17,8 @@ admin.initializeApp({credential:admin.credential.cert(JSON.parse(process.env.FIR
 
 const db=admin.firestore()
 
+require("./talkletics-api")(app, admin, db, express)
+
 function generateKey(){
 
 return "SB-"+Math.random().toString(36).substring(2,10).toUpperCase()

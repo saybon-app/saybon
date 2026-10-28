@@ -1,0 +1,29 @@
+:root{--bg:#10231f;--card:#183530;--ink:#f4f1e8;--mut:#a9c2ba;--acc:#ffc83d;--ok:#5fbf5f;--lock:#4b625c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2",system-ui,sans-serif;padding-bottom:40px}
+.jy-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(16,35,31,.95)}
+.jy-top h1{margin:0;font-size:22px}
+.jy-icon{width:40px;height:40px;border-radius:50%;border:0;background:var(--card);color:var(--ink);font-size:22px;cursor:pointer}
+.jy-main{max-width:640px;margin:0 auto;padding:8px 16px}
+.jy-loading{text-align:center;color:var(--mut);margin-top:60px}
+.jy-level{background:var(--card);border-radius:20px;padding:16px;margin:16px 0}
+.jy-level.is-locked{opacity:.55}
+.jy-level-head{display:flex;gap:12px;align-items:center}
+.jy-level-head h2{margin:0;font-size:20px}
+.jy-level-head p{margin:0;font-size:13px;color:var(--mut)}
+.jy-cefr{background:var(--acc);color:#14261f;font-weight:800;border-radius:12px;padding:6px 10px}
+.jy-count{margin-left:auto;font-weight:700;color:var(--acc)}
+.jy-scene{margin:10px 0;padding:10px;border-radius:12px;background:rgba(255,255,255,.06);font-size:28px}
+.jy-scene small{font-size:12px;color:var(--mut);display:block}
+.jy-games{display:flex;flex-direction:column;gap:8px}
+.jy-game{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.07);color:var(--ink);text-decoration:none}
+.jy-game.is-done{background:rgba(95,191,95,.18)}
+.jy-game.is-grad{border:2px dashed var(--acc)}
+.jy-game.is-locked{color:var(--lock)}
+.jy-game.is-next{outline:3px solid var(--acc)}
+.jy-num{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#14261f;display:grid;place-items:center;font-weight:800}
+.is-locked .jy-num{background:var(--lock)}
+.jy-gt{display:flex;flex-direction:column;flex:1;min-width:0}
+.jy-gt i{font-size:12px;color:var(--mut);font-style:normal}
+.jy-stars{color:var(--acc);font-weight:700;white-space:nowrap}
+.jy-grad-note{font-size:12px;color:var(--mut);margin:12px 2px 0}
