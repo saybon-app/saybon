@@ -1,0 +1,157 @@
+﻿/* ==========================================================
+   SAYBON LOADER V2
+   FOUNDATION
+========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+}
+
+/* ==========================================================
+   OVERLAY
+========================================================== */
+
+#sb-welcome-overlay{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#000;
+
+    z-index:999999;
+
+}
+
+/* ==========================================================
+   GOLD DECOR
+========================================================== */
+
+#sb-welcome-overlay::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(212,175,55,.08);
+
+    opacity:.9;
+
+}
+
+#sb-welcome-overlay::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:70px;
+
+    border-radius:40px;
+
+    border:1px solid rgba(212,175,55,.05);
+
+}
+
+/* ==========================================================
+   EXTRA GOLD DETAILS
+========================================================== */
+
+#sb-logo-container{
+
+    position:relative;
+
+    width:220px;
+    height:220px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:10;
+
+}
+
+/* Decorative corner lines */
+
+#sb-welcome-overlay .gold-line{
+
+    position:absolute;
+
+    background:rgba(212,175,55,.14);
+
+}
+
+/* top */
+
+#sb-welcome-overlay .gold-line.top{
+
+    top:48px;
+    left:50%;
+
+    width:180px;
+    height:1px;
+
+    transform:translateX(-50%);
+
+}
+
+/* bottom */
+
+#sb-welcome-overlay .gold-line.bottom{
+
+    bottom:48px;
+    left:50%;
+
+    width:180px;
+    height:1px;
+
+    transform:translateX(-50%);
+
+}
+
+/* left */
+
+#sb-welcome-overlay .gold-line.left{
+
+    left:48px;
+    top:50%;
+
+    width:1px;
+    height:180px;
+
+    transform:translateY(-50%);
+
+}
+
+/* right */
+
+#sb-welcome-overlay .gold-line.right{
+
+    right:48px;
+    top:50%;
+
+    width:1px;
+    height:180px;
+
+    transform:translateY(-50%);
+
+}
