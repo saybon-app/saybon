@@ -1223,7 +1223,7 @@ res.status(500).json({error:"could not load payment method"})
 // ADMIN: LIST SUBMISSIONS FOR REVIEW
 // ------------------------------------------------
 
-app.get("/api/adminSubmissions", async(req,res)=>{
+app.get("/api/adminSubmissions", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -1296,7 +1296,7 @@ res.status(500).json({error:"could not load submissions"})
 
 const PAYOUT_PERCENTAGES={1:100,2:40,3:20}
 
-app.post("/api/reviewSubmission", async(req,res)=>{
+app.post("/api/reviewSubmission", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -1379,7 +1379,7 @@ res.status(500).json({error:"could not review submission"})
 // ADMIN: LIST PAYOUTS (with translator payment details)
 // ------------------------------------------------
 
-app.get("/api/adminPayouts", async(req,res)=>{
+app.get("/api/adminPayouts", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -1431,7 +1431,7 @@ res.status(500).json({error:"could not load payouts"})
 // ADMIN: MARK PAYOUT AS PAID (after manual bank/MoMo transfer)
 // ------------------------------------------------
 
-app.post("/api/markPayoutPaid", async(req,res)=>{
+app.post("/api/markPayoutPaid", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -1941,7 +1941,7 @@ res.status(500).json({error:"could not update profile"})
 // ADMIN: OVERVIEW STATS (real aggregates)
 // ------------------------------------------------
 
-app.get("/api/adminOverview", async(req,res)=>{
+app.get("/api/adminOverview", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2033,7 +2033,7 @@ res.status(500).json({error:"could not load overview"})
 // ADMIN: LIST ALL TRANSLATOR APPLICATIONS
 // ------------------------------------------------
 
-app.get("/api/adminTranslators", async(req,res)=>{
+app.get("/api/adminTranslators", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2510,7 +2510,7 @@ res.status(500).json({error:"could not load playlist"})
 
 })
 
-app.post("/api/adminAddMusicVideo", async(req,res)=>{
+app.post("/api/adminAddMusicVideo", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2547,7 +2547,7 @@ res.status(500).json({error:"could not add video"})
 
 })
 
-app.post("/api/adminDeleteMusicVideo", async(req,res)=>{
+app.post("/api/adminDeleteMusicVideo", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2700,7 +2700,7 @@ res.status(500).json({error:"could not record violation"})
 
 })
 
-app.get("/api/adminChatUsers", async(req,res)=>{
+app.get("/api/adminChatUsers", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2733,7 +2733,7 @@ res.status(500).json({error:"could not load users"})
 
 })
 
-app.post("/api/adminBlockUser", async(req,res)=>{
+app.post("/api/adminBlockUser", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2759,7 +2759,7 @@ res.status(500).json({error:"could not block user"})
 
 })
 
-app.post("/api/adminUnblockUser", async(req,res)=>{
+app.post("/api/adminUnblockUser", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2783,7 +2783,7 @@ res.status(500).json({error:"could not unblock user"})
 
 })
 
-app.post("/api/adminFlagUser", async(req,res)=>{
+app.post("/api/adminFlagUser", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2809,7 +2809,7 @@ res.status(500).json({error:"could not update flag"})
 
 })
 
-app.get("/api/adminChatViolations", async(req,res)=>{
+app.get("/api/adminChatViolations", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2848,7 +2848,7 @@ res.status(500).json({error:"could not load violations"})
 
 })
 
-app.get("/api/adminChatCustomRooms", async(req,res)=>{
+app.get("/api/adminChatCustomRooms", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2878,7 +2878,7 @@ res.status(500).json({error:"could not load custom rooms"})
 
 })
 
-app.post("/api/adminDeleteChatRoom", async(req,res)=>{
+app.post("/api/adminDeleteChatRoom", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2902,7 +2902,7 @@ res.status(500).json({error:"could not delete room"})
 
 })
 
-app.post("/api/adminUpdateMusicThumbnail", async(req,res)=>{
+app.post("/api/adminUpdateMusicThumbnail", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3040,7 +3040,7 @@ res.status(500).json({error:"could not assess pronunciation"})
 
 })
 
-app.get("/api/adminMusicOverview", async(req,res)=>{
+app.get("/api/adminMusicOverview", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3110,7 +3110,7 @@ res.status(500).json({error:"could not load locations"})
 
 })
 
-app.post("/api/adminAddLocation", async(req,res)=>{
+app.post("/api/adminAddLocation", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3148,7 +3148,7 @@ res.status(500).json({error:"could not add location"})
 
 })
 
-app.post("/api/adminDeleteLocation", async(req,res)=>{
+app.post("/api/adminDeleteLocation", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3193,7 +3193,7 @@ res.status(500).json({error:"could not delete location"})
 
 })
 
-app.post("/api/adminMoveLocation", async(req,res)=>{
+app.post("/api/adminMoveLocation", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3299,7 +3299,7 @@ res.status(500).json({error:"could not load assets"})
 
 })
 
-app.post("/api/adminAddAsset", async(req,res)=>{
+app.post("/api/adminAddAsset", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3332,7 +3332,7 @@ res.status(500).json({error:"could not add asset"})
 
 })
 
-app.post("/api/adminDeleteAsset", async(req,res)=>{
+app.post("/api/adminDeleteAsset", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3356,7 +3356,7 @@ res.status(500).json({error:"could not delete asset"})
 
 })
 
-app.post("/api/adminRenameAsset", async(req,res)=>{
+app.post("/api/adminRenameAsset", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -3494,7 +3494,7 @@ res.status(500).json({error:"could not fetch delf assets"});
 }
 });
 
-app.post("/api/delfAdminAddAsset", express.json(), async(req,res)=>{
+app.post("/api/delfAdminAddAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, type, url} = req.body;
 if(!name || !type || !url){
@@ -3510,7 +3510,7 @@ res.status(500).json({error:"could not add delf asset"});
 }
 });
 
-app.post("/api/delfAdminDeleteAsset", express.json(), async(req,res)=>{
+app.post("/api/delfAdminDeleteAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {assetId} = req.body;
 if(!assetId){
@@ -3524,7 +3524,7 @@ res.status(500).json({error:"could not delete delf asset"});
 }
 });
 
-app.post("/api/delfAdminRenameAsset", express.json(), async(req,res)=>{
+app.post("/api/delfAdminRenameAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {assetId, newName} = req.body;
 if(!assetId || !newName){
@@ -3558,7 +3558,7 @@ res.status(500).json({error:"could not fetch level assets"});
 }
 });
 
-app.post("/api/levelAdminAddAsset", express.json(), async(req,res)=>{
+app.post("/api/levelAdminAddAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {level, lesson, part, partTitle, transitionMode, type, name, url, imageUrl, content, recordPrompt, expectedText, size} = req.body;
 if(!level || !lesson || !part || !type || !name){
@@ -3583,7 +3583,7 @@ res.status(500).json({error:"could not add level asset"});
 }
 });
 
-app.post("/api/levelAdminDeleteAsset", express.json(), async(req,res)=>{
+app.post("/api/levelAdminDeleteAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {assetId} = req.body;
 if(!assetId){
@@ -3597,7 +3597,7 @@ res.status(500).json({error:"could not delete level asset"});
 }
 });
 
-app.post("/api/levelAdminUpdateAsset", express.json(), async(req,res)=>{
+app.post("/api/levelAdminUpdateAsset", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {assetId, part, partTitle, transitionMode, type, url, imageUrl, content, recordPrompt, expectedText, size} = req.body;
 if(!assetId){
@@ -3665,7 +3665,7 @@ res.status(500).json({error:"could not save progress"});
 // BUSINESS ADMIN - FEEDBACK & ISSUES TRACKER
 // ================================================================
 
-app.get("/api/adminFeedbackList", async(req,res)=>{
+app.get("/api/adminFeedbackList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("adminFeedback").orderBy("created","desc").get();
 const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -3676,7 +3676,7 @@ res.status(500).json({error:"could not fetch feedback list"});
 }
 });
 
-app.post("/api/adminFeedbackAdd", express.json(), async(req,res)=>{
+app.post("/api/adminFeedbackAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {type, text} = req.body;
 if(!type || !text){
@@ -3692,7 +3692,7 @@ res.status(500).json({error:"could not add feedback item"});
 }
 });
 
-app.post("/api/adminFeedbackUpdate", express.json(), async(req,res)=>{
+app.post("/api/adminFeedbackUpdate", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id, resolved} = req.body;
 if(!id){
@@ -3706,7 +3706,7 @@ res.status(500).json({error:"could not update feedback item"});
 }
 });
 
-app.post("/api/adminFeedbackDelete", express.json(), async(req,res)=>{
+app.post("/api/adminFeedbackDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id){
@@ -3724,14 +3724,14 @@ res.status(500).json({error:"could not delete feedback item"});
 // BUSINESS FINANCIALS - Income, Expenses, Founder Draw, Reports
 // ================================================================
 
-app.get("/api/financeIncomeList", async(req,res)=>{
+app.get("/api/financeIncomeList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("financeIncome").orderBy("date","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch income"}); }
 });
 
-app.post("/api/financeIncomeAdd", express.json(), async(req,res)=>{
+app.post("/api/financeIncomeAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {date, amount, currency, method, category, note, receiptUrl} = req.body;
 if(!date || amount === undefined){ return res.status(400).json({error:"date and amount are required"}); }
@@ -3740,7 +3740,7 @@ res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add income"}); }
 });
 
-app.post("/api/financeIncomeDelete", express.json(), async(req,res)=>{
+app.post("/api/financeIncomeDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -3749,14 +3749,14 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete income"}); }
 });
 
-app.get("/api/financeExpenseList", async(req,res)=>{
+app.get("/api/financeExpenseList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("financeExpenses").orderBy("date","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch expenses"}); }
 });
 
-app.post("/api/financeExpenseAdd", express.json(), async(req,res)=>{
+app.post("/api/financeExpenseAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {date, amount, currency, method, category, note, receiptUrl} = req.body;
 if(!date || amount === undefined){ return res.status(400).json({error:"date and amount are required"}); }
@@ -3765,7 +3765,7 @@ res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add expense"}); }
 });
 
-app.post("/api/financeExpenseDelete", express.json(), async(req,res)=>{
+app.post("/api/financeExpenseDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -3785,7 +3785,7 @@ expenseSnap.forEach(doc => { totalExpenses += Number(doc.data().amount) || 0; })
 return { totalIncome, totalExpenses, profit: totalIncome - totalExpenses };
 }
 
-app.get("/api/financeFounderSummary", async(req,res)=>{
+app.get("/api/financeFounderSummary", requireAdminAuth, async(req,res)=>{
 try{
 const {profit} = await computeProfitUSD();
 const settingsDoc = await db.collection("financeSettings").doc("founder").get();
@@ -3801,7 +3801,7 @@ res.json({ profit, percent, available, taken, draws });
 }catch(err){ console.error(err); res.status(500).json({error:"could not compute founder summary"}); }
 });
 
-app.post("/api/financeFounderSetPercent", express.json(), async(req,res)=>{
+app.post("/api/financeFounderSetPercent", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {percent} = req.body;
 if(percent === undefined) return res.status(400).json({error:"percent required"});
@@ -3810,7 +3810,7 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not save percent"}); }
 });
 
-app.post("/api/financeFounderDrawAdd", express.json(), async(req,res)=>{
+app.post("/api/financeFounderDrawAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {date, amount, currency, note} = req.body;
 if(!date || amount === undefined) return res.status(400).json({error:"date and amount required"});
@@ -3819,7 +3819,7 @@ res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add draw"}); }
 });
 
-app.post("/api/financeFounderDrawDelete", express.json(), async(req,res)=>{
+app.post("/api/financeFounderDrawDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -3828,7 +3828,7 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete draw"}); }
 });
 
-app.get("/api/financeReportsSummary", async(req,res)=>{
+app.get("/api/financeReportsSummary", requireAdminAuth, async(req,res)=>{
 try{
 const {totalIncome, totalExpenses, profit} = await computeProfitUSD();
 const drawsSnap = await db.collection("financeFounderDraws").get();
@@ -3950,13 +3950,13 @@ res.status(500).json({error:"could not verify Paystack donation"});
 // COMPANY ASSETS - Domains, IP, Tools
 // ================================================================
 
-app.get("/api/assetDomainsList", async(req,res)=>{
+app.get("/api/assetDomainsList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("assetDomains").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch domains"}); }
 });
-app.post("/api/assetDomainsAdd", express.json(), async(req,res)=>{
+app.post("/api/assetDomainsAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, registrar, cost, renewalDate} = req.body;
 if(!name) return res.status(400).json({error:"name required"});
@@ -3964,7 +3964,7 @@ const docRef = await db.collection("assetDomains").add({name, registrar: registr
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add domain"}); }
 });
-app.post("/api/assetDomainsDelete", express.json(), async(req,res)=>{
+app.post("/api/assetDomainsDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -3973,13 +3973,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete domain"}); }
 });
 
-app.get("/api/assetIpList", async(req,res)=>{
+app.get("/api/assetIpList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("assetIp").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch IP records"}); }
 });
-app.post("/api/assetIpAdd", express.json(), async(req,res)=>{
+app.post("/api/assetIpAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, type, status, filingDate} = req.body;
 if(!name) return res.status(400).json({error:"name required"});
@@ -3987,7 +3987,7 @@ const docRef = await db.collection("assetIp").add({name, type: type||"Other", st
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add IP record"}); }
 });
-app.post("/api/assetIpDelete", express.json(), async(req,res)=>{
+app.post("/api/assetIpDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -3996,13 +3996,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete IP record"}); }
 });
 
-app.get("/api/assetToolsList", async(req,res)=>{
+app.get("/api/assetToolsList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("assetTools").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch tools"}); }
 });
-app.post("/api/assetToolsAdd", express.json(), async(req,res)=>{
+app.post("/api/assetToolsAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, cost, category, owner} = req.body;
 if(!name) return res.status(400).json({error:"name required"});
@@ -4010,7 +4010,7 @@ const docRef = await db.collection("assetTools").add({name, cost: cost||0, categ
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add tool"}); }
 });
-app.post("/api/assetToolsDelete", express.json(), async(req,res)=>{
+app.post("/api/assetToolsDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4023,13 +4023,13 @@ res.json({success:true});
 // DOCUMENTS - Business Plan, Contracts, NDA Records, Receipts
 // ================================================================
 
-app.get("/api/docBusinessPlan" + "List", async(req,res)=>{
+app.get("/api/docBusinessPlan" + "List", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("docBusinessPlan").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch docBusinessPlan"}); }
 });
-app.post("/api/docBusinessPlan" + "Add", express.json(), async(req,res)=>{
+app.post("/api/docBusinessPlan" + "Add", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {title, meta, fileUrl} = req.body;
 if(!title) return res.status(400).json({error:"title required"});
@@ -4037,7 +4037,7 @@ const docRef = await db.collection("docBusinessPlan").add({title, meta: meta||""
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add to docBusinessPlan"}); }
 });
-app.post("/api/docBusinessPlan" + "Delete", express.json(), async(req,res)=>{
+app.post("/api/docBusinessPlan" + "Delete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4046,13 +4046,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete from docBusinessPlan"}); }
 });
 
-app.get("/api/docContracts" + "List", async(req,res)=>{
+app.get("/api/docContracts" + "List", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("docContracts").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch docContracts"}); }
 });
-app.post("/api/docContracts" + "Add", express.json(), async(req,res)=>{
+app.post("/api/docContracts" + "Add", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {title, meta, fileUrl} = req.body;
 if(!title) return res.status(400).json({error:"title required"});
@@ -4060,7 +4060,7 @@ const docRef = await db.collection("docContracts").add({title, meta: meta||"", f
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add to docContracts"}); }
 });
-app.post("/api/docContracts" + "Delete", express.json(), async(req,res)=>{
+app.post("/api/docContracts" + "Delete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4069,13 +4069,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete from docContracts"}); }
 });
 
-app.get("/api/docNda" + "List", async(req,res)=>{
+app.get("/api/docNda" + "List", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("docNda").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch docNda"}); }
 });
-app.post("/api/docNda" + "Add", express.json(), async(req,res)=>{
+app.post("/api/docNda" + "Add", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {title, meta, fileUrl} = req.body;
 if(!title) return res.status(400).json({error:"title required"});
@@ -4083,7 +4083,7 @@ const docRef = await db.collection("docNda").add({title, meta: meta||"", fileUrl
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add to docNda"}); }
 });
-app.post("/api/docNda" + "Delete", express.json(), async(req,res)=>{
+app.post("/api/docNda" + "Delete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4092,13 +4092,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete from docNda"}); }
 });
 
-app.get("/api/docReceipts" + "List", async(req,res)=>{
+app.get("/api/docReceipts" + "List", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("docReceipts").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch docReceipts"}); }
 });
-app.post("/api/docReceipts" + "Add", express.json(), async(req,res)=>{
+app.post("/api/docReceipts" + "Add", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {title, meta, fileUrl} = req.body;
 if(!title) return res.status(400).json({error:"title required"});
@@ -4106,7 +4106,7 @@ const docRef = await db.collection("docReceipts").add({title, meta: meta||"", fi
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add to docReceipts"}); }
 });
-app.post("/api/docReceipts" + "Delete", express.json(), async(req,res)=>{
+app.post("/api/docReceipts" + "Delete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4119,13 +4119,13 @@ res.json({success:true});
 // INVESTORS - Cap Table, Terms
 // ================================================================
 
-app.get("/api/capTableList", async(req,res)=>{
+app.get("/api/capTableList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("capTable").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch cap table"}); }
 });
-app.post("/api/capTableAdd", express.json(), async(req,res)=>{
+app.post("/api/capTableAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, percent, date, notes} = req.body;
 if(!name || percent === undefined) return res.status(400).json({error:"name and percent required"});
@@ -4133,7 +4133,7 @@ const docRef = await db.collection("capTable").add({name, percent, date: date||"
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add cap table entry"}); }
 });
-app.post("/api/capTableDelete", express.json(), async(req,res)=>{
+app.post("/api/capTableDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4142,13 +4142,13 @@ res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not delete cap table entry"}); }
 });
 
-app.get("/api/investorTermsList", async(req,res)=>{
+app.get("/api/investorTermsList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("investorTerms").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 }catch(err){ console.error(err); res.status(500).json({error:"could not fetch terms"}); }
 });
-app.post("/api/investorTermsAdd", express.json(), async(req,res)=>{
+app.post("/api/investorTermsAdd", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {title, details, date} = req.body;
 if(!title) return res.status(400).json({error:"title required"});
@@ -4156,7 +4156,7 @@ const docRef = await db.collection("investorTerms").add({title, details: details
 res.json({id: docRef.id});
 }catch(err){ console.error(err); res.status(500).json({error:"could not add term"}); }
 });
-app.post("/api/investorTermsDelete", express.json(), async(req,res)=>{
+app.post("/api/investorTermsDelete", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {id} = req.body;
 if(!id) return res.status(400).json({error:"id required"});
@@ -4169,7 +4169,7 @@ res.json({success:true});
 // SETTINGS - Access Control, Feature Locks
 // ================================================================
 
-app.get("/api/accessControlList", async(req,res)=>{
+app.get("/api/accessControlList", requireAdminAuth, async(req,res)=>{
 try{
 const snapshot = await db.collection("accessControl").orderBy("created","desc").get();
 res.json(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
@@ -4209,7 +4209,7 @@ const doc = await db.collection("appSettings").doc("featureLocks").get();
 res.json(doc.exists ? doc.data() : {});
 }catch(err){ console.error(err); res.status(500).json({}); }
 });
-app.post("/api/featureLocksSet", express.json(), async(req,res)=>{
+app.post("/api/featureLocksSet", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {name, enabled} = req.body;
 if(!name) return res.status(400).json({error:"name required"});
@@ -4514,7 +4514,7 @@ request.end();
 
 // Lists translators who have cleared enough balance to be paid,
 // along with their saved payment method and region.
-app.get("/api/adminListPayoutCandidates", async(req,res)=>{
+app.get("/api/adminListPayoutCandidates", requireAdminAuth, async(req,res)=>{
 try{
 const paymentMethodsSnapshot = await db.collection("translatorPaymentMethods").get();
 const candidates = [];
@@ -4732,7 +4732,7 @@ res.status(500).json({error:"could not convert currency"});
 // One-off/manual correction utility - lets a job's price field
 // be fixed directly, e.g. for jobs created before a pricing bug
 // was fixed.
-app.post("/api/adminUpdateJobPrice", express.json(), async(req,res)=>{
+app.post("/api/adminUpdateJobPrice", requireAdminAuth, express.json(), async(req,res)=>{
 try{
 const {jobId, price} = req.body;
 if(!jobId || price === undefined) return res.status(400).json({error:"jobId and price are required"});
@@ -4757,7 +4757,7 @@ res.status(500).json({error:"could not update job price"});
 
 function computeTextSimilarity(textA, textB){ var wordsA = textA.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var wordsB = textB.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var setA = {}; wordsA.forEach(function(w){ setA[w]=true; }); var setB = {}; wordsB.forEach(function(w){ setB[w]=true; }); var intersection = 0; Object.keys(setA).forEach(function(w){ if(setB[w]) intersection++; }); var unionObj = {}; wordsA.concat(wordsB).forEach(function(w){ unionObj[w]=true; }); var unionSize = Object.keys(unionObj).length; if(unionSize === 0) return 0; return (intersection / unionSize) * 100; } function computeBehavioralScore(keystrokeCount, timeTakenSeconds, tabSwitches, pasteAttempts, wordCount){ var score = 100; if(pasteAttempts > 0){ score -= Math.min(pasteAttempts * 8, 40); } if(tabSwitches > 30){ score -= 10; } return Math.max(0, score); } async function scoreTranslationSubmission(submissionId){ var subDoc = await db.collection("jobSubmissions").doc(submissionId).get(); if(!subDoc.exists) return null; var sub = subDoc.data(); var jobDoc = await db.collection("translationJobs").doc(sub.jobId).get(); if(!jobDoc.exists) return null; var job = jobDoc.data(); var claudeGrade = { score: 0, feedback: "" }; try{ claudeGrade = await gradeTranslationWithClaude(job.documentText || "", sub.translation || "", job.sourceLanguage || "", job.targetLanguage || ""); }catch(gradeErr){ console.error("CLAUDE GRADING ERROR:", gradeErr); } var similarityScore = claudeGrade.score; var behavioralScore = computeBehavioralScore(sub.keystrokeCount||0, sub.timeTakenSeconds||0, sub.tabSwitches||0, sub.pasteAttempts||0, job.wordCount||0); var finalScore = Math.round((similarityScore * 0.85) + (behavioralScore * 0.15)); var passed = finalScore >= 85; await db.collection("jobSubmissions").doc(submissionId).update({ similarityScore: Math.round(similarityScore), claudeFeedback: claudeGrade.feedback, behavioralScore: Math.round(behavioralScore), finalScore: finalScore, passed: passed, scoredAt: admin.firestore.FieldValue.serverTimestamp() }); if(passed){ var jobRef = db.collection("translationJobs").doc(sub.jobId); var becameWinner = await db.runTransaction(async function(tx){ var freshJob = await tx.get(jobRef); var freshData = freshJob.data(); if(!freshData.selectedSubmissionId){ tx.update(jobRef, { selectedSubmissionId: submissionId, pendingClientReview: true, autoSelectedAt: admin.firestore.FieldValue.serverTimestamp() }); return true; } return false; }); var payoutRate = becameWinner ? 0.6 : 0.1; var payoutAmount = Math.round((job.price || 0) * payoutRate * 100) / 100; await db.collection("payouts").add({ translatorPasskey: sub.translator, amountOwed: payoutAmount, jobId: sub.jobId, submissionId: submissionId, isWinner: becameWinner, createdAt: admin.firestore.FieldValue.serverTimestamp() }); return { finalScore: finalScore, passed: passed, payoutAmount: payoutAmount, becameWinner: becameWinner, claudeScore: Math.round(similarityScore), behavioralScore: Math.round(behavioralScore), claudeFeedback: claudeGrade.feedback }; } return { finalScore: finalScore, passed: passed, claudeScore: Math.round(similarityScore), behavioralScore: Math.round(behavioralScore), claudeFeedback: claudeGrade.feedback }; }
 
-app.get("/api/adminPendingReviews", async(req,res)=>{ try{ var jobsSnap = await db.collection("translationJobs").where("pendingClientReview","==",true).get(); var results = []; for(var i=0;i<jobsSnap.docs.length;i++){ var jobDoc = jobsSnap.docs[i]; var job = jobDoc.data(); var subDoc = await db.collection("jobSubmissions").doc(job.selectedSubmissionId).get(); var sub = subDoc.exists ? subDoc.data() : {}; results.push({ jobId: jobDoc.id, clientFile: job.clientFile, targetLanguage: job.targetLanguage, selectedSubmissionId: job.selectedSubmissionId, translator: sub.translator, finalScore: sub.finalScore, similarityScore: sub.similarityScore, behavioralScore: sub.behavioralScore, translationPreview: (sub.translation||"").slice(0,300) }); } res.json(results); }catch(err){ console.error(err); res.status(500).json({error:"could not load pending reviews"}); } }); app.get("/api/adminJobSubmissions", async(req,res)=>{ try{ var jobId = req.query.jobId; var subsSnap = await db.collection("jobSubmissions").where("jobId","==",jobId).get(); var results = subsSnap.docs.map(function(d){ var s = d.data(); return { submissionId: d.id, translator: s.translator, finalScore: s.finalScore, passed: s.passed, translationPreview: (s.translation||"").slice(0,300) }; }); res.json(results); }catch(err){ console.error(err); res.status(500).json({error:"could not load job submissions"}); } }); app.post("/api/adminConfirmSelection", express.json(), async(req,res)=>{ try{ var jobId = req.body.jobId; await db.collection("translationJobs").doc(jobId).update({ pendingClientReview: false, formattingUnlocked: true }); res.json({success:true}); }catch(err){ console.error(err); res.status(500).json({error:"could not confirm selection"}); } }); app.post("/api/adminOverrideSelection", express.json(), async(req,res)=>{ try{ var jobId = req.body.jobId; var submissionId = req.body.submissionId; await db.collection("translationJobs").doc(jobId).update({ selectedSubmissionId: submissionId, pendingClientReview: false, formattingUnlocked: true }); res.json({success:true}); }catch(err){ console.error(err); res.status(500).json({error:"could not override selection"}); } });
+app.get("/api/adminPendingReviews", requireAdminAuth, async(req,res)=>{ try{ var jobsSnap = await db.collection("translationJobs").where("pendingClientReview","==",true).get(); var results = []; for(var i=0;i<jobsSnap.docs.length;i++){ var jobDoc = jobsSnap.docs[i]; var job = jobDoc.data(); var subDoc = await db.collection("jobSubmissions").doc(job.selectedSubmissionId).get(); var sub = subDoc.exists ? subDoc.data() : {}; results.push({ jobId: jobDoc.id, clientFile: job.clientFile, targetLanguage: job.targetLanguage, selectedSubmissionId: job.selectedSubmissionId, translator: sub.translator, finalScore: sub.finalScore, similarityScore: sub.similarityScore, behavioralScore: sub.behavioralScore, translationPreview: (sub.translation||"").slice(0,300) }); } res.json(results); }catch(err){ console.error(err); res.status(500).json({error:"could not load pending reviews"}); } }); app.get("/api/adminJobSubmissions", async(req,res)=>{ try{ var jobId = req.query.jobId; var subsSnap = await db.collection("jobSubmissions").where("jobId","==",jobId).get(); var results = subsSnap.docs.map(function(d){ var s = d.data(); return { submissionId: d.id, translator: s.translator, finalScore: s.finalScore, passed: s.passed, translationPreview: (s.translation||"").slice(0,300) }; }); res.json(results); }catch(err){ console.error(err); res.status(500).json({error:"could not load job submissions"}); } }); app.post("/api/adminConfirmSelection", express.json(), async(req,res)=>{ try{ var jobId = req.body.jobId; await db.collection("translationJobs").doc(jobId).update({ pendingClientReview: false, formattingUnlocked: true }); res.json({success:true}); }catch(err){ console.error(err); res.status(500).json({error:"could not confirm selection"}); } }); app.post("/api/adminOverrideSelection", express.json(), async(req,res)=>{ try{ var jobId = req.body.jobId; var submissionId = req.body.submissionId; await db.collection("translationJobs").doc(jobId).update({ selectedSubmissionId: submissionId, pendingClientReview: false, formattingUnlocked: true }); res.json({success:true}); }catch(err){ console.error(err); res.status(500).json({error:"could not override selection"}); } });
 
 app.get("/api/checkFormattingAccess", async(req,res)=>{ try{ var jobId = req.query.jobId; var passkey = req.query.passkey; if(!jobId || !passkey) return res.json({hasAccess:false}); var jobDoc = await db.collection("translationJobs").doc(jobId).get(); if(!jobDoc.exists) return res.json({hasAccess:false}); var job = jobDoc.data(); var subsSnap = await db.collection("jobSubmissions").where("jobId","==",jobId).where("translator","==",passkey).get(); if(subsSnap.empty) return res.json({hasAccess:false}); var subDoc = subsSnap.docs[0]; var sub = subDoc.data(); res.json({ hasAccess:true, submissionId: subDoc.id, clientFile: job.clientFile, targetLanguage: job.targetLanguage, originalFileUrl: job.originalFileUrl, originalFileType: job.originalFileType, translation: sub.translation }); }catch(err){ console.error(err); res.status(500).json({hasAccess:false}); } });
 

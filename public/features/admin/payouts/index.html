@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script src="/js/admin-fetch.js"></script>
 <script src="/features/admin/auth/admin-guard.js" type="module"></script><script type="module"> import { auth } from "/js/firebase-init.js"; import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"; onAuthStateChanged(auth, async function(user){ if(user){ window.currentAdminIdToken = await user.getIdToken(); } }); </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
