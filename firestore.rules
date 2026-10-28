@@ -2,41 +2,49 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.email in ['adlaideduah@gmail.com', 'saybon.fr@gmail.com']; }
+
     // Default deny - nothing is accessible unless explicitly allowed below.
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Translation job board - read/update requires a signed-in user,
-    // matching job-board.html's auth-guard.js gating.
+    // Translation jobs - signed-in users can read (job board); only admins can change them.
     match /translationJobs/{jobId} {
-      allow read, update: if request.auth != null;
+      allow read: if signedIn();
+      allow update: if isAdmin();
     }
 
-    // Job submissions - a translator needs to read their own past
-    // submissions (My Jobs, Under Review tabs on the job board), gated
-    // the same way as translationJobs above.
+    // Job submissions - read for signed-in users (My Jobs / Under Review tabs).
     match /jobSubmissions/{submissionId} {
-      allow read: if request.auth != null;
+      allow read: if signedIn();
     }
 
-    // Translator applications - public application flow (no login gate
-    // on register/test pages today). Create and update stay open to match
-    // existing behavior; reads and deletes are blocked since no client
-    // page currently reads this back, and it may contain applicant PII.
+    // Translator applications - public register + test flow, but only the fields
+    // those pages write. Scores, status and anything else can only be set by the server.
     match /translatorApplications/{appId} {
-      allow create, update: if true;
+      allow create: if request.resource.data.keys().hasOnly(['name','email','languages','createdAt','testCompleted'])
+                    && request.resource.data.testCompleted == false;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+                    .hasOnly(['englishTranslation','frenchTranslation','testCompleted','submittedAt']);
     }
 
-    // Community chat - only signed-in users can read messages, and a
-    // user can only ever write a message attributed to their own uid.
+    // Community chat rooms - signed-in users can read, create their own custom room,
+    // and update only the last-message fields. Deleting a room is server-side only.
     match /chatRooms/{roomId} {
-      allow read, write: if request.auth != null;
+      allow read: if signedIn();
+      allow create: if signedIn() && (
+                      request.resource.data.createdBy == request.auth.uid
+                      || request.resource.data.keys().hasOnly(['lastMessage','lastMessageAt','lastSenderName']));
+      allow update: if signedIn() && request.resource.data.diff(resource.data).affectedKeys()
+                      .hasOnly(['lastMessage','lastMessageAt','lastSenderName']);
+      allow delete: if false;
     }
 
     match /chatRooms/{roomId}/messages/{messageId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null
+      allow read: if signedIn();
+      allow create: if signedIn()
                     && request.resource.data.uid == request.auth.uid;
     }
 
