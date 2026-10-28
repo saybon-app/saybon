@@ -23,7 +23,7 @@
         "/assets/home/pill-2.webp",
         "/assets/home/pill-3.webp",
         "/assets/home/pill-4.webp",
-        "/assets/home/saybon-logo.PNG"
+        "/assets/home/saybon-logo.webp"
 
     ];
 

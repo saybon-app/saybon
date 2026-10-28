@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head><script src="/js/admin-fetch.js"></script>
+<head><script src="/js/image-compress.js"></script><script src="/js/admin-fetch.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>DELF Admin - SayBon</title>
@@ -109,9 +109,10 @@ body{
 const API_BASE = "https://saybonapp-server.onrender.com";
 import { app, auth } from "/js/firebase-init.js";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { getStorage, ref, uploadBytes as _uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
+function uploadBytes(r, f, meta){ return window.compressImageFile(f).then(function(c){ if(c === f) return _uploadBytes(r, f, meta); return _uploadBytes(ref(r.storage, r.fullPath.replace(/\.[A-Za-z0-9]+$/, ".webp")), c, Object.assign({}, meta, {contentType:"image/webp"})); }); }
 const ADMIN_PASSCODE = "963281";
 
 

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/js/admin-fetch.js"></script>
+<head><script src="/js/image-compress.js"></script><script src="/js/admin-fetch.js"></script>
 <script type='module' src='/js/auth-guard.js'></script>
 
 <meta charset="UTF-8">
@@ -381,8 +381,9 @@ window.addVideo = async function(){
     }
 
     try{
-      const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + thumbnailFile.name);
-      await uploadBytesResumable(thumbRef, thumbnailFile);
+      const thumbSrc = await window.compressImageFile(thumbnailFile);
+      const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + thumbSrc.name);
+      await uploadBytesResumable(thumbRef, thumbSrc);
       thumbnailUrl = await getDownloadURL(thumbRef);
     }catch(err){
       alert("Thumbnail upload failed. Continuing without a custom thumbnail.");
@@ -501,8 +502,9 @@ window.handleThumbnailEdit = async function(videoId, genre){
 
   try{
 
-    const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + file.name);
-    await uploadBytesResumable(thumbRef, file);
+    const thumbSrc = await window.compressImageFile(file);
+    const thumbRef = ref(storage, "musicThumbnails/" + genre + "/" + Date.now() + "_" + thumbSrc.name);
+    await uploadBytesResumable(thumbRef, thumbSrc);
     const thumbnailUrl = await getDownloadURL(thumbRef);
 
     const res = await fetch(API_BASE + "/api/adminUpdateMusicThumbnail", {

@@ -24,7 +24,7 @@ export const PageAssets = {
 
             "/assets/home/teacher.webp",
 
-            "/assets/home/saybon-logo.png",
+            "/assets/home/saybon-logo.webp",
 
             "/assets/home/get-started-button.webp",
             "/assets/home/login-button.webp",

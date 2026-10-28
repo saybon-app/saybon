@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head><script src="/js/admin-fetch.js"></script>
+<head><script src="/js/image-compress.js"></script><script src="/js/admin-fetch.js"></script>
 <script type="module" src="/js/auth-guard.js"></script><script type="module" src="/features/admin/auth/admin-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -215,8 +215,9 @@ window.addLocation = async function(){
 
     if(!auth.currentUser){ await signInAnonymously(auth); }
 
-    const imgRef = ref(storage, "talkleticsLocations/" + Date.now() + "_" + imageFile.name);
-    const uploadTask = uploadBytesResumable(imgRef, imageFile);
+    const imgSrc = await window.compressImageFile(imageFile);
+    const imgRef = ref(storage, "talkleticsLocations/" + Date.now() + "_" + imgSrc.name);
+    const uploadTask = uploadBytesResumable(imgRef, imgSrc);
 
     const imageUrl = await new Promise((resolve, reject) => {
       uploadTask.on("state_changed",
@@ -323,8 +324,9 @@ window.addAsset = async function(){
 
     if(!auth.currentUser){ await signInAnonymously(auth); }
 
-    const fileRef = ref(storage, "talkleticsAssets/" + Date.now() + "_" + file.name);
-    const uploadTask = uploadBytesResumable(fileRef, file);
+    const fileSrc = await window.compressImageFile(file);
+    const fileRef = ref(storage, "talkleticsAssets/" + Date.now() + "_" + fileSrc.name);
+    const uploadTask = uploadBytesResumable(fileRef, fileSrc);
 
     const url = await new Promise((resolve, reject) => {
       uploadTask.on("state_changed",
