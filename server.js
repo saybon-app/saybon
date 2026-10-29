@@ -19,8 +19,6 @@ const db=admin.firestore()
 
 require("./talkletics-api")(app, admin, db, express)
 
-require("./lessons-api")(app, admin, db, express)
-
 function generateKey(){
 
 return "SB-"+Math.random().toString(36).substring(2,10).toUpperCase()

@@ -1,0 +1,105 @@
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;}
+body{
+  color:#fff;
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";position:fixed;inset:0;
+  background-image:url('/assets/levels/a0.webp');
+  background-size:cover;background-position:left center;background-repeat:no-repeat;
+  z-index:-2;
+}
+body::after{
+  content:"";position:fixed;inset:0;
+  background:linear-gradient(160deg, rgba(255,110,150,.5), rgba(60,20,40,.78));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  z-index:-1;
+}
+
+.lp-corner-icon{
+  position:fixed;top:16px;width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;cursor:pointer;z-index:50;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);
+}
+.lp-corner-icon svg{width:18px;height:18px;}
+.lp-corner-back{left:16px;} .lp-corner-dash{right:16px;}
+
+.lp-stage{max-width:640px;margin:0 auto;padding:90px 20px 60px;}
+
+.page-header{text-align:center;margin-bottom:32px;}
+.lp-eyebrow{
+  font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin-bottom:8px;
+}
+.page-header h1{
+  font-family:"Baloo 2",cursive;
+  font-weight:800;
+  font-size:clamp(2rem,7vw,2.6rem);
+  color:#fff;
+  text-shadow:0 4px 18px rgba(0,0,0,.4);
+}
+
+.lesson-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(78px,1fr));
+  gap:14px;
+}
+
+.lesson{
+  aspect-ratio:1;
+  border-radius:50%;
+  border:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  box-shadow:0 10px 22px rgba(0,0,0,.3);
+  transition:transform .15s ease;
+}
+.lesson:active{transform:scale(.92);}
+
+.unlocked{
+  background:linear-gradient(160deg, #ffd93d, #ff6ec7 60%, #ff4d8d);
+}
+.unlocked .lp-num{
+  font-family:"Baloo 2",cursive;
+  font-weight:800;font-size:1.4rem;color:#3a0d22;
+}
+
+.locked{
+  background:rgba(255,255,255,.14);
+  border:1.5px solid rgba(255,255,255,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;
+}
+.lp-lock{width:20px;height:20px;color:rgba(255,255,255,.7);}
+.locked .lp-num{
+  font-family:"Manrope",sans-serif;
+  font-weight:700;font-size:.65rem;color:rgba(255,255,255,.55);
+}
+
+@media (max-width:420px){
+  .lp-stage{padding:80px 16px 50px;}
+  .lesson-grid{grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:10px;}
+}
+
+/* ===== Standard subtle hover bounce for unlocked lessons - all levels ===== */
+
+@keyframes lvSubtleBounce{
+  0%{transform:translateY(0);}
+  10%{transform:translateY(-7px);}
+  22%{transform:translateY(0);}
+  34%{transform:translateY(-4px);}
+  46%{transform:translateY(0);}
+  58%{transform:translateY(-2px);}
+  70%{transform:translateY(0);}
+  100%{transform:translateY(0);}
+}
+
+.unlocked:hover{
+  animation:lvSubtleBounce 2s ease-out 1;
+}
