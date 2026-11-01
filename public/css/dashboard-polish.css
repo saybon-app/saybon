@@ -1,0 +1,42 @@
+/* Dashboard polish layer: deeper teal background + gentle tile motion.
+   Remove this file's <link> (and dashboard-polish.js) to undo everything. */
+html, body{
+  background:
+    radial-gradient(circle at 88% 92%, rgba(255,197,49,.14) 0, transparent 46%),
+    radial-gradient(circle at 14% 0%, #167f9b 0%, #0e5671 52%, #082f45 100%) fixed !important;
+}
+.dash-sidebar{ background: linear-gradient(180deg, #0f4864 0%, #0a3249 100%) !important; border-right-color: rgba(255,255,255,.12) !important; }
+@media (max-width:800px){ .dash-mobile-topbar{ background: linear-gradient(180deg, #0f4864 0%, #0a3249 100%) !important; } }
+
+/* tiles rise in one after another (backwards fill so hover transforms still work afterwards) */
+.dash-card{ animation: dpRise .85s cubic-bezier(.22,1,.36,1) backwards; }
+.dash-card:nth-child(1){ animation-delay:.45s } .dash-card:nth-child(2){ animation-delay:.53s }
+.dash-card:nth-child(3){ animation-delay:.61s } .dash-card:nth-child(4){ animation-delay:.69s }
+.dash-card:nth-child(5){ animation-delay:.77s } .dash-card:nth-child(6){ animation-delay:.85s }
+.dash-card:nth-child(7){ animation-delay:.93s } .dash-card:nth-child(8){ animation-delay:1.01s }
+@keyframes dpRise{ from{ opacity:0; transform:translateY(22px) scale(.97); } to{ opacity:1; transform:none; } }
+
+/* emoji drift: a few pixels, each tile out of step */
+.dash-card .emoji{ display:inline-block; animation: dpFloat 6s ease-in-out infinite; will-change:transform; }
+.dash-card:nth-child(2) .emoji{ animation-delay:-.8s; animation-duration:6.6s }
+.dash-card:nth-child(3) .emoji{ animation-delay:-1.7s; animation-duration:5.8s }
+.dash-card:nth-child(4) .emoji{ animation-delay:-2.6s; animation-duration:7s }
+.dash-card:nth-child(5) .emoji{ animation-delay:-3.4s; animation-duration:6.2s }
+.dash-card:nth-child(6) .emoji{ animation-delay:-4.3s; animation-duration:6.8s }
+.dash-card:nth-child(7) .emoji{ animation-delay:-5s; animation-duration:5.9s }
+.dash-card:nth-child(8) .emoji{ animation-delay:-5.7s; animation-duration:6.4s }
+@keyframes dpFloat{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-4px) rotate(-2deg); } }
+
+/* press feedback, smooth hover */
+.dash-card{ transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease; }
+.dash-card:active{ transform:translateY(1px) scale(.975); }
+.dash-card:hover .emoji{ animation-duration:2.6s; }
+
+/* one small wiggle on tap, right before navigating */
+.dash-card.dp-wiggle .emoji{ animation: dpWiggle .26s ease-in-out; }
+@keyframes dpWiggle{ 0%{ transform:rotate(0) scale(1); } 30%{ transform:rotate(-12deg) scale(1.12); } 65%{ transform:rotate(9deg) scale(1.12); } 100%{ transform:rotate(0) scale(1); } }
+
+@media (prefers-reduced-motion: reduce){
+  .dash-card, .dash-card .emoji, .dash-card.dp-wiggle .emoji{ animation:none !important; }
+  .dash-card{ transition:none; }
+}

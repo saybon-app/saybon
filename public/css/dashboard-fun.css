@@ -1,7 +1,7 @@
 /* Light, playful look for Progress / Achievements / Settings */
-:root{--ink:#2b2d42;--mute:#6b7280;--line:#e6e8ef;--sun:#ffc531;--sun-d:#e9a800;--green:#46c26a;--green-d:#2f9e4f;--teal:#17b8a6;--teal-d:#0f8f80;--pink:#e0578a;--pink-d:#b83d70;--bg1:#fff7e0;--bg2:#e6f7f4;}
+:root{--ink:#2b2d42;--mute:#4a5262;--line:#cdd3e2;--sun:#ffc531;--sun-d:#e9a800;--green:#46c26a;--green-d:#2f9e4f;--teal:#17b8a6;--teal-d:#0f8f80;--pink:#e0578a;--pink-d:#b83d70;--bg1:#ffe39a;--bg2:#9fe0d2;}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
-html,body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0%,var(--bg1) 0,transparent 45%),radial-gradient(circle at 100% 10%,#ffe3ee 0,transparent 40%),linear-gradient(180deg,#fffdf6,var(--bg2));background-attachment:fixed;}
+html,body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at 8% 0%,var(--bg1) 0,transparent 50%),radial-gradient(circle at 100% 8%,#ffb3cf 0,transparent 48%),radial-gradient(circle at 90% 100%,#8fd9ff 0,transparent 45%),linear-gradient(180deg,#fff1c4,var(--bg2));background-attachment:fixed;}
 .fx-stage{max-width:620px;margin:0 auto;padding:84px 18px 48px;}
 .fx-icon{position:fixed;top:14px;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--line);border-bottom-width:4px;display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;z-index:50;transition:transform .15s;}
 .fx-icon:active{transform:translateY(2px);border-bottom-width:2px;}
@@ -10,7 +10,7 @@ html,body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at
 .fx-title{font-weight:900;font-size:1.9rem;line-height:1.1;}
 .fx-sub{color:var(--mute);font-weight:700;margin:6px 0 20px;}
 .fx-label{font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:26px 0 10px;}
-.fx-card{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;padding:16px 18px;margin-bottom:12px;}
+.fx-card{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;padding:16px 18px;margin-bottom:12px;box-shadow:0 8px 20px rgba(40,50,90,.14);}
 .fx-empty{text-align:center;color:var(--mute);font-weight:700;padding:18px 10px;}
 .fx-empty a{color:var(--pink);font-weight:900;text-decoration:none;}
 .fx-btn{display:inline-block;border:0;border-bottom:5px solid var(--pink-d);background:var(--pink);color:#fff;font-weight:900;font-size:1rem;letter-spacing:.03em;padding:13px 26px;border-radius:16px;cursor:pointer;text-decoration:none;transition:transform .12s;}
@@ -30,7 +30,7 @@ html,body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at
 
 /* stats */
 .fx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.fx-stat{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:18px;padding:12px 6px;text-align:center;animation:fxPop .5s both;}
+.fx-stat{box-shadow:0 8px 18px rgba(40,50,90,.12);background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:18px;padding:12px 6px;text-align:center;animation:fxPop .5s both;}
 .fx-stat:nth-child(2){animation-delay:.08s;border-color:#ffd9e6}.fx-stat:nth-child(3){animation-delay:.16s;border-color:#bdeee8}.fx-stat:nth-child(1){border-color:#ffe08a}
 .fx-stat b{display:block;font-size:1.7rem;font-weight:900;}
 .fx-stat span{font-size:.72rem;font-weight:800;color:var(--mute);}
@@ -57,7 +57,7 @@ html,body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at
 /* achievements */
 .fx-count{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
 .fx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-.fx-badge{position:relative;background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;padding:18px 12px 14px;text-align:center;}
+.fx-badge{position:relative;background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;padding:18px 12px 14px;text-align:center;box-shadow:0 8px 20px rgba(40,50,90,.14);}
 .fx-badge .ic{font-size:2.4rem;display:inline-block;margin-bottom:6px;}
 .fx-badge .bt{font-weight:900;font-size:.95rem;}.fx-badge .bs{font-size:.76rem;color:var(--mute);font-weight:700;margin-top:3px;}
 .fx-badge.earned{border-color:#ffd24a;background:linear-gradient(180deg,#fffbe8,#fff);animation:fxPop .6s both;}
