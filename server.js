@@ -258,6 +258,8 @@ res.status(500).json({valid:false})
 
 require("./delf-mock-routes")(app, { admin: admin, db: db, express: express })
 
+require("./activity-routes")(app,{admin:admin,db:db,express:express});
+require("./delf-placement-routes")(app,{admin:admin,db:db,express:express});
 app.listen(process.env.PORT || 3000,()=>{
 
 console.log("Translator API running")
