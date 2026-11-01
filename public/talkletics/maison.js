@@ -404,6 +404,7 @@
   });
 
   function showFinal(){
+    try{ if(window.SayBonActivity) window.SayBonActivity.complete("game_complete"); }catch(e){}
     missionEl.querySelector(".ms-topbar").style.display = "none";
     cardEl.style.display = "none";
     feedbackEl.style.display = "none";

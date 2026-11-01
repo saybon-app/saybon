@@ -1,0 +1,42 @@
+/* Dashboard "alive" layer: flame, rolling number, goal ring, ticker. Additive only. */
+.dash-goal-ring-wrap{ transition: transform .3s ease; }
+.ring-fill{ transition: stroke-dashoffset 1.1s cubic-bezier(.22,.8,.3,1), stroke .5s ease; }
+.ring-fill.is-done{ stroke:#2fbf71; }
+.dash-goal-ring-wrap.is-done{ animation: sbRingPulse 1.8s ease-in-out infinite; }
+.dash-goal-ring-wrap.is-done .ring-fill{ animation: sbRingBlink 1.8s ease-in-out infinite; }
+@keyframes sbRingPulse{ 0%,100%{ transform:scale(1); filter:drop-shadow(0 0 0 rgba(47,191,113,0)); } 50%{ transform:scale(1.05); filter:drop-shadow(0 0 8px rgba(47,191,113,.55)); } }
+@keyframes sbRingBlink{ 0%,100%{ opacity:1; } 50%{ opacity:.55; } }
+
+/* ticker: fixed height so nothing jumps */
+.dash-goal-caption.sb-ticker{ height:34px; position:relative; overflow:hidden; margin-top:10px; }
+.sb-ticker .tk{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; opacity:0; transform:translateY(6px); transition:opacity .45s ease, transform .45s ease; }
+.sb-ticker .tk.in{ opacity:1; transform:none; }
+.sb-ticker .tk.out{ opacity:0; transform:translateY(-6px); }
+.sb-ticker .tk-h{ font-size:12.5px; font-weight:800; color:#fff; line-height:1.15; letter-spacing:.1px; }
+.sb-ticker .tk-s{ font-size:10.5px; font-weight:500; color:rgba(255,255,255,.55); line-height:1.15; }
+@media (max-width:360px){ .sb-ticker .tk-s{ display:none; } .dash-goal-caption.sb-ticker{ height:20px; } }
+
+/* flame + number */
+.dash-streak-flame{ display:inline-block; transform-origin:50% 90%; }
+.dash-streak-flame.fly{ animation: sbFlameIn .9s cubic-bezier(.2,.9,.3,1.2) both; }
+.dash-streak-flame.lit{ animation: sbFlicker 2.4s ease-in-out infinite; }
+@keyframes sbFlameIn{ 0%{ transform:translate(-90px,-40px) scale(.2) rotate(-40deg); opacity:0; } 60%{ opacity:1; } 80%{ transform:translate(0,0) scale(1.35); } 100%{ transform:none; opacity:1; } }
+@keyframes sbFlicker{ 0%,100%{ transform:scale(1) rotate(0); } 30%{ transform:scale(1.07) rotate(-3deg); } 60%{ transform:scale(.98) rotate(2deg); } }
+.js-streak-num.bump{ animation: sbBump .5s ease; }
+@keyframes sbBump{ 0%{ transform:scale(1); } 40%{ transform:scale(1.35); color:#ffb347; } 100%{ transform:scale(1); } }
+
+/* milestone confetti */
+.sb-confetti{ position:fixed; inset:0; pointer-events:none; z-index:9999; overflow:hidden; }
+.sb-confetti span{ position:absolute; top:-20px; font-size:22px; animation: sbFall linear forwards; }
+@keyframes sbFall{ to{ transform:translateY(105vh) rotate(540deg); opacity:.9; } }
+.sb-toast{ position:fixed; left:50%; top:22px; transform:translate(-50%,-80px); background:#1b1b2f; color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:14px; padding:10px 18px; font-weight:800; z-index:10000; transition:transform .5s cubic-bezier(.2,.9,.3,1.2); }
+.sb-toast.show{ transform:translate(-50%,0); }
+
+@media (prefers-reduced-motion: reduce){
+  .ring-fill, .dash-goal-ring-wrap, .dash-goal-ring-wrap.is-done, .dash-goal-ring-wrap.is-done .ring-fill,
+  .dash-streak-flame.fly, .dash-streak-flame.lit, .js-streak-num.bump{ animation:none !important; transition:none !important; }
+  .sb-ticker .tk{ transform:none !important; transition:opacity .4s ease; }
+  .sb-confetti{ display:none; }
+  .sb-toast{ transition:opacity .3s; transform:translate(-50%,0); opacity:0; }
+  .sb-toast.show{ opacity:1; }
+}

@@ -22,6 +22,15 @@ html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, 
 .pg-score{font-weight:900;font-size:1.15rem;color:#e0578a;}
 .pg-empty{color:rgba(255,255,255,.5);font-size:.85rem;text-align:center;padding:16px;}
 .pg-bar-track{height:8px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:8px;}
+.pg-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px;}
+.pg-stat{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px 8px;text-align:center;}
+.pg-stat b{display:block;font-size:1.4rem;font-weight:900;}
+.pg-stat span{font-size:.7rem;color:rgba(255,255,255,.55);font-weight:700;}
+.pg-week{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:120px;}
+.pg-day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:.68rem;color:rgba(255,255,255,.55);font-weight:700;}
+.pg-day i{display:block;width:100%;max-width:28px;border-radius:8px 8px 4px 4px;background:rgba(255,255,255,.12);min-height:4px;margin-bottom:6px;}
+.pg-day.on i{background:linear-gradient(180deg,#e0578a,#b83d70);}
+.pg-note{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.5;}
 .pg-bar-fill{height:100%;background:linear-gradient(90deg,#e0578a,#b83d70);border-radius:999px;transition:width .5s ease;}
 </style>
 </head>
@@ -34,6 +43,11 @@ html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, 
 <div class="pg-stage">
   <p class="pg-title">My Progress</p>
   <p class="pg-sub">Everything you've completed across SayBon, in one place.</p>
+
+  <div class="pg-section-label">Your practice</div>
+  <div class="pg-stats" id="pgStats"></div>
+  <div class="pg-card"><div class="pg-week" id="pgWeek"></div></div>
+  <div class="pg-card"><div class="pg-note" id="pgNote">Loading...</div></div>
 
   <div class="pg-section-label">DELF Placement</div>
   <div id="pgDelf"><div class="pg-empty">Loading...</div></div>
@@ -78,23 +92,47 @@ onAuthStateChanged(auth, async function(user){
     document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Could not load DELF progress</div>';
   }
 
+  let sum = null;
   try {
-    const progressDoc = await getDoc(doc(db, "levelProgress", user.uid));
-    if(!progressDoc.exists()){
-      document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">No lessons completed yet</div>';
-    } else {
-      const data = progressDoc.data();
-      let html = "";
-      Object.keys(data).forEach(function(levelKey){
-        const completed = (data[levelKey].completedLessons || []).length;
-        const pct = Math.round((completed / 25) * 100);
-        html += '<div class="pg-card"><div class="pg-row-title">' + (LEVEL_LABELS[levelKey] || levelKey) + '</div><div class="pg-row-sub">' + completed + ' of 25 lessons</div><div class="pg-bar-track"><div class="pg-bar-fill" style="width:' + pct + '%"></div></div></div>';
-      });
-      document.getElementById("pgLevels").innerHTML = html || '<div class="pg-empty">No lessons completed yet</div>';
-    }
-  } catch(e){
+    const tok = await user.getIdToken();
+    const d = new Date();
+    const day = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
+    const r = await fetch(API_BASE + "/api/activity/summary?day=" + day, { headers: { Authorization: "Bearer " + tok } });
+    if(!r.ok) throw new Error("bad");
+    sum = await r.json();
+  } catch(e){ sum = null; }
+
+  if(!sum){
     document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">Could not load Levels progress</div>';
+    document.getElementById("pgStats").innerHTML = '';
+    document.getElementById("pgNote").textContent = "We couldn't load your practice stats right now. Try again in a moment.";
+    return;
   }
+  const mins = Math.floor((sum.totalsSeconds.lesson + sum.totalsSeconds.game + sum.totalsSeconds.music + sum.totalsSeconds.exam) / 60);
+  document.getElementById("pgStats").innerHTML =
+    '<div class="pg-stat"><b>' + sum.streak + ' 🔥</b><span>Day streak</span></div>' +
+    '<div class="pg-stat"><b>' + sum.bestStreak + '</b><span>Best streak</span></div>' +
+    '<div class="pg-stat"><b>' + mins + '</b><span>Total minutes</span></div>';
+  const names = ["S","M","T","W","T","F","S"];
+  const mx = Math.max.apply(null, sum.week.map(function(w){ return w.minutes; }).concat([sum.goalMinutes]));
+  document.getElementById("pgWeek").innerHTML = sum.week.map(function(w){
+    const dt = new Date(w.day + "T00:00:00");
+    const h = Math.max(4, Math.round((w.minutes / mx) * 90));
+    return '<div class="pg-day' + (w.counted ? ' on' : '') + '"><i style="height:' + h + 'px"></i>' + names[dt.getDay()] + '</div>';
+  }).join("");
+  const activeDays = sum.week.filter(function(w){ return w.counted; }).length;
+  let note;
+  if(sum.streak >= 7) note = "A full week and more. That kind of steady practice is exactly how French starts to feel natural. Keep the flame going.";
+  else if(activeDays >= 3) note = "You practised on " + activeDays + " of the last 7 days. Little and often beats long and rare, so keep that rhythm.";
+  else if(activeDays >= 1) note = "Good start. Try for a few minutes each day this week; a short lesson, a Talkletics mission or a song all count toward your " + sum.goalMinutes + "-minute goal.";
+  else note = "Nothing logged this week yet. Pick one small thing today, a lesson, a game or some French music, and your streak begins.";
+  document.getElementById("pgNote").textContent = note;
+
+  const keys = Object.keys(sum.levels);
+  document.getElementById("pgLevels").innerHTML = keys.length ? keys.map(function(k){
+    const c = sum.levels[k], pct = Math.min(100, Math.round((c / 25) * 100));
+    return '<div class="pg-card"><div class="pg-row-title">' + (LEVEL_LABELS[k] || k) + '</div><div class="pg-row-sub">' + c + ' of 25 lessons</div><div class="pg-bar-track"><div class="pg-bar-fill" style="width:' + pct + '%"></div></div></div>';
+  }).join("") : '<div class="pg-empty">No lessons completed yet</div>';
 });
 </script>
 </body>

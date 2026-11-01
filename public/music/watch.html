@@ -284,6 +284,7 @@ document.getElementById("sideToggleTab").addEventListener("click", function(){
 </div>
 </div>
 
+<script src="/js/activity-tracker.js?v=1" data-type="music"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
@@ -458,6 +459,8 @@ function buildPlayer(data){
 
     htmlVideoEl = document.getElementById("mainVideoEl");
     htmlVideoEl.addEventListener("ended", handleVideoEnded);
+    ["play","playing"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(true); }); });
+    ["pause","ended","waiting","emptied"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(false); }); });
     htmlVideoEl.play().catch(function(err){ console.warn("Autoplay blocked:", err); });
 
   }else if(data.youtubeId){
@@ -470,6 +473,7 @@ function buildPlayer(data){
         playerVars: { modestbranding: 1, rel: 0, autoplay: 1 },
         events: {
           onStateChange: (event) => {
+            if(window.SayBonActivity) SayBonActivity.setPlaying(event.data === YT.PlayerState.PLAYING);
             if(event.data === YT.PlayerState.ENDED){
               handleVideoEnded();
             }

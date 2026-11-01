@@ -17,6 +17,13 @@ html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, 
 .st-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(160deg, #e0578a, #b83d70);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;margin-bottom:14px;}
 .st-field-label{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
 .st-field-value{font-weight:700;font-size:.95rem;margin-bottom:14px;}
+.st-goal-title{font-weight:800;font-size:1rem;margin-bottom:4px;}
+.st-goal-sub{font-size:.8rem;color:rgba(255,255,255,.55);margin-bottom:14px;}
+.st-goals{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.st-goal{padding:12px 0;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-weight:800;font-size:.9rem;cursor:pointer;}
+.st-goal small{display:block;font-size:.62rem;font-weight:600;color:rgba(255,255,255,.55);}
+.st-goal.on{background:linear-gradient(160deg,#e0578a,#b83d70);border-color:transparent;}
+.st-goal-msg{font-size:.78rem;margin-top:10px;min-height:1em;color:rgba(255,255,255,.6);}
 .st-btn{width:100%;padding:14px;border-radius:14px;border:none;font-weight:800;font-size:.9rem;cursor:pointer;}
 .st-btn-logout{background:linear-gradient(180deg,#f87171,#dc2626);color:#fff;}
 </style>
@@ -38,6 +45,18 @@ html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, 
     <div class="st-field-value" id="stEmail">-</div>
   </div>
 
+  <div class="st-card">
+    <div class="st-goal-title">Daily goal</div>
+    <div class="st-goal-sub">Minutes of real practice per day. Lessons, games, exam sections and music all count.</div>
+    <div class="st-goals" id="stGoals">
+      <button class="st-goal" data-m="5">5<small>min</small></button>
+      <button class="st-goal" data-m="10">10<small>min</small></button>
+      <button class="st-goal" data-m="15">15<small>min</small></button>
+      <button class="st-goal" data-m="30">30<small>min</small></button>
+    </div>
+    <div class="st-goal-msg" id="stGoalMsg"></div>
+  </div>
+
   <button class="st-btn st-btn-logout" id="stLogoutBtn">Log Out</button>
 </div>
 
@@ -55,6 +74,30 @@ onAuthStateChanged(auth, function(user){
   document.getElementById("stName").textContent = name;
   document.getElementById("stEmail").textContent = user.email || "-";
   document.getElementById("stAvatar").textContent = name.charAt(0).toUpperCase();
+});
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+function ld(){ const d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function markGoal(m){ document.querySelectorAll(".st-goal").forEach(function(b){ b.classList.toggle("on", Number(b.dataset.m)===m); }); }
+onAuthStateChanged(auth, async function(user){
+  if(!user) return;
+  const msg = document.getElementById("stGoalMsg");
+  try {
+    const tok = await user.getIdToken();
+    const r = await fetch(API_BASE+"/api/activity/summary?day="+ld(), { headers:{ Authorization:"Bearer "+tok } });
+    if(r.ok) markGoal((await r.json()).goalMinutes);
+  } catch(e){}
+  document.querySelectorAll(".st-goal").forEach(function(b){
+    b.addEventListener("click", async function(){
+      const m = Number(b.dataset.m); msg.textContent = "Saving...";
+      try {
+        const tok = await user.getIdToken();
+        const r = await fetch(API_BASE+"/api/activity/settings", { method:"POST", headers:{ "Content-Type":"application/json", Authorization:"Bearer "+tok }, body: JSON.stringify({ goalMinutes:m }) });
+        if(!r.ok) throw new Error("bad");
+        markGoal(m); msg.textContent = "Goal set to "+m+" minutes a day.";
+      } catch(e){ msg.textContent = "Could not save. Try again."; }
+    });
+  });
 });
 
 document.getElementById("stLogoutBtn").addEventListener("click", function(){

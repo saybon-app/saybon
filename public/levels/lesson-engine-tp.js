@@ -1,6 +1,7 @@
 ﻿import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+(function(){try{if(!window.SayBonActivity){var t=document.createElement("script");t.src="/js/activity-tracker.js?v=1";t.setAttribute("data-type","lesson");document.head.appendChild(t);}}catch(e){}})();
 window.lsCurrentUid = null;
 onAuthStateChanged(auth, function(user){
   window.lsCurrentUid = user ? user.uid : null;
@@ -415,6 +416,7 @@ window.lsGoNext = function(){
 };
 
 function markLessonComplete(){
+  try{ if(window.SayBonActivity) window.SayBonActivity.complete("lesson_complete"); }catch(e){}
   var uid = window.lsCurrentUid;
   if(!uid) return;
   fetch(API_BASE + "/api/levelProgressComplete", {

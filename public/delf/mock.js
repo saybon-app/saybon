@@ -225,7 +225,7 @@ async function gradeAll() {
   try { out.po = await call("po-" + m.level, poR); } catch (e) { out.po = { error: true }; }
   return out;
 }
-async function finish() {
+async function finish() { try{ if(window.SayBonActivity) window.SayBonActivity.complete("exam_complete"); }catch(e){}
   window.__mkBusy = false; setBar(-1); root.onclick = null; root.oninput = null;
   root.innerHTML = '<div class="mk-card"><h2>Marking your writing and speaking…</h2><p class="mk-instr">This takes about half a minute.</p></div>';
   const g = await gradeAll(); const m = S.mock;

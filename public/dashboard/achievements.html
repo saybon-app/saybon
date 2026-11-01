@@ -16,9 +16,10 @@ html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, 
 .ac-sub{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:28px;}
 .ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
 .ac-badge{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px 14px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.3);}
-.ac-badge.locked{opacity:.35;}
+.ac-badge.locked{opacity:.6;}.ac-badge.locked .ac-badge-icon{filter:grayscale(1);opacity:.6;}
 .ac-badge-icon{font-size:2rem;margin-bottom:8px;}
 .ac-badge-title{font-weight:800;font-size:.85rem;}
+.ac-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.12);margin:10px 0 4px;overflow:hidden;}.ac-bar div{height:100%;background:#e0578a;border-radius:999px;}
 .ac-badge-sub{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:4px;}
 </style>
 </head>
@@ -57,33 +58,26 @@ function renderBadges(unlocked){
   }).join("");
 }
 
+const API_BASE = "https://saybonapp-server.onrender.com";
+function renderServer(list){
+  grid.innerHTML = list.map(function(b){
+    const pct = Math.round((b.value / b.target) * 100);
+    return '<div class="ac-badge ' + (b.earned ? "" : "locked") + '"><div class="ac-badge-icon">' + b.icon + '</div><div class="ac-badge-title">' + b.title + '</div><div class="ac-badge-sub">' + b.sub + '</div>' +
+      (b.earned ? '' : '<div class="ac-bar"><div style="width:' + pct + '%"></div></div><div class="ac-badge-sub">' + b.value + ' / ' + b.target + '</div>') + '</div>';
+  }).join("");
+}
 onAuthStateChanged(auth, async function(user){
   if(!user){ renderBadges(new Set()); return; }
-
-  const unlocked = new Set();
-
   try {
-    const progressDoc = await getDoc(doc(db, "levelProgress", user.uid));
-    if(progressDoc.exists()){
-      const data = progressDoc.data();
-      let totalLessons = 0;
-      Object.keys(data).forEach(function(k){ totalLessons += (data[k].completedLessons || []).length; });
-      if(totalLessons >= 1) unlocked.add("first_lesson");
-      if(totalLessons >= 5) unlocked.add("five_lessons");
-    }
-  } catch(e){}
-
-  try {
-    const attemptsRef = collection(db, "delfPlacements", user.uid, "attempts");
-    const snapshot = await getDocs(attemptsRef);
-    if(!snapshot.empty) unlocked.add("placement_done");
-  } catch(e){}
-
-  const streak = Number(localStorage.getItem("saybon_streak")) || 0;
-  if(streak >= 3) unlocked.add("streak_3");
-  if(streak >= 7) unlocked.add("streak_7");
-
-  renderBadges(unlocked);
+    const tok = await user.getIdToken();
+    const d = new Date();
+    const day = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
+    const r = await fetch(API_BASE + "/api/activity/summary?day=" + day, { headers: { Authorization: "Bearer " + tok } });
+    if(!r.ok) throw new Error("bad");
+    renderServer((await r.json()).achievements);
+  } catch(e){
+    grid.innerHTML = '<div class="ac-badge" style="grid-column:1/-1">Could not load achievements. Try again in a moment.</div>';
+  }
 });
 </script>
 </body>
