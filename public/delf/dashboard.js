@@ -78,17 +78,29 @@ function results(st){
   render(out);
 }
 
+function getState(t, tries){
+  return fetch(API_BASE + "/api/delf/state", { headers: { Authorization: "Bearer " + t } }).then(function(r){
+    if(r.status === 401 || r.status === 403 || r.status === 404){ var e = new Error(String(r.status)); e.fatal = true; throw e; }
+    if(!r.ok) throw new Error(String(r.status));
+    return r.json();
+  }).catch(function(e){
+    if(e.fatal || tries <= 0) throw e;
+    render('<p class="dd-eyebrow">DELF Progress</p><div class="dd-empty-card">Waking the server up. This can take up to a minute the first time. Your results are loading...</div>');
+    return new Promise(function(res){ setTimeout(res, 6000); }).then(function(){ return getState(t, tries - 1); });
+  });
+}
+
 onAuthStateChanged(auth, function(user){
   if(!user){ loginPrompt(); return; }
   user.getIdToken().then(function(t){
-    return fetch(API_BASE + "/api/delf/state", { headers: { Authorization: "Bearer " + t } });
-  }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }).then(function(st){
+    return getState(t, 9);
+  }).then(function(st){
     if(st.state === "new" && !st.attempts.length) newLearner(); else if(!st.attempts.length) {
       // enrolled without a placement: still show the continue card
       st.attempts = []; render('<p class="dd-eyebrow">DELF Progress</p><h1 class="dd-title">Your DELF Journey</h1><div class="dd-cta-card"><div class="dd-cta-title">Continue your preparation</div><div class="dd-cta-sub">Your mock exams are ready when you are.</div><button class="dd-cta-btn" onclick="location.href=\'/delf/tout-public/\'">Continue</button></div><a class="dd-link" href="/delf/placement.html">Take the placement test</a>');
     } else results(st);
   }).catch(function(err){
     console.error("DELF state:", err);
-    render('<p class="dd-eyebrow">DELF Progress</p><div class="dd-empty-card">We are warming things up. Give it a moment and refresh, and your results will be right here.</div>');
+    render('<p class="dd-eyebrow">DELF Progress</p><div class="dd-empty-card">We are warming things up. Give it a moment and refresh, and your results will be right here.</div><p class="dd-note">Error: ' + (err && err.message ? err.message : "no connection") + '</p>');
   });
 });
