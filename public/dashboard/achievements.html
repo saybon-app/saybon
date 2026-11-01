@@ -12,17 +12,32 @@
 <button class="fx-icon fx-back" onclick="location.href='/dashboard/'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <button class="fx-icon fx-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></button>
 
-<div class="fx-stage">
+<div class="fx-stage fx-wide">
   <p class="fx-title">Achievements</p>
   <p class="fx-sub" id="sub">Collect them all, one small win at a time.</p>
-  <div class="fx-card" id="count" style="display:none"><div class="fx-row"><div class="fx-rt" id="countTxt"></div><div style="font-size:1.6rem">🏆</div></div><div class="fx-track"><div class="fx-fill" id="countBar" style="background:linear-gradient(90deg,#ffc531,#ff9f1c)"></div></div></div>
-  <div class="fx-grid" id="grid"></div>
+  <div class="fx-card" id="count"><div class="fx-row"><div class="fx-rt" id="countTxt">0 of 12 unlocked</div><div style="font-size:1.6rem">🏆</div></div><div class="fx-track"><div class="fx-fill" id="countBar" style="width:0;background:linear-gradient(90deg,#ffc531,#ff9f1c)"></div></div></div>
+  <div class="fx-stack" id="grid"></div>
 </div>
 <script type="module">
 const API = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const grid = document.getElementById("grid");
+// Always-visible catalogue; server progress is layered on top when it loads.
+const CATALOG = [
+  ["first_lesson","🎯","First Steps","Complete your first lesson",1,"Finish one lesson to unlock"],
+  ["five_lessons","📘","Dedicated Learner","Complete 5 lessons",5,"Five lessons and it is yours"],
+  ["twentyfive_lessons","📚","Bookworm","Complete 25 lessons",25,"A full level of lessons"],
+  ["first_game","🧩","Game On","Finish your first Talkletics mission",1,"Play one Talkletics mission"],
+  ["first_exam","📝","Exam Ready","Finish a DELF mock exam",1,"Try a DELF mock exam"],
+  ["music_30","🎧","Music Lover","Listen for 30 minutes",30,"Press play on some French music"],
+  ["goal_1","🎉","Goal Getter","Hit your daily goal",1,"Reach your daily goal once"],
+  ["goal_7","🏅","Goal Crusher","Hit your daily goal 7 times",7,"Hit your goal on 7 days"],
+  ["streak_3","🔥","Streak Keeper","3-day streak",3,"Practise 3 days in a row"],
+  ["streak_7","⚡","On Fire","7-day streak",7,"Seven days in a row"],
+  ["streak_30","🌟","Unstoppable","30-day streak",30,"A whole month. You can do it"],
+  ["minutes_100","⏱️","Century","Practise for 100 minutes in total",100,"100 minutes of French"]
+];
 function ld(){ const d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
 function sparkle(el){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -32,23 +47,31 @@ function sparkle(el){
     s.style.setProperty("--dx",(Math.random()*120-60)+"px"); s.style.setProperty("--dy",(Math.random()*-110-10)+"px");
     document.body.appendChild(s); setTimeout(()=>s.remove(),1000); }
 }
+function draw(progress){
+  let n=0;
+  grid.innerHTML=CATALOG.map(function(c,i){
+    const p=progress && progress[c[0]];
+    const value=p?p.value:0, target=p?p.target:c[4], earned=p?p.earned:false;
+    if(earned) n++;
+    const pct=Math.min(100,Math.round(value/target*100));
+    return '<div class="fx-badge '+(earned?'earned':'locked')+'" style="animation-delay:'+(i*0.05)+'s"><div class="ic">'+c[1]+'</div><div class="tx"><div class="bt">'+c[2]+'</div><div class="bs">'+c[3]+'</div>'+
+      (earned?'<div class="hint">Unlocked! 🎉</div>':'<div class="bar"><div style="width:'+pct+'%"></div></div><div class="hint">'+(progress?value+' / '+target+' &middot; ':'')+c[5]+'</div>')+'</div></div>';
+  }).join("");
+  document.getElementById("countTxt").textContent=n+" of "+CATALOG.length+" unlocked";
+  document.getElementById("countBar").style.width=Math.round(n/CATALOG.length*100)+"%";
+  document.getElementById("sub").textContent = n===0 ? "Your first badge is one lesson away. Go get it!" : "Collect them all, one small win at a time.";
+  grid.querySelectorAll(".fx-badge.earned").forEach(el=>el.addEventListener("click",()=>sparkle(el)));
+}
+draw(null);
 onAuthStateChanged(auth, async function(user){
-  if(!user){ grid.innerHTML='<div class="fx-empty" style="grid-column:1/-1">Log in and your badges will be waiting for you.</div>'; return; }
+  if(!user) return;
   try{
     const tok=await user.getIdToken();
     const r=await fetch(API+"/api/activity/summary?day="+ld(),{headers:{Authorization:"Bearer "+tok}});
     if(!r.ok) throw 0;
-    const list=(await r.json()).achievements;
-    const n=list.filter(b=>b.earned).length;
-    document.getElementById("count").style.display="block";
-    document.getElementById("countTxt").textContent=n+" of "+list.length+" unlocked";
-    document.getElementById("countBar").style.width=Math.round(n/list.length*100)+"%";
-    grid.innerHTML=list.map(b=>'<div class="fx-badge '+(b.earned?'earned':'locked')+'"><div class="ic">'+b.icon+'</div><div class="bt">'+b.title+'</div><div class="bs">'+b.sub+'</div>'+(b.earned?'':'<div class="bar"><div style="width:'+Math.round(b.value/b.target*100)+'%"></div></div><div class="bs">'+b.value+' / '+b.target+'</div>')+'</div>').join("");
-    grid.querySelectorAll(".fx-badge.earned").forEach(el=>el.addEventListener("click",()=>sparkle(el)));
-    if(n===0) document.getElementById("sub").textContent="Your first badge is one lesson away. Go get it!";
-  }catch(e){
-    grid.innerHTML='<div class="fx-empty" style="grid-column:1/-1">Your first badge is one lesson away. Finish one and it pops up here. ✨</div>';
-  }
+    const map={}; (await r.json()).achievements.forEach(a=>map[a.id]=a);
+    draw(map);
+  }catch(e){ /* keep the full locked catalogue, nothing to look broken */ }
 });
 </script>
 </body>

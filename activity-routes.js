@@ -29,6 +29,9 @@ module.exports = function mountActivity(app, deps) {
   function emptySec() { return { lesson: 0, game: 0, music: 0, exam: 0 }; }
   function totalSec(sec) { return TYPES.reduce((a, k) => a + (sec[k] || 0), 0); }
 
+  // quick health check: open /api/activity/ping in a browser
+  app.get("/api/activity/ping", (req, res) => res.json({ ok: true, activity: true }));
+
   // ---------- LOG ----------
   app.post("/api/activity/log", express.json({ limit: "20kb" }), async (req, res) => {
     const uid = await uidFrom(req, res); if (!uid) return;
@@ -158,6 +161,7 @@ module.exports = function mountActivity(app, deps) {
         goalMinutes: goal,
         today: { seconds: totalSec(todaySec), bySeconds: todaySec, goalMet: totalSec(todaySec) >= goal * 60 },
         week, totalsSeconds: totals, levels, lessonsCompleted: lessons,
+        counts: { lessons: stats.lessons, games: stats.games, exams: stats.exams },
         achievements: achievements(stats)
       });
     } catch (err) {

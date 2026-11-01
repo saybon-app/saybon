@@ -5,6 +5,9 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 const C = 2 * Math.PI * 42;
 const MILESTONES = [3, 7, 14, 30, 50, 100, 200, 365];
 
+// wake the (sleepy) server early so Progress and Achievements load fast
+try { fetch(API + "/api/activity/ping", { mode: "no-cors" }).catch(() => {}); } catch (e) {}
+
 function localDay() { const d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
 function safe(f, d) { try { return f(); } catch (e) { return d; } }
 

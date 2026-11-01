@@ -14,6 +14,8 @@ module.exports = function mountDelfPlacement(app, deps) {
   }
   const int = (v, max) => Math.max(0, Math.min(max, Math.floor(Number(v) || 0)));
 
+  app.get("/api/delf/ping", (req, res) => res.json({ ok: true, delf: true }));
+
   app.post("/api/delf/placement", express.json({ limit: "100kb" }), async (req, res) => {
     const uid = await uidFrom(req, res); if (!uid) return;
     try {

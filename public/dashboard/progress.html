@@ -23,11 +23,8 @@
   <div class="fx-card"><div class="fx-week" id="week"></div></div>
   <div class="fx-card"><p class="fx-note" id="note"></p></div>
 
-  <div class="fx-label">DELF placement</div>
-  <div id="delf"><div class="fx-empty">Loading...</div></div>
-
-  <div class="fx-label">Lessons by level</div>
-  <div id="levels"><div class="fx-empty">Loading...</div></div>
+  <div class="fx-label">Your learning areas</div>
+  <div id="areas"></div>
 </div>
 
 <script type="module">
@@ -43,6 +40,7 @@ function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt
 
 onAuthStateChanged(auth, async function(user){
   if(!user){ $("hero").innerHTML='<div class="fx-mascot sleep">😴</div><div><h2>Log in to see your progress</h2><p>Your flame is waiting.</p></div>'; return; }
+  const slow = setTimeout(function(){ const p=document.querySelector("#hero p"); if(p) p.textContent="Our server is stretching after a nap. Almost there..."; }, 5000);
   const tok = await user.getIdToken();
   const H = { headers:{ Authorization:"Bearer "+tok } };
   const [sumR, delfR] = await Promise.all([
@@ -50,11 +48,11 @@ onAuthStateChanged(auth, async function(user){
     fetch(API+"/api/delf/state", H).then(r=>r.ok?r.json():null).catch(()=>null)
   ]);
 
+  clearTimeout(slow);
   const sum = sumR;
   if(!sum){
     $("hero").innerHTML='<div class="fx-mascot sleep">😴</div><div><h2>Your flame is sleeping</h2><p>Finish a lesson, a game or a song and it wakes up here.</p><a class="fx-btn" href="/levels/">Start a lesson</a></div>';
     $("stats").innerHTML=""; $("week").innerHTML=""; $("note").textContent="Your week fills up as you practise. Even five minutes lights a day.";
-    $("levels").innerHTML='<div class="fx-empty">Your first lesson is waiting. Finish it and a bar starts filling here.</div>';
   } else {
     const mins = Math.floor((sum.totalsSeconds.lesson+sum.totalsSeconds.game+sum.totalsSeconds.music+sum.totalsSeconds.exam)/60);
     if(sum.streak>0){
@@ -71,16 +69,21 @@ onAuthStateChanged(auth, async function(user){
       act>=3 ? "You practised on "+act+" of the last 7 days. Little and often beats long and rare. Keep it up!" :
       act>=1 ? "Nice start! A few minutes a day, any lesson, game or song, adds up fast toward your "+sum.goalMinutes+"-minute goal." :
       "A fresh week, a fresh start. Pick one small thing today and your first star lands here.";
-    const keys=Object.keys(sum.levels);
-    $("levels").innerHTML = keys.length ? keys.map(k=>{ const c=sum.levels[k],p=Math.min(100,Math.round(c/25*100)); return '<div class="fx-card"><div class="fx-row"><div class="fx-rt">'+esc(NAMES[k]||k)+'</div><div class="fx-rs">'+c+' of 25 lessons</div></div><div class="fx-track"><div class="fx-fill" style="width:'+p+'%"></div></div></div>'; }).join("")
-      : '<div class="fx-empty">Your first lesson is waiting. Finish it and a bar starts filling here. 🌱</div>';
   }
 
-  if(delfR && delfR.attempts.length){
-    $("delf").innerHTML = delfR.attempts.slice(0,4).map(a=>'<div class="fx-card"><div class="fx-row"><div><div class="fx-rt">'+esc((a.level||"").toUpperCase())+' placement</div><div class="fx-rs">'+(a.passed?"Cleared! 🎉":"Room to grow, you will get there")+'</div></div><div class="fx-score">'+Math.round((a.pct||0)*100)+'%</div></div></div>').join("")+'<div class="fx-empty"><a href="/delf/dashboard.html">Open my DELF dashboard</a></div>';
-  } else {
-    $("delf").innerHTML='<div class="fx-empty">Take the DELF placement test and your scores pop up right here. 🎯 <a href="/delf/placement.html">Start it</a></div>';
-  }
+  const mn = (k) => sum ? Math.floor((sum.totalsSeconds[k]||0)/60) : 0;
+  const counts = (sum && sum.counts) || {};
+  const lessons = sum ? (counts.lessons != null ? counts.lessons : sum.lessonsCompleted) : 0;
+  const keys = sum ? Object.keys(sum.levels) : [];
+  const mini = keys.length ? '<div class="fx-mini">'+keys.map(k=>{ const c=sum.levels[k],p=Math.min(100,Math.round(c/25*100)); return '<div><b>'+esc(NAMES[k]||k)+'</b><span class="fx-track"><span class="fx-fill" style="display:block;width:'+p+'%"></span></span><span>'+c+'/25</span></div>'; }).join("")+'</div>' : '';
+  const top = delfR && delfR.attempts.length ? delfR.attempts.filter(a=>a.passed)[0] || delfR.attempts[0] : null;
+  const delfLine = top ? (delfR.highestCleared ? "Placed at "+delfR.highestCleared.toUpperCase()+" ("+Math.round(top.pct*100)+"%)" : "Placement taken: every try counts") : "Take the placement test to see your level 🎯";
+  const area = (cls, icon, name, line, extra, href, btn) => '<div class="fx-card"><div class="fx-area '+cls+'"><div class="ai">'+icon+'</div><div class="at"><div class="an">'+name+'</div><div class="av">'+line+'</div></div><a class="fx-btn teal" href="'+href+'">'+btn+'</a></div>'+extra+'</div>';
+  $("areas").innerHTML =
+    area("lessons","📘","Lessons", lessons ? lessons+" lesson"+(lessons===1?"":"s")+" finished" : "Your first lesson is waiting 🌱", mini, "/levels/", lessons?"Continue":"Start") +
+    area("delf","🎓","DELF Prep", delfLine, "", delfR && delfR.attempts.length ? "/delf/dashboard.html" : "/delf/placement.html", delfR && delfR.attempts.length ? "Open" : "Take test") +
+    area("talk","🧩","Talkletics", counts.games ? counts.games+" mission"+(counts.games===1?"":"s")+" finished" : "Play your first mission 🎮", "", "/talkletics/", counts.games?"Play":"Start") +
+    area("music","🎧","Music", mn("music") ? mn("music")+" minutes listened" : "Press play and it counts 🎶", "", "/music/", "Listen");
 });
 </script>
 </body>
