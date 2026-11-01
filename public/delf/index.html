@@ -184,6 +184,19 @@
 
 </div>
 <script src="delf.js?v=2"></script>
+<script type="module">
+if(!/[?&]landing=1/.test(location.search)){
+  import("/js/firebase-init.js").then(function(m){
+    m.auth.onAuthStateChanged(function(u){
+      if(!u) return;
+      u.getIdToken().then(function(t){ return fetch("https://saybonapp-server.onrender.com/api/delf/state",{headers:{Authorization:"Bearer "+t}}); })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(st){ if(st && st.state !== "new") location.replace("/delf/dashboard.html"); })
+        .catch(function(){});
+    });
+  }).catch(function(){});
+}
+</script>
 </body>
 </html>
 
