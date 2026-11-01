@@ -2,8 +2,8 @@
 // Mounted from server.js: require("./delf-placement-routes")(app, { admin, db, express })
 module.exports = function mountDelfPlacement(app, deps) {
   const { admin, db, express } = deps;
-  const LEVELS = ["a1", "a2", "b1", "b2", "c1", "prim", "junior"];
-  const ORDER = ["a1", "a2", "b1", "b2", "c1"];
+  const LEVELS = ["a1", "a2", "b1", "b2", "c1", "c2", "prim", "junior"];
+  const ORDER = ["a1", "a2", "b1", "b2", "c1", "c2"];
   const PASS = 0.7;
   async function uidFrom(req, res) {
     const h = req.headers.authorization || "";

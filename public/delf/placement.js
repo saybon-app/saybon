@@ -2,6 +2,7 @@
 import { app, auth, db } from "/js/firebase-init.js";
 import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { PLACEMENT_CONTENT } from "/delf/placement-content.js?v=1";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 var storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
@@ -14,147 +15,15 @@ signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e);
 // saved, but scored as "pending" until AI grading is live.
 // ================================================================
 
-var LEVELS = {
+var LEVELS = {};
+["a1","a2","b1","b2","c1","c2"].forEach(function(id){ LEVELS[id] = PLACEMENT_CONTENT[id]; });
+LEVELS.prim = { id: "prim", label: "DELF Prim", group: "Kids", hasContent: false };
+LEVELS.junior = { id: "junior", label: "DELF Junior", group: "Kids", hasContent: false };
 
-  a1: {
-    id: "a1", label: "A1", group: "Tout Public", hasContent: true,
-    listening: {
-      script: "Bonjour, je m'appelle Claire Dubois. J'ai vingt-huit ans et j'habite à  Lyon avec mon frère Marc. Je travaille comme professeure dans une École primaire. Le matin, je me lève à  sept heures et je prends le bus pour aller au travail. Le week-end, j'aime lire des livres et faire du sport avec des amis.",
-      questions: [
-        { q: "Quel est le nom de famille de Claire ?", options: ["Dubois", "Dupont", "Durand"], correct: 0 },
-        { q: "Quel âge a Claire ?", options: ["18 ans", "28 ans", "38 ans"], correct: 1 },
-        { q: "Avec qui habite-t-elle ?", options: ["sa sœur", "son frère", "ses parents"], correct: 1 },
-        { q: "Que fait Claire comme métier ?", options: ["infirmière", "professeure", "vendeuse"], correct: 1 },
-        { q: "Comment va-t-elle au travail ?", options: ["en voiture", "à  pied", "en bus"], correct: 2 }
-      ]
-    },
-    reading: {
-      passage: "Paul travaille dans un grand bureau au centre-ville. Il commence à  huit heures et demie et termine à  dix-sept heures trente. Le midi, il mange avec ses collègues dans un petit restaurant près du bureau. Il aime son travail parce que l'ambiance est agréable, même si parfois il trouve les journées un peu longues.",
-      questions: [
-        { q: "Où travaille Paul ?", options: ["dans une usine", "dans un bureau", "dans un magasin"], correct: 1 },
-        { q: "Ã€ quelle heure commence-t-il ?", options: ["8h", "8h30", "9h"], correct: 1 },
-        { q: "Où mange-t-il le midi ?", options: ["chez lui", "au bureau", "dans un restaurant"], correct: 2 },
-        { q: "Pourquoi aime-t-il son travail ?", options: ["le bon salaire", "la bonne ambiance", "les horaires courts"], correct: 1 },
-        { q: "Comment sont ses journées, parfois ?", options: ["courtes", "longues", "difficiles"], correct: 1 }
-      ]
-    },
-    writing: { prompt: "Présentez-vous en quelques phrases : votre nom, votre âge, et ce que vous aimez faire." },
-    speaking: { prompt: "Parlez de votre famille pendant une minute." }
-  },
-
-  a2: {
-    id: "a2", label: "A2", group: "Tout Public", hasContent: true,
-    listening: {
-      script: "Hier, Sophie a visité le musée avec sa meilleure amie, Léa. Elles sont arrivées à  dix heures du matin et sont restées jusqu'à  midi. Après la visite, elles ont déjeuné dans un café en face du musée. Sophie a acheté deux cartes postales pour sa grand-mère, qui habite en Belgique.",
-      questions: [
-        { q: "Avec qui Sophie a-t-elle visité le musée ?", options: ["sa sœur", "sa meilleure amie", "sa grand-mère"], correct: 1 },
-        { q: "Ã€ quelle heure sont-elles arrivées ?", options: ["9h", "10h", "11h"], correct: 1 },
-        { q: "Où ont-elles déjeuné ?", options: ["au musée", "dans un café", "chez Léa"], correct: 1 },
-        { q: "Qu'est-ce que Sophie a acheté ?", options: ["un livre", "deux cartes postales", "un souvenir"], correct: 1 },
-        { q: "Où habite la grand-mère de Sophie ?", options: ["en France", "en Belgique", "en Italie"], correct: 1 }
-      ]
-    },
-    reading: {
-      passage: "Un nouveau restaurant italien a ouvert ses portes le mois dernier au centre-ville. Le propriétaire, originaire de Naples, prépare chaque plat de faÇon traditionnelle, avec des ingrédients importés d'Italie. Les prix sont raisonnables pour la qualité proposée. Cependant, plusieurs clients se plaignent que le service est parfois très lent, surtout le week-end.",
-      questions: [
-        { q: "Quand le restaurant a-t-il ouvert ?", options: ["la semaine dernière", "le mois dernier", "l'année dernière"], correct: 1 },
-        { q: "D'où vient le propriétaire ?", options: ["Rome", "Naples", "Milan"], correct: 1 },
-        { q: "Comment sont préparés les plats ?", options: ["de faÇon moderne", "de faÇon traditionnelle", "de faÇon rapide"], correct: 1 },
-        { q: "Que pensent les clients des prix ?", options: ["trop chers", "raisonnables", "trop bas"], correct: 1 },
-        { q: "Quel est le problème principal signalé ?", options: ["la nourriture", "le service lent", "les prix"], correct: 1 }
-      ]
-    },
-    writing: { prompt: "Racontez votre dernier week-end : où êtes-vous allé(e), avec qui, et qu'avez-vous fait ?" },
-    speaking: { prompt: "Décrivez votre quartier pendant une minute : ce que vous aimez et ce que vous n'aimez pas." }
-  },
-
-  b1: {
-    id: "b1", label: "B1", group: "Tout Public", hasContent: true,
-    listening: {
-      script: "Beaucoup de gens pensent que le télétravail améliore la qualité de vie parce qu'il permet d'Éviter les longs trajets et d'organiser sa journée plus librement. Cependant, certains employés trouvent qu'il est difficile de séparer vie professionnelle et vie personnelle, et ils se sentent parfois isolés sans contact régulier avec leurs collègues. La plupart des experts s'accordent à  dire que le télétravail fonctionne mieux quand il est combiné avec quelques jours au bureau chaque semaine.",
-      questions: [
-        { q: "Selon certains, quel est l'avantage du télétravail ?", options: ["un meilleur salaire", "Éviter les trajets", "plus de vacances"], correct: 1 },
-        { q: "Quelle difficulté certains employés rencontrent-ils ?", options: ["le manque d'Équipement", "séparer vie pro et vie perso", "trouver un emploi"], correct: 1 },
-        { q: "Que ressentent parfois les employés en télétravail ?", options: ["de la fatigue", "de l'isolement", "de l'ennui"], correct: 1 },
-        { q: "Que recommandent la plupart des experts ?", options: ["télétravail uniquement", "bureau uniquement", "un mélange des deux"], correct: 2 },
-        { q: "Quel est le ton général de ce passage ?", options: ["entièrement positif", "entièrement négatif", "nuancé"], correct: 2 }
-      ]
-    },
-    reading: {
-      passage: "L'utilisation des réseaux sociaux chez les adolescents suscite un débat animé. D'un côté, ces plateformes permettent de rester en contact avec des amis et de découvrir de nouvelles idées. De l'autre, certains chercheurs s'inquiètent de leur effet sur le sommeil et la concentration. Malgré ces préoccupations, la plupart des parents choisissent de superviser l'utilisation plutôt que de l'interdire complètement.",
-      questions: [
-        { q: "Quel est un avantage mentionné des réseaux sociaux ?", options: ["améliorer le sommeil", "rester en contact avec des amis", "gagner de l'argent"], correct: 1 },
-        { q: "Quelle est une inquiétude des chercheurs ?", options: ["le coût", "l'effet sur le sommeil et la concentration", "la sécurité des données"], correct: 1 },
-        { q: "Que font la plupart des parents ?", options: ["ils interdisent tout", "ils supervisent l'utilisation", "ils ignorent le problème"], correct: 1 },
-        { q: "Le ton du passage est-il...", options: ["pour l'interdiction totale", "entièrement favorable", "Équilibré"], correct: 2 },
-        { q: "Quel groupe est concerné par ce débat ?", options: ["les adolescents", "les retraités", "les enseignants"], correct: 0 }
-      ]
-    },
-    writing: { prompt: "Donnez votre opinion sur l'effet des réseaux sociaux sur les jeunes, en justifiant votre point de vue." },
-    speaking: { prompt: "Donnez votre opinion sur un sujet d'actualité, avec au moins deux arguments." }
-  },
-
-  b2: {
-    id: "b2", label: "B2", group: "Tout Public", hasContent: true,
-    listening: {
-      script: "La transition Énergétique fait l'objet de débats intenses. Certains soulignent qu'elle créera de nombreux emplois dans les Énergies renouvelables et réduira notre dépendance aux combustibles fossiles. D'autres craignent que cette transition menace des milliers d'emplois dans les industries traditionnelles, notamment le charbon et le pétrole, sans offrir de reconversion suffisante aux travailleurs concernés. Les décideurs politiques tentent de trouver un Équilibre entre ces deux réalités.",
-      questions: [
-        { q: "Quel est un argument en faveur de la transition Énergétique ?", options: ["baisse des impôts", "création d'emplois dans le renouvelable", "plus de vacances"], correct: 1 },
-        { q: "Quelle est une crainte exprimée ?", options: ["la hausse des prix", "la perte d'emplois traditionnels", "le manque d'Électricité"], correct: 1 },
-        { q: "Quel secteur est mentionné comme menacé ?", options: ["l'agriculture", "le charbon et le pétrole", "la technologie"], correct: 1 },
-        { q: "Que cherchent à  faire les décideurs politiques ?", options: ["ignorer le problème", "trouver un Équilibre", "choisir un seul camp"], correct: 1 },
-        { q: "Quel est le ton général de cet extrait ?", options: ["optimiste", "alarmiste", "Équilibré"], correct: 2 }
-      ]
-    },
-    reading: {
-      passage: "La santé mentale occupe une place de plus en plus importante dans le débat public, ce qui représente une avancée significative après des décennies de silence. Toutefois, l'accès aux soins reste inégal : certaines personnes bénéficient rapidement d'un accompagnement de qualité, tandis que d'autres attendent des mois, faute de moyens ou de professionnels disponibles dans leur région. Ce système à  deux vitesses inquiète de nombreux spécialistes.",
-      questions: [
-        { q: "Comment la place de la santé mentale dans le débat public a-t-elle Évolué ?", options: ["elle a diminué", "elle a augmenté", "elle est restée stable"], correct: 1 },
-        { q: "Quel problème est mentionné concernant l'accès aux soins ?", options: ["le coût uniquement", "l'inégalité d'accès", "le manque d'intérêt du public"], correct: 1 },
-        { q: "Pourquoi certaines personnes attendent-elles des mois ?", options: ["manque de moyens ou de professionnels", "manque d'intérêt", "trop de demandes urgentes"], correct: 0 },
-        { q: "Comment est décrit le système actuel ?", options: ["parfaitement Équitable", "à  deux vitesses", "entièrement gratuit"], correct: 1 },
-        { q: "Qui s'inquiète de cette situation ?", options: ["les patients uniquement", "de nombreux spécialistes", "le gouvernement uniquement"], correct: 1 }
-      ]
-    },
-    writing: { prompt: "Rédigez un texte argumenté sur les avantages et les inconvénients du télétravail généralisé." },
-    speaking: { prompt: "Présentez et défendez un point de vue sur un sujet de société pendant deux minutes, en anticipant un argument contraire." }
-  },
-
-  c1: {
-    id: "c1", label: "C1", group: "Tout Public", hasContent: true,
-    listening: {
-      script: "Dans le monde de l'artisanat, un débat subtil oppose les défenseurs de la tradition à  ceux qui prônent l'innovation. Certains artisans estiment que préserver des techniques ancestrales est essentiel pour ne pas perdre un savoir-faire unique, tandis que d'autres soutiennent que refuser toute Évolution condamne ces métiers à  disparaître faute de rentabilité. Il ne s'agit pas tant de choisir un camp que de trouver comment faire dialoguer héritage et modernité sans que l'un n'efface l'autre.",
-      questions: [
-        { q: "Que défendent certains artisans traditionalistes ?", options: ["la rentabilité avant tout", "la préservation du savoir-faire ancestral", "l'abandon des méthodes anciennes"], correct: 1 },
-        { q: "Quel risque Évoquent les partisans de l'innovation ?", options: ["la disparition des métiers par manque de rentabilité", "la perte de qualité", "la concurrence Étrangère"], correct: 0 },
-        { q: "Que suggère le passage comme solution ?", options: ["choisir définitivement un camp", "faire dialoguer héritage et modernité", "abandonner l'artisanat"], correct: 1 },
-        { q: "Quel est le ton de ce passage ?", options: ["tranché", "nuancé", "indifférent"], correct: 1 },
-        { q: "Ce débat concerne principalement...", options: ["l'industrie technologique", "l'artisanat", "l'agriculture"], correct: 1 }
-      ]
-    },
-    reading: {
-      passage: "La régulation de l'intelligence artificielle soulève une tension difficile à  résoudre. D'une part, une régulation stricte pourrait freiner l'innovation et désavantager les entreprises locales face à  une concurrence internationale moins contrainte. D'autre part, l'absence de cadre clair risque d'aggraver les inégalités déjà  provoquées par l'automatisation, en laissant le champ libre aux acteurs les plus puissants. Aucune solution ne semble pleinement satisfaisante, et les experts eux-mêmes restent divisés.",
-      questions: [
-        { q: "Quel est un risque d'une régulation stricte ?", options: ["freiner l'innovation", "trop de contrôle gouvernemental", "rien de spécifique"], correct: 0 },
-        { q: "Quel est un risque de l'absence de régulation ?", options: ["moins d'innovation", "aggravation des inégalités", "hausse des impôts"], correct: 1 },
-        { q: "Que dit le texte sur les experts ?", options: ["ils sont tous d'accord", "ils restent divisés", "ils n'ont pas d'opinion"], correct: 1 },
-        { q: "Le texte prend-il position pour une solution ?", options: ["oui, clairement", "non, il reste neutre", "il ne mentionne pas ce sujet"], correct: 1 },
-        { q: "Quel thème central traverse ce passage ?", options: ["la tension entre innovation et régulation", "le coût de la technologie", "l'histoire de l'IA"], correct: 0 }
-      ]
-    },
-    writing: { prompt: "Rédigez un essai nuancé sur la nécessité de réguler les technologies en Évolution rapide." },
-    speaking: { prompt: "Présentez un argument structuré sur un sujet complexe pendant deux à  trois minutes, en répondant à  un point de vue opposé." }
-  },
-
-  prim: { id: "prim", label: "DELF Prim", group: "Kids", hasContent: false },
-  junior: { id: "junior", label: "DELF Junior", group: "Kids", hasContent: false }
-
-};
-
-var LEVEL_ORDER = ["a1", "a2", "b1", "b2", "c1"];
+var LEVEL_ORDER = ["a1", "a2", "b1", "b2", "c1", "c2"];
 var PASS_THRESHOLD = 0.70;
 
-var accentChars = ["É","è","ê","à ","Ç","ù","ô","î","œ","«","»"];
+var accentChars = ["É","è","é","ê","à","â","Ç","ù","û","ô","î","ï","œ","«","»"];
 
 function buildAccentKeyboard(targetInput){
   var wrap = document.createElement("div");
@@ -196,7 +65,9 @@ var state = {
   readingAnswers: [],
   writingText: "",
   speakingBlob: null,
-  clearedLevels: []
+  clearedLevels: [],
+  built: null,
+  ttsPlays: {}
 };
 
 var delfAssetsMap = {};
@@ -262,6 +133,8 @@ function startLevel(levelId){
   state.readingAnswers = [];
   state.writingText = "";
   state.speakingBlob = null;
+  state.ttsPlays = {};
+  state.built = buildTest(levelId);
 
   root.innerHTML = '<p class="pl-loading">Loading...</p>';
   loadDelfAssets().then(function(){
@@ -269,77 +142,172 @@ function startLevel(levelId){
   });
 }
 
+// ---------------- TEST BUILD (shuffle options once per attempt) ----------------
+
+function shuffled(n){
+  var a = []; for(var i = 0; i < n; i++) a.push(i);
+  for(var j = n - 1; j > 0; j--){ var k = Math.floor(Math.random() * (j + 1)); var t = a[j]; a[j] = a[k]; a[k] = t; }
+  return a;
+}
+
+function buildSkill(docs, bodyKey){
+  var flat = [];
+  var built = docs.map(function(d, di){
+    var qs = d.questions.map(function(q){
+      var order = shuffled(q.options.length);
+      var item = { q: q.q, options: order.map(function(o){ return q.options[o]; }), correct: order.indexOf(q.correct), gi: flat.length };
+      flat.push(item);
+      return item;
+    });
+    return { title: d.title, body: d[bodyKey], questions: qs };
+  });
+  return { docs: built, flat: flat };
+}
+
+function buildTest(levelId){
+  var lvl = LEVELS[levelId];
+  return { listening: buildSkill(lvl.listening.docs, "script"), reading: buildSkill(lvl.reading.texts, "passage") };
+}
+
+function esc(t){ return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+function questionBlock(item, n, skill){
+  var answers = skill === "listening" ? state.listeningAnswers : state.readingAnswers;
+  var opts = item.options.map(function(opt, oi){
+    var sel = "";
+    return '<button class="pl-option' + sel + '" data-skill="' + skill + '" data-gi="' + item.gi + '" data-oi="' + oi + '" onclick="' + (skill === "listening" ? "selectListening" : "selectReading") + '(' + item.gi + ',' + oi + ')">' + esc(opt) + '</button>';
+  }).join("");
+  return '<div class="pl-qblock"><p class="pl-question">' + n + '. ' + esc(item.q) + '</p><div class="pl-options" data-qgi="' + item.gi + '">' + opts + '</div></div>';
+}
+
+function allDone(skill){
+  var flat = state.built[skill].flat;
+  var answers = skill === "listening" ? state.listeningAnswers : state.readingAnswers;
+  for(var i = 0; i < flat.length; i++){ if(answers[i] === undefined) return false; }
+  return true;
+}
+
+function markSelected(skill, gi, oi){
+  var flat = state.built[skill].flat;
+  var answers = skill === "listening" ? state.listeningAnswers : state.readingAnswers;
+  if(gi >= 0){
+    var item = flat[gi];
+    var btns = document.querySelectorAll('.pl-option[data-skill="' + skill + '"][data-gi="' + gi + '"]');
+    for(var i = 0; i < btns.length; i++){
+      var idx = Number(btns[i].getAttribute("data-oi"));
+      btns[i].disabled = true;
+      btns[i].classList.add("pl-locked");
+      if(idx === oi) btns[i].classList.add(oi === item.correct ? "pl-correct" : "pl-wrong");
+      else if(idx === item.correct && oi !== item.correct) btns[i].classList.add("pl-correct");
+    }
+  }
+  var cont = document.getElementById("plContinue");
+  if(cont) cont.disabled = !allDone(skill);
+  var left = document.getElementById("plLeft");
+  if(left){
+    var c = 0;
+    for(var k = 0; k < flat.length; k++){ if(answers[k] !== undefined) c++; }
+    left.textContent = c + " of " + flat.length + " answered";
+  }
+}
+
 // ---------------- LISTENING ----------------
+
+function audioUrlFor(levelId, docIndex){
+  var n = docIndex + 1;
+  return delfAssetsMap["delf-" + levelId + "-listening-" + n] || (n === 1 ? delfAssetsMap["delf-" + levelId + "-listening"] : null) || null;
+}
 
 function renderListening(){
   var lvl = LEVELS[state.currentLevelId];
-  var qs = lvl.listening.questions;
-
-  var qHtml = qs.map(function(item, i){
-    var opts = item.options.map(function(opt, oi){
-      var selected = state.listeningAnswers[i] === oi ? " pl-selected" : "";
-      return '<button class="pl-option' + selected + '" onclick="selectListening(' + i + ',' + oi + ')">' + opt + '</button>';
-    }).join("");
-    return '<div style="margin-bottom:26px;"><p class="pl-question">' + (i + 1) + '. ' + item.q + '</p><div class="pl-options">' + opts + '</div></div>';
+  var docs = state.built.listening.docs;
+  var n = 0;
+  var html = docs.map(function(d, di){
+    var url = audioUrlFor(state.currentLevelId, di);
+    var player;
+    if(url){
+      player = '<audio controls preload="none" style="width:100%;margin-bottom:14px;" src="' + url + '"></audio>';
+    } else if(window.speechSynthesis){
+      var left = 2 - (state.ttsPlays[di] || 0);
+      player = '<div class="pl-tts"><button class="pl-btn pl-btn-secondary pl-tts-btn" id="plTts' + di + '" onclick="playListeningDoc(' + di + ')" ' + (left <= 0 ? "disabled" : "") + '>&#9658; Listen</button>' +
+        '<span class="pl-tts-left" id="plTtsLeft' + di + '">' + left + ' ' + (left === 1 ? "play" : "plays") + ' left</span></div>';
+    } else {
+      player = '<p class="pl-audio-missing">Audio is not available on this device yet.</p>';
+    }
+    var qs = d.questions.map(function(q){ n++; return questionBlock(q, n, "listening"); }).join("");
+    return '<div class="pl-doc"><h3 class="pl-doc-title">Document ' + (di + 1) + ' of ' + docs.length + '</h3>' + player + qs + '</div>';
   }).join("");
-
-  var allAnswered = state.listeningAnswers.length === qs.length && state.listeningAnswers.every(function(a){ return a !== undefined; });
-
-  var audioUrl = delfAssetsMap["delf-" + state.currentLevelId + "-listening"];
-  var audioBlock;
-  if(audioUrl){
-    audioBlock = '<div style="margin-bottom:22px;"><audio controls style="width:100%;" src="' + audioUrl + '"></audio></div>';
-  } else {
-    audioBlock = '<p style="font-size:.85rem;color:#8b92a3;margin-bottom:22px;">Audio for this level has not been uploaded yet. You may still answer the questions below.</p>';
-  }
 
   render(
     '<div class="pl-progress-row"><span class="pl-progress-label">Listening</span><span class="pl-progress-level">Level ' + lvl.label + '</span></div>' +
     '<div class="pl-card">' +
     '<span class="pl-skill-pill">Listen &amp; Answer</span>' +
-    '<p style="font-size:.85rem;color:#8b92a3;margin-bottom:16px;">Listen carefully, then answer the questions below.</p>' +
-    audioBlock +
-    qHtml +
-    '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" ' + (allAnswered ? "" : "disabled") + ' onclick="renderReading()">Continue to Reading</button></div>' +
+    '<p class="pl-hint">Listen to each document, then answer its questions. You may listen twice.</p>' +
+    html +
+    '<div class="pl-btn-row"><span class="pl-count" id="plLeft"></span><button class="pl-btn pl-btn-primary" id="plContinue" disabled onclick="renderReading()">Continue to Reading</button></div>' +
     '</div>'
   );
+  markSelected("listening", -1, -1);
 }
 
-function selectListening(qIndex, optIndex){
-  state.listeningAnswers[qIndex] = optIndex;
-  renderListening();
+function playListeningDoc(di){
+  if(!window.speechSynthesis) return;
+  if((state.ttsPlays[di] || 0) >= 2) return;
+  state.ttsPlays[di] = (state.ttsPlays[di] || 0) + 1;
+  window.speechSynthesis.cancel();
+  var text = state.built.listening.docs[di].body.replace(/(^|\s)[–—-]\s/g, "$1");
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = "fr-FR"; u.rate = 0.9;
+  var voices = window.speechSynthesis.getVoices();
+  for(var i = 0; i < voices.length; i++){ if(voices[i].lang && voices[i].lang.toLowerCase().indexOf("fr") === 0){ u.voice = voices[i]; break; } }
+  var btn = document.getElementById("plTts" + di);
+  var left = 2 - state.ttsPlays[di];
+  var lab = document.getElementById("plTtsLeft" + di);
+  if(lab) lab.textContent = left + ' ' + (left === 1 ? "play" : "plays") + ' left';
+  if(btn){ btn.disabled = true; btn.innerHTML = "Playing..."; }
+  var done = function(){
+    var b = document.getElementById("plTts" + di);
+    if(b){ b.innerHTML = "&#9658; Listen"; b.disabled = left <= 0; }
+  };
+  var doneOnce = false; var finish = function(){ if(doneOnce) return; doneOnce = true; done(); };
+  u.onend = finish; u.onerror = finish; setTimeout(finish, 120000);
+  window.speechSynthesis.speak(u);
+}
+
+function selectListening(gi, oi){
+  if(state.listeningAnswers[gi] !== undefined) return;
+  state.listeningAnswers[gi] = oi;
+  markSelected("listening", gi, oi);
 }
 
 // ---------------- READING ----------------
 
 function renderReading(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
   var lvl = LEVELS[state.currentLevelId];
-  var qs = lvl.reading.questions;
-
-  var qHtml = qs.map(function(item, i){
-    var opts = item.options.map(function(opt, oi){
-      var selected = state.readingAnswers[i] === oi ? " pl-selected" : "";
-      return '<button class="pl-option' + selected + '" onclick="selectReading(' + i + ',' + oi + ')">' + opt + '</button>';
-    }).join("");
-    return '<div style="margin-bottom:26px;"><p class="pl-question">' + (i + 1) + '. ' + item.q + '</p><div class="pl-options">' + opts + '</div></div>';
+  var texts = state.built.reading.docs;
+  var n = 0;
+  var html = texts.map(function(d, di){
+    var qs = d.questions.map(function(q){ n++; return questionBlock(q, n, "reading"); }).join("");
+    return '<div class="pl-doc"><h3 class="pl-doc-title">' + esc(d.title) + '</h3><p class="pl-passage">' + esc(d.body) + '</p>' + qs + '</div>';
   }).join("");
-
-  var allAnswered = state.readingAnswers.length === qs.length && state.readingAnswers.every(function(a){ return a !== undefined; });
 
   render(
     '<div class="pl-progress-row"><span class="pl-progress-label">Reading</span><span class="pl-progress-level">Level ' + lvl.label + '</span></div>' +
     '<div class="pl-card">' +
     '<span class="pl-skill-pill">Read &amp; Answer</span>' +
-    '<p class="pl-passage">' + lvl.reading.passage + '</p>' +
-    qHtml +
-    '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" ' + (allAnswered ? "" : "disabled") + ' onclick="renderWriting()">Continue to Writing</button></div>' +
+    html +
+    '<div class="pl-btn-row"><span class="pl-count" id="plLeft"></span><button class="pl-btn pl-btn-primary" id="plContinue" disabled onclick="renderWriting()">Continue to Writing</button></div>' +
     '</div>'
   );
+  markSelected("reading", -1, -1);
+  window.scrollTo(0, 0);
 }
 
-function selectReading(qIndex, optIndex){
-  state.readingAnswers[qIndex] = optIndex;
-  renderReading();
+function selectReading(gi, oi){
+  if(state.readingAnswers[gi] !== undefined) return;
+  state.readingAnswers[gi] = oi;
+  markSelected("reading", gi, oi);
 }
 
 // ---------------- WRITING ----------------
@@ -521,23 +489,14 @@ function toggleRecording(){
 // ---------------- SCORING + LEVEL RESULT ----------------
 
 function scoreLevel(){
-  var lvl = LEVELS[state.currentLevelId];
-  var total = lvl.listening.questions.length + lvl.reading.questions.length;
-  var correct = 0;
-
-  lvl.listening.questions.forEach(function(item, i){
-    if(state.listeningAnswers[i] === item.correct) correct++;
-  });
-  lvl.reading.questions.forEach(function(item, i){
-    if(state.readingAnswers[i] === item.correct) correct++;
-  });
-
+  var lq = state.built.listening.flat, rq = state.built.reading.flat;
   var lc = 0, rc = 0;
-  lvl.listening.questions.forEach(function(item, i){ if(state.listeningAnswers[i] === item.correct) lc++; });
-  lvl.reading.questions.forEach(function(item, i){ if(state.readingAnswers[i] === item.correct) rc++; });
+  lq.forEach(function(item, i){ if(state.listeningAnswers[i] === item.correct) lc++; });
+  rq.forEach(function(item, i){ if(state.readingAnswers[i] === item.correct) rc++; });
+  var total = lq.length + rq.length, correct = lc + rc;
   return { correct: correct, total: total, pct: correct / total,
-    listening: { correct: lc, total: lvl.listening.questions.length },
-    reading: { correct: rc, total: lvl.reading.questions.length } };
+    listening: { correct: lc, total: lq.length },
+    reading: { correct: rc, total: rq.length } };
 }
 
 function finishLevel(){
@@ -649,6 +608,7 @@ window.renderReading = renderReading;
 window.renderWriting = renderWriting;
 window.startLevel = startLevel;
 window.selectListening = selectListening;
+window.playListeningDoc = playListeningDoc;
 window.selectReading = selectReading;
 window.submitWriting = submitWriting;
 window.toggleRecording = toggleRecording;

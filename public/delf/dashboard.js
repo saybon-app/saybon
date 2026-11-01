@@ -2,7 +2,7 @@ const API_BASE = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-var LABEL = { a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1", prim:"DELF Prim", junior:"DELF Junior" };
+var LABEL = { a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1", c2:"C2", prim:"DELF Prim", junior:"DELF Junior" };
 var root = document.getElementById("ddRoot");
 function render(h){ root.innerHTML = h; }
 function fmt(ms){ return ms ? new Date(ms).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}) : ""; }
