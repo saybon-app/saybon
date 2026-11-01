@@ -1,4 +1,4 @@
-﻿const https = require("https");
+const https = require("https");
 
 const express=require("express")
 const cors=require("cors")
@@ -255,6 +255,8 @@ res.status(500).json({valid:false})
 }
 
 })
+
+require("./delf-mock-routes")(app, { admin: admin, db: db, express: express })
 
 app.listen(process.env.PORT || 3000,()=>{
 
