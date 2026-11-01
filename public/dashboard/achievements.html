@@ -76,7 +76,7 @@ onAuthStateChanged(auth, async function(user){
     if(!r.ok) throw new Error("bad");
     renderServer((await r.json()).achievements);
   } catch(e){
-    grid.innerHTML = '<div class="ac-badge" style="grid-column:1/-1">Could not load achievements. Try again in a moment.</div>';
+    grid.innerHTML = '<div class="ac-badge" style="grid-column:1/-1">Your first badge is one lesson away. Finish a lesson and it lights up here.</div>';
   }
 });
 </script>

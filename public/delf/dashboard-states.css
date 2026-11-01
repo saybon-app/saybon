@@ -1,0 +1,17 @@
+.dd-skill{margin-bottom:16px;}
+.dd-skill-top{display:flex;justify-content:space-between;font-size:.85rem;color:#cfc9b8;margin-bottom:6px;font-weight:600;}
+.dd-skill-top span:last-child{color:#9aa1b0;font-weight:500;}
+.dd-skill-track{position:relative;height:9px;border-radius:99px;background:rgba(255,255,255,.08);overflow:visible;}
+.dd-skill-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#8b92a3,#b9b19a);transition:width .8s ease;}
+.dd-skill-fill.dd-ok{background:linear-gradient(90deg,#b8923f,#d4af6a);}
+.dd-pass{position:absolute;top:-4px;width:2px;height:17px;background:rgba(212,175,106,.7);}
+.dd-card-plain,.dd-cta-card{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);border-radius:20px;padding:22px;margin-bottom:10px;}
+.dd-note{font-size:.76rem;color:#8b92a3;margin-top:4px;}
+.dd-tip{font-size:.9rem;color:#e6e1d3;margin-top:14px;line-height:1.5;}
+.dd-tip b{color:#d4af6a;}
+.dd-cta-card{text-align:center;}
+.dd-cta-title{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:600;font-size:1.5rem;color:#f6f1e4;margin-bottom:8px;}
+.dd-cta-sub{font-size:.9rem;color:#9aa1b0;margin-bottom:16px;line-height:1.5;}
+.dd-link{display:block;text-align:center;font-size:.82rem;color:#8b92a3;margin-top:14px;text-decoration:underline;cursor:pointer;}
+.dd-sep{display:none;}
+@media (prefers-reduced-motion:reduce){.dd-skill-fill{transition:none;}}

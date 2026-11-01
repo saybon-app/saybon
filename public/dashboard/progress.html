@@ -74,22 +74,20 @@ onAuthStateChanged(auth, async function(user){
   }
 
   try {
-    const attemptsRef = collection(db, "delfPlacements", user.uid, "attempts");
-    const q = query(attemptsRef, orderBy("timestamp", "desc"));
-    const snapshot = await getDocs(q);
-    if(snapshot.empty){
-      document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">No DELF placement attempts yet</div>';
+    const tk = await user.getIdToken();
+    const rs = await fetch(API_BASE + "/api/delf/state", { headers: { Authorization: "Bearer " + tk } });
+    if(!rs.ok) throw new Error("bad");
+    const ds = await rs.json();
+    if(!ds.attempts.length){
+      document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Take the DELF placement test and your scores will show up right here. <a href="/delf/placement.html" style="color:#e0578a;font-weight:800;">Start it</a></div>';
     } else {
-      let html = "";
-      snapshot.forEach(function(d){
-        const a = d.data();
+      document.getElementById("pgDelf").innerHTML = ds.attempts.map(function(a){
         const pct = Math.round((a.pct || 0) * 100);
-        html += '<div class="pg-card"><div class="pg-row"><div><div class="pg-row-title">' + (a.level || "").toUpperCase() + ' Placement</div><div class="pg-row-sub">' + (a.passed ? "Cleared" : "Below threshold") + '</div></div><div class="pg-score">' + pct + '%</div></div></div>';
-      });
-      document.getElementById("pgDelf").innerHTML = html;
+        return '<div class="pg-card"><div class="pg-row"><div><div class="pg-row-title">' + (a.level || "").toUpperCase() + ' Placement</div><div class="pg-row-sub">' + (a.passed ? "Cleared" : "Room to grow") + '</div></div><div class="pg-score">' + pct + '%</div></div></div>';
+      }).join("") + '<div class="pg-empty"><a href="/delf/dashboard.html" style="color:#e0578a;font-weight:800;">Open my DELF dashboard</a></div>';
     }
   } catch(e){
-    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Could not load DELF progress</div>';
+    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Your DELF scores will appear here once you take the placement test.</div>';
   }
 
   let sum = null;
@@ -103,9 +101,9 @@ onAuthStateChanged(auth, async function(user){
   } catch(e){ sum = null; }
 
   if(!sum){
-    document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">Could not load Levels progress</div>';
+    document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">Your lesson journey starts with lesson one. Finish it and your progress bar begins.</div>';
     document.getElementById("pgStats").innerHTML = '';
-    document.getElementById("pgNote").textContent = "We couldn't load your practice stats right now. Try again in a moment.";
+    document.getElementById("pgNote").textContent = "Your practice story starts with your first lesson, game or song. Come back after and this page will be full of you.";
     return;
   }
   const mins = Math.floor((sum.totalsSeconds.lesson + sum.totalsSeconds.game + sum.totalsSeconds.music + sum.totalsSeconds.exam) / 60);
@@ -132,7 +130,7 @@ onAuthStateChanged(auth, async function(user){
   document.getElementById("pgLevels").innerHTML = keys.length ? keys.map(function(k){
     const c = sum.levels[k], pct = Math.min(100, Math.round((c / 25) * 100));
     return '<div class="pg-card"><div class="pg-row-title">' + (LEVEL_LABELS[k] || k) + '</div><div class="pg-row-sub">' + c + ' of 25 lessons</div><div class="pg-bar-track"><div class="pg-bar-fill" style="width:' + pct + '%"></div></div></div>';
-  }).join("") : '<div class="pg-empty">No lessons completed yet</div>';
+  }).join("") : '<div class="pg-empty">Your first lesson is waiting. Finish it and your progress bar begins.</div>';
 });
 </script>
 </body>

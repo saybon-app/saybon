@@ -532,7 +532,12 @@ function scoreLevel(){
     if(state.readingAnswers[i] === item.correct) correct++;
   });
 
-  return { correct: correct, total: total, pct: correct / total };
+  var lc = 0, rc = 0;
+  lvl.listening.questions.forEach(function(item, i){ if(state.listeningAnswers[i] === item.correct) lc++; });
+  lvl.reading.questions.forEach(function(item, i){ if(state.readingAnswers[i] === item.correct) rc++; });
+  return { correct: correct, total: total, pct: correct / total,
+    listening: { correct: lc, total: lvl.listening.questions.length },
+    reading: { correct: rc, total: lvl.reading.questions.length } };
 }
 
 function finishLevel(){
@@ -592,7 +597,7 @@ function finalizeResult(){
     '<button class="pl-btn pl-btn-secondary" onclick="renderLevelPicker()">Test Another Level</button>' +
     '<button class="pl-btn pl-btn-primary" onclick="location.href=\'/delf/tout-public/\'">Begin Your Preparation</button>' +
     '</div>' +
-    '<div class="pl-btn-row"><button class="pl-btn pl-btn-secondary" onclick="location.href=\'/dashboard/\'">Go to Dashboard</button></div>'
+    '<div class="pl-btn-row"><button class="pl-btn pl-btn-secondary" onclick="location.href=\'/delf/dashboard.html\'">See My DELF Results</button></div>'
   );
 }
 
@@ -603,32 +608,31 @@ function saveResultToFirestore(levelId, result, passed){
     console.warn("Not saving placement result - no authenticated user");
     return;
   }
-
-  var uid = auth.currentUser.uid;
-  var docData = {
-    level: levelId,
-    correct: result.correct,
-    total: result.total,
-    pct: result.pct,
-    passed: passed,
-    writingResponse: state.writingText || null,
-    writingStatus: "pending_ai_grading",
-    speakingStatus: state.speakingBlob ? "recorded_pending_ai_grading" : "not_recorded",
-    timestamp: serverTimestamp()
-  };
-
-  addDoc(collection(db, "delfPlacements", uid, "attempts"), docData)
-    .then(function(){
-      if(state.speakingBlob){
-        var speakingRef = storageRef(storage, "delfPlacements/" + uid + "/" + levelId + "-speaking-" + Date.now() + ".webm");
-        uploadBytes(speakingRef, state.speakingBlob).catch(function(err){
-          console.error("Speaking upload failed:", err);
-        });
-      }
-    })
-    .catch(function(err){
-      console.error("Could not save placement result:", err);
+  var user = auth.currentUser;
+  var speakingBlob = state.speakingBlob;
+  user.getIdToken().then(function(token){
+    return fetch(API_BASE + "/api/delf/placement", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+      body: JSON.stringify({
+        level: levelId,
+        listening: result.listening,
+        reading: result.reading,
+        writingResponse: state.writingText || null,
+        speakingRecorded: !!speakingBlob
+      })
     });
+  }).then(function(res){
+    if(!res.ok) throw new Error("save failed " + res.status);
+    if(speakingBlob){
+      var speakingRef = storageRef(storage, "delfPlacements/" + user.uid + "/" + levelId + "-speaking-" + Date.now() + ".webm");
+      uploadBytes(speakingRef, speakingBlob).catch(function(err){
+        console.error("Speaking upload failed:", err);
+      });
+    }
+  }).catch(function(err){
+    console.error("Could not save placement result:", err);
+  });
 }
 
 // ---------------- INIT ----------------

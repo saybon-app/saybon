@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DELF Exam Preparation - SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="delf.css?v=6">
+</head>
+<body>
+<div class="df-stage">
+
+  <button class="df-corner-icon df-corner-back" onclick="location.href='/dashboard/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="df-corner-icon df-corner-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <section class="df-hero">
+    <p class="df-eyebrow">SayBon DELF Preparation</p>
+    <h1 class="df-title">Prepare for the DELF with Confidence</h1>
+    <p class="df-subtitle">Structured, mock-based preparation designed to help you walk into the official DELF exam ready - and confident.</p>
+    <button class="df-dashboard-btn" onclick="location.href='dashboard.html'">My DELF Dashboard</button>
+    <button class="df-info-btn" id="dfToggleBtn">Learn Everything About This Service</button>
+
+    <div class="df-hero-circle-wrap">
+      <img src="/assets/images/delf-hero.png" alt="Tutor and student studying together" class="df-hero-circle">
+    </div>
+  </section>
+
+  <div class="df-peek-band">
+
+    <div class="df-content" id="dfContent">
+      <div class="df-seam"></div>
+
+      <section class="df-card">
+        <h2>The DELF, Explained</h2>
+        <p>The DELF (Diplôme d'Études en Langue FranÇaise) is an official French proficiency diploma - recognized internationally, and valid for life. Earning it can open real doors, for study, work, or a personal milestone. SayBon exists to help you walk into that exam prepared, not guessing.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>Four Skills. One Real Exam.</h2>
+        <div class="df-skills-grid">
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10v4a1 1 0 001 1h3l4 4V5L7 9H4a1 1 0 00-1 1z"/><path d="M16 8a5 5 0 010 8"/><path d="M19 5a9 9 0 010 14"/></svg>
+            </div>
+            <h3>Listening</h3>
+            <p>Understand spoken French in real, natural contexts.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+            <h3>Reading</h3>
+            <p>Comprehend written passages with confidence.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            </div>
+            <h3>Writing</h3>
+            <p>Express yourself clearly in structured written French.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/><path d="M12 19v3"/></svg>
+            </div>
+            <h3>Speaking</h3>
+            <p>Speak naturally, with real feedback on how you sound.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Every Age, Every Level</h2>
+        <p>DELF isn't one-size-fits-all, and neither is SayBon's prep. We support two youth tracks and the full adult track:</p>
+        <div class="df-track">
+          <h3>DELF Prim <span>· ages 8-12</span></h3>
+          <p>Covers A1.1, A1, and A2 - the earliest levels, built for younger learners just beginning their French journey.</p>
+        </div>
+        <div class="df-track">
+          <h3>DELF Junior <span>· ages 13-17</span></h3>
+          <p>Covers A1 through B2 - the same content as the adult exam, adapted with themes and material suited to teenagers.</p>
+        </div>
+        <div class="df-track">
+          <h3>DELF Tout Public <span>· adults</span></h3>
+          <p>Covers A1 through C1 - the standard adult track, for learners at any stage of their French.</p>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Your Placement Is a Mirror, Not a Gate</h2>
+        <p>Before you begin, you'll take a mock placement test - a shortened version of the real exam, covering all four skills. It isn't there to judge you. It's there to show you, honestly, where you're starting from.</p>
+        <p>Your placement score is saved to your DELF dashboard as your baseline. From there, every test score you earn throughout your preparation - all ten of them - is added right alongside it, so your progress is laid out clearly, from day one to your very last practice test.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>You Choose Your Level. Always.</h2>
+        <p>You're free to test into whichever level you believe fits you. Once we've scored your placement, we'll share our findings clearly and honestly. If our recommendation differs from your choice, that's entirely fine - you decide.</p>
+        <p>We'll prepare you at whatever level you choose. We simply want you to walk in with your eyes open: a level far above where you're starting can feel like a steep climb, and one far below may not challenge you at all. Our role is to tell you what we see. The choice is always yours.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>How Your Preparation Actually Works</h2>
+        <p class="df-flow-intro">Each level follows a simple rhythm: <strong>four lessons, then a test.</strong> Every lesson focuses on a single skill - Listening, then Reading, then Writing, then Speaking - before a practice test brings it together. This full round repeats <strong>ten times</strong> per level.</p>
+        <div class="df-flow-steps">
+          <div class="df-flow-step">
+            <span class="df-flow-num">1</span>
+            <div>
+              <h3>Four focused lessons</h3>
+              <p>Listening, Reading, Writing, and Speaking - one at a time, building real skill in each area.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">2</span>
+            <div>
+              <h3>One practice test</h3>
+              <p>Every batch of four lessons ends with a real test, scored and added to your dashboard.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">3</span>
+            <div>
+              <h3>Repeated ten times</h3>
+              <p>By the end, you'll have completed forty lessons and ten full tests - a genuinely thorough preparation.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">4</span>
+            <div>
+              <h3>Skip if you're confident</h3>
+              <p>Feeling strong in a skill? You're free to skip a lesson. We'll always share our recommendation first - but the choice stays yours.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Clear, Honest Pricing</h2>
+        <p class="df-pricing-note">Every level includes the complete package: <strong>forty structured lessons and ten full practice tests</strong>, all tracked on your personal DELF dashboard alongside your original placement score.</p>
+        <div class="df-pricing-table">
+          <div class="df-pricing-row df-pricing-head">
+            <span>Level</span><span>Price</span>
+          </div>
+          <div class="df-pricing-row"><span>DELF Prim & Junior (any level)</span><span>$12</span></div>
+          <div class="df-pricing-row"><span>A1</span><span>$12</span></div>
+          <div class="df-pricing-row"><span>A2</span><span>$17</span></div>
+          <div class="df-pricing-row"><span>B1</span><span>$25</span></div>
+          <div class="df-pricing-row"><span>B2</span><span>$29</span></div>
+          <div class="df-pricing-row"><span>C1</span><span>$34</span></div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Why Learners Choose SayBon</h2>
+        <ul class="df-why-list">
+          <li><strong>Accessible from anywhere</strong> - no travel, no fixed classroom, no barriers to starting today.</li>
+          <li><strong>Built around your schedule</strong> - flexible pacing that fits your life, not the other way around.</li>
+          <li>Practice as many times as you need, with no one-shot pressure.</li>
+          <li>Structured pacing that respects how you actually learn.</li>
+          <li>A genuinely more affordable path to the same official qualification.</li>
+        </ul>
+      </section>
+
+      <section class="df-card">
+        <h2>Your Story Helps the Next Learner</h2>
+        <p>If SayBon helps you get where you're going, we'd love to hear about it. Sharing your experience - and your results, if you're comfortable - helps future learners trust that this works. It's always optional, and always appreciated.</p>
+      </section>
+
+      <button class="df-cta-btn" onclick="location.href='placement.html'">Start Your Placement</button>
+
+    </div>
+  </div>
+
+</div>
+<script src="delf.js?v=2"></script>
+<script type="module">
+if(!/[?&]landing=1/.test(location.search)){
+  import("/js/firebase-init.js").then(function(m){
+    m.auth.onAuthStateChanged(function(u){
+      if(!u) return;
+      u.getIdToken().then(function(t){ return fetch("https://saybonapp-server.onrender.com/api/delf/state",{headers:{Authorization:"Bearer "+t}}); })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(st){ if(st && st.state !== "new") location.replace("/delf/dashboard.html"); })
+        .catch(function(){});
+    });
+  }).catch(function(){});
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
