@@ -2,20 +2,27 @@
    Remove this file's <link> (and dashboard-polish.js) to undo everything. */
 html, body{
   background:
-    radial-gradient(circle at 88% 92%, rgba(255,197,49,.14) 0, transparent 46%),
-    radial-gradient(circle at 14% 0%, #167f9b 0%, #0e5671 52%, #082f45 100%) fixed !important;
+    radial-gradient(circle at 88% 92%, rgba(255,197,49,.08) 0, transparent 46%),
+    radial-gradient(circle at 14% 0%, #0d5f79 0%, #08405a 50%, #04212f 100%) fixed !important;
 }
-.dash-sidebar{ background: linear-gradient(180deg, #0f4864 0%, #0a3249 100%) !important; border-right-color: rgba(255,255,255,.12) !important; }
-@media (max-width:800px){ .dash-mobile-topbar{ background: linear-gradient(180deg, #0f4864 0%, #0a3249 100%) !important; } }
+.dash-sidebar{ background: linear-gradient(180deg, #093a52 0%, #062634 100%) !important; border-right-color: rgba(255,255,255,.12) !important; }
+@media (max-width:800px){ .dash-mobile-topbar{ background: linear-gradient(180deg, #093a52 0%, #062634 100%) !important; } }
 
 /* tiles rise in one after another (backwards fill so hover transforms still work afterwards) */
-.dash-card{ animation: dpRise .85s cubic-bezier(.22,1,.36,1) backwards; }
+.dash-card{ animation: dpRise .9s cubic-bezier(.22,1,.36,1) backwards, dpIdle 7s ease-in-out 1.8s infinite; }
 .dash-card:nth-child(1){ animation-delay:.45s } .dash-card:nth-child(2){ animation-delay:.53s }
 .dash-card:nth-child(3){ animation-delay:.61s } .dash-card:nth-child(4){ animation-delay:.69s }
 .dash-card:nth-child(5){ animation-delay:.77s } .dash-card:nth-child(6){ animation-delay:.85s }
 .dash-card:nth-child(7){ animation-delay:.93s } .dash-card:nth-child(8){ animation-delay:1.01s }
+/* idle drift uses the separate `translate` property so hover and press transforms keep working */
+@keyframes dpIdle{ 0%,100%{ translate:0 0; } 50%{ translate:0 -4px; } }
 @keyframes dpRise{ from{ opacity:0; transform:translateY(22px) scale(.97); } to{ opacity:1; transform:none; } }
 
+/* tiles drift out of step */
+.dash-card:nth-child(2){ animation-duration:.9s,7.6s } .dash-card:nth-child(3){ animation-duration:.9s,6.6s }
+.dash-card:nth-child(4){ animation-duration:.9s,8.2s } .dash-card:nth-child(5){ animation-duration:.9s,7.2s }
+.dash-card:nth-child(6){ animation-duration:.9s,6.9s } .dash-card:nth-child(7){ animation-duration:.9s,7.8s }
+.dash-card:nth-child(8){ animation-duration:.9s,7.4s }
 /* emoji drift: a few pixels, each tile out of step */
 .dash-card .emoji{ display:inline-block; animation: dpFloat 6s ease-in-out infinite; will-change:transform; }
 .dash-card:nth-child(2) .emoji{ animation-delay:-.8s; animation-duration:6.6s }
@@ -25,7 +32,7 @@ html, body{
 .dash-card:nth-child(6) .emoji{ animation-delay:-4.3s; animation-duration:6.8s }
 .dash-card:nth-child(7) .emoji{ animation-delay:-5s; animation-duration:5.9s }
 .dash-card:nth-child(8) .emoji{ animation-delay:-5.7s; animation-duration:6.4s }
-@keyframes dpFloat{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-4px) rotate(-2deg); } }
+@keyframes dpFloat{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-7px) rotate(-4deg); } }
 
 /* press feedback, smooth hover */
 .dash-card{ transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease; }
