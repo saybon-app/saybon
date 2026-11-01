@@ -1,140 +1,87 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Progress - SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
-html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);min-height:100vh;color:#fff;}
-.pg-stage{max-width:640px;margin:0 auto;padding:90px 20px 60px;}
-.pg-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:50;}
-.pg-corner-icon svg{width:18px;height:18px;}
-.pg-title{font-weight:900;font-size:1.6rem;margin-bottom:6px;}
-.pg-sub{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:28px;}
-.pg-section-label{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:26px 0 12px;}
-.pg-card{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px 18px;box-shadow:0 10px 24px rgba(0,0,0,.3);margin-bottom:10px;}
-.pg-row{display:flex;justify-content:space-between;align-items:center;}
-.pg-row-title{font-weight:800;font-size:.95rem;}
-.pg-row-sub{font-size:.78rem;color:rgba(255,255,255,.55);margin-top:2px;}
-.pg-score{font-weight:900;font-size:1.15rem;color:#e0578a;}
-.pg-empty{color:rgba(255,255,255,.5);font-size:.85rem;text-align:center;padding:16px;}
-.pg-bar-track{height:8px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:8px;}
-.pg-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px;}
-.pg-stat{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px 8px;text-align:center;}
-.pg-stat b{display:block;font-size:1.4rem;font-weight:900;}
-.pg-stat span{font-size:.7rem;color:rgba(255,255,255,.55);font-weight:700;}
-.pg-week{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:120px;}
-.pg-day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:.68rem;color:rgba(255,255,255,.55);font-weight:700;}
-.pg-day i{display:block;width:100%;max-width:28px;border-radius:8px 8px 4px 4px;background:rgba(255,255,255,.12);min-height:4px;margin-bottom:6px;}
-.pg-day.on i{background:linear-gradient(180deg,#e0578a,#b83d70);}
-.pg-note{font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.5;}
-.pg-bar-fill{height:100%;background:linear-gradient(90deg,#e0578a,#b83d70);border-radius:999px;transition:width .5s ease;}
-</style>
+<link rel="stylesheet" href="/css/dashboard-fun.css?v=1">
 </head>
 <body>
+<button class="fx-icon fx-back" onclick="location.href='/dashboard/'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="fx-icon fx-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></button>
 
-<button class="pg-corner-icon" onclick="location.href='/dashboard/'" aria-label="Back">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-</button>
+<div class="fx-stage">
+  <p class="fx-title">My Progress</p>
+  <p class="fx-sub">Every minute you practise counts.</p>
 
-<div class="pg-stage">
-  <p class="pg-title">My Progress</p>
-  <p class="pg-sub">Everything you've completed across SayBon, in one place.</p>
+  <div class="fx-hero" id="hero"><div class="fx-mascot sleep">😴</div><div><h2>Waking things up...</h2><p>One moment.</p></div></div>
+  <div class="fx-stats" id="stats"></div>
 
-  <div class="pg-section-label">Your practice</div>
-  <div class="pg-stats" id="pgStats"></div>
-  <div class="pg-card"><div class="pg-week" id="pgWeek"></div></div>
-  <div class="pg-card"><div class="pg-note" id="pgNote">Loading...</div></div>
+  <div class="fx-label">This week</div>
+  <div class="fx-card"><div class="fx-week" id="week"></div></div>
+  <div class="fx-card"><p class="fx-note" id="note"></p></div>
 
-  <div class="pg-section-label">DELF Placement</div>
-  <div id="pgDelf"><div class="pg-empty">Loading...</div></div>
+  <div class="fx-label">DELF placement</div>
+  <div id="delf"><div class="fx-empty">Loading...</div></div>
 
-  <div class="pg-section-label">Levels Progress</div>
-  <div id="pgLevels"><div class="pg-empty">Loading...</div></div>
+  <div class="fx-label">Lessons by level</div>
+  <div id="levels"><div class="fx-empty">Loading...</div></div>
 </div>
 
 <script type="module">
-const API_BASE = "https://saybonapp-server.onrender.com";
+const API = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { app } from "/js/firebase-init.js";
-
-const db = getFirestore(app);
-const LEVEL_LABELS = { "a0-les-petits":"A0 Les Petits", "a0-tout-public":"A0 Tout Public", a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1" };
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NAMES = { "a0-les-petits":"A0 Les Petits", "a0-tout-public":"A0 Tout Public", a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1" };
+const $ = (i) => document.getElementById(i);
+function ld(){ const d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function count(el, to){ if(RM||to<1){ el.textContent=to; return; } const t0=performance.now(); (function s(t){ const p=Math.min((t-t0)/900,1); el.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(s); })(t0); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
 onAuthStateChanged(auth, async function(user){
-  if(!user){
-    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Log in to see your progress</div>';
-    document.getElementById("pgLevels").innerHTML = '';
-    return;
-  }
+  if(!user){ $("hero").innerHTML='<div class="fx-mascot sleep">😴</div><div><h2>Log in to see your progress</h2><p>Your flame is waiting.</p></div>'; return; }
+  const tok = await user.getIdToken();
+  const H = { headers:{ Authorization:"Bearer "+tok } };
+  const [sumR, delfR] = await Promise.all([
+    fetch(API+"/api/activity/summary?day="+ld(), H).then(r=>r.ok?r.json():null).catch(()=>null),
+    fetch(API+"/api/delf/state", H).then(r=>r.ok?r.json():null).catch(()=>null)
+  ]);
 
-  try {
-    const tk = await user.getIdToken();
-    const rs = await fetch(API_BASE + "/api/delf/state", { headers: { Authorization: "Bearer " + tk } });
-    if(!rs.ok) throw new Error("bad");
-    const ds = await rs.json();
-    if(!ds.attempts.length){
-      document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Take the DELF placement test and your scores will show up right here. <a href="/delf/placement.html" style="color:#e0578a;font-weight:800;">Start it</a></div>';
-    } else {
-      document.getElementById("pgDelf").innerHTML = ds.attempts.map(function(a){
-        const pct = Math.round((a.pct || 0) * 100);
-        return '<div class="pg-card"><div class="pg-row"><div><div class="pg-row-title">' + (a.level || "").toUpperCase() + ' Placement</div><div class="pg-row-sub">' + (a.passed ? "Cleared" : "Room to grow") + '</div></div><div class="pg-score">' + pct + '%</div></div></div>';
-      }).join("") + '<div class="pg-empty"><a href="/delf/dashboard.html" style="color:#e0578a;font-weight:800;">Open my DELF dashboard</a></div>';
-    }
-  } catch(e){
-    document.getElementById("pgDelf").innerHTML = '<div class="pg-empty">Your DELF scores will appear here once you take the placement test.</div>';
-  }
-
-  let sum = null;
-  try {
-    const tok = await user.getIdToken();
-    const d = new Date();
-    const day = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
-    const r = await fetch(API_BASE + "/api/activity/summary?day=" + day, { headers: { Authorization: "Bearer " + tok } });
-    if(!r.ok) throw new Error("bad");
-    sum = await r.json();
-  } catch(e){ sum = null; }
-
+  const sum = sumR;
   if(!sum){
-    document.getElementById("pgLevels").innerHTML = '<div class="pg-empty">Your lesson journey starts with lesson one. Finish it and your progress bar begins.</div>';
-    document.getElementById("pgStats").innerHTML = '';
-    document.getElementById("pgNote").textContent = "Your practice story starts with your first lesson, game or song. Come back after and this page will be full of you.";
-    return;
+    $("hero").innerHTML='<div class="fx-mascot sleep">😴</div><div><h2>Your flame is sleeping</h2><p>Finish a lesson, a game or a song and it wakes up here.</p><a class="fx-btn" href="/levels/">Start a lesson</a></div>';
+    $("stats").innerHTML=""; $("week").innerHTML=""; $("note").textContent="Your week fills up as you practise. Even five minutes lights a day.";
+    $("levels").innerHTML='<div class="fx-empty">Your first lesson is waiting. Finish it and a bar starts filling here.</div>';
+  } else {
+    const mins = Math.floor((sum.totalsSeconds.lesson+sum.totalsSeconds.game+sum.totalsSeconds.music+sum.totalsSeconds.exam)/60);
+    if(sum.streak>0){
+      $("hero").innerHTML='<div class="fx-mascot">🔥</div><div><h2>'+sum.streak+'-day streak!</h2><p>'+(sum.countedToday?"Today is done. See you tomorrow!":"Practise today to keep it burning.")+'</p>'+(sum.countedToday?'':'<a class="fx-btn" href="/levels/">Keep it going</a>')+'</div>';
+    } else {
+      $("hero").innerHTML='<div class="fx-mascot sleep">😴</div><div><h2>Your flame is sleeping</h2><p>Wake it up with a lesson, a game or a song.</p><a class="fx-btn" href="/levels/">Wake it up</a></div>';
+    }
+    $("stats").innerHTML='<div class="fx-stat"><b id="s1">0</b><span>Day streak</span></div><div class="fx-stat"><b id="s2">0</b><span>Best streak</span></div><div class="fx-stat"><b id="s3">0</b><span>Minutes</span></div>';
+    count($("s1"),sum.streak); count($("s2"),sum.bestStreak); count($("s3"),mins);
+    const L=["S","M","T","W","T","F","S"]; const mx=Math.max.apply(null,sum.week.map(w=>w.minutes).concat([sum.goalMinutes]));
+    $("week").innerHTML=sum.week.map((w,i)=>{ const h=Math.max(6,Math.round(w.minutes/mx*90)); return '<div class="fx-day'+(w.counted?' on':'')+(i===6?' today':'')+'"><em>'+(w.counted?'⭐':'')+'</em><i style="height:'+h+'px;animation-delay:'+(i*0.07)+'s"></i>'+L[new Date(w.day+"T00:00:00").getDay()]+'</div>'; }).join("");
+    const act=sum.week.filter(w=>w.counted).length;
+    $("note").textContent = sum.streak>=7 ? "A whole week and more! This steady rhythm is how French starts to feel natural." :
+      act>=3 ? "You practised on "+act+" of the last 7 days. Little and often beats long and rare. Keep it up!" :
+      act>=1 ? "Nice start! A few minutes a day, any lesson, game or song, adds up fast toward your "+sum.goalMinutes+"-minute goal." :
+      "A fresh week, a fresh start. Pick one small thing today and your first star lands here.";
+    const keys=Object.keys(sum.levels);
+    $("levels").innerHTML = keys.length ? keys.map(k=>{ const c=sum.levels[k],p=Math.min(100,Math.round(c/25*100)); return '<div class="fx-card"><div class="fx-row"><div class="fx-rt">'+esc(NAMES[k]||k)+'</div><div class="fx-rs">'+c+' of 25 lessons</div></div><div class="fx-track"><div class="fx-fill" style="width:'+p+'%"></div></div></div>'; }).join("")
+      : '<div class="fx-empty">Your first lesson is waiting. Finish it and a bar starts filling here. 🌱</div>';
   }
-  const mins = Math.floor((sum.totalsSeconds.lesson + sum.totalsSeconds.game + sum.totalsSeconds.music + sum.totalsSeconds.exam) / 60);
-  document.getElementById("pgStats").innerHTML =
-    '<div class="pg-stat"><b>' + sum.streak + ' 🔥</b><span>Day streak</span></div>' +
-    '<div class="pg-stat"><b>' + sum.bestStreak + '</b><span>Best streak</span></div>' +
-    '<div class="pg-stat"><b>' + mins + '</b><span>Total minutes</span></div>';
-  const names = ["S","M","T","W","T","F","S"];
-  const mx = Math.max.apply(null, sum.week.map(function(w){ return w.minutes; }).concat([sum.goalMinutes]));
-  document.getElementById("pgWeek").innerHTML = sum.week.map(function(w){
-    const dt = new Date(w.day + "T00:00:00");
-    const h = Math.max(4, Math.round((w.minutes / mx) * 90));
-    return '<div class="pg-day' + (w.counted ? ' on' : '') + '"><i style="height:' + h + 'px"></i>' + names[dt.getDay()] + '</div>';
-  }).join("");
-  const activeDays = sum.week.filter(function(w){ return w.counted; }).length;
-  let note;
-  if(sum.streak >= 7) note = "A full week and more. That kind of steady practice is exactly how French starts to feel natural. Keep the flame going.";
-  else if(activeDays >= 3) note = "You practised on " + activeDays + " of the last 7 days. Little and often beats long and rare, so keep that rhythm.";
-  else if(activeDays >= 1) note = "Good start. Try for a few minutes each day this week; a short lesson, a Talkletics mission or a song all count toward your " + sum.goalMinutes + "-minute goal.";
-  else note = "Nothing logged this week yet. Pick one small thing today, a lesson, a game or some French music, and your streak begins.";
-  document.getElementById("pgNote").textContent = note;
 
-  const keys = Object.keys(sum.levels);
-  document.getElementById("pgLevels").innerHTML = keys.length ? keys.map(function(k){
-    const c = sum.levels[k], pct = Math.min(100, Math.round((c / 25) * 100));
-    return '<div class="pg-card"><div class="pg-row-title">' + (LEVEL_LABELS[k] || k) + '</div><div class="pg-row-sub">' + c + ' of 25 lessons</div><div class="pg-bar-track"><div class="pg-bar-fill" style="width:' + pct + '%"></div></div></div>';
-  }).join("") : '<div class="pg-empty">Your first lesson is waiting. Finish it and your progress bar begins.</div>';
+  if(delfR && delfR.attempts.length){
+    $("delf").innerHTML = delfR.attempts.slice(0,4).map(a=>'<div class="fx-card"><div class="fx-row"><div><div class="fx-rt">'+esc((a.level||"").toUpperCase())+' placement</div><div class="fx-rs">'+(a.passed?"Cleared! 🎉":"Room to grow, you will get there")+'</div></div><div class="fx-score">'+Math.round((a.pct||0)*100)+'%</div></div></div>').join("")+'<div class="fx-empty"><a href="/delf/dashboard.html">Open my DELF dashboard</a></div>';
+  } else {
+    $("delf").innerHTML='<div class="fx-empty">Take the DELF placement test and your scores pop up right here. 🎯 <a href="/delf/placement.html">Start it</a></div>';
+  }
 });
 </script>
 </body>
 </html>
-
-
-

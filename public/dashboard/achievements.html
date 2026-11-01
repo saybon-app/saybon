@@ -1,88 +1,55 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Achievements - SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:"Nunito",sans-serif;}
-html,body{background:radial-gradient(circle at 20% 0%, #1a2138 0%, #0a0e1a 55%, #060812 100%);min-height:100vh;color:#fff;}
-.ac-stage{max-width:640px;margin:0 auto;padding:90px 20px 60px;}
-.ac-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:50;}
-.ac-corner-icon svg{width:18px;height:18px;}
-.ac-title{font-weight:900;font-size:1.6rem;margin-bottom:6px;}
-.ac-sub{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:28px;}
-.ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
-.ac-badge{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px 14px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.3);}
-.ac-badge.locked{opacity:.6;}.ac-badge.locked .ac-badge-icon{filter:grayscale(1);opacity:.6;}
-.ac-badge-icon{font-size:2rem;margin-bottom:8px;}
-.ac-badge-title{font-weight:800;font-size:.85rem;}
-.ac-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.12);margin:10px 0 4px;overflow:hidden;}.ac-bar div{height:100%;background:#e0578a;border-radius:999px;}
-.ac-badge-sub{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:4px;}
-</style>
+<link rel="stylesheet" href="/css/dashboard-fun.css?v=1">
 </head>
 <body>
+<button class="fx-icon fx-back" onclick="location.href='/dashboard/'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="fx-icon fx-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></button>
 
-<button class="ac-corner-icon" onclick="location.href='/dashboard/'" aria-label="Back">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-</button>
-
-<div class="ac-stage">
-  <p class="ac-title">Achievements</p>
-  <p class="ac-sub">Earned automatically as you learn.</p>
-  <div class="ac-grid" id="acGrid"></div>
+<div class="fx-stage">
+  <p class="fx-title">Achievements</p>
+  <p class="fx-sub" id="sub">Collect them all, one small win at a time.</p>
+  <div class="fx-card" id="count" style="display:none"><div class="fx-row"><div class="fx-rt" id="countTxt"></div><div style="font-size:1.6rem">🏆</div></div><div class="fx-track"><div class="fx-fill" id="countBar" style="background:linear-gradient(90deg,#ffc531,#ff9f1c)"></div></div></div>
+  <div class="fx-grid" id="grid"></div>
 </div>
-
 <script type="module">
+const API = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { app } from "/js/firebase-init.js";
-
-const db = getFirestore(app);
-const grid = document.getElementById("acGrid");
-
-function renderBadges(unlocked){
-  const badges = [
-    { key:"first_lesson", icon:"🎯", title:"First Steps", sub:"Complete your first lesson" },
-    { key:"five_lessons", icon:"📘", title:"Dedicated Learner", sub:"Complete 5 lessons" },
-    { key:"placement_done", icon:"🏆", title:"Placement Pioneer", sub:"Complete a DELF placement" },
-    { key:"streak_3", icon:"🔥", title:"Streak Keeper", sub:"3-day streak" },
-    { key:"streak_7", icon:"⚡", title:"On Fire", sub:"7-day streak" }
-  ];
-  grid.innerHTML = badges.map(function(b){
-    const isUnlocked = unlocked.has(b.key);
-    return '<div class="ac-badge ' + (isUnlocked ? "" : "locked") + '"><div class="ac-badge-icon">' + b.icon + '</div><div class="ac-badge-title">' + b.title + '</div><div class="ac-badge-sub">' + b.sub + '</div></div>';
-  }).join("");
-}
-
-const API_BASE = "https://saybonapp-server.onrender.com";
-function renderServer(list){
-  grid.innerHTML = list.map(function(b){
-    const pct = Math.round((b.value / b.target) * 100);
-    return '<div class="ac-badge ' + (b.earned ? "" : "locked") + '"><div class="ac-badge-icon">' + b.icon + '</div><div class="ac-badge-title">' + b.title + '</div><div class="ac-badge-sub">' + b.sub + '</div>' +
-      (b.earned ? '' : '<div class="ac-bar"><div style="width:' + pct + '%"></div></div><div class="ac-badge-sub">' + b.value + ' / ' + b.target + '</div>') + '</div>';
-  }).join("");
+const grid = document.getElementById("grid");
+function ld(){ const d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2); }
+function sparkle(el){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const r=el.getBoundingClientRect();
+  for(let i=0;i<8;i++){ const s=document.createElement("span"); s.className="fx-sparkle"; s.textContent=["✨","⭐","💛"][i%3];
+    s.style.left=(r.left+r.width/2)+"px"; s.style.top=(r.top+r.height/2)+"px";
+    s.style.setProperty("--dx",(Math.random()*120-60)+"px"); s.style.setProperty("--dy",(Math.random()*-110-10)+"px");
+    document.body.appendChild(s); setTimeout(()=>s.remove(),1000); }
 }
 onAuthStateChanged(auth, async function(user){
-  if(!user){ renderBadges(new Set()); return; }
-  try {
-    const tok = await user.getIdToken();
-    const d = new Date();
-    const day = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
-    const r = await fetch(API_BASE + "/api/activity/summary?day=" + day, { headers: { Authorization: "Bearer " + tok } });
-    if(!r.ok) throw new Error("bad");
-    renderServer((await r.json()).achievements);
-  } catch(e){
-    grid.innerHTML = '<div class="ac-badge" style="grid-column:1/-1">Your first badge is one lesson away. Finish a lesson and it lights up here.</div>';
+  if(!user){ grid.innerHTML='<div class="fx-empty" style="grid-column:1/-1">Log in and your badges will be waiting for you.</div>'; return; }
+  try{
+    const tok=await user.getIdToken();
+    const r=await fetch(API+"/api/activity/summary?day="+ld(),{headers:{Authorization:"Bearer "+tok}});
+    if(!r.ok) throw 0;
+    const list=(await r.json()).achievements;
+    const n=list.filter(b=>b.earned).length;
+    document.getElementById("count").style.display="block";
+    document.getElementById("countTxt").textContent=n+" of "+list.length+" unlocked";
+    document.getElementById("countBar").style.width=Math.round(n/list.length*100)+"%";
+    grid.innerHTML=list.map(b=>'<div class="fx-badge '+(b.earned?'earned':'locked')+'"><div class="ic">'+b.icon+'</div><div class="bt">'+b.title+'</div><div class="bs">'+b.sub+'</div>'+(b.earned?'':'<div class="bar"><div style="width:'+Math.round(b.value/b.target*100)+'%"></div></div><div class="bs">'+b.value+' / '+b.target+'</div>')+'</div>').join("");
+    grid.querySelectorAll(".fx-badge.earned").forEach(el=>el.addEventListener("click",()=>sparkle(el)));
+    if(n===0) document.getElementById("sub").textContent="Your first badge is one lesson away. Go get it!";
+  }catch(e){
+    grid.innerHTML='<div class="fx-empty" style="grid-column:1/-1">Your first badge is one lesson away. Finish one and it pops up here. ✨</div>';
   }
 });
 </script>
 </body>
 </html>
-
-
-
-

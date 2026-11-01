@@ -129,7 +129,17 @@ function render(st) {
   ticker(st);
 }
 
+function applyProfile(user) {
+  const name = user.displayName || "";
+  if (name) $$(".dash-profile-name").forEach((n) => (n.textContent = name));
+  $$(".dash-avatar").forEach((a) => {
+    if (user.photoURL) { a.textContent = ""; const i = document.createElement("img"); i.alt = ""; i.src = user.photoURL; a.appendChild(i); }
+    else if (name) a.textContent = name.charAt(0).toUpperCase();
+  });
+}
+
 auth.onAuthStateChanged(async (user) => {
+  if (user) applyProfile(user);
   if (!user || started) return; started = true;
   try { render(await load(user)); } catch (e) { console.warn("dashboard-live:", e); fallbackTicker(); }
   document.addEventListener("visibilitychange", async () => {
