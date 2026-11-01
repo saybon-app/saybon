@@ -47,3 +47,9 @@ html, body{
   .dash-card, .dash-card .emoji, .dash-card.dp-wiggle .emoji{ animation:none !important; }
   .dash-card{ transition:none; }
 }
+/* dashboard photo: classroom image under a deep teal overlay. Delete this block to undo. */
+html, body{
+  background:
+    linear-gradient(rgba(4,33,47,.80), rgba(8,64,90,.74)),
+    url("/assets/dashboard/1.jpg") center / cover no-repeat fixed !important;
+}
