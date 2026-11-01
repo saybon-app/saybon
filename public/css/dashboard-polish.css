@@ -53,3 +53,12 @@ html, body{
     linear-gradient(rgba(4,33,47,.80), rgba(8,64,90,.74)),
     url("/assets/dashboard/1.jpg") center / cover no-repeat fixed !important;
 }
+/* opaque tiles: same hues as before, fill raised from ~50% to ~90%. Delete this block to undo. */
+.card-levels{ background: linear-gradient(135deg, rgba(230,168,196,.93), rgba(201,126,163,.87)); }
+.card-talkletics{ background: linear-gradient(135deg, rgba(29,92,71,.95), rgba(15,61,48,.90)); }
+.card-music{ background: linear-gradient(135deg, rgba(240,145,106,.93), rgba(224,122,82,.87)); }
+.card-delf{ background: linear-gradient(135deg, rgba(78,203,176,.93), rgba(47,168,143,.87)); }
+.card-translation{ background: linear-gradient(135deg, rgba(224,169,74,.93), rgba(199,141,46,.87)); }
+.card-chat{ background: linear-gradient(135deg, rgba(147,112,201,.93), rgba(112,80,168,.87)); }
+.card-feedback{ background: linear-gradient(135deg, rgba(217,87,143,.93), rgba(184,61,112,.87)); }
+.card-support{ background: linear-gradient(135deg, rgba(74,144,217,.93), rgba(48,112,184,.87)); }
