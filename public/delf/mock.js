@@ -160,7 +160,7 @@ function speak(t, cb) {
 function runPO() {
   setBar(S.sec); const sp = S.mock.spec, parts = S.mock.po.parts;
   if (sp.prep && S.timed) {
-    root.innerHTML = steps() + '<div class="mk-card"><h2>Preparation time</h2><p class="mk-instr">In the real exam you have ' + sp.prep + ' minutes to prepare. Look at the role-play card below, then continue when ready.</p>' + parts.filter(p => p.card).map(p => '<div class="mk-ex"><b>' + esc(p.title) + "</b><br>" + esc(p.card.instr) + (p.card.words ? "<br>" + p.card.words.map(esc).join(" · ") : "") + "</div>").join("") + '<div class="mk-row"><button class="mk-btn" id="mkNext">I am ready</button></div></div>';
+    root.innerHTML = steps() + '<div class="mk-card"><h2>Preparation time</h2><p class="mk-instr">In the real exam you have ' + sp.prep + ' minutes to prepare. Look at the role-play card below, then continue when ready.</p>' + parts.filter(p => p.card).map(p => '<div class="mk-ex"><b>' + esc(p.title) + "</b><br>" + esc(p.card.instr) + (p.card.words ? "<br>" + p.card.words.map(esc).join(" · ") : "") + (p.card.doc ? '<div class="mk-doc">' + esc(p.card.doc) + "</div>" : "") + "</div>").join("") + '<div class="mk-row"><button class="mk-btn" id="mkNext">I am ready</button></div></div>';
     startTimer(sp.prep, () => poParts(parts)); document.getElementById("mkNext").onclick = () => poParts(parts); return;
   }
   poParts(parts);
@@ -171,14 +171,15 @@ function poParts(parts) {
   const show = () => {
     const p = parts[pi], t = p.turns[ti]; const last = pi === parts.length - 1 && ti === p.turns.length - 1;
     root.innerHTML = steps() + '<div class="mk-card"><p class="mk-small">Part ' + (pi + 1) + " of " + parts.length + " · turn " + (ti + 1) + " of " + p.turns.length + "</p><h2>" + esc(p.title) + "</h2>" +
-      (p.card ? '<div class="mk-ex">' + esc(p.card.instr) + (p.card.words ? "<br><b>" + p.card.words.map(esc).join(" · ") + "</b>" : "") + "</div>" : "") +
+      (p.card ? '<div class="mk-ex">' + esc(p.card.instr) + (p.card.words ? "<br><b>" + p.card.words.map(esc).join(" · ") + "</b>" : "") + "</div>" + (p.card.doc ? '<div class="mk-doc">' + esc(p.card.doc) + "</div>" : "") : "") +
       '<div class="mk-says"><b>Examiner:</b> ' + esc(t.ex) + '</div><div class="mk-row"><button class="mk-btn ghost" id="mkRepeat">🔊 Hear again</button></div>' + (t.hint ? '<p class="mk-hint">' + esc(t.hint) + "</p>" : "") +
-      '<button class="mk-rec" id="mkRec" aria-label="Record">🎙</button><p class="mk-small" style="text-align:center" id="mkSt">Tap to answer (up to 40 seconds), tap again to stop.</p><div id="mkTr"></div>' +
-      '<div class="mk-row"><button class="mk-btn ghost" id="mkType">Type instead</button><button class="mk-btn" id="mkNx" disabled>' + (last ? "Finish speaking" : "Next") + "</button></div></div>";
+      '<button class="mk-rec" id="mkRec" aria-label="Record">🎙</button><p class="mk-small" style="text-align:center" id="mkSt">Tap to answer, tap again to stop. For a long answer you can record several times.</p><div id="mkTr"></div>' +
+      '<div class="mk-row"><button class="mk-btn ghost" id="mkClear">Clear</button><button class="mk-btn ghost" id="mkType">Type instead</button><button class="mk-btn" id="mkNx" disabled>' + (last ? "Finish speaking" : "Next") + "</button></div></div>";
     let answer = "", rec = null, chunks = [], stream = null, auto = null;
     const setAns = a => { answer = a; document.getElementById("mkTr").innerHTML = a ? '<div class="mk-says"><b>You:</b> ' + esc(a) + "</div>" : ""; document.getElementById("mkNx").disabled = !a; };
     document.getElementById("mkRepeat").onclick = () => speak(t.ex);
-    document.getElementById("mkType").onclick = () => { const a = prompt("Type your answer in French"); if (a) setAns(a.trim()); };
+    document.getElementById("mkClear").onclick = () => { setAns(""); };
+    document.getElementById("mkType").onclick = () => { const a = prompt("Type your answer in French"); if (a) setAns((answer ? answer + " " : "") + a.trim()); };
     document.getElementById("mkRec").onclick = async function () {
       const b = this, st = document.getElementById("mkSt");
       if (rec && rec.state === "recording") { clearTimeout(auto); rec.stop(); return; }
@@ -190,10 +191,10 @@ function poParts(parts) {
           const wav = await lsToWav(new Blob(chunks, { type: rec.mimeType || "audio/webm" }));
           const r = await fetch(API_BASE + "/api/delfTranscribe", { method: "POST", body: wav }); const j = await r.json();
           if (j.error) throw new Error(j.error); if (!j.text) { st.textContent = "I could not hear you clearly. Try again or type."; return; }
-          st.textContent = "Got it. Record again to replace, or continue."; setAns(j.text);
+          st.textContent = "Got it. Record again to add more, or continue."; setAns(answer ? answer + " " + j.text : j.text);
         } catch (e) { st.textContent = "Could not process the recording. Try again or use “Type instead”."; }
       };
-      rec.start(); b.classList.add("on"); st.textContent = "Recording… tap to stop."; auto = setTimeout(() => rec.state === "recording" && rec.stop(), 40000);
+      rec.start(); b.classList.add("on"); st.textContent = "Recording… tap to stop."; auto = setTimeout(() => rec.state === "recording" && rec.stop(), 55000);
     };
     document.getElementById("mkNx").onclick = () => {
       S.po.turns.push({ part: p.title, examiner: t.ex, answer }); try { speechSynthesis.cancel(); } catch (e) { }
@@ -222,7 +223,7 @@ async function finish() {
   root.innerHTML = '<div class="mk-card"><h2>Marking your writing and speaking…</h2><p class="mk-instr">This takes about half a minute.</p></div>';
   const g = await gradeAll(); const m = S.mock;
   let pe = 0, peMax = 0, ok = true;
-  g.pe.forEach(x => { if (x.error || x.max == null) { ok = false; return; } pe += (x.total / x.max) * x.t.share; peMax += x.t.share; });
+  g.pe.forEach(x => { if (x.error || x.max == null) { ok = false; return; } pe += Math.min(1, Math.max(0, x.total / x.max)) * x.t.share; peMax += x.t.share; });
   const po = g.po && !g.po.error && g.po.max ? (g.po.total / g.po.max) * 25 : 0; if (!g.po || g.po.error) ok = false;
   S.results.pe = { score: Math.round(pe * 10) / 10, g: g.pe, failed: g.pe.some(x => x.error) }; S.results.po = { score: Math.round(po * 10) / 10, g: g.po };
   const sc = { co: S.results.co.score, ce: S.results.ce.score, pe: S.results.pe.score, po: S.results.po.score };
