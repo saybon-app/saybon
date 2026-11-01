@@ -22,8 +22,8 @@
 <script type="module">
 import { auth } from "/js/firebase-init.js";
 const API_BASE = "https://saybonapp-server.onrender.com";
-const CAT = { tp: ["Tout Public", ["a1", "a2", "b1", "b2"]], jr: ["Junior", ["a1", "a2", "b1", "b2"]], pr: ["Prim", ["a11", "a1", "a2"]] };
-const LN = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2" };
+const CAT = { tp: ["Tout Public", ["a1", "a2", "b1", "b2", "c1", "c2"]], jr: ["Junior", ["a1", "a2", "b1", "b2"]], pr: ["Prim", ["a11", "a1", "a2"]] };
+const LN = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2", c1: "C1 DALF", c2: "C2 DALF" };
 const st = { tr: new URLSearchParams(location.search).get("t") || "tp", lv: new URLSearchParams(location.search).get("l") || "a1", done: {} };
 async function hist() { try { const u = auth.currentUser; if (!u) return; const t = await u.getIdToken(); const r = await fetch(API_BASE + "/api/delfMockHistory", { headers: { Authorization: "Bearer " + t } }); const j = await r.json(); (j.items || []).forEach(x => { const o = st.done[x.mockId]; if (!o || x.total > o) st.done[x.mockId] = x.total; }); } catch (e) { } }
 async function avail(tr, lv) { try { const r = await fetch("/delf/mocks/data/" + tr + "-" + lv + ".json?v=1"); if (!r.ok) return null; return await r.json(); } catch (e) { return null; } }
@@ -33,7 +33,7 @@ async function draw() {
   document.getElementById("lv").innerHTML = lvs.map(l => '<button class="' + (l === st.lv ? "on" : "") + '" data-l="' + l + '">' + LN[l] + "</button>").join("");
   const data = await avail(st.tr, st.lv), box = document.getElementById("list"), note = document.getElementById("note");
   if (!data) { box.innerHTML = ""; note.textContent = "These mock exams are coming soon."; return; }
-  note.textContent = "Pass: 50/100 overall and at least 5/25 in each paper.";
+  note.textContent = st.lv === "c2" ? "Pass: 50/100 overall and at least 10/50 in each of the two papers." : "Pass: 50/100 overall and at least 5/25 in each paper.";
   box.innerHTML = data.map(m => '<a href="/delf/mock.html?id=' + m.id + '" class="' + (st.done[m.id] != null ? "done" : "") + '"><b>Mock ' + m.n + "</b>" + m.theme + (st.done[m.id] != null ? '<br><span class="mk-small">Best: ' + st.done[m.id] + " / 100</span>" : "") + "</a>").join("");
 }
 document.addEventListener("click", e => { const b = e.target.closest("button[data-t],button[data-l]"); if (!b) return; if (b.dataset.t) st.tr = b.dataset.t; if (b.dataset.l) st.lv = b.dataset.l; draw(); });

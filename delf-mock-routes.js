@@ -35,14 +35,14 @@ module.exports = function mountDelfMockRoutes(app, deps) {
   });
 
   // Rubric grading of a written or spoken production.
-  app.post("/api/gradeDelfMock", express.json({ limit: "200kb" }), async (req, res) => {
+  app.post("/api/gradeDelfMock", express.json({ limit: "400kb" }), async (req, res) => {
     try {
       const b = req.body || {};
       const rubric = RUBRICS[b.rubric];
       if (!rubric) return res.status(400).json({ error: "unknown rubric" });
       const responses = Array.isArray(b.responses) ? b.responses.slice(0, 8) : [];
       const text = responses.map(function (r, i) {
-        return "TASK " + (i + 1) + ": " + String(r.task || "").slice(0, 600) + "\nCANDIDATE " + (rubric.kind === "po" ? "(speech transcript)" : "") + ": " + String(r.response || "").slice(0, 4000);
+        return "TASK " + (i + 1) + ": " + String(r.task || "").slice(0, 7000) + "\nCANDIDATE " + (rubric.kind === "po" ? "(speech transcript)" : "") + ": " + String(r.response || "").slice(0, 9000);
       }).join("\n\n");
       if (!text.trim() || responses.every(function (r) { return !String(r.response || "").trim(); })) {
         return res.json(zero(rubric, "No answer was given."));
@@ -85,7 +85,7 @@ module.exports = function mountDelfMockRoutes(app, deps) {
       const uid = await getUid(req);
       if (!uid) return res.status(401).json({ error: "authentication required" });
       const b = req.body || {};
-      if (!/^(tp|jr|pr)-(a11|a1|a2|b1|b2)-\d{2}$/.test(String(b.mockId || ""))) return res.status(400).json({ error: "bad mock id" });
+      if (!/^(tp|jr|pr)-(a11|a1|a2|b1|b2|c1|c2)-\d{2}$/.test(String(b.mockId || ""))) return res.status(400).json({ error: "bad mock id" });
       const num = function (x) { x = Number(x); return isFinite(x) ? Math.max(0, Math.min(25, Math.round(x * 10) / 10)) : 0; };
       const sc = { co: num(b.scores && b.scores.co), ce: num(b.scores && b.scores.ce), pe: num(b.scores && b.scores.pe), po: num(b.scores && b.scores.po) };
       const total = Math.round((sc.co + sc.ce + sc.pe + sc.po) * 10) / 10;

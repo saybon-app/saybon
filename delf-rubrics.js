@@ -59,5 +59,40 @@ module.exports = {
     C("lexique","Vocabulary",4,"Wide, precise vocabulary."),
     C("morpho","Grammar",4,"Varied, accurate structures including complex ones."),
     C("coherence","Fluency and cohesion",3,"Speaks fluently with natural connectors."),
-    C("phono","Pronunciation and intonation",3,"Clear, natural intonation.") ] }
+    C("phono","Pronunciation and intonation",3,"Clear, natural intonation.") ] },
+  "pe-c1-synth": { kind:"pe", level:"c1", label:"Synthèse de documents", criteria:[
+    C("consigne","Task respected (about 160-180 words, neutral, no personal opinion, documents all used)",3,"Right length, impersonal and neutral, no copying of sentences, all documents taken into account."),
+    C("selection","Selection, hierarchy and reformulation of the information",5,"Main ideas selected and ranked; information reformulated in own words, not copied; no invented content."),
+    C("coherence","Organisation, coherence and cohesion",3,"Clear plan, logical progression, varied connectors, paragraphs."),
+    C("lexique","Vocabulary",2,"Precise abstract vocabulary, paraphrase of the documents' terms."),
+    C("morpho","Grammar and spelling",2,"Complex structures controlled; rare slips only.") ] },
+  "pe-c1-essay": { kind:"pe", level:"c1", label:"Essai argumenté", criteria:[
+    C("consigne","Task respected (250+ words, argued, personal position, relevant to the subject)",3,"Takes a clear position on the question and answers it throughout."),
+    C("argumentation","Argumentation and examples",4,"Developed arguments, concrete examples, counter-argument considered, convincing conclusion."),
+    C("coherence","Organisation, coherence and cohesion",3,"Clear introduction, development and conclusion; fluent linking of ideas."),
+    C("lexique","Range and precision of vocabulary",3,"Wide, precise, idiomatic vocabulary suited to an argumentative text."),
+    C("morpho","Grammar, syntax and spelling",3,"Wide range of complex structures (subjunctive, concession, hypothesis) accurately used.") ] },
+  "pe-c2": { kind:"pe", level:"c2", label:"Texte structuré à partir d'un dossier", criteria:[
+    C("consigne","Task respected (text type, addressee, purpose, length)",4,"Writes the requested type of text (article, editorial, report or speech) for the right readership and purpose."),
+    C("information","Use of the dossier: selection, synthesis and reformulation",6,"Draws on all the documents, ranks and combines the information, reformulates, never copies; accurate."),
+    C("argumentation","Point of view and argumentation",5,"Developed, nuanced and original argumentation; counter-arguments; clear stance."),
+    C("coherence","Structure, coherence and cohesion",5,"Sophisticated plan, subtle cohesion, effective introduction and conclusion."),
+    C("socio","Register and style",3,"Register matched to the text type and readers; stylistic control (rhetorical devices, nuance)."),
+    C("lexique","Vocabulary",4,"Very wide, precise and idiomatic vocabulary; fine shades of meaning."),
+    C("morpho","Grammar, syntax and spelling",3,"Consistently accurate, complex syntax; errors are rare and minor.") ] },
+  "po-c1": { kind:"po", level:"c1", label:"Exposé et débat", criteria:[
+    C("expose","Exposé: identifies the issue, structures, argues (about 10 min worth of content)",6,"Clear problématique, structured plan, developed arguments and a conclusion."),
+    C("debat","Debate: reacting, defending a view, nuance",5,"Replies precisely to the examiner, defends and nuances a position, picks up counter-arguments."),
+    C("lexique","Vocabulary",4,"Wide and precise, abstract terms and idioms."),
+    C("morpho","Grammar and syntax",4,"Complex structures well controlled."),
+    C("coherence","Fluency and cohesion",3,"Speaks fluently and spontaneously, natural connectors."),
+    C("phono","Pronunciation and intonation",3,"Clear, natural, expressive.") ] },
+  "po-c2": { kind:"po", level:"c2", label:"Synthèse orale, point de vue et débat", criteria:[
+    C("synthese","Summary of the sound document: accuracy and conciseness",5,"Faithful, well-ranked summary of the content, no distortion."),
+    C("pointdevue","Developing a point of view on the issue raised",6,"Original, structured argued position that goes beyond the document."),
+    C("debat","Debate with the jury: reaction, defence, nuance",5,"Spontaneous, precise replies; defends and refines arguments; handles objections."),
+    C("lexique","Vocabulary",3,"Very wide, precise and idiomatic; fine shades of meaning."),
+    C("morpho","Grammar and syntax",3,"Consistently accurate with complex sentences."),
+    C("socio","Register and style",1,"Register and rhetoric suited to a formal discussion."),
+    C("phono","Fluency, pronunciation and intonation",2,"Natural, fluent, expressive delivery.") ] }
 };

@@ -5,8 +5,10 @@ const bar = document.getElementById("mkBar");
 const qs = new URLSearchParams(location.search);
 const mockId = qs.get("id") || "";
 const TRACKS = { tp: "Tout Public", jr: "Junior", pr: "Prim" };
-const LV = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2" };
-const SECS = [["co", "Listening", "Compréhension de l'oral"], ["ce", "Reading", "Compréhension des écrits"], ["pe", "Writing", "Production écrite"], ["po", "Speaking", "Production orale"]];
+const LV = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2", c1: "C1 DALF", c2: "C2 DALF" };
+const SECS4 = [["co", "Listening", "Compréhension de l'oral"], ["ce", "Reading", "Compréhension des écrits"], ["pe", "Writing", "Production écrite"], ["po", "Speaking", "Production orale"]];
+const SECS_C2 = [["pe", "Written paper", "Compréhension et production écrites"], ["co", "Sound document", "Document sonore"], ["po", "Oral paper", "Compréhension et production orales"]];
+let SECS = SECS4;
 const S = { mock: null, timed: true, sec: -1, answers: {}, plays: {}, pe: {}, po: {}, timer: null, left: 0, results: {} };
 
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -16,7 +18,7 @@ function words(t) { return (String(t).trim().match(/\S+/g) || []).length; }
 async function token() { try { return auth && auth.currentUser ? await auth.currentUser.getIdToken() : null; } catch (e) { return null; } }
 
 async function load() {
-  const m = /^(tp|jr|pr)-(a11|a1|a2|b1|b2)-(\d{2})$/.exec(mockId);
+  const m = /^(tp|jr|pr)-(a11|a1|a2|b1|b2|c1|c2)-(\d{2})$/.exec(mockId);
   if (!m) return fail("This exam link is not valid.");
   try {
     const r = await fetch("/delf/mocks/data/" + m[1] + "-" + m[2] + ".json?v=1");
@@ -24,6 +26,7 @@ async function load() {
     const arr = await r.json();
     S.mock = arr.find(x => x.id === mockId);
     if (!S.mock) throw 0;
+    if (S.mock.scheme === "c2") SECS = SECS_C2;
   } catch (e) { return fail("This mock exam is not available yet."); }
   intro();
 }
@@ -40,8 +43,10 @@ function intro() {
   setBar(-1);
   root.innerHTML = '<p class="mk-eyebrow">' + esc(TRACKS[m.track]) + ' · ' + LV[m.level] + ' · Mock ' + m.n + '</p>' +
     '<h1 class="mk-title">' + esc(m.theme) + '</h1><p class="mk-sub">' + esc(m.themeEn) + ' — a full practice exam in the official DELF format.</p>' +
-    '<div class="mk-card"><h2>The four papers</h2><p class="mk-instr">Each paper is marked out of 25. To pass you need 50/100 in total and at least 5/25 in every paper.</p>' +
-    SECS.map((s, i) => '<p><b>' + s[1] + '</b> — ' + s[2] + ' · <span class="mk-small">' + (i === 3 ? sp.po + ' min' + (sp.prep ? " + " + sp.prep + " min preparation" : "") : sp[s[0]] + ' min') + '</span></p>').join("") +
+    (m.scheme === "c2"
+      ? '<div class="mk-card"><h2>The two papers</h2><p class="mk-instr">The DALF C2 has two papers, each marked out of 50. To pass you need 50/100 in total and at least 10/50 in each paper.</p><p><b>Written paper</b> — read the dossier of documents, then write a structured text (article, editorial, report or speech) · <span class="mk-small">' + sp.pe + ' min</span></p><p><b>Oral paper</b> — hear a sound document twice, prepare, then summarise it, develop your point of view and debate with the examiner · <span class="mk-small">' + sp.po + ' min + ' + sp.prep + ' min preparation</span></p>'
+      : '<div class="mk-card"><h2>The four papers</h2><p class="mk-instr">Each paper is marked out of 25. To pass you need 50/100 in total and at least 5/25 in every paper.</p>' +
+    SECS.map((s, i) => '<p><b>' + s[1] + '</b> — ' + s[2] + ' · <span class="mk-small">' + (s[0] === "po" ? sp.po + ' min' + (sp.prep ? " + " + sp.prep + " min preparation" : "") : sp[s[0]] + ' min') + '</span></p>').join("")) +
     '</div><div class="mk-card"><h2>Before you start</h2><p class="mk-instr">Use a quiet room and headphones. Listening documents play twice only. For the speaking paper your microphone must be allowed. Your writing and speaking are marked by AI against the official grid, so treat the feedback as a close guide, not an official result.</p>' +
     '<label class="mk-small"><input type="checkbox" id="mkTimed" checked> Exam conditions (timed). Untick for relaxed practice.</label>' +
     '<div class="mk-row"><button class="mk-btn" id="mkGo">Start the exam</button></div></div>';
@@ -54,7 +59,7 @@ function startTimer(min, onEnd) {
   S.left = min * 60; el.textContent = fmt(S.left);
   S.timer = setInterval(() => { S.left--; el.textContent = fmt(S.left); el.classList.toggle("low", S.left <= 60); if (S.left <= 0) { clearInterval(S.timer); onEnd(true); } }, 1000);
 }
-function next() { clearInterval(S.timer); stopAudio(); S.sec++; window.__mkBusy = S.sec <= 3; if (S.sec > 3) return finish(); const k = SECS[S.sec][0]; ({ co: runObj, ce: runObj, pe: runPE, po: runPO })[k](k); window.scrollTo(0, 0); }
+function next() { clearInterval(S.timer); stopAudio(); S.sec++; window.__mkBusy = S.sec < SECS.length; if (S.sec >= SECS.length) return finish(); const k = SECS[S.sec][0]; ({ co: runObj, ce: runObj, pe: runPE, po: runPO })[k](k); window.scrollTo(0, 0); }
 
 /* ---------- objective papers ---------- */
 function qHtml(q, ex) {
@@ -90,7 +95,7 @@ function score(k) {
     if (q.type === "fill") ok = q.accepted.some(x => norm(x) === norm(a)); else ok = a === q.ans;
     if (ok) got += q.w; review.push({ ex, q, a, ok });
   }));
-  S.results[k] = { raw: got, total: part.totalW, score: Math.round((got / part.totalW) * 25 * 10) / 10, review };
+  S.results[k] = { raw: got, total: part.totalW, score: part.totalW ? Math.round((got / part.totalW) * 25 * 10) / 10 : 0, review };
 }
 
 /* ---------- listening audio ---------- */
@@ -128,7 +133,7 @@ const ACC = ["é", "è", "ê", "à", "â", "ç", "î", "ï", "ô", "ù", "û", "
 function runPE() {
   setBar(S.sec); const tasks = S.mock.pe.tasks; let h = steps();
   tasks.forEach(t => {
-    h += '<div class="mk-card"><h2>' + esc(t.title) + '</h2><p class="mk-instr">' + esc(t.instr) + "</p>";
+    h += '<div class="mk-card"><h2>' + esc(t.title) + '</h2>' + (t.docs || []).map(docHtml).join("") + '<p class="mk-instr">' + esc(t.instr) + "</p>";
     if (t.type === "form") t.fields.forEach(f => h += '<div class="mk-field"><label>' + esc(f.l) + '</label><input class="mk-fill pe-f" data-t="' + t.id + '" data-k="' + f.k + '"></div>');
     else h += '<div class="mk-acc">' + ACC.map(c => '<button type="button" data-ch="' + c + '">' + c + "</button>").join("") + '</div><textarea class="mk-ta pe-t" data-t="' + t.id + '" placeholder="Écrivez ici…"></textarea><div class="mk-wc" data-wc="' + t.id + '">0 / ' + t.min + " words minimum</div>";
     h += "</div>";
@@ -208,13 +213,15 @@ function poParts(parts) {
 /* ---------- results ---------- */
 async function gradeAll() {
   const m = S.mock; const out = { pe: [], po: null };
+  const docsOf = t => (t.docs || []).length ? "\n\nDOCUMENTS:\n" + t.docs.map(d => d.title + "\n" + d.body).join("\n\n") : "";
   const call = (rubric, responses) => fetch(API_BASE + "/api/gradeDelfMock", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rubric, responses }) }).then(r => r.json());
   for (const t of m.pe.tasks) {
     const resp = t.type === "form" ? m.pe.tasks.find(x => x.id === t.id).fields.map(f => f.l + ": " + ((S.pe[t.id] || {})[f.k] || "")).join("\n") : (S.pe[t.id] || "");
-    try { const g = await call(t.rubric, [{ task: t.instr, response: resp }]); out.pe.push(Object.assign({ t }, g)); } catch (e) { out.pe.push({ t, error: true }); }
+    try { const g = await call(t.rubric, [{ task: t.instr + docsOf(t), response: resp }]); out.pe.push(Object.assign({ t }, g)); } catch (e) { out.pe.push({ t, error: true }); }
   }
   const tr = S.po.turns || [];
-  const poR = tr.map(x => ({ task: x.part + " — examiner: " + x.examiner, response: x.answer }));
+  const src = (m.scheme === "c2" && m.co.exercises[0] ? "\n\nSOUND DOCUMENT (transcript):\n" + m.co.exercises[0].audio.lines.map(l => l.t).join(" ") : "") + m.po.parts.filter(p => p.card && p.card.doc).map(p => "\n\nDOCUMENT:\n" + p.card.doc).join("");
+  const poR = tr.map((x, i) => ({ task: (i === 0 ? "Source material for the oral task:" + src + "\n\n" : "") + x.part + " — examiner: " + x.examiner, response: x.answer }));
   try { out.po = await call("po-" + m.level, poR); } catch (e) { out.po = { error: true }; }
   return out;
 }
@@ -224,10 +231,11 @@ async function finish() {
   const g = await gradeAll(); const m = S.mock;
   let pe = 0, peMax = 0, ok = true;
   g.pe.forEach(x => { if (x.error || x.max == null) { ok = false; return; } pe += Math.min(1, Math.max(0, x.total / x.max)) * x.t.share; peMax += x.t.share; });
-  const po = g.po && !g.po.error && g.po.max ? (g.po.total / g.po.max) * 25 : 0; if (!g.po || g.po.error) ok = false;
+  const SC = m.scheme === "c2" ? 50 : 25;
+  const po = g.po && !g.po.error && g.po.max ? Math.min(1, Math.max(0, g.po.total / g.po.max)) * SC : 0; if (!g.po || g.po.error) ok = false;
   S.results.pe = { score: Math.round(pe * 10) / 10, g: g.pe, failed: g.pe.some(x => x.error) }; S.results.po = { score: Math.round(po * 10) / 10, g: g.po };
-  const sc = { co: S.results.co.score, ce: S.results.ce.score, pe: S.results.pe.score, po: S.results.po.score };
-  const total = Math.round((sc.co + sc.ce + sc.pe + sc.po) * 10) / 10; const pass = total >= 50 && Object.values(sc).every(v => v >= 5);
+  const sc = m.scheme === "c2" ? { pe: S.results.pe.score, po: S.results.po.score } : { co: S.results.co.score, ce: S.results.ce.score, pe: S.results.pe.score, po: S.results.po.score };
+  const total = Math.round(Object.values(sc).reduce((a, b) => a + b, 0) * 10) / 10; const pass = total >= 50 && Object.values(sc).every(v => v >= (m.scheme === "c2" ? 10 : 5));
   S.final = { sc, total, pass, ok };
   let saved = null; const tk = await token();
   if (tk && ok) { try { const r = await fetch(API_BASE + "/api/delfMockSave", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + tk }, body: JSON.stringify({ mockId: m.id, scores: sc, feedback: { pe: g.pe.map(x => ({ total: x.total, max: x.max, strengths: x.strengths, improvements: x.improvements })), po: g.po && { total: g.po.total, max: g.po.max, strengths: g.po.strengths, improvements: g.po.improvements } }, answers: { co: Object.keys(S.answers).length, pe: S.pe, po: S.po } }) }); saved = (await r.json()).ok; } catch (e) { saved = false; } }
@@ -235,22 +243,22 @@ async function finish() {
 }
 function results(saved) {
   const f = S.final, m = S.mock;
-  const tiles = SECS.map(s => '<div class="mk-tile ' + (f.sc[s[0]] < 5 ? "low" : "") + '"><span class="mk-small">' + s[1] + '</span><b>' + f.sc[s[0]] + '</b><span class="mk-small">/ 25</span></div>').join("");
-  root.innerHTML = '<p class="mk-eyebrow">Your result</p><div class="mk-card" style="text-align:center"><div class="mk-score">' + f.total + '<span style="font-size:1.4rem"> / 100</span></div><p style="margin:10px 0"><span class="mk-pass ' + (f.pass ? "y" : "n") + '">' + (f.pass ? "PASS LEVEL" : "NOT YET") + "</span></p><p class='mk-small'>Pass mark: 50/100 overall and at least 5/25 in each paper.</p><div class='mk-grid4'>" + tiles + "</div>" +
+  const tiles = SECS.filter(s => f.sc[s[0]] != null).map(s => '<div class="mk-tile ' + (f.sc[s[0]] < (m.scheme === "c2" ? 10 : 5) ? "low" : "") + '"><span class="mk-small">' + s[1] + '</span><b>' + f.sc[s[0]] + '</b><span class="mk-small">/ ' + (m.scheme === "c2" ? 50 : 25) + '</span></div>').join("");
+  root.innerHTML = '<p class="mk-eyebrow">Your result</p><div class="mk-card" style="text-align:center"><div class="mk-score">' + f.total + '<span style="font-size:1.4rem"> / 100</span></div><p style="margin:10px 0"><span class="mk-pass ' + (f.pass ? "y" : "n") + '">' + (f.pass ? "PASS LEVEL" : "NOT YET") + "</span></p><p class='mk-small'>" + (m.scheme === "c2" ? "Pass mark: 50/100 overall and at least 10/50 in each paper." : "Pass mark: 50/100 overall and at least 5/25 in each paper.") + "</p><div class='mk-grid4'>" + tiles + "</div>" +
     (f.ok ? "" : '<p class="mk-small" style="color:var(--bad)">Some of your writing or speaking could not be marked (connection problem). That paper counts as 0 here. Please try again later.</p>') +
     (saved === true ? '<p class="mk-small">Saved to your DELF progress.</p>' : saved === false ? '<p class="mk-small">Could not save this result. Take a screenshot to keep it.</p>' : "") + "</div>" +
-    '<div class="tabs"><button class="on" data-tab="rv">Answers</button><button data-tab="wr">Writing</button><button data-tab="sp">Speaking</button></div><div id="mkTab"></div>' +
+    '<div class="tabs">' + (m.scheme === "c2" ? "" : '<button class="on" data-tab="rv">Answers</button>') + '<button data-tab="wr">Writing</button><button data-tab="sp">Speaking</button></div><div id="mkTab"></div>' +
     '<div class="mk-row"><button class="mk-btn" onclick="location.href=\'/delf/mocks.html\'">More mock exams</button><button class="mk-btn ghost" onclick="location.reload()">Retake</button></div>';
   const tab = k => {
     const d = document.getElementById("mkTab"); root.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === k)); let h = "";
     if (k === "rv") ["co", "ce"].forEach(sk => { h += '<div class="mk-card"><h2>' + SECS.find(s => s[0] === sk)[1] + " — " + S.results[sk].raw + " / " + S.results[sk].total + " points</h2>"; S.results[sk].review.forEach(r => { const q = r.q; const ans = q.type === "fill" ? q.accepted[0] : (typeof q.opts[q.ans] === "object" ? q.opts[q.ans].t : q.opts[q.ans]); const mine = r.a == null || r.a === "" ? "(no answer)" : q.type === "fill" ? r.a : (typeof q.opts[r.a] === "object" ? q.opts[r.a].t : q.opts[r.a]); h += '<div class="mk-q">' + esc(q.q) + '</div><div class="mk-opt ' + (r.ok ? "ok" : "bad") + '">' + (r.ok ? "✓ " : "✗ ") + esc(mine) + "</div>" + (r.ok ? "" : '<div class="mk-opt ok">✓ ' + esc(ans) + "</div>") + '<p class="mk-expl">' + esc(q.expl) + "</p>"; }); if (sk === "co") { h += "<h2 style='margin-top:20px'>Transcripts</h2>"; S.mock.co.exercises.forEach(ex => h += '<div class="mk-ex"><b>' + esc(ex.title) + "</b><br>" + ex.audio.lines.map(l => (l.v === "N" ? "<i>" + esc(l.t) + "</i>" : esc(l.v + " : " + l.t))).join("<br>") + "</div>"); } h += "</div>"; });
     if (k === "wr") S.results.pe.g.forEach(x => { h += '<div class="mk-card"><h2>' + esc(x.t.title) + "</h2>" + (x.error ? "<p class='mk-instr'>Could not be marked.</p>" : meters(x) + fb(x) + '<div class="mk-ex"><b>Model answer</b><br>' + esc(x.t.model) + "</div>") + "</div>"; });
-    if (k === "sp") { const g = S.results.po.g; h += '<div class="mk-card"><h2>Speaking</h2>' + (!g || g.error ? "<p class='mk-instr'>Could not be marked.</p>" : meters(g) + fb(g)) + "<h2 style='margin-top:16px'>What you said</h2>" + (S.po.turns || []).map(x => '<div class="mk-says"><b>' + esc(x.examiner) + "</b><br>" + esc(x.answer || "(no answer)") + "</div>").join("") + "<h2 style='margin-top:16px'>Model answers</h2>" + m.po.parts.map(p => p.turns.filter(t => t.reply).map(t => '<p class="mk-small">' + esc(t.ex) + " → <b>" + esc(t.reply) + "</b></p>").join("")).join("") + "</div>"; }
+    if (k === "sp") { const g = S.results.po.g; h += '<div class="mk-card"><h2>Speaking</h2>' + (!g || g.error ? "<p class='mk-instr'>Could not be marked.</p>" : meters(g) + fb(g)) + "<h2 style='margin-top:16px'>What you said</h2>" + (S.po.turns || []).map(x => '<div class="mk-says"><b>' + esc(x.examiner) + "</b><br>" + esc(x.answer || "(no answer)") + "</div>").join("") + (m.scheme === "c2" && m.co.exercises[0] ? "<h2 style='margin-top:16px'>Transcript of the sound document</h2><div class='mk-doc'>" + esc(m.co.exercises[0].audio.lines.map(l => l.t).join("\n\n")) + "</div>" : "") + "<h2 style='margin-top:16px'>Model answers</h2>" + m.po.parts.map(p => p.turns.filter(t => t.reply).map(t => '<p class="mk-small">' + esc(t.ex) + " → <b>" + esc(t.reply) + "</b></p>").join("")).join("") + "</div>"; }
     d.innerHTML = h;
   };
   const meters = g => (g.criteria || []).map(c => '<p class="mk-small">' + esc(c.l) + " — " + g.scores[c.k] + " / " + c.max + '</p><div class="mk-meter"><i style="width:' + Math.round(g.scores[c.k] / c.max * 100) + '%"></i></div>').join("");
   const fb = g => (g.strengths ? "<p><b>Strengths.</b> " + esc(g.strengths) + "</p>" : "") + (g.improvements ? "<p><b>To improve.</b> " + esc(g.improvements) + "</p>" : "") + (g.correction ? "<p class='mk-small'>Correction: <i>" + esc(g.correction) + "</i></p>" : "");
-  root.querySelectorAll(".tabs button").forEach(b => b.onclick = () => tab(b.dataset.tab)); tab("rv"); window.scrollTo(0, 0);
+  root.querySelectorAll(".tabs button").forEach(b => b.onclick = () => tab(b.dataset.tab)); tab(m.scheme === "c2" ? "wr" : "rv"); window.scrollTo(0, 0);
 }
 if ("speechSynthesis" in window) { try { speechSynthesis.getVoices(); } catch (e) { } }
 load();
