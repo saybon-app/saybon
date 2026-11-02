@@ -3008,13 +3008,8 @@ const accuracyScore = best.AccuracyScore || 0
 const fluencyScore = best.FluencyScore || 0
 const completenessScore = best.CompletenessScore || 0
 
-const finalScore = Math.round(
-
-accuracyScore * 0.5 +
-completenessScore * 0.2 +
-fluencyScore * 0.3
-
-)
+const rawScore = accuracyScore * 0.5 + completenessScore * 0.3 + fluencyScore * 0.2;
+const finalScore = rawScore <= 0 ? 0 : Math.min(100, Math.round(100 * Math.pow(rawScore / 100, 0.75)));
 
 const wordFeedback = (best.Words||[]).map(w => ({
 
