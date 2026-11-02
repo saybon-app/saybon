@@ -24,7 +24,15 @@ onAuthStateChanged(auth, async (user) => {
   }
   const d = await call(user, "GET", null, 6);      // nothing in this browser: ask the account
   if (d && d.level) {
-    try { sessionStorage.setItem("saybon_level", d.level); } catch (e) { }
+    try { sessionStorage.setItem("saybon_level", d.level); localStorage.removeItem("saybon_start_scratch"); } catch (e) { }
     show(d.level);
+    return;
+  }
+  // "Start from scratch" on the start page, and no level on the account yet: that means A0
+  let scratch = null; try { scratch = localStorage.getItem("saybon_start_scratch"); } catch (e) { }
+  if (d && scratch) {
+    try { sessionStorage.setItem("saybon_level", "A0"); localStorage.removeItem("saybon_start_scratch"); } catch (e) { }
+    show("A0");
+    call(user, "POST", { level: "A0" }, 5);
   }
 });

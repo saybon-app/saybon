@@ -1,4 +1,4 @@
-﻿function typeTitle(el, onDone){
+function typeTitle(el, onDone){
   if(!el) return;
   const text = el.getAttribute("data-text") || "";
   el.textContent = "";
@@ -92,7 +92,7 @@ paths.forEach(card => {
       }, 900);
       setTimeout(() => { shell.classList.add("start-shell-exit"); }, 1400);
       setTimeout(() => {
-        window.location.href = destinations[card.id];
+        try { if(card.id === "startScratch"){ localStorage.setItem("saybon_start_scratch","1"); } else { localStorage.removeItem("saybon_start_scratch"); } } catch(e){} window.location.href = destinations[card.id];
       }, 1700);
 
     }, 160);
