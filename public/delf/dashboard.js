@@ -143,6 +143,7 @@ var pollsLeft = 8;
 function hasPending(st){ return (st.attempts || []).slice(0, 2).some(function(a){ return effStatus(a, "writing") === "pending" || effStatus(a, "speaking") === "pending"; }); }
 
 function paint(user, st){
+  try{ if(st && (st.state !== "new" || (st.attempts && st.attempts.length))){ localStorage.setItem("saybon_delf_returning","1"); } }catch(e){}
   if(st.state === "new" && (!st.attempts || !st.attempts.length)){ location.replace("/delf/?landing=1"); return; }
   var pts = [];
   if(st.attempts && st.attempts.length){
