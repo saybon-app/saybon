@@ -29,7 +29,7 @@ const questions = [
   { id: 4, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Mes parents ___ à  Lyon, mais moi, j'habite à  Marseille. »", options: ["habite", "habites", "habitent", "habitez"], correct: 2 },
   { id: 5, level: "A1", type: "mc", prompt: "Read: « Sophie a deux frères. Le plus jeune a 8 ans. Son frère aîné a 6 ans de plus que lui. » Quel âge a le frère aîné ?", options: ["8 ans", "2 ans", "6 ans", "14 ans"], correct: 3 },
   { id: 6, level: "A1", type: "mc", prompt: "Complete the sentence correctly: « Il n'y a pas ___ pain dans le frigo. »", options: ["le", "du", "des", "de"], correct: 3 },
-  { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.webp", options: ["A","B","C","D"], correct: 0 },
+  { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.png", options: ["A","B","C","D"], correct: 0 },
   { id: 24, level: "A1", type: "typed", prompt: "Écris la forme correcte : « Je ___ (avoir) 20 ans. »", acceptableAnswers: ["ai"] },
   { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on « Good evening » en français ?", acceptableAnswers: ["bonsoir"] },
   { id: 102, level: "A1", type: "oral", prompt: "Say: J'ai vingt ans", expectedText: "J'ai vingt ans" },
@@ -479,7 +479,28 @@ async function convertOralBlobToWav(blob){
   var rendered = await offlineCtx.startRendering();
   var wavBuffer = encodeWAV(rendered.getChannelData(0), 16000);
   audioCtx.close();
-  return new Blob([wavBuffer], { type: "audio/wav" });
+  var ch = rendered.getChannelData(0), peak = 0;
+  for(var pi = 0; pi < ch.length; pi += 8){ var av = Math.abs(ch[pi]); if(av > peak) peak = av; }
+  var outBlob = new Blob([wavBuffer], { type: "audio/wav" });
+  outBlob._peak = peak;
+  outBlob._dur = decoded.duration;
+  return outBlob;
+}
+
+function oralRecordingTooQuiet(blob){
+  if(!blob || blob.size < 6000) return true;
+  if(typeof blob._peak === "number" && blob._peak < 0.012) return true;
+  return false;
+}
+
+function oralRetryUi(message){
+  var btn = document.getElementById("oralRecordBtn");
+  var status = document.getElementById("oralRecordStatus");
+  oralRecordedBlob = null;
+  if(btn){ btn.style.display = "inline-block"; btn.disabled = false; btn.textContent = "\u25CF  Record"; }
+  document.getElementById("oralPlaybackRow").style.display = "none";
+  document.getElementById("oralSubmitBtn").disabled = true;
+  if(status) status.textContent = message;
 }
 
 function setupOralRecording(){
@@ -562,6 +583,10 @@ function toggleOralRecording(){
         status.textContent = "Processing recording...";
 
         convertOralBlobToWav(rawBlob).then(function(wavBlob){
+          if(oralRecordingTooQuiet(wavBlob)){
+            oralRetryUi("We could not hear anything. Check your microphone, speak a little closer, and record again.");
+            return;
+          }
           oralRecordedBlob = wavBlob;
           var rBtn = document.getElementById("oralRecordBtn");
           rBtn.style.display = "none";
@@ -571,6 +596,7 @@ function toggleOralRecording(){
           status.textContent = "Recording captured";
         }).catch(function(err){
           console.error("WAV conversion failed:", err);
+          if(rawBlob.size < 2000){ oralRetryUi("We could not hear anything. Check your microphone and record again."); return; }
           oralRecordedBlob = rawBlob;
           var rBtn2 = document.getElementById("oralRecordBtn");
           rBtn2.style.display = "none";
@@ -651,15 +677,37 @@ function submitOralRecording(){
   submitBtn.disabled = true;
   submitBtn.textContent = "Scoring...";
 
+  function failUi(reason){
+    feedbackEl.style.display = "block";
+    feedbackEl.innerHTML =
+      '<div style="font-size:.95rem;margin-bottom:10px;">' + reason + '</div>' +
+      '<div class="oral-btn-row"><button class="option" id="oralTryAgainBtn">Try again</button> <button class="option" id="oralSkipBtn">Skip this one</button></div>';
+    submitBtn.textContent = "Submit";
+    document.getElementById("oralTryAgainBtn").onclick = function(){ feedbackEl.style.display = "none"; reRecordOral(); };
+    document.getElementById("oralSkipBtn").onclick = function(){ feedbackEl.style.display = "none"; advance(); };
+  }
+
   fetch("https://saybonapp-server.onrender.com/api/assessPronunciation?referenceText=" + encodeURIComponent(q.expectedText || ""), {
     method: "POST",
     body: oralRecordedBlob
-  }).then(function(res){ return res.json(); }).then(function(data){
-    var score = Math.round(data.finalScore ?? data.score ?? data.AccuracyScore ?? data.accuracyScore ?? 0);
+  }).then(function(res){
+    return res.json().catch(function(){ return {}; }).then(function(data){ return { ok: res.ok, data: data }; });
+  }).then(function(r){
+    var data = r.data || {};
+    var raw = data.finalScore != null ? data.finalScore : (data.score != null ? data.score : (data.AccuracyScore != null ? data.AccuracyScore : data.accuracyScore));
+    if(!r.ok || raw == null){
+      failUi(data.error ? String(data.error) : "We could not score that recording. Please try again.");
+      return;
+    }
+    var score = Math.round(Number(raw) || 0);
     var passed = score >= 70;
     var msg = passed
       ? oralPassMessages[Math.floor(Math.random() * oralPassMessages.length)]
       : oralEncourageMessages[Math.floor(Math.random() * oralEncourageMessages.length)];
+
+    if(passed) correctSoFar++;
+    updateScoreDisplay();
+    celebrateAnswer(passed, submitBtn);
 
     document.querySelectorAll("#options button").forEach(function(b){ b.disabled = true; });
 
@@ -673,9 +721,7 @@ function submitOralRecording(){
     }, 2500);
   }).catch(function(err){
     console.error(err);
-    feedbackEl.style.display = "block";
-    feedbackEl.textContent = "Could not score - moving on.";
-    setTimeout(function(){ advance(); }, 1800);
+    failUi("We could not reach the scoring service. Check your connection and try again.");
   });
 }
 
