@@ -143,6 +143,7 @@ var pollsLeft = 8;
 function hasPending(st){ return (st.attempts || []).slice(0, 2).some(function(a){ return effStatus(a, "writing") === "pending" || effStatus(a, "speaking") === "pending"; }); }
 
 function paint(user, st){
+  if(st.state === "new" && (!st.attempts || !st.attempts.length)){ location.replace("/delf/?landing=1"); return; }
   var pts = [];
   if(st.attempts && st.attempts.length){
     var base = st.attempts.filter(function(a){ return a.level === st.highestCleared; })[0] || st.attempts[0];
