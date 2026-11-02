@@ -7,6 +7,8 @@
 <title>DELF Exam Preparation - SayBon</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="delf.css?v=6">
+<style>html.dfhold{background:#1a120b}html.dfhold body{visibility:hidden}</style>
+<script>(function(){if(/[?&]landing=1/.test(location.search))return;var d=document.documentElement;try{if(localStorage.getItem("saybon_delf_returning")==="1"){location.replace("/delf/dashboard.html");return;}}catch(e){}d.classList.add("dfhold");window.dfReveal=function(){d.classList.remove("dfhold");};setTimeout(window.dfReveal,5000);})();</script>
 </head>
 <body>
 <div class="df-stage">
@@ -187,10 +189,10 @@
 if(!/[?&]landing=1/.test(location.search)){
   import("/js/firebase-init.js").then(function(m){
     m.auth.onAuthStateChanged(function(u){
-      if(!u) return;
+      if(!u){ if(window.dfReveal) window.dfReveal(); return; }
       u.getIdToken().then(function(t){ return fetch("https://saybonapp-server.onrender.com/api/delf/state",{headers:{Authorization:"Bearer "+t}}); })
         .then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(st){ if(st && st.state !== "new") location.replace("/delf/dashboard.html"); })
+        .then(function(st){ var back = !!(st && st.state !== "new"); try{ if(back){ localStorage.setItem("saybon_delf_returning","1"); } else if(st){ localStorage.removeItem("saybon_delf_returning"); } }catch(e){} if(back){ location.replace("/delf/dashboard.html"); } else if(window.dfReveal){ window.dfReveal(); } })
         .catch(function(){});
     });
   }).catch(function(){});
