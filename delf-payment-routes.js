@@ -6,6 +6,8 @@
 module.exports = function (app, ctx) {
   var admin = ctx.admin, db = ctx.db, express = ctx.express, logIncome = ctx.logIncome || null;
   var SITE = "https://saybonapp.com";
+  var ADMINS = ["saybon.fr@gmail.com", "adlaideduah@gmail.com"];
+  var isAdmin = function (who) { return !!(who && who.email && ADMINS.indexOf(String(who.email).toLowerCase()) >= 0); };
   // USD prices, as published on the DELF page
   var PRICES_USD = { a1: 12, a2: 17, b1: 25, b2: 29, c1: 34, prim: 12, junior: 12 };
   var LABELS = { a1: "DELF A1", a2: "DELF A2", b1: "DELF B1", b2: "DELF B2", c1: "DELF C1", prim: "DELF Prim", junior: "DELF Junior" };
@@ -42,9 +44,24 @@ module.exports = function (app, ctx) {
       var rate = await ghsRate(), acc = await owned(who.uid);
       res.json({
         rate: rate || null,
+        admin: isAdmin(who),
         items: ORDER.map(function (k) { return { exam: k, label: LABELS[k], usd: PRICES_USD[k], ghs: ghsFor(PRICES_USD[k], rate), owned: !!(acc[k] && acc[k].granted) }; })
       });
     } catch (e) { console.error("delf prices", e); res.status(500).json({ error: "could not load prices" }); }
+  });
+
+  // Admin-only switch: unlock (or lock again) a level for yourself without paying, to test the mocks.
+  app.post("/api/delf/admin-grant", express.json({ limit: "2kb" }), async function (req, res) {
+    var who = await uidFrom(req, res); if (!who) return;
+    if (!isAdmin(who)) return res.status(403).json({ error: "not allowed" });
+    try {
+      var exam = String((req.body && req.body.exam) || "").toLowerCase(), lock = !!(req.body && req.body.lock);
+      if (!PRICES_USD[exam]) return res.status(400).json({ error: "unknown level" });
+      var o = {};
+      o[exam] = lock ? { granted: false, revokedAt: admin.firestore.FieldValue.serverTimestamp() } : { granted: true, provider: "admin", sessionId: "admin", purchasedAt: admin.firestore.FieldValue.serverTimestamp() };
+      await db.collection("delfAccess").doc(who.uid).set(o, { merge: true });
+      res.json({ ok: true, exam: exam, granted: !lock });
+    } catch (e) { console.error("delf admin-grant", e); res.status(500).json({ error: "could not update access" }); }
   });
 
   app.post("/api/delf/checkout", express.json({ limit: "5kb" }), async function (req, res) {

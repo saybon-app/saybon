@@ -35,6 +35,7 @@ body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(1
 .pm-btn-secondary{background:rgba(255,255,255,.08);color:#f6f1e4;border:1px solid rgba(255,255,255,.18);}
 .pm-note{font-size:.76rem;color:#b9ab90;text-align:center;line-height:1.5;margin-top:6px;}
 .pm-status{font-size:.84rem;color:#f0b8a8;text-align:center;margin-top:12px;min-height:18px;}
+.pm-admin{margin-top:22px;padding:14px;border:1px dashed rgba(212,175,106,.4);border-radius:14px;}.pm-admin p{font-size:.74rem;color:#b9ab90;margin-bottom:10px;text-align:center;}.pm-admin .pm-btn{margin-bottom:8px;}
 .pm-msg{text-align:center;color:#b9ab90;padding:50px 0;font-size:.92rem;}
 </style>
 </head>
@@ -57,7 +58,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
 var body = document.getElementById("pmBody");
 var wanted = (new URLSearchParams(location.search).get("exam") || "").toLowerCase();
-var items = [], selected = null, currentUser = null;
+var items = [], selected = null, currentUser = null, isAdmin = false;
 var META = { a1:"Beginner", a2:"Elementary", b1:"Intermediate", b2:"Upper intermediate", c1:"Advanced", prim:"For children", junior:"For teenagers" };
 
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
@@ -77,10 +78,27 @@ function draw(){
     '<button class="pm-btn pm-btn-secondary" id="pmCedi"' + (cur && cur.ghs ? '' : ' disabled') + '>' + (cur && cur.ghs ? 'Pay ' + money(cur.ghs) + ' (mobile money or card)' : 'Pay in Ghana cedis') + '</button>' +
     '<p class="pm-note">You will be taken to a secure payment page. Your access is added to your dashboard as soon as the payment is confirmed.</p>' +
     '<p class="pm-status" id="pmStatus"></p></div>';
-  body.innerHTML = '<div class="pm-list">' + rows + '</div>' + pay;
+  var adm = isAdmin ? '<div class="pm-admin"><p>Admin only: test access without paying</p>' +
+    '<button class="pm-btn pm-btn-secondary" id="pmUnlock"' + (cur ? '' : ' disabled') + '>Unlock this level free</button>' +
+    '<button class="pm-btn pm-btn-secondary" id="pmLock"' + (items.filter(function(i){ return i.owned; }).length ? '' : ' disabled') + '>Lock a level again</button></div>' : '';
+  body.innerHTML = '<div class="pm-list">' + rows + '</div>' + pay + adm;
   Array.prototype.forEach.call(body.querySelectorAll(".pm-opt"), function(b){ b.onclick = function(){ selected = b.getAttribute("data-exam"); draw(); }; });
   document.getElementById("pmCard").onclick = function(){ go("stripe"); };
   document.getElementById("pmCedi").onclick = function(){ go("paystack"); };
+  if(isAdmin){
+    document.getElementById("pmUnlock").onclick = function(){ adminSet(selected, false); };
+    document.getElementById("pmLock").onclick = function(){ var o = items.filter(function(i){ return i.owned && (i.exam === selected || true); }); adminSet((o.filter(function(i){ return i.exam === selected; })[0] || o[0]).exam, true); };
+  }
+}
+function adminSet(exam, lock){
+  if(!exam || !currentUser) return;
+  document.getElementById("pmStatus").textContent = "Updating...";
+  currentUser.getIdToken().then(function(t){
+    return fetch(API_BASE + "/api/delf/admin-grant", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + t }, body: JSON.stringify({ exam: exam, lock: lock }) });
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d.ok){ items.forEach(function(i){ if(i.exam === exam) i.owned = !lock; }); if(!lock) selected = null; draw(); document.getElementById("pmStatus").textContent = (lock ? "Locked " : "Unlocked ") + exam.toUpperCase() + ". Open your dashboard to see it."; }
+    else document.getElementById("pmStatus").textContent = d.error || "Could not update.";
+  }).catch(function(){ document.getElementById("pmStatus").textContent = "Could not reach the server."; });
 }
 
 function go(provider){
@@ -115,7 +133,7 @@ onAuthStateChanged(auth, function(user){
     return;
   }
   user.getIdToken().then(function(t){ return load(t, 8); }).then(function(d){
-    items = d.items || [];
+    items = d.items || []; isAdmin = !!d.admin;
     var free = items.filter(function(i){ return !i.owned; });
     selected = (items.filter(function(i){ return i.exam === wanted && !i.owned; })[0] || free[0] || {}).exam || null;
     draw();
