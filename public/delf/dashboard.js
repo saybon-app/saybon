@@ -157,8 +157,8 @@ function paint(user, st){
   animateRings();
   if(hasPending(st) && pollsLeft-- > 0){ setTimeout(function(){ refresh(user); }, 8000); }
   if(st.state !== "enrolled" && st.attempts && st.attempts.length && st.targetExam){
-    fetch(API_BASE + "/api/getDelfPrice?exam=" + encodeURIComponent(st.targetExam)).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
-      var el = document.getElementById("dxPrice"); if(el && d && d.priceDisplay) el.textContent = "One payment of " + d.priceDisplay + ".";
+    fetch(API_BASE + "/api/delf/prices").then(function(r){ return r.ok ? r.json() : null; }).then(function(d){ var it = d && (d.items || []).filter(function(i){ return i.exam === st.targetExam; })[0];
+      var el = document.getElementById("dxPrice"); if(el && it) el.textContent = "One payment of $" + it.usd + (it.ghs ? " (about GH\u20B5" + it.ghs + ")" : "") + ".";
     }).catch(function(){});
   }
 }

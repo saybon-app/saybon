@@ -1,53 +1,52 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8" />
-<title>Payment Confirmed - SayBon</title>
+<title>Payment - SayBon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#1a120b 0%,#2b1b10 50%,#1a120b 100%);color:#f6f1e4;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
-.sc-card{max-width:440px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:22px;padding:36px 28px;}
+.sc-card{max-width:440px;width:100%;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:22px;padding:36px 28px;}
 .sc-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.6rem;color:#fff;margin-bottom:12px;}
 .sc-msg{font-size:.92rem;color:#c9c3b4;line-height:1.6;margin-bottom:24px;}
-.sc-btn{display:block;width:100%;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:14px;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;}
+.sc-btn{display:block;width:100%;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:14px;font-family:inherit;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;}
 </style>
 </head>
 <body>
 <div class="sc-card">
   <p class="sc-title" id="scTitle">Confirming your payment...</p>
   <p class="sc-msg" id="scMsg">Please wait a moment.</p>
-  <a class="sc-btn" href="/dashboard/">Go to Dashboard</a>
+  <a class="sc-btn" id="scBtn" href="/delf/dashboard.html">Go to My DELF Dashboard</a>
 </div>
-<script>
+<script type="module">
 const API_BASE = "https://saybonapp-server.onrender.com";
-const sessionId = new URLSearchParams(window.location.search).get("session_id");
-
-if(!sessionId){
-  document.getElementById("scTitle").textContent = "Something went wrong";
-  document.getElementById("scMsg").textContent = "We could not find your payment session.";
-} else {
-  fetch(API_BASE + "/api/verifyDelfSession?session_id=" + encodeURIComponent(sessionId))
-    .then(r => r.json())
-    .then(data => {
-      if(data.verified){
-        document.getElementById("scTitle").textContent = "Payment Confirmed";
-        document.getElementById("scMsg").textContent = "Your access to " + (data.examLabel || "this DELF level") + " is recorded. Full lesson content for this level is still being built - you'll be notified the moment it's ready.";
-      } else {
-        document.getElementById("scTitle").textContent = "Payment Not Confirmed";
-        document.getElementById("scMsg").textContent = "We could not confirm this payment. Please contact support if you believe this is an error.";
-      }
-    })
-    .catch(() => {
-      document.getElementById("scTitle").textContent = "Something went wrong";
-      document.getElementById("scMsg").textContent = "Please contact support to confirm your payment.";
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+var q = new URLSearchParams(location.search);
+var qs = q.get("session_id") ? "session_id=" + encodeURIComponent(q.get("session_id")) : (q.get("reference") || q.get("trxref")) ? "reference=" + encodeURIComponent(q.get("reference") || q.get("trxref")) : "";
+var title = document.getElementById("scTitle"), msg = document.getElementById("scMsg");
+var started = false;
+function verify(user, tries){
+  user.getIdToken().then(function(t){ return fetch(API_BASE + "/api/delf/verify?" + qs, { headers: { Authorization: "Bearer " + t } }); })
+    .then(function(r){ return r.json(); }).then(function(d){
+      if(d.verified){
+        title.textContent = "Payment confirmed";
+        msg.textContent = "You now have access to " + (d.examLabel || "your DELF level") + ". Taking you to your dashboard...";
+        setTimeout(function(){ location.href = "/delf/dashboard.html"; }, 2500);
+      } else if(tries > 1){ setTimeout(function(){ verify(user, tries - 1); }, 3000); }
+      else { title.textContent = "We could not confirm this payment yet"; msg.textContent = "If you were charged, wait a minute and refresh this page. If it still does not confirm, contact support and quote your payment reference."; }
+    }).catch(function(){
+      if(tries > 1) setTimeout(function(){ verify(user, tries - 1); }, 4000);
+      else { title.textContent = "Something went wrong"; msg.textContent = "Please refresh this page. If you were charged, your access will be added once the payment is confirmed."; }
     });
 }
+if(!qs){ title.textContent = "Something went wrong"; msg.textContent = "We could not find your payment details."; }
+else onAuthStateChanged(auth, function(user){
+  if(started || !user) return; started = true; verify(user, 6);
+});
 </script>
 </body>
 </html>
-
-
-
