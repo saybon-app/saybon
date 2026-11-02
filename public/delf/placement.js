@@ -215,8 +215,8 @@ function markSelected(skill, gi, oi){
 // ---------------- LISTENING ----------------
 
 function audioUrlFor(levelId, docIndex){
-  var n = docIndex + 1;
-  return delfAssetsMap["delf-" + levelId + "-listening-" + n] || (n === 1 ? delfAssetsMap["delf-" + levelId + "-listening"] : null) || null;
+  // Uploaded audio is ignored on purpose: every recording is built from the exact script of its own document.
+  return null;
 }
 
 function renderListening(){
