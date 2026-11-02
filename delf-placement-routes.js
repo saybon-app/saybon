@@ -52,7 +52,10 @@ module.exports = function mountDelfPlacement(app, deps) {
         return {
           id: d.id, level: x.level, pct: x.pct || 0, correct: x.correct || 0, total: x.total || 0, passed: !!x.passed,
           listening: x.listening || null, reading: x.reading || null,
-          writing: x.writingResponse ? "submitted" : "skipped", speaking: x.speakingStatus === "not_recorded" ? "skipped" : "recorded",
+          writing: x.writingStatus === "graded" ? "graded" : x.writingResponse ? (x.writingStatus === "ungraded" ? "ungraded" : "pending") : "skipped",
+          writingScore: typeof x.writingScore === "number" ? x.writingScore : null, writingFeedback: x.writingFeedback || null,
+          speaking: x.speakingStatus === "graded" ? "graded" : x.speakingStatus === "no_speech" ? "no_speech" : x.speakingStatus === "ungraded" ? "ungraded" : x.speakingStatus === "not_recorded" ? "skipped" : "pending",
+          speakingScore: typeof x.speakingScore === "number" ? x.speakingScore : null, speakingFeedback: x.speakingFeedback || null,
           at: x.timestamp && x.timestamp.toMillis ? x.timestamp.toMillis() : null
         };
       });

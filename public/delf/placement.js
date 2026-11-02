@@ -6,7 +6,7 @@ import { PLACEMENT_CONTENT } from "/delf/placement-content.js?v=1";
 import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 var storage = getStorage(app, "gs://saybon-3e3c2.firebasestorage.app");
-signInAnonymously(auth).catch(function(e){ console.warn("Anon auth failed:", e); });
+// (learners are already logged in; no anonymous sign-in)
 
 // ================================================================
 // DELF PLACEMENT ENGINE
@@ -68,7 +68,8 @@ var state = {
   clearedLevels: [],
   built: null,
   ttsPlays: {},
-  audio: {}
+  audio: {},
+  pending: []
 };
 
 var delfAssetsMap = {};
@@ -584,7 +585,8 @@ function finishLevel(){
 
   if(passed) state.clearedLevels.push(state.currentLevelId);
 
-  saveResultToFirestore(state.currentLevelId, result, passed);
+  state.pending = state.pending || [];
+  state.pending.push(saveResultToFirestore(state.currentLevelId, result, passed));
 
   var nextIdx = LEVEL_ORDER.indexOf(state.currentLevelId) + 1;
   var nextLevelId = LEVEL_ORDER[nextIdx];
@@ -603,13 +605,13 @@ function finishLevel(){
       '</div>';
   } else if(passed && nextLevelExistsButLocked){
     msg = "Well done - you cleared " + lvl.label + " with " + pctDisplay + "%. The next level's content is still being added, so this is where your placement stands for now.";
-    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">See My Placement</button></div>';
+    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">Go to My Dashboard</button></div>';
   } else if(passed && !nextLevelId){
     msg = "Excellent - you cleared " + lvl.label + " with " + pctDisplay + "%, the highest level we currently test.";
-    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">See My Placement</button></div>';
+    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">Go to My Dashboard</button></div>';
   } else {
     msg = "You scored " + pctDisplay + "% at " + lvl.label + " - just under our 70% threshold to climb further. That's completely alright, and this gives us an honest picture of where to begin.";
-    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">See My Placement</button></div>';
+    buttons = '<div class="pl-btn-row"><button class="pl-btn pl-btn-primary" onclick="finalizeResult()">Go to My Dashboard</button></div>';
   }
 
   render(
@@ -622,32 +624,59 @@ function finishLevel(){
 }
 
 function finalizeResult(){
-  var highestCleared = state.clearedLevels.length > 0
-    ? LEVELS[state.clearedLevels[state.clearedLevels.length - 1]].label
-    : "Below A1";
-
   render(
-    '<p class="pl-eyebrow">Your Placement</p>' +
-    '<h1 class="pl-title">You\'re placed at ' + highestCleared + '</h1>' +
-    '<p class="pl-subtitle">This is saved as your baseline on your DELF dashboard. Every test score from your preparation will be added right alongside it, so you can watch your progress from here.</p>' +
-    '<div class="pl-btn-row">' +
-    '<button class="pl-btn pl-btn-secondary" onclick="renderLevelPicker()">Test Another Level</button>' +
-    '<button class="pl-btn pl-btn-primary" onclick="location.href=\'/delf/tout-public/\'">Begin Your Preparation</button>' +
-    '</div>' +
-    '<div class="pl-btn-row"><button class="pl-btn pl-btn-secondary" onclick="location.href=\'/delf/dashboard.html\'">See My DELF Results</button></div>'
+    '<p class="pl-eyebrow">Almost there</p>' +
+    '<h1 class="pl-title">Preparing your dashboard</h1>' +
+    '<p class="pl-subtitle">Saving your results and marking your writing and speaking. This takes a few seconds.</p>'
   );
+  var gone = false;
+  var go = function(){ if(gone) return; gone = true; location.href = "/delf/dashboard.html"; };
+  var timer = setTimeout(go, 45000);
+  Promise.all(state.pending || []).then(function(){ clearTimeout(timer); go(); }, function(){ clearTimeout(timer); go(); });
 }
 
-// ---------------- FIRESTORE SAVE ----------------
+// ---------------- FIRESTORE SAVE + MARKING ----------------
+
+function encodeWAV(samples, sampleRate){
+  var buffer = new ArrayBuffer(44 + samples.length * 2);
+  var view = new DataView(buffer);
+  function writeString(offset, str){ for(var i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i)); }
+  writeString(0, "RIFF"); view.setUint32(4, 36 + samples.length * 2, true); writeString(8, "WAVE"); writeString(12, "fmt ");
+  view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+  writeString(36, "data"); view.setUint32(40, samples.length * 2, true);
+  var offset = 44;
+  for(var i = 0; i < samples.length; i++, offset += 2){
+    var s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+  return buffer;
+}
+
+// the browser records webm/mp4; the speech service needs 16 kHz mono WAV
+async function blobToWav(blob){
+  var arrayBuffer = await blob.arrayBuffer();
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var decoded = await audioCtx.decodeAudioData(arrayBuffer);
+  var offlineCtx = new OfflineAudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
+  var source = offlineCtx.createBufferSource();
+  source.buffer = decoded; source.connect(offlineCtx.destination); source.start(0);
+  var rendered = await offlineCtx.startRendering();
+  var wav = encodeWAV(rendered.getChannelData(0), 16000);
+  try{ audioCtx.close(); }catch(e){}
+  return new Blob([wav], { type: "audio/wav" });
+}
 
 function saveResultToFirestore(levelId, result, passed){
   if(!auth.currentUser){
     console.warn("Not saving placement result - no authenticated user");
-    return;
+    return Promise.resolve();
   }
   var user = auth.currentUser;
   var speakingBlob = state.speakingBlob;
-  user.getIdToken().then(function(token){
+  var writingText = state.writingText || "";
+  var lvl = LEVELS[levelId];
+  return user.getIdToken().then(function(token){
     return fetch(API_BASE + "/api/delf/placement", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
@@ -655,18 +684,34 @@ function saveResultToFirestore(levelId, result, passed){
         level: levelId,
         listening: result.listening,
         reading: result.reading,
-        writingResponse: state.writingText || null,
+        writingResponse: writingText || null,
         speakingRecorded: !!speakingBlob
       })
+    }).then(function(res){
+      if(!res.ok) throw new Error("save failed " + res.status);
+      return res.json();
+    }).then(function(saved){
+      var jobs = [];
+      if(saved && saved.id){
+        if(writingText.trim()){
+          jobs.push(fetch(API_BASE + "/api/delf/grade-writing", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+            body: JSON.stringify({ attemptId: saved.id, level: levelId, prompt: lvl.writing.prompt })
+          }));
+        }
+        if(speakingBlob){
+          jobs.push(blobToWav(speakingBlob).then(function(wav){
+            return fetch(API_BASE + "/api/delf/grade-speaking?attemptId=" + encodeURIComponent(saved.id) + "&level=" + encodeURIComponent(levelId) + "&prompt=" + encodeURIComponent(lvl.speaking.prompt), {
+              method: "POST",
+              headers: { "Content-Type": "audio/wav", "Authorization": "Bearer " + token },
+              body: wav
+            });
+          }));
+        }
+      }
+      return Promise.all(jobs.map(function(j){ return j.catch(function(e){ console.warn("marking request failed:", e); }); }));
     });
-  }).then(function(res){
-    if(!res.ok) throw new Error("save failed " + res.status);
-    if(speakingBlob){
-      var speakingRef = storageRef(storage, "delfPlacements/" + user.uid + "/" + levelId + "-speaking-" + Date.now() + ".webm");
-      uploadBytes(speakingRef, speakingBlob).catch(function(err){
-        console.error("Speaking upload failed:", err);
-      });
-    }
   }).catch(function(err){
     console.error("Could not save placement result:", err);
   });
