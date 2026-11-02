@@ -8,18 +8,17 @@ module.exports = function (app, ctx) {
 
   function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-  function buildSsml(text, level, voice){
+  function buildSsml(text, level, voice, noProsody, oneVoice){
     var rate = RATE[level] || "-10%";
-    var turns = text.split(/(?:^|\s)[–—]\s+/).map(function(t){ return t.trim(); }).filter(Boolean);
     var F = "fr-FR-DeniseNeural", M = "fr-FR-HenriNeural";
-    var voices = (voice === "m") ? [M, F] : [F, M];   // first speaker's voice first
+    var voices = (voice === "m") ? [M, F] : [F, M];
+    var turns = text.split(/(?:^|\s)[–—]\s+/).map(function(t){ return t.trim(); }).filter(Boolean);
+    var wrap = function(t){ return noProsody ? esc(t) : '<prosody rate="' + rate + '">' + esc(t) + '</prosody>'; };
     var body;
     if (/(?:^|\s)[–—]\s/.test(text) && turns.length > 1) {
-      body = turns.map(function(t, i){
-        return '<voice name="' + voices[i % 2] + '"><prosody rate="' + rate + '">' + esc(t) + '</prosody></voice>';
-      }).join('<break time="500ms"/>');
+      body = turns.map(function(t, i){ return '<voice name="' + voices[oneVoice ? 0 : i % 2] + '">' + wrap(t) + '</voice>'; }).join(noProsody ? "" : '<break time="500ms"/>');
     } else {
-      body = '<voice name="' + voices[0] + '"><prosody rate="' + rate + '">' + esc(text) + '</prosody></voice>';
+      body = '<voice name="' + voices[0] + '">' + wrap(text) + '</voice>';
     }
     return '<speak version="1.0" xml:lang="fr-FR" xmlns="http://www.w3.org/2001/10/synthesis">' + body + '</speak>';
   }
@@ -42,21 +41,27 @@ module.exports = function (app, ctx) {
       var ck = level + "|" + voice + "|" + text;
       var hit = cache.get(ck);
       if (!hit) {
-        var r = await fetch("https://" + region + ".tts.speech.microsoft.com/cognitiveservices/v1", {
-          method: "POST",
-          headers: {
-            "Ocp-Apim-Subscription-Key": key,
-            "Content-Type": "application/ssml+xml",
-            "X-Microsoft-OutputFormat": "audio-24khz-96kbitrate-mono-mp3",
-            "User-Agent": "saybon-delf-tts"
-          },
-          body: buildSsml(text, level, voice)
-        });
-        if (!r.ok) {
-          var msg = ""; try { msg = (await r.text()).slice(0, 200); } catch (e) {}
-          console.error("DELF TTS Azure error", r.status, msg);
-          return res.status(502).json({ error: "speech synthesis failed (" + r.status + ")" });
+        // try the full request; if Azure rejects it (400), retry with simpler speech markup. Log Azure's real message.
+        var variants = [buildSsml(text, level, voice), buildSsml(text, level, voice, true), buildSsml(text, level, voice, true, true),
+          "<speak version='1.0' xml:lang='fr-FR'><voice xml:lang='fr-FR' xml:gender='" + (voice === 'm' ? 'Male' : 'Female') + "' name='" + (voice === 'm' ? 'fr-FR-HenriNeural' : 'fr-FR-DeniseNeural') + "'>" + esc(text.replace(/(^|\s)[–—]\s+/g, '$1')) + "</voice></speak>"];
+        var r = null;
+        for (var vi = 0; vi < variants.length; vi++) {
+          r = await fetch("https://" + region + ".tts.speech.microsoft.com/cognitiveservices/v1", {
+            method: "POST",
+            headers: {
+              "Ocp-Apim-Subscription-Key": key,
+              "Content-Type": "application/ssml+xml",
+              "X-Microsoft-OutputFormat": "audio-24khz-48kbitrate-mono-mp3",
+              "User-Agent": "saybon-delf-tts"
+            },
+            body: variants[vi]
+          });
+          if (r.ok) break;
+          var msg = ""; try { msg = (await r.text()).slice(0, 300); } catch (e) {}
+          console.error("DELF TTS Azure error", r.status, "variant", vi, "region", region, msg);
+          if (r.status !== 400) break;
         }
+        if (!r.ok) return res.status(502).json({ error: "speech synthesis failed (" + r.status + ")" });
         hit = Buffer.from(await r.arrayBuffer());
         if (cache.size >= CACHE_MAX) cache.delete(cache.keys().next().value);
         cache.set(ck, hit);

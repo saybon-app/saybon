@@ -1,6 +1,6 @@
 const API_BASE = "https://saybonapp-server.onrender.com";
 import { auth } from "/js/firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 var LABEL = { a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1", c2:"C2", prim:"DELF Prim", junior:"DELF Junior" };
 var root = document.getElementById("dxRoot");
@@ -17,59 +17,51 @@ function nameOf(user){
   return base.split(" ").map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
 }
 
-// circular graph: pct 0-100, colours c1->c2, inner = HTML in the centre
-function ring(pct, size, stroke, c1, c2, inner, sub){
-  var id = "dxg" + (++gid), r = (size - stroke) / 2, C = 2 * Math.PI * r;
+// one clean ring for the placement result
+function ring(pct, size, stroke, inner, sub){
+  var r = (size - stroke) / 2, C = 2 * Math.PI * r;
   var off = C * (1 - Math.max(0, Math.min(100, pct)) / 100);
   return '<div class="dx-ring" style="width:' + size + 'px;height:' + size + 'px">' +
     '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
-    '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/></linearGradient></defs>' +
     '<circle class="dx-bg" cx="' + size/2 + '" cy="' + size/2 + '" r="' + r + '" stroke-width="' + stroke + '"/>' +
-    '<circle class="dx-fg" cx="' + size/2 + '" cy="' + size/2 + '" r="' + r + '" stroke-width="' + stroke + '" stroke="url(#' + id + ')" stroke-dasharray="' + C + '" stroke-dashoffset="' + C + '" data-off="' + off + '"/>' +
+    '<circle class="dx-fg" cx="' + size/2 + '" cy="' + size/2 + '" r="' + r + '" stroke-width="' + stroke + '" stroke-dasharray="' + C + '" stroke-dashoffset="' + C + '" data-off="' + off + '"/>' +
     '</svg><div class="dx-ring-mid"><div class="dx-ring-num">' + inner + '</div>' + (sub ? '<div class="dx-ring-sub">' + sub + '</div>' : '') + '</div></div>';
 }
 function animateRings(){
   requestAnimationFrame(function(){ requestAnimationFrame(function(){
     var els = root.querySelectorAll(".dx-fg");
     for(var i = 0; i < els.length; i++){ els[i].style.strokeDashoffset = els[i].getAttribute("data-off"); }
+    var fills = root.querySelectorAll(".dx-fill");
+    for(var j = 0; j < fills.length; j++){ fills[j].style.width = fills[j].getAttribute("data-w") + "%"; }
   }); });
 }
 
 // progress line chart: placement baseline, then each mock exam
 function chart(points){
   if(points.length < 2){
-    return '<div class="dx-chart-empty">Your baseline is set. Take your first mock exam and your progress line starts here.</div>';
+    return '<p class="dx-chart-empty">Your baseline is set. Take your first mock exam and your progress line starts here.</p>';
   }
-  var W = 600, H = 230, L = 38, R = 18, T = 20, B = 40, iw = W - L - R, ih = H - T - B;
-  var x = function(i){ return L + (points.length === 1 ? iw / 2 : iw * i / (points.length - 1)); };
+  var W = 600, H = 210, L = 34, R = 34, T = 18, B = 34, iw = W - L - R, ih = H - T - B;
+  var x = function(i){ return L + iw * i / (points.length - 1); };
   var y = function(v){ return T + ih * (1 - v / 100); };
   var grid = "";
-  [0, 25, 50, 75, 100].forEach(function(g){
-    grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="rgba(255,255,255,' + (g === 50 ? '.0' : '.07') + ')"/>' +
+  [0, 50, 100].forEach(function(g){
+    grid += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="rgba(255,255,255,' + (g === 50 ? '.18' : '.06') + ')"' + (g === 50 ? ' stroke-dasharray="4 5"' : '') + '/>' +
       '<text x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + '</text>';
   });
-  var pass = '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(50) + '" y2="' + y(50) + '" stroke="#f6c978" stroke-width="1.4" stroke-dasharray="5 5" opacity=".7"/>' +
-    '<text x="' + (W - R) + '" y="' + (y(50) - 6) + '" text-anchor="end" style="fill:#f6c978">DELF pass mark 50</text>';
   var line = points.map(function(p, i){ return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.v).toFixed(1); }).join(" ");
-  var area = line + " L" + x(points.length - 1).toFixed(1) + " " + y(0) + " L" + x(0).toFixed(1) + " " + y(0) + " Z";
   var dots = points.map(function(p, i){
-    var col = p.kind === "base" ? "#f6c978" : (p.v >= 50 ? "#22d3b6" : "#ff6f91");
-    return '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(p.v).toFixed(1) + '" r="6.5" fill="#0a0e1c" stroke="' + col + '" stroke-width="3"/>' +
-      '<text class="dx-pt-l" x="' + x(i).toFixed(1) + '" y="' + (y(p.v) - 13).toFixed(1) + '" text-anchor="middle">' + Math.round(p.v) + '</text>' +
-      '<text x="' + x(i).toFixed(1) + '" y="' + (H - 14) + '" text-anchor="middle">' + esc(p.label) + '</text>';
+    return '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(p.v).toFixed(1) + '" r="4.5" fill="#d9b36c"/>' +
+      '<text class="dx-pt-l" x="' + x(i).toFixed(1) + '" y="' + (y(p.v) - 11).toFixed(1) + '" text-anchor="middle">' + Math.round(p.v) + '</text>' +
+      '<text x="' + x(i).toFixed(1) + '" y="' + (H - 10) + '" text-anchor="middle">' + esc(p.label) + '</text>';
   }).join("");
-  return '<svg class="dx-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Your scores over time">' +
-    '<defs><linearGradient id="dxArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b6cff" stop-opacity=".45"/><stop offset="1" stop-color="#8b6cff" stop-opacity="0"/></linearGradient>' +
-    '<linearGradient id="dxLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6c978"/><stop offset=".5" stop-color="#8b6cff"/><stop offset="1" stop-color="#22d3b6"/></linearGradient></defs>' +
-    grid + pass + '<path d="' + area + '" fill="url(#dxArea)"/><path d="' + line + '" fill="none" stroke="url(#dxLine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>' + dots + '</svg>' +
-    '<div class="dx-legend"><span><i style="background:#f6c978"></i>Placement baseline</span><span><i style="background:#22d3b6"></i>Mock exam, passed</span><span><i style="background:#ff6f91"></i>Mock exam, keep going</span></div>';
+  return '<svg class="dx-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Your scores over time">' + grid +
+    '<path d="' + line + '" fill="none" stroke="#d9b36c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' + dots + '</svg>' +
+    '<p class="dx-chart-empty" style="margin-top:8px">The dashed line is the DELF pass mark, 50 out of 100.</p>';
 }
 
 function profile(user){
-  var nm = nameOf(user);
-  return '<div class="dx-profile"><div class="dx-avatar">' + esc(nm.charAt(0).toUpperCase()) + '</div>' +
-    '<div class="dx-who"><div class="dx-eyebrow">DELF Dashboard</div><div class="dx-name">' + esc(nm) + '</div><div class="dx-email">' + esc(user.email || "") + '</div></div>' +
-    '<div class="dx-badge">DELF PREP</div></div>';
+  return '<div class="dx-head"><div class="dx-eyebrow">DELF Dashboard</div><div class="dx-name">' + esc(nameOf(user)) + '</div><div class="dx-email">' + esc(user.email || "") + '</div></div>';
 }
 
 function placementCard(st){
@@ -80,74 +72,75 @@ function placementCard(st){
   var placed = st.highestCleared ? LABEL[st.highestCleared] : "A1";
   var title = st.highestCleared ? "You are placed at " + placed : "You are starting at A1";
   var sub = st.highestCleared ? "You cleared " + placed + " with " + pc(show.pct) + "%. This is your baseline, and every mock exam score lands beside it." :
-    "No level cleared yet, which is a perfectly good place to begin. Your mock exams will show how far you climb.";
+    "No level cleared yet, which is a perfectly good place to begin.";
   return '<div class="dx-card"><div class="dx-label">Your placement</div><div class="dx-place">' +
-    ring(pc(show.pct), 132, 12, "#f6c978", "#ff6f91", st.highestCleared ? placed : "A1", pc(show.pct) + "%") +
+    ring(pc(show.pct), 120, 7, st.highestCleared ? placed : "A1", pc(show.pct) + "%") +
     '<div class="dx-place-txt"><h2>' + esc(title) + '</h2><p>' + esc(sub) + '</p><div class="dx-date">' + esc(fmt(show.at)) + '</div></div></div></div>';
 }
 
+// marking that is still "pending" long after the test was never started (older tests): call it not marked
+function effStatus(a, key){
+  var s = a[key];
+  if(s === "pending" && a.at && (Date.now() - a.at) > 4 * 60 * 1000) return "ungraded";
+  return s;
+}
+
+function bar(name, pct, valText, note){
+  return '<div><div class="dx-bar-top"><span>' + name + '</span><span><span class="dx-val">' + valText + '</span>' + (note ? ' &middot; ' + note : '') + '</span></div>' +
+    '<div class="dx-track"><div class="dx-fill" data-w="' + (pct || 0) + '"></div></div></div>';
+}
+
 function skillsCard(st){
-  if(!st.attempts || !st.attempts.length) return '<div class="dx-card"><div class="dx-label">Skill by skill</div><p class="dx-empty">Listening, reading, writing and speaking will show here as circles after your placement.</p></div>';
+  if(!st.attempts || !st.attempts.length) return '<div class="dx-card"><div class="dx-label">Skill by skill</div><p class="dx-empty">Your listening, reading, writing and speaking scores will show here after your placement.</p></div>';
   var show = st.attempts.filter(function(a){ return a.level === st.highestCleared; })[0] || st.attempts[0];
   var lp = show.listening && show.listening.total ? Math.round(show.listening.correct / show.listening.total * 100) : null;
   var rp = show.reading && show.reading.total ? Math.round(show.reading.correct / show.reading.total * 100) : null;
-  function openSkill(status, score, name, c1, c2){
-    var done = status === "graded" && score != null;
-    var pct = done ? score : 0;
-    var inner = done ? score + "%" : (status === "pending" ? "..." : "-");
-    var note = done ? "Marked" : status === "pending" ? "Marking now" : status === "no_speech" ? "No speech heard" : status === "ungraded" ? "Not marked" : "Not tried";
-    return '<div class="dx-skill">' + ring(pct, 74, 8, c1, c2, inner) + '<div class="dx-skill-name">' + name + '</div><div class="dx-skill-note">' + note + '</div></div>';
+  var ws = effStatus(show, "writing"), ss = effStatus(show, "speaking");
+  function open(status, score, name){
+    if(status === "graded" && score != null) return bar(name, score, score + "%", "marked");
+    var note = status === "pending" ? "marking now" : status === "no_speech" ? "no speech heard" : status === "ungraded" ? "not marked" : "not tried";
+    return bar(name, 0, "-", note);
   }
-  var h = '<div class="dx-card"><div class="dx-label">Skill by skill</div><div class="dx-skills">';
-  h += '<div class="dx-skill">' + ring(lp || 0, 74, 8, "#4cc0ff", "#8b6cff", lp == null ? "-" : lp + "%") + '<div class="dx-skill-name">Listening</div></div>';
-  h += '<div class="dx-skill">' + ring(rp || 0, 74, 8, "#8b6cff", "#ff6f91", rp == null ? "-" : rp + "%") + '<div class="dx-skill-name">Reading</div></div>';
-  h += openSkill(show.writing, show.writingScore, "Writing", "#22d3b6", "#4cc0ff");
-  h += openSkill(show.speaking, show.speakingScore, "Speaking", "#f6c978", "#ff6f91");
-  h += '</div>';
-  var tip = (lp != null && rp != null && lp !== rp) ? "<b>First focus:</b> " + (lp < rp ? "listening" : "reading") + " is your lowest score, so it will lift your overall result fastest." :
+  var h = '<div class="dx-card"><div class="dx-label">Skill by skill</div><div class="dx-bars">' +
+    bar("Listening", lp, lp == null ? "-" : lp + "%", "") + bar("Reading", rp, rp == null ? "-" : rp + "%", "") +
+    open(ws, show.writingScore, "Writing") + open(ss, show.speakingScore, "Speaking") + '</div>';
+  var focus = (lp != null && rp != null && lp !== rp) ? "<b>First focus:</b> " + (lp < rp ? "listening" : "reading") + " is your lowest score, so it will lift your overall result fastest." :
     "<b>First focus:</b> your listening and reading are level, so mix both in your first mock exam.";
-  h += '<div class="dx-tip">' + tip + '</div>';
-  if(show.writingFeedback) h += '<div class="dx-tip dx-fb"><b>Your writing:</b> ' + esc(show.writingFeedback) + '</div>';
-  if(show.speakingFeedback) h += '<div class="dx-tip dx-fb"><b>Your speaking:</b> ' + esc(show.speakingFeedback) + '</div>';
-  h += '</div>';
-  return h;
+  h += '<p class="dx-note">' + focus + '</p>';
+  if(show.writingFeedback) h += '<p class="dx-fbk"><b>Writing:</b> ' + esc(show.writingFeedback) + '</p>';
+  if(show.speakingFeedback) h += '<p class="dx-fbk"><b>Speaking:</b> ' + esc(show.speakingFeedback) + '</p>';
+  return h + '</div>';
 }
 
 function mocksCard(st){
-  var list = (st.mocks || []).slice().reverse();          // oldest first
-  var done = Math.min(list.length, 10);
-  var slots = "";
+  var list = (st.mocks || []).slice().reverse();
+  var done = Math.min(list.length, 10), cells = "";
   for(var i = 0; i < 10; i++){
     var m = list[i];
-    if(m){
-      var t = Math.round(m.total || 0), ok = t >= 50;
-      slots += '<div class="dx-mock">' + ring(t, 54, 6, ok ? "#22d3b6" : "#ff6f91", ok ? "#4cc0ff" : "#f6c978", t) + '<span>Mock ' + (i + 1) + '</span></div>';
-    } else {
-      slots += '<div class="dx-mock dx-todo">' + ring(0, 54, 6, "#fff", "#fff", "-") + '<span>Mock ' + (i + 1) + '</span></div>';
-    }
+    if(m){ var t = Math.round(m.total || 0); cells += '<div class="dx-mock dx-done' + (t >= 50 ? ' dx-pass' : '') + '"><b>' + t + '</b><span>Mock ' + (i + 1) + '</span></div>'; }
+    else cells += '<div class="dx-mock"><b>-</b><span>Mock ' + (i + 1) + '</span></div>';
   }
-  var msg = done ? "You have completed <b>" + done + " of 10</b> mock exams. Each one is scored the way the real DELF is scored." : "Ten full mock exams, scored the way the real DELF is scored. Your results will appear here one by one.";
-  return '<div class="dx-card"><div class="dx-label">Mock exams</div><div class="dx-mock-head">' +
-    ring(done * 10, 84, 9, "#22d3b6", "#8b6cff", done + "/10") + '<p>' + msg + '</p></div><div class="dx-mocks">' + slots + '</div></div>';
+  var msg = done ? "You have completed <b>" + done + " of 10</b> mock exams, scored the way the real DELF is scored." : "Ten full mock exams, scored the way the real DELF is scored. Your results will appear here one by one.";
+  return '<div class="dx-card dx-wide"><div class="dx-label">Mock exams</div><p class="dx-mock-line">' + msg + '</p><div class="dx-mocks">' + cells + '</div></div>';
 }
 
 function ctaCard(st){
   if(st.state === "enrolled"){
     return '<div class="dx-card dx-wide dx-cta"><div><h3>Continue Your Preparation</h3><p>' +
       (st.mocks && st.mocks.length ? "Your next mock exam is ready when you are." : "Your first mock exam is waiting. Take it when you feel ready.") +
-      '</p></div><button class="dx-btn" onclick="location.href=\'/delf/tout-public/\'">Continue Your Preparation</button></div>';
+      '</p></div><button class="dx-btn" onclick="location.href=\'/delf/tout-public/\'">Continue</button></div>';
   }
   if(!st.attempts || !st.attempts.length){
-    return '<div class="dx-card dx-wide dx-cta"><div><h3>Start with your placement</h3><p>About ten minutes. You will see your level, your scores skill by skill, and your next step right here.</p></div>' +
+    return '<div class="dx-card dx-wide dx-cta"><div><h3>Start with your placement</h3><p>About ten minutes. You will see your level and your scores right here.</p></div>' +
       '<button class="dx-btn" onclick="location.href=\'/delf/placement.html\'">Start Your Placement</button></div>';
   }
   return '<div class="dx-card dx-wide dx-cta"><div><h3>Begin Your Preparation</h3><p>You placed at ' + (st.highestCleared ? LABEL[st.highestCleared] : "A1") + '. Next stop: DELF ' + LABEL[st.targetExam] +
-    '. Forty structured lessons and ten full mock exams, all tracked on this dashboard. <span id="dxPrice"></span></p></div>' +
+    '. Forty structured lessons and ten full mock exams, all tracked here. <span id="dxPrice"></span></p></div>' +
     '<button class="dx-btn" onclick="location.href=\'/delf/payment.html?exam=' + encodeURIComponent(st.targetExam) + '\'">Begin Your Preparation</button></div>';
 }
 
 var pollsLeft = 8;
-function hasPending(st){ return (st.attempts || []).slice(0, 2).some(function(a){ return a.writing === "pending" || a.speaking === "pending"; }); }
+function hasPending(st){ return (st.attempts || []).slice(0, 2).some(function(a){ return effStatus(a, "writing") === "pending" || effStatus(a, "speaking") === "pending"; }); }
 
 function paint(user, st){
   var pts = [];
@@ -169,6 +162,10 @@ function paint(user, st){
   }
 }
 
+function anonPrompt(){
+  root.innerHTML = '<div class="dx-card"><div class="dx-label">DELF Dashboard</div><p class="dx-empty">You are not logged in to your SayBon account on this device, so we cannot show your results. Log in and your dashboard will be waiting.</p><br><button class="dx-btn" id="dxRelog">Log In</button></div>';
+  document.getElementById("dxRelog").onclick = function(){ signOut(auth).catch(function(){}).then(function(){ location.href = "/auth/login.html"; }); };
+}
 function loginPrompt(){
   root.innerHTML = '<div class="dx-card"><div class="dx-label">DELF Dashboard</div><p class="dx-empty">Log in and your DELF dashboard will be waiting for you here.</p><br><button class="dx-btn" onclick="location.href=\'/auth/login.html\'">Log In</button></div>';
 }
@@ -199,6 +196,7 @@ function refresh(user){
 
 onAuthStateChanged(auth, function(user){
   if(!user){ loginPrompt(); return; }
+  if(user.isAnonymous && !user.email){ anonPrompt(); return; }
   refresh(user).catch(function(err){
     console.error("DELF state:", err);
     warming(err && err.code);
