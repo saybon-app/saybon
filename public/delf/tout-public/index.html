@@ -67,7 +67,7 @@ function draw(items){
   var rows = LEVELS.map(function(k){
     var it = by[k]; if(!it) return "";
     var label = k.toUpperCase();
-    if(it.owned) return '<a class="tp-row tp-own" href="/delf/mocks.html?t=tp&l=' + k + '"><span class="tp-badge">' + label + '</span><span class="tp-mid"><div class="tp-name">DELF ' + label + '</div><div class="tp-meta">' + META[k] + ' &middot; 10 mock exams</div></span><span class="tp-act"><span class="tp-open">Open</span></span></a>';
+    if(it.owned) return '<a class="tp-row tp-own" href="/delf/journey.html?l=' + k + '"><span class="tp-badge">' + label + '</span><span class="tp-mid"><div class="tp-name">DELF ' + label + '</div><div class="tp-meta">' + META[k] + ' &middot; 10 mock exams</div></span><span class="tp-act"><span class="tp-open">Open</span></span></a>';
     return '<a class="tp-row" href="/delf/payment.html?exam=' + k + '"><span class="tp-badge">' + label + '</span><span class="tp-mid"><div class="tp-name">DELF ' + label + '</div><div class="tp-meta">' + META[k] + '</div></span><span class="tp-act tp-price">$' + it.usd + (it.ghs ? '<small>about GH₵' + it.ghs + '</small>' : '') + '</span></a>';
   }).join("");
   var own = LEVELS.filter(function(k){ return by[k] && by[k].owned; }).length;

@@ -9,11 +9,10 @@
 <link rel="stylesheet" href="mock.css?v=1">
 </head>
 <body>
-<button class="mk-corner mk-back" onclick="if(!window.__mkBusy||confirm('Leave the exam? Your progress will be lost.'))location.href='/delf/mocks.html'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="mk-corner mk-back" onclick="if(!window.__mkBusy||confirm('Leave the exam? Your progress will be lost.'))location.href=(window.__mkBack||'/delf/mocks.html')" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
 <button class="mk-corner mk-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></button>
 <div id="mkBar" class="mk-bar" hidden></div>
 <main class="mk-wrap" id="mkRoot"><p class="mk-sub">Loading…</p></main>
-<script src="/js/activity-tracker.js?v=1" data-type="exam"></script>
-<script type="module" src="mock.js?v=1"></script>
+<script type="module" src="mock.js?v=2"></script>
 </body>
 </html>

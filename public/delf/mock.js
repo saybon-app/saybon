@@ -9,6 +9,10 @@ const LV = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2", c1: "C1 DALF",
 const SECS4 = [["co", "Listening", "Compréhension de l'oral"], ["ce", "Reading", "Compréhension des écrits"], ["pe", "Writing", "Production écrite"], ["po", "Speaking", "Production orale"]];
 const SECS_C2 = [["pe", "Written paper", "Compréhension et production écrites"], ["co", "Sound document", "Document sonore"], ["po", "Oral paper", "Compréhension et production orales"]];
 let SECS = SECS4;
+const ONLY = ["co", "ce", "pe", "po"].indexOf(qs.get("only")) >= 0 ? qs.get("only") : "";
+const JL = /^(a1|a2|b1|b2|c1)$/.test(qs.get("jl") || "") ? qs.get("jl") : "";
+const BACK = ONLY && JL ? "/delf/journey.html?l=" + JL : "/delf/mocks.html";
+window.__mkBack = BACK;
 const S = { mock: null, timed: true, sec: -1, answers: {}, plays: {}, pe: {}, po: {}, timer: null, left: 0, results: {} };
 
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -27,6 +31,7 @@ async function load() {
     S.mock = arr.find(x => x.id === mockId);
     if (!S.mock) throw 0;
     if (S.mock.scheme === "c2") SECS = SECS_C2;
+    if (ONLY) { const f = SECS.filter(x => x[0] === ONLY); if (f.length) SECS = f; }
   } catch (e) { return fail("This mock exam is not available yet."); }
   intro();
 }
@@ -42,10 +47,10 @@ function intro() {
   const m = S.mock, sp = m.spec;
   setBar(-1);
   root.innerHTML = '<p class="mk-eyebrow">' + esc(TRACKS[m.track]) + ' · ' + LV[m.level] + ' · Mock ' + m.n + '</p>' +
-    '<h1 class="mk-title">' + esc(m.theme) + '</h1><p class="mk-sub">' + esc(m.themeEn) + ' — a full practice exam in the official DELF format.</p>' +
+    '<h1 class="mk-title">' + esc(m.theme) + '</h1><p class="mk-sub">' + esc(m.themeEn) + '' + (ONLY ? ' — a single-paper test, marked out of 25. The pass mark is 50%.' : ' — a full practice exam in the official DELF format.') + '</p>' +
     (m.scheme === "c2"
       ? '<div class="mk-card"><h2>The two papers</h2><p class="mk-instr">The DALF C2 has two papers, each marked out of 50. To pass you need 50/100 in total and at least 10/50 in each paper.</p><p><b>Written paper</b> — read the dossier of documents, then write a structured text (article, editorial, report or speech) · <span class="mk-small">' + sp.pe + ' min</span></p><p><b>Oral paper</b> — hear a sound document twice, prepare, then summarise it, develop your point of view and debate with the examiner · <span class="mk-small">' + sp.po + ' min + ' + sp.prep + ' min preparation</span></p>'
-      : '<div class="mk-card"><h2>The four papers</h2><p class="mk-instr">Each paper is marked out of 25. To pass you need 50/100 in total and at least 5/25 in every paper.</p>' +
+      : '<div class="mk-card"><h2>' + (ONLY ? 'This paper' : 'The four papers') + '</h2><p class="mk-instr">' + (ONLY ? 'This paper is marked out of 25. The pass mark is 50 percent (12.5 out of 25).' : 'Each paper is marked out of 25. To pass you need 50/100 in total and at least 5/25 in every paper.') + '</p>' +
     SECS.map((s, i) => '<p><b>' + s[1] + '</b> — ' + s[2] + ' · <span class="mk-small">' + (s[0] === "po" ? sp.po + ' min' + (sp.prep ? " + " + sp.prep + " min preparation" : "") : sp[s[0]] + ' min') + '</span></p>').join("")) +
     '</div><div class="mk-card"><h2>Before you start</h2><p class="mk-instr">Use a quiet room and headphones. Listening documents play twice only. For the speaking paper your microphone must be allowed. Your writing and speaking are marked by AI against the official grid, so treat the feedback as a close guide, not an official result.</p>' +
     '<label class="mk-small"><input type="checkbox" id="mkTimed" checked> Exam conditions (timed). Untick for relaxed practice.</label>' +
@@ -80,6 +85,7 @@ function runObj(k) {
   });
   h += '</div><div class="mk-row"><button class="mk-btn" id="mkNext">Submit this paper</button></div>';
   root.innerHTML = h;
+  if (k === "co") part.exercises.forEach(ex => { const a = prepAudio(ex); paintPlay(ex); a.promise.then(() => paintPlay(ex)); });
   root.onclick = e => {
     const o = e.target.closest(".mk-opt"); if (o) { S.answers[o.dataset.q] = +o.dataset.i; o.parentNode.querySelectorAll(".mk-opt[data-q='" + o.dataset.q + "']").forEach(x => x.classList.remove("sel")); o.classList.add("sel"); }
     const p = e.target.closest("[data-play]"); if (p) play(part.exercises.find(x => x.id === p.dataset.play), p);
@@ -98,34 +104,43 @@ function score(k) {
   S.results[k] = { raw: got, total: part.totalW, score: part.totalW ? Math.round((got / part.totalW) * 25 * 10) / 10 : 0, review };
 }
 
-/* ---------- listening audio ---------- */
-let speaking = false;
-function stopAudio() { speaking = false; try { speechSynthesis.cancel(); } catch (e) { } if (S.audioEl) { S.audioEl.pause(); S.audioEl = null; } }
+/* ---------- listening audio (server voices, fetched ahead so it plays on iPhone) ---------- */
+const AUDIO = {};
 function voiceFor(v) {
   const vs = (speechSynthesis.getVoices() || []).filter(x => /^fr/i.test(x.lang)); const pick = i => vs.length ? vs[i % vs.length] : null;
   return v === "F" ? { voice: pick(0), pitch: 1.2, rate: .88 } : v === "H" ? { voice: pick(1), pitch: .8, rate: .88 } : { voice: pick(0), pitch: 1, rate: .92 };
 }
+function stopAudio() { if (S.audioEl) { try { S.audioEl.pause(); } catch (e) { } S.audioEl = null; } }
+function prepAudio(ex, force) {
+  const key = S.mock.id + "|" + ex.id; if (AUDIO[key] && !force) return AUDIO[key];
+  const a = AUDIO[key] = { state: "loading", url: null };
+  a.promise = (async () => {
+    const tk = await token(); if (!tk) throw new Error("login");
+    const r = await fetch(API_BASE + "/api/delf/tts-lines", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + tk }, body: JSON.stringify({ lines: ex.audio.lines, level: S.mock.level }) });
+    if (!r.ok) throw new Error(String(r.status));
+    a.url = URL.createObjectURL(await r.blob()); a.state = "ready";
+  })().catch(() => { a.state = "error"; });
+  return a;
+}
+function paintPlay(ex) {
+  const a = AUDIO[S.mock.id + "|" + ex.id]; const box = root.querySelector('.mk-play[data-ex="' + ex.id + '"]'); if (!box || !a) return;
+  const btn = box.querySelector("button"), left = +box.querySelector("b").textContent;
+  if (a.state === "loading") { btn.disabled = true; btn.textContent = "Preparing audio…"; }
+  else if (a.state === "error") { btn.disabled = false; btn.textContent = "Audio did not load. Tap to retry"; }
+  else { btn.disabled = left <= 0; btn.textContent = left <= 0 ? "Finished" : (left < (ex.plays || 2) ? "▶ Play again" : "▶ Play"); }
+}
 function play(ex, btn) {
   const box = btn.closest(".mk-play"); const cnt = box.querySelector("b"); let left = +cnt.textContent;
-  if (left <= 0 || speaking) return; stopAudio(); left--; cnt.textContent = left; btn.disabled = true; btn.textContent = "Playing…";
-  const done = () => { speaking = false; btn.disabled = left <= 0; btn.textContent = left <= 0 ? "Finished" : "▶ Play again"; box.querySelector("i").style.width = "100%"; };
-  const src = "/delf/mocks/audio/" + S.mock.id + "-" + ex.id + ".mp3";
-  const lines = ex.audio.lines; speaking = true; box.querySelector("i").style.width = "0";
-  let fell = false;
-  const viaTTS = () => {
-    if (fell) return; fell = true;
-    if (!("speechSynthesis" in window)) { done(); return; }
-    let i = 0; const step = () => {
-      if (!speaking) return; if (i >= lines.length) return done();
-      const L = lines[i++]; box.querySelector("i").style.width = Math.round(i / lines.length * 100) + "%";
-      const u = new SpeechSynthesisUtterance(L.t); u.lang = "fr-FR"; const vp = voiceFor(L.v); if (vp.voice) u.voice = vp.voice; u.pitch = vp.pitch; u.rate = L.v === "N" ? .95 : vp.rate;
-      u.onend = () => setTimeout(step, L.v === "N" ? 700 : 350); u.onerror = () => setTimeout(step, 100); speechSynthesis.speak(u);
-    }; step();
-  };
-  const a = new Audio(src); S.audioEl = a; let started = false;
-  a.onplaying = () => { started = true; }; a.onended = done; a.onerror = () => { if (!started) { S.audioEl = null; viaTTS(); } };
-  a.play().catch(() => { if (!started) { S.audioEl = null; viaTTS(); } });
-  setTimeout(() => { if (!started && !fell) { try { a.pause(); } catch (e) { } S.audioEl = null; viaTTS(); } }, 2500);
+  const a = AUDIO[S.mock.id + "|" + ex.id];
+  if (!a || a.state === "error") { prepAudio(ex, true).promise.then(() => paintPlay(ex)); paintPlay(ex); return; }
+  if (a.state !== "ready" || left <= 0) return;
+  stopAudio(); left--; cnt.textContent = left; btn.disabled = true; btn.textContent = "Playing…";
+  const bar = box.querySelector("i"); bar.style.width = "0";
+  const au = new Audio(a.url); S.audioEl = au;
+  au.ontimeupdate = () => { if (au.duration) bar.style.width = Math.round(au.currentTime / au.duration * 100) + "%"; };
+  const done = () => { bar.style.width = "100%"; paintPlay(ex); };
+  au.onended = done; au.onerror = () => { left++; cnt.textContent = left; a.state = "error"; paintPlay(ex); };
+  au.play().catch(() => { left++; cnt.textContent = left; paintPlay(ex); });
 }
 
 /* ---------- writing ---------- */
@@ -225,7 +240,8 @@ async function gradeAll() {
   try { out.po = await call("po-" + m.level, poR); } catch (e) { out.po = { error: true }; }
   return out;
 }
-async function finish() { try{ if(window.SayBonActivity) window.SayBonActivity.complete("exam_complete"); }catch(e){}
+async function finish() {
+  if (ONLY) return finishOnly();
   window.__mkBusy = false; setBar(-1); root.onclick = null; root.oninput = null;
   root.innerHTML = '<div class="mk-card"><h2>Marking your writing and speaking…</h2><p class="mk-instr">This takes about half a minute.</p></div>';
   const g = await gradeAll(); const m = S.mock;
@@ -241,6 +257,31 @@ async function finish() { try{ if(window.SayBonActivity) window.SayBonActivity.c
   if (tk && ok) { try { const r = await fetch(API_BASE + "/api/delfMockSave", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + tk }, body: JSON.stringify({ mockId: m.id, scores: sc, feedback: { pe: g.pe.map(x => ({ total: x.total, max: x.max, strengths: x.strengths, improvements: x.improvements })), po: g.po && { total: g.po.total, max: g.po.max, strengths: g.po.strengths, improvements: g.po.improvements } }, answers: { co: Object.keys(S.answers).length, pe: S.pe, po: S.po } }) }); saved = (await r.json()).ok; } catch (e) { saved = false; } }
   results(saved);
 }
+async function finishOnly() {
+  window.__mkBusy = false; setBar(-1); root.onclick = null; root.oninput = null;
+  const k = ONLY, m = S.mock; let score = 0, ok = true;
+  if (k === "co" || k === "ce") { score = S.results[k] ? S.results[k].score : 0; }
+  else {
+    root.innerHTML = '<div class="mk-card"><h2>Marking your ' + (k === "pe" ? "writing" : "speaking") + '…</h2><p class="mk-instr">This takes about half a minute.</p></div>';
+    const g = await gradeAll();
+    if (k === "pe") { let pe = 0; g.pe.forEach(x => { if (x.error || x.max == null) { ok = false; return; } pe += Math.min(1, Math.max(0, x.total / x.max)) * x.t.share; }); score = Math.round(pe * 10) / 10; S.results.pe = { score, g: g.pe, failed: g.pe.some(x => x.error) }; }
+    else { const po = g.po && !g.po.error && g.po.max ? Math.min(1, Math.max(0, g.po.total / g.po.max)) * 25 : 0; if (!g.po || g.po.error) ok = false; score = Math.round(po * 10) / 10; S.results.po = { score, g: g.po }; }
+  }
+  S.final = { sc: { [k]: score }, total: score, pass: score >= 12.5, ok, only: true };
+  let saved = null; const tk = await token();
+  if (tk && ok && JL) { try { const r = await fetch(API_BASE + "/api/delf/journey/skill-mock", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + tk }, body: JSON.stringify({ level: JL, skill: k, mockId: m.id, score }) }); saved = (await r.json()).ok === true; } catch (e) { saved = false; } }
+  results(saved);
+}
+function decorateOnly(saved) {
+  const f = S.final, pct = Math.round(f.total / 25 * 100), pass = f.total >= 12.5, card = root.querySelector(".mk-card");
+  const msg = !f.ok ? "Part of your answer could not be marked (connection problem), so this score is not saved. Please retake it in a moment."
+    : pass ? "You are at or above the 50% pass mark for this paper. Well done: you can move on to the next skill."
+    : "This is under the 50% pass mark. We strongly recommend the two extra lessons for this skill, which go slowly and explain more. The choice is yours: you can also skip them and move on.";
+  card.innerHTML = '<div class="mk-score">' + f.total + '<span style="font-size:1.4rem"> / 25</span></div><p style="margin:6px 0;font-weight:800">' + pct + '%</p><p style="margin:10px 0"><span class="mk-pass ' + (pass && f.ok ? "y" : "n") + '">' + (!f.ok ? "NOT SAVED" : pass ? "ABOVE THE PASS MARK" : "BELOW THE PASS MARK") + '</span></p><p class="mk-small">' + msg + '</p>' +
+    (f.ok && saved === true ? '<p class="mk-small">Saved to your journey.</p>' : f.ok && saved === false ? '<p class="mk-small" style="color:var(--bad)">Could not save this result. Please check your connection and retake.</p>' : "");
+  root.querySelectorAll(".tabs button").forEach(b => { const k = b.dataset.tab; const keep = (ONLY === "co" || ONLY === "ce") ? k === "rv" : ONLY === "pe" ? k === "wr" : k === "sp"; if (!keep) b.remove(); });
+  const row = root.querySelector(".mk-row"); if (row) row.innerHTML = '<button class="mk-btn" onclick="location.href=\'' + BACK + '\'">' + (JL ? "Back to my journey" : "Back") + '</button><button class="mk-btn ghost" onclick="location.reload()">Retake</button>';
+}
 function results(saved) {
   const f = S.final, m = S.mock;
   const tiles = SECS.filter(s => f.sc[s[0]] != null).map(s => '<div class="mk-tile ' + (f.sc[s[0]] < (m.scheme === "c2" ? 10 : 5) ? "low" : "") + '"><span class="mk-small">' + s[1] + '</span><b>' + f.sc[s[0]] + '</b><span class="mk-small">/ ' + (m.scheme === "c2" ? 50 : 25) + '</span></div>').join("");
@@ -251,14 +292,14 @@ function results(saved) {
     '<div class="mk-row"><button class="mk-btn" onclick="location.href=\'/delf/mocks.html\'">More mock exams</button><button class="mk-btn ghost" onclick="location.reload()">Retake</button></div>';
   const tab = k => {
     const d = document.getElementById("mkTab"); root.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === k)); let h = "";
-    if (k === "rv") ["co", "ce"].forEach(sk => { h += '<div class="mk-card"><h2>' + SECS.find(s => s[0] === sk)[1] + " — " + S.results[sk].raw + " / " + S.results[sk].total + " points</h2>"; S.results[sk].review.forEach(r => { const q = r.q; const ans = q.type === "fill" ? q.accepted[0] : (typeof q.opts[q.ans] === "object" ? q.opts[q.ans].t : q.opts[q.ans]); const mine = r.a == null || r.a === "" ? "(no answer)" : q.type === "fill" ? r.a : (typeof q.opts[r.a] === "object" ? q.opts[r.a].t : q.opts[r.a]); h += '<div class="mk-q">' + esc(q.q) + '</div><div class="mk-opt ' + (r.ok ? "ok" : "bad") + '">' + (r.ok ? "✓ " : "✗ ") + esc(mine) + "</div>" + (r.ok ? "" : '<div class="mk-opt ok">✓ ' + esc(ans) + "</div>") + '<p class="mk-expl">' + esc(q.expl) + "</p>"; }); if (sk === "co") { h += "<h2 style='margin-top:20px'>Transcripts</h2>"; S.mock.co.exercises.forEach(ex => h += '<div class="mk-ex"><b>' + esc(ex.title) + "</b><br>" + ex.audio.lines.map(l => (l.v === "N" ? "<i>" + esc(l.t) + "</i>" : esc(l.v + " : " + l.t))).join("<br>") + "</div>"); } h += "</div>"; });
+    if (k === "rv") ["co", "ce"].filter(sk => S.results[sk]).forEach(sk => { h += '<div class="mk-card"><h2>' + SECS.find(s => s[0] === sk)[1] + " — " + S.results[sk].raw + " / " + S.results[sk].total + " points</h2>"; S.results[sk].review.forEach(r => { const q = r.q; const ans = q.type === "fill" ? q.accepted[0] : (typeof q.opts[q.ans] === "object" ? q.opts[q.ans].t : q.opts[q.ans]); const mine = r.a == null || r.a === "" ? "(no answer)" : q.type === "fill" ? r.a : (typeof q.opts[r.a] === "object" ? q.opts[r.a].t : q.opts[r.a]); h += '<div class="mk-q">' + esc(q.q) + '</div><div class="mk-opt ' + (r.ok ? "ok" : "bad") + '">' + (r.ok ? "✓ " : "✗ ") + esc(mine) + "</div>" + (r.ok ? "" : '<div class="mk-opt ok">✓ ' + esc(ans) + "</div>") + '<p class="mk-expl">' + esc(q.expl) + "</p>"; }); if (sk === "co") { h += "<h2 style='margin-top:20px'>Transcripts</h2>"; S.mock.co.exercises.forEach(ex => h += '<div class="mk-ex"><b>' + esc(ex.title) + "</b><br>" + ex.audio.lines.map(l => (l.v === "N" ? "<i>" + esc(l.t) + "</i>" : esc(l.v + " : " + l.t))).join("<br>") + "</div>"); } h += "</div>"; });
     if (k === "wr") S.results.pe.g.forEach(x => { h += '<div class="mk-card"><h2>' + esc(x.t.title) + "</h2>" + (x.error ? "<p class='mk-instr'>Could not be marked.</p>" : meters(x) + fb(x) + '<div class="mk-ex"><b>Model answer</b><br>' + esc(x.t.model) + "</div>") + "</div>"; });
     if (k === "sp") { const g = S.results.po.g; h += '<div class="mk-card"><h2>Speaking</h2>' + (!g || g.error ? "<p class='mk-instr'>Could not be marked.</p>" : meters(g) + fb(g)) + "<h2 style='margin-top:16px'>What you said</h2>" + (S.po.turns || []).map(x => '<div class="mk-says"><b>' + esc(x.examiner) + "</b><br>" + esc(x.answer || "(no answer)") + "</div>").join("") + (m.scheme === "c2" && m.co.exercises[0] ? "<h2 style='margin-top:16px'>Transcript of the sound document</h2><div class='mk-doc'>" + esc(m.co.exercises[0].audio.lines.map(l => l.t).join("\n\n")) + "</div>" : "") + "<h2 style='margin-top:16px'>Model answers</h2>" + m.po.parts.map(p => p.turns.filter(t => t.reply).map(t => '<p class="mk-small">' + esc(t.ex) + " → <b>" + esc(t.reply) + "</b></p>").join("")).join("") + "</div>"; }
     d.innerHTML = h;
   };
   const meters = g => (g.criteria || []).map(c => '<p class="mk-small">' + esc(c.l) + " — " + g.scores[c.k] + " / " + c.max + '</p><div class="mk-meter"><i style="width:' + Math.round(g.scores[c.k] / c.max * 100) + '%"></i></div>').join("");
   const fb = g => (g.strengths ? "<p><b>Strengths.</b> " + esc(g.strengths) + "</p>" : "") + (g.improvements ? "<p><b>To improve.</b> " + esc(g.improvements) + "</p>" : "") + (g.correction ? "<p class='mk-small'>Correction: <i>" + esc(g.correction) + "</i></p>" : "");
-  root.querySelectorAll(".tabs button").forEach(b => b.onclick = () => tab(b.dataset.tab)); tab(m.scheme === "c2" ? "wr" : "rv"); window.scrollTo(0, 0);
+  root.querySelectorAll(".tabs button").forEach(b => b.onclick = () => tab(b.dataset.tab)); tab(ONLY === "pe" ? "wr" : ONLY === "po" ? "sp" : (m.scheme === "c2" ? "wr" : "rv")); if (S.final.only) decorateOnly(saved); window.scrollTo(0, 0);
 }
 if ("speechSynthesis" in window) { try { speechSynthesis.getVoices(); } catch (e) { } }
 load();

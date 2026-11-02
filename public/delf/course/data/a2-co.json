@@ -1,0 +1,1417 @@
+{
+ "level": "a2",
+ "skill": "co",
+ "skillName": "Listening",
+ "skillNameFr": "Compréhension de l'oral",
+ "lessons": [
+  {
+   "id": "a2-co-1",
+   "n": 1,
+   "title": "Numbers, times, prices and dates",
+   "titleEn": "The facts the exam always asks for",
+   "minutes": 25,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "How the A2 listening paper works",
+     "paras": [
+      "The DELF A2 listening paper lasts about 25 minutes. You hear several short recordings from daily life: announcements, messages on a phone, conversations, a short radio extract. Each one is played twice, and each recording has its own questions.",
+      "Most questions are multiple choice with three answers. Some ask you to write one short answer, such as a time, a price or a place. The questions follow the order of the recording."
+     ],
+     "points": [
+      "Read the questions before the recording starts. Know what you are listening for.",
+      "First listening: catch the main answer. Second listening: check it and fill the gaps.",
+      "Never leave a question empty. A wrong guess costs nothing, a blank scores zero."
+     ],
+     "tip": "Underline the question word in each question: Qui ? Où ? Quand ? Combien ? Pourquoi ? It tells you what kind of information to listen for."
+    },
+    {
+     "type": "vocab",
+     "title": "Times, dates and prices you must recognise",
+     "items": [
+      [
+       "quatorze heures trente-cinq",
+       "14:35"
+      ],
+      [
+       "neuf heures moins le quart",
+       "8:45"
+      ],
+      [
+       "midi et quart",
+       "12:15"
+      ],
+      [
+       "le mardi douze mars",
+       "Tuesday 12 March"
+      ],
+      [
+       "soixante-dix, quatre-vingts, quatre-vingt-dix",
+       "70, 80, 90"
+      ],
+      [
+       "deux euros cinquante",
+       "€2.50"
+      ],
+      [
+       "dix-neuf euros quatre-vingt-dix",
+       "€19.90"
+      ],
+      [
+       "un retard de dix minutes",
+       "a ten-minute delay"
+      ]
+     ],
+     "note": "French counts in twenties: 70 is soixante-dix (60+10), 80 is quatre-vingts (4x20), 90 is quatre-vingt-dix (4x20+10). These trip up almost every learner, so train your ear on them."
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "Train station announcement",
+     "instr": "Listen and answer. You can play it as many times as you like in this lesson.",
+     "lines": [
+      {
+       "v": "N",
+       "t": "Attention, mesdames et messieurs. Le train pour Lyon de quatorze heures trente-cinq partira du quai sept, et non du quai trois. Ce train a dix minutes de retard. Nous vous prions de nous excuser."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Where does the train for Lyon leave from?",
+       "opts": [
+        "Platform 3",
+        "Platform 7",
+        "Platform 10"
+       ],
+       "ans": 1,
+       "expl": "« du quai sept, et non du quai trois » : the announcer corrects the platform. Platform 3 is the trap."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "What time is the train scheduled to leave?",
+       "opts": [
+        "2:25 pm",
+        "2:35 pm",
+        "3:35 pm"
+       ],
+       "ans": 1,
+       "expl": "« quatorze heures trente-cinq » is 14:35, so 2:35 pm."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What is the problem?",
+       "opts": [
+        "The train is cancelled",
+        "The train is ten minutes late",
+        "The train goes to another city"
+       ],
+       "ans": 1,
+       "expl": "« dix minutes de retard » : ten minutes late."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "In the market",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "N",
+       "t": "Bonjour à tous. Cette semaine au marché de la place, les pommes sont à deux euros cinquante le kilo, les fraises à quatre euros quatre-vingt-dix la barquette, et le fromage de chèvre à douze euros le kilo. Le marché est ouvert jusqu'à treize heures."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "How much are the apples per kilo?",
+       "opts": [
+        "€2.15",
+        "€2.50",
+        "€2.90"
+       ],
+       "ans": 1,
+       "expl": "« deux euros cinquante » : €2.50."
+      },
+      {
+       "id": "q2",
+       "type": "fill",
+       "q": "How much is one punnet of strawberries? (write the price, for example 3,40 €)",
+       "accepted": [
+        "4,90",
+        "4,90 €",
+        "4.90",
+        "4,90€",
+        "4 euros 90",
+        "4 euros 90 centimes",
+        "quatre euros quatre-vingt-dix"
+       ],
+       "expl": "« quatre euros quatre-vingt-dix » : 4 euros and 90 (4 x 20 + 10) = €4.90."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "Until what time is the market open?",
+       "opts": [
+        "Noon",
+        "1 pm",
+        "3 pm"
+       ],
+       "ans": 1,
+       "expl": "« jusqu'à treize heures » : until 13:00, which is 1 pm."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "A message from the dentist",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Bonjour madame Martin, c'est le cabinet du docteur Perrin. Votre rendez-vous de mardi douze est déplacé à jeudi quatorze, à neuf heures quarante-cinq. Si cette date ne vous convient pas, rappelez-nous avant vendredi. Merci et à bientôt."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What is the new day of the appointment?",
+       "opts": [
+        "Tuesday 12th",
+        "Thursday 14th",
+        "Friday"
+       ],
+       "ans": 1,
+       "expl": "« déplacé à jeudi quatorze » : the appointment has been moved to Thursday the 14th. Tuesday 12th is the old date."
+      },
+      {
+       "id": "q2",
+       "type": "fill",
+       "q": "At what time? (for example 10h15)",
+       "accepted": [
+        "9h45",
+        "9 h 45",
+        "9h 45",
+        "09h45",
+        "9:45",
+        "neuf heures quarante-cinq",
+        "10h moins le quart"
+       ],
+       "expl": "« neuf heures quarante-cinq » : 9:45."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What should Mrs Martin do if the date does not suit her?",
+       "opts": [
+        "Come anyway",
+        "Call before Friday",
+        "Send an email"
+       ],
+       "ans": 1,
+       "expl": "« rappelez-nous avant vendredi » : call back before Friday."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "Numbers, times and prices appear in almost every A2 recording. Practise them out loud.",
+      "Speakers often correct themselves (« et non du quai trois »). The corrected information is the answer.",
+      "Write a number the way you hear it, then check: quatre-vingt-dix is 90, not 94."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a2-co-2",
+   "n": 2,
+   "title": "Messages on a phone",
+   "titleEn": "Who is calling, why, and what do they want?",
+   "minutes": 25,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "The shape of a phone message",
+     "paras": [
+      "Messages left on an answering machine are very common in the exam. They are short, and they nearly always follow the same order: who is calling, why they are calling, what you must do, and when or where.",
+      "Once you know the order, you know where each answer will come: the reason is almost always in the first or second sentence, and the request or deadline is at the end."
+     ],
+     "points": [
+      "Who? « C'est Paul », « Ici le cabinet du docteur… »",
+      "Why? « Je t'appelle pour… », « Je voulais te dire que… »",
+      "What to do? « Peux-tu… ? », « Rappelle-moi », « N'oublie pas de… »",
+      "When or where? « à dix-neuf heures », « devant le cinéma »"
+     ],
+     "tip": "Words like annulé (cancelled), déplacé (moved), reporté (postponed) and finalement (in the end) signal a change. The question will usually ask about the new plan."
+    },
+    {
+     "type": "vocab",
+     "title": "Useful phrases in messages",
+     "items": [
+      [
+       "Je t'appelle pour...",
+       "I'm calling to..."
+      ],
+      [
+       "Rappelle-moi dès que possible.",
+       "Call me back as soon as possible."
+      ],
+      [
+       "C'est annulé.",
+       "It's cancelled."
+      ],
+      [
+       "C'est reporté à lundi.",
+       "It's postponed to Monday."
+      ],
+      [
+       "J'ai un empêchement.",
+       "Something has come up."
+      ],
+      [
+       "Ça te va ?",
+       "Does that suit you?"
+      ],
+      [
+       "Je suis en retard.",
+       "I'm late."
+      ],
+      [
+       "Apporte...",
+       "Bring..."
+      ]
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "An invitation",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "H",
+       "t": "Salut Camille, c'est Paul. Je t'appelle pour samedi soir. On fait le dîner chez moi, mais pas à huit heures : à huit heures et demie, parce que Sophie finit le travail tard. Peux-tu apporter un dessert ? Moi, je prépare le plat principal. Rappelle-moi si tu as un problème. À samedi !"
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Why is Paul calling?",
+       "opts": [
+        "To cancel a dinner",
+        "To invite Camille to dinner",
+        "To ask for a recipe"
+       ],
+       "ans": 1,
+       "expl": "« Je t'appelle pour samedi soir. On fait le dîner chez moi » : he is inviting her."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "At what time is the dinner?",
+       "opts": [
+        "8:00 pm",
+        "8:30 pm",
+        "9:30 pm"
+       ],
+       "ans": 1,
+       "expl": "« pas à huit heures : à huit heures et demie » : 8:30. The first time is the trap."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What does Paul ask Camille to bring?",
+       "opts": [
+        "A main dish",
+        "Drinks",
+        "A dessert"
+       ],
+       "ans": 2,
+       "expl": "« Peux-tu apporter un dessert ? » : a dessert. Paul prepares the main dish."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "The pharmacy",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Bonjour monsieur Diallo, ici la pharmacie du Centre. Vos médicaments sont arrivés. Vous pouvez venir les chercher aujourd'hui avant dix-neuf heures, ou demain matin à partir de neuf heures. N'oubliez pas votre carte vitale. Bonne journée."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Who is calling?",
+       "opts": [
+        "A doctor",
+        "A pharmacy",
+        "A hospital"
+       ],
+       "ans": 1,
+       "expl": "« ici la pharmacie du Centre »."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "Until what time can he collect his medicine today?",
+       "opts": [
+        "5 pm",
+        "7 pm",
+        "9 pm"
+       ],
+       "ans": 1,
+       "expl": "« avant dix-neuf heures » : before 19:00, so 7 pm."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What must he bring?",
+       "opts": [
+        "His health insurance card",
+        "A prescription",
+        "Cash"
+       ],
+       "ans": 0,
+       "expl": "« N'oubliez pas votre carte vitale » : the French health insurance card."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "A change of plan",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Allô Karim, c'est Nadia. Je ne peux pas venir à la réunion de mercredi, j'ai un empêchement. J'ai parlé avec Madame Roux : la réunion est reportée à vendredi, même heure, même salle. Peux-tu prévenir les autres collègues ? Merci beaucoup, à bientôt."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Why does Nadia call?",
+       "opts": [
+        "The meeting is moved",
+        "She is ill",
+        "She wants a new job"
+       ],
+       "ans": 0,
+       "expl": "« la réunion est reportée à vendredi » : the meeting is postponed to Friday."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "When will the meeting take place now?",
+       "opts": [
+        "Wednesday",
+        "Friday",
+        "Next week"
+       ],
+       "ans": 1,
+       "expl": "« reportée à vendredi » : Friday. Wednesday was the old day."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What does she ask Karim to do?",
+       "opts": [
+        "Book another room",
+        "Tell the colleagues",
+        "Call Mrs Roux"
+       ],
+       "ans": 1,
+       "expl": "« Peux-tu prévenir les autres collègues ? » : to tell (warn) the colleagues."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "Order of a message: who, why, what to do, when or where.",
+      "Words of change (annulé, déplacé, reporté, finalement) point to the new plan, which is the answer.",
+      "Listen for requests: Peux-tu... ? Rappelle-moi. N'oublie pas..."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a2-co-3",
+   "n": 3,
+   "title": "Announcements and public information",
+   "titleEn": "Stations, shops, weather and radio",
+   "minutes": 25,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "Public announcements",
+     "paras": [
+      "Announcements are spoken to many people at once: in a station, a shop, a museum, on the radio. They give practical information and they follow patterns: an attention word, the key fact, a condition or a change.",
+      "The questions ask for practical details: which line, what time, how much, what is free, what is forbidden, what the weather will be."
+     ],
+     "points": [
+      "Attention markers: « Attention », « Nous vous informons que… », « Nous rappelons que… »",
+      "Limits: « jusqu'à » (until), « à partir de » (from), « sauf » (except), « avant » (before)",
+      "Conditions: « gratuit », « interdit », « obligatoire », « fermé le lundi »"
+     ],
+     "tip": "In the weather forecast, listen for time of day (le matin, l'après-midi, le soir) and place (au nord, au sud). Each question usually asks about one of them."
+    },
+    {
+     "type": "vocab",
+     "title": "Words for the announcement paper",
+     "items": [
+      [
+       "des travaux",
+       "roadworks, building work"
+      ],
+      [
+       "fermé / ouvert",
+       "closed / open"
+      ],
+      [
+       "gratuit",
+       "free of charge"
+      ],
+      [
+       "interdit",
+       "forbidden"
+      ],
+      [
+       "il pleuvra",
+       "it will rain"
+      ],
+      [
+       "il fera beau",
+       "the weather will be nice"
+      ],
+      [
+       "le matin / l'après-midi / le soir",
+       "morning / afternoon / evening"
+      ],
+      [
+       "la sortie",
+       "the exit"
+      ]
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "In the metro",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "N",
+       "t": "Nous vous informons que, en raison de travaux, la ligne quatre est fermée entre les stations Châtelet et Montparnasse, ce samedi et ce dimanche. Pour continuer votre voyage, prenez la ligne sept ou les bus de remplacement, devant la sortie principale. Merci de votre compréhension."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Why is the line closed?",
+       "opts": [
+        "A strike",
+        "Building work",
+        "An accident"
+       ],
+       "ans": 1,
+       "expl": "« en raison de travaux » : because of works."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "When is the line closed?",
+       "opts": [
+        "All week",
+        "Saturday and Sunday",
+        "Only Sunday"
+       ],
+       "ans": 1,
+       "expl": "« ce samedi et ce dimanche »."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What can passengers use instead?",
+       "opts": [
+        "Taxis",
+        "Line 7 or replacement buses",
+        "Bicycles"
+       ],
+       "ans": 1,
+       "expl": "« prenez la ligne sept ou les bus de remplacement »."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "At the supermarket",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Chers clients, nous rappelons que le magasin ferme exceptionnellement à dix-huit heures ce soir. Jusqu'à la fermeture, tous les produits frais sont à moitié prix. Les caisses automatiques sont fermées : merci de vous adresser aux caisses du fond. Bonne fin de journée."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What is special about today?",
+       "opts": [
+        "The shop closes early",
+        "The shop opens later",
+        "The shop is closed"
+       ],
+       "ans": 0,
+       "expl": "« ferme exceptionnellement à dix-huit heures » : closes early, at 6 pm."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "What is half price?",
+       "opts": [
+        "Everything",
+        "Fresh products",
+        "Drinks"
+       ],
+       "ans": 1,
+       "expl": "« tous les produits frais sont à moitié prix »."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What should customers do to pay?",
+       "opts": [
+        "Use the self-service tills",
+        "Go to the tills at the back",
+        "Pay at the entrance"
+       ],
+       "ans": 1,
+       "expl": "« les caisses automatiques sont fermées : merci de vous adresser aux caisses du fond »."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "The weather forecast",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "H",
+       "t": "Voici la météo pour demain. Dans le nord du pays, il pleuvra toute la matinée, avec douze degrés. L'après-midi, le soleil reviendra. Dans le sud, il fera beau toute la journée, avec vingt-deux degrés. Attention : le vent sera fort sur la côte, le soir."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What will the weather be like in the north in the morning?",
+       "opts": [
+        "Sunny",
+        "Rainy",
+        "Windy"
+       ],
+       "ans": 1,
+       "expl": "« il pleuvra toute la matinée » : it will rain all morning."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "What will the temperature be in the south?",
+       "opts": [
+        "12 degrees",
+        "22 degrees",
+        "20 degrees"
+       ],
+       "ans": 1,
+       "expl": "« vingt-deux degrés » : 22."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "When will the wind be strong on the coast?",
+       "opts": [
+        "In the morning",
+        "In the afternoon",
+        "In the evening"
+       ],
+       "ans": 2,
+       "expl": "« le vent sera fort sur la côte, le soir »."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "Announcements give facts in a pattern: attention word, key fact, condition or change.",
+      "Listen for limits (jusqu'à, à partir de, sauf) and for time and place in the forecast.",
+      "Each question usually targets one detail, so keep your question in mind while you listen."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a2-co-4",
+   "n": 4,
+   "title": "Conversations and the traps in them",
+   "titleEn": "Changes of mind, opinions and plans",
+   "minutes": 30,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "Why conversations are tricky",
+     "paras": [
+      "In a conversation, two people talk and often change their minds. The first thing you hear is not always the final answer. The exam writers use this on purpose: one wrong option is the first idea, and the right one comes later.",
+      "Train yourself to wait for the end of the exchange before you decide."
+     ],
+     "points": [
+      "Change of mind: « Finalement… », « Non, plutôt… », « Ah non, pas ça, mais… »",
+      "Agreeing: « Moi aussi », « D'accord », « Bonne idée »",
+      "Disagreeing: « Pas du tout », « Je préfère… », « Ça ne me dit rien »",
+      "Reasons: « parce que », « car », « comme »"
+     ],
+     "tip": "If you hear two options, ask yourself: which one did they choose at the end? That one is the answer."
+    },
+    {
+     "type": "vocab",
+     "title": "Phrases for plans and opinions",
+     "items": [
+      [
+       "Ça m'est égal.",
+       "I don't mind."
+      ],
+      [
+       "Ça ne me dit rien.",
+       "I don't feel like it."
+      ],
+      [
+       "Pourquoi pas ?",
+       "Why not?"
+      ],
+      [
+       "On se retrouve devant...",
+       "Let's meet in front of..."
+      ],
+      [
+       "C'est trop cher.",
+       "It's too expensive."
+      ],
+      [
+       "J'ai envie de...",
+       "I feel like..."
+      ],
+      [
+       "à pied / en bus",
+       "on foot / by bus"
+      ],
+      [
+       "finalement",
+       "in the end"
+      ]
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "Choosing an evening out",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "On va au cinéma ce soir ?"
+      },
+      {
+       "v": "H",
+       "t": "Bonne idée. Il y a le nouveau film d'aventure."
+      },
+      {
+       "v": "F",
+       "t": "Oui, mais il commence à vingt et une heures, c'est tard. Il y a une séance à dix-huit heures trente."
+      },
+      {
+       "v": "H",
+       "t": "Ah oui, c'est mieux. Et après, on mange une pizza ?"
+      },
+      {
+       "v": "F",
+       "t": "Pourquoi pas ? Rendez-vous devant le cinéma à dix-huit heures."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What do they decide to do?",
+       "opts": [
+        "See a film",
+        "Have dinner only",
+        "Go for a walk"
+       ],
+       "ans": 0,
+       "expl": "They start with « On va au cinéma ce soir ? » and keep that plan."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "Which showing do they choose?",
+       "opts": [
+        "6:30 pm",
+        "9:00 pm",
+        "6:00 pm"
+       ],
+       "ans": 0,
+       "expl": "They reject the 9 pm showing (« c'est tard ») and choose the one at « dix-huit heures trente »: 6:30 pm. They only meet at 6:00 pm in front of the cinema."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What will they do after the film?",
+       "opts": [
+        "Go home",
+        "Eat a pizza",
+        "Meet friends"
+       ],
+       "ans": 1,
+       "expl": "« Et après, on mange une pizza ? » « Pourquoi pas ? »"
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "Holiday plans",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "H",
+       "t": "Alors, on part où cet été ? À la montagne ?"
+      },
+      {
+       "v": "F",
+       "t": "Non, j'ai envie de la mer. La montagne, c'est trop froid pour moi."
+      },
+      {
+       "v": "H",
+       "t": "D'accord. Mais l'hôtel est cher au bord de la mer."
+      },
+      {
+       "v": "F",
+       "t": "Alors on prend un petit appartement. Ma sœur en a un près de Nice. On y va en train, c'est moins cher que l'avion."
+      },
+      {
+       "v": "H",
+       "t": "Parfait. On part le premier août."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Where will they go on holiday?",
+       "opts": [
+        "To the mountains",
+        "To the sea",
+        "To the countryside"
+       ],
+       "ans": 1,
+       "expl": "« Non, j'ai envie de la mer » : the woman prefers the sea."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "Where will they stay?",
+       "opts": [
+        "In a hotel",
+        "In her sister's flat",
+        "In a campsite"
+       ],
+       "ans": 1,
+       "expl": "« on prend un petit appartement. Ma sœur en a un près de Nice »: the hotel was rejected because it is expensive."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "How will they travel?",
+       "opts": [
+        "By plane",
+        "By car",
+        "By train"
+       ],
+       "ans": 2,
+       "expl": "« On y va en train, c'est moins cher que l'avion » : the plane is the rejected option."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "A radio interview",
+     "instr": "Listen and answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Bonjour Thomas. Qu'est-ce que vous aimez faire le week-end ?"
+      },
+      {
+       "v": "H",
+       "t": "Le samedi, je fais du sport : du football avec mes amis, le matin. Le dimanche, je reste à la maison. J'aime cuisiner pour ma famille."
+      },
+      {
+       "v": "F",
+       "t": "Et les vacances ?"
+      },
+      {
+       "v": "H",
+       "t": "Je pars souvent chez mes grands-parents, à la campagne. J'adore ça parce que c'est calme et on mange très bien."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What does Thomas do on Saturday mornings?",
+       "opts": [
+        "He cooks",
+        "He plays football",
+        "He visits his family"
+       ],
+       "ans": 1,
+       "expl": "« Le samedi, je fais du sport : du football avec mes amis, le matin »."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "What does he like doing on Sundays?",
+       "opts": [
+        "Cooking for his family",
+        "Playing sport",
+        "Travelling"
+       ],
+       "ans": 0,
+       "expl": "« Le dimanche, je reste à la maison. J'aime cuisiner pour ma famille »."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "Why does he like going to his grandparents' house?",
+       "opts": [
+        "It is quiet and the food is good",
+        "It is close to the sea",
+        "There is a lot to do"
+       ],
+       "ans": 0,
+       "expl": "« parce que c'est calme et on mange très bien »."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "In a conversation the first idea is often rejected. Wait for the final decision.",
+      "Change-of-mind words (finalement, non plutôt, c'est trop...) show you which option is wrong.",
+      "You are now ready for the listening mock: read the questions first, listen twice, never leave a blank."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a2-co-r1",
+   "n": 5,
+   "remedial": true,
+   "title": "Extra lesson 1: numbers, times and prices from the ground up",
+   "titleEn": "Slow, step by step, with the text to help you",
+   "minutes": 30,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "Why this extra lesson",
+     "paras": [
+      "If your listening score was under 50 percent, the most common reason is not vocabulary. It is that numbers, times and short key words go by too fast to catch. This lesson slows everything down and shows you the text first, so your ear learns what the sounds look like.",
+      "Take your time. You can play every recording as many times as you like. Do not move on until each answer feels easy."
+     ],
+     "points": [
+      "Step 1: read the words and say them aloud.",
+      "Step 2: listen while you read the text.",
+      "Step 3: listen again with the text hidden and answer."
+     ],
+     "tip": "Reading and listening together is how the ear learns. After a few rounds the text becomes unnecessary."
+    },
+    {
+     "type": "vocab",
+     "title": "Numbers 1 to 20, then the tens",
+     "items": [
+      [
+       "un, deux, trois, quatre, cinq",
+       "1, 2, 3, 4, 5"
+      ],
+      [
+       "six, sept, huit, neuf, dix",
+       "6, 7, 8, 9, 10"
+      ],
+      [
+       "onze, douze, treize, quatorze, quinze",
+       "11 to 15"
+      ],
+      [
+       "seize, dix-sept, dix-huit, dix-neuf, vingt",
+       "16 to 20"
+      ],
+      [
+       "trente, quarante, cinquante, soixante",
+       "30, 40, 50, 60"
+      ],
+      [
+       "soixante-dix, soixante et onze, soixante-douze",
+       "70, 71, 72"
+      ],
+      [
+       "quatre-vingts, quatre-vingt-un, quatre-vingt-deux",
+       "80, 81, 82"
+      ],
+      [
+       "quatre-vingt-dix, quatre-vingt-onze",
+       "90, 91"
+      ]
+     ],
+     "note": "Say each row out loud three times. Hearing yourself say them makes them easier to recognise."
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "Numbers, with the text",
+     "instr": "Read the text while you listen, then answer.",
+     "lines": [
+      {
+       "v": "N",
+       "t": "Soixante-quinze. Quatre-vingt-douze. Quarante-trois. Quatre-vingt-sept. Soixante et onze."
+      }
+     ],
+     "transcript": "before",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "fill",
+       "q": "Write the first number in digits.",
+       "accepted": [
+        "75",
+        "soixante-quinze"
+       ],
+       "expl": "Soixante-quinze = 60 + 15 = 75."
+      },
+      {
+       "id": "q2",
+       "type": "fill",
+       "q": "Write the second number in digits.",
+       "accepted": [
+        "92",
+        "quatre-vingt-douze"
+       ],
+       "expl": "Quatre-vingt-douze = 4 x 20 + 12 = 92."
+      },
+      {
+       "id": "q3",
+       "type": "fill",
+       "q": "Write the last number in digits.",
+       "accepted": [
+        "71",
+        "soixante et onze"
+       ],
+       "expl": "Soixante et onze = 60 + 11 = 71."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "Times, with the text",
+     "instr": "Read the text while you listen, then answer.",
+     "lines": [
+      {
+       "v": "N",
+       "t": "Le cours commence à neuf heures quinze. Le déjeuner est à midi et demi. Le train part à dix-sept heures quarante."
+      }
+     ],
+     "transcript": "before",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "fill",
+       "q": "At what time does the class start? (for example 8h30)",
+       "accepted": [
+        "9h15",
+        "9 h 15",
+        "09h15",
+        "9:15",
+        "neuf heures quinze"
+       ],
+       "expl": "Neuf heures quinze = 9:15."
+      },
+      {
+       "id": "q2",
+       "type": "fill",
+       "q": "At what time is lunch?",
+       "accepted": [
+        "12h30",
+        "12 h 30",
+        "12:30",
+        "midi et demi",
+        "midi trente",
+        "midi 30"
+       ],
+       "expl": "Midi et demi = 12:30."
+      },
+      {
+       "id": "q3",
+       "type": "fill",
+       "q": "At what time does the train leave?",
+       "accepted": [
+        "17h40",
+        "17 h 40",
+        "17:40",
+        "5h40",
+        "5:40",
+        "dix-sept heures quarante"
+       ],
+       "expl": "Dix-sept heures quarante = 17:40, which is 5:40 pm."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "Prices, then without the text",
+     "instr": "This time the text is hidden until you check your answers.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Le pain coûte un euro vingt. Le café coûte trois euros cinquante. Le sandwich coûte six euros quatre-vingts."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "fill",
+       "q": "How much is the bread? (for example 2,10 €)",
+       "accepted": [
+        "1,20",
+        "1,20 €",
+        "1.20",
+        "1,20€",
+        "1 euro 20",
+        "un euro vingt"
+       ],
+       "expl": "Un euro vingt = €1.20."
+      },
+      {
+       "id": "q2",
+       "type": "fill",
+       "q": "How much is the coffee?",
+       "accepted": [
+        "3,50",
+        "3,50 €",
+        "3.50",
+        "3,50€",
+        "3 euros 50",
+        "trois euros cinquante"
+       ],
+       "expl": "Trois euros cinquante = €3.50."
+      },
+      {
+       "id": "q3",
+       "type": "fill",
+       "q": "How much is the sandwich?",
+       "accepted": [
+        "6,80",
+        "6,80 €",
+        "6.80",
+        "6,80€",
+        "6 euros 80",
+        "six euros quatre-vingts"
+       ],
+       "expl": "Six euros quatre-vingts = €6.80."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "The French count in twenties from 70: soixante-dix, quatre-vingts, quatre-vingt-dix.",
+      "Say numbers aloud as you practise. Your mouth trains your ear.",
+      "Reading the text while you listen is a legitimate way to train, and you will need it less each time."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a2-co-r2",
+   "n": 6,
+   "remedial": true,
+   "title": "Extra lesson 2: following a conversation without panic",
+   "titleEn": "Slow dialogues, key words and what to do when you miss a word",
+   "minutes": 30,
+   "blocks": [
+    {
+     "type": "teach",
+     "title": "You do not need to understand every word",
+     "paras": [
+      "Many learners panic when they miss one word, and then they lose the next sentence as well. The exam does not ask you to understand everything. It asks for specific pieces of information.",
+      "This lesson teaches you to hold on to the key words, and to carry on when you lose a word."
+     ],
+     "points": [
+      "When you miss a word, let it go and keep listening. One word is rarely the answer.",
+      "Listen for the words your question uses: if it asks « Où ? », wait for a place.",
+      "In the second listening, check only the answers you were unsure about."
+     ],
+     "tip": "Write one or two key words next to each question while you listen (for example: Lyon, 18h, 12 €). You are not writing sentences, only anchors."
+    },
+    {
+     "type": "listen",
+     "id": "d1",
+     "title": "A phone call to a friend, with the text",
+     "instr": "Read while you listen. Then answer.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Allô, Marc ? C'est Julie. Tu es libre dimanche ?"
+      },
+      {
+       "v": "H",
+       "t": "Dimanche ? Oui, je crois. Pourquoi ?"
+      },
+      {
+       "v": "F",
+       "t": "Je fais une petite fête pour mon anniversaire, chez moi, à quinze heures."
+      },
+      {
+       "v": "H",
+       "t": "Super ! J'apporte un gâteau ?"
+      },
+      {
+       "v": "F",
+       "t": "Non, merci, j'ai déjà un gâteau. Apporte plutôt des boissons."
+      }
+     ],
+     "transcript": "before",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Why is Julie calling?",
+       "opts": [
+        "To invite Marc to her birthday party",
+        "To ask for a cake",
+        "To cancel a meeting"
+       ],
+       "ans": 0,
+       "expl": "« Je fais une petite fête pour mon anniversaire »."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "At what time is the party?",
+       "opts": [
+        "1 pm",
+        "3 pm",
+        "5 pm"
+       ],
+       "ans": 1,
+       "expl": "« à quinze heures » is 15:00, which is 3 pm."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "What should Marc bring?",
+       "opts": [
+        "A cake",
+        "Drinks",
+        "Nothing"
+       ],
+       "ans": 1,
+       "expl": "Marc offers a cake, but Julie says « Apporte plutôt des boissons » : drinks."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d2",
+     "title": "Asking for directions, with the text",
+     "instr": "Read while you listen. Then answer.",
+     "lines": [
+      {
+       "v": "H",
+       "t": "Excusez-moi, madame. Pour aller à la gare, s'il vous plaît ?"
+      },
+      {
+       "v": "F",
+       "t": "C'est facile. Vous allez tout droit jusqu'au feu rouge, puis vous tournez à gauche. La gare est en face de la banque."
+      },
+      {
+       "v": "H",
+       "t": "C'est loin ?"
+      },
+      {
+       "v": "F",
+       "t": "Non, dix minutes à pied."
+      },
+      {
+       "v": "H",
+       "t": "Merci beaucoup !"
+      }
+     ],
+     "transcript": "before",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "Where does the man want to go?",
+       "opts": [
+        "To the bank",
+        "To the station",
+        "To the traffic light"
+       ],
+       "ans": 1,
+       "expl": "« Pour aller à la gare ? »"
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "What must he do at the traffic light?",
+       "opts": [
+        "Turn right",
+        "Turn left",
+        "Go straight on"
+       ],
+       "ans": 1,
+       "expl": "« vous tournez à gauche »."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "How far is it?",
+       "opts": [
+        "Ten minutes on foot",
+        "Ten minutes by bus",
+        "Ten kilometres"
+       ],
+       "ans": 0,
+       "expl": "« dix minutes à pied »."
+      }
+     ]
+    },
+    {
+     "type": "listen",
+     "id": "d3",
+     "title": "Now without the text",
+     "instr": "The text stays hidden until you check. Use your key-word anchors.",
+     "lines": [
+      {
+       "v": "F",
+       "t": "Bonjour, je voudrais réserver une table pour samedi soir."
+      },
+      {
+       "v": "H",
+       "t": "Pour combien de personnes, madame ?"
+      },
+      {
+       "v": "F",
+       "t": "Pour quatre personnes, vers vingt heures."
+      },
+      {
+       "v": "H",
+       "t": "Je suis désolé, à vingt heures, c'est complet. J'ai une table à vingt et une heures."
+      },
+      {
+       "v": "F",
+       "t": "D'accord, ça va. Au nom de Dupont."
+      }
+     ],
+     "transcript": "after",
+     "questions": [
+      {
+       "id": "q1",
+       "type": "mcq",
+       "q": "What does the woman want to do?",
+       "opts": [
+        "Order food",
+        "Book a table",
+        "Cancel a booking"
+       ],
+       "ans": 1,
+       "expl": "« je voudrais réserver une table »."
+      },
+      {
+       "id": "q2",
+       "type": "mcq",
+       "q": "For how many people?",
+       "opts": [
+        "Two",
+        "Four",
+        "Six"
+       ],
+       "ans": 1,
+       "expl": "« pour quatre personnes »."
+      },
+      {
+       "id": "q3",
+       "type": "mcq",
+       "q": "At what time will they eat?",
+       "opts": [
+        "8 pm",
+        "9 pm",
+        "10 pm"
+       ],
+       "ans": 1,
+       "expl": "At 8 pm the restaurant is full (« c'est complet »). The woman accepts the table at « vingt et une heures » : 9 pm."
+      }
+     ]
+    },
+    {
+     "type": "recap",
+     "title": "What to remember",
+     "points": [
+      "Keep your anchors: write one or two key words per question while you listen.",
+      "Missing a word is normal. Let it go and keep listening.",
+      "Ready to try again? Come back to the mock when you feel more confident. The choice is yours."
+     ]
+    }
+   ]
+  }
+ ]
+}

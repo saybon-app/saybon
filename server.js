@@ -267,6 +267,7 @@ require("./delf-payment-routes")(app,{admin:admin,db:db,express:express,logIncom
 var DELF_PRICES_CENTS={a1:1200,a2:1700,b1:2500,b2:2900,c1:3400,prim:1200,junior:1200};
 var DELF_LABELS={a1:"DELF A1",a2:"DELF A2",b1:"DELF B1",b2:"DELF B2",c1:"DELF C1",prim:"DELF Prim",junior:"DELF Junior"};
 require("./level-routes")(app,{admin:admin,db:db,express:express});
+require("./delf-journey-routes")(app,{admin:admin,db:db,express:express});
 app.listen(process.env.PORT || 3000,()=>{
 
 console.log("Translator API running")
