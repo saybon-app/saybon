@@ -2987,7 +2987,7 @@ body: audioBuffer
 
 })
 
-const azureData = await azureRes.json()
+const azureText = await azureRes.text(); let azureData; try { azureData = JSON.parse(azureText) } catch(parseErr) { azureData = { rawText: azureText.slice(0,300) } }; if(!azureRes.ok){ console.error("Azure Speech HTTP", azureRes.status, azureText.slice(0,300)); return res.status(500).json({error:"Speech assessment failed (Azure " + azureRes.status + (azureText ? ": " + azureText.slice(0,120) : "") + ")", details: azureData}) }
 
 if(!azureRes.ok){
 
@@ -3040,7 +3040,7 @@ _debugRawAzureResponse: azureData
 
 console.error(err);
 
-res.status(500).json({error:"could not assess pronunciation"})
+res.status(500).json({error:"could not assess pronunciation: " + String(err && err.message ? err.message : err).slice(0,160)})
 
 }
 
