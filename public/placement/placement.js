@@ -700,7 +700,7 @@ function submitOralRecording(){
       return;
     }
     var score = Math.round(Number(raw) || 0);
-    var passed = score >= 70;
+    var passed = score >= 60;
     var msg = passed
       ? oralPassMessages[Math.floor(Math.random() * oralPassMessages.length)]
       : oralEncourageMessages[Math.floor(Math.random() * oralEncourageMessages.length)];
