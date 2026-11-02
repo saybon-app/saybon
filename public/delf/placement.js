@@ -67,7 +67,8 @@ var state = {
   speakingBlob: null,
   clearedLevels: [],
   built: null,
-  ttsPlays: {}
+  ttsPlays: {},
+  audio: {}
 };
 
 var delfAssetsMap = {};
@@ -222,17 +223,16 @@ function renderListening(){
   var lvl = LEVELS[state.currentLevelId];
   var docs = state.built.listening.docs;
   var n = 0;
+  state.audio = {};
   var html = docs.map(function(d, di){
     var url = audioUrlFor(state.currentLevelId, di);
     var player;
     if(url){
       player = '<audio controls preload="none" style="width:100%;margin-bottom:14px;" src="' + url + '"></audio>';
-    } else if(window.speechSynthesis){
-      var left = 2 - (state.ttsPlays[di] || 0);
-      player = '<div class="pl-tts"><button class="pl-btn pl-btn-secondary pl-tts-btn" id="plTts' + di + '" onclick="playListeningDoc(' + di + ')" ' + (left <= 0 ? "disabled" : "") + '>&#9658; Listen</button>' +
-        '<span class="pl-tts-left" id="plTtsLeft' + di + '">' + left + ' ' + (left === 1 ? "play" : "plays") + ' left</span></div>';
     } else {
-      player = '<p class="pl-audio-missing">Audio is not available on this device yet.</p>';
+      var left = 2 - (state.ttsPlays[di] || 0);
+      player = '<div class="pl-tts"><button class="pl-btn pl-btn-secondary pl-tts-btn" id="plTts' + di + '" onclick="playListeningDoc(' + di + ')" disabled>Preparing audio...</button>' +
+        '<span class="pl-tts-left" id="plTtsLeft' + di + '">' + left + ' ' + (left === 1 ? "play" : "plays") + ' left</span></div>';
     }
     var qs = d.questions.map(function(q){ n++; return questionBlock(q, n, "listening"); }).join("");
     return '<div class="pl-doc"><h3 class="pl-doc-title">Document ' + (di + 1) + ' of ' + docs.length + '</h3>' + player + qs + '</div>';
@@ -248,29 +248,106 @@ function renderListening(){
     '</div>'
   );
   markSelected("listening", -1, -1);
+  docs.forEach(function(d, di){ if(!audioUrlFor(state.currentLevelId, di)) prepareAudio(di); });
+}
+
+function ttsSetBtn(di, html, disabled){
+  var b = document.getElementById("plTts" + di);
+  if(b){ b.innerHTML = html; b.disabled = !!disabled; }
+}
+function ttsSetLeft(di){
+  var left = 2 - (state.ttsPlays[di] || 0);
+  var lab = document.getElementById("plTtsLeft" + di);
+  if(lab) lab.textContent = left + ' ' + (left === 1 ? "play" : "plays") + ' left';
+  return left;
+}
+function ttsIdle(di){
+  var a = state.audio && state.audio[di];
+  var left = ttsSetLeft(di);
+  if(a && a.status === "failed" && !window.speechSynthesis){ ttsSetBtn(di, "Retry audio", false); return; }
+  ttsSetBtn(di, "&#9658; Listen", left <= 0);
+}
+
+// Fetch a real French neural-voice recording for this document from the server.
+function prepareAudio(di){
+  var a = state.audio[di] = { status: "loading", el: null };
+  var text = state.built.listening.docs[di].body;
+  var levelId = state.currentLevelId;
+  var user = auth.currentUser;
+  var ctl = (typeof AbortController !== "undefined") ? new AbortController() : null;
+  var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, 45000);
+  var tokenP = user ? user.getIdToken() : Promise.reject(new Error("not signed in"));
+  tokenP.then(function(token){
+    return fetch(API_BASE + "/api/delf/tts", {
+      method: "POST", signal: ctl ? ctl.signal : undefined,
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+      body: JSON.stringify({ text: text, level: levelId })
+    });
+  }).then(function(res){
+    if(!res.ok) throw new Error("tts " + res.status);
+    return res.blob();
+  }).then(function(blob){
+    clearTimeout(timer);
+    if(!blob || blob.size < 1000) throw new Error("empty audio");
+    if(state.audio[di] !== a) return;               // page moved on
+    var el = new Audio();
+    el.preload = "auto";
+    el.src = URL.createObjectURL(blob);
+    a.el = el; a.status = "ready";
+    ttsIdle(di);
+  }).catch(function(e){
+    clearTimeout(timer);
+    console.warn("DELF audio unavailable, using device voice:", e);
+    if(state.audio[di] !== a) return;
+    a.status = "failed";
+    ttsIdle(di);
+  });
+}
+
+function stopAllListening(){
+  try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){}
+  var all = state.audio || {};
+  Object.keys(all).forEach(function(k){ try{ if(all[k].el){ all[k].el.pause(); } }catch(e){} });
 }
 
 function playListeningDoc(di){
-  if(!window.speechSynthesis) return;
   if((state.ttsPlays[di] || 0) >= 2) return;
-  state.ttsPlays[di] = (state.ttsPlays[di] || 0) + 1;
-  window.speechSynthesis.cancel();
+  var a = state.audio && state.audio[di];
+  if(!a) return;
+  if(a.status === "failed" && !window.speechSynthesis){ prepareAudio(di); ttsSetBtn(di, "Preparing audio...", true); return; }
+  stopAllListening();
+  var counted = false;
+  var count = function(){
+    if(counted) return; counted = true;
+    state.ttsPlays[di] = (state.ttsPlays[di] || 0) + 1;
+    ttsSetLeft(di);
+    ttsSetBtn(di, "Playing...", true);
+  };
+  var finish = function(){ ttsIdle(di); };
+  var problem = function(){ if(!counted){ ttsSetBtn(di, "&#9658; Listen again", false); } else { finish(); } };
+
+  if(a.status === "ready" && a.el){
+    var el = a.el;
+    el.onplaying = count; el.onended = finish; el.onerror = problem;
+    try{ el.currentTime = 0; }catch(e){}
+    var p = el.play();
+    if(p && p.catch){ p.catch(function(){ problem(); }); }
+    return;
+  }
+
+  // Fallback: the device's own voice (only if the server audio could not be loaded).
+  if(!window.speechSynthesis){ problem(); return; }
   var text = state.built.listening.docs[di].body.replace(/(^|\s)[–—-]\s/g, "$1");
   var u = new SpeechSynthesisUtterance(text);
-  u.lang = "fr-FR"; u.rate = 0.9;
+  u.lang = "fr-FR"; u.rate = 0.85;
   var voices = window.speechSynthesis.getVoices();
-  for(var i = 0; i < voices.length; i++){ if(voices[i].lang && voices[i].lang.toLowerCase().indexOf("fr") === 0){ u.voice = voices[i]; break; } }
-  var btn = document.getElementById("plTts" + di);
-  var left = 2 - state.ttsPlays[di];
-  var lab = document.getElementById("plTtsLeft" + di);
-  if(lab) lab.textContent = left + ' ' + (left === 1 ? "play" : "plays") + ' left';
-  if(btn){ btn.disabled = true; btn.innerHTML = "Playing..."; }
-  var done = function(){
-    var b = document.getElementById("plTts" + di);
-    if(b){ b.innerHTML = "&#9658; Listen"; b.disabled = left <= 0; }
-  };
-  var doneOnce = false; var finish = function(){ if(doneOnce) return; doneOnce = true; done(); };
-  u.onend = finish; u.onerror = finish; setTimeout(finish, 120000);
+  for(var i = 0; i < voices.length; i++){ if(voices[i].lang && voices[i].lang.toLowerCase().replace("_","-").indexOf("fr") === 0){ u.voice = voices[i]; break; } }
+  var done = false;
+  var end = function(){ if(done) return; done = true; clearTimeout(starter); clearTimeout(cap); finish(); };
+  u.onstart = count; u.onend = end;
+  u.onerror = function(){ if(done) return; done = true; clearTimeout(starter); clearTimeout(cap); problem(); };
+  var starter = setTimeout(function(){ if(!counted && !done){ done = true; try{ window.speechSynthesis.cancel(); }catch(e){} problem(); } }, 6000);
+  var cap = setTimeout(end, 180000);
   window.speechSynthesis.speak(u);
 }
 
@@ -283,7 +360,7 @@ function selectListening(gi, oi){
 // ---------------- READING ----------------
 
 function renderReading(){
-  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  stopAllListening();
   var lvl = LEVELS[state.currentLevelId];
   var texts = state.built.reading.docs;
   var n = 0;

@@ -2,40 +2,40 @@
 export const A1 = {
   id: "a1", label: "A1", group: "Tout Public", hasContent: true,
   listening: { docs: [
-    { title: "Message vocal", script: "Allô Julie, c'est Thomas. Je suis à la gare. Mon train arrive à quinze heures dix. Tu peux venir me chercher à la sortie, côté parking ? Je porte une veste bleue. À tout à l'heure !",
+    { title: "Un message au téléphone", script: "Bonjour Sophie, c'est Karim. Je ne peux pas venir au cours mardi, parce que je suis malade. J'ai de la fièvre. Je viens jeudi, à dix-huit heures. Merci beaucoup, et à jeudi !",
       questions: [
-        { q: "Où est Thomas ?", options: ["à l'aéroport", "à la gare", "à la maison"], correct: 1 },
-        { q: "À quelle heure arrive son train ?", options: ["15 h 10", "14 h 10", "15 h 50"], correct: 0 },
-        { q: "Où doit-il retrouver Julie ?", options: ["devant le cinéma", "dans le train", "à la sortie, côté parking"], correct: 2 } ] },
-    { title: "Annonce au supermarché", script: "Mesdames et messieurs, bonjour. Cette semaine, les pommes sont à un euro cinquante le kilo et les bananes à deux euros le kilo. Le magasin ferme ce soir à vingt heures. Merci de votre visite.",
+        { q: "Qui téléphone ?", options: ["Sophie", "Karim", "le docteur"], correct: 1 },
+        { q: "Pourquoi Karim ne vient-il pas mardi ?", options: ["il travaille", "il voyage", "il est malade"], correct: 2 },
+        { q: "Quand vient-il au cours ?", options: ["jeudi à 18 h", "mardi à 18 h", "jeudi à 8 h"], correct: 0 } ] },
+    { title: "Annonce à la gare", script: "Attention, mesdames et messieurs. Le train pour Lyon part à neuf heures vingt, quai numéro cinq. Le train pour Paris a quinze minutes de retard. Merci de votre attention.",
       questions: [
-        { q: "Combien coûte un kilo de pommes ?", options: ["2 euros", "1 euro 50", "1 euro"], correct: 1 },
-        { q: "Quel fruit coûte deux euros le kilo ?", options: ["les bananes", "les pommes", "les oranges"], correct: 0 },
-        { q: "À quelle heure ferme le magasin ce soir ?", options: ["à 18 h", "à 19 h", "à 20 h"], correct: 2 } ] },
-    { title: "Réservation au restaurant", script: "– Restaurant Chez Marie, bonjour. – Bonjour, je voudrais réserver une table pour demain soir. – Pour combien de personnes ? – Pour quatre personnes. – À quelle heure ? – À vingt heures, s'il vous plaît. – Très bien. C'est à quel nom ? – Martin. M, A, R, T, I, N. – Merci, monsieur Martin. À demain !",
+        { q: "Où va le train de 9 h 20 ?", options: ["à Paris", "à Nice", "à Lyon"], correct: 2 },
+        { q: "Quel est le numéro du quai ?", options: ["le quai 5", "le quai 15", "le quai 3"], correct: 0 },
+        { q: "Quel train est en retard ?", options: ["le train pour Lyon", "le train pour Paris", "le train pour Marseille"], correct: 1 } ] },
+    { title: "À la boulangerie", script: "– Bonjour madame. – Bonjour monsieur. Je voudrais deux croissants et une baguette, s'il vous plaît. – Voilà. Et avec ça ? – Un pain au chocolat, s'il vous plaît. – Très bien. Ça fait quatre euros dix. – Voici cinq euros. – Et voilà votre monnaie : quatre-vingt-dix centimes. Bonne journée ! – Merci, vous aussi.",
       questions: [
-        { q: "Pour quand veut-il réserver ?", options: ["aujourd'hui à midi", "demain soir", "samedi soir"], correct: 1 },
-        { q: "Pour combien de personnes ?", options: ["deux", "six", "quatre"], correct: 2 },
-        { q: "À quelle heure ?", options: ["20 h", "19 h", "21 h"], correct: 0 },
-        { q: "Quel est le nom de la réservation ?", options: ["Marie", "Martin", "Morin"], correct: 1 } ] }
+        { q: "Combien de croissants le client achète-t-il ?", options: ["un", "deux", "trois"], correct: 1 },
+        { q: "Qu'est-ce qu'il prend en plus ?", options: ["un gâteau", "un café", "un pain au chocolat"], correct: 2 },
+        { q: "Combien ça coûte ?", options: ["4 euros 10", "5 euros", "3 euros 10"], correct: 0 },
+        { q: "Combien de monnaie le client reçoit-il ?", options: ["10 centimes", "90 centimes", "1 euro"], correct: 1 } ] }
   ] },
   reading: { texts: [
-    { title: "Un SMS", passage: "Salut Lina ! Samedi, c'est mon anniversaire. Je fais une fête chez moi à 19 h. Il y aura de la musique et un gâteau au chocolat. Tu peux venir ? Apporte une boisson, s'il te plaît. Bises, Nora",
+    { title: "Un message", passage: "Bonjour Paul ! Ce week-end, nous allons à la plage avec Léa et Hugo. Nous partons samedi à huit heures. Il fait beau, mais prends un chapeau et de la crème solaire. On mange au restaurant à midi. À samedi ! Clara",
       questions: [
-        { q: "Pourquoi Nora fait-elle une fête ?", options: ["pour son anniversaire", "pour un mariage", "pour son travail"], correct: 0 },
-        { q: "La fête commence à quelle heure ?", options: ["à 17 h", "à 18 h", "à 19 h"], correct: 2 },
-        { q: "Que doit apporter Lina ?", options: ["un gâteau", "une boisson", "de la musique"], correct: 1 } ] },
-    { title: "Une affiche", passage: "COURS DE FRANÇAIS POUR DÉBUTANTS — Centre culturel. Lundi et mercredi, de 18 h à 19 h 30. Prix : 40 euros par mois. Inscription à l'accueil, du lundi au vendredi, de 9 h à 17 h.",
+        { q: "Où vont-ils ce week-end ?", options: ["à la montagne", "au cinéma", "à la plage"], correct: 2 },
+        { q: "Quand partent-ils ?", options: ["samedi à 8 h", "dimanche à 8 h", "samedi à midi"], correct: 0 },
+        { q: "Qu'est-ce que Paul doit prendre ?", options: ["un manteau et des gants", "un chapeau et de la crème solaire", "un parapluie"], correct: 1 } ] },
+    { title: "Une annonce", passage: "À louer : appartement de deux pièces au centre-ville. Cuisine équipée, salle de bains, balcon. 650 euros par mois. Libre le 1er mars. Pour visiter, téléphonez au 06 12 34 56 78 après 18 heures.",
       questions: [
-        { q: "Quels jours a lieu le cours ?", options: ["mardi et jeudi", "lundi et mercredi", "samedi et dimanche"], correct: 1 },
-        { q: "Combien coûte le cours ?", options: ["40 euros par mois", "14 euros par mois", "40 euros par an"], correct: 0 },
-        { q: "Où faut-il s'inscrire ?", options: ["sur Internet", "à la poste", "à l'accueil"], correct: 2 } ] },
-    { title: "Hôtel du Lac", passage: "Hôtel du Lac. Le petit déjeuner est servi de 7 h à 10 h au rez-de-chaussée. La piscine est ouverte de 9 h à 20 h. Il est interdit de fumer dans les chambres. Pour appeler la réception, faites le 9.",
+        { q: "Combien de pièces a l'appartement ?", options: ["deux", "trois", "quatre"], correct: 0 },
+        { q: "Combien coûte-t-il par mois ?", options: ["560 euros", "6 500 euros", "650 euros"], correct: 2 },
+        { q: "Quand faut-il téléphoner pour visiter ?", options: ["le matin", "après 18 h", "avant 18 h"], correct: 1 } ] },
+    { title: "Une carte postale", passage: "Chers papa et maman, je suis à Marseille depuis lundi. L'hôtel est petit mais très propre. Le matin, je visite la ville ; l'après-midi, je me repose au port. Hier, j'ai mangé une bouillabaisse : c'était délicieux ! Je rentre vendredi soir. Bisous, Inès",
       questions: [
-        { q: "Où prend-on le petit déjeuner ?", options: ["dans la chambre", "au rez-de-chaussée", "près de la piscine"], correct: 1 },
-        { q: "La piscine ferme à quelle heure ?", options: ["à 20 h", "à 10 h", "à 19 h"], correct: 0 },
-        { q: "Qu'est-ce qui est interdit dans les chambres ?", options: ["manger", "téléphoner", "fumer"], correct: 2 },
-        { q: "Quel numéro faut-il faire pour la réception ?", options: ["le 7", "le 9", "le 0"], correct: 1 } ] }
+        { q: "Où est Inès ?", options: ["à Nice", "à Marseille", "à Paris"], correct: 1 },
+        { q: "Comment est l'hôtel ?", options: ["grand et cher", "sale et bruyant", "petit et propre"], correct: 2 },
+        { q: "Que fait Inès l'après-midi ?", options: ["elle se repose au port", "elle visite la ville", "elle travaille"], correct: 0 },
+        { q: "Quand rentre-t-elle ?", options: ["lundi", "samedi matin", "vendredi soir"], correct: 2 } ] }
   ] },
   writing: { prompt: "Vous écrivez un message à un ami français pour l'inviter à dîner chez vous samedi. Donnez le jour, l'heure et l'adresse, et dites ce que vous allez préparer. (40 à 50 mots)" },
   speaking: { prompt: "Présentez-vous : votre nom, votre âge, votre pays et votre travail ou vos études. Dites aussi ce que vous aimez faire le week-end. (environ une minute)" }
