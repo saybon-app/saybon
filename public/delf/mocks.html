@@ -21,6 +21,7 @@
 </main>
 <script type="module">
 import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const API_BASE = "https://saybonapp-server.onrender.com";
 const CAT = { tp: ["Tout Public", ["a1", "a2", "b1", "b2", "c1", "c2"]], jr: ["Junior", ["a1", "a2", "b1", "b2"]], pr: ["Prim", ["a11", "a1", "a2"]] };
 const LN = { a11: "A1.1", a1: "A1", a2: "A2", b1: "B1", b2: "B2", c1: "C1 DALF", c2: "C2 DALF" };
@@ -37,7 +38,31 @@ async function draw() {
   box.innerHTML = data.map(m => '<a href="/delf/mock.html?id=' + m.id + '" class="' + (st.done[m.id] != null ? "done" : "") + '"><b>Mock ' + m.n + "</b>" + m.theme + (st.done[m.id] != null ? '<br><span class="mk-small">Best: ' + st.done[m.id] + " / 100</span>" : "") + "</a>").join("");
 }
 document.addEventListener("click", e => { const b = e.target.closest("button[data-t],button[data-l]"); if (!b) return; if (b.dataset.t) st.tr = b.dataset.t; if (b.dataset.l) st.lv = b.dataset.l; draw(); });
-hist().then(draw); draw();
+async function access() {
+  const note = document.getElementById("note");
+  const user = await new Promise(r => { const un = onAuthStateChanged(auth, u => { un(); r(u); }); });
+  if (!user) { note.textContent = "Please log in to see your mock exams."; return false; }
+  for (let i = 0; i < 8; i++) {
+    try {
+      const t = await user.getIdToken();
+      const r = await fetch(API_BASE + "/api/delf/prices", { headers: { Authorization: "Bearer " + t } });
+      if (r.ok) {
+        const j = await r.json(), own = {};
+        (j.items || []).forEach(x => { if (x.owned) own[x.exam] = 1; });
+        const f = { tp: CAT.tp[1].filter(l => own[l]), jr: own.junior ? CAT.jr[1] : [], pr: own.prim ? CAT.pr[1] : [] };
+        Object.keys(f).forEach(k => { if (f[k].length) CAT[k][1] = f[k]; else delete CAT[k]; });
+        const keys = Object.keys(CAT);
+        if (!keys.length) { note.innerHTML = 'You have not unlocked a level yet. <a href="/delf/tout-public/" style="color:inherit;text-decoration:underline">Choose a level</a>.'; return false; }
+        if (!CAT[st.tr]) st.tr = keys[0];
+        return true;
+      }
+    } catch (e) { }
+    await new Promise(r => setTimeout(r, 5000));
+  }
+  note.textContent = "We could not check your access just now. Please refresh in a moment.";
+  return false;
+}
+access().then(ok => { if (ok) { hist().then(draw); draw(); } });
 </script>
 </body>
 </html>

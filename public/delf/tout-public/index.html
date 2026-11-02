@@ -1,37 +1,86 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DELF Tout Public</title>
-
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/delf/delf.css" />
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8" />
+<title>DELF Tout Public - SayBon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#1a120b 0%,#2b1b10 50%,#1a120b 100%);color:#f6f1e4;padding:72px 18px 28px;}
+.tp-corner{position:fixed;top:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.tp-corner svg{width:18px;height:18px;}
+.tp-back{left:16px;}.tp-dash{right:16px;}
+.tp-stage{max-width:480px;margin:0 auto;}
+.tp-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#d4af6a;text-align:center;margin-bottom:8px;}
+.tp-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.75rem;text-align:center;margin-bottom:6px;}
+.tp-sub{font-size:.85rem;color:#b9ab90;text-align:center;line-height:1.55;margin-bottom:20px;}
+.tp-list{display:flex;flex-direction:column;gap:10px;}
+.tp-row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:inherit;color:inherit;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:16px;padding:13px 16px;cursor:pointer;transition:border-color .15s ease,background .15s ease;}
+.tp-row:hover{border-color:rgba(212,175,106,.6);}
+.tp-badge{flex:0 0 auto;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#d4af6a;background:rgba(212,175,106,.1);border:1px solid rgba(212,175,106,.3);}
+.tp-mid{flex:1;min-width:0;}
+.tp-name{font-weight:800;font-size:.98rem;}
+.tp-meta{font-size:.76rem;color:#b9ab90;margin-top:2px;}
+.tp-act{flex:0 0 auto;text-align:right;font-size:.78rem;font-weight:800;}
+.tp-price{color:#e8c98a;font-size:1rem;}
+.tp-price small{display:block;font-weight:600;font-size:.7rem;color:#b9ab90;margin-top:1px;}
+.tp-open{color:#1c1408;background:linear-gradient(180deg,#e8c98a,#d4af6a);padding:8px 14px;border-radius:99px;}
+.tp-row.tp-own{background:rgba(212,175,106,.09);border-color:rgba(212,175,106,.55);}
+.tp-row.tp-own .tp-badge{background:#d4af6a;color:#1c1408;}
+.tp-msg{text-align:center;color:#b9ab90;padding:40px 0;font-size:.92rem;line-height:1.6;}
+.tp-btn{display:block;margin:14px auto 0;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:13px 28px;font-family:inherit;font-weight:800;font-size:.9rem;cursor:pointer;}
+.tp-foot{font-size:.74rem;color:#8f836b;text-align:center;margin-top:16px;line-height:1.5;}
+</style>
 </head>
 <body>
+<button class="tp-corner tp-back" onclick="location.href='/delf/dashboard.html'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="tp-corner tp-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></button>
 
-  <header class="page-header">
-    <h1>DELF - Tout Public</h1>
-    <p>Select your level</p>
-  </header>
+<div class="tp-stage">
+  <p class="tp-eyebrow">DELF Tout Public</p>
+  <h1 class="tp-title">Your preparation</h1>
+  <p class="tp-sub">Each level you unlock opens its own ten full mock exams. Pick a level to begin.</p>
+  <div id="tpBody"><p class="tp-msg">Loading your levels...</p></div>
+</div>
 
-  <main class="delf-grid">
-    <button class="delf-tile" onclick="location.href='/delf/payment.html?exam=a1'">A1</button>
-    <button class="delf-tile" onclick="location.href='/delf/payment.html?exam=a2'">A2</button>
-    <button class="delf-tile" onclick="location.href='/delf/payment.html?exam=b1'">B1</button>
-    <button class="delf-tile" onclick="location.href='/delf/payment.html?exam=b2'">B2</button>
-  </main>
-
-  <button class="back-btn" onclick="location.href='/delf/'">
-    ← Back
-  </button>
-
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+var body = document.getElementById("tpBody");
+var LEVELS = ["a1","a2","b1","b2","c1"];
+var META = { a1:"Beginner", a2:"Elementary", b1:"Intermediate", b2:"Upper intermediate", c1:"Advanced (DALF)" };
+function load(token, tries){
+  return fetch(API_BASE + "/api/delf/prices", { headers: { Authorization: "Bearer " + token } }).then(function(r){
+    if(r.ok) return r.json();
+    throw new Error(r.status);
+  }).catch(function(e){
+    if(tries > 1) return new Promise(function(res){ setTimeout(res, 5000); }).then(function(){ return load(token, tries - 1); });
+    throw e;
+  });
+}
+function draw(items){
+  var by = {}; items.forEach(function(i){ by[i.exam] = i; });
+  var rows = LEVELS.map(function(k){
+    var it = by[k]; if(!it) return "";
+    var label = k.toUpperCase();
+    if(it.owned) return '<a class="tp-row tp-own" href="/delf/mocks.html?t=tp&l=' + k + '"><span class="tp-badge">' + label + '</span><span class="tp-mid"><div class="tp-name">DELF ' + label + '</div><div class="tp-meta">' + META[k] + ' &middot; 10 mock exams</div></span><span class="tp-act"><span class="tp-open">Open</span></span></a>';
+    return '<a class="tp-row" href="/delf/payment.html?exam=' + k + '"><span class="tp-badge">' + label + '</span><span class="tp-mid"><div class="tp-name">DELF ' + label + '</div><div class="tp-meta">' + META[k] + '</div></span><span class="tp-act tp-price">$' + it.usd + (it.ghs ? '<small>about GH₵' + it.ghs + '</small>' : '') + '</span></a>';
+  }).join("");
+  var own = LEVELS.filter(function(k){ return by[k] && by[k].owned; }).length;
+  body.innerHTML = '<div class="tp-list">' + rows + '</div><p class="tp-foot">' + (own ? own + (own === 1 ? " level" : " levels") + " unlocked. Tap a level to open it." : "Tap a level to see what is included and unlock it.") + '</p>';
+}
+onAuthStateChanged(auth, function(user){
+  if(!user || (user.isAnonymous && !user.email)){
+    body.innerHTML = '<p class="tp-msg">Please log in to your SayBon account to see your levels.</p><button class="tp-btn" onclick="location.href=\'/auth/login.html\'">Log In</button>';
+    return;
+  }
+  user.getIdToken().then(function(t){ return load(t, 8); }).then(function(d){ draw(d.items || []); })
+    .catch(function(){ body.innerHTML = '<p class="tp-msg">We could not load your levels just now. Please refresh in a moment.</p>'; });
+});
+</script>
 </body>
 </html>
-
-
-
-
-
-
