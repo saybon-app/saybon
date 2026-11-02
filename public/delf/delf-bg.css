@@ -1,0 +1,9 @@
+/* DELF pages: the Louvre dusk picture as the background, with a dark veil so text stays readable. */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(16,10,6,.42) 0%,rgba(16,10,6,.62) 55%,rgba(16,10,6,.80) 100%),url("/assets/images/delf-desktop.jpg") center/cover no-repeat;}
+@media (max-aspect-ratio:1/1){
+  body::before{background:linear-gradient(180deg,rgba(16,10,6,.42) 0%,rgba(16,10,6,.62) 55%,rgba(16,10,6,.80) 100%),url("/assets/images/delf-mobile.jpg") center/cover no-repeat;}
+}
+.mk-card,.cs-card,.tp-row,.pm-opt,.dx-card{background-color:rgba(22,15,10,.66)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+.cs-cont{background-color:rgba(60,42,18,.72)!important;}
+.tp-row.tp-own{background-color:rgba(70,50,22,.7)!important;}
