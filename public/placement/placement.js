@@ -1,4 +1,4 @@
-﻿console.log("placement.js loaded");
+console.log("placement.js loaded");
 
 /* ==================================================
    QUESTION BANK - grouped by CEFR level
@@ -747,30 +747,33 @@ function advance(){
 
 function computeConfirmedLevel(){
 
-  let bestEndIdx = -1;
-  let bestLength = 0;
-  let curLength = 0;
+  // A level counts as passed when at least 60 percent of the questions the learner
+  // actually answered at that level are correct (and at least 3 were answered,
+  // or the whole level if it is shorter). The placement is the highest passed
+  // level, as long as every level below it scored at least 50%, so one unlucky
+  // slip on an easy level cannot drag a learner down, and a lucky guess at a
+  // hard level cannot lift them up.
+  let best = -1;
 
   for(let i = 0; i < levelOrder.length; i++){
 
     const lvl = levelOrder[i];
     const r = levelResults[lvl];
-    const passed = r && r.total === levelTotalQuestions[lvl] && r.correct >= levelThreshold[lvl];
+    const need = Math.min(levelTotalQuestions[lvl], 3);
+    const passed = r && r.total >= need && (r.correct / r.total) >= 0.6;
+    if(!passed) continue;
 
-    if(passed){
-      curLength++;
-      if(curLength > bestLength){
-        bestLength = curLength;
-        bestEndIdx = i;
-      }
-    }else{
-      curLength = 0;
+    let supported = true;
+    for(let j = 0; j < i; j++){
+      const lower = levelResults[levelOrder[j]];
+      if(!lower || !lower.total || (lower.correct / lower.total) < 0.5){ supported = false; break; }
     }
+    if(supported) best = i;
 
   }
 
-  if(bestEndIdx === -1) return "A0";
-  return levelOrder[bestEndIdx];
+  if(best === -1) return "A0";
+  return levelOrder[best];
 
 }
 
