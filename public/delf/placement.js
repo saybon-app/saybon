@@ -160,7 +160,7 @@ function buildSkill(docs, bodyKey){
       flat.push(item);
       return item;
     });
-    return { title: d.title, body: d[bodyKey], questions: qs };
+    return { title: d.title, body: d[bodyKey], voice: d.voice, questions: qs };
   });
   return { docs: built, flat: flat };
 }
@@ -273,6 +273,7 @@ function prepareAudio(di){
   var a = state.audio[di] = { status: "loading", el: null };
   var text = state.built.listening.docs[di].body;
   var levelId = state.currentLevelId;
+  var voice = state.built.listening.docs[di].voice || "f";
   var user = auth.currentUser;
   var ctl = (typeof AbortController !== "undefined") ? new AbortController() : null;
   var timer = setTimeout(function(){ if(ctl) ctl.abort(); }, 45000);
@@ -281,7 +282,7 @@ function prepareAudio(di){
     return fetch(API_BASE + "/api/delf/tts", {
       method: "POST", signal: ctl ? ctl.signal : undefined,
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
-      body: JSON.stringify({ text: text, level: levelId })
+      body: JSON.stringify({ text: text, level: levelId, voice: voice })
     });
   }).then(function(res){
     if(!res.ok) throw new Error("tts " + res.status);

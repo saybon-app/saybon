@@ -8,10 +8,11 @@ module.exports = function (app, ctx) {
 
   function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-  function buildSsml(text, level){
+  function buildSsml(text, level, voice){
     var rate = RATE[level] || "-10%";
     var turns = text.split(/(?:^|\s)[–—]\s+/).map(function(t){ return t.trim(); }).filter(Boolean);
-    var voices = ["fr-FR-DeniseNeural", "fr-FR-HenriNeural"];
+    var F = "fr-FR-DeniseNeural", M = "fr-FR-HenriNeural";
+    var voices = (voice === "m") ? [M, F] : [F, M];   // first speaker's voice first
     var body;
     if (/(?:^|\s)[–—]\s/.test(text) && turns.length > 1) {
       body = turns.map(function(t, i){
@@ -32,12 +33,13 @@ module.exports = function (app, ctx) {
 
       var text = String((req.body && req.body.text) || "").trim();
       var level = String((req.body && req.body.level) || "").toLowerCase();
+      var voice = String((req.body && req.body.voice) || "f").toLowerCase() === "m" ? "m" : "f";
       if (!text || text.length > 1500) return res.status(400).json({ error: "text missing or too long" });
 
       var key = process.env.AZURE_SPEECH_KEY, region = process.env.AZURE_SPEECH_REGION;
       if (!key || !region) return res.status(500).json({ error: "speech service is not configured" });
 
-      var ck = level + "|" + text;
+      var ck = level + "|" + voice + "|" + text;
       var hit = cache.get(ck);
       if (!hit) {
         var r = await fetch("https://" + region + ".tts.speech.microsoft.com/cognitiveservices/v1", {
@@ -48,7 +50,7 @@ module.exports = function (app, ctx) {
             "X-Microsoft-OutputFormat": "audio-24khz-96kbitrate-mono-mp3",
             "User-Agent": "saybon-delf-tts"
           },
-          body: buildSsml(text, level)
+          body: buildSsml(text, level, voice)
         });
         if (!r.ok) {
           var msg = ""; try { msg = (await r.text()).slice(0, 200); } catch (e) {}

@@ -12,7 +12,7 @@ export const A1 = {
         { q: "Où va le train de 9 h 20 ?", options: ["à Paris", "à Nice", "à Lyon"], correct: 2 },
         { q: "Quel est le numéro du quai ?", options: ["le quai 5", "le quai 15", "le quai 3"], correct: 0 },
         { q: "Quel train est en retard ?", options: ["le train pour Lyon", "le train pour Paris", "le train pour Marseille"], correct: 1 } ] },
-    { title: "À la boulangerie", script: "– Bonjour madame. – Bonjour monsieur. Je voudrais deux croissants et une baguette, s'il vous plaît. – Voilà. Et avec ça ? – Un pain au chocolat, s'il vous plaît. – Très bien. Ça fait quatre euros dix. – Voici cinq euros. – Et voilà votre monnaie : quatre-vingt-dix centimes. Bonne journée ! – Merci, vous aussi.",
+    { title: "À la boulangerie", script: "– Bonjour monsieur. – Bonjour madame. Je voudrais deux croissants et une baguette, s'il vous plaît. – Voilà. Et avec ça ? – Un pain au chocolat, s'il vous plaît. – Très bien. Ça fait quatre euros dix. – Voici cinq euros. – Et voilà votre monnaie : quatre-vingt-dix centimes. Bonne journée ! – Merci, vous aussi.",
       questions: [
         { q: "Combien de croissants le client achète-t-il ?", options: ["un", "deux", "trois"], correct: 1 },
         { q: "Qu'est-ce qu'il prend en plus ?", options: ["un gâteau", "un café", "un pain au chocolat"], correct: 2 },
@@ -249,3 +249,9 @@ export const C2 = {
   speaking: { prompt: "Vous disposez de deux minutes pour préparer votre exposé. Présentez et discutez la thèse suivante : « Une société qui valorise l'effort individuel peut-elle rester solidaire ? » Structurez votre propos, nuancez vos affirmations et répondez à l'objection la plus forte contre votre position. (environ quatre minutes)" }
 };
 export const PLACEMENT_CONTENT = { a1: A1, a2: A2, b1: B1, b2: B2, c1: C1, c2: C2 };
+
+// Voice of the first speaker in each listening document: "m" = man, "f" = woman (dialogues alternate).
+const LISTENING_VOICES = { a1: ["m","f","f"], a2: ["f","f","m"], b1: ["m","m","f"], b2: ["m","m","f"], c1: ["m","m","f"], c2: ["m","m","f"] };
+Object.keys(LISTENING_VOICES).forEach(function(k){
+  PLACEMENT_CONTENT[k].listening.docs.forEach(function(d, i){ d.voice = LISTENING_VOICES[k][i]; });
+});
