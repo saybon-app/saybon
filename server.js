@@ -262,6 +262,7 @@ require("./activity-routes")(app,{admin:admin,db:db,express:express});
 require("./delf-placement-routes")(app,{admin:admin,db:db,express:express});
 require("./delf-tts-routes")(app,{admin:admin,db:db,express:express});
 require("./delf-grading-routes")(app,{admin:admin,db:db,express:express});
+require("./placement-clip-routes")(app,{admin:admin,db:db,express:express});
 app.listen(process.env.PORT || 3000,()=>{
 
 console.log("Translator API running")

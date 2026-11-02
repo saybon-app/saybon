@@ -23,6 +23,8 @@ const questions = [
   { id: 1, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q1_bonjour.mp3", options: ["Merci", "Bonsoir", "Bonjour", "Pardon"], correct: 2 },
   { id: 2, level: "A0", type: "mc", prompt: "What does « merci » mean?", options: ["Hello", "Thank you", "Sorry", "Bye"], correct: 1 },
   { id: 3, level: "A0", type: "mc", prompt: "Listen and choose.", audio: "/assets/sounds/placement/a0_q4_aurevoir.mp3", options: ["Bonjour", "Merci", "Au revoir", "Salut"], correct: 2 },
+  // ----- Listening questions (voices: Azure French neural, see placement-clip-routes.js) -----
+  { id: 201, level: "A0", type: "mc", prompt: "Listen. How old is Marie?", clip: "a0-1", options: ["8", "10", "12", "20"], correct: 1 },
   { id: 101, level: "A0", type: "oral", prompt: "Say: Bonjour", expectedText: "Bonjour" },
 
   // ===== A1 - Beginner (4 MC + 2 typed = 6, need 5/6) =====
@@ -32,6 +34,8 @@ const questions = [
   { id: 7, level: "A1", type: "mc", prompt: "Il pleut. Choisis l'image correcte.", image: "/assets/images/a1_q8_weather_collage.webp", options: ["A","B","C","D"], correct: 0 },
   { id: 24, level: "A1", type: "typed", prompt: "Écris la forme correcte : « Je ___ (avoir) 20 ans. »", acceptableAnswers: ["ai"] },
   { id: 25, level: "A1", type: "typed", prompt: "Comment dit-on « Good evening » en français ?", acceptableAnswers: ["bonsoir"] },
+  { id: 202, level: "A1", type: "mc", prompt: "Listen. Where does Paul live?", clip: "a1-1", options: ["In Lyon", "In Paris", "In Marseille", "In Nice"], correct: 0 },
+  { id: 203, level: "A1", type: "mc", prompt: "Listen. How much does it cost?", clip: "a1-2", options: ["2,50 €", "3,50 €", "5,30 €", "3,15 €"], correct: 1 },
   { id: 102, level: "A1", type: "oral", prompt: "Say: J'ai vingt ans", expectedText: "J'ai vingt ans" },
 
   // ===== A2 - Elementary (4 MC + 2 typed = 6, need 5/6) =====
@@ -41,6 +45,9 @@ const questions = [
   { id: 11, level: "A2", type: "mc", prompt: "Complete the sentence correctly: « Tu as des questions ? Oui, j'___ ai plusieurs. »", options: ["y", "le", "en", "lui"], correct: 2 },
   { id: 26, level: "A2", type: "typed", prompt: "Complète au passé composé : « Hier, nous ___ (visiter) le musée. »", acceptableAnswers: ["avons visite", "avons visité"] },
   { id: 27, level: "A2", type: "typed", prompt: "Écris le contraire de « facile ».", acceptableAnswers: ["difficile"] },
+  { id: 204, level: "A2", type: "mc", prompt: "Écoute. Pourquoi prend-elle un taxi ?", clip: "a2-1", options: ["Sa sœur habite loin de la gare.", "Elle est en retard.", "Il n'y a pas de bus.", "Elle n'aime pas le train."], correct: 0 },
+  { id: 205, level: "A2", type: "mc", prompt: "Écoute. Quand est le nouveau rendez-vous ?", clip: "a2-2", options: ["Mardi à 14 h", "Mercredi à 16 h", "Jeudi à 9 h", "Jeudi à 16 h"], correct: 2 },
+  { id: 206, level: "A2", type: "mc", prompt: "Écoute. Quel temps fait-il dans le sud ?", clip: "a2-3", options: ["Il pleut.", "Il neige.", "Il y a du vent.", "Il fait beau et chaud."], correct: 3 },
   { id: 103, level: "A2", type: "oral", prompt: "Say: Nous avons visité le musée hier", expectedText: "Nous avons visité le musée hier" },
 
   // ===== B1 - Intermediate (4 MC + 1 typed = 5, need 4/5) =====
@@ -49,6 +56,9 @@ const questions = [
   { id: 14, level: "B1", type: "mc", prompt: "Pourquoi est-il parti ?", options: ["Parce qu'il fatigue.", "Parce qu'il est fatigué.", "Parce qu'il était fatigué.", "Parce fatigué."], correct: 2 },
   { id: 15, level: "B1", type: "mc", prompt: "Choisis la phrase la plus naturelle.", options: ["Ça dépend la situation.", "Ça dépend pour la situation.", "Ça dépend à  la situation.", "Ça dépend de la situation."], correct: 3 },
   { id: 28, level: "B1", type: "typed", prompt: "Complète avec le bon pronom : « Je ne connais pas ce restaurant, je n'___ ai jamais mangé. »", acceptableAnswers: ["y"] },
+  { id: 207, level: "B1", type: "mc", prompt: "Écoute. Quel est l'inconvénient du métro ?", clip: "b1-1", options: ["Le prix", "Le bruit", "Les retards", "La foule"], correct: 1 },
+  { id: 208, level: "B1", type: "mc", prompt: "Écoute. Pourquoi la femme ne veut-elle pas partir ?", clip: "b1-2", options: ["Le salaire est trop bas.", "Elle a déjà un autre travail.", "Elle ne veut pas quitter sa famille et ses amis.", "Elle n'aime pas Toulouse."], correct: 2 },
+  { id: 209, level: "B1", type: "mc", prompt: "Écoute. Que peuvent faire les visiteurs qui ont un billet pour lundi ?", clip: "b1-3", options: ["Venir un autre jour avant la fin du mois.", "Se faire rembourser tout de suite.", "Entrer gratuitement lundi.", "Échanger leur billet contre un livre."], correct: 0 },
   { id: 104, level: "B1", type: "oral", prompt: "Say: Ça dépend de la situation", expectedText: "Ça dépend de la situation" },
 
   // ===== B2 - Upper Intermediate (4 MC + 1 typed = 5, need 4/5) =====
@@ -57,6 +67,9 @@ const questions = [
   { id: 18, level: "B2", type: "mc", prompt: "Quelle phrase utilise correctement le conditionnel ?", options: ["Si j'ai le temps, je viendrais.", "Si j'avais le temps, je viens.", "Si j'avais le temps, je viendrais.", "Si j'aurais le temps, je viendrais."], correct: 2 },
   { id: 19, level: "B2", type: "mc", prompt: "Choisis la phrase qui exprime une nuance d'incertitude.", options: ["Il pleut demain.", "Il se peut qu'il pleuve demain.", "Il va pleuvoir demain, c'est sûr.", "Il pleuvra demain absolument."], correct: 1 },
   { id: 29, level: "B2", type: "typed", prompt: "Reformule au conditionnel pour être plus poli : « Je veux un café. »", acceptableAnswers: ["je voudrais un cafe", "je voudrais un café"] },
+  { id: 210, level: "B2", type: "mc", prompt: "Écoute. Que souhaite la majorité des salariés ?", clip: "b2-1", options: ["Travailler toujours à la maison", "Revenir au bureau cinq jours par semaine", "Un système mixte", "Moins d'autonomie"], correct: 2 },
+  { id: 211, level: "B2", type: "mc", prompt: "Écoute. Qu'accepte la personne interrogée en créant sa société ?", clip: "b2-2", options: ["De travailler le week-end", "De gagner moins au début", "De déménager", "De partager ses bénéfices"], correct: 1 },
+  { id: 212, level: "B2", type: "mc", prompt: "Écoute. Que craignent les riverains ?", clip: "b2-3", options: ["Une hausse des prix", "La fermeture des commerces", "Un manque de passagers", "Des nuisances pendant les travaux"], correct: 3 },
   { id: 105, level: "B2", type: "oral", prompt: "Say: Je ne suis pas tout à  fait d'accord, mais je comprends votre point", expectedText: "Je ne suis pas tout à  fait d'accord mais je comprends votre point" },
 
   // ===== C1 - Advanced (4 MC + 1 typed = 5, need 4/5) =====
@@ -65,6 +78,9 @@ const questions = [
   { id: 22, level: "C1", type: "mc", prompt: "Choisis la nuance correcte.", options: ["Il semble que c'est vrai.", "Il semble est vrai.", "Il semble que ce soit vrai.", "Il semble vrai que."], correct: 2 },
   { id: 23, level: "C1", type: "mc", prompt: "Quelle phrase illustre le mieux l'emploi du subjonctif passé ?", options: ["Bien qu'il a terminé son travail, il est resté tard.", "Bien qu'il termine son travail, il est resté tard.", "Bien qu'il terminait son travail, il est resté tard.", "Bien qu'il ait terminé son travail, il est resté tard."], correct: 3 },
   { id: 30, level: "C1", type: "typed", prompt: "Complète au subjonctif : « Il faut que tu ___ (être) à  l'heure. »", acceptableAnswers: ["sois"] },
+  { id: 213, level: "C1", type: "mc", prompt: "Écoute. Quelle réserve est exprimée à la fin ?", clip: "c1-1", options: ["Les vidéos ne consomment pas d'énergie.", "On ignore si les usagers changeront durablement leurs habitudes.", "La sobriété numérique est une mode passagère.", "Les courriels sont trop nombreux."], correct: 1 },
+  { id: 214, level: "C1", type: "mc", prompt: "Écoute. Que recommandent les auteurs de l'étude ?", clip: "c1-2", options: ["Publier immédiatement les résultats", "Abandonner la recherche", "Réduire l'échantillon", "Reproduire l'étude sur un échantillon plus large"], correct: 3 },
+  { id: 215, level: "C1", type: "mc", prompt: "Écoute. Selon la femme, qu'est-ce qui est juste dans la réforme ?", clip: "c1-3", options: ["Le calendrier", "Le principe", "Le coût", "Les bénéficiaires"], correct: 1 },
   { id: 106, level: "C1", type: "oral", prompt: "Say: Il faut que tu sois à  l'heure", expectedText: "Il faut que tu sois à  l'heure" }
 
 ];
@@ -202,8 +218,109 @@ function buildAccentKeyboard(targetInput){
   return wrap;
 }
 
+/* ==================================================
+   DESIGNED AUDIO PLAYER (replaces the plain browser audio bar)
+================================================== */
+
+const CLIP_BASE = "https://saybonapp-server.onrender.com/api/placement/clip/";
+let activeClipAudio = null;
+
+function ensurePlayerStyles(){
+  if (document.getElementById("sbPlayerStyles")) return;
+  const st = document.createElement("style");
+  st.id = "sbPlayerStyles";
+  st.textContent =
+    ".sb-player{display:flex;align-items:center;gap:12px;width:100%;max-width:340px;margin:0 auto;padding:10px 14px 10px 10px;border-radius:999px;" +
+    "background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.22);" +
+    "box-shadow:inset 0 1px 1px rgba(255,255,255,.25),0 10px 24px rgba(0,0,0,.28);backdrop-filter:blur(8px);}" +
+    ".sb-play{flex:0 0 auto;width:48px;height:48px;border-radius:50%;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;" +
+    "background:linear-gradient(180deg,#f6dca0,#d9a94e);color:#072023;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 6px 14px rgba(0,0,0,.35);transition:transform .15s ease;}" +
+    ".sb-play:active{transform:scale(.94);}" +
+    ".sb-play svg{width:22px;height:22px;fill:currentColor;display:block;}" +
+    ".sb-play .sb-ico-pause,.sb-player.sb-playing .sb-play .sb-ico-play{display:none;}" +
+    ".sb-player.sb-playing .sb-play .sb-ico-pause{display:block;}" +
+    ".sb-mid{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:6px;}" +
+    ".sb-track{position:relative;height:8px;border-radius:99px;background:rgba(255,255,255,.22);cursor:pointer;touch-action:none;}" +
+    ".sb-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:linear-gradient(90deg,#f6dca0,#d9a94e);}" +
+    ".sb-knob{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.4);left:0;}" +
+    ".sb-meta{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:rgba(255,255,255,.8);letter-spacing:.02em;}" +
+    ".sb-replay{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}" +
+    ".sb-replay svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}" +
+    ".sb-player.sb-loading .sb-play{opacity:.65;}" +
+    ".sb-player.sb-loading .sb-status:after{content:'Loading audio\\2026';}" +
+    ".sb-player.sb-error .sb-status:after{content:'Audio did not load \\2013  tap play to retry';color:#ffb3a8;}";
+  document.head.appendChild(st);
+}
+
+function buildAudioPlayer(src){
+  ensurePlayerStyles();
+  const wrap = document.createElement("div");
+  wrap.className = "sb-player sb-loading";
+  wrap.innerHTML =
+    '<button type="button" class="sb-play" aria-label="Play audio">' +
+      '<svg class="sb-ico-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>' +
+      '<svg class="sb-ico-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>' +
+    '</button>' +
+    '<div class="sb-mid"><div class="sb-track" role="slider" aria-label="Audio position"><div class="sb-fill"></div><div class="sb-knob"></div></div>' +
+    '<div class="sb-meta"><span class="sb-time">0:00</span><span class="sb-status"></span><span class="sb-dur">0:00</span></div></div>' +
+    '<button type="button" class="sb-replay" aria-label="Replay from the start"><svg viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v5h5"/></svg></button>';
+
+  const audio = new Audio();
+  audio.preload = "auto";
+  audio.src = src;
+  const playBtn = wrap.querySelector(".sb-play");
+  const replayBtn = wrap.querySelector(".sb-replay");
+  const track = wrap.querySelector(".sb-track");
+  const fill = wrap.querySelector(".sb-fill");
+  const knob = wrap.querySelector(".sb-knob");
+  const timeEl = wrap.querySelector(".sb-time");
+  const durEl = wrap.querySelector(".sb-dur");
+  const fmt = (s) => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+
+  function paint(){
+    const d = audio.duration;
+    const f = (d && isFinite(d)) ? Math.min(1, audio.currentTime / d) : 0;
+    fill.style.width = (f * 100) + "%";
+    knob.style.left = (f * 100) + "%";
+    timeEl.textContent = fmt(audio.currentTime);
+    if (d && isFinite(d)) durEl.textContent = fmt(d);
+  }
+  function start(){
+    if (activeClipAudio && activeClipAudio !== audio) { try { activeClipAudio.pause(); } catch(e){} }
+    activeClipAudio = audio;
+    if (wrap.classList.contains("sb-error")) { wrap.classList.remove("sb-error"); wrap.classList.add("sb-loading"); audio.load(); }
+    const p = audio.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+  playBtn.addEventListener("click", () => { if (audio.paused) start(); else audio.pause(); });
+  replayBtn.addEventListener("click", () => { try { audio.currentTime = 0; } catch(e){} start(); });
+  function seekTo(clientX){
+    const d = audio.duration;
+    if (!d || !isFinite(d)) return;
+    const r = track.getBoundingClientRect();
+    const f = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    audio.currentTime = f * d;
+    paint();
+  }
+  let dragging = false;
+  track.addEventListener("pointerdown", (e) => { dragging = true; try { track.setPointerCapture(e.pointerId); } catch(_){} seekTo(e.clientX); });
+  track.addEventListener("pointermove", (e) => { if (dragging) seekTo(e.clientX); });
+  track.addEventListener("pointerup", () => { dragging = false; });
+  track.addEventListener("pointercancel", () => { dragging = false; });
+
+  audio.addEventListener("loadedmetadata", paint);
+  audio.addEventListener("canplay", () => { wrap.classList.remove("sb-loading"); paint(); });
+  audio.addEventListener("timeupdate", paint);
+  audio.addEventListener("play", () => { wrap.classList.add("sb-playing"); playBtn.setAttribute("aria-label", "Pause audio"); });
+  audio.addEventListener("pause", () => { wrap.classList.remove("sb-playing"); playBtn.setAttribute("aria-label", "Play audio"); });
+  audio.addEventListener("ended", () => { wrap.classList.remove("sb-playing"); playBtn.setAttribute("aria-label", "Play audio"); try { audio.currentTime = 0; } catch(e){} paint(); });
+  audio.addEventListener("error", () => { wrap.classList.remove("sb-loading", "sb-playing"); wrap.classList.add("sb-error"); });
+  return wrap;
+}
+
 function loadQuestion() {
   const q = questions[currentIndex];
+  if (activeClipAudio) { try { activeClipAudio.pause(); } catch(e){} }
 
   optionsEl.innerHTML = "";
   optionsEl.classList.remove("options-ready");
@@ -214,13 +331,8 @@ function loadQuestion() {
 
   typePrompt(q.prompt, () => {
 
-    if (q.audio) {
-      const audio = document.createElement("audio");
-      audio.src = q.audio;
-      audio.controls = true;
-      audio.preload = "metadata";
-      audio.load();
-      mediaArea.appendChild(audio);
+    if (q.clip || q.audio) {
+      mediaArea.appendChild(buildAudioPlayer(q.clip ? CLIP_BASE + q.clip : q.audio));
     }
 
     if (q.image) {
@@ -747,7 +859,7 @@ function advance(){
 
 function computeConfirmedLevel(){
 
-  // A level counts as passed when at least 60 percent of the questions the learner
+  // A level counts as passed when at least 60% of the questions the learner
   // actually answered at that level are correct (and at least 3 were answered,
   // or the whole level if it is shorter). The placement is the highest passed
   // level, as long as every level below it scored at least 50%, so one unlucky
