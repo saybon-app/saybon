@@ -28,9 +28,8 @@ onAuthStateChanged(auth, async (user) => {
     show(d.level);
     return;
   }
-  // "Start from scratch" on the start page, and no level on the account yet: that means A0
-  let scratch = null; try { scratch = localStorage.getItem("saybon_start_scratch"); } catch (e) { }
-  if (d && scratch) {
+  // No level anywhere (a new learner, or "Start from scratch"): the starting level is A0
+  if (d) {
     try { sessionStorage.setItem("saybon_level", "A0"); localStorage.removeItem("saybon_start_scratch"); } catch (e) { }
     show("A0");
     call(user, "POST", { level: "A0" }, 5);
