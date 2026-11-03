@@ -9,7 +9,16 @@ const back = level ? "/delf/journey.html?l=" + level : "/delf/";
 document.getElementById("csBack").onclick = () => { location.href = back; };
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const nf = s => String(s || "").toLowerCase().replace(/:/g, "h").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\b(euros?|centimes?)\b|€/g, " ").replace(/[^a-z0-9]+/g, "");
-const S = { lesson: null, i: 0, user: null, answers: {}, checked: {}, audio: {} };
+const S = { lesson: null, i: 0, user: null, answers: {}, checked: {}, audio: {}, spoken: {}, nAudio: {}, narr: null, bed: null, bedOk: true, narrOn: false, cur: -1 };
+const MUSIC = "/assets/audio/lesson-jazz.mp3";
+const SILENT = "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//OEwAAAAAAAAAAAAEluZm8AAAAPAAAALAAABOAALCwxMTY2Ozs7QEBERElJTk5OU1NYWF1dYmJiZ2dsbHFxcXZ2e3uAgISEhImJjo6Tk5iYmJ2doqKnp6esrLGxtra7u7vAwMTEycnOzs7T09jY3d3d4uLn5+zs8fHx9vb7+///AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQDAAAAAAAAAATgj9zrGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//MUxAAAAANIAAAAAExBTUUzLjEwMExB//MUxAsAAANIAAAAAE1FMy4xMDBVVUxB//MUxBYAAANIAAAAAE1FMy4xMDBVVUxB//MUxCEAAANIAAAAAE1FMy4xMDBVVUxB//MUxCwAAANIAAAAAE1FMy4xMDBVVUxB//MUxDcAAANIAAAAAE1FMy4xMDBVVUxB//MUxEIAAANIAAAAAE1FMy4xMDBVVUxB//MUxE0AAANIAAAAAE1FMy4xMDBVVUxB//MUxFgAAANIAAAAAE1FMy4xMDBVVUxB//MUxGMAAANIAAAAAE1FMy4xMDBVVUxB//MUxG4AAANIAAAAAE1FMy4xMDBVVUxB//MUxHkAAANIAAAAAE1FMy4xMDBVVUxB//MUxIQAAANIAAAAAE1FMy4xMDBVVUxB//MUxI8AAANIAAAAAE1FMy4xMDBVVUxB//MUxJoAAANIAAAAAE1FMy4xMDBVVUxB//MUxKUAAANIAAAAAE1FMy4xMDBVVUxB//MUxLAAAANIAAAAAE1FMy4xMDBVVUxB//MUxLsAAANIAAAAAE1FMy4xMDBVVUxB//MUxMYAAANIAAAAAE1FMy4xMDBVVUxB//MUxNEAAANIAAAAAE1FMy4xMDBVVUxB//MUxNwAAANIAAAAAE1FMy4xMDBVVUxB//MUxOcAAANIAAAAAE1FMy4xMDBVVVVV//MUxPIAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV//MUxPQAAANIAAAAAFVVVVVVVVVVVVVV";
+function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { } return null; }
+S.voice = ls("saybon_voice") !== "off"; S.music = ls("saybon_music") !== "off";
+const ICON = {
+  co: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>',
+  ce: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>',
+  pe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/></svg>',
+  po: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>' };
 
 function fail(msg, link) { root.innerHTML = '<p class="cs-msg">' + esc(msg) + '</p><button class="cs-btn" onclick="location.href=\'' + (link || back) + '\'">Back to my journey</button>'; }
 async function tok() { return S.user ? await S.user.getIdToken() : null; }
@@ -30,7 +39,7 @@ async function start(user) {
   let data; try { const r = await fetch("/delf/course/data/" + level + "-" + skill + ".json?v=1"); if (!r.ok) throw 0; data = await r.json(); } catch (e) { return fail("This lesson is being prepared and will be ready soon."); }
   S.lesson = (data.lessons || []).filter(x => x.id === id)[0];
   if (!S.lesson) return fail("This lesson is being prepared and will be ready soon.");
-  S.data = data; S.done = st.status === "done"; show();
+  S.data = data; S.done = st.status === "done"; intro();
 }
 
 function prog() { return '<div class="cs-prog">' + S.lesson.blocks.map((b, i) => '<i class="' + (i <= S.i ? "on" : "") + '"></i>').join("") + '</div>'; }
@@ -38,10 +47,61 @@ function head() {
   const L = S.lesson, rem = L.remedial;
   return '<p class="cs-eyebrow">' + esc(S.data.skillName) + (rem ? " · Extra lesson" : " · Lesson " + L.n + " of 4") + '</p><h1 class="cs-title">' + esc(L.title) + '</h1><p class="cs-sub">' + esc(L.titleEn || "") + '</p>' + prog();
 }
-function next() { S.i++; stopAudio(); show(); window.scrollTo(0, 0); }
+function next() { S.i++; stopAudio(); if (S.narr) { try { S.narr.pause(); } catch (e) { } } S.narrOn = false; S.cur = -1; show(); window.scrollTo(0, 0); }
+
+/* ---- teacher voice, subtitles, jazz bed ---- */
+function intro() {
+  const L = S.lesson;
+  root.innerHTML = '<p class="cs-eyebrow">' + esc(S.data.skillName) + (L.remedial ? " · Extra lesson" : " · Lesson " + L.n + " of 4") + '</p><h1 class="cs-title">' + esc(L.title) + '</h1><p class="cs-sub">' + esc(L.titleEn || "") + '</p>' +
+    '<div class="cs-card" style="text-align:center"><div class="cs-bounce">' + (ICON[skill] || ICON.co) + '</div><p class="cs-p" style="margin-top:14px">Your teacher will explain each part with a voice and subtitles, and soft music will play in the background. Headphones are best.</p><p class="cs-note">You can switch the voice or the music off at any time.</p><button class="cs-btn" id="go">Start lesson</button></div>';
+  document.getElementById("go").onclick = () => {
+    try { S.narr = new Audio(); S.narr.src = SILENT; S.narr.play().catch(() => { }); } catch (e) { }
+    try { S.bed = new Audio(MUSIC); S.bed.loop = true; S.bed.volume = 0.12; S.bed.onerror = () => { S.bedOk = false; const m = document.getElementById("mt"); if (m) m.style.display = "none"; }; if (S.music) S.bed.play().catch(() => { }); } catch (e) { S.bedOk = false; }
+    show();
+  };
+}
+function teacherHtml(b) {
+  if (!b.say) return "";
+  const slot = b.video ? '<video class="cs-vid" src="' + esc(b.video) + '" muted loop autoplay playsinline></video>' : '<div class="cs-bounce">' + (ICON[skill] || ICON.co) + '</div>';
+  return '<div class="cs-teach"><div class="cs-slot">' + slot + '</div><div class="cs-subs" id="subs"></div><div class="cs-ctl"><button class="cs-chip" id="rp">↻ Replay</button><button class="cs-chip" id="vt">Voice: ' + (S.voice ? "on" : "off") + '</button><button class="cs-chip" id="mt"' + (S.bedOk ? "" : ' style="display:none"') + '>Music: ' + (S.music ? "on" : "off") + '</button></div></div>';
+}
+const sentences = t => (t.match(/[^.?!]+[.?!]*\s*/g) || [t]).map(x => x.trim()).filter(Boolean);
+const subHtml = t => esc(t).replace(/«([^»]+)»/g, "<i>«$1»</i>");
+function setMusic(b) { if (!S.bed || !S.bedOk) return; if (b.type === "listen" || !S.music) { try { S.bed.pause(); } catch (e) { } } else { S.bed.volume = S.narrOn ? 0.06 : 0.12; S.bed.play().catch(() => { }); } }
+function narrAudio(text) {
+  if (S.nAudio[text]) return S.nAudio[text];
+  const p = (async () => { const r = await api("/api/delf/narrate", { method: "POST", body: JSON.stringify({ text }) }); if (!r.ok) throw new Error(r.status); return URL.createObjectURL(await r.blob()); })();
+  S.nAudio[text] = p; p.catch(() => { delete S.nAudio[text]; }); return p;
+}
+function startTeacher(b, replay) {
+  setMusic(b);
+  const subs = document.getElementById("subs"); if (!subs || !b.say) return;
+  const showAll = () => { subs.innerHTML = '<span class="cs-sub-line">' + subHtml(b.say) + '</span>'; };
+  const bind = () => {
+    const rp = document.getElementById("rp"), vt = document.getElementById("vt"), mt = document.getElementById("mt");
+    if (rp) rp.onclick = () => startTeacher(b, true);
+    if (vt) vt.onclick = () => { S.voice = !S.voice; ls("saybon_voice", S.voice ? "on" : "off"); vt.textContent = "Voice: " + (S.voice ? "on" : "off"); if (S.voice) startTeacher(b, true); else { try { S.narr.pause(); } catch (e) { } S.narrOn = false; setMusic(b); showAll(); } };
+    if (mt) mt.onclick = () => { S.music = !S.music; ls("saybon_music", S.music ? "on" : "off"); mt.textContent = "Music: " + (S.music ? "on" : "off"); setMusic(b); };
+  };
+  bind();
+  if (!S.voice) { showAll(); return; }
+  if (S.spoken[S.i] && !replay) { showAll(); return; }
+  S.spoken[S.i] = true;
+  const idx = S.i, sents = sentences(b.say), total = b.say.length;
+  subs.innerHTML = '<span class="cs-sub-line dim">Your teacher is getting ready...</span>';
+  try { S.narr.pause(); } catch (e) { }
+  narrAudio(b.say).then(url => {
+    if (S.i !== idx) return;
+    const a = S.narr; a.src = url; S.cur = -1;
+    a.ontimeupdate = () => { if (!a.duration) return; const f = a.currentTime / a.duration; let acc = 0; for (let k = 0; k < sents.length; k++) { acc += sents[k].length / total; if (f <= acc || k === sents.length - 1) { if (S.cur !== k) { S.cur = k; const el = document.getElementById("subs"); if (el) el.innerHTML = '<span class="cs-sub-line">' + subHtml(sents[k]) + '</span>'; } break; } } };
+    a.onended = () => { S.narrOn = false; setMusic(b); };
+    a.play().then(() => { S.narrOn = true; setMusic(b); }).catch(() => { showAll(); });
+  }).catch(() => { if (S.i === idx) showAll(); });
+  const nb = S.lesson.blocks[idx + 1]; if (nb && nb.say) narrAudio(nb.say).catch(() => { });
+}
 
 function show() {
-  const b = S.lesson.blocks[S.i]; let h = head();
+  const b = S.lesson.blocks[S.i]; let h = head() + teacherHtml(b);
   if (b.type === "teach") {
     h += '<div class="cs-card"><div class="cs-h">' + esc(b.title) + '</div>' + (b.paras || []).map(p => '<p class="cs-p">' + esc(p) + '</p>').join("") +
       (b.points ? '<ul class="cs-ul">' + b.points.map(p => '<li>' + esc(p) + '</li>').join("") + '</ul>' : "") +
@@ -56,6 +116,7 @@ function show() {
   const nx = document.getElementById("nx"); if (nx) nx.onclick = next;
   const fin = document.getElementById("fin"); if (fin) fin.onclick = finish;
   if (b.type === "listen") bindListen(b);
+  startTeacher(b);
 }
 
 /* ---- listening block ---- */
@@ -105,6 +166,7 @@ function setupAudio(b) {
   pb.onclick = () => {
     if (a.state === "error") { fetchAudio(b, true).p.then(() => setupAudio(b)); setupAudio(b); return; }
     if (a.state !== "ready") return;
+    try { S.narr.pause(); } catch (e) { } S.narrOn = false;
     if (S.el) { stopAudio(); pw.style.width = "0"; paint(); return; }
     const au = new Audio(a.url); S.el = au;
     au.ontimeupdate = () => { if (au.duration) pw.style.width = Math.round(au.currentTime / au.duration * 100) + "%"; };

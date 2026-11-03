@@ -3,6 +3,7 @@
 //   POST /api/delf/journey/lesson      {level, step}        (Bearer) -> marks an OPEN lesson done
 //   POST /api/delf/journey/skill-mock  {level, skill, mockId, score}   score is out of 25
 //   POST /api/delf/journey/skip-remedial {level, skill}
+//   POST /api/delf/narrate {text}   -> English teacher voice (mp3)
 //   POST /api/delf/tts-lines {lines:[{v:"F"|"H"|"N", t}], level}   -> audio/mpeg (one file, several voices)
 // Order per level: for each skill (co, ce, pe, po): lessons 1-4, skill mock, then (only if the mock is under 50%)
 // two optional extra lessons, then the next skill. Finally full mock 1 and full mock 2. Only the next step is open.
@@ -172,5 +173,44 @@ module.exports = function (app, ctx) {
       res.set({ "Content-Type": "audio/mpeg", "Content-Length": hit.length, "Cache-Control": "private, max-age=86400" });
       res.send(hit);
     } catch (e) { console.error("DELF tts-lines", e); res.status(500).json({ error: "could not create audio" }); }
+  });
+  // ---- English teacher voice for the lessons (French words in «guillemets» are spoken in French) ----
+  var ncache = new Map();
+  function nSsml(text, mode) {
+    var t = String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var voice = mode === 2 ? "en-GB-SoniaNeural" : "en-US-AvaMultilingualNeural";
+    if (mode === 0) t = t.replace(/«\s*([^»]+?)\s*»/g, '<lang xml:lang="fr-FR">$1</lang>');
+    else t = t.replace(/[«»]/g, "");
+    return '<speak version="1.0" xml:lang="en-US" xmlns="http://www.w3.org/2001/10/synthesis"><voice name="' + voice + '"><prosody rate="-8%">' + t + "</prosody></voice></speak>";
+  }
+  app.post("/api/delf/narrate", express.json({ limit: "8kb" }), async function (req, res) {
+    try {
+      var who = await auth(req, res); if (!who) return;
+      var text = String((req.body && req.body.text) || "").trim();
+      if (!text || text.length > 1200) return res.status(400).json({ error: "text missing or too long" });
+      var key = process.env.AZURE_SPEECH_KEY, region = process.env.AZURE_SPEECH_REGION;
+      if (!key || !region) return res.status(500).json({ error: "speech service is not configured" });
+      var hit = ncache.get(text);
+      if (!hit) {
+        var r = null;
+        for (var m = 0; m < 3; m++) {
+          r = await fetch("https://" + region + ".tts.speech.microsoft.com/cognitiveservices/v1", {
+            method: "POST",
+            headers: { "Ocp-Apim-Subscription-Key": key, "Content-Type": "application/ssml+xml", "X-Microsoft-OutputFormat": "audio-24khz-48kbitrate-mono-mp3", "User-Agent": "saybon-delf-narrate" },
+            body: nSsml(text, m)
+          });
+          if (r.ok) break;
+          var msg = ""; try { msg = (await r.text()).slice(0, 300); } catch (e) {}
+          console.error("DELF narrate Azure error", r.status, "variant", m, msg);
+          if (r.status !== 400) break;
+        }
+        if (!r.ok) return res.status(502).json({ error: "speech synthesis failed (" + r.status + ")" });
+        hit = Buffer.from(await r.arrayBuffer());
+        if (ncache.size >= 150) ncache.delete(ncache.keys().next().value);
+        ncache.set(text, hit);
+      }
+      res.set({ "Content-Type": "audio/mpeg", "Content-Length": hit.length, "Cache-Control": "private, max-age=86400" });
+      res.send(hit);
+    } catch (e) { console.error("DELF narrate", e); res.status(500).json({ error: "could not create audio" }); }
   });
 };

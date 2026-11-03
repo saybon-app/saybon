@@ -23,7 +23,8 @@
       "First listening: catch the main answer. Second listening: check it and fill the gaps.",
       "Never leave a question empty. A wrong guess costs nothing, a blank scores zero."
      ],
-     "tip": "Underline the question word in each question: Qui ? Où ? Quand ? Combien ? Pourquoi ? It tells you what kind of information to listen for."
+     "tip": "Underline the question word in each question: Qui ? Où ? Quand ? Combien ? Pourquoi ? It tells you what kind of information to listen for.",
+     "say": "Welcome. In this lesson you will learn how the A2 listening exam works. You will hear short recordings from daily life, like a station announcement or a phone message. Each recording plays two times, and each one has its own questions. Here is the secret: read the questions first, so you know what to listen for. On the first listening, find the main answer. On the second, check it. And never leave a question empty. A guess costs you nothing, but a blank gives you zero."
     },
     {
      "type": "vocab",
@@ -62,7 +63,8 @@
        "a ten-minute delay"
       ]
      ],
-     "note": "French counts in twenties: 70 is soixante-dix (60+10), 80 is quatre-vingts (4x20), 90 is quatre-vingt-dix (4x20+10). These trip up almost every learner, so train your ear on them."
+     "note": "French counts in twenties: 70 is soixante-dix (60+10), 80 is quatre-vingts (4x20), 90 is quatre-vingt-dix (4x20+10). These trip up almost every learner, so train your ear on them.",
+     "say": "Now the numbers, times and prices. They appear in almost every recording, so they matter. Look at «quatorze heures trente-cinq». That is fourteen thirty-five, so two thirty-five in the afternoon. Look at «deux euros cinquante». That is two euros fifty. After sixty, French counts in twenties. So seventy is «soixante-dix», sixty plus ten. Eighty is «quatre-vingts», four twenties. And ninety is «quatre-vingt-dix», four twenties plus ten. Say them out loud. Your mouth helps your ear."
     },
     {
      "type": "listen",
@@ -113,7 +115,8 @@
        "ans": 1,
        "expl": "« dix minutes de retard » : ten minutes late."
       }
-     ]
+     ],
+     "say": "Now listen to a train announcement. You can play it as many times as you like. Read the three questions, press play, and choose your answers. Watch out: the announcer corrects herself."
     },
     {
      "type": "listen",
@@ -167,7 +170,8 @@
        "ans": 1,
        "expl": "« jusqu'à treize heures » : until 13:00, which is 1 pm."
       }
-     ]
+     ],
+     "say": "Next, a market. Listen for the prices, and for the closing time."
     },
     {
      "type": "listen",
@@ -221,7 +225,8 @@
        "ans": 1,
        "expl": "« rappelez-nous avant vendredi » : call back before Friday."
       }
-     ]
+     ],
+     "say": "Last one: a message from the dentist. Listen for the new day, the new time, and what to do if the date does not suit you."
     },
     {
      "type": "recap",
@@ -230,7 +235,8 @@
       "Numbers, times and prices appear in almost every A2 recording. Practise them out loud.",
       "Speakers often correct themselves (« et non du quai trois »). The corrected information is the answer.",
       "Write a number the way you hear it, then check: quatre-vingt-dix is 90, not 94."
-     ]
+     ],
+     "say": "Let us remember three things. First, numbers, times and prices appear everywhere, so practise them out loud. Second, speakers sometimes correct themselves, like «et non du quai trois». The corrected information is your answer. Third, write numbers the way you hear them. «Quatre-vingt-dix» is ninety, not ninety-four. Well done. Press finish when you are ready."
     }
    ]
   },
@@ -254,7 +260,8 @@
       "What to do? « Peux-tu… ? », « Rappelle-moi », « N'oublie pas de… »",
       "When or where? « à dix-neuf heures », « devant le cinéma »"
      ],
-     "tip": "Words like annulé (cancelled), déplacé (moved), reporté (postponed) and finalement (in the end) signal a change. The question will usually ask about the new plan."
+     "tip": "Words like annulé (cancelled), déplacé (moved), reporté (postponed) and finalement (in the end) signal a change. The question will usually ask about the new plan.",
+     "say": "Phone messages are very common in the exam. They are short, and they follow the same order. First, who is calling. Second, why. Third, what you must do. Fourth, when or where. Once you know this order, you know where to listen for each answer. The reason comes early. The request or the deadline comes at the end. Also listen for words of change, like «annulé», cancelled, «déplacé», moved, and «reporté», postponed. The question usually asks about the new plan."
     },
     {
      "type": "vocab",
@@ -292,7 +299,8 @@
        "Apporte...",
        "Bring..."
       ]
-     ]
+     ],
+     "say": "Here are useful phrases. «Je t'appelle pour» means I am calling to. «Rappelle-moi» means call me back. «C'est annulé» means it is cancelled. «J'ai un empêchement» means something has come up. Read them, notice the pattern, and try to hear them in the messages that follow."
     },
     {
      "type": "listen",
@@ -343,7 +351,8 @@
        "ans": 2,
        "expl": "« Peux-tu apporter un dessert ? » : a dessert. Paul prepares the main dish."
       }
-     ]
+     ],
+     "say": "First message: an invitation. Listen for the reason, the time, and what to bring. Be careful, the time changes during the message."
     },
     {
      "type": "listen",
@@ -394,7 +403,8 @@
        "ans": 0,
        "expl": "« N'oubliez pas votre carte vitale » : the French health insurance card."
       }
-     ]
+     ],
+     "say": "Second message: a pharmacy. Who is calling, until what time, and what must the man bring?"
     },
     {
      "type": "listen",
@@ -445,7 +455,8 @@
        "ans": 1,
        "expl": "« Peux-tu prévenir les autres collègues ? » : to tell (warn) the colleagues."
       }
-     ]
+     ],
+     "say": "Third message: a change of plan. What happens to the meeting, and what is Karim asked to do?"
     },
     {
      "type": "recap",
@@ -454,7 +465,8 @@
       "Order of a message: who, why, what to do, when or where.",
       "Words of change (annulé, déplacé, reporté, finalement) point to the new plan, which is the answer.",
       "Listen for requests: Peux-tu... ? Rappelle-moi. N'oublie pas..."
-     ]
+     ],
+     "say": "Remember the order of a message: who, why, what to do, when or where. Words of change point to the new plan, and the new plan is the answer. And listen for requests, like «peux-tu», «rappelle-moi» and «n'oublie pas». Good work."
     }
    ]
   },
@@ -477,7 +489,8 @@
       "Limits: « jusqu'à » (until), « à partir de » (from), « sauf » (except), « avant » (before)",
       "Conditions: « gratuit », « interdit », « obligatoire », « fermé le lundi »"
      ],
-     "tip": "In the weather forecast, listen for time of day (le matin, l'après-midi, le soir) and place (au nord, au sud). Each question usually asks about one of them."
+     "tip": "In the weather forecast, listen for time of day (le matin, l'après-midi, le soir) and place (au nord, au sud). Each question usually asks about one of them.",
+     "say": "Now announcements. They are spoken to many people at once, in a station, a shop, a museum or on the radio. They follow a pattern: an attention word, then the key fact, then a condition or a change. Listen for limits: «jusqu'à», until, «à partir de», from, and «sauf», except. In the weather forecast, listen for the time of day and the place. Each question usually asks about just one detail."
     },
     {
      "type": "vocab",
@@ -515,7 +528,8 @@
        "la sortie",
        "the exit"
       ]
-     ]
+     ],
+     "say": "Some useful words. «Des travaux» means building work. «Fermé» is closed, and «ouvert» is open. «Gratuit» means free. «Interdit» means forbidden. «Il pleuvra» means it will rain, and «il fera beau» means the weather will be nice."
     },
     {
      "type": "listen",
@@ -566,7 +580,8 @@
        "ans": 1,
        "expl": "« prenez la ligne sept ou les bus de remplacement »."
       }
-     ]
+     ],
+     "say": "First, the metro. Why is the line closed, when, and what can travellers use instead?"
     },
     {
      "type": "listen",
@@ -617,7 +632,8 @@
        "ans": 1,
        "expl": "« les caisses automatiques sont fermées : merci de vous adresser aux caisses du fond »."
       }
-     ]
+     ],
+     "say": "Next, a supermarket. What is special today, what is half price, and where should customers pay?"
     },
     {
      "type": "listen",
@@ -668,7 +684,8 @@
        "ans": 2,
        "expl": "« le vent sera fort sur la côte, le soir »."
       }
-     ]
+     ],
+     "say": "Finally, the weather forecast. Listen for the rain in the north, the temperature in the south, and when the wind is strong."
     },
     {
      "type": "recap",
@@ -677,7 +694,8 @@
       "Announcements give facts in a pattern: attention word, key fact, condition or change.",
       "Listen for limits (jusqu'à, à partir de, sauf) and for time and place in the forecast.",
       "Each question usually targets one detail, so keep your question in mind while you listen."
-     ]
+     ],
+     "say": "To remember: announcements give facts in a pattern. Listen for limits like «jusqu'à» and «à partir de». In the forecast, listen for the time and the place. And keep your question in mind while you listen."
     }
    ]
   },
@@ -701,7 +719,8 @@
       "Disagreeing: « Pas du tout », « Je préfère… », « Ça ne me dit rien »",
       "Reasons: « parce que », « car », « comme »"
      ],
-     "tip": "If you hear two options, ask yourself: which one did they choose at the end? That one is the answer."
+     "tip": "If you hear two options, ask yourself: which one did they choose at the end? That one is the answer.",
+     "say": "Conversations are tricky, because people change their minds. The first thing you hear is not always the final answer. The exam writers do this on purpose. One wrong option is the first idea, and the right one comes later. So wait for the end of the exchange before you decide. Listen for «finalement», in the end, and «non, plutôt», no, rather. If you hear two options, ask: which one did they choose at the end? That is your answer."
     },
     {
      "type": "vocab",
@@ -739,7 +758,8 @@
        "finalement",
        "in the end"
       ]
-     ]
+     ],
+     "say": "Phrases for plans and opinions. «Ça m'est égal» means I do not mind. «Pourquoi pas» means why not. «C'est trop cher» means it is too expensive. «J'ai envie de» means I feel like. And «finalement» means in the end. Listen for them in the conversations."
     },
     {
      "type": "listen",
@@ -806,7 +826,8 @@
        "ans": 1,
        "expl": "« Et après, on mange une pizza ? » « Pourquoi pas ? »"
       }
-     ]
+     ],
+     "say": "First conversation: two friends choose an evening out. Which showing do they choose? Careful, one time is rejected."
     },
     {
      "type": "listen",
@@ -873,7 +894,8 @@
        "ans": 2,
        "expl": "« On y va en train, c'est moins cher que l'avion » : the plane is the rejected option."
       }
-     ]
+     ],
+     "say": "Second conversation: holiday plans. Listen for what they reject, and what they choose."
     },
     {
      "type": "listen",
@@ -936,7 +958,8 @@
        "ans": 0,
        "expl": "« parce que c'est calme et on mange très bien »."
       }
-     ]
+     ],
+     "say": "Last, a radio interview. Thomas talks about his weekends and his holidays."
     },
     {
      "type": "recap",
@@ -945,7 +968,8 @@
       "In a conversation the first idea is often rejected. Wait for the final decision.",
       "Change-of-mind words (finalement, non plutôt, c'est trop...) show you which option is wrong.",
       "You are now ready for the listening mock: read the questions first, listen twice, never leave a blank."
-     ]
+     ],
+     "say": "Remember: in a conversation, the first idea is often rejected. Wait for the final decision. Change words like «finalement» show you which option is wrong. You are now ready for the listening mock. Read the questions first, listen twice, and never leave a blank. Good luck."
     }
    ]
   },
@@ -969,7 +993,8 @@
       "Step 2: listen while you read the text.",
       "Step 3: listen again with the text hidden and answer."
      ],
-     "tip": "Reading and listening together is how the ear learns. After a few rounds the text becomes unnecessary."
+     "tip": "Reading and listening together is how the ear learns. After a few rounds the text becomes unnecessary.",
+     "say": "This extra lesson goes slowly, and it is here to help you. If your score was low, the problem is usually not vocabulary. It is that numbers and short key words go by too fast. So we will show you the text first, so your ear learns what the sounds look like. Take your time. You can play every recording as many times as you like. Step one, read the words and say them out loud. Step two, listen while you read. Step three, listen again with the text hidden."
     },
     {
      "type": "vocab",
@@ -1008,7 +1033,8 @@
        "90, 91"
       ]
      ],
-     "note": "Say each row out loud three times. Hearing yourself say them makes them easier to recognise."
+     "note": "Say each row out loud three times. Hearing yourself say them makes them easier to recognise.",
+     "say": "Here are the numbers. Say each row out loud, three times. After sixty, French counts in twenties. «Soixante-dix» is seventy. «Quatre-vingts» is eighty. «Quatre-vingt-dix» is ninety. Hearing yourself say them makes them easier to recognise."
     },
     {
      "type": "listen",
@@ -1053,7 +1079,8 @@
        ],
        "expl": "Soixante et onze = 60 + 11 = 71."
       }
-     ]
+     ],
+     "say": "Now listen to the numbers while you read the text. Then write them in digits."
     },
     {
      "type": "listen",
@@ -1109,7 +1136,8 @@
        ],
        "expl": "Dix-sept heures quarante = 17:40, which is 5:40 pm."
       }
-     ]
+     ],
+     "say": "Now times. Read, listen, and write the times."
     },
     {
      "type": "listen",
@@ -1166,7 +1194,8 @@
        ],
        "expl": "Six euros quatre-vingts = €6.80."
       }
-     ]
+     ],
+     "say": "Prices, this time with the text hidden until you check. You can do it."
     },
     {
      "type": "recap",
@@ -1175,7 +1204,8 @@
       "The French count in twenties from 70: soixante-dix, quatre-vingts, quatre-vingt-dix.",
       "Say numbers aloud as you practise. Your mouth trains your ear.",
       "Reading the text while you listen is a legitimate way to train, and you will need it less each time."
-     ]
+     ],
+     "say": "Remember: the French count in twenties from seventy. Say numbers out loud, because your mouth trains your ear. Reading while you listen is a good way to train, and you will need it less and less. When you feel ready, try the mock again. The choice is yours."
     }
    ]
   },
@@ -1199,7 +1229,8 @@
       "Listen for the words your question uses: if it asks « Où ? », wait for a place.",
       "In the second listening, check only the answers you were unsure about."
      ],
-     "tip": "Write one or two key words next to each question while you listen (for example: Lyon, 18h, 12 €). You are not writing sentences, only anchors."
+     "tip": "Write one or two key words next to each question while you listen (for example: Lyon, 18h, 12 €). You are not writing sentences, only anchors.",
+     "say": "You do not need to understand every word. Many learners panic when they miss one word, and then they lose the next sentence too. The exam does not ask you to understand everything. It asks for specific information. So when you miss a word, let it go and keep listening. Listen for the words your question uses. If it asks «où», wait for a place. And write one or two key words next to each question while you listen. Those are your anchors."
     },
     {
      "type": "listen",
@@ -1266,7 +1297,8 @@
        "ans": 1,
        "expl": "Marc offers a cake, but Julie says « Apporte plutôt des boissons » : drinks."
       }
-     ]
+     ],
+     "say": "First, a phone call between friends. Read while you listen. Why is Julie calling, when is the party, and what should Marc bring?"
     },
     {
      "type": "listen",
@@ -1333,7 +1365,8 @@
        "ans": 0,
        "expl": "« dix minutes à pied »."
       }
-     ]
+     ],
+     "say": "Now, asking for directions. Read while you listen. Where does the man want to go, what must he do at the traffic light, and how far is it?"
     },
     {
      "type": "listen",
@@ -1400,7 +1433,8 @@
        "ans": 1,
        "expl": "At 8 pm the restaurant is full (« c'est complet »). The woman accepts the table at « vingt et une heures » : 9 pm."
       }
-     ]
+     ],
+     "say": "Now the same again, without the text. Use your key word anchors."
     },
     {
      "type": "recap",
@@ -1409,7 +1443,8 @@
       "Keep your anchors: write one or two key words per question while you listen.",
       "Missing a word is normal. Let it go and keep listening.",
       "Ready to try again? Come back to the mock when you feel more confident. The choice is yours."
-     ]
+     ],
+     "say": "Remember: keep your anchors, one or two key words per question. Missing a word is normal, so let it go. And when you feel more confident, come back to the mock. The choice is yours."
     }
    ]
   }
