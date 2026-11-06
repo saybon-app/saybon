@@ -102,6 +102,7 @@ function startTeacher(b, replay) {
 
 function show() {
   const b = S.lesson.blocks[S.i]; let h = head() + teacherHtml(b);
+  h += (b.tidbit ? '<div class="cs-tip"><b>Tidbit.</b> ' + esc(b.tidbit) + '</div>' : "");
   if (b.type === "teach") {
     h += '<div class="cs-card"><div class="cs-h">' + esc(b.title) + '</div>' + (b.paras || []).map(p => '<p class="cs-p">' + esc(p) + '</p>').join("") +
       (b.points ? '<ul class="cs-ul">' + b.points.map(p => '<li>' + esc(p) + '</li>').join("") + '</ul>' : "") +
