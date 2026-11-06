@@ -87,24 +87,3 @@ body{
   .lv-stage{padding:80px 16px 50px;}
   .levels-grid{grid-template-columns:1fr;}
 }
-/* === level colour progression (A0 to C1) === */
-.levels-grid .level-tile:nth-child(1){--c:95,168,160;--n:79,143,191;--g:16%}
-.levels-grid .level-tile:nth-child(2){--c:79,143,191;--n:90,116,196;--g:33%}
-.levels-grid .level-tile:nth-child(3){--c:90,116,196;--n:122,103,196;--g:50%}
-.levels-grid .level-tile:nth-child(4){--c:122,103,196;--n:154,95,176;--g:67%}
-.levels-grid .level-tile:nth-child(5){--c:154,95,176;--n:184,92,122;--g:84%}
-.levels-grid .level-tile:nth-child(6){--c:184,92,122;--n:150,70,100;--g:100%}
-.levels-grid .level-tile{
-  background:linear-gradient(135deg,rgba(var(--c),.46) 0%,rgba(var(--n),.30) 100%);
-  border-color:rgba(var(--c),.55);
-}
-.levels-grid .level-tile:hover{
-  background:linear-gradient(135deg,rgba(var(--c),.6) 0%,rgba(var(--n),.42) 100%);
-  border-color:rgba(255,255,255,.4);
-}
-.level-tile .lv-tile-accent{
-  position:absolute;left:0;bottom:0;height:3px;width:var(--g);
-  background:linear-gradient(90deg,rgba(var(--c),.9),rgba(var(--n),.9));
-  border-radius:0 3px 0 0;
-}
-.level-tile .lv-tile-sub{color:rgba(240,236,226,.72);}
