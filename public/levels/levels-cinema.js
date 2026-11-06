@@ -1,0 +1,61 @@
+(function(){
+  var IMG='/assets/images/levels-cinema-';
+  var FB=['linear-gradient(160deg,#3a2f22,#14110c)','linear-gradient(160deg,#10203a,#070b14)','linear-gradient(160deg,#2a3340,#0c0f14)','linear-gradient(160deg,#5a2f20,#1c0e08)','linear-gradient(160deg,#17362a,#07110c)'];
+  var ICON={
+    A0:'<path d="M12 21v-8"/><path d="M12 13c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 16c0-3-2-5-6-5 0 3 2 5 6 5z"/>',
+    A1:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+    A2:'<path d="M3 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H3z"/><path d="M21 5h-7a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h7z"/>',
+    B1:'<path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/>',
+    B2:'<path d="M20 4c-8 0-14 5-14 13"/><path d="M20 4c0 8-5 13-13 13"/><path d="M6 20l5-5"/>',
+    C1:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
+  var QUIP={A0:'Every master began here.',A1:'Your first real words.',A2:'Now you are talking.',B1:'Say what you really mean.',B2:'Start thinking in French.',C1:'Speak like you belong.'};
+  var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
+  var bg=document.createElement('div');bg.className='cin-bg';
+  var vig=document.createElement('div');vig.className='cin-vig';
+  var dip=document.createElement('div');dip.className='cin-dip on';
+  document.body.insertBefore(bg,document.body.firstChild);document.body.appendChild(vig);document.body.appendChild(dip);
+  tiles.forEach(function(t){
+    var lab=t.querySelector('.lv-tile-label'),sub=t.querySelector('.lv-tile-sub');
+    t._lab=lab.textContent.trim();t._sub=sub.textContent.trim();t._q=QUIP[t._lab]||'';
+    t.setAttribute('aria-label',t._lab+', '+t._sub);
+    var ic=document.createElement('span');ic.className='cin-ic';ic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[t._lab]||'')+'</svg>';
+    t.insertBefore(ic,t.firstChild);
+    var q=document.createElement('span');q.className='cin-q';t.appendChild(q);t._el={lab:lab,sub:sub,q:q};
+  });
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var G=0;
+  function after(g,ms,fn){setTimeout(function(){if(g===G)fn();},ms);}
+  function typeInto(g,el,text,speed,done){
+    var i=0;el.textContent='';el.classList.add('typing');
+    (function step(){ if(g!==G)return; i++;el.textContent=text.slice(0,i);
+      if(i<text.length)setTimeout(step,speed);else{el.classList.remove('typing');if(done)done();} })();
+  }
+  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.q.textContent=t._q;});}
+  function setScene(n){
+    var k=n%5;document.body.setAttribute('data-scene',String(k+1));
+    bg.style.backgroundImage='url("'+IMG+(k+1)+'.jpg"),'+FB[k];
+    bg.className='cin-bg';void bg.offsetWidth;bg.className='cin-bg k'+(n%3+1);
+  }
+  function run(n){
+    var g=++G;setScene(n);
+    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.q.textContent='';});
+    if(reduce){tiles.forEach(function(t){t.classList.remove('pre');});fillAll();dip.classList.remove('on');return;}
+    after(g,150,function(){dip.classList.remove('on');});
+    tiles.forEach(function(t,i){
+      after(g,1100+i*150,function(){
+        t.classList.remove('pre');t.classList.add('in');
+        after(g,520,function(){
+          typeInto(g,t._el.lab,t._lab,95,function(){
+            typeInto(g,t._el.sub,t._sub,32,function(){
+              after(g,150,function(){typeInto(g,t._el.q,t._q,26);});
+            });
+          });
+        });
+      });
+    });
+    after(g,8900,function(){tiles.forEach(function(t,i){t.style.transitionDelay=(i*70)+'ms';t.classList.remove('in');t.classList.add('out');});});
+    after(g,9800,function(){dip.classList.add('on');});
+    after(g,10700,function(){run(n+1);});
+  }
+  run(0);
+})();

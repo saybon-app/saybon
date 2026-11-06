@@ -1,0 +1,59 @@
+/* SayBon levels: cinematic slideshow */
+.lv-bg,.lv-scrim{display:none!important}
+html{background:#05060a}
+body{background:none;min-height:100vh;animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
+.cin-bg{position:fixed;inset:0;z-index:-2;background-size:cover;background-position:center;background-repeat:no-repeat;will-change:transform;transform:scale(1.04)}
+.cin-bg.k1{animation:kb1 12s ease-out forwards}.cin-bg.k2{animation:kb2 12s ease-out forwards}.cin-bg.k3{animation:kb3 12s ease-out forwards}
+@keyframes kb1{from{transform:scale(1.04)}to{transform:scale(1.15) translate(-1.2%,-.8%)}}
+@keyframes kb2{from{transform:scale(1.15) translate(1%,0)}to{transform:scale(1.04)}}
+@keyframes kb3{from{transform:scale(1.07) translate(1.2%,.6%)}to{transform:scale(1.12) translate(-1.2%,-.6%)}}
+.cin-vig{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0) 38%,rgba(0,0,0,.5) 100%),linear-gradient(180deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.3) 26%,rgba(0,0,0,0) 44%)}
+.cin-dip{position:fixed;inset:0;z-index:5;background:#000;opacity:1;pointer-events:none;transition:opacity 1.2s ease}
+.cin-dip.on{opacity:1;transition:opacity .8s ease}
+.cin-dip:not(.on){opacity:0}
+.lv-corner-icon{z-index:60}
+.lv-page-header h1,.lv-eyebrow{text-shadow:0 2px 16px rgba(0,0,0,.8),0 0 4px rgba(0,0,0,.4)}
+.lv-subtitle{text-shadow:0 1px 12px rgba(0,0,0,.7)}
+
+/* cards: crisp, no blur, themed per scene */
+body{--cb:rgba(12,14,20,.78);--cbd:rgba(255,255,255,.22);--ct:#f6f1e4;--cs:rgba(246,241,228,.8);--ca:#d4af6a;--csh:0 18px 40px rgba(0,0,0,.45)}
+body[data-scene="1"]{--cb:#f6ede0;--cbd:#e0c9a0;--ct:#3b2a1e;--cs:#6b5440;--ca:#9b2f3a}
+body[data-scene="2"]{--cb:#14213d;--cbd:#c9a45c;--ct:#f4efe6;--cs:#c9d2e6;--ca:#d9b36a}
+body[data-scene="3"]{--cb:#dba33a;--cbd:#f2cf80;--ct:#1b2440;--cs:#3a3a4a;--ca:#1b2440}
+body[data-scene="4"]{--cb:#0f3b30;--cbd:#e0a860;--ct:#fbefd6;--cs:#cfe2d6;--ca:#f0b866}
+body[data-scene="5"]{--cb:#2b1538;--cbd:#d97aa5;--ct:#fff1f6;--cs:#f0c6d8;--ca:#ff9cc2}
+.levels-grid .level-tile{
+  background:var(--cb);border:1px solid var(--cbd);box-shadow:var(--csh);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  gap:3px;padding:22px 22px 20px;
+  transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease;
+}
+.levels-grid .level-tile:hover{background:var(--cb);border-color:var(--ca);box-shadow:0 22px 46px rgba(0,0,0,.55)}
+.level-tile .lv-tile-accent{display:none}
+.level-tile .lv-tile-label{color:var(--ct);min-height:1.2em}
+.level-tile .lv-tile-sub{color:var(--cs);font-size:.8rem;font-weight:500;min-height:1.2em;opacity:1}
+.cin-ic{width:22px;height:22px;color:var(--ca);margin-bottom:6px;display:block}
+.cin-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cin-q{font-family:"Fraunces",serif;font-style:italic;font-size:.7rem;color:var(--ca);margin-top:5px;min-height:1.2em;letter-spacing:.01em}
+.typing::after{content:"";display:inline-block;width:1px;height:.85em;background:currentColor;margin-left:2px;vertical-align:-.05em;animation:cinBlink .7s steps(1) infinite}
+@keyframes cinBlink{50%{opacity:0}}
+
+/* landing styles, one per scene */
+.level-tile.pre{opacity:0}
+body[data-scene="1"]{--cb:#f6ede0;--cbd:#e0c9a0;--ct:#3b2a1e;--cs:#6b5440;--ca:#9b2f3a}
+body[data-scene="2"]{--cb:#14213d;--cbd:#c9a45c;--ct:#f4efe6;--cs:#c9d2e6;--ca:#d9b36a}
+body[data-scene="3"]{--cb:#dba33a;--cbd:#f2cf80;--ct:#1b2440;--cs:#3a3a4a;--ca:#1b2440}
+body[data-scene="4"]{--cb:#0f3b30;--cbd:#e0a860;--ct:#fbefd6;--cs:#cfe2d6;--ca:#f0b866}
+body[data-scene="5"]{--cb:#2b1538;--cbd:#d97aa5;--ct:#fff1f6;--cs:#f0c6d8;--ca:#ff9cc2}
+.level-tile.out{opacity:0;transform:translateY(-18px) scale(.97);transition:opacity .5s ease,transform .6s ease}
+
+@media (max-width:480px){
+  .lv-stage{padding:70px 14px 24px}
+  .lv-page-header{margin-bottom:22px}
+  .levels-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .levels-grid .level-tile{padding:14px 14px 13px;border-radius:16px}
+  .level-tile .lv-tile-label{font-size:1.5rem}
+  .level-tile .lv-tile-sub{font-size:.72rem}
+  .cin-q{font-size:.64rem}
+}
+@media (prefers-reduced-motion:reduce){.cin-bg{animation:none!important}}
