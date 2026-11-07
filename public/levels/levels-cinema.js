@@ -8,8 +8,7 @@
     B1:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><path d="M17 4v3M15.5 5.5h3"/>',
     B2:'<path d="M5 22V3"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',
     C1:'<g transform="rotate(-35 12 12)"><rect x="1.5" y="8.8" width="21" height="6.4" rx="3.2"/><path d="M7 9l1.4 6M11.6 9l1.4 6M16.2 9l1.4 6"/></g>'};
-  var NB='\u00A0';
-  var QUIP={A0:['French, easier'+NB,'P',' than you think.'],A1:['Look at you getting Frenchier.'+NB,'P'],A2:['Real flow, real convos,'+NB,'P',' Frenchier by the day.'],B1:['Thinking in French, dreaming'+NB,'P',' in French.'],B2:['Fully Frenched up,'+NB,'P',' no going back.'],C1:['Pass the baguette,'+NB,'P'," you're French now."]};
+  var QUIP={A0:['French, ','P','easier than you think.'],A1:['Look at you getting ','P','Frenchier.'],A2:['Real flow, real ','P','convos, Frenchier by the day.'],B1:['Thinking in French, ','P','dreaming in French.'],B2:['Fully ','P','Frenched up, no going back.'],C1:['Pass the ','P',"baguette, you're French now."]};
   var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
   var L=[document.createElement('div'),document.createElement('div')],cur=1;L.forEach(function(x){x.className='cin-bg';});function isM(){return window.matchMedia&&matchMedia('(max-width:700px)').matches;}
   var vig=document.createElement('div');vig.className='cin-vig';
