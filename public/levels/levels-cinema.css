@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap");
 /* SayBon levels: cinematic slideshow */
 .lv-bg,.lv-scrim{display:none!important}
 html{background:#05060a}
@@ -31,10 +32,10 @@ body[data-scene="5"]{--cb:rgba(46,20,60,.46);--cbd:rgba(255,160,200,.5);--ca:#ff
 .levels-grid .level-tile:hover{background:var(--cb);border-color:var(--ca);box-shadow:0 22px 46px rgba(0,0,0,.55)}
 .level-tile .lv-tile-accent{display:none}
 .level-tile .lv-tile-label{color:var(--ct);min-height:1.2em;text-shadow:0 1px 8px rgba(0,0,0,.35)}
-.level-tile .lv-tile-sub{color:var(--cs);font-size:.8rem;font-weight:500;min-height:1.2em;opacity:1}
-.cin-ic{width:22px;height:22px;color:var(--ca);margin-bottom:6px;display:block}
+.level-tile .lv-tile-sub{color:#fff;font-size:.8rem;font-weight:500;min-height:1.2em;opacity:1}
+.cin-ic{display:none!important;width:22px;height:22px;color:var(--ca);margin-bottom:6px;display:block}
 .cin-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.cin-q{font-family:inherit;font-style:normal;font-weight:500;font-size:.8rem;line-height:1.4;color:var(--ca);margin-top:6px;min-height:2.8em;letter-spacing:.01em;opacity:0;transition:opacity 1.6s ease}
+.cin-q{font-family:"Nunito","Manrope",sans-serif;font-style:normal;font-weight:800;font-size:.95rem;line-height:1.3;color:var(--ca);margin-top:8px;min-height:2.7em;letter-spacing:0;opacity:0;transition:opacity 1.6s ease}
 .cin-q.show{opacity:1}
 .typing::after{content:"";display:inline-block;width:1px;height:.85em;background:currentColor;margin-left:2px;vertical-align:-.05em;animation:cinBlink .7s steps(1) infinite}
 @keyframes cinBlink{50%{opacity:0}}
@@ -57,7 +58,7 @@ body[data-scene="5"]{--cb:rgba(46,20,60,.46);--cbd:rgba(255,160,200,.5);--ca:#ff
   .cin-ic{display:none}
   .level-tile .lv-tile-label{grid-column:1;grid-row:1;font-size:1.75rem;min-height:0}
   .level-tile .lv-tile-sub{grid-column:2;grid-row:1;font-size:.86rem;min-height:1.1em}
-  .cin-q{grid-column:1/-1;grid-row:2;margin-top:0;font-size:.8rem;min-height:1.4em}
+  .cin-q{grid-column:1/-1;grid-row:2;margin-top:0;font-size:.88rem;min-height:1.4em}
 }
 @keyframes kb1m{from{transform:scale(1.08) translate(3.5%,1.5%)}to{transform:scale(1.34) translate(-3.5%,-2%)}}
 @keyframes kb2m{from{transform:scale(1.34) translate(-3.5%,-1.5%)}to{transform:scale(1.08) translate(3.5%,1.5%)}}
