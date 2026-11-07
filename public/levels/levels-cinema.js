@@ -8,7 +8,7 @@
     B1:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><path d="M17 4v3M15.5 5.5h3"/>',
     B2:'<path d="M5 22V3"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',
     C1:'<g transform="rotate(-35 12 12)"><rect x="1.5" y="8.8" width="21" height="6.4" rx="3.2"/><path d="M7 9l1.4 6M11.6 9l1.4 6M16.2 9l1.4 6"/></g>'};
-  var QUIP={A0:'French, easier than you think.\u00A0\uD83E\uDEB6',A1:'Look at you getting Frenchier.\u00A0\uD83D\uDE04',A2:'Real flow, real convos, Frenchier by the day.\u00A0\uD83D\uDCAC',B1:'Thinking in French, dreaming in French.\u00A0\uD83C\uDF19\uD83D\uDE34',B2:'Fully Frenched up, no going back.\u00A0\uD83D\uDEA9',C1:"Pass the baguette, you're French now.\u00A0\uD83E\uDD56"};
+  var QUIP={A0:'French, easier than you think.\u00A0',A1:'Look at you getting Frenchier.\u00A0',A2:'Real flow, real convos, Frenchier by the day.\u00A0',B1:'Thinking in French, dreaming in French.\u00A0',B2:'Fully Frenched up, no going back.\u00A0',C1:"Pass the baguette, you're French now.\u00A0"};
   var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
   var L=[document.createElement('div'),document.createElement('div')],cur=1;L.forEach(function(x){x.className='cin-bg';});function isM(){return window.matchMedia&&matchMedia('(max-width:700px)').matches;}
   var vig=document.createElement('div');vig.className='cin-vig';
@@ -20,7 +20,7 @@
     t.setAttribute('aria-label',t._lab+', '+t._sub);
     var ic=document.createElement('span');ic.className='cin-ic';ic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[t._lab]||'')+'</svg>';
     t.insertBefore(ic,t.firstChild);
-    var q=document.createElement('span');q.className='cin-q';t.appendChild(q);t._el={lab:lab,sub:sub,q:q};
+    var qw=document.createElement('span');qw.className='cin-q';var q=document.createElement('span');q.className='cin-qt';qw.appendChild(q);var im=document.createElement('img');im.className='cin-pic';im.alt='';im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);t.appendChild(qw);t._el={lab:lab,sub:sub,q:q,qw:qw};
   });
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var G=0;
@@ -30,7 +30,7 @@
     (function step(){ if(g!==G)return; i++;el.textContent=text.slice(0,i);
       if(i<text.length)setTimeout(step,speed);else{el.classList.remove('typing');if(done)done();} })();
   }
-  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.q.textContent=t._q;t._el.q.classList.add('show');});}
+  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.q.textContent=t._q;t._el.qw.classList.add('show');});}
   function setScene(n){
     var k=n%5;document.body.setAttribute('data-scene',String(k+1));
     var nxt=L[1-cur],old=L[cur];
@@ -43,7 +43,7 @@
   }
   function run(n){
     var g=++G;var M=isM();setScene(n);
-    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.q.textContent=t._q;t._el.q.classList.remove('show');});
+    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.q.textContent=t._q;t._el.qw.classList.remove('show');});
     if(reduce){tiles.forEach(function(t){t.classList.remove('pre');});fillAll();dip.classList.remove('on');return;}
     after(g,200,function(){dip.classList.remove('on');});
     tiles.forEach(function(t,i){
@@ -52,7 +52,7 @@
         after(g,900,function(){
           typeInto(g,t._el.lab,t._lab,170,function(){
             after(g,250,function(){
-              typeInto(g,t._el.sub,t._sub,70,function(){ t._el.q.classList.add('show'); });
+              typeInto(g,t._el.sub,t._sub,70,function(){ t._el.qw.classList.add('show'); });
             });
           });
         });
