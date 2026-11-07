@@ -8,7 +8,8 @@
     B1:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><path d="M17 4v3M15.5 5.5h3"/>',
     B2:'<path d="M5 22V3"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',
     C1:'<g transform="rotate(-35 12 12)"><rect x="1.5" y="8.8" width="21" height="6.4" rx="3.2"/><path d="M7 9l1.4 6M11.6 9l1.4 6M16.2 9l1.4 6"/></g>'};
-  var QUIP={A0:'French, easier than you think.\u00A0',A1:'Look at you getting Frenchier.\u00A0',A2:'Real flow, real convos, Frenchier by the day.\u00A0',B1:'Thinking in French, dreaming in French.\u00A0',B2:'Fully Frenched up, no going back.\u00A0',C1:"Pass the baguette, you're French now.\u00A0"};
+  var NB='\u00A0';
+  var QUIP={A0:['French, easier'+NB,'P',' than you think.'],A1:['Look at you getting Frenchier.'+NB,'P'],A2:['Real flow, real convos,'+NB,'P',' Frenchier by the day.'],B1:['Thinking in French, dreaming'+NB,'P',' in French.'],B2:['Fully Frenched up,'+NB,'P',' no going back.'],C1:['Pass the baguette,'+NB,'P'," you're French now."]};
   var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
   var L=[document.createElement('div'),document.createElement('div')],cur=1;L.forEach(function(x){x.className='cin-bg';});function isM(){return window.matchMedia&&matchMedia('(max-width:700px)').matches;}
   var vig=document.createElement('div');vig.className='cin-vig';
@@ -16,11 +17,11 @@
   document.body.insertBefore(L[1],document.body.firstChild);document.body.insertBefore(L[0],document.body.firstChild);document.body.appendChild(vig);document.body.appendChild(dip);
   tiles.forEach(function(t){
     var lab=t.querySelector('.lv-tile-label'),sub=t.querySelector('.lv-tile-sub');
-    t._lab=lab.textContent.trim();t._sub=sub.textContent.trim();t._q=QUIP[t._lab]||'';
+    t._lab=lab.textContent.trim();t._sub=sub.textContent.trim();t._q=QUIP[t._lab]||[];
     t.setAttribute('aria-label',t._lab+', '+t._sub);
     var ic=document.createElement('span');ic.className='cin-ic';ic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[t._lab]||'')+'</svg>';
     t.insertBefore(ic,t.firstChild);
-    var qw=document.createElement('span');qw.className='cin-q';var q=document.createElement('span');q.className='cin-qt';qw.appendChild(q);var im=document.createElement('img');im.className='cin-pic';im.alt='';im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);t.appendChild(qw);t._el={lab:lab,sub:sub,q:q,qw:qw};
+    var qw=document.createElement('span');qw.className='cin-q';t._q.forEach(function(p){if(p==='P'){var im=document.createElement('img');im.className='cin-pic';im.alt='';im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);}else{qw.appendChild(document.createTextNode(p));}});t.appendChild(qw);t._el={lab:lab,sub:sub,qw:qw};
   });
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var G=0;
@@ -30,7 +31,7 @@
     (function step(){ if(g!==G)return; i++;el.textContent=text.slice(0,i);
       if(i<text.length)setTimeout(step,speed);else{el.classList.remove('typing');if(done)done();} })();
   }
-  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.q.textContent=t._q;t._el.qw.classList.add('show');});}
+  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.qw.classList.add('show');});}
   function setScene(n){
     var k=n%5;document.body.setAttribute('data-scene',String(k+1));
     var nxt=L[1-cur],old=L[cur];
@@ -43,7 +44,7 @@
   }
   function run(n){
     var g=++G;var M=isM();setScene(n);
-    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.q.textContent=t._q;t._el.qw.classList.remove('show');});
+    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.qw.classList.remove('show');});
     if(reduce){tiles.forEach(function(t){t.classList.remove('pre');});fillAll();dip.classList.remove('on');return;}
     after(g,200,function(){dip.classList.remove('on');});
     tiles.forEach(function(t,i){
