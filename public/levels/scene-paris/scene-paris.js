@@ -26,7 +26,8 @@ var LAYOUT={
     walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-420,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[200,330],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
-var GAP=2.5,LEAD=1.2;
+var E0=6,FI=2.4,FO=2.5,FOL=4.5,WS=6.8,OFF={cafe:0,bench:2.2,mid:4.4};
+var CAFE={'woman-cafe':1,'woman-grey':1,'man-cafe':1,'woman-beret':1,'man-cap':1,'woman-burgundy':1},MID={'cyclist':1,'scooter':1};
 var DEBUG=/psdebug/.test(location.search);
 var REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
 function el(t,c,p){var e=document.createElement(t);if(c)e.className=c;if(p)p.appendChild(e);return e;}
@@ -52,22 +53,23 @@ function mount(opts){
   L.always.forEach(function(f){addFixed(f,stage);});
   batches=[];
   L.batches.forEach(function(bt,bi){
-   var g=el('div','ps-bfix',stage);g.style.opacity=0;bt.fixed.forEach(function(f){addFixed(f,g);});
-   batches.push({g:g,walkers:[],Tb:bt.walkers[0].T+LEAD+GAP,last:1e9,bi:bi});
+   var gs={};['cafe','bench','mid'].forEach(function(n){gs[n]=el('div','ps-bfix',stage);gs[n].style.opacity=0;});
+   bt.fixed.forEach(function(f){addFixed(f,gs[CAFE[f.k]?'cafe':MID[f.k]?'mid':'bench']);});
+   batches.push({gs:gs,walkers:[],seg:WS+bt.walkers[0].T+.5,bi:bi});
   });
   var oc=el('div','ps-occ',stage);oc.style.backgroundImage=bg.style.backgroundImage;
   var o=L.occ;oc.style.clipPath='inset('+(o[1]/L.h*100)+'% '+(100-o[2]/L.w*100)+'% '+(100-o[3]/L.h*100)+'% '+(o[0]/L.w*100)+'%)';
   oc.style.webkitMaskImage=oc.style.maskImage='linear-gradient(to bottom,transparent '+(o[1]/L.h*100)+'%,#000 '+((o[1]+7)/L.h*100)+'%)';
   var acc=0;
   L.batches.forEach(function(bt,bi){
-   batches[bi].start=acc;acc+=batches[bi].Tb-GAP;
+   batches[bi].start=E0+acc;acc+=batches[bi].seg;
    bt.walkers.forEach(function(c){
     var d=el('div','ps-walker',stage),a=el('div','ps-anim'+(c.bob?' ps-bob'+c.bob:''),d),im=el('img','',a);
     im.src=BASE+c.k+'.webp'+V;im.alt='';im.draggable=false;
     var w={cfg:c,el:d,anim:a,img:im,op:0,t:0};pick(w,1);batches[bi].walkers.push(w);walkers.push(w);
    });
   });
-  cycle=acc;
+  cycle=E0+acc+FOL;
   var rays=el('div','ps-rays',stage);rays.style.left=(L.sun[0]*100)+'%';rays.style.top=(L.sun[1]*100)+'%';
   if(opts.overlay)el('div','ps-veil',root);
   cv=el('canvas','ps-cv',root);ctx=cv.getContext('2d');
@@ -98,14 +100,17 @@ function mount(opts){
   var fo=Math.min(1,t/.1,(1-t)/(c.fade||L.fade||.26));fo=fo*fo*(3-2*fo);w.op=fo;w.el.style.opacity=fo.toFixed(3);
  }
  function sm(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+ var lastC=-1;
  function runBatches(T){
-  batches.forEach(function(b){
-   var tb=(((T-b.start)%cycle)+cycle)%cycle;
-   if(tb>=b.Tb){b.g.style.opacity=0;b.walkers.forEach(function(w){w.el.style.opacity=0;w.op=0;});b.last=tb;return;}
-   if(tb<b.last-1){b.walkers.forEach(function(w){pick(w,1);});}
-   b.last=tb;
-   b.g.style.opacity=sm(Math.min(tb/GAP,(b.Tb-tb)/GAP)).toFixed(3);
-   b.walkers.forEach(function(w){place(w,tb-LEAD);});
+  var c=Math.floor(T/cycle),tc=T-c*cycle;
+  if(c!==lastC){lastC=c;walkers.forEach(function(w){pick(w,1);});}
+  batches.forEach(function(b,bi){
+   var tl=tc-b.start,last=bi===batches.length-1;
+   ['cafe','bench','mid'].forEach(function(n){
+    var o=tl<0?0:sm((tl-OFF[n])/FI)*(tl>b.seg?sm(1-(tl-b.seg)/(last?FOL:FO)):1);
+    b.gs[n].style.opacity=o.toFixed(3);
+   });
+   b.walkers.forEach(function(w){place(w,tl-WS);});
   });
  }
  function headPt(){var w=walkers[0];walkers.forEach(function(x){if(x.op>w.op)w=x;});var r=w.el.getBoundingClientRect();return [r.left+r.width*.45,r.top+r.height*.1];}
@@ -141,7 +146,7 @@ function mount(opts){
  addEventListener('resize',onResize);
  var dbgB=(location.search.match(/batch=(\d)/)||[0,0])[1]|0;
  var dbgW=parseFloat((location.search.match(/walk=([\d.]+)/)||[0,-1])[1]);
- if(DEBUG||REDUCED){batches.forEach(function(b,i){b.g.style.opacity=(i===dbgB)?1:0;});walkers.forEach(function(w){w.el.style.display='none';});}
+ if(DEBUG||REDUCED){batches.forEach(function(b,i){for(var n in b.gs)b.gs[n].style.opacity=(i===dbgB)?1:0;});walkers.forEach(function(w){w.el.style.display='none';});}
  if(DEBUG&&dbgW>=0){batches[dbgB].walkers.forEach(function(bw){bw.el.style.display='';place(bw,dbgW*bw.cfg.T);bw.el.style.opacity=1;});}
  if(REDUCED){root.classList.add('ps-still');}
  if(!REDUCED)raf=requestAnimationFrame(tick);
