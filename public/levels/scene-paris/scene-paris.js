@@ -10,7 +10,9 @@ var LAYOUT={
    {fixed:[{k:'woman-cafe',x:10,y:338,w:165},{k:'woman-grey',x:182,y:352,w:178},{k:'man-bench',x:1298,y:402,w:370},{k:'cyclist',x:1135,y:310,w:126,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1.45,zEnd:2.8,off:[-480,-330],T:56,z0:5,bob:1}]},
    {fixed:[{k:'man-cafe',x:-14,y:336,w:240},{k:'woman-beret',x:150,y:362,w:205},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
-    walkers:[{k:'father-son',asp:1.179,w:543,near:1.2,zEnd:2.8,off:[-260,-120],T:56,z0:4.2,bob:1}]}
+    walkers:[{k:'father-son',asp:1.179,w:543,near:1.2,zEnd:2.8,off:[-260,-120],T:56,z0:4.2,bob:1}]},
+   {fixed:[{k:'man-cap',x:-31,y:354,w:288},{k:'woman-burgundy',x:149,y:352,w:300},{k:'painter',x:1155,y:366,w:490}],
+    walkers:[{k:'shopper',asp:2.179,w:280,near:1.45,zEnd:2.8,off:[-440,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:407,near:1.2,zEnd:2.8,off:[110,260],T:56,z0:5,away:1,bob:1}]}
   ]},
  m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.3,
   occ:[0,912,290,1180],
@@ -19,7 +21,9 @@ var LAYOUT={
    {fixed:[{k:'woman-cafe',x:-6,y:745,w:136},{k:'woman-grey',x:105,y:760,w:116},{k:'man-bench',x:709,y:793,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1.5,zEnd:3.2,off:[-300,-160],T:56,z0:5,bob:1}]},
    {fixed:[{k:'man-cafe',x:-30,y:742,w:200},{k:'woman-beret',x:81,y:760,w:183},{k:'reader',x:712,y:811,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
-    walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]}
+    walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]},
+   {fixed:[{k:'man-cap',x:-40,y:754,w:215},{k:'woman-burgundy',x:68,y:752,w:200},{k:'painter',x:615,y:709,w:327}],
+    walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-260,-140],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[90,230],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
 var GAP=2.5,LEAD=1.2;
@@ -87,7 +91,7 @@ function mount(opts){
   var c=w.cfg;
   var t=tw/c.T;
   if(t<0||t>=1){w.el.style.opacity=0;w.op=0;return;}
-  var ze=c.zEnd||1,z=ze*Math.pow(c.z0/ze,1-t),s=c.near/z;
+  var ze=c.zEnd||1,tg=c.away?1-t:t,z=ze*Math.pow(c.z0/ze,1-tg),s=c.near/z;
   var fy=L.hz+(L.gy-L.hz)/z, fx=L.cx+w.off0/z+Math.sin(t*9+w.off0)*5/z;
   var hpx=c.w*c.asp*SC;
   w.el.style.transform='translate3d('+((fx-c.w/2)*SC).toFixed(1)+'px,'+(fy*SC-hpx).toFixed(1)+'px,0) scale('+s.toFixed(4)+')';
@@ -138,7 +142,7 @@ function mount(opts){
  var dbgB=(location.search.match(/batch=(\d)/)||[0,0])[1]|0;
  var dbgW=parseFloat((location.search.match(/walk=([\d.]+)/)||[0,-1])[1]);
  if(DEBUG||REDUCED){batches.forEach(function(b,i){b.g.style.opacity=(i===dbgB)?1:0;});walkers.forEach(function(w){w.el.style.display='none';});}
- if(DEBUG&&dbgW>=0){var bw=batches[dbgB].walkers[0];bw.el.style.display='';place(bw,dbgW*bw.cfg.T);bw.el.style.opacity=1;}
+ if(DEBUG&&dbgW>=0){batches[dbgB].walkers.forEach(function(bw){bw.el.style.display='';place(bw,dbgW*bw.cfg.T);bw.el.style.opacity=1;});}
  if(REDUCED){root.classList.add('ps-still');}
  if(!REDUCED)raf=requestAnimationFrame(tick);
  return{
