@@ -37,7 +37,7 @@ var mediaRecorder = null;
 var recordedChunks = [];
 var currentStream = null;
 var lsAudioCtx = null;
-var lsWaveAnimId = null;
+var lsWaveAnimId = null;var psScene=null,psPending=false,psQ=null;if(LEVEL==="a0-tout-public"&&LESSON===1){(function(){var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=5";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=5";s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false});if(psQ){window.psHook(psQ[0],psQ[1]);}}catch(e){console.error("scene",e);}};document.head.appendChild(s);document.addEventListener("play",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"){psScene.listen();}},true);document.addEventListener("ended",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"){if(psPending){psScene.yourTurn();}else{psScene.calm();}}},true);document.addEventListener("pause",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"&&!e.target.ended){psScene.calm();}},true);})();}window.psHook=function(ev,v){if(!psScene){psQ=[ev,v];return;}if(ev==="part"){psPending=!!v;psScene.calm();if(v&&!document.querySelector("#lsRoot audio:not(#lsPlaybackAudio), #lsRoot video")){psScene.yourTurn();}}else if(ev==="recstart"){psScene.yourTurn();psScene.micState("rec");}else if(ev==="recstop"){psScene.micState("");}else if(ev==="score"){if(v>=70){psScene.cheer();}else{psScene.calm();}}};
 
 function render(html){ root.innerHTML = html; }
 
@@ -223,7 +223,7 @@ function renderPart(partNum, label){
     continueBtn + back1Btn
   );
 
-  root.querySelectorAll(".ls-teacher-audio-el").forEach(function(audioEl){
+  if(window.psHook){window.psHook("part",needsRecording);}root.querySelectorAll(".ls-teacher-audio-el").forEach(function(audioEl){
     setTimeout(function(){
       if(audioEl.paused){
         var wrapper = audioEl.previousElementSibling;
@@ -318,13 +318,13 @@ function toggleRecording(){
         stopWave();
         document.getElementById("lsRecordBtn").style.display = "none";
         document.getElementById("lsPlaybackRow").style.display = "flex";
-        document.getElementById("lsSubmitBtn").disabled = false;
+        document.getElementById("lsSubmitBtn").disabled = false;if(window.psHook){window.psHook("recstop");}
         currentStream.getTracks().forEach(function(t){ t.stop(); });
       };
       if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
       startWave(stream, false);
       btn.textContent = "■ Stop";
-      btn.classList.add("ls-recording");
+      btn.classList.add("ls-recording");if(window.psHook){window.psHook("recstart");}
       status.textContent = "Recording...";
     }).catch(function(err){
       status.textContent = "Microphone access denied";
@@ -377,7 +377,7 @@ function submitRecording(expectedText, partNum){
     body: recordedBlob
   }).then(function(res){ return res.json(); }).then(function(data){
     var score = data.finalScore ?? data.score ?? data.AccuracyScore ?? data.accuracyScore ?? 0;
-    score = Math.round(score);
+    score = Math.round(score);if(window.psHook){window.psHook("score",score);}
     scoreDisplay.innerHTML =
       '<div class="ls-score">' + score + '%</div>' +
       '<div class="ls-btn-row">' +
