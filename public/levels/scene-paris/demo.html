@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Paris scene demo</title>
+<link rel="stylesheet" href="/levels/scene-paris/scene-paris.css">
+<style>html,body{margin:0;height:100%;background:#000;font-family:system-ui,sans-serif}
+.bar{position:fixed;z-index:5;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.bar button{border:0;border-radius:999px;padding:9px 16px;font-weight:700;background:rgba(255,255,255,.85);color:#4a1c00;cursor:pointer}
+.say{position:fixed;z-index:4;left:0;right:0;top:15%;text-align:center;font:600 2.6rem Georgia,serif;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.6)}</style></head><body>
+<div class="say" id="say"></div>
+<div class="bar"><button data-a="enter">Enter</button><button data-a="listen">Listen</button><button data-a="yourTurn">Your turn</button><button data-a="cheer">Well done</button><button data-a="calm">Calm</button></div>
+<script src="/levels/scene-paris/scene-paris.js"></script>
+<script>var s=ParisScene.mount({onMic:function(){s.micState('rec');setTimeout(function(){s.cheer();},1800);}});
+setTimeout(function(){s.enter();},500);
+document.querySelector('.bar').onclick=function(e){var a=e.target.dataset.a;if(a){s[a]();document.getElementById('say').textContent=a==='listen'?'Bonjour':'';}};</script></body></html>
