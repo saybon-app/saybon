@@ -1,7 +1,7 @@
 /* SayBon - Paris plaza scene. One slow camera, walkers that loop from the far end of the road.
    var s = ParisScene.mount({ mic:false, onMic:fn });  s.listen(); s.yourTurn(); s.micState('rec'); s.cheer(); s.calm(); */
 (function(){
-var V='?v=8', BASE='/assets/images/scene-paris-';
+var V='?v=9', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,
   occ:[0,548,232,941],
@@ -33,7 +33,7 @@ function camAt(T){var n=CAM.length,u=(T/CSEG)%n,i=Math.floor(u),f=u-i,P=function
  for(var k=0;k<3;k++){var f2=f*f,f3=f2*f;r[k]=.5*((2*b[k])+(-a[k]+c[k])*f+(2*a[k]-5*b[k]+4*c[k]-d[k])*f2+(-a[k]+3*b[k]-3*c[k]+d[k])*f3);}return r;}
 function mount(opts){
  opts=opts||{};
- var portrait=innerHeight>innerWidth*1.1, L, root, stage, cv, ctx, W=innerWidth, H=innerHeight, SC=1, ox=0, oy=0, walkers=[], batches=[], cycle=1, parts=[], raf=0, phase='idle', dead=false, ringT=0, t0=0, last=0;
+ var camK=1,portrait=innerHeight>innerWidth*1.1, L, root, stage, cv, ctx, W=innerWidth, H=innerHeight, SC=1, ox=0, oy=0, walkers=[], batches=[], cycle=1, parts=[], raf=0, phase='idle', dead=false, ringT=0, t0=0, last=0;
  root=el('div','ps-root'); document.body.insertBefore(root,document.body.firstChild);
  function pick(w,i){w.off0=rnd(w.cfg.off[0],w.cfg.off[1]);w.dir=(Math.random()<.5?-1:1);w.t=i===0?w.cfg.start:0;w.wait=0;}
  function build(m){
@@ -77,7 +77,8 @@ function mount(opts){
  }
  function layout(){
   W=innerWidth;H=innerHeight;SC=Math.max(W/L.w,H/L.h);var sw=L.w*SC,sh=L.h*SC;
-  ox=(W-sw)*L.fx;oy=(H-sh)*L.fy;
+  var fyE=portrait?L.fy:Math.max(L.fy,Math.min(.85,.5+(W/H-1.78)*.9));ox=(W-sw)*L.fx;oy=(H-sh)*fyE;
+  stage.style.transformOrigin=((W/2-ox)/sw*100).toFixed(1)+'% '+((H*.62-oy)/sh*100).toFixed(1)+'%';camK=portrait?.45:.85;
   stage.style.width=sw+'px';stage.style.height=sh+'px';stage.style.left=ox+'px';stage.style.top=oy+'px';
   walkers.forEach(function(w){w.el.style.width=(w.cfg.w*SC)+'px';w.el.style.transformOrigin='50% 100%';});
   var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
@@ -112,7 +113,7 @@ function mount(opts){
   if(dead)return;raf=requestAnimationFrame(tick);
   if(!t0)t0=ts;var dt=Math.min((ts-last)/1000||0,.05);last=ts;var T=(ts-t0)/1000;
   // one slow camera: always drifting, never stops
-  var cm=camAt(T),sc=cm[0],cx=cm[1],cy=cm[2];
+  var cm=camAt(T),sc=1+(cm[0]-1)*camK,cx=cm[1]*camK,cy=cm[2]*camK;
   if(DEBUG){sc=1;cx=0;cy=0;}
   stage.style.transform='translate3d('+cx.toFixed(3)+'%,'+cy.toFixed(3)+'%,0) scale('+sc.toFixed(4)+')';
   if(!DEBUG)runBatches(T);
