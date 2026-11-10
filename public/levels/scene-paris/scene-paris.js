@@ -9,9 +9,9 @@ var LAYOUT={
   batches:[
    {fixed:[{k:'woman-cafe',x:10,y:338,w:165},{k:'woman-grey',x:182,y:352,w:178},{k:'man-bench',x:1298,y:402,w:370},{k:'cyclist',x:1135,y:310,w:126,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1.45,zEnd:2.8,off:[-480,-330],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-8,y:322,w:224},{k:'woman-beret',x:158,y:371,w:205},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-8,y:322,w:224},{k:'woman-beret',x:190,y:348,w:185},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:543,near:1.2,zEnd:2.8,off:[-260,-120],T:56,z0:4.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-24,y:332,w:268},{k:'woman-burgundy',x:149,y:352,w:300},{k:'painter',x:1155,y:366,w:490}],
+   {fixed:[{k:'man-cap',x:-24,y:332,w:268},{k:'woman-burgundy',x:138,y:335,w:250},{k:'painter',x:1155,y:366,w:490}],
     walkers:[{k:'shopper',asp:2.179,w:280,near:1.45,zEnd:2.8,off:[-440,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:407,near:1.2,zEnd:2.8,off:[110,260],T:56,z0:5,away:1,bob:1}]}
   ]},
  m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.3,
