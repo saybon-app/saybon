@@ -18,11 +18,11 @@ var LAYOUT={
   occ:[0,915,150,1000],
   always:[{k:'pigeon-1',x:598,y:1178,w:84},{k:'pigeon-2',x:676,y:1204,w:70}],
   batches:[
-   {fixed:[{k:'woman-cafe',x:-6,y:795,w:136},{k:'woman-grey',x:145,y:849,w:120},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
+   {fixed:[{k:'woman-cafe',x:-6,y:795,w:136},{k:'woman-grey',x:138,y:822,w:120},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1.5,zEnd:3.2,off:[-300,-160],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-30,y:790,w:200},{k:'woman-beret',x:139,y:838,w:120},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-30,y:790,w:200},{k:'woman-beret',x:124,y:810,w:120},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-40,y:795,w:215},{k:'woman-burgundy',x:124,y:843,w:135},{k:'painter',x:615,y:729,w:327}],
+   {fixed:[{k:'man-cap',x:-40,y:795,w:215},{k:'woman-burgundy',x:109,y:828,w:135},{k:'painter',x:615,y:729,w:327}],
     walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-420,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[200,330],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
