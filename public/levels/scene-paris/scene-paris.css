@@ -4,6 +4,7 @@
 .ps-layer,.ps-foliage{position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat}
 .ps-foliage{-webkit-mask-image:linear-gradient(#000 0,#000 var(--fl,26%),transparent calc(var(--fl,26%) + 9%));mask-image:linear-gradient(#000 0,#000 var(--fl,26%),transparent calc(var(--fl,26%) + 9%));transform-origin:50% 0;animation:psSway 9s ease-in-out infinite alternate}
 @keyframes psSway{from{transform:rotate(-.3deg) translateX(-.22%)}to{transform:rotate(.3deg) translateX(.22%)}}
+.ps-bfix{position:absolute;inset:0}
 .ps-fixed{position:absolute}
 .ps-fixed img{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 7px rgba(60,20,0,.25))}
 .ps-occ{position:absolute;inset:0;background-size:100% 100%;background-repeat:no-repeat}
