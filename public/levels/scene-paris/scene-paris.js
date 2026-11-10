@@ -3,23 +3,23 @@
 (function(){
 var V='?v=9', BASE='/assets/images/scene-paris-';
 var LAYOUT={
- d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,lift:48,
+ d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,
   occ:[0,548,232,941],
   always:[{k:'pigeon-1',x:1180,y:825,w:78},{k:'pigeon-2',x:1248,y:850,w:66}],
   batches:[
    {fixed:[{k:'woman-cafe',x:10,y:338,w:165},{k:'woman-grey',x:182,y:352,w:178},{k:'man-bench',x:1298,y:402,w:370},{k:'cyclist',x:1135,y:310,w:126,a:'ps-rock'}],
-    walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1,zEnd:1.4,off:[-480,-330],T:56,z0:16,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-14,y:336,w:240},{k:'woman-beret',x:165,y:372,w:215},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
-    walkers:[{k:'father-son',asp:1.179,w:543,near:1,zEnd:1.4,off:[-260,-120],T:56,z0:16,bob:1}]}
+    walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1,zEnd:1.4,off:[-480,-330],T:56,z0:9,bob:1}]},
+   {fixed:[{k:'man-cafe',x:-14,y:336,w:240},{k:'woman-beret',x:150,y:362,w:205},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
+    walkers:[{k:'father-son',asp:1.179,w:543,near:1,zEnd:1.4,off:[-260,-120],T:56,z0:9,bob:1}]}
   ]},
- m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.2,lift:40,
+ m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.2,
   occ:[0,912,290,1180],
   always:[{k:'pigeon-1',x:598,y:1178,w:84},{k:'pigeon-2',x:676,y:1204,w:70}],
   batches:[
    {fixed:[{k:'woman-cafe',x:-6,y:745,w:136},{k:'woman-grey',x:105,y:760,w:116},{k:'man-bench',x:709,y:793,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
-    walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1,zEnd:1,off:[-300,-160],T:56,z0:8,bob:1}]},
+    walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1,zEnd:1,off:[-300,-160],T:56,z0:5.5,bob:1}]},
    {fixed:[{k:'man-cafe',x:-30,y:742,w:200},{k:'woman-beret',x:81,y:760,w:183},{k:'reader',x:712,y:811,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
-    walkers:[{k:'father-son',asp:1.179,w:720,near:1,zEnd:1,off:[-230,-90],T:56,z0:8,bob:1}]}
+    walkers:[{k:'father-son',asp:1.179,w:720,near:1,zEnd:1,off:[-230,-90],T:56,z0:5.5,bob:1}]}
   ]}
 };
 var GAP=2.5,LEAD=1.2;
@@ -89,7 +89,6 @@ function mount(opts){
   if(t<0||t>=1){w.el.style.opacity=0;w.op=0;return;}
   var ze=c.zEnd||1,z=ze*Math.pow(c.z0/ze,1-t),s=c.near/z;
   var fy=L.hz+(L.gy-L.hz)/z, fx=L.cx+w.off0/z+Math.sin(t*9+w.off0)*5/z;
-  fy-=(L.lift||0)*Math.pow(1-t,1.3);
   var hpx=c.w*c.asp*SC;
   w.el.style.transform='translate3d('+((fx-c.w/2)*SC).toFixed(1)+'px,'+(fy*SC-hpx).toFixed(1)+'px,0) scale('+s.toFixed(4)+')';
   var fo=Math.min(1,t/.1,(1-t)/(L.fade||.26));fo=fo*fo*(3-2*fo);w.op=fo;w.el.style.opacity=fo.toFixed(3);
