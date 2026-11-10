@@ -11,7 +11,7 @@ var LAYOUT={
     walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1.45,zEnd:2.8,off:[-480,-330],T:56,z0:5,bob:1}]},
    {fixed:[{k:'man-cafe',x:-62,y:350,w:200},{k:'woman-beret',x:190,y:348,w:185},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:543,near:1.2,zEnd:2.8,off:[-260,-120],T:56,z0:4.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:5,y:362,w:232},{k:'woman-burgundy',x:174,y:393,w:200},{k:'painter',x:1155,y:366,w:490}],
+   {fixed:[{k:'man-cap',x:52,y:375,w:172},{k:'woman-burgundy',x:174,y:393,w:200},{k:'painter',x:1155,y:366,w:490}],
     walkers:[{k:'shopper',asp:2.179,w:280,near:1.45,zEnd:2.8,off:[-440,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:407,near:1.2,zEnd:2.8,off:[110,260],T:56,z0:5,away:1,bob:1}]}
   ]},
  m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.3,
