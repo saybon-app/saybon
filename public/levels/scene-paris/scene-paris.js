@@ -3,7 +3,7 @@
 (function(){
 var V='?v=9', BASE='/assets/images/scene-paris-';
 var LAYOUT={
- d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,
+ d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,lift:48,
   occ:[0,548,232,941],
   always:[{k:'pigeon-1',x:1180,y:825,w:78},{k:'pigeon-2',x:1248,y:850,w:66}],
   batches:[
@@ -89,6 +89,7 @@ function mount(opts){
   if(t<0||t>=1){w.el.style.opacity=0;w.op=0;return;}
   var ze=c.zEnd||1,z=ze*Math.pow(c.z0/ze,1-t),s=c.near/z;
   var fy=L.hz+(L.gy-L.hz)/z, fx=L.cx+w.off0/z+Math.sin(t*9+w.off0)*5/z;
+  fy-=(L.lift||0)*Math.pow(1-t,1.3);
   var hpx=c.w*c.asp*SC;
   w.el.style.transform='translate3d('+((fx-c.w/2)*SC).toFixed(1)+'px,'+(fy*SC-hpx).toFixed(1)+'px,0) scale('+s.toFixed(4)+')';
   var fo=Math.min(1,t/.1,(1-t)/.26);fo=fo*fo*(3-2*fo);w.op=fo;w.el.style.opacity=fo.toFixed(3);
