@@ -4,26 +4,26 @@
 var V='?v=9', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,fade:.2,
-  occ:[0,548,232,941],
+  occ:[0,572,232,941],
   always:[{k:'pigeon-1',x:1180,y:825,w:78},{k:'pigeon-2',x:1248,y:850,w:66}],
   batches:[
    {fixed:[{k:'woman-cafe',x:10,y:338,w:165},{k:'woman-grey',x:182,y:352,w:178},{k:'man-bench',x:1298,y:402,w:370},{k:'cyclist',x:1135,y:310,w:126,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:455,near:1.45,zEnd:2.8,off:[-480,-330],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-14,y:336,w:240},{k:'woman-beret',x:150,y:362,w:205},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-8,y:322,w:224},{k:'woman-beret',x:150,y:362,w:205},{k:'reader',x:1300,y:468,w:360},{k:'scooter',x:1143,y:318,w:112,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:543,near:1.2,zEnd:2.8,off:[-260,-120],T:56,z0:4.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-31,y:354,w:288},{k:'woman-burgundy',x:149,y:352,w:300},{k:'painter',x:1155,y:366,w:490}],
+   {fixed:[{k:'man-cap',x:-24,y:332,w:268},{k:'woman-burgundy',x:149,y:352,w:300},{k:'painter',x:1155,y:366,w:490}],
     walkers:[{k:'shopper',asp:2.179,w:280,near:1.45,zEnd:2.8,off:[-440,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:407,near:1.2,zEnd:2.8,off:[110,260],T:56,z0:5,away:1,bob:1}]}
   ]},
  m:{w:941,h:1672,bg:'bg-m.webp',fx:.5,fy:.5,fl:'38%',sun:[.85,.24],hz:790,gy:1560,cx:520,fade:.3,
-  occ:[0,912,290,1180],
+  occ:[0,915,150,1000],
   always:[{k:'pigeon-1',x:598,y:1178,w:84},{k:'pigeon-2',x:676,y:1204,w:70}],
   batches:[
-   {fixed:[{k:'woman-cafe',x:-6,y:745,w:136},{k:'woman-grey',x:105,y:760,w:116},{k:'man-bench',x:709,y:793,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
+   {fixed:[{k:'woman-cafe',x:-6,y:795,w:136},{k:'woman-grey',x:145,y:849,w:120},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1.5,zEnd:3.2,off:[-300,-160],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-30,y:742,w:200},{k:'woman-beret',x:81,y:760,w:183},{k:'reader',x:712,y:811,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-30,y:790,w:200},{k:'woman-beret',x:139,y:838,w:120},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-40,y:754,w:215},{k:'woman-burgundy',x:68,y:752,w:200},{k:'painter',x:615,y:709,w:327}],
-    walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-260,-140],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[90,230],T:56,z0:5.2,away:1,bob:1}]}
+   {fixed:[{k:'man-cap',x:-40,y:795,w:215},{k:'woman-burgundy',x:124,y:843,w:135},{k:'painter',x:615,y:729,w:327}],
+    walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-420,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[200,330],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
 var GAP=2.5,LEAD=1.2;
@@ -82,7 +82,7 @@ function mount(opts){
  function layout(){
   W=innerWidth;H=innerHeight;SC=Math.max(W/L.w,H/L.h);var sw=L.w*SC,sh=L.h*SC;
   var fyE=portrait?L.fy:Math.max(L.fy,Math.min(.85,.5+(W/H-1.78)*.9));ox=(W-sw)*L.fx;oy=(H-sh)*fyE;
-  stage.style.transformOrigin=((W/2-ox)/sw*100).toFixed(1)+'% '+((H*.62-oy)/sh*100).toFixed(1)+'%';camK=portrait?.8:.85;
+  stage.style.transformOrigin=((W/2-ox)/sw*100).toFixed(1)+'% '+((H*.62-oy)/sh*100).toFixed(1)+'%';camK=portrait?1:.85;
   stage.style.width=sw+'px';stage.style.height=sh+'px';stage.style.left=ox+'px';stage.style.top=oy+'px';
   walkers.forEach(function(w){w.el.style.width=(w.cfg.w*SC)+'px';w.el.style.transformOrigin='50% 100%';});
   var d=Math.min(devicePixelRatio||1,2);cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
@@ -117,7 +117,7 @@ function mount(opts){
   if(dead)return;raf=requestAnimationFrame(tick);
   if(!t0)t0=ts;var dt=Math.min((ts-last)/1000||0,.05);last=ts;var T=(ts-t0)/1000;
   // one slow camera: always drifting, never stops
-  var cm=camAt(T),sc=1+(cm[0]-1)*camK,cx=cm[1]*camK,cy=cm[2]*camK;if(portrait){sc=1+(cm[0]-1)*.6;if(cx>1.5)cx=1.5;}
+  var cm=camAt(T),sc=1+(cm[0]-1)*camK,cx=cm[1]*camK,cy=cm[2]*camK;if(portrait){sc=Math.max(cm[0],1.05+2.5*Math.max(Math.abs(cx),Math.abs(cy))/100);}
   if(DEBUG){sc=1;cx=0;cy=0;}
   stage.style.transform='translate3d('+cx.toFixed(3)+'%,'+cy.toFixed(3)+'%,0) scale('+sc.toFixed(4)+')';
   if(!DEBUG)runBatches(T);
