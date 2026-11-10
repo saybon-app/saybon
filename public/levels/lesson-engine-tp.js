@@ -37,7 +37,7 @@ var mediaRecorder = null;
 var recordedChunks = [];
 var currentStream = null;
 var lsAudioCtx = null;
-var lsWaveAnimId = null;var psScene=null,psPending=false,psQ=null;if(LEVEL==="a0-tout-public"&&LESSON===1){(function(){var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=5";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=5";s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false});if(psQ){window.psHook(psQ[0],psQ[1]);}}catch(e){console.error("scene",e);}};document.head.appendChild(s);document.addEventListener("play",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"){psScene.listen();}},true);document.addEventListener("ended",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"){if(psPending){psScene.yourTurn();}else{psScene.calm();}}},true);document.addEventListener("pause",function(e){if(psScene&&e.target&&e.target.id!=="lsPlaybackAudio"&&!e.target.ended){psScene.calm();}},true);})();}window.psHook=function(ev,v){if(!psScene){psQ=[ev,v];return;}if(ev==="part"){psPending=!!v;psScene.calm();if(v&&!document.querySelector("#lsRoot audio:not(#lsPlaybackAudio), #lsRoot video")){psScene.yourTurn();}}else if(ev==="recstart"){psScene.yourTurn();psScene.micState("rec");}else if(ev==="recstop"){psScene.micState("");}else if(ev==="score"){if(v>=70){psScene.cheer();}else{psScene.calm();}}};
+var lsWaveAnimId = null;/*PSB*/var psScene=null;if(LEVEL==="a0-tout-public"&&LESSON===1){document.body.classList.add("ps-wait");window.psRender=function(p,b,c){return window.__psUI?window.__psUI(p,b,c):false;};(function(){function go(){document.body.classList.remove("ps-wait");}var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=6";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=6";s.onerror=go;s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false,overlay:true});window.__psScene=psScene;var u=document.createElement("script");u.src="/levels/scene-paris/scene-ui.js?v=6";u.onerror=go;u.onload=function(){go();if(allAssets.length){renderPart(currentPart,getPartLabel(currentPart));}};document.head.appendChild(u);}catch(e){console.error("scene",e);go();}};document.head.appendChild(s);setTimeout(go,6000);})();}window.psHook=function(){};/*PSE*/
 
 function render(html){ root.innerHTML = html; }
 
@@ -184,7 +184,7 @@ function getPartLabel(partNum){ var match = allAssets.find(function(a){ return a
 function getPartTransitionMode(partNum){ var match = allAssets.find(function(a){ return a.part === partNum; }); return (match && match.transitionMode) ? match.transitionMode : "button"; }
 window.lsGoToPart1 = function(){ recordedBlob = null; currentPart = 1; renderPart(1, getPartLabel(1)); };
 
-function renderPart(partNum, label){
+function renderPart(partNum, label){if(window.psRender&&window.psRender(partNum,getPartAssets(partNum),{root:root,api:API_BASE})){return;}
   var blocks = getPartAssets(partNum);
   var promptBlock = blocks.find(function(b){ return b.recordPrompt; });
   var needsRecording = !!promptBlock;

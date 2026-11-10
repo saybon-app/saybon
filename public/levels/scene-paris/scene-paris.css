@@ -10,15 +10,18 @@
 .ps-walker{position:absolute;left:0;top:0;transform-origin:50% 100%;opacity:0;will-change:transform,opacity}
 .ps-anim{width:100%;transform-origin:50% 100%}
 .ps-anim img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none;filter:drop-shadow(0 5px 8px rgba(60,20,0,.3))}
-.ps-bob1{animation:psB1 1.5s ease-in-out infinite}
-@keyframes psB1{0%,100%{transform:translateY(0) rotate(-.25deg)}50%{transform:translateY(-.7%) rotate(.25deg)}}
-.ps-bob2{animation:psB2 2.4s ease-in-out infinite}
-@keyframes psB2{0%,100%{transform:translateY(0)}50%{transform:translateY(-.4%)}}
+.ps-bob1{animation:psB1 1.35s ease-in-out infinite}
+@keyframes psB1{0%,100%{transform:translate(0,0)}50%{transform:translate(.5%,-1.3%)}}
+.ps-bob1 img{animation:psSw 2.7s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes psSw{0%,100%{transform:rotate(-.8deg)}50%{transform:rotate(.8deg)}}
+.ps-rock img{animation:psRock 7s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes psRock{from{transform:rotate(-.35deg)}to{transform:rotate(.35deg)}}
 .ps-rays{position:absolute;width:150%;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,238,170,.34) 0 3deg,transparent 3deg 14deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 56%);mask-image:radial-gradient(circle,#000 0,transparent 56%);mix-blend-mode:screen;animation:psRays 70s linear infinite,psPulse 6s ease-in-out infinite alternate}
 @keyframes psRays{to{rotate:360deg}}
 @keyframes psPulse{from{opacity:.55}to{opacity:1}}
 .ps-cv{position:absolute;inset:0;width:100%;height:100%}
-.ps-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(20,8,0,.15),rgba(20,8,0,.72));opacity:0;transition:opacity 1.1s ease}
+.ps-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,8,2,.58),rgba(18,8,2,.44) 45%,rgba(18,8,2,.64))}
+.ps-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(20,8,0,.1),rgba(20,8,0,.45));opacity:0;transition:opacity 1.1s ease}
 .ps-turn .ps-dim{opacity:1}
 .ps-ring{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid rgba(255,236,180,.9);box-shadow:0 0 18px rgba(255,214,120,.55);animation:psRing 2.4s ease-out forwards}
 @keyframes psRing{from{transform:scale(1);opacity:.9}to{transform:scale(11);opacity:0}}
@@ -35,3 +38,48 @@ body.ps-on::before,body.ps-on::after{display:none!important}
 body.ps-on .ls-stage{position:relative;z-index:2}
 body.ps-on .ls-card{background:rgba(32,12,2,.6);border-color:rgba(255,230,190,.28);backdrop-filter:none;-webkit-backdrop-filter:none}
 body.ps-on .ls-part-label{display:table;margin:0 auto 14px;padding:6px 14px;border-radius:999px;background:rgba(32,12,2,.62);color:#ffd98a}
+
+/* ---- lesson orbs ---- */
+body.ps-wait .ls-stage{opacity:0}
+body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:70px 20px 40px;box-sizing:border-box}
+.pu{--o:124px;width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;color:#fff}
+@media(max-width:700px){.pu{--o:104px}}
+.pu-phrase{font:italic 500 1.9rem/1.2 "Fraunces",Georgia,serif;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.55);min-height:1.2em;animation:puIn .8s ease both}
+.pu-row{display:flex;align-items:center;justify-content:center}
+.pu-ow{position:relative;width:var(--o);height:var(--o);flex:none;transition:transform .8s cubic-bezier(.2,.8,.2,1),margin .8s cubic-bezier(.2,.8,.2,1),opacity .6s ease;--lvl:0}
+.pu-rings i{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,226,150,.85);box-shadow:0 0 20px rgba(255,208,110,.45);pointer-events:none;
+ transform:scale(calc(1 + var(--lvl)*var(--k)));opacity:calc(var(--lvl)*.9);transition:opacity .15s}
+.pu-rings i:nth-child(1){--k:.34}.pu-rings i:nth-child(2){--k:.62}.pu-rings i:nth-child(3){--k:.92}
+.pu-orb{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;border:0;padding:0;display:grid;place-items:center;cursor:pointer;color:#4a1c00;
+ background:radial-gradient(circle at 35% 28%,#fff3c8,#f2c26b 55%,#d99a3a);box-shadow:0 12px 36px rgba(0,0,0,.5),inset 0 2px 7px rgba(255,255,255,.65);
+ transform:scale(calc(1 + var(--lvl)*.09));transition:background .4s}
+.pu-orb svg{width:42%;height:42%}
+.pu-m .pu-orb{background:radial-gradient(circle at 35% 28%,#fff,#fff0d4 58%,#f0c98f)}
+.pu-pulse .pu-orb{animation:puPulse 1.7s ease-out infinite}
+@keyframes puPulse{0%{box-shadow:0 0 0 0 rgba(255,214,120,.7),0 12px 36px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 38px rgba(255,214,120,0),0 12px 36px rgba(0,0,0,.5)}}
+.pu-a.is-playing .pu-orb{animation:puBob 1.6s ease-in-out infinite}
+@keyframes puBob{0%,100%{translate:0 0}50%{translate:0 -5px}}
+/* states */
+.pu .pu-m{opacity:0;transform:scale(.4);margin-left:calc(var(--o)*-1);pointer-events:none}
+.pu.st-ready .pu-m,.pu.st-rec .pu-m,.pu.st-score .pu-m{opacity:1;transform:scale(1);margin-left:30px;pointer-events:auto}
+.pu.st-ready .pu-a,.pu.st-rec .pu-a,.pu.st-score .pu-a{transform:scale(.74)}
+.pu.st-rec .pu-m .pu-orb{background:radial-gradient(circle at 35% 28%,#ffb3a5,#e5543f 60%,#c23a28);color:#fff;animation:puRec 1.1s ease-in-out infinite}
+.pu.st-rec .pu-m .pu-rings i{border-color:rgba(255,150,130,.9);box-shadow:0 0 20px rgba(255,110,90,.5)}
+@keyframes puRec{0%,100%{scale:1}50%{scale:1.06}}
+.pu.st-ready .pu-m .pu-orb{animation:puPulse 1.9s ease-out infinite}
+.pu-status{font:600 .8rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,236,200,.9);text-shadow:0 1px 8px rgba(0,0,0,.6);min-height:.8rem}
+.pu-result{min-height:150px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.pu-score{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ffd166 calc(var(--p)*1%),rgba(255,255,255,.18) 0);position:relative;animation:puIn .6s ease both}
+.pu-score::before{content:"";position:absolute;inset:7px;border-radius:50%;background:rgba(26,10,2,.82)}
+.pu-score b{position:relative;font:700 1.7rem/1 "Manrope",system-ui,sans-serif}
+.pu-score small{font-size:.8rem;margin-left:1px;opacity:.8}
+.pu-msg{font:italic 500 1.15rem/1.2 "Fraunces",Georgia,serif;color:#ffe9b8;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.pu-acts{display:flex;gap:16px;margin-top:2px}
+.pu-mini{width:52px;height:52px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,236,200,.5);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.pu-mini svg{width:22px;height:22px}
+.pu-go{background:linear-gradient(160deg,#ffe9a6,#ffb85c);color:#4a1c00;border-color:transparent}
+.pu-wait{display:flex;gap:8px;height:92px;align-items:center}
+.pu-wait i{width:10px;height:10px;border-radius:50%;background:#ffe2a0;animation:puDot 1s ease-in-out infinite}
+.pu-wait i:nth-child(2){animation-delay:.15s}.pu-wait i:nth-child(3){animation-delay:.3s}
+@keyframes puDot{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
+@keyframes puIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
