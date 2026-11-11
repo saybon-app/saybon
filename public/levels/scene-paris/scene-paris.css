@@ -281,3 +281,4 @@ body.ps-on:not(.ps-ready) .ls-stage{opacity:0}
 .pc-chip{font:500 .6rem/1 "Poppins",system-ui,sans-serif;padding:5px 9px;border-radius:99px;background:rgba(255,255,255,.14);color:#fff}
 .pc-chip b{color:#ffd166;margin-left:5px;font-weight:600}
 .pc:has(.dscored) .pc-skip{display:none}
+.pc-tl.on{background:rgba(255,180,162,.38)}

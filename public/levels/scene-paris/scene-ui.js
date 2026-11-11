@@ -201,7 +201,7 @@ window.__psUI=function(partNum,blocks,ctx){
     };
     try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
     musicOff();recorder.start();
-    media=new Audio();media.preload='auto';media.src='/assets/audio/A0_TP_L1_dialogue.mp3?v=1';
+    media=new Audio();media.preload='auto';media.src='/assets/audio/A0_TP_L1_dialogue.mp3?v=2';
     media.addEventListener('playing',function(){if(!dPlayed){dPlayed=true;dT1=performance.now();}dSpk.classList.add('on');var h=dp.querySelector('.pc-hint');if(h)h.remove();if(sc())sc().listen();});
     media.addEventListener('pause',function(){if(!media.ended)dSpk.classList.remove('on');});
     media.addEventListener('ended',function(){dSpk.classList.remove('on');dp.classList.remove('is-rec');dDots.forEach(function(x){x.className='done';});if(sc()){sc().calm();sc().micState('');}dOk=true;dSt.textContent='Scoring...';T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},700);});
@@ -232,7 +232,14 @@ window.__psUI=function(partNum,blocks,ctx){
     var chips=vs.map(function(c,i){return '<span class="pc-chip">'+esc(L1D[i][1])+'<b>'+(c.heard?c.v+'%':'—')+'</b></span>';}).join('');
     dSt.textContent='';dp.classList.remove('scoring');dp.classList.add('dscored');
     dRes.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+avg+'"><b>'+avg+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div><div class="pc-chips">'+chips+'</div>'+
-     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
+     '<div class="pc-acts"><button type="button" class="pc-rb pc-tl" aria-label="Hear the teacher again">'+I.mic+'</button><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
+    var dTl=dRes.querySelector('.pc-tl');
+    dTl.onclick=function(){
+     if(recAudio&&!recAudio.paused){recAudio.pause();dTl.classList.remove('on');return;}
+     recAudio=new Audio('/assets/audio/A0_TP_L1_dialogue.mp3?v=2');
+     recAudio.addEventListener('ended',function(){dTl.classList.remove('on');});
+     dTl.classList.add('on');var q7=recAudio.play();if(q7&&q7.catch)q7.catch(function(){dTl.classList.remove('on');});
+    };
     dRes.querySelector('.pc-redo').onclick=function(){l1Show(5,ctx);};
     dRes.querySelector('.pc-next').onclick=function(){l1Finish(ctx);};
     if(avg>=70&&sc())sc().cheer();
@@ -254,7 +261,7 @@ window.__psUI=function(partNum,blocks,ctx){
   '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':'Listen attentively, and repeat when prompted.')+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
    '<div class="pc-s1"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div></div>'+
-   '<div class="pc-s2"><div class="pc-row">'+
+   '<div class="pc-s2"><div class="pc-row">'+(audioUrl?'<div class="pc-cell"><button type="button" class="pc-rb pc-tl" aria-label="Hear the teacher again">'+I.mic+'</button><span>Teacher</span></div>':'')+
     '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.rec+'</button><span class="pc-miclbl">Record</span></div>'+
     '<div class="pc-cell pc-repcell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
    '</div><canvas class="pc-wv" width="560" height="88"></canvas></div>'+
@@ -262,7 +269,7 @@ window.__psUI=function(partNum,blocks,ctx){
   '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
  p.classList.add('pc-pr',audioUrl?'ph-listen':'ph-rec');
  if(RS.welcome){RS.welcome=false;T(function(){var w=p.querySelector('.pc-wb');if(w)w.classList.add('gone');},5200);}
- var spk=p.querySelector('.pc-spk'),mic=p.querySelector('.pc-mic'),rep=p.querySelector('.pc-rep'),lbl=p.querySelector('.pc-miclbl'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res'),cv=p.querySelector('.pc-wv'),g=cv.getContext('2d');
+ var tl=p.querySelector('.pc-tl'),spk=p.querySelector('.pc-spk'),mic=p.querySelector('.pc-mic'),rep=p.querySelector('.pc-rep'),lbl=p.querySelector('.pc-miclbl'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res'),cv=p.querySelector('.pc-wv'),g=cv.getContext('2d');
  var hist=[],blob=null,scoring=false,tplay=false;
  for(var i=0;i<56;i++)hist.push(0);
  function draw(){
@@ -278,11 +285,11 @@ window.__psUI=function(partNum,blocks,ctx){
   }
  }
  raf=requestAnimationFrame(draw);
- function ready(){tplay=false;p.classList.remove('ph-listen');p.classList.add('ph-rec');if(!scoring)mic.disabled=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
+ function ready(){tplay=false;if(tl)tl.classList.remove('on');p.classList.remove('ph-listen');p.classList.add('ph-rec');if(!scoring)mic.disabled=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
  if(audioUrl){
   media=new Audio();media.preload='auto';media.src=audioUrl;
-  media.addEventListener('play',function(){tplay=true;spk.classList.add('on');mic.classList.remove('hint');st.textContent='';var _h=p.querySelector('.pc-hint');if(_h)_h.remove();if(sc())sc().listen();musicOff();});
-  media.addEventListener('pause',function(){if(!media.ended){tplay=false;spk.classList.remove('on');}});
+  media.addEventListener('play',function(){tplay=true;spk.classList.add('on');if(tl)tl.classList.add('on');mic.classList.remove('hint');st.textContent='';var _h=p.querySelector('.pc-hint');if(_h)_h.remove();if(sc())sc().listen();musicOff();});
+  media.addEventListener('pause',function(){if(!media.ended){tplay=false;spk.classList.remove('on');if(tl)tl.classList.remove('on');}});
   media.addEventListener('ended',function(){musicOn();ready();});
   media.addEventListener('error',function(){musicOn();ready();});
   var q=media.play();if(q&&q.catch)q.catch(function(){
@@ -291,6 +298,11 @@ window.__psUI=function(partNum,blocks,ctx){
    document.addEventListener('pointerdown',kick,true);
   });
  }else{spk.disabled=true;ready();}
+ if(tl)tl.onclick=function(){
+  if(!media||(recorder&&recorder.state==='recording'))return;
+  if(recAudio)recAudio.pause();rep.classList.remove('on');
+  if(tplay){media.pause();}else{try{media.currentTime=0;}catch(e){}var q6=media.play();if(q6&&q6.catch)q6.catch(function(){});}
+ };
  spk.onclick=function(){
   if(!media)return;
   if(recorder&&recorder.state==='recording')return;
