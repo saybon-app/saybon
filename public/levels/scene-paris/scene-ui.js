@@ -22,7 +22,7 @@ function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 function hLv(){var m=window.__psMeta||{};return esc(m.level||'A0')+' &middot; Lesson '+esc(m.lesson||1);}
 function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(window.__psTitle&&window.__psTitle())||'';return esc(a||('Le\u00e7on '+(m.lesson||1)));}
 /* Scoring gets stricter as levels go up. Beginners get a merciful curve. */
-var LEN={'A0':{g:.55,f:46,hi:78,mid:58},'Les Petits':{g:.5,f:52,hi:76,mid:56},'A1':{g:.68,f:36,hi:82,mid:64},'A2':{g:.8,f:24,hi:84,mid:68},'B1':{g:.9,f:10,hi:85,mid:70},'B2':{g:.95,f:0,hi:85,mid:70},'C1':{g:1,f:0,hi:85,mid:70}};
+var LEN={'A0':{g:.78,f:30,hi:80,mid:62},'Les Petits':{g:.72,f:35,hi:78,mid:60},'A1':{g:.86,f:20,hi:84,mid:67},'A2':{g:.93,f:10,hi:85,mid:70},'B1':{g:.97,f:0,hi:85,mid:70},'B2':{g:1,f:0,hi:85,mid:70},'C1':{g:1,f:0,hi:85,mid:70}};
 function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=8;if(!heard)return{v:0,heard:false,hi:L.hi,mid:L.mid};var v=Math.round(100*Math.pow(Math.min(100,raw)/100,L.g));v=Math.max(v,L.f);return{v:Math.min(100,v),heard:true,hi:L.hi,mid:L.mid};}
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
  function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
