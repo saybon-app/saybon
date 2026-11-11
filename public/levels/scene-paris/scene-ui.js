@@ -27,6 +27,25 @@ function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
  function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
  return look(d,0);}
+function toWav(blob){
+ return blob.arrayBuffer().then(function(ab){
+  var AC=window.AudioContext||window.webkitAudioContext,ac=new AC();
+  return new Promise(function(res,rej){ac.decodeAudioData(ab,res,rej);}).then(function(buf){
+   try{ac.close();}catch(e){}
+   var len=Math.max(1,Math.ceil(buf.duration*16000)),oc=new OfflineAudioContext(1,len,16000),src=oc.createBufferSource();
+   src.buffer=buf;src.connect(oc.destination);src.start();return oc.startRendering();
+  });
+ }).then(function(out){
+  var d=out.getChannelData(0),n=d.length,pk=0,i;
+  for(i=0;i<n;i++){var a=Math.abs(d[i]);if(a>pk)pk=a;}
+  var gain=(pk>0.005&&pk<0.7)?0.85/pk:1;
+  var bf=new ArrayBuffer(44+n*2),v=new DataView(bf);
+  function w(o,t){for(var k=0;k<t.length;k++)v.setUint8(o+k,t.charCodeAt(k));}
+  w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+  for(i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]*gain));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true);}
+  return new Blob([bf],{type:'audio/wav'});
+ });
+}
 var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
 function phraseLabel(part){var i=PN.indexOf(part);if(i<0){PN.push(part);i=PN.length-1;}return 'Phrase '+(FR[i]||(i+1));}
 function ensureCard(root){
@@ -183,9 +202,9 @@ window.__psUI=function(partNum,blocks,ctx){
   if(!blob||scoring)return;
   scoring=true;mic.disabled=true;if(recAudio)recAudio.pause();
   st.textContent='Scoring...';res.innerHTML='<div class="pc-wait"><i></i><i></i><i></i></div>';
-  fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:new Blob([blob],{type:'audio/webm'})}).then(function(r){return r.json();}).then(function(d){
+  toWav(blob).catch(function(){return new Blob([blob],{type:'audio/webm'});}).then(function(body){window.__psSent=body.type+' '+body.size;return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:body});}).then(function(r){return r.json();}).then(function(d){
    if(dead)return;scoring=false;mic.disabled=false;
-   var rawS=pickScore(d),dbg='';try{dbg=JSON.stringify(d).slice(0,150);}catch(e){}
+   var rawS=pickScore(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
    var noScore=(rawS===null),s=Math.round(rawS||0);
    var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore;s=cv2.v;
    var msg=noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 try again</small>':(s>=hi?'Bravo !<small>Well done</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good</small>':'Encore une fois<small>Try again</small>'));
