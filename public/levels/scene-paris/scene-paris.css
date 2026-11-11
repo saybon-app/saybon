@@ -222,3 +222,11 @@ body.ps-on{background:#1a0e06!important}
 body.ps-on .ls-stage{transition:opacity .9s ease .25s}
 body.ps-on:not(.ps-ready) .ls-stage{opacity:0}
 .pc-hint{margin-top:6px;font:300 10px/1 'Poppins',system-ui,sans-serif;letter-spacing:.22em;text-transform:lowercase;color:rgba(255,255,255,.55);text-align:center;pointer-events:none}
+
+/* phrase screen heading */
+.pc-hn{margin-top:8px;font:600 .66rem/1 "Poppins",system-ui,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:#f2b93b;text-align:center;margin-top:2px}
+.pc-hi{font:300 .66rem/1.2 "Poppins",system-ui,sans-serif;letter-spacing:.06em;color:rgba(255,255,255,.62);text-align:center;margin:5px 0 8px}
+.pc-mic svg{width:50%;height:50%}
+.pc-mic{color:#ffb4a2}
+.pc-b{height:292px}
+@media(max-width:700px){.pc-b{height:300px}}

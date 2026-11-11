@@ -3,6 +3,7 @@
    Practice: teacher phrase + speaker, microphone, live wave, replay + submit, grade, next. Skip is always available. */
 (function(){
 var I={
+ rec:'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.8" width="15" height="26.4" rx="4.6"/><path d="M12.4 7.4h7.2M12.4 10.2h7.2M12.4 13h7.2"/><circle cx="16" cy="21.4" r="3.9" fill="#e5543f" stroke="none"/></svg>',
  spk:'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.2h4.6l6.9-5.6a.9.9 0 0 1 1.5.7v17.4a.9.9 0 0 1-1.5.7l-6.9-5.6H5a1.2 1.2 0 0 1-1.2-1.2v-5.2A1.2 1.2 0 0 1 5 12.2z" fill="currentColor"/><path d="M21.6 11.4a6.4 6.4 0 0 1 0 9.2"/><path d="M25.2 7.6a11.4 11.4 0 0 1 0 16.8"/></svg>',
  mic:'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg>',
  stop:'<svg viewBox="0 0 32 32" fill="currentColor"><rect x="9" y="9" width="14" height="14" rx="3.2"/></svg>',
@@ -20,6 +21,8 @@ function musicOn(){try{if(window.resumeAppBgMusicAfterRecording)window.resumeApp
 function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function hLv(){var m=window.__psMeta||{};return esc(m.level||'A0')+' &middot; Lesson '+esc(m.lesson||1);}
 function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(window.__psTitle&&window.__psTitle())||'';return esc(a||('Le\u00e7on '+(m.lesson||1)));}
+var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
+function phraseLabel(part){var i=PN.indexOf(part);if(i<0){PN.push(part);i=PN.length-1;}return 'Phrase '+(FR[i]||(i+1));}
 function ensureCard(root){
  if(card&&root.contains(card))return card;
  root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">'+hLv()+'</div><h2 class="pc-t">'+hTt()+'</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip" aria-label="Skip"><span>Skip</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M13 6l6 6-6 6"/></svg></button></div>';
@@ -65,7 +68,7 @@ window.__psUI=function(partNum,blocks,ctx){
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
   function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
-  if(!url){btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
+  if(!url){var hasTxt=blocks.some(function(b){return b.type==='text'&&(b.text||b.content||b.html);});try{console.warn('ps: intro part without media',JSON.stringify(blocks).slice(0,400));}catch(e){}if(!hasTxt){T(function(){window.lsGoNext();},350);return true;}btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
   media.preload='auto';media.muted=false;media.volume=1;media.src=url;
@@ -86,10 +89,11 @@ window.__psUI=function(partNum,blocks,ctx){
  /* ---------- PRACTICE ---------- */
  var expected=pb.expectedText||'';
  var p=swap(c,
+  '<div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div>'+
   '<div class="pc-ph">'+esc(expected)+'</div>'+
   '<div class="pc-row">'+
-   '<div class="pc-cell"><button type="button" class="pc-rb pc-spk" aria-label="Listen">'+I.spk+'</button><span>Teacher</span></div>'+
-   '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.mic+'</button><span class="pc-miclbl">Record</span></div>'+
+   '<div class="pc-cell"><button type="button" class="pc-rb pc-spk" aria-label="Listen">'+I.mic+'</button><span>Teacher</span></div>'+
+   '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.rec+'</button><span class="pc-miclbl">Record</span></div>'+
    '<div class="pc-cell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
   '</div>'+
   '<canvas class="pc-wv" width="560" height="88"></canvas>'+
@@ -132,7 +136,7 @@ window.__psUI=function(partNum,blocks,ctx){
    recorder.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
    recorder.onstop=function(){
     mAn=null;musicOn();s.getTracks().forEach(function(t){t.stop();});
-    mic.classList.remove('rec');mic.innerHTML=I.mic;lbl.textContent='Record again';if(sc())sc().micState('');
+    mic.classList.remove('rec');mic.innerHTML=I.rec;lbl.textContent='Record again';if(sc())sc().micState('');
     if(dead)return;
     blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});
     if(recUrl)try{URL.revokeObjectURL(recUrl);}catch(e){}
