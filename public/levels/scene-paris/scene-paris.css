@@ -92,3 +92,56 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pu-orb svg{animation:puIcon 1.5s ease-in-out infinite;transform-origin:50% 50%}
 .pu.st-score .pu-orb svg,.pu.st-listen .pu-m .pu-orb svg{animation:none}
 @keyframes puIcon{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+
+/* ===== frosted lesson card ===== */
+.pc{position:relative;width:min(92vw,430px);box-sizing:border-box;padding:26px 24px 20px;border-radius:30px;color:#fff;text-align:center;
+ background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.09));
+ -webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35);
+ border:1px solid rgba(255,255,255,.38);box-shadow:0 24px 60px rgba(20,8,0,.45),inset 0 1px 0 rgba(255,255,255,.45);
+ animation:pcIn .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pcIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.pc-h{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pc-lv{font:700 .72rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,236,200,.92)}
+.pc-t{margin:0;font:700 2.05rem/1.1 "Fraunces",Georgia,serif;letter-spacing:.01em;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.pc-ln{display:block;width:46px;height:3px;border-radius:3px;background:linear-gradient(90deg,#ffe29a,#ffb85c);margin-top:4px}
+.pc-b{position:relative;height:392px;margin-top:6px;overflow:hidden}
+.pc-pn{position:absolute;inset:0 0 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:transform .85s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
+.pc-pn.in{transform:translateX(112%);opacity:0}
+.pc-pn.first{opacity:0;transform:scale(.96)}
+.pc-pn.out{transform:translateX(-112%);opacity:0;pointer-events:none}
+.pc-teach{width:132px;height:132px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:#4a1c00;
+ background:radial-gradient(circle at 35% 28%,#fff,#fff0d4 58%,#f0c98f);box-shadow:0 12px 30px rgba(0,0,0,.35),inset 0 2px 7px rgba(255,255,255,.7)}
+.pc-teach svg{width:46%;height:46%}
+.pc-teach.on svg,.pc-spk.on svg,.pc-mic.hint svg{animation:pcBeat 2.8s ease-in-out infinite}
+@keyframes pcBeat{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.13);opacity:1}}
+.pc-st{font:600 .74rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,236,200,.9);min-height:.8rem}
+.pc-ph{font:italic 500 1.55rem/1.2 "Fraunces",Georgia,serif;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.45);padding:0 6px;min-height:1.9rem}
+.pc-row{display:flex;align-items:flex-start;justify-content:center;gap:22px}
+.pc-cell{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pc-cell span{font:600 .62rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,236,200,.85)}
+.pc-rb{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,236,200,.5);padding:0;margin-top:17px}
+.pc-rb svg{width:46%;height:46%}
+.pc-rb:disabled{opacity:.35;cursor:default}
+.pc-rb.on{background:rgba(255,226,150,.35)}
+.pc-mic{width:88px;height:88px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;color:#4a1c00;padding:0;
+ background:radial-gradient(circle at 35% 28%,#fff,#fff0d4 58%,#f0c98f);box-shadow:0 10px 26px rgba(0,0,0,.35),inset 0 2px 7px rgba(255,255,255,.7)}
+.pc-mic svg{width:44%;height:44%}
+.pc-mic.rec{background:radial-gradient(circle at 35% 28%,#ffb3a5,#e5543f 60%,#c23a28);color:#fff}
+.pc-mic:disabled{opacity:.5}
+.pc-wv{width:280px;height:44px;display:block}
+.pc-res{min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px}
+.pc-fb{display:flex;align-items:center;gap:14px}
+.pc-sc{position:relative;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#ffd166 calc(var(--p)*1%),rgba(255,255,255,.2) 0)}
+.pc-sc::before{content:"";position:absolute;inset:6px;border-radius:50%;background:rgba(26,10,2,.7)}
+.pc-sc b{position:relative;font:700 1.15rem/1 "Manrope",system-ui,sans-serif}
+.pc-sc small{font-size:.6rem;margin-left:1px;opacity:.8}
+.pc-msg{font:italic 600 1.2rem/1.2 "Fraunces",Georgia,serif;color:#ffe9b8;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.pc-acts{display:flex;align-items:center;gap:12px}
+.pc-acts .pc-rb{margin-top:0;width:46px;height:46px}
+.pc-go{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 24px;cursor:pointer;font:700 .86rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.06em;color:#4a1c00;background:linear-gradient(160deg,#ffe9a6,#ffb85c);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.pc-go svg{width:16px;height:16px}
+.pc-wait{display:flex;gap:8px;height:46px;align-items:center}
+.pc-wait i{width:9px;height:9px;border-radius:50%;background:#ffe2a0;animation:puDot 1s ease-in-out infinite}
+.pc-wait i:nth-child(2){animation-delay:.15s}.pc-wait i:nth-child(3){animation-delay:.3s}
+.pc-skip{position:absolute;right:20px;bottom:12px;background:none;border:0;color:rgba(255,236,200,.75);font:600 .72rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:6px}
+@media(max-width:700px){.pc{padding:22px 18px 22px}.pc-t{font-size:1.8rem}.pc-ph{font-size:1.4rem}}
