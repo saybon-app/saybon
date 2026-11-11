@@ -91,14 +91,16 @@ window.__psUI=function(partNum,blocks,ctx){
  /* ---------- PRACTICE ---------- */
  var expected=pb.expectedText||'';
  var p=swap(c,
-  '<div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div>'+
-  '<div class="pc-row">'+
-   '<div class="pc-cell"><button type="button" class="pc-rb pc-spk" aria-label="Listen">'+I.mic+'</button><span>Teacher</span></div>'+
-   '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.rec+'</button><span class="pc-miclbl">Record</span></div>'+
-   '<div class="pc-cell pc-repcell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
+  '<div class="pc-top"><div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div></div>'+
+  '<div class="pc-mid">'+
+   '<div class="pc-s1"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div></div>'+
+   '<div class="pc-s2"><div class="pc-row">'+
+    '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.rec+'</button><span class="pc-miclbl">Record</span></div>'+
+    '<div class="pc-cell pc-repcell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
+   '</div><canvas class="pc-wv" width="560" height="88"></canvas></div>'+
   '</div>'+
-  '<canvas class="pc-wv" width="560" height="88"></canvas>'+
-  '<div class="pc-st"></div><div class="pc-res"></div>');
+  '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
+ p.classList.add('pc-pr',audioUrl?'ph-listen':'ph-rec');
  var spk=p.querySelector('.pc-spk'),mic=p.querySelector('.pc-mic'),rep=p.querySelector('.pc-rep'),lbl=p.querySelector('.pc-miclbl'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res'),cv=p.querySelector('.pc-wv'),g=cv.getContext('2d');
  var hist=[],blob=null,scoring=false,tplay=false;
  for(var i=0;i<56;i++)hist.push(0);
@@ -115,7 +117,7 @@ window.__psUI=function(partNum,blocks,ctx){
   }
  }
  raf=requestAnimationFrame(draw);
- function ready(){tplay=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
+ function ready(){tplay=false;p.classList.remove('ph-listen');p.classList.add('ph-rec');if(!scoring)mic.disabled=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
  if(audioUrl){
   media=new Audio();media.preload='auto';media.src=audioUrl;
   media.addEventListener('play',function(){tplay=true;spk.classList.add('on');mic.classList.remove('hint');st.textContent='';var _h=p.querySelector('.pc-hint');if(_h)_h.remove();if(sc())sc().listen();musicOff();});
@@ -123,7 +125,7 @@ window.__psUI=function(partNum,blocks,ctx){
   media.addEventListener('ended',function(){musicOn();ready();});
   media.addEventListener('error',function(){musicOn();ready();});
   var q=media.play();if(q&&q.catch)q.catch(function(){
-   var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';p.appendChild(hh);
+   var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';p.querySelector('.pc-hslot').appendChild(hh);
    var kick=function(){document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
    document.addEventListener('pointerdown',kick,true);
   });
@@ -131,7 +133,7 @@ window.__psUI=function(partNum,blocks,ctx){
  spk.onclick=function(){
   if(!media)return;
   if(recorder&&recorder.state==='recording')return;
-  if(tplay){media.pause();ready();}else{try{media.currentTime=0;}catch(e){}var q2=media.play();if(q2&&q2.catch)q2.catch(function(){});}
+  if(tplay){media.pause();}else{try{media.currentTime=0;}catch(e){}var q2=media.play();if(q2&&q2.catch)q2.catch(function(){});}
  };
  function startRec(){
   if(media&&tplay)media.pause();
