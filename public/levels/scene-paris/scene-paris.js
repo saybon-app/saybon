@@ -1,7 +1,7 @@
 /* SayBon - Paris plaza scene. One slow camera, walkers that loop from the far end of the road.
    var s = ParisScene.mount({ mic:false, onMic:fn });  s.listen(); s.yourTurn(); s.micState('rec'); s.cheer(); s.calm(); */
 (function(){
-var V='?v=10', BASE='/assets/images/scene-paris-';
+var V='?v=11', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,fade:.2,
   occ:[0,562,232,941],
@@ -18,15 +18,15 @@ var LAYOUT={
   occ:[0,915,150,1000],
   always:[{k:'pigeon-1',x:598,y:1178,w:84},{k:'pigeon-2',x:676,y:1204,w:70}],
   batches:[
-   {fixed:[{k:'woman-cafe',x:-6,y:795,w:136},{k:'woman-grey',x:138,y:822,w:120},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
+   {fixed:[{k:'woman-cafe',x:-6,y:795,w:136},{k:'woman-grey',x:113,y:826,w:120},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1.5,zEnd:3.2,off:[-300,-160],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-30,y:790,w:200},{k:'woman-beret',x:124,y:810,w:120},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-30,y:790,w:200},{k:'woman-beret',x:102,y:814,w:120},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-40,y:795,w:215},{k:'woman-burgundy',x:109,y:828,w:135},{k:'painter',x:615,y:729,w:327}],
+   {fixed:[{k:'man-cap',x:-40,y:795,w:215},{k:'woman-burgundy',x:86,y:832,w:135},{k:'painter',x:615,y:729,w:327}],
     walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-420,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[200,330],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
-var E0=6,FI=2.4,FO=2.5,FOL=4.5,WS=6.8,OFF={cafe:0,bench:2.2,mid:4.4};
+var E0=6,FI=2.4,FO=2.5,FOL=4.5,WS=6.8,OFF={cafe:0,cafeW:0,bench:2.2,mid:4.4},WOM={'woman-grey':1,'woman-beret':1,'woman-burgundy':1};
 var CAFE={'woman-cafe':1,'woman-grey':1,'man-cafe':1,'woman-beret':1,'man-cap':1,'woman-burgundy':1},MID={'cyclist':1,'scooter':1};
 var DEBUG=/psdebug/.test(location.search),GRID=/[?&]grid/.test(location.search);
 var REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -54,13 +54,14 @@ function mount(opts){
   var ag=el('div','ps-bfix',stage);ag.style.opacity=0;alwaysG=ag;L.always.forEach(function(f){addFixed(f,ag);});
   batches=[];
   L.batches.forEach(function(bt,bi){
-   var gs={};['cafe','bench','mid'].forEach(function(n){gs[n]=el('div','ps-bfix',stage);gs[n].style.opacity=0;});
-   bt.fixed.forEach(function(f){addFixed(f,gs[CAFE[f.k]?'cafe':MID[f.k]?'mid':'bench']);});
+   var gs={};['cafe','cafeW','bench','mid'].forEach(function(n){gs[n]=el('div','ps-bfix',stage);gs[n].style.opacity=0;});
+   bt.fixed.forEach(function(f){addFixed(f,gs[WOM[f.k]?'cafeW':CAFE[f.k]?'cafe':MID[f.k]?'mid':'bench']);});
    batches.push({gs:gs,walkers:[],seg:WS+bt.walkers[0].T+.5,bi:bi});
   });
   var oc=el('div','ps-occ',stage);oc.style.backgroundImage=bg.style.backgroundImage;
   var o=L.occ;oc.style.clipPath='inset('+(o[1]/L.h*100)+'% '+(100-o[2]/L.w*100)+'% '+(100-o[3]/L.h*100)+'% '+(o[0]/L.w*100)+'%)';
   oc.style.webkitMaskImage=oc.style.maskImage='linear-gradient(to bottom,transparent '+(o[1]/L.h*100)+'%,#000 '+((o[1]+7)/L.h*100)+'%)';
+  batches.forEach(function(b){stage.appendChild(b.gs.cafeW);});
   var acc=0;
   L.batches.forEach(function(bt,bi){
    batches[bi].start=E0+acc;acc+=batches[bi].seg;
@@ -118,7 +119,7 @@ function mount(opts){
   var mx=0;
   batches.forEach(function(b,bi){
    var tl=tc-b.start,last=bi===batches.length-1;
-   ['cafe','bench','mid'].forEach(function(n){
+   ['cafe','cafeW','bench','mid'].forEach(function(n){
     var o=tl<0?0:sm((tl-OFF[n])/FI)*(tl>b.seg?sm(1-(tl-b.seg)/(last?FOL:FO)):1);
     b.gs[n].style.opacity=o.toFixed(3);if(n==='bench'&&o>mx)mx=o;
    });
