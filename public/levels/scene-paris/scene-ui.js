@@ -63,8 +63,10 @@ window.__psUI=function(partNum,blocks,ctx){
  };
 
  /* ---------- INTRO / LISTEN-ONLY ---------- */
+ if(pb)window.__psSkipIntro=0;
+ if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
-  var url=video||audioUrl,_m=window.__psMeta||{};if(_m.level==='A0'&&_m.lesson===1&&!window.__psIntroUsed){window.__psIntroUsed=1;url='/assets/audio/A0_TP_L1_intro.mp3?v=1';video=null;}
+  var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(_m.level==='A0'&&_m.lesson===1&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url='/assets/audio/A0_TP_L1_intro.mp3?v=1';video=null;}
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
   function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
@@ -74,8 +76,8 @@ window.__psUI=function(partNum,blocks,ctx){
   media.preload='auto';media.muted=false;media.volume=1;media.src=url;
   media.addEventListener('play',function(){var h=p.querySelector('.pc-hint');if(h)h.remove();btn.classList.add('on');if(sc())sc().listen();musicOff();});
   media.addEventListener('pause',function(){if(!media.ended)btn.classList.remove('on');});
-  media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
-  media.addEventListener('error',function(){try{console.warn('intro audio error',media.src,media.error&&media.error.code);}catch(e){}musicOn();if(sc())sc().calm();more();});
+  media.addEventListener('ended',function(){if(ovr)window.__psSkipIntro=1;btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
+  media.addEventListener('error',function(){try{console.warn('intro audio error',media.src,media.error&&media.error.code);}catch(e){}musicOn();if(ovr)window.__psSkipIntro=1;if(sc())sc().calm();more();});
   var pp=media.play();
   if(pp&&pp.catch)pp.catch(function(){
    var hint=document.createElement('div');hint.className='pc-hint';hint.textContent='tap to listen';p.appendChild(hint);
