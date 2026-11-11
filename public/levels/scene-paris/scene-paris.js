@@ -1,7 +1,7 @@
 /* SayBon - Paris plaza scene. One slow camera, walkers that loop from the far end of the road.
    var s = ParisScene.mount({ mic:false, onMic:fn });  s.listen(); s.yourTurn(); s.micState('rec'); s.cheer(); s.calm(); */
 (function(){
-var V='?v=14', BASE='/assets/images/scene-paris-';
+var V='?v=15', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,fade:.2,
   occ:[0,562,232,941],
@@ -21,9 +21,9 @@ var LAYOUT={
   batches:[
    {fixed:[{k:'woman-cafe',x:-4,y:772,w:136},{k:'woman-grey',x:161,y:775,w:114},{k:'man-bench',x:709,y:808,w:240},{k:'cyclist',x:595,y:690,w:130,a:'ps-rock'}],
     walkers:[{k:'mother-daughter',asp:1.339,w:640,near:1.5,zEnd:3.2,off:[-300,-160],T:56,z0:5,bob:1}]},
-   {fixed:[{k:'man-cafe',x:-10,y:806,w:162},{k:'woman-beret',x:151,y:763,w:114},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
+   {fixed:[{k:'man-cafe',x:-22,y:776,w:132},{k:'woman-beret',x:151,y:763,w:114},{k:'reader',x:712,y:858,w:240},{k:'scooter',x:602,y:690,w:124,a:'ps-rock'}],
     walkers:[{k:'father-son',asp:1.179,w:720,near:1.4,zEnd:3.2,off:[-230,-90],T:56,z0:5.2,bob:1}]},
-   {fixed:[{k:'man-cap',x:-8,y:810,w:172},{k:'woman-burgundy',x:135,y:781,w:128},{k:'painter',x:615,y:729,w:327}],
+   {fixed:[{k:'man-cap',x:-16,y:772,w:136},{k:'woman-burgundy',x:135,y:781,w:128},{k:'painter',x:615,y:729,w:327}],
     walkers:[{k:'shopper',asp:2.179,w:393,near:1.5,zEnd:3.2,off:[-420,-300],T:56,z0:5,bob:1},{k:'father-suitcase',asp:1.573,w:540,near:1.4,zEnd:3.2,off:[200,330],T:56,z0:5.2,away:1,bob:1}]}
   ]}
 };
