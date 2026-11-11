@@ -12,16 +12,16 @@ var I={
  next:'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16h18M18 9l7 7-7 7"/></svg>'
 };
 var cleanup=null,card=null;
+(function(){try{if(!document.getElementById('pc-fonts')){var l=document.createElement('link');l.id='pc-fonts';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Poppins:wght@500;600&display=swap';document.head.appendChild(l);}}catch(e){}})();
 function sc(){return window.__psScene;}
 function esc(t){var d=document.createElement('div');d.textContent=t==null?'':t;return d.innerHTML;}
 function musicOff(){try{if(window.pauseAppBgMusicForRecording)window.pauseAppBgMusicForRecording();}catch(e){}}
 function musicOn(){try{if(window.resumeAppBgMusicAfterRecording)window.resumeAppBgMusicAfterRecording();}catch(e){}}
 function ensureCard(root){
  if(card&&root.contains(card))return card;
- root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">A0 &middot; Lesson 1</div><h2 class="pc-t">Les salutations</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip">Skip</button></div>';
+ root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">A0 &middot; Lesson 1</div><h2 class="pc-t">Les salutations</h2><i class="pc-ln"></i></div><div class="pc-b"></div></div>';
  card=root.firstChild;
- card.querySelector('.pc-skip').addEventListener('click',function(){window.lsGoNext();});
- return card;
+  return card;
 }
 function swap(c,html){
  var b=c.querySelector('.pc-b'),old=[].slice.call(b.children);
@@ -58,23 +58,19 @@ window.__psUI=function(partNum,blocks,ctx){
  /* ---------- INTRO / LISTEN-ONLY ---------- */
  if(!pb){
   var url=video||audioUrl;
-  var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st">'+(url?'Listen':'')+'</div><div class="pc-res"></div>');
-  var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res');
-  function more(){
-   st.textContent='';btn.classList.remove('on');
-   res.innerHTML='<button type="button" class="pc-go">Continue '+I.next+'</button>';
-   res.querySelector('.pc-go').onclick=function(){window.lsGoNext();};
-  }
-  if(!url){btn.innerHTML=I.next;btn.onclick=function(){window.lsGoNext();};st.textContent='Continue';return true;}
+  var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
+  var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
+  function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
+  if(!url){btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
   media.preload='auto';media.src=url;
-  media.addEventListener('play',function(){btn.classList.add('on');st.textContent='Listen';if(sc())sc().listen();musicOff();});
+  media.addEventListener('play',function(){btn.classList.add('on');if(sc())sc().listen();musicOff();});
   media.addEventListener('pause',function(){if(!media.ended)btn.classList.remove('on');});
-  media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();if(video||auto){T(function(){window.lsGoNext();},450);}else more();});
+  media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
   media.addEventListener('error',function(){musicOn();if(sc())sc().calm();more();});
   var pp=media.play();
-  if(pp&&pp.catch)pp.catch(function(){st.textContent='Tap to listen';});
+  if(pp&&pp.catch)pp.catch(function(){});
   btn.onclick=function(){if(media.paused){try{if(media.ended)media.currentTime=0;}catch(e){}var q=media.play();if(q&&q.catch)q.catch(function(){});}else media.pause();};
   return true;
  }
@@ -140,7 +136,7 @@ window.__psUI=function(partNum,blocks,ctx){
    };
    musicOff();
    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
-   recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
+   p.classList.remove('scored');recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
    if(sc())sc().micState('rec');
    T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},9000);
   }).catch(function(){st.textContent='Microphone blocked';});
@@ -156,7 +152,7 @@ window.__psUI=function(partNum,blocks,ctx){
   try{recAudio.currentTime=0;}catch(e){}
   rep.classList.add('on');var q3=recAudio.play();if(q3&&q3.catch)q3.catch(function(){});
  };
- function retry(){res.innerHTML='';blob=null;rep.disabled=true;lbl.textContent='Record';st.textContent='Your turn';mic.classList.add('hint');}
+ function retry(){p.classList.remove('scored');res.innerHTML='';blob=null;rep.disabled=true;lbl.textContent='Record';st.textContent='Your turn';mic.classList.add('hint');}
  function submit(){
   if(!blob||scoring)return;
   scoring=true;mic.disabled=true;if(recAudio)recAudio.pause();
@@ -165,7 +161,7 @@ window.__psUI=function(partNum,blocks,ctx){
    if(dead)return;scoring=false;mic.disabled=false;
    var s=d.finalScore!=null?d.finalScore:(d.score!=null?d.score:(d.AccuracyScore!=null?d.AccuracyScore:d.accuracyScore));s=Math.round(s||0);
    var msg=s>=85?'Bravo !':(s>=70?'Très bien !':'Encore une fois');
-   st.textContent='';
+   st.textContent='';p.classList.add('scored');
    res.innerHTML='<div class="pc-fb"><div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div><div class="pc-msg">'+msg+'</div></div>'+
     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
    res.querySelector('.pc-redo').onclick=retry;

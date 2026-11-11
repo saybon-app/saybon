@@ -145,3 +145,34 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pc-wait i:nth-child(2){animation-delay:.15s}.pc-wait i:nth-child(3){animation-delay:.3s}
 .pc-skip{position:absolute;right:20px;bottom:12px;background:none;border:0;color:rgba(255,236,200,.75);font:600 .72rem/1 "Manrope",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:6px}
 @media(max-width:700px){.pc{padding:22px 18px 22px}.pc-t{font-size:1.8rem}.pc-ph{font-size:1.4rem}}
+
+/* ===== v2: clearer glass, landscape card, new fonts, bare microphone ===== */
+.pc{width:min(96vw,640px);padding:20px 26px 18px;border-radius:26px;
+ background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04));
+ -webkit-backdrop-filter:blur(2px) saturate(1.1);backdrop-filter:blur(2px) saturate(1.1);
+ border:1px solid rgba(255,255,255,.4);box-shadow:0 18px 44px rgba(20,8,0,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+.pc-lv{font:600 .68rem/1 "Poppins",system-ui,sans-serif;letter-spacing:.3em;color:#ffe6b0;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.pc-t{font:700 1.85rem/1.1 "Playfair Display",Georgia,serif;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.pc-b{height:238px;margin-top:4px}
+.pc-pn{inset:0;gap:8px}
+.pc-teach{width:auto;height:auto;background:none;box-shadow:none;border-radius:0;color:#fff;filter:drop-shadow(0 3px 12px rgba(0,0,0,.55))}
+.pc-teach svg{width:92px;height:92px}
+.pc-ph{font:italic 500 1.4rem/1.2 "Playfair Display",Georgia,serif;text-shadow:0 2px 10px rgba(0,0,0,.65);min-height:1.7rem}
+.pc-st,.pc-cell span{font-family:"Poppins",system-ui,sans-serif;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.pc-st{min-height:.7rem;font-size:.68rem}
+.pc-row{gap:26px}
+.pc-rb{margin-top:12px;width:46px;height:46px;background:rgba(255,255,255,.2)}
+.pc-mic{width:70px;height:70px}
+.pc-wv{width:250px;height:34px}
+.pc-res{min-height:56px;gap:6px}
+.pc-sc{width:50px;height:50px}.pc-sc::before{inset:5px}.pc-sc b{font-size:.95rem}
+.pc-msg{font:italic 600 1.15rem/1.2 "Playfair Display",Georgia,serif;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.pc-go{font-family:"Poppins",system-ui,sans-serif;padding:10px 22px}
+.pc-fb{gap:12px}
+.pc-acts .pc-rb{width:40px;height:40px}
+@media(max-width:700px){.pc{padding:16px 14px 14px}.pc-t{font-size:1.55rem}.pc-b{height:228px}.pc-ph{font-size:1.15rem}.pc-row{gap:18px}.pc-wv{width:220px;height:30px}}
+.pc-pn{padding-top:12px;box-sizing:border-box}
+.scored .pc-wv{display:none}
+.scored .pc-res{min-height:96px;margin-top:4px}
+.scored .pc-st{display:none}
+@media(max-width:700px){.pc-b{height:244px}}
