@@ -190,3 +190,22 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pc-mic{background:rgba(40,16,0,.32);color:#f6c85f;border:1.5px solid rgba(246,200,95,.8);box-shadow:0 6px 18px rgba(20,8,0,.35)}
 .pc-mic.rec{background:radial-gradient(circle at 35% 28%,#ff9d8c,#e5543f 60%,#c23a28);color:#fff;border-color:transparent}
 .pc-go{background:linear-gradient(160deg,#f6c85f,#d9892b);color:#3a1600}
+
+/* ===== v4 ===== */
+.pc{padding-bottom:16px}
+.pc-t{font:700 1.5rem/1.15 "Cormorant Garamond","Playfair Display",Georgia,serif;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em;color:#fff;text-shadow:0 2px 14px rgba(20,8,0,.8)}
+.pc-lv{color:#f6c85f}
+.pc-ph{color:#fff}
+.pc-msg{color:#fff}
+.pc-teach{color:#ffb4a2;filter:drop-shadow(0 2px 0 rgba(70,20,10,.5)) drop-shadow(0 4px 14px rgba(20,8,0,.6))}
+.pc-teach svg{width:96px;height:96px}
+.pc-mic{color:#ffb4a2;border-color:rgba(255,180,162,.85);background:rgba(40,12,6,.3)}
+.pc-rb{color:#ffb4a2;border-color:rgba(255,180,162,.7)}
+.pc-skip{position:static;display:inline-flex;align-items:center;gap:8px;margin:2px auto 0;padding:9px 22px 9px 24px;border-radius:999px;cursor:pointer;
+ font:600 .7rem/1 "Poppins",system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#fff;
+ background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.55);
+ -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);text-shadow:0 1px 6px rgba(20,8,0,.7);box-shadow:0 6px 16px rgba(20,8,0,.25)}
+.pc-skip svg{width:15px;height:15px;transition:transform .25s}
+.pc-skip:hover svg{transform:translateX(3px)}
+.pc{display:flex;flex-direction:column}
+@media(max-width:700px){.pc-t{font-size:1.3rem;letter-spacing:.26em}.pc-b{height:232px}}
