@@ -46,6 +46,12 @@ function toWav(blob){
   var wb=new Blob([bf],{type:'audio/wav'});wb.pk=pk;return wb;
  });
 }
+/* ---- resume: remember the learner's place (per account, lesson and level) ---- */
+var RS={resolved:false,skipTo:0,welcome:false,pending:false};
+function rsKey(){var m=window.__psMeta||{};return 'psResume:'+(window.lsCurrentUid||'anon')+':'+(m.level||'')+':'+(m.lesson||'');}
+function rsRead(){try{var v=JSON.parse(localStorage.getItem(rsKey())||'null');return v&&v.done|0;}catch(e){return 0;}}
+function rsWrite(n){try{if(n>0)localStorage.setItem(rsKey(),JSON.stringify({done:n,t:Date.now()}));else localStorage.removeItem(rsKey());}catch(e){}}
+function whenUid(cb){var n=0;(function w(){if(window.lsCurrentUid||n++>12)cb();else setTimeout(w,150);})();}
 var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
 function phraseLabel(part){var i=PN.indexOf(part);if(i<0){PN.push(part);i=PN.length-1;}return 'Phrase '+(FR[i]||(i+1));}
 function ensureCard(root){
@@ -74,6 +80,15 @@ window.__psUI=function(partNum,blocks,ctx){
   if(!pb&&b.recordPrompt)pb=b;
   if(b.transitionMode==='auto')auto=true;
  });
+ if(!RS.resolved){RS.resolved=true;RS.pending=true;whenUid(function(){
+  var d=rsRead(),mx=(window.__psMax&&window.__psMax())||0;
+  if(d>0&&mx&&d>=mx){rsWrite(0);d=0;}
+  if(d>0)RS.skipTo=d+1;
+  RS.pending=false;window.__psUI(partNum,blocks,ctx);
+ });return true;}
+ if(RS.pending)return true;
+ if(RS.skipTo&&partNum<RS.skipTo){if(pb)phraseLabel(partNum);else window.__psIntroUsed=1;T(function(){window.lsGoNext();},30);return true;}
+ if(RS.skipTo&&partNum>=RS.skipTo){RS.skipTo=0;RS.welcome=true;}
  var c=ensureCard(root);
  var media=null,mediaKind=null,recorder=null,stream=null,recUrl=null,recAudio=null,raf=0,mAn=null,mData=null,actx=null;
  cleanup=function(){
@@ -117,7 +132,7 @@ window.__psUI=function(partNum,blocks,ctx){
  var expected=pb.expectedText||'';
  var _pm=window.__psMeta||{};phraseLabel(partNum);if(_pm.level==='A0'&&_pm.lesson===1&&PN.indexOf(partNum)>=0&&PN.indexOf(partNum)<3)audioUrl='/assets/audio/A0_TP_L1_phrase'+(PN.indexOf(partNum)+1)+'.mp3?v=1';
  var p=swap(c,
-  '<div class="pc-top"><div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div></div>'+
+  '<div class="pc-top"><div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div>'+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
    '<div class="pc-s1"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div></div>'+
    '<div class="pc-s2"><div class="pc-row">'+
@@ -127,6 +142,7 @@ window.__psUI=function(partNum,blocks,ctx){
   '</div>'+
   '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
  p.classList.add('pc-pr',audioUrl?'ph-listen':'ph-rec');
+ if(RS.welcome){RS.welcome=false;T(function(){var w=p.querySelector('.pc-wb');if(w)w.classList.add('gone');},5200);}
  var spk=p.querySelector('.pc-spk'),mic=p.querySelector('.pc-mic'),rep=p.querySelector('.pc-rep'),lbl=p.querySelector('.pc-miclbl'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res'),cv=p.querySelector('.pc-wv'),g=cv.getContext('2d');
  var hist=[],blob=null,scoring=false,tplay=false;
  for(var i=0;i<56;i++)hist.push(0);
@@ -212,7 +228,7 @@ window.__psUI=function(partNum,blocks,ctx){
    res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+((heard||!/[?&]psdebug/.test(location.search))?'':'<div class="pc-dbg">'+esc(dbg)+'</div>')+
     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
    res.querySelector('.pc-redo').onclick=retry;
-   res.querySelector('.pc-next').onclick=function(){window.lsGoNext();};
+   res.querySelector('.pc-next').onclick=function(){var mx2=(window.__psMax&&window.__psMax())||0;if(mx2&&partNum>=mx2)rsWrite(0);else if(partNum>rsRead())rsWrite(partNum);window.lsGoNext();};
    if(s>=70&&sc())sc().cheer();
   }).catch(function(){
    if(dead)return;scoring=false;mic.disabled=false;st.textContent='';
