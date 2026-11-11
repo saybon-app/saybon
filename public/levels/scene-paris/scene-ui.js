@@ -69,12 +69,13 @@ window.__psUI=function(partNum,blocks,ctx){
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
   media.preload='auto';media.muted=false;media.volume=1;media.src=url;
-  media.addEventListener('play',function(){btn.classList.add('on');if(sc())sc().listen();musicOff();});
+  media.addEventListener('play',function(){var h=p.querySelector('.pc-hint');if(h)h.remove();btn.classList.add('on');if(sc())sc().listen();musicOff();});
   media.addEventListener('pause',function(){if(!media.ended)btn.classList.remove('on');});
   media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
   media.addEventListener('error',function(){try{console.warn('intro audio error',media.src,media.error&&media.error.code);}catch(e){}musicOn();if(sc())sc().calm();more();});
   var pp=media.play();
   if(pp&&pp.catch)pp.catch(function(){
+   var hint=document.createElement('div');hint.className='pc-hint';hint.textContent='tap to listen';p.appendChild(hint);
    var kick=function(){document.removeEventListener('pointerdown',kick,true);document.removeEventListener('keydown',kick,true);if(!dead&&media.paused&&!media.ended){var q=media.play();if(q&&q.catch)q.catch(function(){});}};
    document.addEventListener('pointerdown',kick,true);document.addEventListener('keydown',kick,true);
   });

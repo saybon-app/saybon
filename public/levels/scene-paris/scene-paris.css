@@ -216,3 +216,9 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pc-teach.on::before{animation:pcHalo 2.4s ease-out infinite}
 .pc-teach.on::after{animation:pcHalo 2.4s ease-out 1.2s infinite}
 @keyframes pcHalo{0%{transform:scale(.62);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+
+/* no white flash: dark base, card waits for the scene */
+body.ps-on{background:#1a0e06!important}
+body.ps-on .ls-stage{transition:opacity .9s ease .25s}
+body.ps-on:not(.ps-ready) .ls-stage{opacity:0}
+.pc-hint{margin-top:6px;font:300 10px/1 'Poppins',system-ui,sans-serif;letter-spacing:.22em;text-transform:lowercase;color:rgba(255,255,255,.55);text-align:center;pointer-events:none}

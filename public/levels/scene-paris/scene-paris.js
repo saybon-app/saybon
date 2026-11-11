@@ -1,7 +1,7 @@
 /* SayBon - Paris plaza scene. One slow camera, walkers that loop from the far end of the road.
    var s = ParisScene.mount({ mic:false, onMic:fn });  s.listen(); s.yourTurn(); s.micState('rec'); s.cheer(); s.calm(); */
 (function(){
-var V='?v=28', BASE='/assets/images/scene-paris-';
+var V='?v=29', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,fade:.2,
   occ:[0,562,232,941],
@@ -161,7 +161,7 @@ function mount(opts){
  build(portrait?'m':'d');
  for(var i=0;i<(portrait?8:12);i++){var p=leaf();p.y=Math.random()*H;parts.push(p);}
  for(var j=0;j<(portrait?14:22);j++)parts.push(dust());
- var pre=new Image();pre.onload=pre.onerror=function(){requestAnimationFrame(function(){root.classList.add('ps-ready');});};pre.src=BASE+L.bg+V;
+ var pre=new Image();pre.onload=pre.onerror=function(){requestAnimationFrame(function(){root.classList.add('ps-ready');document.body.classList.add('ps-ready');});};pre.src=BASE+L.bg+V;
  var rt;function onResize(){clearTimeout(rt);rt=setTimeout(function(){var pt=innerHeight>innerWidth*1.1;if(pt!==portrait){portrait=pt;build(pt?'m':'d');root.classList.add('ps-ready');}else layout();},150);}
  addEventListener('resize',onResize);
  var dbgB=(location.search.match(/batch=(\d)/)||[0,0])[1]|0;
