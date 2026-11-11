@@ -1,7 +1,7 @@
 /* SayBon - Paris plaza scene. One slow camera, walkers that loop from the far end of the road.
    var s = ParisScene.mount({ mic:false, onMic:fn });  s.listen(); s.yourTurn(); s.micState('rec'); s.cheer(); s.calm(); */
 (function(){
-var V='?v=16', BASE='/assets/images/scene-paris-';
+var V='?v=17', BASE='/assets/images/scene-paris-';
 var LAYOUT={
  d:{w:1672,h:941,bg:'bg.webp',fx:.55,fy:.5,fl:'27%',sun:[.82,.14],hz:410,gy:940,cx:1060,fade:.2,
   occ:[0,562,232,941],
@@ -29,7 +29,7 @@ var LAYOUT={
 };
 var E0=6,FI=2.4,FO=2.5,FOL=4.5,WS=6.8,OFF={cafe:0,cafeW:0,bench:2.2,mid:4.4},WOM={'woman-grey':1,'woman-beret':1,'woman-burgundy':1};
 var CAFE={'woman-cafe':1,'woman-grey':1,'man-cafe':1,'woman-beret':1,'man-cap':1,'woman-burgundy':1},MID={'cyclist':1,'scooter':1};
-var DEBUG=/psdebug/.test(location.search),GRID=/[?&]grid/.test(location.search);
+var DEBUG=/psdebug/.test(location.search),GRID=/[?&]gridon/.test(location.search);
 var REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
 function el(t,c,p){var e=document.createElement(t);if(c)e.className=c;if(p)p.appendChild(e);return e;}
 function rnd(a,b){return a+Math.random()*(b-a);}
@@ -151,7 +151,7 @@ function mount(opts){
    }else{p.life-=dt;if(p.life<=0){parts.splice(i,1);continue;}p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=60*dt;ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.283);ctx.fill();}
   }
   ctx.globalAlpha=1;
-  if(phase==='listen'&&ts-ringT>1400){ringT=ts;ring();}
+  
  }
  function setPhase(p){phase=p;root.classList.toggle('ps-turn',p==='turn');}
  build(portrait?'m':'d');
@@ -171,7 +171,7 @@ function mount(opts){
   listen:function(){setPhase('listen');ringT=0;},
   yourTurn:function(){setPhase('turn');root.classList.remove('ps-rec');},
   micState:function(s){root.classList.toggle('ps-rec',s==='rec');},
-  cheer:function(){setPhase('idle');burst();ring();},
+  cheer:function(){setPhase('idle');burst();},
   calm:function(){setPhase('idle');},
   destroy:function(){dead=true;cancelAnimationFrame(raf);removeEventListener('resize',onResize);root.remove();}
  };

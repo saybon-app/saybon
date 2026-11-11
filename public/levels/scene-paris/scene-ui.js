@@ -1,7 +1,7 @@
 /* SayBon - lesson UI on the Paris scene: round audio orb, then replay orb + microphone orb, grade under it. */
 (function(){
 var SVG={
- spk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.6L12.5 19V5L7.6 9.5z" fill="currentColor"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.6 6.4a8 8 0 0 1 0 11.2"/></svg>',
+ spk:'<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.2h4.6l6.9-5.6a.9.9 0 0 1 1.5.7v17.4a.9.9 0 0 1-1.5.7l-6.9-5.6H5a1.2 1.2 0 0 1-1.2-1.2v-5.2A1.2 1.2 0 0 1 5 12.2z" fill="currentColor"/><path d="M21.6 11.4a6.4 6.4 0 0 1 0 9.2"/><path d="M25.2 7.6a11.4 11.4 0 0 1 0 16.8"/></svg>',
  mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5M8.5 21.5h7"/></svg>',
  stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/></svg>',
  redo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>',
@@ -25,7 +25,7 @@ window.__psUI=function(partNum,blocks,ctx){
   '<div class="pu-status"></div><div class="pu-result"></div></div>';
  var pu=root.querySelector('.pu'),row=pu.querySelector('.pu-row'),status=pu.querySelector('.pu-status'),result=pu.querySelector('.pu-result');
  var aw=pu.querySelector('.pu-a'),mw=pu.querySelector('.pu-m'),ab=aw.querySelector('button'),mb=mw.querySelector('button');
- ab.innerHTML=SVG.spk;ab.setAttribute('aria-label','Play');mb.innerHTML=pb?SVG.mic:SVG.next;mb.setAttribute('aria-label',pb?'Record':'Continue');
+ ab.innerHTML=SVG.spk;ab.setAttribute('aria-label','Play');mb.innerHTML=pb?SVG.mic:SVG.spk;mb.setAttribute('aria-label',pb?'Record':'Continue');
  var audio=null,an=null,data=null,raf=0,dead=false,mr=null,stream=null,mAn=null,mData=null,recTimer=0,fake=false,playing=false;
  function S(c){pu.className='pu '+c;}
  function lvl(w,v){w.style.setProperty('--lvl',v.toFixed(3));}

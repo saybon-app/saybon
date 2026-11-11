@@ -84,3 +84,11 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pu-wait i:nth-child(2){animation-delay:.15s}.pu-wait i:nth-child(3){animation-delay:.3s}
 @keyframes puDot{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
 @keyframes puIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* calm orb: no halo, no ring, no bob; only the icon pulses */
+.pu-rings{display:none!important}
+.pu .pu-orb,.pu-pulse .pu-orb,.pu-a.is-playing .pu-orb,.pu.st-ready .pu-m .pu-orb,.pu.st-rec .pu-m .pu-orb{animation:none!important}
+.pu-orb{box-shadow:0 10px 28px rgba(0,0,0,.4),inset 0 2px 7px rgba(255,255,255,.6)!important}
+.pu-orb svg{animation:puIcon 1.5s ease-in-out infinite;transform-origin:50% 50%}
+.pu.st-score .pu-orb svg,.pu.st-listen .pu-m .pu-orb svg{animation:none}
+@keyframes puIcon{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
