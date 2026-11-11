@@ -33,7 +33,7 @@ var mediaRecorder = null;
 var recordedChunks = [];
 var currentStream = null;
 var lsAudioCtx = null;
-var lsWaveAnimId = null;
+var lsWaveAnimId = null;/*PSB*/var psScene=null;(function(){var N=LESSON||1,OFF={"a0-tout-public":0,"a0-les-petits":1,"a1":2,"a2":0,"b1":1,"b2":2,"c1":0}[LEVEL]||0;var lv=LEVEL==="a0-les-petits"?"Les Petits":String(LEVEL).split("-")[0].toUpperCase();window.__psMeta={level:lv,lesson:N,title:(LEVEL==="a0-tout-public"&&N===1)?"Les salutations":""};window.__psTitle=function(){try{for(var i=0;i<allAssets.length;i++){var a=allAssets[i],t=a.lessonTitle||a.title||a.topic;if(t)return t;}}catch(e){}return "";};var th=(N-1+OFF)%3,st=(N-1+Math.floor((N-1)/3)+OFF)%3;document.body.classList.add("ps-wait");window.psRender=function(p,b,c){return window.__psUI?window.__psUI(p,b,c):false;};function go(){document.body.classList.remove("ps-wait");}var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=26";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=26";s.onerror=go;s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false,overlay:true,theme:th,start:st});window.__psScene=psScene;var u=document.createElement("script");u.src="/levels/scene-paris/scene-ui.js?v=26";u.onerror=go;u.onload=function(){go();if(allAssets.length){renderPart(currentPart,getPartLabel(currentPart));}};document.head.appendChild(u);}catch(e){console.error("scene",e);go();}};document.head.appendChild(s);setTimeout(go,6000);})();window.psHook=function(){};/*PSE*/
 
 function render(html){ root.innerHTML = html; }
 
@@ -180,7 +180,7 @@ function getPartLabel(partNum){ var match = allAssets.find(function(a){ return a
 function getPartTransitionMode(partNum){ var match = allAssets.find(function(a){ return a.part === partNum; }); return (match && match.transitionMode) ? match.transitionMode : "button"; }
 window.lsGoToPart1 = function(){ recordedBlob = null; currentPart = 1; renderPart(1, getPartLabel(1)); };
 
-function renderPart(partNum, label){
+function renderPart(partNum, label){if(window.psRender&&window.psRender(partNum,getPartAssets(partNum),{root:root,api:API_BASE})){return;}
   var blocks = getPartAssets(partNum);
   var promptBlock = blocks.find(function(b){ return b.recordPrompt; });
   var needsRecording = !!promptBlock;

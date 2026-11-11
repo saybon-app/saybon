@@ -17,9 +17,12 @@ function sc(){return window.__psScene;}
 function esc(t){var d=document.createElement('div');d.textContent=t==null?'':t;return d.innerHTML;}
 function musicOff(){try{if(window.pauseAppBgMusicForRecording)window.pauseAppBgMusicForRecording();}catch(e){}}
 function musicOn(){try{if(window.resumeAppBgMusicAfterRecording)window.resumeAppBgMusicAfterRecording();}catch(e){}}
+function esc(x){return String(x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function hLv(){var m=window.__psMeta||{};return esc(m.level||'A0')+' &middot; Lesson '+esc(m.lesson||1);}
+function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(window.__psTitle&&window.__psTitle())||'';return esc(a||('Le\u00e7on '+(m.lesson||1)));}
 function ensureCard(root){
  if(card&&root.contains(card))return card;
- root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">A0 &middot; Lesson 1</div><h2 class="pc-t">Les salutations</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip" aria-label="Skip"><span>Skip</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M13 6l6 6-6 6"/></svg></button></div>';
+ root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">'+hLv()+'</div><h2 class="pc-t">'+hTt()+'</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip" aria-label="Skip"><span>Skip</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M13 6l6 6-6 6"/></svg></button></div>';
  card=root.firstChild;
  card.querySelector('.pc-skip').addEventListener('click',function(){window.lsGoNext();});
   return card;
