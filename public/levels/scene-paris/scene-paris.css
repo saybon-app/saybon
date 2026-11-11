@@ -176,3 +176,17 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .scored .pc-res{min-height:96px;margin-top:4px}
 .scored .pc-st{display:none}
 @media(max-width:700px){.pc-b{height:244px}}
+
+/* ===== v3: warm gold instead of white ===== */
+.pc{color:#f6c85f}
+.pc-t{color:#f6c85f;text-shadow:0 1px 0 rgba(60,25,0,.7),0 2px 14px rgba(20,8,0,.75)}
+.pc-lv{color:#e9b04a;text-shadow:0 1px 8px rgba(20,8,0,.8)}
+.pc-ph{color:#f6c85f;text-shadow:0 1px 0 rgba(60,25,0,.6),0 2px 12px rgba(20,8,0,.8)}
+.pc-st,.pc-cell span{color:#e9b04a;text-shadow:0 1px 8px rgba(20,8,0,.85)}
+.pc-teach{color:#f2b93b;filter:drop-shadow(0 2px 0 rgba(70,30,0,.55)) drop-shadow(0 4px 14px rgba(20,8,0,.6))}
+.pc-rb{color:#f6c85f;border-color:rgba(246,200,95,.7);background:rgba(40,16,0,.28)}
+.pc-msg{color:#f6c85f}
+.pc-ln{background:linear-gradient(90deg,#f6c85f,#d9892b)}
+.pc-mic{background:rgba(40,16,0,.32);color:#f6c85f;border:1.5px solid rgba(246,200,95,.8);box-shadow:0 6px 18px rgba(20,8,0,.35)}
+.pc-mic.rec{background:radial-gradient(circle at 35% 28%,#ff9d8c,#e5543f 60%,#c23a28);color:#fff;border-color:transparent}
+.pc-go{background:linear-gradient(160deg,#f6c85f,#d9892b);color:#3a1600}
