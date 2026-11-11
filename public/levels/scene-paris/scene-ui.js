@@ -27,7 +27,7 @@ function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
  function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
  return look(d,0);}
-function toWav(blob){
+function decode16(blob){
  return blob.arrayBuffer().then(function(ab){
   var AC=window.AudioContext||window.webkitAudioContext,ac=new AC();
   return new Promise(function(res,rej){ac.decodeAudioData(ab,res,rej);}).then(function(buf){
@@ -35,8 +35,10 @@ function toWav(blob){
    var len=Math.max(1,Math.ceil(buf.duration*16000)),oc=new OfflineAudioContext(1,len,16000),src=oc.createBufferSource();
    src.buffer=buf;src.connect(oc.destination);src.start();return oc.startRendering();
   });
- }).then(function(out){
-  var d=out.getChannelData(0),n=d.length,pk=0,i;
+ }).then(function(out){return out.getChannelData(0);});
+}
+function pcmToWav(d){
+  var n=d.length,pk=0,i;
   for(i=0;i<n;i++){var a=Math.abs(d[i]);if(a>pk)pk=a;}
   var gain=(pk>0.005&&pk<0.7)?0.85/pk:1;
   var bf=new ArrayBuffer(44+n*2),v=new DataView(bf);
@@ -44,8 +46,8 @@ function toWav(blob){
   w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
   for(i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]*gain));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true);}
   var wb=new Blob([bf],{type:'audio/wav'});wb.pk=pk;return wb;
- });
 }
+function toWav(blob){return decode16(blob).then(pcmToWav);}
 /* ---- resume: remember the learner's place (per account, lesson and level) ---- */
 var RS={resolved:false,skipTo:0,welcome:false,pending:false};
 function rsKey(){var m=window.__psMeta||{};return 'psResume:'+(window.lsCurrentUid||'anon')+':'+(m.level||'')+':'+(m.lesson||'');}
@@ -54,11 +56,38 @@ function rsWrite(n){try{if(n>0)localStorage.setItem(rsKey(),JSON.stringify({done
 function whenUid(cb){var n=0;(function w(){if(window.lsCurrentUid||n++>12)cb();else setTimeout(w,150);})();}
 var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
 function phraseLabel(part){var i=PN.indexOf(part);if(i<0){PN.push(part);i=PN.length-1;}return 'Phrase '+(FR[i]||(i+1));}
+var L1={on:false};
+var L1P=[['Bonjour !'],['Bonsoir !'],['Salut !'],['Au revoir !'],['\u00c0 bient\u00f4t !']];
+var L1D=[['Bonjour !','Bonjour'],['Salut !','Salut'],['Bonsoir !','Bonsoir'],['Au revoir !','Au revoir'],['\u00c0 bient\u00f4t !','\u00c0 bient\u00f4t']];
+/* where the learner answers inside A0_TP_L1_dialogue.mp3 (seconds) */
+var L1W=[[31.9,33.6],[34.95,37.0],[38.9,40.95],[42.9,44.95],[47.0,49.3]];
+function l1Key(){return 'psL1:'+(window.lsCurrentUid||'anon')+':'+((window.__psMeta||{}).lesson||'');}
+function l1Read(){try{return +localStorage.getItem(l1Key())||0;}catch(e){return 0;}}
+function l1Write(n){try{if(n>0)localStorage.setItem(l1Key(),String(n));else localStorage.removeItem(l1Key());}catch(e){}}
+function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&m.lesson===1;}
+function advance(){if(window.__psAdv)window.__psAdv();else window.lsGoNext();}
+function l1Show(i,ctx){
+ L1.on=true;
+ if(i>=6){l1Finish(ctx);return;}
+ var b=i<5?[{type:'text',recordPrompt:true,expectedText:L1P[i][0],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:5,_dlgAll:true}];
+ window.__psUI(9000+i,b,ctx);
+}
+function l1Finish(ctx){
+ if(cleanup)cleanup();
+ l1Write(0);
+ try{var uid=window.lsCurrentUid;if(uid&&window.__psLevel)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:window.__psLevel,lesson:1})}).catch(function(){});}catch(e){}
+ var c=ensureCard(ctx.root);c.classList.add('fin');
+ var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>You finished Les salutations \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
+ p.classList.add('pc-pr');
+ window.__psAdv=function(){location.href='./';};
+ p.querySelector('.pc-back').onclick=function(){location.href='./';};
+ if(sc())sc().cheer();
+}
 function ensureCard(root){
  if(card&&root.contains(card))return card;
  root.innerHTML='<div class="pc"><div class="pc-h"><div class="pc-lv">'+hLv()+'</div><h2 class="pc-t">'+hTt()+'</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip" aria-label="Skip"><span>Skip</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M13 6l6 6-6 6"/></svg></button></div>';
  card=root.firstChild;
- card.querySelector('.pc-skip').addEventListener('click',function(){window.lsGoNext();});
+ card.querySelector('.pc-skip').addEventListener('click',function(){advance();});
   return card;
 }
 function swap(c,html){
@@ -71,6 +100,7 @@ function swap(c,html){
 window.__psUI=function(partNum,blocks,ctx){
  var root=ctx.root,api=ctx.api;
  if(cleanup)cleanup();
+ window.__psAdv=null;
  var dead=false,timers=[],extra=[];
  function T(f,ms){var t=setTimeout(function(){if(!dead)f();},ms);timers.push(t);return t;}
  var video=null,audioUrl=null,pb=null,auto=false;
@@ -81,6 +111,7 @@ window.__psUI=function(partNum,blocks,ctx){
   if(b.transitionMode==='auto')auto=true;
  });
  if(!RS.resolved){RS.resolved=true;RS.pending=true;whenUid(function(){
+  if(isL1()){var n1=l1Read();RS.pending=false;if(n1>0&&n1<6){RS.welcome=true;l1Show(n1,ctx);}else window.__psUI(partNum,blocks,ctx);return;}
   var d=rsRead(),mx=(window.__psMax&&window.__psMax())||0;
   if(d>0&&mx&&d>=mx){rsWrite(0);d=0;}
   if(d>0)RS.skipTo=d+1;
@@ -107,9 +138,10 @@ window.__psUI=function(partNum,blocks,ctx){
  if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
   var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(_m.level==='A0'&&_m.lesson===1&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url='/assets/audio/A0_TP_L1_intro.mp3?v=1';video=null;}
+  if(ovr)window.__psAdv=function(){l1Show(0,ctx);};
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
-  function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
+  function more(){btn.classList.remove('on');T(function(){if(ovr)l1Show(0,ctx);else window.lsGoNext();},400);}
   if(!url){var hasTxt=blocks.some(function(b){return b.type==='text'&&(b.text||b.content||b.html);});try{console.warn('ps: intro part without media',JSON.stringify(blocks).slice(0,400));}catch(e){}if(!hasTxt){T(function(){window.lsGoNext();},350);return true;}btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
@@ -128,11 +160,98 @@ window.__psUI=function(partNum,blocks,ctx){
   return true;
  }
 
+ /* ---------- DIALOGUE (one continuous track, mic open throughout) ---------- */
+ if(pb&&pb._dlgAll){
+  window.__psAdv=function(){l1Finish(ctx);};
+  var dp=swap(c,
+   '<div class="pc-top"><div class="pc-hn">Phrase six</div><div class="pc-hi">Listen carefully.</div><div class="pc-hp">Headphones work best</div>'+(RS.welcome?'<div class="pc-wb">Welcome back — continuing from where you stopped</div>':'')+'</div>'+
+   '<div class="pc-mid"><div class="pc-s1 pc-dl"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div>'+
+    '<div class="pc-dots"><i></i><i></i><i></i><i></i><i></i></div><canvas class="pc-wv" width="560" height="88"></canvas></div></div>'+
+   '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
+  dp.classList.add('pc-pr');
+  if(RS.welcome){RS.welcome=false;T(function(){var w=dp.querySelector('.pc-wb');if(w)w.classList.add('gone');},5200);}
+  var dSpk=dp.querySelector('.pc-spk'),dSt=dp.querySelector('.pc-st'),dRes=dp.querySelector('.pc-res'),dCv=dp.querySelector('.pc-wv'),dG=dCv.getContext('2d'),dDots=[].slice.call(dp.querySelectorAll('.pc-dots i'));
+  var dHist=[],dT0=0,dT1=0,dChunks=[],dIn=-1,dOk=false,dPlayed=false;
+  for(var hi0=0;hi0<56;hi0++)dHist.push(0);
+  function dDraw(){
+   if(dead)return;raf=requestAnimationFrame(dDraw);
+   var v=0;
+   if(mAn){mAn.getByteFrequencyData(mData);var sm=0;for(var k=0;k<mData.length;k++)sm+=mData[k];v=Math.min(1,(sm/mData.length)/55);}
+   dHist.push(v);dHist.shift();
+   dG.clearRect(0,0,560,88);
+   for(var j=0;j<dHist.length;j++){var h=3+dHist[j]*70,x=j*10+3;dG.fillStyle='rgba(255,214,140,'+(.35+.65*dHist[j])+')';var y=44-h/2;dG.beginPath();if(dG.roundRect)dG.roundRect(x,y,5,h,2.5);else dG.rect(x,y,5,h);dG.fill();}
+   if(media&&dPlayed&&!media.paused){
+    var ct=media.currentTime,w=-1;
+    for(var q=0;q<L1W.length;q++){if(ct>=L1W[q][0]&&ct<=L1W[q][1]+0.3){w=q;break;}}
+    for(var d=0;d<dDots.length;d++){dDots[d].className=(ct>L1W[d][1]+0.3)?'done':(d===w?'cur':'');}
+    if(w!==dIn){dIn=w;dp.classList.toggle('is-rec',w>=0);if(sc())sc().micState(w>=0?'rec':'');}
+   }
+  }
+  raf=requestAnimationFrame(dDraw);
+  function dBegin(){
+   navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(function(s){
+    if(dead){s.getTracks().forEach(function(t){t.stop();});return;}
+    stream=s;recorder=new MediaRecorder(s);
+    recorder.ondataavailable=function(e){if(e.data&&e.data.size)dChunks.push(e.data);};
+    recorder.onstart=function(){dT0=performance.now();};
+    recorder.onstop=function(){
+     mAn=null;musicOn();s.getTracks().forEach(function(t){t.stop();});
+     if(dead||!dOk)return;
+     dScore(new Blob(dChunks,{type:recorder.mimeType||'audio/webm'}));
+    };
+    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
+    musicOff();recorder.start();
+    media=new Audio();media.preload='auto';media.src='/assets/audio/A0_TP_L1_dialogue.mp3?v=1';
+    media.addEventListener('playing',function(){if(!dPlayed){dPlayed=true;dT1=performance.now();}dSpk.classList.add('on');var h=dp.querySelector('.pc-hint');if(h)h.remove();if(sc())sc().listen();});
+    media.addEventListener('pause',function(){if(!media.ended)dSpk.classList.remove('on');});
+    media.addEventListener('ended',function(){dSpk.classList.remove('on');dp.classList.remove('is-rec');dDots.forEach(function(x){x.className='done';});if(sc()){sc().calm();sc().micState('');}dOk=true;dSt.textContent='Scoring...';T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},700);});
+    media.addEventListener('error',function(){dSt.textContent='Audio unavailable';try{if(recorder&&recorder.state==='recording')recorder.stop();}catch(e){}});
+    var q0=media.play();if(q0&&q0.catch)q0.catch(function(){
+     var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';dp.querySelector('.pc-hslot').appendChild(hh);
+     var kick=function(){document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
+     document.addEventListener('pointerdown',kick,true);
+    });
+   }).catch(function(){dSt.textContent='Microphone blocked — allow it and try again';});
+  }
+  dSpk.onclick=function(){if(media&&media.paused&&!media.ended){var q5=media.play();if(q5&&q5.catch)q5.catch(function(){});}};
+  function dScore(blob){
+   dp.classList.add('scoring');
+   var off=Math.max(0,(dT1-dT0)/1000);
+   decode16(blob).then(function(d){
+    return Promise.all(L1W.map(function(w,i){
+     var a=Math.max(0,Math.floor((w[0]+off)*16000)),b=Math.min(d.length,Math.ceil((w[1]+off+0.3)*16000));
+     if(b-a<1600)return {raw:0,quiet:true};
+     var wb=pcmToWav(d.subarray(a,b));
+     if(wb.pk<0.012)return {raw:0,quiet:true};
+     return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(L1D[i][0]),{method:'POST',body:wb}).then(function(r){return r.json();}).then(function(j){var r=pickScore(j);return {raw:r===null?0:r,quiet:false};}).catch(function(){return {raw:0,quiet:false,err:true};});
+    }));
+   }).then(function(rs){
+    if(dead)return;
+    var vs=rs.map(function(r){return curve(Math.round(r.raw||0));}),heard=vs.filter(function(c){return c.heard;}).length,avg=Math.round(vs.reduce(function(t,c){return t+c.v;},0)/vs.length),cu=vs[0];
+    var msg=heard===0?'Je n’ai rien entendu<small>I didn’t hear you — try again, headphones help</small>':(avg>=cu.hi?'Bravo !<small>Well done — that’s a real conversation</small>':(avg>=cu.mid?'Très bien !<small>Very good — keep going, or try once more</small>':'Bon effort !<small>Good effort — try again, or move on</small>'));
+    var chips=vs.map(function(c,i){return '<span class="pc-chip">'+esc(L1D[i][1])+'<b>'+(c.heard?c.v+'%':'—')+'</b></span>';}).join('');
+    dSt.textContent='';dp.classList.remove('scoring');dp.classList.add('dscored');
+    dRes.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+avg+'"><b>'+avg+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div><div class="pc-chips">'+chips+'</div>'+
+     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
+    dRes.querySelector('.pc-redo').onclick=function(){l1Show(5,ctx);};
+    dRes.querySelector('.pc-next').onclick=function(){l1Finish(ctx);};
+    if(avg>=70&&sc())sc().cheer();
+   }).catch(function(){
+    if(dead)return;dSt.textContent='';dp.classList.remove('scoring');
+    dRes.innerHTML='<div class="pc-msg">Could not score that. Try again.</div><div class="pc-acts"><button type="button" class="pc-go pc-next">Try again</button></div>';
+    dRes.querySelector('.pc-next').onclick=function(){l1Show(5,ctx);};
+   });
+  }
+  dBegin();
+  return true;
+ }
  /* ---------- PRACTICE ---------- */
  var expected=pb.expectedText||'';
- var _pm=window.__psMeta||{};phraseLabel(partNum);if(_pm.level==='A0'&&_pm.lesson===1&&PN.indexOf(partNum)>=0&&PN.indexOf(partNum)<3)audioUrl='/assets/audio/A0_TP_L1_phrase'+(PN.indexOf(partNum)+1)+'.mp3?v=1';
+ var L1i=(pb._l1!==undefined)?pb._l1:-1,dlgK=(pb._dlg!==undefined)?pb._dlg:-1;
+ var lbl0=L1i>=0?('Phrase '+FR[L1i]):phraseLabel(partNum);
+ if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L1_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
  var p=swap(c,
-  '<div class="pc-top"><div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div>'+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
+  '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':'Listen attentively, and repeat when prompted.')+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
    '<div class="pc-s1"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div></div>'+
    '<div class="pc-s2"><div class="pc-row">'+
@@ -191,6 +310,7 @@ window.__psUI=function(partNum,blocks,ctx){
     if(recUrl)try{URL.revokeObjectURL(recUrl);}catch(e){}
     recUrl=URL.createObjectURL(blob);recAudio=new Audio(recUrl);
     recAudio.addEventListener('ended',function(){rep.classList.remove('on');});
+    if(dlgK>=0){p.classList.remove('is-rec');st.textContent='';submit();return;}
     rep.disabled=false;p.classList.add('has-rec');p.classList.remove('is-rec');st.textContent='Replay it, or submit';
     res.innerHTML='<button type="button" class="pc-go pc-sub">Submit '+I.ok+'</button>';
     res.querySelector('.pc-sub').onclick=submit;
@@ -228,7 +348,8 @@ window.__psUI=function(partNum,blocks,ctx){
    res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+((heard||!/[?&]psdebug/.test(location.search))?'':'<div class="pc-dbg">'+esc(dbg)+'</div>')+
     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
    res.querySelector('.pc-redo').onclick=retry;
-   res.querySelector('.pc-next').onclick=function(){var mx2=(window.__psMax&&window.__psMax())||0;if(mx2&&partNum>=mx2)rsWrite(0);else if(partNum>rsRead())rsWrite(partNum);window.lsGoNext();};
+   res.querySelector('.pc-next').onclick=function(){if(L1i>=0){if(dlgK<0)l1Write(L1i+1);}else{var mx2=(window.__psMax&&window.__psMax())||0;if(mx2&&partNum>=mx2)rsWrite(0);else if(partNum>rsRead())rsWrite(partNum);}advance();};
+   if(dlgK>=0){var ac=res.querySelector('.pc-acts');if(ac)ac.style.display='none';T(advance,2600);}
    if(s>=70&&sc())sc().cheer();
   }).catch(function(){
    if(dead)return;scoring=false;mic.disabled=false;st.textContent='';
