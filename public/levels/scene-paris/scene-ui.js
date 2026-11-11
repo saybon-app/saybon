@@ -92,11 +92,10 @@ window.__psUI=function(partNum,blocks,ctx){
  var expected=pb.expectedText||'';
  var p=swap(c,
   '<div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div>'+
-  '<div class="pc-ph">'+esc(expected)+'</div>'+
   '<div class="pc-row">'+
    '<div class="pc-cell"><button type="button" class="pc-rb pc-spk" aria-label="Listen">'+I.mic+'</button><span>Teacher</span></div>'+
    '<div class="pc-cell"><button type="button" class="pc-mic" aria-label="Record">'+I.rec+'</button><span class="pc-miclbl">Record</span></div>'+
-   '<div class="pc-cell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
+   '<div class="pc-cell pc-repcell"><button type="button" class="pc-rb pc-rep" aria-label="Replay recording" disabled>'+I.play+'</button><span>Replay</span></div>'+
   '</div>'+
   '<canvas class="pc-wv" width="560" height="88"></canvas>'+
   '<div class="pc-st"></div><div class="pc-res"></div>');
@@ -116,14 +115,18 @@ window.__psUI=function(partNum,blocks,ctx){
   }
  }
  raf=requestAnimationFrame(draw);
- function ready(){tplay=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='Your turn';mic.classList.add('hint');}
+ function ready(){tplay=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
  if(audioUrl){
   media=new Audio();media.preload='auto';media.src=audioUrl;
-  media.addEventListener('play',function(){tplay=true;spk.classList.add('on');mic.classList.remove('hint');st.textContent='Listen';if(sc())sc().listen();musicOff();});
+  media.addEventListener('play',function(){tplay=true;spk.classList.add('on');mic.classList.remove('hint');st.textContent='';var _h=p.querySelector('.pc-hint');if(_h)_h.remove();if(sc())sc().listen();musicOff();});
   media.addEventListener('pause',function(){if(!media.ended){tplay=false;spk.classList.remove('on');}});
   media.addEventListener('ended',function(){musicOn();ready();});
   media.addEventListener('error',function(){musicOn();ready();});
-  var q=media.play();if(q&&q.catch)q.catch(function(){st.textContent='Tap the speaker to listen';});
+  var q=media.play();if(q&&q.catch)q.catch(function(){
+   var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';p.appendChild(hh);
+   var kick=function(){document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
+   document.addEventListener('pointerdown',kick,true);
+  });
  }else{spk.disabled=true;ready();}
  spk.onclick=function(){
   if(!media)return;
@@ -144,13 +147,13 @@ window.__psUI=function(partNum,blocks,ctx){
     if(recUrl)try{URL.revokeObjectURL(recUrl);}catch(e){}
     recUrl=URL.createObjectURL(blob);recAudio=new Audio(recUrl);
     recAudio.addEventListener('ended',function(){rep.classList.remove('on');});
-    rep.disabled=false;st.textContent='Replay it, or submit';
+    rep.disabled=false;p.classList.add('has-rec');p.classList.remove('is-rec');st.textContent='Replay it, or submit';
     res.innerHTML='<button type="button" class="pc-go pc-sub">Submit '+I.ok+'</button>';
     res.querySelector('.pc-sub').onclick=submit;
    };
    musicOff();
    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
-   p.classList.remove('scored');recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
+   p.classList.remove('scored','has-rec');p.classList.add('is-rec');recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
    if(sc())sc().micState('rec');
    T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},9000);
   }).catch(function(){st.textContent='Microphone blocked';});
@@ -166,7 +169,7 @@ window.__psUI=function(partNum,blocks,ctx){
   try{recAudio.currentTime=0;}catch(e){}
   rep.classList.add('on');var q3=recAudio.play();if(q3&&q3.catch)q3.catch(function(){});
  };
- function retry(){p.classList.remove('scored');res.innerHTML='';blob=null;rep.disabled=true;lbl.textContent='Record';st.textContent='Your turn';mic.classList.add('hint');}
+ function retry(){p.classList.remove('scored');res.innerHTML='';blob=null;rep.disabled=true;p.classList.remove('has-rec','is-rec');lbl.textContent='Record';st.textContent='';mic.classList.add('hint');}
  function submit(){
   if(!blob||scoring)return;
   scoring=true;mic.disabled=true;if(recAudio)recAudio.pause();

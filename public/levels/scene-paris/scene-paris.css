@@ -230,3 +230,12 @@ body.ps-on:not(.ps-ready) .ls-stage{opacity:0}
 .pc-mic{color:#ffb4a2}
 .pc-b{height:292px}
 @media(max-width:700px){.pc-b{height:300px}}
+
+/* listening-first phrase screen */
+.pc-repcell{display:none}
+.has-rec .pc-repcell{display:flex}
+.pc-wv{visibility:hidden}
+.is-rec .pc-wv{visibility:visible}
+.pc-row{justify-content:center;gap:34px}
+.pc-b{height:262px}
+@media(max-width:700px){.pc-b{height:270px}}
