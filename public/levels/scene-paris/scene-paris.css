@@ -209,3 +209,10 @@ body.ps-on .ls-stage{max-width:none;min-height:100vh;min-height:100dvh;display:f
 .pc-skip:hover svg{transform:translateX(3px)}
 .pc{display:flex;flex-direction:column}
 @media(max-width:700px){.pc-t{font-size:1.3rem;letter-spacing:.26em}.pc-b{height:232px}}
+
+/* intro halo: only while the intro audio plays */
+.pc-teach{position:relative;overflow:visible}
+.pc-teach::before,.pc-teach::after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:2px solid rgba(255,180,162,.75);opacity:0;pointer-events:none;box-shadow:0 0 18px rgba(255,150,120,.35)}
+.pc-teach.on::before{animation:pcHalo 2.4s ease-out infinite}
+.pc-teach.on::after{animation:pcHalo 2.4s ease-out 1.2s infinite}
+@keyframes pcHalo{0%{transform:scale(.62);opacity:.9}100%{transform:scale(1.35);opacity:0}}

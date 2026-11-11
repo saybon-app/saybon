@@ -61,7 +61,7 @@ window.__psUI=function(partNum,blocks,ctx){
 
  /* ---------- INTRO / LISTEN-ONLY ---------- */
  if(!pb){
-  var url=video||audioUrl;
+  var url=video||audioUrl,_m=window.__psMeta||{};if(_m.level==='A0'&&_m.lesson===1&&partNum===1){url='/assets/audio/A0_TP_L1_intro.mp3';video=null;}
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
   function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
@@ -74,7 +74,10 @@ window.__psUI=function(partNum,blocks,ctx){
   media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
   media.addEventListener('error',function(){musicOn();if(sc())sc().calm();more();});
   var pp=media.play();
-  if(pp&&pp.catch)pp.catch(function(){});
+  if(pp&&pp.catch)pp.catch(function(){
+   var kick=function(){document.removeEventListener('pointerdown',kick,true);document.removeEventListener('keydown',kick,true);if(!dead&&media.paused&&!media.ended){var q=media.play();if(q&&q.catch)q.catch(function(){});}};
+   document.addEventListener('pointerdown',kick,true);document.addEventListener('keydown',kick,true);
+  });
   btn.onclick=function(){if(media.paused){try{if(media.ended)media.currentTime=0;}catch(e){}var q=media.play();if(q&&q.catch)q.catch(function(){});}else media.pause();};
   return true;
  }
