@@ -115,7 +115,7 @@ window.__psUI=function(partNum,blocks,ctx){
 
  /* ---------- PRACTICE ---------- */
  var expected=pb.expectedText||'';
- var _pm=window.__psMeta||{};phraseLabel(partNum);if(_pm.level==='A0'&&_pm.lesson===1&&PN.indexOf(partNum)>=0&&PN.indexOf(partNum)<2)audioUrl='/assets/audio/A0_TP_L1_phrase'+(PN.indexOf(partNum)+1)+'.mp3?v=1';
+ var _pm=window.__psMeta||{};phraseLabel(partNum);if(_pm.level==='A0'&&_pm.lesson===1&&PN.indexOf(partNum)>=0&&PN.indexOf(partNum)<3)audioUrl='/assets/audio/A0_TP_L1_phrase'+(PN.indexOf(partNum)+1)+'.mp3?v=1';
  var p=swap(c,
   '<div class="pc-top"><div class="pc-hn">'+phraseLabel(partNum)+'</div><div class="pc-hi">Listen attentively, and repeat when prompted.</div></div>'+
   '<div class="pc-mid">'+
