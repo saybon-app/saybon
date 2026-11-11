@@ -61,18 +61,18 @@ window.__psUI=function(partNum,blocks,ctx){
 
  /* ---------- INTRO / LISTEN-ONLY ---------- */
  if(!pb){
-  var url=video||audioUrl,_m=window.__psMeta||{};if(_m.level==='A0'&&_m.lesson===1&&partNum===1){url='/assets/audio/A0_TP_L1_intro.mp3';video=null;}
+  var url=video||audioUrl,_m=window.__psMeta||{};if(_m.level==='A0'&&_m.lesson===1&&!window.__psIntroUsed){window.__psIntroUsed=1;url='/assets/audio/A0_TP_L1_intro.mp3?v=1';video=null;}
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
   function more(){btn.classList.remove('on');T(function(){window.lsGoNext();},400);}
   if(!url){btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
-  media.preload='auto';media.src=url;
+  media.preload='auto';media.muted=false;media.volume=1;media.src=url;
   media.addEventListener('play',function(){btn.classList.add('on');if(sc())sc().listen();musicOff();});
   media.addEventListener('pause',function(){if(!media.ended)btn.classList.remove('on');});
   media.addEventListener('ended',function(){btn.classList.remove('on');if(sc())sc().calm();musicOn();more();});
-  media.addEventListener('error',function(){musicOn();if(sc())sc().calm();more();});
+  media.addEventListener('error',function(){try{console.warn('intro audio error',media.src,media.error&&media.error.code);}catch(e){}musicOn();if(sc())sc().calm();more();});
   var pp=media.play();
   if(pp&&pp.catch)pp.catch(function(){
    var kick=function(){document.removeEventListener('pointerdown',kick,true);document.removeEventListener('keydown',kick,true);if(!dead&&media.paused&&!media.ended){var q=media.play();if(q&&q.catch)q.catch(function(){});}};
