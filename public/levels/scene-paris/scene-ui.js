@@ -43,7 +43,7 @@ function toWav(blob){
   function w(o,t){for(var k=0;k<t.length;k++)v.setUint8(o+k,t.charCodeAt(k));}
   w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
   for(i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]*gain));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true);}
-  return new Blob([bf],{type:'audio/wav'});
+  var wb=new Blob([bf],{type:'audio/wav'});wb.pk=pk;return wb;
  });
 }
 var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
@@ -202,14 +202,14 @@ window.__psUI=function(partNum,blocks,ctx){
   if(!blob||scoring)return;
   scoring=true;mic.disabled=true;if(recAudio)recAudio.pause();
   st.textContent='Scoring...';res.innerHTML='<div class="pc-wait"><i></i><i></i><i></i></div>';
-  toWav(blob).catch(function(){return new Blob([blob],{type:'audio/webm'});}).then(function(body){window.__psSent=body.type+' '+body.size;return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:body});}).then(function(r){return r.json();}).then(function(d){
+  toWav(blob).catch(function(){return new Blob([blob],{type:'audio/webm'});}).then(function(body){window.__psSent=body.type+' '+body.size+' pk='+(body.pk!==undefined?body.pk.toFixed(3):'?');if(body.pk!==undefined&&body.pk<0.012)return {quiet:true};return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:body}).then(function(r){return r.json();});}).then(function(d){
    if(dead)return;scoring=false;mic.disabled=false;
-   var rawS=pickScore(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
-   var noScore=(rawS===null),s=Math.round(rawS||0);
-   var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore;s=cv2.v;
-   var msg=noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 give it another go</small>':(s>=hi?'Bravo !<small>Well done \u2014 on to the next, or go again</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good \u2014 keep going, or try once more</small>':'Bon effort !<small>Good effort \u2014 try again, or move on</small>'));
+   var quiet=!!d.quiet,rawS=quiet?0:pickScore(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
+   var noScore=(rawS===null&&!quiet),s=Math.round(rawS||0);
+   var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore&&!quiet;s=cv2.v;
+   var msg=quiet?'Je t\u2019entends mal<small>Your microphone is very quiet \u2014 check it and try again</small>':noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 give it another go</small>':(s>=hi?'Bravo !<small>Well done \u2014 on to the next, or go again</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good \u2014 keep going, or try once more</small>':'Bon effort !<small>Good effort \u2014 try again, or move on</small>'));
    st.textContent='';p.classList.add('scored');
-   res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+(heard?'':'<div class="pc-dbg">'+esc(dbg)+'</div>')+
+   res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+((heard||!/[?&]psdebug/.test(location.search))?'':'<div class="pc-dbg">'+esc(dbg)+'</div>')+
     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
    res.querySelector('.pc-redo').onclick=retry;
    res.querySelector('.pc-next').onclick=function(){window.lsGoNext();};
