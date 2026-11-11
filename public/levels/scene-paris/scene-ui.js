@@ -24,6 +24,9 @@ function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(w
 /* Scoring gets stricter as levels go up. Beginners get a merciful curve. */
 var LEN={'A0':{g:.55,f:46,hi:78,mid:58},'Les Petits':{g:.5,f:52,hi:76,mid:56},'A1':{g:.68,f:36,hi:82,mid:64},'A2':{g:.8,f:24,hi:84,mid:68},'B1':{g:.9,f:10,hi:85,mid:70},'B2':{g:.95,f:0,hi:85,mid:70},'C1':{g:1,f:0,hi:85,mid:70}};
 function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=8;if(!heard)return{v:0,heard:false,hi:L.hi,mid:L.mid};var v=Math.round(100*Math.pow(Math.min(100,raw)/100,L.g));v=Math.max(v,L.f);return{v:Math.min(100,v),heard:true,hi:L.hi,mid:L.mid};}
+function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
+ function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
+ return look(d,0);}
 var PN=[],FR=['un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix'];
 function phraseLabel(part){var i=PN.indexOf(part);if(i<0){PN.push(part);i=PN.length-1;}return 'Phrase '+(FR[i]||(i+1));}
 function ensureCard(root){
@@ -182,11 +185,12 @@ window.__psUI=function(partNum,blocks,ctx){
   st.textContent='Scoring...';res.innerHTML='<div class="pc-wait"><i></i><i></i><i></i></div>';
   fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:new Blob([blob],{type:'audio/webm'})}).then(function(r){return r.json();}).then(function(d){
    if(dead)return;scoring=false;mic.disabled=false;
-   var s=d.finalScore!=null?d.finalScore:(d.score!=null?d.score:(d.AccuracyScore!=null?d.AccuracyScore:d.accuracyScore));s=Math.round(s||0);
-   var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard;s=cv2.v;
-   var msg=!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 try again</small>':(s>=hi?'Bravo !<small>Well done</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good</small>':'Encore une fois<small>Try again</small>'));
+   var rawS=pickScore(d),dbg='';try{dbg=JSON.stringify(d).slice(0,150);}catch(e){}
+   var noScore=(rawS===null),s=Math.round(rawS||0);
+   var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore;s=cv2.v;
+   var msg=noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 try again</small>':(s>=hi?'Bravo !<small>Well done</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good</small>':'Encore une fois<small>Try again</small>'));
    st.textContent='';p.classList.add('scored');
-   res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+
+   res.innerHTML='<div class="pc-fb">'+(heard?'<div class="pc-sc" style="--p:'+s+'"><b>'+s+'<small>%</small></b></div>':'')+'<div class="pc-msg">'+msg+'</div></div>'+(heard?'':'<div class="pc-dbg">'+esc(dbg)+'</div>')+
     '<div class="pc-acts"><button type="button" class="pc-rb pc-redo" aria-label="Try again">'+I.redo+'</button><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
    res.querySelector('.pc-redo').onclick=retry;
    res.querySelector('.pc-next').onclick=function(){window.lsGoNext();};
