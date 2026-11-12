@@ -116,8 +116,12 @@ var CSS='\
 .rv-say:after{content:"";position:absolute;left:50%;bottom:-8px;width:16px;height:16px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:3px}\
 .rv-say.on{opacity:1;transform:translate(-50%,-4px) scale(1)}\
 .rv-top{position:absolute;left:0;right:0;top:0;padding:max(14px,env(safe-area-inset-top)) 14px 0;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}\
-.rv-where{font:700 clamp(22px,5vh,44px)/1 Georgia,"Playfair Display",serif;text-shadow:0 3px 18px rgba(0,0,0,.65);opacity:0;transform:translateY(-8px);transition:opacity .5s,transform .5s;padding-top:6vh}\
+.rv-where{margin-top:1.6vh;padding:.45em 1.5em;border-radius:16px;background:rgba(10,16,30,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 26px rgba(0,0,0,.35);font:700 clamp(17px,3.4vh,30px)/1.2 Georgia,"Playfair Display",serif;white-space:nowrap;opacity:0;transform:translateY(-8px);transition:opacity .45s,transform .45s}\
 .rv-where.on{opacity:1;transform:none}\
+.rv-where:empty{display:none}\
+.rv-where.typing .wt{border-right:2px solid #ffd68c;margin-right:1px;animation:rvcaret .7s steps(1) infinite}\
+@keyframes rvcaret{50%{border-right-color:transparent}}\
+.rv-prompt:empty{display:none}\
 .rv-prompt{padding:.55em 1.2em;border-radius:999px;background:rgba(10,16,30,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:clamp(12px,2.1vh,17px);font-weight:600;transition:background .3s,opacity .3s;opacity:0}\
 .rv-prompt.on{opacity:1}\
 .rv-prompt.pickbtn{pointer-events:auto;cursor:pointer;background:linear-gradient(135deg,#ffd68c,#f2a65a);color:#3a1a00;font-weight:700;box-shadow:0 8px 22px rgba(242,166,90,.45);padding:.6em 1.5em;animation:rvglow 1.6s ease-in-out infinite}\
@@ -247,8 +251,22 @@ function setupStage(sc){
   G.root.insertBefore(n,G.root.querySelector('.rv-top'));
   G.greeters[g.k]={el:n,say:n.querySelector('.rv-say'),in:false,out:false};
  });
- G.where.textContent=sc.title;G.where.classList.remove('on');
+ G.where.classList.remove('on');
  G.prompt.classList.remove('on','ans');
+}
+function typeWhere(text,delay){
+ var tok=G.wtok=(G.wtok||0)+1;G.where.classList.remove('on');
+ T(function(){
+  if(tok!==G.wtok)return;
+  G.where.classList.add('on');var i=0;
+  (function step(){
+   if(tok!==G.wtok||!G||G.dead)return;
+   G.where.innerHTML='';var a=document.createElement('span'),b=document.createElement('span');a.className='wt';b.className='wg';b.style.visibility='hidden';
+   a.textContent=text.slice(0,i);b.textContent=text.slice(i);G.where.appendChild(a);G.where.appendChild(b);
+   G.where.classList.toggle('typing',i<text.length);
+   if(i<text.length){i++;T(step,75);}
+  })();
+ },delay);
 }
 function showPick(i,slide){
  var sc=SCENES[i];G.idx=i;G.panel.innerHTML='';
@@ -261,7 +279,7 @@ function showPick(i,slide){
  void me.offsetWidth;
  if(slide){me.classList.add('in');go0.el.classList.add('in');}else{T(function(){me.classList.add('in');},250);
  T(function(){go0.el.classList.add('in');},900);}
- T(function(){G.where.classList.add('on');},500);T(function(){G.where.classList.remove('on');},2600);
+ typeWhere(sc.title,slide?800:500);
  G.prompt.textContent='';G.prompt.classList.remove('on','pickbtn');
  var ar=G.me.querySelector('.rv-ar');if(ar)ar.remove();
  ar=document.createElement('div');ar.className='rv-ar';
@@ -283,8 +301,7 @@ function showPick(i,slide){
  var bar=G.meName;
  bar.innerHTML='<button type="button" class="rv-go rv-sel">Choose your avatar</button>';
  bar.querySelector('.rv-sel').onclick=function(){
-  G.prompt.classList.add('on');
-  G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent='Ready?';
+  G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent='';G.prompt.classList.remove('on');
   bar.innerHTML='<button type="button" class="rv-go rv-start">'+(G.started?'Start':'Start revision')+'</button>';
   var inp=bar.querySelector('.rv-in'),st=bar.querySelector('.rv-start');
   function chk(){st.disabled=false;}
@@ -371,7 +388,7 @@ function loop(sc){
 function endSeg(sc){
  if(G.ended)return;G.ended=true;cancelAnimationFrame(G.raf);
  try{G.media.pause();}catch(e){}
- G.me.classList.remove('rec','bob');G.prompt.classList.remove('on','ans');G.where.classList.remove('on');
+ G.me.classList.remove('rec','bob');G.prompt.classList.remove('on','ans');if(G.idx>=SCENES.length-1)G.where.classList.remove('on');
  [].forEach.call(G.root.querySelectorAll('.rv-say'),function(s){s.classList.remove('on');});
  G.panel.innerHTML='';G.pending=(G.pending||0)+1;
  var si=SCENES.indexOf(sc);
