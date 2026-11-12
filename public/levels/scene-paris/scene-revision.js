@@ -93,9 +93,17 @@ var CSS='\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
+.rv>.rv-bg,.rv>.rv-ch{translate:0 0}\
+.rv.so>.rv-bg,.rv.so>.rv-ch{translate:-105vw 0;transition:translate .85s cubic-bezier(.5,0,.25,1)}\
+.rv.si>.rv-bg,.rv.si>.rv-ch{translate:105vw 0;transition:none}\
+.rv.sg>.rv-bg,.rv.sg>.rv-ch{translate:0 0;transition:translate .9s cubic-bezier(.2,.7,.2,1)}\
+.rv.sl .rv-me,.rv.sl .rv-gt.in{transform:none!important;opacity:1!important}\
 .rv.s-park{--g:15vh;--hm:46vh;--hg:46vh}\
 .rv.s-park .rv-me{left:max(28vw,64px)}\
 .rv.s-park .rv-gt{right:22vw}\
+.rv.s-carpark{--hm:62vh;--hc:70vh}\
+.rv.s-carpark .rv-me{left:max(22vw,64px)}\
+.rv.s-carpark .rv-gt{right:0}\
 .rv-gt.sec{right:36vw;bottom:calc(var(--g) - 5vh)}\
 .rv-name{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);padding:3px 12px;border-radius:999px;background:rgba(10,16,30,.62);color:#fff;font-size:clamp(11px,1.7vh,15px);font-weight:600;letter-spacing:.02em;white-space:nowrap;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}\
 .rv-mic{position:absolute;left:50%;top:-4%;transform:translateX(-50%) scale(.3);opacity:0;width:clamp(40px,6.4vh,58px);height:clamp(40px,6.4vh,58px);border-radius:50%;background:#e5543f;display:flex;align-items:center;justify-content:center;transition:opacity .25s,transform .25s}\
@@ -161,6 +169,8 @@ var CSS='\
  .rv.s-park{--g:19vh;--hm:30vh;--hg:30vh}\
  .rv.s-park .rv-me{left:max(12vw,56px)}\
  .rv.s-park .rv-gt{right:6vw}\
+ .rv.s-carpark{--hm:36vh;--hc:42vh}\
+ .rv.s-carpark .rv-gt{right:0}\
  .rv-gt.sec{right:9vw;bottom:calc(var(--g) - 3vh)}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
@@ -228,7 +238,7 @@ function setupStage(sc){
  G.where.textContent=sc.title;G.where.classList.remove('on');
  G.prompt.classList.remove('on','ans');
 }
-function showPick(i){
+function showPick(i,slide){
  var sc=SCENES[i];G.idx=i;G.panel.innerHTML='';
  setBg(sc,false);setupStage(sc);
  G.dots.querySelectorAll('i').forEach(function(d,k){d.className=k<SCENES.slice(0,i).reduce(function(t,s){return t+s.answers.length;},0)?'done':'';});
@@ -237,8 +247,8 @@ function showPick(i){
  img.src=cur.src;G.meName.innerHTML='';
  me.classList.add('pick');
  void me.offsetWidth;
- T(function(){me.classList.add('in');},250);
- T(function(){go0.el.classList.add('in');},900);
+ if(slide){me.classList.add('in');go0.el.classList.add('in');}else{T(function(){me.classList.add('in');},250);
+ T(function(){go0.el.classList.add('in');},900);}
  T(function(){G.where.classList.add('on');},500);T(function(){G.where.classList.remove('on');},2600);
  G.prompt.textContent='';G.prompt.classList.remove('on','pickbtn');
  var ar=G.me.querySelector('.rv-ar');if(ar)ar.remove();
@@ -351,9 +361,24 @@ function endSeg(sc){
  try{G.media.pause();}catch(e){}
  G.me.classList.remove('rec','bob');G.prompt.classList.remove('on','ans');G.where.classList.remove('on');
  [].forEach.call(G.root.querySelectorAll('.rv-say'),function(s){s.classList.remove('on');});
- G.panel.innerHTML='<div class="rv-card rv-res"><div class="rv-wait">Scoring…</div></div>';
+ G.panel.innerHTML='';G.pending=(G.pending||0)+1;
+ var si=SCENES.indexOf(sc);
  T(function(){try{if(G.rec&&G.rec.state==='recording')G.rec.stop();}catch(e){}},500);
+ if(si<SCENES.length-1){T(function(){slideTo(si+1);},900);}
+ else{G.panel.innerHTML='<div class="rv-card rv-res"><div class="rv-wait">Scoring…</div></div>';G.waitFinal=true;T(function(){if(!G.fin){G.fin=1;finish();}},15000);}
 }
+
+function slideTo(n){
+ var r=G.root;r.classList.add('so');
+ T(function(){
+  r.classList.remove('so');r.classList.add('si','sl');
+  showPick(n,true);
+  void r.offsetWidth;
+  r.classList.remove('si');r.classList.add('sg');
+  T(function(){r.classList.remove('sl','sg');},1100);
+ },880);
+}
+function maybeFinal(){if(G.waitFinal&&G.pending<=0&&!G.fin){G.fin=1;finish();}}
 
 /* ---------- scoring ---------- */
 function score(blob,sc){
@@ -370,11 +395,11 @@ function score(blob,sc){
   if(!G||G.dead)return;
   var vs=rs.map(function(r){return curve(Math.round(r.raw||0),G.level);});
   G.results[sc.idxKey=SCENES.indexOf(sc)]={vs:vs,labels:sc.answers.map(function(a){return a.label;})};
-  showResult(sc,vs);
+  G.pending--;maybeFinal();
  }).catch(function(){
   if(!G||G.dead)return;
-  G.panel.innerHTML='<div class="rv-card rv-res"><div class="rv-msg">Could not score that<small>Check your connection and try again.</small></div><div class="rv-acts"><button type="button" class="rv-go">Try again</button></div></div>';
-  G.panel.querySelector('.rv-go').onclick=function(){runScene(SCENES.indexOf(sc));};
+  G.results[SCENES.indexOf(sc)]={vs:sc.answers.map(function(){return curve(0,G.level);}),labels:sc.answers.map(function(a){return a.label;})};
+  G.pending--;maybeFinal();
  });
 }
 function showResult(sc,vs){
