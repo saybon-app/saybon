@@ -1,0 +1,7 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>SayBon revision</title>
+<style>html,body{margin:0;height:100%;background:#0b0f18;color:#fff;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}
+button{border:0;border-radius:999px;padding:16px 30px;font:700 18px system-ui;background:#ffd68c;color:#3a1a00;cursor:pointer}</style></head><body>
+<button id="go" type="button">Start revision</button>
+<script src="/levels/scene-paris/scene-revision.js"></script>
+<script>document.getElementById('go').onclick=function(){SayBonRevision.start({level:'A0',onDone:function(s){document.getElementById('go').textContent='Done: '+s.avg+'%';},onSkip:function(){}});};</script>
+</body></html>
