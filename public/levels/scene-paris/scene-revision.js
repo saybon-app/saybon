@@ -87,6 +87,7 @@ var CSS='\
 .rv-arr:active{transform:scale(.94)}\
 .rv-me .rv-name{pointer-events:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;min-width:0}\
 .rv-me .rv-name .rv-go{white-space:nowrap}\
+.rv-me .rv-name:empty{display:none}\
 .rv-me:not(.pick) .rv-name{padding:3px 12px;background:rgba(10,16,30,.62);border-radius:999px;backdrop-filter:blur(6px)}\
 .rv-gt{right:20vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
 .rv-gt.in{transform:none;opacity:1}\
@@ -254,13 +255,13 @@ function showPick(i){
  bar.innerHTML='<button type="button" class="rv-go rv-sel">Choose your avatar</button>';
  bar.querySelector('.rv-sel').onclick=function(){
   G.prompt.classList.add('on');
-  G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent=G.name?'Ready?':'What is your name?';
-  bar.innerHTML=(G.name?'':'<input class="rv-in" type="text" maxlength="14" placeholder="Your name" autocomplete="off">')+'<button type="button" class="rv-go rv-start">'+(G.name?'Start':'Start revision')+'</button>';
+  G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent='Ready?';
+  bar.innerHTML='<button type="button" class="rv-go rv-start">'+(G.started?'Start':'Start revision')+'</button>';
   var inp=bar.querySelector('.rv-in'),st=bar.querySelector('.rv-start');
-  function chk(){st.disabled=!G.name&&!(inp&&inp.value.trim());}
+  function chk(){st.disabled=false;}
   if(inp){inp.oninput=chk;inp.focus();}chk();
   st.onclick=function(){
-   if(!G.name){var v=inp&&inp.value.trim();if(!v){inp.focus();return;}G.name=v;}
+   G.name=G.name||'';G.started=true;
    bar.textContent=G.name;me.classList.remove('pick');runScene(i);
   };
  };
