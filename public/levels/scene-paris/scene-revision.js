@@ -5,12 +5,12 @@
    Use:  SayBonRevision.start({ level:'A0', api:'https://…', onDone:function(summary){…}, onSkip:function(){…} }) */
 (function(){
 if(window.SayBonRevision)return;
-var BASE='/assets/revision/',AUD=BASE+'revision.mp3?v=1',IMG=BASE+'img/',V='?v=1';
+var BASE='/assets/revision/',AUD=BASE+'revision.mp3?v=1',IMG=BASE+'img/',V='?v=2';
 var API=(typeof window.API_BASE==='string'&&window.API_BASE)||'https://saybonapp-server.onrender.com';
 
 /* ---------- content ---------- */
 function set(pre,list){return list.map(function(k){return {id:pre+k,src:IMG+pre+'-'+k+'.webp'+V};});}
-var AIRPORT=set('ap',['saree-f','white-m','black-f','asian-m','latina-f','arab-m','asian-f','navyshirt-m','black-m']);
+var AIRPORT=set('ap',['saree-f','white-m','black-f','hijab-f','asian-m','latina-f','arab-m','asian-f','navyshirt-m','black-m']);
 var PARK=set('pk',['black-f','arab-m','arab-f','mideast-f','mideast-m','asian-m','asian-f','white-f','white-m','black-m','black-m2']);
 var CARPARK=set('cp',['blazer-f','vest-m','blouse-f','burgundy-m']);
 var SCENES=[
@@ -68,15 +68,18 @@ var CSS='\
 .rv *{box-sizing:border-box}\
 .rv-bg{position:absolute;inset:0;background-size:cover;background-position:center top;animation:rvpan 26s ease-in-out infinite alternate}\
 @keyframes rvpan{from{transform:scale(1.03) translateX(-1.2%)}to{transform:scale(1.06) translateX(1.2%)}}\
+.rv-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 62%,rgba(8,12,24,.16),rgba(8,12,24,.46) 100%),rgba(8,12,24,.12);pointer-events:none}\
 .rv-bg.dim:after{content:"";position:absolute;inset:0;background:rgba(8,12,24,.46)}\
 .rv-ch{position:absolute;bottom:var(--g);height:var(--h);pointer-events:none}\
 .rv-ch img{height:100%;width:auto;display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))}\
-.rv-me{left:max(13vw,64px);transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
+.rv-me{width:calc(var(--h)*.56);left:max(13vw,64px);transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
 .rv-me.in{transform:none;opacity:1;transition:transform 2.8s cubic-bezier(.3,.55,.4,1),opacity .5s}\
 .rv-me.bob img{animation:rvbob .52s ease-in-out infinite alternate;transform-origin:50% 100%}\
 .rv-me.pick{pointer-events:auto}\
 .rv-me.pick.in{transition:transform 2.2s cubic-bezier(.3,.55,.4,1),opacity .5s}\
-.rv-me img{transition:opacity .16s}\
+.rv-me>img{position:absolute;left:0;right:0;bottom:0;margin:0 auto;transition:opacity .38s ease}\
+.rv-me>img.b{opacity:0}\
+.rv-me .rv-name{position:absolute;left:50%;top:100%;margin-top:8px;transform:translateX(-50%);width:max-content}\
 .rv-ar{position:absolute;left:0;right:0;top:42%;display:flex;justify-content:space-between;pointer-events:none}\
 .rv-arr{pointer-events:auto;position:relative;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 18px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 -54px;transition:transform .15s,background .15s}\
 .rv-arr svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}\
@@ -85,7 +88,7 @@ var CSS='\
 .rv-me .rv-name{pointer-events:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;min-width:0}\
 .rv-me .rv-name .rv-go{white-space:nowrap}\
 .rv-me:not(.pick) .rv-name{padding:3px 12px;background:rgba(10,16,30,.62);border-radius:999px;backdrop-filter:blur(6px)}\
-.rv-gt{right:11vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
+.rv-gt{right:20vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
@@ -147,7 +150,7 @@ var CSS='\
 @media (max-aspect-ratio:1/1){\
  .rv{--g:16vh;--hm:44vh;--hg:44vh;--hc:30vh}\
  .rv-me{left:max(3vw,56px)}\
- .rv-gt{right:2vw}\
+ .rv-gt{right:7vw}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
  .rv-grid{grid-template-columns:repeat(4,1fr)}\
@@ -230,16 +233,23 @@ function showPick(i){
  ar=document.createElement('div');ar.className='rv-ar';
  ar.innerHTML='<button type="button" class="rv-arr l" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="rv-arr r" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>';
  me.appendChild(ar);
+ var img2=img.cloneNode(false);img2.className='b';img2.removeAttribute('src');me.insertBefore(img2,img.nextSibling);
+ var front=img,back=img2,busy=false,pend=0;
+ sc.set.forEach(function(a){var p=new Image();p.src=a.src;if(p.decode)p.decode().catch(function(){});});
  function swap(d){
+  if(busy){pend=d;return;}busy=true;
   ix=(ix+d+sc.set.length)%sc.set.length;cur=sc.set[ix];
-  img.style.opacity=0;
-  setTimeout(function(){if(!G||G.dead)return;img.src=cur.src;var show=function(){img.style.opacity=1;};if(img.complete)show();else img.onload=show;},140);
+  var p=new Image();p.src=cur.src;
+  var go=function(){if(!G||G.dead)return;back.src=cur.src;back.style.transition='opacity .38s ease';front.style.transition='opacity .38s ease';
+   requestAnimationFrame(function(){requestAnimationFrame(function(){back.style.opacity=1;front.style.opacity=0;
+    setTimeout(function(){var t=front;front=back;back=t;G.meImg=front;busy=false;if(pend){var q=pend;pend=0;swap(q);}},400);});});};
+  (p.decode?p.decode():Promise.resolve()).then(go,go);
  }
  ar.querySelector('.l').onclick=function(){swap(-1);};ar.querySelector('.r').onclick=function(){swap(1);};
  var bar=G.meName;
- bar.innerHTML='<button type="button" class="rv-go rv-sel">Select avatar</button>';
+ bar.innerHTML='<button type="button" class="rv-go rv-sel">Select</button>';
  bar.querySelector('.rv-sel').onclick=function(){
-  G.av[sc.id]=cur;ar.remove();G.prompt.textContent=G.name?'Ready?':'What is your name?';
+  G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent=G.name?'Ready?':'What is your name?';
   bar.innerHTML=(G.name?'':'<input class="rv-in" type="text" maxlength="14" placeholder="Your name" autocomplete="off">')+'<button type="button" class="rv-go rv-start">'+(G.name?'Start':'Start revision')+'</button>';
   var inp=bar.querySelector('.rv-in'),st=bar.querySelector('.rv-start');
   function chk(){st.disabled=!G.name&&!(inp&&inp.value.trim());}
