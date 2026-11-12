@@ -92,6 +92,7 @@ var CSS='\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
+.rv-gt.sec{right:30vw;bottom:calc(var(--g) - 3.2vh)}\
 .rv-name{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);padding:3px 12px;border-radius:999px;background:rgba(10,16,30,.62);color:#fff;font-size:clamp(11px,1.7vh,15px);font-weight:600;letter-spacing:.02em;white-space:nowrap;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}\
 .rv-mic{position:absolute;left:50%;top:-4%;transform:translateX(-50%) scale(.3);opacity:0;width:clamp(40px,6.4vh,58px);height:clamp(40px,6.4vh,58px);border-radius:50%;background:#e5543f;display:flex;align-items:center;justify-content:center;transition:opacity .25s,transform .25s}\
 .rv-mic svg{width:55%;height:55%}\
@@ -104,6 +105,8 @@ var CSS='\
 .rv-where.on{opacity:1;transform:none}\
 .rv-prompt{padding:.55em 1.2em;border-radius:999px;background:rgba(10,16,30,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:clamp(12px,2.1vh,17px);font-weight:600;transition:background .3s,opacity .3s;opacity:0}\
 .rv-prompt.on{opacity:1}\
+.rv-prompt.pickbtn{pointer-events:auto;cursor:pointer;background:linear-gradient(135deg,#ffd68c,#f2a65a);color:#3a1a00;font-weight:700;box-shadow:0 8px 22px rgba(242,166,90,.45);padding:.6em 1.5em;animation:rvglow 1.6s ease-in-out infinite}\
+.rv-prompt.pickbtn:active{transform:scale(.96)}\
 .rv-prompt.ans{background:#e5543f;animation:rvglow 1.1s ease-in-out infinite}\
 .rv-dots{position:absolute;left:0;right:0;bottom:max(14px,env(safe-area-inset-bottom));display:flex;justify-content:center;gap:9px;pointer-events:none}\
 .rv-dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.38)}\
@@ -151,6 +154,7 @@ var CSS='\
  .rv{--g:16vh;--hm:44vh;--hg:44vh;--hc:30vh}\
  .rv-me{left:max(3vw,56px)}\
  .rv-gt{right:7vw}\
+ .rv-gt.sec{right:11vw;bottom:calc(var(--g) - 1.6vh)}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
  .rv-grid{grid-template-columns:repeat(4,1fr)}\
@@ -208,7 +212,7 @@ function setupStage(sc){
  G.me.className='rv-ch rv-me';
  clearGreeters();
  sc.greeters.forEach(function(g,k){
-  var n=document.createElement('div');n.className='rv-ch rv-gt'+(g.flip?' flip':'')+(g.wide?' wide':'');
+  var n=document.createElement('div');n.className='rv-ch rv-gt'+(g.flip?' flip':'')+(g.wide?' wide':'')+(g.k==='g-security'?' sec':'');
   n.innerHTML='<img alt="" src="'+IMG+g.src+'.webp'+V+'"><div class="rv-say"></div>';
   G.root.insertBefore(n,G.root.querySelector('.rv-top'));
   G.greeters[g.k]={el:n,say:n.querySelector('.rv-say'),in:false,out:false};
@@ -228,7 +232,7 @@ function showPick(i){
  T(function(){me.classList.add('in');},250);
  T(function(){go0.el.classList.add('in');},900);
  T(function(){G.where.classList.add('on');},500);T(function(){G.where.classList.remove('on');},2600);
- G.prompt.textContent='Choose your avatar';G.prompt.classList.add('on');
+ G.prompt.textContent='Choose your avatar';G.prompt.classList.add('on','pickbtn');
  var ar=G.me.querySelector('.rv-ar');if(ar)ar.remove();
  ar=document.createElement('div');ar.className='rv-ar';
  ar.innerHTML='<button type="button" class="rv-arr l" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="rv-arr r" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>';
@@ -247,8 +251,9 @@ function showPick(i){
  }
  ar.querySelector('.l').onclick=function(){swap(-1);};ar.querySelector('.r').onclick=function(){swap(1);};
  var bar=G.meName;
- bar.innerHTML='<button type="button" class="rv-go rv-sel">Select</button>';
- bar.querySelector('.rv-sel').onclick=function(){
+ bar.innerHTML='';
+ G.prompt.onclick=function(){
+  G.prompt.onclick=null;G.prompt.classList.remove('pickbtn');
   G.av[sc.id]=cur;ar.remove();if(back.parentNode)back.remove();front.style.opacity=1;front.className='';G.prompt.textContent=G.name?'Ready?':'What is your name?';
   bar.innerHTML=(G.name?'':'<input class="rv-in" type="text" maxlength="14" placeholder="Your name" autocomplete="off">')+'<button type="button" class="rv-go rv-start">'+(G.name?'Start':'Start revision')+'</button>';
   var inp=bar.querySelector('.rv-in'),st=bar.querySelector('.rv-start');
