@@ -93,6 +93,9 @@ var CSS='\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
+.rv.s-park{--g:15vh;--hm:46vh;--hg:46vh}\
+.rv.s-park .rv-me{left:max(28vw,64px)}\
+.rv.s-park .rv-gt{right:22vw}\
 .rv-gt.sec{right:36vw;bottom:calc(var(--g) - 5vh)}\
 .rv-name{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);padding:3px 12px;border-radius:999px;background:rgba(10,16,30,.62);color:#fff;font-size:clamp(11px,1.7vh,15px);font-weight:600;letter-spacing:.02em;white-space:nowrap;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}\
 .rv-mic{position:absolute;left:50%;top:-4%;transform:translateX(-50%) scale(.3);opacity:0;width:clamp(40px,6.4vh,58px);height:clamp(40px,6.4vh,58px);border-radius:50%;background:#e5543f;display:flex;align-items:center;justify-content:center;transition:opacity .25s,transform .25s}\
@@ -155,6 +158,9 @@ var CSS='\
  .rv{--g:16vh;--hm:44vh;--hg:44vh;--hc:30vh}\
  .rv-me{left:max(3vw,56px)}\
  .rv-gt{right:7vw}\
+ .rv.s-park{--g:19vh;--hm:30vh;--hg:30vh}\
+ .rv.s-park .rv-me{left:max(12vw,56px)}\
+ .rv.s-park .rv-gt{right:6vw}\
  .rv-gt.sec{right:9vw;bottom:calc(var(--g) - 3vh)}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
@@ -210,6 +216,7 @@ function clearGreeters(){
 
 /* ---------- the scene stage + avatar pick (in the scene itself) ---------- */
 function setupStage(sc){
+ G.root.classList.remove('s-airport','s-park','s-carpark');G.root.classList.add('s-'+sc.id);
  G.me.className='rv-ch rv-me';
  clearGreeters();
  sc.greeters.forEach(function(g,k){
