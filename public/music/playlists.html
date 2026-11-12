@@ -106,6 +106,16 @@ display:flex; align-items:center; gap:12px; padding:8px 0; cursor:pointer; borde
 
 .empty-note{ text-align:center; padding:60px 20px; color:#5F6270; font-size:13px; }
 
+.pl-actions{ display:flex; gap:6px; align-items:center; flex:0 0 auto; }
+.pl-btn{ border:1px solid rgba(212,175,106,.35); background:rgba(212,175,106,.1); color:#E9CF98; font:600 11px Manrope,system-ui,sans-serif; padding:6px 11px; border-radius:999px; cursor:pointer; }
+.pl-btn:hover{ background:rgba(212,175,106,.22); }
+.pl-btn.ghost{ border-color:rgba(255,255,255,.14); background:rgba(255,255,255,.05); color:#C7C9D1; }
+.pl-meta{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+.pl-sub{ font-size:11px; color:#8A8D99; }
+.sec-label{ font:700 17px 'Cormorant Garamond',serif; color:#fff; margin:6px 0 4px; }
+.sec-sub{ font-size:11.5px; color:#8A8D99; margin-bottom:14px; }
+.pv-x{ border:none; background:transparent; color:#8A8D99; font-size:20px; line-height:1; cursor:pointer; padding:4px 8px; border-radius:6px; }
+.pv-x:hover{ color:#fff; background:rgba(255,255,255,.08); }
 .toast{
 position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
 background:#1E2028; border:1px solid rgba(212,175,106,.3); color:#fff;
@@ -161,6 +171,11 @@ opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s eas
 <div class="subtitle">Build your own collection from any genre</div>
 </header>
 
+<div id="autoSection"></div>
+
+<div class="sec-label">Your playlists</div>
+<div class="sec-sub">Playlists you made yourself</div>
+
 <div class="new-row">
 <input type="text" id="newPlaylistName" placeholder="New playlist name" />
 <button id="createPlaylistBtn" onclick="createPlaylist()">Create</button>
@@ -172,6 +187,7 @@ opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s eas
 
 <div class="toast" id="toast"></div>
 
+<script src="/music/music-core.js?v=1"></script>
 <script type="module">
 
 import { auth } from "/js/firebase-init.js";
@@ -195,12 +211,79 @@ window.showToast = showToast;
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   loadPlaylists();
+  renderAuto();
+  SBM.setUser(user ? user.uid : null).then(() => renderAuto());
 });
 
 function pvThumb(v){
   if(v.thumbnailUrl) return "<img class='pv-thumb' src='" + v.thumbnailUrl + "'>";
   if(v.youtubeId) return "<img class='pv-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
   return "<div class='pv-thumb-fallback'></div>";
+}
+
+const esc = SBM.esc;
+
+function renderRows(container, videos, opts){
+  container.innerHTML = "";
+  videos.forEach(v => {
+    const row = document.createElement("div");
+    row.className = "pv-row";
+    row.onclick = () => {
+      SBM.setQueue(videos.map(x => x.id), opts.title);
+      location.href = "/music/watch.html?v=" + encodeURIComponent(v.id) + "&q=1";
+    };
+    row.innerHTML =
+      pvThumb(v) +
+      "<div style='flex:1;min-width:0;'><div class='pv-title'>" + esc(v.title) + "</div><div class='pv-sub'>" + esc(v.artist || "SayBon Music") + " · " + (v.views || 0) + " views</div></div>" +
+      (opts.onRemove ? "<button class='pv-x' title='Remove from playlist' aria-label='Remove'>&times;</button>" : "");
+    if(opts.onRemove){
+      row.querySelector(".pv-x").onclick = (e) => { e.stopPropagation(); opts.onRemove(v, row); };
+    }
+    container.appendChild(row);
+  });
+}
+
+async function renderAuto(){
+  const box = document.getElementById("autoSection");
+  const all = await SBM.getAll();
+  const pls = SBM.autoPlaylists(all);
+  const hasHist = SBM.history().length > 0;
+  box.innerHTML =
+    "<div class='sec-label'>Made for you</div>" +
+    "<div class='sec-sub'>" + (hasHist ? "Built from what you play and like. It updates as you listen." : "Play a few videos and your own mixes appear here. Meanwhile, here is what is popular.") + "</div>";
+  pls.forEach((pl, i) => {
+    const card = document.createElement("div");
+    card.className = "playlist-card cascade-card";
+    card.style.animationDelay = (i * 0.05) + "s";
+    const header = document.createElement("div");
+    header.className = "playlist-header";
+    header.innerHTML =
+      "<div class='pl-meta'><span class='playlist-name'>" + esc(pl.title) + "</span><span class='pl-sub'>" + esc(pl.sub) + " · " + pl.videos.length + " video" + (pl.videos.length === 1 ? "" : "s") + "</span></div>" +
+      "<div class='pl-actions'><button class='pl-btn' data-a='play'>&#9654; Play all</button><button class='pl-btn ghost' data-a='save'>Save</button></div>";
+    const vids = document.createElement("div");
+    vids.className = "playlist-videos";
+    renderRows(vids, pl.videos, { title: pl.title });
+    header.onclick = () => vids.classList.toggle("open");
+    header.querySelector("[data-a=play]").onclick = (e) => { e.stopPropagation(); SBM.playList(pl.videos, pl.title); };
+    header.querySelector("[data-a=save]").onclick = async (e) => {
+      e.stopPropagation();
+      const uid = (auth.currentUser || currentUser || {}).uid;
+      if(!uid){ showToast("Please sign in to save playlists."); return; }
+      try{
+        const r = await fetch(API_BASE + "/api/musicCreatePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ userId: uid, name: pl.title }) });
+        const d = await r.json();
+        if(!r.ok) throw new Error();
+        for(const v of pl.videos.slice(0, 40)){
+          await fetch(API_BASE + "/api/musicAddToPlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ playlistId: d.id, videoId: v.id }) });
+        }
+        showToast("Saved to your playlists.");
+        loadPlaylists();
+      }catch(err){ showToast("Could not save that playlist. Please try again."); }
+    };
+    card.appendChild(header);
+    card.appendChild(vids);
+    box.appendChild(card);
+  });
 }
 
 async function loadPlaylists(){
@@ -232,54 +315,82 @@ async function loadPlaylists(){
 
     playlists.forEach((p,i) => {
 
+      let name = p.name;
+      let count = p.videoIds.length;
+      let detail = null;
+
       const card = document.createElement("div");
       card.className = "playlist-card cascade-card";
       card.style.animationDelay = (i * 0.07) + "s";
 
       const header = document.createElement("div");
       header.className = "playlist-header";
-      header.innerHTML =
-        "<span class='playlist-name'>" + p.name + "</span>" +
-        "<span class='playlist-count'>" + p.videoIds.length + " video" + (p.videoIds.length === 1 ? "" : "s") + "</span>";
 
       const videosDiv = document.createElement("div");
       videosDiv.className = "playlist-videos";
       videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>Loading…</div>";
 
-      let loaded = false;
+      function paintHeader(){
+        header.innerHTML =
+          "<div class='pl-meta'><span class='playlist-name'>" + esc(name) + "</span><span class='playlist-count'>" + count + " video" + (count === 1 ? "" : "s") + "</span></div>" +
+          "<div class='pl-actions'><button class='pl-btn' data-a='play'>&#9654; Play all</button><button class='pl-btn ghost' data-a='rename'>Rename</button><button class='pl-btn ghost' data-a='delete'>Delete</button></div>";
+        header.querySelector("[data-a=play]").onclick = async (e) => {
+          e.stopPropagation();
+          const d = await ensureDetail();
+          if(!d.videos.length){ showToast("Add a video to this playlist first."); return; }
+          SBM.playList(d.videos, name);
+        };
+        header.querySelector("[data-a=rename]").onclick = async (e) => {
+          e.stopPropagation();
+          const n = (prompt("Rename playlist", name) || "").trim();
+          if(!n || n === name) return;
+          const r = await fetch(API_BASE + "/api/musicRenamePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ playlistId: p.id, userId: realUser.uid, name: n }) });
+          if(r.ok){ name = n; paintHeader(); showToast("Renamed."); }else{ showToast("Could not rename. Please try again."); }
+        };
+        header.querySelector("[data-a=delete]").onclick = async (e) => {
+          e.stopPropagation();
+          if(!confirm("Delete the playlist \"" + name + "\"? The videos themselves are not deleted.")) return;
+          const r = await fetch(API_BASE + "/api/musicDeletePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ playlistId: p.id, userId: realUser.uid }) });
+          if(r.ok){ card.remove(); showToast("Playlist deleted."); if(!container.children.length) loadPlaylists(); }else{ showToast("Could not delete. Please try again."); }
+        };
+      }
+
+      async function ensureDetail(){
+        if(detail) return detail;
+        const detailRes = await fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id);
+        detail = await detailRes.json();
+        if(!detail.videos) detail.videos = [];
+        return detail;
+      }
+
+      function paintVideos(){
+        if(!detail.videos.length){
+          videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>No videos in this playlist yet. Open a video and tap Save.</div>";
+          return;
+        }
+        renderRows(videosDiv, detail.videos, {
+          title: name,
+          onRemove: async (v, row) => {
+            const r = await fetch(API_BASE + "/api/musicRemoveFromPlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ playlistId: p.id, videoId: v.id, userId: realUser.uid }) });
+            if(r.ok){
+              detail.videos = detail.videos.filter(x => x.id !== v.id);
+              count = detail.videos.length;
+              paintHeader();
+              paintVideos();
+            }else{ showToast("Could not remove. Please try again."); }
+          }
+        });
+      }
 
       header.onclick = async () => {
-
         const isOpen = videosDiv.classList.toggle("open");
-
-        if(isOpen && !loaded){
-
-          loaded = true;
-
-          const detailRes = await fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id);
-          const detail = await detailRes.json();
-
-          if(!detail.videos || !detail.videos.length){
-            videosDiv.innerHTML = "<div class='empty-note' style='padding:16px 0;'>No videos in this playlist yet.</div>";
-            return;
-          }
-
-          videosDiv.innerHTML = "";
-
-          detail.videos.forEach(v => {
-            const row = document.createElement("div");
-            row.className = "pv-row";
-            row.onclick = () => location.href = "/music/watch.html?v=" + v.id;
-            row.innerHTML =
-              pvThumb(v) +
-              "<div><div class='pv-title'>" + v.title + "</div><div class='pv-sub'>" + (v.artist || "SayBon Music") + " · " + v.views + " views</div></div>";
-            videosDiv.appendChild(row);
-          });
-
+        if(isOpen && !detail){
+          await ensureDetail();
+          paintVideos();
         }
-
       };
 
+      paintHeader();
       card.appendChild(header);
       card.appendChild(videosDiv);
       container.appendChild(card);
@@ -377,4 +488,3 @@ wSidebarOverlay.addEventListener("click", wCloseSidebar);
 
 </body>
 </html>
-

@@ -2524,6 +2524,118 @@ res.status(500).json({error:"could not load playlist"})
 
 })
 
+/* ===== SayBon Music: listening history, liked list, playlist management ===== */
+
+app.post("/api/musicHistoryAdd", async(req,res)=>{
+try{
+const {userId,videoId,genre,artist,at,pct}=req.body
+if(!userId || !videoId || !at){
+return res.status(400).json({error:"userId, videoId and at are required"})
+}
+await db.collection("musicHistory").doc(userId+"_"+videoId+"_"+Number(at)).set({
+userId,videoId,genre:genre||"",artist:artist||"",at:Number(at),pct:Math.min(100,Math.max(0,Number(pct)||0))
+},{merge:true})
+res.json({success:true})
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not save history"})
+}
+})
+
+app.get("/api/musicHistory", async(req,res)=>{
+try{
+const userId=req.query.userId
+if(!userId){
+return res.status(400).json({error:"User ID is required"})
+}
+const snapshot=await db.collection("musicHistory").where("userId","==",userId).get()
+const rows=[]
+snapshot.forEach(doc=>{
+const d=doc.data()
+rows.push({videoId:d.videoId,genre:d.genre||"",artist:d.artist||"",at:d.at,pct:d.pct||0})
+})
+rows.sort((a,b)=>a.at-b.at)
+res.json(rows.slice(-400))
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not load history"})
+}
+})
+
+app.get("/api/musicLiked", async(req,res)=>{
+try{
+const userId=req.query.userId
+if(!userId){
+return res.status(400).json({error:"User ID is required"})
+}
+const snapshot=await db.collection("musicReactions").where("userId","==",userId).get()
+const ids=[]
+snapshot.forEach(doc=>{ids.push(doc.data().videoId)})
+res.json(ids)
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not load liked videos"})
+}
+})
+
+app.post("/api/musicRemoveFromPlaylist", async(req,res)=>{
+try{
+const {playlistId,videoId,userId}=req.body
+if(!playlistId || !videoId || !userId){
+return res.status(400).json({error:"Playlist ID, video ID and user ID are required"})
+}
+const ref=db.collection("musicPlaylists").doc(playlistId)
+const doc=await ref.get()
+if(!doc.exists || doc.data().userId!==userId){
+return res.status(404).json({error:"Playlist not found"})
+}
+const videoIds=(doc.data().videoIds||[]).filter(v=>v!==videoId)
+await ref.update({videoIds})
+res.json({success:true})
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not remove video"})
+}
+})
+
+app.post("/api/musicDeletePlaylist", async(req,res)=>{
+try{
+const {playlistId,userId}=req.body
+if(!playlistId || !userId){
+return res.status(400).json({error:"Playlist ID and user ID are required"})
+}
+const ref=db.collection("musicPlaylists").doc(playlistId)
+const doc=await ref.get()
+if(!doc.exists || doc.data().userId!==userId){
+return res.status(404).json({error:"Playlist not found"})
+}
+await ref.delete()
+res.json({success:true})
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not delete playlist"})
+}
+})
+
+app.post("/api/musicRenamePlaylist", async(req,res)=>{
+try{
+const {playlistId,userId,name}=req.body
+if(!playlistId || !userId || !name || !name.trim()){
+return res.status(400).json({error:"Playlist ID, user ID and name are required"})
+}
+const ref=db.collection("musicPlaylists").doc(playlistId)
+const doc=await ref.get()
+if(!doc.exists || doc.data().userId!==userId){
+return res.status(404).json({error:"Playlist not found"})
+}
+await ref.update({name:name.trim()})
+res.json({success:true})
+}catch(err){
+console.error(err);
+res.status(500).json({error:"could not rename playlist"})
+}
+})
+
 app.post("/api/adminAddMusicVideo", requireAdminAuth, async(req,res)=>{
 
 try{

@@ -271,6 +271,7 @@ My Playlists
 
 </div>
 
+<script src="/music/music-core.js?v=1"></script>
 <script>
 
 const API_BASE = "https://saybonapp-server.onrender.com";
@@ -387,6 +388,7 @@ function startHeroTimer(){
 
 function selectGenre(genre){
   currentGenre = genre;
+  sbmCurrentView = null;
   document.querySelectorAll(".sb-item").forEach(i => i.classList.remove("active"));
   if(genre === "All"){
     document.getElementById("sb-home").classList.add("active");
@@ -427,7 +429,79 @@ function renderPillRow(){
 
 }
 
+function sbmShelfHtml(pl, wide){
+  return "<div class='section-header'><div><div class='section-title'>" + pl.title + "</div><div class='card-meta'>" + pl.sub + "</div></div>" +
+    "<div class='section-viewall' onclick=\"sbmPlay('" + pl.id + "')\">&#9654; Play all</div></div>" +
+    "<div class='shelf-row'>" + pl.videos.map((v,i) => cardHtml(v, false, i)).join("") + "</div>";
+}
+
+window.sbmPlay = function(id){
+  const pl = SBM.autoPlaylists(allVideos).find(p => p.id === id);
+  if(pl) SBM.playList(pl.videos, pl.title);
+};
+
+function sbmPersonal(area){
+  if(!SBM.history().length) return;
+  const pls = SBM.autoPlaylists(allVideos).filter(p => p.id === "foryou" || p.id === "recent");
+  pls.forEach(pl => {
+    const shelf = document.createElement("div");
+    shelf.className = "shelf";
+    shelf.innerHTML = sbmShelfHtml(pl);
+    area.appendChild(shelf);
+  });
+}
+
+let sbmCurrentView = null;
+
+window.sbmView = function(view){
+  sbmCurrentView = view;
+  currentGenre = "All";
+  document.querySelectorAll(".sb-item").forEach(i => i.classList.remove("active"));
+  const el = document.getElementById("sb-" + view);
+  if(el) el.classList.add("active");
+  clearInterval(heroTimer);
+  document.getElementById("heroSection").style.display = "none";
+  const area = document.getElementById("contentArea");
+  if(view === "history"){
+    const list = SBM.recentUnique(allVideos);
+    area.innerHTML = "<div class='section-header'><div class='section-title'>History</div></div>" +
+      (list.length ? "<div class='grid' id='flatGrid'></div>" : "<div class='empty-state'>Nothing here yet. Play something and it will show up.</div>");
+    if(list.length){
+      document.getElementById("flatGrid").innerHTML = list.map((v,i) => cardHtml(v, true, i)).join("");
+    }
+  }else if(view === "liked"){
+    const list = allVideos.filter(v => SBM.isLiked(v.id));
+    area.innerHTML = "<div class='section-header'><div class='section-title'>Liked videos</div>" +
+      (list.length ? "<div class='section-viewall' onclick=\"sbmPlay('liked')\">&#9654; Play all</div>" : "") + "</div>" +
+      (list.length ? "<div class='grid' id='flatGrid'></div>" : "<div class='empty-state'>You have not liked anything yet. Tap the heart on a video.</div>");
+    if(list.length) document.getElementById("flatGrid").innerHTML = list.map((v,i) => cardHtml(v, true, i)).join("");
+  }else{
+    area.innerHTML = "";
+    const pls = SBM.autoPlaylists(allVideos);
+    if(!SBM.history().length){
+      const n = document.createElement("div");
+      n.className = "empty-state";
+      n.style.padding = "10px 0 26px";
+      n.textContent = "Play a few videos and your own mixes will appear here. Meanwhile, here is what is popular.";
+      area.appendChild(n);
+    }
+    pls.forEach(pl => {
+      const shelf = document.createElement("div");
+      shelf.className = "shelf";
+      shelf.innerHTML = sbmShelfHtml(pl);
+      area.appendChild(shelf);
+    });
+  }
+};
+
+window.sbmRefresh = function(){
+  if(!allVideos.length) return;
+  if(sbmCurrentView) window.sbmView(sbmCurrentView);
+  else if(currentGenre === "All" && !document.getElementById("searchInput").value.trim()) renderContent();
+};
+
 function renderContent(){
+  sbmCurrentView = null;
 
   const area = document.getElementById("contentArea");
 
@@ -467,6 +541,7 @@ function renderContent(){
   }
 
   area.innerHTML = "";
+  sbmPersonal(area);
 
   const heroIds = heroVideos.map(v => v.id);
   const trending = sorted.filter(v => !heroIds.includes(v.id)).slice(0, 8);
@@ -506,7 +581,10 @@ async function loadVideos(){
     const res = await fetch(API_BASE + "/api/musicVideos");
     allVideos = await res.json();
     renderPillRow();
-    renderContent();
+    const qp = new URLSearchParams(location.search);
+    if(qp.get("view")) window.sbmView(qp.get("view"));
+    else if(qp.get("genre") && genres.includes(qp.get("genre"))) selectGenre(qp.get("genre"));
+    else renderContent();
   }catch(err){
     document.getElementById("contentArea").innerHTML = "<div class='empty-state'>Could not load videos.</div>";
   }
@@ -561,11 +639,13 @@ sidebarOverlay.addEventListener("click", closeSidebar);
 
 </script>
 
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+onAuthStateChanged(auth, (user) => {
+  SBM.setUser(user ? user.uid : null).then(() => { if(window.sbmRefresh) window.sbmRefresh(); });
+});
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
