@@ -66,12 +66,12 @@ var CSS='\
 .rv{position:fixed;inset:0;z-index:99990;background:#0b0f18;overflow:hidden;font-family:Poppins,system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;-webkit-user-select:none;user-select:none;opacity:0;transition:opacity .5s}\
 .rv.on{opacity:1}\
 .rv *{box-sizing:border-box}\
-.rv-bg{position:absolute;inset:-5%;background-size:cover;background-position:center bottom;animation:rvpan 26s ease-in-out infinite alternate}\
-@keyframes rvpan{from{transform:scale(1.04) translateX(-1.6%)}to{transform:scale(1.1) translateX(1.6%)}}\
+.rv-bg{position:absolute;inset:0;background-size:cover;background-position:center top;animation:rvpan 26s ease-in-out infinite alternate}\
+@keyframes rvpan{from{transform:scale(1.03) translateX(-1.2%)}to{transform:scale(1.06) translateX(1.2%)}}\
 .rv-bg.dim:after{content:"";position:absolute;inset:0;background:rgba(8,12,24,.46)}\
 .rv-ch{position:absolute;bottom:var(--g);height:var(--h);pointer-events:none}\
 .rv-ch img{height:100%;width:auto;display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))}\
-.rv-me{left:max(3vw,56px);transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
+.rv-me{left:max(13vw,64px);transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
 .rv-me.in{transform:none;opacity:1;transition:transform 2.8s cubic-bezier(.3,.55,.4,1),opacity .5s}\
 .rv-me.bob img{animation:rvbob .52s ease-in-out infinite alternate;transform-origin:50% 100%}\
 .rv-me.pick{pointer-events:auto}\
@@ -85,7 +85,7 @@ var CSS='\
 .rv-me .rv-name{pointer-events:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;min-width:0}\
 .rv-me .rv-name .rv-go{white-space:nowrap}\
 .rv-me:not(.pick) .rv-name{padding:3px 12px;background:rgba(10,16,30,.62);border-radius:999px;backdrop-filter:blur(6px)}\
-.rv-gt{right:3vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
+.rv-gt{right:11vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
@@ -143,9 +143,11 @@ var CSS='\
 @keyframes rvpulse{0%{box-shadow:0 0 0 0 rgba(229,84,63,.7)}100%{box-shadow:0 0 0 20px rgba(229,84,63,0)}}\
 @keyframes rvglow{0%,100%{box-shadow:0 0 0 0 rgba(229,84,63,.0)}50%{box-shadow:0 0 0 8px rgba(229,84,63,.28)}}\
 @keyframes rvup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}\
-.rv{--g:9vh;--hm:62vh;--hg:62vh;--hc:44vh}\
+.rv{--g:10vh;--hm:74vh;--hg:74vh;--hc:56vh}\
 @media (max-aspect-ratio:1/1){\
- .rv{--g:16vh;--hm:38vh;--hg:38vh;--hc:26vh}\
+ .rv{--g:16vh;--hm:44vh;--hg:44vh;--hc:30vh}\
+ .rv-me{left:max(3vw,56px)}\
+ .rv-gt{right:2vw}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
  .rv-grid{grid-template-columns:repeat(4,1fr)}\
