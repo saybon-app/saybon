@@ -137,6 +137,9 @@ padding:10px 18px; border:none; border-radius:10px; background:#D4AF6A; color:#1
 .up-next-row{ display:flex; gap:10px; margin-bottom:12px; cursor:pointer; }
 .up-next-row.playing{ background:rgba(212,175,106,.08); border-radius:8px; padding:6px; margin-left:-6px; margin-right:-6px; }
 .un-thumb{ width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:8px; flex:0 0 auto; background:#0A0B0E; }
+.un-wrap{ position:relative; width:120px; aspect-ratio:16/9; flex:0 0 auto; border-radius:8px; overflow:hidden; background:#0A0B0E; }
+.un-wrap .un-thumb,.un-wrap .un-thumb-fallback{ width:100%; height:100%; display:block; }
+.un-wrap .un-prev{ position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; pointer-events:none; background:#0A0B0E; }
 .un-thumb-fallback{ width:120px; aspect-ratio:16/9; border-radius:8px; flex:0 0 auto; background:linear-gradient(135deg, rgba(212,175,106,.25), #0A0B0E); }
 .un-title{ font-size:12px; font-weight:600; color:#fff; line-height:1.35; margin-bottom:3px; }
 .un-sub{ font-size:11px; color:#5F6270; }
@@ -542,9 +545,11 @@ function loadVideo(){
 }
 
 function upNextThumb(v){
-  if(v.thumbnailUrl) return "<img class='un-thumb' src='" + v.thumbnailUrl + "'>";
-  if(v.youtubeId) return "<img class='un-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
-  return "<div class='un-thumb-fallback'></div>";
+  var inner;
+  if(v.thumbnailUrl) inner = "<img class='un-thumb' src='" + v.thumbnailUrl + "'>";
+  else if(v.youtubeId) inner = "<img class='un-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
+  else inner = "<div class='un-thumb-fallback'></div>";
+  return "<div class='un-wrap'>" + inner + "</div>";
 }
 
 async function loadSide(data){
@@ -587,9 +592,43 @@ async function loadSide(data){
     row.innerHTML =
       upNextThumb(v) +
       "<div><div class='un-title'>" + SBM.esc(v.title) + "</div><div class='un-sub'>" + SBM.esc(v.artist||"SayBon Music") + " · " + (v.views||0) + " views</div></div>";
+    attachHoverPreview(row, v);
     list.appendChild(row);
   });
 
+}
+
+
+function attachHoverPreview(row, v){
+  var wrap = row.querySelector(".un-wrap");
+  if(!wrap || (!v.fileUrl && !v.youtubeId)) return;
+  var timer = null, prev = null;
+  function stop(){
+    clearTimeout(timer);
+    if(prev){ try{ if(prev.pause) prev.pause(); }catch(e){} prev.remove(); prev = null; }
+  }
+  row.addEventListener("mouseenter", function(){
+    if(row.classList.contains("now-playing")) return;
+    timer = setTimeout(function(){
+      if(v.fileUrl){
+        prev = document.createElement("video");
+        prev.className = "un-prev";
+        prev.muted = true; prev.defaultMuted = true; prev.loop = true; prev.playsInline = true;
+        prev.setAttribute("muted",""); prev.preload = "auto";
+        prev.src = v.fileUrl;
+        wrap.appendChild(prev);
+        var pr = prev.play(); if(pr && pr.catch) pr.catch(function(){});
+      }else{
+        prev = document.createElement("iframe");
+        prev.className = "un-prev";
+        prev.allow = "autoplay";
+        prev.src = "https://www.youtube.com/embed/" + v.youtubeId + "?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=" + v.youtubeId;
+        wrap.appendChild(prev);
+      }
+    }, 300);
+  });
+  row.addEventListener("mouseleave", stop);
+  row.addEventListener("click", stop);
 }
 
 window.loadVideoById = loadVideoById;

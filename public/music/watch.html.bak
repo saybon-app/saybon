@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -254,7 +254,7 @@ Save
 <span id="sideToggleChevron" style="transition:transform .25s ease;color:#9a9da5;">&#9656;</span>
 </div>
 <div class="side-col" id="sideCol" style="transition:flex-basis .25s ease, width .25s ease, opacity .2s ease, margin .25s ease;">
-<div class="side-heading">More like this</div>
+<div class="side-heading" id="sideHeading">More like this</div>
 <div id="upNextList"></div>
 </div>
 <style>
@@ -284,7 +284,7 @@ document.getElementById("sideToggleTab").addEventListener("click", function(){
 </div>
 </div>
 
-<script src="/js/activity-tracker.js?v=1" data-type="music"></script>
+<script src="/music/music-core.js?v=1"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
@@ -304,8 +304,13 @@ let repeatMode = "off";
 let upNextQueue = [];
 let ytApiReady = false;
 
+const queueFlag = params.get("q") === "1";
+let queueMode = queueFlag;
+if(!queueFlag) SBM.clearQueue();
+
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
+  SBM.setUser(user ? user.uid : null).then(() => { if(currentVideo) loadSide(currentVideo); });
   loadVideo();
   loadComments();
 });
@@ -325,6 +330,7 @@ window.cycleRepeatMode = function(){
 }
 
 function handleVideoEnded(){
+  SBM.track(currentVideo, 100);
   if(repeatMode === "current"){
     if(htmlVideoEl){
       htmlVideoEl.currentTime = 0;
@@ -339,28 +345,6 @@ function handleVideoEnded(){
   // Default behavior (repeatMode "off" or "all"): auto-advance within the queue,
   // matching real YouTube - autoplay-next happens regardless of the repeat toggle.
   playNextInQueue();
-}
-
-async function loadMoreLikeThis(){
-  try{
-    const res = await fetch(API_BASE + "/api/musicVideos");
-    const allVideos = await res.json();
-    const others = allVideos.filter(v => v.id !== videoId).slice(0, 12);
-
-    const list = document.getElementById("upNextList");
-    if(!list) return;
-
-    list.innerHTML = others.map(v =>
-      '<div class="more-like-item" onclick="loadVideoById(\'' + v.id + '\', true)" style="display:flex;gap:10px;padding:8px;cursor:pointer;border-radius:8px;">' +
-      '<img src="' + (v.thumbnailUrl || "") + '" style="width:120px;height:68px;object-fit:cover;border-radius:6px;background:#333;flex-shrink:0;">' +
-      '<div style="min-width:0;">' +
-      '<div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">' + v.title + '</div>' +
-      '<div style="font-size:12px;color:#9a9da5;margin-top:4px;">' + (v.artist || "SayBon Music") + '</div>' +
-      '</div></div>'
-    ).join("");
-  }catch(err){
-    console.error("Could not load More Like This:", err);
-  }
 }
 
 function playNextInQueue(){
@@ -396,7 +380,7 @@ async function showUpNextSuggestion(){
     const candidates = allVideos.filter(v => v.id !== videoId);
     if(!candidates.length) return;
 
-    const suggestion = candidates[Math.floor(Math.random() * candidates.length)];
+    const suggestion = SBM.similar(currentVideo, allVideos, 1)[0] || candidates[0];
 
     const overlay = document.createElement("div");
     overlay.id = "upNextOverlay";
@@ -459,8 +443,6 @@ function buildPlayer(data){
 
     htmlVideoEl = document.getElementById("mainVideoEl");
     htmlVideoEl.addEventListener("ended", handleVideoEnded);
-    ["play","playing"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(true); }); });
-    ["pause","ended","waiting","emptied"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(false); }); });
     htmlVideoEl.play().catch(function(err){ console.warn("Autoplay blocked:", err); });
 
   }else if(data.youtubeId){
@@ -473,7 +455,6 @@ function buildPlayer(data){
         playerVars: { modestbranding: 1, rel: 0, autoplay: 1 },
         events: {
           onStateChange: (event) => {
-            if(window.SayBonActivity) SayBonActivity.setPlaying(event.data === YT.PlayerState.PLAYING);
             if(event.data === YT.PlayerState.ENDED){
               handleVideoEnded();
             }
@@ -515,11 +496,10 @@ async function loadVideoById(id, pushHistory){
 
     currentVideo = data;
     videoId = id;
-    loadMoreLikeThis();
-
     if(pushHistory){
-      window.history.replaceState({}, "", "/music/watch.html?v=" + id);
+      window.history.replaceState({}, "", "/music/watch.html?v=" + id + (queueMode ? "&q=1" : ""));
     }
+    SBM.track(data);
 
     buildPlayer(data);
 
@@ -544,7 +524,7 @@ async function loadVideoById(id, pushHistory){
       body: JSON.stringify({ videoId: id })
     });
 
-    loadUpNext(data.genre, id);
+    loadSide(data);
     loadComments(id);
 
   }catch(err){
@@ -567,35 +547,52 @@ function upNextThumb(v){
   return "<div class='un-thumb-fallback'></div>";
 }
 
-async function loadUpNext(genre, activeId){
+async function loadSide(data){
 
-  const res = await fetch(API_BASE + "/api/musicVideos?genre=" + encodeURIComponent(genre));
-  const videos = await res.json();
-
-  upNextQueue = videos;
-
-  const others = videos.filter(v => v.id !== activeId);
+  const all = await SBM.getAll();
   const list = document.getElementById("upNextList");
+  const heading = document.getElementById("sideHeading");
+  const q = SBM.getQueue();
+  const inQueue = queueMode && q && q.ids.indexOf(data.id) > -1;
+  const m = SBM.byId(all);
 
-  if(!others.length){
-    list.innerHTML = "<div class='empty-note'>No other videos in this genre yet.</div>";
+  let shown, order;
+
+  if(inQueue){
+    order = q.ids.filter(i => m[i]).map(i => m[i]);
+    shown = order;
+    heading.innerText = "Playing: " + q.title;
+  }else{
+    queueMode = false;
+    const sim = SBM.similar(data, all, 12);
+    order = [{ id: data.id }].concat(sim);
+    shown = sim;
+    heading.innerText = "More like this";
+  }
+
+  upNextQueue = order;
+
+  if(!shown.length){
+    list.innerHTML = "<div class='empty-note'>No other videos yet.</div>";
     return;
   }
 
   list.innerHTML = "";
 
-  others.forEach((v,i) => {
+  shown.forEach((v,i) => {
     const row = document.createElement("div");
-    row.className = "up-next-row cascade-card";
-    row.style.animationDelay = (i * 0.06) + "s";
-    row.onclick = () => loadVideoById(v.id, true);
+    row.className = "up-next-row" + (v.id === data.id ? " now-playing" : "");
+    if(v.id === data.id) row.style.cssText = "background:rgba(212,175,106,.14);border-radius:10px;";
+    row.onclick = () => { if(v.id !== data.id) loadVideoById(v.id, true); };
     row.innerHTML =
       upNextThumb(v) +
-      "<div><div class='un-title'>" + v.title + "</div><div class='un-sub'>" + (v.artist||"SayBon Music") + " · " + v.views + " views</div></div>";
+      "<div><div class='un-title'>" + SBM.esc(v.title) + "</div><div class='un-sub'>" + SBM.esc(v.artist||"SayBon Music") + " · " + (v.views||0) + " views</div></div>";
     list.appendChild(row);
   });
 
 }
+
+window.loadVideoById = loadVideoById;
 
 document.getElementById("likeBtn").addEventListener("click", async () => {
 
@@ -617,6 +614,8 @@ document.getElementById("likeBtn").addEventListener("click", async () => {
   const btn = document.getElementById("likeBtn");
   const countEl = document.getElementById("likeCount");
   let count = Number(countEl.innerText);
+
+  SBM.setLiked(currentVideo.id, !!data.liked);
 
   if(data.liked){
     btn.classList.add("liked");
