@@ -93,10 +93,11 @@ var CSS='\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
 .rv-gt.wide{--h:var(--hc)}\
-.rv>.rv-bg,.rv>.rv-ch{translate:0 0}\
-.rv.so>.rv-bg,.rv.so>.rv-ch{translate:-105vw 0;transition:translate .85s cubic-bezier(.5,0,.25,1)}\
-.rv.si>.rv-bg,.rv.si>.rv-ch{translate:105vw 0;transition:none}\
-.rv.sg>.rv-bg,.rv.sg>.rv-ch{translate:0 0;transition:translate .9s cubic-bezier(.2,.7,.2,1)}\
+.rv-bgfill{display:none;position:absolute;inset:-8%;background-size:cover;background-position:center;filter:blur(14px)}\
+.rv>.rv-bg,.rv>.rv-bgfill,.rv>.rv-ch{translate:0 0}\
+.rv.so>.rv-bg,.rv.so>.rv-bgfill,.rv.so>.rv-ch{translate:-105vw 0;transition:translate .85s cubic-bezier(.5,0,.25,1)}\
+.rv.si>.rv-bg,.rv.si>.rv-bgfill,.rv.si>.rv-ch{translate:105vw 0;transition:none}\
+.rv.sg>.rv-bg,.rv.sg>.rv-bgfill,.rv.sg>.rv-ch{translate:0 0;transition:translate .9s cubic-bezier(.2,.7,.2,1)}\
 .rv.sl .rv-me,.rv.sl .rv-gt.in{transform:none!important;opacity:1!important}\
 .rv.s-park{--g:15vh;--hm:46vh;--hg:46vh}\
 .rv.s-park .rv-me{left:max(28vw,64px)}\
@@ -169,8 +170,17 @@ var CSS='\
  .rv.s-park{--g:19vh;--hm:30vh;--hg:30vh}\
  .rv.s-park .rv-me{left:max(12vw,56px)}\
  .rv.s-park .rv-gt{right:6vw}\
- .rv.s-carpark{--hm:36vh;--hc:42vh}\
- .rv.s-carpark .rv-gt{right:0}\
+ .rv.s-carpark{--hm:38vh;--hc:32vh}\
+ .rv.s-carpark .rv-me{z-index:2}\
+ .rv.s-carpark .rv-gt{right:0;bottom:calc(var(--g) + 9vh)}\
+ .rv.s-carpark .rv-bg{-webkit-mask-image:linear-gradient(to bottom,transparent 25%,#000 38%);mask-image:linear-gradient(to bottom,transparent 25%,#000 38%);background-size:auto 74%;background-position:center 100%;background-repeat:no-repeat}\
+ .rv.s-carpark .rv-bgfill{display:block}\
+ .rv.s-carpark .rv-me{left:max(2vw,14px)}\
+ .rv-ar{top:100%;margin-top:8px;left:50%;right:auto;transform:translateX(-50%);justify-content:center;gap:18px;width:auto}\
+ .rv-arr{width:34px;height:34px;min-width:34px;padding:0;box-sizing:border-box;flex:0 0 34px;margin:0}\
+ .rv-arr svg{width:17px;height:17px;flex:none}\
+ .rv-me.pick .rv-name{margin-top:52px}\
+ .rv-me.pick .rv-name .rv-go{padding:8px 16px;font-size:13px}\
  .rv-gt.sec{right:9vw;bottom:calc(var(--g) - 3vh)}\
  .rv-pick{flex-direction:column;height:min(88vh,720px)}\
  .rv-prev{flex:0 0 36%}\
@@ -190,12 +200,12 @@ function start(opts){
  opts=opts||{};
  var st=document.createElement('style');st.id='rv-css';st.textContent=CSS;document.head.appendChild(st);
  var root=document.createElement('div');root.className='rv';
- root.innerHTML='<div class="rv-bg"></div><div class="rv-ch rv-me"><div class="rv-mic">'+MIC+'</div><img alt=""><div class="rv-name"></div></div>'+
+ root.innerHTML='<div class="rv-bgfill"></div><div class="rv-bg"></div><div class="rv-ch rv-me"><div class="rv-mic">'+MIC+'</div><img alt=""><div class="rv-name"></div></div>'+
   '<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><div class="rv-panel"></div>';
  document.body.appendChild(root);
  try{document.documentElement.style.overflow='hidden';}catch(e){}
  G={opts:opts,level:opts.level||(window.__psMeta&&window.__psMeta.level)||'A0',root:root,st:st,idx:0,name:'',av:{},results:[],raf:0,dead:false,media:null,stream:null,rec:null,timers:[],greeters:{}};
- G.bg=root.querySelector('.rv-bg');G.me=root.querySelector('.rv-me');G.meImg=G.me.querySelector('img');G.meName=G.me.querySelector('.rv-name');
+ G.fill=root.querySelector('.rv-bgfill');G.bg=root.querySelector('.rv-bg');G.me=root.querySelector('.rv-me');G.meImg=G.me.querySelector('img');G.meName=G.me.querySelector('.rv-name');
  G.where=root.querySelector('.rv-where');G.prompt=root.querySelector('.rv-prompt');G.dots=root.querySelector('.rv-dots');G.panel=root.querySelector('.rv-panel');
  G.dots.innerHTML='<i></i><i></i><i></i><i></i><i></i>';
  
@@ -217,7 +227,7 @@ function close(silent){
 function T(fn,ms){var t=setTimeout(function(){if(G&&!G.dead)fn();},ms);G.timers.push(t);return t;}
 function setBg(sc,dim){
  var d=IMG+sc.bg[0]+'.webp'+V,p=IMG+sc.bg[1]+'.webp'+V;
- G.bg.style.backgroundImage='url('+(window.matchMedia&&window.matchMedia('(max-aspect-ratio:1/1)').matches?p:d)+')';
+ var u='url('+(window.matchMedia&&window.matchMedia('(max-aspect-ratio:1/1)').matches?p:d)+')';G.bg.style.backgroundImage=u;G.fill.style.backgroundImage=u;
  G.bg.classList.toggle('dim',!!dim);
 }
 function clearGreeters(){
