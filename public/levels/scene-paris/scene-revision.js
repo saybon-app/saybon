@@ -66,13 +66,25 @@ var CSS='\
 .rv{position:fixed;inset:0;z-index:99990;background:#0b0f18;overflow:hidden;font-family:Poppins,system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;-webkit-user-select:none;user-select:none;opacity:0;transition:opacity .5s}\
 .rv.on{opacity:1}\
 .rv *{box-sizing:border-box}\
-.rv-bg{position:absolute;inset:0;background-size:cover;background-position:center bottom;transition:opacity .6s}\
+.rv-bg{position:absolute;inset:-5%;background-size:cover;background-position:center bottom;animation:rvpan 26s ease-in-out infinite alternate}\
+@keyframes rvpan{from{transform:scale(1.04) translateX(-1.6%)}to{transform:scale(1.1) translateX(1.6%)}}\
 .rv-bg.dim:after{content:"";position:absolute;inset:0;background:rgba(8,12,24,.46)}\
 .rv-ch{position:absolute;bottom:var(--g);height:var(--h);pointer-events:none}\
 .rv-ch img{height:100%;width:auto;display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35))}\
-.rv-me{left:3vw;transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
+.rv-me{left:max(3vw,56px);transform:translateX(-70vw);opacity:0;--h:var(--hm)}\
 .rv-me.in{transform:none;opacity:1;transition:transform 2.8s cubic-bezier(.3,.55,.4,1),opacity .5s}\
 .rv-me.bob img{animation:rvbob .52s ease-in-out infinite alternate;transform-origin:50% 100%}\
+.rv-me.pick{pointer-events:auto}\
+.rv-me.pick.in{transition:transform 2.2s cubic-bezier(.3,.55,.4,1),opacity .5s}\
+.rv-me img{transition:opacity .16s}\
+.rv-ar{position:absolute;left:0;right:0;top:42%;display:flex;justify-content:space-between;pointer-events:none}\
+.rv-arr{pointer-events:auto;position:relative;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 18px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 -54px;transition:transform .15s,background .15s}\
+.rv-arr svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}\
+.rv-arr:hover{background:rgba(255,255,255,.3);transform:scale(1.08)}\
+.rv-arr:active{transform:scale(.94)}\
+.rv-me .rv-name{pointer-events:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;min-width:0}\
+.rv-me .rv-name .rv-go{white-space:nowrap}\
+.rv-me:not(.pick) .rv-name{padding:3px 12px;background:rgba(10,16,30,.62);border-radius:999px;backdrop-filter:blur(6px)}\
 .rv-gt{right:3vw;transform:translateX(34vw);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.25,1),opacity .6s;--h:var(--hg)}\
 .rv-gt.in{transform:none;opacity:1}\
 .rv-gt.flip img{transform:scaleX(-1)}\
@@ -95,7 +107,7 @@ var CSS='\
 .rv-dots i.cur{background:#ffd68c;box-shadow:0 0 0 4px rgba(255,214,140,.3)}\
 .rv-dots i.done{background:#7bd88f}\
 .rv-x{position:absolute;right:12px;top:max(12px,env(safe-area-inset-top));z-index:5;border:0;border-radius:999px;padding:8px 14px;background:rgba(10,16,30,.55);color:#fff;font:600 13px Poppins,system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}\
-.rv-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:14px;z-index:4}\
+.rv-panel:empty{display:none}.rv-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:14px;z-index:4}\
 .rv-card{width:min(940px,100%);max-height:100%;border-radius:26px;background:rgba(14,20,36,.74);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(0,0,0,.45);padding:clamp(14px,2.6vh,26px);animation:rvup .45s ease both}\
 .rv-pick{display:flex;gap:clamp(14px,2.4vw,30px);align-items:stretch;height:min(80vh,600px)}\
 .rv-prev{flex:0 0 38%;display:flex;align-items:flex-end;justify-content:center;border-radius:20px;background:radial-gradient(ellipse at 50% 85%,rgba(255,214,140,.38),rgba(255,255,255,.04) 70%);padding:10px;min-height:0}\
@@ -153,14 +165,14 @@ function start(opts){
  var st=document.createElement('style');st.id='rv-css';st.textContent=CSS;document.head.appendChild(st);
  var root=document.createElement('div');root.className='rv';
  root.innerHTML='<div class="rv-bg"></div><div class="rv-ch rv-me"><div class="rv-mic">'+MIC+'</div><img alt=""><div class="rv-name"></div></div>'+
-  '<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><button type="button" class="rv-x">Skip revision</button><div class="rv-panel"></div>';
+  '<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><div class="rv-panel"></div>';
  document.body.appendChild(root);
  try{document.documentElement.style.overflow='hidden';}catch(e){}
  G={opts:opts,level:opts.level||(window.__psMeta&&window.__psMeta.level)||'A0',root:root,st:st,idx:0,name:'',av:{},results:[],raf:0,dead:false,media:null,stream:null,rec:null,timers:[],greeters:{}};
  G.bg=root.querySelector('.rv-bg');G.me=root.querySelector('.rv-me');G.meImg=G.me.querySelector('img');G.meName=G.me.querySelector('.rv-name');
  G.where=root.querySelector('.rv-where');G.prompt=root.querySelector('.rv-prompt');G.dots=root.querySelector('.rv-dots');G.panel=root.querySelector('.rv-panel');
  G.dots.innerHTML='<i></i><i></i><i></i><i></i><i></i>';
- root.querySelector('.rv-x').onclick=function(){var cb=opts.onSkip;close();if(cb)cb();};
+ 
  requestAnimationFrame(function(){root.classList.add('on');});
  preload();
  showPick(0);
@@ -186,54 +198,64 @@ function clearGreeters(){
  [].slice.call(G.root.querySelectorAll('.rv-gt')).forEach(function(n){n.remove();});G.greeters={};
 }
 
-/* ---------- avatar pick ---------- */
-function showPick(i){
- var sc=SCENES[i];G.idx=i;
- clearGreeters();G.me.className='rv-ch rv-me';G.where.classList.remove('on');G.prompt.classList.remove('on','ans');
- setBg(sc,true);
- G.dots.querySelectorAll('i').forEach(function(d,k){d.className=k<G.results.filter(Boolean).length?'done':'';});
- var cur=G.av[sc.id]||sc.set[0];
- G.panel.innerHTML='<div class="rv-card"><div class="rv-pick"><div class="rv-prev"><img alt=""></div><div class="rv-side">'+
-  '<div><div class="rv-h">'+esc(sc.title)+'</div><div class="rv-sub">'+(i===0?'Revision · pick your avatar, then say hello':'Pick your avatar for this place')+'</div></div>'+
-  '<div class="rv-grid"></div>'+
-  '<input class="rv-in" type="text" maxlength="14" placeholder="Your name" autocomplete="off" value="'+esc(G.name)+'">'+
-  '<button type="button" class="rv-go">'+(i===0?'Start revision':'Go')+'</button></div></div></div>';
- var prev=G.panel.querySelector('.rv-prev img'),grid=G.panel.querySelector('.rv-grid'),inp=G.panel.querySelector('.rv-in'),go=G.panel.querySelector('.rv-go');
- function pick(a){cur=a;prev.src=a.src;[].forEach.call(grid.children,function(b){b.classList.toggle('sel',b.dataset.id===a.id);});}
- sc.set.forEach(function(a){var b=document.createElement('button');b.type='button';b.className='rv-thumb';b.dataset.id=a.id;b.innerHTML='<img alt="" src="'+a.src+'">';b.onclick=function(){pick(a);};grid.appendChild(b);});
- pick(cur);
- function chk(){go.disabled=!inp.value.trim();}
- inp.oninput=chk;chk();
- go.onclick=function(){
-  if(!inp.value.trim()){inp.focus();return;}
-  G.name=inp.value.trim();G.av[sc.id]=cur;runScene(i);
- };
-}
-
-/* ---------- a scene ---------- */
+/* ---------- the scene stage + avatar pick (in the scene itself) ---------- */
 function setupStage(sc){
- var a=G.av[sc.id];
- G.meImg.src=a.src;G.meName.textContent=G.name;
  G.me.className='rv-ch rv-me';
  clearGreeters();
- sc.greeters.forEach(function(g){
+ sc.greeters.forEach(function(g,k){
   var n=document.createElement('div');n.className='rv-ch rv-gt'+(g.flip?' flip':'')+(g.wide?' wide':'');
   n.innerHTML='<img alt="" src="'+IMG+g.src+'.webp'+V+'"><div class="rv-say"></div>';
   G.root.insertBefore(n,G.root.querySelector('.rv-top'));
-  G.greeters[g.k]={el:n,say:n.querySelector('.rv-say'),done:false};
+  G.greeters[g.k]={el:n,say:n.querySelector('.rv-say'),in:false,out:false};
  });
  G.where.textContent=sc.title;G.where.classList.remove('on');
  G.prompt.classList.remove('on','ans');
 }
+function showPick(i){
+ var sc=SCENES[i];G.idx=i;G.panel.innerHTML='';
+ setBg(sc,false);setupStage(sc);
+ G.dots.querySelectorAll('i').forEach(function(d,k){d.className=k<SCENES.slice(0,i).reduce(function(t,s){return t+s.answers.length;},0)?'done':'';});
+ var first=sc.greeters[0],go0=G.greeters[first.k];go0.in=true;
+ var cur=G.av[sc.id]||sc.set[0],ix=Math.max(0,sc.set.indexOf(cur)),img=G.meImg,me=G.me;
+ img.src=cur.src;G.meName.innerHTML='';
+ me.classList.add('pick');
+ void me.offsetWidth;
+ T(function(){me.classList.add('in');},250);
+ T(function(){go0.el.classList.add('in');},900);
+ T(function(){G.where.classList.add('on');},500);T(function(){G.where.classList.remove('on');},2600);
+ G.prompt.textContent='Choose your avatar';G.prompt.classList.add('on');
+ var ar=G.me.querySelector('.rv-ar');if(ar)ar.remove();
+ ar=document.createElement('div');ar.className='rv-ar';
+ ar.innerHTML='<button type="button" class="rv-arr l" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="rv-arr r" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>';
+ me.appendChild(ar);
+ function swap(d){
+  ix=(ix+d+sc.set.length)%sc.set.length;cur=sc.set[ix];
+  img.style.opacity=0;
+  setTimeout(function(){if(!G||G.dead)return;img.src=cur.src;var show=function(){img.style.opacity=1;};if(img.complete)show();else img.onload=show;},140);
+ }
+ ar.querySelector('.l').onclick=function(){swap(-1);};ar.querySelector('.r').onclick=function(){swap(1);};
+ var bar=G.meName;
+ bar.innerHTML='<button type="button" class="rv-go rv-sel">Select avatar</button>';
+ bar.querySelector('.rv-sel').onclick=function(){
+  G.av[sc.id]=cur;ar.remove();G.prompt.textContent=G.name?'Ready?':'What is your name?';
+  bar.innerHTML=(G.name?'':'<input class="rv-in" type="text" maxlength="14" placeholder="Your name" autocomplete="off">')+'<button type="button" class="rv-go rv-start">'+(G.name?'Start':'Start revision')+'</button>';
+  var inp=bar.querySelector('.rv-in'),st=bar.querySelector('.rv-start');
+  function chk(){st.disabled=!G.name&&!(inp&&inp.value.trim());}
+  if(inp){inp.oninput=chk;inp.focus();}chk();
+  st.onclick=function(){
+   if(!G.name){var v=inp&&inp.value.trim();if(!v){inp.focus();return;}G.name=v;}
+   bar.textContent=G.name;me.classList.remove('pick');runScene(i);
+  };
+ };
+}
+
+/* ---------- a scene ---------- */
 function runScene(i){
  var sc=SCENES[i];G.idx=i;
  G.panel.innerHTML='';
- setBg(sc,false);
- setupStage(sc);
- var mark=G.results.filter(Boolean).length;
  sc.dotBase=SCENES.slice(0,i).reduce(function(t,s){return t+s.answers.length;},0);
- G.dots.querySelectorAll('i').forEach(function(d,k){d.className=k<sc.dotBase?'done':'';});
  G.dChunks=[];G.dT0=0;G.dT1=0;G.playing=false;G.ended=false;G.S0=sc.S;
+ G.prompt.classList.remove('on','ans');
  var wait=document.createElement('div');wait.className='rv-hint';wait.innerHTML='<span>Getting your microphone ready…</span>';G.root.appendChild(wait);G.wait=wait;
  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(function(s){
   if(!G||G.dead){s.getTracks().forEach(function(t){t.stop();});return;}
@@ -277,9 +299,7 @@ function loop(sc){
   if(!G||G.dead)return;
   G.raf=requestAnimationFrame(frame);
   var t=m.currentTime;
-  if(t>=sc.walk[0]&&!flags.walk){flags.walk=1;G.me.classList.add('in');if(sc.walking)G.me.classList.add('bob');else G.me.classList.add('bob');}
-  if(t>=sc.walk[1]&&!flags.stop){flags.stop=1;G.me.classList.remove('bob');}
-  G.where.classList.toggle('on',t>=sc.titleAt[0]&&t<sc.titleAt[1]);
+  
   var saying=false;
   sc.greeters.forEach(function(g){
    var o=G.greeters[g.k];
@@ -293,7 +313,7 @@ function loop(sc){
   var cur=ans>=0?sc.answers[ans]:null,nx=null;
   if(!cur){sc.answers.forEach(function(a){if(!nx&&t<a.w[0])nx=a;});}
   if(cur){G.prompt.textContent='Respond to '+cur.who;G.prompt.classList.add('on','ans');}
-  else if(nx&&t>=sc.walk[0]){G.prompt.textContent='Listen to '+nx.who;G.prompt.classList.remove('ans');G.prompt.classList.add('on');}
+  else if(nx){G.prompt.textContent='Listen to '+nx.who;G.prompt.classList.remove('ans');G.prompt.classList.add('on');}
   else G.prompt.classList.remove('on','ans');
   var ds=G.dots.querySelectorAll('i');
   sc.answers.forEach(function(a,k){var d=ds[sc.dotBase+k];if(d)d.className=(t>a.w[1]+0.2)?'done':(k===ans?'cur':'');});

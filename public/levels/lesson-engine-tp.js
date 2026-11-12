@@ -1,7 +1,6 @@
 ﻿import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-(function(){try{if(!window.SayBonActivity){var t=document.createElement("script");t.src="/js/activity-tracker.js?v=1";t.setAttribute("data-type","lesson");document.head.appendChild(t);}}catch(e){}})();
 window.lsCurrentUid = null;
 onAuthStateChanged(auth, function(user){
   window.lsCurrentUid = user ? user.uid : null;
@@ -37,7 +36,7 @@ var mediaRecorder = null;
 var recordedChunks = [];
 var currentStream = null;
 var lsAudioCtx = null;
-var lsWaveAnimId = null;/*PSB*/var psScene=null;(function(){var N=LESSON||1,OFF={"a0-tout-public":0,"a0-les-petits":1,"a1":2,"a2":0,"b1":1,"b2":2,"c1":0}[LEVEL]||0;var lv=LEVEL==="a0-les-petits"?"Les Petits":String(LEVEL).split("-")[0].toUpperCase();window.__psMeta={level:lv,lesson:N,title:(LEVEL==="a0-tout-public"&&N===1)?"Les salutations":""};window.__psTitle=function(){try{for(var i=0;i<allAssets.length;i++){var a=allAssets[i],t=a.lessonTitle||a.title||a.topic;if(t)return t;}}catch(e){}return "";};var th=(N-1+OFF)%3,st=(N-1+Math.floor((N-1)/3)+OFF)%3;document.body.classList.add("ps-wait");window.psRender=function(p,b,c){return window.__psUI?window.__psUI(p,b,c):false;};function go(){document.body.classList.remove("ps-wait");}var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=48";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=48";s.onerror=go;s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false,overlay:true,theme:th,start:st});window.__psScene=psScene;var u=document.createElement("script");u.src="/levels/scene-paris/scene-ui.js?v=48";u.onerror=go;u.onload=function(){go();if(allAssets.length){renderPart(currentPart,getPartLabel(currentPart));}};document.head.appendChild(u);}catch(e){console.error("scene",e);go();}};document.head.appendChild(s);setTimeout(go,6000);})();window.__psLevel=LEVEL;window.__psMax=function(){try{return getMaxPart();}catch(e){return 0;}};window.psHook=function(){};/*PSE*/
+var lsWaveAnimId = null;/*PSB*/var psScene=null;(function(){var N=LESSON||1,OFF={"a0-tout-public":0,"a0-les-petits":1,"a1":2,"a2":0,"b1":1,"b2":2,"c1":0}[LEVEL]||0;var lv=LEVEL==="a0-les-petits"?"Les Petits":String(LEVEL).split("-")[0].toUpperCase();window.__psMeta={level:lv,lesson:N,title:(LEVEL==="a0-tout-public"&&N===1)?"Les salutations":""};window.__psTitle=function(){try{for(var i=0;i<allAssets.length;i++){var a=allAssets[i],t=a.lessonTitle||a.title||a.topic;if(t)return t;}}catch(e){}return "";};var th=(N-1+OFF)%3,st=(N-1+Math.floor((N-1)/3)+OFF)%3;document.body.classList.add("ps-wait");window.psRender=function(p,b,c){return window.__psUI?window.__psUI(p,b,c):false;};function go(){document.body.classList.remove("ps-wait");}function boot(){var l=document.createElement("link");l.rel="stylesheet";l.href="/levels/scene-paris/scene-paris.css?v=26";document.head.appendChild(l);var s=document.createElement("script");s.src="/levels/scene-paris/scene-paris.js?v=26";s.onerror=go;s.onload=function(){try{document.body.classList.add("ps-on");psScene=ParisScene.mount({mic:false,overlay:true,theme:th,start:st});window.__psScene=psScene;var u=document.createElement("script");u.src="/levels/scene-paris/scene-ui.js?v=26";u.onerror=go;u.onload=function(){go();if(allAssets.length){renderPart(currentPart,getPartLabel(currentPart));}};document.head.appendChild(u);}catch(e){console.error("scene",e);go();}};document.head.appendChild(s);setTimeout(go,6000);}var REV=(LEVEL==="a0-tout-public"&&N>=2);if(REV){var rs=document.createElement("script");rs.src="/levels/scene-paris/scene-revision.js?v=2";rs.onerror=boot;rs.onload=function(){try{SayBonRevision.start({level:"A0",onDone:boot});}catch(e){console.error("rev",e);boot();}};document.head.appendChild(rs);}else{boot();}})();window.psHook=function(){};/*PSE*/
 
 function render(html){ root.innerHTML = html; }
 
@@ -223,7 +222,7 @@ function renderPart(partNum, label){if(window.psRender&&window.psRender(partNum,
     continueBtn + back1Btn
   );
 
-  if(window.psHook){window.psHook("part",needsRecording);}root.querySelectorAll(".ls-teacher-audio-el").forEach(function(audioEl){
+  root.querySelectorAll(".ls-teacher-audio-el").forEach(function(audioEl){
     setTimeout(function(){
       if(audioEl.paused){
         var wrapper = audioEl.previousElementSibling;
@@ -318,13 +317,13 @@ function toggleRecording(){
         stopWave();
         document.getElementById("lsRecordBtn").style.display = "none";
         document.getElementById("lsPlaybackRow").style.display = "flex";
-        document.getElementById("lsSubmitBtn").disabled = false;if(window.psHook){window.psHook("recstop");}
+        document.getElementById("lsSubmitBtn").disabled = false;
         currentStream.getTracks().forEach(function(t){ t.stop(); });
       };
       if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); } mediaRecorder.start();
       startWave(stream, false);
       btn.textContent = "■ Stop";
-      btn.classList.add("ls-recording");if(window.psHook){window.psHook("recstart");}
+      btn.classList.add("ls-recording");
       status.textContent = "Recording...";
     }).catch(function(err){
       status.textContent = "Microphone access denied";
@@ -377,7 +376,7 @@ function submitRecording(expectedText, partNum){
     body: recordedBlob
   }).then(function(res){ return res.json(); }).then(function(data){
     var score = data.finalScore ?? data.score ?? data.AccuracyScore ?? data.accuracyScore ?? 0;
-    score = Math.round(score);if(window.psHook){window.psHook("score",score);}
+    score = Math.round(score);
     scoreDisplay.innerHTML =
       '<div class="ls-score">' + score + '%</div>' +
       '<div class="ls-btn-row">' +
@@ -416,7 +415,6 @@ window.lsGoNext = function(){
 };
 
 function markLessonComplete(){
-  try{ if(window.SayBonActivity) window.SayBonActivity.complete("lesson_complete"); }catch(e){}
   var uid = window.lsCurrentUid;
   if(!uid) return;
   fetch(API_BASE + "/api/levelProgressComplete", {
