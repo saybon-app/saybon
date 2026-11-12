@@ -1,0 +1,836 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Watch - SayBon Music</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{ box-sizing:border-box; }
+
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-track{ background:rgba(255,255,255,.04); border-radius:10px; }
+*::-webkit-scrollbar-thumb{ background:linear-gradient(180deg, #D4AF6A, #8B6F3E); border-radius:10px; border:2px solid #1A1C24; background-clip:padding-box; }
+
+html{ overflow-x:hidden; }
+
+body{
+margin:0;
+font-family:'Manrope', system-ui, sans-serif;
+color:#E4E6EC;
+background:linear-gradient(160deg, #262832 0%, #1E2028 55%, #181A20 100%);
+overflow-x:hidden;
+scrollbar-width:thin;
+scrollbar-color:#D4AF6A #1A1C24;
+}
+
+.topbar{
+position:fixed; top:0; left:0; right:0; height:68px; z-index:100;
+background:rgba(30,32,40,.92); backdrop-filter:blur(18px); border-bottom:1px solid rgba(212,175,106,.14);
+display:flex; align-items:center; padding:0 18px; gap:16px;
+}
+.watch-back-btn{
+width:36px;height:36px;border-radius:50%;border:none;
+background:rgba(255,255,255,.08);color:#fff;cursor:pointer;
+display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.watch-back-btn svg{width:18px;height:18px;}
+.topbar-logo{ display:flex; align-items:center; gap:10px; cursor:pointer; flex:0 0 auto; white-space:nowrap; }
+.topbar-logo-icon{
+width:36px; height:36px; border-radius:10px; flex:0 0 auto;
+background:linear-gradient(160deg, #D4AF6A, #8B6F3E);
+display:flex; align-items:center; justify-content:center; color:#1A1C24;
+}
+.topbar-logo-icon svg{ width:19px; height:19px; }
+.topbar-logo-title{ font-size:18px; font-weight:700; color:#fff; font-family:'Cormorant Garamond', serif; }
+.topbar-logo-title em{ font-style:normal; color:#D4AF6A; }
+.topbar-right{ margin-left:auto; display:flex; gap:8px; }
+.topbar-icon-btn{
+width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.06);
+display:flex; align-items:center; justify-content:center; cursor:pointer; color:#E4E6EC;
+}
+.topbar-icon-btn:hover{ background:rgba(255,255,255,.12); }
+
+.watch-layout{
+margin-top:68px; padding:22px 22px 60px;
+display:flex; gap:26px; align-items:flex-start; max-width:1500px; margin-left:auto; margin-right:auto;
+flex-wrap:wrap;
+opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px);
+animation: watchLayoutEnter .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes watchLayoutEnter{
+from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); }
+to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+
+.cascade-card{ opacity:0; animation: cascadeIn .5s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes cascadeIn{
+from{ opacity:0; transform:translateY(14px); filter:blur(4px); }
+to{ opacity:1; transform:translateY(0); filter:blur(0); }
+}
+
+.main-col{ flex:2 1 560px; min-width:0; }
+.side-col{ flex:1 1 320px; max-width:400px; }
+
+.player-wrap{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#0A0B0E; margin-bottom:16px; box-shadow:0 12px 36px rgba(0,0,0,.4); }
+.player-wrap iframe, .player-wrap video{ width:100%; height:100%; border:none; }
+
+.title{ font-size:19px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; font-family:'Cormorant Garamond', serif; }
+
+.channel-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.channel-avatar{
+width:40px; height:40px; border-radius:50%; background:rgba(212,175,106,.16);
+display:flex; align-items:center; justify-content:center; color:#D4AF6A; flex:0 0 auto;
+}
+.channel-name{ font-size:13px; font-weight:650; color:#fff; }
+.channel-genre{ font-size:11.5px; color:#9CA0AC; }
+
+.action-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+.action-btn{
+display:flex; align-items:center; gap:7px; padding:9px 15px; border-radius:20px; border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05); color:#E4E6EC; cursor:pointer; font-size:12.5px; font-weight:600;
+}
+.action-btn.liked{ background:rgba(212,175,106,.16); border-color:#D4AF6A; color:#D4AF6A; }
+.action-btn.active{ background:rgba(212,175,106,.16); border-color:#D4AF6A; color:#D4AF6A; }
+.action-btn svg{ width:16px; height:16px; }
+.views-count{ font-size:12px; color:#5F6270; margin-left:auto; }
+
+.repeat-hint{ font-size:11px; color:#5F6270; margin-bottom:18px; }
+
+.description{
+background:rgba(255,255,255,.04); border-radius:12px; padding:14px 16px; margin-bottom:26px;
+font-size:12.5px; color:#B0B3BE; line-height:1.6; border:1px solid rgba(255,255,255,.06);
+}
+
+.comments-heading{ font-size:14px; font-weight:650; color:#fff; margin-bottom:14px; }
+
+.comment-form{ display:flex; gap:10px; margin-bottom:22px; }
+.comment-form textarea{
+flex:1; min-height:44px; padding:11px 13px; border-radius:10px; border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05); color:#fff; font-family:inherit; font-size:12.5px; resize:vertical;
+}
+.comment-form button{
+padding:10px 18px; border:none; border-radius:10px; background:#D4AF6A; color:#1A1C24; font-weight:650; font-size:12.5px; cursor:pointer;
+}
+.comment-form button:disabled{ opacity:.5; cursor:not-allowed; }
+
+.comment{ display:flex; gap:10px; margin-bottom:16px; }
+.comment-avatar{ width:34px; height:34px; border-radius:50%; flex:0 0 auto; background:rgba(212,175,106,.16); object-fit:cover; }
+.comment-body{ flex:1; }
+.comment-name{ font-size:12.5px; font-weight:650; color:#fff; }
+.comment-text{ font-size:12.5px; color:#B0B3BE; margin-top:2px; line-height:1.5; }
+
+.empty-note{ color:#5F6270; font-size:12.5px; padding:16px 0; }
+.error-note{ color:#E08787; font-size:12px; padding:8px 0; }
+
+.side-heading{ font-size:13px; font-weight:650; color:#fff; margin-bottom:12px; }
+
+.up-next-row{ display:flex; gap:10px; margin-bottom:12px; cursor:pointer; }
+.up-next-row.playing{ background:rgba(212,175,106,.08); border-radius:8px; padding:6px; margin-left:-6px; margin-right:-6px; }
+.un-thumb{ width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:8px; flex:0 0 auto; background:#0A0B0E; }
+.un-thumb-fallback{ width:120px; aspect-ratio:16/9; border-radius:8px; flex:0 0 auto; background:linear-gradient(135deg, rgba(212,175,106,.25), #0A0B0E); }
+.un-title{ font-size:12px; font-weight:600; color:#fff; line-height:1.35; margin-bottom:3px; }
+.un-sub{ font-size:11px; color:#5F6270; }
+
+.playlist-modal-overlay{
+position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6);
+display:none; align-items:center; justify-content:center; z-index:200; padding:20px;
+}
+.playlist-modal{ width:100%; max-width:360px; background:#1E2028; border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:22px; }
+.playlist-modal h3{ margin:0 0 14px; font-size:15px; color:#fff; }
+.playlist-item{ padding:10px 12px; border-radius:9px; background:rgba(255,255,255,.05); margin-bottom:8px; cursor:pointer; font-size:12.5px; color:#E4E6EC; }
+.playlist-item:hover{ background:rgba(212,175,106,.12); }
+.new-playlist-row{ display:flex; gap:8px; margin-top:14px; }
+.new-playlist-row input{ flex:1; padding:9px 11px; border-radius:8px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:#fff; font-size:12px; }
+.new-playlist-row button{ padding:9px 14px; border:none; border-radius:8px; background:#D4AF6A; color:#1A1C24; font-weight:650; font-size:12px; cursor:pointer; }
+.close-modal{ display:block; margin-top:14px; text-align:center; color:#5F6270; font-size:11.5px; cursor:pointer; }
+
+@media (max-width:860px){
+  .watch-layout{ padding:16px 14px 60px; flex-direction:column; }
+  .main-col{ flex:1 1 100%; width:100%; }
+  .side-col{ flex:1 1 100%; width:100%; max-width:100%; }
+  .title{ font-size:17px; }
+  .topbar{ padding:0 12px; gap:10px; }
+}
+
+.sidebar{position:fixed; top:68px; left:0; bottom:0; width:220px; overflow-y:auto; background:rgba(24,26,32,.7); backdrop-filter:blur(10px); border-right:1px solid rgba(255,255,255,.06); padding:14px 0; z-index:90;}
+.sb-item{display:flex; align-items:center; gap:14px; padding:11px 20px; cursor:pointer; font-size:13px; color:#9CA0AC;}
+.sb-item:hover{ background:rgba(255,255,255,.05); }
+.sb-item.active{ background:rgba(212,175,106,.14); color:#fff; font-weight:600; }
+.sb-item svg{ width:17px; height:17px; flex:0 0 auto; }
+.sb-section-label{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#5F6270; padding:16px 20px 8px; }
+.sb-divider{ height:1px; background:rgba(255,255,255,.06); margin:10px 0; }
+.sidebar-toggle-btn{display:flex; width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.06); align-items:center; justify-content:center; cursor:pointer; color:#E4E6EC; flex:0 0 auto;}
+.sidebar-overlay{display:block; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:95; opacity:0; pointer-events:none; transition:opacity .2s ease;}
+.sidebar-overlay.open{ opacity:1; pointer-events:auto; }
+.sidebar{ transform:translateX(-100%); transition:transform .22s ease; z-index:96; width:250px; }
+.sidebar.open{ transform:translateX(0); }
+
+@media (max-width:860px){
+  .watch-layout{ margin-left:0 !important; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+<button class="watch-back-btn" onclick="history.length > 1 ? history.back() : location.href='/music/index.html'" aria-label="Back">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+<div class="topbar-logo" onclick="location.href='/music/index.html'">
+<div class="topbar-logo-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+</div>
+<div class="topbar-logo-title">SayBon <em>Music</em></div>
+</div>
+<div class="topbar-right">
+
+<button class="topbar-icon-btn" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+</button>
+</div>
+</div>
+
+<div class="watch-layout">
+
+<div class="main-col">
+
+<div class="player-wrap" id="playerWrap"></div>
+
+<div class="title" id="videoTitle">Loading…</div>
+
+<div class="channel-row">
+<div class="channel-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+<div>
+<div class="channel-name" id="videoArtist">SayBon Music</div>
+<div class="channel-genre" id="videoGenre"></div>
+</div>
+</div>
+
+<div class="action-row">
+<button class="action-btn" id="likeBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6c-1.8-1.8-4.6-1.8-6.4 0L12 7l-2.4-2.4c-1.8-1.8-4.6-1.8-6.4 0-1.8 1.8-1.8 4.6 0 6.4L12 20l8.8-8.8c1.8-1.8 1.8-4.7 0-6.4z"/></svg>
+<span id="likeCount">0</span>
+</button>
+<button class="action-btn" id="playlistBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+Save
+</button>
+<button class="action-btn" id="repeatBtn" onclick="cycleRepeatMode()">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+<span id="repeatLabel">Repeat: Off</span>
+</button>
+<span class="views-count" id="viewsCount"></span>
+</div>
+
+<div class="repeat-hint">Click Repeat to cycle: Off → Repeat Current → Repeat All</div>
+
+<div class="description" id="videoDescription" style="display:none;"></div>
+
+<div class="comments-heading">Comments</div>
+
+<div class="comment-form">
+<textarea id="commentInput" placeholder="Add a comment..."></textarea>
+<button id="postCommentBtn" onclick="postComment()">Post</button>
+</div>
+<div id="commentError" class="error-note" style="display:none;"></div>
+
+<div id="commentsList"></div>
+
+</div>
+
+<div class="side-toggle-tab" id="sideToggleTab" style="flex:0 0 auto;width:22px;align-self:stretch;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(255,255,255,.04);border-radius:8px;">
+<span id="sideToggleChevron" style="transition:transform .25s ease;color:#9a9da5;">&#9656;</span>
+</div>
+<div class="side-col" id="sideCol" style="transition:flex-basis .25s ease, width .25s ease, opacity .2s ease, margin .25s ease;">
+<div class="side-heading">More like this</div>
+<div id="upNextList"></div>
+</div>
+<style>
+.side-col.collapsed{flex:0 0 0 !important;width:0 !important;max-width:0 !important;opacity:0;overflow:hidden;padding:0;margin:0;}
+</style>
+<script>
+document.getElementById("sideToggleTab").addEventListener("click", function(){
+  var sideCol = document.getElementById("sideCol");
+  var chevron = document.getElementById("sideToggleChevron");
+  var collapsing = !sideCol.classList.contains("collapsed");
+  sideCol.classList.toggle("collapsed");
+  chevron.style.transform = collapsing ? "rotate(180deg)" : "rotate(0deg)";
+});
+</script>
+
+</div>
+
+<div class="playlist-modal-overlay" id="playlistModal">
+<div class="playlist-modal">
+<h3>Save to Playlist</h3>
+<div id="playlistList"></div>
+<div class="new-playlist-row">
+<input type="text" id="newPlaylistName" placeholder="New playlist name" />
+<button onclick="createAndAdd()">Create</button>
+</div>
+<div class="close-modal" onclick="document.getElementById('playlistModal').style.display='none'">Close</div>
+</div>
+</div>
+
+<script src="/js/activity-tracker.js?v=1" data-type="music"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script type="module">
+
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const API_BASE = "https://saybonapp-server.onrender.com";
+const params = new URLSearchParams(window.location.search);
+let videoId = params.get("v");
+
+let currentUser = null;
+let currentVideo = null;
+let ytPlayer = null;
+let htmlVideoEl = null;
+let repeatMode = "off";
+let upNextQueue = [];
+let ytApiReady = false;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  loadVideo();
+  loadComments();
+});
+
+window.onYouTubeIframeAPIReady = function(){
+  ytApiReady = true;
+};
+
+window.cycleRepeatMode = function(){
+  if(repeatMode === "off") repeatMode = "current";
+  else if(repeatMode === "current") repeatMode = "all";
+  else repeatMode = "off";
+
+  const label = repeatMode === "off" ? "Repeat: Off" : repeatMode === "current" ? "Repeat: Current" : "Repeat: All";
+  document.getElementById("repeatLabel").innerText = label;
+  document.getElementById("repeatBtn").classList.toggle("active", repeatMode !== "off");
+}
+
+function handleVideoEnded(){
+  if(repeatMode === "current"){
+    if(htmlVideoEl){
+      htmlVideoEl.currentTime = 0;
+      htmlVideoEl.play();
+    }else if(ytPlayer && ytPlayer.seekTo){
+      ytPlayer.seekTo(0);
+      ytPlayer.playVideo();
+    }
+    return;
+  }
+
+  // Default behavior (repeatMode "off" or "all"): auto-advance within the queue,
+  // matching real YouTube - autoplay-next happens regardless of the repeat toggle.
+  playNextInQueue();
+}
+
+async function loadMoreLikeThis(){
+  try{
+    const res = await fetch(API_BASE + "/api/musicVideos");
+    const allVideos = await res.json();
+    const others = allVideos.filter(v => v.id !== videoId).slice(0, 12);
+
+    const list = document.getElementById("upNextList");
+    if(!list) return;
+
+    list.innerHTML = others.map(v =>
+      '<div class="more-like-item" onclick="loadVideoById(\'' + v.id + '\', true)" style="display:flex;gap:10px;padding:8px;cursor:pointer;border-radius:8px;">' +
+      '<img src="' + (v.thumbnailUrl || "") + '" style="width:120px;height:68px;object-fit:cover;border-radius:6px;background:#333;flex-shrink:0;">' +
+      '<div style="min-width:0;">' +
+      '<div style="font-size:13px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">' + v.title + '</div>' +
+      '<div style="font-size:12px;color:#9a9da5;margin-top:4px;">' + (v.artist || "SayBon Music") + '</div>' +
+      '</div></div>'
+    ).join("");
+  }catch(err){
+    console.error("Could not load More Like This:", err);
+  }
+}
+
+function playNextInQueue(){
+  if(!upNextQueue.length){
+    if(repeatMode !== "current") showUpNextSuggestion();
+    return;
+  }
+
+  const currentIdx = upNextQueue.findIndex(v => v.id === videoId);
+  const isLastTrack = currentIdx === -1 || currentIdx === upNextQueue.length - 1;
+
+  if(isLastTrack){
+    if(repeatMode === "all"){
+      loadVideoById(upNextQueue[0].id);
+      return;
+    }
+    showUpNextSuggestion();
+    return;
+  }
+
+  loadVideoById(upNextQueue[currentIdx + 1].id);
+}
+
+let upNextTimer = null;
+let upNextCancelled = false;
+
+async function showUpNextSuggestion(){
+  upNextCancelled = false;
+
+  try{
+    const res = await fetch(API_BASE + "/api/musicVideos");
+    const allVideos = await res.json();
+    const candidates = allVideos.filter(v => v.id !== videoId);
+    if(!candidates.length) return;
+
+    const suggestion = candidates[Math.floor(Math.random() * candidates.length)];
+
+    const overlay = document.createElement("div");
+    overlay.id = "upNextOverlay";
+    overlay.style.cssText = "position:fixed;bottom:24px;right:24px;width:280px;background:#1a1b20;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;z-index:9999;box-shadow:0 12px 30px rgba(0,0,0,.5);color:#fff;font-family:inherit;";
+
+    overlay.innerHTML =
+      '<div style="font-size:11px;color:#9a9da5;margin-bottom:8px;">Up next in <span id="upNextCountdown">5</span>s</div>' +
+      '<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">' +
+      '<img src="' + (suggestion.thumbnailUrl || "") + '" style="width:64px;height:36px;object-fit:cover;border-radius:6px;background:#333;">' +
+      '<div style="flex:1;min-width:0;">' +
+      '<div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + suggestion.title + '</div>' +
+      '<div style="font-size:11px;color:#9a9da5;">' + (suggestion.artist || "SayBon Music") + '</div>' +
+      '</div></div>' +
+      '<div style="display:flex;gap:8px;">' +
+      '<button id="upNextPlayNowBtn" style="flex:1;background:#fff;color:#000;border:none;border-radius:8px;padding:8px;font-weight:600;font-size:12px;cursor:pointer;">Play now</button>' +
+      '<button id="upNextCancelBtn" style="flex:1;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:8px;padding:8px;font-weight:600;font-size:12px;cursor:pointer;">Cancel</button>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    document.getElementById("upNextCancelBtn").onclick = function(){
+      upNextCancelled = true;
+      clearInterval(upNextTimer);
+      overlay.remove();
+    };
+    document.getElementById("upNextPlayNowBtn").onclick = function(){
+      clearInterval(upNextTimer);
+      overlay.remove();
+      loadVideoById(suggestion.id);
+    };
+
+    let secondsLeft = 5;
+    upNextTimer = setInterval(function(){
+      secondsLeft--;
+      var el = document.getElementById("upNextCountdown");
+      if(el) el.innerText = secondsLeft;
+      if(secondsLeft <= 0){
+        clearInterval(upNextTimer);
+        if(!upNextCancelled){
+          overlay.remove();
+          loadVideoById(suggestion.id);
+        }
+      }
+    }, 1000);
+
+  }catch(err){
+    console.error("Could not load Up Next suggestion:", err);
+  }
+}
+
+function buildPlayer(data){
+
+  htmlVideoEl = null;
+  ytPlayer = null;
+
+  if(data.fileUrl){
+
+    document.getElementById("playerWrap").innerHTML =
+      "<video id='mainVideoEl' autoplay controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
+
+    htmlVideoEl = document.getElementById("mainVideoEl");
+    htmlVideoEl.addEventListener("ended", handleVideoEnded);
+    ["play","playing"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(true); }); });
+    ["pause","ended","waiting","emptied"].forEach(function(e){ htmlVideoEl.addEventListener(e, function(){ if(window.SayBonActivity) SayBonActivity.setPlaying(false); }); });
+    htmlVideoEl.play().catch(function(err){ console.warn("Autoplay blocked:", err); });
+
+  }else if(data.youtubeId){
+
+    document.getElementById("playerWrap").innerHTML = "<div id='ytPlayerTarget' style='width:100%;height:100%;'></div>";
+
+    const createPlayer = () => {
+      ytPlayer = new YT.Player('ytPlayerTarget', {
+        videoId: data.youtubeId,
+        playerVars: { modestbranding: 1, rel: 0, autoplay: 1 },
+        events: {
+          onStateChange: (event) => {
+            if(window.SayBonActivity) SayBonActivity.setPlaying(event.data === YT.PlayerState.PLAYING);
+            if(event.data === YT.PlayerState.ENDED){
+              handleVideoEnded();
+            }
+          }
+        }
+      });
+    };
+
+    if(ytApiReady){
+      createPlayer();
+    }else{
+      const waitForApi = setInterval(() => {
+        if(ytApiReady){
+          clearInterval(waitForApi);
+          createPlayer();
+        }
+      }, 200);
+    }
+
+  }else{
+    document.getElementById("playerWrap").innerHTML =
+      "<div style='display:flex;align-items:center;justify-content:center;height:100%;color:#5F6270;font-size:13px;'>Video unavailable</div>";
+  }
+
+}
+
+async function loadVideoById(id, pushHistory){
+
+  try{
+
+    const url = API_BASE + "/api/musicVideo?id=" + encodeURIComponent(id) + (currentUser ? "&userId=" + encodeURIComponent(currentUser.uid) : "");
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if(!res.ok){
+      document.getElementById("videoTitle").innerText = "Video not found.";
+      return;
+    }
+
+    currentVideo = data;
+    videoId = id;
+    loadMoreLikeThis();
+
+    if(pushHistory){
+      window.history.replaceState({}, "", "/music/watch.html?v=" + id);
+    }
+
+    buildPlayer(data);
+
+    document.getElementById("videoTitle").innerText = data.title;
+    document.getElementById("videoArtist").innerText = data.artist || "SayBon Music";
+    document.getElementById("videoGenre").innerText = data.genre;
+    document.getElementById("viewsCount").innerText = data.views + " views";
+    document.getElementById("likeCount").innerText = data.likeCount;
+
+    document.getElementById("likeBtn").classList.toggle("liked", !!data.userHasLiked);
+
+    if(data.description){
+      document.getElementById("videoDescription").style.display = "block";
+      document.getElementById("videoDescription").innerText = data.description;
+    }else{
+      document.getElementById("videoDescription").style.display = "none";
+    }
+
+    fetch(API_BASE + "/api/musicIncrementView", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoId: id })
+    });
+
+    loadUpNext(data.genre, id);
+    loadComments(id);
+
+  }catch(err){
+    document.getElementById("videoTitle").innerText = "Could not load this video.";
+  }
+
+}
+
+function loadVideo(){
+  if(!videoId){
+    document.getElementById("videoTitle").innerText = "No video specified.";
+    return;
+  }
+  loadVideoById(videoId, false);
+}
+
+function upNextThumb(v){
+  if(v.thumbnailUrl) return "<img class='un-thumb' src='" + v.thumbnailUrl + "'>";
+  if(v.youtubeId) return "<img class='un-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
+  return "<div class='un-thumb-fallback'></div>";
+}
+
+async function loadUpNext(genre, activeId){
+
+  const res = await fetch(API_BASE + "/api/musicVideos?genre=" + encodeURIComponent(genre));
+  const videos = await res.json();
+
+  upNextQueue = videos;
+
+  const others = videos.filter(v => v.id !== activeId);
+  const list = document.getElementById("upNextList");
+
+  if(!others.length){
+    list.innerHTML = "<div class='empty-note'>No other videos in this genre yet.</div>";
+    return;
+  }
+
+  list.innerHTML = "";
+
+  others.forEach((v,i) => {
+    const row = document.createElement("div");
+    row.className = "up-next-row cascade-card";
+    row.style.animationDelay = (i * 0.06) + "s";
+    row.onclick = () => loadVideoById(v.id, true);
+    row.innerHTML =
+      upNextThumb(v) +
+      "<div><div class='un-title'>" + v.title + "</div><div class='un-sub'>" + (v.artist||"SayBon Music") + " · " + v.views + " views</div></div>";
+    list.appendChild(row);
+  });
+
+}
+
+document.getElementById("likeBtn").addEventListener("click", async () => {
+
+  const realUser = auth.currentUser;
+
+  if(!realUser){
+    alert("Please sign in to react to videos.");
+    return;
+  }
+
+  const res = await fetch(API_BASE + "/api/musicToggleReaction", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ videoId: currentVideo.id, userId: realUser.uid })
+  });
+
+  const data = await res.json();
+
+  const btn = document.getElementById("likeBtn");
+  const countEl = document.getElementById("likeCount");
+  let count = Number(countEl.innerText);
+
+  if(data.liked){
+    btn.classList.add("liked");
+    countEl.innerText = count + 1;
+  }else{
+    btn.classList.remove("liked");
+    countEl.innerText = count - 1;
+  }
+
+});
+
+async function loadComments(id){
+
+  const idToUse = id || videoId;
+  if(!idToUse) return;
+
+  const res = await fetch(API_BASE + "/api/musicComments?videoId=" + encodeURIComponent(idToUse));
+  const comments = await res.json();
+
+  const list = document.getElementById("commentsList");
+
+  if(!comments.length){
+    list.innerHTML = "<div class='empty-note'>No comments yet. Be the first to say something.</div>";
+    return;
+  }
+
+  list.innerHTML = "";
+
+  comments.forEach((c,i) => {
+    const div = document.createElement("div");
+    div.className = "comment cascade-card";
+    div.style.animationDelay = (i * 0.05) + "s";
+    div.innerHTML =
+      (c.userPhoto ? "<img class='comment-avatar' src='" + c.userPhoto + "'>" : "<div class='comment-avatar'></div>") +
+      "<div class='comment-body'>" +
+        "<div class='comment-name'>" + c.userName + "</div>" +
+        "<div class='comment-text'>" + c.text.replace(/</g,"&lt;") + "</div>" +
+      "</div>";
+    list.appendChild(div);
+  });
+
+}
+
+window.postComment = async function(){
+
+  const errorEl = document.getElementById("commentError");
+  errorEl.style.display = "none";
+
+  const realUser = auth.currentUser || currentUser;
+
+  if(!realUser){
+    errorEl.innerText = "Please sign in to comment.";
+    errorEl.style.display = "block";
+    return;
+  }
+
+  if(!currentVideo || !currentVideo.id){
+    errorEl.innerText = "Video not loaded yet - please wait a moment and try again.";
+    errorEl.style.display = "block";
+    return;
+  }
+
+  const text = document.getElementById("commentInput").value.trim();
+  if(!text) return;
+
+  const btn = document.getElementById("postCommentBtn");
+  btn.disabled = true;
+  btn.innerText = "Posting...";
+
+  try{
+
+    const res = await fetch(API_BASE + "/api/musicAddComment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        videoId: currentVideo.id,
+        userId: realUser.uid,
+        userName: realUser.displayName || "SayBon User",
+        userPhoto: realUser.photoURL || "",
+        text
+      })
+    });
+
+    if(res.ok){
+      document.getElementById("commentInput").value = "";
+      loadComments(currentVideo.id);
+    }else{
+      const data = await res.json().catch(() => ({}));
+      errorEl.innerText = data.error || "Could not post your comment. Please try again.";
+      errorEl.style.display = "block";
+    }
+
+  }catch(err){
+    errorEl.innerText = "Could not reach the server. Please try again.";
+    errorEl.style.display = "block";
+  }finally{
+    btn.disabled = false;
+    btn.innerText = "Post";
+  }
+
+}
+
+window.openPlaylistModal = async function(){
+
+  const realUser = auth.currentUser || currentUser;
+
+  if(!realUser){
+    alert("Please sign in to use playlists.");
+    return;
+  }
+
+  const res = await fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(realUser.uid));
+  const playlists = await res.json();
+
+  const list = document.getElementById("playlistList");
+
+  if(!playlists.length){
+    list.innerHTML = "<div class='empty-note'>You don't have any playlists yet.</div>";
+  }else{
+    list.innerHTML = "";
+    playlists.forEach(p => {
+      const item = document.createElement("div");
+      item.className = "playlist-item";
+      item.innerText = p.name + " (" + p.videoIds.length + ")";
+      item.onclick = () => addToPlaylist(p.id);
+      list.appendChild(item);
+    });
+  }
+
+  document.getElementById("playlistModal").style.display = "flex";
+
+}
+
+document.getElementById("playlistBtn").addEventListener("click", () => window.openPlaylistModal());
+
+async function addToPlaylist(playlistId){
+
+  await fetch(API_BASE + "/api/musicAddToPlaylist", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ playlistId, videoId: currentVideo.id })
+  });
+
+  document.getElementById("playlistModal").style.display = "none";
+  alert("Added to playlist.");
+
+}
+
+window.createAndAdd = async function(){
+
+  const realUser = auth.currentUser || currentUser;
+  const name = document.getElementById("newPlaylistName").value.trim();
+  if(!name) return;
+
+  const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: realUser.uid, name })
+  });
+
+  const data = await res.json();
+
+  if(res.ok){
+    await addToPlaylist(data.id);
+    document.getElementById("newPlaylistName").value = "";
+  }
+
+}
+
+</script>
+
+<div class="sidebar" id="sidebar">
+<div class="sb-item" onclick="location.href='/music/index.html'">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 12 9-9 9 9M5 10v10h14V10"/></svg>
+Home
+</div>
+<div class="sb-item" onclick="location.href='/music/playlists.html'">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15V6M18.5 18a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM12.5 20.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM9.5 6.5v14M21 6l-11.5.5"/></svg>
+My Playlists
+</div>
+<div class="sb-divider"></div>
+<div class="sb-section-label">Genres</div>
+<div id="genreItems"></div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<script>
+const wSidebarGenres = ["Afro","Latin","Soul","Pop","Jazz","Country","Reggae","Classical","Gospel"];
+const wGenreItemsEl = document.getElementById("genreItems");
+wSidebarGenres.forEach(function(g){
+  var item = document.createElement("div");
+  item.className = "sb-item";
+  item.innerHTML = "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M9 18V5l12-2v13'/><circle cx='6' cy='18' r='3'/><circle cx='18' cy='16' r='3'/></svg>" + g;
+  item.onclick = function(){ location.href = "/music/index.html?genre=" + encodeURIComponent(g); };
+  wGenreItemsEl.appendChild(item);
+});
+
+const wSidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+const wSidebarEl = document.getElementById("sidebar");
+const wSidebarOverlay = document.getElementById("sidebarOverlay");
+
+function wCloseSidebar(){
+  wSidebarEl.classList.remove("open");
+  wSidebarOverlay.classList.remove("open");
+}
+wSidebarToggleBtn.addEventListener("click", function(){
+  wSidebarEl.classList.toggle("open");
+  wSidebarOverlay.classList.toggle("open");
+});
+wSidebarOverlay.addEventListener("click", wCloseSidebar);
+</script>
+
+</body>
+</html>
+
+
