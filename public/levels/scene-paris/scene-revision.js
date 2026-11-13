@@ -132,6 +132,10 @@ var CSS='\
 .rv-dots i.cur{background:#ffd68c;box-shadow:0 0 0 4px rgba(255,214,140,.3)}\
 .rv-dots i.done{background:#7bd88f}\
 .rv-x{position:absolute;right:12px;top:max(12px,env(safe-area-inset-top));z-index:5;border:0;border-radius:999px;padding:8px 14px;background:rgba(10,16,30,.55);color:#fff;font:600 13px Poppins,system-ui,sans-serif;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}\
+.rv-cn{position:absolute;top:max(14px,env(safe-area-inset-top));width:40px;height:40px;padding:0;box-sizing:border-box;border-radius:50%;background:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;z-index:6;box-shadow:0 4px 14px rgba(0,0,0,.35)}\
+.rv-cn svg{width:18px;height:18px;flex:none}\
+.rv-cl{left:14px}.rv-cr{right:14px}\
+@media (max-aspect-ratio:1/1){.rv-where{margin-top:50px;min-width:0;padding:.5em 1.3em .5em 1.5em;letter-spacing:.2em;font-size:clamp(14px,4.2vw,20px)}}\
 .rv-panel:empty{display:none}.rv-panel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:14px;z-index:4}\
 .rv-card{width:min(940px,100%);max-height:100%;border-radius:26px;background:rgba(14,20,36,.74);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(0,0,0,.45);padding:clamp(14px,2.6vh,26px);animation:rvup .45s ease both}\
 .rv-pick{display:flex;gap:clamp(14px,2.4vw,30px);align-items:stretch;height:min(80vh,600px)}\
@@ -201,6 +205,7 @@ var MIC='<svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2.2" s
 
 /* ---------- the game ---------- */
 var G=null;
+var CORNERS='<button type="button" class="rv-cn rv-cl" data-go="./" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><button type="button" class="rv-cn rv-cr" data-go="/dashboard/" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></button>';
 function start(opts){
  if(G)close(true);
  opts=opts||{};
@@ -208,8 +213,9 @@ function start(opts){
  try{if(!document.getElementById('rv-font')){var fl=document.createElement('link');fl.id='rv-font';fl.rel='stylesheet';fl.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap';document.head.appendChild(fl);}}catch(e){}
  var root=document.createElement('div');root.className='rv';
  root.innerHTML='<div class="rv-bgfill"></div><div class="rv-bg"></div><div class="rv-ch rv-me"><div class="rv-mic">'+MIC+'</div><img alt=""><div class="rv-name"></div></div>'+
-  '<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><div class="rv-panel"></div>';
+  CORNERS+'<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><div class="rv-panel"></div>';
  document.body.appendChild(root);
+ [].forEach.call(root.querySelectorAll('.rv-cn'),function(b){b.onclick=function(){location.href=b.getAttribute('data-go');};});
  try{document.documentElement.style.overflow='hidden';}catch(e){}
  G={opts:opts,level:opts.level||(window.__psMeta&&window.__psMeta.level)||'A0',root:root,st:st,idx:0,name:'',av:{},results:[],raf:0,dead:false,media:null,stream:null,rec:null,timers:[],greeters:{}};
  G.fill=root.querySelector('.rv-bgfill');G.bg=root.querySelector('.rv-bg');G.me=root.querySelector('.rv-me');G.meImg=G.me.querySelector('img');G.meName=G.me.querySelector('.rv-name');
