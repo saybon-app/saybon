@@ -87,7 +87,7 @@ function l1Show(i,ctx){
 function l1Finish(ctx){
  if(cleanup)cleanup();
  l1Write(0);
- try{var uid=window.lsCurrentUid;if(uid&&window.__psLevel)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:window.__psLevel,lesson:lessonNo()||1})}).catch(function(){});}catch(e){}
+ try{var uid=window.lsCurrentUid,LV=window.__psLevel||'a0-tout-public';if(uid)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:LV,lesson:lessonNo()||1})}).catch(function(){});}catch(e){}
  var c=ensureCard(ctx.root);c.classList.add('fin');
  var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
  p.classList.add('pc-pr');
