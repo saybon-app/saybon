@@ -116,7 +116,7 @@ var CSS='\
 .rv-say:after{content:"";position:absolute;left:50%;bottom:-8px;width:16px;height:16px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:3px}\
 .rv-say.on{opacity:1;transform:translate(-50%,-4px) scale(1)}\
 .rv-top{position:absolute;left:0;right:0;top:0;padding:max(14px,env(safe-area-inset-top)) 14px 0;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}\
-.rv-where{margin-top:1.6vh;padding:.45em 1.5em;border-radius:16px;background:rgba(10,16,30,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 26px rgba(0,0,0,.35);font:700 clamp(17px,3.4vh,30px)/1.2 Georgia,"Playfair Display",serif;white-space:nowrap;opacity:0;transform:translateY(-8px);transition:opacity .45s,transform .45s}\
+.rv-where{margin-top:1.8vh;min-width:min(78vw,560px);text-align:center;padding:.62em 2.4em .62em 2.6em;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.08));backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.42);box-shadow:0 12px 34px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.5);font:600 clamp(16px,3.1vh,28px)/1.2 "Cormorant Garamond","Playfair Display",Georgia,serif;text-transform:uppercase;letter-spacing:.36em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.45);white-space:nowrap;opacity:0;transform:translateY(-8px);transition:opacity .45s,transform .45s}\
 .rv-where.on{opacity:1;transform:none}\
 .rv-where:empty{display:none}\
 .rv-where.typing .wt{border-right:2px solid #ffd68c;margin-right:1px;animation:rvcaret .7s steps(1) infinite}\
@@ -205,6 +205,7 @@ function start(opts){
  if(G)close(true);
  opts=opts||{};
  var st=document.createElement('style');st.id='rv-css';st.textContent=CSS;document.head.appendChild(st);
+ try{if(!document.getElementById('rv-font')){var fl=document.createElement('link');fl.id='rv-font';fl.rel='stylesheet';fl.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap';document.head.appendChild(fl);}}catch(e){}
  var root=document.createElement('div');root.className='rv';
  root.innerHTML='<div class="rv-bgfill"></div><div class="rv-bg"></div><div class="rv-ch rv-me"><div class="rv-mic">'+MIC+'</div><img alt=""><div class="rv-name"></div></div>'+
   '<div class="rv-top"><div class="rv-where"></div><div class="rv-prompt"></div></div><div class="rv-dots"></div><div class="rv-panel"></div>';
