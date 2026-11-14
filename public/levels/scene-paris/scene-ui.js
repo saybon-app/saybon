@@ -27,6 +27,14 @@ function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
  function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
  return look(d,0);}
+/* lesson 2 and 3: words the learner adds (their own name) must not count against them - score only the reference words */
+function pickScoreL(d){
+ if((lessonNo()===2||lessonNo()===3)&&d&&d.wordFeedback&&d.wordFeedback.length){
+  var w=d.wordFeedback.filter(function(x){return x&&x.errorType!=='Insertion';});
+  if(w.length){var t=0;w.forEach(function(x){t+=(typeof x.accuracyScore==='number'&&x.errorType!=='Omission')?x.accuracyScore:0;});return t/w.length;}
+ }
+ return pickScore(d);
+}
 function decode16(blob){
  return blob.arrayBuffer().then(function(ab){
   var AC=window.AudioContext||window.webkitAudioContext,ac=new AC();
@@ -62,26 +70,30 @@ var L1D=[['Bonjour !','Bonjour'],['Salut !','Salut'],['Bonsoir !','Bonsoir'],['A
 /* where the learner answers inside A0_TP_L1_dialogue.mp3 (seconds) */
 var L1W=[[31.9,33.6],[34.95,37.0],[38.9,40.95],[42.9,44.95],[47.0,49.3]];
 /* lesson 2 dialogue: one answer window inside A0_TP_L2_dialogue.mp3 */
+var L3W=[[2.96,5.86],[6.44,8.90],[12.74,14.96],[19.00,20.68],[21.14,23.58]];
+var L3D=[['Bonjour.','Bonjour\u2026'],['\u00c7a va bien.','\u00c7a va bien\u2026'],["Je m'appelle.",'Je m\u2019appelle\u2026'],['Au revoir.','Au revoir\u2026'],['\u00c0 bient\u00f4t.','\u00c0 bient\u00f4t\u2026']];
 var L2W=[[20.7,25.9]];
 var L2D=[["Je m'appelle. Et toi, comment t'appelles-tu ?",'Je m\u2019appelle\u2026']];
-function DW(){return lessonNo()===2?L2W:L1W;}
-function DD(){return lessonNo()===2?L2D:L1D;}
-function dlgUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=1':'/assets/audio/A0_TP_L1_dialogue.mp3?v=2';}
-function dlgIdx(){return lessonNo()===2?L2P.length:5;}
+function DW(){return lessonNo()===3?L3W:lessonNo()===2?L2W:L1W;}
+function DD(){return lessonNo()===3?L3D:lessonNo()===2?L2D:L1D;}
+function dlgUrl(){return lessonNo()===3?'/assets/audio/A0_TP_L3_dialogue.mp3?v=1':lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=1':'/assets/audio/A0_TP_L1_dialogue.mp3?v=2';}
+function dlgIdx(){return lessonNo()===3?3:lessonNo()===2?L2P.length:5;}
 function l1Key(){return 'psL1:'+(window.lsCurrentUid||'anon')+':'+((window.__psMeta||{}).lesson||'');}
 function l1Read(){try{return +localStorage.getItem(l1Key())||0;}catch(e){return 0;}}
 function l1Write(n){try{if(n>0)localStorage.setItem(l1Key(),String(n));else localStorage.removeItem(l1Key());}catch(e){}}
 function lessonNo(){return (window.__psMeta||{}).lesson;}
-function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&(m.lesson===1||m.lesson===2);}
+function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&(m.lesson===1||m.lesson===2||m.lesson===3);}
 /* lesson 2: Je m'appelle (intro + four phrases; the dialogue step is added when its audio exists) */
 var L2P=["Je m'appelle.","Je m'appelle.","Comment t'appelles-tu ? Je m'appelle.","Comment t'appelles-tu ? Je m'appelle. Et toi, comment t'appelles-tu ?"];
-function introUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=1':'/assets/audio/A0_TP_L1_intro.mp3?v=1';}
-function lastStep(){return lessonNo()===2?L2P.length+1:6;}
+var L3P=["Comment \u00e7a va ?","\u00c7a va. \u00c7a va bien. \u00c7a va tr\u00e8s bien."];
+function introUrl(){return lessonNo()===3?'/assets/audio/A0_TP_L3_intro.mp3?v=1':lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=1':'/assets/audio/A0_TP_L1_intro.mp3?v=1';}
+function lastStep(){return lessonNo()===3?4:lessonNo()===2?L2P.length+1:6;}
 function advance(){if(window.__psAdv)window.__psAdv();else window.lsGoNext();}
 function l1Show(i,ctx){
  L1.on=true;
  if(i>=lastStep()){l1Finish(ctx);return;}
- var b=lessonNo()===2?(i<L2P.length?[{type:'text',recordPrompt:true,expectedText:L2P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):i<5?[{type:'text',recordPrompt:true,expectedText:L1P[i][0],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:5,_dlgAll:true}];
+ if(lessonNo()===3&&i===2){window.__psListen={url:'/assets/audio/A0_TP_L3_dialogue_intro.mp3?v=1',next:3};window.__psSkipIntro=0;window.__psUI(9000+i,[{type:'text',text:' '}],ctx);return;}
+ var b=lessonNo()===3?(i<2?[{type:'text',recordPrompt:true,expectedText:L3P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):lessonNo()===2?(i<L2P.length?[{type:'text',recordPrompt:true,expectedText:L2P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):i<5?[{type:'text',recordPrompt:true,expectedText:L1P[i][0],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:5,_dlgAll:true}];
  window.__psUI(9000+i,b,ctx);
 }
 function l1Finish(ctx){
@@ -89,7 +101,7 @@ function l1Finish(ctx){
  l1Write(0);
  try{var uid=window.lsCurrentUid,LV=window.__psLevel||'a0-tout-public';if(uid)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:LV,lesson:lessonNo()||1})}).catch(function(){});}catch(e){}
  var c=ensureCard(ctx.root);c.classList.add('fin');
- var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
+ var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===3?'You finished Comment \u00e7a va ?':lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
  p.classList.add('pc-pr');
  window.__psAdv=function(){location.href='./';};
  p.querySelector('.pc-back').onclick=function(){location.href='./';};
@@ -150,10 +162,11 @@ window.__psUI=function(partNum,blocks,ctx){
  if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
   var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
+  var lis=window.__psListen||null;if(lis){window.__psListen=null;url=lis.url;video=null;window.__psAdv=function(){l1Show(lis.next,ctx);};}
   if(ovr)window.__psAdv=function(){l1Show(0,ctx);};
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
-  function more(){btn.classList.remove('on');T(function(){if(ovr)l1Show(0,ctx);else window.lsGoNext();},400);}
+  function more(){btn.classList.remove('on');T(function(){if(lis)l1Show(lis.next,ctx);else if(ovr)l1Show(0,ctx);else window.lsGoNext();},400);}
   if(!url){var hasTxt=blocks.some(function(b){return b.type==='text'&&(b.text||b.content||b.html);});try{console.warn('ps: intro part without media',JSON.stringify(blocks).slice(0,400));}catch(e){}if(!hasTxt){T(function(){window.lsGoNext();},350);return true;}btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
@@ -176,7 +189,7 @@ window.__psUI=function(partNum,blocks,ctx){
  if(pb&&pb._dlgAll){
   window.__psAdv=function(){l1Finish(ctx);};
   var dp=swap(c,
-   '<div class="pc-top"><div class="pc-hn">'+(lessonNo()===2?'Phrase cinq':'Phrase six')+'</div><div class="pc-hi">Listen carefully.</div><div class="pc-hp">Headphones work best</div>'+(RS.welcome?'<div class="pc-wb">Welcome back — continuing from where you stopped</div>':'')+'</div>'+
+   '<div class="pc-top"><div class="pc-hn">'+(lessonNo()===3?'Phrase trois':lessonNo()===2?'Phrase cinq':'Phrase six')+'</div><div class="pc-hi">Listen carefully.</div><div class="pc-hp">Headphones work best</div>'+(RS.welcome?'<div class="pc-wb">Welcome back — continuing from where you stopped</div>':'')+'</div>'+
    '<div class="pc-mid"><div class="pc-s1 pc-dl"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div>'+
     '<div class="pc-dots">'+DW().map(function(){return '<i></i>';}).join('')+'</div><canvas class="pc-wv" width="560" height="88"></canvas></div></div>'+
    '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
@@ -235,7 +248,7 @@ window.__psUI=function(partNum,blocks,ctx){
      if(b-a<1600)return {raw:0,quiet:true};
      var wb=pcmToWav(d.subarray(a,b));
      if(wb.pk<0.012)return {raw:0,quiet:true};
-     return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(DD()[i][0]),{method:'POST',body:wb}).then(function(r){return r.json();}).then(function(j){var r=pickScore(j);return {raw:r===null?0:r,quiet:false};}).catch(function(){return {raw:0,quiet:false,err:true};});
+     return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(DD()[i][0]),{method:'POST',body:wb}).then(function(r){return r.json();}).then(function(j){var r=pickScoreL(j);return {raw:r===null?0:r,quiet:false};}).catch(function(){return {raw:0,quiet:false,err:true};});
     }));
    }).then(function(rs){
     if(dead)return;
@@ -268,7 +281,7 @@ window.__psUI=function(partNum,blocks,ctx){
  var expected=pb.expectedText||'';
  var L1i=(pb._l1!==undefined)?pb._l1:-1,dlgK=(pb._dlg!==undefined)?pb._dlg:-1;
  var lbl0=L1i>=0?('Phrase '+FR[L1i]):phraseLabel(partNum);
- if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L'+(lessonNo()===2?2:1)+'_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
+ if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L'+lessonNo()+'_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
  var p=swap(c,
   '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':'Listen attentively, and repeat when prompted.')+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
@@ -343,7 +356,7 @@ window.__psUI=function(partNum,blocks,ctx){
    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
    p.classList.remove('scored','has-rec');p.classList.add('is-rec');recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
    if(sc())sc().micState('rec');
-   T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},lessonNo()===2?14000:9000);
+   T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},lessonNo()>=2?14000:9000);
   }).catch(function(){st.textContent='Microphone blocked';});
  }
  mic.onclick=function(){
@@ -364,7 +377,7 @@ window.__psUI=function(partNum,blocks,ctx){
   st.textContent='Scoring...';res.innerHTML='<div class="pc-wait"><i></i><i></i><i></i></div>';
   toWav(blob).catch(function(){return new Blob([blob],{type:'audio/webm'});}).then(function(body){window.__psSent=body.type+' '+body.size+' pk='+(body.pk!==undefined?body.pk.toFixed(3):'?');if(body.pk!==undefined&&body.pk<0.012)return {quiet:true};return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:body}).then(function(r){return r.json();});}).then(function(d){
    if(dead)return;scoring=false;mic.disabled=false;
-   var quiet=!!d.quiet,rawS=quiet?0:pickScore(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
+   var quiet=!!d.quiet,rawS=quiet?0:pickScoreL(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
    var noScore=(rawS===null&&!quiet),s=Math.round(rawS||0);
    var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore&&!quiet;s=cv2.v;
    var msg=quiet?'Je t\u2019entends mal<small>Your microphone is very quiet \u2014 check it and try again</small>':noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 give it another go</small>':(s>=hi?'Bravo !<small>Well done \u2014 on to the next, or go again</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good \u2014 keep going, or try once more</small>':'Bon effort !<small>Good effort \u2014 try again, or move on</small>'));
