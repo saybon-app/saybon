@@ -914,7 +914,7 @@ try{
 
 const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,originalFileUrl,originalFileType}=req.body
 
-const amountNum=Number(price)
+const amountNum=serverFloorPrice(plan,wordCount,documentText,Number(price))
 const cents=Math.round(amountNum*100)
 
 if(!email || !cents || cents<=0){
@@ -4530,7 +4530,7 @@ targetLanguage:targetLanguage||"",
 sourceLanguage:sourceLanguage||"",
 clientFile:clientFile||"Untitled document",
 documentText:documentText||"",
-price:Number(price)||0,priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",
+price:serverFloorPrice(plan,wordCount,documentText,Number(price)||0),priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",
 paid:false,
 status:"awaiting_payment",
 translator:null,
@@ -4576,6 +4576,9 @@ request.end();
 
 if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
 const jobDocForIncome = await db.collection("translationJobs").doc(jobId).get();
+const _chk = await checkPaystackTranslationPayment(jobDocForIncome, paystackData.data, reference, jobId);
+if(!_chk.ok){ console.warn("PAYSTACK TRANSLATION REJECTED", jobId, reference, _chk.why); return res.json({verified:false}); }
+if(_chk.already){ return res.json({verified:true, jobId}); }
 const jobPriceUsd = jobDocForIncome.exists ? (Number(jobDocForIncome.data().price) || 0) : 0;
 
 await confirmTranslationJobPaid(
@@ -4885,6 +4888,48 @@ app.get("/api/checkFormattingAccess", async(req,res)=>{ try{ var jobId = req.que
 app.post("/api/completeFormatting", express.json(), async(req,res)=>{ try{ var submissionId = req.body.submissionId; var finalDeliverableUrl = req.body.finalDeliverableUrl; if(!submissionId || !finalDeliverableUrl) return res.status(400).json({error:"submissionId and finalDeliverableUrl are required"}); await db.collection("jobSubmissions").doc(submissionId).update({ finalDeliverableUrl: finalDeliverableUrl }); var scoringResult = null; try{ scoringResult = await scoreTranslationSubmission(submissionId); if(scoringResult && scoringResult.becameWinner){ var subDoc = await db.collection("jobSubmissions").doc(submissionId).get(); var jobIdForWinner = subDoc.data().jobId; await db.collection("translationJobs").doc(jobIdForWinner).update({ formattingComplete: true, finalDeliverableUrl: finalDeliverableUrl, formattingCompletedAt: admin.firestore.FieldValue.serverTimestamp() }); } }catch(scoreErr){ console.error("SCORING ERROR:", scoreErr); } res.json({success:true, score: scoringResult}); }catch(err){ console.error(err); res.status(500).json({error:"could not complete formatting"}); } });
 
 
+/* ---- translation payment safety (server-side price floor, payment-to-job binding) ---- */
+function serverFloorPrice(plan, wordCount, documentText, clientPrice){
+  var rate = String(plan || "").toLowerCase() === "express" ? 0.05 : 0.025;
+  var w = Number(wordCount) || 0;
+  var tw = String(documentText || "").split(/\s+/).filter(Boolean).length;
+  if(tw > w * 1.25 + 10) w = tw;
+  var floor = Math.round(w * rate * 100) / 100;
+  var p = Number(clientPrice) || 0;
+  return p >= floor - 0.01 ? p : floor;
+}
+var _usdRates = { at: 0, rates: null };
+async function getUsdRateFor(cur){
+  cur = String(cur || "USD").toUpperCase();
+  if(cur === "USD") return 1;
+  if(!_usdRates.rates || Date.now() - _usdRates.at > 3600000){
+    try{ var r = await fetch("https://open.er-api.com/v6/latest/USD"); var d = await r.json(); if(d && d.rates){ _usdRates = { at: Date.now(), rates: d.rates }; } }catch(e){ console.error("rate lookup failed", e.message); }
+  }
+  return (_usdRates.rates && _usdRates.rates[cur]) || null;
+}
+async function checkPaystackTranslationPayment(jobDoc, pd, reference, jobId){
+  if(!jobDoc.exists) return { ok: false, why: "no such job" };
+  var job = jobDoc.data();
+  if(job.paid === true) return { ok: true, already: true };
+  var jEmail = String(job.email || "").toLowerCase();
+  var pEmail = String((pd.customer && pd.customer.email) || "").toLowerCase();
+  if(jEmail && pEmail && jEmail !== pEmail) return { ok: false, why: "email mismatch" };
+  var cur = String(pd.currency || "").toUpperCase();
+  var rate = await getUsdRateFor(cur);
+  if(!rate) return { ok: false, why: "no rate for " + cur };
+  var paidUsd = (Number(pd.amount) || 0) / 100 / rate;
+  var need = Number(job.price) || 0;
+  if(!(need > 0) || paidUsd < need * 0.9) return { ok: false, why: "amount too low (" + paidUsd.toFixed(2) + " < " + need + ")" };
+  var refDoc = db.collection("paystackRefsUsed").doc(String(reference));
+  try{
+    await db.runTransaction(async function(t){
+      var s = await t.get(refDoc);
+      if(s.exists && s.data().jobId !== jobId) throw new Error("reference already used");
+      t.set(refDoc, { jobId: jobId, at: new Date() });
+    });
+  }catch(e){ return { ok: false, why: String(e.message || e) }; }
+  return { ok: true };
+}
 async function requireAdminAuth(req, res, next){ try{ var authHeader = req.headers.authorization || ""; var token = authHeader.indexOf("Bearer ") === 0 ? authHeader.slice(7) : null; if(!token){ return res.status(401).json({error:"authentication required"}); } var decoded = await admin.auth().verifyIdToken(token); var email = (decoded.email || "").toLowerCase(); var snapshot = await db.collection("accessControl").where("email","==",email).limit(1).get(); if(snapshot.empty){ return res.status(403).json({error:"not authorized"}); } req.adminEmail = email; next(); }catch(err){ console.error("ADMIN AUTH CHECK FAILED:", err); res.status(401).json({error:"authentication failed"}); } }
 
 
