@@ -1,0 +1,422 @@
+CLIENT  public\admin\translation-admin.html:79   fetch("/api/editor/jobs"
+CLIENT  public\chat\admin.html:177   fetch(API_BASE + "/api/adminChatUsers"
+CLIENT  public\chat\admin.html:209   fetch(API_BASE + "/api/adminBlockUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({u
+CLIENT  public\chat\admin.html:214   fetch(API_BASE + "/api/adminUnblockUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(
+CLIENT  public\chat\admin.html:219   fetch(API_BASE + "/api/adminFlagUser", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ui
+CLIENT  public\chat\admin.html:226   fetch(API_BASE + "/api/adminChatViolations"
+CLIENT  public\chat\admin.html:254   fetch(API_BASE + "/api/adminChatCustomRooms"
+CLIENT  public\chat\admin.html:280   fetch(API_BASE + "/api/adminDeleteChatRoom", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringi
+CLIENT  public\chat\chat.js:559   fetch(API_BASE + "/api/chatUserStatus?uid=" + encodeURIComponent(currentUser.uid
+CLIENT  public\chat\chat.js:567   fetch(API_BASE + "/api/chatCheckContent", {
+CLIENT  public\chat\chat.js:576   fetch(API_BASE + "/api/chatRecordViolation", {
+CLIENT  public\dashboard\achievements.html:70   fetch(API+"/api/activity/summary?day="+ld(
+CLIENT  public\dashboard\dashboard-live.js:121   fetch(API + "/api/activity/summary?day=" + localDay(
+CLIENT  public\dashboard\dashboard-live.js:9   fetch(API + "/api/activity/ping", { mode: "no-cors" }
+CLIENT  public\dashboard\level-sync.js:10   fetch(API + "/api/level", { method, headers: Object.assign({ Authorization: "Bearer " + t }, body ? { "Content-Type":
+CLIENT  public\dashboard\progress.html:47   fetch(API+"/api/activity/summary?day="+ld(
+CLIENT  public\dashboard\progress.html:48   fetch(API+"/api/delf/state", H
+CLIENT  public\dashboard\settings.html:113   fetch(API+"/api/activity/summary?day="+ld(
+CLIENT  public\dashboard\settings.html:120   fetch(API+"/api/activity/settings",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "
+CLIENT  public\delf\admin.html:156   fetch(API_BASE + "/api/delfAdminAddAsset", {
+CLIENT  public\delf\admin.html:180   fetch(API_BASE + "/api/delfAssets"
+CLIENT  public\delf\admin.html:208   fetch(API_BASE + "/api/delfAdminDeleteAsset", {
+CLIENT  public\delf\admin.html:218   fetch(API_BASE + "/api/delfAdminRenameAsset", {
+CLIENT  public\delf\dashboard.js:161   fetch(API_BASE + "/api/delf/prices"
+CLIENT  public\delf\dashboard.js:180   fetch(API_BASE + "/api/delf/state", { headers: { Authorization: "Bearer " + token } }
+CLIENT  public\delf\index.html:193   fetch("https://saybonapp-server.onrender.com/api/delf/state",{headers:{Authorization:"Bearer "+t}}
+CLIENT  public\delf\mock.js:119   fetch(API_BASE + "/api/delf/tts-lines", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Be
+CLIENT  public\delf\mock.js:212   fetch(API_BASE + "/api/delfTranscribe", { method: "POST", body: wav }
+CLIENT  public\delf\mock.js:232   fetch(API_BASE + "/api/gradeDelfMock", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.string
+CLIENT  public\delf\mock.js:257   fetch(API_BASE + "/api/delfMockSave", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bear
+CLIENT  public\delf\mock.js:272   fetch(API_BASE + "/api/delf/journey/skill-mock", { method: "POST", headers: { "Content-Type": "application/json", Authoriza
+CLIENT  public\delf\mocks.html:30   fetch(API_BASE + "/api/delfMockHistory", { headers: { Authorization: "Bearer " + t } }
+CLIENT  public\delf\mocks.html:49   fetch(API_BASE + "/api/delf/prices", { headers: { Authorization: "Bearer " + t } }
+CLIENT  public\delf\payment.html:110   fetch(API_BASE + "/api/delf/checkout", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bea
+CLIENT  public\delf\payment.html:119   fetch(API_BASE + "/api/delf/prices", { headers: token ? { Authorization: "Bearer " + token } : {} }
+CLIENT  public\delf\payment.html:97   fetch(API_BASE + "/api/delf/admin-grant", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "
+CLIENT  public\delf\payment-success.html:33   fetch(API_BASE + "/api/delf/verify?" + qs, { headers: { Authorization: "Bearer " + t } }
+CLIENT  public\delf\placement.js:283   fetch(API_BASE + "/api/delf/tts", {
+CLIENT  public\delf\placement.js:680   fetch(API_BASE + "/api/delf/placement", {
+CLIENT  public\delf\placement.js:697   fetch(API_BASE + "/api/delf/grade-writing", {
+CLIENT  public\delf\placement.js:705   fetch(API_BASE + "/api/delf/grade-speaking?attemptId=" + encodeURIComponent(saved.id
+CLIENT  public\delf\placement.js:78   fetch(API_BASE + "/api/delfAssets"
+CLIENT  public\delf\tout-public\index.html:58   fetch(API_BASE + "/api/delf/prices", { headers: { Authorization: "Bearer " + token } }
+CLIENT  public\features\admin\assets\domains.html:41   fetch(API_BASE + "/api/assetDomainsList"
+CLIENT  public\features\admin\assets\domains.html:51   fetch(API_BASE + "/api/assetDomainsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(
+CLIENT  public\features\admin\assets\domains.html:56   fetch(API_BASE + "/api/assetDomainsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\assets\ip.html:41   fetch(API_BASE + "/api/assetIpList"
+CLIENT  public\features\admin\assets\ip.html:51   fetch(API_BASE + "/api/assetIpDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id}
+CLIENT  public\features\admin\assets\ip.html:56   fetch(API_BASE + "/api/assetIpAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\assets\tools.html:41   fetch(API_BASE + "/api/assetToolsList"
+CLIENT  public\features\admin\assets\tools.html:51   fetch(API_BASE + "/api/assetToolsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({i
+CLIENT  public\features\admin\assets\tools.html:56   fetch(API_BASE + "/api/assetToolsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\audio-studio\index.html:103   fetch(API_BASE + "/api/sonioxVoices"
+CLIENT  public\features\admin\audio-studio\index.html:122   fetch(API_BASE + "/api/listGeneratedAudio", {
+CLIENT  public\features\admin\audio-studio\index.html:159   fetch(API_BASE + "/api/generateLessonAudio", {
+CLIENT  public\features\admin\auth\admin-guard.js:15   fetch(API_BASE + "/api/accessControlCheck?email=" + encodeURIComponent(user.email || ""
+CLIENT  public\features\admin\documents\business-plan.html:48   fetch(API_BASE + "/api/docBusinessPlan" + "List"
+CLIENT  public\features\admin\documents\business-plan.html:59   fetch(API_BASE + "/api/docBusinessPlan" + "Delete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.st
+CLIENT  public\features\admin\documents\business-plan.html:78   fetch(API_BASE + "/api/docBusinessPlan" + "Add", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.strin
+CLIENT  public\features\admin\documents\contracts.html:48   fetch(API_BASE + "/api/docContracts" + "List"
+CLIENT  public\features\admin\documents\contracts.html:59   fetch(API_BASE + "/api/docContracts" + "Delete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.strin
+CLIENT  public\features\admin\documents\contracts.html:78   fetch(API_BASE + "/api/docContracts" + "Add", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringif
+CLIENT  public\features\admin\documents\nda-records.html:48   fetch(API_BASE + "/api/docNda" + "List"
+CLIENT  public\features\admin\documents\nda-records.html:59   fetch(API_BASE + "/api/docNda" + "Delete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\documents\nda-records.html:78   fetch(API_BASE + "/api/docNda" + "Add", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payl
+CLIENT  public\features\admin\documents\receipts.html:48   fetch(API_BASE + "/api/docReceipts" + "List"
+CLIENT  public\features\admin\documents\receipts.html:59   fetch(API_BASE + "/api/docReceipts" + "Delete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.string
+CLIENT  public\features\admin\documents\receipts.html:78   fetch(API_BASE + "/api/docReceipts" + "Add", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify
+CLIENT  public\features\admin\feedback\index.html:100   fetch(API_BASE + "/api/adminFeedbackAdd", {
+CLIENT  public\features\admin\feedback\index.html:111   fetch(API_BASE + "/api/adminFeedbackUpdate", {
+CLIENT  public\features\admin\feedback\index.html:120   fetch(API_BASE + "/api/adminFeedbackDelete", {
+CLIENT  public\features\admin\feedback\index.html:70   fetch(API_BASE + "/api/adminFeedbackList"
+CLIENT  public\features\admin\financials\expenses\index.html:123   fetch(API_BASE + "/api/financeExpenseAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p
+CLIENT  public\features\admin\financials\expenses\index.html:83   fetch(API_BASE + "/api/financeExpenseList"
+CLIENT  public\features\admin\financials\expenses\index.html:95   fetch(API_BASE + "/api/financeExpenseDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringif
+CLIENT  public\features\admin\financials\founder\index.html:103   fetch(API_BASE + "/api/financeFounderDrawDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stri
+CLIENT  public\features\admin\financials\founder\index.html:109   fetch(API_BASE + "/api/financeFounderSetPercent", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stri
+CLIENT  public\features\admin\financials\founder\index.html:118   fetch(API_BASE + "/api/financeFounderDrawAdd", {
+CLIENT  public\features\admin\financials\founder\index.html:86   fetch(API_BASE + "/api/financeFounderSummary"
+CLIENT  public\features\admin\financials\income\index.html:123   fetch(API_BASE + "/api/financeIncomeAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(pa
+CLIENT  public\features\admin\financials\income\index.html:83   fetch(API_BASE + "/api/financeIncomeList"
+CLIENT  public\features\admin\financials\income\index.html:95   fetch(API_BASE + "/api/financeIncomeDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify
+CLIENT  public\features\admin\financials\reports\index.html:67   fetch(API_BASE + "/api/financeReportsSummary"
+CLIENT  public\features\admin\investors\cap-table.html:51   fetch(API_BASE + "/api/capTableList"
+CLIENT  public\features\admin\investors\cap-table.html:67   fetch(API_BASE + "/api/capTableDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id}
+CLIENT  public\features\admin\investors\cap-table.html:74   fetch(API_BASE + "/api/capTableAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\investors\investor-exports.html:37   fetch(API_BASE + "/api/capTableList"
+CLIENT  public\features\admin\investors\terms.html:44   fetch(API_BASE + "/api/investorTermsList"
+CLIENT  public\features\admin\investors\terms.html:54   fetch(API_BASE + "/api/investorTermsDelete", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify
+CLIENT  public\features\admin\investors\terms.html:59   fetch(API_BASE + "/api/investorTermsAdd", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+CLIENT  public\features\admin\payouts\index.html:101   fetch(API_BASE + "/api/adminMarkPayoutPaidManually", {
+CLIENT  public\features\admin\payouts\index.html:124   fetch(API_BASE + "/api/paystackBankList"
+CLIENT  public\features\admin\payouts\index.html:157   fetch(API_BASE + "/api/adminInitiatePaystackPayout", {
+CLIENT  public\features\admin\payouts\index.html:178   fetch(API_BASE + "/api/adminFinalizePaystackPayout", {
+CLIENT  public\features\admin\payouts\index.html:80   fetch(API_BASE + "/api/adminListPayoutCandidates"
+CLIENT  public\features\admin\settings\access-control.html:44   fetch(API_BASE + "/api/accessControlList"
+CLIENT  public\features\admin\settings\access-control.html:54   fetch(API_BASE + "/api/accessControlRemove", {method:"POST",headers:{"Content-Type":"application/json", "Authorization": "B
+CLIENT  public\features\admin\settings\access-control.html:59   fetch(API_BASE + "/api/accessControlAdd", {method:"POST",headers:{"Content-Type":"application/json", "Authorization": "Bear
+CLIENT  public\features\admin\settings\feature-locks.html:42   fetch(API_BASE + "/api/featureLocksGet"
+CLIENT  public\features\admin\settings\feature-locks.html:51   fetch(API_BASE + "/api/featureLocksSet", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({na
+CLIENT  public\features\admin\translation-review\index.html:41   fetch(API_BASE + "/api/adminPendingReviews"
+CLIENT  public\features\admin\translation-review\index.html:50   fetch(API_BASE + "/api/adminConfirmSelection", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.s
+CLIENT  public\features\admin\translation-review\index.html:55   fetch(API_BASE + "/api/adminJobSubmissions?jobId=" + encodeURIComponent(jobId
+CLIENT  public\features\admin\translation-review\index.html:63   fetch(API_BASE + "/api/adminOverrideSelection", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.
+CLIENT  public\features\delf\payment.html:89   fetch("https://saybonapp-server.onrender.com/api/createDelfCheckout", {
+CLIENT  public\feedback\feedback.js:20   fetch("https://saybonapp-server.onrender.com/api/submitFeedback", {
+CLIENT  public\js\activity-tracker.js:47   fetch(API + "/api/activity/log", {
+CLIENT  public\js\admin-access-check.js:29   fetch("https://saybonapp-server.onrender.com/api/accessControlCheck?email=" + encodeURIComponent(user.email || ""
+CLIENT  public\js\jobQueue.js:14   fetch("/api/job",{
+CLIENT  public\levels\A0\les-petits\index.html:244   fetch(API_BASE + "/api/levelProgress?uid=" + user.uid + "&level=" + LEVEL
+CLIENT  public\levels\A0\les-petits\index.html:285   fetch(API_BASE + "/api/levelProgress?uid=" + user.uid + "&level=" + LEVEL
+CLIENT  public\levels\A0\les-petits\lesson1.js:364   fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(expectedText || ""
+CLIENT  public\levels\A0\les-petits\lesson1.js:406   fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON
+CLIENT  public\levels\A0\les-petits\lesson-engine.js:371   fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(expectedText || ""
+CLIENT  public\levels\A0\les-petits\lesson-engine.js:418   fetch(API_BASE + "/api/levelProgressComplete", {
+CLIENT  public\levels\A0\les-petits\lesson-engine.js:425   fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON
+CLIENT  public\levels\admin.html:224   fetch(API_BASE + "/api/levelAssets?level=" + levelEl.value + "&lesson=" + lessonEl.value
+CLIENT  public\levels\admin.html:440   fetch(API_BASE + "/api/levelAdminUpdateAsset", {
+CLIENT  public\levels\admin.html:460   fetch(API_BASE + "/api/levelAdminAddAsset", {
+CLIENT  public\levels\admin.html:479   fetch(API_BASE + "/api/levelAdminDeleteAsset", {
+CLIENT  public\levels\hub-unlock-tp.js:34   fetch(API_BASE + "/api/levelProgress?uid=" + user.uid + "&level=" + LEVEL
+CLIENT  public\levels\import-lessons.html:55   fetch(API + "/api/levelAssets?level=" + level + "&lesson=" + n
+CLIENT  public\levels\lesson-engine-tp.js:374   fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(expectedText || ""
+CLIENT  public\levels\lesson-engine-tp.js:420   fetch(API_BASE + "/api/levelProgressComplete", {
+CLIENT  public\levels\lesson-engine-tp.js:427   fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON
+CLIENT  public\levels\scene-paris\scene-revision.js:449   fetch(API+'/api/assessPronunciation?referenceText='+encodeURIComponent(a.ref
+CLIENT  public\levels\scene-paris\scene-ui.js:102   fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringif
+CLIENT  public\levels\scene-paris\scene-ui.js:251   fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(DD(
+CLIENT  public\levels\scene-paris\scene-ui.js:378   fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected
+CLIENT  public\levels\test-activity.html:348   fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(referenceText
+CLIENT  public\music\admin.html:287   fetch(API_BASE + "/api/adminMusicOverview"
+CLIENT  public\music\admin.html:328   fetch(API_BASE + "/api/musicVideos"
+CLIENT  public\music\admin.html:448   fetch(API_BASE + "/api/adminAddMusicVideo", {
+CLIENT  public\music\admin.html:477   fetch(API_BASE + "/api/adminDeleteMusicVideo", {
+CLIENT  public\music\admin.html:510   fetch(API_BASE + "/api/adminUpdateMusicThumbnail", {
+CLIENT  public\music\admin.html:530   fetch(API_BASE + "/api/musicVideos"
+CLIENT  public\music\admin.html:539   fetch(API_BASE + "/api/musicComments?videoId=" + v.id
+CLIENT  public\music\admin.html:567   fetch(API_BASE + "/api/musicDeleteComment", {
+CLIENT  public\music\index.html:581   fetch(API_BASE + "/api/musicVideos"
+CLIENT  public\music\music-core.js:21   fetch(API+"/api/musicVideos"
+CLIENT  public\music\music-core.js:31   fetch(API+"/api/musicHistory?userId="+encodeURIComponent(uid
+CLIENT  public\music\music-core.js:38   fetch(API+"/api/musicLiked?userId="+encodeURIComponent(uid
+CLIENT  public\music\playlists.html:273   fetch(API_BASE + "/api/musicCreatePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.
+CLIENT  public\music\playlists.html:277   fetch(API_BASE + "/api/musicAddToPlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.s
+CLIENT  public\music\playlists.html:301   fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(realUser.uid
+CLIENT  public\music\playlists.html:347   fetch(API_BASE + "/api/musicRenamePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.
+CLIENT  public\music\playlists.html:353   fetch(API_BASE + "/api/musicDeletePlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.
+CLIENT  public\music\playlists.html:360   fetch(API_BASE + "/api/musicPlaylistDetail?id=" + p.id
+CLIENT  public\music\playlists.html:374   fetch(API_BASE + "/api/musicRemoveFromPlaylist", { method: "POST", headers: { "Content-Type": "application/json" }, body: J
+CLIENT  public\music\playlists.html:423   fetch(API_BASE + "/api/musicCreatePlaylist", {
+CLIENT  public\music\watch.html:381   fetch(API_BASE + "/api/musicVideos"
+CLIENT  public\music\watch.html:524   fetch(API_BASE + "/api/musicIncrementView", {
+CLIENT  public\music\watch.html:645   fetch(API_BASE + "/api/musicToggleReaction", {
+CLIENT  public\music\watch.html:674   fetch(API_BASE + "/api/musicComments?videoId=" + encodeURIComponent(idToUse
+CLIENT  public\music\watch.html:729   fetch(API_BASE + "/api/musicAddComment", {
+CLIENT  public\music\watch.html:769   fetch(API_BASE + "/api/musicPlaylists?userId=" + encodeURIComponent(realUser.uid
+CLIENT  public\music\watch.html:795   fetch(API_BASE + "/api/musicAddToPlaylist", {
+CLIENT  public\music\watch.html:812   fetch(API_BASE + "/api/musicCreatePlaylist", {
+CLIENT  public\placement\placement.js:802   fetch("https://saybonapp-server.onrender.com/api/assessPronunciation?referenceText=" + encodeURIComponent(q.expectedText || ""
+CLIENT  public\support\donate.js:73   fetch("https://saybonapp-server.onrender.com/api/createDonationCheckout", {
+CLIENT  public\support\thank-you.js:20   fetch(API_BASE + "/api/verifyDonationSession?session_id=" + encodeURIComponent(sessionId
+CLIENT  public\support\thank-you.js:23   fetch(API_BASE + "/api/verifyPaystackDonation", {
+CLIENT  public\talkletics\admin-map.html:174   fetch(API_BASE + "/api/locations"
+CLIENT  public\talkletics\admin-map.html:233   fetch(API_BASE + "/api/adminAddLocation", {
+CLIENT  public\talkletics\admin-map.html:259   fetch(API_BASE + "/api/adminMoveLocation", {
+CLIENT  public\talkletics\admin-map.html:269   fetch(API_BASE + "/api/adminDeleteLocation", {
+CLIENT  public\talkletics\admin-map.html:284   fetch(API_BASE + "/api/assets"
+CLIENT  public\talkletics\admin-map.html:342   fetch(API_BASE + "/api/adminAddAsset", {
+CLIENT  public\talkletics\admin-map.html:370   fetch(API_BASE + "/api/adminRenameAsset", {
+CLIENT  public\talkletics\admin-map.html:380   fetch(API_BASE + "/api/adminDeleteAsset", {
+CLIENT  public\talkletics\maison.js:330   fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(item.french
+CLIENT  public\talkletics\maison.js:525   fetch(API_BASE + "/api/assets"
+CLIENT  public\talkletics\map.js:147   fetch(API_BASE + "/api/locations"
+CLIENT  public\talkletics\play.js:125   fetch(API + "/api/talkleticsGradeSpeaking?gameId=" + encodeURIComponent(game.id
+CLIENT  public\talkletics\talkletics-audio.js:22   fetch(API_BASE + "/api/assets"
+CLIENT  public\talkletics\tk-common.js:18   fetch(API + "/api/talkleticsProgress", { headers: { Authorization: "Bearer " + t } }
+CLIENT  public\talkletics\tk-common.js:27   fetch(API + "/api/assets"
+CLIENT  public\translation\admin.html:297   fetch(API_BASE + "/api/adminOverview"
+CLIENT  public\translation\admin.html:389   fetch(API_BASE + "/api/adminSubmissions"
+CLIENT  public\translation\admin.html:455   fetch(API_BASE + "/api/reviewSubmission", {
+CLIENT  public\translation\admin.html:481   fetch(API_BASE + "/api/adminTranslators"
+CLIENT  public\translation\admin.html:531   fetch(API_BASE + "/api/adminPayouts"
+CLIENT  public\translation\admin.html:594   fetch(API_BASE + "/api/markPayoutPaid", {
+CLIENT  public\translation\desk.html:434   fetch("https://saybonapp-server.onrender.com/api/jobsByEmail?email=" + encodeURIComponent(email
+CLIENT  public\translation\desk.html:528   fetch("https://saybonapp-server.onrender.com/api/accessControlCheck?email=" + encodeURIComponent(user.email || ""
+CLIENT  public\translation\editor-workspace.html:336   fetch("https://saybonapp-server.onrender.com/api/proxyFile?url=" + encodeURIComponent(fileUrl
+CLIENT  public\translation\editor-workspace.html:450   fetch(API_BASE + "/api/submitTranslation", {
+CLIENT  public\translation\formatting-workspace.html:122   fetch(API_BASE + "/api/completeFormatting", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stri
+CLIENT  public\translation\formatting-workspace.html:95   fetch(API_BASE + "/api/checkFormattingAccess?jobId=" + encodeURIComponent(jobId
+CLIENT  public\translation\job-board.html:1002   fetch("https://saybonapp-server.onrender.com/api/acceptJobWithNda", {
+CLIENT  public\translation\job-board.html:1185   fetch("https://saybonapp-server.onrender.com/api/translatorWallet?key=" + encodeURIComponent(passkey
+CLIENT  public\translation\job-board.html:1214   fetch("https://saybonapp-server.onrender.com/api/translatorTrackRecord?key=" + encodeURIComponent(passkey
+CLIENT  public\translation\job-board.html:1252   fetch("https://saybonapp-server.onrender.com/api/translatorWallet?key=" + encodeURIComponent(passkey
+CLIENT  public\translation\payment.html:113   fetch(API_BASE + "/api/convertUsdToCurrency?amount=" + encodeURIComponent(price
+CLIENT  public\translation\payment.html:162   fetch(API_BASE + "/api/createTranslationRequestCheckout", {
+CLIENT  public\translation\payment.html:205   fetch(API_BASE + "/api/createTranslationJobForPaystack", {
+CLIENT  public\translation\payment.html:233   fetch(API_BASE + "/api/verifyPaystackTranslation", {
+CLIENT  public\translation\success.html:241   fetch("https://saybonapp-server.onrender.com/api/session-job?session_id=" + encodeURIComponent(sessionId
+CLIENT  public\translation\translation-desk.html:146   fetch("/api/job/"+code
+CLIENT  public\translation\translator-dashboard.html:57   fetch("/api/jobs"
+CLIENT  public\translation\translator-dashboard.html:92   fetch("/api/claimJob",{
+CLIENT  public\translation\translator-login.html:17   fetch("/api/verifyTranslatorKey",{
+CLIENT  public\translation\translator-payment-methods.html:221   fetch("https://saybonapp-server.onrender.com/api/savePaymentMethod", {
+CLIENT  public\translation\translator-profile.html:188   fetch(API_BASE + "/api/translatorProfile?key=" + encodeURIComponent(passkey
+CLIENT  public\translation\translator-profile.html:264   fetch(API_BASE + "/api/updateTranslatorProfile", {
+CLIENT  public\translation\translator-register.html:383   fetch(API_BASE + "/api/completeTranslatorApplication", {
+CLIENT  public\translation\translator-result.html:184   fetch("https://saybonapp-server.onrender.com/api/applicationResult?id=" + encodeURIComponent(id
+CLIENT  public\translation\translator-test.html:137   fetch(API_BASE + "/api/translatorTestPassages"
+CLIENT  public\translation\translator-test.html:207   fetch(API_BASE + "/api/submitTranslatorTest", {
+SERVER  activity-routes.js:123   app.get("/api/activity/summary
+SERVER  activity-routes.js:33   app.get("/api/activity/ping
+SERVER  activity-routes.js:36   app.post("/api/activity/log
+SERVER  activity-routes.js:88   app.post("/api/activity/settings
+SERVER  backend\app.js:43   app.get("/
+SERVER  backend\app.js:61   app.use("/api/quote
+SERVER  backend\app.js:62   app.use("/api/stripe
+SERVER  backend\app.js:63   app.use("/api/paystack
+SERVER  backend\app.js:70   app.use("/request
+SERVER  backend\app.js:71   app.use("/stripe
+SERVER  backend\app.js:72   app.use("/paystack
+SERVER  backend\functions\index.js:111   app.get("/health
+SERVER  backend\functions\index.js:53   app.post("/create-stripe-session
+SERVER  backend\server.js:105   app.get("/
+SERVER  backend\server.js:115   app.post("/api/createCheckout
+SERVER  backend\server.js:29   app.post("/webhook
+SERVER  backend\src\server.js:12   app.post("/api/quote
+SERVER  backend\src\server.js:14   app.get("/
+SERVER  delf-grading-routes.js:63   app.post("/api/delf/grade-writing
+SERVER  delf-grading-routes.js:81   app.post("/api/delf/grade-speaking
+SERVER  delf-journey-routes.js:103   app.post("/api/delf/journey/skill-mock
+SERVER  delf-journey-routes.js:120   app.post("/api/delf/journey/skip-remedial
+SERVER  delf-journey-routes.js:144   app.post("/api/delf/tts-lines
+SERVER  delf-journey-routes.js:186   app.post("/api/delf/narrate
+SERVER  delf-journey-routes.js:83   app.get("/api/delf/journey
+SERVER  delf-journey-routes.js:91   app.post("/api/delf/journey/lesson
+SERVER  delf-mock-routes.js:104   app.get("/api/delfMockHistory
+SERVER  delf-mock-routes.js:16   app.post("/api/delfTranscribe
+SERVER  delf-mock-routes.js:38   app.post("/api/gradeDelfMock
+SERVER  delf-mock-routes.js:83   app.post("/api/delfMockSave
+SERVER  delf-payment-routes.js:117   app.get("/api/delf/verify
+SERVER  delf-payment-routes.js:41   app.get("/api/delf/prices
+SERVER  delf-payment-routes.js:54   app.post("/api/delf/admin-grant
+SERVER  delf-payment-routes.js:67   app.post("/api/delf/checkout
+SERVER  delf-placement-routes.js:17   app.get("/api/delf/ping
+SERVER  delf-placement-routes.js:19   app.post("/api/delf/placement
+SERVER  delf-placement-routes.js:42   app.get("/api/delf/state
+SERVER  delf-tts-routes.js:26   app.post("/api/delf/tts
+SERVER  level-routes.js:12   app.get("/api/level
+SERVER  level-routes.js:17   app.post("/api/level
+SERVER  placement-clip-routes.js:41   app.get("/api/placement/clip/:id
+SERVER  routes\jobs.js:10   router.post("/create-job
+SERVER  routes\stripe-webhook.js:5   router.post("/stripe-webhook
+SERVER  routes\upload-document.js:8   router.post("/upload-document
+SERVER  server.js:1114   app.post("/api/savePaymentMethod
+SERVER  server.js:113   app.patch("/api/records/:id
+SERVER  server.js:1210   app.get("/api/paymentMethod
+SERVER  server.js:1240   app.get("/api/adminSubmissions
+SERVER  server.js:130   app.get("/api/classes
+SERVER  server.js:1313   app.post("/api/reviewSubmission
+SERVER  server.js:1396   app.get("/api/adminPayouts
+SERVER  server.js:1448   app.post("/api/markPayoutPaid
+SERVER  server.js:145   app.post("/api/classes/create
+SERVER  server.js:152   app.post("/api/evaluateTranslator
+SERVER  server.js:1550   app.get("/api/translatorTestPassages
+SERVER  server.js:1561   app.post("/api/submitTranslatorTest
+SERVER  server.js:1638   app.post("/api/completeTranslatorApplication
+SERVER  server.js:1710   app.get("/api/translatorTrackRecord
+SERVER  server.js:1789   app.get("/api/translatorWallet
+SERVER  server.js:1870   app.get("/api/translatorProfile
+SERVER  server.js:1913   app.post("/api/updateTranslatorProfile
+SERVER  server.js:1958   app.get("/api/adminOverview
+SERVER  server.js:199   app.get("/api/applicationResult
+SERVER  server.js:2050   app.get("/api/adminTranslators
+SERVER  server.js:2099   app.get("/api/musicVideos
+SERVER  server.js:2143   app.get("/api/musicVideo
+SERVER  server.js:2195   app.post("/api/musicIncrementView
+SERVER  server.js:2223   app.post("/api/musicToggleReaction
+SERVER  server.js:2266   app.get("/api/musicComments
+SERVER  server.js:228   app.patch("/api/classes/:id/start
+SERVER  server.js:231   app.post("/api/verifyTranslatorKey
+SERVER  server.js:2314   app.post("/api/musicAddComment
+SERVER  server.js:2347   app.post("/api/musicDeleteComment
+SERVER  server.js:2371   app.get("/api/musicPlaylists
+SERVER  server.js:2420   app.post("/api/musicCreatePlaylist
+SERVER  server.js:245   app.patch("/api/classes/:id/end
+SERVER  server.js:2451   app.post("/api/musicAddToPlaylist
+SERVER  server.js:2487   app.get("/api/musicPlaylistDetail
+SERVER  server.js:2529   app.post("/api/musicHistoryAdd
+SERVER  server.js:2545   app.get("/api/musicHistory
+SERVER  server.js:2565   app.get("/api/musicLiked
+SERVER  server.js:2581   app.post("/api/musicRemoveFromPlaylist
+SERVER  server.js:2601   app.post("/api/musicDeletePlaylist
+SERVER  server.js:2620   app.post("/api/musicRenamePlaylist
+SERVER  server.js:2639   app.post("/api/adminAddMusicVideo
+SERVER  server.js:265   app.get("/api/recordings
+SERVER  server.js:2676   app.post("/api/adminDeleteMusicVideo
+SERVER  server.js:2725   app.post("/api/chatCheckContent
+SERVER  server.js:2749   app.get("/api/chatUserStatus
+SERVER  server.js:2783   app.post("/api/chatRecordViolation
+SERVER  server.js:280   app.post("/api/recordings/upload
+SERVER  server.js:282   app.post("/api/createJob
+SERVER  server.js:2829   app.get("/api/adminChatUsers
+SERVER  server.js:2862   app.post("/api/adminBlockUser
+SERVER  server.js:2888   app.post("/api/adminUnblockUser
+SERVER  server.js:2912   app.post("/api/adminFlagUser
+SERVER  server.js:2938   app.get("/api/adminChatViolations
+SERVER  server.js:2977   app.get("/api/adminChatCustomRooms
+SERVER  server.js:3007   app.post("/api/adminDeleteChatRoom
+SERVER  server.js:3031   app.post("/api/adminUpdateMusicThumbnail
+SERVER  server.js:3062   app.post("/api/assessPronunciation
+SERVER  server.js:3164   app.get("/api/adminMusicOverview
+SERVER  server.js:3203   app.get("/api/locations
+SERVER  server.js:321   app.get("/api/jobs
+SERVER  server.js:3234   app.post("/api/adminAddLocation
+SERVER  server.js:3272   app.post("/api/adminDeleteLocation
+SERVER  server.js:3317   app.post("/api/adminMoveLocation
+SERVER  server.js:3392   app.get("/api/assets
+SERVER  server.js:3423   app.post("/api/adminAddAsset
+SERVER  server.js:3456   app.post("/api/adminDeleteAsset
+SERVER  server.js:3480   app.post("/api/adminRenameAsset
+SERVER  server.js:3508   app.post("/api/gradeDelfResponse
+SERVER  server.js:358   app.post("/api/claimJob
+SERVER  server.js:3607   app.get("/api/delfAssets
+SERVER  server.js:3618   app.post("/api/delfAdminAddAsset
+SERVER  server.js:3634   app.post("/api/delfAdminDeleteAsset
+SERVER  server.js:3648   app.post("/api/delfAdminRenameAsset
+SERVER  server.js:3666   app.get("/api/levelAssets
+SERVER  server.js:3682   app.post("/api/levelAdminAddAsset
+SERVER  server.js:3707   app.post("/api/levelAdminDeleteAsset
+SERVER  server.js:3721   app.post("/api/levelAdminUpdateAsset
+SERVER  server.js:3750   app.get("/api/levelProgress
+SERVER  server.js:3766   app.post("/api/levelProgressComplete
+SERVER  server.js:3789   app.get("/api/adminFeedbackList
+SERVER  server.js:3800   app.post("/api/adminFeedbackAdd
+SERVER  server.js:3816   app.post("/api/adminFeedbackUpdate
+SERVER  server.js:3830   app.post("/api/adminFeedbackDelete
+SERVER  server.js:3848   app.get("/api/financeIncomeList
+SERVER  server.js:3855   app.post("/api/financeIncomeAdd
+SERVER  server.js:3864   app.post("/api/financeIncomeDelete
+SERVER  server.js:3873   app.get("/api/financeExpenseList
+SERVER  server.js:3880   app.post("/api/financeExpenseAdd
+SERVER  server.js:3889   app.post("/api/financeExpenseDelete
+SERVER  server.js:3909   app.get("/api/financeFounderSummary
+SERVER  server.js:3925   app.post("/api/financeFounderSetPercent
+SERVER  server.js:3934   app.post("/api/financeFounderDrawAdd
+SERVER  server.js:3943   app.post("/api/financeFounderDrawDelete
+SERVER  server.js:3952   app.get("/api/financeReportsSummary
+SERVER  server.js:399   app.post("/api/submitTranslation
+SERVER  server.js:3994   app.get("/api/verifyDonationSession
+SERVER  server.js:4019   app.post("/api/verifyPaystackDonation
+SERVER  server.js:4074   app.get("/api/assetDomainsList
+SERVER  server.js:4080   app.post("/api/assetDomainsAdd
+SERVER  server.js:4088   app.post("/api/assetDomainsDelete
+SERVER  server.js:4097   app.get("/api/assetIpList
+SERVER  server.js:4103   app.post("/api/assetIpAdd
+SERVER  server.js:4111   app.post("/api/assetIpDelete
+SERVER  server.js:4120   app.get("/api/assetToolsList
+SERVER  server.js:4126   app.post("/api/assetToolsAdd
+SERVER  server.js:4134   app.post("/api/assetToolsDelete
+SERVER  server.js:4147   app.get("/api/docBusinessPlan
+SERVER  server.js:4153   app.post("/api/docBusinessPlan
+SERVER  server.js:4161   app.post("/api/docBusinessPlan
+SERVER  server.js:4170   app.get("/api/docContracts
+SERVER  server.js:4176   app.post("/api/docContracts
+SERVER  server.js:4184   app.post("/api/docContracts
+SERVER  server.js:4193   app.get("/api/docNda
+SERVER  server.js:4199   app.post("/api/docNda
+SERVER  server.js:4207   app.post("/api/docNda
+SERVER  server.js:4216   app.get("/api/docReceipts
+SERVER  server.js:4222   app.post("/api/docReceipts
+SERVER  server.js:4230   app.post("/api/docReceipts
+SERVER  server.js:4243   app.get("/api/capTableList
+SERVER  server.js:4249   app.post("/api/capTableAdd
+SERVER  server.js:4257   app.post("/api/capTableDelete
+SERVER  server.js:4266   app.get("/api/investorTermsList
+SERVER  server.js:4272   app.post("/api/investorTermsAdd
+SERVER  server.js:4280   app.post("/api/investorTermsDelete
+SERVER  server.js:4293   app.get("/api/accessControlList
+SERVER  server.js:4299   app.post("/api/accessControlAdd
+SERVER  server.js:4307   app.post("/api/accessControlRemove
+SERVER  server.js:4315   app.get("/api/accessControlCheck
+SERVER  server.js:4327   app.get("/api/featureLocksGet
+SERVER  server.js:4333   app.post("/api/featureLocksSet
+SERVER  server.js:4342   app.get("/api/getDelfPrice
+SERVER  server.js:4413   app.post("/api/verifyPaystackDelf
+SERVER  server.js:4513   app.post("/api/createTranslationJobForPaystack
+SERVER  server.js:452   app.get("/api/translatorStats
+SERVER  server.js:4547   app.post("/api/verifyPaystackTranslation
+SERVER  server.js:4638   app.get("/api/adminListPayoutCandidates
+SERVER  server.js:4688   app.post("/api/adminInitiatePaystackPayout
+SERVER  server.js:4741   app.post("/api/adminFinalizePaystackPayout
+SERVER  server.js:4766   app.post("/api/adminMarkPayoutPaidManually
+SERVER  server.js:4799   app.get("/api/paystackBankList
+SERVER  server.js:4812   app.get("/api/convertUsdToGhs
+SERVER  server.js:4825   app.get("/api/convertUsdToCurrency
+SERVER  server.js:4856   app.post("/api/adminUpdateJobPrice
+SERVER  server.js:4881   app.get("/api/adminPendingReviews
+SERVER  server.js:4883   app.get("/api/checkFormattingAccess
+SERVER  server.js:4885   app.post("/api/completeFormatting
+SERVER  server.js:4895   app.get("/api/jobsByEmail
+SERVER  server.js:4897   app.get("/api/proxyFile
+SERVER  server.js:4928   app.get("/api/sonioxVoices
+SERVER  server.js:4938   app.post("/api/generateLessonAudio
+SERVER  server.js:495   app.post("/api/createTranslationJob
+SERVER  server.js:4985   app.get("/api/listGeneratedAudio
+SERVER  server.js:4988   app.get("/api/downloadAudio
+SERVER  server.js:549   app.post("/api/evaluateTranslatorTest
+SERVER  server.js:55   app.get("/
+SERVER  server.js:64   app.get("/api/records
+SERVER  server.js:666   app.post("/api/createCheckout
+SERVER  server.js:721   app.get("/api/session-job
+SERVER  server.js:761   app.post("/api/createDelfCheckout
+SERVER  server.js:79   app.post("/api/records/create
+SERVER  server.js:808   app.post("/api/createDonationCheckout
+SERVER  server.js:867   app.post("/api/submitFeedback
+SERVER  server.js:911   app.post("/api/createTranslationRequestCheckout
+SERVER  server.js:992   app.post("/api/acceptJobWithNda
+SERVER  server\evaluateTranslator.js:12   router.post("/evaluateApplication
+SERVER  server\routes\evaluate.js:6   router.post("/evaluate
+SERVER  server\webhook.js:17   app.post("/stripe-webhook
+SERVER  talkletics-api.js:140   app.get("/api/talkleticsProgress
+SERVER  talkletics-api.js:83   app.post("/api/talkleticsGradeSpeaking

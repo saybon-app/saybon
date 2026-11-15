@@ -1,0 +1,10 @@
+===== FILE: backend\functions\.env.example (variable names only) =====
+STRIPE_SECRET_KEY=[hidden]
+PAYSTACK_SECRET_KEY=[hidden]
+
+===== FILE: .env.example (variable names only) =====
+PORT=[hidden]
+FIREBASE_PROJECT_ID=[hidden]
+FIREBASE_CLIENT_EMAIL=[hidden]
+FIREBASE_PRIVATE_KEY=[hidden]
+

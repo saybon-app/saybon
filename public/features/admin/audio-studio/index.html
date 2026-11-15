@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <script type="module" src="/features/admin/auth/admin-guard.js"></script>
@@ -158,7 +158,7 @@ document.getElementById("asGenerateBtn").addEventListener("click", async functio
   try{
     const res = await fetch(API_BASE + "/api/generateLessonAudio", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + idToken },
       body: JSON.stringify({
         text: text,
         language: document.getElementById("asLanguage").value,

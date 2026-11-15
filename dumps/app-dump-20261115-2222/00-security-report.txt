@@ -1,0 +1,35 @@
+SENSITIVE FILES PRESENT (contents NOT dumped):
+  backend\functions\.env.example   tracked by git: True
+  .env.example   tracked by git: True
+
+SECRET-LIKE VALUES REDACTED (file:line). A Firebase web apiKey is public by design; anything else should live in Render env vars:
+  public\auth\login.js:11
+  public\features\admin\auth\admin-auth.js:9
+  public\features\delf\test-engine.js:15
+  public\js\firebase-init.js:6
+  public\js\firebase.js:5
+  public\music\admin.html:223
+  public\talkletics\admin-map.html:132
+  public\translation\admin.html:233
+  public\translation\translator-profile.html:152
+  public\translation\translator-register.html:225
+
+GIT:
+== C:\SayBon
+origin	https://github.com/saybon-app/saybon.git (fetch)
+origin	https://github.com/saybon-app/saybon.git (push)
+ea74208 Lesson 3: Comment ca va - intro, two phrases, dialogue intro and dialogue
+1aca526 Lesson 3: Comment ca va - intro, two phrases, dialogue intro and dialogue
+665ecb9 Revision only on Tout Public lesson 2
+5292ad6 Revision only on Tout Public lesson 2
+72453e7 Revision: back and dashboard icons
+secret-looking files ever committed: 
+== C:\impact-test-platform\backend
+origin	git@github-impact:impacttestengine-dot/impact-learning-platform.git (fetch)
+origin	git@github-impact:impacttestengine-dot/impact-learning-platform.git (push)
+e0a8588 Builders: longer canvas, page scrolls, toolbars and side panels sticky
+c9e99b3 Cover page: four-line layout (org, level, lesson number, topic) with even spacing
+1462950 Cover page: add letter spacing control
+2470ad3 Cover page: collapse builder toolbars while a cover is selected
+e05966b Cover page: remove Level, Teacher and Date row
+secret-looking files ever committed: 
