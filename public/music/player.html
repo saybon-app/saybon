@@ -92,6 +92,12 @@ function load(id, at){
   }).catch(function(){ tEl.textContent = "Could not load this video."; });
 }
 
+try{
+  new BroadcastChannel("sbm").onmessage = function(e){
+    if(!e.data || e.data.t !== "stop") return;
+    try{ if(vEl) vEl.pause(); else if(yt && yt.pauseVideo) yt.pauseVideo(); }catch(err){}
+  };
+}catch(e){}
 nextBtn.onclick = goNext;
 document.getElementById("open").onclick = function(){
   var url = "/music/watch.html?v=" + encodeURIComponent(cur);
