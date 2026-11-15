@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SayBon Music</title>
+<style>
+html,body{margin:0;height:100%;background:#0A0B0E;color:#EDEEF2;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.box{display:flex;flex-direction:column;height:100%}
+.vid{flex:1;min-height:0;background:#000;position:relative}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.bar{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#12141A;border-top:1px solid #23252D}
+.meta{flex:1;min-width:0}
+.t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.a{font-size:11px;color:#8B8F9C;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+button{background:rgba(255,255,255,.09);color:#EDEEF2;border:0;border-radius:999px;padding:7px 12px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+button:hover{background:rgba(255,255,255,.16)}
+button[disabled]{opacity:.4;cursor:default}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="vid" id="vid"></div>
+  <div class="bar">
+    <div class="meta"><div class="t" id="t">Loading...</div><div class="a" id="a"></div></div>
+    <button type="button" id="next">Next</button>
+    <button type="button" id="open">Open in SayBon</button>
+  </div>
+</div>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var API = "https://saybonapp-server.onrender.com";
+var P = new URLSearchParams(location.search);
+var cur = P.get("v"), startAt = parseInt(P.get("t") || "0", 10) || 0;
+var ytReady = false, yt = null, vEl = null, ytWait = null;
+window.onYouTubeIframeAPIReady = function(){ ytReady = true; };
+var vidBox = document.getElementById("vid"), tEl = document.getElementById("t"), aEl = document.getElementById("a");
+var nextBtn = document.getElementById("next");
+
+function queue(){ try{ return (JSON.parse(localStorage.getItem("sbm_miniq") || "{}").ids) || []; }catch(e){ return []; } }
+function nextId(){
+  var q = queue(), i = q.indexOf(cur);
+  if(i >= 0 && i < q.length - 1) return q[i + 1];
+  if(i < 0 && q.length && q[0] !== cur) return q[0];
+  return null;
+}
+function refreshNext(){ nextBtn.disabled = !nextId(); }
+function goNext(){ var id = nextId(); if(id) load(id, 0); }
+
+function media(d){
+  try{
+    if(!("mediaSession" in navigator)) return;
+    var img = d.thumbnailUrl || (d.youtubeId ? "https://img.youtube.com/vi/" + d.youtubeId + "/hqdefault.jpg" : "");
+    navigator.mediaSession.metadata = new MediaMetadata({ title: d.title || "", artist: d.artist || "SayBon Music", album: d.genre || "SayBon Music", artwork: img ? [{ src: img, sizes: "480x360" }] : [] });
+    navigator.mediaSession.setActionHandler("nexttrack", function(){ goNext(); });
+  }catch(e){}
+}
+
+function load(id, at){
+  cur = id;
+  if(ytWait){ clearInterval(ytWait); ytWait = null; }
+  vidBox.innerHTML = ""; yt = null; vEl = null;
+  tEl.textContent = "Loading..."; aEl.textContent = "";
+  refreshNext();
+  fetch(API + "/api/musicVideo?id=" + encodeURIComponent(id)).then(function(r){ return r.json(); }).then(function(d){
+    if(cur !== id) return;
+    tEl.textContent = d.title || "SayBon Music";
+    aEl.textContent = (d.artist || "SayBon Music") + (d.genre ? " · " + d.genre : "");
+    document.title = (d.title || "SayBon Music") + " - SayBon";
+    try{ history.replaceState({}, "", "/music/player.html?v=" + encodeURIComponent(id)); }catch(e){}
+    media(d);
+    if(d.fileUrl){
+      var v = document.createElement("video");
+      v.controls = true; v.autoplay = true; v.setAttribute("playsinline", ""); v.setAttribute("controlsList", "nodownload");
+      v.oncontextmenu = function(){ return false; };
+      v.src = d.fileUrl;
+      v.addEventListener("loadedmetadata", function(){ if(at > 0){ try{ v.currentTime = at; }catch(e){} } });
+      v.addEventListener("ended", goNext);
+      vidBox.appendChild(v); vEl = v;
+      var pp = v.play(); if(pp && pp.catch) pp.catch(function(){});
+    }else if(d.youtubeId){
+      var div = document.createElement("div"); div.id = "ytT"; vidBox.appendChild(div);
+      var mk = function(){
+        yt = new YT.Player("ytT", { width: "100%", height: "100%", videoId: d.youtubeId,
+          playerVars: { modestbranding: 1, rel: 0, autoplay: 1, start: at || 0, playsinline: 1 },
+          events: { onStateChange: function(e){ if(e.data === 0) goNext(); } } });
+      };
+      if(ytReady) mk(); else ytWait = setInterval(function(){ if(ytReady){ clearInterval(ytWait); ytWait = null; mk(); } }, 200);
+    }else{
+      tEl.textContent = "Video unavailable";
+    }
+  }).catch(function(){ tEl.textContent = "Could not load this video."; });
+}
+
+nextBtn.onclick = goNext;
+document.getElementById("open").onclick = function(){
+  var url = "/music/watch.html?v=" + encodeURIComponent(cur);
+  try{ if(window.opener && !window.opener.closed){ window.opener.location.href = url; window.opener.focus(); return; } }catch(e){}
+  window.open(url, "_blank");
+};
+if(cur) load(cur, startAt); else tEl.textContent = "Nothing to play.";
+</script>
+</body>
+</html>
