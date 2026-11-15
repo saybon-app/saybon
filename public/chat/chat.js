@@ -1,4 +1,4 @@
-﻿import { auth, db } from "/js/firebase-init.js";
+import { auth, db } from "/js/firebase-init.js";
 import { onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 import {
@@ -575,7 +575,7 @@ async function sendMessage() {
 
       const violationRes = await fetch(API_BASE + "/api/chatRecordViolation", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + await currentUser.getIdToken() },
         body: JSON.stringify({
           uid: currentUser.uid,
           displayName,

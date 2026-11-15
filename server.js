@@ -2780,11 +2780,12 @@ res.status(500).json({error:"could not get user status"})
 
 })
 
-app.post("/api/chatRecordViolation", rateLimit("crv",30,600000), async(req,res)=>{
+app.post("/api/chatRecordViolation", rateLimit("crv",30,600000), requireUser, async(req,res)=>{
 
 try{
 
-const {uid,displayName,roomId,messageText,matchedTerm}=req.body
+const {displayName,roomId,messageText,matchedTerm}=req.body
+const uid=req.uid
 
 if(!uid || !roomId){
 return res.status(400).json({error:"UID and room are required"})
@@ -4902,6 +4903,16 @@ function rateLimit(name, max, windowMs){
   };
 }
 setInterval(function(){ var n = Date.now(); for(var k in _rl){ if(_rl[k].reset < n) delete _rl[k]; } }, 600000).unref();
+async function requireUser(req, res, next){
+  try{
+    var h = req.headers.authorization || "";
+    var t = h.indexOf("Bearer ") === 0 ? h.slice(7) : null;
+    if(!t) return res.status(401).json({ error: "authentication required" });
+    var d = await admin.auth().verifyIdToken(t);
+    req.uid = d.uid; req.userEmail = (d.email || "").toLowerCase();
+    next();
+  }catch(e){ res.status(401).json({ error: "authentication failed" }); }
+}
 function serverFloorPrice(plan, wordCount, documentText, clientPrice){
   var rate = String(plan || "").toLowerCase() === "express" ? 0.05 : 0.025;
   var w = Number(wordCount) || 0;

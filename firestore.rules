@@ -4,6 +4,11 @@ service cloud.firestore {
 
     function signedIn() { return request.auth != null; }
     function isAdmin() { return signedIn() && request.auth.token.email in ['adlaideduah@gmail.com', 'saybon.fr@gmail.com']; }
+    // A user the server has blocked for chat violations cannot post, even by writing to Firestore directly.
+    function notBlocked() {
+      return !exists(/databases/$(database)/documents/chatUserStatus/$(request.auth.uid))
+          || get(/databases/$(database)/documents/chatUserStatus/$(request.auth.uid)).data.get('blocked', false) != true;
+    }
 
     // Default deny - nothing is accessible unless explicitly allowed below.
     match /{document=**} {
@@ -45,7 +50,8 @@ service cloud.firestore {
     match /chatRooms/{roomId}/messages/{messageId} {
       allow read: if signedIn();
       allow create: if signedIn()
-                    && request.resource.data.uid == request.auth.uid;
+                    && request.resource.data.uid == request.auth.uid
+                    && notBlocked();
     }
 
   }
