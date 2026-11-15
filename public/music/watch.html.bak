@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -82,6 +82,23 @@ to{ opacity:1; transform:translateY(0); filter:blur(0); }
 
 .player-wrap{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#0A0B0E; margin-bottom:16px; box-shadow:0 12px 36px rgba(0,0,0,.4); }
 .player-wrap iframe, .player-wrap video{ width:100%; height:100%; border:none; }
+:root{ --mw:min(360px,calc(100vw - 36px)); }
+.player-slot{ position:relative; width:100%; aspect-ratio:16/9; margin-bottom:10px; }
+.player-slot .player-wrap{ margin-bottom:0; }
+.player-wrap.mini{ position:fixed; right:18px; bottom:18px; width:var(--mw); z-index:70; border-radius:0 0 12px 12px; box-shadow:0 16px 48px rgba(0,0,0,.6); }
+.mini-ctl{ display:none; }
+.player-slot.is-mini .mini-ctl{ display:flex; position:fixed; right:18px; bottom:calc(18px + var(--mw) * 0.5625); width:var(--mw); z-index:71; align-items:center; gap:6px; padding:6px 8px; background:rgba(18,20,26,.97); border-radius:12px 12px 0 0; box-sizing:border-box; }
+.mini-t{ flex:1; min-width:0; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#d8dae2; }
+.mini-ctl button, .pop-row button{ background:rgba(255,255,255,.09); color:#e8e9ee; border:0; border-radius:999px; padding:5px 11px; font-size:12px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.mini-ctl button:hover, .pop-row button:hover{ background:rgba(255,255,255,.17); }
+.pop-row{ display:flex; align-items:center; gap:10px; margin:0 0 12px; min-height:4px; }
+.pop-note{ font-size:12px; color:#8b8f9c; }
+.pop-row #popBtn{ background:#D4AF6A; color:#1a1408; font-weight:600; padding:9px 16px; font-size:13px; box-shadow:0 4px 14px rgba(212,175,106,.28); }
+.pop-row #popBtn:hover{ background:#e0bd7c; }
+.pop-row .keep-btn{ padding:8px 14px; font-size:12px; border:1px solid rgba(255,255,255,.14); }
+.pop-row .keep-btn b{ color:#D4AF6A; }
+.pop-row .keep-btn.off b{ color:#8b8f9c; }
+.pop-row{ flex-wrap:wrap; margin-bottom:14px; }
 
 .title{ font-size:19px; font-weight:700; color:#fff; margin-bottom:10px; line-height:1.3; font-family:'Cormorant Garamond', serif; }
 
@@ -137,6 +154,9 @@ padding:10px 18px; border:none; border-radius:10px; background:#D4AF6A; color:#1
 .up-next-row{ display:flex; gap:10px; margin-bottom:12px; cursor:pointer; }
 .up-next-row.playing{ background:rgba(212,175,106,.08); border-radius:8px; padding:6px; margin-left:-6px; margin-right:-6px; }
 .un-thumb{ width:120px; aspect-ratio:16/9; object-fit:cover; border-radius:8px; flex:0 0 auto; background:#0A0B0E; }
+.un-wrap{ position:relative; width:120px; aspect-ratio:16/9; flex:0 0 auto; border-radius:8px; overflow:hidden; background:#0A0B0E; }
+.un-wrap .un-thumb,.un-wrap .un-thumb-fallback{ width:100%; height:100%; display:block; }
+.un-wrap .un-prev{ position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; pointer-events:none; background:#0A0B0E; }
 .un-thumb-fallback{ width:120px; aspect-ratio:16/9; border-radius:8px; flex:0 0 auto; background:linear-gradient(135deg, rgba(212,175,106,.25), #0A0B0E); }
 .un-title{ font-size:12px; font-weight:600; color:#fff; line-height:1.35; margin-bottom:3px; }
 .un-sub{ font-size:11px; color:#5F6270; }
@@ -179,7 +199,7 @@ display:none; align-items:center; justify-content:center; z-index:200; padding:2
   .watch-layout{ margin-left:0 !important; }
 }
 </style>
-</head>
+<script src="/js/admin-fetch.js"></script></head>
 
 <body>
 
@@ -206,7 +226,11 @@ display:none; align-items:center; justify-content:center; z-index:200; padding:2
 
 <div class="main-col">
 
+<div class="player-slot" id="playerSlot">
 <div class="player-wrap" id="playerWrap"></div>
+<div class="mini-ctl" id="miniCtl"><span class="mini-t" id="miniT">Now playing</span><button type="button" class="pop-only" id="miniPop" title="Pop out">Pop out</button><button type="button" id="miniExpand" title="Back to full size">Expand</button><button type="button" id="miniClose" title="Stop and close">&#10005;</button></div>
+</div>
+<div class="pop-row"><button type="button" id="popBtn">&#10697; Pop out player</button><button type="button" class="keep-btn" id="keepBtn" title="When on, the video keeps playing in a small window if you leave this page">Keep playing when I leave: <b id="keepState">ON</b></button><span class="pop-note" id="popNote">Plays in a small window while you browse SayBon or other sites.</span></div>
 
 <div class="title" id="videoTitle">Loading…</div>
 
@@ -439,7 +463,7 @@ function buildPlayer(data){
   if(data.fileUrl){
 
     document.getElementById("playerWrap").innerHTML =
-      "<video id='mainVideoEl' autoplay controls controlsList='nodownload' disablePictureInPicture oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
+      "<video id='mainVideoEl' autoplay controls controlsList='nodownload' oncontextmenu='return false;' style='width:100%;height:100%;background:#0A0B0E;'><source src='" + data.fileUrl + "' type='video/mp4'></video>";
 
     htmlVideoEl = document.getElementById("mainVideoEl");
     htmlVideoEl.addEventListener("ended", handleVideoEnded);
@@ -502,6 +526,7 @@ async function loadVideoById(id, pushHistory){
     SBM.track(data);
 
     buildPlayer(data);
+    sbMiniReset(data);
 
     document.getElementById("videoTitle").innerText = data.title;
     document.getElementById("videoArtist").innerText = data.artist || "SayBon Music";
@@ -533,6 +558,76 @@ async function loadVideoById(id, pushHistory){
 
 }
 
+/* ---- mini player (docks bottom-right when you scroll away) and pop-out window ---- */
+var miniDismissed = false;
+function sbMiniReset(d){
+  miniDismissed = false;
+  try{ new BroadcastChannel("sbm").postMessage({ t: "stop" }); }catch(e){}
+  var mt = document.getElementById("miniT"); if(mt) mt.textContent = (d && d.title) || "Now playing";
+  try{
+    if(d && "mediaSession" in navigator){
+      var img = d.thumbnailUrl || (d.youtubeId ? "https://img.youtube.com/vi/" + d.youtubeId + "/hqdefault.jpg" : "");
+      navigator.mediaSession.metadata = new MediaMetadata({ title: d.title || "", artist: d.artist || "SayBon Music", album: d.genre || "SayBon Music", artwork: img ? [{ src: img, sizes: "480x360" }] : [] });
+    }
+  }catch(e){}
+}
+function sbPopOut(){
+  var t = 0;
+  try{ if(htmlVideoEl) t = htmlVideoEl.currentTime; else if(ytPlayer && ytPlayer.getCurrentTime) t = ytPlayer.getCurrentTime(); }catch(e){}
+  try{ localStorage.setItem("sbm_miniq", JSON.stringify({ ids: (upNextQueue || []).map(function(v){ return v.id; }), at: Date.now() })); }catch(e){}
+  var w = window.open("/music/player.html?v=" + encodeURIComponent(videoId) + "&t=" + Math.floor(t), "sbmini", "popup=yes,width=440,height=330,left=" + Math.max(0, (screen.availWidth || 1200) - 480) + ",top=" + Math.max(0, (screen.availHeight || 800) - 420));
+  var note = document.getElementById("popNote");
+  if(!w){ if(note) note.textContent = "Your browser blocked the pop-up. Allow pop-ups for SayBon and try again."; return; }
+  try{ if(htmlVideoEl) htmlVideoEl.pause(); else if(ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); }catch(e){}
+  if(note) note.textContent = "Playing in the pop-out window. Browse anywhere you like.";
+}
+(function(){
+  var slot = document.getElementById("playerSlot"), wrap = document.getElementById("playerWrap");
+  if(!slot || !wrap) return;
+  var visible = true;
+  function isPlaying(){
+    try{
+      if(htmlVideoEl) return !htmlVideoEl.paused && !htmlVideoEl.ended;
+      if(ytPlayer && ytPlayer.getPlayerState) return ytPlayer.getPlayerState() === 1;
+    }catch(e){}
+    return false;
+  }
+  function setMini(on){ wrap.classList.toggle("mini", on); slot.classList.toggle("is-mini", on); }
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      visible = es[0].intersectionRatio > 0.3;
+      if(visible) setMini(false); else if(!miniDismissed && isPlaying()) setMini(true);
+    }, { threshold: [0, 0.3, 0.6] }).observe(slot);
+  }
+  setInterval(function(){ if(!visible && !miniDismissed && !wrap.classList.contains("mini") && isPlaying()) setMini(true); }, 800);
+  document.getElementById("miniExpand").onclick = function(){ slot.scrollIntoView({ behavior: "smooth", block: "center" }); };
+  document.getElementById("miniClose").onclick = function(){
+    miniDismissed = true;
+    try{ if(htmlVideoEl) htmlVideoEl.pause(); else if(ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); }catch(e){}
+    setMini(false);
+  };
+  document.getElementById("popBtn").onclick = sbPopOut;
+  var keepBtn = document.getElementById("keepBtn"), keepState = document.getElementById("keepState");
+  function keepOn(){ try{ return localStorage.getItem("sbm_keep") !== "0"; }catch(e){ return true; } }
+  function paintKeep(){ keepState.textContent = keepOn() ? "ON" : "OFF"; keepBtn.classList.toggle("off", !keepOn()); }
+  keepBtn.onclick = function(){ try{ localStorage.setItem("sbm_keep", keepOn() ? "0" : "1"); }catch(e){} paintKeep(); };
+  paintKeep();
+  /* leaving this page while a video plays: carry it on in the pop-out window (Chrome / Edge) */
+  if(window.navigation && window.navigation.addEventListener){
+    window.navigation.addEventListener("navigate", function(e){
+      try{
+        if(!keepOn() || e.hashChange || e.downloadRequest !== null || !e.destination) return;
+        var u = new URL(e.destination.url);
+        if(u.origin === location.origin && u.pathname === location.pathname) return;
+        if(!isPlaying()) return;
+        if(navigator.userActivation && !navigator.userActivation.isActive) return;
+        sbPopOut();
+      }catch(err){}
+    });
+  }
+  document.getElementById("miniPop").onclick = sbPopOut;
+})();
+
 function loadVideo(){
   if(!videoId){
     document.getElementById("videoTitle").innerText = "No video specified.";
@@ -542,9 +637,11 @@ function loadVideo(){
 }
 
 function upNextThumb(v){
-  if(v.thumbnailUrl) return "<img class='un-thumb' src='" + v.thumbnailUrl + "'>";
-  if(v.youtubeId) return "<img class='un-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
-  return "<div class='un-thumb-fallback'></div>";
+  var inner;
+  if(v.thumbnailUrl) inner = "<img class='un-thumb' src='" + v.thumbnailUrl + "'>";
+  else if(v.youtubeId) inner = "<img class='un-thumb' src='https://img.youtube.com/vi/" + v.youtubeId + "/hqdefault.jpg'>";
+  else inner = "<div class='un-thumb-fallback'></div>";
+  return "<div class='un-wrap'>" + inner + "</div>";
 }
 
 async function loadSide(data){
@@ -587,9 +684,43 @@ async function loadSide(data){
     row.innerHTML =
       upNextThumb(v) +
       "<div><div class='un-title'>" + SBM.esc(v.title) + "</div><div class='un-sub'>" + SBM.esc(v.artist||"SayBon Music") + " · " + (v.views||0) + " views</div></div>";
+    attachHoverPreview(row, v);
     list.appendChild(row);
   });
 
+}
+
+
+function attachHoverPreview(row, v){
+  var wrap = row.querySelector(".un-wrap");
+  if(!wrap || (!v.fileUrl && !v.youtubeId)) return;
+  var timer = null, prev = null;
+  function stop(){
+    clearTimeout(timer);
+    if(prev){ try{ if(prev.pause) prev.pause(); }catch(e){} prev.remove(); prev = null; }
+  }
+  row.addEventListener("mouseenter", function(){
+    if(row.classList.contains("now-playing")) return;
+    timer = setTimeout(function(){
+      if(v.fileUrl){
+        prev = document.createElement("video");
+        prev.className = "un-prev";
+        prev.muted = true; prev.defaultMuted = true; prev.loop = true; prev.playsInline = true;
+        prev.setAttribute("muted",""); prev.preload = "auto";
+        prev.src = v.fileUrl;
+        wrap.appendChild(prev);
+        var pr = prev.play(); if(pr && pr.catch) pr.catch(function(){});
+      }else{
+        prev = document.createElement("iframe");
+        prev.className = "un-prev";
+        prev.allow = "autoplay";
+        prev.src = "https://www.youtube.com/embed/" + v.youtubeId + "?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=" + v.youtubeId;
+        wrap.appendChild(prev);
+      }
+    }, 300);
+  });
+  row.addEventListener("mouseleave", stop);
+  row.addEventListener("click", stop);
 }
 
 window.loadVideoById = loadVideoById;
