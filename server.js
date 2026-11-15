@@ -228,7 +228,7 @@ res.status(500).json({error:"failed"})
 // VERIFY TRANSLATOR KEY
 // ----------------------------------------------
 
-app.post("/api/verifyTranslatorKey", async(req,res)=>{
+app.post("/api/verifyTranslatorKey", rateLimit("vtk",15,600000), async(req,res)=>{
 
 try{
 
@@ -758,7 +758,7 @@ res.status(500).json({error:"session lookup failed"})
 // CREATE DELF CHECKOUT
 // ------------------------------------------------
 
-app.post("/api/createDelfCheckout", async(req,res)=>{
+app.post("/api/createDelfCheckout", rateLimit("cdc",20,600000), async(req,res)=>{
 
 try{
 
@@ -864,7 +864,7 @@ res.status(500).json({error:"donation checkout creation failed"})
 // SUBMIT FEEDBACK
 // ------------------------------------------------
 
-app.post("/api/submitFeedback", async(req,res)=>{
+app.post("/api/submitFeedback", rateLimit("fb",10,3600000), async(req,res)=>{
 
 try{
 
@@ -908,7 +908,7 @@ res.status(500).json({error:"feedback submission failed"})
 // permitted by the Firestore rules.)
 // ------------------------------------------------
 
-app.post("/api/createTranslationRequestCheckout", async(req,res)=>{
+app.post("/api/createTranslationRequestCheckout", rateLimit("ctrc",20,600000), async(req,res)=>{
 
 try{
 
@@ -1111,7 +1111,7 @@ res.status(500).json({error:"job acceptance failed"})
 // SAVE TRANSLATOR PAYMENT METHOD (bank or mobile money)
 // ------------------------------------------------
 
-app.post("/api/savePaymentMethod", async(req,res)=>{
+app.post("/api/savePaymentMethod", rateLimit("spm",15,600000), async(req,res)=>{
 
 try{
 
@@ -1707,7 +1707,7 @@ res.status(500).json({error:"could not complete application"})
 
 })
 
-app.get("/api/translatorTrackRecord", async(req,res)=>{
+app.get("/api/translatorTrackRecord", rateLimit("ttr",40,600000), async(req,res)=>{
 
 try{
 
@@ -1786,7 +1786,7 @@ res.status(500).json({error:"could not load track record"})
 const CLEARANCE_DAYS=3
 const MIN_CASH_OUT=10
 
-app.get("/api/translatorWallet", async(req,res)=>{
+app.get("/api/translatorWallet", rateLimit("tw",40,600000), async(req,res)=>{
 
 try{
 
@@ -1867,7 +1867,7 @@ res.status(500).json({error:"could not load wallet"})
 
 })
 
-app.get("/api/translatorProfile", async(req,res)=>{
+app.get("/api/translatorProfile", rateLimit("tpf",40,600000), async(req,res)=>{
 
 try{
 
@@ -1910,7 +1910,7 @@ res.status(500).json({error:"could not load profile"})
 
 })
 
-app.post("/api/updateTranslatorProfile", async(req,res)=>{
+app.post("/api/updateTranslatorProfile", rateLimit("utp",15,600000), async(req,res)=>{
 
 try{
 
@@ -2311,7 +2311,7 @@ res.status(500).json({error:"could not load comments"})
 
 })
 
-app.post("/api/musicAddComment", async(req,res)=>{
+app.post("/api/musicAddComment", rateLimit("mac",30,600000), async(req,res)=>{
 
 try{
 
@@ -2780,7 +2780,7 @@ res.status(500).json({error:"could not get user status"})
 
 })
 
-app.post("/api/chatRecordViolation", async(req,res)=>{
+app.post("/api/chatRecordViolation", rateLimit("crv",30,600000), async(req,res)=>{
 
 try{
 
@@ -3059,7 +3059,7 @@ res.status(500).json({error:"could not update thumbnail"})
 // but fluency and completeness are also factored in.
 // ================================================================
 
-app.post("/api/assessPronunciation", express.raw({type: () => true, limit: "10mb"}), async(req,res)=>{
+app.post("/api/assessPronunciation", rateLimit("pron",150,60000), express.raw({type: () => true, limit: "10mb"}), async(req,res)=>{
 
 try{
 
@@ -3505,7 +3505,7 @@ res.status(500).json({error:"could not rename asset"})
 // DELF AI GRADING (Writing / Speaking, scored against DELF rubric)
 // ================================================================
 
-app.post("/api/gradeDelfResponse", express.json(), async(req,res)=>{
+app.post("/api/gradeDelfResponse", rateLimit("gdr",15,600000), express.json(), async(req,res)=>{
 
 try{
 
@@ -4312,7 +4312,7 @@ await db.collection("accessControl").doc(id).delete();
 res.json({success:true});
 }catch(err){ console.error(err); res.status(500).json({error:"could not remove admin"}); }
 });
-app.get("/api/accessControlCheck", async(req,res)=>{
+app.get("/api/accessControlCheck", rateLimit("acc",60,600000), async(req,res)=>{
 try{
 const email = (req.query.email || "").toLowerCase();
 if(!email) return res.json({authorized:false});
@@ -4510,7 +4510,7 @@ aiTranslationStatus
 
 // Creates the job doc only, no Stripe session - used by the Paystack
 // path, which needs a real jobId to exist before its popup launches.
-app.post("/api/createTranslationJobForPaystack", async(req,res)=>{
+app.post("/api/createTranslationJobForPaystack", rateLimit("ctjp",20,600000), async(req,res)=>{
 try{
 const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs,originalFileUrl,originalFileType}=req.body
 
@@ -4889,6 +4889,19 @@ app.post("/api/completeFormatting", express.json(), async(req,res)=>{ try{ var s
 
 
 /* ---- translation payment safety (server-side price floor, payment-to-job binding) ---- */
+/* ---- simple per-IP rate limiter (no extra package needed) ---- */
+var _rl = {};
+function rateLimit(name, max, windowMs){
+  return function(req, res, next){
+    var ip = String(req.headers["x-forwarded-for"] || req.ip || "").split(",")[0].trim() || "?";
+    var k = name + ":" + ip, now = Date.now(), e = _rl[k];
+    if(!e || now > e.reset){ e = _rl[k] = { n: 0, reset: now + windowMs }; }
+    e.n++;
+    if(e.n > max){ res.set("Retry-After", String(Math.ceil((e.reset - now) / 1000))); return res.status(429).json({ error: "too many requests - please slow down" }); }
+    next();
+  };
+}
+setInterval(function(){ var n = Date.now(); for(var k in _rl){ if(_rl[k].reset < n) delete _rl[k]; } }, 600000).unref();
 function serverFloorPrice(plan, wordCount, documentText, clientPrice){
   var rate = String(plan || "").toLowerCase() === "express" ? 0.05 : 0.025;
   var w = Number(wordCount) || 0;
@@ -4937,9 +4950,9 @@ async function requireAdminAuth(req, res, next){ try{ var authHeader = req.heade
 
 
 
-app.get("/api/jobsByEmail", async(req,res)=>{ try{ var email = (req.query.email || "").toLowerCase(); var excludeJobId = req.query.excludeJobId || ""; if(!email) return res.json([]); var snapshot = await db.collection("translationJobs").where("email","==",email).get(); var results = []; snapshot.forEach(function(docSnap){ if(docSnap.id === excludeJobId) return; var data = docSnap.data(); results.push({ jobId: data.jobId || docSnap.id, status: data.status || "", paid: data.paid === true, price: data.price || 0, wordCount: data.wordCount || 0, plan: data.plan || "" }); }); res.json(results); }catch(err){ console.error(err); res.status(500).json([]); } });
+app.get("/api/jobsByEmail", rateLimit("jbe",30,600000), async(req,res)=>{ try{ var email = (req.query.email || "").toLowerCase(); var excludeJobId = req.query.excludeJobId || ""; if(!email) return res.json([]); var snapshot = await db.collection("translationJobs").where("email","==",email).get(); var results = []; snapshot.forEach(function(docSnap){ if(docSnap.id === excludeJobId) return; var data = docSnap.data(); results.push({ jobId: data.jobId || docSnap.id, status: data.status || "", paid: data.paid === true, price: data.price || 0, wordCount: data.wordCount || 0, plan: data.plan || "" }); }); res.json(results); }catch(err){ console.error(err); res.status(500).json([]); } });
 
-app.get("/api/proxyFile", function(req,res){ try{ var fileUrl = req.query.url || ""; var _pu=null; try{ _pu=new URL(fileUrl); }catch(e){} if(!_pu || _pu.protocol!=="https:" || _pu.hostname!=="firebasestorage.googleapis.com" || _pu.username || _pu.password){ return res.status(400).json({error:"invalid file URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", proxyRes.headers["content-type"] || "application/octet-stream"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); } });
+app.get("/api/proxyFile", rateLimit("pf",60,600000), function(req,res){ try{ var fileUrl = req.query.url || ""; var _pu=null; try{ _pu=new URL(fileUrl); }catch(e){} if(!_pu || _pu.protocol!=="https:" || _pu.hostname!=="firebasestorage.googleapis.com" || _pu.username || _pu.password){ return res.status(400).json({error:"invalid file URL"}); } https.get(fileUrl, function(proxyRes){ res.set("Content-Type", proxyRes.headers["content-type"] || "application/octet-stream"); proxyRes.pipe(res); }).on("error", function(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); }); }catch(err){ console.error(err); res.status(500).json({error:"could not proxy file"}); } });
 
 
 async function gradeTranslationWithClaude(sourceText, translatedText, sourceLang, targetLang){
