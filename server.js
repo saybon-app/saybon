@@ -2220,7 +2220,7 @@ res.status(500).json({error:"could not record view"})
 
 })
 
-app.post("/api/musicToggleReaction", async(req,res)=>{
+app.post("/api/musicToggleReaction", requireSelf, async(req,res)=>{
 
 try{
 
@@ -2311,7 +2311,7 @@ res.status(500).json({error:"could not load comments"})
 
 })
 
-app.post("/api/musicAddComment", rateLimit("mac",30,600000), async(req,res)=>{
+app.post("/api/musicAddComment", rateLimit("mac",30,600000), requireSelf, async(req,res)=>{
 
 try{
 
@@ -2344,7 +2344,7 @@ res.status(500).json({error:"could not add comment"})
 
 })
 
-app.post("/api/musicDeleteComment", async(req,res)=>{
+app.post("/api/musicDeleteComment", requireAdminAuth, async(req,res)=>{
 
 try{
 
@@ -2368,7 +2368,7 @@ res.status(500).json({error:"could not delete comment"})
 
 })
 
-app.get("/api/musicPlaylists", async(req,res)=>{
+app.get("/api/musicPlaylists", requireSelf, async(req,res)=>{
 
 try{
 
@@ -2417,7 +2417,7 @@ res.status(500).json({error:"could not load playlists"})
 
 })
 
-app.post("/api/musicCreatePlaylist", async(req,res)=>{
+app.post("/api/musicCreatePlaylist", requireSelf, async(req,res)=>{
 
 try{
 
@@ -2448,7 +2448,7 @@ res.status(500).json({error:"could not create playlist"})
 
 })
 
-app.post("/api/musicAddToPlaylist", async(req,res)=>{
+app.post("/api/musicAddToPlaylist", requireSelf, async(req,res)=>{
 
 try{
 
@@ -2463,6 +2463,10 @@ const doc=await ref.get()
 
 if(!doc.exists){
 return res.status(404).json({error:"Playlist not found"})
+}
+
+if(doc.data().userId!==req.uid){
+return res.status(403).json({error:"not your playlist"})
 }
 
 const videoIds=doc.data().videoIds||[]
@@ -2484,7 +2488,7 @@ res.status(500).json({error:"could not add video to playlist"})
 
 })
 
-app.get("/api/musicPlaylistDetail", async(req,res)=>{
+app.get("/api/musicPlaylistDetail", requireSelf, async(req,res)=>{
 
 try{
 
@@ -2497,6 +2501,9 @@ return res.status(404).json({error:"Playlist not found"})
 }
 
 const data=doc.data()
+if(data.userId!==req.uid){
+return res.status(403).json({error:"not your playlist"})
+}
 const videoIds=data.videoIds||[]
 
 const videos=[]
@@ -2526,7 +2533,7 @@ res.status(500).json({error:"could not load playlist"})
 
 /* ===== SayBon Music: listening history, liked list, playlist management ===== */
 
-app.post("/api/musicHistoryAdd", async(req,res)=>{
+app.post("/api/musicHistoryAdd", requireSelf, async(req,res)=>{
 try{
 const {userId,videoId,genre,artist,at,pct}=req.body
 if(!userId || !videoId || !at){
@@ -2542,7 +2549,7 @@ res.status(500).json({error:"could not save history"})
 }
 })
 
-app.get("/api/musicHistory", async(req,res)=>{
+app.get("/api/musicHistory", requireSelf, async(req,res)=>{
 try{
 const userId=req.query.userId
 if(!userId){
@@ -2562,7 +2569,7 @@ res.status(500).json({error:"could not load history"})
 }
 })
 
-app.get("/api/musicLiked", async(req,res)=>{
+app.get("/api/musicLiked", requireSelf, async(req,res)=>{
 try{
 const userId=req.query.userId
 if(!userId){
@@ -2578,7 +2585,7 @@ res.status(500).json({error:"could not load liked videos"})
 }
 })
 
-app.post("/api/musicRemoveFromPlaylist", async(req,res)=>{
+app.post("/api/musicRemoveFromPlaylist", requireSelf, async(req,res)=>{
 try{
 const {playlistId,videoId,userId}=req.body
 if(!playlistId || !videoId || !userId){
@@ -2598,7 +2605,7 @@ res.status(500).json({error:"could not remove video"})
 }
 })
 
-app.post("/api/musicDeletePlaylist", async(req,res)=>{
+app.post("/api/musicDeletePlaylist", requireSelf, async(req,res)=>{
 try{
 const {playlistId,userId}=req.body
 if(!playlistId || !userId){
@@ -2617,7 +2624,7 @@ res.status(500).json({error:"could not delete playlist"})
 }
 })
 
-app.post("/api/musicRenamePlaylist", async(req,res)=>{
+app.post("/api/musicRenamePlaylist", requireSelf, async(req,res)=>{
 try{
 const {playlistId,userId,name}=req.body
 if(!playlistId || !userId || !name || !name.trim()){
@@ -4903,6 +4910,13 @@ function rateLimit(name, max, windowMs){
   };
 }
 setInterval(function(){ var n = Date.now(); for(var k in _rl){ if(_rl[k].reset < n) delete _rl[k]; } }, 600000).unref();
+function requireSelf(req, res, next){
+  return requireUser(req, res, function(){
+    var b = (req.body && req.body.userId) || (req.query && req.query.userId) || "";
+    if(b && b !== req.uid) return res.status(403).json({ error: "not your account" });
+    next();
+  });
+}
 async function requireUser(req, res, next){
   try{
     var h = req.headers.authorization || "";
