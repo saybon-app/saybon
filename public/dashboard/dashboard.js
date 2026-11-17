@@ -1,4 +1,4 @@
-﻿function goLevels(){ window.location.href="/levels/"; }
+function goLevels(){ window.location.href="/levels/"; }
 function goTalkletics(){ window.location.href="/talkletics/"; }
 function goMusic(){ window.location.href="/music/"; }
 function goDelf(){ window.location.href="/delf/"; }
@@ -31,4 +31,4 @@ const goalCaptionText = dailyMinutes === 0
     ? "Goal reached! Keep it up"
     : "Keep going, you're doing great";
 document.querySelectorAll(".js-goal-caption").forEach(el => el.textContent = goalCaptionText);
-
+function goLibrary(){ window.location.href="/library/"; }
