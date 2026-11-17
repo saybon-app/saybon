@@ -14,7 +14,10 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .app{position:relative;z-index:2;height:100vh;height:100dvh;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:minmax(0,1fr);transition:opacity .7s var(--soft),transform .7s var(--soft)}
 .app.leaving{opacity:0;transform:scale(1.025)}
-.top{padding:3.2vh var(--edge) 0;animation:rise 1.1s var(--ease) both}
+.top{padding:3.2vh var(--edge) 0;display:flex;align-items:center;justify-content:space-between;gap:14px;animation:rise 1.1s var(--ease) both}
+.tr{display:flex;align-items:center;gap:clamp(18px,2.6vw,38px)}
+.nl{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;font-size:clamp(14px,1.15vw,17px);color:#fff;background:none;border:0;cursor:pointer;text-decoration:none;padding:6px 0;transition:color .5s var(--soft),transform .7s var(--ease)}
+.nl svg{width:26px;height:26px;flex:0 0 auto}.nl:hover{transform:translateY(-2px)}.nl.on{color:var(--gold)}
 .logo{display:inline-block;line-height:0}
 .logo img{height:clamp(38px,6.2vh,56px);width:auto;display:block}
 .mid{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5vw;min-height:0}
@@ -57,7 +60,8 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 .em{font-weight:700;color:var(--mut);max-width:380px;line-height:1.5}.em b{display:block;font-family:Georgia,serif;font-size:22px;color:#fff;font-weight:600;margin-bottom:4px}
 @media(max-width:760px){
  .bg{inset:0;width:auto;height:auto;background:url(/library/bg-mobile.webp) center/cover no-repeat;-webkit-mask-image:none;mask-image:none}
- .top{padding:3.4vh 20px 0}.logo img{height:auto;width:min(200px,54vw)}
+ .top{padding:3.4vh 20px 0}
+ .tr{gap:10px}.nl{width:46px;height:46px;border-radius:50%;background:#F5F1E4;color:#0b3d2a;justify-content:center;padding:0;box-shadow:0 8px 18px rgba(0,0,0,.25)}.nl span{display:none}.nl svg{width:24px;height:24px}.nl.on{background:var(--gold);color:#2b1f00}.logo img{height:auto;width:min(200px,54vw)}
  .mid{align-items:flex-start;text-align:left;padding:0 20px;justify-content:flex-start;padding-top:3.4vh}
  .hd{height:auto;width:min(300px,76vw)}
  .tools{flex-wrap:wrap;background:none;box-shadow:none;padding:0;gap:10px;margin-top:2.4vh}
@@ -78,6 +82,7 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 <div class="app" id="app">
 <header class="top">
 <a class="logo" href="/dashboard/" title="Dashboard"><picture><source media="(max-width:760px)" srcset="/library/lock-mobile.webp"><img src="/library/lock-desktop.webp" alt="SayBon Library"></picture></a>
+<nav class="tr"><a class="nl" href="/dashboard/" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.2L12 3.5l9 7.7"/><path d="M5.3 9.6V20.5h13.4V9.6"/><path d="M10 20.5v-6h4v6"/></svg><span>Dashboard</span></a><button class="nl" id="hsv" type="button" aria-label="Saved Books"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3.5h12v17.2l-6-4.6-6 4.6z"/></svg><span>Saved Books</span></button></nav>
 </header>
 
 <main class="mid">
@@ -139,8 +144,9 @@ $("lv").addEventListener("change", e => { st.lv = e.target.value; render(); });
 $("fm").addEventListener("change", e => { st.fm = e.target.value; render(); });
 $("q").addEventListener("input", e => { st.q = e.target.value; render(); });
 $("gn").addEventListener("change", e => { st.gn = e.target.value; render(); });
-$("my").addEventListener("click", () => { st.mine = !st.mine; $("my").classList.toggle("on", st.mine); render(); });
-$("clr").addEventListener("click", () => { st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; $("lv").value = ""; $("gn").value = ""; $("fm").value = ""; $("my").classList.remove("on"); render(); });
+const togSaved = () => { st.mine = !st.mine; $("my").classList.toggle("on", st.mine); $("hsv").classList.toggle("on", st.mine); render(); };
+$("my").addEventListener("click", togSaved); $("hsv").addEventListener("click", togSaved);
+$("clr").addEventListener("click", () => { st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; $("lv").value = ""; $("gn").value = ""; $("fm").value = ""; $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
 $("rail").addEventListener("click", e => { const a = e.target.closest("a.bk"); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); a.classList.add("pick"); $("app").classList.add("leaving"); setTimeout(() => { location.href = a.getAttribute("href"); }, 760); });
 window.addEventListener("pageshow", ev => { if (ev.persisted) { $("app").classList.remove("leaving"); document.querySelectorAll(".bk.pick").forEach(x => x.classList.remove("pick")); } });
 $("al").onclick = () => $("rail").scrollBy({ left: -$("rail").clientWidth * .8, behavior: "smooth" });
