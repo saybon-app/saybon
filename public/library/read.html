@@ -10,12 +10,12 @@
 html,body{height:100%}
 body{background:radial-gradient(ellipse at 50% 28%,#0f4a35 0%,#05261b 74%);color:var(--txt);font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;overflow:hidden;display:flex;flex-direction:column}
 .bar{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
-.bar a,.bar button{background:rgba(255,255,255,.08);border:0;color:var(--txt);border-radius:999px;height:34px;min-width:34px;padding:0 13px;display:inline-grid;place-items:center;text-decoration:none;cursor:pointer;font:inherit;font-weight:700;font-size:13px;transition:background .2s}
+.bar a,.bar button{background:rgba(255,255,255,.08);border:0;color:var(--txt);border-radius:999px;height:34px;min-width:34px;padding:0 13px;display:inline-grid;place-items:center;text-decoration:none;cursor:pointer;font:inherit;font-weight:700;font-size:13px;transition:background .45s}
 .bar a:hover,.bar button:hover{background:rgba(255,255,255,.17)}
 .bar button[disabled]{opacity:.35;cursor:default}
 .bar .ttl{flex:1;min-width:0;text-align:center;font-family:Georgia,serif;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#e4dfd0}
 .stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;perspective:2600px;min-height:0;position:relative;user-select:none;-webkit-user-select:none}
-.spread{position:relative;height:var(--ph);width:calc(var(--pw) * 2);filter:drop-shadow(0 30px 44px rgba(0,0,0,.65));transition:transform .95s var(--ease)}
+.spread{position:relative;height:var(--ph);width:calc(var(--pw) * 2);filter:drop-shadow(0 30px 44px rgba(0,0,0,.65));transition:transform 1.5s var(--ease)}
 .spread.single{width:var(--pw)}
 .spread.closed:not(.single){transform:translateX(calc(var(--pw) * -.5))}
 .slot{position:absolute;top:0;width:var(--pw);height:var(--ph)}
@@ -26,7 +26,7 @@ body{background:radial-gradient(ellipse at 50% 28%,#0f4a35 0%,#05261b 74%);color
 .pg.left{border-radius:12px 3px 3px 12px / 16px 3px 3px 16px;box-shadow:inset -30px 0 32px -18px rgba(70,45,15,.55),inset 3px 0 0 rgba(255,255,255,.5)}
 .pg.right{border-radius:3px 12px 12px 3px / 3px 16px 16px 3px;box-shadow:inset 30px 0 32px -18px rgba(70,45,15,.55),inset -3px 0 0 rgba(255,255,255,.5)}
 .spread.single .pg.left,.spread.single .pg.right{border-radius:6px;box-shadow:inset 22px 0 26px -18px rgba(70,45,15,.5)}
-.in{height:calc(var(--ph) - 36px - 46px);overflow:hidden;font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:var(--fs);line-height:1.64;hyphens:auto;-webkit-hyphens:auto;text-align:justify;transition:opacity .3s ease}
+.in{height:calc(var(--ph) - 36px - 46px);overflow:hidden;font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:var(--fs);line-height:1.64;hyphens:auto;-webkit-hyphens:auto;text-align:justify;transition:opacity .55s ease}
 .in p.fr{text-indent:1.5em}
 .in p.fr.c,.in h2+p.fr,.in figure+p.fr{text-indent:0}
 .in h2{font-weight:600;font-size:1.55em;text-align:center;margin:.3em 0 .9em;line-height:1.2;color:#3a2a14}
@@ -34,6 +34,9 @@ body{background:radial-gradient(ellipse at 50% 28%,#0f4a35 0%,#05261b 74%);color
 .in figure.fig{margin:.5em 0 .9em;width:100%;aspect-ratio:3/2;max-height:calc(var(--ph) * .33);overflow:hidden}
 .in figure.fig img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;filter:saturate(.94) contrast(.98);-webkit-mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);mask-composite:intersect}
 .in .end{text-align:center;margin-top:28%;font-style:italic;color:#6a5a45}
+.in .end.fin{margin-top:34%;font-size:1.25em;letter-spacing:.04em}
+.rdEn{display:block;margin:1.6em auto 0;font:inherit;font-style:normal;font-weight:700;font-size:.7em;letter-spacing:.08em;color:#6b4d12;background:linear-gradient(180deg,#F6DE9A,#E3B54B);border:0;border-radius:999px;padding:.8em 1.6em;cursor:pointer;box-shadow:0 8px 18px -6px rgba(120,80,10,.55);transition:transform .7s cubic-bezier(.22,1,.36,1),box-shadow .7s cubic-bezier(.22,1,.36,1)}
+.rdEn:hover{transform:translateY(-3px);box-shadow:0 14px 24px -8px rgba(120,80,10,.6)}
 .in.tp{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:calc(var(--ph) - 72px)}
 .tp .org{font-family:"Nunito",sans-serif;font-size:.62em;font-weight:900;letter-spacing:.3em;text-transform:uppercase;color:#9a7a2e}
 .tp .rule{width:64px;height:1.5px;background:var(--gold);margin:1.1em auto}
@@ -42,7 +45,7 @@ body{background:radial-gradient(ellipse at 50% 28%,#0f4a35 0%,#05261b 74%);color
 .tp .orn{margin-top:1.6em;width:120px;height:14px}
 .pg.inner{background:#16543f;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.045) 0 1px,transparent 1px 14px),repeating-linear-gradient(-45deg,rgba(255,255,255,.045) 0 1px,transparent 1px 14px);box-shadow:inset -30px 0 36px -14px rgba(0,0,0,.55);color:#e7cf8f}
 .pg.inner .fr{position:absolute;inset:26px;border:1.5px solid rgba(201,162,74,.65);border-radius:6px;display:grid;place-items:center;text-align:center;font-family:Georgia,serif;font-style:italic;font-size:15px;letter-spacing:.06em}
-.pn{position:absolute;bottom:15px;left:0;right:0;text-align:center;font-family:Georgia,serif;font-size:12px;color:#8a7a62;transition:opacity .3s ease}
+.pn{position:absolute;bottom:15px;left:0;right:0;text-align:center;font-family:Georgia,serif;font-size:12px;color:#8a7a62;transition:opacity .55s ease}
 .spread.fade .in,.spread.fade .pn{opacity:0}
 .cover{position:absolute;inset:0;border-radius:4px 12px 12px 4px;overflow:hidden;background:#143f50;box-shadow:inset 8px 0 14px -6px rgba(0,0,0,.55)}
 .cover img{width:100%;height:100%;object-fit:cover;display:block}
@@ -50,7 +53,7 @@ body{background:radial-gradient(ellipse at 50% 28%,#0f4a35 0%,#05261b 74%);color
 .cover:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,rgba(255,255,255,.2),transparent 38%);pointer-events:none}
 .cover .gen{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 28px 30px 38px;font-family:Georgia,serif;color:#f6efd8}
 .cover .gen b{font-size:calc(var(--pw) * .1);line-height:1.18;font-weight:600}.cover .gen i{display:block;width:44px;height:2px;background:var(--gold);margin:16px 0}.cover .gen span{font-size:calc(var(--pw)*.045);letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-family:"Nunito",sans-serif;font-weight:800}
-.closedwrap{position:absolute;inset:0;cursor:pointer;border-radius:4px 12px 12px 4px;box-shadow:7px 0 0 #efe5cc,8px 0 0 #cfc2a0,11px 4px 0 #efe5cc,12px 5px 0 #cfc2a0,0 22px 40px rgba(0,0,0,.6);transition:transform .5s var(--ease)}
+.closedwrap{position:absolute;inset:0;cursor:pointer;border-radius:4px 12px 12px 4px;box-shadow:7px 0 0 #efe5cc,8px 0 0 #cfc2a0,11px 4px 0 #efe5cc,12px 5px 0 #cfc2a0,0 22px 40px rgba(0,0,0,.6);transition:transform .9s var(--ease)}
 .closedwrap:hover{transform:translateY(-8px) rotateY(-4deg)}
 .closedwrap .hint{position:absolute;left:0;right:0;bottom:-44px;text-align:center;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);animation:pulse 2.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
@@ -98,6 +101,7 @@ const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;
 const LS = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const TONES = [["#1d5c45","#0f3a2c"],["#1f6f78","#12444b"],["#7a2a3c","#481a25"],["#26396b","#16213f"],["#8a6a1f","#55400f"],["#5a2f6b","#35193f"]];
+let enPage = -1, bil = false;
 let meta = null, blocks = [], imgs = {}, content = [], Q = [], two = true, cur = 0, busy = false, closed = true;
 let fs = parseInt(LS.get("sbLibFs") || "17", 10) || 17, savedBlk = 0;
 
@@ -141,6 +145,8 @@ function paginate(){
   for (let bi = 0; bi < blocks.length; bi++) {
     const b = blocks[bi];
     if (!items.length) startBlk = bi;
+    if (b.fin) { if (items.length) flush(bi); startBlk = bi; items.push({ h: '<div class="end fin">&mdash; Fin &mdash;<button class="rdEn" type="button">Read the English version</button></div>' }); continue; }
+    if (b.enStart) { if (items.length) flush(bi); if (two && content.length % 2 === 1) content.push({ html: "", blk: bi, blank: true }); enPage = content.length; startBlk = bi; }
     if (b.img) { const f = F(b); if (!f) continue; if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); continue; }
     if (b.h) { if (items.length) { flush(bi); startBlk = bi; } items.push({ h: H(b), head: true }); continue; }
     let rest = b.t.split(/\s+/), cont = false, guard = 0;
@@ -154,13 +160,13 @@ function paginate(){
       rest = rest.slice(k); cont = true; flush(bi);
     }
   }
-  const endH = '<div class="end">&mdash; Fin &mdash;<br>The End</div>';
+  const endH = bil ? '<div class="end">&mdash; The End &mdash;</div>' : '<div class="end">&mdash; Fin &mdash;<br>The End</div>';
   if (items.length && fits(endH)) items.push({ h: endH }); else { if (items.length) flush(blocks.length); items.push({ h: endH }); }
   flush(blocks.length);
   if (!content.length) content.push({ html: "", blk: 0 });
 }
 function buildQ(){
-  Q = (two ? [{ kind: "inner" }] : []).concat([{ kind: "title" }], content.map((p, i) => ({ kind: "c", html: p.html, blk: p.blk, no: i + 1 })));
+  Q = (two ? [{ kind: "inner" }] : []).concat([{ kind: "title" }], content.map((p, i) => ({ kind: "c", html: p.html, blk: p.blk, no: i + 1, blank: !!p.blank })));
 }
 const ORN = '<svg class="orn" viewBox="0 0 120 14" fill="none" stroke="#C9A24A" stroke-width="1.3"><path d="M2 7h46M72 7h46"/><path d="M60 1l6 6-6 6-6-6z" fill="#C9A24A" stroke="none"/></svg>';
 function pageEl(i, side){
@@ -170,6 +176,7 @@ function pageEl(i, side){
   if (!q) return d;
   if (q.kind === "inner") { d.className += " inner"; d.innerHTML = '<div class="fr">SayBon Library</div>'; return d; }
   if (q.kind === "title") { d.innerHTML = '<div class="in tp"><div class="org">' + (meta.original === false ? "" : "SayBon Original") + '</div><div class="rule"></div><div class="tt">' + esc(meta.title) + '</div>' + (meta.author ? '<div class="au">' + esc(meta.author) + "</div>" : "") + ORN + "</div>"; return d; }
+  if (q.blank) return d;
   d.innerHTML = '<div class="in">' + q.html + '</div><div class="pn">' + q.no + "</div>";
   return d;
 }
@@ -218,15 +225,15 @@ function mkLeaf(cls, front, back){
   fr.appendChild(front); bk.appendChild(back); leaf.appendChild(fr); leaf.appendChild(bk);
   return leaf;
 }
-const FLIP = { duration: 860, easing: "cubic-bezier(.55,.05,.25,1)", fill: "forwards" };
-async function flip(dir){
+const FLIP = { duration: 1600, easing: "cubic-bezier(.45,.05,.2,1)", fill: "forwards" };
+async function flip(dir, target){
   if (busy || closed) return;
   const mx = maxCur();
-  if ((dir > 0 && cur >= mx) || (dir < 0 && cur <= 0)) return;
+  if (target == null && ((dir > 0 && cur >= mx) || (dir < 0 && cur <= 0))) return;
   busy = true;
   const sp = $("spread");
   sp.classList.add("fade");
-  await wait(300);
+  await wait(560);
   let leaf, frames, base;
   if (two) {
     if (dir > 0) { leaf = mkLeaf("fromR", blank("right"), blank("left")); frames = [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }]; base = $("sR"); }
@@ -240,8 +247,8 @@ async function flip(dir){
   shade.animate([{ opacity: 0 }, { opacity: .5 }, { opacity: 0 }], { duration: FLIP.duration, easing: "ease-in-out" });
   const a = leaf.animate(frames, FLIP);
   try { await a.finished; } catch (e) {}
-  cur += dir; show(); leaf.remove();
-  await wait(40);
+  cur = target == null ? cur + dir : target; show(); leaf.remove();
+  await wait(80);
   sp.classList.remove("fade");
   busy = false;
 }
@@ -264,10 +271,10 @@ async function openBook(){
   sp.appendChild(leaf);
   void sp.offsetWidth;
   sp.classList.remove("closed");
-  const a = leaf.animate([{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }], { duration: 1000, easing: "cubic-bezier(.5,.05,.25,1)", fill: "forwards" });
+  const a = leaf.animate([{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }], { duration: 1800, easing: "cubic-bezier(.45,.05,.2,1)", fill: "forwards" });
   try { await a.finished; } catch (e) {}
   show(); leaf.remove();
-  await wait(60);
+  await wait(120);
   sp.classList.remove("fade");
   busy = false;
 }
@@ -276,11 +283,11 @@ async function closeBook(){
   busy = true;
   const sp = $("spread");
   sp.classList.add("fade");
-  await wait(300);
+  await wait(560);
   let leaf;
   if (two) leaf = mkLeaf("fromR", coverEl(), pageEl(0, "left")); else leaf = mkLeaf("fromR", coverEl(), blank("right"));
   sp.appendChild(leaf);
-  const a = leaf.animate([{ transform: "rotateY(-180deg)" }, { transform: "rotateY(0deg)" }], { duration: 900, easing: "cubic-bezier(.5,.05,.25,1)", fill: "forwards" });
+  const a = leaf.animate([{ transform: "rotateY(-180deg)" }, { transform: "rotateY(0deg)" }], { duration: 1500, easing: "cubic-bezier(.45,.05,.2,1)", fill: "forwards" });
   sp.classList.add("closed");
   try { await a.finished; } catch (e) {}
   closed = true; renderClosed(); leaf.remove();
@@ -295,10 +302,16 @@ function rebuild(keepBlk){
   cur = two ? Math.floor(f / 2) : f;
   show();
 }
+function gotoEnglish(){
+  if (enPage < 0 || busy || closed) return;
+  const qi = (two ? 2 : 1) + enPage, t = two ? Math.floor(qi / 2) : qi;
+  if (t !== cur) flip(t > cur ? 1 : -1, t);
+}
 $("next").onclick = () => flip(1);
 $("prev").onclick = () => flip(-1);
 $("cv").onclick = () => closeBook();
 $("stage").addEventListener("click", e => {
+  if (e.target.closest(".rdEn")) { gotoEnglish(); return; }
   if (closed || e.target.closest(".nav")) return;
   const r = $("spread").getBoundingClientRect();
   if (e.clientX < r.left || e.clientX > r.right) return;
@@ -333,12 +346,11 @@ window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() =
     }
     $("ttl").textContent = meta.title + (meta.author ? " \u2014 " + meta.author : "");
     document.title = meta.title + " | SayBon Library";
-    const bil = meta.format === "bilingual";
+    bil = meta.format === "bilingual";
     const fr = parse(td.fr), en = bil ? parse(td.en) : [];
     if (bil && en.length) {
-      const a = chapters(fr), b = chapters(en), n = Math.max(a.length, b.length);
-      for (let i = 0; i < n; i++) { (a[i] || []).forEach(x => blocks.push(x)); (b[i] || []).forEach(x => blocks.push(Object.assign({}, x, { en: true }))); }
-    } else blocks = fr;
+      blocks = fr.concat([{ fin: true }], en.map((x, i) => Object.assign({}, x, { en: true, enStart: i === 0 })));
+    } else { bil = false; blocks = fr; }
     if (!blocks.length) { $("msg").textContent = "This book has no text yet."; return; }
     const need = Array.from(new Set(blocks.filter(b => b.img).map(b => b.img)));
     if (CB && CB.imgs) need.forEach(n => { if (CB.imgs[n]) imgs[n] = CB.imgs[n]; });
