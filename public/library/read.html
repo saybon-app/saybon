@@ -8,6 +8,7 @@
 :root{--gold:#E3B54B;--gold2:#C9A24A;--txt:#F2EEDC;--mut:#A9C9B8;--paper:#f3ead6;--ink:#2a2118;--pw:420px;--ph:600px;--fs:17px;--padx:36px;--padt:36px;--padb:46px;--ease:cubic-bezier(.22,1,.36,1);--soft:cubic-bezier(.33,0,.2,1)}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;overflow:hidden;display:flex;flex-direction:column;position:relative}
 .bgl{position:fixed;inset:0;background:#021c13 url(/library/bg-desktop.webp) center bottom/cover no-repeat;filter:saturate(.95) brightness(.85);transform:scale(1.04)}
 .veil{position:fixed;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 46%,rgba(8,70,48,0) 0%,rgba(2,24,16,.35) 60%,rgba(1,16,11,.82) 100%),linear-gradient(180deg,rgba(1,18,12,.55),rgba(1,18,12,0) 22%,rgba(1,18,12,0) 70%,rgba(1,18,12,.6))}
@@ -28,6 +29,10 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 .pillg button.on{background:linear-gradient(180deg,#F6DE9A,#E3B54B);color:#3a2705}
 .pillg button[disabled]{opacity:.35;cursor:default}
 .pillg .sA{font-family:Georgia,serif;font-weight:700;font-size:14px}.pillg .lA{font-family:Georgia,serif;font-weight:700;font-size:20px}
+#vw{display:none}
+@media (max-width:899px){#vw{display:inline-grid}}
+.spread:not(.single) .in{text-align:left}
+@media (min-width:900px){.spread:not(.single) .in{text-align:justify}}
 .ibtn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:var(--txt);cursor:pointer;transition:background .5s var(--soft),transform .6s var(--ease)}
 .ibtn svg{width:20px;height:20px}.ibtn:hover{background:rgba(255,255,255,.17);transform:translateY(-1px)}.ibtn[disabled]{opacity:.35;cursor:default;transform:none}
 .stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;perspective:2600px;min-height:0;user-select:none;-webkit-user-select:none}
@@ -113,6 +118,7 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 <div class="ctl">
 <div class="pillg glass" id="lang" hidden><button id="lfr" type="button" class="on">FR</button><button id="len" type="button">EN</button></div>
 <div class="pillg glass"><button id="fm" type="button" title="Smaller text" aria-label="Smaller text"><span class="sA">A</span></button><button id="fp" type="button" title="Larger text" aria-label="Larger text"><span class="lA">A</span></button></div>
+<button class="ibtn glass" id="vw" type="button" title="Switch between one page and two pages" aria-label="Switch between one page and two pages"></button>
 <button class="ibtn glass" id="cv" type="button" title="Close the book" aria-label="Close the book" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></button>
 </div>
 </header>
@@ -141,7 +147,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 const TONES = [["#1d5c45","#0f3a2c"],["#1f6f78","#12444b"],["#7a2a3c","#481a25"],["#26396b","#16213f"],["#8a6a1f","#55400f"],["#5a2f6b","#35193f"]];
 let enPage = -1, bil = false, PW = 0, PH = 0;
 let meta = null, blocks = [], imgs = {}, content = [], Q = [], two = true, cur = 0, busy = false, closed = true;
-let fsD = parseFloat(LS.get("sbLibFs") || "17") || 17, fsM = parseFloat(LS.get("sbLibFsM") || "12.5") || 12.5, fs = fsD, compact = false, savedBlk = 0;
+let fsD = parseFloat(LS.get("sbLibFs") || "17") || 17, fsM = parseFloat(LS.get("sbLibFsM") || "12.5") || 12.5, fsS = parseFloat(LS.get("sbLibFsS") || "16.5") || 16.5, view = LS.get("sbLibView") || "one", fs = fsD, compact = false, savedBlk = 0;
 
 function parse(t){
   return String(t || "").replace(/\r/g, "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean).map(s => {
@@ -159,16 +165,17 @@ function F(b){ return imgs[b.img] ? '<figure class="fig"><img alt="" src="' + im
 function layout(){
   const w = window.innerWidth, st = $("stage").clientHeight || (window.innerHeight - 160);
   compact = w < 900;
-  two = true;
-  fs = compact ? fsM : fsD;
+  two = !(compact && view === "one");
+  fs = compact ? (two ? fsM : fsS) : fsD;
   const h = st - 54;
   let pw, ph;
-  if (compact) { pw = Math.floor((w - 20) / 2); ph = Math.min(h, Math.round(pw * 2.6)); }
+  if (compact && !two) { pw = Math.min(Math.floor(w - 28), 520); ph = Math.min(h, Math.round(pw * 1.55)); }
+  else if (compact) { pw = Math.floor((w - 20) / 2); ph = Math.min(h, Math.round(pw * 2.6)); }
   else { ph = Math.min(h, 780); pw = ph * 0.72; const maxW = (w - 190) / 2; if (pw > maxW) { pw = maxW; ph = pw / 0.72; } }
   PW = Math.floor(pw); PH = Math.floor(ph);
   const r = document.documentElement.style;
   r.setProperty("--pw", Math.floor(pw) + "px"); r.setProperty("--ph", Math.floor(ph) + "px"); r.setProperty("--fs", fs + "px");
-  r.setProperty("--padx", compact ? "13px" : "36px"); r.setProperty("--padt", compact ? "22px" : "36px"); r.setProperty("--padb", compact ? "36px" : "46px");
+  r.setProperty("--padx", compact ? (two ? "13px" : "22px") : "36px"); r.setProperty("--padt", compact ? (two ? "22px" : "28px") : "36px"); r.setProperty("--padb", compact ? "36px" : "46px");
   $("spread").classList.toggle("single", !two);
 }
 function paginate(){
@@ -380,7 +387,12 @@ document.addEventListener("keydown", e => {
 let tx = 0, ty = 0;
 $("stage").addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
 $("stage").addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (!closed && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { e.preventDefault(); flip(dx < 0 ? 1 : -1); } });
-function fsBtn(d){ if (compact) { fsM = Math.max(10, Math.min(20, fsM + d * 0.5)); LS.set("sbLibFsM", String(fsM)); } else { fsD = Math.max(13, Math.min(26, fsD + d)); LS.set("sbLibFs", String(fsD)); } if (!busy) rebuild(savedBlk); }
+function fsBtn(d){ if (compact && !two) { fsS = Math.max(12, Math.min(24, fsS + d * 0.5)); LS.set("sbLibFsS", String(fsS)); } else if (compact) { fsM = Math.max(10, Math.min(20, fsM + d * 0.5)); LS.set("sbLibFsM", String(fsM)); } else { fsD = Math.max(13, Math.min(26, fsD + d)); LS.set("sbLibFs", String(fsD)); } if (!busy) rebuild(savedBlk); }
+const ICO1 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3.5" width="10" height="17" rx="2"/></svg>';
+const ICO2 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M12 4.5v15"/></svg>';
+function vwPaint(){ $("vw").innerHTML = view === "one" ? ICO2 : ICO1; $("vw").title = view === "one" ? "Show two pages" : "Show one page"; }
+$("vw").onclick = () => { if (busy) return; view = view === "one" ? "two" : "one"; LS.set("sbLibView", view); vwPaint(); rebuild(savedBlk); };
+vwPaint();
 $("fm").onclick = () => fsBtn(-1);
 $("fp").onclick = () => fsBtn(1);
 let rt = 0;
