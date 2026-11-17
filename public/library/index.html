@@ -20,19 +20,37 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 .nl svg{width:26px;height:26px;flex:0 0 auto}.nl:hover{transform:translateY(-2px)}.nl.on{color:var(--gold)}
 .logo{display:inline-block;line-height:0}
 .logo img{height:clamp(38px,6.2vh,56px);width:auto;display:block}
-.mid{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5vw;min-height:0}
+.mid{position:relative;z-index:20;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5vw;min-height:0}
 .hd{display:block;height:clamp(66px,15vh,134px);width:auto;max-width:92vw;animation:rise 1.2s .12s var(--ease) both}
-.tools{display:flex;align-items:center;gap:12px;background:#F5F1E4;border-radius:999px;padding:8px 10px 8px 26px;width:min(1000px,100%);margin-top:clamp(14px,3.2vh,30px);box-shadow:0 18px 40px rgba(0,0,0,.26);animation:rise 1.2s .3s var(--ease) both}
+.tools{display:flex;align-items:center;gap:12px;background:#F5F1E4;border-radius:999px;padding:8px 10px 8px 26px;width:min(1000px,100%);margin-top:clamp(14px,3.2vh,30px);box-shadow:0 18px 40px rgba(0,0,0,.26);animation:rise 1.2s .3s var(--ease) backwards}
 .find{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
 .find svg{width:22px;height:22px;flex:0 0 auto}
 .find input{border:0;outline:0;background:none;font:inherit;font-weight:600;font-size:16px;color:#17372b;padding:12px 0;width:100%;min-width:0}
 .find input::placeholder{color:#7d8f85}
 .sep{width:1.5px;height:30px;background:rgba(23,55,43,.18)}
 .clr{display:none}
-.chip{position:relative;display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(23,55,43,.34);border-radius:999px;padding:0 12px 0 14px;color:#17372b;background:rgba(255,255,255,.35);height:46px;flex:0 0 auto;transition:background .5s var(--soft),border-color .5s var(--soft)}
-.chip:hover{background:#fff}.chip svg{width:19px;height:19px;flex:0 0 auto;pointer-events:none}
-.chip select{appearance:none;-webkit-appearance:none;border:0;outline:0;background:none;font:inherit;font-weight:700;font-size:15px;color:#17372b;padding:0 18px 0 0;cursor:pointer;height:100%;min-width:0}
-.chip:after{content:"";position:absolute;right:13px;top:50%;width:6px;height:6px;border-right:2px solid #17372b;border-bottom:2px solid #17372b;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.dd{position:relative;flex:0 0 auto}
+.chip{position:relative;display:inline-flex;align-items:center;gap:9px;border:1.5px solid rgba(23,55,43,.3);border-radius:999px;padding:0 14px 0 15px;color:#17372b;background:rgba(255,255,255,.4);height:46px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;transition:background .5s var(--soft),border-color .5s var(--soft),color .5s var(--soft),box-shadow .5s var(--soft)}
+@media(hover:hover) and (min-width:761px){.chip:hover{background:#fff}}
+.chip svg{width:19px;height:19px;flex:0 0 auto}
+.chip .chev{width:17px;height:17px;margin-left:2px;transition:transform .55s var(--ease)}
+.dd.open .chip{background:#fff;border-color:#17372b;box-shadow:0 0 0 4px rgba(227,181,75,.28)}
+.dd.open .chev{transform:rotate(180deg)}
+.dd.set .chip{background:#0f4a35;border-color:#0f4a35;color:#F7F1DC}
+@media(hover:hover) and (min-width:761px){.dd.set .chip:hover{background:#0b3a29}}
+.pop{position:absolute;top:calc(100% + 12px);left:0;z-index:60;min-width:312px;max-height:min(430px,58vh);overflow:auto;padding:8px;border-radius:22px;background:linear-gradient(180deg,rgba(10,58,41,.985),rgba(4,38,26,.99));-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);border:1px solid rgba(255,255,255,.16);box-shadow:0 34px 70px -10px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);transform-origin:top left;transition:opacity .45s var(--ease),transform .6s var(--ease),visibility 0s .6s;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+.dd:last-of-type .pop{left:auto;right:0;transform-origin:top right}
+.dd.open .pop{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease),transform .6s var(--ease),visibility 0s}
+.pop .ph{display:none}
+.it{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:#F4F1E6;background:none;border:0;border-radius:14px;padding:11px 14px;cursor:pointer;transition:background .4s var(--soft),transform .5s var(--ease)}
+.it:hover,.it:focus-visible{background:rgba(255,255,255,.09);outline:0;transform:translateX(3px)}
+.it .tx{flex:1;min-width:0}.it b{display:block;font-weight:800;font-size:15.5px;letter-spacing:.01em}.it small{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin-top:1px}
+.it .ck{width:20px;height:20px;flex:0 0 auto;color:var(--gold);opacity:0;transform:scale(.6);transition:opacity .4s var(--soft),transform .5s var(--ease)}
+.it.on{background:rgba(227,181,75,.13)}.it.on b{color:#F6DC8C}.it.on .ck{opacity:1;transform:none}
+.it .bdg{flex:0 0 auto;min-width:34px;height:26px;display:grid;place-items:center;padding:0 8px;border-radius:9px;background:rgba(255,255,255,.1);font-weight:900;font-size:12.5px;letter-spacing:.06em;color:#fff}
+.it.on .bdg{background:var(--gold);color:#2b1f00}
+.scrim{position:fixed;inset:0;z-index:15;background:rgba(0,12,8,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .5s var(--soft),visibility 0s .5s}
+.scrim.on{opacity:1;visibility:visible;transition:opacity .5s var(--soft)}
 .band{padding:0 0 3.4vh;position:relative;animation:rise 1.3s .42s var(--ease) both}
 .bh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 var(--edge)}
 .bh b{font-size:clamp(20px,2.2vw,30px);font-weight:800;color:#fff;padding-left:14px;border-left:4px solid var(--gold);line-height:1.1}
@@ -68,9 +86,16 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
  .find{flex:1 0 100%;background:#F5F1E4;border-radius:999px;padding:0 8px 0 18px;box-shadow:0 14px 30px rgba(0,0,0,.28)}
  .sep{display:none}
  .clr{display:grid;place-items:center;width:40px;height:40px;border:0;background:none;border-left:1.5px solid rgba(23,55,43,.18);border-radius:0;cursor:pointer;margin-left:6px;padding-left:4px}.clr svg{width:24px;height:24px}
- .chip{height:42px;flex:1 1 0;min-width:0;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.42);color:#fff;padding:0 8px 0 10px;gap:6px}
- .chip select{color:#fff;font-size:13.5px;width:100%;padding-right:12px}.chip select option{color:#17372b}.chip:after{border-color:#fff;right:9px;width:5px;height:5px}
- .chip svg{width:16px;height:16px}
+ .dd{flex:1 1 0;min-width:0}
+ .chip{width:100%;height:42px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.42);color:#fff;padding:0 8px;gap:5px;font-size:13px;justify-content:flex-start}
+ .chip .lab{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis}
+ .chip svg{width:15px;height:15px}.chip .chev{width:14px;height:14px;margin-left:0}
+ .dd.open .chip{background:rgba(255,255,255,.18);border-color:#fff;box-shadow:none}
+ .dd.set .chip{background:var(--gold);border-color:var(--gold);color:#2b1f00}
+ .pop,.dd:last-of-type .pop{position:fixed;left:0;right:0;bottom:0;top:auto;min-width:0;max-height:68vh;border-radius:28px 28px 0 0;padding:10px 12px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transform-origin:bottom;transition:transform .65s var(--ease),opacity .4s var(--soft),visibility 0s .65s}
+ .dd.open .pop{transform:none;transition:transform .65s var(--ease),opacity .4s var(--soft),visibility 0s}
+ .pop .ph{display:block;width:44px;height:5px;border-radius:5px;background:rgba(255,255,255,.28);margin:2px auto 10px}
+ .it{padding:13px 14px}
  .bh{padding:0 20px}.rail{padding:12px 20px 10px;scroll-padding-left:20px}.ar{display:none}
  :root{--cw:clamp(104px,21vh,170px)}
 }
@@ -90,9 +115,9 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 <div class="tools">
 <label class="find"><svg viewBox="0 0 24 24" fill="none" stroke="#17372b" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="q" type="search" placeholder="Search books..." autocomplete="off"><button class="clr" id="clr" type="button" aria-label="Clear filters"><svg viewBox="0 0 24 24" fill="none" stroke="#17372b" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button></label>
 <span class="sep"></span>
-<label class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16.5L12 21l9-4.5"/></svg><select id="lv" aria-label="Level"><option value="">Level</option><option>A0</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select></label>
-<label class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg><select id="gn" aria-label="Genre"><option value="">Genre</option></select></label>
-<label class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 6C9.5 4 6 4 3 5v14c3-1 6.5-1 9 1 2.5-2 6-2 9-1V5c-3-1-6.5-1-9 1z"/><path d="M12 6v14"/></svg><select id="fm" aria-label="Format"><option value="">Format</option><option value="bilingual">Bilingual</option><option value="french">French only</option></select></label>
+<div class="dd" id="dd_lv" data-k="lv"><button class="chip" type="button" aria-haspopup="listbox" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16.5L12 21l9-4.5"/></svg><span class="lab">Level</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="pop" role="listbox"><div class="ph"></div><div class="opts"></div></div></div>
+<div class="dd" id="dd_gn" data-k="gn"><button class="chip" type="button" aria-haspopup="listbox" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg><span class="lab">Genre</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="pop" role="listbox"><div class="ph"></div><div class="opts"></div></div></div>
+<div class="dd" id="dd_fm" data-k="fm"><button class="chip" type="button" aria-haspopup="listbox" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 6C9.5 4 6 4 3 5v14c3-1 6.5-1 9 1 2.5-2 6-2 9-1V5c-3-1-6.5-1-9 1z"/><path d="M12 6v14"/></svg><span class="lab">Format</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="pop" role="listbox"><div class="ph"></div><div class="opts"></div></div></div>
 </div>
 </main>
 
@@ -102,6 +127,7 @@ body{font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;color:va
 <button class="ar r" id="ar" type="button" aria-label="Scroll right" hidden><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
 <div class="rail" id="rail"></div>
 </section>
+<div class="scrim" id="scrim"></div>
 </div>
 <script src="/library/books.js"></script>
 <script type="module">
@@ -140,13 +166,34 @@ function render(){
   } else rail.innerHTML = list.map(card).join("");
   setTimeout(arrows, 60);
 }
-$("lv").addEventListener("change", e => { st.lv = e.target.value; render(); });
-$("fm").addEventListener("change", e => { st.fm = e.target.value; render(); });
 $("q").addEventListener("input", e => { st.q = e.target.value; render(); });
-$("gn").addEventListener("change", e => { st.gn = e.target.value; render(); });
+const CK = '<svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const OPT = {
+  lv: [["", "All levels", "Every book on the shelf"], ["A0", "A0", "Absolute beginner"], ["A1", "A1", "Beginner"], ["A2", "A2", "Elementary"], ["B1", "B1", "Intermediate"], ["B2", "B2", "Upper intermediate"], ["C1", "C1", "Advanced"], ["C2", "C2", "Mastery"]],
+  fm: [["", "All formats", "Bilingual and French only"], ["bilingual", "Bilingual", "French first, then English"], ["french", "French only", "Read it entirely in French"]],
+  gn: [["", "All genres", "Every kind of story"]]
+};
+const DEF = { lv: "Level", gn: "Genre", fm: "Format" };
+function labelFor(k){ const o = OPT[k].filter(x => x[0] === st[k])[0]; return st[k] && o ? o[1] : DEF[k]; }
+function paint(k){
+  const box = $("dd_" + k);
+  box.classList.toggle("set", !!st[k]);
+  box.querySelector(".lab").textContent = labelFor(k);
+  box.querySelector(".opts").innerHTML = OPT[k].map(o => '<button class="it' + (o[0] === st[k] ? " on" : "") + '" type="button" role="option" data-v="' + esc(o[0]) + '">' + (k === "lv" && o[0] ? '<span class="bdg">' + esc(o[0]) + '</span>' : "") + '<span class="tx"><b>' + esc(k === "lv" && o[0] ? o[2] : o[1]) + '</b>' + (k === "lv" && o[0] ? "" : (o[2] ? "<small>" + esc(o[2]) + "</small>" : "")) + '</span>' + CK + '</button>').join("");
+}
+function closeAll(){ document.querySelectorAll(".dd.open").forEach(x => { x.classList.remove("open"); x.querySelector(".chip").setAttribute("aria-expanded", "false"); }); $("scrim").classList.remove("on"); }
+["lv", "gn", "fm"].forEach(k => {
+  const box = $("dd_" + k);
+  box.querySelector(".chip").addEventListener("click", e => { e.stopPropagation(); const was = box.classList.contains("open"); closeAll(); if (!was) { box.classList.add("open"); box.querySelector(".chip").setAttribute("aria-expanded", "true"); if (matchMedia("(max-width:760px)").matches) $("scrim").classList.add("on"); } });
+  box.querySelector(".opts").addEventListener("click", e => { const b = e.target.closest(".it"); if (!b) return; st[k] = b.getAttribute("data-v"); paint(k); closeAll(); render(); });
+  paint(k);
+});
+$("scrim").addEventListener("click", closeAll);
+document.addEventListener("click", e => { if (!e.target.closest(".dd")) closeAll(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
 const togSaved = () => { st.mine = !st.mine; $("my").classList.toggle("on", st.mine); $("hsv").classList.toggle("on", st.mine); render(); };
 $("my").addEventListener("click", togSaved); $("hsv").addEventListener("click", togSaved);
-$("clr").addEventListener("click", () => { st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; $("lv").value = ""; $("gn").value = ""; $("fm").value = ""; $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
+$("clr").addEventListener("click", () => { st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; ["lv", "gn", "fm"].forEach(paint); $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
 $("rail").addEventListener("click", e => { const a = e.target.closest("a.bk"); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); a.classList.add("pick"); $("app").classList.add("leaving"); setTimeout(() => { location.href = a.getAttribute("href"); }, 760); });
 window.addEventListener("pageshow", ev => { if (ev.persisted) { $("app").classList.remove("leaving"); document.querySelectorAll(".bk.pick").forEach(x => x.classList.remove("pick")); } });
 $("al").onclick = () => $("rail").scrollBy({ left: -$("rail").clientWidth * .8, behavior: "smooth" });
@@ -164,7 +211,7 @@ $("rail").addEventListener("wheel", e => { if (Math.abs(e.deltaY) > Math.abs(e.d
   books = CODE.concat(remote.filter(b => !have[b.id]));
   books.sort((a, b) => LV.indexOf(a.level) - LV.indexOf(b.level) || (b.createdAt || 0) - (a.createdAt || 0));
   const gs = Array.from(new Set(books.map(b => b.genre).filter(Boolean))).sort();
-  $("gn").innerHTML = '<option value="">Genre</option>' + gs.map(g => '<option value="'+esc(g)+'">'+esc(g)+'</option>').join("");
+  OPT.gn = [OPT.gn[0]].concat(gs.map(g => [g, g, ""])); paint("gn");
   render();
 })();
 </script>
