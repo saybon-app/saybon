@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SayBon Library</title>
+<style>
+:root{--bg:#0A0B0E;--panel:#14161c;--line:rgba(255,255,255,.08);--txt:#ECEDF1;--mut:#8D91A0;--gold:#D8B26A;--gold2:#B8924A}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:14px 22px;background:rgba(10,11,14,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.back{width:38px;height:38px;border-radius:50%;background:#1d2028;display:grid;place-items:center;color:var(--txt);text-decoration:none;font-size:18px}
+.brand{font-weight:700;font-size:19px}.brand b{color:var(--gold)}
+.adm{margin-left:auto;font-size:13px;color:var(--mut);text-decoration:none;display:none}
+.wrap{max-width:1240px;margin:0 auto;padding:26px 22px 70px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:34px;font-weight:600;margin-bottom:6px}
+.sub{color:var(--mut);margin-bottom:22px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.filters input,.filters select{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:10px 13px;font:inherit;font-size:14px;outline:none}
+.filters input{flex:1 1 220px}.filters input:focus,.filters select:focus{border-color:var(--gold2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{background:var(--panel);border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;font:inherit;font-size:13px}
+.chip.on{background:var(--gold);color:#1a1405;border-color:var(--gold);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:26px 20px}
+.book{text-decoration:none;color:inherit;display:block;transition:transform .2s}
+.book:hover{transform:translateY(-6px)}
+.cov{position:relative;aspect-ratio:2/3;border-radius:4px 10px 10px 4px;overflow:hidden;background:linear-gradient(145deg,#2a2234,#15121c);box-shadow:0 14px 30px rgba(0,0,0,.55),inset 6px 0 8px -4px rgba(255,255,255,.12)}
+.cov img{width:100%;height:100%;object-fit:cover;display:block}
+.cov:before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(255,255,255,.08) 60%,transparent);z-index:2}
+.gen{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18px 16px 18px 22px;font-family:Georgia,serif}
+.gen i{display:block;width:34px;height:2px;background:var(--gold);margin:10px 0}
+.gen b{font-size:19px;line-height:1.2}.gen span{font-size:12px;color:var(--mut)}
+.badges{position:absolute;right:6px;top:6px;display:flex;flex-direction:column;gap:4px;z-index:3;align-items:flex-end}
+.bd{background:rgba(10,11,14,.82);border:1px solid rgba(255,255,255,.16);border-radius:6px;font-size:10px;font-weight:700;padding:3px 7px;letter-spacing:.04em}
+.bd.lv{color:var(--gold)}
+.bt{font-weight:600;font-size:14.5px;margin-top:11px;line-height:1.25}
+.ba{font-size:12.5px;color:var(--mut);margin-top:2px}
+.empty{color:var(--mut);padding:50px 0;text-align:center}
+.row{margin-bottom:34px}.row h2{font-size:15px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="/dashboard/" title="Dashboard">&#8249;</a><div class="brand">SayBon <b>Library</b></div><a class="adm" id="adm" href="/library/admin.html">Manage books</a></div>
+<div class="wrap">
+<h1>The Library</h1>
+<p class="sub">Original stories and books. Pick something that fits your level, then keep climbing.</p>
+<div class="filters">
+<input id="q" type="search" placeholder="Search title or author">
+<select id="lv"><option value="">All levels</option><option>A0</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select>
+<select id="fm"><option value="">Bilingual and French only</option><option value="bilingual">Bilingual</option><option value="french">French only</option></select>
+</div>
+<div class="chips" id="chips"></div>
+<div id="out"><p class="empty">Loading books&hellip;</p></div>
+</div>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const db = getFirestore(auth.app);
+const ADMINS = ["adlaideduah@gmail.com","saybon.fr@gmail.com"];
+onAuthStateChanged(auth, u => { if (u && u.email && ADMINS.indexOf(u.email) > -1) document.getElementById("adm").style.display = "block"; });
+const LV = ["A0","A1","A2","B1","B2","C1","C2"];
+let books = [], genre = "";
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function card(b){
+  const cov = b.cover ? '<img src="'+esc(b.cover)+'" alt="">' : '<div class="gen"><b>'+esc(b.title)+'</b><i></i><span>'+esc(b.author||"")+'</span></div>';
+  return '<a class="book" href="/library/read.html?b='+encodeURIComponent(b.id)+'"><div class="cov">'+cov+'<div class="badges"><span class="bd lv">'+esc(b.level||"")+'</span><span class="bd">'+(b.format==="bilingual"?"FR + EN":"FR")+'</span></div></div><div class="bt">'+esc(b.title)+'</div><div class="ba">'+esc(b.author||"")+(b.genre?" &middot; "+esc(b.genre):"")+'</div></a>';
+}
+function render(){
+  const q = document.getElementById("q").value.trim().toLowerCase(), lv = document.getElementById("lv").value, fm = document.getElementById("fm").value;
+  const genres = Array.from(new Set(books.map(b => b.genre).filter(Boolean))).sort();
+  document.getElementById("chips").innerHTML = ['<button class="chip'+(genre===""?" on":"")+'" data-g="">All genres</button>'].concat(genres.map(g => '<button class="chip'+(genre===g?" on":"")+'" data-g="'+esc(g)+'">'+esc(g)+'</button>')).join("");
+  const list = books.filter(b => (!genre || b.genre===genre) && (!lv || b.level===lv) && (!fm || b.format===fm) && (!q || (b.title+" "+(b.author||"")).toLowerCase().indexOf(q) > -1));
+  const out = document.getElementById("out");
+  if (!books.length) { out.innerHTML = '<p class="empty">No books yet. New stories are on their way.</p>'; return; }
+  if (!list.length) { out.innerHTML = '<p class="empty">Nothing matches those filters.</p>'; return; }
+  out.innerHTML = '<div class="grid">'+list.map(card).join("")+'</div>';
+}
+document.getElementById("chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return; genre = b.getAttribute("data-g"); render(); });
+["q","lv","fm"].forEach(id => document.getElementById(id).addEventListener("input", render));
+(async function(){
+  try {
+    const snap = await getDocs(query(collection(db, "libraryBooks"), where("published", "==", true)));
+    books = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+    books.sort((a,b) => LV.indexOf(a.level) - LV.indexOf(b.level) || (b.createdAt||0) - (a.createdAt||0));
+  } catch (e) { document.getElementById("out").innerHTML = '<p class="empty">Could not load the library. Please refresh.</p>'; return; }
+  render();
+})();
+</script>
+</body>
+</html>

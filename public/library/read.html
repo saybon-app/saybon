@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SayBon Library - Reader</title>
+<style>
+:root{--bg:#0d0c10;--gold:#D8B26A;--txt:#ECEDF1;--mut:#8D91A0;--paper:#f3ead6;--ink:#2a2118;--pw:420px;--ph:600px;--fs:17px}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:radial-gradient(ellipse at 50% 30%,#1c1822 0%,var(--bg) 70%);color:var(--txt);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden;display:flex;flex-direction:column}
+.bar{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.bar a,.bar button{background:#1d2028;border:0;color:var(--txt);border-radius:999px;height:34px;min-width:34px;padding:0 12px;display:inline-grid;place-items:center;text-decoration:none;cursor:pointer;font:inherit;font-size:13px}
+.bar a:hover,.bar button:hover{background:#2a2e3a}
+.bar .ttl{flex:1;min-width:0;text-align:center;font-family:Georgia,serif;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d9d6cc}
+.bar .on{background:var(--gold);color:#1a1405;font-weight:600}
+.stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;perspective:2400px;min-height:0;position:relative;user-select:none;-webkit-user-select:none}
+.spread{position:relative;height:var(--ph);width:calc(var(--pw) * 2);filter:drop-shadow(0 28px 40px rgba(0,0,0,.6))}
+.spread.single{width:var(--pw)}
+.slot{position:absolute;top:0;width:var(--pw);height:var(--ph)}
+.slot.L{left:0}.slot.R{left:var(--pw)}
+.spread.single .slot.R{display:none}
+.pg{position:absolute;inset:0;background:var(--paper);color:var(--ink);padding:34px 34px 0;overflow:hidden;
+ background-image:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.35),transparent 60%),repeating-linear-gradient(0deg,rgba(120,90,40,.035) 0 1px,transparent 1px 3px)}
+.pg.left{border-radius:14px 3px 3px 14px / 18px 3px 3px 18px;box-shadow:inset -26px 0 30px -18px rgba(70,45,15,.55),inset 3px 0 0 rgba(255,255,255,.5)}
+.pg.right{border-radius:3px 14px 14px 3px / 3px 18px 18px 3px;box-shadow:inset 26px 0 30px -18px rgba(70,45,15,.55),inset -3px 0 0 rgba(255,255,255,.5)}
+.spread.single .pg.left,.spread.single .pg.right{border-radius:6px;box-shadow:inset 22px 0 26px -18px rgba(70,45,15,.5)}
+.in{height:calc(var(--ph) - 34px - 44px);overflow:hidden;font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:var(--fs);line-height:1.62;hyphens:auto;-webkit-hyphens:auto;text-align:justify}
+.in p.fr{text-indent:1.5em}
+.in p.fr.c,.in h2+p.fr{text-indent:0}
+.in p.en{font-size:.86em;font-style:italic;color:#6a5a45;text-indent:0;margin:.25em 0 .9em;line-height:1.45;text-align:left}
+.in p.fr:not(.c){margin-top:0}
+.in h2{font-weight:600;font-size:1.5em;text-align:center;margin:.3em 0 1em;line-height:1.2;color:#3a2a14}
+.in h2 small{display:block;font-size:.55em;font-style:italic;font-weight:400;color:#6a5a45;margin-top:.3em}
+.in .end{text-align:center;margin-top:30%;font-style:italic;color:#6a5a45}
+.pn{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:Georgia,serif;font-size:12px;color:#8a7a62}
+.leaf{position:absolute;top:0;width:var(--pw);height:var(--ph);transform-style:preserve-3d;z-index:5;will-change:transform}
+.leaf.fromR{left:var(--pw);transform-origin:left center}
+.leaf.fromL{left:0;transform-origin:right center}
+.spread.single .leaf.fromR{left:0}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.back{transform:rotateY(180deg)}
+.shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.45),transparent 70%);opacity:0;z-index:2}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:12px;background:rgba(255,255,255,.07);color:var(--txt);font-size:26px;cursor:pointer;z-index:10}
+.nav:hover{background:rgba(255,255,255,.15)}.nav:disabled{opacity:.2;cursor:default}
+.nav.p{left:12px}.nav.n{right:12px}
+.foot{flex:0 0 auto;text-align:center;color:var(--mut);font-size:12.5px;padding:8px 0 12px}
+.msg{position:absolute;inset:0;display:grid;place-items:center;color:var(--mut);text-align:center;padding:20px}
+.meas{position:absolute;left:-9999px;top:0;visibility:hidden}
+.meas .pg{position:relative;inset:auto;width:var(--pw);height:var(--ph)}
+@media (max-width:899px){.nav{display:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+<a href="/library/" title="Back to the library">&#8249; Library</a>
+<div class="ttl" id="ttl">&nbsp;</div>
+<button id="en" type="button" style="display:none" title="Show or hide the English lines">EN</button>
+<button id="fm" type="button" title="Smaller text">A&minus;</button>
+<button id="fp" type="button" title="Larger text">A+</button>
+</div>
+<div class="stage" id="stage">
+<button class="nav p" id="prev" type="button" aria-label="Previous page">&#8249;</button>
+<div class="spread" id="spread"><div class="slot L" id="sL"></div><div class="slot R" id="sR"></div></div>
+<button class="nav n" id="next" type="button" aria-label="Next page">&#8250;</button>
+<div class="msg" id="msg">Opening the book&hellip;</div>
+</div>
+<div class="foot" id="foot">&nbsp;</div>
+<div class="meas" id="meas"><div class="pg"><div class="in" id="minner"></div></div></div>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const db = getFirestore(auth.app);
+const id = new URLSearchParams(location.search).get("b");
+const $ = x => document.getElementById(x);
+const esc = s => String(s == null ? "" : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const LS = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+let meta = null, blocks = [], pages = [], two = true, cur = 0, busy = false, showEn = true, fs = parseInt(LS.get("sbLibFs") || "17", 10) || 17;
+let savedBlk = 0;
+
+function parse(t){
+  return String(t || "").replace(/\r/g, "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean).map(s => {
+    const h = /^#\s+/.test(s);
+    return { h: h, t: s.replace(/^#\s+/, "").replace(/\s*\n\s*/g, " ") };
+  });
+}
+function mk(fr, en){
+  const out = [];
+  for (let i = 0; i < fr.length; i++) out.push({ h: fr[i].h, fr: fr[i].t, en: en[i] ? en[i].t : "" });
+  return out;
+}
+function P(text, en, cont){ return '<p class="fr' + (cont ? " c" : "") + '">' + esc(text) + "</p>" + (en && showEn ? '<p class="en">' + esc(en) + "</p>" : ""); }
+function H(b){ return "<h2>" + esc(b.fr) + (b.en && showEn ? "<small>" + esc(b.en) + "</small>" : "") + "</h2>"; }
+
+function layout(){
+  const w = window.innerWidth, h = window.innerHeight - 100;
+  two = w >= 900;
+  const availW = w - (two ? 150 : 24);
+  let pw = Math.min(two ? availW / 2 : availW, 540);
+  let ph = Math.min(h, pw * 1.45);
+  pw = Math.min(pw, ph / 1.2);
+  const r = document.documentElement.style;
+  r.setProperty("--pw", Math.floor(pw) + "px"); r.setProperty("--ph", Math.floor(ph) + "px"); r.setProperty("--fs", fs + "px");
+  $("spread").classList.toggle("single", !two);
+}
+function paginate(){
+  const inner = $("minner"), items = [];
+  pages = [];
+  let startBlk = 0;
+  const html = () => items.map(x => x.h).join("");
+  const fits = cand => { inner.innerHTML = html() + cand; return inner.scrollHeight <= inner.clientHeight + 1; };
+  function flush(nextBlk){
+    const carry = [];
+    while (items.length > 1 && items[items.length - 1].head) carry.unshift(items.pop());
+    pages.push({ html: html(), blk: startBlk });
+    items.length = 0; startBlk = nextBlk;
+    carry.forEach(x => items.push(x));
+    if (carry.length) startBlk = nextBlk - 1 < 0 ? 0 : nextBlk - 1;
+  }
+  for (let bi = 0; bi < blocks.length; bi++) {
+    const b = blocks[bi];
+    if (!items.length) startBlk = bi;
+    if (b.h) {
+      if (!fits(H(b)) && items.length) { flush(bi); startBlk = bi; }
+      items.push({ h: H(b), head: true }); continue;
+    }
+    let rest = b.fr.split(/\s+/), cont = false, guard = 0;
+    while (rest.length && guard++ < 5000) {
+      const full = P(rest.join(" "), b.en, cont);
+      if (fits(full)) { items.push({ h: full }); rest = []; break; }
+      let lo = 0, hi = rest.length - 1;
+      while (lo < hi) { const mid = Math.ceil((lo + hi + 1) / 2); if (fits(P(rest.slice(0, mid).join(" "), "", cont))) lo = mid; else hi = mid - 1; }
+      let k = lo;
+      if (k === 0) { if (items.length) { flush(bi); continue; } k = 1; }
+      items.push({ h: P(rest.slice(0, k).join(" "), "", cont) });
+      rest = rest.slice(k); cont = true; flush(bi);
+    }
+  }
+  const endH = '<div class="end">&mdash; Fin &mdash;<br>The End</div>';
+  if (items.length && fits(endH)) items.push({ h: endH }); else { if (items.length) flush(blocks.length); items.push({ h: endH }); }
+  flush(blocks.length);
+  if (!pages.length) pages.push({ html: "", blk: 0 });
+}
+function pageEl(i, side){
+  const d = document.createElement("div");
+  d.className = "pg " + side;
+  if (i < 0 || i >= pages.length) return d;
+  d.innerHTML = '<div class="in">' + pages[i].html + '</div><div class="pn">' + (i + 1) + "</div>";
+  return d;
+}
+function setSlot(slot, i, side){ const s = $(slot); s.innerHTML = ""; s.appendChild(pageEl(i, side)); }
+const first = () => two ? cur * 2 : cur;
+function show(){
+  if (two) { setSlot("sL", cur * 2, "left"); setSlot("sR", cur * 2 + 1, "right"); }
+  else { setSlot("sL", cur, "left"); }
+  const f = first(), last = pages.length - 1;
+  $("prev").disabled = f <= 0;
+  $("next").disabled = (two ? cur * 2 + 1 : cur) >= last;
+  $("foot").textContent = two ? "Pages " + (f + 1) + (f + 1 < pages.length ? "\u2013" + (f + 2) : "") + " of " + pages.length : "Page " + (f + 1) + " of " + pages.length;
+  savedBlk = pages[f] ? pages[f].blk : 0;
+  LS.set("sbLib:" + id, String(savedBlk));
+  if ((two ? cur * 2 + 1 : cur) >= last) LS.set("sbLib:" + id + ":done", "1");
+}
+function maxCur(){ return two ? Math.ceil(pages.length / 2) - 1 : pages.length - 1; }
+function flip(dir){
+  if (busy) return;
+  const mx = maxCur();
+  if ((dir > 0 && cur >= mx) || (dir < 0 && cur <= 0)) return;
+  busy = true;
+  const sp = $("spread"), leaf = document.createElement("div"), fr = document.createElement("div"), bk = document.createElement("div");
+  fr.className = "face"; bk.className = "face back";
+  leaf.appendChild(fr); leaf.appendChild(bk);
+  const shade = document.createElement("div"); shade.className = "shade";
+  let frames, base;
+  if (two) {
+    if (dir > 0) {
+      leaf.className = "leaf fromR";
+      fr.appendChild(pageEl(cur * 2 + 1, "right")); bk.appendChild(pageEl(cur * 2 + 2, "left"));
+      setSlot("sR", cur * 2 + 3, "right"); base = $("sR");
+      frames = [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }];
+    } else {
+      leaf.className = "leaf fromL";
+      fr.appendChild(pageEl(cur * 2, "left")); bk.appendChild(pageEl(cur * 2 - 1, "right"));
+      setSlot("sL", cur * 2 - 2, "left"); base = $("sL");
+      frames = [{ transform: "rotateY(0deg)" }, { transform: "rotateY(180deg)" }];
+    }
+  } else {
+    leaf.className = "leaf fromR";
+    if (dir > 0) {
+      fr.appendChild(pageEl(cur, "left")); bk.appendChild(pageEl(-1, "right"));
+      setSlot("sL", cur + 1, "left");
+      frames = [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }];
+    } else {
+      fr.appendChild(pageEl(cur - 1, "left")); bk.appendChild(pageEl(-1, "right"));
+      frames = [{ transform: "rotateY(-180deg)" }, { transform: "rotateY(0deg)" }];
+    }
+    base = $("sL");
+  }
+  base.appendChild(shade);
+  sp.appendChild(leaf);
+  shade.animate([{ opacity: 0 }, { opacity: .5 }, { opacity: 0 }], { duration: 820, easing: "ease-in-out" });
+  const a = leaf.animate(frames, { duration: 820, easing: "cubic-bezier(.55,.05,.25,1)", fill: "forwards" });
+  const done = () => { cur += dir; leaf.remove(); show(); busy = false; };
+  a.onfinish = done;
+  a.oncancel = () => { leaf.remove(); show(); busy = false; };
+}
+function rebuild(keepBlk){
+  layout(); paginate();
+  let f = 0;
+  for (let i = 0; i < pages.length; i++) if (pages[i].blk <= keepBlk) f = i;
+  cur = two ? Math.floor(f / 2) : f;
+  show();
+}
+$("next").onclick = () => flip(1);
+$("prev").onclick = () => flip(-1);
+$("stage").addEventListener("click", e => {
+  if (e.target.closest(".nav")) return;
+  const r = $("spread").getBoundingClientRect();
+  if (e.clientX < r.left || e.clientX > r.right) return;
+  const x = (e.clientX - r.left) / r.width;
+  if (two) flip(x > .5 ? 1 : -1); else flip(x > .35 ? 1 : -1);
+});
+document.addEventListener("keydown", e => { if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); flip(1); } else if (e.key === "ArrowLeft" || e.key === "PageUp") flip(-1); });
+let tx = 0, ty = 0;
+$("stage").addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+$("stage").addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { e.preventDefault(); flip(dx < 0 ? 1 : -1); } });
+function fsBtn(d){ fs = Math.max(13, Math.min(26, fs + d)); LS.set("sbLibFs", String(fs)); if (!busy) rebuild(savedBlk); }
+$("fm").onclick = () => fsBtn(-1);
+$("fp").onclick = () => fsBtn(1);
+$("en").onclick = () => { showEn = !showEn; LS.set("sbLibEn", showEn ? "1" : "0"); $("en").classList.toggle("on", showEn); rebuild(savedBlk); };
+let rt = 0;
+window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (!busy && blocks.length) rebuild(savedBlk); }, 200); });
+
+(async function(){
+  if (!id) { $("msg").textContent = "No book selected."; return; }
+  try {
+    const m = await getDoc(doc(db, "libraryBooks", id));
+    if (!m.exists()) { $("msg").textContent = "This book could not be found."; return; }
+    meta = m.data();
+    const t = await getDoc(doc(db, "libraryTexts", id));
+    const td = t.exists() ? t.data() : {};
+    $("ttl").textContent = meta.title + (meta.author ? " \u2014 " + meta.author : "");
+    document.title = meta.title + " | SayBon Library";
+    const bil = meta.format === "bilingual";
+    blocks = mk(parse(td.fr), bil ? parse(td.en) : []);
+    if (!blocks.length) { $("msg").textContent = "This book has no text yet."; return; }
+    if (bil) { showEn = LS.get("sbLibEn") !== "0"; $("en").style.display = ""; $("en").classList.toggle("on", showEn); } else showEn = false;
+    savedBlk = parseInt(LS.get("sbLib:" + id) || "0", 10) || 0;
+    $("msg").style.display = "none";
+    rebuild(savedBlk);
+    window.__lib = { pages: () => pages.length, cur: () => cur };
+  } catch (e) { $("msg").textContent = "Could not open the book. Please refresh."; }
+})();
+</script>
+</body>
+</html>

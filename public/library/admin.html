@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library Admin</title>
+<style>
+:root{--bg:#0A0B0E;--panel:#14161c;--line:rgba(255,255,255,.09);--txt:#ECEDF1;--mut:#8D91A0;--gold:#D8B26A}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{display:flex;align-items:center;gap:12px;padding:14px 22px;border-bottom:1px solid var(--line)}
+.top a{color:var(--txt);text-decoration:none;background:#1d2028;border-radius:999px;padding:8px 14px;font-size:13px}
+.top b{font-size:18px}.top b i{color:var(--gold);font-style:normal}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 22px 80px;display:grid;grid-template-columns:1fr 330px;gap:26px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+h2{font-size:15px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+label{display:block;font-size:12.5px;color:var(--mut);margin:14px 0 6px}
+input[type=text],select,textarea{width:100%;background:#0d0f14;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;outline:none}
+textarea{min-height:240px;resize:vertical;font-family:Georgia,serif;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:#B8924A}
+.r2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:600px){.r2{grid-template-columns:1fr}}
+.btn{background:var(--gold);color:#1a1405;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:700;cursor:pointer;font-size:14px}
+.btn.g{background:#232733;color:var(--txt);font-weight:500}.btn.d{background:#3a1b1f;color:#ff9aa4;font-weight:500}
+.btn[disabled]{opacity:.5;cursor:default}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.hint{font-size:12px;color:var(--mut);margin-top:6px;line-height:1.45}
+.cov{display:flex;gap:14px;align-items:center}
+.cov img{width:70px;height:105px;object-fit:cover;border-radius:4px;background:#222}
+#status{font-size:13px;margin-left:6px}.ok{color:#7be0a0}.er{color:#ff8a94}
+.bk{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.bk:last-child{border:0}.bk img,.bk .ph{width:38px;height:56px;border-radius:3px;object-fit:cover;background:#222;flex:0 0 auto}
+.bk .t{flex:1;min-width:0;font-size:13.5px}.bk .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bk .t span{color:var(--mut);font-size:12px}
+.bk button{background:#232733;color:var(--txt);border:0;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+.pub{display:flex;gap:8px;align-items:center;margin-top:16px;font-size:14px}
+#gate{max-width:480px;margin:90px auto;text-align:center;color:var(--mut);line-height:1.6;padding:0 20px}
+</style>
+</head>
+<body>
+<div class="top"><a href="/library/">&#8249; Library</a><b>Library <i>Admin</i></b></div>
+<div id="gate">Checking your access&hellip;</div>
+<div class="wrap" id="app" style="display:none">
+<div class="card">
+<h2 id="formTitle">Add a book</h2>
+<label>Title</label><input id="title" type="text" placeholder="Book title">
+<div class="r2" style="margin-top:0">
+<div><label>Author</label><input id="author" type="text" placeholder="Author"></div>
+<div><label>Genre</label><input id="genre" type="text" list="genres" placeholder="e.g. Romance, Mystery"><datalist id="genres"></datalist></div>
+<div><label>Level</label><select id="level"><option>A0</option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select></div>
+</div>
+<label>Format</label>
+<select id="format"><option value="french">French only</option><option value="bilingual">Bilingual (French with English lines)</option></select>
+<label>Short description (shown nowhere yet, for your own notes)</label><input id="desc" type="text" placeholder="Optional">
+<label>Cover image</label>
+<div class="cov"><img id="covPrev" alt="" style="display:none"><div><input id="cover" type="file" accept="image/*"><div class="hint">Any size. It is shrunk automatically. Without a cover, the shelf shows a plain title cover.</div></div></div>
+<label>French text</label>
+<textarea id="fr" placeholder="Paste the story here.&#10;&#10;Leave a blank line between paragraphs.&#10;Start a line with # to make a chapter title, for example:  # Chapitre 1"></textarea>
+<div id="enBox" style="display:none">
+<label>English text (same paragraphs, same order, same chapter titles)</label>
+<textarea id="en" placeholder="Paste the English version here with the same blank-line paragraphs."></textarea>
+<div class="hint" id="alignHint"></div>
+</div>
+<div class="hint" id="count"></div>
+<div class="pub"><input type="checkbox" id="pub" checked><label for="pub" style="margin:0;color:var(--txt)">Published (visible on the shelf)</label></div>
+<div class="acts"><button class="btn" id="save" type="button">Save book</button><button class="btn g" id="reset" type="button">Clear form</button><span id="status"></span></div>
+</div>
+<div class="card" style="align-self:start"><h2>Your books</h2><div id="list"><div class="hint">Loading&hellip;</div></div></div>
+</div>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const db = getFirestore(auth.app), $ = x => document.getElementById(x);
+const ADMINS = ["adlaideduah@gmail.com","saybon.fr@gmail.com"];
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let editId = null, coverData = "", books = [];
+function say(t, ok){ const s = $("status"); s.textContent = t; s.className = ok === true ? "ok" : ok === false ? "er" : ""; }
+function paras(t){ return String(t || "").replace(/\r/g, "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean); }
+function counts(){
+  const f = paras($("fr").value), e = paras($("en").value), w = $("fr").value.trim().split(/\s+/).filter(Boolean).length;
+  $("count").textContent = f.length + " paragraphs, about " + w + " words, roughly " + Math.ceil(w / 170) + " pages.";
+  const bil = $("format").value === "bilingual";
+  $("enBox").style.display = bil ? "" : "none";
+  $("alignHint").textContent = bil ? (f.length === e.length ? "French and English line up: " + f.length + " paragraphs each." : "French has " + f.length + " paragraphs but English has " + e.length + ". They must match so each English line sits under its French paragraph.") : "";
+  $("alignHint").style.color = bil && f.length !== e.length ? "#ff8a94" : "";
+}
+["fr","en","format"].forEach(i => $(i).addEventListener("input", counts));
+$("cover").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const img = new Image(), url = URL.createObjectURL(f);
+  img.onload = () => {
+    const sc = Math.min(1, 420 / img.width, 630 / img.height), c = document.createElement("canvas");
+    c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    coverData = c.toDataURL("image/jpeg", .82); URL.revokeObjectURL(url);
+    $("covPrev").src = coverData; $("covPrev").style.display = "";
+  };
+  img.onerror = () => say("That image could not be read.", false);
+  img.src = url;
+});
+function resetForm(){
+  editId = null; coverData = "";
+  ["title","author","genre","desc","fr","en"].forEach(i => $(i).value = "");
+  $("level").value = "A0"; $("format").value = "french"; $("pub").checked = true; $("cover").value = "";
+  $("covPrev").style.display = "none"; $("formTitle").textContent = "Add a book"; say(""); counts();
+}
+$("reset").onclick = resetForm;
+async function load(){
+  const snap = await getDocs(collection(db, "libraryBooks"));
+  books = snap.docs.map(d => Object.assign({ id: d.id }, d.data())).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  $("genres").innerHTML = Array.from(new Set(books.map(b => b.genre).filter(Boolean))).map(g => '<option value="' + esc(g) + '">').join("");
+  $("list").innerHTML = books.length ? books.map(b => '<div class="bk">' + (b.cover ? '<img src="' + esc(b.cover) + '" alt="">' : '<div class="ph"></div>') + '<div class="t"><b>' + esc(b.title) + '</b><span>' + esc(b.level) + " &middot; " + (b.format === "bilingual" ? "Bilingual" : "French") + (b.published ? "" : " &middot; Draft") + '</span></div><button data-e="' + esc(b.id) + '">Edit</button><button data-d="' + esc(b.id) + '">Delete</button></div>').join("") : '<div class="hint">No books yet.</div>';
+}
+$("list").addEventListener("click", async e => {
+  const ed = e.target.getAttribute("data-e"), dl = e.target.getAttribute("data-d");
+  if (ed) {
+    const b = books.find(x => x.id === ed); if (!b) return;
+    const t = await getDoc(doc(db, "libraryTexts", ed)), td = t.exists() ? t.data() : {};
+    editId = ed; coverData = b.cover || "";
+    $("title").value = b.title || ""; $("author").value = b.author || ""; $("genre").value = b.genre || ""; $("desc").value = b.desc || "";
+    $("level").value = b.level || "A0"; $("format").value = b.format || "french"; $("pub").checked = !!b.published;
+    $("fr").value = td.fr || ""; $("en").value = td.en || "";
+    if (coverData) { $("covPrev").src = coverData; $("covPrev").style.display = ""; } else $("covPrev").style.display = "none";
+    $("formTitle").textContent = "Editing: " + b.title; counts(); window.scrollTo(0, 0);
+  }
+  if (dl && confirm("Delete this book for good?")) {
+    try { await deleteDoc(doc(db, "libraryTexts", dl)); await deleteDoc(doc(db, "libraryBooks", dl)); if (editId === dl) resetForm(); await load(); }
+    catch (err) { say("Delete failed: " + (err.code || err.message), false); }
+  }
+});
+$("save").onclick = async () => {
+  const title = $("title").value.trim(), fr = $("fr").value.trim(), bil = $("format").value === "bilingual", en = $("en").value.trim();
+  if (!title) return say("Add a title.", false);
+  if (!fr) return say("Paste the French text.", false);
+  if (bil && !en) return say("This is a bilingual book, so paste the English text too.", false);
+  if (bil && paras(fr).length !== paras(en).length) return say("French and English paragraph counts must match.", false);
+  if (new TextEncoder().encode(fr + en).length > 900000) return say("This text is too long for one book. Split it into volumes.", false);
+  $("save").disabled = true; say("Saving\u2026");
+  try {
+    const id = editId || (Date.now().toString(36) + Math.random().toString(36).slice(2, 7));
+    const old = books.find(b => b.id === id);
+    await setDoc(doc(db, "libraryTexts", id), { fr: fr, en: bil ? en : "" });
+    await setDoc(doc(db, "libraryBooks", id), { title: title, author: $("author").value.trim(), genre: $("genre").value.trim(), level: $("level").value, format: $("format").value, desc: $("desc").value.trim(), cover: coverData || "", published: $("pub").checked, createdAt: old && old.createdAt ? old.createdAt : Date.now(), updatedAt: Date.now() });
+    say("Saved.", true); resetForm(); say("Saved.", true); await load();
+  } catch (err) { say("Could not save: " + (err.code || err.message), false); }
+  $("save").disabled = false;
+};
+onAuthStateChanged(auth, async u => {
+  if (!u || !u.email) { $("gate").innerHTML = "Please sign in with your admin account first, then come back to this page."; return; }
+  if (ADMINS.indexOf(u.email) < 0) { $("gate").textContent = "This page is for SayBon admins only."; return; }
+  $("gate").style.display = "none"; $("app").style.display = "";
+  counts();
+  try { await load(); } catch (e) { $("list").innerHTML = '<div class="hint">Could not load books: ' + esc(e.code || e.message) + "</div>"; }
+});
+</script>
+</body>
+</html>

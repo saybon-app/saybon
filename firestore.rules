@@ -54,5 +54,14 @@ service cloud.firestore {
                     && notBlocked();
     }
 
-  }
+  
+    // SayBon Library: anyone can read published books; only admins can add, edit or delete.
+    match /libraryBooks/{bookId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /libraryTexts/{bookId} {
+      allow read: if isAdmin() || get(/databases/$(database)/documents/libraryBooks/$(bookId)).data.published == true;
+      allow write: if isAdmin();
+    }  }
 }
