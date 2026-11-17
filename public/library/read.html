@@ -51,6 +51,7 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 .in{height:calc(var(--ph) - var(--padt) - var(--padb));overflow:hidden;font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:var(--fs);line-height:1.64;hyphens:auto;-webkit-hyphens:auto;text-align:justify;transition:opacity .55s ease}
 .in p.fr{text-indent:1.5em}
 .in p.fr.c,.in h2+p.fr,.in figure+p.fr{text-indent:0}
+.in p.fr.epi{font-style:italic;text-indent:0;font-size:.92em;opacity:.78;border-left:2px solid rgba(160,120,50,.55);padding-left:.8em;margin:0 0 .7em}
 .in p.fr.sep{text-align:center;text-indent:0;letter-spacing:.5em;opacity:.55;margin:.4em 0}
 .in h2{font-weight:600;font-size:1.55em;text-align:center;margin:.3em 0 .9em;line-height:1.2;color:#3a2a14}
 .in h2 small.lang{display:block;font-size:.42em;font-family:"Nunito",sans-serif;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.7em}
@@ -158,7 +159,7 @@ function parse(t){
   });
 }
 function chapters(arr){ const out = []; let c = []; arr.forEach(b => { if (b.h && c.length) { out.push(c); c = []; } c.push(b); }); if (c.length) out.push(c); return out; }
-function P(text, cont, en){ return '<p lang="' + (en ? "en" : "fr") + '" class="fr' + (cont ? " c" : "") + (text === "* * *" ? " sep" : "") + '">' + esc(text) + "</p>"; }
+function P(text, cont, en){ return '<p lang="' + (en ? "en" : "fr") + '" class="fr' + (cont ? " c" : "") + (text === "* * *" ? " sep" : (text.charAt(0) === "[" ? " epi" : "")) + '">' + esc(text) + "</p>"; }
 function H(b){ return '<h2 lang="' + (b.en ? "en" : "fr") + '">' + (b.en ? '<small class="lang">English</small>' : "") + esc(b.t) + "</h2>"; }
 function F(b){ return imgs[b.img] ? '<figure class="fig"><img alt="" src="' + imgs[b.img] + '"></figure>' : ""; }
 
