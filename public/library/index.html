@@ -25,25 +25,31 @@ nav a:hover,nav button:hover{background:rgba(31,174,69,.12)}
 nav a.on{background:var(--mint2)}
 nav svg{width:26px;height:26px}
 .adm{display:none;font-size:13px;font-weight:700;color:var(--mut);text-decoration:none;padding:8px 12px}
-.hero{position:relative;min-height:calc(100vh - 71px);display:flex;align-items:center;padding:30px 44px 50px;overflow:hidden;background:#EAF7EF url(/library/bg.jpg) center/cover no-repeat}
-.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(234,247,239,.97) 0%,rgba(234,247,239,.9) 38%,rgba(234,247,239,.45) 68%,rgba(234,247,239,.25) 100%)}
-.hero>*{position:relative}
-.hl{flex:1 1 46%;max-width:640px;padding-left:min(4vw,60px)}
-h1{font-size:clamp(44px,6.2vw,84px);line-height:1.02;font-weight:900;color:var(--ink);letter-spacing:-.025em}
+.hero{position:relative;min-height:calc(100vh - 71px);display:flex;align-items:center;padding:40px 5vw 60px;overflow:hidden;background:#cfe9d8 url(/library/bg.jpg) center/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(214,242,225,.55) 0%,rgba(214,242,225,.18) 45%,rgba(214,242,225,0) 70%)}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:140px;background:linear-gradient(180deg,rgba(234,247,239,0),#EAF7EF)}
+.hero>*{position:relative;z-index:2}
+.glass{width:min(620px,100%);padding:44px 46px 40px;border-radius:32px;background:rgba(236,250,242,.78);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);border:1.5px solid rgba(255,255,255,.75);box-shadow:0 30px 70px rgba(15,74,51,.25),inset 0 1px 0 rgba(255,255,255,.9)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#d9f7e3;font-weight:800;font-size:13px;letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:7px 15px;margin-bottom:20px}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--sun);display:block}
+h1{font-size:clamp(42px,5.4vw,72px);line-height:1.03;font-weight:900;color:var(--ink);letter-spacing:-.03em}
 h1 span{color:var(--green);display:inline-block;position:relative}
-h1 span svg{position:absolute;right:-62px;top:-4px;width:56px;height:56px}
-.tag{font-size:clamp(17px,1.7vw,24px);line-height:1.45;color:#27483A;font-weight:600;margin:24px 0 32px;max-width:540px}
-.cta{display:inline-flex;align-items:center;gap:16px;background:var(--dark);color:#fff;font:inherit;font-weight:800;font-size:22px;border:0;border-radius:999px;padding:20px 42px;cursor:pointer;text-decoration:none;box-shadow:0 14px 30px rgba(15,74,51,.28);transition:transform .2s,box-shadow .2s}
-.cta:hover{transform:translateY(-3px);box-shadow:0 20px 38px rgba(15,74,51,.34)}
-.cta svg{width:28px;height:28px}
-.hr{flex:1 1 54%;display:flex;justify-content:center;align-items:center;min-width:0}
-.stack{position:relative;width:min(640px,90%);height:min(430px,50vh);perspective:1200px}
-.bk{position:absolute;left:0;right:0;height:31%;border-radius:10px 14px 14px 10px;display:flex;align-items:center;justify-content:center;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:600;font-size:clamp(17px,2.2vw,30px);text-align:center;padding:0 90px 0 80px;line-height:1.05;box-shadow:0 22px 30px -10px rgba(0,0,0,.35),inset 0 -6px 10px rgba(0,0,0,.18),inset 0 6px 10px rgba(255,255,255,.25)}
-.bk:before{content:"";position:absolute;left:-26px;top:7%;bottom:7%;width:34px;border-radius:6px 0 0 6px;background:repeating-linear-gradient(180deg,#f7efd9 0 3px,#e5d8b8 3px 4px);box-shadow:inset -6px 0 8px rgba(0,0,0,.18)}
-.bk:after{content:"";position:absolute;right:14px;top:10%;bottom:10%;width:3px;background:rgba(255,215,120,.7);box-shadow:-9px 0 0 rgba(255,215,120,.5)}
-.bk.b1{top:0;transform:translateX(-14px) rotate(-1.5deg);background:linear-gradient(180deg,#7ec06a,#4f9a54 55%,#3b7d46);color:#14361f;z-index:3}
-.bk.b2{top:33%;transform:translateX(26px) rotate(.8deg);background:linear-gradient(180deg,#fbe6e4,#f4c4c4 60%,#e9a9ae);color:#8b1f2b;z-index:2}
-.bk.b3{top:66%;transform:translateX(-4px) rotate(-.6deg);background:linear-gradient(180deg,#2f7d8f,#1d5a6e 60%,#143f50);color:#f5ecd0;z-index:1}
+h1 span svg{position:absolute;right:-54px;top:-6px;width:48px;height:48px}
+.tag{font-size:clamp(16px,1.5vw,20px);line-height:1.5;color:#2B5240;font-weight:600;margin:20px 0 26px}
+.find{display:flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:7px 7px 7px 22px;box-shadow:0 10px 26px rgba(15,74,51,.16);border:1.5px solid rgba(31,174,69,.25)}
+.find svg{width:22px;height:22px;flex:0 0 auto}
+.find input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-weight:600;font-size:17px;color:var(--ink);padding:10px 4px}
+.find input::placeholder{color:#7C9A8A}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;font:inherit;font-weight:800;font-size:17px;border:0;border-radius:999px;padding:14px 26px;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s;white-space:nowrap}
+.cta:hover{background:var(--green2);transform:translateY(-1px)}
+.cta svg{width:20px;height:20px}
+.lvs{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;align-items:center}
+.lvs b{font-size:13px;font-weight:800;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.lvs button{font:inherit;font-weight:800;font-size:14px;color:var(--ink);background:rgba(255,255,255,.85);border:1.5px solid rgba(15,74,51,.14);border-radius:999px;padding:7px 15px;cursor:pointer;transition:all .15s}
+.lvs button:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.feats{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:24px;padding-top:20px;border-top:1.5px solid rgba(15,74,51,.12);font-weight:700;font-size:14px;color:#2B5240}
+.feats span{display:inline-flex;align-items:center;gap:7px}
+.feats span:before{content:"";width:18px;height:18px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
 .sec{max-width:1240px;margin:0 auto;padding:54px 28px 80px;scroll-margin-top:80px}
 .sec h2{font-size:clamp(28px,3.4vw,40px);font-weight:900;color:var(--ink);margin-bottom:6px}
 .sub{color:var(--mut);font-weight:600;margin-bottom:22px}
@@ -72,7 +78,7 @@ h1 span svg{position:absolute;right:-62px;top:-4px;width:56px;height:56px}
 @media(max-width:900px){
  .hdr{padding:10px 16px;gap:12px;flex-wrap:wrap}.sb b{font-size:26px}.lib{font-size:22px}.lib svg{width:32px;height:26px}.div{height:34px}
  nav{margin-left:0;width:100%;overflow-x:auto;gap:2px}nav a,nav button{padding:8px 14px;font-size:15px;white-space:nowrap}
- .hero{flex-direction:column;align-items:flex-start;padding:26px 20px 40px;min-height:auto}.hl{padding-left:0}.hr{width:100%;margin-top:34px}.stack{height:300px}
+ .hero{padding:24px 14px 50px;align-items:flex-end}.glass{padding:28px 22px 26px;border-radius:26px}.find{padding-left:16px}.find .cta{padding:11px 15px;font-size:14px}.find{gap:4px}.find input{font-size:15px}h1 span svg{width:30px;height:30px;right:-34px}
  .bk{padding:0 50px 0 46px}.bk:before{left:-14px;width:22px}h1 span svg{width:36px;height:36px;right:-40px}.cta{font-size:18px;padding:16px 30px}
 }
 </style>
@@ -95,14 +101,14 @@ h1 span svg{position:absolute;right:-62px;top:-4px;width:56px;height:56px}
 </header>
 
 <section class="hero" id="top">
-<div class="hl">
+<div class="glass">
+<div class="eyebrow"><i></i>Free for every learner</div>
 <h1>The SayBon <span>Library<svg viewBox="0 0 24 24" fill="none" stroke="#FFC933" stroke-width="2.6" stroke-linecap="round"><path d="M12 2v6M3 7l4 4M20 4l-3.6 4.4M22 13h-6"/></svg></span></h1>
-<p class="tag">A rich collection of French reads across genres, tailored to your level and interests.</p>
-<a class="cta" href="#shelf" id="explore">Explore the Library <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+<p class="tag">Original French stories and books, from first words to fluent reading. Pick your level and start turning pages.</p>
+<form class="find" id="find"><svg viewBox="0 0 24 24" fill="none" stroke="#1FAE45" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="hq" type="search" placeholder="Search a title or author" autocomplete="off"><button class="cta" type="submit">Find books</button></form>
+<div class="lvs"><b>Your level</b><button type="button" data-l="A0">A0</button><button type="button" data-l="A1">A1</button><button type="button" data-l="A2">A2</button><button type="button" data-l="B1">B1</button><button type="button" data-l="B2">B2</button><button type="button" data-l="C1">C1</button><button type="button" data-l="C2">C2</button></div>
+<div class="feats"><span>Bilingual and French-only</span><span>A0 to C2</span><span>Real page-turning reader</span></div>
 </div>
-<div class="hr"><div class="stack" id="stack">
-<div class="bk b1" id="s1">Histoires</div><div class="bk b2" id="s2">Aventures</div><div class="bk b3" id="s3">&Agrave; lire</div>
-</div></div>
 </section>
 
 <section class="sec" id="shelf">
@@ -155,14 +161,14 @@ $("nGen").onclick = () => { mine = false; render(); go("chips"); };
 $("nLvl").onclick = () => { mine = false; render(); go("shelf"); setTimeout(() => $("lv").focus(), 500); };
 $("nMy").onclick = () => { mine = true; render(); go("shelf"); };
 $("nSearch").onclick = () => { go("shelf"); setTimeout(() => $("q").focus(), 500); };
+$("find").addEventListener("submit", e => { e.preventDefault(); mine = false; $("q").value = $("hq").value; render(); go("shelf"); });
+document.querySelector(".lvs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; mine = false; $("lv").value = b.getAttribute("data-l"); render(); go("shelf"); });
 $("nLib").onclick = e => { e.preventDefault(); mine = false; render(); window.scrollTo({ top: 0, behavior: "smooth" }); };
 (async function(){
   try {
     const snap = await getDocs(query(collection(db, "libraryBooks"), where("published", "==", true)));
     books = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
     books.sort((a,b) => LV.indexOf(a.level) - LV.indexOf(b.level) || (b.createdAt||0) - (a.createdAt||0));
-    const recent = books.slice().sort((a,b) => (b.createdAt||0) - (a.createdAt||0)).slice(0, 3);
-    recent.forEach((b, i) => { $("s" + (i + 1)).textContent = b.title; });
   } catch (e) { $("out").innerHTML = '<p class="empty">Could not load the library. Please refresh.</p>'; return; }
   render();
 })();
