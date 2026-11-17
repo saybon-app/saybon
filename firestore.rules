@@ -63,5 +63,10 @@ service cloud.firestore {
     match /libraryTexts/{bookId} {
       allow read: if isAdmin() || get(/databases/$(database)/documents/libraryBooks/$(bookId)).data.published == true;
       allow write: if isAdmin();
+    }  
+    // SayBon Library illustrations: anyone can read, only admins can write.
+    match /libraryImages/{imgId} {
+      allow read: if true;
+      allow write: if isAdmin();
     }  }
 }

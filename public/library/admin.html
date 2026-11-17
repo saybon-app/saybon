@@ -33,6 +33,7 @@ input:focus,select:focus,textarea:focus{border-color:#B8924A}
 .bk:last-child{border:0}.bk img,.bk .ph{width:38px;height:56px;border-radius:3px;object-fit:cover;background:#222;flex:0 0 auto}
 .bk .t{flex:1;min-width:0;font-size:13.5px}.bk .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bk .t span{color:var(--mut);font-size:12px}
 .bk button{background:#232733;color:var(--txt);border:0;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+.ills{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.ill{position:relative;width:104px}.ill img{width:104px;height:70px;object-fit:cover;border-radius:6px;background:#222;display:block}.ill b{position:absolute;left:4px;top:4px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;border-radius:4px;padding:1px 6px}.ill button{position:absolute;right:3px;top:3px;background:rgba(0,0,0,.7);color:#fff;border:0;border-radius:4px;font-size:11px;padding:1px 6px;cursor:pointer}.ill code{display:block;font-size:11px;color:var(--gold);margin-top:3px}
 .pub{display:flex;gap:8px;align-items:center;margin-top:16px;font-size:14px}
 #gate{max-width:480px;margin:90px auto;text-align:center;color:var(--mut);line-height:1.6;padding:0 20px}
 </style>
@@ -53,16 +54,21 @@ input:focus,select:focus,textarea:focus{border-color:#B8924A}
 <select id="format"><option value="french">French only</option><option value="bilingual">Bilingual (French with English lines)</option></select>
 <label>Short description (shown nowhere yet, for your own notes)</label><input id="desc" type="text" placeholder="Optional">
 <label>Cover image</label>
-<div class="cov"><img id="covPrev" alt="" style="display:none"><div><input id="cover" type="file" accept="image/*"><div class="hint">Any size. It is shrunk automatically. Without a cover, the shelf shows a plain title cover.</div></div></div>
+<div class="cov"><img id="covPrev" alt="" style="display:none"><div><input id="cover" type="file" accept="image/*"><div class="hint">Portrait picture, any size. It is shrunk automatically and shown on the book. Without a cover, the shelf shows a plain title cover.</div></div></div>
+<label>Illustrations (optional)</label>
+<input id="ills" type="file" accept="image/*" multiple>
+<div class="hint">Add the pictures in story order. Then type [img:1], [img:2] and so on on a line of their own in the text, where each picture should appear. The pictures blend into the page.</div>
+<div class="ills" id="illList"></div>
 <label>French text</label>
 <textarea id="fr" placeholder="Paste the story here.&#10;&#10;Leave a blank line between paragraphs.&#10;Start a line with # to make a chapter title, for example:  # Chapitre 1"></textarea>
 <div id="enBox" style="display:none">
-<label>English text (same paragraphs, same order, same chapter titles)</label>
-<textarea id="en" placeholder="Paste the English version here with the same blank-line paragraphs."></textarea>
+<label>English text (same chapters, same order, same # chapter lines). The reader shows each French chapter, then its English chapter.</label>
+<textarea id="en" placeholder="Paste the English version here. Use the same # Chapter lines."></textarea>
 <div class="hint" id="alignHint"></div>
 </div>
 <div class="hint" id="count"></div>
-<div class="pub"><input type="checkbox" id="pub" checked><label for="pub" style="margin:0;color:var(--txt)">Published (visible on the shelf)</label></div>
+<div class="pub"><input type="checkbox" id="orig" checked><label for="orig" style="margin:0;color:var(--txt)">Show &quot;SayBon Original&quot; on the title page</label></div>
+<div class="pub" style="margin-top:8px"><input type="checkbox" id="pub" checked><label for="pub" style="margin:0;color:var(--txt)">Published (visible on the shelf)</label></div>
 <div class="acts"><button class="btn" id="save" type="button">Save book</button><button class="btn g" id="reset" type="button">Clear form</button><span id="status"></span></div>
 </div>
 <div class="card" style="align-self:start"><h2>Your books</h2><div id="list"><div class="hint">Loading&hellip;</div></div></div>
@@ -74,33 +80,47 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 const db = getFirestore(auth.app), $ = x => document.getElementById(x);
 const ADMINS = ["adlaideduah@gmail.com","saybon.fr@gmail.com"];
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let editId = null, coverData = "", books = [];
+let editId = null, coverData = "", books = [], illData = [], oldImgCount = 0;
 function say(t, ok){ const s = $("status"); s.textContent = t; s.className = ok === true ? "ok" : ok === false ? "er" : ""; }
 function paras(t){ return String(t || "").replace(/\r/g, "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean); }
+const chapN = t => paras(t).filter(p => /^#\s/.test(p)).length;
+const markers = t => (String(t || "").match(/^\[img:(\d+)\]\s*$/gim) || []).map(m => parseInt(m.replace(/\D/g, ""), 10));
 function counts(){
-  const f = paras($("fr").value), e = paras($("en").value), w = $("fr").value.trim().split(/\s+/).filter(Boolean).length;
-  $("count").textContent = f.length + " paragraphs, about " + w + " words, roughly " + Math.ceil(w / 170) + " pages.";
+  const f = paras($("fr").value), w = $("fr").value.trim().split(/\s+/).filter(Boolean).length;
+  const mk = markers($("fr").value + "\n\n" + $("en").value), bad = mk.filter(n => n < 1 || n > illData.length);
+  $("count").textContent = f.length + " paragraphs, about " + w + " words. " + chapN($("fr").value) + " chapters, " + illData.length + " pictures." + (bad.length ? " Picture markers " + bad.join(", ") + " have no matching picture." : "");
   const bil = $("format").value === "bilingual";
   $("enBox").style.display = bil ? "" : "none";
-  $("alignHint").textContent = bil ? (f.length === e.length ? "French and English line up: " + f.length + " paragraphs each." : "French has " + f.length + " paragraphs but English has " + e.length + ". They must match so each English line sits under its French paragraph.") : "";
-  $("alignHint").style.color = bil && f.length !== e.length ? "#ff8a94" : "";
+  const a = chapN($("fr").value), b = chapN($("en").value);
+  $("alignHint").textContent = bil ? (a === b ? "French and English both have " + a + " chapters." : "French has " + a + " chapters but English has " + b + ". They must match.") : "";
+  $("alignHint").style.color = bil && a !== b ? "#ff8a94" : "";
 }
+function shrink(file, mw, mh, q){
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { const sc = Math.min(1, mw / img.width, mh / img.height), c = document.createElement("canvas"); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", q)); };
+    img.onerror = () => rej(new Error("That image could not be read."));
+    img.src = url;
+  });
+}
+function drawIlls(){
+  $("illList").innerHTML = illData.map((d, i) => '<div class="ill"><img src="' + d + '" alt=""><b>' + (i + 1) + '</b><button type="button" data-r="' + i + '">remove</button><code>[img:' + (i + 1) + ']</code></div>').join("");
+  counts();
+}
+$("illList").addEventListener("click", e => { const r = e.target.getAttribute("data-r"); if (r === null) return; illData.splice(parseInt(r, 10), 1); drawIlls(); });
+$("ills").addEventListener("change", async e => {
+  const files = Array.from(e.target.files || []);
+  say("Preparing pictures\u2026");
+  try { for (const f of files) illData.push(await shrink(f, 900, 900, .72)); say(""); } catch (err) { say(err.message, false); }
+  $("ills").value = ""; drawIlls();
+});
 ["fr","en","format"].forEach(i => $(i).addEventListener("input", counts));
-$("cover").addEventListener("change", e => {
+$("cover").addEventListener("change", async e => {
   const f = e.target.files[0]; if (!f) return;
-  const img = new Image(), url = URL.createObjectURL(f);
-  img.onload = () => {
-    const sc = Math.min(1, 420 / img.width, 630 / img.height), c = document.createElement("canvas");
-    c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
-    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-    coverData = c.toDataURL("image/jpeg", .82); URL.revokeObjectURL(url);
-    $("covPrev").src = coverData; $("covPrev").style.display = "";
-  };
-  img.onerror = () => say("That image could not be read.", false);
-  img.src = url;
+  try { coverData = await shrink(f, 600, 800, .82); $("covPrev").src = coverData; $("covPrev").style.display = ""; } catch (err) { say(err.message, false); }
 });
 function resetForm(){
-  editId = null; coverData = "";
+  editId = null; coverData = ""; illData = []; oldImgCount = 0; $("orig").checked = true; drawIlls();
   ["title","author","genre","desc","fr","en"].forEach(i => $(i).value = "");
   $("level").value = "A0"; $("format").value = "french"; $("pub").checked = true; $("cover").value = "";
   $("covPrev").style.display = "none"; $("formTitle").textContent = "Add a book"; say(""); counts();
@@ -117,15 +137,17 @@ $("list").addEventListener("click", async e => {
   if (ed) {
     const b = books.find(x => x.id === ed); if (!b) return;
     const t = await getDoc(doc(db, "libraryTexts", ed)), td = t.exists() ? t.data() : {};
-    editId = ed; coverData = b.cover || "";
+    editId = ed; coverData = b.cover || ""; illData = []; oldImgCount = b.imgCount || 0;
+    for (let n = 1; n <= oldImgCount; n++) { try { const d = await getDoc(doc(db, "libraryImages", ed + "_" + n)); if (d.exists()) illData.push(d.data().data); } catch (er) {} }
+    $("orig").checked = b.original !== false;
     $("title").value = b.title || ""; $("author").value = b.author || ""; $("genre").value = b.genre || ""; $("desc").value = b.desc || "";
     $("level").value = b.level || "A0"; $("format").value = b.format || "french"; $("pub").checked = !!b.published;
-    $("fr").value = td.fr || ""; $("en").value = td.en || "";
+    $("fr").value = td.fr || ""; $("en").value = td.en || ""; drawIlls();
     if (coverData) { $("covPrev").src = coverData; $("covPrev").style.display = ""; } else $("covPrev").style.display = "none";
     $("formTitle").textContent = "Editing: " + b.title; counts(); window.scrollTo(0, 0);
   }
   if (dl && confirm("Delete this book for good?")) {
-    try { await deleteDoc(doc(db, "libraryTexts", dl)); await deleteDoc(doc(db, "libraryBooks", dl)); if (editId === dl) resetForm(); await load(); }
+    try { const bk = books.find(x => x.id === dl); for (let n = 1; n <= ((bk && bk.imgCount) || 0); n++) { try { await deleteDoc(doc(db, "libraryImages", dl + "_" + n)); } catch (er) {} } await deleteDoc(doc(db, "libraryTexts", dl)); await deleteDoc(doc(db, "libraryBooks", dl)); if (editId === dl) resetForm(); await load(); }
     catch (err) { say("Delete failed: " + (err.code || err.message), false); }
   }
 });
@@ -134,14 +156,17 @@ $("save").onclick = async () => {
   if (!title) return say("Add a title.", false);
   if (!fr) return say("Paste the French text.", false);
   if (bil && !en) return say("This is a bilingual book, so paste the English text too.", false);
-  if (bil && paras(fr).length !== paras(en).length) return say("French and English paragraph counts must match.", false);
+  if (bil && chapN(fr) !== chapN(en)) return say("French and English must have the same number of # chapter lines.", false);
+  if (markers(fr + "\n\n" + en).some(n => n < 1 || n > illData.length)) return say("A [img:N] marker has no matching picture.", false);
   if (new TextEncoder().encode(fr + en).length > 900000) return say("This text is too long for one book. Split it into volumes.", false);
   $("save").disabled = true; say("Saving\u2026");
   try {
     const id = editId || (Date.now().toString(36) + Math.random().toString(36).slice(2, 7));
     const old = books.find(b => b.id === id);
     await setDoc(doc(db, "libraryTexts", id), { fr: fr, en: bil ? en : "" });
-    await setDoc(doc(db, "libraryBooks", id), { title: title, author: $("author").value.trim(), genre: $("genre").value.trim(), level: $("level").value, format: $("format").value, desc: $("desc").value.trim(), cover: coverData || "", published: $("pub").checked, createdAt: old && old.createdAt ? old.createdAt : Date.now(), updatedAt: Date.now() });
+    for (let n = 1; n <= illData.length; n++) await setDoc(doc(db, "libraryImages", id + "_" + n), { data: illData[n - 1] });
+    for (let n = illData.length + 1; n <= oldImgCount; n++) { try { await deleteDoc(doc(db, "libraryImages", id + "_" + n)); } catch (er) {} }
+    await setDoc(doc(db, "libraryBooks", id), { title: title, author: $("author").value.trim(), genre: $("genre").value.trim(), level: $("level").value, format: $("format").value, desc: $("desc").value.trim(), cover: coverData || "", published: $("pub").checked, original: $("orig").checked, imgCount: illData.length, createdAt: old && old.createdAt ? old.createdAt : Date.now(), updatedAt: Date.now() });
     say("Saved.", true); resetForm(); say("Saved.", true); await load();
   } catch (err) { say("Could not save: " + (err.code || err.message), false); }
   $("save").disabled = false;
