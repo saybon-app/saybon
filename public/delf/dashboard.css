@@ -69,3 +69,5 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;backgroun
   .dx-mocks{grid-template-columns:repeat(5,1fr);}
   .dx-cta .dx-btn{width:100%;}
 }
+
+.card-library{ background: linear-gradient(135deg, rgba(122,196,150,.55), rgba(70,160,120,.4)); }

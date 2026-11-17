@@ -62,3 +62,4 @@ html, body{
 .card-chat{ background: linear-gradient(135deg, rgba(147,112,201,.93), rgba(112,80,168,.87)); }
 .card-feedback{ background: linear-gradient(135deg, rgba(217,87,143,.93), rgba(184,61,112,.87)); }
 .card-support{ background: linear-gradient(135deg, rgba(74,144,217,.93), rgba(48,112,184,.87)); }
+.card-library{ background: linear-gradient(135deg, rgba(122,196,150,.93), rgba(70,160,120,.87)); }
