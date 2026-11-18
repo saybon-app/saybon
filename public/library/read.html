@@ -187,6 +187,25 @@ function layout(){
   $("spread").classList.toggle("single", !two);
 }
 function paginate(){
+  const mvImg = {}, offs = {}; let moves = {}, info = [];
+  paginateRun(moves, info);
+  for (let pass = 0; pass < 9; pass++) {
+    let any = false;
+    info.forEach(e => {
+      if (!(e.fig && e.words < 40 && e.img > 0)) return;
+      let o = (offs[e.img] || 1) + 1, t = e.img - o;
+      while (t > 0 && (blocks[t].h || blocks[t].img || blocks[t].fin)) t--;
+      if (t <= 0 || blocks[t].h || blocks[t].img) return;
+      offs[e.img] = e.img - t; mvImg[e.img] = t; any = true;
+    });
+    if (!any) break;
+    moves = {}; Object.keys(mvImg).forEach(k => { moves[mvImg[k]] = +k; });
+    info = []; paginateRun(moves, info);
+  }
+}
+function paginateRun(moves, info){
+  const skip = new Set(Object.keys(moves).map(k => moves[k])); let lastImgBi = -1, prevPage = null;
+  const wordsOf = arr => arr.filter(x => x.h.indexOf("<p") === 0).reduce((n, x) => n + x.h.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length, 0);
   const inner = $("minner"), items = [];
   content = [];
   let startBlk = 0, pend = null;
@@ -195,20 +214,29 @@ function paginate(){
   function flush(nextBlk){
     const carry = [];
     while (items.length > 1 && items[items.length - 1].head) carry.unshift(items.pop());
+    prevPage = { start: startBlk, words: wordsOf(items) };
     content.push({ html: html(), blk: startBlk });
     items.length = 0; startBlk = nextBlk;
     carry.forEach(x => items.push(x));
     if (carry.length) startBlk = Math.max(0, nextBlk - 1);
     if (pend) { items.push({ h: pend }); pend = null; }
   }
+  function noteEnd(){
+    if (!items.length) return;
+    const w = wordsOf(items), fig = items.some(x => x.h.indexOf("<figure") === 0);
+    info.push({ start: startBlk, words: w, fig: fig, img: lastImgBi });
+  }
   function dropPend(bi){ if (!pend) return; if (fits(pend)) { items.push({ h: pend }); pend = null; } else flush(bi); }
   for (let bi = 0; bi < blocks.length; bi++) {
     const b = blocks[bi];
+    if (moves[bi] !== undefined) { const mf = F(blocks[moves[bi]]); if (mf) { if (!fits(mf) && items.length) flush(bi); items.push({ h: mf }); lastImgBi = moves[bi]; } }
     if (!items.length) startBlk = bi;
+    if (b.img && skip.has(bi)) continue;
     if (b.fin || b.enStart || b.h) dropPend(bi);
+    if ((b.fin || b.enStart) && items.length) noteEnd();
     if (b.fin) { if (items.length) flush(bi); startBlk = bi; items.push({ h: '<div class="end fin">&mdash; Fin &mdash;<button class="rdEn" type="button">Read the English version</button></div>' }); continue; }
     if (b.enStart) { if (items.length) flush(bi); if (two && content.length % 2 === 1) content.push({ html: "", blk: bi, blank: true }); enPage = content.length; startBlk = bi; }
-    if (b.img) { const f = F(b); if (!f) continue; if (b.p2 && items.some(x => x.head)) { pend = f; continue; } if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); continue; }
+    if (b.img) { const f = F(b); if (!f) continue; if (b.p2 && items.some(x => x.head)) { pend = f; continue; } if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); lastImgBi = bi; continue; }
     if (b.h) { if (items.length) { flush(bi); startBlk = bi; } items.push({ h: H(b), head: true }); continue; }
     let rest = b.t.split(/\s+/), cont = false, guard = 0;
     while (rest.length && guard++ < 5000) {
@@ -222,6 +250,7 @@ function paginate(){
     }
   }
   dropPend(blocks.length);
+  noteEnd();
   const endH = bil ? '<div class="end">&mdash; The End &mdash;</div>' : '<div class="end">&mdash; Fin &mdash;<br>The End</div>';
   if (items.length && fits(endH)) items.push({ h: endH }); else { if (items.length) flush(blocks.length); items.push({ h: endH }); }
   flush(blocks.length);
@@ -440,7 +469,7 @@ window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() =
     $("msg").style.display = "none";
     $("lang").hidden = !bil;
     rebuild(savedBlk);
-    window.__lib = { pages: () => content.length, cur: () => cur, closed: () => closed, open: openBook };
+    window.__lib = { goto: i => gotoPage(i), pages: () => content.length, cur: () => cur, closed: () => closed, open: openBook };
   } catch (e) { $("msg").textContent = "Could not open the book. Please refresh."; }
 })();
 </script>
