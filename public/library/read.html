@@ -10,7 +10,7 @@
 html,body{height:100%}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;overflow:hidden;display:flex;flex-direction:column;position:relative}
-.bgl{position:fixed;inset:0;background:#021c13 url(/library/bg-desktop.webp) center bottom/cover no-repeat;filter:saturate(.95) brightness(.85);transform:scale(1.04)}
+.bgl{position:fixed;inset:0;background:#021c13 url(/library/bg-desktop.webp) center bottom/cover no-repeat;filter:saturate(.9) brightness(.6);transform:scale(1.04)}
 .veil{position:fixed;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 46%,rgba(8,70,48,0) 0%,rgba(2,24,16,.35) 60%,rgba(1,16,11,.82) 100%),linear-gradient(180deg,rgba(1,18,12,.55),rgba(1,18,12,0) 22%,rgba(1,18,12,0) 70%,rgba(1,18,12,.6))}
 .bar,.stage,.dock{position:relative;z-index:2}
 .bar{flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top)) clamp(14px,3vw,36px) 6px}
@@ -34,7 +34,10 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 .spread:not(.single) .in{text-align:left}
 @media (min-width:900px){.spread:not(.single) .in{text-align:justify}}
 .ibtn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:var(--txt);cursor:pointer;transition:background .5s var(--soft),transform .6s var(--ease)}
-.ibtn svg{width:20px;height:20px}.ibtn:hover{background:rgba(255,255,255,.17);transform:translateY(-1px)}.ibtn[disabled]{opacity:.35;cursor:default;transform:none}
+.ibtn svg{width:20px;height:20px}
+#sv.on{background:linear-gradient(180deg,#F6DE9A,#E3B54B);border-color:#E3B54B;color:#3a2705}#sv.on svg{fill:currentColor}
+#ml{text-decoration:none}
+.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,16px);z-index:50;background:rgba(10,45,32,.94);color:#F7F1DC;border:1px solid rgba(227,181,75,.5);border-radius:999px;padding:11px 20px;font-weight:800;font-size:13px;letter-spacing:.03em;opacity:0;pointer-events:none;transition:opacity .5s,transform .6s cubic-bezier(.22,1,.36,1);box-shadow:0 14px 30px -10px rgba(0,0,0,.6);white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}.ibtn:hover{background:rgba(255,255,255,.17);transform:translateY(-1px)}.ibtn[disabled]{opacity:.35;cursor:default;transform:none}
 .stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;perspective:2600px;min-height:0;user-select:none;-webkit-user-select:none}
 .stage:before{content:"";position:absolute;left:50%;top:50%;width:min(1100px,96vw);height:70%;transform:translate(-50%,-52%);background:radial-gradient(ellipse at center,rgba(255,214,130,.20),rgba(255,214,130,.06) 45%,transparent 70%);pointer-events:none}
 .spread{position:relative;height:var(--ph);width:calc(var(--pw) * 2);filter:drop-shadow(0 34px 46px rgba(0,0,0,.7));transition:transform 1.5s var(--ease)}
@@ -107,7 +110,7 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 .meas .pg{position:relative;inset:auto;width:var(--pw);height:var(--ph)}
 @media (max-width:899px){.nav{display:none}.dk .pb{display:inline-grid}}
 @media (max-width:760px){.bgl{background-image:url(/library/bg-mobile.webp)}}
-@media (max-width:640px){.bar{gap:8px;padding-left:12px;padding-right:12px}.bar a.back{padding:0;width:42px;justify-content:center}.bar a.back span{display:none}.ttl{display:none}.bar .spacer{display:block;flex:1}.ctl{gap:8px}.pillg button{padding:0 10px;min-width:34px}}
+@media (max-width:640px){#cv{display:none}.ibtn{width:36px;height:36px}.ibtn svg{width:18px;height:18px}.pillg{height:36px}.pillg button{height:30px}.bar a.back{height:36px;width:36px!important}.bar{gap:6px;padding-left:12px;padding-right:12px}.bar a.back{padding:0;width:42px;justify-content:center}.bar a.back span{display:none}.ttl{display:none}.bar .spacer{display:block;flex:1}.ctl{gap:8px}.pillg button{padding:0 10px;min-width:34px}}
 </style>
 </head>
 <body>
@@ -120,6 +123,8 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 <div class="pillg glass" id="lang" hidden><button id="lfr" type="button" class="on">FR</button><button id="len" type="button">EN</button></div>
 <div class="pillg glass"><button id="fm" type="button" title="Smaller text" aria-label="Smaller text"><span class="sA">A</span></button><button id="fp" type="button" title="Larger text" aria-label="Larger text"><span class="lA">A</span></button></div>
 <button class="ibtn glass" id="vw" type="button" title="Switch between one page and two pages" aria-label="Switch between one page and two pages"></button>
+<button class="ibtn glass" id="sv" type="button" title="Save this book" aria-label="Save this book" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M6 3.5h12v17.2l-6-4.6-6 4.6z"/></svg></button>
+<a class="ibtn glass" id="ml" href="/library/?saved=1" title="My Library: your saved books" aria-label="My Library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="4.5" height="16" rx="1"/><rect x="10" y="4" width="4.5" height="16" rx="1"/><path d="M16.2 5.3l3.9 1.1-3.6 13.3-3.9-1"/></svg></a>
 <button class="ibtn glass" id="cv" type="button" title="Close the book" aria-label="Close the book" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></button>
 </div>
 </header>
@@ -432,6 +437,15 @@ window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() =
     window.__lib = { pages: () => content.length, cur: () => cur, closed: () => closed, open: openBook };
   } catch (e) { $("msg").textContent = "Could not open the book. Please refresh."; }
 })();
+</script>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){var K="sbLibSaved",id=new URLSearchParams(location.search).get("b"),b=document.getElementById("sv"),t=document.getElementById("toast"),tm;
+function get(){try{var a=JSON.parse(localStorage.getItem(K)||"[]");return Array.isArray(a)?a:[]}catch(e){return[]}}
+function paint(){var on=get().indexOf(id)>-1;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on?"true":"false");var l=on?"Saved: tap to remove":"Save this book";b.title=l;b.setAttribute("aria-label",l)}
+function say(m){t.textContent=m;t.classList.add("on");clearTimeout(tm);tm=setTimeout(function(){t.classList.remove("on")},1800)}
+b.addEventListener("click",function(){if(!id)return;var a=get(),i=a.indexOf(id);if(i>-1){a.splice(i,1);say("Removed from My Library")}else{a.push(id);say("Saved to My Library")}try{localStorage.setItem(K,JSON.stringify(a))}catch(e){say("Could not save on this device")}paint()});
+paint()})();
 </script>
 </body>
 </html>
