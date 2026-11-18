@@ -56,7 +56,16 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
 .bh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 var(--edge)}
 .bh b{display:flex;flex-direction:column;gap:7px;font-family:Georgia,"Palatino Linotype","Times New Roman",serif;font-weight:600;font-size:clamp(24px,2.5vw,34px);letter-spacing:.005em;color:#F7F1DC;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 .bh b small{display:none;font-family:"Nunito","Segoe UI",system-ui,sans-serif;font-weight:600;font-size:clamp(14px,1.25vw,17px);line-height:1.35;color:#C9DDD2;letter-spacing:0;text-shadow:none;max-width:60ch}
-.bh.wel b small{display:block}.bh b em{font-style:italic;color:var(--gold)}
+.bh.wel b small{display:block}
+body.mine .logo,body.mine .mid picture{display:none}
+body.mine .tr{margin-left:auto}
+body.mine:not(.filt) .dd,body.mine:not(.filt) .sep{display:none}
+body.mine .clr{display:grid;place-items:center;width:34px;height:34px;border:0;background:none;cursor:pointer;margin-left:6px}
+body.mine .mid{padding-top:2.6vh}
+.bh.wel b{gap:14px;font-size:clamp(24px,2.4vw,32px)}.bh.wel b:after{display:none}
+.bh.wel b small{color:rgba(201,221,210,.62);font-weight:500;font-size:clamp(13px,1.15vw,15px);line-height:1.65}
+.bh.wel .sv,.bh.wel .sv.on{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:rgba(247,241,220,.85);box-shadow:none}
+.bh.wel .sv .n,.bh.wel .sv.on .n{background:rgba(227,181,75,.85);color:#2b1f00}.bh b em{font-style:italic;color:var(--gold)}
 .bh b:after{content:"";width:44px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--gold),rgba(227,181,75,0))}
 .sv{display:inline-flex;align-items:center;gap:9px;font:inherit;font-weight:800;font-size:13px;letter-spacing:.06em;color:#F7F1DC;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;height:40px;padding:0 8px 0 15px;cursor:pointer;box-shadow:0 10px 24px -10px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12);transition:background .5s var(--soft),color .5s var(--soft),border-color .5s var(--soft),transform .6s var(--ease)}
 .sv svg{width:17px;height:17px;flex:0 0 auto}.sv:hover{background:rgba(255,255,255,.17);transform:translateY(-1px)}
@@ -138,7 +147,7 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
  .dd.open .pop{transform:none;transition:transform .65s var(--ease),opacity .4s var(--soft),visibility 0s}
  .pop .ph{display:block;width:44px;height:5px;border-radius:5px;background:rgba(255,255,255,.28);margin:2px auto 10px}
  .it{padding:13px 14px}
- .bh{padding:0 20px;flex-wrap:wrap}.bh.wel b{flex:1 1 100%;font-size:21px;order:1}.bh.wel .sv{order:2}.bh b{font-size:23px;gap:6px}.sv{height:36px;font-size:12px;padding:0 6px 0 12px;gap:7px}.sv .n{min-width:22px;height:22px;font-size:11px}
+ .bh{padding:0 20px;flex-wrap:wrap}.bh.wel{row-gap:20px}.bh.wel b{flex:1 1 100%;font-size:22px;order:1}.bh.wel .sv{order:2}body.mine .band{margin-top:30px}.bh b{font-size:23px;gap:6px}.sv{height:36px;font-size:12px;padding:0 6px 0 12px;gap:7px}.sv .n{min-width:22px;height:22px;font-size:11px}
  .fd{--R:clamp(100px,15vh,140px);--wf:calc(var(--R)*1.3);padding-left:20px}
  .app{grid-template-rows:auto auto 1fr}.band{min-height:0;align-self:start;margin-top:20px}
  .shelf{--sh:min(60vh,calc(100dvh - 300px))}
@@ -210,14 +219,14 @@ function openFolder(fd){
 }
 let uname = "";
 const QS = {
-  go: ["Chapter by chapter, you are doing beautifully. Want to finish {t}?", "{t} is still waiting mid-story. Ready to see how it ends?", "You left {t} at a good bit. Shall we pick it back up?"],
+  go: ["{t} is right where you left it. Shall we finish it?", "Ready to find out how {t} ends?", "A few more pages of {t}? It is waiting for you."],
   new: ["{t} is saved and waiting. Ready to dive in?", "A new story is one page away. Start {t}?", "Your next adventure is {t}. Let's see what happens!"],
   none: ["Tap the bookmark while you read and your books will wait for you here.", "Nothing saved yet. Pick a story, and let it be your first."]
 };
 const pick = a => a[Math.floor(Math.random() * a.length)];
 function head(){
   const bh = $("bh"), bt = $("bt"), bq = $("bq");
-  bh.classList.toggle("wel", !!st.mine);
+  bh.classList.toggle("wel", !!st.mine); document.body.classList.toggle("mine", !!st.mine); if (!st.mine) document.body.classList.remove("filt");
   if (!st.mine) { bt.textContent = "My Library"; bq.textContent = ""; return; }
   bt.textContent = ""; bt.appendChild(document.createTextNode("Welcome to your library" + (uname ? ", " : "")));
   if (uname) { const e = document.createElement("em"); e.textContent = uname; bt.appendChild(e); }
@@ -280,7 +289,7 @@ async function loadName(u){
 try { if (auth && auth.onAuthStateChanged) auth.onAuthStateChanged(loadName); } catch (e) {}
 const togSaved = () => { st.mine = !st.mine; $("my").classList.toggle("on", st.mine); $("hsv").classList.toggle("on", st.mine); render(); };
 $("my").addEventListener("click", togSaved); $("hsv").addEventListener("click", togSaved);
-$("clr").addEventListener("click", () => { st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; ["lv", "gn", "fm"].forEach(paint); $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
+$("clr").addEventListener("click", () => { if (st.mine) { document.body.classList.toggle("filt"); return; } st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; ["lv", "gn", "fm"].forEach(paint); $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
 let lastPT = "mouse", hoverT = 0, dn = null;
 $("rail").addEventListener("click", e => { const a = e.target.closest("a.bk"); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); a.classList.add("pick"); $("app").classList.add("leaving"); setTimeout(() => { location.href = a.getAttribute("href"); }, 760); });
 window.addEventListener("pageshow", ev => { if (ev.persisted) { $("app").classList.remove("leaving"); document.querySelectorAll(".bk.pick").forEach(x => x.classList.remove("pick")); } });
