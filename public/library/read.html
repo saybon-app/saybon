@@ -193,8 +193,9 @@ function paginate(){
     let any = false;
     info.forEach(e => {
       if (!(e.fig && e.words < 40 && e.img > 0)) return;
+      if (blocks[e.img].p2) return;
       let o = (offs[e.img] || 1) + 1, t = e.img - o;
-      while (t > 0 && (blocks[t].h || blocks[t].img || blocks[t].fin)) t--;
+      while (t > 0 && (blocks[t].img || blocks[t].fin)) t--;
       if (t <= 0 || blocks[t].h || blocks[t].img) return;
       offs[e.img] = e.img - t; mvImg[e.img] = t; any = true;
     });
@@ -204,7 +205,7 @@ function paginate(){
   }
 }
 function paginateRun(moves, info){
-  const skip = new Set(Object.keys(moves).map(k => moves[k])); let lastImgBi = -1, prevPage = null;
+  const skip = new Set(Object.keys(moves).map(k => moves[k])); let lastImgBi = -1;
   const wordsOf = arr => arr.filter(x => x.h.indexOf("<p") === 0).reduce((n, x) => n + x.h.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length, 0);
   const inner = $("minner"), items = [];
   content = [];
@@ -214,7 +215,7 @@ function paginateRun(moves, info){
   function flush(nextBlk){
     const carry = [];
     while (items.length > 1 && items[items.length - 1].head) carry.unshift(items.pop());
-    prevPage = { start: startBlk, words: wordsOf(items) };
+    lastImgBi = -1;
     content.push({ html: html(), blk: startBlk });
     items.length = 0; startBlk = nextBlk;
     carry.forEach(x => items.push(x));
@@ -237,7 +238,7 @@ function paginateRun(moves, info){
     if (b.fin) { if (items.length) flush(bi); startBlk = bi; items.push({ h: '<div class="end fin">&mdash; Fin &mdash;<button class="rdEn" type="button">Read the English version</button></div>' }); continue; }
     if (b.enStart) { if (items.length) flush(bi); if (two && content.length % 2 === 1) content.push({ html: "", blk: bi, blank: true }); enPage = content.length; startBlk = bi; }
     if (b.img) { const f = F(b); if (!f) continue; if (b.p2 && items.some(x => x.head)) { pend = f; continue; } if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); lastImgBi = bi; continue; }
-    if (b.h) { if (items.length) { flush(bi); startBlk = bi; } items.push({ h: H(b), head: true }); continue; }
+    if (b.h) { if (items.length) { noteEnd(); flush(bi); startBlk = bi; } items.push({ h: H(b), head: true }); continue; }
     let rest = b.t.split(/\s+/), cont = false, guard = 0;
     while (rest.length && guard++ < 5000) {
       if (fits(P(rest.join(" "), cont, b.en))) { items.push({ h: P(rest.join(" "), cont, b.en) }); rest = []; break; }
@@ -469,7 +470,7 @@ window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() =
     $("msg").style.display = "none";
     $("lang").hidden = !bil;
     rebuild(savedBlk);
-    window.__lib = { goto: i => gotoPage(i), pages: () => content.length, cur: () => cur, closed: () => closed, open: openBook };
+    window.__lib = { content: () => content.map(c => c.html), goto: i => gotoPage(i), pages: () => content.length, cur: () => cur, closed: () => closed, open: openBook };
   } catch (e) { $("msg").textContent = "Could not open the book. Please refresh."; }
 })();
 </script>
