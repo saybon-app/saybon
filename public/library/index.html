@@ -167,6 +167,20 @@ body.mine .mid{padding-top:2.6vh}
  .nx{display:none!important}
  .nm{font-size:calc(var(--R)*.115)!important}
 }
+.gp{width:min(760px,calc(100% - 40px));margin:6px auto 0;padding:18px;border-radius:28px;background:linear-gradient(160deg,rgba(214,236,224,.14),rgba(214,236,224,.06));border:1px solid rgba(214,236,224,.24);-webkit-backdrop-filter:blur(16px) saturate(1.1);backdrop-filter:blur(16px) saturate(1.1);box-shadow:0 26px 50px -22px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.16);animation:rise 1s var(--ease) both}
+.gg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.gc{display:flex;flex-direction:column;gap:7px;padding:7px 7px 9px;border-radius:16px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 22px -12px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.18);color:inherit;text-decoration:none;min-width:0;animation:rise .8s var(--ease) both;animation-delay:calc(.08s + var(--i,0)*.05s);transition:transform .7s var(--ease),background .5s var(--soft),border-color .5s var(--soft)}
+a.gc:hover{transform:translateY(-4px);background:rgba(255,255,255,.14);border-color:rgba(246,222,154,.55)}
+.gcv{position:relative;display:block;aspect-ratio:3/4;border-radius:11px;overflow:hidden;background:rgba(255,255,255,.05)}
+.gcv img{width:100%;height:100%;object-fit:cover;display:block}
+.gcv .gn{padding:8px}.gcv .gn b{font-size:11px}
+.gt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:center;font-family:Georgia,"Palatino Linotype",serif;font-size:12px;line-height:1.25;color:#EEF5EF;min-height:2.5em}
+.gc.ge{background:rgba(255,255,255,.04);border:1px dashed rgba(214,236,224,.22);box-shadow:none;animation-delay:calc(.08s + var(--i,0)*.05s);padding-bottom:7px}
+.gc.ge .gcv{background:rgba(255,255,255,.03);display:grid;place-items:center;color:rgba(214,236,224,.28)}.gc.ge .gcv svg{width:26px;height:26px;position:static}
+.gc.ge:after{content:"";display:block;min-height:2.5em}
+.gnone{text-align:center;color:#C9DDD2;font-size:14px;margin-top:14px}
+@media(max-width:760px){.gg{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.gp{padding:12px;border-radius:22px}.gt{font-size:11px}}
+body.mine .shelf{--sh:calc(100dvh - 330px)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -249,6 +263,21 @@ function head(){
   const b = cur || nxt, k = cur ? "go" : nxt ? "new" : "none";
   bq.textContent = pick(QS[k]).replace("{t}", b ? "\u201C" + b.title + "\u201D" : "");
 }
+function gcard(b, i){
+  const tn = tone(b.title || "");
+  const cov = b.cover ? '<img src="'+esc(b.cover)+'" alt="">' : '<div class="gn" style="background:linear-gradient(150deg,'+tn[0]+','+tn[1]+')"><b>'+esc(b.title)+'</b></div>';
+  return '<a class="gc" style="--i:'+i+'" href="/library/read.html?b='+encodeURIComponent(b.id)+'"><span class="gcv">'+cov+'</span><span class="gt">'+esc(b.title)+'</span></a>';
+}
+const GE = '<span class="gc ge" aria-hidden="true"><span class="gcv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 3.5h12v17.2l-6-4.6-6 4.6z"/></svg></span></span>';
+function gallery(list){
+  const cols = matchMedia("(max-width:760px)").matches ? 3 : 6, min = cols * (cols === 3 ? 3 : 2);
+  const slots = Math.max(min, Math.ceil((list.length + 1) / cols) * cols);
+  let h = list.map(gcard).join("");
+  for (let k = list.length; k < slots; k++) h += GE;
+  const none = !list.length && (st.q || st.lv || st.fm || st.gn) && savedIds().length ? '<p class="gnone">No saved book matches that search.</p>' : "";
+  return '<div class="gp"><div class="gg">' + h + '</div></div>' + none;
+}
+window.addEventListener("resize", () => { if (st.mine) { clearTimeout(window.__gr); window.__gr = setTimeout(render, 150); } });
 function render(){
   const q = st.q.trim().toLowerCase();
   const list = books.filter(b => (!st.mine || savedIds().indexOf(b.id) > -1) && (!st.gn || b.genre === st.gn) && (!st.lv || b.level === st.lv) && (!st.fm || b.format === st.fm) && (!q || (b.title + " " + (b.author || "")).toLowerCase().indexOf(q) > -1));
@@ -256,6 +285,7 @@ function render(){
   $("svt").textContent = st.mine ? "All Books" : "Saved Books"; head(); $("svn").textContent = savedIds().length;
   const rail = $("rail");
   rail.scrollTop = 0;
+  if (st.mine) { rail.innerHTML = gallery(list); return; }
   if (!books.length) {
     rail.innerHTML = '<div class="empty"><div class="ghost"></div><div class="ghost"></div><div class="ghost"></div><div class="em"><b>The first stories are on their way</b>New original books will appear on this shelf. Check back soon.</div></div>';
   } else if (!list.length) {
