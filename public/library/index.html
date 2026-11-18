@@ -22,7 +22,7 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
 .logo{display:inline-block;line-height:0}
 .logo img{height:clamp(30px,4.6vh,42px);width:auto;display:block}
 .mid{position:relative;z-index:20;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5vw;min-height:0}
-.hd{display:block;height:clamp(50px,10.5vh,96px);width:auto;max-width:92vw;animation:rise 1.2s .12s var(--ease) both}
+.hd{display:block;height:clamp(78px,14vh,124px);width:auto;max-width:92vw;animation:rise 1.2s .12s var(--ease) both}
 .tools{display:flex;align-items:center;gap:12px;background:rgba(196,222,208,.16);border:1px solid rgba(196,222,208,.3);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:999px;padding:3px 8px 3px 20px;width:min(720px,100%);margin-top:clamp(8px,1.6vh,14px);box-shadow:0 14px 34px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:rise 1.2s .3s var(--ease) backwards}
 .find{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
 .find svg{width:18px;height:18px;flex:0 0 auto}
@@ -60,6 +60,7 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
 .top{order:0}.mid{order:1}.app>.bh{order:2}.band{order:3}
 body.mine .app>.bh{order:1;padding-top:2.4vh}body.mine .mid{order:2}
 body.mine .app{grid-template-rows:auto auto auto 1fr!important}
+@media(min-width:761px){.mid{align-items:flex-start;text-align:left;padding:0 var(--edge)}.tools{width:100%}}
 body.mine .mid{justify-content:flex-start;padding:0 var(--edge);align-items:stretch}body.mine .tools{width:100%}
 @media(max-width:760px){body.mine .mid{padding:0 20px}}body.mine .tools{margin-top:clamp(14px,2.4vh,24px)}
 .app>.bh{margin-top:clamp(6px,1.2vh,14px)}
@@ -178,7 +179,7 @@ body.mine .mid{padding-top:2.6vh}
 
 <div class="bh" id="bh"><b><span id="bt">My Library</span><small id="bq"></small></b><button class="sv" id="my" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3.5h12v17.2l-6-4.6-6 4.6z"/></svg><span id="svt">Saved Books</span><span class="n" id="svn">0</span></button></div>
 <main class="mid">
-<picture><source media="(max-width:760px)" srcset="/library/head-mobile.webp"><img class="hd" src="/library/head-desktop.webp" alt="The SayBon Library - read in French"></picture>
+<picture><img class="hd" src="/library/head-mobile.webp" alt="The SayBon Library - read in French"></picture>
 <div class="tools">
 <label class="find"><svg viewBox="0 0 24 24" fill="none" stroke="#17372b" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input id="q" type="search" placeholder="Search books..." autocomplete="off"><button class="clr" id="clr" type="button" aria-label="Clear filters"><svg viewBox="0 0 24 24" fill="none" stroke="#17372b" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button></label>
 <span class="sep"></span>
