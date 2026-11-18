@@ -60,7 +60,8 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
 .top{order:0}.mid{order:1}.app>.bh{order:2}.band{order:3}
 body.mine .app>.bh{order:1;padding-top:2.4vh}body.mine .mid{order:2}
 body.mine .app{grid-template-rows:auto auto auto 1fr!important}
-body.mine .mid{justify-content:flex-start;padding-top:0}body.mine .tools{margin-top:clamp(14px,2.4vh,24px)}
+body.mine .mid{justify-content:flex-start;padding:0 var(--edge);align-items:stretch}body.mine .tools{width:100%}
+@media(max-width:760px){body.mine .mid{padding:0 20px}}body.mine .tools{margin-top:clamp(14px,2.4vh,24px)}
 .app>.bh{margin-top:clamp(6px,1.2vh,14px)}
 body.mine .logo,body.mine .mid picture{display:none}
 body.mine .tr{margin-left:auto}
