@@ -23,15 +23,15 @@ body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;back
 .logo img{height:clamp(30px,4.6vh,42px);width:auto;display:block}
 .mid{position:relative;z-index:20;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5vw;min-height:0}
 .hd{display:block;height:clamp(50px,10.5vh,96px);width:auto;max-width:92vw;animation:rise 1.2s .12s var(--ease) both}
-.tools{display:flex;align-items:center;gap:12px;background:rgba(196,222,208,.16);border:1px solid rgba(196,222,208,.3);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:999px;padding:8px 10px 8px 26px;width:min(1000px,100%);margin-top:clamp(10px,2vh,18px);box-shadow:0 14px 34px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:rise 1.2s .3s var(--ease) backwards}
+.tools{display:flex;align-items:center;gap:12px;background:rgba(196,222,208,.16);border:1px solid rgba(196,222,208,.3);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:999px;padding:3px 8px 3px 20px;width:min(720px,100%);margin-top:clamp(8px,1.6vh,14px);box-shadow:0 14px 34px -12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1);animation:rise 1.2s .3s var(--ease) backwards}
 .find{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
-.find svg{width:22px;height:22px;flex:0 0 auto}
-.find input{border:0;outline:0;background:none;font:inherit;font-weight:600;font-size:16px;color:#EAF4EE;padding:8px 0;width:100%;min-width:0}
-.find input::placeholder{color:rgba(214,234,224,.62)}.find svg,.clr svg{stroke:#CFE6D8}
+.find svg{width:18px;height:18px;flex:0 0 auto}
+.find input{border:0;outline:0;background:none;font:inherit;font-weight:600;font-size:15px;color:#EAF4EE;padding:6px 0;width:100%;min-width:0}
+.find input::placeholder{color:rgba(214,234,224,.62)}.find svg,.clr svg{stroke:#CFE6D8}.chip svg{width:16px!important;height:16px!important}
 .sep{width:1.5px;height:30px;background:rgba(196,222,208,.25)}
 .clr{display:none}
 .dd{position:relative;flex:0 0 auto}
-.chip{position:relative;display:inline-flex;align-items:center;gap:9px;border:1.5px solid rgba(196,222,208,.34);border-radius:999px;padding:0 14px 0 15px;color:#E6F2EA;background:rgba(255,255,255,.06);height:38px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:background .5s var(--soft),border-color .5s var(--soft),color .5s var(--soft),box-shadow .5s var(--soft)}
+.chip{position:relative;display:inline-flex;align-items:center;gap:9px;border:1.5px solid rgba(196,222,208,.34);border-radius:999px;padding:0 14px 0 15px;color:#E6F2EA;background:rgba(255,255,255,.06);height:30px;font:inherit;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .5s var(--soft),border-color .5s var(--soft),color .5s var(--soft),box-shadow .5s var(--soft)}
 @media(hover:hover) and (min-width:761px){.chip:hover{background:rgba(255,255,255,.15)}}
 .chip svg{width:19px;height:19px;flex:0 0 auto}
 .chip .chev{width:17px;height:17px;margin-left:2px;transition:transform .55s var(--ease)}
@@ -65,7 +65,7 @@ body.mine .mid{justify-content:flex-start;padding-top:0}body.mine .tools{margin-
 body.mine .logo,body.mine .mid picture{display:none}
 body.mine .tr{margin-left:auto}
 body.mine:not(.filt) .dd,body.mine:not(.filt) .sep{display:none}
-body.mine .clr{display:grid;place-items:center;width:34px;height:34px;border:0;background:none;cursor:pointer;margin-left:6px}
+body.mine .clr{display:grid;place-items:center;width:28px;height:28px;border:0;background:none;cursor:pointer;margin-left:6px}
 body.mine .mid{padding-top:2.6vh}
 .bh.wel b{gap:14px;font-size:clamp(24px,2.4vw,32px)}.bh.wel b:after{display:none}
 .bh.wel b small{color:rgba(201,221,210,.62);font-weight:500;font-size:clamp(13px,1.15vw,15px);line-height:1.65}
@@ -143,12 +143,12 @@ body.mine .mid{padding-top:2.6vh}
  .mid{align-items:flex-start;text-align:left;padding:0 20px;justify-content:flex-start;padding-top:1.4vh}
  .hd{height:auto;width:min(170px,46vw)}
  .tools{flex-wrap:wrap;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;padding:0;gap:7px;margin-top:1.2vh}
- .find{flex:1 0 100%;background:rgba(196,222,208,.16);border:1px solid rgba(196,222,208,.3);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;padding:0 6px 0 14px;gap:8px;box-shadow:0 8px 18px rgba(0,0,0,.28)}
- .find svg{width:17px;height:17px}.find input{font-size:16px;padding:7px 0}
+ .find{flex:1 0 100%;background:rgba(196,222,208,.16);border:1px solid rgba(196,222,208,.3);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:999px;padding:0 4px 0 12px;gap:7px;box-shadow:0 8px 18px rgba(0,0,0,.28)}
+ .find svg{width:15px;height:15px}.find input{font-size:16px;padding:4px 0}
  .sep{display:none}
- .clr{display:grid;place-items:center;width:32px;height:32px;border:0;background:none;border-left:1.5px solid rgba(196,222,208,.25);border-radius:0;cursor:pointer;margin-left:6px;padding-left:4px}.clr svg{width:19px;height:19px}
+ .clr{display:grid;place-items:center;width:28px;height:28px;border:0;background:none;border-left:1.5px solid rgba(196,222,208,.25);border-radius:0;cursor:pointer;margin-left:6px;padding-left:4px}.clr svg{width:16px;height:16px}
  .dd{flex:1 1 0;min-width:0}
- .chip{width:100%;height:30px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.42);color:#fff;padding:0 8px;gap:4px;font-size:12px;justify-content:flex-start}
+ .chip{width:100%;height:27px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.42);color:#fff;padding:0 8px;gap:4px;font-size:11.5px;justify-content:flex-start}
  .chip .lab{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis}
  .chip svg{width:13px;height:13px}.chip .chev{width:12px;height:12px;margin-left:0}
  .dd.open .chip{background:rgba(255,255,255,.18);border-color:#fff;box-shadow:none}
