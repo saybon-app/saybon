@@ -65,6 +65,8 @@ body.mine .mid{justify-content:flex-start;align-items:center;text-align:center}
 .bh.wel{flex-direction:column;flex-wrap:nowrap;align-items:center;justify-content:center;text-align:center;gap:16px}.bh.wel b{align-items:center;text-align:center}.bh.wel b small{max-width:46ch}
 @media(max-width:760px){body.mine .mid{padding:0 20px}.bh.wel{align-items:center}.bh.wel b{flex:0 0 auto}}body.mine .tools{margin-top:clamp(14px,2.4vh,24px)}
 .app>.bh{margin-top:clamp(6px,1.2vh,14px)}
+body:not(.mine) .app>.bh{display:none}
+@media(min-width:761px){body:not(.mine) .band{margin-top:-7vh}}
 body.mine .logo,body.mine .mid picture{display:none}
 body.mine .tr{margin-left:auto}
 body.mine:not(.filt) .dd,body.mine:not(.filt) .sep{display:none}
