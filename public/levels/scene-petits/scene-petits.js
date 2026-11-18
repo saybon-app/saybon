@@ -4,8 +4,8 @@
    drifting particles that suit each scene (pollen, petals, snow, leaves, dust). */
 (function(){
 var BASE="/levels/scene-petits/img/p";
-/* Order of paintings across lessons: park, beach, library, winter, blossom park, hiking, village, library, playground. */
-var SEQ=[2,3,1,4,7,5,8,6,9];
+/* Order across lessons, scenery first: beach, waterfall hike, lakeside village, winter rink, blossom park, then park, playground, and the two libraries last. */
+var SEQ=[3,5,8,4,7,2,9,1,6];
 var FX={1:"dust",2:"pollen",3:"sparkle",4:"snow",5:"leaf",6:"dust",7:"petal",8:"petal",9:"pollen"};
 var RM=false;try{RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
 function rnd(a,b){return a+Math.random()*(b-a);}
@@ -103,19 +103,22 @@ function mount(o){
   var dt=Math.min(.05,(now-last)/1000);last=now;
   apply(now);fxStep(dt,now);
  }
+ function ready(){root.classList.add("pt-in");document.body.classList.add("ps-ready");}
  function start(){
   size();makeGlints();
   var n=kind==="snow"?70:(kind==="petal"?34:30);for(var i=0;i<n;i++)P.push(mk(true));
-  if(RM){pan.style.transform="translate3d(0,0,0) scale(1.12)";root.classList.add("pt-in");return;}
+  if(RM){pan.style.transform="translate3d(0,0,0) scale(1.12)";ready();return;}
   pick();from={x:0,y:0,s:1.16};cam.s=1.16;t0=performance.now();last=t0;raf=requestAnimationFrame(loop);
-  requestAnimationFrame(function(){root.classList.add("pt-in");});
+  requestAnimationFrame(ready);
  }
  img.onload=function(){iw=img.naturalWidth||iw;ih=img.naturalHeight||ih;start();};
- img.onerror=function(){root.classList.add("pt-in");};
+ img.onerror=function(){ready();};
  img.src=url;
  window.addEventListener("resize",size);
  var colors=["#ffd93d","#ff6ec7","#6ee7ff","#9dff8a","#ffffff","#ff9a5c"];
  var api={
+  root:root,
+  yourTurn:function(){focusT=.25;root.classList.remove("pt-rec");},
   cheer:function(){
    root.classList.remove("pt-cheer");void root.offsetWidth;root.classList.add("pt-cheer");
    if(RM)return;
@@ -124,7 +127,7 @@ function mount(o){
   calm:function(){focusT=0;root.classList.remove("pt-rec");},
   listen:function(){focusT=1;},
   micState:function(s){root.classList.toggle("pt-rec",s==="rec");focusT=s==="rec"?.5:focusT;},
-  destroy:function(){alive=false;cancelAnimationFrame(raf);window.removeEventListener("resize",size);root.remove();document.body.classList.remove("pt-on");}
+  destroy:function(){alive=false;cancelAnimationFrame(raf);window.removeEventListener("resize",size);root.remove();document.body.classList.remove("pt-on");document.body.classList.remove("ps-ready");}
  };
  return api;
 }
