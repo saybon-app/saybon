@@ -299,9 +299,10 @@ async function loadName(u){
   uname = first(n); head();
 }
 try { if (auth && auth.onAuthStateChanged) auth.onAuthStateChanged(loadName); } catch (e) {}
-const togSaved = () => { st.mine = !st.mine; $("my").classList.toggle("on", st.mine); $("hsv").classList.toggle("on", st.mine); render(); };
+const urlSaved = () => { try { history.replaceState(null, "", st.mine ? "?saved=1" : location.pathname); } catch (e) {} };
+const togSaved = () => { st.mine = !st.mine; urlSaved(); $("my").classList.toggle("on", st.mine); $("hsv").classList.toggle("on", st.mine); render(); };
 $("my").addEventListener("click", togSaved); $("hsv").addEventListener("click", togSaved);
-$("clr").addEventListener("click", () => { if (st.mine) { document.body.classList.toggle("filt"); return; } st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; ["lv", "gn", "fm"].forEach(paint); $("my").classList.remove("on"); $("hsv").classList.remove("on"); render(); });
+$("clr").addEventListener("click", () => { if (st.mine) { document.body.classList.toggle("filt"); return; } st = { lv: "", fm: "", gn: "", q: "", mine: false }; $("q").value = ""; ["lv", "gn", "fm"].forEach(paint); $("my").classList.remove("on"); $("hsv").classList.remove("on"); urlSaved(); render(); });
 let lastPT = "mouse", hoverT = 0, dn = null;
 $("rail").addEventListener("click", e => { const a = e.target.closest("a.bk"); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); a.classList.add("pick"); $("app").classList.add("leaving"); setTimeout(() => { location.href = a.getAttribute("href"); }, 760); });
 window.addEventListener("pageshow", ev => { if (ev.persisted) { $("app").classList.remove("leaving"); document.querySelectorAll(".bk.pick").forEach(x => x.classList.remove("pick")); } });
