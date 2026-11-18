@@ -158,8 +158,8 @@ let fsD = parseFloat(LS.get("sbLibFsKD") || "1") || 1, fsM = parseFloat(LS.get("
 
 function parse(t){
   return String(t || "").replace(/\r/g, "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean).map(s => {
-    const m = /^\[img:(\d+)\]$/i.exec(s);
-    if (m) return { img: parseInt(m[1], 10) };
+    const m = /^\[img:(\d+)(:p2)?\]$/i.exec(s);
+    if (m) return { img: parseInt(m[1], 10), p2: !!m[2] };
     const h = /^#\s+/.test(s);
     return { h: h, t: s.replace(/^#\s+/, "").replace(/\s*\n\s*/g, " ") };
   });
@@ -189,7 +189,7 @@ function layout(){
 function paginate(){
   const inner = $("minner"), items = [];
   content = [];
-  let startBlk = 0;
+  let startBlk = 0, pend = null;
   const html = () => items.map(x => x.h).join("");
   const fits = cand => { inner.innerHTML = html() + cand; return inner.scrollHeight <= inner.clientHeight + 1; };
   function flush(nextBlk){
@@ -199,13 +199,16 @@ function paginate(){
     items.length = 0; startBlk = nextBlk;
     carry.forEach(x => items.push(x));
     if (carry.length) startBlk = Math.max(0, nextBlk - 1);
+    if (pend) { items.push({ h: pend }); pend = null; }
   }
+  function dropPend(bi){ if (!pend) return; if (fits(pend)) { items.push({ h: pend }); pend = null; } else flush(bi); }
   for (let bi = 0; bi < blocks.length; bi++) {
     const b = blocks[bi];
     if (!items.length) startBlk = bi;
+    if (b.fin || b.enStart || b.h) dropPend(bi);
     if (b.fin) { if (items.length) flush(bi); startBlk = bi; items.push({ h: '<div class="end fin">&mdash; Fin &mdash;<button class="rdEn" type="button">Read the English version</button></div>' }); continue; }
     if (b.enStart) { if (items.length) flush(bi); if (two && content.length % 2 === 1) content.push({ html: "", blk: bi, blank: true }); enPage = content.length; startBlk = bi; }
-    if (b.img) { const f = F(b); if (!f) continue; if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); continue; }
+    if (b.img) { const f = F(b); if (!f) continue; if (b.p2 && items.some(x => x.head)) { pend = f; continue; } if (!fits(f) && items.length) { flush(bi); startBlk = bi; } items.push({ h: f }); continue; }
     if (b.h) { if (items.length) { flush(bi); startBlk = bi; } items.push({ h: H(b), head: true }); continue; }
     let rest = b.t.split(/\s+/), cont = false, guard = 0;
     while (rest.length && guard++ < 5000) {
@@ -218,6 +221,7 @@ function paginate(){
       rest = rest.slice(k); cont = true; flush(bi);
     }
   }
+  dropPend(blocks.length);
   const endH = bil ? '<div class="end">&mdash; The End &mdash;</div>' : '<div class="end">&mdash; Fin &mdash;<br>The End</div>';
   if (items.length && fits(endH)) items.push({ h: endH }); else { if (items.length) flush(blocks.length); items.push({ h: endH }); }
   flush(blocks.length);
