@@ -177,7 +177,7 @@ function layout(){
   let pw, ph;
   if (compact && !two) { pw = Math.min(Math.floor(w - 28), 520); ph = Math.min(h, Math.round(pw * 1.55)); }
   else if (compact) { pw = Math.floor((w - 20) / 2); ph = Math.min(h, Math.round(pw * 2.6)); }
-  else { ph = Math.min(h, 780); pw = ph * 0.72; const maxW = (w - 190) / 2; if (pw > maxW) { pw = maxW; ph = pw / 0.72; } }
+  else { ph = Math.min(h, 780); pw = ph * 0.8; const maxW = (w - 130) / 2; if (pw > maxW) { pw = maxW; ph = pw / 0.8; } }
   PW = Math.floor(pw); PH = Math.floor(ph);
   const r = document.documentElement.style;
   r.setProperty("--pw", Math.floor(pw) + "px"); r.setProperty("--ph", Math.floor(ph) + "px"); r.setProperty("--fs", fs + "px");
