@@ -93,10 +93,10 @@ function l1Finish(ctx){
  l1Write(0);
  try{var uid=window.lsCurrentUid,LV=window.__psLevel||'a0-tout-public';if(uid)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:LV,lesson:lessonNo()||1})}).catch(function(){});}catch(e){}
  var c=ensureCard(ctx.root);c.classList.add('fin');
- var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
+ var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button><button type="button" class="pc-redo-l" style="display:block;width:100%;max-width:300px;margin:10px auto 0;padding:14px 20px;border-radius:999px;font:600 1rem Poppins,system-ui,sans-serif;cursor:pointer;border:1.5px solid rgba(255,214,140,.7);background:transparent;color:#ffd68c;">Redo lesson</button></div>');
  p.classList.add('pc-pr');
  window.__psAdv=function(){location.href='./';};
- p.querySelector('.pc-back').onclick=function(){location.href='./';};
+ p.querySelector('.pc-back').onclick=function(){location.href='./';};var rl=p.querySelector('.pc-redo-l');if(rl)rl.onclick=function(){l1Write(0);window.__psIntroUsed=1;l1Show(0,ctx);};
  if(sc())sc().cheer();
 }
 function ensureCard(root){
