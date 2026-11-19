@@ -30,6 +30,10 @@ export function parse(text) {
   flush(); return items;
 }
 const items = parse(fs.readFileSync(a.script, "utf8"));
+for (const it of items) if (it.say && cfg.alwaysTag && !it.say.toLowerCase().includes(cfg.alwaysTag)) it.say = cfg.alwaysTag + " " + it.say;
+// a silence right after the child's cue (a drilled word, or "you will say...") is the child's turn: make sure it is long enough
+const CUE = /(bonjour|salut|au revoir)[\s?!.\u2026,]*$/i, CUE2 = /you will say[\s?!.\u2026,]*$/i;
+for (let i = 1; i < items.length; i++) if (items[i].sil && items[i - 1].say) { const bare = items[i - 1].say.replace(/\[[^\]]*\]/g, "").trim(); if (CUE.test(bare) || CUE2.test(bare)) { items[i].child = true; items[i].sil = Math.max(items[i].sil, cfg.childGapSeconds || 2); } }
 console.log(`${items.filter(i => i.say).length} spoken pieces, voice: ${a.dry ? "(dry run)" : voiceName}`);
 
 const key = process.env.ELEVENLABS_API_KEY;
@@ -55,15 +59,17 @@ async function speak(text) {
 }
 if (!a.dry && !key) { console.log("Set ELEVENLABS_API_KEY first (see instructions)."); process.exit(1); }
 
-const parts = []; let n = 0;
+const dur = (f) => { const r = spawnSync(ffmpeg, ["-i", f]); const m = /Duration: (\d+):(\d+):([\d.]+)/.exec(String(r.stderr)); return m ? (+m[1]) * 3600 + (+m[2]) * 60 + (+m[3]) : 0; };
+const parts = []; const gaps = []; let n = 0, cur = 0;
 for (const it of items) {
   const w = path.join(tmp, String(n++).padStart(3, "0") + ".wav");
-  if (it.say) { const f = await speak(it.say); run(["-i", f, "-ar", "44100", "-ac", "1", w]); process.stdout.write("."); }
-  else run(["-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", String(it.sil), w]);
+  if (it.say) { const f = await speak(it.say); run(["-i", f, "-ar", "44100", "-ac", "1", w]); cur += dur(w); process.stdout.write("."); }
+  else { run(["-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", String(it.sil), w]); if (it.child) gaps.push([+(cur + 0.25).toFixed(2), +(cur + it.sil - 0.1).toFixed(2)]); cur += it.sil; }
   parts.push(w);
 }
 const list = path.join(tmp, "list.txt"); fs.writeFileSync(list, parts.map(p => `file '${p.replace(/\\/g, "/")}'`).join("\n"));
 const out = path.join(outDir, outName + ".mp3");
 run(["-f", "concat", "-safe", "0", "-i", list, "-codec:a", "libmp3lame", "-q:a", "3", out]);
 fs.rmSync(tmp, { recursive: true, force: true });
+if (gaps.length) { fs.writeFileSync(path.join(outDir, outName + ".json"), JSON.stringify({ dur: +cur.toFixed(2), gaps })); console.log(`\n${gaps.length} child turns marked`); }
 console.log(`\nDone: ${out}`);
