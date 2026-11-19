@@ -1,0 +1,29 @@
+name: SayBon health check
+on:
+  schedule:
+    - cron: "0 6,18 * * *"   # 06:00 and 18:00 UTC = Ghana time
+  workflow_dispatch: {}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run the audit
+        id: audit
+        run: node tools/audit.mjs .
+      - name: Email me if something is wrong
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: saybon.fr@gmail.com
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "SayBon health check: something needs attention"
+          to: saybon.fr@gmail.com
+          from: SayBon monitor <saybon.fr@gmail.com>
+          body: file://audit-report.txt
