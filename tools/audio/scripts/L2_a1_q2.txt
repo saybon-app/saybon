@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Comment est ta sœur ?
+[calmly] Et vous, vous êtes comment ?
 
 [short pause]
 
-[warmly] It means, How is your sister?
+[warmly] It means, And you, what do you look like?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Ma sœur a les cheveux noirs. Et ta sœur, comment est-elle ?
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [short pause]
 
-[warmly] It means, My sister has black hair. And your sister, what is she like?
+[warmly] It means, I'm short, and I have green eyes.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Ma sœur a les cheveux noirs. Et ta sœur, comment est-elle ?
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [repeat]
 
-[calmly] Ma sœur a les cheveux noirs. Et ta sœur, comment est-elle ?
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

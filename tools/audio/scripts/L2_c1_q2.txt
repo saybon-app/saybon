@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Doutez-vous de quelque chose ?
+[calmly] Mon collègue dit que vous ne comprenez rien.
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je doute qu'il vienne demain. Et vous, de quoi doutez-vous ?
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je doute qu'il vienne demain. Et vous, de quoi doutez-vous ?
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [repeat]
 
-[calmly] Je doute qu'il vienne demain. Et vous, de quoi doutez-vous ?
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Que pensez-vous de cette réforme ? Nuancez.
+[calmly] Donc vous êtes pour ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Dans une certaine mesure, elle est utile. Et vous, comment la nuanceriez-vous ?
+[calmly] Dans une certaine mesure, je suis d'accord.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Dans une certaine mesure, elle est utile. Et vous, comment la nuanceriez-vous ?
+[calmly] Dans une certaine mesure, je suis d'accord.
 
 [repeat]
 
-[calmly] Dans une certaine mesure, elle est utile. Et vous, comment la nuanceriez-vous ?
+[calmly] Dans une certaine mesure, je suis d'accord.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

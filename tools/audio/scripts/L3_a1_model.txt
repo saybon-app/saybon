@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. A new friend visits your home for the first time.
+
+[pause]
+
+[calmly] Waouh, c'est ton appartement ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'habite ici. Entre !
+
+[short pause]
+
+[calmly] Il y a combien de chambres ?
+
+[short pause]
+
+[as:Roger] [calmly] Il y a deux chambres.
+
+[short pause]
+
+[calmly] Et la cuisine, elle est comment ?
+
+[short pause]
+
+[as:Roger] [calmly] La cuisine est grande.
+
+[short pause]
+
+[calmly] Et le salon, il est comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Mon salon est très lumineux. Tu veux un café ?
+
+[short pause]
+
+[calmly] Oui, avec plaisir !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

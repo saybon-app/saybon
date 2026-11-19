@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Comment critiquer sans froisser ?
+[calmly] Mais le conseil l'a validé.
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Avec tout le respect que je vous dois, je vois les choses autrement. Et vous, comment feriez-vous ?
+[calmly] Avec tout le respect que je vous dois, je ne suis pas de votre avis.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Avec tout le respect que je vous dois, je vois les choses autrement. Et vous, comment feriez-vous ?
+[calmly] Avec tout le respect que je vous dois, je ne suis pas de votre avis.
 
 [repeat]
 
-[calmly] Avec tout le respect que je vous dois, je vois les choses autrement. Et vous, comment feriez-vous ?
+[calmly] Avec tout le respect que je vous dois, je ne suis pas de votre avis.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

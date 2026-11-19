@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Entre amis, vous imaginez ce que vous feriez avec plus de temps.
+
+[pause]
+
+[calmly] Qu'est-ce que tu ferais si tu avais plus de temps ?
+
+[short pause]
+
+[as:Roger] [calmly] Si j'avais plus de temps, je voyagerais davantage.
+
+[short pause]
+
+[calmly] Et si on te proposait un poste à l'étranger ?
+
+[short pause]
+
+[as:Roger] [calmly] Si j'étais à ta place, j'accepterais.
+
+[short pause]
+
+[calmly] Pourquoi n'as-tu pas fini le projet hier ?
+
+[short pause]
+
+[as:Roger] [calmly] Sans cet imprévu, nous aurions fini hier.
+
+[short pause]
+
+[calmly] Tu regrettes quelque chose ?
+
+[short pause]
+
+[as:Roger] [calmly] J'aurais aimé t'aider davantage. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'aurais aimé apprendre le piano.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

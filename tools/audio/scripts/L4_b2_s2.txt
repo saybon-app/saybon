@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je doute qu'il vienne.
+[calmly] Je doute qu'elle vienne.
 
 [short pause]
 
-[calmly] Je doute qu'il vienne.
+[calmly] Je doute qu'elle vienne.
 
 [repeat]
 
-[calmly] Je doute qu'il vienne.
+[calmly] Je doute qu'elle vienne.
 
 [repeat]
 

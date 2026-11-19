@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Pourvu que tout se passe bien.
+[calmly] Pourvu que tout se passe bien, vous serez livré demain.
 
 [short pause]
 
-[calmly] Pourvu que tout se passe bien.
+[calmly] Pourvu que tout se passe bien, vous serez livré demain.
 
 [repeat]
 
-[calmly] Pourvu que tout se passe bien.
+[calmly] Pourvu que tout se passe bien, vous serez livré demain.
 
 [repeat]
 

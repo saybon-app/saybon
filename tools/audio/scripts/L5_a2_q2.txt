@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Tu veux venir au cinéma demain ?
+[calmly] Je peux apporter quelque chose ?
 
 [short pause]
 
-[warmly] It means, Do you want to come to the cinema tomorrow?
+[warmly] It means, Can I bring something?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Oui, avec plaisir. Et toi, à quelle heure on se retrouve ?
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [short pause]
 
-[warmly] It means, Yes, with pleasure. And you, what time shall we meet?
+[warmly] It means, I'm going to bring a cake. And you?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Oui, avec plaisir. Et toi, à quelle heure on se retrouve ?
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [repeat]
 
-[calmly] Oui, avec plaisir. Et toi, à quelle heure on se retrouve ?
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

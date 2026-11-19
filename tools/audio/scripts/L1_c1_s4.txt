@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [short pause]
 
-[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [repeat]
 
-[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [repeat]
 

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Et un livre ?
+[calmly] Vous les recommanderiez ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Le livre dont tout le monde parle m'a ému. Et vous, quel livre avez-vous aimé ?
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Le livre dont tout le monde parle m'a ému. Et vous, quel livre avez-vous aimé ?
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [repeat]
 
-[calmly] Le livre dont tout le monde parle m'a ému. Et vous, quel livre avez-vous aimé ?
+[calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

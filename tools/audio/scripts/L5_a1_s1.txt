@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je voudrais un café, s'il vous plaît.
+[calmly] Qu'est-ce que vous avez comme boissons ?
 
 [short pause]
 
-[warmly] It means, I would like a coffee, please.
+[warmly] It means, What drinks do you have?
 
 [short pause]
 
-[calmly] Je voudrais un café, s'il vous plaît.
+[calmly] Qu'est-ce que vous avez comme boissons ?
 
 [repeat]
 
-[calmly] Je voudrais un café, s'il vous plaît.
+[calmly] Qu'est-ce que vous avez comme boissons ?
 
 [repeat]
 

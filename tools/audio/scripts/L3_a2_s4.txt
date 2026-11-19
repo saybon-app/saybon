@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Nous avons parlé pendant une heure.
+[calmly] Oui, nous avons parlé pendant une heure.
 
 [short pause]
 
-[warmly] It means, we talked for an hour.
+[warmly] It means, Yes, we talked for an hour.
 
 [short pause]
 
-[calmly] Nous avons parlé pendant une heure.
+[calmly] Oui, nous avons parlé pendant une heure.
 
 [repeat]
 
-[calmly] Nous avons parlé pendant une heure.
+[calmly] Oui, nous avons parlé pendant une heure.
 
 [repeat]
 

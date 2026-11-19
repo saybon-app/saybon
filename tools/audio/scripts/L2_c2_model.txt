@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Avec un ami, vous évoquez une occasion manquée.
+
+[pause]
+
+[calmly] Tu n'es pas venu à la fête, finalement.
+
+[short pause]
+
+[as:Roger] [calmly] Si j'avais su, je serais venu.
+
+[short pause]
+
+[calmly] Mon frère aurait pu t'avertir.
+
+[short pause]
+
+[as:Roger] [calmly] Il aurait pu le dire plus tôt.
+
+[short pause]
+
+[calmly] Tu crois que c'est fini entre nous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je crains qu'il ne soit déjà trop tard.
+
+[short pause]
+
+[calmly] Et si ton frère l'avait su ?
+
+[short pause]
+
+[as:Roger] [calmly] Quand bien même il le saurait, il se tairait.
+
+[short pause]
+
+[calmly] Peut-être, oui.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Au cas où il pleuvrait, nous resterions ici.
+[calmly] Si j'étais à ta place, j'accepterais.
 
 [short pause]
 
-[calmly] Au cas où il pleuvrait, nous resterions ici.
+[calmly] Si j'étais à ta place, j'accepterais.
 
 [repeat]
 
-[calmly] Au cas où il pleuvrait, nous resterions ici.
+[calmly] Si j'étais à ta place, j'accepterais.
 
 [repeat]
 

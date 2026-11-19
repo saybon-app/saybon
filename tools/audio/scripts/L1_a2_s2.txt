@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Elle est arrivée hier.
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [short pause]
 
-[warmly] It means, She arrived yesterday.
+[warmly] It means, I bought fruit. And you, did you go out?
 
 [short pause]
 
-[calmly] Elle est arrivée hier.
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [repeat]
 
-[calmly] Elle est arrivée hier.
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [repeat]
 

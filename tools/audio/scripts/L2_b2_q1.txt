@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Que faut-il que vous fassiez demain ?
+[calmly] Pourriez-vous rester plus longtemps ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+[calmly] Il faut que je parte à six heures.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+[calmly] Il faut que je parte à six heures.
 
 [repeat]
 
-[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+[calmly] Il faut que je parte à six heures.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

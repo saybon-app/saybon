@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Parlez-moi d'un film qui vous a marqué.
+[calmly] Vous l'avez fini ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Le film dont je vous parle m'a profondément marqué. Et vous, quel film vous a marqué ?
+[calmly] Le livre, que j'ai enfin terminé, m'a profondément marqué.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Le film dont je vous parle m'a profondément marqué. Et vous, quel film vous a marqué ?
+[calmly] Le livre, que j'ai enfin terminé, m'a profondément marqué.
 
 [repeat]
 
-[calmly] Le film dont je vous parle m'a profondément marqué. Et vous, quel film vous a marqué ?
+[calmly] Le livre, que j'ai enfin terminé, m'a profondément marqué.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

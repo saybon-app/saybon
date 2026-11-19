@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Vous avez raison sur ce point.
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [short pause]
 
-[calmly] Vous avez raison sur ce point.
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [repeat]
 
-[calmly] Vous avez raison sur ce point.
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [repeat]
 

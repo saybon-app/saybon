@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Comment tu t'appelles ?
+[calmly] Enchantée, Lucas ! Tu as quel âge ?
 
 [short pause]
 
-[warmly] It means, What's your name?
+[warmly] It means, Nice to meet you, Lucas! How old are you?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je m'appelle Lucas. Et toi, comment tu t'appelles ?
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [short pause]
 
-[warmly] It means, My name is Lucas. And you, what's your name?
+[warmly] It means, I'm twenty-five. And you?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je m'appelle Lucas. Et toi, comment tu t'appelles ?
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [repeat]
 
-[calmly] Je m'appelle Lucas. Et toi, comment tu t'appelles ?
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

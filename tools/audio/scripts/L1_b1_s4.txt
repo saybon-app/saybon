@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Enfin, nous sommes sortis ensemble.
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [short pause]
 
-[calmly] Enfin, nous sommes sortis ensemble.
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [repeat]
 
-[calmly] Enfin, nous sommes sortis ensemble.
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [repeat]
 

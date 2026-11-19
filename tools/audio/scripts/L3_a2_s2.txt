@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Il faisait beau, alors j'ai marché.
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [short pause]
 
-[warmly] It means, the weather was nice, so I walked.
+[warmly] It means, Yes, it was nice, so I walked.
 
 [short pause]
 
-[calmly] Il faisait beau, alors j'ai marché.
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [repeat]
 
-[calmly] Il faisait beau, alors j'ai marché.
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [repeat]
 

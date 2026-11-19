@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Il y a combien de chambres chez toi ?
+[calmly] Et le salon, il est comment ?
 
 [short pause]
 
-[warmly] It means, How many bedrooms are there at your place?
+[warmly] It means, And the living room, what is it like?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Il y a deux chambres. Et chez toi, il y a combien de chambres ?
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [short pause]
 
-[warmly] It means, There are two bedrooms. And at your place, how many bedrooms are there?
+[warmly] It means, My living room is very bright. Do you want a coffee?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Il y a deux chambres. Et chez toi, il y a combien de chambres ?
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [repeat]
 
-[calmly] Il y a deux chambres. Et chez toi, il y a combien de chambres ?
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

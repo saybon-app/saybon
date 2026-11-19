@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je vais apporter un gâteau.
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [short pause]
 
-[warmly] It means, I'm going to bring a cake.
+[warmly] It means, I'm going to bring a cake. And you?
 
 [short pause]
 
-[calmly] Je vais apporter un gâteau.
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [repeat]
 
-[calmly] Je vais apporter un gâteau.
+[calmly] Moi, je vais apporter un gâteau. Et toi ?
 
 [repeat]
 

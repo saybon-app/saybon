@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Que pensez-vous des réseaux sociaux ?
+[calmly] Que penses-tu de l'idée de faire du sport tous les matins ?
 
-[turn:À mon avis, ils sont utiles, mais dangereux.]
+[turn:À mon avis, c'est une très bonne idée.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Pourquoi ?
 
-[turn:Et vous, qu'en pensez-vous ?]
+[turn:Je pense que le sport est important.]
 
-[calmly] Moi, je pense qu'ils prennent trop de temps.
+[calmly] Et la salle de sport, tu la trouves comment ?
 
-[calmly] Êtes-vous d'accord avec le télétravail ?
+[turn:Il me semble que c'est trop cher.]
 
-[turn:Je pense que oui, car on gagne du temps.]
+[calmly] Donc tu n'es pas d'accord avec l'abonnement ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Je ne suis pas d'accord avec cette idée. Et toi ?]
 
-[turn:Et vous, êtes-vous d'accord ?]
-
-[calmly] Moi, je préfère travailler au bureau.
+[calmly] Moi, je préfère courir dehors.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

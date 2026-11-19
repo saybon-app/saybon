@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous demandez le même document à votre directrice, puis à un ami : le ton change.
+
+[pause]
+
+[calmly] Vous avez besoin du document ?
+
+[short pause]
+
+[as:Roger] [calmly] Auriez-vous l'amabilité de me transmettre ce document ?
+
+[short pause]
+
+[calmly] Et à votre ami, vous diriez quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Tu peux m'envoyer ça quand tu as une minute ?
+
+[short pause]
+
+[calmly] Et si c'est urgent ?
+
+[short pause]
+
+[as:Roger] [calmly] Envoie-moi ça dès que possible.
+
+[short pause]
+
+[calmly] Et pour finir un courriel ?
+
+[short pause]
+
+[as:Roger] [calmly] Il va sans dire que je reste à votre disposition.
+
+[short pause]
+
+[calmly] Très bien, c'est noté.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Qu'as-tu fait hier ?
+[calmly] Et il faisait beau ?
 
 [short pause]
 
-[warmly] It means, What did you do yesterday?
+[warmly] It means, And was the weather nice?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [short pause]
 
-[warmly] It means, Yesterday, I went to the market, then I cooked. And you, what did you do?
+[warmly] It means, Yes, it was nice, so I walked.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [repeat]
 
-[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+[calmly] Oui, il faisait beau, alors j'ai marché.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

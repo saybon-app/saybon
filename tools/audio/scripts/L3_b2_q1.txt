@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] De quoi êtes-vous content aujourd'hui ?
+[calmly] Tu es content de nous voir ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je suis content que vous soyez là. Et vous, de quoi êtes-vous content ?
+[calmly] Je suis content que vous soyez là.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je suis content que vous soyez là. Et vous, de quoi êtes-vous content ?
+[calmly] Je suis content que vous soyez là.
 
 [repeat]
 
-[calmly] Je suis content que vous soyez là. Et vous, de quoi êtes-vous content ?
+[calmly] Je suis content que vous soyez là.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

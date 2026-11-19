@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Où habitiez-vous quand vous étiez petit ?
+[calmly] Et vous faisiez quoi ?
 
 [short pause]
 
-[warmly] It means, Where did you live when you were little?
+[warmly] It means, And what did you do?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] J'habitais à la campagne. Et toi, tu habitais où ?
+[calmly] Nous jouions dans le jardin.
 
 [short pause]
 
-[warmly] It means, I lived in the countryside. And you, where did you live?
+[warmly] It means, We played in the garden.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] J'habitais à la campagne. Et toi, tu habitais où ?
+[calmly] Nous jouions dans le jardin.
 
 [repeat]
 
-[calmly] J'habitais à la campagne. Et toi, tu habitais où ?
+[calmly] Nous jouions dans le jardin.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

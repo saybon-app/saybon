@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous lisez un roman à voix haute à un ami, et vous commentez le récit.
+
+[pause]
+
+[calmly] Lis-moi le début du chapitre.
+
+[short pause]
+
+[as:Roger] [calmly] Il ouvrit la porte et entra.
+
+[short pause]
+
+[calmly] Et la scène suivante ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle comprit aussitôt son erreur.
+
+[short pause]
+
+[calmly] Que font les voyageurs ?
+
+[short pause]
+
+[as:Roger] [calmly] Ils partirent à l'aube, sans un mot.
+
+[short pause]
+
+[calmly] Et la fin du chapitre ?
+
+[short pause]
+
+[as:Roger] [calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
+
+[short pause]
+
+[calmly] Oui, c'est très beau.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je doute qu'elle ait compris.
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [short pause]
 
-[calmly] Je doute qu'elle ait compris.
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [repeat]
 
-[calmly] Je doute qu'elle ait compris.
+[calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
 
 [repeat]
 

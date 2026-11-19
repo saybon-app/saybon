@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Mettez au passé simple : ils ont attendu.
+[calmly] Et la fin du chapitre ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Ils attendirent longtemps. Et vous, que diriez-vous pour : il a compris ?
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Ils attendirent longtemps. Et vous, que diriez-vous pour : il a compris ?
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [repeat]
 
-[calmly] Ils attendirent longtemps. Et vous, que diriez-vous pour : il a compris ?
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

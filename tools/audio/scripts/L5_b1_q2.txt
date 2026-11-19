@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Je n'arrive pas à dormir. Qu'est-ce que tu me conseilles ?
+[calmly] Et si ça ne marche pas ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+[calmly] Pourquoi ne pas essayer autre chose ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+[calmly] Pourquoi ne pas essayer autre chose ?
 
 [repeat]
 
-[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+[calmly] Pourquoi ne pas essayer autre chose ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

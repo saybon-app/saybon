@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Êtes-vous sûr de réussir ?
+[calmly] Vous pensez que Marc viendra à la réunion ?
 
-[turn:Je suis certain que je réussirai.]
+[turn:Je suis sûr qu'il viendra.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et pour Julie ?
 
-[turn:Et vous, en êtes-vous sûr ?]
+[turn:Je doute qu'elle vienne.]
 
-[calmly] Moi, je pense que oui, avec du travail.
+[calmly] Pourtant, elle a raison sur le budget.
 
-[calmly] Doutez-vous de quelque chose ?
+[turn:Il est certain qu'elle a raison.]
 
-[turn:Je doute que cette solution soit la meilleure.]
+[calmly] On dit que le projet est risqué.
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Il se peut que ce soit vrai. Et vous ?]
 
-[turn:Et vous, de quoi doutez-vous ?]
-
-[calmly] Je doute qu'ils tiennent leurs promesses.
+[calmly] Moi, j'y crois.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

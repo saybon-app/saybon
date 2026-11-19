@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You are waiting at the station for a friend. A woman asks you about him.
+
+[pause]
+
+[calmly] Excusez-moi, vous attendez quelqu'un ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'attends mon ami Paul.
+
+[short pause]
+
+[calmly] Il est comment, votre ami ?
+
+[short pause]
+
+[as:Roger] [calmly] Il est grand, et il a les cheveux noirs.
+
+[short pause]
+
+[calmly] Il porte des lunettes ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, il a des lunettes. Il est très sympa.
+
+[short pause]
+
+[calmly] Et vous, vous êtes comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Moi, je suis petit, et j'ai les yeux verts.
+
+[short pause]
+
+[calmly] Ah, le voilà ! Bonne journée.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. En réunion, on vous demande si vous croyez à la réussite d'un projet.
+
+[pause]
+
+[calmly] Vous pensez que Marc viendra à la réunion ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis sûr qu'il viendra.
+
+[short pause]
+
+[calmly] Et pour Julie ?
+
+[short pause]
+
+[as:Roger] [calmly] Je doute qu'elle vienne.
+
+[short pause]
+
+[calmly] Pourtant, elle a raison sur le budget.
+
+[short pause]
+
+[as:Roger] [calmly] Il est certain qu'elle a raison.
+
+[short pause]
+
+[calmly] On dit que le projet est risqué.
+
+[short pause]
+
+[as:Roger] [calmly] Il se peut que ce soit vrai. Et vous ?
+
+[short pause]
+
+[calmly] Moi, j'y crois.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Si j'étais à votre place, j'accepterais.
+[calmly] Si j'avais plus de temps, je voyagerais davantage.
 
 [short pause]
 
-[calmly] Si j'étais à votre place, j'accepterais.
+[calmly] Si j'avais plus de temps, je voyagerais davantage.
 
 [repeat]
 
-[calmly] Si j'étais à votre place, j'accepterais.
+[calmly] Si j'avais plus de temps, je voyagerais davantage.
 
 [repeat]
 

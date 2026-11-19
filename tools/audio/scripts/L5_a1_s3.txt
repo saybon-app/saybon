@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Qu'est-ce que vous avez comme boissons ?
+[calmly] Oui, un croissant, s'il vous plaît.
 
 [short pause]
 
-[warmly] It means, what drinks do you have?
+[warmly] It means, Yes, a croissant, please.
 
 [short pause]
 
-[calmly] Qu'est-ce que vous avez comme boissons ?
+[calmly] Oui, un croissant, s'il vous plaît.
 
 [repeat]
 
-[calmly] Qu'est-ce que vous avez comme boissons ?
+[calmly] Oui, un croissant, s'il vous plaît.
 
 [repeat]
 

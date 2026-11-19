@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Ma meilleure amie est très drôle.
+[calmly] Oui, ma meilleure amie est très drôle.
 
 [short pause]
 
-[warmly] It means, my best friend is very funny.
+[warmly] It means, Yes, my best friend is very funny.
 
 [short pause]
 
-[calmly] Ma meilleure amie est très drôle.
+[calmly] Oui, ma meilleure amie est très drôle.
 
 [repeat]
 
-[calmly] Ma meilleure amie est très drôle.
+[calmly] Oui, ma meilleure amie est très drôle.
 
 [repeat]
 

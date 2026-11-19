@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un ami vous demande votre avis sur une idée : faire du sport tous les matins.
+
+[pause]
+
+[calmly] Que penses-tu de l'idée de faire du sport tous les matins ?
+
+[short pause]
+
+[as:Roger] [calmly] À mon avis, c'est une très bonne idée.
+
+[short pause]
+
+[calmly] Pourquoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Je pense que le sport est important.
+
+[short pause]
+
+[calmly] Et la salle de sport, tu la trouves comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Il me semble que c'est trop cher.
+
+[short pause]
+
+[calmly] Donc tu n'es pas d'accord avec l'abonnement ?
+
+[short pause]
+
+[as:Roger] [calmly] Je ne suis pas d'accord avec cette idée. Et toi ?
+
+[short pause]
+
+[calmly] Moi, je préfère courir dehors.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. On your first day at work, a new colleague asks about your daily routine.
+
+[pause]
+
+[calmly] Tu te lèves à quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] Je me lève à sept heures.
+
+[short pause]
+
+[calmly] Et ta sœur, elle fait quoi le matin ?
+
+[short pause]
+
+[as:Roger] [calmly] Ma sœur se brosse les dents, puis elle part.
+
+[short pause]
+
+[calmly] Et le week-end ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous nous couchons tard le week-end.
+
+[short pause]
+
+[calmly] Vous vous voyez souvent ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
+
+[short pause]
+
+[calmly] Moi, je travaille le samedi.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

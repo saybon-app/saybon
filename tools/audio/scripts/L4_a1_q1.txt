@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Tu as des frères et sœurs ?
+[calmly] Et tes parents, ils s'appellent comment ?
 
 [short pause]
 
-[warmly] It means, Do you have brothers and sisters?
+[warmly] It means, And your parents, what are their names?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] J'ai un frère et deux sœurs. Et toi, tu as des frères et sœurs ?
+[calmly] Mon père s'appelle Paul.
 
 [short pause]
 
-[warmly] It means, I have one brother and two sisters. And you, do you have brothers and sisters?
+[warmly] It means, My father's name is Paul.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] J'ai un frère et deux sœurs. Et toi, tu as des frères et sœurs ?
+[calmly] Mon père s'appelle Paul.
 
 [repeat]
 
-[calmly] J'ai un frère et deux sœurs. Et toi, tu as des frères et sœurs ?
+[calmly] Mon père s'appelle Paul.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Pouvez-vous résumer cette réunion en une phrase ?
+[calmly] Le projet avance ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+[calmly] Pour faire court, le projet avance bien.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+[calmly] Pour faire court, le projet avance bien.
 
 [repeat]
 
-[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+[calmly] Pour faire court, le projet avance bien.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

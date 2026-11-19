@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Ma grand-mère cuisinait tous les jours.
+[calmly] Ma grand-mère cuisinait tous les jours. Et toi ?
 
 [short pause]
 
-[warmly] It means, my grandmother cooked every day.
+[warmly] It means, My grandmother cooked every day. And you?
 
 [short pause]
 
-[calmly] Ma grand-mère cuisinait tous les jours.
+[calmly] Ma grand-mère cuisinait tous les jours. Et toi ?
 
 [repeat]
 
-[calmly] Ma grand-mère cuisinait tous les jours.
+[calmly] Ma grand-mère cuisinait tous les jours. Et toi ?
 
 [repeat]
 

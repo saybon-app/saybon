@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Elle a les yeux verts.
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [short pause]
 
-[warmly] It means, she has green eyes.
+[warmly] It means, I'm short, and I have green eyes.
 
 [short pause]
 
-[calmly] Elle a les yeux verts.
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [repeat]
 
-[calmly] Elle a les yeux verts.
+[calmly] Moi, je suis petit, et j'ai les yeux verts.
 
 [repeat]
 

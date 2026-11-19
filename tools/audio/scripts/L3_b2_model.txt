@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous accueillez des amis chez vous, un jour de pluie.
+
+[pause]
+
+[calmly] Merci pour l'invitation ! Il pleut tellement.
+
+[short pause]
+
+[as:Roger] [calmly] Il est dommage qu'il pleuve aujourd'hui.
+
+[short pause]
+
+[calmly] Tu es content de nous voir ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis content que vous soyez là.
+
+[short pause]
+
+[calmly] Tu espères que la soirée sera réussie ?
+
+[short pause]
+
+[as:Roger] [calmly] Je souhaite que tout se passe bien.
+
+[short pause]
+
+[calmly] Paul ne peut pas venir ce soir.
+
+[short pause]
+
+[as:Roger] [calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
+
+[short pause]
+
+[calmly] Moi aussi, c'est dommage.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

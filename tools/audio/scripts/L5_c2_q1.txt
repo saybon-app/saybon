@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Comment demanderiez-vous ce dossier à votre directrice ?
+[calmly] Et à votre ami, vous diriez quoi ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+[calmly] Tu peux m'envoyer ça quand tu as une minute ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+[calmly] Tu peux m'envoyer ça quand tu as une minute ?
 
 [repeat]
 
-[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+[calmly] Tu peux m'envoyer ça quand tu as une minute ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

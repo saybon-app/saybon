@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Mon salon est très lumineux.
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [short pause]
 
-[warmly] It means, my living room is very bright.
+[warmly] It means, My living room is very bright. Do you want a coffee?
 
 [short pause]
 
-[calmly] Mon salon est très lumineux.
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [repeat]
 
-[calmly] Mon salon est très lumineux.
+[calmly] Mon salon est très lumineux. Tu veux un café ?
 
 [repeat]
 

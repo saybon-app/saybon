@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous répondez à un partenaire exigeant, et chaque mot compte.
+
+[pause]
+
+[calmly] J'aimerais votre avis sur ma proposition.
+
+[short pause]
+
+[as:Roger] [calmly] Je me permets de nuancer votre propos.
+
+[short pause]
+
+[calmly] Pouvons-nous nous rencontrer ?
+
+[short pause]
+
+[as:Roger] [calmly] Il me serait agréable de pouvoir vous rencontrer.
+
+[short pause]
+
+[calmly] Voici le rapport.
+
+[short pause]
+
+[as:Roger] [calmly] Permettez-moi de vous faire remarquer que ce rapport manque de rigueur.
+
+[short pause]
+
+[calmly] Vous n'êtes donc pas d'accord ?
+
+[short pause]
+
+[as:Roger] [calmly] Je ne partage pas tout à fait votre point de vue.
+
+[short pause]
+
+[calmly] Je comprends votre réserve.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

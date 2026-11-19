@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Les devoirs sont-ils utiles ?
+[calmly] Et on pourrait supprimer la pause déjeuner.
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je suis d'accord, ils aident à apprendre. Et vous, êtes-vous d'accord ?
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je suis d'accord, ils aident à apprendre. Et vous, êtes-vous d'accord ?
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [repeat]
 
-[calmly] Je suis d'accord, ils aident à apprendre. Et vous, êtes-vous d'accord ?
+[calmly] Je ne suis pas convaincu par cet argument.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,23 +1,21 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
 
-[calmly] Qu'as-tu fait hier ?
+[calmly] Alors, hier, c'était comment ?
 
-[turn:Hier, je suis allé au marché, puis j'ai cuisiné.]
+[turn:Hier, je suis allé au parc.]
 
-[warmly] Now ask me back.
+[calmly] Et il faisait beau ?
 
-[turn:Et toi, qu'as-tu fait ?]
+[turn:Oui, il faisait beau, alors j'ai marché.]
 
-[calmly] Moi, je suis resté à la maison et j'ai lu.
+[calmly] Et ensuite ?
 
-[calmly] Il s'est passé quelque chose de drôle ?
+[turn:Soudain, j'ai vu mon ami.]
 
-[turn:Oui, soudain, j'ai vu un vieil ami.]
+[calmly] Vous avez parlé ?
 
-[warmly] Now ask me back.
+[turn:Oui, nous avons parlé pendant une heure.]
 
-[turn:Et toi, que s'est-il passé ?]
-
-[calmly] Moi, soudain, il a commencé à pleuvoir.
+[calmly] Quelle belle surprise !
 
 [warmly] Très bien. That's the lesson. Well done.

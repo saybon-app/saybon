@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Elle est petite.
+[calmly] Il est grand, et il a les cheveux noirs.
 
 [short pause]
 
-[warmly] It means, she is small.
+[warmly] It means, He is tall, and he has black hair.
 
 [short pause]
 
-[calmly] Elle est petite.
+[calmly] Il est grand, et il a les cheveux noirs.
 
 [repeat]
 
-[calmly] Elle est petite.
+[calmly] Il est grand, et il a les cheveux noirs.
 
 [repeat]
 

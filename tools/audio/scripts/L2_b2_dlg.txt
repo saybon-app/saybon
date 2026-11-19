@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Que faut-il que vous fassiez demain ?
+[calmly] On a encore beaucoup à faire ce soir.
 
-[turn:Il faut que je finisse ce travail.]
+[turn:Il faut que nous finissions ce travail.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Pourriez-vous rester plus longtemps ?
 
-[turn:Et vous, que faut-il que vous fassiez ?]
+[turn:Il faut que je parte à six heures.]
 
-[calmly] Moi, il faut que je prépare un rapport.
+[calmly] Alors, que doit-on dire au client ?
 
-[calmly] Que voulez-vous que vos amis fassent ?
+[turn:Il est important que tu comprennes les chiffres.]
 
-[turn:Je veux qu'ils viennent.]
+[calmly] Et pour demain matin ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Je veux que tu viennes tôt. D'accord ?]
 
-[turn:Et vous, que voulez-vous qu'ils fassent ?]
-
-[calmly] Moi, je veux qu'ils m'aident.
+[calmly] D'accord, je viendrai.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

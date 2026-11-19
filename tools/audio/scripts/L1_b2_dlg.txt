@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Quelle est votre opinion sur le télétravail ?
+[calmly] Alors, que pensez-vous du télétravail ?
 
-[turn:Selon moi, c'est une bonne chose. D'une part, on gagne du temps. D'autre part, on est plus autonome.]
+[turn:Selon moi, le télétravail est une bonne chose.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Pour quelles raisons ?
 
-[turn:Et vous, qu'en pensez-vous ?]
+[turn:D'une part, il fait gagner du temps.]
 
-[calmly] Je pense que c'est utile, mais il faut garder du lien avec l'équipe.
+[calmly] Et de l'autre côté ?
 
-[calmly] Faut-il interdire les téléphones à l'école ?
+[turn:D'autre part, il favorise l'autonomie.]
 
-[turn:Selon moi, il faut les limiter. D'abord pour la concentration, ensuite pour le respect.]
+[calmly] Alors, quelle est votre conclusion ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:En conclusion, il faut l'encourager. Et vous ?]
 
-[turn:Et vous, qu'en pensez-vous ?]
-
-[calmly] Moi, je suis d'accord, mais en classe seulement.
+[calmly] Je vais y réfléchir.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

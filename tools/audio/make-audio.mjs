@@ -42,8 +42,8 @@ for (let i = 1; i < items.length; i++) if (items[i].sil && items[i - 1].say) { c
 console.log(`${items.filter(i => i.say).length} spoken pieces, voice: ${a.dry ? "(dry run)" : voiceName}`);
 
 const key = process.env.ELEVENLABS_API_KEY;
-let voiceId;
-async function getVoice() {
+const vids = {};
+async function getVoice(voiceName = globalThis.__vn) {
   const idf = path.join(cache, `voice-${voiceName}.txt`);
   if (fs.existsSync(idf)) return fs.readFileSync(idf, "utf8");
   const r = await fetch(`https://api.elevenlabs.io/v2/voices?search=${encodeURIComponent(voiceName)}&page_size=100`, { headers: { "xi-api-key": key } });
@@ -62,14 +62,14 @@ async function creditGuard(text) {
   _left -= need;
   if (_left < 150) { console.log(`\nOUT OF CREDITS (about ${Math.max(0, Math.round(_left + need))} left) - stopped cleanly. Everything made so far is saved. Top up, then run the same command again.`); process.exit(42); }
 }
-async function speak(text) {
-  const h = crypto.createHash("sha1").update([voiceName, cfg.model, cfg.stability, cfg.similarity, text].join("|")).digest("hex").slice(0, 16);
+async function speak(text, vn = voiceName) {
+  const h = crypto.createHash("sha1").update([vn, cfg.model, cfg.stability, cfg.similarity, text].join("|")).digest("hex").slice(0, 16);
   const f = path.join(cache, h + (a.dry ? ".dry.mp3" : ".mp3"));
   if (fs.existsSync(f)) return f;
   if (a.dry) { const words = text.replace(/\[[^\]]*\]/g, "").split(/\s+/).filter(Boolean).length; run(["-f", "lavfi", "-i", `sine=frequency=440:duration=${Math.max(.4, words * .35)}`, "-ar", "44100", "-ac", "1", f]); return f; }
-  voiceId ||= await getVoice();
+  vids[vn] ||= await getVoice(vn);
   await creditGuard(text);
-  const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, { method: "POST", headers: { "xi-api-key": key, "Content-Type": "application/json" }, body: JSON.stringify({ text, model_id: cfg.model, voice_settings: { stability: cfg.stability, similarity_boost: cfg.similarity } }) });
+  const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${vids[vn]}?output_format=mp3_44100_128`, { method: "POST", headers: { "xi-api-key": key, "Content-Type": "application/json" }, body: JSON.stringify({ text, model_id: cfg.model, voice_settings: { stability: cfg.stability, similarity_boost: cfg.similarity } }) });
   if (r.status===401||r.status===402||r.status===429){const b=await r.text(); if(/quota|credit|limit/i.test(b)){ console.log("\nOUT OF CREDITS - stopped cleanly. Everything made so far is saved. Top up, then run the same command again."); process.exit(42);} throw new Error(`ElevenLabs error (${r.status}): ${b}`);}
   if (!r.ok) throw new Error(`ElevenLabs error (${r.status}): ${await r.text()}`);
   fs.writeFileSync(f, Buffer.from(await r.arrayBuffer())); return f;
@@ -80,7 +80,7 @@ const dur = (f) => { const r = spawnSync(ffmpeg, ["-i", f]); const m = /Duration
 const parts = []; const gaps = []; let n = 0, cur = 0;
 for (const it of items) {
   const w = path.join(tmp, String(n++).padStart(3, "0") + ".wav");
-  if (it.say) { const f = await speak(it.say); run(["-i", f, "-ar", "44100", "-ac", "1", w]); cur += dur(w); process.stdout.write("."); }
+  if (it.say) { let vn = voiceName; const am = /^\[as:([^\]]+)\]\s*/.exec(it.say); if (am) { vn = am[1].trim(); it.say = it.say.slice(am[0].length); } const f = await speak(it.say, vn); run(["-i", f, "-ar", "44100", "-ac", "1", w]); cur += dur(w); process.stdout.write("."); }
   else { run(["-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", String(it.sil), w]); if (it.child) gaps.push([+(cur + 0.25).toFixed(2), +(cur + it.sil - 0.1).toFixed(2)]); cur += it.sil; }
   parts.push(w);
 }

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un ami est très stressé au travail, et vous lui donnez un conseil.
+
+[pause]
+
+[calmly] Je suis très stressé au travail. Que me conseilles-tu ?
+
+[short pause]
+
+[as:Roger] [calmly] À ta place, je partirais plus tôt.
+
+[short pause]
+
+[calmly] Mais mon chef n'est jamais content.
+
+[short pause]
+
+[as:Roger] [calmly] Tu devrais en parler à ton chef.
+
+[short pause]
+
+[calmly] Tu crois que je dois demander un rendez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je te conseille de prendre un rendez-vous.
+
+[short pause]
+
+[calmly] Et si ça ne marche pas ?
+
+[short pause]
+
+[as:Roger] [calmly] Pourquoi ne pas essayer autre chose ?
+
+[short pause]
+
+[calmly] Tu as raison, merci !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

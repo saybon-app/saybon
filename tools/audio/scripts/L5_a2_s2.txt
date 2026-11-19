@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Tu vas venir avec nous ?
+[calmly] Bien sûr ! Tu vas venir avec nous ?
 
 [short pause]
 
-[warmly] It means, are you going to come with us?
+[warmly] It means, Of course! Are you coming with us?
 
 [short pause]
 
-[calmly] Tu vas venir avec nous ?
+[calmly] Bien sûr ! Tu vas venir avec nous ?
 
 [repeat]
 
-[calmly] Tu vas venir avec nous ?
+[calmly] Bien sûr ! Tu vas venir avec nous ?
 
 [repeat]
 

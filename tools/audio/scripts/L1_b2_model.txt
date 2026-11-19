@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. En réunion d'équipe, vous défendez le télétravail devant votre directrice.
+
+[pause]
+
+[calmly] Alors, que pensez-vous du télétravail ?
+
+[short pause]
+
+[as:Roger] [calmly] Selon moi, le télétravail est une bonne chose.
+
+[short pause]
+
+[calmly] Pour quelles raisons ?
+
+[short pause]
+
+[as:Roger] [calmly] D'une part, il fait gagner du temps.
+
+[short pause]
+
+[calmly] Et de l'autre côté ?
+
+[short pause]
+
+[as:Roger] [calmly] D'autre part, il favorise l'autonomie.
+
+[short pause]
+
+[calmly] Alors, quelle est votre conclusion ?
+
+[short pause]
+
+[as:Roger] [calmly] En conclusion, il faut l'encourager. Et vous ?
+
+[short pause]
+
+[calmly] Je vais y réfléchir.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

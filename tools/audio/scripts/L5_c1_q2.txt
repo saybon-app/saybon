@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Quelle est la décision principale ?
+[calmly] Et le budget ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+[calmly] Ce qu'il faut retenir, c'est que le budget reste inchangé.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+[calmly] Ce qu'il faut retenir, c'est que le budget reste inchangé.
 
 [repeat]
 
-[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+[calmly] Ce qu'il faut retenir, c'est que le budget reste inchangé.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

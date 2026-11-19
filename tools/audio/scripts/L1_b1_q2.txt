@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Et hier soir ?
+[calmly] Et pour finir ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [repeat]
 
-[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+[calmly] Enfin, nous sommes sortis ensemble. Et toi ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

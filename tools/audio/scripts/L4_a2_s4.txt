@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Ils se retrouvent chaque samedi.
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [short pause]
 
-[warmly] It means, they meet up every Saturday.
+[warmly] It means, Yes, we meet up every Saturday. And you?
 
 [short pause]
 
-[calmly] Ils se retrouvent chaque samedi.
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [repeat]
 
-[calmly] Ils se retrouvent chaque samedi.
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [repeat]
 

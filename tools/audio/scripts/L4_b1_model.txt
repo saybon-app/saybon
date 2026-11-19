@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. En réunion, vous répondez poliment à un collègue qui propose un nouveau planning.
+
+[pause]
+
+[calmly] Je propose de commencer à huit heures. Qu'en dites-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis tout à fait d'accord avec vous.
+
+[short pause]
+
+[calmly] Et on pourrait supprimer la pause déjeuner.
+
+[short pause]
+
+[as:Roger] [calmly] Je ne suis pas convaincu par cet argument.
+
+[short pause]
+
+[calmly] Pourtant, c'est efficace, non ?
+
+[short pause]
+
+[as:Roger] [calmly] Vous avez raison sur ce point.
+
+[short pause]
+
+[calmly] Alors, que proposez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je vois les choses autrement. Qu'en pensez-vous ?
+
+[short pause]
+
+[calmly] Discutons-en demain.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

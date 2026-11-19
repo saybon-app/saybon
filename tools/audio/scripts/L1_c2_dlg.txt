@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Ce rapport est mauvais. Reformulez avec élégance.
+[calmly] J'aimerais votre avis sur ma proposition.
 
-[turn:Je me permets de nuancer : ce rapport manque de rigueur.]
+[turn:Je me permets de nuancer votre propos.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Pouvons-nous nous rencontrer ?
 
-[turn:Et vous, comment le diriez-vous ?]
+[turn:Il me serait agréable de pouvoir vous rencontrer.]
 
-[calmly] Je dirais qu'il gagnerait à être plus rigoureux.
+[calmly] Voici le rapport.
 
-[calmly] Je ne suis pas d'accord. Reformulez.
+[turn:Permettez-moi de vous faire remarquer que ce rapport manque de rigueur.]
+
+[calmly] Vous n'êtes donc pas d'accord ?
 
 [turn:Je ne partage pas tout à fait votre point de vue.]
 
-[warmly] Maintenant, posez-moi la question.
-
-[turn:Et vous, comment le diriez-vous ?]
-
-[calmly] Permettez-moi d'être d'un autre avis.
+[calmly] Je comprends votre réserve.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

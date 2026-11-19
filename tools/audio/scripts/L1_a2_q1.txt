@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Tu es allé où hier ?
+[calmly] Ah oui ? Et tu as acheté quoi ?
 
 [short pause]
 
-[warmly] It means, Where did you go yesterday?
+[warmly] It means, Oh yes? And what did you buy?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je suis allé au marché. Et toi, tu es allé où ?
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [short pause]
 
-[warmly] It means, I went to the market. And you, where did you go?
+[warmly] It means, I bought fruit. And you, did you go out?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je suis allé au marché. Et toi, tu es allé où ?
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [repeat]
 
-[calmly] Je suis allé au marché. Et toi, tu es allé où ?
+[calmly] J'ai acheté des fruits. Et toi, tu es sorti ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

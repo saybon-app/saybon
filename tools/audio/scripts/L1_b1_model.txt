@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Lundi matin, vous racontez votre week-end à un collègue.
+
+[pause]
+
+[calmly] Alors, ce week-end, raconte-moi !
+
+[short pause]
+
+[as:Roger] [calmly] D'abord, je me suis levé tard.
+
+[short pause]
+
+[calmly] Ah oui ? Et ensuite ?
+
+[short pause]
+
+[as:Roger] [calmly] Ensuite, j'ai préparé le déjeuner.
+
+[short pause]
+
+[calmly] Et l'après-midi ?
+
+[short pause]
+
+[as:Roger] [calmly] Puis mes amis sont arrivés.
+
+[short pause]
+
+[calmly] Et pour finir ?
+
+[short pause]
+
+[as:Roger] [calmly] Enfin, nous sommes sortis ensemble. Et toi ?
+
+[short pause]
+
+[calmly] Moi, je suis resté chez moi.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

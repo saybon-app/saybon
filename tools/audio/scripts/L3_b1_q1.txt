@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Que pensez-vous des réseaux sociaux ?
+[calmly] Pourquoi ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] À mon avis, ils sont utiles, mais dangereux. Et vous, qu'en pensez-vous ?
+[calmly] Je pense que le sport est important.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] À mon avis, ils sont utiles, mais dangereux. Et vous, qu'en pensez-vous ?
+[calmly] Je pense que le sport est important.
 
 [repeat]
 
-[calmly] À mon avis, ils sont utiles, mais dangereux. Et vous, qu'en pensez-vous ?
+[calmly] Je pense que le sport est important.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

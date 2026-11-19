@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Racontez-moi votre week-end : d'abord, ensuite, puis, enfin.
+[calmly] Alors, ce week-end, raconte-moi !
 
-[turn:D'abord, je me suis levé tard. Ensuite, j'ai préparé le déjeuner. Enfin, nous sommes sortis.]
+[turn:D'abord, je me suis levé tard.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Ah oui ? Et ensuite ?
 
-[turn:Et vous, qu'avez-vous fait ce week-end ?]
+[turn:Ensuite, j'ai préparé le déjeuner.]
 
-[calmly] Moi, d'abord, j'ai travaillé. Ensuite, je suis allée au marché. Enfin, j'ai dormi.
+[calmly] Et l'après-midi ?
 
-[calmly] Et hier soir, qu'avez-vous fait ?
+[turn:Puis mes amis sont arrivés.]
 
-[turn:D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Enfin, je me suis couché.]
+[calmly] Et pour finir ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Enfin, nous sommes sortis ensemble. Et toi ?]
 
-[turn:Et vous, qu'avez-vous fait hier soir ?]
-
-[calmly] Moi, j'ai lu un livre, puis je me suis couchée tôt.
+[calmly] Moi, je suis resté chez moi.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

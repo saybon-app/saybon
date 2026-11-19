@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Quelle est votre opinion sur le télétravail ?
+[calmly] Pour quelles raisons ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Selon moi, c'est une bonne chose. Et vous, qu'en pensez-vous ?
+[calmly] D'une part, il fait gagner du temps.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Selon moi, c'est une bonne chose. Et vous, qu'en pensez-vous ?
+[calmly] D'une part, il fait gagner du temps.
 
 [repeat]
 
-[calmly] Selon moi, c'est une bonne chose. Et vous, qu'en pensez-vous ?
+[calmly] D'une part, il fait gagner du temps.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

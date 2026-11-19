@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Que dénonce ce roman ?
+[calmly] Et la fin, qu'en penses-tu ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Ce roman dénonce l'hypocrisie sociale. Et vous, qu'y voyez-vous ?
+[calmly] Le dénouement bouleverse notre lecture du récit. Et toi ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Ce roman dénonce l'hypocrisie sociale. Et vous, qu'y voyez-vous ?
+[calmly] Le dénouement bouleverse notre lecture du récit. Et toi ?
 
 [repeat]
 
-[calmly] Ce roman dénonce l'hypocrisie sociale. Et vous, qu'y voyez-vous ?
+[calmly] Le dénouement bouleverse notre lecture du récit. Et toi ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

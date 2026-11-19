@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je suis allé au marché.
+[calmly] Samedi, je suis allé au marché.
 
 [short pause]
 
-[warmly] It means, I went to the market.
+[warmly] It means, On Saturday, I went to the market.
 
 [short pause]
 
-[calmly] Je suis allé au marché.
+[calmly] Samedi, je suis allé au marché.
 
 [repeat]
 
-[calmly] Je suis allé au marché.
+[calmly] Samedi, je suis allé au marché.
 
 [repeat]
 

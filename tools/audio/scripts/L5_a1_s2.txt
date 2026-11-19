@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Un croissant, s'il vous plaît.
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [short pause]
 
-[warmly] It means, a croissant, please.
+[warmly] It means, I would like a coffee, please.
 
 [short pause]
 
-[calmly] Un croissant, s'il vous plaît.
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [repeat]
 
-[calmly] Un croissant, s'il vous plaît.
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [repeat]
 

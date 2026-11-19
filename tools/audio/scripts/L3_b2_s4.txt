@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je regrette que tu ne puisses pas venir.
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [short pause]
 
-[calmly] Je regrette que tu ne puisses pas venir.
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [repeat]
 
-[calmly] Je regrette que tu ne puisses pas venir.
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [repeat]
 

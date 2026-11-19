@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Que regrettez-vous ?
+[calmly] Paul ne peut pas venir ce soir.
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je regrette que nous n'ayons pas plus de temps. Et vous, que regrettez-vous ?
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je regrette que nous n'ayons pas plus de temps. Et vous, que regrettez-vous ?
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [repeat]
 
-[calmly] Je regrette que nous n'ayons pas plus de temps. Et vous, que regrettez-vous ?
+[calmly] Je regrette qu'il ne puisse pas venir. Et vous ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

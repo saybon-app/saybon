@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Elle se brosse les dents.
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [short pause]
 
-[warmly] It means, she brushes her teeth.
+[warmly] It means, My sister brushes her teeth, then she leaves.
 
 [short pause]
 
-[calmly] Elle se brosse les dents.
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [repeat]
 
-[calmly] Elle se brosse les dents.
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [repeat]
 

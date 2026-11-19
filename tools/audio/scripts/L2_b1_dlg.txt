@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Que faisiez-vous quand la nuit est tombée ?
-
-[turn:Je lisais quand la nuit est tombée.]
-
-[warmly] Maintenant, posez-moi la question.
-
-[turn:Et vous, que faisiez-vous ?]
-
-[calmly] Moi, je dormais quand le téléphone a sonné.
-
-[calmly] Qu'est-ce qui s'est passé hier ?
+[calmly] Raconte-moi, qu'est-ce qui s'est passé hier soir ?
 
 [turn:Il pleuvait quand je suis sorti.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et tu as fait quoi ?
 
-[turn:Et vous, que s'est-il passé ?]
+[turn:Je lisais quand le téléphone a sonné.]
 
-[calmly] Moi, j'étais au marché quand la pluie a commencé.
+[calmly] Et ta sœur ?
+
+[turn:Elle dormait quand je suis arrivé.]
+
+[calmly] Alors tu es resté dehors ?
+
+[turn:Non, j'étais fatigué, alors je suis rentré.]
+
+[calmly] Bonne idée !
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

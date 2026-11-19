@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
 [calmly] Je suis très stressé au travail. Que me conseilles-tu ?
 
-[turn:À ta place, je parlerais à mon chef.]
+[turn:À ta place, je partirais plus tôt.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Mais mon chef n'est jamais content.
 
-[turn:Et toi, que ferais-tu ?]
+[turn:Tu devrais en parler à ton chef.]
 
-[calmly] À ta place, j'éteindrais le téléphone.
+[calmly] Tu crois que je dois demander un rendez-vous ?
 
-[calmly] Je n'arrive pas à dormir. Qu'est-ce que tu me conseilles ?
+[turn:Je te conseille de prendre un rendez-vous.]
 
-[turn:Je te conseille de lire le soir.]
+[calmly] Et si ça ne marche pas ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Pourquoi ne pas essayer autre chose ?]
 
-[turn:Et toi, qu'est-ce que tu fais pour dormir ?]
-
-[calmly] Moi, je fais une promenade avant de dormir.
+[calmly] Tu as raison, merci !
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

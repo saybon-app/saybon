@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] J'aurais aimé vous aider davantage.
+[calmly] Sans cet imprévu, nous aurions fini hier.
 
 [short pause]
 
-[calmly] J'aurais aimé vous aider davantage.
+[calmly] Sans cet imprévu, nous aurions fini hier.
 
 [repeat]
 
-[calmly] J'aurais aimé vous aider davantage.
+[calmly] Sans cet imprévu, nous aurions fini hier.
 
 [repeat]
 

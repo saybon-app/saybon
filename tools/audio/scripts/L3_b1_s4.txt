@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il me semble que c'est trop cher.
+[calmly] Je ne suis pas d'accord avec cette idée. Et toi ?
 
 [short pause]
 
-[calmly] Il me semble que c'est trop cher.
+[calmly] Je ne suis pas d'accord avec cette idée. Et toi ?
 
 [repeat]
 
-[calmly] Il me semble que c'est trop cher.
+[calmly] Je ne suis pas d'accord avec cette idée. Et toi ?
 
 [repeat]
 

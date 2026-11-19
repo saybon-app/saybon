@@ -1,23 +1,21 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
 
-[calmly] Qu'est-ce que tu vas faire ce week-end ?
+[calmly] Salut ! Qu'est-ce que tu fais samedi ?
 
-[turn:Je vais voir des amis.]
+[turn:Je vais organiser une fête samedi.]
 
-[warmly] Now ask me back.
+[calmly] Génial ! Je peux venir ?
 
-[turn:Et toi, qu'est-ce que tu vas faire ?]
+[turn:Bien sûr ! Tu vas venir avec nous ?]
 
-[calmly] Moi, je vais aller à la plage.
+[calmly] Oui, avec plaisir. C'est à quelle heure ?
 
-[calmly] Tu veux venir au cinéma demain ?
+[turn:On se retrouve à huit heures.]
 
-[turn:Oui, avec plaisir.]
+[calmly] Je peux apporter quelque chose ?
 
-[warmly] Now ask me back.
+[turn:Moi, je vais apporter un gâteau. Et toi ?]
 
-[turn:Et toi, à quelle heure on se retrouve ?]
-
-[calmly] On se retrouve à sept heures devant le cinéma.
+[calmly] Moi, j'apporte les boissons !
 
 [warmly] Très bien. That's the lesson. Well done.

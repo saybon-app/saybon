@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] À quelle heure te lèves-tu ?
+[calmly] Et ta sœur, elle fait quoi le matin ?
 
 [short pause]
 
-[warmly] It means, What time do you get up?
+[warmly] It means, And your sister, what does she do in the morning?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je me lève à sept heures. Et toi, à quelle heure te lèves-tu ?
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [short pause]
 
-[warmly] It means, I get up at seven. And you, what time do you get up?
+[warmly] It means, My sister brushes her teeth, then she leaves.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je me lève à sept heures. Et toi, à quelle heure te lèves-tu ?
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [repeat]
 
-[calmly] Je me lève à sept heures. Et toi, à quelle heure te lèves-tu ?
+[calmly] Ma sœur se brosse les dents, puis elle part.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

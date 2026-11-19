@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Mettez au passé simple : il a ouvert la porte.
+[calmly] Et la scène suivante ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Il ouvrit la porte. Et vous, que diriez-vous pour : elle est partie ?
+[calmly] Elle comprit aussitôt son erreur.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Il ouvrit la porte. Et vous, que diriez-vous pour : elle est partie ?
+[calmly] Elle comprit aussitôt son erreur.
 
 [repeat]
 
-[calmly] Il ouvrit la porte. Et vous, que diriez-vous pour : elle est partie ?
+[calmly] Elle comprit aussitôt son erreur.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

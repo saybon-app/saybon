@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Je ne suis pas d'accord. Reformulez.
+[calmly] Vous n'êtes donc pas d'accord ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je ne partage pas tout à fait votre point de vue. Et vous, comment le diriez-vous ?
+[calmly] Je ne partage pas tout à fait votre point de vue.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je ne partage pas tout à fait votre point de vue. Et vous, comment le diriez-vous ?
+[calmly] Je ne partage pas tout à fait votre point de vue.
 
 [repeat]
 
-[calmly] Je ne partage pas tout à fait votre point de vue. Et vous, comment le diriez-vous ?
+[calmly] Je ne partage pas tout à fait votre point de vue.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

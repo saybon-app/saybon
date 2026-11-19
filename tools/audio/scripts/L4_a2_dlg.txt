@@ -1,23 +1,21 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
 
-[calmly] À quelle heure te lèves-tu ?
+[calmly] Tu te lèves à quelle heure ?
 
 [turn:Je me lève à sept heures.]
 
-[warmly] Now ask me back.
+[calmly] Et ta sœur, elle fait quoi le matin ?
 
-[turn:Et toi, à quelle heure te lèves-tu ?]
+[turn:Ma sœur se brosse les dents, puis elle part.]
 
-[calmly] Moi, je me lève à six heures.
+[calmly] Et le week-end ?
 
-[calmly] Que fais-tu après le travail ?
+[turn:Nous nous couchons tard le week-end.]
 
-[turn:Je me repose, puis je me douche.]
+[calmly] Vous vous voyez souvent ?
 
-[warmly] Now ask me back.
+[turn:Oui, nous nous retrouvons chaque samedi. Et toi ?]
 
-[turn:Et toi, que fais-tu ?]
-
-[calmly] Moi, je me promène un peu.
+[calmly] Moi, je travaille le samedi.
 
 [warmly] Très bien. That's the lesson. Well done.

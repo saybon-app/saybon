@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Dans un club de lecture, vous présentez un livre qui vous a marqué.
+
+[pause]
+
+[calmly] Quel livre vous a le plus marqué ?
+
+[short pause]
+
+[as:Roger] [calmly] Le livre dont je vous ai parlé m'a profondément marqué.
+
+[short pause]
+
+[calmly] Vous l'avez fini ?
+
+[short pause]
+
+[as:Roger] [calmly] Le livre, que j'ai enfin terminé, m'a profondément marqué.
+
+[short pause]
+
+[calmly] Et au cinéma, quelque chose vous a ému ?
+
+[short pause]
+
+[as:Roger] [calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
+
+[short pause]
+
+[calmly] Vous les recommanderiez ?
+
+[short pause]
+
+[as:Roger] [calmly] Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?
+
+[short pause]
+
+[calmly] Pour moi, c'est un roman russe.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

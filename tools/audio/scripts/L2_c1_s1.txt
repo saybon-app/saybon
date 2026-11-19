@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Bien qu'il soit fatigué, il continue.
+[calmly] Quoi que vous disiez, je resterai calme.
 
 [short pause]
 
-[calmly] Bien qu'il soit fatigué, il continue.
+[calmly] Quoi que vous disiez, je resterai calme.
 
 [repeat]
 
-[calmly] Bien qu'il soit fatigué, il continue.
+[calmly] Quoi que vous disiez, je resterai calme.
 
 [repeat]
 

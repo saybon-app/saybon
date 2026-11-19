@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] L'addition, s'il vous plaît.
+[calmly] Oui. L'addition, s'il vous plaît.
 
 [short pause]
 
-[warmly] It means, the bill, please.
+[warmly] It means, Yes. The bill, please.
 
 [short pause]
 
-[calmly] L'addition, s'il vous plaît.
+[calmly] Oui. L'addition, s'il vous plaît.
 
 [repeat]
 
-[calmly] L'addition, s'il vous plaît.
+[calmly] Oui. L'addition, s'il vous plaît.
 
 [repeat]
 

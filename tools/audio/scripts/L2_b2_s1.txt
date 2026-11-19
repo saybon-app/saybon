@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il faut que je parte.
+[calmly] Il faut que nous finissions ce travail.
 
 [short pause]
 
-[calmly] Il faut que je parte.
+[calmly] Il faut que nous finissions ce travail.
 
 [repeat]
 
-[calmly] Il faut que je parte.
+[calmly] Il faut que nous finissions ce travail.
 
 [repeat]
 

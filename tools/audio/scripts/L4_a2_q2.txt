@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Que fais-tu après le travail ?
+[calmly] Vous vous voyez souvent ?
 
 [short pause]
 
-[warmly] It means, What do you do after work?
+[warmly] It means, Do you see each other often?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je me repose, puis je me douche. Et toi, que fais-tu ?
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [short pause]
 
-[warmly] It means, I rest, then I shower. And you, what do you do?
+[warmly] It means, Yes, we meet up every Saturday. And you?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je me repose, puis je me douche. Et toi, que fais-tu ?
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [repeat]
 
-[calmly] Je me repose, puis je me douche. Et toi, que fais-tu ?
+[calmly] Oui, nous nous retrouvons chaque samedi. Et toi ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

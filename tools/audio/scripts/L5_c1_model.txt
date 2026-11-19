@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Après une longue réunion, votre directeur vous demande de résumer ce qui a été décidé.
+
+[pause]
+
+[calmly] Alors, en quelques mots, qu'avons-nous décidé ?
+
+[short pause]
+
+[as:Roger] [calmly] En résumé, nous retenons trois points.
+
+[short pause]
+
+[calmly] Le projet avance ?
+
+[short pause]
+
+[as:Roger] [calmly] Pour faire court, le projet avance bien.
+
+[short pause]
+
+[calmly] Et il y a une échéance ?
+
+[short pause]
+
+[as:Roger] [calmly] Autrement dit, il faut décider avant vendredi.
+
+[short pause]
+
+[calmly] Et le budget ?
+
+[short pause]
+
+[as:Roger] [calmly] Ce qu'il faut retenir, c'est que le budget reste inchangé.
+
+[short pause]
+
+[calmly] Parfait, merci.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

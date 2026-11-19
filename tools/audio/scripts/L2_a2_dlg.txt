@@ -1,23 +1,21 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
 
-[calmly] Où habitiez-vous quand vous étiez petit ?
+[calmly] Raconte-moi ton enfance !
 
-[turn:J'habitais à la campagne.]
+[turn:Quand j'étais petit, j'habitais à la campagne.]
 
-[warmly] Now ask me back.
+[calmly] Et vous faisiez quoi ?
 
-[turn:Et toi, tu habitais où ?]
+[turn:Nous jouions dans le jardin.]
 
-[calmly] J'habitais à la campagne aussi.
+[calmly] Il faisait beau ?
 
-[calmly] Qu'est-ce que tu faisais le week-end ?
+[turn:Oui, il faisait toujours beau.]
 
-[turn:Je jouais au foot.]
+[calmly] Et qui préparait les repas ?
 
-[warmly] Now ask me back.
+[turn:Ma grand-mère cuisinait tous les jours. Et toi ?]
 
-[turn:Et toi, tu faisais quoi ?]
-
-[calmly] Moi, je lisais beaucoup.
+[calmly] Moi, c'est ma mère qui cuisinait.
 
 [warmly] Très bien. That's the lesson. Well done.

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Ce rapport est mauvais. Reformulez avec élégance.
+[calmly] Pouvons-nous nous rencontrer ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je me permets de nuancer : ce rapport manque de rigueur. Et vous, comment le diriez-vous ?
+[calmly] Il me serait agréable de pouvoir vous rencontrer.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je me permets de nuancer : ce rapport manque de rigueur. Et vous, comment le diriez-vous ?
+[calmly] Il me serait agréable de pouvoir vous rencontrer.
 
 [repeat]
 
-[calmly] Je me permets de nuancer : ce rapport manque de rigueur. Et vous, comment le diriez-vous ?
+[calmly] Il me serait agréable de pouvoir vous rencontrer.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Les devoirs sont-ils utiles ?
+[calmly] Je propose de commencer à huit heures. Qu'en dites-vous ?
 
-[turn:Je suis d'accord, ils aident à apprendre.]
+[turn:Je suis tout à fait d'accord avec vous.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et on pourrait supprimer la pause déjeuner.
 
-[turn:Et vous, êtes-vous d'accord ?]
+[turn:Je ne suis pas convaincu par cet argument.]
 
-[calmly] Moi, je suis plutôt d'accord.
+[calmly] Pourtant, c'est efficace, non ?
 
-[calmly] Faut-il travailler le dimanche ?
+[turn:Vous avez raison sur ce point.]
 
-[turn:Je ne suis pas d'accord, il faut se reposer.]
+[calmly] Alors, que proposez-vous ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Je vois les choses autrement. Qu'en pensez-vous ?]
 
-[turn:Et vous, qu'en pensez-vous ?]
-
-[calmly] Moi aussi, le repos est important.
+[calmly] Discutons-en demain.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

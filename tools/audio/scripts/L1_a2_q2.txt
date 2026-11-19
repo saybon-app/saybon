@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Tu es rentré à quelle heure ?
+[calmly] Tu as vu Julie ? Elle est arrivée hier.
 
 [short pause]
 
-[warmly] It means, What time did you get home?
+[warmly] It means, Did you see Julie? She arrived yesterday.
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je suis rentré à six heures. Et toi, tu es rentré à quelle heure ?
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [short pause]
 
-[warmly] It means, I got home at six. And you, what time did you get home?
+[warmly] It means, Yes, she arrived yesterday, and we left together.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je suis rentré à six heures. Et toi, tu es rentré à quelle heure ?
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [repeat]
 
-[calmly] Je suis rentré à six heures. Et toi, tu es rentré à quelle heure ?
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Comment refuser poliment une invitation ?
+[calmly] Comment concluez-vous votre lettre ?
 
-[turn:Je vous remercie, mais je ne pourrai malheureusement pas venir.]
+[turn:Veuillez agréer mes salutations distinguées.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et si vous attendez une réponse ?
 
-[turn:Et vous, comment refuseriez-vous ?]
+[turn:Je vous serais reconnaissant de bien vouloir me répondre.]
 
-[calmly] Je vous remercie de votre invitation, mais je suis déjà pris.
+[calmly] Que pensez-vous du projet ?
 
-[calmly] Comment critiquer sans froisser ?
+[turn:Soyons francs : ce projet manque d'ambition.]
 
-[turn:Avec tout le respect que je vous dois, je vois les choses autrement.]
+[calmly] Mais le conseil l'a validé.
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Avec tout le respect que je vous dois, je ne suis pas de votre avis.]
 
-[turn:Et vous, comment feriez-vous ?]
-
-[calmly] Je me permets de suggérer une autre approche.
+[calmly] J'apprécie votre franchise.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je vois les choses autrement.
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [short pause]
 
-[calmly] Je vois les choses autrement.
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [repeat]
 
-[calmly] Je vois les choses autrement.
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [repeat]
 

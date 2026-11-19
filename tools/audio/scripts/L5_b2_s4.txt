@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Sans cet imprévu, nous aurions fini hier.
+[calmly] J'aurais aimé t'aider davantage. Et toi ?
 
 [short pause]
 
-[calmly] Sans cet imprévu, nous aurions fini hier.
+[calmly] J'aurais aimé t'aider davantage. Et toi ?
 
 [repeat]
 
-[calmly] Sans cet imprévu, nous aurions fini hier.
+[calmly] J'aurais aimé t'aider davantage. Et toi ?
 
 [repeat]
 

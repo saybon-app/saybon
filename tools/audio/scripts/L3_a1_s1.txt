@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] J'habite dans un appartement.
+[calmly] Oui, j'habite ici. Entre !
 
 [short pause]
 
-[warmly] It means, I live in an apartment.
+[warmly] It means, Yes, I live here. Come in!
 
 [short pause]
 
-[calmly] J'habite dans un appartement.
+[calmly] Oui, j'habite ici. Entre !
 
 [repeat]
 
-[calmly] J'habite dans un appartement.
+[calmly] Oui, j'habite ici. Entre !
 
 [repeat]
 

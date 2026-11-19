@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un client mécontent vous parle fort, et vous restez calme et ferme.
+
+[pause]
+
+[calmly] C'est inadmissible ! Votre service est une catastrophe !
+
+[short pause]
+
+[as:Roger] [calmly] Quoi que vous disiez, je resterai calme.
+
+[short pause]
+
+[calmly] Mais ça fait trois jours que j'attends !
+
+[short pause]
+
+[as:Roger] [calmly] Bien que le retard soit regrettable, nous allons le résoudre.
+
+[short pause]
+
+[calmly] Comment pouvez-vous en être sûr ?
+
+[short pause]
+
+[as:Roger] [calmly] Pourvu que tout se passe bien, vous serez livré demain.
+
+[short pause]
+
+[calmly] Mon collègue dit que vous ne comprenez rien.
+
+[short pause]
+
+[as:Roger] [calmly] Je doute qu'il ait compris notre proposition. Qu'en pensez-vous ?
+
+[short pause]
+
+[calmly] Bon, d'accord, essayons.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

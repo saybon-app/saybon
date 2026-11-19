@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Mettez au passé simple : il a ouvert la porte.
+[calmly] Lis-moi le début du chapitre.
 
-[turn:Il ouvrit la porte.]
+[turn:Il ouvrit la porte et entra.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et la scène suivante ?
 
-[turn:Et vous, que diriez-vous pour : elle est partie ?]
+[turn:Elle comprit aussitôt son erreur.]
 
-[calmly] Elle partit.
+[calmly] Que font les voyageurs ?
 
-[calmly] Mettez au passé simple : ils ont attendu.
+[turn:Ils partirent à l'aube, sans un mot.]
 
-[turn:Ils attendirent longtemps.]
+[calmly] Et la fin du chapitre ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Il fallut attendre longtemps. Et toi, tu aimes ce style ?]
 
-[turn:Et vous, que diriez-vous pour : il a compris ?]
-
-[calmly] Il comprit aussitôt.
+[calmly] Oui, c'est très beau.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

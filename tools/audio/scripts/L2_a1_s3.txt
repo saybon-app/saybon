@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Il a les cheveux noirs.
+[calmly] Oui, il a des lunettes. Il est très sympa.
 
 [short pause]
 
-[warmly] It means, he has black hair.
+[warmly] It means, Yes, he wears glasses. He is very nice.
 
 [short pause]
 
-[calmly] Il a les cheveux noirs.
+[calmly] Oui, il a des lunettes. Il est très sympa.
 
 [repeat]
 
-[calmly] Il a les cheveux noirs.
+[calmly] Oui, il a des lunettes. Il est très sympa.
 
 [repeat]
 

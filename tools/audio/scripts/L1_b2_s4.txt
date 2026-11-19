@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] En conclusion, il faut l'encourager.
+[calmly] En conclusion, il faut l'encourager. Et vous ?
 
 [short pause]
 
-[calmly] En conclusion, il faut l'encourager.
+[calmly] En conclusion, il faut l'encourager. Et vous ?
 
 [repeat]
 
-[calmly] En conclusion, il faut l'encourager.
+[calmly] En conclusion, il faut l'encourager. Et vous ?
 
 [repeat]
 

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Faut-il travailler le dimanche ?
+[calmly] Alors, que proposez-vous ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [repeat]
 
-[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+[calmly] Je vois les choses autrement. Qu'en pensez-vous ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

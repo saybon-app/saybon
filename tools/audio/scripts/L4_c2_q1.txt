@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Quel est le ton de ce poème ?
+[calmly] Et que dénonce l'auteur ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Le ton est mélancolique, presque résigné. Et vous, comment le qualifieriez-vous ?
+[calmly] L'auteur y dénonce l'hypocrisie sociale.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Le ton est mélancolique, presque résigné. Et vous, comment le qualifieriez-vous ?
+[calmly] L'auteur y dénonce l'hypocrisie sociale.
 
 [repeat]
 
-[calmly] Le ton est mélancolique, presque résigné. Et vous, comment le qualifieriez-vous ?
+[calmly] L'auteur y dénonce l'hypocrisie sociale.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

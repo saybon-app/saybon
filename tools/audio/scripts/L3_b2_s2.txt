@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il est dommage qu'il pleuve aujourd'hui.
+[calmly] Je suis content que vous soyez là.
 
 [short pause]
 
-[calmly] Il est dommage qu'il pleuve aujourd'hui.
+[calmly] Je suis content que vous soyez là.
 
 [repeat]
 
-[calmly] Il est dommage qu'il pleuve aujourd'hui.
+[calmly] Je suis content que vous soyez là.
 
 [repeat]
 

@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Cet auteur est-il surestimé ?
+[calmly] Mais mon argument tient la route, non ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [repeat]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

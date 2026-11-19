@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Que regrettez-vous ? Utilisez « si j'avais su ».
+[calmly] Tu n'es pas venu à la fête, finalement.
 
-[turn:Si j'avais su, je serais venu plus tôt.]
+[turn:Si j'avais su, je serais venu.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Mon frère aurait pu t'avertir.
 
-[turn:Et vous, que regrettez-vous ?]
+[turn:Il aurait pu le dire plus tôt.]
 
-[calmly] Si j'avais su, j'aurais prévenu.
+[calmly] Tu crois que c'est fini entre nous ?
 
-[calmly] Que diriez-vous à un collègue en retard ?
+[turn:Je crains qu'il ne soit déjà trop tard.]
 
-[turn:Vous auriez pu prévenir plus tôt.]
+[calmly] Et si ton frère l'avait su ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Quand bien même il le saurait, il se tairait.]
 
-[turn:Et vous, que diriez-vous ?]
-
-[calmly] Vous auriez dû m'appeler.
+[calmly] Peut-être, oui.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

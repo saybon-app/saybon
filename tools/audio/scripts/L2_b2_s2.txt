@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il est important que vous compreniez.
+[calmly] Il faut que je parte à six heures.
 
 [short pause]
 
-[calmly] Il est important que vous compreniez.
+[calmly] Il faut que je parte à six heures.
 
 [repeat]
 
-[calmly] Il est important que vous compreniez.
+[calmly] Il faut que je parte à six heures.
 
 [repeat]
 

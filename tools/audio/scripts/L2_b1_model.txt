@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un soir d'orage, un collègue vous demande ce qui s'est passé chez vous.
+
+[pause]
+
+[calmly] Raconte-moi, qu'est-ce qui s'est passé hier soir ?
+
+[short pause]
+
+[as:Roger] [calmly] Il pleuvait quand je suis sorti.
+
+[short pause]
+
+[calmly] Et tu as fait quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Je lisais quand le téléphone a sonné.
+
+[short pause]
+
+[calmly] Et ta sœur ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle dormait quand je suis arrivé.
+
+[short pause]
+
+[calmly] Alors tu es resté dehors ?
+
+[short pause]
+
+[as:Roger] [calmly] Non, j'étais fatigué, alors je suis rentré.
+
+[short pause]
+
+[calmly] Bonne idée !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il fallut attendre longtemps.
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [short pause]
 
-[calmly] Il fallut attendre longtemps.
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [repeat]
 
-[calmly] Il fallut attendre longtemps.
+[calmly] Il fallut attendre longtemps. Et toi, tu aimes ce style ?
 
 [repeat]
 

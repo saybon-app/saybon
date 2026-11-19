@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] J'étais fatigué, alors je suis rentré.
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [short pause]
 
-[calmly] J'étais fatigué, alors je suis rentré.
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [repeat]
 
-[calmly] J'étais fatigué, alors je suis rentré.
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [repeat]
 

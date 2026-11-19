@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Nous sommes une grande famille.
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [short pause]
 
-[warmly] It means, we are a big family.
+[warmly] It means, Yes, we are a big family. And you?
 
 [short pause]
 
-[calmly] Nous sommes une grande famille.
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [repeat]
 
-[calmly] Nous sommes une grande famille.
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [repeat]
 

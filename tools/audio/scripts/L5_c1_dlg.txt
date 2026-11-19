@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Pouvez-vous résumer cette réunion en une phrase ?
+[calmly] Alors, en quelques mots, qu'avons-nous décidé ?
 
-[turn:En résumé, nous avons validé le budget.]
+[turn:En résumé, nous retenons trois points.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Le projet avance ?
 
-[turn:Et vous, comment la résumeriez-vous ?]
+[turn:Pour faire court, le projet avance bien.]
 
-[calmly] Pour faire court, tout est validé.
+[calmly] Et il y a une échéance ?
 
-[calmly] Quelle est la décision principale ?
+[turn:Autrement dit, il faut décider avant vendredi.]
 
-[turn:Autrement dit, le lancement est reporté.]
+[calmly] Et le budget ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Ce qu'il faut retenir, c'est que le budget reste inchangé.]
 
-[turn:Et vous, qu'en retenez-vous ?]
-
-[calmly] Ce qu'il faut retenir, c'est le nouveau calendrier.
+[calmly] Parfait, merci.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

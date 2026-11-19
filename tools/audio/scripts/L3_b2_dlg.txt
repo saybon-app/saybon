@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] De quoi êtes-vous content aujourd'hui ?
+[calmly] Merci pour l'invitation ! Il pleut tellement.
+
+[turn:Il est dommage qu'il pleuve aujourd'hui.]
+
+[calmly] Tu es content de nous voir ?
 
 [turn:Je suis content que vous soyez là.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Tu espères que la soirée sera réussie ?
 
-[turn:Et vous, de quoi êtes-vous content ?]
+[turn:Je souhaite que tout se passe bien.]
 
-[calmly] Je suis content que le soleil soit revenu.
+[calmly] Paul ne peut pas venir ce soir.
 
-[calmly] Que regrettez-vous ?
+[turn:Je regrette qu'il ne puisse pas venir. Et vous ?]
 
-[turn:Je regrette que nous n'ayons pas plus de temps.]
-
-[warmly] Maintenant, posez-moi la question.
-
-[turn:Et vous, que regrettez-vous ?]
-
-[calmly] Je regrette que le week-end soit si court.
+[calmly] Moi aussi, c'est dommage.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

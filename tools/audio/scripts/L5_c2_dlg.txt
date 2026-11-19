@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Comment demanderiez-vous ce dossier à votre directrice ?
+[calmly] Vous avez besoin du document ?
 
-[turn:Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier.]
+[turn:Auriez-vous l'amabilité de me transmettre ce document ?]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et à votre ami, vous diriez quoi ?
 
-[turn:Et vous, comment le diriez-vous à un ami ?]
+[turn:Tu peux m'envoyer ça quand tu as une minute ?]
 
-[calmly] Je lui dirais simplement : désolé pour le retard.
+[calmly] Et si c'est urgent ?
 
-[calmly] Comment présentez-vous des excuses à un client ?
+[turn:Envoie-moi ça dès que possible.]
 
-[turn:Je vous prie de bien vouloir excuser ce retard.]
+[calmly] Et pour finir un courriel ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Il va sans dire que je reste à votre disposition.]
 
-[turn:Et vous, comment vous excuseriez-vous auprès d'un ami ?]
-
-[calmly] Avec un ami, je dirais : pardon, j'étais pris.
+[calmly] Très bien, c'est noté.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

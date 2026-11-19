@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Il est grand.
+[calmly] Oui, j'attends mon ami Paul.
 
 [short pause]
 
-[warmly] It means, he is tall.
+[warmly] It means, Yes, I'm waiting for my friend Paul.
 
 [short pause]
 
-[calmly] Il est grand.
+[calmly] Oui, j'attends mon ami Paul.
 
 [repeat]
 
-[calmly] Il est grand.
+[calmly] Oui, j'attends mon ami Paul.
 
 [repeat]
 

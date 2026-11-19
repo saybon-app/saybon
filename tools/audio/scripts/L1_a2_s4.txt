@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je suis rentré à la maison.
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [short pause]
 
-[warmly] It means, I went home.
+[warmly] It means, Yes, she arrived yesterday, and we left together.
 
 [short pause]
 
-[calmly] Je suis rentré à la maison.
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [repeat]
 
-[calmly] Je suis rentré à la maison.
+[calmly] Oui, elle est arrivée hier, et nous sommes partis ensemble.
 
 [repeat]
 

@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Nous sommes partis ensemble.
+[calmly] Dimanche, je suis rentré à la maison.
 
 [short pause]
 
-[warmly] It means, We left together.
+[warmly] It means, On Sunday, I went back home.
 
 [short pause]
 
-[calmly] Nous sommes partis ensemble.
+[calmly] Dimanche, je suis rentré à la maison.
 
 [repeat]
 
-[calmly] Nous sommes partis ensemble.
+[calmly] Dimanche, je suis rentré à la maison.
 
 [repeat]
 

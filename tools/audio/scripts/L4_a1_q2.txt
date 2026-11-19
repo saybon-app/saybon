@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Comment s'appelle ton meilleur ami ?
+[calmly] Alors, vous êtes une grande famille ?
 
 [short pause]
 
-[warmly] It means, What is your best friend's name?
+[warmly] It means, So, you are a big family?
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [short pause]
 
-[warmly] It means, My best friend's name is Marc. And you, what is your best friend's name?
+[warmly] It means, Yes, we are a big family. And you?
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [repeat]
 
-[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+[calmly] Oui, nous sommes une grande famille. Et toi ?
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.

@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet.
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [short pause]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet.
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [repeat]
 
-[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet.
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Qu'en dites-vous ?
 
 [repeat]
 

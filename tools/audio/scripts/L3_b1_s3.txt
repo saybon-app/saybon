@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je ne suis pas d'accord avec cette idée.
+[calmly] Il me semble que c'est trop cher.
 
 [short pause]
 
-[calmly] Je ne suis pas d'accord avec cette idée.
+[calmly] Il me semble que c'est trop cher.
 
 [repeat]
 
-[calmly] Je ne suis pas d'accord avec cette idée.
+[calmly] Il me semble que c'est trop cher.
 
 [repeat]
 

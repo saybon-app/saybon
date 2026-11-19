@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Qu'est-ce qui s'est passé hier ?
+[calmly] Alors tu es resté dehors ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [repeat]
 
-[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+[calmly] Non, j'étais fatigué, alors je suis rentré.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

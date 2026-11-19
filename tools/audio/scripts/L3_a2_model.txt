@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You tell a friend about a happy surprise you had yesterday.
+
+[pause]
+
+[calmly] Alors, hier, c'était comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Hier, je suis allé au parc.
+
+[short pause]
+
+[calmly] Et il faisait beau ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, il faisait beau, alors j'ai marché.
+
+[short pause]
+
+[calmly] Et ensuite ?
+
+[short pause]
+
+[as:Roger] [calmly] Soudain, j'ai vu mon ami.
+
+[short pause]
+
+[calmly] Vous avez parlé ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, nous avons parlé pendant une heure.
+
+[short pause]
+
+[calmly] Quelle belle surprise !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

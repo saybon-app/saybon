@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Quoi que vous disiez, je resterai calme.
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [short pause]
 
-[calmly] Quoi que vous disiez, je resterai calme.
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [repeat]
 
-[calmly] Quoi que vous disiez, je resterai calme.
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [repeat]
 

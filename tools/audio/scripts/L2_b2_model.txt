@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. La veille d'une grande réunion, vous préparez une présentation avec un collègue.
+
+[pause]
+
+[calmly] On a encore beaucoup à faire ce soir.
+
+[short pause]
+
+[as:Roger] [calmly] Il faut que nous finissions ce travail.
+
+[short pause]
+
+[calmly] Pourriez-vous rester plus longtemps ?
+
+[short pause]
+
+[as:Roger] [calmly] Il faut que je parte à six heures.
+
+[short pause]
+
+[calmly] Alors, que doit-on dire au client ?
+
+[short pause]
+
+[as:Roger] [calmly] Il est important que tu comprennes les chiffres.
+
+[short pause]
+
+[calmly] Et pour demain matin ?
+
+[short pause]
+
+[as:Roger] [calmly] Je veux que tu viennes tôt. D'accord ?
+
+[short pause]
+
+[calmly] D'accord, je viendrai.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

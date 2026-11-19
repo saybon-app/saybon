@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You are at a party. You meet someone new, and you introduce yourself.
+
+[pause]
+
+[calmly] Bonjour ! Je m'appelle Sophie. Et toi, comment tu t'appelles ?
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Lucas.
+
+[short pause]
+
+[calmly] Enchantée, Lucas ! Tu as quel âge ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai vingt-cinq ans. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'ai vingt-trois ans. Tu habites où ?
+
+[short pause]
+
+[as:Roger] [calmly] J'habite à Lyon.
+
+[short pause]
+
+[calmly] Et tu fais quoi dans la vie ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis étudiant. Et toi ?
+
+[short pause]
+
+[calmly] Moi, je suis infirmière. Enchantée !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

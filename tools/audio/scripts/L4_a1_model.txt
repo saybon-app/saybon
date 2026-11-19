@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. A colleague asks you about your family and your best friend.
+
+[pause]
+
+[calmly] Tu as des frères et sœurs ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai deux frères et une sœur.
+
+[short pause]
+
+[calmly] Et tes parents, ils s'appellent comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Mon père s'appelle Paul.
+
+[short pause]
+
+[calmly] Tu as un meilleur ami ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, ma meilleure amie est très drôle.
+
+[short pause]
+
+[calmly] Alors, vous êtes une grande famille ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, nous sommes une grande famille. Et toi ?
+
+[short pause]
+
+[calmly] Moi, nous sommes quatre. C'est calme !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

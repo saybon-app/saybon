@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Que feriez-vous si vous gagniez à la loterie ?
+[calmly] Qu'est-ce que tu ferais si tu avais plus de temps ?
 
-[turn:Si je gagnais, je voyagerais partout.]
+[turn:Si j'avais plus de temps, je voyagerais davantage.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Et si on te proposait un poste à l'étranger ?
 
-[turn:Et vous, que feriez-vous ?]
+[turn:Si j'étais à ta place, j'accepterais.]
 
-[calmly] Moi, j'ouvrirais une école.
+[calmly] Pourquoi n'as-tu pas fini le projet hier ?
 
-[calmly] Que regrettez-vous de ne pas avoir fait ?
+[turn:Sans cet imprévu, nous aurions fini hier.]
 
-[turn:J'aurais aimé apprendre le piano.]
+[calmly] Tu regrettes quelque chose ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:J'aurais aimé t'aider davantage. Et toi ?]
 
-[turn:Et vous, qu'auriez-vous aimé apprendre ?]
-
-[calmly] J'aurais aimé apprendre à danser.
+[calmly] Moi, j'aurais aimé apprendre le piano.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

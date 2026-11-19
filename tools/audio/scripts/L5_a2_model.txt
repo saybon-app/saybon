@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You and a friend are making plans for Saturday.
+
+[pause]
+
+[calmly] Salut ! Qu'est-ce que tu fais samedi ?
+
+[short pause]
+
+[as:Roger] [calmly] Je vais organiser une fête samedi.
+
+[short pause]
+
+[calmly] Génial ! Je peux venir ?
+
+[short pause]
+
+[as:Roger] [calmly] Bien sûr ! Tu vas venir avec nous ?
+
+[short pause]
+
+[calmly] Oui, avec plaisir. C'est à quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] On se retrouve à huit heures.
+
+[short pause]
+
+[calmly] Je peux apporter quelque chose ?
+
+[short pause]
+
+[as:Roger] [calmly] Moi, je vais apporter un gâteau. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'apporte les boissons !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

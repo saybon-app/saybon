@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Il faisait toujours beau.
+[calmly] Oui, il faisait toujours beau.
 
 [short pause]
 
-[warmly] It means, the weather was always nice.
+[warmly] It means, Yes, the weather was always nice.
 
 [short pause]
 
-[calmly] Il faisait toujours beau.
+[calmly] Oui, il faisait toujours beau.
 
 [repeat]
 
-[calmly] Il faisait toujours beau.
+[calmly] Oui, il faisait toujours beau.
 
 [repeat]
 

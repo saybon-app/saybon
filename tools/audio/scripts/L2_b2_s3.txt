@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Je veux que tu viennes.
+[calmly] Il est important que tu comprennes les chiffres.
 
 [short pause]
 
-[calmly] Je veux que tu viennes.
+[calmly] Il est important que tu comprennes les chiffres.
 
 [repeat]
 
-[calmly] Je veux que tu viennes.
+[calmly] Il est important que tu comprennes les chiffres.
 
 [repeat]
 

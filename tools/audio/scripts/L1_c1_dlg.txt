@@ -1,23 +1,21 @@
-[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
 
-[calmly] Parlez-moi d'un film qui vous a marqué.
+[calmly] Quel livre vous a le plus marqué ?
 
-[turn:Le film dont je vous parle, que j'ai vu hier, m'a profondément marqué.]
+[turn:Le livre dont je vous ai parlé m'a profondément marqué.]
 
-[warmly] Maintenant, posez-moi la question.
+[calmly] Vous l'avez fini ?
 
-[turn:Et vous, quel film vous a marqué ?]
+[turn:Le livre, que j'ai enfin terminé, m'a profondément marqué.]
 
-[calmly] Moi, c'est un film dont l'histoire m'a bouleversée.
+[calmly] Et au cinéma, quelque chose vous a ému ?
 
-[calmly] Et un livre ?
+[turn:Le film dont tout le monde parle, que j'ai vu hier, m'a ému.]
 
-[turn:Le livre dont tout le monde parle, que j'ai enfin lu, m'a ému.]
+[calmly] Vous les recommanderiez ?
 
-[warmly] Maintenant, posez-moi la question.
+[turn:Sans hésiter. Et vous, qu'est-ce qui vous a marqué ?]
 
-[turn:Et vous, quel livre avez-vous aimé ?]
-
-[calmly] Moi, le roman que j'ai lu cet été m'a captivée.
+[calmly] Pour moi, c'est un roman russe.
 
 [warmly] Très bien. C'est la fin de la leçon. Bravo.

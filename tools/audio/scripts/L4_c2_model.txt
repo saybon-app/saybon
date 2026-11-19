@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Avec un ami cultivé, vous parlez d'un roman que vous venez de lire.
+
+[pause]
+
+[calmly] Quel est le ton du narrateur ?
+
+[short pause]
+
+[as:Roger] [calmly] Le narrateur adopte un ton ironique.
+
+[short pause]
+
+[calmly] Et que dénonce l'auteur ?
+
+[short pause]
+
+[as:Roger] [calmly] L'auteur y dénonce l'hypocrisie sociale.
+
+[short pause]
+
+[calmly] Et cette image de la mer ?
+
+[short pause]
+
+[as:Roger] [calmly] Cette métaphore éclaire le sens du passage.
+
+[short pause]
+
+[calmly] Et la fin, qu'en penses-tu ?
+
+[short pause]
+
+[as:Roger] [calmly] Le dénouement bouleverse notre lecture du récit. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'ai pleuré.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

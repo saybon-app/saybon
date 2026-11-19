@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
+[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
 
 [short pause]
 
-[calmly] Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
+[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
 
 [repeat]
 
-[calmly] Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
+[calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
 
 [repeat]
 

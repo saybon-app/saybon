@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Comment présentez-vous des excuses à un client ?
+[calmly] Et pour finir un courriel ?
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Je vous prie de bien vouloir excuser ce retard. Et vous, comment vous excuseriez-vous auprès d'un ami ?
+[calmly] Il va sans dire que je reste à votre disposition.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Je vous prie de bien vouloir excuser ce retard. Et vous, comment vous excuseriez-vous auprès d'un ami ?
+[calmly] Il va sans dire que je reste à votre disposition.
 
 [repeat]
 
-[calmly] Je vous prie de bien vouloir excuser ce retard. Et vous, comment vous excuseriez-vous auprès d'un ami ?
+[calmly] Il va sans dire que je reste à votre disposition.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

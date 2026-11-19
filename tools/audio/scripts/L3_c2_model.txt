@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous écrivez à votre directeur, avec courtoisie, mais sans détour.
+
+[pause]
+
+[calmly] Comment concluez-vous votre lettre ?
+
+[short pause]
+
+[as:Roger] [calmly] Veuillez agréer mes salutations distinguées.
+
+[short pause]
+
+[calmly] Et si vous attendez une réponse ?
+
+[short pause]
+
+[as:Roger] [calmly] Je vous serais reconnaissant de bien vouloir me répondre.
+
+[short pause]
+
+[calmly] Que pensez-vous du projet ?
+
+[short pause]
+
+[as:Roger] [calmly] Soyons francs : ce projet manque d'ambition.
+
+[short pause]
+
+[calmly] Mais le conseil l'a validé.
+
+[short pause]
+
+[as:Roger] [calmly] Avec tout le respect que je vous dois, je ne suis pas de votre avis.
+
+[short pause]
+
+[calmly] J'apprécie votre franchise.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

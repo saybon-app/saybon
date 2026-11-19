@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il faut que nous finissions ce travail.
+[calmly] Je veux que tu viennes tôt. D'accord ?
 
 [short pause]
 
-[calmly] Il faut que nous finissions ce travail.
+[calmly] Je veux que tu viennes tôt. D'accord ?
 
 [repeat]
 
-[calmly] Il faut que nous finissions ce travail.
+[calmly] Je veux que tu viennes tôt. D'accord ?
 
 [repeat]
 

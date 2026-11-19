@@ -2,15 +2,15 @@
 
 [short pause]
 
-[calmly] Il se peut que ce soit vrai.
+[calmly] Il se peut que ce soit vrai. Et vous ?
 
 [short pause]
 
-[calmly] Il se peut que ce soit vrai.
+[calmly] Il se peut que ce soit vrai. Et vous ?
 
 [repeat]
 
-[calmly] Il se peut que ce soit vrai.
+[calmly] Il se peut que ce soit vrai. Et vous ?
 
 [repeat]
 

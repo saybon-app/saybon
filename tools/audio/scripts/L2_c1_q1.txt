@@ -1,16 +1,16 @@
-[warmly] Maintenant, une conversation. Écoutez.
+[warmly] Maintenant, un moment de la conversation. Écoutez.
 
 [short pause]
 
-[calmly] Parlez-moi d'une habitude difficile, avec « bien que ».
+[calmly] Mais ça fait trois jours que j'attends !
 
 [short pause]
 
-[warmly] Vous répondez, puis vous me posez la question.
+[warmly] Vous répondez ainsi.
 
 [short pause]
 
-[calmly] Bien que je sois occupé, je lis chaque soir. Et vous, qu'en est-il ?
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [short pause]
 
@@ -18,12 +18,12 @@
 
 [short pause]
 
-[calmly] Bien que je sois occupé, je lis chaque soir. Et vous, qu'en est-il ?
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [repeat]
 
-[calmly] Bien que je sois occupé, je lis chaque soir. Et vous, qu'en est-il ?
+[calmly] Bien que le retard soit regrettable, nous allons le résoudre.
 
 [repeat]
 
-[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

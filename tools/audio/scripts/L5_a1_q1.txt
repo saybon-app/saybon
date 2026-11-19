@@ -1,24 +1,24 @@
-[warmly] Now, a conversation. Listen.
+[warmly] Now, a piece of the conversation. Listen.
 
 [short pause]
 
-[calmly] Qu'est-ce que vous désirez ?
+[calmly] Nous avons du café, du thé et du jus.
 
 [short pause]
 
-[warmly] It means, What would you like?
+[warmly] It means, We have coffee, tea and juice.
 
 [short pause]
 
-[warmly] You answer, and then you ask me back.
+[warmly] You answer like this.
 
 [short pause]
 
-[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [short pause]
 
-[warmly] It means, I would like a tea, please. And you, what are you having?
+[warmly] It means, I would like a coffee, please.
 
 [short pause]
 
@@ -26,12 +26,12 @@
 
 [short pause]
 
-[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [repeat]
 
-[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+[calmly] Je voudrais un café, s'il vous plaît.
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
+[warmly] Now it's time to record. Tap the microphone, and answer me.
