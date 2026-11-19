@@ -29,12 +29,7 @@ scene-paris/scene-ui.js: getUserMedia=true MediaRecorder=true assessPronunciatio
   7 fixed audio paths, 0 problems
 
 == 3b. Tout Public lessons 1-3 and Les Petits audio (built from names)
-  MISSING: /assets/audio/A0_TP_L1_dlg_Bonjour.mp3  (Tout Public dialogue question)
-  MISSING: /assets/audio/A0_TP_L1_dlg_Salut.mp3  (Tout Public dialogue question)
-  MISSING: /assets/audio/A0_TP_L1_dlg_Bonsoir.mp3  (Tout Public dialogue question)
-  MISSING: /assets/audio/A0_TP_L1_dlg_Au revoir.mp3  (Tout Public dialogue question)
-  MISSING: /assets/audio/A0_TP_L1_dlg_À bientôt.mp3  (Tout Public dialogue question)
-  16 of 21 present
+  16 of 16 present
 
 == 4. Built lessons (A1-C2 and Tout Public): intro, steps, dialogue and its answer windows
   A1-1: all 8 audio files + windows ok
@@ -51,51 +46,62 @@ scene-paris/scene-ui.js: getUserMedia=true MediaRecorder=true assessPronunciatio
   C2-2: all 8 audio files + windows ok
 
 == 5. Live lessons from the server (assets per lesson) and their audio
-server reachable: 404
-  a0-les-petits lesson 1: 13 assets, 0 with audio
-  a0-les-petits lesson 2: 13 assets, 0 with audio
-  a0-les-petits lesson 3: 14 assets, 0 with audio
-  a0-les-petits lesson 4: 16 assets, 0 with audio
-  a0-les-petits lesson 5: 14 assets, 0 with audio
-  a0-tout-public lesson 1: 14 assets, 0 with audio
-  a0-tout-public lesson 2: 15 assets, 0 with audio
-  a0-tout-public lesson 3: 15 assets, 0 with audio
-  a0-tout-public lesson 4: 15 assets, 0 with audio
-  a0-tout-public lesson 5: 15 assets, 0 with audio
+server answers: 200
+  a0-les-petits lesson 1: 13 assets, 0 audio links ok
+  a0-les-petits lesson 2: 13 assets, 0 audio links ok
+  a0-les-petits lesson 3: 14 assets, 0 audio links ok
+  a0-les-petits lesson 4: 16 assets, 0 audio links ok
+  a0-les-petits lesson 5: 14 assets, 0 audio links ok
+  a0-tout-public lesson 1: 14 assets, 0 audio links ok
+  a0-tout-public lesson 2: 15 assets, 0 audio links ok
+  a0-tout-public lesson 3: 15 assets, 0 audio links ok
+  a0-tout-public lesson 4: 15 assets, 0 audio links ok
+  a0-tout-public lesson 5: 15 assets, 0 audio links ok
   (shape of one asset: id, level, lesson, part, type, name, partTitle, transitionMode, url, imageUrl, content, recordPrompt, expectedText, size, created; types: text)
-  a1 lesson 1: 14 assets, 0 with audio
-  a1 lesson 2: 14 assets, 0 with audio
-  a1 lesson 3: 14 assets, 0 with audio
-  a1 lesson 4: 14 assets, 0 with audio
-  a1 lesson 5: 14 assets, 0 with audio
-  a2 lesson 1: 14 assets, 0 with audio
-  a2 lesson 2: 14 assets, 0 with audio
-  a2 lesson 3: 14 assets, 0 with audio
-  a2 lesson 4: 14 assets, 0 with audio
-  a2 lesson 5: 14 assets, 0 with audio
-  b1 lesson 1: 14 assets, 0 with audio
-  b1 lesson 2: 14 assets, 0 with audio
-  b1 lesson 3: 14 assets, 0 with audio
-  b1 lesson 4: 14 assets, 0 with audio
-  b1 lesson 5: 14 assets, 0 with audio
-  b2 lesson 1: 14 assets, 0 with audio
-  b2 lesson 2: 14 assets, 0 with audio
-  b2 lesson 3: 14 assets, 0 with audio
-  b2 lesson 4: 14 assets, 0 with audio
-  b2 lesson 5: 14 assets, 0 with audio
-  c1 lesson 1: 14 assets, 0 with audio
-  c1 lesson 2: 14 assets, 0 with audio
-  c1 lesson 3: 14 assets, 0 with audio
-  c1 lesson 4: 14 assets, 0 with audio
-  c1 lesson 5: 14 assets, 0 with audio
-  c2 lesson 1: 0 assets, 0 with audio
-  c2 lesson 2: 0 assets, 0 with audio
-  c2 lesson 3: 0 assets, 0 with audio
-  c2 lesson 4: 0 assets, 0 with audio
-  c2 lesson 5: 0 assets, 0 with audio
+  a1 lesson 1: 14 assets, 0 audio links ok
+  a1 lesson 2: 14 assets, 0 audio links ok
+  a1 lesson 3: 14 assets, 0 audio links ok
+  a1 lesson 4: 14 assets, 0 audio links ok
+  a1 lesson 5: 14 assets, 0 audio links ok
+  a2 lesson 1: 14 assets, 0 audio links ok
+  a2 lesson 2: 14 assets, 0 audio links ok
+  a2 lesson 3: 14 assets, 0 audio links ok
+  a2 lesson 4: 14 assets, 0 audio links ok
+  a2 lesson 5: 14 assets, 0 audio links ok
+  b1 lesson 1: 14 assets, 0 audio links ok
+  b1 lesson 2: 14 assets, 0 audio links ok
+  b1 lesson 3: 14 assets, 0 audio links ok
+  b1 lesson 4: 14 assets, 0 audio links ok
+  b1 lesson 5: 14 assets, 0 audio links ok
+  b2 lesson 1: 14 assets, 0 audio links ok
+  b2 lesson 2: 14 assets, 0 audio links ok
+  b2 lesson 3: 14 assets, 0 audio links ok
+  b2 lesson 4: 14 assets, 0 audio links ok
+  b2 lesson 5: 14 assets, 0 audio links ok
+  c1 lesson 1: 14 assets, 0 audio links ok
+  c1 lesson 2: 14 assets, 0 audio links ok
+  c1 lesson 3: 14 assets, 0 audio links ok
+  c1 lesson 4: 14 assets, 0 audio links ok
+  c1 lesson 5: 14 assets, 0 audio links ok
+  c2 lesson 1: 0 assets, 0 audio links ok
+  c2 lesson 2: 0 assets, 0 audio links ok
+  c2 lesson 3: 0 assets, 0 audio links ok
+  c2 lesson 4: 0 assets, 0 audio links ok
+  c2 lesson 5: 0 assets, 0 audio links ok
 
-== 6. Built audio on the live site
-  A0_TP_L1_intro.mp3: 200
-  A0_TP_L1_dialogue.mp3: 200
-  A0_TP_L2_dialogue.mp3: 200
-  A0_TP_L3_dialogue.mp3: 200
+== 6. Live site: pages and every built audio file
+  /: 200
+  /levels/: 200
+  /levels/A1/: 200
+  /levels/A1/lesson1.html: 200
+  /levels/A1/lesson2.html: 200
+  /levels/A2/lesson1.html: 200
+  /levels/B1/lesson1.html: 200
+  /levels/B2/lesson1.html: 200
+  /levels/C1/lesson1.html: 200
+  /levels/C2/lesson1.html: 200
+  /levels/lesson-engine-tp.js: 200
+  /levels/scene-paris/scene-ui.js: 200
+  built lesson audio live: 108 of 108
+
+RESULT: all good

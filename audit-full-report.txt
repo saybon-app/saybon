@@ -1,0 +1,273 @@
+SAYBON FULL AUDIT  2026-11-19T18:39:13.687Z
+HIGH: 25   MEDIUM: 28   LOW: 22
+
+== HIGH (broken now or unsafe)
+  1. JavaScript will not run: public/js/request.js (SyntaxError: Unexpected token '<')
+  2. JavaScript will not run: _LIVE_FILE_READS/placement_20260421_222258/public__placement__placement.js (SyntaxError: Unexpected end of input)
+  3. invalid JSON: LEDGER/SayBon_File_Ledger.json
+  4. invalid JSON: public/manifest.json
+  5. features/delf/start-test.html refers to a file that is not there: tests/junior.html
+  6. features/delf/start-test.html refers to a file that is not there: tests/adult.html
+  7. features/delf/test.html refers to a file that is not there: tests/junior.html
+  8. features/delf/test.html refers to a file that is not there: tests/adult.html
+  9. features/delf/tests/prim.html refers to a file that is not there: /assets/sounds/prim-test-1.mp3
+  10. features/delf/tests/prim.html refers to a file that is not there: /assets/sounds/prim-test-2.mp3
+  11. features/delf/tests/prim.html refers to a file that is not there: /assets/sounds/prim-test-3.mp3
+  12. translators.html refers to a file that is not there: /translator-test.html
+  13. features/delf/tests/prim.html names a file that is not in the project: /assets/sounds/prim-test-1.mp3
+  14. features/delf/tests/prim.html names a file that is not in the project: /assets/sounds/prim-test-2.mp3
+  15. features/delf/tests/prim.html names a file that is not in the project: /assets/sounds/prim-test-3.mp3
+  16. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/auth/login.js line 11
+  17. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/features/admin/auth/admin-auth.js line 9
+  18. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/features/delf/test-engine.js line 15
+  19. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/js/firebase-init.js line 6
+  20. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/js/firebase.js line 5
+  21. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/music/admin.html line 223
+  22. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/talkletics/admin-map.html line 132
+  23. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/translation/admin.html line 233
+  24. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/translation/translator-profile.html line 152
+  25. Google API key (normal inside a web app's Firebase config, but check restrictions) in public/translation/translator-register.html line 225
+
+== MEDIUM (will cause trouble)
+  1. no mobile viewport tag: public/admin/jobs.html
+  2. no mobile viewport tag: public/admin/translation-admin.html
+  3. no mobile viewport tag: public/admin/unlock.html
+  4. no mobile viewport tag: public/features/admin/financials/expenses/add-expense.html
+  5. no mobile viewport tag: public/features/chat/index.html
+  6. no mobile viewport tag: public/features/delf/exams/junior/index.html
+  7. no mobile viewport tag: public/features/delf/exams/junior/lessons.html
+  8. no mobile viewport tag: public/features/delf/exams/junior/pay.html
+  9. no mobile viewport tag: public/features/delf/exams/prim/index.html
+  10. no mobile viewport tag: public/features/delf/exams/prim/lessons.html
+  11. no mobile viewport tag: public/features/delf/exams/prim/pay.html
+  12. no mobile viewport tag: public/features/delf/exams/tout-public/index.html
+  13. no mobile viewport tag: public/features/delf/exams/tout-public/lessons.html
+  14. no mobile viewport tag: public/features/delf/exams/tout-public/pay.html
+  15. no mobile viewport tag: public/features/delf/index.html
+  16. no mobile viewport tag: public/features/delf/levels/index.html
+  17. no mobile viewport tag: public/features/partner/index.html
+  18. no mobile viewport tag: public/features/support/partner.html
+  19. no mobile viewport tag: public/features/talkletics/index.html
+  20. no mobile viewport tag: public/features/translation/index.html
+  21. no mobile viewport tag: public/onboarding/find-level.html
+  22. no mobile viewport tag: public/onboarding/why.html
+  23. no mobile viewport tag: public/translation/translation-desk.html
+  24. no mobile viewport tag: public/translation/translator-dashboard.html
+  25. no mobile viewport tag: public/translation/translator-login.html
+  26. placement.css loaded with different versions: 202611021304, 20260813b
+  27. placement.js loaded with different versions: 202611021304, 20260813b
+  28. theme.css loaded with different versions: 1, 9
+
+== LOW (tidy up)
+  1. no <title>: public/admin/unlock.html
+  2. no <title>: public/features/admin/financials/expenses/add-expense.html
+  3. no <title>: public/features/chat/index.html
+  4. no <title>: public/features/delf/exams/junior/index.html
+  5. no <title>: public/features/delf/exams/junior/lessons.html
+  6. no <title>: public/features/delf/exams/junior/pay.html
+  7. no <title>: public/features/delf/exams/prim/index.html
+  8. no <title>: public/features/delf/exams/prim/lessons.html
+  9. no <title>: public/features/delf/exams/prim/pay.html
+  10. no <title>: public/features/delf/exams/tout-public/index.html
+  11. no <title>: public/features/delf/exams/tout-public/lessons.html
+  12. no <title>: public/features/delf/exams/tout-public/pay.html
+  13. no <title>: public/features/delf/index.html
+  14. no <title>: public/features/delf/levels/index.html
+  15. no <title>: public/features/support/partner.html
+  16. no <title>: public/features/talkletics/index.html
+  17. no <title>: public/features/translation/index.html
+  18. no <title>: public/onboarding/find-level.html
+  19. no <title>: public/onboarding/why.html
+  20. no <title>: public/translation/translator-login.html
+  21. 2 images over 800 KB slow the site down on phones
+  22. 14 uncommitted changes in C:\SayBon
+
+
+################ PROJECT: C:\SayBon
+1319 files, 186.0 MB (node_modules, .git and the audio cache are skipped)
+
+== A. Folders (files / size)
+  public: 1089 files, 180.1 MB
+  dumps: 11 files, 3.4 MB
+  tools: 136 files, 1.0 MB
+  backend: 13 files, 165 KB
+  package-lock.json: 1 files, 145 KB
+  server.js: 1 files, 135 KB
+  server.js.before-v3: 1 files, 131 KB
+  server.js.before-forgiving: 1 files, 131 KB
+  server.js.before-azure: 1 files, 130 KB
+  server.js.before-hooks: 1 files, 130 KB
+  server.js.before-delf-mocks: 1 files, 130 KB
+  functions: 3 files, 108 KB
+  docs: 3 files, 56 KB
+  _LIVE_FILE_READS: 3 files, 49 KB
+  APP_INVENTORY: 10 files, 29 KB
+  audit-full-report.txt: 1 files, 17 KB
+  delf-journey-routes.js: 1 files, 14 KB
+  delf-rubrics.js: 1 files, 10 KB
+  delf-payment-routes.js: 1 files, 10 KB
+  delf-grading-routes.js: 1 files, 10 KB
+  activity-routes.js: 1 files, 9 KB
+  delf-mock-routes.js: 1 files, 8 KB
+  talkletics-api.js: 1 files, 8 KB
+  placement-clip-routes.js: 1 files, 7 KB
+  audit-report.txt: 1 files, 7 KB
+
+== A2. Largest files
+  5.8 MB  public/assets/sounds/music/2.mp3
+  5.4 MB  public/assets/sounds/music/7.mp3
+  4.7 MB  public/assets/sounds/music/1.mp3
+  4.5 MB  public/assets/sounds/music/5.mp3
+  4.5 MB  public/assets/sounds/music/3.mp3
+  4.4 MB  public/assets/sounds/music/6.mp3
+  4.0 MB  public/assets/sounds/music/11.mp3
+  3.8 MB  public/assets/sounds/music/8.mp3
+  3.8 MB  public/assets/sounds/music/4.mp3
+  3.7 MB  public/assets/sounds/app-wide-bg-music.mp3
+  3.6 MB  public/assets/home/JULY 2026 TEAM REPORT.pptx
+  3.6 MB  public/assets/sounds/music/aimez-moi.mp3
+  3.6 MB  public/assets/sounds/music/12.mp3
+  3.4 MB  public/assets/audio/lesson-jazz.mp3
+  3.4 MB  public/assets/sounds/lesson-jazz.mp3
+  2.2 MB  public/assets/sounds/music/10.mp3
+  2.0 MB  public/assets/images/delf-mobile.png
+  2.0 MB  public/assets/images/delf-desktop.png
+  1.6 MB  public/assets/sounds/music/9.mp3
+  1.6 MB  public/features/delf/audio/delf-intro.mp3
+
+== B. JavaScript syntax
+  BAD: public/js/request.js  SyntaxError: Unexpected token '<'
+  BAD: _LIVE_FILE_READS/placement_20260421_222258/public__placement__placement.js  SyntaxError: Unexpected end of input
+  164 scripts checked, 2 broken
+
+== C. JSON files
+  BAD: LEDGER/SayBon_File_Ledger.json Unexpected non-whitespace character after JSON at position 5 (line 4 column 1)
+  BAD: public/manifest.json Unexpected end of JSON input
+  65 files checked
+
+== D. Pages: 375 html files in public
+  MISSING: tests/junior.html   (in features/delf/start-test.html)
+  MISSING: tests/adult.html   (in features/delf/start-test.html)
+  MISSING: tests/junior.html   (in features/delf/test.html)
+  MISSING: tests/adult.html   (in features/delf/test.html)
+  MISSING: /assets/sounds/prim-test-1.mp3   (in features/delf/tests/prim.html)
+  MISSING: /assets/sounds/prim-test-2.mp3   (in features/delf/tests/prim.html)
+  MISSING: /assets/sounds/prim-test-3.mp3   (in features/delf/tests/prim.html)
+  MISSING: /translator-test.html   (in translators.html)
+  8 broken references
+
+== D2. Script/style versions that differ between pages (stale cache risk)
+  placement.css: v=202611021304 (1 pages) | v=20260813b (2 pages)
+  placement.js: v=202611021304 (1 pages) | v=20260813b (1 pages)
+  theme.css: v=1 (208 pages) | v=9 (1 pages)
+
+== E. Assets named inside scripts/pages/data
+  MISSING: /assets/sounds/prim-test-1.mp3  (named in features/delf/tests/prim.html)
+  MISSING: /assets/sounds/prim-test-2.mp3  (named in features/delf/tests/prim.html)
+  MISSING: /assets/sounds/prim-test-3.mp3  (named in features/delf/tests/prim.html)
+  131 distinct asset paths checked, 3 missing
+
+== F. Large media (over 1 MB) never named in any page or script: 18 of 26 (they may be built from patterns, so check before deleting)
+  5.4 MB  assets/sounds/music/7.mp3
+  4.5 MB  assets/sounds/music/5.mp3
+  4.0 MB  assets/sounds/music/11.mp3
+  3.8 MB  assets/sounds/music/8.mp3
+  3.8 MB  assets/sounds/music/4.mp3
+  3.7 MB  assets/sounds/app-wide-bg-music.mp3
+  3.6 MB  assets/sounds/music/aimez-moi.mp3
+  3.6 MB  assets/sounds/music/12.mp3
+  2.2 MB  assets/sounds/music/10.mp3
+  2.0 MB  assets/images/delf-mobile.png
+  2.0 MB  assets/images/delf-desktop.png
+  1.6 MB  features/delf/audio/delf-intro.mp3
+  1.1 MB  assets/audio/lessons/L1_a1.mp3
+  1.1 MB  assets/audio/lp/lesson1_drill_bonjour.mp3
+  1.1 MB  assets/audio/lp/drill_bonjour.mp3
+  1.1 MB  assets/audio/lp/lesson1_drill_aurevoir.mp3
+  1.0 MB  assets/audio/lp/drill_aurevoir.mp3
+  1.0 MB  assets/audio/lessons/L1_b1_dlg.mp3
+
+  Images over 800 KB (slow on mobile data): 2
+   2.0 MB  assets/images/delf-desktop.png
+   2.0 MB  assets/images/delf-mobile.png
+
+== G. Library / readers: 3 pages
+  library: 3 pages
+
+== H. Firebase configuration
+  hosting folder: public
+  headers: ** -> X-Frame-Options:SAMEORIGIN;X-Content-Type-Options:nosniff;Referrer-Policy:strict-origin-when-cross-origin;Permissions-Policy:geolocation=(self), microphone=(self), camera=() | **/*.@(html|js|css) -> Cache-Control:no-cache
+  rewrites: none
+  functions: yes   firestore rules: yes
+
+== I. Possible secrets left in files (values hidden)
+  public/auth/login.js:11  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/features/admin/auth/admin-auth.js:9  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/features/delf/test-engine.js:15  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/js/firebase-init.js:6  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/js/firebase.js:5  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/music/admin.html:223  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/talkletics/admin-map.html:132  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/translation/admin.html:233  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/translation/translator-profile.html:152  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  public/translation/translator-register.html:225  Google API key (normal inside a web app's Firebase config, but check restrictions)
+  10 findings
+
+== J. Git state
+  uncommitted changes: 14
+   M audit-report.txt
+    M firebase.json
+    M public/levels/A0/les-petits/lesson-1.html
+    M public/levels/A0/tout-public/lesson-1.html
+    M public/levels/A1/lesson-1.html
+    M public/levels/A2/lesson-1.html
+    M public/levels/B1/lesson-1.html
+    M public/levels/B2/lesson-1.html
+    M public/levels/C1/lesson-1.html
+    M public/levels/C2/lesson-1.html
+   ?? audit-full-report.txt
+   ?? firebase.json.bakD
+   ?? tools/apply-audit-fixes.mjs
+   ?? tools/audit-full.mjs
+  last commits:
+   bdb41dbb Scheduled health check with email alerts
+   3a41069c Restore Tout Public lesson 3; A1-C2 lessons 1-2 back-and-forth system
+   c3d8260b A1-C2 lessons 1-2: Tout Public flow, back-and-forth, intro promise
+   c676c83e A1-C2 lesson 2 (back-and-forth system) + audit tool
+   092c0549 A1-C2 lesson 1: back-and-forth practice steps, shorter gaps
+
+== K. Packages
+  backend/functions/package.json: 5 dependencies, node engine 18
+  backend/package.json: 4 dependencies, node engine unspecified
+  functions/package.json: 3 dependencies, node engine 20
+  package.json: 10 dependencies, node engine 20
+  tools/audio/package.json: 1 dependencies, node engine unspecified
+
+################ LIVE SITE
+  375 pages checked on the live site, 0 not loading
+  home page headers: cache-control=max-age=3600 | content-security-policy=no | strict-transport-security=yes | x-content-type-options=nosniff
+  scene-ui.js cache-control: max-age=3600
+  server lesson request: 200
+  server response time: 386 ms
+
+################ LESSON AUDIO AND RECORDERS (the lesson audit)
+== 1. Lesson pages and engines
+== 2. Recorder wiring in the scripts
+== 3. Audio files named in the scripts (static)
+== 3b. Tout Public lessons 1-3 and Les Petits audio (built from names)
+== 4. Built lessons (A1-C2 and Tout Public): intro, steps, dialogue and its answer windows
+  A1-1: all 8 audio files + windows ok
+  A2-1: all 8 audio files + windows ok
+  B1-1: all 8 audio files + windows ok
+  B2-1: all 8 audio files + windows ok
+  C1-1: all 8 audio files + windows ok
+  C2-1: all 8 audio files + windows ok
+  A1-2: all 8 audio files + windows ok
+  A2-2: all 8 audio files + windows ok
+  B1-2: all 8 audio files + windows ok
+  B2-2: all 8 audio files + windows ok
+  C1-2: all 8 audio files + windows ok
+  C2-2: all 8 audio files + windows ok
+== 5. Live lessons from the server (assets per lesson) and their audio
+== 6. Live site: pages and every built audio file
+RESULT: all good
