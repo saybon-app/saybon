@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Qu'est-ce que tu feras dans cinq ans ?
+
+[turn:Dans cinq ans, j'habiterai à l'étranger.]
+
+[calmly] Tu travailleras dans quoi ?
+
+[turn:Je travaillerai dans l'éducation, je l'espère.]
+
+[calmly] Et si tu avais plus d'argent ?
+
+[turn:Si j'avais plus d'argent, j'ouvrirais une école.]
+
+[calmly] Tu aimerais vivre où ?
+
+[turn:J'aimerais vivre au bord de la mer. Et toi ?]
+
+[calmly] Moi, j'irai là où il y a du soleil.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

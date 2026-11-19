@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Non, c'est à gauche, après la banque.
+
+[short pause]
+
+[warmly] It means, No, it's on the left, after the bank.
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Très bien, merci. Bonne journée !
+
+[short pause]
+
+[warmly] It means, Very good, thank you. Have a good day!
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Très bien, merci. Bonne journée !
+
+[repeat]
+
+[calmly] Très bien, merci. Bonne journée !
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

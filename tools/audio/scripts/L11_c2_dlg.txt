@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Que s'est-il passé avec le train ?
+
+[turn:Grand-mère, mon train a eu du retard, mais ne t'inquiète pas.]
+
+[calmly] Et à votre directeur, que dites-vous ?
+
+[turn:Monsieur le directeur, un retard ferroviaire m'a empêché d'arriver à l'heure.]
+
+[calmly] Et à un ami ?
+
+[turn:Mec, mon train est resté bloqué, j'ai cru que j'allais devenir fou.]
+
+[calmly] Le fond est le même, la forme change.
+
+[turn:Précisément : la situation est identique, c'est le registre qui s'adapte à l'interlocuteur.]
+
+[calmly] Très juste.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

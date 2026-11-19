@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You are at the doctor's. You explain what is wrong.
+
+[pause]
+
+[calmly] Bonjour. Qu'est-ce qui vous arrive ?
+
+[short pause]
+
+[as:Roger] [calmly] Depuis trois jours, j'ai mal à la gorge.
+
+[short pause]
+
+[calmly] Vous avez de la fièvre ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, hier soir, j'avais trente-neuf de fièvre.
+
+[short pause]
+
+[calmly] Vous avez pris quelque chose ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai pris du paracétamol, mais ça ne passe pas.
+
+[short pause]
+
+[calmly] Je vais vous prescrire un médicament.
+
+[short pause]
+
+[as:Roger] [calmly] Merci. Je dois rester au lit ?
+
+[short pause]
+
+[calmly] Oui, reposez-vous deux jours.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

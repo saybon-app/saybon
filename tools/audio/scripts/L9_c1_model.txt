@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous expliquez une situation compliquée à un avocat.
+
+[pause]
+
+[calmly] Pouvez-vous m'expliquer la situation ?
+
+[short pause]
+
+[as:Roger] [calmly] Il s'agit d'un contrat dont les clauses n'ont jamais été respectées.
+
+[short pause]
+
+[calmly] Qui est concerné ?
+
+[short pause]
+
+[as:Roger] [calmly] L'entreprise avec laquelle nous avions signé, et dont le directeur a démissionné.
+
+[short pause]
+
+[calmly] Qu'attendez-vous de moi ?
+
+[short pause]
+
+[as:Roger] [calmly] Ce que j'attends, c'est que vous évaluiez nos chances de recours.
+
+[short pause]
+
+[calmly] Avez-vous des documents ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, les courriels auxquels je me réfère sont dans ce dossier. Cela suffira-t-il ?
+
+[short pause]
+
+[calmly] Je vais les étudier.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

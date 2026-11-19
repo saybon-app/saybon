@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pourquoi le projet a-t-il du retard ?
+
+[turn:À cause d'un problème technique, nous avons perdu une semaine.]
+
+[calmly] Et quelles ont été les conséquences ?
+
+[turn:Par conséquent, le client a reporté la livraison.]
+
+[calmly] Comment cela s'est-il produit ?
+
+[turn:Comme le serveur est tombé en panne, tout s'est arrêté.]
+
+[calmly] Et maintenant ?
+
+[turn:Grâce à l'équipe, nous avons rattrapé le temps perdu. Et vous ?]
+
+[calmly] Moi, j'attends la validation.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

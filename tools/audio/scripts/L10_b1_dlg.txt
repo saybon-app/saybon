@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Comment tu fais ton gâteau au chocolat ?
+
+[turn:D'abord, tu fais fondre le chocolat avec le beurre.]
+
+[calmly] Et après ?
+
+[turn:Ensuite, tu ajoutes les œufs et le sucre.]
+
+[calmly] Et la farine ?
+
+[turn:Puis tu mélanges bien, sans faire de grumeaux.]
+
+[calmly] Combien de temps au four ?
+
+[turn:Tu le laisses cuire vingt minutes, et c'est prêt !]
+
+[calmly] Super, je teste ce soir !
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

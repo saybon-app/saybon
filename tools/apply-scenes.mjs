@@ -16,7 +16,7 @@ ui = ui.replace(m[0], () => "var UCFG=" + JSON.stringify(cfg) + ";\nfunction U()
 ui = ui.replace(/(U\(\)\.(?:dlg|intro)\+'\.mp3\?v=)\d+/g, "$13").replace(/(U\(\)\.steps\[L1i\]\.a\+'\.mp3\?v=)\d+/g, "$13").replace(/(c\.dlg\+'\.json\?v=)\d+/g, "$13");
 fs.writeFileSync(uiF, ui);
 let en = fs.readFileSync(enF, "utf8");
-en = en.replace(/LESSON <= \d && \/\^\(a1\|a2\|b1\|b2\|c1\|c2\)\$\//, "LESSON <= 5 && /^(a1|a2|b1|b2|c1|c2)$/");
+en = en.replace(/LESSON <= (\d+) && \/\^\(a1\|a2\|b1\|b2\|c1\|c2\)\$\//, (m, d) => (+d >= 5 ? m : "LESSON <= 5 && /^(a1|a2|b1|b2|c1|c2)$/"));
 fs.writeFileSync(enF, en.replace(/scene-ui\.js\?v=(\d+)/, (x, v) => "scene-ui.js?v=" + (+v + 1)));
 let n = 0, made = 0;
 for (const lv of ["A1","A2","B1","B2","C1","C2"]) { const d = path.join(base, lv); if (!fs.existsSync(d)) continue;

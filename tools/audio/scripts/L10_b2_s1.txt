@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] À cause d'un problème technique, nous avons perdu une semaine.
+
+[short pause]
+
+[calmly] À cause d'un problème technique, nous avons perdu une semaine.
+
+[repeat]
+
+[calmly] À cause d'un problème technique, nous avons perdu une semaine.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

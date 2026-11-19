@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous y êtes restés longtemps ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Nous y sommes restés une semaine, et il faisait très chaud.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Nous y sommes restés une semaine, et il faisait très chaud.
+
+[repeat]
+
+[calmly] Nous y sommes restés une semaine, et il faisait très chaud.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

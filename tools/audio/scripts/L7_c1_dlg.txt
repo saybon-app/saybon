@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Je pense que nous devrions annuler le projet.
+
+[turn:Je comprends votre inquiétude, mais permettez-moi de n'être pas tout à fait de cet avis.]
+
+[calmly] Sur quoi vous fondez-vous ?
+
+[turn:Sur le fait que les premiers résultats sont plutôt encourageants.]
+
+[calmly] Ils restent insuffisants.
+
+[turn:Sans doute, mais il serait prématuré de conclure à l'échec.]
+
+[calmly] Alors, que suggérez-vous ?
+
+[turn:Je suggérerais de nous accorder trois mois supplémentaires. Qu'en pensez-vous ?]
+
+[calmly] Je peux l'envisager.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

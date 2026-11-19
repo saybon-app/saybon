@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous présentez votre projet devant un comité.
+
+[pause]
+
+[calmly] Nous vous écoutons. Quel est votre projet ?
+
+[short pause]
+
+[as:Roger] [calmly] Notre projet consiste à créer une application d'apprentissage du français.
+
+[short pause]
+
+[calmly] À qui s'adresse-t-elle ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle s'adresse aux adultes qui veulent parler avec confiance.
+
+[short pause]
+
+[calmly] Quel est son avantage ?
+
+[short pause]
+
+[as:Roger] [calmly] Son principal atout est qu'on s'entraîne à parler dès la première leçon.
+
+[short pause]
+
+[calmly] Et le calendrier ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous prévoyons un lancement dans six mois. Avez-vous des questions ?
+
+[short pause]
+
+[calmly] Oui, quelques-unes.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

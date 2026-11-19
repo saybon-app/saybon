@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You call a hairdresser to make an appointment.
+
+[pause]
+
+[calmly] Salon Marie, bonjour !
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour. Je voudrais un rendez-vous, s'il vous plaît.
+
+[short pause]
+
+[calmly] Bien sûr. Quel jour vous préférez ?
+
+[short pause]
+
+[as:Roger] [calmly] Jeudi, si possible.
+
+[short pause]
+
+[calmly] À quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] À dix heures, s'il vous plaît.
+
+[short pause]
+
+[calmly] Parfait. C'est à quel nom ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est au nom de Lucas. Merci !
+
+[short pause]
+
+[calmly] À jeudi, Monsieur Lucas !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

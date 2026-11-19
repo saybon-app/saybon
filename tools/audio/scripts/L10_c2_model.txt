@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Dans un cercle littéraire, vous défendez un point de vue sur un auteur.
+
+[pause]
+
+[calmly] Selon moi, cet auteur est surévalué.
+
+[short pause]
+
+[as:Roger] [calmly] Permettez-moi de ne pas vous suivre sur ce terrain.
+
+[short pause]
+
+[calmly] Pourtant, son style est pesant.
+
+[short pause]
+
+[as:Roger] [calmly] Pesant, peut-être, mais c'est précisément ce poids qui fait sa singularité.
+
+[short pause]
+
+[calmly] Et ses personnages manquent de profondeur.
+
+[short pause]
+
+[as:Roger] [calmly] Je dirais plutôt qu'ils se dérobent, ce qui est une forme de profondeur.
+
+[short pause]
+
+[calmly] Vous êtes bien indulgent.
+
+[short pause]
+
+[as:Roger] [calmly] Disons que je lis avec lenteur, et que l'on finit par entendre ce que l'on croyait absent.
+
+[short pause]
+
+[calmly] Voilà qui me donne envie de le relire.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

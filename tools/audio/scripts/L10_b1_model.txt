@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous expliquez une recette à un ami.
+
+[pause]
+
+[calmly] Comment tu fais ton gâteau au chocolat ?
+
+[short pause]
+
+[as:Roger] [calmly] D'abord, tu fais fondre le chocolat avec le beurre.
+
+[short pause]
+
+[calmly] Et après ?
+
+[short pause]
+
+[as:Roger] [calmly] Ensuite, tu ajoutes les œufs et le sucre.
+
+[short pause]
+
+[calmly] Et la farine ?
+
+[short pause]
+
+[as:Roger] [calmly] Puis tu mélanges bien, sans faire de grumeaux.
+
+[short pause]
+
+[calmly] Combien de temps au four ?
+
+[short pause]
+
+[as:Roger] [calmly] Tu le laisses cuire vingt minutes, et c'est prêt !
+
+[short pause]
+
+[calmly] Super, je teste ce soir !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

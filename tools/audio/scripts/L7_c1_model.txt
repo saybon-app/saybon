@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. En réunion, vous exprimez votre désaccord avec diplomatie.
+
+[pause]
+
+[calmly] Je pense que nous devrions annuler le projet.
+
+[short pause]
+
+[as:Roger] [calmly] Je comprends votre inquiétude, mais permettez-moi de n'être pas tout à fait de cet avis.
+
+[short pause]
+
+[calmly] Sur quoi vous fondez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Sur le fait que les premiers résultats sont plutôt encourageants.
+
+[short pause]
+
+[calmly] Ils restent insuffisants.
+
+[short pause]
+
+[as:Roger] [calmly] Sans doute, mais il serait prématuré de conclure à l'échec.
+
+[short pause]
+
+[calmly] Alors, que suggérez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suggérerais de nous accorder trois mois supplémentaires. Qu'en pensez-vous ?
+
+[short pause]
+
+[calmly] Je peux l'envisager.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

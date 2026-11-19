@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Tu pars en vacances cet été ?
+
+[turn:Oui, je vais partir en Espagne.]
+
+[calmly] Tu vas voyager comment ?
+
+[turn:Je vais prendre l'avion avec ma sœur.]
+
+[calmly] Vous allez rester combien de temps ?
+
+[turn:Nous allons rester deux semaines.]
+
+[calmly] Et qu'est-ce que vous allez faire ?
+
+[turn:Nous allons visiter Madrid et aller à la plage.]
+
+[calmly] Quelle chance !
+
+[warmly] Très bien. That's the lesson. Well done.

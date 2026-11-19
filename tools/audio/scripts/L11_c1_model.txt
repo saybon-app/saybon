@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous répondez aux questions d'un journaliste.
+
+[pause]
+
+[calmly] Pourquoi avoir lancé ce projet maintenant ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce que le moment était venu de répondre à une attente légitime.
+
+[short pause]
+
+[calmly] Certains vous reprochent un manque de transparence.
+
+[short pause]
+
+[as:Roger] [calmly] Je ne partage pas cette analyse, et je suis prêt à en débattre.
+
+[short pause]
+
+[calmly] Quelles sont vos prochaines étapes ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous allons consolider ce qui fonctionne avant de nous étendre.
+
+[short pause]
+
+[calmly] Et si cela échoue ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous en tirerions les leçons, comme nous l'avons toujours fait. Une autre question ?
+
+[short pause]
+
+[calmly] Une dernière, si vous permettez.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

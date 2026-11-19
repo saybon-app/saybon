@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pourquoi avoir lancé ce projet maintenant ?
+
+[turn:Parce que le moment était venu de répondre à une attente légitime.]
+
+[calmly] Certains vous reprochent un manque de transparence.
+
+[turn:Je ne partage pas cette analyse, et je suis prêt à en débattre.]
+
+[calmly] Quelles sont vos prochaines étapes ?
+
+[turn:Nous allons consolider ce qui fonctionne avant de nous étendre.]
+
+[calmly] Et si cela échoue ?
+
+[turn:Nous en tirerions les leçons, comme nous l'avons toujours fait. Une autre question ?]
+
+[calmly] Une dernière, si vous permettez.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

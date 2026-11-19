@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[short pause]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[repeat]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

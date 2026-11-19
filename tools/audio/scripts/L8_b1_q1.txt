@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pourquoi voulez-vous travailler chez nous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Parce que votre entreprise est innovante, et que j'aime les défis.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Parce que votre entreprise est innovante, et que j'aime les défis.
+
+[repeat]
+
+[calmly] Parce que votre entreprise est innovante, et que j'aime les défis.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

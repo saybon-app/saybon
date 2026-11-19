@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Notre offre est de dix mille euros.
+
+[turn:Je vous remercie, mais cela dépasse notre budget.]
+
+[calmly] Que proposez-vous alors ?
+
+[turn:Nous pourrions accepter huit mille euros, à condition de payer en deux fois.]
+
+[calmly] C'est un peu juste pour nous.
+
+[turn:En contrepartie, nous nous engageons à signer pour deux ans.]
+
+[calmly] Cela change la donne.
+
+[turn:Alors, je suggère que nous nous retrouvions à neuf mille euros. Qu'en pensez-vous ?]
+
+[calmly] Marché conclu.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

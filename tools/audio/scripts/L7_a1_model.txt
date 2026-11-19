@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You are at a market. You want to buy fruit, and you ask the price.
+
+[pause]
+
+[calmly] Bonjour ! Qu'est-ce que je vous sers ?
+
+[short pause]
+
+[as:Roger] [calmly] Je voudrais des pommes, s'il vous plaît.
+
+[short pause]
+
+[calmly] Combien en voulez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Un kilo, s'il vous plaît.
+
+[short pause]
+
+[calmly] Et avec ça ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est combien, les oranges ?
+
+[short pause]
+
+[calmly] Deux euros le kilo.
+
+[short pause]
+
+[as:Roger] [calmly] D'accord, j'en prends un kilo. Voilà dix euros.
+
+[short pause]
+
+[calmly] Merci ! Voici votre monnaie.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

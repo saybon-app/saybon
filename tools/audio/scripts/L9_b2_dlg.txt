@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Qu'a dit le client au téléphone ?
+
+[turn:Il a dit qu'il était mécontent du retard.]
+
+[calmly] Et il a demandé quoi ?
+
+[turn:Il a demandé si nous pouvions livrer demain.]
+
+[calmly] Et pour le prix ?
+
+[turn:Il m'a expliqué qu'il ne paierait pas plus.]
+
+[calmly] Il a menacé d'annuler ?
+
+[turn:Il m'a dit qu'il hésitait encore. Que dois-je répondre ?]
+
+[calmly] Rappelez-le demain matin.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous avez des preuves ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Les chiffres parlent d'eux-mêmes : nos ventes ont doublé en un an.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Les chiffres parlent d'eux-mêmes : nos ventes ont doublé en un an.
+
+[repeat]
+
+[calmly] Les chiffres parlent d'eux-mêmes : nos ventes ont doublé en un an.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

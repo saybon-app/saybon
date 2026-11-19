@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Je voudrais un billet pour Paris, s'il vous plaît.
+
+[short pause]
+
+[warmly] It means, I would like a ticket to Paris, please.
+
+[short pause]
+
+[calmly] Je voudrais un billet pour Paris, s'il vous plaît.
+
+[repeat]
+
+[calmly] Je voudrais un billet pour Paris, s'il vous plaît.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

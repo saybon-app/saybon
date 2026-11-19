@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, les courriels auxquels je me réfère sont dans ce dossier. Cela suffira-t-il ?
+
+[short pause]
+
+[calmly] Oui, les courriels auxquels je me réfère sont dans ce dossier. Cela suffira-t-il ?
+
+[repeat]
+
+[calmly] Oui, les courriels auxquels je me réfère sont dans ce dossier. Cela suffira-t-il ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

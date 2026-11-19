@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Dans un débat, vous défendez la limitation de la voiture en ville.
+
+[pause]
+
+[calmly] Pensez-vous qu'il faille interdire les voitures en centre-ville ?
+
+[short pause]
+
+[as:Roger] [calmly] À mon sens, il faudrait au moins les limiter.
+
+[short pause]
+
+[calmly] Pourquoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce que la pollution met en danger la santé des habitants.
+
+[short pause]
+
+[calmly] Mais les commerçants risquent d'en souffrir.
+
+[short pause]
+
+[as:Roger] [calmly] Certes, mais les villes piétonnes attirent aussi plus de clients.
+
+[short pause]
+
+[calmly] Et les gens qui habitent loin ?
+
+[short pause]
+
+[as:Roger] [calmly] Il suffirait de développer les transports en commun. Qu'en pensez-vous ?
+
+[short pause]
+
+[calmly] C'est un point intéressant.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

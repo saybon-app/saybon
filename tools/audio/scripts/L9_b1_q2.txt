@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Tu y retournerais ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[repeat]
+
+[calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

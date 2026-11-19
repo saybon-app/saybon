@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Le fond est le même, la forme change.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Précisément : la situation est identique, c'est le registre qui s'adapte à l'interlocuteur.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Précisément : la situation est identique, c'est le registre qui s'adapte à l'interlocuteur.
+
+[repeat]
+
+[calmly] Précisément : la situation est identique, c'est le registre qui s'adapte à l'interlocuteur.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

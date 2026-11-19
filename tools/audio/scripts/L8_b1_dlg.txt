@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Bonjour ! Parlez-moi de vous.
+
+[turn:Je m'appelle Léa, et j'ai trois ans d'expérience en marketing.]
+
+[calmly] Pourquoi voulez-vous travailler chez nous ?
+
+[turn:Parce que votre entreprise est innovante, et que j'aime les défis.]
+
+[calmly] Quelle est votre plus grande qualité ?
+
+[turn:Je suis organisée, et je travaille bien en équipe.]
+
+[calmly] Et un défaut ?
+
+[turn:Parfois, je suis trop perfectionniste, mais j'apprends à déléguer.]
+
+[calmly] Merci, nous vous rappellerons.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

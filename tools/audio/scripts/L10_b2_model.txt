@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous expliquez à un collègue pourquoi le projet a pris du retard.
+
+[pause]
+
+[calmly] Pourquoi le projet a-t-il du retard ?
+
+[short pause]
+
+[as:Roger] [calmly] À cause d'un problème technique, nous avons perdu une semaine.
+
+[short pause]
+
+[calmly] Et quelles ont été les conséquences ?
+
+[short pause]
+
+[as:Roger] [calmly] Par conséquent, le client a reporté la livraison.
+
+[short pause]
+
+[calmly] Comment cela s'est-il produit ?
+
+[short pause]
+
+[as:Roger] [calmly] Comme le serveur est tombé en panne, tout s'est arrêté.
+
+[short pause]
+
+[calmly] Et maintenant ?
+
+[short pause]
+
+[as:Roger] [calmly] Grâce à l'équipe, nous avons rattrapé le temps perdu. Et vous ?
+
+[short pause]
+
+[calmly] Moi, j'attends la validation.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Je vais vous prescrire un médicament.
+
+[short pause]
+
+[warmly] It means, I'm going to prescribe you some medicine.
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[short pause]
+
+[warmly] It means, Thank you. Do I have to stay in bed?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[repeat]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

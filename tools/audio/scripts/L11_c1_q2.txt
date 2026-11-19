@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et si cela échoue ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Nous en tirerions les leçons, comme nous l'avons toujours fait. Une autre question ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Nous en tirerions les leçons, comme nous l'avons toujours fait. Une autre question ?
+
+[repeat]
+
+[calmly] Nous en tirerions les leçons, comme nous l'avons toujours fait. Une autre question ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

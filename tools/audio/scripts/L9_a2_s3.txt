@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] J'ai pris du paracétamol, mais ça ne passe pas.
+
+[short pause]
+
+[warmly] It means, I took paracetamol, but it doesn't go away.
+
+[short pause]
+
+[calmly] J'ai pris du paracétamol, mais ça ne passe pas.
+
+[repeat]
+
+[calmly] J'ai pris du paracétamol, mais ça ne passe pas.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

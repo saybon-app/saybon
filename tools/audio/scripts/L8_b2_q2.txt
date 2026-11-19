@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et les gens qui habitent loin ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Il suffirait de développer les transports en commun. Qu'en pensez-vous ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Il suffirait de développer les transports en commun. Qu'en pensez-vous ?
+
+[repeat]
+
+[calmly] Il suffirait de développer les transports en commun. Qu'en pensez-vous ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

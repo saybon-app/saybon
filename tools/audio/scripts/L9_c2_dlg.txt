@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, ton entretien d'hier ?
+
+[turn:Ne m'en parle pas, j'ai eu un trac fou, j'avais les jambes en coton.]
+
+[calmly] Mais ça s'est bien passé ?
+
+[turn:Finalement oui : tout est bien qui finit bien.]
+
+[calmly] Ils t'ont donné une réponse ?
+
+[turn:Pas encore, mais je ne vends pas la peau de l'ours avant de l'avoir tué.]
+
+[calmly] Tu as raison, patience.
+
+[turn:Oui, qui vivra verra. En attendant, je t'offre un café.]
+
+[calmly] Avec plaisir !
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

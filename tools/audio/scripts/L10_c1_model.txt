@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Entre collègues, vous plaisantez avec ironie sur une réunion interminable.
+
+[pause]
+
+[calmly] Alors, cette réunion ?
+
+[short pause]
+
+[as:Roger] [calmly] Passionnante, comme toujours : trois heures pour décider de la couleur d'un logo.
+
+[short pause]
+
+[calmly] On a au moins avancé ?
+
+[short pause]
+
+[as:Roger] [calmly] Disons que nous n'avons pas reculé, ce qui est déjà un exploit.
+
+[short pause]
+
+[calmly] Le directeur avait l'air content.
+
+[short pause]
+
+[as:Roger] [calmly] Il avait surtout l'air de ne pas avoir écouté un mot.
+
+[short pause]
+
+[calmly] Tu es sévère.
+
+[short pause]
+
+[as:Roger] [calmly] À peine : je dirais plutôt réaliste. Et toi, tu en as pensé quoi ?
+
+[short pause]
+
+[calmly] Moi, j'ai dormi.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

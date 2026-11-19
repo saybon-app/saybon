@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, cette réunion ?
+
+[turn:Passionnante, comme toujours : trois heures pour décider de la couleur d'un logo.]
+
+[calmly] On a au moins avancé ?
+
+[turn:Disons que nous n'avons pas reculé, ce qui est déjà un exploit.]
+
+[calmly] Le directeur avait l'air content.
+
+[turn:Il avait surtout l'air de ne pas avoir écouté un mot.]
+
+[calmly] Tu es sévère.
+
+[turn:À peine : je dirais plutôt réaliste. Et toi, tu en as pensé quoi ?]
+
+[calmly] Moi, j'ai dormi.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

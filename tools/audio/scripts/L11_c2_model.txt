@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous racontez une même mésaventure à votre grand-mère, puis à votre directeur, puis à un ami.
+
+[pause]
+
+[calmly] Que s'est-il passé avec le train ?
+
+[short pause]
+
+[as:Roger] [calmly] Grand-mère, mon train a eu du retard, mais ne t'inquiète pas.
+
+[short pause]
+
+[calmly] Et à votre directeur, que dites-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Monsieur le directeur, un retard ferroviaire m'a empêché d'arriver à l'heure.
+
+[short pause]
+
+[calmly] Et à un ami ?
+
+[short pause]
+
+[as:Roger] [calmly] Mec, mon train est resté bloqué, j'ai cru que j'allais devenir fou.
+
+[short pause]
+
+[calmly] Le fond est le même, la forme change.
+
+[short pause]
+
+[as:Roger] [calmly] Précisément : la situation est identique, c'est le registre qui s'adapte à l'interlocuteur.
+
+[short pause]
+
+[calmly] Très juste.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You tell a friend about your holiday plans.
+
+[pause]
+
+[calmly] Tu pars en vacances cet été ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je vais partir en Espagne.
+
+[short pause]
+
+[calmly] Tu vas voyager comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Je vais prendre l'avion avec ma sœur.
+
+[short pause]
+
+[calmly] Vous allez rester combien de temps ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous allons rester deux semaines.
+
+[short pause]
+
+[calmly] Et qu'est-ce que vous allez faire ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous allons visiter Madrid et aller à la plage.
+
+[short pause]
+
+[calmly] Quelle chance !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

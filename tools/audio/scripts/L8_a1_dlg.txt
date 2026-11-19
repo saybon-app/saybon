@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Je peux vous aider ?
+
+[turn:Excusez-moi, où est la gare, s'il vous plaît ?]
+
+[calmly] Allez tout droit, puis tournez à gauche.
+
+[turn:C'est loin d'ici ?]
+
+[calmly] Non, c'est à cinq minutes.
+
+[turn:Merci beaucoup. C'est à droite ?]
+
+[calmly] Non, c'est à gauche, après la banque.
+
+[turn:Très bien, merci. Bonne journée !]
+
+[calmly] Bonne journée !
+
+[warmly] Très bien. That's the lesson. Well done.

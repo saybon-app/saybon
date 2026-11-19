@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, ce voyage au Maroc, c'était comment ?
+
+[turn:C'était magnifique : nous avons visité Marrakech.]
+
+[calmly] Vous y êtes restés longtemps ?
+
+[turn:Nous y sommes restés une semaine, et il faisait très chaud.]
+
+[calmly] Qu'est-ce qui t'a le plus plu ?
+
+[turn:Ce qui m'a le plus plu, c'est le marché et la cuisine.]
+
+[calmly] Tu y retournerais ?
+
+[turn:Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?]
+
+[calmly] Moi, je suis allé en Italie.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

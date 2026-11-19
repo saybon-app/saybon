@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. At a party, someone asks about your job.
+
+[pause]
+
+[calmly] Et vous, vous travaillez où ?
+
+[short pause]
+
+[as:Roger] [calmly] Je travaille dans une banque.
+
+[short pause]
+
+[calmly] Ça fait longtemps ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça fait cinq ans que je travaille là.
+
+[short pause]
+
+[calmly] Vous aimez votre travail ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'aime mon équipe, mais je finis tard.
+
+[short pause]
+
+[calmly] Et avant, vous faisiez quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Avant, j'étais professeur dans une école.
+
+[short pause]
+
+[calmly] Intéressant !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je vous écoute.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Il s'agirait, si cela ne vous importunait pas, d'un congé exceptionnel.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Il s'agirait, si cela ne vous importunait pas, d'un congé exceptionnel.
+
+[repeat]
+
+[calmly] Il s'agirait, si cela ne vous importunait pas, d'un congé exceptionnel.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

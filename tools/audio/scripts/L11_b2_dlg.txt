@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Nous vous écoutons. Quel est votre projet ?
+
+[turn:Notre projet consiste à créer une application d'apprentissage du français.]
+
+[calmly] À qui s'adresse-t-elle ?
+
+[turn:Elle s'adresse aux adultes qui veulent parler avec confiance.]
+
+[calmly] Quel est son avantage ?
+
+[turn:Son principal atout est qu'on s'entraîne à parler dès la première leçon.]
+
+[calmly] Et le calendrier ?
+
+[turn:Nous prévoyons un lancement dans six mois. Avez-vous des questions ?]
+
+[calmly] Oui, quelques-unes.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

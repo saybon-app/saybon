@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Excusez-moi, il y a un problème avec ma chambre.
+
+[short pause]
+
+[calmly] Excusez-moi, il y a un problème avec ma chambre.
+
+[repeat]
+
+[calmly] Excusez-moi, il y a un problème avec ma chambre.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

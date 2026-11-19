@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You are at the station. You buy a train ticket to Paris.
+
+[pause]
+
+[calmly] Bonjour, je peux vous aider ?
+
+[short pause]
+
+[as:Roger] [calmly] Je voudrais un billet pour Paris, s'il vous plaît.
+
+[short pause]
+
+[calmly] Aller simple ou aller-retour ?
+
+[short pause]
+
+[as:Roger] [calmly] Un aller-retour, pour demain matin.
+
+[short pause]
+
+[calmly] Il y a un train à neuf heures.
+
+[short pause]
+
+[as:Roger] [calmly] Il part de quel quai ?
+
+[short pause]
+
+[calmly] Du quai numéro trois.
+
+[short pause]
+
+[as:Roger] [calmly] Merci. Je peux payer par carte ?
+
+[short pause]
+
+[calmly] Oui, bien sûr.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

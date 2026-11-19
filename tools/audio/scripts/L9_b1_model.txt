@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous racontez un voyage à votre cousin.
+
+[pause]
+
+[calmly] Alors, ce voyage au Maroc, c'était comment ?
+
+[short pause]
+
+[as:Roger] [calmly] C'était magnifique : nous avons visité Marrakech.
+
+[short pause]
+
+[calmly] Vous y êtes restés longtemps ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous y sommes restés une semaine, et il faisait très chaud.
+
+[short pause]
+
+[calmly] Qu'est-ce qui t'a le plus plu ?
+
+[short pause]
+
+[as:Roger] [calmly] Ce qui m'a le plus plu, c'est le marché et la cuisine.
+
+[short pause]
+
+[calmly] Tu y retournerais ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'y retournerais volontiers. Et toi, tu as voyagé cet été ?
+
+[short pause]
+
+[calmly] Moi, je suis allé en Italie.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

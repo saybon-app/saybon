@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et quelles ont été les conséquences ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Par conséquent, le client a reporté la livraison.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Par conséquent, le client a reporté la livraison.
+
+[repeat]
+
+[calmly] Par conséquent, le client a reporté la livraison.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

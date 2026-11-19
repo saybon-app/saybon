@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et à votre directeur, que dites-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Monsieur le directeur, un retard ferroviaire m'a empêché d'arriver à l'heure.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Monsieur le directeur, un retard ferroviaire m'a empêché d'arriver à l'heure.
+
+[repeat]
+
+[calmly] Monsieur le directeur, un retard ferroviaire m'a empêché d'arriver à l'heure.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

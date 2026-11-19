@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous portez un toast lors d'un mariage.
+
+[pause]
+
+[calmly] Mesdames et messieurs, un instant, s'il vous plaît !
+
+[short pause]
+
+[as:Roger] [calmly] C'est avec une joie profonde que je prends la parole ce soir.
+
+[short pause]
+
+[calmly] Que souhaitez-vous leur dire ?
+
+[short pause]
+
+[as:Roger] [calmly] Que l'amour, à l'instar du bon vin, se bonifie avec le temps.
+
+[short pause]
+
+[calmly] Et pour l'avenir ?
+
+[short pause]
+
+[as:Roger] [calmly] Puissent-ils connaître autant de bonheur qu'ils en donnent autour d'eux.
+
+[short pause]
+
+[calmly] Levons nos verres !
+
+[short pause]
+
+[as:Roger] [calmly] À Claire et à Julien, et à tous les lendemains qui chantent !
+
+[short pause]
+
+[calmly] Santé !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

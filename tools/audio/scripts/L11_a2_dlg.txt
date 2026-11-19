@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Et vous, vous travaillez où ?
+
+[turn:Je travaille dans une banque.]
+
+[calmly] Ça fait longtemps ?
+
+[turn:Ça fait cinq ans que je travaille là.]
+
+[calmly] Vous aimez votre travail ?
+
+[turn:Oui, j'aime mon équipe, mais je finis tard.]
+
+[calmly] Et avant, vous faisiez quoi ?
+
+[turn:Avant, j'étais professeur dans une école.]
+
+[calmly] Intéressant !
+
+[warmly] Très bien. That's the lesson. Well done.

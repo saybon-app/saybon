@@ -8,7 +8,8 @@ const run = (args) => { let r; for (let k = 1; k <= 8; k++) { r = spawnSync("nod
 const ma = (l, n, name, script, out) => run(["make-audio.mjs", "--level", l, "--lesson", String(n), "--name", name, "--script", `scripts/${script}.txt`, "--outdir", out, ...(process.env.SB_DRY ? ["--dry"] : [])]);
 run(["make-audio.mjs", "--level", "a1", "--lesson", "1", "--name", "L1_end", "--script", "scripts/L1_end.txt", "--outdir", t, ...(process.env.SB_DRY ? ["--dry"] : [])]);
 let stopped = false;
-for (const n of [1, 2, 3, 4, 5]) for (const l of ["a1", "a2", "b1", "b2", "c1", "c2"]) {
+const rounds = ((process.argv.find(x => x.startsWith("--rounds=")) || "").slice(9) || "1,2,3,4,5").split(",").map(Number);
+for (const n of rounds) for (const l of ["a1", "a2", "b1", "b2", "c1", "c2"]) {
   const p = `L${n}_${l}`, flag = path.join(flags, p + ".flag");
   if (fs.existsSync(flag) && !process.argv.includes("--force")) { console.log(`${p}: already built`); continue; }
   const st = path.join(t, "stage_" + p); fs.rmSync(st, { recursive: true, force: true }); fs.mkdirSync(st, { recursive: true });

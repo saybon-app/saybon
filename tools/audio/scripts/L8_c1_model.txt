@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous cherchez à convaincre un investisseur.
+
+[pause]
+
+[calmly] Pourquoi devrais-je investir dans votre entreprise ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce que nous répondons à un besoin que personne n'a encore comblé.
+
+[short pause]
+
+[calmly] Vous avez des preuves ?
+
+[short pause]
+
+[as:Roger] [calmly] Les chiffres parlent d'eux-mêmes : nos ventes ont doublé en un an.
+
+[short pause]
+
+[calmly] Le marché est risqué.
+
+[short pause]
+
+[as:Roger] [calmly] Je ne le nie pas, mais c'est précisément ce qui rend l'opportunité unique.
+
+[short pause]
+
+[calmly] Que gagnerais-je ?
+
+[short pause]
+
+[as:Roger] [calmly] Vous gagneriez une part d'un marché en pleine expansion. Souhaitez-vous en discuter ?
+
+[short pause]
+
+[calmly] Volontiers.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

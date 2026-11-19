@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Elle est un peu grande. Vous avez la taille en dessous ?
+
+[short pause]
+
+[warmly] It means, It's a bit big. Do you have the size below?
+
+[short pause]
+
+[calmly] Elle est un peu grande. Vous avez la taille en dessous ?
+
+[repeat]
+
+[calmly] Elle est un peu grande. Vous avez la taille en dessous ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

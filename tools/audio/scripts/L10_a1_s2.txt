@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, je joue de la guitare.
+
+[short pause]
+
+[warmly] It means, Yes, I play the guitar.
+
+[short pause]
+
+[calmly] Oui, je joue de la guitare.
+
+[repeat]
+
+[calmly] Oui, je joue de la guitare.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

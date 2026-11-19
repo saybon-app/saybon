@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Entre amis francophones, vous employez des expressions imagées.
+
+[pause]
+
+[calmly] Alors, ton entretien d'hier ?
+
+[short pause]
+
+[as:Roger] [calmly] Ne m'en parle pas, j'ai eu un trac fou, j'avais les jambes en coton.
+
+[short pause]
+
+[calmly] Mais ça s'est bien passé ?
+
+[short pause]
+
+[as:Roger] [calmly] Finalement oui : tout est bien qui finit bien.
+
+[short pause]
+
+[calmly] Ils t'ont donné une réponse ?
+
+[short pause]
+
+[as:Roger] [calmly] Pas encore, mais je ne vends pas la peau de l'ours avant de l'avoir tué.
+
+[short pause]
+
+[calmly] Tu as raison, patience.
+
+[short pause]
+
+[as:Roger] [calmly] Oui, qui vivra verra. En attendant, je t'offre un café.
+
+[short pause]
+
+[calmly] Avec plaisir !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

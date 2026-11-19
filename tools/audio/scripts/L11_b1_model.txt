@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Entre amis, vous parlez de vos projets et de vos rêves.
+
+[pause]
+
+[calmly] Qu'est-ce que tu feras dans cinq ans ?
+
+[short pause]
+
+[as:Roger] [calmly] Dans cinq ans, j'habiterai à l'étranger.
+
+[short pause]
+
+[calmly] Tu travailleras dans quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Je travaillerai dans l'éducation, je l'espère.
+
+[short pause]
+
+[calmly] Et si tu avais plus d'argent ?
+
+[short pause]
+
+[as:Roger] [calmly] Si j'avais plus d'argent, j'ouvrirais une école.
+
+[short pause]
+
+[calmly] Tu aimerais vivre où ?
+
+[short pause]
+
+[as:Roger] [calmly] J'aimerais vivre au bord de la mer. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'irai là où il y a du soleil.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

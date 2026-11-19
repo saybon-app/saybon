@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. À l'hôtel, la chambre n'est pas propre. Vous vous plaignez poliment à la réception.
+
+[pause]
+
+[calmly] Bonsoir, que puis-je pour vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Excusez-moi, il y a un problème avec ma chambre.
+
+[short pause]
+
+[calmly] Je suis désolé. De quoi s'agit-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle n'est pas propre, et il fait très froid.
+
+[short pause]
+
+[calmly] Je comprends. Qu'aimeriez-vous que nous fassions ?
+
+[short pause]
+
+[as:Roger] [calmly] Pourriez-vous nous changer de chambre, s'il vous plaît ?
+
+[short pause]
+
+[calmly] Bien sûr, mais il faudra patienter un peu.
+
+[short pause]
+
+[as:Roger] [calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[short pause]
+
+[calmly] Je m'en occupe tout de suite.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

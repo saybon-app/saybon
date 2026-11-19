@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[short pause]
+
+[warmly] It means, Thank you. Do I have to stay in bed?
+
+[short pause]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[repeat]
+
+[calmly] Merci. Je dois rester au lit ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

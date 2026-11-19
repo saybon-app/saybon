@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Mais ça s'est bien passé ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Finalement oui : tout est bien qui finit bien.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Finalement oui : tout est bien qui finit bien.
+
+[repeat]
+
+[calmly] Finalement oui : tout est bien qui finit bien.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

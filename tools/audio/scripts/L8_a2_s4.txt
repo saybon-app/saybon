@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Je la prends. Elle coûte combien ?
+
+[short pause]
+
+[warmly] It means, I'll take it. How much is it?
+
+[short pause]
+
+[calmly] Je la prends. Elle coûte combien ?
+
+[repeat]
+
+[calmly] Je la prends. Elle coûte combien ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

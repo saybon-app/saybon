@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Mesdames et messieurs, un instant, s'il vous plaît !
+
+[turn:C'est avec une joie profonde que je prends la parole ce soir.]
+
+[calmly] Que souhaitez-vous leur dire ?
+
+[turn:Que l'amour, à l'instar du bon vin, se bonifie avec le temps.]
+
+[calmly] Et pour l'avenir ?
+
+[turn:Puissent-ils connaître autant de bonheur qu'ils en donnent autour d'eux.]
+
+[calmly] Levons nos verres !
+
+[turn:À Claire et à Julien, et à tous les lendemains qui chantent !]
+
+[calmly] Santé !
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

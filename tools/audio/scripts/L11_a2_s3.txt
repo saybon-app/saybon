@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, j'aime mon équipe, mais je finis tard.
+
+[short pause]
+
+[warmly] It means, Yes, I like my team, but I finish late.
+
+[short pause]
+
+[calmly] Oui, j'aime mon équipe, mais je finis tard.
+
+[repeat]
+
+[calmly] Oui, j'aime mon équipe, mais je finis tard.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

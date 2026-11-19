@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous êtes bien indulgent.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Disons que je lis avec lenteur, et que l'on finit par entendre ce que l'on croyait absent.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Disons que je lis avec lenteur, et que l'on finit par entendre ce que l'on croyait absent.
+
+[repeat]
+
+[calmly] Disons que je lis avec lenteur, et que l'on finit par entendre ce que l'on croyait absent.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

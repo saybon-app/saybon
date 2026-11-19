@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pouvez-vous m'expliquer la situation ?
+
+[turn:Il s'agit d'un contrat dont les clauses n'ont jamais été respectées.]
+
+[calmly] Qui est concerné ?
+
+[turn:L'entreprise avec laquelle nous avions signé, et dont le directeur a démissionné.]
+
+[calmly] Qu'attendez-vous de moi ?
+
+[turn:Ce que j'attends, c'est que vous évaluiez nos chances de recours.]
+
+[calmly] Avez-vous des documents ?
+
+[turn:Oui, les courriels auxquels je me réfère sont dans ce dossier. Cela suffira-t-il ?]
+
+[calmly] Je vais les étudier.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

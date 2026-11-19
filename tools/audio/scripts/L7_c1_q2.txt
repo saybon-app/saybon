@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Alors, que suggérez-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je suggérerais de nous accorder trois mois supplémentaires. Qu'en pensez-vous ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je suggérerais de nous accorder trois mois supplémentaires. Qu'en pensez-vous ?
+
+[repeat]
+
+[calmly] Je suggérerais de nous accorder trois mois supplémentaires. Qu'en pensez-vous ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

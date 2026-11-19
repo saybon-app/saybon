@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que proposez-vous alors ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Nous pourrions accepter huit mille euros, à condition de payer en deux fois.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Nous pourrions accepter huit mille euros, à condition de payer en deux fois.
+
+[repeat]
+
+[calmly] Nous pourrions accepter huit mille euros, à condition de payer en deux fois.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

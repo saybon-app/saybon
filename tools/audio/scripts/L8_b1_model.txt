@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous passez un entretien d'embauche.
+
+[pause]
+
+[calmly] Bonjour ! Parlez-moi de vous.
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Léa, et j'ai trois ans d'expérience en marketing.
+
+[short pause]
+
+[calmly] Pourquoi voulez-vous travailler chez nous ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce que votre entreprise est innovante, et que j'aime les défis.
+
+[short pause]
+
+[calmly] Quelle est votre plus grande qualité ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis organisée, et je travaille bien en équipe.
+
+[short pause]
+
+[calmly] Et un défaut ?
+
+[short pause]
+
+[as:Roger] [calmly] Parfois, je suis trop perfectionniste, mais j'apprends à déléguer.
+
+[short pause]
+
+[calmly] Merci, nous vous rappellerons.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

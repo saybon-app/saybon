@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Notre projet consiste à créer une application d'apprentissage du français.
+
+[short pause]
+
+[calmly] Notre projet consiste à créer une application d'apprentissage du français.
+
+[repeat]
+
+[calmly] Notre projet consiste à créer une application d'apprentissage du français.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

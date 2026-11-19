@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Selon moi, cet auteur est surévalué.
+
+[turn:Permettez-moi de ne pas vous suivre sur ce terrain.]
+
+[calmly] Pourtant, son style est pesant.
+
+[turn:Pesant, peut-être, mais c'est précisément ce poids qui fait sa singularité.]
+
+[calmly] Et ses personnages manquent de profondeur.
+
+[turn:Je dirais plutôt qu'ils se dérobent, ce qui est une forme de profondeur.]
+
+[calmly] Vous êtes bien indulgent.
+
+[turn:Disons que je lis avec lenteur, et que l'on finit par entendre ce que l'on croyait absent.]
+
+[calmly] Voilà qui me donne envie de le relire.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

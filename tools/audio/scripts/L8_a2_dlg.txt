@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Vous cherchez quelque chose ?
+
+[turn:Oui, je cherche une veste noire.]
+
+[calmly] Vous faites quelle taille ?
+
+[turn:Je fais du quarante. Je peux l'essayer ?]
+
+[calmly] Bien sûr. Les cabines sont là-bas.
+
+[turn:Elle est un peu grande. Vous avez la taille en dessous ?]
+
+[calmly] Oui, la voilà. Elle vous va très bien.
+
+[turn:Je la prends. Elle coûte combien ?]
+
+[calmly] Quatre-vingts euros.
+
+[warmly] Très bien. That's the lesson. Well done.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Bonsoir, que puis-je pour vous ?
+
+[turn:Excusez-moi, il y a un problème avec ma chambre.]
+
+[calmly] Je suis désolé. De quoi s'agit-il ?
+
+[turn:Elle n'est pas propre, et il fait très froid.]
+
+[calmly] Je comprends. Qu'aimeriez-vous que nous fassions ?
+
+[turn:Pourriez-vous nous changer de chambre, s'il vous plaît ?]
+
+[calmly] Bien sûr, mais il faudra patienter un peu.
+
+[turn:Je comprends, mais j'espère que ce sera rapide. Merci.]
+
+[calmly] Je m'en occupe tout de suite.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

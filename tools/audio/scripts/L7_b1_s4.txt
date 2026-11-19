@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[short pause]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[repeat]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

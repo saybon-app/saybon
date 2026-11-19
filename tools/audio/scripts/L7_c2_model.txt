@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous demandez avec tact un service délicat à un supérieur.
+
+[pause]
+
+[calmly] Vous vouliez me voir ?
+
+[short pause]
+
+[as:Roger] [calmly] Je me permets de solliciter un moment de votre attention.
+
+[short pause]
+
+[calmly] Je vous écoute.
+
+[short pause]
+
+[as:Roger] [calmly] Il s'agirait, si cela ne vous importunait pas, d'un congé exceptionnel.
+
+[short pause]
+
+[calmly] Pour quelle raison ?
+
+[short pause]
+
+[as:Roger] [calmly] Des circonstances familiales, que je préférerais ne pas détailler.
+
+[short pause]
+
+[calmly] Je comprends. Quand ?
+
+[short pause]
+
+[as:Roger] [calmly] Si cela vous convenait, à compter de lundi. Je vous en serais infiniment reconnaissant.
+
+[short pause]
+
+[calmly] Considérez-le comme accordé.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

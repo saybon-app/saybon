@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Levons nos verres !
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] À Claire et à Julien, et à tous les lendemains qui chantent !
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] À Claire et à Julien, et à tous les lendemains qui chantent !
+
+[repeat]
+
+[calmly] À Claire et à Julien, et à tous les lendemains qui chantent !
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

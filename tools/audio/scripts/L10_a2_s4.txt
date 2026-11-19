@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Nous allons visiter Madrid et aller à la plage.
+
+[short pause]
+
+[warmly] It means, We are going to visit Madrid and go to the beach.
+
+[short pause]
+
+[calmly] Nous allons visiter Madrid et aller à la plage.
+
+[repeat]
+
+[calmly] Nous allons visiter Madrid et aller à la plage.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

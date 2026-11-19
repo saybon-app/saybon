@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Qu'est-ce que tu aimes faire ?
+
+[turn:J'aime la musique et le sport.]
+
+[calmly] Tu joues d'un instrument ?
+
+[turn:Oui, je joue de la guitare.]
+
+[calmly] Et le week-end ?
+
+[turn:Le week-end, je fais du vélo.]
+
+[calmly] Moi, j'adore le cinéma. Et toi ?
+
+[turn:Moi aussi, j'aime beaucoup le cinéma.]
+
+[calmly] On va au cinéma samedi ?
+
+[warmly] Très bien. That's the lesson. Well done.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Il a menacé d'annuler ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Il m'a dit qu'il hésitait encore. Que dois-je répondre ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Il m'a dit qu'il hésitait encore. Que dois-je répondre ?
+
+[repeat]
+
+[calmly] Il m'a dit qu'il hésitait encore. Que dois-je répondre ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

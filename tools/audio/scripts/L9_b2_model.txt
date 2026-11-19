@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous rapportez à votre directrice ce que le client a dit.
+
+[pause]
+
+[calmly] Qu'a dit le client au téléphone ?
+
+[short pause]
+
+[as:Roger] [calmly] Il a dit qu'il était mécontent du retard.
+
+[short pause]
+
+[calmly] Et il a demandé quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Il a demandé si nous pouvions livrer demain.
+
+[short pause]
+
+[calmly] Et pour le prix ?
+
+[short pause]
+
+[as:Roger] [calmly] Il m'a expliqué qu'il ne paierait pas plus.
+
+[short pause]
+
+[calmly] Il a menacé d'annuler ?
+
+[short pause]
+
+[as:Roger] [calmly] Il m'a dit qu'il hésitait encore. Que dois-je répondre ?
+
+[short pause]
+
+[calmly] Rappelez-le demain matin.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

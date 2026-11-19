@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Vous faites quelle taille ?
+
+[short pause]
+
+[warmly] It means, What size are you?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Je fais du quarante. Je peux l'essayer ?
+
+[short pause]
+
+[warmly] It means, I'm a forty. Can I try it on?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Je fais du quarante. Je peux l'essayer ?
+
+[repeat]
+
+[calmly] Je fais du quarante. Je peux l'essayer ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

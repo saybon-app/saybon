@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vous vouliez me voir ?
+
+[turn:Je me permets de solliciter un moment de votre attention.]
+
+[calmly] Je vous écoute.
+
+[turn:Il s'agirait, si cela ne vous importunait pas, d'un congé exceptionnel.]
+
+[calmly] Pour quelle raison ?
+
+[turn:Des circonstances familiales, que je préférerais ne pas détailler.]
+
+[calmly] Je comprends. Quand ?
+
+[turn:Si cela vous convenait, à compter de lundi. Je vous en serais infiniment reconnaissant.]
+
+[calmly] Considérez-le comme accordé.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

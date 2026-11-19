@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] On a au moins avancé ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Disons que nous n'avons pas reculé, ce qui est déjà un exploit.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Disons que nous n'avons pas reculé, ce qui est déjà un exploit.
+
+[repeat]
+
+[calmly] Disons que nous n'avons pas reculé, ce qui est déjà un exploit.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

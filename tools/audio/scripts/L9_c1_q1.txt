@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Qui est concerné ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] L'entreprise avec laquelle nous avions signé, et dont le directeur a démissionné.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] L'entreprise avec laquelle nous avions signé, et dont le directeur a démissionné.
+
+[repeat]
+
+[calmly] L'entreprise avec laquelle nous avions signé, et dont le directeur a démissionné.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

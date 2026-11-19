@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Bien sûr, mais il faudra patienter un peu.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[repeat]
+
+[calmly] Je comprends, mais j'espère que ce sera rapide. Merci.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

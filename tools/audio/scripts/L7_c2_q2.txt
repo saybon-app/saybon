@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je comprends. Quand ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Si cela vous convenait, à compter de lundi. Je vous en serais infiniment reconnaissant.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Si cela vous convenait, à compter de lundi. Je vous en serais infiniment reconnaissant.
+
+[repeat]
+
+[calmly] Si cela vous convenait, à compter de lundi. Je vous en serais infiniment reconnaissant.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

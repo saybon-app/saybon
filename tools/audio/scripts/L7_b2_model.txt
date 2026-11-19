@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous négociez le prix d'un contrat avec un fournisseur.
+
+[pause]
+
+[calmly] Notre offre est de dix mille euros.
+
+[short pause]
+
+[as:Roger] [calmly] Je vous remercie, mais cela dépasse notre budget.
+
+[short pause]
+
+[calmly] Que proposez-vous alors ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous pourrions accepter huit mille euros, à condition de payer en deux fois.
+
+[short pause]
+
+[calmly] C'est un peu juste pour nous.
+
+[short pause]
+
+[as:Roger] [calmly] En contrepartie, nous nous engageons à signer pour deux ans.
+
+[short pause]
+
+[calmly] Cela change la donne.
+
+[short pause]
+
+[as:Roger] [calmly] Alors, je suggère que nous nous retrouvions à neuf mille euros. Qu'en pensez-vous ?
+
+[short pause]
+
+[calmly] Marché conclu.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

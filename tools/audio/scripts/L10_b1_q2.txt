@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Combien de temps au four ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Tu le laisses cuire vingt minutes, et c'est prêt !
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Tu le laisses cuire vingt minutes, et c'est prêt !
+
+[repeat]
+
+[calmly] Tu le laisses cuire vingt minutes, et c'est prêt !
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

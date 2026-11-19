@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Vous avez de la fièvre ?
+
+[short pause]
+
+[warmly] It means, Do you have a fever?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Oui, hier soir, j'avais trente-neuf de fièvre.
+
+[short pause]
+
+[warmly] It means, Yes, last night I had a temperature of thirty-nine.
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Oui, hier soir, j'avais trente-neuf de fièvre.
+
+[repeat]
+
+[calmly] Oui, hier soir, j'avais trente-neuf de fièvre.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pensez-vous qu'il faille interdire les voitures en centre-ville ?
+
+[turn:À mon sens, il faudrait au moins les limiter.]
+
+[calmly] Pourquoi ?
+
+[turn:Parce que la pollution met en danger la santé des habitants.]
+
+[calmly] Mais les commerçants risquent d'en souffrir.
+
+[turn:Certes, mais les villes piétonnes attirent aussi plus de clients.]
+
+[calmly] Et les gens qui habitent loin ?
+
+[turn:Il suffirait de développer les transports en commun. Qu'en pensez-vous ?]
+
+[calmly] C'est un point intéressant.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

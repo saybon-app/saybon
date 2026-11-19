@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Certains vous reprochent un manque de transparence.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je ne partage pas cette analyse, et je suis prêt à en débattre.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je ne partage pas cette analyse, et je suis prêt à en débattre.
+
+[repeat]
+
+[calmly] Je ne partage pas cette analyse, et je suis prêt à en débattre.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.
