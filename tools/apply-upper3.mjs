@@ -23,31 +23,30 @@ const steps = k => [1,2,3,4].map(i => ({ a: CFG[k].intro.replace("_intro", "_s" 
 for (const k in CFG) CFG[k].steps = steps(k);
 const bad = [], rep = [];
 function R(name, a, b) { if (ui.split(a).length !== 2) bad.push(name); else rep.push([a, b]); }
-R("var chain", "var L1P=", "var UCFG=" + JSON.stringify(CFG) + ";\nfunction U(){var m=window.__psMeta||{};var c=UCFG[(m.level||'')+'-'+m.lesson];if(c&&!c._ld){c._ld=1;try{fetch('/assets/audio/lessons/'+c.dlg+'.json?v=1').then(function(r){return r.json();}).then(function(j){c.gaps=j.gaps;}).catch(function(){c._ld=0;});}catch(e){c._ld=0;}}return c||null;}\nvar L1P=");
-R("DW", "function DW(){return lessonNo()===3", "function DW(){if(U())return U().gaps||[];return lessonNo()===3");
-R("DD", "function DD(){return lessonNo()===3", "function DD(){if(U())return U().dd;return lessonNo()===3");
-R("dlgUrl", "function dlgUrl(){return lessonNo()===3", "function dlgUrl(){if(U())return '/assets/audio/lessons/'+U().dlg+'.mp3?v=1';return lessonNo()===3");
-R("dlgIdx", "function dlgIdx(){return lessonNo()===3", "function dlgIdx(){if(U())return U().steps.length;return lessonNo()===3");
-R("l1Key", "return 'psL1:'+(window.lsCurrentUid||'anon')+':'+((window.__psMeta||{}).lesson||'');", "return 'psL1:'+(window.lsCurrentUid||'anon')+':'+(U()?((window.__psMeta||{}).level||'')+'-':'')+((window.__psMeta||{}).lesson||'');");
-R("isL1", "return m.level==='A0'&&(m.lesson===1", "return !!U()||m.level==='A0'&&(m.lesson===1");
-R("introUrl", "function introUrl(){return lessonNo()===3", "function introUrl(){if(U())return '/assets/audio/lessons/'+U().intro+'.mp3?v=1';return lessonNo()===3");
-R("lastStep", "function lastStep(){return lessonNo()===3", "function lastStep(){if(U())return U().steps.length+1;return lessonNo()===3");
-R("l1Show", " if(i>=lastStep()){l1Finish(ctx);return;}\n", " if(i>=lastStep()){l1Finish(ctx);return;}\n if(U()){var uc=U();if(i>=uc.steps.length&&!uc.gaps){T(function(){l1Show(i,ctx);},250);return;}window.__psUI(9000+i,[i<uc.steps.length?{type:'text',recordPrompt:true,expectedText:'',_l1:i}:{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}],ctx);return;}\n");
-R("dlg title", "(lessonNo()===3?'Phrase trois':", "(U()?'Phrase '+FR[U().steps.length]:lessonNo()===3?'Phrase trois':");
-R("finish", "(lessonNo()===3?'You finished Comment", "(U()?'You finished '+U().fin:lessonNo()===3?'You finished Comment");
-R("step audio", "('/assets/audio/A0_TP_L'+lessonNo()+'_phrase'+(L1i+1)+'.mp3?v=5')", "(U()?'/assets/audio/lessons/'+U().steps[L1i].a+'.mp3?v=1':'/assets/audio/A0_TP_L'+lessonNo()+'_phrase'+(L1i+1)+'.mp3?v=5')");
-R("more delay", "else window.lsGoNext();},400);}", "else window.lsGoNext();},30);}");
+function RX(name, re, fn) { const m = ui.match(re); if (!m) bad.push(name); else rep.push([m[0], fn(m)]); }
+R("anchor", "var L1P=", "var UCFG=" + JSON.stringify(CFG) + ";\nfunction U(){var m=window.__psMeta||{};var c=UCFG[(m.level||'')+'-'+m.lesson];if(c&&!c._ld){c._ld=1;try{fetch('/assets/audio/lessons/'+c.dlg+'.json?v=1').then(function(r){return r.json();}).then(function(j){c.gaps=j.gaps;}).catch(function(){c._ld=0;});}catch(e){c._ld=0;}}return c||null;}\nvar L1P=");
+const pre = { DW: "return U().gaps||[];", DD: "return U().dd;", dlgUrl: "return '/assets/audio/lessons/'+U().dlg+'.mp3?v=1';", dlgIdx: "return U().steps.length;", introUrl: "return '/assets/audio/lessons/'+U().intro+'.mp3?v=1';", lastStep: "return U().steps.length+1;", isL1: "return true;" };
+for (const f in pre) RX(f, new RegExp("function " + f + "\\(\\)\\{"), m => m[0] + "if(U())" + pre[f]);
+RX("l1Key", /function l1Key\(\)\{return 'psL1:'\+\(window\.lsCurrentUid\|\|'anon'\)\+':'\+/, m => m[0] + "(U()?((window.__psMeta||{}).level||'')+'-':'')+");
+RX("l1Show", /if\(i>=lastStep\(\)\)\{l1Finish\(ctx\);return;\}\n/, m => m[0] + " if(U()){var uc=U();if(i>=uc.steps.length&&!uc.gaps){T0(function(){l1Show(i,ctx);},250);return;}window.__psUI(9000+i,[i<uc.steps.length?{type:'text',recordPrompt:true,expectedText:'',_l1:i}:{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}],ctx);return;}\n");
+RX("dlg title", /\(lessonNo\(\)===2\?'Phrase cinq':'Phrase six'\)/, m => "(U()?'Phrase '+FR[U().steps.length]:" + m[0] + ")");
+RX("finish", /\(lessonNo\(\)===2\?'You finished Je m\\u2019appelle':'You finished Les salutations'\)/, m => "(U()?'You finished '+U().fin:" + m[0] + ")");
+RX("step audio", /audioUrl=dlgK>=0\?\(/, m => "audioUrl=(U()&&dlgK<0)?('/assets/audio/lessons/'+U().steps[L1i].a+'.mp3?v=1'):dlgK>=0?(");
+RX("rec limit", /KID\?8000:\(lessonNo\(\)===2\?14000:9000\)/, m => "KID?8000:(U()?25000:(lessonNo()===2?14000:9000))");
+RX("more delay", /else window\.lsGoNext\(\);\},400\);\}/, m => m[0].replace("400", "30"));
 R("intro adv", "if(ovr)window.__psAdv=function(){l1Show(0,ctx);};", "if(ovr)window.__psAdv=function(){l1Show(U()?Math.min(l1Read(),lastStep()-1):0,ctx);};");
-R("intro more", "else if(ovr)l1Show(0,ctx);else window.lsGoNext()", "else if(ovr)l1Show(U()?Math.min(l1Read(),lastStep()-1):0,ctx);else window.lsGoNext()");
-// expected text for steps comes from the step script text
+R("intro more", "if(ovr)l1Show(0,ctx);else window.lsGoNext()", "if(ovr)l1Show(U()?Math.min(l1Read(),lastStep()-1):0,ctx);else window.lsGoNext()");
 R("exp", "var expected=pb.expectedText||'';", "var expected=pb.expectedText||'';if(pb._l1!==undefined&&!pb._dlgAll&&U()){expected=U().steps[pb._l1].t||'';}");
+R("server blocks", "var root=ctx.root,api=ctx.api;", "var root=ctx.root,api=ctx.api;if(U()&&partNum<9000){blocks=[{type:'text',text:' '}];}");
 if (bad.length) { console.log("STOP: cannot find: " + bad.join(" | ")); process.exit(1); }
 fs.writeFileSync(uiF + ".bak6", ui);
 for (const [a, b] of rep) ui = ui.replace(a, () => b);
+ui = ui.replace("var UCFG=", "function T0(f,ms){return setTimeout(f,ms);}\nvar UCFG=");
 // kill the old drill mapping for lesson 1 of A1-C2
 ui = ui.replace(/UDR=\{[^}]*\},UINTRO=\{[^}]*\}/, "UDR={},UINTRO={}");
 fs.writeFileSync(uiF, ui);
 let en = fs.readFileSync(enF, "utf8"); fs.writeFileSync(enF + ".bak6", en);
+if (!en.includes("/*UL*/")) en = en.replace(/(allAssets = assets \|\| \[\];)/, (m) => m + " /*UL*/ if(allAssets.length === 0 && LESSON <= 2 && /^(a1|a2|b1|b2|c1|c2)$/.test(LEVEL)){ allAssets = [{part:1,type:\"text\",content:\" \"}]; }");
 fs.writeFileSync(enF, en.replace(/scene-ui\.js\?v=(\d+)/, (m, v) => "scene-ui.js?v=" + (+v + 1)));
 let n = 0;
 for (const lv of ["A1","A2","B1","B2","C1","C2"]) { const d = path.join(base, lv); if (!fs.existsSync(d)) continue;

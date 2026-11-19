@@ -1,0 +1,90 @@
+== 1. Lesson pages and engines
+  A0: pages WITHOUT the lesson engine: index.html lesson1.html
+A0: 2 pages (lesson1.html) engine: NO ENGINE
+  A1: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+A1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+  A2: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+A2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+  B1: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+B1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+  B2: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+B2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+  C1: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+C1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+  C2: pages WITHOUT the lesson engine: index.html lesson-1.html upgrade.html
+C2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=53
+import-data: 0 pages (-) engine: 
+  scene-paris: pages WITHOUT the lesson engine: demo.html revision-demo.html
+scene-paris: 2 pages (-) engine: NO ENGINE
+scene-petits: 0 pages (-) engine: 
+
+== 2. Recorder wiring in the scripts
+hub-unlock-tp.js: getUserMedia=false MediaRecorder=false assessPronunciation=false stops tracks=false
+lesson-engine-tp.js: getUserMedia=true MediaRecorder=true assessPronunciation=true stops tracks=true
+levels-cinema.js: getUserMedia=false MediaRecorder=false assessPronunciation=false stops tracks=false
+levels.js: getUserMedia=false MediaRecorder=false assessPronunciation=false stops tracks=false
+scene-paris/scene-ui.js: getUserMedia=true MediaRecorder=true assessPronunciation=true stops tracks=true
+
+== 3. Audio files named in the scripts (static)
+  4 fixed audio paths, 0 problems
+
+== 3b. Tout Public lessons 1-3 and Les Petits audio (built from names)
+  MISSING: /assets/audio/A0_TP_L1_dlg_Bonjour.mp3  (Tout Public dialogue question)
+  MISSING: /assets/audio/A0_TP_L1_dlg_Salut.mp3  (Tout Public dialogue question)
+  MISSING: /assets/audio/A0_TP_L1_dlg_Bonsoir.mp3  (Tout Public dialogue question)
+  MISSING: /assets/audio/A0_TP_L1_dlg_Au revoir.mp3  (Tout Public dialogue question)
+  MISSING: /assets/audio/A0_TP_L1_dlg_À bientôt.mp3  (Tout Public dialogue question)
+  16 of 21 present
+
+== 4. Built lessons (A1-C2 and Tout Public): intro, steps, dialogue and its answer windows
+  no UCFG found (apply-upper3 not applied)
+
+== 5. Live lessons from the server (assets per lesson) and their audio
+server reachable: 404
+  a0-les-petits lesson 1: 13 assets, 0 with audio
+  a0-les-petits lesson 2: 13 assets, 0 with audio
+  a0-les-petits lesson 3: 14 assets, 0 with audio
+  a0-les-petits lesson 4: 16 assets, 0 with audio
+  a0-les-petits lesson 5: 14 assets, 0 with audio
+  a0-tout-public lesson 1: 14 assets, 0 with audio
+  a0-tout-public lesson 2: 15 assets, 0 with audio
+  a0-tout-public lesson 3: 15 assets, 0 with audio
+  a0-tout-public lesson 4: 15 assets, 0 with audio
+  a0-tout-public lesson 5: 15 assets, 0 with audio
+  (shape of one asset: id, level, lesson, part, type, name, partTitle, transitionMode, url, imageUrl, content, recordPrompt, expectedText, size, created; types: text)
+  a1 lesson 1: 14 assets, 0 with audio
+  a1 lesson 2: 14 assets, 0 with audio
+  a1 lesson 3: 14 assets, 0 with audio
+  a1 lesson 4: 14 assets, 0 with audio
+  a1 lesson 5: 14 assets, 0 with audio
+  a2 lesson 1: 14 assets, 0 with audio
+  a2 lesson 2: 14 assets, 0 with audio
+  a2 lesson 3: 14 assets, 0 with audio
+  a2 lesson 4: 14 assets, 0 with audio
+  a2 lesson 5: 14 assets, 0 with audio
+  b1 lesson 1: 14 assets, 0 with audio
+  b1 lesson 2: 14 assets, 0 with audio
+  b1 lesson 3: 14 assets, 0 with audio
+  b1 lesson 4: 14 assets, 0 with audio
+  b1 lesson 5: 14 assets, 0 with audio
+  b2 lesson 1: 14 assets, 0 with audio
+  b2 lesson 2: 14 assets, 0 with audio
+  b2 lesson 3: 14 assets, 0 with audio
+  b2 lesson 4: 14 assets, 0 with audio
+  b2 lesson 5: 14 assets, 0 with audio
+  c1 lesson 1: 14 assets, 0 with audio
+  c1 lesson 2: 14 assets, 0 with audio
+  c1 lesson 3: 14 assets, 0 with audio
+  c1 lesson 4: 14 assets, 0 with audio
+  c1 lesson 5: 14 assets, 0 with audio
+  c2 lesson 1: 0 assets, 0 with audio
+  c2 lesson 2: 0 assets, 0 with audio
+  c2 lesson 3: 0 assets, 0 with audio
+  c2 lesson 4: 0 assets, 0 with audio
+  c2 lesson 5: 0 assets, 0 with audio
+
+== 6. Built audio on the live site
+  A0_TP_L1_intro.mp3: 200
+  A0_TP_L1_dialogue.mp3: 200
+  A0_TP_L2_dialogue.mp3: 200
+  A0_TP_L3_dialogue.mp3: 200

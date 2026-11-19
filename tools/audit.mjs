@@ -9,6 +9,8 @@ P("== 1. Lesson pages and engines");
 const dirs = fs.readdirSync(lv).filter(d => fs.statSync(path.join(lv, d)).isDirectory());
 for (const d of dirs) { const fl = fs.readdirSync(path.join(lv, d)).filter(f => /\.html$/.test(f)); const eng = new Set();
   for (const f of fl) { const s = fs.readFileSync(path.join(lv, d, f), "utf8"); const m = s.match(/src="([^"]*lesson-engine[^"]*)"/); eng.add(m ? m[1] : "NO ENGINE"); }
+  const noEng = fl.filter(f => !/lesson-engine/.test(fs.readFileSync(path.join(lv, d, f), "utf8")));
+  if (noEng.length) P(`  ${d}: pages WITHOUT the lesson engine: ${noEng.join(" ")}`);
   P(`${d}: ${fl.length} pages (${fl.filter(f => /^lesson\d+/.test(f)).join(" ") || "-"}) engine: ${[...eng].join(" , ")}`); }
 P("\n== 2. Recorder wiring in the scripts");
 for (const f of fs.readdirSync(lv).filter(f => /\.js$/.test(f)).concat(["scene-paris/scene-ui.js"].filter(f => fs.existsSync(path.join(lv, f))))) {
@@ -40,8 +42,10 @@ const ids = ["a0-les-petits", "a0-tout-public", "a1", "a2", "b1", "b2", "c1", "c
 try { const h = await fetch(SERVER + "/api/health").catch(() => null); P(`server reachable: ${h ? h.status : "NO"}`); } catch {}
 for (const id of ids) for (let n = 1; n <= 5; n++) {
   try { const r = await fetch(`${SERVER}/api/levelAssets?level=${id}&lesson=${n}`); const j = await r.json(); const a = Array.isArray(j) ? j : (j.assets || []);
-    const urls = a.map(x => x.url || x.audioUrl || x.src).filter(Boolean); const bad = [];
-    for (const u of urls) { const full = u.startsWith("http") ? u : SITE + u; const h = await fetch(full, { method: "HEAD" }).catch(() => null); if (!h || !h.ok) bad.push(u + " -> " + (h ? h.status : "no reply")); }
+    const urls = []; const walk = o => { if (typeof o === "string") { if (/\.(mp3|wav|m4a|webm|ogg)(\?|$)/i.test(o)) urls.push(o); } else if (o && typeof o === "object") for (const v of Object.values(o)) walk(v); }; walk(a);
+    if (id === "a1" && n === 1 && a[0]) P("  (shape of one asset: " + Object.keys(a[0]).join(", ") + "; types: " + [...new Set(a.map(x => x.type))].join(", ") + ")");
+    const bad = [];
+    for (const u of urls) { const full = u.startsWith("http") ? u : SITE + (u.startsWith("/") ? "" : "/") + u; const h = await fetch(full, { method: "HEAD" }).catch(() => null); if (!h || !h.ok) bad.push(u + " -> " + (h ? h.status : "no reply")); }
     P(`  ${id} lesson ${n}: ${a.length} assets, ${urls.length} with audio${bad.length ? ", BROKEN: " + bad.join("; ") : ""}`);
   } catch (e) { P(`  ${id} lesson ${n}: could not read (${e.message})`); } }
 P("\n== 6. Built audio on the live site");
