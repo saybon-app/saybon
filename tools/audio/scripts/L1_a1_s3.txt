@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] J'habite à Lyon.
+[calmly] J'habite à Lyon. Et toi ?
 
 [short pause]
 
-[warmly] It means, I live in Lyon.
+[warmly] It means, I live in Lyon. And you?
 
 [short pause]
 
-[calmly] J'habite à Lyon.
+[calmly] J'habite à Lyon. Et toi ?
 
 [repeat]
 
-[calmly] J'habite à Lyon.
+[calmly] J'habite à Lyon. Et toi ?
 
 [repeat]
 

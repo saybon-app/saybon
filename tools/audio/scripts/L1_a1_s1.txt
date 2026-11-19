@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je m'appelle Lucas.
+[calmly] Je m'appelle Lucas. Et toi ?
 
 [short pause]
 
-[warmly] It means, my name is Lucas.
+[warmly] It means, my name is Lucas. And you?
 
 [short pause]
 
-[calmly] Je m'appelle Lucas.
+[calmly] Je m'appelle Lucas. Et toi ?
 
 [repeat]
 
-[calmly] Je m'appelle Lucas.
+[calmly] Je m'appelle Lucas. Et toi ?
 
 [repeat]
 

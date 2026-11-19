@@ -1,13 +1,23 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me.
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
 
-[short pause]
+[calmly] Parlez-moi d'un film qui vous a marqué.
 
-[calmly] Parlez-moi d'un film ou d'un livre qui vous a marqué, avec dont et que.
+[turn:Le film dont je vous parle, que j'ai vu hier, m'a profondément marqué.]
 
-[long turn]
+[warmly] Maintenant, posez-moi la question.
 
-[calmly] Encore une fois, avec une phrase encore plus longue.
+[turn:Et vous, quel film vous a marqué ?]
 
-[long turn]
+[calmly] Moi, c'est un film dont l'histoire m'a bouleversée.
 
-[warmly] Très bien. That's the lesson. Well done.
+[calmly] Et un livre ?
+
+[turn:Le livre dont tout le monde parle, que j'ai enfin lu, m'a ému.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, quel livre avez-vous aimé ?]
+
+[calmly] Moi, le roman que j'ai lu cet été m'a captivée.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,13 +1,23 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me.
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
 
-[short pause]
+[calmly] Ce rapport est mauvais. Reformulez avec élégance.
 
-[calmly] Reformulez avec élégance : Ce rapport est mauvais.
+[turn:Je me permets de nuancer : ce rapport manque de rigueur.]
 
-[long turn]
+[warmly] Maintenant, posez-moi la question.
 
-[calmly] Et maintenant : Je ne suis pas d'accord.
+[turn:Et vous, comment le diriez-vous ?]
 
-[long turn]
+[calmly] Je dirais qu'il gagnerait à être plus rigoureux.
 
-[warmly] Très bien. That's the lesson. Well done.
+[calmly] Je ne suis pas d'accord. Reformulez.
+
+[turn:Je ne partage pas tout à fait votre point de vue.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment le diriez-vous ?]
+
+[calmly] Permettez-moi d'être d'un autre avis.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

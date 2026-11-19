@@ -1,17 +1,23 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me.
-
-[short pause]
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
 
 [calmly] Tu es allé où hier ?
 
-[your turn]
+[turn:Je suis allé au marché.]
+
+[warmly] Now ask me back: Et toi, tu es allé où ?
+
+[turn:Et toi, tu es allé où ?]
+
+[calmly] Moi, je suis resté à la maison.
 
 [calmly] Tu es rentré à quelle heure ?
 
-[your turn]
+[turn:Je suis rentré à six heures.]
 
-[calmly] Et ton ami, il est venu avec toi ?
+[warmly] Now ask me back: Et toi, tu es rentré à quelle heure ?
 
-[your turn]
+[turn:Et toi, tu es rentré à quelle heure ?]
+
+[calmly] Moi, je suis rentré à sept heures.
 
 [warmly] Très bien. That's the lesson. Well done.

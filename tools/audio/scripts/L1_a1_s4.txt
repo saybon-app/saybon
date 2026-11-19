@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] Je suis étudiant.
+[calmly] Je suis étudiant. Et toi ?
 
 [short pause]
 
-[warmly] It means, I am a student.
+[warmly] It means, I am a student. And you?
 
 [short pause]
 
-[calmly] Je suis étudiant.
+[calmly] Je suis étudiant. Et toi ?
 
 [repeat]
 
-[calmly] Je suis étudiant.
+[calmly] Je suis étudiant. Et toi ?
 
 [repeat]
 

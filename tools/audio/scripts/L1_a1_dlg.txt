@@ -1,21 +1,33 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me.
-
-[short pause]
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
 
 [calmly] Comment tu t'appelles ?
 
-[your turn]
+[turn:Je m'appelle Lucas.]
+
+[warmly] Now ask me back: Et toi, comment tu t'appelles ?
+
+[turn:Et toi, comment tu t'appelles ?]
+
+[calmly] Je m'appelle Camille.
 
 [calmly] Tu as quel âge ?
 
-[your turn]
+[turn:J'ai vingt-cinq ans.]
+
+[warmly] Now ask me back: Et toi, tu as quel âge ?
+
+[turn:Et toi, tu as quel âge ?]
+
+[calmly] J'ai trente ans.
 
 [calmly] Où est-ce que tu habites ?
 
-[your turn]
+[turn:J'habite à Lyon.]
 
-[calmly] Et tu fais quoi dans la vie ?
+[warmly] Now ask me back: Et toi, où est-ce que tu habites ?
 
-[your turn]
+[turn:Et toi, où est-ce que tu habites ?]
+
+[calmly] J'habite à Paris.
 
 [warmly] Très bien. That's the lesson. Well done.

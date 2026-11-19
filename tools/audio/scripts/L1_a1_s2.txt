@@ -2,19 +2,19 @@
 
 [short pause]
 
-[calmly] J'ai vingt-cinq ans.
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [short pause]
 
-[warmly] It means, I am twenty-five years old.
+[warmly] It means, I am twenty-five years old. And you?
 
 [short pause]
 
-[calmly] J'ai vingt-cinq ans.
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [repeat]
 
-[calmly] J'ai vingt-cinq ans.
+[calmly] J'ai vingt-cinq ans. Et toi ?
 
 [repeat]
 
