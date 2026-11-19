@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Nous avons parlé pendant une heure.
+
+[short pause]
+
+[warmly] It means, we talked for an hour.
+
+[short pause]
+
+[calmly] Nous avons parlé pendant une heure.
+
+[repeat]
+
+[calmly] Nous avons parlé pendant une heure.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

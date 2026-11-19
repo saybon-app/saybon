@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Mettez au passé simple : il a ouvert la porte.
+
+[turn:Il ouvrit la porte.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, que diriez-vous pour : elle est partie ?]
+
+[calmly] Elle partit.
+
+[calmly] Mettez au passé simple : ils ont attendu.
+
+[turn:Ils attendirent longtemps.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, que diriez-vous pour : il a compris ?]
+
+[calmly] Il comprit aussitôt.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

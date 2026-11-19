@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Qu'as-tu fait hier ?
+
+[short pause]
+
+[warmly] It means, What did you do yesterday?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+
+[short pause]
+
+[warmly] It means, Yesterday, I went to the market, then I cooked. And you, what did you do?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+
+[repeat]
+
+[calmly] Hier, je suis allé au marché, puis j'ai cuisiné. Et toi, qu'as-tu fait ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Comment est ta maison ?
+
+[turn:Ma maison est petite, mais jolie.]
+
+[warmly] Now ask me back.
+
+[turn:Et ta maison, comment est-elle ?]
+
+[calmly] Ma maison est grande, avec un jardin.
+
+[calmly] Il y a combien de chambres chez toi ?
+
+[turn:Il y a deux chambres.]
+
+[warmly] Now ask me back.
+
+[turn:Et chez toi, il y a combien de chambres ?]
+
+[calmly] Chez moi, il y a trois chambres.
+
+[warmly] Très bien. That's the lesson. Well done.

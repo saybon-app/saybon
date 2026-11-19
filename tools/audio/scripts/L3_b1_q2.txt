@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Êtes-vous d'accord avec le télétravail ?
+
+[short pause]
+
+[warmly] It means, Do you agree with working from home?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Je pense que oui, car on gagne du temps. Et vous, êtes-vous d'accord ?
+
+[short pause]
+
+[warmly] It means, I think so, because you save time. And you, do you agree?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Je pense que oui, car on gagne du temps. Et vous, êtes-vous d'accord ?
+
+[repeat]
+
+[calmly] Je pense que oui, car on gagne du temps. Et vous, êtes-vous d'accord ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

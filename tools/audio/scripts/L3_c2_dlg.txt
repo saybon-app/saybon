@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Comment refuser poliment une invitation ?
+
+[turn:Je vous remercie, mais je ne pourrai malheureusement pas venir.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment refuseriez-vous ?]
+
+[calmly] Je vous remercie de votre invitation, mais je suis déjà pris.
+
+[calmly] Comment critiquer sans froisser ?
+
+[turn:Avec tout le respect que je vous dois, je vois les choses autrement.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment feriez-vous ?]
+
+[calmly] Je me permets de suggérer une autre approche.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

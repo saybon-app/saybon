@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Que pensez-vous des réseaux sociaux ?
+
+[turn:À mon avis, ils sont utiles, mais dangereux.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, qu'en pensez-vous ?]
+
+[calmly] Moi, je pense qu'ils prennent trop de temps.
+
+[calmly] Êtes-vous d'accord avec le télétravail ?
+
+[turn:Je pense que oui, car on gagne du temps.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, êtes-vous d'accord ?]
+
+[calmly] Moi, je préfère travailler au bureau.
+
+[warmly] Très bien. That's the lesson. Well done.

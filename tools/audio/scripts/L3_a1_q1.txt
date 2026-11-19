@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Comment est ta maison ?
+
+[short pause]
+
+[warmly] It means, What is your home like?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Ma maison est petite, mais jolie. Et ta maison, comment est-elle ?
+
+[short pause]
+
+[warmly] It means, My home is small, but pretty. And your home, what is it like?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Ma maison est petite, mais jolie. Et ta maison, comment est-elle ?
+
+[repeat]
+
+[calmly] Ma maison est petite, mais jolie. Et ta maison, comment est-elle ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
