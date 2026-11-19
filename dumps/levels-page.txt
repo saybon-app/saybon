@@ -1,0 +1,2095 @@
+
+=== C:\SayBon\public\delf\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DELF Exam Preparation - SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="delf.css?v=6">
+<style>html.dfhold{background:#1a120b}html.dfhold body{visibility:hidden}</style>
+<script>(function(){if(/[?&]landing=1/.test(location.search))return;var d=document.documentElement;try{if(localStorage.getItem("saybon_delf_returning")==="1"){d.classList.add("dfhold");location.replace("/delf/dashboard.html");return;}}catch(e){}d.classList.add("dfhold");window.dfReveal=function(){d.classList.remove("dfhold");};setTimeout(window.dfReveal,5000);})();</script>
+</head>
+<body>
+<div class="df-stage">
+
+  <button class="df-corner-icon df-corner-back" onclick="location.href='/dashboard/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="df-corner-icon df-corner-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <section class="df-hero">
+    <p class="df-eyebrow">SayBon DELF Preparation</p>
+    <h1 class="df-title">Prepare for the DELF with Confidence</h1>
+    <p class="df-subtitle">Structured, mock-based preparation designed to help you walk into the official DELF exam ready - and confident.</p>
+    <button class="df-info-btn" id="dfToggleBtn">Learn Everything About This Service</button>
+
+    <div class="df-hero-circle-wrap">
+      <img src="/assets/images/delf-hero.webp" alt="Tutor and student studying together" class="df-hero-circle">
+    </div>
+  </section>
+
+  <div class="df-peek-band">
+
+    <div class="df-content" id="dfContent">
+      <div class="df-seam"></div>
+
+      <section class="df-card">
+        <h2>The DELF, Explained</h2>
+        <p>The DELF (Diplôme d'Études en Langue FranÇaise) is an official French proficiency diploma - recognized internationally, and valid for life. Earning it can open real doors, for study, work, or a personal milestone. SayBon exists to help you walk into that exam prepared, not guessing.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>Four Skills. One Real Exam.</h2>
+        <div class="df-skills-grid">
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10v4a1 1 0 001 1h3l4 4V5L7 9H4a1 1 0 00-1 1z"/><path d="M16 8a5 5 0 010 8"/><path d="M19 5a9 9 0 010 14"/></svg>
+            </div>
+            <h3>Listening</h3>
+            <p>Understand spoken French in real, natural contexts.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+            <h3>Reading</h3>
+            <p>Comprehend written passages with confidence.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            </div>
+            <h3>Writing</h3>
+            <p>Express yourself clearly in structured written French.</p>
+          </div>
+          <div class="df-skill">
+            <div class="df-skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0"/><path d="M12 19v3"/></svg>
+            </div>
+            <h3>Speaking</h3>
+            <p>Speak naturally, with real feedback on how you sound.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Every Age, Every Level</h2>
+        <p>DELF isn't one-size-fits-all, and neither is SayBon's prep. We support two youth tracks and the full adult track:</p>
+        <div class="df-track">
+          <h3>DELF Prim <span>· ages 8-12</span></h3>
+          <p>Covers A1.1, A1, and A2 - the earliest levels, built for younger learners just beginning their French journey.</p>
+        </div>
+        <div class="df-track">
+          <h3>DELF Junior <span>· ages 13-17</span></h3>
+          <p>Covers A1 through B2 - the same content as the adult exam, adapted with themes and material suited to teenagers.</p>
+        </div>
+        <div class="df-track">
+          <h3>DELF Tout Public <span>· adults</span></h3>
+          <p>Covers A1 through C1 - the standard adult track, for learners at any stage of their French.</p>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Your Placement Is a Mirror, Not a Gate</h2>
+        <p>Before you begin, you'll take a mock placement test - a shortened version of the real exam, covering all four skills. It isn't there to judge you. It's there to show you, honestly, where you're starting from.</p>
+        <p>Your placement score is saved to your DELF dashboard as your baseline. From there, every test score you earn throughout your preparation - all ten of them - is added right alongside it, so your progress is laid out clearly, from day one to your very last practice test.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>You Choose Your Level. Always.</h2>
+        <p>You're free to test into whichever level you believe fits you. Once we've scored your placement, we'll share our findings clearly and honestly. If our recommendation differs from your choice, that's entirely fine - you decide.</p>
+        <p>We'll prepare you at whatever level you choose. We simply want you to walk in with your eyes open: a level far above where you're starting can feel like a steep climb, and one far below may not challenge you at all. Our role is to tell you what we see. The choice is always yours.</p>
+      </section>
+
+      <section class="df-card">
+        <h2>How Your Preparation Actually Works</h2>
+        <p class="df-flow-intro">Each level follows a simple rhythm: <strong>four lessons, then a test.</strong> Every lesson focuses on a single skill - Listening, then Reading, then Writing, then Speaking - before a practice test brings it together. This full round repeats <strong>ten times</strong> per level.</p>
+        <div class="df-flow-steps">
+          <div class="df-flow-step">
+            <span class="df-flow-num">1</span>
+            <div>
+              <h3>Four focused lessons</h3>
+              <p>Listening, Reading, Writing, and Speaking - one at a time, building real skill in each area.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">2</span>
+            <div>
+              <h3>One practice test</h3>
+              <p>Every batch of four lessons ends with a real test, scored and added to your dashboard.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">3</span>
+            <div>
+              <h3>Repeated ten times</h3>
+              <p>By the end, you'll have completed forty lessons and ten full tests - a genuinely thorough preparation.</p>
+            </div>
+          </div>
+          <div class="df-flow-step">
+            <span class="df-flow-num">4</span>
+            <div>
+              <h3>Skip if you're confident</h3>
+              <p>Feeling strong in a skill? You're free to skip a lesson. We'll always share our recommendation first - but the choice stays yours.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Clear, Honest Pricing</h2>
+        <p class="df-pricing-note">Every level includes the complete package: <strong>forty structured lessons and ten full practice tests</strong>, all tracked on your personal DELF dashboard alongside your original placement score.</p>
+        <div class="df-pricing-table">
+          <div class="df-pricing-row df-pricing-head">
+            <span>Level</span><span>Price</span>
+          </div>
+          <div class="df-pricing-row"><span>DELF Prim & Junior (any level)</span><span>$12</span></div>
+          <div class="df-pricing-row"><span>A1</span><span>$12</span></div>
+          <div class="df-pricing-row"><span>A2</span><span>$17</span></div>
+          <div class="df-pricing-row"><span>B1</span><span>$25</span></div>
+          <div class="df-pricing-row"><span>B2</span><span>$29</span></div>
+          <div class="df-pricing-row"><span>C1</span><span>$34</span></div>
+        </div>
+      </section>
+
+      <section class="df-card">
+        <h2>Why Learners Choose SayBon</h2>
+        <ul class="df-why-list">
+          <li><strong>Accessible from anywhere</strong> - no travel, no fixed classroom, no barriers to starting today.</li>
+          <li><strong>Built around your schedule</strong> - flexible pacing that fits your life, not the other way around.</li>
+          <li>Practice as many times as you need, with no one-shot pressure.</li>
+          <li>Structured pacing that respects how you actually learn.</li>
+          <li>A genuinely more affordable path to the same official qualification.</li>
+        </ul>
+      </section>
+
+      <section class="df-card">
+        <h2>Your Story Helps the Next Learner</h2>
+        <p>If SayBon helps you get where you're going, we'd love to hear about it. Sharing your experience - and your results, if you're comfortable - helps future learners trust that this works. It's always optional, and always appreciated.</p>
+      </section>
+
+      <button class="df-cta-btn" onclick="location.href='placement.html'">Start Your Placement</button>
+
+    </div>
+  </div>
+
+</div>
+<script src="delf.js?v=2"></script>
+<script type="module">
+if(!/[?&]landing=1/.test(location.search)){
+  import("/js/firebase-init.js").then(function(m){
+    m.auth.onAuthStateChanged(function(u){
+      if(!u){ if(window.dfReveal) window.dfReveal(); return; }
+      u.getIdToken().then(function(t){ return fetch("https://saybonapp-server.onrender.com/api/delf/state",{headers:{Authorization:"Bearer "+t}}); })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(st){ var back = !!(st && st.state !== "new"); try{ if(back){ localStorage.setItem("saybon_delf_returning","1"); } else if(st){ localStorage.removeItem("saybon_delf_returning"); } }catch(e){} if(back){ location.replace("/delf/dashboard.html"); } else if(window.dfReveal){ window.dfReveal(); } })
+        .catch(function(){});
+    });
+  }).catch(function(){});
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+=== C:\SayBon\public\delf\payment.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8" />
+<title>DELF Preparation - Choose your level - SayBon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",-apple-system,sans-serif;background:linear-gradient(165deg,#1a120b 0%,#2b1b10 50%,#1a120b 100%);color:#f6f1e4;min-height:100vh;padding:72px 18px 40px;}
+.pm-stage{max-width:480px;margin:0 auto;}
+.pm-corner-icon{position:fixed;top:16px;left:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:50;}
+.pm-corner-icon svg{width:18px;height:18px;}
+.pm-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#d4af6a;text-align:center;margin-bottom:8px;}
+.pm-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.7rem;text-align:center;margin-bottom:6px;}
+.pm-sub{font-size:.85rem;color:#b9ab90;text-align:center;line-height:1.55;margin-bottom:20px;}
+.pm-list{display:flex;flex-direction:column;gap:10px;}
+.pm-opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:inherit;color:inherit;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,106,.2);border-radius:16px;padding:14px 16px;cursor:pointer;transition:border-color .15s ease,background .15s ease;}
+.pm-opt:disabled{cursor:default;opacity:.55;}
+.pm-dot{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:2px solid rgba(212,175,106,.5);display:flex;align-items:center;justify-content:center;}
+.pm-opt.pm-sel{border-color:#d4af6a;background:rgba(212,175,106,.1);}
+.pm-opt.pm-sel .pm-dot{border-color:#d4af6a;}
+.pm-opt.pm-sel .pm-dot:after{content:"";width:10px;height:10px;border-radius:50%;background:#d4af6a;}
+.pm-name{font-weight:800;font-size:1rem;}
+.pm-tag{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;font-size:.62rem;font-weight:800;letter-spacing:.06em;background:rgba(212,175,106,.2);color:#e8c98a;vertical-align:2px;}
+.pm-meta{font-size:.76rem;color:#b9ab90;margin-top:3px;}
+.pm-mid{flex:1;min-width:0;}
+.pm-price{text-align:right;}
+.pm-usd{font-weight:800;font-size:1.05rem;color:#e8c98a;}
+.pm-ghs{font-size:.72rem;color:#b9ab90;margin-top:2px;}
+.pm-pay{margin-top:22px;}
+.pm-btn{display:block;width:100%;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:none;border-radius:14px;padding:15px;font-family:inherit;font-weight:800;font-size:.92rem;cursor:pointer;margin-bottom:10px;}
+.pm-btn:disabled{opacity:.45;cursor:not-allowed;}
+.pm-btn-secondary{background:rgba(255,255,255,.08);color:#f6f1e4;border:1px solid rgba(255,255,255,.18);}
+.pm-note{font-size:.76rem;color:#b9ab90;text-align:center;line-height:1.5;margin-top:6px;}
+.pm-status{font-size:.84rem;color:#f0b8a8;text-align:center;margin-top:12px;min-height:18px;}
+.pm-admin{margin-top:22px;padding:14px;border:1px dashed rgba(212,175,106,.4);border-radius:14px;}.pm-admin p{font-size:.74rem;color:#b9ab90;margin-bottom:10px;text-align:center;}.pm-admin .pm-btn{margin-bottom:8px;}
+.pm-msg{text-align:center;color:#b9ab90;padding:50px 0;font-size:.92rem;}
+</style>
+</head>
+<body>
+<button class="pm-corner-icon" onclick="location.href='/delf/dashboard.html'" aria-label="Back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+
+<div class="pm-stage">
+  <p class="pm-eyebrow">DELF Preparation</p>
+  <h1 class="pm-title">Choose your level</h1>
+  <p class="pm-sub">One payment per level. Forty structured lessons and ten full mock exams, tracked on your dashboard.</p>
+  <div id="pmBody"><p class="pm-msg">Loading prices...</p></div>
+</div>
+
+<script type="module">
+const API_BASE = "https://saybonapp-server.onrender.com";
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+var body = document.getElementById("pmBody");
+var wanted = (new URLSearchParams(location.search).get("exam") || "").toLowerCase();
+var items = [], selected = null, currentUser = null, isAdmin = false;
+var META = { a1:"Beginner", a2:"Elementary", b1:"Intermediate", b2:"Upper intermediate", c1:"Advanced", prim:"For children", junior:"For teenagers" };
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function money(n){ return "GH₵" + n; }
+
+function draw(){
+  var rows = items.map(function(it){
+    var sel = selected === it.exam;
+    return '<button class="pm-opt' + (sel ? ' pm-sel' : '') + '" data-exam="' + it.exam + '"' + (it.owned ? ' disabled' : '') + '>' +
+      '<span class="pm-dot"></span><span class="pm-mid"><div class="pm-name">' + esc(it.label) + (it.exam === wanted && !it.owned ? '<span class="pm-tag">YOUR NEXT STEP</span>' : '') + '</div>' +
+      '<div class="pm-meta">' + esc(META[it.exam] || "") + '</div></span>' +
+      '<span class="pm-price">' + (it.owned ? '<div class="pm-usd">Unlocked</div>' : '<div class="pm-usd">$' + it.usd + '</div>' + (it.ghs ? '<div class="pm-ghs">about ' + money(it.ghs) + '</div>' : '')) + '</span></button>';
+  }).join("");
+  var cur = items.filter(function(i){ return i.exam === selected; })[0];
+  var pay = '<div class="pm-pay">' +
+    '<button class="pm-btn" id="pmCard"' + (cur ? '' : ' disabled') + '>' + (cur ? 'Pay $' + cur.usd + ' by card' : 'Select a level to continue') + '</button>' +
+    '<button class="pm-btn pm-btn-secondary" id="pmCedi"' + (cur && cur.ghs ? '' : ' disabled') + '>' + (cur && cur.ghs ? 'Pay ' + money(cur.ghs) + ' (mobile money or card)' : 'Pay in Ghana cedis') + '</button>' +
+    '<p class="pm-note">You will be taken to a secure payment page. Your access is added to your dashboard as soon as the payment is confirmed.</p>' +
+    '<p class="pm-status" id="pmStatus"></p></div>';
+  var adm = isAdmin ? '<div class="pm-admin"><p>Admin only: test access without paying</p>' +
+    '<button class="pm-btn pm-btn-secondary" id="pmUnlock"' + (cur ? '' : ' disabled') + '>Unlock this level free</button>' +
+    '<button class="pm-btn pm-btn-secondary" id="pmLock"' + (items.filter(function(i){ return i.owned; }).length ? '' : ' disabled') + '>Lock a level again</button></div>' : '';
+  body.innerHTML = '<div class="pm-list">' + rows + '</div>' + pay + adm;
+  Array.prototype.forEach.call(body.querySelectorAll(".pm-opt"), function(b){ b.onclick = function(){ selected = b.getAttribute("data-exam"); draw(); }; });
+  document.getElementById("pmCard").onclick = function(){ go("stripe"); };
+  document.getElementById("pmCedi").onclick = function(){ go("paystack"); };
+  if(isAdmin){
+    document.getElementById("pmUnlock").onclick = function(){ adminSet(selected, false); };
+    document.getElementById("pmLock").onclick = function(){ var o = items.filter(function(i){ return i.owned && (i.exam === selected || true); }); adminSet((o.filter(function(i){ return i.exam === selected; })[0] || o[0]).exam, true); };
+  }
+}
+function adminSet(exam, lock){
+  if(!exam || !currentUser) return;
+  document.getElementById("pmStatus").textContent = "Updating...";
+  currentUser.getIdToken().then(function(t){
+    return fetch(API_BASE + "/api/delf/admin-grant", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + t }, body: JSON.stringify({ exam: exam, lock: lock }) });
+  }).then(function(r){ return r.json(); }).then(function(d){
+    if(d.ok){ items.forEach(function(i){ if(i.exam === exam) i.owned = !lock; }); if(!lock) selected = null; draw(); document.getElementById("pmStatus").textContent = (lock ? "Locked " : "Unlocked ") + exam.toUpperCase() + ". Open your dashboard to see it."; }
+    else document.getElementById("pmStatus").textContent = d.error || "Could not update.";
+  }).catch(function(){ document.getElementById("pmStatus").textContent = "Could not reach the server."; });
+}
+
+function go(provider){
+  var st = document.getElementById("pmStatus"), btns = [document.getElementById("pmCard"), document.getElementById("pmCedi")];
+  if(!selected || !currentUser) return;
+  btns.forEach(function(b){ b.disabled = true; });
+  st.textContent = "Taking you to the secure payment page...";
+  currentUser.getIdToken().then(function(t){
+    return fetch(API_BASE + "/api/delf/checkout", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + t }, body: JSON.stringify({ exam: selected, provider: provider }) });
+  }).then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); }).then(function(x){
+    if(x.ok && x.d.url){ location.href = x.d.url; return; }
+    st.textContent = (x.d && x.d.error) ? x.d.error.charAt(0).toUpperCase() + x.d.error.slice(1) + "." : "Could not start the payment. Please try again.";
+    draw(); document.getElementById("pmStatus").textContent = st.textContent;
+  }).catch(function(){ draw(); document.getElementById("pmStatus").textContent = "Could not reach the server. Please try again in a moment."; });
+}
+
+function load(token, tries){
+  return fetch(API_BASE + "/api/delf/prices", { headers: token ? { Authorization: "Bearer " + token } : {} }).then(function(r){
+    if(r.ok) return r.json();
+    if(tries > 1) return new Promise(function(res){ setTimeout(res, 5000); }).then(function(){ return load(token, tries - 1); });
+    throw new Error(r.status);
+  }, function(e){
+    if(tries > 1) return new Promise(function(res){ setTimeout(res, 5000); }).then(function(){ return load(token, tries - 1); });
+    throw e;
+  });
+}
+
+onAuthStateChanged(auth, function(user){
+  currentUser = user;
+  if(!user || (user.isAnonymous && !user.email)){
+    body.innerHTML = '<p class="pm-msg">Please log in to your SayBon account to choose a level and pay.</p><button class="pm-btn" onclick="location.href=\'/auth/login.html\'">Log In</button>';
+    return;
+  }
+  user.getIdToken().then(function(t){ return load(t, 8); }).then(function(d){
+    items = d.items || []; isAdmin = !!d.admin;
+    var free = items.filter(function(i){ return !i.owned; });
+    selected = (items.filter(function(i){ return i.exam === wanted && !i.owned; })[0] || free[0] || {}).exam || null;
+    draw();
+  }).catch(function(){ body.innerHTML = '<p class="pm-msg">We could not load the prices just now. Please refresh in a moment.</p>'; });
+});
+</script>
+</body>
+</html>
+
+=== C:\SayBon\public\features\delf\levels.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="/js/auth-guard.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Choose Your DELF Prep Level � SayBon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Nunito",system-ui,sans-serif;
+      color:#1f2933;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(58,131,125,.12), transparent 24%),
+        linear-gradient(180deg,#f8fbfb,#eef5f4);
+      display:flex;
+      justify-content:center;
+      padding:56px 18px;
+    }
+
+    .page{
+      width:min(94vw,900px);
+      text-align:center;
+    }
+
+    .kicker{
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#3A837D;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(34px,5vw,58px);
+      line-height:1.03;
+      letter-spacing:-.035em;
+    }
+
+    .sub{
+      margin:14px auto 36px;
+      max-width:620px;
+      color:#65737a;
+      line-height:1.6;
+      font-weight:650;
+    }
+
+    .category-stack{
+      display:grid;
+      gap:20px;
+      width:min(100%,620px);
+      margin:0 auto 30px;
+    }
+
+    .category{
+      min-height:145px;
+      border:0;
+      border-radius:28px;
+      color:#fff;
+      font-family:inherit;
+      cursor:pointer;
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      box-shadow:0 22px 55px rgba(0,0,0,.12);
+      transition:.25s ease;
+    }
+
+    .category:hover{
+      transform:translateY(-6px) scale(1.015);
+      filter:brightness(1.04);
+    }
+
+    .category h2{
+      margin:0;
+      font-size:28px;
+      font-weight:900;
+    }
+
+    .category span{
+      font-size:15px;
+      font-weight:800;
+      opacity:.9;
+    }
+
+    .prim{background:linear-gradient(135deg,#ba5449,#df7a68)}
+    .junior{background:linear-gradient(135deg,#d49a8a,#efb5aa)}
+    .public{background:linear-gradient(135deg,#2f8b94,#5cc8d8)}
+
+    .levels-panel{
+      width:min(100%,760px);
+      margin:34px auto 0;
+      padding:28px;
+      border-radius:32px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(58,131,125,.12);
+      box-shadow:0 24px 70px rgba(31,41,51,.08);
+      display:none;
+      animation:panelIn .45s ease both;
+    }
+
+    .levels-panel.show{display:block}
+
+    @keyframes panelIn{
+      from{opacity:0; transform:translateY(16px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .levels-panel h2{
+      margin:0 0 8px;
+      font-size:30px;
+    }
+
+    .levels-panel p{
+      margin:0 0 22px;
+      color:#66757b;
+      font-weight:650;
+    }
+
+    .level-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:14px;
+    }
+
+    .level-card{
+      min-height:110px;
+      border-radius:24px;
+      border:1px solid rgba(58,131,125,.12);
+      background:#f8fbfb;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      text-decoration:none;
+      color:#1f2933;
+      transition:.22s ease;
+      cursor:pointer;
+    }
+
+    .level-card:hover{
+      transform:translateY(-4px);
+      background:#ffffff;
+      box-shadow:0 18px 36px rgba(58,131,125,.12);
+    }
+
+    .level-code{
+      font-size:26px;
+      font-weight:900;
+      color:#3A837D;
+    }
+
+    .price{
+      font-size:15px;
+      font-weight:900;
+      color:#ba5449;
+    }
+
+    .back{
+      margin-top:28px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 24px;
+      border-radius:999px;
+      background:#e7efee;
+      color:#263238;
+      text-decoration:none;
+      font-weight:900;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="kicker">DELF Preparation</div>
+    <h1>Choose Your DELF Prep Path</h1>
+    <p class="sub">Select your DELF category. Then choose the level you want to prepare for.</p>
+
+    <section class="category-stack">
+      <button class="category prim" onclick="showLevels('prim')">
+        <h2>DELF Prim</h2>
+        <span>Ages 7�12</span>
+      </button>
+
+      <button class="category junior" onclick="showLevels('junior')">
+        <h2>DELF Junior</h2>
+        <span>Ages 12�17</span>
+      </button>
+
+      <button class="category public" onclick="showLevels('public')">
+        <h2>DELF Tout Public</h2>
+        <span>Ages 18+</span>
+      </button>
+    </section>
+
+    <section id="levelsPanel" class="levels-panel">
+      <h2 id="panelTitle">Choose Level</h2>
+      <p id="panelSub">Select a level to continue to payment.</p>
+      <div id="levelGrid" class="level-grid"></div>
+    </section>
+
+    <a class="back" href="/features/delf/">? Back to DELF</a>
+  </main>
+
+  <script>
+    const DATA = {
+      prim: {
+        title: "DELF Prim",
+        sub: "Child-friendly DELF preparation for younger learners.",
+        levels: [
+          { level:"A1", price:8 },
+          { level:"A2", price:10 }
+        ]
+      },
+      junior: {
+        title: "DELF Junior",
+        sub: "DELF preparation for teenagers.",
+        levels: [
+          { level:"A1", price:12 },
+          { level:"A2", price:15 },
+          { level:"B1", price:18 },
+          { level:"B2", price:20 }
+        ]
+      },
+      public: {
+        title: "DELF Tout Public",
+        sub: "DELF preparation for adults and general candidates.",
+        levels: [
+          { level:"A1", price:15 },
+          { level:"A2", price:20 },
+          { level:"B1", price:25 },
+          { level:"B2", price:30 },
+          { level:"C1", price:40 }
+        ]
+      }
+    };
+
+    function showLevels(category){
+      const data = DATA[category];
+      const panel = document.getElementById("levelsPanel");
+      const title = document.getElementById("panelTitle");
+      const sub = document.getElementById("panelSub");
+      const grid = document.getElementById("levelGrid");
+
+      title.textContent = data.title;
+      sub.textContent = data.sub;
+      grid.innerHTML = "";
+
+      data.levels.forEach(item => {
+        const a = document.createElement("a");
+        a.className = "level-card";
+        a.href = `/features/delf/payment.html?category=${encodeURIComponent(category)}&level=${encodeURIComponent(item.level)}&price=${encodeURIComponent(item.price)}`;
+        a.innerHTML = `
+          <div class="level-code">${item.level}</div>
+          <div class="price">$${item.price}</div>
+          <div>Start Preparation</div>
+        `;
+        grid.appendChild(a);
+      });
+
+      panel.classList.add("show");
+      setTimeout(() => panel.scrollIntoView({ behavior:"smooth", block:"center" }), 80);
+    }
+  </script>
+</body>
+</html>
+
+
+
+=== C:\SayBon\public\levels\A1\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>A1 - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style></head>
+<body>
+
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='/levels/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="tp-stage">
+
+    <header class="page-header">
+      <p class="tp-eyebrow">SayBon Levels</p>
+      <h1>A1 - Beginner</h1>
+    </header>
+
+    <main class="lesson-grid">
+      <button class="lesson unlocked">
+        <span class="tp-num">1</span>
+      </button>
+
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">2</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">3</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">4</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">5</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">6</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">7</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">8</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">9</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">10</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">11</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">12</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">13</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">14</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">15</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">16</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">17</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">18</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">19</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">20</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">21</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">22</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">23</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">24</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">25</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</body>
+<script type="module" src="/levels/hub-unlock-tp.js?v=2"></script>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\A2\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>A2 - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style></head>
+<body>
+
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='/levels/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="tp-stage">
+
+    <header class="page-header">
+      <p class="tp-eyebrow">SayBon Levels</p>
+      <h1>A2 - Elementary</h1>
+    </header>
+
+    <main class="lesson-grid">
+      <button class="lesson unlocked">
+        <span class="tp-num">1</span>
+      </button>
+
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">2</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">3</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">4</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">5</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">6</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">7</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">8</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">9</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">10</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">11</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">12</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">13</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">14</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">15</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">16</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">17</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">18</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">19</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">20</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">21</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">22</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">23</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">24</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">25</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</body>
+<script type="module" src="/levels/hub-unlock-tp.js?v=2"></script>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\B1\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>B1 - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style></head>
+<body>
+
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='/levels/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="tp-stage">
+
+    <header class="page-header">
+      <p class="tp-eyebrow">SayBon Levels</p>
+      <h1>B1 - Intermediate</h1>
+    </header>
+
+    <main class="lesson-grid">
+      <button class="lesson unlocked">
+        <span class="tp-num">1</span>
+      </button>
+
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">2</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">3</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">4</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">5</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">6</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">7</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">8</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">9</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">10</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">11</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">12</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">13</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">14</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">15</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">16</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">17</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">18</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">19</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">20</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">21</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">22</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">23</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">24</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">25</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</body>
+<script type="module" src="/levels/hub-unlock-tp.js?v=2"></script>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\B2\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>B2 - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style></head>
+<body>
+
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='/levels/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="tp-stage">
+
+    <header class="page-header">
+      <p class="tp-eyebrow">SayBon Levels</p>
+      <h1>B2 - Upper Intermediate</h1>
+    </header>
+
+    <main class="lesson-grid">
+      <button class="lesson unlocked">
+        <span class="tp-num">1</span>
+      </button>
+
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">2</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">3</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">4</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">5</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">6</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">7</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">8</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">9</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">10</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">11</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">12</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">13</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">14</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">15</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">16</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">17</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">18</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">19</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">20</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">21</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">22</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">23</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">24</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">25</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</body>
+<script type="module" src="/levels/hub-unlock-tp.js?v=2"></script>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\C1\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>C1 - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="theme.css?v=1" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style></head>
+<body>
+
+  <button class="tp-corner-icon tp-corner-back" onclick="window.location.href='/levels/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="tp-stage">
+
+    <header class="page-header">
+      <p class="tp-eyebrow">SayBon Levels</p>
+      <h1>C1 - Advanced</h1>
+    </header>
+
+    <main class="lesson-grid">
+      <button class="lesson unlocked">
+        <span class="tp-num">1</span>
+      </button>
+
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">2</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">3</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">4</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">5</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">6</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">7</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">8</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">9</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">10</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">11</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">12</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">13</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">14</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">15</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">16</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">17</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">18</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">19</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">20</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">21</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">22</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">23</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">24</span>
+      </button>
+      <button class="lesson locked">
+        <svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+        </svg>
+        <span class="tp-num">25</span>
+      </button>
+
+    </main>
+
+  </div>
+
+</body>
+<script type="module" src="/levels/hub-unlock-tp.js?v=2"></script>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type='module' src='/js/auth-guard.js'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Levels - SayBon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/levels/levels.css?v=5" />
+<style>body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}</style><link rel="stylesheet" href="/levels/levels-cinema.css?v=2" />
+</head>
+<body>
+
+  <div class="lv-bg" style="background-image:url('/assets/levels/levels.webp');"></div>
+  <div class="lv-scrim"></div>
+
+  <button class="lv-corner-icon lv-corner-back" onclick="window.location.href='/dashboard/'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="lv-corner-icon lv-corner-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+  </button>
+
+  <div class="lv-stage">
+
+    <header class="lv-page-header">
+      <p class="lv-eyebrow">SayBon Levels</p>
+      <h1>Choose Your Level</h1>
+      <p class="lv-subtitle">Each level is its own world - pick where your French journey begins.</p>
+    </header>
+
+    <main class="levels-grid">
+
+      <button class="level-tile" onclick="goLevel('A0')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A0</span>
+        <span class="lv-tile-sub">Absolute Beginner</span>
+      </button>
+
+      <button class="level-tile" onclick="goLevel('A1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A1</span>
+        <span class="lv-tile-sub">Beginner</span>
+      </button>
+
+      <button class="level-tile" onclick="goLevel('A2')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">A2</span>
+        <span class="lv-tile-sub">Elementary</span>
+      </button>
+
+      <button class="level-tile" onclick="goLevel('B1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">B1</span>
+        <span class="lv-tile-sub">Intermediate</span>
+      </button>
+
+      <button class="level-tile" onclick="goLevel('B2')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">B2</span>
+        <span class="lv-tile-sub">Upper Intermediate</span>
+      </button>
+
+      <button class="level-tile" onclick="goLevel('C1')">
+        <span class="lv-tile-accent"></span>
+        <span class="lv-tile-label">C1</span>
+        <span class="lv-tile-sub">Advanced</span>
+      </button>
+
+    </main>
+
+  </div>
+
+  <script src="/levels/levels.js"></script>
+<script src="/levels/levels-cinema.js?v=2"></script>
+</body>
+</html>
+
+
+
+
+
+=== C:\SayBon\public\levels\levels-cinema.css
+/* SayBon levels: cinematic slideshow */
+.lv-bg,.lv-scrim{display:none!important}
+html{background:#05060a}
+body{background:none;min-height:100vh;animation:none!important;opacity:1!important;transform:none!important;filter:none!important}
+.cin-bg{opacity:0;position:fixed;inset:0;z-index:-2;background-size:cover;background-position:center;background-repeat:no-repeat;will-change:transform;transform:scale(1.04)}
+.cin-bg.k1{animation:kb1 19s ease-out forwards}.cin-bg.k2{animation:kb2 19s ease-out forwards}.cin-bg.k3{animation:kb3 19s ease-out forwards}
+@keyframes kb1{from{transform:scale(1.04)}to{transform:scale(1.15) translate(-1.2%,-.8%)}}
+@keyframes kb2{from{transform:scale(1.15) translate(1%,0)}to{transform:scale(1.04)}}
+@keyframes kb3{from{transform:scale(1.07) translate(1.2%,.6%)}to{transform:scale(1.12) translate(-1.2%,-.6%)}}
+.cin-vig{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0) 38%,rgba(0,0,0,.5) 100%),linear-gradient(180deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.3) 26%,rgba(0,0,0,0) 44%)}
+.cin-dip{position:fixed;inset:0;z-index:5;background:#000;opacity:1;pointer-events:none;transition:opacity 1.8s ease}
+.cin-dip.on{opacity:1;transition:opacity 1.5s ease}
+.cin-dip:not(.on){opacity:0}
+.lv-corner-icon{z-index:60}
+.lv-page-header h1,.lv-eyebrow{text-shadow:0 2px 16px rgba(0,0,0,.8),0 0 4px rgba(0,0,0,.4)}
+.lv-subtitle{text-shadow:0 1px 12px rgba(0,0,0,.7)}
+
+/* cards: crisp, no blur, themed per scene */
+body{--cb:rgba(12,14,20,.45);--cbd:rgba(255,255,255,.35);--ct:#ffffff;--cs:rgba(255,255,255,.88);--ca:#f0d08c;--csh:0 14px 34px rgba(0,0,0,.35)}
+body[data-scene="1"]{--cb:rgba(78,26,32,.42);--cbd:rgba(255,214,190,.5);--ca:#ffc9a8}
+body[data-scene="2"]{--cb:rgba(20,33,61,.52);--cbd:rgba(255,255,255,.45);--ca:#f0d08c}
+body[data-scene="3"]{--cb:rgba(32,26,66,.5);--cbd:rgba(255,190,140,.5);--ca:#ffb86b}
+body[data-scene="4"]{--cb:rgba(8,44,34,.5);--cbd:rgba(240,184,102,.5);--ca:#f0b866}
+body[data-scene="5"]{--cb:rgba(46,20,60,.46);--cbd:rgba(255,160,200,.5);--ca:#ff9cc2}
+.levels-grid .level-tile{
+  background:var(--cb);border:1px solid var(--cbd);box-shadow:var(--csh);
+  backdrop-filter:blur(7px) saturate(1.1);-webkit-backdrop-filter:blur(7px) saturate(1.1);
+  gap:3px;padding:22px 22px 20px;
+  transition:opacity 1.4s ease,transform 1.5s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,background-color 2.4s ease,border-color 2.4s ease;
+}
+.levels-grid .level-tile:hover{background:var(--cb);border-color:var(--ca);box-shadow:0 22px 46px rgba(0,0,0,.55)}
+.level-tile .lv-tile-accent{display:none}
+.level-tile .lv-tile-label{color:var(--ct);min-height:1.2em;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.level-tile .lv-tile-sub{color:#fff;font-size:.8rem;font-weight:500;min-height:1.2em;opacity:1}
+.cin-ic{display:none!important;width:22px;height:22px;color:var(--ca);margin-bottom:6px;display:block}
+.cin-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cin-q{display:block;font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;font-size:.76rem;line-height:1.5;margin-top:8px;min-height:2.9em;letter-spacing:.01em;color:var(--qc,#ffc9a8);opacity:0;transition:opacity 1.6s ease,color 2.4s ease}
+.cin-q.show{opacity:1}
+body[data-scene="1"]{--qc:#ffc9a8}
+body[data-scene="2"]{--qc:#d3ebb2}
+body[data-scene="3"]{--qc:#ffc19a}
+body[data-scene="4"]{--qc:#c2e8b6}
+body[data-scene="5"]{--qc:#ffb6d2}
+.cin-pic{display:inline-block;height:1.5em;width:1.5em;margin:0 3px 0 0;vertical-align:-.42em;object-fit:contain;-webkit-text-fill-color:initial}
+.typing::after{content:"";display:inline-block;width:1px;height:.85em;background:currentColor;margin-left:2px;vertical-align:-.05em;animation:cinBlink .7s steps(1) infinite}
+@keyframes cinBlink{50%{opacity:0}}
+
+/* landing styles, one per scene */
+.level-tile.pre{opacity:0}
+.level-tile.out{opacity:0;transform:translateY(-18px) scale(.97);transition:opacity 1s ease,transform 1.1s ease}
+
+@media (max-width:700px){
+  .cin-dip{display:none}
+  .lv-subtitle{white-space:nowrap;padding:0;font-size:.78rem}
+  .cin-bg.k1{animation:kb1m 19s ease-in-out forwards}.cin-bg.k2{animation:kb2m 19s ease-in-out forwards}.cin-bg.k3{animation:kb3m 19s ease-in-out forwards}
+  .lv-stage{padding:84px 20px 56px}
+  .lv-page-header{margin-bottom:56px}
+  .lv-eyebrow{margin-bottom:12px}
+  .lv-page-header h1{margin-bottom:16px}
+  .lv-subtitle{line-height:1.55;padding:0 6px}
+  .levels-grid{grid-template-columns:1fr;gap:16px}
+  .levels-grid .level-tile{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;row-gap:8px;align-items:baseline;padding:20px 22px 18px;border-radius:18px}
+  .cin-ic{display:none}
+  .level-tile .lv-tile-label{grid-column:1;grid-row:1;font-size:1.75rem;min-height:0}
+  .level-tile .lv-tile-sub{grid-column:2;grid-row:1;font-size:.86rem;min-height:1.1em}
+  .cin-q{grid-column:1/-1;grid-row:2;margin-top:0;font-size:.8rem;min-height:1.5em}
+}
+@keyframes kb1m{from{transform:scale(1.08) translate(3.5%,1.5%)}to{transform:scale(1.34) translate(-3.5%,-2%)}}
+@keyframes kb2m{from{transform:scale(1.34) translate(-3.5%,-1.5%)}to{transform:scale(1.08) translate(3.5%,1.5%)}}
+@keyframes kb3m{from{transform:scale(1.22) translate(4.5%,1%)}to{transform:scale(1.22) translate(-4.5%,-1%)}}
+@media (prefers-reduced-motion:reduce){.cin-bg{animation:none!important}}
+
+/* scene change: the cards stay put and just lift for a moment */
+.levels-grid .level-tile.sw{transform:translateY(-6px) scale(1.025);box-shadow:0 20px 44px rgba(0,0,0,.5)}
+
+=== C:\SayBon\public\levels\levels-cinema.js
+(function(){
+  function IMG(){return (window.matchMedia&&matchMedia('(max-width:700px)').matches)?'/assets/images/levels-cinema-m-':'/assets/images/levels-cinema-';}
+  var FB=['linear-gradient(160deg,#3a2f22,#14110c)','linear-gradient(160deg,#10203a,#070b14)','linear-gradient(160deg,#2a3340,#0c0f14)','linear-gradient(160deg,#5a2f20,#1c0e08)','linear-gradient(160deg,#17362a,#07110c)'];
+  var ICON={
+    A0:'<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><path d="M16 8L2 22"/><path d="M17.5 15H9"/>',
+    A1:'<circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2.2 4 2.2 4-2.2 4-2.2"/><path d="M9 9.2h.01M15 9.2h.01"/>',
+    A2:'<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/>',
+    B1:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><path d="M17 4v3M15.5 5.5h3"/>',
+    B2:'<path d="M5 22V3"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',
+    C1:'<g transform="rotate(-35 12 12)"><rect x="1.5" y="8.8" width="21" height="6.4" rx="3.2"/><path d="M7 9l1.4 6M11.6 9l1.4 6M16.2 9l1.4 6"/></g>'};
+  var QUIP={A0:['French, ','P','easier than you think.'],A1:['Look at you getting ','P','Frenchier.'],A2:['Real flow, real ','P','convos, Frenchier by the day.'],B1:['Thinking in French, ','P','dreaming in French.'],B2:['Fully ','P','Frenched up, no going back.'],C1:['Pass the ','P',"baguette, you're French now."]};
+  var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
+  var L=[document.createElement('div'),document.createElement('div')],cur=1;L.forEach(function(x){x.className='cin-bg';});function isM(){return window.matchMedia&&matchMedia('(max-width:700px)').matches;}
+  var vig=document.createElement('div');vig.className='cin-vig';
+  var dip=document.createElement('div');dip.className='cin-dip on';
+  document.body.insertBefore(L[1],document.body.firstChild);document.body.insertBefore(L[0],document.body.firstChild);document.body.appendChild(vig);document.body.appendChild(dip);
+  tiles.forEach(function(t){
+    var lab=t.querySelector('.lv-tile-label'),sub=t.querySelector('.lv-tile-sub');
+    t._lab=lab.textContent.trim();t._sub=sub.textContent.trim();t._q=QUIP[t._lab]||[];
+    t.setAttribute('aria-label',t._lab+', '+t._sub);
+    var ic=document.createElement('span');ic.className='cin-ic';ic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[t._lab]||'')+'</svg>';
+    t.insertBefore(ic,t.firstChild);
+    var qw=document.createElement('span');qw.className='cin-q';t._q.forEach(function(p){if(p==='P'){var im=document.createElement('img');im.className='cin-pic';im.alt='';im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);}else{qw.appendChild(document.createTextNode(p));}});t.appendChild(qw);t._el={lab:lab,sub:sub,qw:qw};
+  });
+  var seen=false;
+  try{for(var pi=1;pi<=5;pi++){var pim=new Image();pim.src=IMG()+pi+'.jpg';}}catch(e){}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var G=0;
+  function after(g,ms,fn){setTimeout(function(){if(g===G)fn();},ms);}
+  function typeInto(g,el,text,speed,done){
+    var i=0;el.textContent='';el.classList.add('typing');
+    (function step(){ if(g!==G)return; i++;el.textContent=text.slice(0,i);
+      if(i<text.length)setTimeout(step,speed);else{el.classList.remove('typing');if(done)done();} })();
+  }
+  function fillAll(){tiles.forEach(function(t){t._el.lab.textContent=t._lab;t._el.sub.textContent=t._sub;t._el.qw.classList.add('show');});}
+  function setScene(n){
+    var k=n%5;document.body.setAttribute('data-scene',String(k+1));
+    var nxt=L[1-cur],old=L[cur];
+    nxt.style.transition='none';nxt.style.opacity='0';nxt.className='cin-bg';void nxt.offsetWidth;
+    nxt.style.backgroundImage='url("'+IMG()+(k+1)+'.jpg"),'+FB[k];
+    nxt.className='cin-bg k'+(n%3+1);nxt.style.zIndex='-2';old.style.zIndex='-3';
+    void nxt.offsetWidth;nxt.style.transition='opacity '+(seen?'2.6s':'1.6s')+' ease';nxt.style.opacity='1';seen=true;
+    setTimeout(function(){old.style.transition='none';old.style.opacity='0';},seen&&n>0?2900:1900);
+    cur=1-cur;
+  }
+  function swap(g){
+    tiles.forEach(function(t,i){
+      t.style.transitionDelay=(i*140)+'ms';t.classList.add('sw');
+      after(g,1200+i*140,function(){t.classList.remove('sw');});
+      after(g,2600+i*140,function(){t.style.transitionDelay='';});
+    });
+  }
+  function run(n){
+    var g=++G;var M=isM();
+    if(n>0){
+      /* cards never leave: the scene and card theme change in place */
+      setScene(n);swap(g);
+      if(!reduce)after(g,17000,function(){run(n+1);});
+      return;
+    }
+    setScene(n);
+    tiles.forEach(function(t){t.classList.remove('in','out');t.classList.add('pre');t.style.transitionDelay='';t._el.lab.textContent='';t._el.sub.textContent='';t._el.qw.classList.remove('show');});
+    if(reduce){tiles.forEach(function(t){t.classList.remove('pre');});fillAll();dip.classList.remove('on');return;}
+    after(g,200,function(){dip.classList.remove('on');});
+    tiles.forEach(function(t,i){
+      after(g,(M?1400:2300)+i*280,function(){
+        t.classList.remove('pre');t.classList.add('in');
+        after(g,900,function(){
+          typeInto(g,t._el.lab,t._lab,170,function(){
+            after(g,250,function(){
+              typeInto(g,t._el.sub,t._sub,70,function(){ t._el.qw.classList.add('show'); });
+            });
+          });
+        });
+      });
+    });
+    after(g,17000,function(){run(1);});
+  }
+  var sub=document.querySelector('.lv-subtitle');
+  function fit(){ if(!sub)return; sub.style.fontSize=''; if(!isM())return; var s=13; sub.style.fontSize=s+'px'; while(sub.scrollWidth>sub.clientWidth&&s>8){s-=.25;sub.style.fontSize=s+'px';} }
+  fit();window.addEventListener('resize',fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  run(0);
+})();
+
+=== C:\SayBon\public\levels\levels.css
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;}
+body{
+  color:#f6f1e4;
+  font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+.lv-bg{
+  position:fixed;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  z-index:-2;
+}
+.lv-scrim{
+  position:fixed;
+  inset:0;
+  background:rgba(8,10,14,.55);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  z-index:-1;
+}
+
+.lv-corner-icon{
+  position:fixed;top:16px;width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;
+  color:#f6f1e4;cursor:pointer;z-index:50;
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+}
+.lv-corner-icon svg{width:18px;height:18px;}
+.lv-corner-back{left:16px;} .lv-corner-dash{right:16px;}
+
+.lv-stage{max-width:900px;margin:0 auto;padding:90px 20px 60px;position:relative;}
+
+.lv-page-header{text-align:center;margin-bottom:40px;}
+.lv-eyebrow{
+  font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#d4af6a;margin-bottom:14px;
+}
+.lv-page-header h1{
+  font-family:"Fraunces",serif;
+  font-weight:700;font-style:normal;
+  font-size:clamp(2rem,6vw,2.8rem);
+  color:#f6f1e4;margin-bottom:14px;
+  text-shadow:0 2px 20px rgba(0,0,0,.4);
+}
+
+
+.levels-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+
+.level-tile{
+  position:relative;
+  padding:26px 24px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  cursor:pointer;
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  overflow:hidden;
+  transition:transform .2s ease, border-color .2s ease, background .2s ease;
+  box-shadow:0 14px 30px rgba(0,0,0,.3);
+}
+.level-tile:hover{transform:translateY(-4px);border-color:rgba(212,175,106,.5);background:rgba(255,255,255,.12);}
+.level-tile:active{transform:scale(.97);}
+
+
+.lv-tile-label{
+  font-family:"Fraunces",serif;
+  font-weight:700;font-style:normal;
+  font-size:1.9rem;color:#f6f1e4;
+}
+.lv-tile-sub{font-size:.72rem;color:rgba(217,212,200,.55);font-weight:300;letter-spacing:.03em;}
+
+@media (max-width:480px){
+  .lv-stage{padding:80px 16px 50px;}
+  .levels-grid{grid-template-columns:1fr;}
+}
+
+=== C:\SayBon\public\levels\levels.js
+function goLevel(level) {
+  window.location.href = `/levels/${level}/`;
+}
+

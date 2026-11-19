@@ -8,7 +8,7 @@
     B1:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/><path d="M17 4v3M15.5 5.5h3"/>',
     B2:'<path d="M5 22V3"/><path d="M5 4h13l-2.5 4.5L18 13H5"/>',
     C1:'<g transform="rotate(-35 12 12)"><rect x="1.5" y="8.8" width="21" height="6.4" rx="3.2"/><path d="M7 9l1.4 6M11.6 9l1.4 6M16.2 9l1.4 6"/></g>'};
-  var QUIP={A0:['French, ','P','easier than you think.'],A1:['Look at you getting ','P','Frenchier.'],A2:['Real flow, real ','P','convos, Frenchier by the day.'],B1:['Thinking in French, ','P','dreaming in French.'],B2:['Fully ','P','Frenched up, no going back.'],C1:['Pass the ','P',"baguette, you're French now."]};
+  var QUIP={'Les Petits':['Little learners, big French smiles.'],C2:['Fluent in French, and then some.'],A0:['French, ','P','easier than you think.'],A1:['Look at you getting ','P','Frenchier.'],A2:['Real flow, real ','P','convos, Frenchier by the day.'],B1:['Thinking in French, ','P','dreaming in French.'],B2:['Fully ','P','Frenched up, no going back.'],C1:['Pass the ','P',"baguette, you're French now."]};
   var tiles=[].slice.call(document.querySelectorAll('.level-tile'));
   var L=[document.createElement('div'),document.createElement('div')],cur=1;L.forEach(function(x){x.className='cin-bg';});function isM(){return window.matchMedia&&matchMedia('(max-width:700px)').matches;}
   var vig=document.createElement('div');vig.className='cin-vig';
@@ -20,7 +20,7 @@
     t.setAttribute('aria-label',t._lab+', '+t._sub);
     var ic=document.createElement('span');ic.className='cin-ic';ic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[t._lab]||'')+'</svg>';
     t.insertBefore(ic,t.firstChild);
-    var qw=document.createElement('span');qw.className='cin-q';t._q.forEach(function(p){if(p==='P'){var im=document.createElement('img');im.className='cin-pic';im.alt='';im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);}else{qw.appendChild(document.createTextNode(p));}});t.appendChild(qw);t._el={lab:lab,sub:sub,qw:qw};
+    var qw=document.createElement('span');qw.className='cin-q';t._q.forEach(function(p){if(p==='P'){var im=document.createElement('img');im.className='cin-pic';im.alt='';im.onerror=function(){im.remove();};im.src='/assets/images/levels-icon-'+t._lab.toLowerCase()+'.png';qw.appendChild(im);}else{qw.appendChild(document.createTextNode(p));}});t.appendChild(qw);t._el={lab:lab,sub:sub,qw:qw};
   });
   var seen=false;
   try{for(var pi=1;pi<=5;pi++){var pim=new Image();pim.src=IMG()+pi+'.jpg';}}catch(e){}
