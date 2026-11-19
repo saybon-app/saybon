@@ -23,18 +23,14 @@ function hLv(){var m=window.__psMeta||{};return esc(m.level||'A0')+' &middot; Le
 function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(window.__psTitle&&window.__psTitle())||'';return esc(a||('Le\u00e7on '+(m.lesson||1)));}
 /* Scoring gets stricter as levels go up. Beginners get a merciful curve. */
 var LEN={'A0':{g:.66,f:38,hi:79,mid:60},'Les Petits':{g:.6,f:42,hi:77,mid:58},'A1':{g:.77,f:28,hi:83,mid:65},'A2':{g:.86,f:17,hi:85,mid:68},'B1':{g:.93,f:5,hi:85,mid:70},'B2':{g:.98,f:0,hi:85,mid:70},'C1':{g:1,f:0,hi:85,mid:70}};
+function kids(){return (window.__psMeta||{}).level==='Les Petits';}
+/* Les Petits: teacher recordings that exist (lesson-part). Parts not listed here just open the microphone. */
+var KAUD={'1-3':1,'1-4':1,'1-5':1};
+(function(){try{if(!document.getElementById('pc-kids')){var k=document.createElement('style');k.id='pc-kids';k.textContent='.pc-stars{display:flex;justify-content:center;gap:.28em;font-size:2.7rem;line-height:1;color:#ffd24a;text-shadow:0 0 16px rgba(255,210,74,.65)}.pc-stars span{display:inline-block;transform:scale(0);animation:pcStar .55s cubic-bezier(.3,1.6,.5,1) forwards}.pc-stars span.off{color:rgba(255,255,255,.28);text-shadow:none}@keyframes pcStar{to{transform:scale(1)}}.pc-yt{font-weight:600;letter-spacing:.04em}';document.head.appendChild(k);}}catch(e){}})();
 function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=8;if(!heard)return{v:0,heard:false,hi:L.hi,mid:L.mid};var v=Math.round(100*Math.pow(Math.min(100,raw)/100,L.g));v=Math.max(v,L.f);return{v:Math.min(100,v),heard:true,hi:L.hi,mid:L.mid};}
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
  function look(o,dep){if(!o||typeof o!=='object'||dep>4)return null;for(var i=0;i<keys.length;i++){var n=num(o[keys[i]]);if(n!==null)return n;}for(var k in o){if(o[k]&&typeof o[k]==='object'){var r=look(o[k],dep+1);if(r!==null)return r;}}return null;}
  return look(d,0);}
-/* lesson 2 and 3: words the learner adds (their own name) must not count against them - score only the reference words */
-function pickScoreL(d){
- if((lessonNo()===2||lessonNo()===3)&&d&&d.wordFeedback&&d.wordFeedback.length){
-  var w=d.wordFeedback.filter(function(x){return x&&x.errorType!=='Insertion';});
-  if(w.length){var t=0;w.forEach(function(x){t+=(typeof x.accuracyScore==='number'&&x.errorType!=='Omission')?x.accuracyScore:0;});return t/w.length;}
- }
- return pickScore(d);
-}
 function decode16(blob){
  return blob.arrayBuffer().then(function(ab){
   var AC=window.AudioContext||window.webkitAudioContext,ac=new AC();
@@ -70,30 +66,26 @@ var L1D=[['Bonjour !','Bonjour'],['Salut !','Salut'],['Bonsoir !','Bonsoir'],['A
 /* where the learner answers inside A0_TP_L1_dialogue.mp3 (seconds) */
 var L1W=[[31.9,33.6],[34.95,37.0],[38.9,40.95],[42.9,44.95],[47.0,49.3]];
 /* lesson 2 dialogue: one answer window inside A0_TP_L2_dialogue.mp3 */
-var L3W=[[2.96,5.86],[6.44,8.90],[12.74,14.96],[19.00,20.68],[21.14,23.58]];
-var L3D=[['Bonjour.','Bonjour\u2026'],['\u00c7a va bien.','\u00c7a va bien\u2026'],["Je m'appelle.",'Je m\u2019appelle\u2026'],['Au revoir.','Au revoir\u2026'],['\u00c0 bient\u00f4t.','\u00c0 bient\u00f4t\u2026']];
 var L2W=[[20.7,25.9]];
 var L2D=[["Je m'appelle. Et toi, comment t'appelles-tu ?",'Je m\u2019appelle\u2026']];
-function DW(){return lessonNo()===3?L3W:lessonNo()===2?L2W:L1W;}
-function DD(){return lessonNo()===3?L3D:lessonNo()===2?L2D:L1D;}
-function dlgUrl(){return lessonNo()===3?'/assets/audio/A0_TP_L3_dialogue.mp3?v=1':lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=1':'/assets/audio/A0_TP_L1_dialogue.mp3?v=2';}
-function dlgIdx(){return lessonNo()===3?3:lessonNo()===2?L2P.length:5;}
+function DW(){return lessonNo()===2?L2W:L1W;}
+function DD(){return lessonNo()===2?L2D:L1D;}
+function dlgUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=1':'/assets/audio/A0_TP_L1_dialogue.mp3?v=2';}
+function dlgIdx(){return lessonNo()===2?L2P.length:5;}
 function l1Key(){return 'psL1:'+(window.lsCurrentUid||'anon')+':'+((window.__psMeta||{}).lesson||'');}
 function l1Read(){try{return +localStorage.getItem(l1Key())||0;}catch(e){return 0;}}
 function l1Write(n){try{if(n>0)localStorage.setItem(l1Key(),String(n));else localStorage.removeItem(l1Key());}catch(e){}}
 function lessonNo(){return (window.__psMeta||{}).lesson;}
-function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&(m.lesson===1||m.lesson===2||m.lesson===3);}
+function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&(m.lesson===1||m.lesson===2);}
 /* lesson 2: Je m'appelle (intro + four phrases; the dialogue step is added when its audio exists) */
 var L2P=["Je m'appelle.","Je m'appelle.","Comment t'appelles-tu ? Je m'appelle.","Comment t'appelles-tu ? Je m'appelle. Et toi, comment t'appelles-tu ?"];
-var L3P=["Comment \u00e7a va ?","\u00c7a va. \u00c7a va bien. \u00c7a va tr\u00e8s bien."];
-function introUrl(){return lessonNo()===3?'/assets/audio/A0_TP_L3_intro.mp3?v=1':lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=1':'/assets/audio/A0_TP_L1_intro.mp3?v=1';}
-function lastStep(){return lessonNo()===3?4:lessonNo()===2?L2P.length+1:6;}
+function introUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=1':'/assets/audio/A0_TP_L1_intro.mp3?v=1';}
+function lastStep(){return lessonNo()===2?L2P.length+1:6;}
 function advance(){if(window.__psAdv)window.__psAdv();else window.lsGoNext();}
 function l1Show(i,ctx){
  L1.on=true;
  if(i>=lastStep()){l1Finish(ctx);return;}
- if(lessonNo()===3&&i===2){window.__psListen={url:'/assets/audio/A0_TP_L3_dialogue_intro.mp3?v=1',next:3};window.__psSkipIntro=0;window.__psUI(9000+i,[{type:'text',text:' '}],ctx);return;}
- var b=lessonNo()===3?(i<2?[{type:'text',recordPrompt:true,expectedText:L3P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):lessonNo()===2?(i<L2P.length?[{type:'text',recordPrompt:true,expectedText:L2P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):i<5?[{type:'text',recordPrompt:true,expectedText:L1P[i][0],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:5,_dlgAll:true}];
+ var b=lessonNo()===2?(i<L2P.length?[{type:'text',recordPrompt:true,expectedText:L2P[i],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:i,_dlgAll:true}]):i<5?[{type:'text',recordPrompt:true,expectedText:L1P[i][0],_l1:i}]:[{type:'text',recordPrompt:true,expectedText:'',_l1:5,_dlgAll:true}];
  window.__psUI(9000+i,b,ctx);
 }
 function l1Finish(ctx){
@@ -101,7 +93,7 @@ function l1Finish(ctx){
  l1Write(0);
  try{var uid=window.lsCurrentUid,LV=window.__psLevel||'a0-tout-public';if(uid)fetch(ctx.api+'/api/levelProgressComplete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:uid,level:LV,lesson:lessonNo()||1})}).catch(function(){});}catch(e){}
  var c=ensureCard(ctx.root);c.classList.add('fin');
- var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===3?'You finished Comment \u00e7a va ?':lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
+ var p=swap(c,'<div class="pc-top"><div class="pc-hn">Lesson complete</div></div><div class="pc-mid"><div class="pc-fin">Bravo !<small>'+(lessonNo()===2?'You finished Je m\u2019appelle':'You finished Les salutations')+' \u2014 well done</small></div></div><div class="pc-bot"><button type="button" class="pc-go pc-back">Back to lessons</button></div>');
  p.classList.add('pc-pr');
  window.__psAdv=function(){location.href='./';};
  p.querySelector('.pc-back').onclick=function(){location.href='./';};
@@ -162,11 +154,10 @@ window.__psUI=function(partNum,blocks,ctx){
  if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
   var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
-  var lis=window.__psListen||null;if(lis){window.__psListen=null;url=lis.url;video=null;window.__psAdv=function(){l1Show(lis.next,ctx);};}
   if(ovr)window.__psAdv=function(){l1Show(0,ctx);};
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
-  function more(){btn.classList.remove('on');T(function(){if(lis)l1Show(lis.next,ctx);else if(ovr)l1Show(0,ctx);else window.lsGoNext();},400);}
+  function more(){btn.classList.remove('on');T(function(){if(ovr)l1Show(0,ctx);else window.lsGoNext();},400);}
   if(!url){var hasTxt=blocks.some(function(b){return b.type==='text'&&(b.text||b.content||b.html);});try{console.warn('ps: intro part without media',JSON.stringify(blocks).slice(0,400));}catch(e){}if(!hasTxt){T(function(){window.lsGoNext();},350);return true;}btn.classList.add('on');btn.onclick=function(){window.lsGoNext();};return true;}
   media=video?document.createElement('video'):new Audio();mediaKind=video?'video':'audio';
   if(video){media.setAttribute('playsinline','');media.style.display='none';p.appendChild(media);}
@@ -189,7 +180,7 @@ window.__psUI=function(partNum,blocks,ctx){
  if(pb&&pb._dlgAll){
   window.__psAdv=function(){l1Finish(ctx);};
   var dp=swap(c,
-   '<div class="pc-top"><div class="pc-hn">'+(lessonNo()===3?'Phrase trois':lessonNo()===2?'Phrase cinq':'Phrase six')+'</div><div class="pc-hi">Listen carefully.</div><div class="pc-hp">Headphones work best</div>'+(RS.welcome?'<div class="pc-wb">Welcome back — continuing from where you stopped</div>':'')+'</div>'+
+   '<div class="pc-top"><div class="pc-hn">'+(lessonNo()===2?'Phrase cinq':'Phrase six')+'</div><div class="pc-hi">Listen carefully.</div><div class="pc-hp">Headphones work best</div>'+(RS.welcome?'<div class="pc-wb">Welcome back — continuing from where you stopped</div>':'')+'</div>'+
    '<div class="pc-mid"><div class="pc-s1 pc-dl"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div>'+
     '<div class="pc-dots">'+DW().map(function(){return '<i></i>';}).join('')+'</div><canvas class="pc-wv" width="560" height="88"></canvas></div></div>'+
    '<div class="pc-bot"><div class="pc-st"></div><div class="pc-res"></div></div>');
@@ -248,7 +239,7 @@ window.__psUI=function(partNum,blocks,ctx){
      if(b-a<1600)return {raw:0,quiet:true};
      var wb=pcmToWav(d.subarray(a,b));
      if(wb.pk<0.012)return {raw:0,quiet:true};
-     return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(DD()[i][0]),{method:'POST',body:wb}).then(function(r){return r.json();}).then(function(j){var r=pickScoreL(j);return {raw:r===null?0:r,quiet:false};}).catch(function(){return {raw:0,quiet:false,err:true};});
+     return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(DD()[i][0]),{method:'POST',body:wb}).then(function(r){return r.json();}).then(function(j){var r=pickScore(j);return {raw:r===null?0:r,quiet:false};}).catch(function(){return {raw:0,quiet:false,err:true};});
     }));
    }).then(function(rs){
     if(dead)return;
@@ -281,9 +272,11 @@ window.__psUI=function(partNum,blocks,ctx){
  var expected=pb.expectedText||'';
  var L1i=(pb._l1!==undefined)?pb._l1:-1,dlgK=(pb._dlg!==undefined)?pb._dlg:-1;
  var lbl0=L1i>=0?('Phrase '+FR[L1i]):phraseLabel(partNum);
- if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L'+lessonNo()+'_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
+ var KID=kids();
+ if(KID&&L1i<0&&KAUD[lessonNo()+'-'+partNum])audioUrl='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=1';
+ if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L'+(lessonNo()===2?2:1)+'_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
  var p=swap(c,
-  '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':'Listen attentively, and repeat when prompted.')+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
+  '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':(kids()?'Listen, then say it!':'Listen attentively, and repeat when prompted.'))+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
    '<div class="pc-s1"><button type="button" class="pc-teach pc-spk" aria-label="Listen">'+I.mic+'</button><div class="pc-hslot"></div></div>'+
    '<div class="pc-s2"><div class="pc-row">'+(audioUrl?'<div class="pc-cell"><button type="button" class="pc-rb pc-tl" aria-label="Hear the teacher again">'+I.mic+'</button><span>Teacher</span></div>':'')+
@@ -295,13 +288,14 @@ window.__psUI=function(partNum,blocks,ctx){
  p.classList.add('pc-pr',audioUrl?'ph-listen':'ph-rec');
  if(RS.welcome){RS.welcome=false;T(function(){var w=p.querySelector('.pc-wb');if(w)w.classList.add('gone');},5200);}
  var tl=p.querySelector('.pc-tl'),spk=p.querySelector('.pc-spk'),mic=p.querySelector('.pc-mic'),rep=p.querySelector('.pc-rep'),lbl=p.querySelector('.pc-miclbl'),st=p.querySelector('.pc-st'),res=p.querySelector('.pc-res'),cv=p.querySelector('.pc-wv'),g=cv.getContext('2d');
- var hist=[],blob=null,scoring=false,tplay=false;
+ var hist=[],blob=null,scoring=false,tplay=false,spoke=false,lastLoud=0,recT0=0,autoGo=false,tries=0,went=false;
  for(var i=0;i<56;i++)hist.push(0);
  function draw(){
   if(dead)return;raf=requestAnimationFrame(draw);
   var v=0;
   if(mAn){mAn.getByteFrequencyData(mData);var s=0;for(var k=0;k<mData.length;k++)s+=mData[k];v=Math.min(1,(s/mData.length)/55);}
   hist.push(v);hist.shift();
+  if(KID&&recorder&&recorder.state==='recording'){var nw=performance.now();if(v>.12){spoke=true;lastLoud=nw;}else if(spoke&&nw-lastLoud>1100){recorder.stop();}else if(!spoke&&nw-recT0>5500){recorder.stop();}}
   g.clearRect(0,0,560,88);
   for(var j=0;j<hist.length;j++){
    var h=3+hist[j]*70,x=j*10+3;
@@ -310,7 +304,7 @@ window.__psUI=function(partNum,blocks,ctx){
   }
  }
  raf=requestAnimationFrame(draw);
- function ready(){tplay=false;if(tl)tl.classList.remove('on');p.classList.remove('ph-listen');p.classList.add('ph-rec');if(!scoring)mic.disabled=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');}
+ function ready(){tplay=false;if(tl)tl.classList.remove('on');p.classList.remove('ph-listen');p.classList.add('ph-rec');if(!scoring)mic.disabled=false;spk.classList.remove('on');if(sc())sc().calm();st.textContent='';mic.classList.add('hint');if(KID&&!autoGo&&!blob&&!scoring){autoGo=true;st.innerHTML='<span class="pc-yt">Your turn!</span>';T(function(){autoGo=false;if(!recorder||recorder.state!=='recording')startRec();},650);}}
  if(audioUrl){
   media=new Audio();media.preload='auto';media.src=audioUrl;
   media.addEventListener('play',function(){tplay=true;spk.classList.add('on');if(tl)tl.classList.add('on');mic.classList.remove('hint');st.textContent='';var _h=p.querySelector('.pc-hint');if(_h)_h.remove();if(sc())sc().listen();musicOff();});
@@ -347,16 +341,16 @@ window.__psUI=function(partNum,blocks,ctx){
     if(recUrl)try{URL.revokeObjectURL(recUrl);}catch(e){}
     recUrl=URL.createObjectURL(blob);recAudio=new Audio(recUrl);
     recAudio.addEventListener('ended',function(){rep.classList.remove('on');});
-    if(dlgK>=0){p.classList.remove('is-rec');st.textContent='';submit();return;}
+    if(dlgK>=0||KID){p.classList.remove('is-rec');st.textContent='';submit();return;}
     rep.disabled=false;p.classList.add('has-rec');p.classList.remove('is-rec');st.textContent='Replay it, or submit';
     res.innerHTML='<button type="button" class="pc-go pc-sub">Submit '+I.ok+'</button>';
     res.querySelector('.pc-sub').onclick=submit;
    };
    musicOff();
    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms=actx.createMediaStreamSource(s);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms.connect(mAn);}catch(e){mAn=null;}
-   p.classList.remove('scored','has-rec');p.classList.add('is-rec');recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
+   p.classList.remove('scored','has-rec');p.classList.add('is-rec');spoke=false;lastLoud=0;recT0=performance.now();recorder.start();mic.classList.remove('hint');mic.classList.add('rec');mic.innerHTML=I.stop;lbl.textContent='Stop';st.textContent='Recording...';res.innerHTML='';rep.disabled=true;
    if(sc())sc().micState('rec');
-   T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},lessonNo()>=2?14000:9000);
+   T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},KID?8000:(lessonNo()===2?14000:9000));
   }).catch(function(){st.textContent='Microphone blocked';});
  }
  mic.onclick=function(){
@@ -371,13 +365,40 @@ window.__psUI=function(partNum,blocks,ctx){
   rep.classList.add('on');var q3=recAudio.play();if(q3&&q3.catch)q3.catch(function(){});
  };
  function retry(){p.classList.remove('scored');res.innerHTML='';blob=null;rep.disabled=true;p.classList.remove('has-rec','is-rec');lbl.textContent='Record';st.textContent='';mic.classList.add('hint');}
+ function kidsNext(){
+  if(went)return;went=true;
+  var mx2=(window.__psMax&&window.__psMax())||0;if(mx2&&partNum>=mx2)rsWrite(0);else if(partNum>rsRead())rsWrite(partNum);
+  advance();
+ }
+ /* Very forgiving marking for children: any real try earns stars. Only a silent try is asked again (twice at most). */
+ function kidsResult(d){
+  var quiet=!!(d&&d.quiet),raw=quiet?0:pickScore(d||{}),heard=!quiet&&(raw===null||raw>=3);
+  p.classList.add('scored');st.textContent='';
+  if(!heard){
+   tries++;
+   if(tries<2){
+    res.innerHTML='<div class="pc-fb"><div class="pc-msg">Encore une fois !<small>Say it a little louder \u2014 I\u2019m listening</small></div></div>';
+    blob=null;autoGo=true;T(function(){autoGo=false;p.classList.remove('scored');res.innerHTML='';st.innerHTML='<span class="pc-yt">Your turn!</span>';startRec();},1900);
+    return;
+   }
+   res.innerHTML='<div class="pc-fb"><div class="pc-stars"><span>\u2605</span><span class="off">\u2605</span><span class="off">\u2605</span></div><div class="pc-msg">Bon effort !<small>Let\u2019s keep going \u2014 you\u2019ll get it</small></div></div>';
+   T(kidsNext,2600);return;
+  }
+  var n=(raw===null||raw>=20)?3:2,h='';
+  for(var q=0;q<3;q++)h+='<span'+(q<n?'':' class="off"')+' style="animation-delay:'+(q*.18)+'s">\u2605</span>';
+  res.innerHTML='<div class="pc-fb"><div class="pc-stars">'+h+'</div><div class="pc-msg">'+(n===3?'Bravo !<small>Super \u2014 you said it!</small>':'Tr\u00e8s bien !<small>Very good \u2014 well done!</small>')+'</div></div><div class="pc-acts"><button type="button" class="pc-go pc-next">Next '+I.next+'</button></div>';
+  res.querySelector('.pc-next').onclick=kidsNext;
+  if(sc())sc().cheer();
+  T(kidsNext,2800);
+ }
  function submit(){
   if(!blob||scoring)return;
   scoring=true;mic.disabled=true;if(recAudio)recAudio.pause();
   st.textContent='Scoring...';res.innerHTML='<div class="pc-wait"><i></i><i></i><i></i></div>';
   toWav(blob).catch(function(){return new Blob([blob],{type:'audio/webm'});}).then(function(body){window.__psSent=body.type+' '+body.size+' pk='+(body.pk!==undefined?body.pk.toFixed(3):'?');if(body.pk!==undefined&&body.pk<0.012)return {quiet:true};return fetch(api+'/api/assessPronunciation?referenceText='+encodeURIComponent(expected),{method:'POST',body:body}).then(function(r){return r.json();});}).then(function(d){
    if(dead)return;scoring=false;mic.disabled=false;
-   var quiet=!!d.quiet,rawS=quiet?0:pickScoreL(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
+   if(KID){kidsResult(d);return;}
+   var quiet=!!d.quiet,rawS=quiet?0:pickScore(d),dbg='';try{dbg=(window.__psSent||'')+' '+JSON.stringify(d).slice(0,130);}catch(e){}
    var noScore=(rawS===null&&!quiet),s=Math.round(rawS||0);
    var cv2=curve(s),hi=cv2.hi,mid=cv2.mid,heard=cv2.heard&&!noScore&&!quiet;s=cv2.v;
    var msg=quiet?'Je t\u2019entends mal<small>Your microphone is very quiet \u2014 check it and try again</small>':noScore?'Couldn\u2019t score that<small>Something went wrong \u2014 try again</small>':!heard?'Je n\u2019ai rien entendu<small>I didn\u2019t hear you \u2014 give it another go</small>':(s>=hi?'Bravo !<small>Well done \u2014 on to the next, or go again</small>':(s>=mid?'Tr\u00e8s bien !<small>Very good \u2014 keep going, or try once more</small>':'Bon effort !<small>Good effort \u2014 try again, or move on</small>'));
@@ -390,6 +411,7 @@ window.__psUI=function(partNum,blocks,ctx){
    if(s>=70&&sc())sc().cheer();
   }).catch(function(){
    if(dead)return;scoring=false;mic.disabled=false;st.textContent='';
+   if(KID){kidsResult({});return;}
    res.innerHTML='<div class="pc-msg">Could not score. Try again.</div><div class="pc-acts"><button type="button" class="pc-go pc-sub">Submit '+I.ok+'</button></div>';
    res.querySelector('.pc-sub').onclick=submit;
   });
