@@ -1,119 +1,109 @@
-[cheerful] [playful] This one is for your friends. [softly] Just repeat after me okay? [chuckling]
+[excited] [playful] Ooh, a new one! [giggles] This word is a little secret between friends. [playful] Say it with me, okay?
 
-[pause] [pause] [slowly]
+[pause] [pause]
  [excited] [playful] Salut?
 
-[pause] [pause] [slowly]
+[pause] [pause]
+ [cheerful] [playful] Salut?
+
+[pause] [pause]
+ [bright] [playful] Salut?
+
+[pause] [pause]
+
+[playful] Ooh, nice one!
+
+[pause] [pause]
  [excited] [playful] Salut?
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[pause] [pause]
+ [cheerful] [playful] Salut?
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[pause] [pause]
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[cheerful] [playful] Now say it like you’re waving at your best friend. Big and happy. [chuckles] Ready?
 
-[pause] [pause] [slowly]
+[pause] [pause]
+ [excited] [playful] Salut!
+
+[pause] [pause]
+ [bright] [playful] Salut!
+
+[pause] [pause]
+ [excited] [playful] Salut!
+
+[pause] [pause]
+ [cheerful] [playful] Salut!
+
+[pause] [pause]
+
+[playful] Listen. A friend can ask you,
+[pause] [pause]
  [excited] [playful] Salut?
 
 [pause] [pause]
 
-[thoughtful] [playful] Super Amazing mon Petit[warmly] [playful]. Now I’m going to say it a bit differently. Ready? [giggles]
+[playful] and you answer,
+[pause] [pause]
+ [cheerful] [playful] Salut.
 
-Repeat after me:
+[pause] [pause]
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut!
+[playful] One word, two little tunes. Try them both after me.
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut!
+[pause] [pause]
+ [bright] [playful] Salut?
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut!
+[pause] [pause]
+ [cheerful] [playful] Salut.
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut!
-
-[pause] [pause] [slowly]
-
-Do you notice the 2 different ways of saying this word?
-
-One is,
-[pause] [pause] [slowly]
+[pause] [pause]
  [excited] [playful] Salut?
 
-And the other is,
-
-[pause] [pause] [slowly]
+[pause] [pause]
  [excited] [playful] Salut.
 
-Again -
+[pause] [pause]
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[playful] High five! [chuckles]
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut.
+[pause] [pause]
+ [cheerful] [playful] Salut?
+
+[pause] [pause]
+ [bright] [playful] Salut.
 
 [pause] [pause]
 
-[excited] You understand that right?[short pause] [playful] superb!
+[excited] [playful] [laughs] Brilliant!
 
-Now let’s practice. I will ask, and you answer. Ready?
-
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[cheerful] [playful] Now we chat like real friends. I say Salut? and you answer me!
 
 [pause] [pause]
 
-[playful] Mm-hmm, let’s keep going.
+[playful] Ready?
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[pause] [pause]
+ [bright] [playful] Salut?
 
 [pause] [pause]
 
-[playful] Mm-hmm! Again.
-
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[playful] Ha! Yes. Next one.
 
 [pause] [pause]
-
-[playful] Lovely. Let’s keep going.
-
-[excited] [playful] [laughs softly] Great Job!
-
-[excited] [playful] Now, I will say Salut? And you will say………?
-
-[pause] [pause]
-
-[excited] [playful] that’s correct.
-Alright, let’s go.
-
-[pause] [pause] [slowly]
  [excited] [playful] Salut?
 
 [pause] [pause]
 
-[playful] Mm-hmm, let’s keep going.
+[chuckles] [playful] Ooh, you sound like a real French kid.
 
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[pause] [pause]
+ [cheerful] [playful] Salut?
 
 [pause] [pause]
 
-[playful] Mm-hmm! Again.
-
-[pause] [pause] [slowly]
- [excited] [playful] Salut?
+[playful] Again, my friend!
 
 [pause] [pause]
 
-[playful] Lovely. Let’s keep going.
-
-[pause] [pause]
-
-[excited] [playful] Great job, mon petit! [giggles] Now you can say hi to your friends. [playful] One last word. Ready?
+[excited] [playful] [laughs] That was so good! Now you can say hi to all your friends. [playful] One last word, and it’s for waving goodbye.

@@ -4,19 +4,19 @@
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour?
+ [cheerful] [playful] Bonjour?
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour?
+ [warmly] [playful] Bonjour?
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour?
+ [cheerful] [playful] Bonjour?
 
 [pause] [pause]
 
@@ -28,70 +28,70 @@ Repeat after me:
  [excited] [playful] Bonjour!
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour!
+ [cheerful] [playful] Bonjour!
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour!
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour!
-
-[pause] [pause] [slowly]
-
-Do you notice the 2 different ways of saying this word?
-
-One is,
-[pause] [pause] [slowly]
- [excited] [playful] Bonjour?
-
-And the other is,
-
-[pause] [pause] [slowly]
- [excited] [playful] Bonjour.
-
-Again -
-
-[pause] [pause] [slowly]
- [excited] [playful] Bonjour?
-
-[pause] [pause] [slowly]
- [excited] [playful] Bonjour.
+ [warmly] [playful] Bonjour!
 
 [pause] [pause]
 
-[excited] You understand that right?[short pause] [playful] superb!
+[playful] Do you notice the 2 different ways of saying this word?
 
-Now let’s practice. I will ask, and you answer. Ready?
-
+[playful] One is,
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause]
 
-[playful] Mm-hmm, let’s keep going.
+[playful] And the other is,
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour.
+
+[pause] [pause]
+
+[playful] Again -
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour?
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour.
+
+[pause] [pause]
+
+[excited] [playful] You understand that right?[short pause] [playful] superb!
+
+[playful] Now let’s practice both together. Repeat after me:
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
-[pause] [pause]
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour.
 
-[playful] Mm-hmm! Again.
+[pause] [pause] [slowly]
+ [cheerful] [playful] Bonjour?
+
+[pause] [pause] [slowly]
+ [cheerful] [playful] Bonjour.
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
-[pause] [pause]
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour.
 
-[playful] Lovely. Let’s keep going.
+[pause] [pause]
 
 [excited] [playful] [laughs softly] Great Job!
 
-[excited] [playful] Now, I will say Bonjour? And you will say………?
+[playful] Now, I will say Bonjour? [short pause] [playful] And you will say………?
 
 [pause] [pause]
 
-[excited] [playful] that’s correct.
-Alright, let’s go.
+[excited] [playful] that’s correct. [short pause] [playful] Alright, let’s go.
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
@@ -101,7 +101,7 @@ Alright, let’s go.
 [playful] Mm-hmm, let’s keep going.
 
 [pause] [pause] [slowly]
- [excited] [playful] Bonjour?
+ [cheerful] [playful] Bonjour?
 
 [pause] [pause]
 
@@ -112,7 +112,7 @@ Alright, let’s go.
 
 [pause] [pause]
 
-[playful] Lovely. Let’s keep going.
+[playful] Lovely. Once more.
 
 [pause] [pause]
 
