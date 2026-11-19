@@ -111,7 +111,24 @@ function mount(o){
   pick();from={x:0,y:0,s:1.16};cam.s=1.16;t0=performance.now();last=t0;raf=requestAnimationFrame(loop);
   requestAnimationFrame(ready);
  }
- img.onload=function(){iw=img.naturalWidth||iw;ih=img.naturalHeight||ih;start();};
+ var started=false,cur=0,swapT=0,swapping=false;
+ function swapNext(){
+  if(!alive||swapping||!started||RM)return;swapping=true;cur++;
+  var nu=BASE+SEQ[((lesson-1)+cur)%SEQ.length]+".webp?v=1";
+  var pre=new Image();
+  pre.onload=function(){
+   pan.style.transition=far.style.transition="opacity .9s ease";pan.style.opacity=far.style.opacity="0";
+   setTimeout(function(){
+    if(!alive)return;
+    img.onload=function(){iw=img.naturalWidth||iw;ih=img.naturalHeight||ih;size();gl.innerHTML="";try{makeGlints();}catch(e){}pan.style.opacity=far.style.opacity="1";swapping=false;};
+    far.style.backgroundImage="url("+nu+")";img.src=nu;
+   },950);
+  };
+  pre.onerror=function(){swapping=false;};
+  pre.src=nu;
+ }
+ swapT=setInterval(swapNext,38000);
+ img.onload=function(){iw=img.naturalWidth||iw;ih=img.naturalHeight||ih;started=true;start();};
  img.onerror=function(){ready();};
  img.src=url;
  window.addEventListener("resize",size);
@@ -127,7 +144,7 @@ function mount(o){
   calm:function(){focusT=0;root.classList.remove("pt-rec");},
   listen:function(){focusT=1;},
   micState:function(s){root.classList.toggle("pt-rec",s==="rec");focusT=s==="rec"?.5:focusT;},
-  destroy:function(){alive=false;cancelAnimationFrame(raf);window.removeEventListener("resize",size);root.remove();document.body.classList.remove("pt-on");document.body.classList.remove("ps-ready");}
+  next:swapNext,destroy:function(){alive=false;clearInterval(swapT);cancelAnimationFrame(raf);window.removeEventListener("resize",size);root.remove();document.body.classList.remove("pt-on");document.body.classList.remove("ps-ready");}
  };
  return api;
 }

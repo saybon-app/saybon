@@ -109,4 +109,4 @@
 
 [pause] [pause]
 
-[warmly] [playful] [laughs softly] You did it, mon petit! You know three French words now. [playful] Let’s hear them all together, in a little conversation.
+[warmly] [playful] [laughs softly] You did it, mon petit! You know three French words now.
