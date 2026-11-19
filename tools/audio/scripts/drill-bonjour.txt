@@ -4,19 +4,19 @@
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Bonjour?
+ [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour?
+ [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Bonjour?
+ [excited] [playful] Bonjour?
 
 [pause] [pause]
 
@@ -28,13 +28,13 @@ Repeat after me:
  [excited] [playful] Bonjour!
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Bonjour!
+ [excited] [playful] Bonjour!
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour!
 
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour!
+ [excited] [playful] Bonjour!
 
 [pause] [pause]
 
@@ -48,7 +48,7 @@ Repeat after me:
 
 [playful] And the other is,
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour.
+ [excited] [playful] Bonjour.
 
 [pause] [pause]
 
@@ -57,7 +57,7 @@ Repeat after me:
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour.
+ [excited] [playful] Bonjour.
 
 [pause] [pause]
 
@@ -69,19 +69,19 @@ Repeat after me:
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour.
-
-[pause] [pause] [slowly]
- [cheerful] [playful] Bonjour?
-
-[pause] [pause] [slowly]
- [cheerful] [playful] Bonjour.
+ [excited] [playful] Bonjour.
 
 [pause] [pause] [slowly]
  [excited] [playful] Bonjour?
 
 [pause] [pause] [slowly]
- [warmly] [playful] Bonjour.
+ [excited] [playful] Bonjour.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour.
 
 [pause] [pause]
 
@@ -101,7 +101,7 @@ Repeat after me:
 [playful] Mm-hmm, let’s keep going.
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Bonjour?
+ [excited] [playful] Bonjour?
 
 [pause] [pause]
 

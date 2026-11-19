@@ -4,10 +4,10 @@
  [excited] [playful] Salut?
 
 [pause] [pause]
- [cheerful] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
- [bright] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
 
@@ -17,7 +17,7 @@
  [excited] [playful] Salut?
 
 [pause] [pause]
- [cheerful] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
 
@@ -27,13 +27,13 @@
  [excited] [playful] Salut!
 
 [pause] [pause]
- [bright] [playful] Salut!
+ [excited] [playful] Salut!
 
 [pause] [pause]
  [excited] [playful] Salut!
 
 [pause] [pause]
- [cheerful] [playful] Salut!
+ [excited] [playful] Salut!
 
 [pause] [pause]
 
@@ -45,17 +45,17 @@
 
 [playful] and you answer,
 [pause] [pause]
- [cheerful] [playful] Salut.
+ [excited] [playful] Salut.
 
 [pause] [pause]
 
 [playful] One word, two little tunes. Try them both after me.
 
 [pause] [pause]
- [bright] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
- [cheerful] [playful] Salut.
+ [excited] [playful] Salut.
 
 [pause] [pause]
  [excited] [playful] Salut?
@@ -68,10 +68,10 @@
 [playful] High five! [chuckles]
 
 [pause] [pause]
- [cheerful] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
- [bright] [playful] Salut.
+ [excited] [playful] Salut.
 
 [pause] [pause]
 
@@ -84,7 +84,7 @@
 [playful] Ready?
 
 [pause] [pause]
- [bright] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
 
@@ -98,7 +98,7 @@
 [chuckles] [playful] Ooh, you sound like a real French kid.
 
 [pause] [pause]
- [cheerful] [playful] Salut?
+ [excited] [playful] Salut?
 
 [pause] [pause]
 

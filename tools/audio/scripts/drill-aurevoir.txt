@@ -4,14 +4,14 @@
  [warmly] [playful] Au revoir?
 
 [pause] [pause] [slowly]
- [softly] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause]
 
 [playful] Keep waving!
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause] [slowly]
  [warmly] [playful] Au revoir?
@@ -21,13 +21,13 @@
 [softly] [playful] Lovely. Now let’s say it like we’re really leaving, with a big smile. [chuckles]
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Au revoir!
+ [warmly] [playful] Au revoir!
 
 [pause] [pause] [slowly]
  [warmly] [playful] Au revoir!
 
 [pause] [pause] [slowly]
- [excited] [playful] Au revoir!
+ [warmly] [playful] Au revoir!
 
 [pause] [pause]
 
@@ -42,7 +42,7 @@
 
 [playful] First,
 [pause] [pause] [slowly]
- [softly] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause]
 
@@ -55,10 +55,10 @@
 [playful] Your turn. Both, one after the other.
 
 [pause] [pause] [slowly]
- [softly] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Au revoir.
+ [warmly] [playful] Au revoir.
 
 [pause] [pause] [slowly]
  [warmly] [playful] Au revoir?
@@ -71,10 +71,10 @@
 [playful] Wave!
 
 [pause] [pause] [slowly]
- [softly] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause] [slowly]
- [excited] [playful] Au revoir.
+ [warmly] [playful] Au revoir.
 
 [pause] [pause]
 
@@ -87,7 +87,7 @@
 [playful] Ready?
 
 [pause] [pause] [slowly]
- [softly] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause]
 
@@ -101,7 +101,7 @@
 [softly] [playful] Hee, lovely. Wave again.
 
 [pause] [pause] [slowly]
- [cheerful] [playful] Au revoir?
+ [warmly] [playful] Au revoir?
 
 [pause] [pause]
 
