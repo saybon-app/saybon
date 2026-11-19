@@ -1,8 +1,12 @@
-[warmly] Aujourd'hui, nous parlons du passé, avec des verbes de mouvement. Listen to this first. Hier, je suis allé au marché. Puis je suis rentré à la maison.
+[warmly] Here's what we're doing today. You'll learn to say where you went and what happened, in the past, using verbs of movement. Listen first.
 
 [short pause]
 
-[warmly] Some verbs use être in the past, not avoir. Aller, arriver, partir, rentrer, venir. Say it with me. Je suis allé.
+[calmly] Hier, je suis allé au marché. Puis je suis rentré à la maison.
+
+[short pause]
+
+[warmly] Je suis allé. That means, I went. Repeat after me.
 
 [short pause]
 
@@ -10,7 +14,11 @@
 
 [your turn]
 
-[warmly] Elle est arrivée.
+[warmly] Very good.
+
+[short pause]
+
+[warmly] Elle est arrivée. That means, she arrived.
 
 [short pause]
 
@@ -18,7 +26,11 @@
 
 [your turn]
 
-[warmly] Nous sommes partis.
+[warmly] Very good.
+
+[short pause]
+
+[warmly] Nous sommes partis. That means, we left.
 
 [short pause]
 
@@ -30,7 +42,19 @@
 
 [short pause]
 
-[warmly] Attention. With être, the ending agrees. Il est parti. Elle est partie.
+[warmly] Je suis rentré à la maison. That means, I went home.
+
+[short pause]
+
+[calmly] Je suis rentré à la maison.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] One small thing. With these verbs, the ending changes with who is speaking. Il est parti, for a man. Elle est partie, for a woman.
 
 [short pause]
 
@@ -44,14 +68,14 @@
 
 [calmly] Tu es allé où hier ?
 
-[your turn]
+[long turn]
 
 [calmly] Tu es rentré à quelle heure ?
 
-[your turn]
+[long turn]
 
 [calmly] Et ton ami, il est venu avec toi ?
 
-[your turn]
+[long turn]
 
-[warmly] Très bien. Vous avez parlé du passé avec être. Bravo.
+[warmly] Très bien. Now you can talk about where you went. Well done.

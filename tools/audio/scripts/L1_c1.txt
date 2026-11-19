@@ -1,8 +1,8 @@
-[warmly] Aujourd'hui, nous allons construire des phrases plus longues et plus riches. Écoutez. Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
+[warmly] Voici ce que nous faisons aujourd'hui : construire des phrases longues et élégantes, avec dont et que. Écoutez d'abord. Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
 
 [short pause]
 
-[warmly] Remarquez comment les propositions s'emboîtent. Répétez.
+[warmly] In English: The book I told you about, which I've finally finished, deeply affected me. Now repeat after me, in three steps.
 
 [short pause]
 
@@ -10,9 +10,17 @@
 
 [your turn]
 
+[warmly] Dont, meaning about which, or of which.
+
+[short pause]
+
 [calmly] Le livre, que j'ai enfin terminé, m'a profondément marqué.
 
 [your turn]
+
+[warmly] Now both together.
+
+[short pause]
 
 [calmly] Le livre dont je vous ai parlé, que j'ai enfin terminé, m'a profondément marqué.
 
@@ -22,7 +30,7 @@
 
 [short pause]
 
-[warmly] Maintenant, construisez votre propre phrase. Parlez d'un film ou d'une personne, avec dont et que.
+[warmly] À vous. Parlez d'un film ou d'une personne, avec dont et que.
 
 [long turn]
 

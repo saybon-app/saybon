@@ -1,8 +1,8 @@
-[warmly] Aujourd'hui, nous construisons un argument clair. Écoutez. Selon moi, le télétravail est une bonne chose. D'une part, il fait gagner du temps. D'autre part, il favorise l'autonomie. En conclusion, il faut l'encourager.
+[warmly] Voici ce que nous faisons aujourd'hui : construire un argument clair, avec une opinion, deux raisons et une conclusion. Écoutez d'abord. Selon moi, le télétravail est une bonne chose. D'une part, il fait gagner du temps. D'autre part, il favorise l'autonomie. En conclusion, il faut l'encourager.
 
 [short pause]
 
-[warmly] Retenez la structure. Une opinion, deux arguments, une conclusion. Répétez. Selon moi.
+[warmly] In English: In my opinion, working from home is a good thing. On the one hand, it saves time. On the other hand, it builds independence. In conclusion, it should be encouraged. Now repeat after me. Selon moi, in my opinion.
 
 [short pause]
 
@@ -10,13 +10,25 @@
 
 [your turn]
 
+[warmly] D'une part, on the one hand.
+
+[short pause]
+
 [calmly] D'une part, il fait gagner du temps.
 
 [your turn]
 
+[warmly] D'autre part, on the other hand.
+
+[short pause]
+
 [calmly] D'autre part, il favorise l'autonomie.
 
 [your turn]
+
+[warmly] En conclusion, in conclusion.
+
+[short pause]
 
 [calmly] En conclusion, il faut l'encourager.
 
@@ -26,7 +38,7 @@
 
 [short pause]
 
-[warmly] À vous. Donnez votre opinion sur les réseaux sociaux. Une opinion, deux arguments, une conclusion.
+[warmly] À vous. Donnez votre opinion sur les réseaux sociaux : une opinion, deux raisons, une conclusion.
 
 [long turn]
 

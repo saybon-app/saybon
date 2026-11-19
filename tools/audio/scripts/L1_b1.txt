@@ -1,8 +1,8 @@
-[warmly] Aujourd'hui, vous allez raconter une histoire plus longue. Écoutez d'abord. Samedi, d'abord, je me suis levé tard. Ensuite, j'ai préparé le déjeuner. Puis mes amis sont arrivés. Enfin, nous sommes sortis ensemble.
+[warmly] Here's what we're doing today. You'll learn to tell a story in order, using four little words. Listen first. Samedi, d'abord, je me suis levé tard. Ensuite, j'ai préparé le déjeuner. Puis mes amis sont arrivés. Enfin, nous sommes sortis ensemble.
 
 [short pause]
 
-[warmly] Ces mots font avancer l'histoire. D'abord, ensuite, puis, enfin. Répétez avec moi. D'abord.
+[warmly] In English: Saturday, first, I got up late. Then I made lunch. Then my friends arrived. Finally, we went out together. Now repeat after me. D'abord, first.
 
 [short pause]
 
@@ -10,13 +10,25 @@
 
 [your turn]
 
+[warmly] Ensuite, then.
+
+[short pause]
+
 [calmly] Ensuite, j'ai préparé le déjeuner.
 
 [your turn]
 
+[warmly] Puis, next.
+
+[short pause]
+
 [calmly] Puis mes amis sont arrivés.
 
 [your turn]
+
+[warmly] Enfin, finally.
+
+[short pause]
 
 [calmly] Enfin, nous sommes sortis ensemble.
 
@@ -26,12 +38,12 @@
 
 [short pause]
 
-[warmly] Maintenant, à vous. Racontez votre week-end, avec d'abord, ensuite, puis et enfin. Je vous écoute.
+[warmly] Now it's your turn to tell me about your weekend, using d'abord, ensuite, puis and enfin. Je vous écoute.
 
 [long turn]
 
-[warmly] Une deuxième fois, plus lentement, avec plus de détails.
+[warmly] Once more, with more detail.
 
 [long turn]
 
-[warmly] Très bien. Vous savez maintenant organiser une histoire.
+[warmly] Très bien. Now you can organise a story. Well done.

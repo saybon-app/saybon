@@ -1,8 +1,8 @@
-[warmly] Aujourd'hui, nous travaillons la nuance. Une même idée peut être dite de façon brutale ou diplomate. Écoutez. Brutal : Vous avez tort. Diplomate : Je me permets de nuancer votre propos.
+[warmly] Voici ce que nous faisons aujourd'hui : dire la même idée avec plus de finesse. Écoutez. Brutal : Vous avez tort. Plus diplomate : Je me permets de nuancer votre propos.
 
 [short pause]
 
-[warmly] Répétez. Je me permets de nuancer votre propos.
+[warmly] In English: You're wrong, becomes, if I may, I'd like to qualify what you've said. Now repeat after me. Je me permets de nuancer votre propos.
 
 [short pause]
 
@@ -10,7 +10,7 @@
 
 [your turn]
 
-[warmly] Autre exemple. Brutal : Je veux un rendez-vous. Diplomate : Il me serait agréable de pouvoir vous rencontrer.
+[warmly] Un autre exemple. Brutal : Je veux un rendez-vous. Diplomate : Il me serait agréable de pouvoir vous rencontrer. That means, it would be a pleasure to meet you.
 
 [short pause]
 

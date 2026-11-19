@@ -25,7 +25,7 @@ function hTt(){var m=window.__psMeta||{};if(m.title)return esc(m.title);var a=(w
 var LEN={'A0':{g:.66,f:38,hi:79,mid:60},'Les Petits':{g:.6,f:42,hi:77,mid:58},'A1':{g:.77,f:28,hi:83,mid:65},'A2':{g:.86,f:17,hi:85,mid:68},'B1':{g:.93,f:5,hi:85,mid:70},'B2':{g:.98,f:0,hi:85,mid:70},'C1':{g:1,f:0,hi:85,mid:70}};
 function kids(){return (window.__psMeta||{}).level==='Les Petits';}
 /* Les Petits: teacher recordings that exist (lesson-part). Parts not listed here just open the microphone. */
-var KAUD={'1-3':1,'1-4':1,'1-5':1};var KDR={'1-2':'bonjour','1-3':'salut','1-4':'aurevoir','1-5':'skip','1-6':'dialogue','1-7':'skip','1-8':'skip','1-9':'skip','1-10':'skip','1-11':'skip'},UDR={'A1-1-1':'L1_a1','A2-1-1':'L1_a2','B1-1-1':'L1_b1','B2-1-1':'L1_b2','C1-1-1':'L1_c1','C2-1-1':'L1_c2'},KDT={upper:'Lesson 1',bonjour:'Bonjour',salut:'Salut',aurevoir:'Au revoir',dialogue:'Conversation'};var KINTRO={'1-1':1,'1-2':1};var KINTRO={'1-1':1,'1-2':1};
+var KAUD={'1-3':1,'1-4':1,'1-5':1};var KDR={'1-2':'bonjour','1-3':'salut','1-4':'aurevoir','1-5':'skip','1-6':'dialogue','1-7':'skip','1-8':'skip','1-9':'skip','1-10':'skip','1-11':'skip'},UDR={'A1-1-2':'L1_a1','A2-1-2':'L1_a2','B1-1-2':'L1_b1','B2-1-2':'L1_b2','C1-1-2':'L1_c1','C2-1-2':'L1_c2'},UINTRO={'A1-1-1':'L1_a1_intro','A2-1-1':'L1_a2_intro','B1-1-1':'L1_b1_intro','B2-1-1':'L1_b2_intro','C1-1-1':'L1_c1_intro','C2-1-1':'L1_c2_intro'},KDT={upper:'Lesson 1',bonjour:'Bonjour',salut:'Salut',aurevoir:'Au revoir',dialogue:'Conversation'};var KINTRO={'1-1':1,'1-2':1};var KINTRO={'1-1':1,'1-2':1};
 (function(){try{if(!document.getElementById('pc-kids')){var k=document.createElement('style');k.id='pc-kids';k.textContent='.pc-stars{display:flex;justify-content:center;gap:.28em;font-size:2.7rem;line-height:1;color:#ffd24a;text-shadow:0 0 16px rgba(255,210,74,.65)}.pc-stars span{display:inline-block;transform:scale(0);animation:pcStar .55s cubic-bezier(.3,1.6,.5,1) forwards}.pc-stars span.off{color:rgba(255,255,255,.28);text-shadow:none}@keyframes pcStar{to{transform:scale(1)}}.pc-yt{font-weight:600;letter-spacing:.04em}';document.head.appendChild(k);}}catch(e){}})();
 function curve(raw){var m=window.__psMeta||{},L=LEN[m.level]||LEN.A1,heard=raw>=8;if(!heard)return{v:0,heard:false,hi:L.hi,mid:L.mid};var v=Math.round(100*Math.pow(Math.min(100,raw)/100,L.g));v=Math.max(v,L.f);return{v:Math.min(100,v),heard:true,hi:L.hi,mid:L.mid};}
 function pickScore(d){var keys=['finalScore','score','AccuracyScore','accuracyScore','pronunciationScore','PronScore','pronScore','overallScore','OverallScore','overall','total'];function num(v){return typeof v==='number'&&isFinite(v)?v:(typeof v==='string'&&v.trim()!==''&&isFinite(+v)?+v:null);}
@@ -151,7 +151,7 @@ window.__psUI=function(partNum,blocks,ctx){
 
  
  /* ---------- LES PETITS DRILL: one long teacher track, mic open from the start, wave only moves in the child's turns ---------- */
- var UK=!kids()?(UDR[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-'+partNum]||null):null,UQ=(!kids()&&!UK&&UDR[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-1'])?'skip':null;
+ var UK=!kids()?(UDR[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-'+partNum]||null):null,UQ=(!kids()&&!UK&&partNum>2&&UDR[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-'+'2'])?'skip':null;
  var DK=kids()?KDR[lessonNo()+'-'+partNum]:(UK?'upper':UQ);
  if(DK==='skip'){T(function(){window.lsGoNext();},30);return true;}
  if(DK){
@@ -216,7 +216,7 @@ window.__psUI=function(partNum,blocks,ctx){
  if(pb)window.__psSkipIntro=0;
  if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
-  var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
+  var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(!url&&!kids()&&UINTRO[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-'+partNum])url='/assets/audio/lessons/'+UINTRO[((window.__psMeta||{}).level||'')+'-'+lessonNo()+'-'+partNum]+'.mp3?v=1';if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
   if(ovr)window.__psAdv=function(){l1Show(0,ctx);};
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
