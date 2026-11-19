@@ -1,0 +1,85 @@
+[warmly] Today you introduce yourself properly, in four short sentences. Listen to the whole thing first.
+
+[short pause]
+
+[calmly] Je m'appelle Lucas. J'ai vingt-cinq ans. J'habite à Lyon. Je suis étudiant.
+
+[short pause]
+
+[warmly] Now, one piece at a time. Je m'appelle Lucas.
+
+[short pause]
+
+[calmly] Je m'appelle Lucas.
+
+[your turn]
+
+[warmly] Say it with your own name.
+
+[long turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] J'ai vingt-cinq ans. I am twenty-five.
+
+[short pause]
+
+[calmly] J'ai vingt-cinq ans.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] J'habite à Lyon. I live in Lyon.
+
+[short pause]
+
+[calmly] J'habite à Lyon.
+
+[your turn]
+
+[warmly] Now say where you live.
+
+[long turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] Je suis étudiant. Or étudiante, if you are a woman.
+
+[short pause]
+
+[calmly] Je suis étudiant.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] Now we talk. I will ask four questions, and you answer with what we just learned. Comment tu t'appelles ?
+
+[short pause]
+
+[calmly] Comment tu t'appelles ?
+
+[your turn]
+
+[calmly] Tu as quel âge ?
+
+[your turn]
+
+[calmly] Où est-ce que tu habites ?
+
+[your turn]
+
+[calmly] Et tu fais quoi dans la vie ?
+
+[your turn]
+
+[warmly] Très bien. Now you can introduce yourself in French. Well done.

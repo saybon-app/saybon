@@ -1,0 +1,33 @@
+[warmly] Aujourd'hui, nous construisons un argument clair. Écoutez. Selon moi, le télétravail est une bonne chose. D'une part, il fait gagner du temps. D'autre part, il favorise l'autonomie. En conclusion, il faut l'encourager.
+
+[short pause]
+
+[warmly] Retenez la structure. Une opinion, deux arguments, une conclusion. Répétez. Selon moi.
+
+[short pause]
+
+[calmly] Selon moi, le télétravail est une bonne chose.
+
+[your turn]
+
+[calmly] D'une part, il fait gagner du temps.
+
+[your turn]
+
+[calmly] D'autre part, il favorise l'autonomie.
+
+[your turn]
+
+[calmly] En conclusion, il faut l'encourager.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] À vous. Donnez votre opinion sur les réseaux sociaux. Une opinion, deux arguments, une conclusion.
+
+[long turn]
+
+[warmly] Très bien. Votre argument avait une vraie structure. Bravo.

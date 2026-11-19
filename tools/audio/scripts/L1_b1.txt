@@ -1,0 +1,37 @@
+[warmly] Aujourd'hui, vous allez raconter une histoire plus longue. Écoutez d'abord. Samedi, d'abord, je me suis levé tard. Ensuite, j'ai préparé le déjeuner. Puis mes amis sont arrivés. Enfin, nous sommes sortis ensemble.
+
+[short pause]
+
+[warmly] Ces mots font avancer l'histoire. D'abord, ensuite, puis, enfin. Répétez avec moi. D'abord.
+
+[short pause]
+
+[calmly] D'abord, je me suis levé tard.
+
+[your turn]
+
+[calmly] Ensuite, j'ai préparé le déjeuner.
+
+[your turn]
+
+[calmly] Puis mes amis sont arrivés.
+
+[your turn]
+
+[calmly] Enfin, nous sommes sortis ensemble.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] Maintenant, à vous. Racontez votre week-end, avec d'abord, ensuite, puis et enfin. Je vous écoute.
+
+[long turn]
+
+[warmly] Une deuxième fois, plus lentement, avec plus de détails.
+
+[long turn]
+
+[warmly] Très bien. Vous savez maintenant organiser une histoire.

@@ -13,5 +13,7 @@
   "paragraphGapSeconds": 0.3,
   "alwaysTag": "[playful]",
   "childGapSeconds": 2.0,
-  "similarity": 0.5
+  "similarity": 0.5,
+  "upperChildGapSeconds": 4.5,
+  "longTurnSeconds": 12
 }

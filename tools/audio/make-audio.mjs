@@ -23,14 +23,17 @@ export function parse(text) {
     const t = buf.trim(); buf = "";
     if (/\p{L}/u.test(t.replace(/\[[^\]]*\]/g, ""))) { if (sil) items.push({ sil }); sil = 0; items.push({ say: t.replace(/[ \t]*\n[ \t]*/g, " ").replace(/\s{2,}/g, " ") }); }
   };
-  for (const part of text.split(/(\[(?:short pause|long pause|pause)\])/gi)) {
-    const m = part.match(/^\[(short pause|long pause|pause)\]$/i);
-    if (m) { flush(); sil += cfg.pauseSeconds[m[1].toLowerCase()]; } else buf += part;
+  for (const part of text.split(/(\[(?:short pause|long pause|pause|your turn|long turn)\])/gi)) {
+    const m = part.match(/^\[(short pause|long pause|pause|your turn|long turn)\]$/i);
+    if (m && /turn$/i.test(m[1])) { flush(); items.push({ sil: sil + (/long/i.test(m[1]) ? (cfg.longTurnSeconds || 10) : (cfg.childGapSeconds || 2)), child: true }); sil = 0; }
+    else if (m) { flush(); sil += cfg.pauseSeconds[m[1].toLowerCase()]; } else buf += part;
   }
   flush(); return items;
 }
+if (level !== "a0-les-petits" && cfg.upperChildGapSeconds) cfg.childGapSeconds = cfg.upperChildGapSeconds;
+if (a.gap) cfg.childGapSeconds = +a.gap;
 const items = parse(fs.readFileSync(a.script, "utf8"));
-for (const it of items) if (it.say && cfg.alwaysTag && !it.say.toLowerCase().includes(cfg.alwaysTag)) it.say = cfg.alwaysTag + " " + it.say;
+for (const it of items) if (it.say && cfg.alwaysTag && level === "a0-les-petits" && !it.say.toLowerCase().includes(cfg.alwaysTag)) it.say = cfg.alwaysTag + " " + it.say;
 // a silence right after the child's cue (a drilled word, or "you will say...") is the child's turn: make sure it is long enough
 const CUE = /(bonjour|salut|au revoir)[\s?!.\u2026,]*$/i, CUE2 = /you will say[\s?!.\u2026,]*$/i;
 for (let i = 1; i < items.length; i++) if (items[i].sil && items[i - 1].say) { const bare = items[i - 1].say.replace(/\[[^\]]*\]/g, "").trim(); if (CUE.test(bare) || CUE2.test(bare)) { items[i].child = true; items[i].sil = Math.max(items[i].sil, cfg.childGapSeconds || 2); } }

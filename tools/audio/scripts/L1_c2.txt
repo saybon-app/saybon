@@ -1,0 +1,33 @@
+[warmly] Aujourd'hui, nous travaillons la nuance. Une même idée peut être dite de façon brutale ou diplomate. Écoutez. Brutal : Vous avez tort. Diplomate : Je me permets de nuancer votre propos.
+
+[short pause]
+
+[warmly] Répétez. Je me permets de nuancer votre propos.
+
+[short pause]
+
+[calmly] Je me permets de nuancer votre propos.
+
+[your turn]
+
+[warmly] Autre exemple. Brutal : Je veux un rendez-vous. Diplomate : Il me serait agréable de pouvoir vous rencontrer.
+
+[short pause]
+
+[calmly] Il me serait agréable de pouvoir vous rencontrer.
+
+[your turn]
+
+[warmly] Very good.
+
+[short pause]
+
+[warmly] À vous. Reformulez avec élégance : Ce rapport est mauvais.
+
+[long turn]
+
+[warmly] Encore. Reformulez : Je ne suis pas d'accord.
+
+[long turn]
+
+[warmly] Magnifique. La nuance, c'est la maîtrise.
