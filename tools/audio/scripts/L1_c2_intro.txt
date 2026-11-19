@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Arriver jusqu'ici demande du travail et de la persévérance. Que vous veniez de C1 ou que vous commenciez ici, nous partirons ensemble, et je vous donnerai toujours le sens en anglais.
+[warmly] Arriver jusqu'ici demande du travail et de la persévérance. Que vous veniez de C1 ou que vous commenciez ici, nous partirons ensemble, avec clarté.
 
 [short pause]
 
@@ -14,7 +14,7 @@
 
 [short pause]
 
-[warmly] En C2, nous travaillons la finesse : les nuances, le ton, le style. C'est ici que le français devient un art.
+[warmly] Dans la vie, il arrive que vous écriviez à un supérieur ou à un partenaire, et chaque mot compte.
 
 [short pause]
 
@@ -22,7 +22,15 @@
 
 [short pause]
 
-[warmly] Voici ma promesse. À la fin de cette leçon, vous formulerez vos nuances avec élégance, comme moi. Vous verrez les résultats. Nous sommes avec vous.
+[warmly] Je veux vous apprendre à choisir le ton juste.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Voici ma promesse. À la fin de cette leçon, vous formulerez vos nuances avec aisance, comme moi. Vous verrez les résultats. Nous sommes avec vous.
 
 [short pause]
 

@@ -1,12 +1,8 @@
-[warmly] Listen and repeat.
+[warmly] Écoutez et répétez.
 
 [short pause]
 
 [calmly] Dans une certaine mesure, je suis d'accord.
-
-[short pause]
-
-[warmly] It means, to a certain extent, I agree.
 
 [short pause]
 
@@ -18,4 +14,4 @@
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone, and say it.
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

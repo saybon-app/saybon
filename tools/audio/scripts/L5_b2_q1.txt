@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que feriez-vous si vous gagniez à la loterie ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] Si je gagnais, je voyagerais partout. Et vous, que feriez-vous ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Si je gagnais, je voyagerais partout. Et vous, que feriez-vous ?
+
+[repeat]
+
+[calmly] Si je gagnais, je voyagerais partout. Et vous, que feriez-vous ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

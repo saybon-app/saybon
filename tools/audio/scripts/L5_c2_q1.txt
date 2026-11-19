@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Comment demanderiez-vous ce dossier à votre directrice ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+
+[repeat]
+
+[calmly] Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier. Et vous, comment le diriez-vous à un ami ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

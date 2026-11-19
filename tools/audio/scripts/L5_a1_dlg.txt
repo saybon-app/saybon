@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Qu'est-ce que vous désirez ?
+
+[turn:Je voudrais un thé, s'il vous plaît.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, qu'est-ce que vous prenez ?]
+
+[calmly] Moi, je prends un café noir.
+
+[calmly] Vous voulez manger quelque chose ?
+
+[turn:Oui, un croissant, s'il vous plaît.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, vous voulez quelque chose ?]
+
+[calmly] Moi, je prends un sandwich.
+
+[warmly] Très bien. That's the lesson. Well done.

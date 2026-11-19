@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Quelle est la décision principale ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+
+[repeat]
+
+[calmly] Autrement dit, le lancement est reporté. Et vous, qu'en retenez-vous ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

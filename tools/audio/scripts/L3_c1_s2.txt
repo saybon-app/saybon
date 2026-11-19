@@ -1,12 +1,8 @@
-[warmly] Listen and repeat.
+[warmly] Écoutez et répétez.
 
 [short pause]
 
 [calmly] Elle comprit aussitôt son erreur.
-
-[short pause]
-
-[warmly] It means, she immediately understood her mistake.
 
 [short pause]
 
@@ -18,4 +14,4 @@
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone, and say it.
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

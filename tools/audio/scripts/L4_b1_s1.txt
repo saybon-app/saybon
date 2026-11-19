@@ -1,12 +1,8 @@
-[warmly] Listen and repeat.
+[warmly] Écoutez et répétez.
 
 [short pause]
 
 [calmly] Je suis tout à fait d'accord avec vous.
-
-[short pause]
-
-[warmly] It means, I completely agree with you.
 
 [short pause]
 
@@ -18,4 +14,4 @@
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone, and say it.
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

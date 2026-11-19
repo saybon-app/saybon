@@ -1,12 +1,8 @@
-[warmly] Listen and repeat.
+[warmly] Écoutez et répétez.
 
 [short pause]
 
 [calmly] Vous avez raison sur ce point.
-
-[short pause]
-
-[warmly] It means, you are right on this point.
 
 [short pause]
 
@@ -18,4 +14,4 @@
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone, and say it.
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pouvez-vous résumer cette réunion en une phrase ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+
+[repeat]
+
+[calmly] En résumé, nous avons validé le budget. Et vous, comment la résumeriez-vous ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

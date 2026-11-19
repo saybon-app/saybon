@@ -4,14 +4,15 @@
 import { spawnSync } from "child_process"; import fs from "fs"; import path from "path"; import { fileURLToPath } from "url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const [N, d, t] = [process.argv[2], process.argv[3], process.argv[4]];
+const force = process.argv.includes("--force"); const only = (process.argv.find(x => x.startsWith("--levels=")) || "").slice(9);
 fs.mkdirSync(d, { recursive: true }); fs.mkdirSync(t, { recursive: true });
 const sleep = (s) => spawnSync("node", ["-e", `setTimeout(()=>{},${s * 1000})`]);
 const run = (args) => { let r; for (let k = 1; k <= 8; k++) { r = spawnSync("node", args, { cwd: here, stdio: "inherit" }); if (r.status === 0 || r.status === 42) break; console.log(`\nNetwork/step error - retry ${k}/8 in 10s...`); sleep(10); } if (r.status === 42) { console.log("\nSTOPPED: out of credits. Top up, then run the same block again - it carries on from here."); process.exit(42); } if (r.status !== 0) { console.log("\nFAILED: node " + args.join(" ")); process.exit(1); } };
 const ma = (l, name, script, out) => run(["make-audio.mjs", "--level", l, "--lesson", N, "--name", name, "--script", `scripts/${script}.txt`, "--outdir", out]);
 run(["make-audio.mjs", "--level", "a1", "--lesson", "1", "--name", "L1_end", "--script", "scripts/L1_end.txt", "--outdir", t]);
-for (const l of ["a1", "a2", "b1", "b2", "c1", "c2"]) {
+for (const l of (only ? only.split(",") : ["a1", "a2", "b1", "b2", "c1", "c2"])) {
   const p = `L${N}_${l}`, mark = path.join(d, `${p}_dlg.mp3`);
-  if (fs.existsSync(mark) && fs.existsSync(path.join(d, `${p}_dlg.json`))) { console.log(`${l}: already built`); continue; }
+  if (!force && fs.existsSync(mark) && fs.existsSync(path.join(d, `${p}_dlg.json`))) { console.log(`${l}: already built`); continue; }
   const reading = fs.existsSync(path.join(here, "scripts", `${p}_read.txt`));
   ma(l, `${p}_ib`, `${p}_intro`, t);
   run(["mix-intro.mjs", "--body", `${t}/${p}_ib.mp3`, "--end", `${t}/L1_end.mp3`, "--out", `${d}/${p}_intro.mp3`]);

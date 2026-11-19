@@ -1,4 +1,4 @@
-[warmly] Bon retour parmi nous. Je suis très heureuse de vous revoir. Si vous commencez ici, vous êtes prêt.
+[warmly] Bon retour parmi nous. Je suis ravie de vous revoir.
 
 [short pause]
 
@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Aujourd'hui, nous faisons l'analyse littéraire : le ton, les images, le sens.
+[warmly] Dans la vie, il arrive que vous parliez d'un poème ou d'un roman avec un ami cultivé.
 
 [short pause]
 
@@ -14,4 +14,12 @@
 
 [short pause]
 
-[warmly] Voici ma promesse. À la fin de cette leçon, vous analyserez un texte avec élégance, comme moi. Vous verrez les résultats. Nous sommes avec vous.
+[warmly] Je veux vous apprendre à analyser un texte avec précision.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Voici ma promesse. À la fin de cette leçon, vous analyserez un texte avec aisance, comme moi. Vous verrez les résultats. Nous sommes avec vous.

@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Vous arrivez ici avec du courage, et c'est déjà beaucoup. Pas d'inquiétude : nous avançons ensemble, et je vous explique toujours le sens des phrases.
+[warmly] Vous arrivez ici avec du courage, et c'est déjà beaucoup. Pas d'inquiétude : nous avançons ensemble, et je parle lentement.
 
 [short pause]
 
@@ -14,7 +14,15 @@
 
 [short pause]
 
-[warmly] En B2, vous apprenez à défendre une idée, à nuancer, et à convaincre, en français.
+[warmly] Dans la vie, il arrive que vous deviez défendre une idée devant votre équipe.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Je veux vous apprendre à structurer votre argument, du début à la conclusion.
 
 [short pause]
 

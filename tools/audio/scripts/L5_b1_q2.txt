@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je n'arrive pas à dormir. Qu'est-ce que tu me conseilles ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+
+[repeat]
+
+[calmly] Je te conseille de lire le soir. Et toi, qu'est-ce que tu fais pour dormir ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je suis très stressé au travail. Que me conseilles-tu ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] À ta place, je parlerais à mon chef. Et toi, que ferais-tu ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] À ta place, je parlerais à mon chef. Et toi, que ferais-tu ?
+
+[repeat]
+
+[calmly] À ta place, je parlerais à mon chef. Et toi, que ferais-tu ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

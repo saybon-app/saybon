@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Comment demanderiez-vous ce dossier à votre directrice ?
+
+[turn:Je lui dirais : je vous serais reconnaissant de me transmettre ce dossier.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment le diriez-vous à un ami ?]
+
+[calmly] Je lui dirais simplement : désolé pour le retard.
+
+[calmly] Comment présentez-vous des excuses à un client ?
+
+[turn:Je vous prie de bien vouloir excuser ce retard.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment vous excuseriez-vous auprès d'un ami ?]
+
+[calmly] Avec un ami, je dirais : pardon, j'étais pris.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

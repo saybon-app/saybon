@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Qu'est-ce que vous désirez ?
+
+[short pause]
+
+[warmly] It means, What would you like?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+
+[short pause]
+
+[warmly] It means, I would like a tea, please. And you, what are you having?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+
+[repeat]
+
+[calmly] Je voudrais un thé, s'il vous plaît. Et vous, qu'est-ce que vous prenez ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

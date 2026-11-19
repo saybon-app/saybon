@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Auriez-vous l'amabilité de me transmettre ce document ?
+
+[short pause]
+
+[calmly] Auriez-vous l'amabilité de me transmettre ce document ?
+
+[repeat]
+
+[calmly] Auriez-vous l'amabilité de me transmettre ce document ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

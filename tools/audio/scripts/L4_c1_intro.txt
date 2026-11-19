@@ -1,4 +1,4 @@
-[warmly] Bon retour parmi nous. Je suis ravie de vous revoir. Si vous commencez ici, vous êtes au bon endroit.
+[warmly] Bon retour parmi nous. Je suis ravie de vous revoir.
 
 [short pause]
 
@@ -6,7 +6,15 @@
 
 [short pause]
 
-[warmly] Aujourd'hui, nous travaillons la nuance dans l'opinion : concéder, limiter, préciser.
+[warmly] Dans la vie, il arrive qu'on vous demande votre avis sur un sujet délicat, et vous voulez nuancer.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Je veux vous apprendre à concéder, à limiter, à préciser.
 
 [short pause]
 

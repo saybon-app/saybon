@@ -1,12 +1,8 @@
-[warmly] Listen and repeat.
+[warmly] Écoutez et répétez.
 
 [short pause]
 
 [calmly] Le film dont tout le monde parle, que j'ai vu hier, m'a ému.
-
-[short pause]
-
-[warmly] It means, The film everyone is talking about, which I saw yesterday, moved me.
 
 [short pause]
 
@@ -18,4 +14,4 @@
 
 [repeat]
 
-[warmly] Now it's time to record. Tap the microphone, and say it.
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

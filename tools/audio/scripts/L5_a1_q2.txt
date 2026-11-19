@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Vous voulez manger quelque chose ?
+
+[short pause]
+
+[warmly] It means, Would you like something to eat?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Oui, un croissant, s'il vous plaît. Et vous, vous voulez quelque chose ?
+
+[short pause]
+
+[warmly] It means, Yes, a croissant, please. And you, would you like something?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Oui, un croissant, s'il vous plaît. Et vous, vous voulez quelque chose ?
+
+[repeat]
+
+[calmly] Oui, un croissant, s'il vous plaît. Et vous, vous voulez quelque chose ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

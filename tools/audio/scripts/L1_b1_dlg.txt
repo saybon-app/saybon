@@ -1,10 +1,10 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
 
 [calmly] Racontez-moi votre week-end : d'abord, ensuite, puis, enfin.
 
 [turn:D'abord, je me suis levé tard. Ensuite, j'ai préparé le déjeuner. Enfin, nous sommes sortis.]
 
-[warmly] Now ask me back.
+[warmly] Maintenant, posez-moi la question.
 
 [turn:Et vous, qu'avez-vous fait ce week-end ?]
 
@@ -14,10 +14,10 @@
 
 [turn:D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Enfin, je me suis couché.]
 
-[warmly] Now ask me back.
+[warmly] Maintenant, posez-moi la question.
 
 [turn:Et vous, qu'avez-vous fait hier soir ?]
 
 [calmly] Moi, j'ai lu un livre, puis je me suis couchée tôt.
 
-[warmly] Très bien. That's the lesson. Well done.
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

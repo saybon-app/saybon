@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Être ici, c'est déjà un grand pas. Que vous veniez de B2 ou que vous commenciez ici, nous partirons d'une base claire, et je vous donnerai toujours le sens en anglais.
+[warmly] Être ici, c'est déjà un grand pas. Que vous veniez de B2 ou que vous commenciez ici, nous partirons d'une base claire, et je parlerai lentement.
 
 [short pause]
 
@@ -14,7 +14,15 @@
 
 [short pause]
 
-[warmly] En C1, vous apprenez à parler avec précision, avec des phrases riches et élégantes.
+[warmly] Dans la vie, il arrive que vous vouliez parler d'un livre ou d'un film qui vous a marqué, avec précision.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Je veux vous apprendre à construire des phrases riches, qui portent plusieurs idées.
 
 [short pause]
 

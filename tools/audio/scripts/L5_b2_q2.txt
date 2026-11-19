@@ -1,0 +1,29 @@
+[warmly] Maintenant, une conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que regrettez-vous de ne pas avoir fait ?
+
+[short pause]
+
+[warmly] Vous répondez, puis vous me posez la question.
+
+[short pause]
+
+[calmly] J'aurais aimé apprendre le piano. Et vous, qu'auriez-vous aimé apprendre ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] J'aurais aimé apprendre le piano. Et vous, qu'auriez-vous aimé apprendre ?
+
+[repeat]
+
+[calmly] J'aurais aimé apprendre le piano. Et vous, qu'auriez-vous aimé apprendre ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro. Répondez-moi, puis posez-moi la question.

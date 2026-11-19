@@ -1,10 +1,10 @@
-[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
 
 [calmly] Que faisiez-vous quand la nuit est tombée ?
 
 [turn:Je lisais quand la nuit est tombée.]
 
-[warmly] Now ask me back.
+[warmly] Maintenant, posez-moi la question.
 
 [turn:Et vous, que faisiez-vous ?]
 
@@ -14,10 +14,10 @@
 
 [turn:Il pleuvait quand je suis sorti.]
 
-[warmly] Now ask me back.
+[warmly] Maintenant, posez-moi la question.
 
 [turn:Et vous, que s'est-il passé ?]
 
 [calmly] Moi, j'étais au marché quand la pluie a commencé.
 
-[warmly] Très bien. That's the lesson. Well done.
+[warmly] Très bien. C'est la fin de la leçon. Bravo.
