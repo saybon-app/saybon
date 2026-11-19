@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Comment est ton ami ?
+
+[turn:Mon ami est grand.]
+
+[warmly] Now ask me back.
+
+[turn:Et ton ami, comment est-il ?]
+
+[calmly] Mon ami est petit et très gentil.
+
+[calmly] Comment est ta sœur ?
+
+[turn:Ma sœur a les cheveux noirs.]
+
+[warmly] Now ask me back.
+
+[turn:Et ta sœur, comment est-elle ?]
+
+[calmly] Ma sœur est grande, et elle a les yeux verts.
+
+[warmly] Très bien. That's the lesson. Well done.

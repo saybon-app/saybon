@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Que faut-il que vous fassiez demain ?
+
+[short pause]
+
+[warmly] It means, What do you have to do tomorrow?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+
+[short pause]
+
+[warmly] It means, I have to finish this work. And you, what do you have to do?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+
+[repeat]
+
+[calmly] Il faut que je finisse ce travail. Et vous, que faut-il que vous fassiez ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

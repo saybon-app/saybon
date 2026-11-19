@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Parlez-moi d'une habitude difficile, avec « bien que ».
+
+[turn:Bien que je sois occupé, je lis chaque soir.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, qu'en est-il ?]
+
+[calmly] Bien que je sois fatigué, je travaille chaque matin.
+
+[calmly] Doutez-vous de quelque chose ?
+
+[turn:Je doute qu'il vienne demain.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, de quoi doutez-vous ?]
+
+[calmly] Je doute que ce soit vrai.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

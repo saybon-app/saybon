@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Où habitiez-vous quand vous étiez petit ?
+
+[turn:J'habitais à la campagne.]
+
+[warmly] Now ask me back.
+
+[turn:Et toi, tu habitais où ?]
+
+[calmly] J'habitais à la campagne aussi.
+
+[calmly] Qu'est-ce que tu faisais le week-end ?
+
+[turn:Je jouais au foot.]
+
+[warmly] Now ask me back.
+
+[turn:Et toi, tu faisais quoi ?]
+
+[calmly] Moi, je lisais beaucoup.
+
+[warmly] Très bien. That's the lesson. Well done.

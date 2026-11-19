@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Comment est ton ami ?
+
+[short pause]
+
+[warmly] It means, How is your friend?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Mon ami est grand. Et ton ami, comment est-il ?
+
+[short pause]
+
+[warmly] It means, My friend is tall. And your friend, what is he like?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Mon ami est grand. Et ton ami, comment est-il ?
+
+[repeat]
+
+[calmly] Mon ami est grand. Et ton ami, comment est-il ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

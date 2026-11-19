@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Qu'est-ce qui s'est passé hier ?
+
+[short pause]
+
+[warmly] It means, What happened yesterday?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+
+[short pause]
+
+[warmly] It means, It was raining when I went out. And you, what happened?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+
+[repeat]
+
+[calmly] Il pleuvait quand je suis sorti. Et vous, que s'est-il passé ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
