@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Tu as des frères et sœurs ?
+
+[turn:J'ai un frère et deux sœurs.]
+
+[warmly] Now ask me back.
+
+[turn:Et toi, tu as des frères et sœurs ?]
+
+[calmly] Moi, j'ai seulement une sœur.
+
+[calmly] Comment s'appelle ton meilleur ami ?
+
+[turn:Mon meilleur ami s'appelle Marc.]
+
+[warmly] Now ask me back.
+
+[turn:Et toi, comment s'appelle ton meilleur ami ?]
+
+[calmly] Ma meilleure amie s'appelle Sophie.
+
+[warmly] Très bien. That's the lesson. Well done.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Je ne suis pas convaincu par cet argument.
+
+[short pause]
+
+[warmly] It means, I'm not convinced by this argument.
+
+[short pause]
+
+[calmly] Je ne suis pas convaincu par cet argument.
+
+[repeat]
+
+[calmly] Je ne suis pas convaincu par cet argument.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

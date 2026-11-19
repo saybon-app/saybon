@@ -52,13 +52,25 @@ async function getVoice() {
   if (!v.length) throw new Error(`No voice named "${voiceName}" in your account. Add it to My Voices first.`);
   const id = (v.find(x => x.name.toLowerCase() === voiceName.toLowerCase()) || v[0]).voice_id; fs.writeFileSync(idf, id); return id;
 }
+
+let _left = null, _calls = 0;
+async function creditGuard(text) {
+  const need = text.replace(/\[[^\]]*\]/g, "").length;
+  if (_left === null || _calls++ % 15 === 0) {
+    try { const r = await fetch("https://api.elevenlabs.io/v1/user/subscription", { headers: { "xi-api-key": key } }); if (r.ok) { const j = await r.json(); _left = j.character_limit - j.character_count; } else _left = Infinity; } catch { _left = Infinity; }
+  }
+  _left -= need;
+  if (_left < 150) { console.log(`\nOUT OF CREDITS (about ${Math.max(0, Math.round(_left + need))} left) - stopped cleanly. Everything made so far is saved. Top up, then run the same command again.`); process.exit(42); }
+}
 async function speak(text) {
   const h = crypto.createHash("sha1").update([voiceName, cfg.model, cfg.stability, cfg.similarity, text].join("|")).digest("hex").slice(0, 16);
   const f = path.join(cache, h + (a.dry ? ".dry.mp3" : ".mp3"));
   if (fs.existsSync(f)) return f;
   if (a.dry) { const words = text.replace(/\[[^\]]*\]/g, "").split(/\s+/).filter(Boolean).length; run(["-f", "lavfi", "-i", `sine=frequency=440:duration=${Math.max(.4, words * .35)}`, "-ar", "44100", "-ac", "1", f]); return f; }
   voiceId ||= await getVoice();
+  await creditGuard(text);
   const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, { method: "POST", headers: { "xi-api-key": key, "Content-Type": "application/json" }, body: JSON.stringify({ text, model_id: cfg.model, voice_settings: { stability: cfg.stability, similarity_boost: cfg.similarity } }) });
+  if (r.status===401||r.status===402||r.status===429){const b=await r.text(); if(/quota|credit|limit/i.test(b)){ console.log("\nOUT OF CREDITS - stopped cleanly. Everything made so far is saved. Top up, then run the same command again."); process.exit(42);} throw new Error(`ElevenLabs error (${r.status}): ${b}`);}
   if (!r.ok) throw new Error(`ElevenLabs error (${r.status}): ${await r.text()}`);
   fs.writeFileSync(f, Buffer.from(await r.arrayBuffer())); return f;
 }

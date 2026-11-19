@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Cet auteur est-il surestimé ?
+
+[short pause]
+
+[warmly] It means, Is this author overrated?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+
+[short pause]
+
+[warmly] It means, It's not entirely wrong, but it's incomplete. And you, what do you say?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+
+[repeat]
+
+[calmly] Ce n'est pas tout à fait faux, mais c'est incomplet. Et vous, qu'en dites-vous ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

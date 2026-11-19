@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Que pensez-vous de cette réforme ? Nuancez.
+
+[turn:Dans une certaine mesure, elle est utile.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment la nuanceriez-vous ?]
+
+[calmly] Je dirais qu'elle est utile, mais mal préparée.
+
+[calmly] Cet auteur est-il surestimé ?
+
+[turn:Ce n'est pas tout à fait faux, mais c'est incomplet.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, qu'en dites-vous ?]
+
+[calmly] Je le trouve inégal, mais souvent brillant.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

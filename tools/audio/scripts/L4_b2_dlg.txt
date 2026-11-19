@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Êtes-vous sûr de réussir ?
+
+[turn:Je suis certain que je réussirai.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, en êtes-vous sûr ?]
+
+[calmly] Moi, je pense que oui, avec du travail.
+
+[calmly] Doutez-vous de quelque chose ?
+
+[turn:Je doute que cette solution soit la meilleure.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, de quoi doutez-vous ?]
+
+[calmly] Je doute qu'ils tiennent leurs promesses.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

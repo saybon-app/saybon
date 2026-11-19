@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Comment s'appelle ton meilleur ami ?
+
+[short pause]
+
+[warmly] It means, What is your best friend's name?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+
+[short pause]
+
+[warmly] It means, My best friend's name is Marc. And you, what is your best friend's name?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+
+[repeat]
+
+[calmly] Mon meilleur ami s'appelle Marc. Et toi, comment s'appelle ton meilleur ami ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

@@ -1,0 +1,23 @@
+[warmly] Dernière partie : une vraie conversation. Le micro est allumé. Je pose une question, vous répondez, puis vous me posez la même question.
+
+[calmly] Quel est le ton de ce poème ?
+
+[turn:Le ton est mélancolique, presque résigné.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, comment le qualifieriez-vous ?]
+
+[calmly] Je le qualifierais de nostalgique.
+
+[calmly] Que dénonce ce roman ?
+
+[turn:Ce roman dénonce l'hypocrisie sociale.]
+
+[warmly] Maintenant, posez-moi la question.
+
+[turn:Et vous, qu'y voyez-vous ?]
+
+[calmly] J'y vois aussi une critique du pouvoir.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

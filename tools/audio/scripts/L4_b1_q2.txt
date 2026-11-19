@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Faut-il travailler le dimanche ?
+
+[short pause]
+
+[warmly] It means, Should people work on Sundays?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+
+[short pause]
+
+[warmly] It means, I disagree, people need to rest. And you, what do you think?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+
+[repeat]
+
+[calmly] Je ne suis pas d'accord, il faut se reposer. Et vous, qu'en pensez-vous ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

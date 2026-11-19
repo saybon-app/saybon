@@ -1,0 +1,23 @@
+[warmly] Now the last part: a real conversation. The microphone is on, so just talk to me. I'll ask, you answer, then you ask me back.
+
+[calmly] Les devoirs sont-ils utiles ?
+
+[turn:Je suis d'accord, ils aident à apprendre.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, êtes-vous d'accord ?]
+
+[calmly] Moi, je suis plutôt d'accord.
+
+[calmly] Faut-il travailler le dimanche ?
+
+[turn:Je ne suis pas d'accord, il faut se reposer.]
+
+[warmly] Now ask me back.
+
+[turn:Et vous, qu'en pensez-vous ?]
+
+[calmly] Moi aussi, le repos est important.
+
+[warmly] Très bien. That's the lesson. Well done.
