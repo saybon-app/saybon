@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Et hier soir ?
+
+[short pause]
+
+[warmly] It means, And last night?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+
+[short pause]
+
+[warmly] It means, First, I had dinner. Then I watched a film. And you, what did you do?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+
+[repeat]
+
+[calmly] D'abord, j'ai dîné. Ensuite, j'ai regardé un film. Et vous, qu'avez-vous fait ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.

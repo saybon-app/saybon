@@ -25,7 +25,7 @@ export function parse(text) {
   };
   for (const part of text.split(/(\[(?:short pause|long pause|pause|your turn|long turn|repeat|turn:[^\]]*)\])/gi)) {
     const m = part.match(/^\[(short pause|long pause|pause|your turn|long turn|repeat)\]$/i), tm = part.match(/^\[turn:([^\]]*)\]$/i);
-    if (tm) { flush(); const w = tm[1].trim().split(/\s+/).filter(Boolean).length; items.push({ sil: sil + Math.min(11, Math.max(3, 1.0 + 0.5 * w + 1.0)), child: true }); sil = 0; continue; }
+    if (tm) { flush(); const w = tm[1].trim().split(/\s+/).filter(Boolean).length; items.push({ sil: sil + Math.min(8, Math.max(2.5, 0.9 + 0.4 * w)), child: true }); sil = 0; continue; }
     if (m && /^repeat$/i.test(m[1])) { flush(); const prev = items.length ? items[items.length - 1] : null; const words = prev && prev.say ? prev.say.replace(/\[[^\]]*\]/g, "").split(/\s+/).filter(Boolean).length : 3; items.push({ sil: Math.min(5, Math.max(2.0, 0.8 + 0.4 * words)) }); sil = 0; }
     else if (m && /turn$/i.test(m[1])) { flush(); items.push({ sil: sil + (/long/i.test(m[1]) ? (cfg.longTurnSeconds || 10) : (cfg.childGapSeconds || 2)), child: true }); sil = 0; }
     else if (m) { flush(); sil += cfg.pauseSeconds[m[1].toLowerCase()]; } else buf += part;

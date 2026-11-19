@@ -1,0 +1,37 @@
+[warmly] Now, a conversation. Listen.
+
+[short pause]
+
+[calmly] Tu as quel âge ?
+
+[short pause]
+
+[warmly] It means, How old are you?
+
+[short pause]
+
+[warmly] You answer, and then you ask me back.
+
+[short pause]
+
+[calmly] J'ai vingt-cinq ans. Et toi, tu as quel âge ?
+
+[short pause]
+
+[warmly] It means, I'm twenty-five. And you, how old are you?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] J'ai vingt-cinq ans. Et toi, tu as quel âge ?
+
+[repeat]
+
+[calmly] J'ai vingt-cinq ans. Et toi, tu as quel âge ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone. Answer me, then ask me back.
