@@ -70,7 +70,7 @@ var L2W=[[20.7,25.9]];
 var L2D=[["Je m'appelle. Et toi, comment t'appelles-tu ?",'Je m\u2019appelle\u2026']];
 function DW(){return lessonNo()===2?L2W:L1W;}
 function DD(){return lessonNo()===2?L2D:L1D;}
-function dlgUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=1':'/assets/audio/A0_TP_L1_dialogue.mp3?v=2';}
+function dlgUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_dialogue.mp3?v=':'/assets/audio/A0_TP_L1_dialogue.mp3?v=';}
 function dlgIdx(){return lessonNo()===2?L2P.length:5;}
 function l1Key(){return 'psL1:'+(window.lsCurrentUid||'anon')+':'+((window.__psMeta||{}).lesson||'');}
 function l1Read(){try{return +localStorage.getItem(l1Key())||0;}catch(e){return 0;}}
@@ -79,7 +79,7 @@ function lessonNo(){return (window.__psMeta||{}).lesson;}
 function isL1(){var m=window.__psMeta||{};return m.level==='A0'&&(m.lesson===1||m.lesson===2);}
 /* lesson 2: Je m'appelle (intro + four phrases; the dialogue step is added when its audio exists) */
 var L2P=["Je m'appelle.","Je m'appelle.","Comment t'appelles-tu ? Je m'appelle.","Comment t'appelles-tu ? Je m'appelle. Et toi, comment t'appelles-tu ?"];
-function introUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=1':'/assets/audio/A0_TP_L1_intro.mp3?v=1';}
+function introUrl(){return lessonNo()===2?'/assets/audio/A0_TP_L2_intro.mp3?v=':'/assets/audio/A0_TP_L1_intro.mp3?v=';}
 function lastStep(){return lessonNo()===2?L2P.length+1:6;}
 function advance(){if(window.__psAdv)window.__psAdv();else window.lsGoNext();}
 function l1Show(i,ctx){
@@ -189,7 +189,7 @@ window.__psUI=function(partNum,blocks,ctx){
    if(sc())sc().cheer();
    T(kNext,3200);
   }
-  fetch(dn+'.json?v=1').then(function(r){return r.json();}).then(function(j){
+  fetch(dn+'.json?v=').then(function(r){return r.json();}).then(function(j){
    kGaps=j.gaps||[];kMax=kGaps.map(function(){return 0;});
    return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
   }).then(function(s2){
@@ -197,7 +197,7 @@ window.__psUI=function(partNum,blocks,ctx){
    stream=s2;
    try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();var ms2=actx.createMediaStreamSource(s2);mAn=actx.createAnalyser();mAn.fftSize=64;mData=new Uint8Array(mAn.frequencyBinCount);ms2.connect(mAn);}catch(e){mAn=null;}
    musicOff();
-   media=new Audio();media.preload='auto';media.src=dn+'.mp3?v=1';
+   media=new Audio();media.preload='auto';media.src=dn+'.mp3?v=';
    media.addEventListener('playing',function(){kSpk.classList.add('on');var hx=kp.querySelector('.pc-hint');if(hx)hx.remove();if(sc())sc().listen();});
    media.addEventListener('pause',function(){if(!media.ended)kSpk.classList.remove('on');});
    media.addEventListener('ended',kEnd);
@@ -215,7 +215,7 @@ window.__psUI=function(partNum,blocks,ctx){
  if(pb)window.__psSkipIntro=0;
  if(!pb&&window.__psSkipIntro){T(function(){window.lsGoNext();},200);return true;}
  if(!pb){
-  var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=1';if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=1';if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
+  var url=video||audioUrl,_m=window.__psMeta||{},ovr=false;if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(!url&&kids()&&KINTRO[lessonNo()+'-'+partNum])url='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';if(isL1()&&!window.__psIntroUsed){window.__psIntroUsed=1;ovr=true;url=introUrl();video=null;}
   if(ovr)window.__psAdv=function(){l1Show(0,ctx);};
   var p=swap(c,'<button type="button" class="pc-teach" aria-label="Teacher">'+I.mic+'</button><div class="pc-st"></div>');
   var btn=p.querySelector('.pc-teach'),st=p.querySelector('.pc-st');
@@ -335,8 +335,8 @@ window.__psUI=function(partNum,blocks,ctx){
  var L1i=(pb._l1!==undefined)?pb._l1:-1,dlgK=(pb._dlg!==undefined)?pb._dlg:-1;
  var lbl0=L1i>=0?('Phrase '+FR[L1i]):phraseLabel(partNum);
  var KID=kids();
- if(KID&&L1i<0&&KAUD[lessonNo()+'-'+partNum])audioUrl='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=1';
- if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v=1'):('/assets/audio/A0_TP_L'+(lessonNo()===2?2:1)+'_phrase'+(L1i+1)+'.mp3?v=1');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
+ if(KID&&L1i<0&&KAUD[lessonNo()+'-'+partNum])audioUrl='/assets/audio/lp/lesson'+lessonNo()+'_part'+partNum+'.mp3?v=';
+ if(L1i>=0){audioUrl=dlgK>=0?('/assets/audio/A0_TP_L1_dlg_'+L1D[dlgK][1]+'.mp3?v='):('/assets/audio/A0_TP_L'+(lessonNo()===2?2:1)+'_phrase'+(L1i+1)+'.mp3?v=');var stepI=dlgK>=0?5+dlgK:L1i;window.__psAdv=function(){l1Show(stepI+1,ctx);};}
  var p=swap(c,
   '<div class="pc-top"><div class="pc-hn">'+lbl0+'</div><div class="pc-hi">'+(dlgK>=0?'Listen to the teacher, then answer.':(kids()?'Listen, then say it!':'Listen attentively, and repeat when prompted.'))+'</div>'+(dlgK>=0?'<div class="pc-pg">'+(dlgK+1)+' / 5</div>':'')+(RS.welcome?'<div class="pc-wb">Welcome back \u2014 continuing from where you stopped</div>':'')+'</div>'+
   '<div class="pc-mid">'+
