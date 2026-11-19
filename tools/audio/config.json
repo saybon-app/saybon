@@ -1,16 +1,17 @@
 {
-  "voices": {
-    "default": "Eryn",
-    "a0-les-petits": "Mira"
-  },
-  "model": "eleven_v3",
-  "stability": 0.5,
-  "pauseSeconds": {
-    "pause": 0.4,
-    "short pause": 0.25,
-    "long pause": 2.0
-  },
-  "paragraphGapSeconds": 0.3,
-  "alwaysTag": "[playful]",
-  "childGapSeconds": 2.0
+    "voices":  {
+                   "default":  "Eryn",
+                   "a0-les-petits":  "Mira"
+               },
+    "model":  "eleven_v4",
+    "stability":  0.5,
+    "pauseSeconds":  {
+                         "pause":  0.4,
+                         "short pause":  0.25,
+                         "long pause":  2.0
+                     },
+    "paragraphGapSeconds":  0.3,
+    "alwaysTag":  "[playful]",
+    "childGapSeconds":  2.0,
+    "similarity":  0.5
 }

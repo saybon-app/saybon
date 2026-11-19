@@ -48,12 +48,12 @@ async function getVoice() {
   const id = (v.find(x => x.name.toLowerCase() === voiceName.toLowerCase()) || v[0]).voice_id; fs.writeFileSync(idf, id); return id;
 }
 async function speak(text) {
-  const h = crypto.createHash("sha1").update([voiceName, cfg.model, cfg.stability, text].join("|")).digest("hex").slice(0, 16);
+  const h = crypto.createHash("sha1").update([voiceName, cfg.model, cfg.stability, cfg.similarity, text].join("|")).digest("hex").slice(0, 16);
   const f = path.join(cache, h + (a.dry ? ".dry.mp3" : ".mp3"));
   if (fs.existsSync(f)) return f;
   if (a.dry) { const words = text.replace(/\[[^\]]*\]/g, "").split(/\s+/).filter(Boolean).length; run(["-f", "lavfi", "-i", `sine=frequency=440:duration=${Math.max(.4, words * .35)}`, "-ar", "44100", "-ac", "1", f]); return f; }
   voiceId ||= await getVoice();
-  const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, { method: "POST", headers: { "xi-api-key": key, "Content-Type": "application/json" }, body: JSON.stringify({ text, model_id: cfg.model, voice_settings: { stability: cfg.stability } }) });
+  const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, { method: "POST", headers: { "xi-api-key": key, "Content-Type": "application/json" }, body: JSON.stringify({ text, model_id: cfg.model, voice_settings: { stability: cfg.stability, similarity_boost: cfg.similarity } }) });
   if (!r.ok) throw new Error(`ElevenLabs error (${r.status}): ${await r.text()}`);
   fs.writeFileSync(f, Buffer.from(await r.arrayBuffer())); return f;
 }
