@@ -243,10 +243,24 @@ function capture(){
   });
 }
 
-/* ---------- scoring: generous at first, stricter and stricter, always honest about what Azure measured ---------- */
-function adjust(raw,i,N){
-  var t=N>1?i/(N-1):1,bonus=28*Math.max(0,1-t/0.7),strict=t>0.8?(t-0.8)/0.2*6:0;
-  return clamp(Math.round(raw+bonus-strict),0,100);
+/* ---------- scoring: every word is graded on how accurately it was said, and the worst words pull the phrase down ---------- */
+// Azure's word accuracy -> our word grade: sounds like the word = 50 (the pass mark), said exactly right = up to 100,
+// nothing like it = 20 or less. The leniency lives here, in the word, not in a bonus on the whole phrase.
+function wordGrade(w){
+  if(w.errorType==="Omission")return 0;
+  var a=clamp(w.accuracyScore||0,0,100);
+  if(a>=80)return 85+(a-80)*0.75;
+  if(a>=60)return 50+(a-60)*1.75;
+  return a*(50/60);
+}
+function grade(out){
+  if(!out||!out.recognizedText)return 0;
+  var ws=(out.words||[]).filter(function(w){return w.errorType!=="Insertion";});
+  if(!ws.length)ws=[{accuracyScore:out.accuracyScore||0}];
+  var g=ws.map(wordGrade),mean=g.reduce(function(x,y){return x+y;},0)/g.length,worst=Math.min.apply(null,g);
+  var s=0.4*mean+0.6*worst; // one badly said word cannot hide behind the good ones
+  s*=0.92+0.08*clamp((out.fluencyScore||0)/100,0,1);
+  return clamp(Math.round(s),0,100);
 }
 function assess(blob,ref){
   return wavOf(blob).then(function(wav){
@@ -328,9 +342,7 @@ async function runItem(){
       noHear++;setPhase("","Couldn't evaluate");setDir("The scoring service didn't answer. Let's try again.");$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);
       await sleep(1800);continue;
     }
-    var acc=out.accuracyScore||0,comp=out.completenessScore||0,flu=out.fluencyScore||0;
-    var raw=out.recognizedText?(0.55*acc+0.25*comp+0.20*flu):0;
-    var score=adjust(raw,st.idx,N),pass=score>=50;
+    var score=grade(out),pass=score>=50;
     $("scoreNum").textContent=score;$("scoreLbl").textContent=label(score);chips(out.words,item.fr);
     $("hint").textContent=hintFor(out.words);$("result").hidden=false;
     if(pass){
