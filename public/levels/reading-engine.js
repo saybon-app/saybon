@@ -11,11 +11,11 @@ var EN = (LEVEL === "a1" || LEVEL === "a2"), PFX = EN ? "R2_en_" : "R2_fr_", OLD
 var T = EN ? { title: "Reading practice", intro: "Reading", dir0: "Listen carefully while I read aloud.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
   start: "Tap to begin", skip: "Skip", again: "Read again", next: "Next text", fin: "Finish", redo: "Redo lesson", back: "Back to lessons", done: "Lesson complete", well: "Well done.",
   listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "A few things to work on", first: "First reading", last: "Second reading",
-  perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line." }
+  perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line.", sec1: "Words and sounds", sec2: "Liaisons", sec3: "Pauses inside a phrase", sound: "work on this sound", linkLab: "link the words", linkTip: "No pause between these words: the final letter is carried over and sounds like \"{c}\". We measured a gap of {g}.", pauseTip: "Keep the phrase flowing: do not stop between these words.", finalPts: "Still to work on" }
  : { title: "Lecture à voix haute", intro: "La lecture", dir0: "Écoutez attentivement pendant que je lis à voix haute.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
   start: "Touchez pour commencer", skip: "Passer", again: "Lire encore", next: "Texte suivant", fin: "Terminer", redo: "Refaire la leçon", back: "Retour aux leçons", done: "Leçon terminée", well: "Bien joué.",
   listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Quelques points à travailler", first: "Première lecture", last: "Seconde lecture",
-  perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne." };
+  perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne.", sec1: "Mots et sons", sec2: "Liaisons", sec3: "Pauses à l'intérieur d'un groupe", sound: "son à travailler", linkLab: "liez les mots", linkTip: "Pas de pause entre ces mots : la lettre finale se prononce et fait le son « {c} ». Écart mesuré : {g}.", pauseTip: "Gardez le groupe fluide : ne vous arrêtez pas entre ces mots.", finalPts: "À travailler encore" };
 var LEN = { a1: { g: .77, f: 28 }, a2: { g: .86, f: 17 } }[LEVEL] || null;
 var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
 var SLOW = EN ? .78 : .82, SLOWREAD = EN ? .84 : .88;
@@ -56,6 +56,10 @@ st.textContent = `
 .rd2 .pw{display:flex;align-items:center;gap:14px;padding:9px 0;border-top:1px solid rgba(255,255,255,.09)}
 .rd2 .pw b{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:1.12rem;min-width:110px}
 .rd2 .pw i{font-style:normal;font-size:.82rem;opacity:.75;min-width:92px}
+.rd2 .pg{text-align:left;margin-top:12px}
+.rd2 .pl{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.65;margin-bottom:2px}
+.rd2 .pn{font-size:.9rem;line-height:1.5;opacity:.85;margin:0 0 8px;padding-left:2px}
+.rd2 .pn em{font-style:normal;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;color:#e8c27a;margin-right:4px}
 .rd2 .pw span{flex:1;height:5px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden}
 .rd2 .pw span u{display:block;height:100%;background:#e8c27a;border-radius:5px}
 .rd2 .big{font-family:'Playfair Display',Georgia,serif;font-size:2.4rem;font-weight:700;margin:2px 0}
@@ -107,19 +111,29 @@ function autoRecord(ui, o) {
     }).catch(function() { ui.stt.textContent = T.mic; });
   });
 }
-/* grade -> {v, ws:[{s,e}] per reference word or null, quiet, err} */
+/* grade -> {v, det:[per reference word {w,s,e,ph,st,en}] or null, ws (compat), quiet, err} */
+function azWords(j) {
+  var raw = j && (j.detail || (j._debugRawAzureResponse && j._debugRawAzureResponse.NBest && j._debugRawAzureResponse.NBest[0] && j._debugRawAzureResponse.NBest[0].Words));
+  return (raw && raw.length) ? raw : null;
+}
 function grade(blob, ref) {
   return decode16(blob).then(pcmToWav).then(function(wb) {
     if (wb.pk < 0.012) return { quiet: true };
     return fetch(API + "/api/assessPronunciation?referenceText=" + encodeURIComponent(ref), { method: "POST", body: wb }).then(function(r) { return r.json(); }).then(function(j) {
-      var items = (j && j.wordFeedback) || [], non = items.filter(function(x) { return x && x.errorType !== "Insertion"; }), rw = ref.split(/\s+/).filter(Boolean), raw, ws = null;
-      if (non.length && non.length === rw.length) {
-        ws = non.map(function(x) { var om = x.errorType === "Omission"; return { s: om ? 0 : (typeof x.accuracyScore === "number" ? x.accuracyScore : 0), e: om ? "o" : "" }; });
+      var rw = ref.split(/\s+/).filter(Boolean), raw, ws = null, det = null, az = azWords(j), items;
+      function acc(x) { return typeof x.AccuracyScore === "number" ? x.AccuracyScore : (x.PronunciationAssessment && typeof x.PronunciationAssessment.AccuracyScore === "number" ? x.PronunciationAssessment.AccuracyScore : (typeof x.accuracyScore === "number" ? x.accuracyScore : 0)); }
+      function err(x) { return x.ErrorType || (x.PronunciationAssessment && x.PronunciationAssessment.ErrorType) || x.errorType || ""; }
+      items = (az || (j && (j.wordFeedback || j.words)) || []).filter(function(x) { return x && err(x) !== "Insertion"; });
+      if (items.length && items.length === rw.length) {
+        det = items.map(function(x, i) { var om = err(x) === "Omission", t0 = typeof x.Offset === "number" ? x.Offset / 10000 : null, d = typeof x.Duration === "number" ? x.Duration / 10000 : null;
+          return { w: rw[i], s: om ? 0 : acc(x), e: om ? "o" : (err(x) === "Mispronunciation" ? "m" : ""), st: om ? null : t0, en: (om || t0 === null || d === null) ? null : t0 + d,
+            ph: (x.Phonemes || []).map(function(q) { return { p: q.Phoneme || q.phoneme || "", s: acc(q) }; }) }; });
+        ws = det.map(function(d) { return { s: d.s, e: d.e === "o" ? "o" : "" }; });
         raw = ws.reduce(function(a, b) { return a + b.s; }, 0) / ws.length;
       } else { raw = pickScore(j); if (raw === null) raw = 0; }
       if (raw < 8) return { quiet: true };
       var v = Math.round(raw); if (LEN) v = Math.max(Math.round(100 * Math.pow(Math.min(100, raw) / 100, LEN.g)), LEN.f);
-      return { v: Math.min(100, v), ws: ws };
+      return { v: Math.min(100, v), ws: ws, det: det };
     });
   }).catch(function() { return { err: true }; });
 }
@@ -136,6 +150,53 @@ async function attempt(ui, ref, o, tries) {
     ui.stt.textContent = ""; return g;
   }
   ui.stt.textContent = ""; return null;
+}
+
+/* ---------------- coaching: words, sounds, liaisons, pauses (all from the measured data) ---------------- */
+var TIPS = EN ? {
+  "ʁ": "the French r sits at the back of the throat, like a soft gargle", "y": "round your lips as for \"oo\" but say \"ee\"", "u": "\"ou\": lips rounded and pushed forward", "ø": "\"eu\" as in peu: lips rounded, mouth half closed", "œ": "\"eu\" as in peur: rounded and more open",
+  "ə": "the light \"e\": short and soft, often barely heard", "ɑ̃": "nasal \"an\": let the air through the nose, no n at the end", "ɔ̃": "nasal \"on\": rounded lips, air through the nose, no n", "ɛ̃": "nasal \"in\": air through the nose, no n", "œ̃": "nasal \"un\": air through the nose, no n",
+  "ɥ": "the quick \"u\" glide, as in huit", "ʒ": "\"j\" as in je: like the s in measure", "ʃ": "\"ch\" as in chat", "ɲ": "\"gn\" as in montagne", "e": "closed \"é\": keep it steady, do not glide into \"ay\"", "ɛ": "open \"è\": mouth a little wider than for é", "o": "closed \"o\": lips rounded, no glide to \"w\"", "ɔ": "open \"o\" as in porte", "i": "short \"i\": spread lips, no glide", "a": "\"a\": open, flat and short", "z": "a voiced \"z\"; the s between vowels is a z", "t": "a crisp \"t\" with no puff of air", "ɡ": "hard \"g\" as in gare"
+} : {
+  "ʁ": "le r français se prononce au fond de la gorge, comme un léger gargarisme", "y": "arrondissez les lèvres comme pour « ou » mais dites « i »", "u": "« ou » : lèvres arrondies et projetées en avant", "ø": "« eu » de peu : lèvres arrondies, bouche mi-fermée", "œ": "« eu » de peur : arrondi et plus ouvert",
+  "ə": "le « e » léger : bref et doux, souvent à peine audible", "ɑ̃": "nasale « an » : l'air passe par le nez, sans n final", "ɔ̃": "nasale « on » : lèvres arrondies, l'air passe par le nez, sans n", "ɛ̃": "nasale « in » : l'air passe par le nez, sans n", "œ̃": "nasale « un » : l'air passe par le nez, sans n",
+  "ɥ": "le « u » glissé de huit", "ʒ": "« j » de je : comme le s de « mesure »", "ʃ": "« ch » de chat", "ɲ": "« gn » de montagne", "e": "« é » fermé : gardez-le stable, sans glisser vers « èy »", "ɛ": "« è » ouvert : bouche un peu plus ouverte que pour é", "o": "« o » fermé : lèvres arrondies, sans glisser vers « w »", "ɔ": "« o » ouvert de porte", "i": "« i » bref : lèvres étirées, sans glissement", "a": "« a » : ouvert, plat et bref", "z": "un « z » sonore ; le s entre deux voyelles se prononce z", "t": "un « t » net, sans souffle", "ɡ": "« g » dur de gare"
+};
+var LIA1 = "les des mes tes ses ces nos vos leurs aux un mon ton son aucun quels quelles deux trois six dix petit grand bon mauvais gros nous vous ils elles on en est sont ont suis sommes êtes es avez avons était étaient dans chez sans sous très bien moins comment".split(" ");
+var HMUET = "heure homme hôtel histoire hôpital habite habiter habitude hiver huile humain honneur herbe hier".split(" ");
+function cleanTok(w) { return w.toLowerCase().replace(/^[^\p{L}']+|[^\p{L}']+$/gu, ""); }
+function liaisonOf(w1, w2) {
+  var a = cleanTok(w1), b = cleanTok(w2); if (!a || !b || LIA1.indexOf(a) < 0) return null;
+  if (!/^[aeiouyàâéèêëîïôûù]/.test(b) && HMUET.indexOf(b) < 0) return null; if (b === "oui" || b === "onze" || b === "et") return null;
+  var l = a.slice(-1), m = { s: "z", x: "z", z: "z", t: "t", d: "t", n: "n", p: "p", g: "k" }[l]; if (!m) return null;
+  return { cons: m, was: l };
+}
+function coach(det, S) {
+  if (!det) return null; var flat = [], end = [];
+  S.forEach(function(s) { var ts = s.t.split(/\s+/).filter(Boolean); ts.forEach(function(w, i) { flat.push(w); end.push(i === ts.length - 1); }); });
+  var words = [], links = [], pauses = [], i;
+  for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [] }); continue; }
+    var snd = d.ph.filter(function(q) { return q.s < 60 && q.p; }).sort(function(a, b) { return a.s - b.s; }).slice(0, 2).map(function(q) { return { p: q.p, tip: TIPS[q.p] || "" }; });
+    if (d.s < 70 || (snd.length && d.s < 80)) words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd }); }
+  for (i = 0; i + 1 < det.length; i++) { var x = det[i], y = det[i + 1]; if (end[i] || x.en === null || y.st === null || x.e === "o" || y.e === "o") continue;
+    var gap = Math.round(y.st - x.en), lia = liaisonOf(flat[i], flat[i + 1]), punct = /[,;:.!?…]$/.test(flat[i]);
+    if (lia && gap > 220 && !punct) links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was });
+    else if (!punct && gap > 650) pauses.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap }); }
+  words.sort(function(a, b) { return a.s - b.s; });
+  return { words: words.slice(0, 5), links: links.slice(0, 3), pauses: pauses.slice(0, 2) };
+}
+function secs(ms) { return (ms / 1000).toFixed(1) + " s"; }
+function coachHtml(c) {
+  var h = "";
+  if (c.words.length) { h += '<div class="pg"><div class="pl">' + T.sec1 + "</div>"; c.words.forEach(function(w) {
+    var lab = w.kind === "miss" ? T.miss : (w.kind === "weak" ? T.weak : T.close);
+    h += '<div class="pw"><b>' + esc(w.w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "")) + "</b><i>" + lab + "</i></div>";
+    w.sounds.forEach(function(q) { h += '<div class="pn"><em>/' + esc(q.p) + "/</em> " + esc(q.tip || T.sound) + "</div>"; }); }); h += "</div>"; }
+  if (c.links.length) { h += '<div class="pg"><div class="pl">' + T.sec2 + "</div>"; c.links.forEach(function(l) {
+    h += '<div class="pw"><b>' + esc(l.a) + " ‿ " + esc(l.b) + '</b><i>' + T.linkLab + '</i></div><div class="pn">' + T.linkTip.replace("{c}", l.cons).replace("{g}", secs(l.gap)) + "</div>"; }); h += "</div>"; }
+  if (c.pauses.length) { h += '<div class="pg"><div class="pl">' + T.sec3 + "</div>"; c.pauses.forEach(function(l) {
+    h += '<div class="pw"><b>' + esc(l.a) + " | " + esc(l.b) + '</b><i>' + secs(l.gap) + '</i></div><div class="pn">' + T.pauseTip + "</div>"; }); h += "</div>"; }
+  return h;
 }
 function complete() {
   try { if (uid) fetch(API + "/api/levelProgressComplete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ uid: uid, level: LEVEL, lesson: LESSON }) }).catch(function() {}); } catch (e) {} stopStream();
@@ -184,9 +245,9 @@ function weakList(ws, S) {
   arr.sort(function(a, b) { return a.s - b.s; }); return arr.slice(0, 6);
 }
 async function showPoints(res, S) {
-  var wl = weakList(res.ws, S), good = !wl.length && res.v >= THR, h = '<div class="pc"><h3>' + (good ? T.perfect : T.points) + '</h3><p class="sc">' + T.first + " · " + res.v + "%</p>";
-  wl.forEach(function(a) { var lab = a.e === "o" ? T.miss : (a.s < 40 ? T.weak : T.close); h += '<div class="pw"><b>' + esc(a.w) + "</b><i>" + lab + '</i><span><u style="width:' + Math.max(6, Math.round(a.s)) + '%"></u></span></div>'; });
-  if (wl.length) h += '<p class="sc" style="margin:12px 0 0">' + T.tip + "</p>"; else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + T.general + "</p>";
+  var c = coach(res.det, S), has = c && (c.words.length || c.links.length || c.pauses.length), good = !has && res.v >= THR;
+  var h = '<div class="pc"><h3>' + (good ? T.perfect : T.points) + "</h3>";
+  if (has) h += coachHtml(c); else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + T.general + "</p>";
   ui.pt.innerHTML = h + "</div>"; ui.pt.classList.add("on"); await wait(900); try { ui.pt.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
 }
 function hidePoints() { ui.pt.classList.remove("on"); }
@@ -223,7 +284,8 @@ async function unit(U, idx, total) {
     r2 = await attempt(ui, whole, { sil: 2300, wait: 11000, cap: capWhole }, 2);
     if (r2) { drawBoard(S, r2.ws, -1, null); }
     hidePoints(); await wait(500);
-    var cmp = '<div class="pc" style="text-align:center">' + (r2 ? '<div class="big">' + r2.v + '%</div>' : "") + '<div class="cmp">' + (r1 ? "<div>" + T.first + " · " + r1.v + "%</div>" : "") + (r2 ? "<div>" + T.last + " · " + r2.v + "%</div>" : "") + "</div></div>";
+    var rc = r2 ? coach(r2.det, S) : null, rem = rc && (rc.words.length || rc.links.length) ? '<div style="margin-top:16px"><h3 style="text-align:center">' + T.finalPts + "</h3>" + coachHtml({ words: rc.words, links: rc.links, pauses: [] }) + "</div>" : "";
+    var cmp = '<div class="pc" style="text-align:center">' + (r2 ? '<div class="big">' + r2.v + '%</div>' : "") + '<div class="cmp">' + (r1 ? "<div>" + T.first + " · " + r1.v + "%</div>" : "") + (r2 ? "<div>" + T.last + " · " + r2.v + "%</div>" : "") + "</div>" + rem + "</div>";
     ui.pt.innerHTML = cmp; ui.pt.classList.add("on"); try { ui.btns.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     ui.btns.innerHTML = '<button id="rdAg">' + T.again + '</button><button class="pri" id="rdNx">' + (last ? T.fin : T.next) + "</button>";
     var act = await new Promise(function(r) { ui.btns.querySelector("#rdAg").onclick = function() { r("again"); }; ui.btns.querySelector("#rdNx").onclick = function() { r("next"); }; });

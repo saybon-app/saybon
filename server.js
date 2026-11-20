@@ -3084,7 +3084,8 @@ const pronunciationConfig = {
 
 ReferenceText: referenceText,
 GradingSystem: "HundredMark",
-Granularity: "Word",
+Granularity: "Phoneme",
+PhonemeAlphabet: "IPA",
 EnableMiscue: true
 
 }
@@ -3149,6 +3150,7 @@ errorType: w.ErrorType || null
 
 res.json({
 
+detail: (best.Words || []), /*detail-v1*/
 recognizedText: best.Display || best.Lexical || "",
 accuracyScore,
 fluencyScore,
