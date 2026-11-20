@@ -75,9 +75,9 @@ window.PT_ITEMS = [
 {id:"c2_r_temoin",lv:6,q:"Lis. Quelle est la position de l'auteur sur le témoignage ?",p:"Nul n'ignore que la mémoire est sélective ; il n'en demeure pas moins qu'on ne saurait, sous prétexte de subjectivité, congédier le témoignage, dont la valeur tient précisément à ce qu'il restitue ce que l'archive tait.",o:["Il garde sa valeur : il dit ce que les archives taisent.", "Il est inutile car subjectif.", "Il doit remplacer les archives.", "Il est fiable car parfaitement objectif."],c:0},
 {id:"c2_r_ironie",lv:6,q:"Lis. Quel paradoxe l'auteur relève-t-il ?",p:"L'ironie de l'affaire, c'est que la mesure censée protéger les plus fragiles a fini par les exposer davantage, l'administration ayant sous-estimé la capacité des intéressés à la contourner.",o:["Une mesure protectrice a aggravé leur vulnérabilité.", "Les fragiles ont refusé toute aide.", "L'administration a trop dépensé.", "La mesure a été abandonnée aussitôt."],c:0},
 /* ---------- speaking: hear a line, answer out loud ---------- */
-{id:"a0_s_bonjour",lv:0,q:"Respond out loud: « Bonjour »",say:"Bonjour !",speak:"Bonjour.",o:[],c:0},
-{id:"a0_s_aurevoir",lv:0,q:"Respond out loud: « Au revoir »",say:"Au revoir !",speak:"Au revoir.",o:[],c:0},
-{id:"a0_s_salut",lv:0,q:"Respond out loud: « Salut »",say:"Salut !",speak:"Salut.",o:[],c:0},
-{id:"a1_s_cava",lv:1,q:"Listen, then answer out loud.",say:"Bonjour ! Ça va ?",speak:"Ça va bien, merci.",o:[],c:0},
-{id:"a1_s_merci",lv:1,q:"Listen, then answer out loud.",say:"Merci beaucoup !",speak:"De rien.",o:[],c:0},
+{id:"a0_s_bonjour",lv:0,q:"Respond to me out loud.",say:"Bonjour !",speak:"Bonjour.",o:[],c:0},
+{id:"a0_s_aurevoir",lv:0,q:"Respond to me out loud.",say:"Au revoir !",speak:"Au revoir.",o:[],c:0},
+{id:"a0_s_salut",lv:0,q:"Respond to me out loud.",say:"Salut ?",speak:"Salut.",o:[],c:0},
+{id:"a1_s_cava",lv:1,q:"Respond to me out loud.",say:"Bonjour ! Ça va ?",speak:"Ça va bien, merci.",o:[],c:0},
+{id:"a1_s_merci",lv:1,q:"Respond to me out loud.",say:"Merci beaucoup !",speak:"De rien.",o:[],c:0},
 ];

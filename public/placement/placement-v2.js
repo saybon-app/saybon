@@ -74,7 +74,8 @@ function intro(){
   $("go").onclick=function(){
     // unlock audio on this tap (mobile browsers)
     try{var a=$("qAud");a.muted=true;a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";a.play().then(function(){a.pause();a.muted=false}).catch(function(){a.muted=false})}catch(e){}
-    st=fresh(); $("scoreN").textContent="0"; ask();
+    st=fresh(); $("scoreN").textContent="0";
+    if(canRecord()){navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){s.getTracks().forEach(function(t){t.stop()});ask()},function(){speechOff=true;ask()})}else ask();
   };
 }
 async function ask(){
@@ -104,7 +105,7 @@ var SPEAK_API="https://saybonapp-server.onrender.com/api/assessPronunciation", S
 function canRecord(){return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder&&(window.AudioContext||window.webkitAudioContext))}
 function recStart(){
   return navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-    var mr=new MediaRecorder(stream),chunks=[],h={mr:mr};
+    var mr=new MediaRecorder(stream),chunks=[],h={mr:mr,stream:stream};
     mr.ondataavailable=function(ev){if(ev.data&&ev.data.size)chunks.push(ev.data)};
     h.done=new Promise(function(res){mr.onstop=function(){stream.getTracks().forEach(function(t){t.stop()});res(new Blob(chunks,{type:mr.mimeType||"audio/mp4"}))}});
     mr.start();return h;
@@ -130,37 +131,71 @@ function toWav16(blob){
 }
 function askSpeak(it){
   st.cur.shown=[];
-  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+
-   '<button class="snd" id="snd"><i>▶</i> Play the audio</button>'+
-   '<button class="mic" id="mic"><i></i><span id="micT">Tap and speak</span></button><p class="hint spk" id="spk">&nbsp;</p>'+
+  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>'+
+   '<div class="avatar" id="av"><img alt="" src="/assets/images/placement/teacher_head.png"></div>'+
+   '<p class="hint spk" id="spk">&nbsp;</p>'+
+   '<button class="snd" id="snd" style="display:none"><i>▶</i> Tap to hear me</button>'+
    '<div class="opts"><button class="opt idk" data-i="-1">I can\'t speak now</button></div></div>';
   $("card").innerHTML=h; $("card").classList.remove("wide");
-  var a=$("qAud"),play=function(){a.src=audUrl(it);a.currentTime=0;a.play().catch(function(){})};
-  $("snd").onclick=play; setTimeout(play,350);
-  var mic=$("mic"),T=$("micT"),msg=$("spk"),rec=null,tries=0,timer=null,busy=false;
-  function skip(){speechOff=true;st.seen[it.id]=1;ask()}
-  function finishRec(){ if(!rec)return; var r=rec;rec=null;clearTimeout(timer);mic.classList.remove("rec");busy=true;T.textContent="Checking…";msg.textContent="";
-    try{r.mr.stop()}catch(e){}
-    r.done.then(toWav16).then(function(wav){
+  var a=$("qAud"),av=$("av"),msg=$("spk"),snd=$("snd"),tries=0,gone=false,stopRec=null;
+  function say(t){msg.textContent=t}
+  function skip(){gone=true;speechOff=true;st.seen[it.id]=1;ask()}
+  function listen(){
+    snd.style.display="none";av.classList.remove("rec");av.classList.add("talk");say("Listen…");
+    a.onended=function(){a.onended=null;av.classList.remove("talk");if(!gone)respond()};
+    a.onerror=function(){a.onerror=null;av.classList.remove("talk");skip()};
+    a.src=audUrl(it);a.currentTime=0;
+    var pr=a.play();
+    if(pr&&pr.catch)pr.catch(function(){av.classList.remove("talk");say("Tap to hear me");snd.style.display="";});
+  }
+  function score(blob){
+    return toWav16(blob).then(function(wav){
       var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},45000);
       return fetch(SPEAK_API+"?referenceText="+encodeURIComponent(it.speak),{method:"POST",headers:{"Content-Type":"audio/wav"},body:wav,signal:ctl.signal}).then(function(r){clearTimeout(to);return r.json().then(function(j){return{ok:r.ok,status:r.status,j:j}})});
-    }).then(function(x){
-      if(x.status===400){ tries++; busy=false;T.textContent="Tap and speak again";msg.textContent=tries>=2?"We could not hear you. You can skip this one.":"We could not hear you. Please try again, a little louder.";return}
-      if(!x.ok||typeof x.j.finalScore!=="number")return skip();
-      var pass=x.j.finalScore>=SPEAK_PASS;
-      Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;b.classList.add("dim")});
-      mic.disabled=true;mic.classList.add(pass?"good":"soft");T.textContent=pass?"Très bien !":"Good try, let's keep going";
-      answer(0,mic,pass?"ok":"bad");
+    });
+  }
+  function respond(){
+    if(gone)return;
+    av.classList.add("rec");say("Your turn. Answer me out loud.");
+    var rec=null,ctx=null,timer=null,iv=null,done=false;
+    function cleanup(){clearInterval(iv);clearTimeout(timer);try{ctx&&ctx.close()}catch(e){}}
+    function stop(){ if(done||!rec)return; done=true;cleanup();av.classList.remove("rec");say("Checking…");
+      try{rec.mr.stop()}catch(e){}
+      rec.done.then(score).then(function(x){
+        if(gone)return;
+        if(x.status===400){tries++;if(tries<2){say("I didn't catch that. Say it again.");return setTimeout(respond,900)}
+          say("I couldn't hear you. Tap me to try again, or skip.");av.onclick=function(){av.onclick=null;tries=0;listen()};return}
+        if(!x.ok||typeof x.j.finalScore!=="number")return skip();
+        var pass=x.j.finalScore>=SPEAK_PASS;
+        av.classList.add(pass?"good":"soft");say(pass?"Très bien !":"Good try, let's keep going");
+        Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;b.classList.add("dim")});
+        gone=true;answer(0,av,pass?"ok":"bad");
+      }).catch(function(){if(!gone)skip()});
+    }
+    stopRec=stop;
+    recStart().then(function(r){
+      if(gone){r.mr.stop();return}
+      rec=r;
+      var t0=Date.now(),spoke=false,last=0;
+      try{
+        var AC=window.AudioContext||window.webkitAudioContext;ctx=new AC();
+        var src=ctx.createMediaStreamSource(r.stream),an=ctx.createAnalyser();an.fftSize=1024;src.connect(an);
+        var buf=new Uint8Array(an.fftSize);
+        iv=setInterval(function(){
+          an.getByteTimeDomainData(buf);var s=0;for(var i=0;i<buf.length;i++){var v=(buf[i]-128)/128;s+=v*v}
+          var rms=Math.sqrt(s/buf.length),now=Date.now();
+          if(rms>0.03){spoke=true;last=now}
+          if(spoke&&now-last>900)stop();
+          else if(!spoke&&now-t0>6000)stop();
+        },60);
+      }catch(e){}
+      timer=setTimeout(stop,7000);
     }).catch(function(){skip()});
   }
-  mic.onclick=function(){
-    if(busy)return;
-    if(rec)return finishRec();
-    try{$("qAud").pause()}catch(e){}
-    recStart().then(function(r){rec=r;mic.classList.add("rec");T.textContent="Listening… tap when you finish";msg.textContent="";timer=setTimeout(finishRec,5000)}).catch(function(){skip()});
-  };
-  Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(-1,b)}});
+  snd.onclick=listen;
+  Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){gone=true;try{a.pause()}catch(e){}if(stopRec)try{stopRec()}catch(e){}answer(-1,b)}});
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  setTimeout(listen,500);
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
