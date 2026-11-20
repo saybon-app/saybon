@@ -34,12 +34,15 @@ async function nextItem(){
     var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]}));
     // keep a mix: prefer a kind (picture / listening / text) not used in the last two questions
     var last=st.log.slice(-2).map(function(l){return l.kind});
-    pool.sort(function(a,b){return (last.indexOf(kind(a))>-1?1:0)-(last.indexOf(kind(b))>-1?1:0)});
+    // variety: favour the kinds used least so far (photo, listening, reading), plain grammar last
+    var cnt={};st.log.forEach(function(l){cnt[l.kind]=(cnt[l.kind]||0)+1});
+    var sc=function(x){var k=kind(x);return (last.indexOf(k)>-1?10:0)+(cnt[k]||0)+(k==="text"?6:0)};
+    pool.sort(function(a,b){return sc(a)-sc(b)});
     for(var i=0;i<pool.length;i++){ if(await usable(pool[i]))return pool[i]; st.seen[pool[i].id]=1; }
   }
   return null;
 }
-function kind(it){return it.say?"listen":it.img?"picture":"text"}
+function kind(it){return it.say?"listen":it.img?"picture":it.p?"read":"text"}
 
 /* ---- placement estimate: Bayesian over the seven levels ---- */
 function mapLevel(){var m=0;for(var i=1;i<7;i++)if(st.post[i]>st.post[m])m=i;return m}
@@ -67,7 +70,7 @@ async function ask(){
   st.cur=it; st.seen[it.id]=1;
   var opts=shuffle(it.o.map(function(t,i){return{t:t,ok:i===it.c}}));
   st.cur.shown=opts;
-  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'');
+  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+(it.p?'<div class="passage">'+esc(it.p)+'</div>':'');
   if(it.img)h+='<div class="qgrid"><img class="pic" src="'+imgUrl(it)+'" alt=""><div>';
   if(it.say)h+='<button class="snd" id="snd"><i>▶</i> Play the audio</button>';
   h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div>'+(it.img?'</div></div></div>':'</div>');
