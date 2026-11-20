@@ -56,3 +56,5 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
   .qgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start}
   .qgrid .pic{max-height:52dvh;width:100%;margin:0;object-fit:contain;background:rgba(0,0,0,.2)}
 }
+
+.hint{font-size:13.5px;color:var(--mute);margin:-6px 0 12px}
