@@ -13,7 +13,7 @@ function ease(t){return t*t*t*(t*(t*6-15)+10);}
 function mount(o){
  o=o||{};
  var lesson=Math.max(1,parseInt(o.lesson,10)||1);
- var idx=SEQ[(lesson-1)%SEQ.length];
+ var R0=Math.floor(Math.random()*SEQ.length)/*rnd*/,idx=SEQ[(lesson-1+R0)%SEQ.length];
  var url=BASE+idx+".webp?v=1";
  var old=document.getElementById("pt-scene");if(old)old.remove();
  var root=document.createElement("div");root.id="pt-scene";root.className="pt-scene";
@@ -114,7 +114,7 @@ function mount(o){
  var started=false,cur=0,swapT=0,swapping=false;
  function swapNext(){
   if(!alive||swapping||!started||RM)return;swapping=true;cur++;
-  var nu=BASE+SEQ[((lesson-1)+cur)%SEQ.length]+".webp?v=1";
+  var nu=BASE+SEQ[((lesson-1+R0)+cur)%SEQ.length]+".webp?v=1";
   var pre=new Image();
   pre.onload=function(){
    pan.style.transition=far.style.transition="opacity .9s ease";pan.style.opacity=far.style.opacity="0";

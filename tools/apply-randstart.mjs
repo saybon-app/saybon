@@ -1,0 +1,16 @@
+// Random first background on every open/refresh: levels landing page, all lessons, Les Petits paintings.
+// Also lists the level pages (the lesson lists) and how they pick their background. Usage: node apply-randstart.mjs <levelsDir>
+import fs from "fs"; import path from "path";
+const lv = process.argv[2] || "public/levels"; let did = 0;
+function patch(f, label, fn) { if (!fs.existsSync(f)) { console.log("MISSING " + label + ": " + f); return; } const s = fs.readFileSync(f, "utf8"); if (s.includes("/*rnd*/")) { console.log("already done: " + label); return; } const t = fn(s); if (t === null || t === s) { console.log("STOP, anchor not found: " + label); return; } fs.writeFileSync(f + ".bakRND", s); fs.writeFileSync(f, t); did++; console.log("done: " + label); }
+patch(path.join(lv, "levels-cinema.js"), "levels landing page", s => s.includes("var k=n%5;document.body") ? s.replace("var seen=false;", "var seen=false,SO=Math.floor(Math.random()*5);/*rnd*/").replace("var k=n%5;document.body", "var k=(n+SO)%5;document.body").replace("nxt.className='cin-bg k'+(n%3+1)", "nxt.className='cin-bg k'+((n+SO)%3+1)") : null);
+patch(path.join(lv, "lesson-engine-tp.js"), "lessons (scenery)", s => s.includes("start:st") ? s.replace(/st=\(N-1\+Math\.floor\(\(N-1\)\/3\)\+OFF\)%3/, "st=(Math.floor(Math.random()*3)/*rnd*/)").replace(/(lesson-engine-tp\.js\?v=)\d+/, "$1") : null);
+patch(path.join(lv, "scene-petits", "scene-petits.js"), "Les Petits paintings", s => s.includes("SEQ[(lesson-1)%SEQ.length]") ? s.replace("var idx=SEQ[(lesson-1)%SEQ.length];", "var R0=Math.floor(Math.random()*SEQ.length)/*rnd*/,idx=SEQ[(lesson-1+R0)%SEQ.length];").replace("SEQ[((lesson-1)+cur)%SEQ.length]", "SEQ[((lesson-1+R0)+cur)%SEQ.length]") : null);
+/* cache-bust: bump the engine/scene versions in the pages that load them */
+let pages = 0;
+(function walk(d) { for (const x of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, x.name); if (x.isDirectory()) { if (!/node_modules|assets/.test(x.name)) walk(p); } else if (/\.html$/.test(x.name)) { const s = fs.readFileSync(p, "utf8"); const t = s.replace(/(lesson-engine-tp\.js\?v=)(\d+)/g, (m, a, n) => a + (+n + 1)).replace(/(levels-cinema\.js\?v=)(\d+)/g, (m, a, n) => a + (+n + 1)); if (t !== s) { fs.writeFileSync(p, t); pages++; } } } })(lv);
+console.log("pages refreshed: " + pages);
+/* scene-ui loads the scene scripts with a version: bump those too */
+const e = path.join(lv, "lesson-engine-tp.js"); try { let s = fs.readFileSync(e, "utf8"); s = s.replace(/(scene-paris\.js\?v=)(\d+)/, (m, a, n) => a + (+n + 1)); s = s.replace(/(scene-petits\.js\?v=)(\d+)/, (m, a, n) => a + (+n + 1)); fs.writeFileSync(e, s); } catch (x) {}
+console.log("\nLevel pages (lesson lists) and how they set their background:");
+for (const d of fs.readdirSync(lv, { withFileTypes: true })) { if (!d.isDirectory() || /scene|assets|node_modules/.test(d.name)) continue; const f = path.join(lv, d.name, "index.html"); if (!fs.existsSync(f)) continue; const s = fs.readFileSync(f, "utf8"); const refs = [...new Set((s.match(/[\w\-\/.]+\.(?:jpg|jpeg|webp|png|mp4)/gi) || []))].slice(0, 6); console.log("  " + d.name + "/index.html  size " + s.length + "  images: " + (refs.join(", ") || "none") + "  scripts: " + ([...s.matchAll(/src="([^"]+)"/g)].map(m => m[1]).slice(0, 5).join(", ") || "none")); }
