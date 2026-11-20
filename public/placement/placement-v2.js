@@ -29,13 +29,20 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
 async function nextItem(){
-  if(!st.log.length){var f=await pick(true,["picture","speak"]);if(f)return f}   // the first question is always a photo
+  // opening sequence: 1 oral (hear it, say it out loud), 2 picture, 3 simple grammar, 4 short reading; then it adapts freely
+  var seq=(speechOff||!canRecord())?["picture","text","read"]:["speak","picture","text","read"];
+  if(st.log.length<seq.length){
+    var want=seq[st.log.length];
+    var f=await pick(true,[want],want==="speak"?0:null);
+    if(f)return f;
+  }
   return (await pick(true))||(await pick(false));
 }
-async function pick(strict,only){
+async function pick(strict,only,exactLv){
   var order=[0,-1,1,-2,2,-3,3];
   for(var k=0;k<order.length;k++){
-    var L=st.lv+order[k]; if(L<0||L>6)continue;
+    var L=st.lv+order[k]; if(exactLv!=null){if(k>0)break;L=exactLv}
+    if(L<0||L>6)continue;
     if(st.n<FRENCH_AFTER&&L>2)continue;   // French-only questions wait until after question 7
     var lk=st.log.length?st.log[st.log.length-1].kind:null;
     var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]&&!(strict&&kind(x)===lk)&&(!only||only.indexOf(kind(x))>-1)}));
