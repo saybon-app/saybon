@@ -21,22 +21,25 @@ var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
 var SLOW = EN ? .78 : .82;
 var st = document.createElement("style");
 st.textContent = `
-.rd2{max-width:780px;margin:0 auto;padding:84px 18px 56px;color:#f4f1ea;font-family:Manrope,system-ui,sans-serif}
+.rd2{max-width:820px;margin:0 auto;padding:64px 18px 40px;color:#f4f1ea;font-family:Manrope,system-ui,sans-serif}
+.rd2 h2,.rd2 .dir{text-align:center}
 .rd2 h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.7rem,4.6vw,2.3rem);margin:0 0 10px;min-height:1.3em;letter-spacing:.005em}
 .rd2 h2 .cr{display:inline-block;width:2px;height:1em;margin-left:3px;vertical-align:-.12em;background:currentColor;opacity:.7;animation:rdBl 1s steps(2) infinite}
 @keyframes rdBl{50%{opacity:0}}
-.rd2 .dir{margin:0 0 22px;font-size:1.02rem;line-height:1.55;opacity:0;transform:translateY(6px);transition:opacity .7s ease,transform .7s ease;min-height:3.1em;color:#d9d4c8}
+.rd2 .dir{margin:0 0 14px;font-size:1.02rem;line-height:1.55;opacity:0;transform:translateY(6px);transition:opacity .7s ease,transform .7s ease;min-height:3.1em;color:#d9d4c8}
 .rd2 .dir.on{opacity:1;transform:none}
-.rd2 .bd{position:relative;height:0;overflow:hidden;border-radius:6px;transition:height 1.25s cubic-bezier(.22,.8,.2,1);box-shadow:0 22px 44px rgba(0,0,0,.35)}
-.rd2 .bd.open{box-shadow:0 22px 44px rgba(0,0,0,.35)}
-.rd2 .rod{height:9px;border-radius:6px 6px 0 0;background:linear-gradient(#e9ebef,#b9bec7);box-shadow:0 1px 0 rgba(0,0,0,.25)}
-.rd2 .bd-in{background:linear-gradient(180deg,#fbfaf6,#f1efe8);color:#25252d;padding:26px 28px 30px;border:1px solid rgba(255,255,255,.5);border-top:0}
-.rd2 .ln{font-family:Fraunces,Georgia,serif;font-size:clamp(1.15rem,3.4vw,1.4rem);line-height:1.8;padding:1px 8px;margin:2px -8px;border-radius:8px;opacity:0;transform:translateY(8px);transition:opacity .7s ease,transform .7s ease,background .35s ease,color .35s ease}
+.rd2 .gate{min-height:54px;display:flex;justify-content:center;margin:0 0 14px}
+.rd2 .bd{position:relative;height:0;overflow:hidden;border-radius:18px;transition:height 1.25s cubic-bezier(.22,.8,.2,1)}
+.rd2 .frame{border-radius:18px;padding:7px;background:linear-gradient(145deg,#f3f5f8,#aeb5c0 55%,#e4e8ee);box-shadow:0 24px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.7)}
+.rd2 .rod{display:none}
+.rd2 .bd-in{background:radial-gradient(120% 90% at 30% 0%,#ffffff 0%,#f6f4ee 55%,#ece9e0 100%);color:#2a2a33;padding:22px 34px 24px;border-radius:12px;box-shadow:inset 0 2px 10px rgba(0,0,0,.08)}
+.rd2 .ledge{height:12px;margin:0 22px;border-radius:0 0 10px 10px;background:linear-gradient(#c9cfd8,#8e96a3);box-shadow:0 8px 14px rgba(0,0,0,.3)}
+.rd2 .ln{font-family:Fraunces,Georgia,serif;font-size:clamp(1.12rem,3vw,1.35rem);line-height:1.62;padding:1px 8px;margin:2px -8px;border-radius:8px;opacity:0;transform:translateY(8px);transition:opacity .7s ease,transform .7s ease,background .35s ease,color .35s ease}
 .rd2 .ln.in{opacity:1;transform:none}
 .rd2 .ln.cur{background:rgba(255,205,90,.30)}
 .rd2 .ln.ok{color:#2c6e49}
 .rd2 .w.bad{color:#b0413c;text-decoration:underline dotted #b0413c;text-underline-offset:4px}
-.rd2 .ctl{min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin:22px 0 6px;text-align:center}
+.rd2 .ctl{min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin:22px 0 6px;text-align:center}
 .rd2 .stt{font-size:.98rem;color:#d9d4c8;min-height:1.3em;transition:opacity .4s}
 .rd2 .orb{width:16px;height:16px;border-radius:50%;background:#e8c27a;opacity:.9;transition:transform .08s linear}
 .rd2 .orb.idle{opacity:.0}
@@ -142,8 +145,8 @@ function complete() {
 /* ---------------- page ---------------- */
 var ui = {};
 function build() {
-  root.innerHTML = '<div class="rd2"><h2 id="rdH"></h2><p class="dir" id="rdD"></p><div class="bd" id="rdB"><div class="rod"></div><div class="bd-in" id="rdT"></div></div><div class="ctl"><div class="stt" id="rdS"></div><div class="orb idle" id="rdO"></div><div class="btns" id="rdBt"></div></div><div class="pt" id="rdP"></div></div>';
-  ui = { h: root.querySelector("#rdH"), dir: root.querySelector("#rdD"), bd: root.querySelector("#rdB"), txt: root.querySelector("#rdT"), stt: root.querySelector("#rdS"), orb: root.querySelector("#rdO"), btns: root.querySelector("#rdBt"), pt: root.querySelector("#rdP") };
+  root.innerHTML = '<div class="rd2"><h2 id="rdH"></h2><p class="dir" id="rdD"></p><div class="gate" id="rdG"></div><div class="bd" id="rdB"><div class="frame"><div class="bd-in" id="rdT"></div></div><div class="ledge"></div></div><div class="ctl"><div class="stt" id="rdS"></div><div class="orb idle" id="rdO"></div><div class="btns" id="rdBt"></div></div><div class="pt" id="rdP"></div></div>';
+  ui = { g: root.querySelector("#rdG"), h: root.querySelector("#rdH"), dir: root.querySelector("#rdD"), bd: root.querySelector("#rdB"), txt: root.querySelector("#rdT"), stt: root.querySelector("#rdS"), orb: root.querySelector("#rdO"), btns: root.querySelector("#rdBt"), pt: root.querySelector("#rdP") };
 }
 async function typeHeading(txt) {
   ui.h.innerHTML = '<span id="rdHt"></span><span class="cr"></span>'; var t = ui.h.querySelector("#rdHt");
@@ -182,12 +185,12 @@ async function unit(U, idx, total) {
   hidePoints(); ui.btns.innerHTML = ""; ui.stt.textContent = "";
   if (idx > 0) { await rollUp(); }
   if (total > 1) { ui.h.textContent = T.title + " · " + T.text + " " + (idx + 1) + "/" + total; }
-  await setDir(T.dir0); await rollDown(S);
+  await setDir(T.dir0);
   if (idx === 0) {
-    ui.btns.innerHTML = '<button class="pri" id="rdGo">' + T.start + "</button>";
-    await new Promise(function(r) { ui.btns.querySelector("#rdGo").onclick = r; }); ui.btns.innerHTML = "";
-    if (C.intro) { ui.stt.textContent = ""; await play(C.intro); }
-  }
+    ui.g.innerHTML = '<button class="pri" id="rdGo">' + T.start + "</button>";
+    await new Promise(function(r) { ui.g.querySelector("#rdGo").onclick = r; }); ui.g.innerHTML = "";
+    await Promise.all([rollDown(S), C.intro ? play(C.intro) : wait(0)]);
+  } else { await rollDown(S); }
   /* 1. the teacher reads once */
   ui.stt.textContent = T.teacher; await play(PFX + "listen");
   if (U.audio) await play(U.audio); else { for (var i = 0; i < S.length; i++) { cur(i); await play(S[i].a); await wait(350); } cur(-1); }
