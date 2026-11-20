@@ -28,20 +28,29 @@ function usable(it){
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
+var A0_STRETCH=8, A0_SKIP=5;   // the opening questions are all A0; a learner who gets 5 in a row right moves on early
+function inA0(){
+  if(st.a0Done)return false;
+  var s=0;for(var i=st.log.length-1;i>=0&&st.log[i].ok;i--)s++;
+  if(st.log.length>=A0_STRETCH||s>=A0_SKIP){st.a0Done=true;return false}
+  return true;
+}
 async function nextItem(){
   // rhythm: one special question (oral first, then photo, reading, listening in turn), then two regular ones, and so on
   var noOral=(speechOff||!canRecord())&&!(st.log.length&&st.log[0].kind==="speak"), n=st.log.length+(noOral?3:0), want;
   if(n===0)want="speak";
   else{var m=(n-1)%3; want=m<2?"text":["picture","read","listen"][Math.floor((n-1)/3)%3]}
-  var f=await pick(false,[want],want==="speak"?0:null);
+  var a0=inA0(), lv=a0?(want==="speak"?[0]:[0,1]):null;
+  var f=await pick(false,[want],lv);
   if(f)return f;
-  if(want!=="text"){f=await pick(false,["text"]);if(f)return f}
+  if(want!=="text"){f=await pick(false,["text"],lv);if(f)return f}
+  if(a0){f=await pick(false,null,[0,1]);if(f)return f}
   return (await pick(true))||(await pick(false));
 }
-async function pick(strict,only,exactLv){
+async function pick(strict,only,lvls){
   var order=[0,-1,1,-2,2,-3,3];
-  for(var k=0;k<order.length;k++){
-    var L=st.lv+order[k]; if(exactLv!=null){if(k>0)break;L=exactLv}
+  for(var k=0;k<(lvls?lvls.length:order.length);k++){
+    var L=lvls?lvls[k]:st.lv+order[k];
     if(L<0||L>6)continue;
     if(st.n<FRENCH_AFTER&&L>2)continue;   // French-only questions wait until after question 7
     var lk=st.log.length?st.log[st.log.length-1].kind:null;
@@ -50,12 +59,14 @@ async function pick(strict,only,exactLv){
     var last=st.log.slice(-2).map(function(l){return l.kind});
     // variety: favour the kinds used least so far (photo, listening, reading), plain grammar last
     var cnt={};st.log.forEach(function(l){cnt[l.kind]=(cnt[l.kind]||0)+1});
-    var sc=function(x){var k=kind(x);return (last.indexOf(k)>-1?10:0)+(cnt[k]||0)+(k==="text"?6:0)};
+    var lastShapes=st.log.filter(function(l){return l.kind==="text"}).slice(-2).map(function(l){return l.shape});
+    var sc=function(x){var k=kind(x);if(k==="text"){var sh=shape(x);return (lastShapes.indexOf(sh)>-1?8:0)+(sh==="fill"?4:0)}return (last.indexOf(k)>-1?10:0)+(cnt[k]||0)};
     pool.sort(function(a,b){return sc(a)-sc(b)});
     for(var i=0;i<pool.length;i++){ if(await usable(pool[i]))return pool[i]; st.seen[pool[i].id]=1; }
   }
   return null;
 }
+function shape(it){return it.s||(/^Compl/.test(it.q)?"fill":"reply")}
 function kind(it){return it.speak?"speak":it.say?"listen":it.img?"picture":it.p?"read":"text"}
 
 /* ---- placement estimate: Bayesian over the seven levels ---- */
@@ -86,15 +97,22 @@ async function ask(){
   if(it.speak)return askSpeak(it);
   var opts=shuffle(it.o.map(function(t,i){return{t:t,ok:i===it.c}}));
   st.cur.shown=opts;
-  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+(it.p?'<div class="passage">'+esc(it.p)+'</div>':'');
+  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+(it.p?'<div class="passage">'+esc(it.p)+'</div>':'')+(it.d?'<div class="passage dlg">'+esc(it.d).replace(/\n/g,'<br>')+'</div>':'');
   if(it.img)h+='<div class="qgrid"><img class="pic" src="'+imgUrl(it)+'" alt=""><div>';
-  if(it.say)h+='<button class="snd" id="snd"><i>▶</i> Play the audio</button>';
+  if(it.say)h+='<div class="avatar" id="av" role="button"><img alt="" src="/assets/images/placement/teacher_head.png"></div><p class="hint spk" id="spk">Listen…</p>';
   h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div>'+(it.img?'</div></div></div>':'</div>');
   $("card").innerHTML=h; $("card").classList.toggle("wide",!!it.img);
   if(it.say){
     var a=$("qAud");
-    var play=function(){a.src=audUrl(it);a.currentTime=0;a.play().catch(function(){})};
-    $("snd").onclick=play; setTimeout(play,350);
+    var av=$("av"),sp=$("spk");
+    var play=function(){
+      av.classList.add("talk");sp.textContent="Listen…";
+      a.onended=function(){a.onended=null;av.classList.remove("talk");sp.textContent="Tap me to hear it again"};
+      a.onerror=function(){a.onerror=null;av.classList.remove("talk");sp.textContent=""};
+      a.src=audUrl(it);a.currentTime=0;
+      var pr=a.play();if(pr&&pr.catch)pr.catch(function(){av.classList.remove("talk");sp.textContent="Tap me to hear it"});
+    };
+    av.onclick=play; setTimeout(play,350);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(+b.dataset.i,b)}});
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
@@ -229,7 +247,7 @@ function answer(i,btn,force){
   var r=st.res[it.lv]; r.t++; if(ok)r.c++;
   update(it.lv,ok?"ok":(idk?"idk":"bad"));
   st.n++; st.hist.push(it.lv);
-  st.log.push({id:it.id,lv:it.lv,ok:ok,idk:idk,kind:kind(it)});
+  st.log.push({id:it.id,lv:it.lv,ok:ok,idk:idk,kind:kind(it),shape:shape(it)});
   st.wrong=ok?0:st.wrong+1;
   var want=Math.round(st.post.reduce(function(a,p,i){return a+p*i},0));
   st.lv=Math.max(0,Math.min(6,Math.max(it.lv-1,Math.min(it.lv+1,want)))); // at most one step from the question just asked
