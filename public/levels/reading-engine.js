@@ -11,11 +11,12 @@ var EN = (LEVEL === "a1" || LEVEL === "a2"), PFX = EN ? "R2_en_" : "R2_fr_", OLD
 var T = EN ? { title: "Reading practice", intro: "Reading", dir0: "Listen carefully while I read aloud.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
   start: "Tap to begin", skip: "Skip", again: "Read again", next: "Next text", fin: "Finish", redo: "Redo lesson", back: "Back to lessons", done: "Lesson complete", well: "Well done.",
   listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "A few things to work on", first: "First reading", last: "Second reading",
-  perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line.", sec1: "Words and sounds", sec2: "Liaisons", sec3: "Pauses inside a phrase", sound: "work on this sound", linkLab: "link the words", linkTip: "No pause between these words: the final letter is carried over and sounds like \"{c}\". We measured a gap of {g}.", pauseTip: "Keep the phrase flowing: do not stop between these words.", finalPts: "Still to work on" }
+  perfect: "Nothing to correct. Excellent.", perfectGo: "Very good. Nothing to correct. Read it one more time and we move on.", okish: "Clear enough, but not quite smooth yet. We will repeat the lines that need it.", nodet: "I could not check the sounds in detail this time, so we will go through it line by line.", dirFew: "Let's work on the lines that need it. Repeat after me.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line.", sec1: "Words and sounds", sec2: "Liaisons", sec3: "Pauses inside a phrase", sound: "work on this sound", linkLab: "link the words", linkTip: "No pause between these words: the final letter is carried over and sounds like \"{c}\". We measured a gap of {g}.", pauseTip: "Keep the phrase flowing: do not stop between these words.", finalPts: "Still to work on" }
  : { title: "Lecture à voix haute", intro: "La lecture", dir0: "Écoutez attentivement pendant que je lis à voix haute.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
   start: "Touchez pour commencer", skip: "Passer", again: "Lire encore", next: "Texte suivant", fin: "Terminer", redo: "Refaire la leçon", back: "Retour aux leçons", done: "Leçon terminée", well: "Bien joué.",
   listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Quelques points à travailler", first: "Première lecture", last: "Seconde lecture",
-  perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne.", sec1: "Mots et sons", sec2: "Liaisons", sec3: "Pauses à l'intérieur d'un groupe", sound: "son à travailler", linkLab: "liez les mots", linkTip: "Pas de pause entre ces mots : la lettre finale se prononce et fait le son « {c} ». Écart mesuré : {g}.", pauseTip: "Gardez le groupe fluide : ne vous arrêtez pas entre ces mots.", finalPts: "À travailler encore" };
+  perfect: "Rien à corriger. Excellent.", perfectGo: "Très bien. Rien à corriger. Relisez-le une fois et on passe à la suite.", okish: "C'est clair, mais pas encore fluide. Nous reprendrons les lignes qui en ont besoin.", nodet: "Je n'ai pas pu vérifier les sons en détail cette fois : nous passons ligne par ligne.", dirFew: "Travaillons les lignes qui en ont besoin. Répétez après moi.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne.", sec1: "Mots et sons", sec2: "Liaisons", sec3: "Pauses à l'intérieur d'un groupe", sound: "son à travailler", linkLab: "liez les mots", linkTip: "Pas de pause entre ces mots : la lettre finale se prononce et fait le son « {c} ». Écart mesuré : {g}.", pauseTip: "Gardez le groupe fluide : ne vous arrêtez pas entre ces mots.", finalPts: "À travailler encore" };
+var DEBUG = /[?&]rdebug=1/.test(location.search);
 var LEN = { a1: { g: .77, f: 28 }, a2: { g: .86, f: 17 } }[LEVEL] || null;
 var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
 var SLOW = EN ? .78 : .82, SLOWREAD = EN ? .84 : .88;
@@ -120,20 +121,33 @@ function grade(blob, ref) {
   return decode16(blob).then(pcmToWav).then(function(wb) {
     if (wb.pk < 0.012) return { quiet: true };
     return fetch(API + "/api/assessPronunciation?referenceText=" + encodeURIComponent(ref), { method: "POST", body: wb }).then(function(r) { return r.json(); }).then(function(j) {
-      var rw = ref.split(/\s+/).filter(Boolean), raw, ws = null, det = null, az = azWords(j), items;
+      var rw = ref.split(/\s+/).filter(Boolean), raw, ws = null, det = null, az = azWords(j), items, src = "none", nAz = 0;
       function acc(x) { return typeof x.AccuracyScore === "number" ? x.AccuracyScore : (x.PronunciationAssessment && typeof x.PronunciationAssessment.AccuracyScore === "number" ? x.PronunciationAssessment.AccuracyScore : (typeof x.accuracyScore === "number" ? x.accuracyScore : 0)); }
       function err(x) { return x.ErrorType || (x.PronunciationAssessment && x.PronunciationAssessment.ErrorType) || x.errorType || ""; }
-      items = (az || (j && (j.wordFeedback || j.words)) || []).filter(function(x) { return x && err(x) !== "Insertion"; });
-      if (items.length && items.length === rw.length) {
-        det = items.map(function(x, i) { var om = err(x) === "Omission", t0 = typeof x.Offset === "number" ? x.Offset / 10000 : null, d = typeof x.Duration === "number" ? x.Duration / 10000 : null;
-          return { w: rw[i], s: om ? 0 : acc(x), e: om ? "o" : (err(x) === "Mispronunciation" ? "m" : ""), st: om ? null : t0, en: (om || t0 === null || d === null) ? null : t0 + d,
-            ph: (x.Phonemes || []).map(function(q) { return { p: q.Phoneme || q.phoneme || "", s: acc(q) }; }) }; });
+      function nz(t) { return String(t || "").toLowerCase().replace(/[^\p{L}]/gu, ""); }
+      items = (az || (j && (j.wordFeedback || j.words)) || []).filter(function(x) { return x && err(x) !== "Insertion"; }); nAz = items.length; if (az) src = "azure";
+      /* line the measured words up with the reference words (Azure may split or join some of them) */
+      var groups = null;
+      if (items.length === rw.length) groups = items.map(function(x) { return [x]; });
+      else if (items.length) { groups = []; var p = 0, okAl = true;
+        for (var ri = 0; ri < rw.length && okAl; ri++) { var want = nz(rw[ri]), got = "", gr = [];
+          while (p < items.length && got.length < want.length) { gr.push(items[p]); got += nz(items[p].Word || items[p].word || items[p].text || ""); p++; }
+          if (!gr.length || got !== want) okAl = false; else groups.push(gr); }
+        if (!okAl || p !== items.length) groups = null; }
+      if (groups) {
+        det = groups.map(function(gr, i) { var om = gr.every(function(x) { return err(x) === "Omission"; }), mis = gr.some(function(x) { return err(x) === "Mispronunciation"; }), first = gr[0], lastW = gr[gr.length - 1],
+            t0 = typeof first.Offset === "number" ? first.Offset / 10000 : null, d = typeof lastW.Offset === "number" && typeof lastW.Duration === "number" ? (lastW.Offset + lastW.Duration) / 10000 : null,
+            ph = [].concat.apply([], gr.map(function(x) { return (x.Phonemes || []).map(function(q) { return { p: q.Phoneme || q.phoneme || "", s: acc(q) }; }); })),
+            s0 = om ? 0 : gr.reduce(function(a, x) { return a + acc(x); }, 0) / gr.length;
+          if (!om) { var pm = ph.length ? Math.min.apply(null, ph.map(function(q) { return q.s; })) : 100; s0 = Math.min(s0, 40 + pm * 0.6); if (mis) s0 = Math.min(s0, 55); }
+          return { w: rw[i], s: Math.round(s0), e: om ? "o" : (mis ? "m" : ""), st: om ? null : t0, en: (om || t0 === null || d === null) ? null : d, ph: ph }; });
         ws = det.map(function(d) { return { s: d.s, e: d.e === "o" ? "o" : "" }; });
         raw = ws.reduce(function(a, b) { return a + b.s; }, 0) / ws.length;
-      } else { raw = pickScore(j); if (raw === null) raw = 0; }
+      } else { raw = pickScore(j); if (raw === null) raw = 0; raw = Math.min(raw, 60); }
+      try { window.__rdLast = { src: src, nRef: rw.length, nAz: nAz, det: !!det, raw: Math.round(raw), keys: j ? Object.keys(j) : [], words: det ? det.map(function(d) { return d.w + ":" + d.s + (d.e ? d.e : ""); }) : (items || []).map(function(x) { return (x.Word || x.word || "?") + ":" + acc(x) + err(x); }) }; } catch (e) {}
       if (raw < 8) return { quiet: true };
       var v = Math.round(raw); if (LEN) v = Math.max(Math.round(100 * Math.pow(Math.min(100, raw) / 100, LEN.g)), LEN.f);
-      return { v: Math.min(100, v), ws: ws, det: det };
+      return { v: Math.min(100, v), raw: raw, ws: ws, det: det };
     });
   }).catch(function() { return { err: true }; });
 }
@@ -174,16 +188,17 @@ function liaisonOf(w1, w2) {
 function coach(det, S) {
   if (!det) return null; var flat = [], end = [];
   S.forEach(function(s) { var ts = s.t.split(/\s+/).filter(Boolean); ts.forEach(function(w, i) { flat.push(w); end.push(i === ts.length - 1); }); });
-  var words = [], links = [], pauses = [], i;
-  for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [] }); continue; }
+  var words = [], links = [], pauses = [], i, sid = [], lines = {};
+  S.forEach(function(s, si) { s.t.split(/\s+/).filter(Boolean).forEach(function() { sid.push(si); }); });
+  for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [] }); lines[sid[i]] = 1; continue; }
     var snd = d.ph.filter(function(q) { return q.s < 60 && q.p; }).sort(function(a, b) { return a.s - b.s; }).slice(0, 2).map(function(q) { return { p: q.p, tip: TIPS[q.p] || "" }; });
-    if (d.s < 70 || (snd.length && d.s < 80)) words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd }); }
+    if (d.s < 70 || (snd.length && d.s < 80)) { words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd }); lines[sid[i]] = 1; } }
   for (i = 0; i + 1 < det.length; i++) { var x = det[i], y = det[i + 1]; if (end[i] || x.en === null || y.st === null || x.e === "o" || y.e === "o") continue;
     var gap = Math.round(y.st - x.en), lia = liaisonOf(flat[i], flat[i + 1]), punct = /[,;:.!?…]$/.test(flat[i]);
-    if (lia && gap > 220 && !punct) links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was });
-    else if (!punct && gap > 650) pauses.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap }); }
+    if (lia && gap > 220 && !punct) { links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was }); lines[sid[i]] = 1; }
+    else if (!punct && gap > 650) { pauses.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap }); lines[sid[i]] = 1; } }
   words.sort(function(a, b) { return a.s - b.s; });
-  return { words: words.slice(0, 5), links: links.slice(0, 3), pauses: pauses.slice(0, 2) };
+  return { words: words.slice(0, 5), links: links.slice(0, 3), pauses: pauses.slice(0, 2), lines: Object.keys(lines).map(Number) };
 }
 function secs(ms) { return (ms / 1000).toFixed(1) + " s"; }
 function coachHtml(c) {
@@ -244,10 +259,12 @@ function weakList(ws, S) {
   var seen = {}; arr = arr.filter(function(a) { var q = a.w.toLowerCase(); if (seen[q]) return false; seen[q] = 1; return true; });
   arr.sort(function(a, b) { return a.s - b.s; }); return arr.slice(0, 6);
 }
+function isPerfect(res, c) { return !!(res && res.det && c && !c.words.length && !c.links.length && !c.pauses.length && res.raw >= 78); }
 async function showPoints(res, S) {
-  var c = coach(res.det, S), has = c && (c.words.length || c.links.length || c.pauses.length), good = !has && res.v >= THR;
-  var h = '<div class="pc"><h3>' + (good ? T.perfect : T.points) + "</h3>";
-  if (has) h += coachHtml(c); else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + T.general + "</p>";
+  var c = coach(res.det, S), has = c && (c.words.length || c.links.length || c.pauses.length), good = isPerfect(res, c);
+  var h = '<div class="pc"><h3>' + (good ? T.perfectGo : T.points) + "</h3>";
+  if (has) h += coachHtml(c); else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + (res.det ? T.okish : T.nodet) + "</p>";
+  if (DEBUG && window.__rdLast) h += '<pre style="text-align:left;white-space:pre-wrap;font-size:.7rem;opacity:.8;margin-top:10px">' + JSON.stringify(window.__rdLast) + "</pre>";
   ui.pt.innerHTML = h + "</div>"; ui.pt.classList.add("on"); await wait(900); try { ui.pt.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
 }
 function hidePoints() { ui.pt.classList.remove("on"); }
@@ -267,10 +284,13 @@ async function unit(U, idx, total) {
   await setDir(T.dirNow); await play(PFX + "now");
   var r1 = await attempt(ui, whole, { sil: 2300, wait: 11000, cap: capWhole }, 2);
   if (r1) { drawBoard(S, r1.ws, -1, null); await showPoints(r1, S); }
-  /* 3. slowly, line by line */
-  await setDir(T.dirSlow); await play(PFX + "slow");
+  /* 3. slowly, line by line: only the lines that need it (none if the first reading was clean) */
+  var need = [], rc1 = r1 ? coach(r1.det, S) : null, clean = isPerfect(r1, rc1);
+  if (!clean) { if (r1 && r1.det && rc1) need = rc1.lines.slice().sort(function(x, y) { return x - y; }); else need = S.map(function(_, k) { return k; }); if (!need.length) need = S.map(function(_, k) { return k; }); }
+  if (need.length) await setDir(need.length < S.length ? T.dirFew : T.dirSlow), await play(PFX + "slow");
   var oks = [], off = 0;
-  for (var j = 0; j < S.length; j++) {
+  for (var jj = 0; jj < need.length; jj++) {
+    var j = need[jj];
     cur(j); ui.stt.textContent = T.teacher; await play(S[j].a, SLOW); ui.stt.textContent = "";
     await play(OLD + "again");
     var g = await attempt(ui, S[j].t, { sil: 1500, wait: 9000, cap: Math.max(14000, S[j].t.split(/\s+/).length * 2200 + 6000) }, 2);
