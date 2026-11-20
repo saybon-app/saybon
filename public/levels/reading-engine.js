@@ -37,7 +37,7 @@ st.textContent = `
 .rd2 .bd-in{background:#fbfbf9;color:#23232b;padding:26px 30px 28px;border-radius:14px;box-shadow:none;text-align:center}
 .rd2 .ln{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(1.35rem,3.6vw,1.8rem);line-height:1.5;padding:1px 8px;margin:2px -8px;border-radius:8px;opacity:0;transform:translateY(8px);transition:opacity .7s ease,transform .7s ease,background .35s ease,color .35s ease}
 .rd2 .ln.in{opacity:1;transform:none}
-.rd2 .ln.cur{background:rgba(255,205,90,.30)}
+.rd2 .ln.cur,.rd2 .ln.seen{color:#2c6e49}
 .rd2 .ln.ok{color:#2c6e49}
 .rd2 .w.bad{color:#b0413c;text-decoration:underline dotted #b0413c;text-underline-offset:4px}
 .rd2 .ctl{min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin:22px 0 6px;text-align:center}
@@ -252,11 +252,11 @@ function coach(det, S) {
   S.forEach(function(s, si) { s.t.split(/\s+/).filter(Boolean).forEach(function() { sid.push(si); }); });
   for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [], heard: "" }); lines[sid[i]] = 1; continue; }
     var snd = d.ph.filter(function(q) { return q.s < 60 && q.p; }).sort(function(a, b) { return a.s - b.s; }).slice(0, 2).map(function(q) { return { p: q.p, tip: TIPS[q.p] || "" }; });
-    if (d.s < 70 || (snd.length && d.s < 80)) { words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd, heard: d.heard || "" }); lines[sid[i]] = 1; } }
+    if (d.s < 60) { words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd, heard: d.heard || "" }); lines[sid[i]] = 1; } }
   for (i = 0; i + 1 < det.length; i++) { var x = det[i], y = det[i + 1]; if (end[i] || x.en === null || y.st === null || x.e === "o" || y.e === "o") continue;
     var gap = Math.round(y.st - x.en), lia = liaisonOf(flat[i], flat[i + 1]), punct = /[,;:.!?…]$/.test(flat[i]);
-    if (lia && gap > 220 && !punct) { links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was }); lines[sid[i]] = 1; }
-    else if (!punct && gap > 650) { pauses.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap }); lines[sid[i]] = 1; } }
+    if (lia && gap > 260 && !punct) { links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was }); lines[sid[i]] = 1; }
+    else if (!punct && gap > 900) { pauses.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap }); lines[sid[i]] = 1; } }
   words.sort(function(a, b) { return a.s - b.s; });
   return { words: words, links: links, pauses: pauses, lines: Object.keys(lines).map(Number) };
 }
@@ -310,7 +310,8 @@ function wordsHtml(t, ws, off) { var parts = t.split(/(\s+)/), k = off || 0; ret
 function drawBoard(S, ws, cur, oks) {
   var off = 0; ui.txt.innerHTML = S.map(function(s, i) { var n = s.t.split(/\s+/).filter(Boolean).length, h = '<div class="ln in' + (i === cur ? " cur" : "") + (oks && oks[i] ? " ok" : "") + '" data-i="' + i + '">' + wordsHtml(s.t, ws, off) + "</div>"; off += n; return h; }).join("");
 }
-function cur(i) { [].forEach.call(ui.txt.querySelectorAll(".ln"), function(l) { l.classList.toggle("cur", +l.dataset.i === i); }); }
+function cur(i) { [].forEach.call(ui.txt.querySelectorAll(".ln"), function(l) { var on = +l.dataset.i === i; l.classList.toggle("cur", on); if (on) l.classList.add("seen"); }); }
+function clearSeen() { [].forEach.call(ui.txt.querySelectorAll(".ln"), function(l) { l.classList.remove("seen", "cur"); }); }
 async function rollDown(S) {
   ui.bd.style.height = "0px"; ui.txt.innerHTML = S.map(function(s, i) { return '<div class="ln" data-i="' + i + '">' + wordsHtml(s.t, null) + "</div>"; }).join("");
   await wait(120); ui.bd.style.height = (ui.bd.scrollHeight) + "px"; await wait(650);
@@ -346,11 +347,11 @@ async function unit(U, idx, total) {
   if (U.audio) await play(U.audio, SLOWREAD); else { for (var i = 0; i < S.length; i++) { cur(i); await play(S[i].a, SLOWREAD); await wait(450); } cur(-1); }
   ui.stt.textContent = "";
   /* 2. the learner reads, recorded automatically */
-  await setDir(T.dirNow); await play(PFX + "now");
+  clearSeen(); await setDir(T.dirNow); await play(PFX + "now");
   var r1 = await attempt(ui, whole, { sil: 2300, wait: 11000, cap: capWhole }, 2);
   if (r1) { drawBoard(S, r1.ws, -1, null); await showPoints(r1, S); }
   /* 3. slowly, line by line: only the lines that need it (none if the first reading was clean) */
-  var need = [], rc1 = r1 ? coach(r1.det, S) : null, clean = isPerfect(r1, rc1);
+  clearSeen(); var need = [], rc1 = r1 ? coach(r1.det, S) : null, clean = isPerfect(r1, rc1);
   if (!clean) { if (r1 && r1.det && rc1) need = rc1.lines.slice().sort(function(x, y) { return x - y; }); else need = S.map(function(_, k) { return k; }); if (!need.length) need = S.map(function(_, k) { return k; }); }
   if (need.length) await setDir(need.length < S.length ? T.dirFew : T.dirSlow), await play(PFX + "slow");
   var oks = [], off = 0;
