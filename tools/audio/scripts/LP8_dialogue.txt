@@ -1,0 +1,45 @@
+Let's say hello to the family, mon petit. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour, maman !
+
+[turn: Bonjour maman ]
+
+[playful] Hello, mummy!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Bonjour, papa !
+
+[turn: Bonjour papa ]
+
+[playful] Hello, daddy!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[playful] The baby!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] How are you?
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Ça va bien.
+
+[turn: Ça va bien]
+
+[playful] Lovely.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Wave!
+
+[excited] [playful] Bravo, mon petit! [giggles] What a lovely family.

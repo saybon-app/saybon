@@ -1,0 +1,126 @@
+[excited] [playful] First, how to say you are happy. Smile big! Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Content means, happy. A boy says content, a girl says contente, and they sound the same!
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+
+[playful] Ooh, perfect!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Contente !
+
+[turn: Contente ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Content !
+
+[turn: Content ]
+
+
+[excited] [playful] Great job! Content! [giggles]

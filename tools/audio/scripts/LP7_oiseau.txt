@@ -1,0 +1,126 @@
+[warmly] [playful] And a little friend who flies up high. Repeat after me.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+
+[playful] Wonderful!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[thoughtful] [playful] Super, mon petit [giggles]. L'oiseau means, the bird. Tweet tweet!
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+
+[playful] You've got it!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau !
+
+[turn: L'oiseau ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+
+[excited] [playful] Lovely! L'oiseau, flying high. [giggles]

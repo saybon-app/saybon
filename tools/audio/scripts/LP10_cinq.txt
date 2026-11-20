@@ -1,0 +1,126 @@
+[playful] [playful] Now, number five. A whole hand! Repeat after me.
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+
+[playful] Ooh, perfect!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Cinq means, five.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq ?
+
+[turn: Cinq ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Cinq !
+
+[turn: Cinq ]
+
+
+[excited] [playful] High five! Cinq. [giggles]

@@ -1,0 +1,45 @@
+Let's have a little picnic, mon petit. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pomme.
+
+[turn: La pomme]
+
+[playful] An apple!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le gâteau.
+
+[turn: Le gâteau]
+
+[playful] A cake!
+
+[pause] [pause] [slowly]
+ [excited] [playful] De l'eau, s'il te plaît.
+
+[turn: De l'eau s'il te plaît]
+
+[playful] Water, please.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] De rien.
+
+[turn: De rien]
+
+[playful] You're welcome.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Wave!
+
+[excited] [playful] Bravo, mon petit! [giggles] What a lovely picnic.

@@ -124,6 +124,156 @@
    "lesson": 6,
    "name": "lesson6_drill_dialogue",
    "script": "LP6_dialogue.txt"
+  },
+  {
+   "lesson": 7,
+   "name": "lesson7_part1",
+   "script": "LP7_intro.txt"
+  },
+  {
+   "lesson": 7,
+   "name": "lesson7_drill_chat",
+   "script": "LP7_chat.txt"
+  },
+  {
+   "lesson": 7,
+   "name": "lesson7_drill_chien",
+   "script": "LP7_chien.txt"
+  },
+  {
+   "lesson": 7,
+   "name": "lesson7_drill_oiseau",
+   "script": "LP7_oiseau.txt"
+  },
+  {
+   "lesson": 7,
+   "name": "lesson7_drill_dialogue",
+   "script": "LP7_dialogue.txt"
+  },
+  {
+   "lesson": 8,
+   "name": "lesson8_part1",
+   "script": "LP8_intro.txt"
+  },
+  {
+   "lesson": 8,
+   "name": "lesson8_drill_maman",
+   "script": "LP8_maman.txt"
+  },
+  {
+   "lesson": 8,
+   "name": "lesson8_drill_papa",
+   "script": "LP8_papa.txt"
+  },
+  {
+   "lesson": 8,
+   "name": "lesson8_drill_bebe",
+   "script": "LP8_bebe.txt"
+  },
+  {
+   "lesson": 8,
+   "name": "lesson8_drill_dialogue",
+   "script": "LP8_dialogue.txt"
+  },
+  {
+   "lesson": 9,
+   "name": "lesson9_part1",
+   "script": "LP9_intro.txt"
+  },
+  {
+   "lesson": 9,
+   "name": "lesson9_drill_pomme",
+   "script": "LP9_pomme.txt"
+  },
+  {
+   "lesson": 9,
+   "name": "lesson9_drill_gateau",
+   "script": "LP9_gateau.txt"
+  },
+  {
+   "lesson": 9,
+   "name": "lesson9_drill_eau",
+   "script": "LP9_eau.txt"
+  },
+  {
+   "lesson": 9,
+   "name": "lesson9_drill_dialogue",
+   "script": "LP9_dialogue.txt"
+  },
+  {
+   "lesson": 10,
+   "name": "lesson10_part1",
+   "script": "LP10_intro.txt"
+  },
+  {
+   "lesson": 10,
+   "name": "lesson10_drill_quatre",
+   "script": "LP10_quatre.txt"
+  },
+  {
+   "lesson": 10,
+   "name": "lesson10_drill_cinq",
+   "script": "LP10_cinq.txt"
+  },
+  {
+   "lesson": 10,
+   "name": "lesson10_drill_sixde",
+   "script": "LP10_sixde.txt"
+  },
+  {
+   "lesson": 10,
+   "name": "lesson10_drill_dialogue",
+   "script": "LP10_dialogue.txt"
+  },
+  {
+   "lesson": 11,
+   "name": "lesson11_part1",
+   "script": "LP11_intro.txt"
+  },
+  {
+   "lesson": 11,
+   "name": "lesson11_drill_nez",
+   "script": "LP11_nez.txt"
+  },
+  {
+   "lesson": 11,
+   "name": "lesson11_drill_bouche",
+   "script": "LP11_bouche.txt"
+  },
+  {
+   "lesson": 11,
+   "name": "lesson11_drill_mains",
+   "script": "LP11_mains.txt"
+  },
+  {
+   "lesson": 11,
+   "name": "lesson11_drill_dialogue",
+   "script": "LP11_dialogue.txt"
+  },
+  {
+   "lesson": 12,
+   "name": "lesson12_part1",
+   "script": "LP12_intro.txt"
+  },
+  {
+   "lesson": 12,
+   "name": "lesson12_drill_content",
+   "script": "LP12_content.txt"
+  },
+  {
+   "lesson": 12,
+   "name": "lesson12_drill_triste",
+   "script": "LP12_triste.txt"
+  },
+  {
+   "lesson": 12,
+   "name": "lesson12_drill_jesuis",
+   "script": "LP12_jesuis.txt"
+  },
+  {
+   "lesson": 12,
+   "name": "lesson12_drill_dialogue",
+   "script": "LP12_dialogue.txt"
   }
  ],
  "KDR": [
@@ -146,7 +296,31 @@
   "'6-2':'rouge'",
   "'6-3':'bleu'",
   "'6-4':'jaune'",
-  "'6-5':'dialogue'"
+  "'6-5':'dialogue'",
+  "'7-2':'chat'",
+  "'7-3':'chien'",
+  "'7-4':'oiseau'",
+  "'7-5':'dialogue'",
+  "'8-2':'maman'",
+  "'8-3':'papa'",
+  "'8-4':'bebe'",
+  "'8-5':'dialogue'",
+  "'9-2':'pomme'",
+  "'9-3':'gateau'",
+  "'9-4':'eau'",
+  "'9-5':'dialogue'",
+  "'10-2':'quatre'",
+  "'10-3':'cinq'",
+  "'10-4':'sixde'",
+  "'10-5':'dialogue'",
+  "'11-2':'nez'",
+  "'11-3':'bouche'",
+  "'11-4':'mains'",
+  "'11-5':'dialogue'",
+  "'12-2':'content'",
+  "'12-3':'triste'",
+  "'12-4':'jesuis'",
+  "'12-5':'dialogue'"
  ],
  "KDT": {
   "cava": "Ça va ?",
@@ -163,13 +337,37 @@
   "unde": "Un, deux, trois",
   "rouge": "Rouge",
   "bleu": "Bleu",
-  "jaune": "Jaune"
+  "jaune": "Jaune",
+  "chat": "Le chat",
+  "chien": "Le chien",
+  "oiseau": "L'oiseau",
+  "maman": "Maman",
+  "papa": "Papa",
+  "bebe": "Le bébé",
+  "pomme": "La pomme",
+  "gateau": "Le gâteau",
+  "eau": "De l'eau",
+  "quatre": "Quatre",
+  "cinq": "Cinq",
+  "sixde": "Un, deux, trois, quatre, cinq",
+  "nez": "Le nez",
+  "bouche": "La bouche",
+  "mains": "Les mains",
+  "content": "Content",
+  "triste": "Triste",
+  "jesuis": "Je suis content"
  },
  "KINTRO": [
   "'2-1':1",
   "'3-1':1",
   "'4-1':1",
   "'5-1':1",
-  "'6-1':1"
+  "'6-1':1",
+  "'7-1':1",
+  "'8-1':1",
+  "'9-1':1",
+  "'10-1':1",
+  "'11-1':1",
+  "'12-1':1"
  ]
 }

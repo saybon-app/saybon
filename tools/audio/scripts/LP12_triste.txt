@@ -1,0 +1,126 @@
+[softly] [playful] Now, how to say you feel sad. Make a sad face! Repeat after me.
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Triste means, sad. But we don't stay sad for long!
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+
+[playful] Wonderful!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste ?
+
+[turn: Triste ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Triste.
+
+[turn: Triste]
+
+
+[excited] [playful] Lovely! Triste, and then a smile. [giggles]

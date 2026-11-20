@@ -1,0 +1,45 @@
+Let's visit the animals, mon petit. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chat.
+
+[turn: Le chat]
+
+[playful] Meow!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chien.
+
+[turn: Le chien]
+
+[playful] Woof!
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'oiseau.
+
+[turn: L'oiseau]
+
+[playful] Tweet!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Wave!
+
+[excited] [playful] Bravo, mon petit! [giggles] You know three animal friends now.

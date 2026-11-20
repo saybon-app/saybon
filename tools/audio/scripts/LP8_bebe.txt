@@ -1,0 +1,168 @@
+[softly] [playful] And the tiniest person in the family. Say it softly. Repeat after me.
+
+[playful] Let's take it in little pieces first, like building blocks.
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le
+
+[turn: Le]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le
+
+[turn: Le]
+
+[pause] [pause] [slowly]
+ [softly] [playful] bébé
+
+[turn: bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] bébé
+
+[turn: bébé]
+
+[playful] Now we put the blocks together!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+
+[playful] Wonderful!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le bébé means, the baby.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+
+[playful] You've got it!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé !
+
+[turn: Le bébé ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Le bébé.
+
+[turn: Le bébé]
+
+
+[excited] [playful] Wonderful! Le bébé, so sweet. [giggles]
