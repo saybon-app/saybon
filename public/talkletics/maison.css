@@ -8,7 +8,9 @@ html,body{height:100%;overflow:hidden;background:#1d2a1a;font-family:'Poppins',s
 .mz-glows i{position:absolute;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,214,120,.55),rgba(255,190,80,0) 68%);mix-blend-mode:screen;animation:mzFlick 3.4s ease-in-out infinite}
 @keyframes mzFlick{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:.75}}
 .mz-actor{position:absolute;transform:translate(-50%,-100%);pointer-events:none;will-change:left,top}
-.mz-actor img{display:block;height:100%;width:auto;position:relative;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.mz-bop{position:relative;height:100%;will-change:transform}
+.mz-spr{display:block;height:100%;width:auto;position:absolute;left:50%;bottom:0;transform:translateX(-50%);opacity:0;transition:opacity .28s linear;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.mz-spr.on{opacity:1}
 .mz-shadow{position:absolute;left:50%;bottom:-2%;width:46%;height:7%;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,0,0,.38),rgba(0,0,0,0) 70%)}
 .mz-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0) 55%,rgba(8,12,20,.55) 100%)}
 
@@ -82,3 +84,9 @@ html,body{height:100%;overflow:hidden;background:#1d2a1a;font-family:'Poppins',s
 .mz-final-stats span{font-size:.74rem;opacity:.8}
 @media (max-width:600px){.mz-top{width:46vw}.mz-chip{padding:6px 14px}.mz-chip span{font-size:.92rem}.mz-en{font-size:1.25rem}.mz-card{padding:14px 14px 12px}.mz-banner b{font-size:1.5rem}.mz-pick-card h1{font-size:2.3rem}}
 @media (prefers-reduced-motion:reduce){.mz-glows i{animation:none}}
+
+.mz-dir{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px auto 2px;min-height:1.3em;font-size:.92rem;font-weight:600;text-align:center;color:#fff;line-height:1.3}
+.mz-dir:empty,.mz-dir span:empty{display:none}
+.mz-dir svg{width:22px;height:22px;flex:none}
+.mz-dir.go{color:#ffd9d9;font-size:1.02rem}
+.mz-card.speaking{box-shadow:0 0 0 3px rgba(255,107,107,.85),0 0 34px rgba(255,107,107,.5);transition:box-shadow .25s}

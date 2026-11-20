@@ -7,14 +7,14 @@
 <title>Talkletics - Chez moi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="maison.css?v=20">
+<link rel="stylesheet" href="maison.css?v=21">
 </head>
 <body>
 <div class="mz" id="mz">
   <div class="mz-world" id="world">
     <img class="mz-house" id="house" alt="" draggable="false">
     <div class="mz-glows" id="glows"></div>
-    <div class="mz-actor" id="actor"><div class="mz-shadow"></div><img id="actorImg" alt="" draggable="false"></div>
+    <div class="mz-actor" id="actor"><div class="mz-shadow"></div><div class="mz-bop" id="bopper"><img class="mz-spr on" id="actorImg" alt="" draggable="false"><img class="mz-spr" id="actorImg2" alt="" draggable="false"></div></div>
   </div>
   <div class="mz-vignette"></div>
 
@@ -51,6 +51,7 @@
   <section class="mz-card" id="card" hidden>
     <div class="mz-phase"><span class="mz-dot" id="phaseDot"></span><span id="phaseTxt">Listen</span></div>
     <p class="mz-en" id="en">&nbsp;</p>
+    <p class="mz-dir" id="dir"><span></span></p>
     <div class="mz-listen" id="listenDots"><i></i><i></i><i></i></div>
     <canvas class="mz-wave" id="wave" width="360" height="54"></canvas>
     <div class="mz-result" id="result" hidden>
@@ -76,6 +77,6 @@
     </div>
   </section>
 </div>
-<script src="maison.js?v=20"></script>
+<script src="maison.js?v=21"></script>
 </body>
 </html>

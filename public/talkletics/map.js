@@ -50,8 +50,9 @@
     b.onclick=open?function(){location.href=p.slug+".html";}:null;
   }
 
+  function lock(un){document.documentElement.classList.toggle("tkm-locked",un<25);if(un<25)window.scrollTo(0,0);}
   function render(animate){
-    var d=dev(),c=L[d],un=unlockedCount(),pts=layout(c,un),vt=Math.min(visibleTiles(pts,un,c),99);
+    var d=dev(),c=L[d],un=unlockedCount(),pts=layout(c,un),vt=Math.min(visibleTiles(pts,un,c),99);lock(un);
     mapEl.innerHTML="";
     var stack=document.createElement("div");stack.className="tkm-stack";mapEl.appendChild(stack);
     for(var i=vt-1;i>=0;i--){var im=new Image();im.className="bg";im.alt="";im.draggable=false;im.src=BASE+"bg/"+d+"-"+(i===0?"start":"cont")+".webp";stack.appendChild(im);}
@@ -85,7 +86,7 @@
     var c=state.c,pts=layout(c,un),vt=visibleTiles(pts,un,c);
     if(vt!==state.vt||dev()!==state.d){render(false);return;}
     state.nodes.forEach(function(b,k){build(b,P[k],k<un);style(b,pts[k],c,vt);});
-    state.un=un;
+    state.un=un;lock(un);
   }
   window.tkMapSetUnlocked=function(n){try{localStorage.setItem("tkMapUnlocked",String(n));}catch(e){}refresh();};
   window.addEventListener("storage",function(e){if(e.key==="tkMapUnlocked")refresh();});

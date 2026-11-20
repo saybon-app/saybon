@@ -26,9 +26,9 @@ var LAY=PORTRAIT?{
   e:"gate-path path-porch porch-door door-hall hall-A A-liv1 A-liv2 A-din1 A-din2 din1-kit1 din2-kit1 kit1-kit2 din1-B1 B1-pinkIn pinkIn-pink B1-bathIn bathIn-bath liv1-B2 B2-blueIn blueIn-blue din2-E1 E1-bunkIn bunkIn-bunk liv2-E2 E2-studyIn studyIn-study path-lawnM lawnM-lawnL path-lawnR lawnR-lawnR2 lawnR2-garR garR-garage garR-gp1 gp1-gp2 gp2-gp3 gp3-patio",
   lamps:[[330,430],[310,570],[1270,290],[1300,520],[1000,540],[810,610],[730,640],[880,640],[180,790],[1420,790]]
 };
-var SPOTS={"salutations":["gate","path"],"entree":["porch","door","hall"],"salon":["liv1","liv2"],"salle-a-manger":["din1","din2"],
+var SPOTS={"salutations":["gate","path","porch"],"entree":["porch","door","hall"],"salon":["hall","liv1","liv2"],"salle-a-manger":["din1","din2"],
   "cuisine":["kit1","kit2"],"chambre":["blueIn","blue"],"chambre-fille":["pinkIn","pink"],"chambre-garcons":["bunkIn","bunk"],
-  "salle-de-bains":["bathIn","bath"],"bureau":["studyIn","study"],"jardin":["lawnL","patio"],"garage":["garage"]};
+  "salle-de-bains":["bathIn","bath"],"bureau":["studyIn","study"],"jardin":["lawnL","patio"],"garage":PORTRAIT?["bk3","garage"]:["garR","garage"]};
 var ADJ={};LAY.e.split(" ").forEach(function(p){var a=p.split("-");(ADJ[a[0]]=ADJ[a[0]]||[]).push(a[1]);(ADJ[a[1]]=ADJ[a[1]]||[]).push(a[0]);});
 function dist(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1]);}
 function route(from,to){ // Dijkstra over the walkable points
@@ -38,57 +38,79 @@ function route(from,to){ // Dijkstra over the walkable points
   var r=[to];while(P[r[0]])r.unshift(P[r[0]]);return r;
 }
 
-/* ---------- the walking kids: swap pictures so they look animated ---------- */
+/* ---------- the kids: one steady picture per direction, smooth gliding, bopping while they wait ---------- */
 var SETS={
-  girl:{right:[4,3],left:[7,6],up:[2,5],upR:[2,3],upL:[5,5],front:[18],idle:[18,4,18,6]},
-  boy:{right:[13,14],left:[10,11],up:[8,12,8,9],upR:[12,8],upL:[9,8],front:[17],idle:[17,13,17,10]}
+  girl:{right:4,left:7,up:2,upR:3,upL:5,front:18,back:2,tiltR:3,tiltL:5},
+  boy:{right:14,left:11,up:8,upR:12,upL:9,front:17,back:8,tiltR:12,tiltL:9}
 };
 function spr(n){return BASE+"chars/c"+(n<10?"0":"")+n+".webp";}
-var who=null,cur="gate",facing="front",frameT=0,walking=false;
-var actor=$("actor"),actorImg=$("actorImg");
+var who="girl",actor=$("actor"),layerA=$("actorImg"),layerB=$("actorImg2"),bop=$("bopper");
 actor.style.height=LAY.ch+"px";
-function pos(x,y){actor.style.left=x+"px";actor.style.top=y+"px";}
-function setFrame(){
-  if(!who)return;var S=SETS[who],list=walking?S[facing]:S.idle;
-  var i=Math.floor(frameT/(walking?230:1700))%list.length;var u=spr(list[i]);
-  if(actorImg.getAttribute("data-u")!==u){actorImg.setAttribute("data-u",u);actorImg.src=u;}
+var front=layerA,backL=layerB,curPose=null;
+function setPose(key){ // crossfades to the new picture, never snaps
+  var n=SETS[who][key];if(n==null||curPose===who+key)return;curPose=who+key;
+  var u=spr(n);backL.src=u;backL.classList.add("on");front.classList.remove("on");var t=front;front=backL;backL=t;
 }
-var charX=0,charY=0,focus=[0,0];
-function placeAt(node){var p=LAY.n[node];charX=p[0];charY=p[1];pos(charX,charY);cur=node;}
-function walkPoints(pts,speed){ // pts = array of [x,y]
+var charX=0,charY=0;
+function pos(x,y){actor.style.left=x+"px";actor.style.top=y+"px";}
+
+// the whole walk through the house as one long line, so every score can move the child a little further along it
+var CHAIN=[],ARCS=[],OCC={},SECARC={};
+function buildChain(){
+  var nodes=[],occ=[];
+  C.sections.forEach(function(sec){
+    var spots=SPOTS[sec.id];
+    spots.forEach(function(sp,i){
+      if(!nodes.length){nodes.push(sp);}
+      else if(nodes[nodes.length-1]!==sp){var r=route(nodes[nodes.length-1],sp);for(var j=1;j<r.length;j++)nodes.push(r[j]);}
+      occ.push({sec:sec.id,i:i,at:nodes.length-1});
+    });
+  });
+  CHAIN=nodes.map(function(n){return LAY.n[n];});
+  ARCS=[0];for(var i=1;i<CHAIN.length;i++)ARCS.push(ARCS[i-1]+dist(CHAIN[i-1],CHAIN[i]));
+  occ.forEach(function(o){(SECARC[o.sec]=SECARC[o.sec]||[]).push(ARCS[o.at]);});
+}
+function pointAt(a){
+  a=clamp(a,0,ARCS[ARCS.length-1]);var i=1;while(i<ARCS.length-1&&ARCS[i]<a)i++;
+  var seg=ARCS[i]-ARCS[i-1]||1,t=(a-ARCS[i-1])/seg,p=CHAIN[i-1],q=CHAIN[i];
+  return [p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t];
+}
+var arc=0,glideA=null,idleSince=performance.now(),want=null,wantSince=0;
+function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+function glide(to,speed){ // smooth, no bobbing, no picture swapping
   return new Promise(function(done){
-    var i=0,last=performance.now();walking=true;
-    function step(now){
-      var dt=Math.min(60,now-last)/1000;last=now;var left=speed*dt;
-      while(left>0&&i<pts.length){
-        var t=pts[i],dx=t[0]-charX,dy=t[1]-charY,d=Math.hypot(dx,dy);
-        if(d>1){var ax=Math.abs(dx),ay=Math.abs(dy);
-          facing=ax>=ay*0.8?(dx>0?"right":"left"):(dy<0?(dx>ay*0.18?"upR":dx<-ay*0.18?"upL":"up"):"front");}
-        if(d<=left){charX=t[0];charY=t[1];left-=d;i++;}else{charX+=dx/d*left;charY+=dy/d*left;left=0;}
-      }
-      var bob=Math.abs(Math.sin(now/115))*4;
-      pos(charX,charY-bob);actorImg.style.transform="rotate("+Math.sin(now/230)*2.2+"deg)";
-      frameT=now;setFrame();
-      if(i>=pts.length){walking=false;facing="front";actorImg.style.transform="";pos(charX,charY);setFrame();done();return;}
-      requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+    var from=arc,d=Math.abs(to-from);if(d<1){arc=to;done();return;}
+    var dur=clamp(d/speed*1000,1100,9500);
+    if(glideA&&glideA.done)glideA.done();
+    glideA={from:from,to:to,t0:performance.now(),dur:dur,done:done};
   });
 }
-var partialTo=null;
-function nearest(){var b=cur,bd=1e9;Object.keys(LAY.n).forEach(function(k){var d=dist(LAY.n[k],[charX,charY]);if(d<bd){bd=d;b=k;}});return b;}
-function walkRoute(to,frac){
-  cur=nearest();
-  var names=route(cur,to);if(names.length<2){return Promise.resolve();}
-  var pts=names.slice(1).map(function(n){return LAY.n[n];});
-  if(frac&&frac<1&&pts.length===1){var a=[charX,charY],b=pts[0];pts=[[a[0]+(b[0]-a[0])*frac,a[1]+(b[1]-a[1])*frac]];}
-  var len=0,p=[charX,charY];pts.forEach(function(q){len+=dist(p,q);p=q;});
-  var speed=Math.max(LAY.ch*1.7,len/7);
-  var full=!frac||frac>=1||names.length>2;partialTo=full?null:to;
-  return walkPoints(pts,speed).then(function(){if(full)cur=to;});
+function faceOf(dx,dy){
+  var ax=Math.abs(dx),ay=Math.abs(dy);
+  if(ax>=ay*1.15)return dx>0?"right":"left";
+  if(dy<0)return dx>ay*0.3?"upR":dx<-ay*0.3?"upL":"up";
+  return "front";
 }
-// idle: look around now and then
-setInterval(function(){if(!walking){frameT=performance.now();setFrame();}},400);
+var TURNS=[["back",3300],["tiltR",1100],["tiltL",1100],["back",2700],["tiltR",1000],["tiltL",1000],["back",2300]],TURN_TOTAL=TURNS.reduce(function(a,t){return a+t[1];},0);
+function updateActor(t){
+  var bobY=0;
+  if(glideA){
+    var k=clamp((t-glideA.t0)/glideA.dur,0,1);arc=glideA.from+(glideA.to-glideA.from)*ease(k);
+    var p=pointAt(arc),p2=pointAt(arc+(glideA.to>glideA.from?24:-24));charX=p[0];charY=p[1];
+    var f=faceOf(p2[0]-p[0],p2[1]-p[1]);
+    if(f!==want){want=f;wantSince=t;}
+    if(t-wantSince>220)setPose(want);
+    pos(charX,charY);bop.style.transform="none";
+    if(k>=1){var d=glideA.done;glideA=null;idleSince=t;want=null;d();}
+  }else{
+    var p3=pointAt(arc);charX=p3[0];charY=p3[1];
+    var e=(t-idleSince)%TURN_TOTAL,acc=0,key="back";
+    for(var i=0;i<TURNS.length;i++){acc+=TURNS[i][1];if(e<acc){key=TURNS[i][0];break;}}
+    setPose(key);
+    bobY=-Math.abs(Math.sin((t-idleSince)/720*Math.PI))*7; // bopping on the spot
+    pos(charX,charY);bop.style.transform="translateY("+bobY.toFixed(1)+"px)";
+  }
+}
 
 /* ---------- the camera: pans slowly, follows the child, never stops moving ---------- */
 var world=$("world"),house=$("house"),cam={x:0,y:0,s:1,ready:false},vw=0,vh=0;
@@ -107,7 +129,7 @@ function camTarget(t){
 }
 var lastT=performance.now();
 function loop(t){
-  var dt=Math.min(80,t-lastT);lastT=t;var g=camTarget(t);
+  var dt=Math.min(80,t-lastT);lastT=t;if(CHAIN.length)updateActor(t);var g=camTarget(t);
   if(!cam.ready){cam.x=g.x;cam.y=g.y;cam.s=g.s;cam.ready=true;}
   var k=1-Math.pow(0.0008,dt/1000);cam.x+=(g.x-cam.x)*k;cam.y+=(g.y-cam.y)*k;cam.s+=(g.s-cam.s)*k;
   world.style.transform="translate("+cam.x.toFixed(1)+"px,"+cam.y.toFixed(1)+"px) scale("+cam.s.toFixed(4)+")";
@@ -238,9 +260,13 @@ function hintFor(words){
 function sectionOf(i){var n=0;for(var s=0;s<C.sections.length;s++){var L=C.sections[s].items.length;if(i<n+L)return {sec:C.sections[s],k:i-n,L:L};n+=L;}return null;}
 
 var lastSec=null;
+function setDir(txt,go){var d=$("dir");d.innerHTML=go?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span></span>':"<span></span>";d.lastChild.textContent=txt;d.className="mz-dir"+(go?" go":"");$("card").classList.toggle("speaking",!!go);}
+function chime(){ // a short two-note signal so nobody misses that it is their turn
+  try{if(!actx)return;var t=actx.currentTime;[[660,0],[990,0.16]].forEach(function(n){var o=actx.createOscillator(),g=actx.createGain();o.type="sine";o.frequency.value=n[0];
+    g.gain.setValueAtTime(0.0001,t+n[1]);g.gain.exponentialRampToValueAtTime(0.22,t+n[1]+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+n[1]+0.2);o.connect(g);g.connect(actx.destination);o.start(t+n[1]);o.stop(t+n[1]+0.22);});}catch(e){}
+}
 async function runItem(){
-  var info=sectionOf(st.idx),item=info.sec.items[info.k],spots=SPOTS[info.sec.id]||["hall"];
-  var spot=spots[Math.floor(info.k*spots.length/info.L)];
+  var info=sectionOf(st.idx),item=info.sec.items[info.k],arcs=SECARC[info.sec.id],a0=arcs[0],a1=arcs[arcs.length-1];
   $("result").hidden=true;$("againBtn").hidden=true;$("skipBtn").hidden=true;$("introSkip").hidden=true;
   $("en").innerHTML="&nbsp;";dots(0);
   if(lastSec!==info.sec.id){
@@ -248,12 +274,10 @@ async function runItem(){
     $("secFr").textContent=info.sec.fr;$("secEn").textContent=info.sec.title;
     var b=$("banner");$("banFr").textContent=info.sec.fr;$("banEn").textContent=info.sec.title;b.hidden=false;b.style.animation="none";void b.offsetWidth;b.style.animation="";
     setTimeout(function(){b.hidden=true;},2700);
-    setPhase("","Next place");$("en").textContent=info.sec.intro;
-    var walk=walkRoute(spot,1);
+    setPhase("","Next place");setDir("");$("en").textContent=info.sec.intro;
+    var walk=Math.abs(arc-a0)>2?glide(a0,LAY.ch*1.7):Promise.resolve();
     await Promise.all([say("sec-"+info.sec.id),walk]);
     await sleep(250);
-  }else if(spot!==cur){
-    await walkRoute(spot,spot===partialTo?1:0.55+0.45*(st.lastQ==null?1:st.lastQ)); // a better score = a longer step forward
   }
   $("en").textContent=item.en;
   var fails=0,noHear=0,first=true;
@@ -262,24 +286,28 @@ async function runItem(){
     $("result").hidden=true;
     for(var k=0;k<reps;k++){
       setPhase("","Listen · "+(k+1)+"/"+reps);dots(k,"on");
+      setDir(k===0?"Stay quiet and listen. The teacher will say this "+reps+" times.":"Keep listening, without speaking.");
       var played=await say(item.id);
       if(!played&&!skipThis){$("en").textContent="Teacher audio is still being prepared for this phrase.";await sleep(1400);}
       await sleep(850);dots(k+1);
       if(skipThis)break;
     }
     if(skipThis){skipThis=false;st.done++;break;}
-    setPhase("speak","Your turn — say it");
+    setPhase("","Get ready");setDir("Get ready…");await sleep(700);
+    chime();await sleep(480);
+    setPhase("speak","Speak now");setDir("Speak now! Say it as accurately as you heard it.",true);
     var cap;try{cap=await capture();}catch(e){cap={none:true};}
+    $("card").classList.remove("speaking");
     if(skipThis){skipThis=false;st.done++;break;}
     if(cap.none){
-      noHear++;setPhase("","I didn't hear you");await say("nohear");await sleep(300);
-      if(noHear>=2){$("hint").textContent="Check your microphone is allowed, and speak after the dots.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);}
+      noHear++;setPhase("","I didn't hear you");setDir("I didn't hear you. Listen once more, then speak a little louder.");await say("nohear");await sleep(300);
+      if(noHear>=2){$("hint").textContent="Check your microphone is allowed, and speak right after the signal.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);}
       continue;
     }
-    setPhase("eval","Evaluating…");
+    setPhase("eval","Evaluating…");setDir("Evaluating…");
     var out;
     try{out=await assess(cap.blob,item.fr.replace(/[«»]/g,""));}catch(e){
-      noHear++;setPhase("","Couldn't evaluate");$("hint").textContent="The scoring service didn't answer. Let's try again.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);
+      noHear++;setPhase("","Couldn't evaluate");setDir("The scoring service didn't answer. Let's try again.");$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);
       await sleep(1800);continue;
     }
     var acc=out.accuracyScore||0,comp=out.completenessScore||0,flu=out.fluencyScore||0;
@@ -289,11 +317,13 @@ async function runItem(){
     $("hint").textContent=hintFor(out.words);$("result").hidden=false;
     if(pass){
       var q=clamp((score-50)/45,0,1);st.lastQ=q;st.gain+=0.45+0.55*q;st.sum+=score;st.done++;setBar();
-      setPhase("","Well done");
-      await Promise.all([say("ok"+(1+Math.floor(Math.random()*6))),sleep(2400)]);
+      setPhase("","Well done");setDir("Well done! Moving on…");
+      // every passing score propels the child along the route: a better score, a longer step
+      var target=a0+(a1-a0)*(info.k+1)/info.L,step=arc+(target-arc)*(0.55+0.45*q);
+      await Promise.all([glide(Math.max(arc,step),LAY.ch*1.05),say("ok"+(1+Math.floor(Math.random()*6))),sleep(2400)]);
       break;
     }
-    fails++;setPhase("","Almost — again");
+    fails++;setPhase("","Almost");setDir("Not quite yet. Listen again and match it as closely as you can.");
     $("againBtn").hidden=true;if(fails>=3)$("skipBtn").hidden=false;
     await Promise.all([say("retry"+(1+Math.floor(Math.random()*4))),sleep(2600)]);
     if(skipThis){skipThis=false;st.done++;break;}
@@ -307,7 +337,7 @@ $("skipBtn").onclick=function(){skipThis=true;stopVoice();$("skipBtn").hidden=tr
 async function game(){
   $("top").hidden=false;$("card").hidden=false;
   if(st.idx===0&&!st.introDone){
-    setPhase("","Welcome");$("en").textContent="Welcome to Talkletics!";
+    setPhase("","Welcome");setDir("");$("en").textContent="Welcome to Talkletics!";
     $("introSkip").hidden=false;$("introSkip").onclick=function(){stopVoice();};
     await say("intro");$("introSkip").hidden=true;st.introDone=true;save();
   }
@@ -323,15 +353,18 @@ async function game(){
 /* ---------- start screen ---------- */
 function reset(){st={idx:0,gain:0,sum:0,done:0,who:st.who,finished:false,introDone:false};save();}
 function init(){
-  sizeWorld();requestAnimationFrame(loop);
+  sizeWorld();buildChain();
+  // where the child stands: at the gate on a fresh start, or at the beginning of the room being resumed
+  var inf=sectionOf(st.idx);arc=(st.idx>0&&!st.finished&&inf)?SECARC[inf.sec.id][0]:0;lastSec=null;
+  if(st.idx>0&&!st.finished&&inf){lastSec=inf.sec.id;$("secFr").textContent=inf.sec.fr;$("secEn").textContent=inf.sec.title;}
+  var p0=pointAt(arc);charX=p0[0];charY=p0[1];pos(charX,charY);
+  requestAnimationFrame(loop);
   fetch(API+"/api/health",{mode:"no-cors"}).catch(function(){}); // wakes the scoring server before the first answer
   var btns=document.querySelectorAll(".mz-char");
-  function choose(w){who=w;st.who=w;btns.forEach(function(b){b.classList.toggle("on",b.getAttribute("data-who")===w);});$("goBtn").disabled=false;facing="front";setFrame();}
+  function choose(w){who=w;st.who=w;curPose=null;btns.forEach(function(b){b.classList.toggle("on",b.getAttribute("data-who")===w);});$("goBtn").disabled=false;}
   btns.forEach(function(b){b.onclick=function(){choose(b.getAttribute("data-who"));};});
   if(st.who&&SETS[st.who])choose(st.who);else{who="girl";}
-  placeAt(st.idx>0&&!st.finished?"hall":"gate");
-  setFrame();
-  Object.keys(SETS).forEach(function(k){[].concat(SETS[k].right,SETS[k].left,SETS[k].up,SETS[k].upR,SETS[k].upL,SETS[k].front).forEach(function(n){(new Image()).src=spr(n);});});
+  Object.keys(SETS).forEach(function(k){Object.keys(SETS[k]).forEach(function(n){(new Image()).src=spr(SETS[k][n]);});});
   if(st.idx>0&&!st.finished){$("goBtn").textContent="Continue";$("restartBtn").hidden=false;}
   $("restartBtn").onclick=function(){reset();location.reload();};
   $("replayBtn").onclick=function(){reset();location.reload();};
@@ -339,11 +372,7 @@ function init(){
     // everything audio-related starts from this tap so phones allow sound and the microphone
     voice.src=SILENT;var p=voice.play();if(p&&p.catch)p.catch(function(){});
     $("goBtn").disabled=true;$("pickErr").hidden=true;
-    openMic().then(function(){
-      $("pick").hidden=true;
-      if(st.idx>0&&!st.finished){var s=sectionOf(st.idx);lastSec=null;placeAt("hall");}
-      game();
-    }).catch(function(){
+    openMic().then(function(){$("pick").hidden=true;game();}).catch(function(){
       $("goBtn").disabled=false;$("pickErr").hidden=false;
       $("pickErr").textContent="Talkletics needs your microphone. Please allow it in your browser, then tap again.";
     });
