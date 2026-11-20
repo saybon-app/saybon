@@ -10,12 +10,12 @@ var KEY = LEVEL + "-" + LESSON, C = null, root = document.getElementById("lsRoot
 var EN = (LEVEL === "a1" || LEVEL === "a2"), PFX = EN ? "R2_en_" : "R2_fr_", OLD = EN ? "R_en_" : "R_fr_";
 var T = EN ? { title: "Reading practice", intro: "Reading", dir0: "Listen carefully while I read aloud.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
   start: "Tap to begin", skip: "Skip", again: "Read again", next: "Next text", fin: "Finish", redo: "Redo lesson", back: "Back to lessons", done: "Lesson complete", well: "Well done.",
-  listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "A few things to work on", first: "First reading", last: "Second reading",
-  perfect: "Nothing to correct. Excellent.", perfectGo: "Very good. Nothing to correct. Read it one more time and we move on.", okish: "Clear enough, but not quite smooth yet. We will repeat the lines that need it.", nodet: "I could not check the sounds in detail this time, so we will go through it line by line.", dirFew: "Let's work on the lines that need it. Repeat after me.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line.", sec1: "Words and sounds", sec2: "Liaisons", sec3: "Pauses inside a phrase", sound: "work on this sound", linkLab: "link the words", linkTip: "No pause between these words: the final letter is carried over and sounds like \"{c}\". We measured a gap of {g}.", pauseTip: "Keep the phrase flowing: do not stop between these words.", finalPts: "Still to work on" }
+  listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "Let's polish a few things", heard: "I heard \u201c{h}\u201d instead of \u201c{w}\u201d.", notheard: "I did not hear this word.", first: "First reading", last: "Second reading",
+  perfect: "Nothing to correct. Excellent.", perfectGo: "Very good. Nothing to correct. Read it one more time and we move on.", okderived: "I understood every word. I cannot judge the finer sounds this time, so we will go through it line by line.", okish: "Clear enough, but not quite smooth yet. We will repeat the lines that need it.", nodet: "I could not check the sounds in detail this time, so we will go through it line by line.", dirFew: "Let's work on the lines that need it. Repeat after me.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line.", sec1: "Words and sounds", sec2: "Liaisons", sec3: "Pauses inside a phrase", sound: "work on this sound", linkLab: "link the words", linkTip: "No pause between these words: the final letter is carried over and sounds like \"{c}\". We measured a gap of {g}.", pauseTip: "Keep the phrase flowing: do not stop between these words.", finalPts: "Still to work on" }
  : { title: "Lecture à voix haute", intro: "La lecture", dir0: "Écoutez attentivement pendant que je lis à voix haute.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
   start: "Touchez pour commencer", skip: "Passer", again: "Lire encore", next: "Texte suivant", fin: "Terminer", redo: "Refaire la leçon", back: "Retour aux leçons", done: "Leçon terminée", well: "Bien joué.",
-  listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Quelques points à travailler", first: "Première lecture", last: "Seconde lecture",
-  perfect: "Rien à corriger. Excellent.", perfectGo: "Très bien. Rien à corriger. Relisez-le une fois et on passe à la suite.", okish: "C'est clair, mais pas encore fluide. Nous reprendrons les lignes qui en ont besoin.", nodet: "Je n'ai pas pu vérifier les sons en détail cette fois : nous passons ligne par ligne.", dirFew: "Travaillons les lignes qui en ont besoin. Répétez après moi.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne.", sec1: "Mots et sons", sec2: "Liaisons", sec3: "Pauses à l'intérieur d'un groupe", sound: "son à travailler", linkLab: "liez les mots", linkTip: "Pas de pause entre ces mots : la lettre finale se prononce et fait le son « {c} ». Écart mesuré : {g}.", pauseTip: "Gardez le groupe fluide : ne vous arrêtez pas entre ces mots.", finalPts: "À travailler encore" };
+  listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Polissons quelques points", heard: "J'ai entendu \u00ab {h} \u00bb au lieu de \u00ab {w} \u00bb.", notheard: "Je n'ai pas entendu ce mot.", first: "Première lecture", last: "Seconde lecture",
+  perfect: "Rien à corriger. Excellent.", perfectGo: "Très bien. Rien à corriger. Relisez-le une fois et on passe à la suite.", okderived: "J'ai compris tous les mots. Je ne peux pas juger les sons plus fins cette fois : nous reprenons ligne par ligne.", okish: "C'est clair, mais pas encore fluide. Nous reprendrons les lignes qui en ont besoin.", nodet: "Je n'ai pas pu vérifier les sons en détail cette fois : nous passons ligne par ligne.", dirFew: "Travaillons les lignes qui en ont besoin. Répétez après moi.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne.", sec1: "Mots et sons", sec2: "Liaisons", sec3: "Pauses à l'intérieur d'un groupe", sound: "son à travailler", linkLab: "liez les mots", linkTip: "Pas de pause entre ces mots : la lettre finale se prononce et fait le son « {c} ». Écart mesuré : {g}.", pauseTip: "Gardez le groupe fluide : ne vous arrêtez pas entre ces mots.", finalPts: "À travailler encore" };
 var DEBUG = /[?&]rdebug=1/.test(location.search);
 var LEN = { a1: { g: .77, f: 28 }, a2: { g: .86, f: 17 } }[LEVEL] || null;
 var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
@@ -117,6 +117,22 @@ function azWords(j) {
   var raw = j && (j.detail || (j._debugRawAzureResponse && j._debugRawAzureResponse.NBest && j._debugRawAzureResponse.NBest[0] && j._debugRawAzureResponse.NBest[0].Words));
   return (raw && raw.length) ? raw : null;
 }
+/* what the recogniser heard, lined up with the text: matched words, replaced words ("heard X"), and words never said */
+function diffDet(rw, heardText) {
+  function nz(t) { return String(t || "").toLowerCase().replace(/[’']/g, "'").replace(/[^\p{L}']/gu, ""); }
+  var H = heardText.split(/\s+/).map(function(w) { return { raw: w.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, ""), n: nz(w) }; }).filter(function(x) { return x.n; }), R = rw.map(nz), n = R.length, m = H.length, i, j, D = [];
+  if (!m) return null;
+  for (i = 0; i <= n; i++) { D.push([]); for (j = 0; j <= m; j++) D[i].push(i === 0 ? j : (j === 0 ? i : 0)); }
+  function sim(a, b) { return a === b ? 0 : 1; }
+  for (i = 1; i <= n; i++) for (j = 1; j <= m; j++) D[i][j] = Math.min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + sim(R[i - 1], H[j - 1].n));
+  var out = new Array(n), a = n, b = m;
+  while (a > 0 || b > 0) {
+    if (a > 0 && b > 0 && D[a][b] === D[a - 1][b - 1] + sim(R[a - 1], H[b - 1].n)) { out[a - 1] = R[a - 1] === H[b - 1].n ? { s: 92, e: "" } : { s: 35, e: "m", heard: H[b - 1].raw }; a--; b--; }
+    else if (a > 0 && D[a][b] === D[a - 1][b] + 1) { out[a - 1] = { s: 0, e: "o" }; a--; }
+    else b--;
+  }
+  return out.map(function(o, k) { return { w: rw[k], s: o.s, e: o.e, heard: o.heard || "", st: null, en: null, ph: [] }; });
+}
 function grade(blob, ref) {
   return decode16(blob).then(pcmToWav).then(function(wb) {
     if (wb.pk < 0.012) return { quiet: true };
@@ -144,10 +160,11 @@ function grade(blob, ref) {
         ws = det.map(function(d) { return { s: d.s, e: d.e === "o" ? "o" : "" }; });
         raw = ws.reduce(function(a, b) { return a + b.s; }, 0) / ws.length;
       } else { raw = pickScore(j); if (raw === null) raw = 0; raw = Math.min(raw, 60); }
+      if (!det) { var ht = j && (j.recognizedText || j.recognized || j.text || j.DisplayText || j.displayText || j.transcript); if (typeof ht === "string" && ht.trim()) { var dd = diffDet(rw, ht); if (dd) { det = dd; src = "heard"; ws = det.map(function(d) { return { s: d.s, e: d.e === "o" ? "o" : "" }; }); raw = ws.reduce(function(a, b) { return a + b.s; }, 0) / ws.length; } } }
       try { window.__rdLast = { src: src, nRef: rw.length, nAz: nAz, det: !!det, raw: Math.round(raw), keys: j ? Object.keys(j) : [], words: det ? det.map(function(d) { return d.w + ":" + d.s + (d.e ? d.e : ""); }) : (items || []).map(function(x) { return (x.Word || x.word || "?") + ":" + acc(x) + err(x); }) }; } catch (e) {}
       if (raw < 8) return { quiet: true };
       var v = Math.round(raw); if (LEN) v = Math.max(Math.round(100 * Math.pow(Math.min(100, raw) / 100, LEN.g)), LEN.f);
-      return { v: Math.min(100, v), raw: raw, ws: ws, det: det };
+      return { v: Math.min(100, v), raw: raw, ws: ws, det: det, derived: src === "heard" };
     });
   }).catch(function() { return { err: true }; });
 }
@@ -190,9 +207,9 @@ function coach(det, S) {
   S.forEach(function(s) { var ts = s.t.split(/\s+/).filter(Boolean); ts.forEach(function(w, i) { flat.push(w); end.push(i === ts.length - 1); }); });
   var words = [], links = [], pauses = [], i, sid = [], lines = {};
   S.forEach(function(s, si) { s.t.split(/\s+/).filter(Boolean).forEach(function() { sid.push(si); }); });
-  for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [] }); lines[sid[i]] = 1; continue; }
+  for (i = 0; i < det.length; i++) { var d = det[i]; if (d.e === "o") { words.push({ w: d.w, kind: "miss", s: 0, sounds: [], heard: "" }); lines[sid[i]] = 1; continue; }
     var snd = d.ph.filter(function(q) { return q.s < 60 && q.p; }).sort(function(a, b) { return a.s - b.s; }).slice(0, 2).map(function(q) { return { p: q.p, tip: TIPS[q.p] || "" }; });
-    if (d.s < 70 || (snd.length && d.s < 80)) { words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd }); lines[sid[i]] = 1; } }
+    if (d.s < 70 || (snd.length && d.s < 80)) { words.push({ w: d.w, kind: d.s < 45 ? "weak" : "close", s: d.s, sounds: snd, heard: d.heard || "" }); lines[sid[i]] = 1; } }
   for (i = 0; i + 1 < det.length; i++) { var x = det[i], y = det[i + 1]; if (end[i] || x.en === null || y.st === null || x.e === "o" || y.e === "o") continue;
     var gap = Math.round(y.st - x.en), lia = liaisonOf(flat[i], flat[i + 1]), punct = /[,;:.!?…]$/.test(flat[i]);
     if (lia && gap > 220 && !punct) { links.push({ a: cleanTok(flat[i]), b: cleanTok(flat[i + 1]), gap: gap, cons: lia.cons, was: lia.was }); lines[sid[i]] = 1; }
@@ -206,6 +223,7 @@ function coachHtml(c) {
   if (c.words.length) { h += '<div class="pg"><div class="pl">' + T.sec1 + "</div>"; c.words.forEach(function(w) {
     var lab = w.kind === "miss" ? T.miss : (w.kind === "weak" ? T.weak : T.close);
     h += '<div class="pw"><b>' + esc(w.w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "")) + "</b><i>" + lab + "</i></div>";
+    if (w.heard) h += '<div class="pn">' + T.heard.replace("{h}", esc(w.heard)).replace("{w}", esc(w.w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ""))) + "</div>"; else if (w.kind === "miss") h += '<div class="pn">' + T.notheard + "</div>"; else if (!w.sounds.length) h += '<div class="pn">' + T.tip + "</div>";
     w.sounds.forEach(function(q) { h += '<div class="pn"><em>/' + esc(q.p) + "/</em> " + esc(q.tip || T.sound) + "</div>"; }); }); h += "</div>"; }
   if (c.links.length) { h += '<div class="pg"><div class="pl">' + T.sec2 + "</div>"; c.links.forEach(function(l) {
     h += '<div class="pw"><b>' + esc(l.a) + " ‿ " + esc(l.b) + '</b><i>' + T.linkLab + '</i></div><div class="pn">' + T.linkTip.replace("{c}", l.cons).replace("{g}", secs(l.gap)) + "</div>"; }); h += "</div>"; }
@@ -259,11 +277,11 @@ function weakList(ws, S) {
   var seen = {}; arr = arr.filter(function(a) { var q = a.w.toLowerCase(); if (seen[q]) return false; seen[q] = 1; return true; });
   arr.sort(function(a, b) { return a.s - b.s; }); return arr.slice(0, 6);
 }
-function isPerfect(res, c) { return !!(res && res.det && c && !c.words.length && !c.links.length && !c.pauses.length && res.raw >= 78); }
+function isPerfect(res, c) { return !!(res && res.det && !res.derived && c && !c.words.length && !c.links.length && !c.pauses.length && res.raw >= 78); }
 async function showPoints(res, S) {
   var c = coach(res.det, S), has = c && (c.words.length || c.links.length || c.pauses.length), good = isPerfect(res, c);
   var h = '<div class="pc"><h3>' + (good ? T.perfectGo : T.points) + "</h3>";
-  if (has) h += coachHtml(c); else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + (res.det ? T.okish : T.nodet) + "</p>";
+  if (has) h += coachHtml(c); else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + (res.derived ? T.okderived : (res.det ? T.okish : T.nodet)) + "</p>";
   if (DEBUG && window.__rdLast) h += '<pre style="text-align:left;white-space:pre-wrap;font-size:.7rem;opacity:.8;margin-top:10px">' + JSON.stringify(window.__rdLast) + "</pre>";
   ui.pt.innerHTML = h + "</div>"; ui.pt.classList.add("on"); await wait(900); try { ui.pt.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
 }
