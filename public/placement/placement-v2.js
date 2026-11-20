@@ -29,13 +29,13 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
 async function nextItem(){
-  // opening sequence: 1 oral (hear it, say it out loud), 2 picture, 3 simple grammar, 4 short reading; then it adapts freely
-  var seq=(speechOff||!canRecord())?["picture","text","read"]:["speak","picture","text","read"];
-  if(st.log.length<seq.length){
-    var want=seq[st.log.length];
-    var f=await pick(true,[want],want==="speak"?0:null);
-    if(f)return f;
-  }
+  // rhythm: one special question (oral first, then photo, reading, listening in turn), then two regular ones, and so on
+  var noOral=(speechOff||!canRecord())&&!(st.log.length&&st.log[0].kind==="speak"), n=st.log.length+(noOral?3:0), want;
+  if(n===0)want="speak";
+  else{var m=(n-1)%3; want=m<2?"text":["picture","read","listen"][Math.floor((n-1)/3)%3]}
+  var f=await pick(false,[want],want==="speak"?0:null);
+  if(f)return f;
+  if(want!=="text"){f=await pick(false,["text"]);if(f)return f}
   return (await pick(true))||(await pick(false));
 }
 async function pick(strict,only,exactLv){
