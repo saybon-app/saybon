@@ -45,7 +45,9 @@ textarea{height:84px}
 </div>
 <script>
 var API="https://saybonapp-server.onrender.com/api/testerFeedbackSubmit";
-var A={};
+var A={},KEY="saybonFeedbackDraft";
+function save(){try{localStorage.setItem(KEY,JSON.stringify({A:A,i:i}))}catch(e){}}
+function clr(){try{localStorage.removeItem(KEY)}catch(e){}}
 var STEPS=[
 {k:"welcome",t:"Thank you for trying SayBon",s:"Your honest view helps us build something genuinely good. It takes about three minutes, and every question can be skipped.",
  f:[{id:"name",type:"text",q:"Your first name (optional)",ph:"e.g. Ama"},
@@ -57,6 +59,11 @@ var STEPS=[
     {id:"start_n",type:"text",q:"Anything confusing or lovely?",ta:1}]},
 {k:"placement",kick:"2 · The placement test",t:"How was the placement test?",s:"The questions that find your level.",
  f:[{id:"pl_done",type:"opts",q:"Did you finish it?",o:["Yes, all of it","Most of it","I stopped early","I skipped it"]},
+    {id:"pl_saw",type:"opts",q:"During the test, did a teacher appear to talk to you?",o:["Yes, I saw her","No, nobody appeared","Not sure"]},
+    {id:"pl_aud",type:"opts",q:"Could you hear her voice?",o:["Yes, clearly","Audio didn't play","Hard to hear"],if:function(){return A.pl_saw=="Yes, I saw her"}},
+    {id:"pl_feel",type:"opts",q:"How did her message make you feel?",o:["Encouraged","Neutral","Discouraged","Confused"],if:function(){return A.pl_saw=="Yes, I saw her"}},
+    {id:"pl_after",type:"opts",q:"What did you do next?",o:["Saw my level","Went back to the test","Left the site"],if:function(){return A.pl_saw=="Yes, I saw her"}},
+    {id:"pl_again",type:"opts",q:"When you went back, did she appear again?",o:["Yes, again","No","Not sure"],if:function(){return A.pl_after=="Went back to the test"}},
     {id:"pl_r",type:"stars",q:"Overall"},
     {id:"pl_n",type:"text",q:"Too long? Unclear? Anything that went wrong?",ta:1}]},
 {k:"level",kick:"3 · Your level",t:"Did you land in the right place?",s:"The level you were given and the page that shows it.",
@@ -79,15 +86,17 @@ var STEPS=[
 {k:"done",t:"Merci !",s:"",last:1}
 ];
 var i=0;
+try{var D=JSON.parse(localStorage.getItem(KEY)||"null");if(D&&D.A){A=D.A;i=Math.min(+D.i||0,STEPS.length-2)}}catch(e){}
 var $=function(x){return document.getElementById(x)};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function dots(){var h="";STEPS.forEach(function(_,n){h+='<i class="'+(n<=i?'on':'')+'"></i>'});$("dots").innerHTML=h}
 function render(){
- var S=STEPS[i];dots();var h="";
+ var S=STEPS[i];save();dots();var h="";
  if(S.last){h='<div class="big">Merci</div><h1 style="margin-top:6px">Your words reached us.</h1><p class="sub">Thank you for giving SayBon your time. We read every answer.</p>';$("card").innerHTML=h;return}
  if(S.kick)h+='<div class="kick">'+S.kick+'</div>';
  h+='<h1>'+S.t+'</h1><p class="sub">'+S.s+'</p>';
  S.f.forEach(function(f){
+  if(f.if&&!f.if())return;
   h+='<div class="q">'+f.q+'</div>';
   if(f.type=="text"){h+=f.ta?'<textarea data-id="'+f.id+'" placeholder="'+(f.ph||'Write here…')+'">'+esc(A[f.id]||"")+'</textarea>':'<input type="text" data-id="'+f.id+'" placeholder="'+(f.ph||'')+'" value="'+esc(A[f.id]||"")+'">'}
   if(f.type=="opts"||f.type=="multi"){h+='<div class="opts">';f.o.forEach(function(o){var on=f.type=="multi"?(A[f.id]||[]).indexOf(o)>-1:A[f.id]==o;h+='<button class="opt'+(on?' sel':'')+'" data-id="'+f.id+'" data-m="'+(f.type=="multi"?1:0)+'" data-v="'+esc(o)+'">'+o+'</button>'});h+='</div>'}
@@ -95,7 +104,7 @@ function render(){
  });
  h+='<div class="nav"><button class="btn back" id="b"'+(i?'':' style="visibility:hidden"')+'>Back</button><button class="btn go" id="n">'+(i==STEPS.length-2?'Send':'Next')+'</button></div>';
  $("card").innerHTML=h;
- $("card").querySelectorAll("textarea,input").forEach(function(e){e.oninput=function(){A[e.dataset.id]=e.value}});
+ $("card").querySelectorAll("textarea,input").forEach(function(e){e.oninput=function(){A[e.dataset.id]=e.value;save()}});
  $("card").querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var id=b.dataset.id,v=b.dataset.v;if(b.dataset.m=="1"){var a=A[id]||[],x=a.indexOf(v);x>-1?a.splice(x,1):a.push(v);A[id]=a}else A[id]=(A[id]==v?"":v);render()}});
  $("card").querySelectorAll(".stars").forEach(function(w){w.querySelectorAll("button").forEach(function(b){b.onclick=function(){var n=+b.dataset.s;A[w.dataset.id]=A[w.dataset.id]==n?0:n;render()}})});
  $("b").onclick=function(){i--;render()};
@@ -105,7 +114,7 @@ function send(){
  var b=$("n");b.disabled=true;b.textContent="Sending…";
  var p={answers:A,page:"feedback",ua:navigator.userAgent.slice(0,200),w:innerWidth,h:innerHeight};
  fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json()}).then(function(d){
-  if(d&&d.success){i++;render()}else throw 0}).catch(function(){b.disabled=false;b.textContent="Send";alert("Could not send just now. Please try once more.")});
+  if(d&&d.success){clr();i++;render();clr()}else throw 0}).catch(function(){b.disabled=false;b.textContent="Send";alert("Could not send just now. Please try once more.")});
 }
 render();
 </script></body></html>
