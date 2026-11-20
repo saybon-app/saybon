@@ -28,11 +28,15 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
 async function nextItem(){
+  return (await pick(true))||(await pick(false));
+}
+async function pick(strict){
   var order=[0,-1,1,-2,2,-3,3];
   for(var k=0;k<order.length;k++){
     var L=st.lv+order[k]; if(L<0||L>6)continue;
     if(st.n<FRENCH_AFTER&&L>2)continue;   // French-only questions wait until after question 7
-    var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]}));
+    var lk=st.log.length?st.log[st.log.length-1].kind:null;
+    var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]&&!(strict&&kind(x)===lk)}));
     // keep a mix: prefer a kind (picture / listening / text) not used in the last two questions
     var last=st.log.slice(-2).map(function(l){return l.kind});
     // variety: favour the kinds used least so far (photo, listening, reading), plain grammar last
