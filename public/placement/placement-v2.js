@@ -19,6 +19,7 @@ function check(url,kind){
 function imgUrl(it){return "/assets/images/placement/"+it.img+".webp"}
 function audUrl(it){return "/assets/audio/placement/"+it.id+".mp3"}
 function usable(it){
+  if(it.speak&&(speechOff||!canRecord()))return Promise.resolve(false);
   var p=[];
   if(it.img)p.push(check(imgUrl(it),"image"));
   if(it.say)p.push(check(audUrl(it),"audio"));
@@ -28,15 +29,16 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
 async function nextItem(){
+  if(!st.log.length){var f=await pick(true,["picture","speak"]);if(f)return f}   // the first question is always a photo
   return (await pick(true))||(await pick(false));
 }
-async function pick(strict){
+async function pick(strict,only){
   var order=[0,-1,1,-2,2,-3,3];
   for(var k=0;k<order.length;k++){
     var L=st.lv+order[k]; if(L<0||L>6)continue;
     if(st.n<FRENCH_AFTER&&L>2)continue;   // French-only questions wait until after question 7
     var lk=st.log.length?st.log[st.log.length-1].kind:null;
-    var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]&&!(strict&&kind(x)===lk)}));
+    var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]&&!(strict&&kind(x)===lk)&&(!only||only.indexOf(kind(x))>-1)}));
     // keep a mix: prefer a kind (picture / listening / text) not used in the last two questions
     var last=st.log.slice(-2).map(function(l){return l.kind});
     // variety: favour the kinds used least so far (photo, listening, reading), plain grammar last
@@ -47,7 +49,7 @@ async function pick(strict){
   }
   return null;
 }
-function kind(it){return it.say?"listen":it.img?"picture":it.p?"read":"text"}
+function kind(it){return it.speak?"speak":it.say?"listen":it.img?"picture":it.p?"read":"text"}
 
 /* ---- placement estimate: Bayesian over the seven levels ---- */
 function mapLevel(){var m=0;for(var i=1;i<7;i++)if(st.post[i]>st.post[m])m=i;return m}
@@ -73,6 +75,7 @@ async function ask(){
   var it=await nextItem();
   if(!it){return finish()}
   st.cur=it; st.seen[it.id]=1;
+  if(it.speak)return askSpeak(it);
   var opts=shuffle(it.o.map(function(t,i){return{t:t,ok:i===it.c}}));
   st.cur.shown=opts;
   var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+(it.p?'<div class="passage">'+esc(it.p)+'</div>':'');
@@ -86,6 +89,70 @@ async function ask(){
     $("snd").onclick=play; setTimeout(play,350);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(+b.dataset.i,b)}});
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+}
+
+/* ---- speaking: hear a line, answer out loud, scored kindly by the server (Azure) ---- */
+var SPEAK_API="https://saybonapp-server.onrender.com/api/assessPronunciation", SPEAK_PASS=50, speechOff=false;
+function canRecord(){return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder&&(window.AudioContext||window.webkitAudioContext))}
+function recStart(){
+  return navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var mr=new MediaRecorder(stream),chunks=[],h={mr:mr};
+    mr.ondataavailable=function(ev){if(ev.data&&ev.data.size)chunks.push(ev.data)};
+    h.done=new Promise(function(res){mr.onstop=function(){stream.getTracks().forEach(function(t){t.stop()});res(new Blob(chunks,{type:mr.mimeType||"audio/mp4"}))}});
+    mr.start();return h;
+  });
+}
+function toWav16(blob){
+  return blob.arrayBuffer().then(function(ab){
+    var AC=window.AudioContext||window.webkitAudioContext,ac=new AC();
+    return new Promise(function(res,rej){ac.decodeAudioData(ab,res,rej)}).then(function(buf){
+      try{ac.close()}catch(e){}
+      var len=Math.max(1,Math.ceil(buf.duration*16000)),oc=new (window.OfflineAudioContext||window.webkitOfflineAudioContext)(1,len,16000);
+      var src=oc.createBufferSource();src.buffer=buf;src.connect(oc.destination);src.start(0);
+      return new Promise(function(res,rej){var r=oc.startRendering();if(r&&r.then)r.then(res,rej);oc.oncomplete=function(ev){res(ev.renderedBuffer)}});
+    });
+  }).then(function(out){
+    var d=out.getChannelData(0),n=d.length,b=new ArrayBuffer(44+n*2),v=new DataView(b);
+    function s(o,t){for(var i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i))}
+    s(0,"RIFF");v.setUint32(4,36+n*2,true);s(8,"WAVEfmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);s(36,"data");v.setUint32(40,n*2,true);
+    for(var i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true)}
+    return new Blob([b],{type:"audio/wav"});
+  });
+}
+function askSpeak(it){
+  st.cur.shown=[];
+  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+
+   '<button class="snd" id="snd"><i>▶</i> Play the audio</button>'+
+   '<button class="mic" id="mic"><i></i><span id="micT">Tap and speak</span></button><p class="hint spk" id="spk">&nbsp;</p>'+
+   '<div class="opts"><button class="opt idk" data-i="-1">I can\'t speak now</button></div></div>';
+  $("card").innerHTML=h; $("card").classList.remove("wide");
+  var a=$("qAud"),play=function(){a.src=audUrl(it);a.currentTime=0;a.play().catch(function(){})};
+  $("snd").onclick=play; setTimeout(play,350);
+  var mic=$("mic"),T=$("micT"),msg=$("spk"),rec=null,tries=0,timer=null,busy=false;
+  function skip(){speechOff=true;st.seen[it.id]=1;ask()}
+  function finishRec(){ if(!rec)return; var r=rec;rec=null;clearTimeout(timer);mic.classList.remove("rec");busy=true;T.textContent="Checking…";msg.textContent="";
+    try{r.mr.stop()}catch(e){}
+    r.done.then(toWav16).then(function(wav){
+      var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},45000);
+      return fetch(SPEAK_API+"?referenceText="+encodeURIComponent(it.speak),{method:"POST",headers:{"Content-Type":"audio/wav"},body:wav,signal:ctl.signal}).then(function(r){clearTimeout(to);return r.json().then(function(j){return{ok:r.ok,status:r.status,j:j}})});
+    }).then(function(x){
+      if(x.status===400){ tries++; busy=false;T.textContent="Tap and speak again";msg.textContent=tries>=2?"We could not hear you. You can skip this one.":"We could not hear you. Please try again, a little louder.";return}
+      if(!x.ok||typeof x.j.finalScore!=="number")return skip();
+      var pass=x.j.finalScore>=SPEAK_PASS;
+      Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;b.classList.add("dim")});
+      mic.disabled=true;mic.classList.add(pass?"good":"soft");T.textContent=pass?"Très bien !":"Good try, let's keep going";
+      answer(0,mic,pass?"ok":"bad");
+    }).catch(function(){skip()});
+  }
+  mic.onclick=function(){
+    if(busy)return;
+    if(rec)return finishRec();
+    try{$("qAud").pause()}catch(e){}
+    recStart().then(function(r){rec=r;mic.classList.add("rec");T.textContent="Listening… tap when you finish";msg.textContent="";timer=setTimeout(finishRec,5000)}).catch(function(){skip()});
+  };
+  Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(-1,b)}});
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -104,8 +171,8 @@ function flyPlus(from){
     s.classList.remove("bump");void s.offsetWidth;s.classList.add("bump");
   },780);
 }
-function answer(i,btn){
-  var it=st.cur, idk=(i<0), ok=!idk&&st.cur.shown[i].ok;
+function answer(i,btn,force){
+  var it=st.cur, idk=(i<0), ok=!idk&&(force?force==="ok":st.cur.shown[i].ok);
   var all=document.querySelectorAll(".opt");
   Array.prototype.forEach.call(all,function(b){b.disabled=true});
   // colour: your pick turns red if wrong, the right answer turns green

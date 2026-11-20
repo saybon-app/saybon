@@ -63,3 +63,10 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 @keyframes picIn{from{opacity:0;transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (max-height:700px){.passage{font-size:16.5px;padding:7px 12px;margin-bottom:8px}}
+.mic{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin:12px 0 4px;padding:16px;border-radius:16px;border:1.5px solid var(--gold);background:rgba(201,169,106,.12);color:var(--ink,#f4efe6);font:600 16px Poppins,sans-serif;cursor:pointer}
+.mic i{width:16px;height:16px;border-radius:50%;background:var(--gold)}
+.mic.rec{border-color:#c24141;background:rgba(194,65,65,.15)}.mic.rec i{background:#c24141;animation:micp 1s infinite}
+.mic.good{background:#2f9e5b;border-color:#2f9e5b;color:#fff}.mic.good i{background:#fff}
+.mic.soft{opacity:.75}
+.hint.spk{min-height:1.4em;text-align:center}
+@keyframes micp{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
