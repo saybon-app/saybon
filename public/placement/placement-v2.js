@@ -68,10 +68,10 @@ async function ask(){
   var opts=shuffle(it.o.map(function(t,i){return{t:t,ok:i===it.c}}));
   st.cur.shown=opts;
   var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>';
-  if(it.img)h+='<img class="pic" src="'+imgUrl(it)+'" alt="">';
+  if(it.img)h+='<div class="qgrid"><img class="pic" src="'+imgUrl(it)+'" alt=""><div>';
   if(it.say)h+='<button class="snd" id="snd"><i>▶</i> Play the audio</button>';
-  h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div></div>';
-  $("card").innerHTML=h;
+  h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div>'+(it.img?'</div></div></div>':'</div>');
+  $("card").innerHTML=h; $("card").classList.toggle("wide",!!it.img);
   if(it.say){
     var a=$("qAud");
     var play=function(){a.src=audUrl(it);a.currentTime=0;a.play().catch(function(){})};
