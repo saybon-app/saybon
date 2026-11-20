@@ -11,11 +11,11 @@ var EN = (LEVEL === "a1" || LEVEL === "a2"), PFX = EN ? "R2_en_" : "R2_fr_", OLD
 var T = EN ? { title: "Reading practice", intro: "Reading", dir0: "Listen carefully while I read aloud.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
   start: "Tap to begin", skip: "Skip", again: "Read again", next: "Next text", fin: "Finish", redo: "Redo lesson", back: "Back to lessons", done: "Lesson complete", well: "Well done.",
   listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "A few things to work on", first: "First reading", last: "Second reading",
-  perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed." }
+  perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed.", general: "Your reading needs more clarity overall. We will go through it line by line." }
  : { title: "Lecture à voix haute", intro: "La lecture", dir0: "Écoutez attentivement pendant que je lis à voix haute.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
   start: "Touchez pour commencer", skip: "Passer", again: "Lire encore", next: "Texte suivant", fin: "Terminer", redo: "Refaire la leçon", back: "Retour aux leçons", done: "Leçon terminée", well: "Bien joué.",
   listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Quelques points à travailler", first: "Première lecture", last: "Seconde lecture",
-  perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale." };
+  perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale.", general: "Votre lecture manque encore de clarté dans l'ensemble. Reprenons-la ligne par ligne." };
 var LEN = { a1: { g: .77, f: 28 }, a2: { g: .86, f: 17 } }[LEVEL] || null;
 var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
 var SLOW = EN ? .78 : .82, SLOWREAD = EN ? .84 : .88;
@@ -184,9 +184,9 @@ function weakList(ws, S) {
   arr.sort(function(a, b) { return a.s - b.s; }); return arr.slice(0, 6);
 }
 async function showPoints(res, S) {
-  var wl = weakList(res.ws, S), h = '<div class="pc"><h3>' + (wl.length ? T.points : T.perfect) + '</h3><p class="sc">' + T.first + " · " + res.v + "%</p>";
+  var wl = weakList(res.ws, S), good = !wl.length && res.v >= THR, h = '<div class="pc"><h3>' + (good ? T.perfect : T.points) + '</h3><p class="sc">' + T.first + " · " + res.v + "%</p>";
   wl.forEach(function(a) { var lab = a.e === "o" ? T.miss : (a.s < 40 ? T.weak : T.close); h += '<div class="pw"><b>' + esc(a.w) + "</b><i>" + lab + '</i><span><u style="width:' + Math.max(6, Math.round(a.s)) + '%"></u></span></div>'; });
-  if (wl.length) h += '<p class="sc" style="margin:12px 0 0">' + T.tip + "</p>";
+  if (wl.length) h += '<p class="sc" style="margin:12px 0 0">' + T.tip + "</p>"; else if (!good) h += '<p class="sc" style="margin:4px 0 0">' + T.general + "</p>";
   ui.pt.innerHTML = h + "</div>"; ui.pt.classList.add("on"); await wait(900); try { ui.pt.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
 }
 function hidePoints() { ui.pt.classList.remove("on"); }
