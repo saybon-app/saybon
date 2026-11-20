@@ -95,28 +95,13 @@ body[data-scene="5"]{--qc:#ffb6d2}
 @keyframes lvTw{50%{transform:scale(1.35) rotate(18deg);opacity:.65}}
 @media (prefers-reduced-motion:reduce){.level-tile.lv-kids::after{animation:none}}
 
-/*kids2*/
-.levels-grid .level-tile.lv-kids,.levels-grid .level-tile.lv-kids:hover{position:relative;overflow:hidden;isolation:isolate;
-  background:linear-gradient(165deg,#5ad1ff 0%,#8f7bff 48%,#ff7fc8 100%)!important;
-  border:5px solid #fff!important;border-radius:34px;box-shadow:0 8px 0 #3a2a8c,0 18px 30px rgba(20,10,70,.55)!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-  transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .2s ease!important}
-.levels-grid .level-tile.lv-kids:hover{transform:translateY(-6px) rotate(-1.5deg) scale(1.03);box-shadow:0 12px 0 #3a2a8c,0 26px 36px rgba(20,10,70,.6)!important}
-.levels-grid .level-tile.lv-kids:active{transform:translateY(4px);box-shadow:0 3px 0 #3a2a8c,0 8px 14px rgba(20,10,70,.5)!important}
+
+/*kids3*/
+.levels-grid .level-tile.lv-kids{position:relative;overflow:hidden}
 .level-tile.lv-kids>*{position:relative;z-index:2}
 .level-tile.lv-kids .kd-snow{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.level-tile.lv-kids .kd-snow i{position:absolute;top:-14%;left:var(--x);font-style:normal;line-height:1;font-size:var(--s);color:#fff;opacity:var(--o);text-shadow:0 0 6px rgba(255,255,255,.9);animation:kdFall var(--d) linear var(--l) infinite}
-.level-tile.lv-kids .kd-snow i::before{content:"\2744"}
-.level-tile.lv-kids .kd-snow i:nth-child(3n)::before{content:"\2745"}
-.level-tile.lv-kids .kd-snow i:nth-child(5n)::before{content:"\25CF";font-size:.55em}
-@keyframes kdFall{0%{transform:translate(0,0) rotate(0)}25%{transform:translate(8px,30px) rotate(70deg)}50%{transform:translate(-6px,64px) rotate(150deg)}75%{transform:translate(9px,98px) rotate(230deg)}100%{transform:translate(-3px,150px) rotate(320deg)}}
-.level-tile.lv-kids .lv-tile-label{font-family:"Fredoka","Baloo 2","Comic Sans MS",system-ui,sans-serif!important;font-weight:700!important;color:#fff!important;letter-spacing:.02em;
-  text-shadow:0 3px 0 #5b2a86,2px 2px 0 #5b2a86,-2px 2px 0 #5b2a86,0 6px 10px rgba(40,10,90,.5)!important;display:inline-block;animation:kdBounce 2.4s ease-in-out infinite}
-@keyframes kdBounce{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1.5deg)}}
-.level-tile.lv-kids .lv-tile-sub{font-family:"Fredoka","Baloo 2","Comic Sans MS",system-ui,sans-serif!important;color:#fff7b0!important;font-weight:600!important;text-shadow:0 2px 0 #5b2a86}
-.level-tile.lv-kids .cin-q{padding-right:46px;color:#fffbd0!important;text-shadow:0 2px 0 rgba(91,42,134,.8);font-family:"Fredoka","Baloo 2","Comic Sans MS",system-ui,sans-serif!important;font-style:normal}
-.level-tile.lv-kids::before{content:"\26C4";position:absolute;right:14px;bottom:8px;font-size:2.3rem;z-index:2;filter:drop-shadow(0 3px 0 rgba(58,42,140,.6));animation:kdWob 3s ease-in-out infinite}
-.level-tile.lv-kids::after{content:"\2B50";top:10px;right:14px;font-size:1.25rem;text-shadow:none;z-index:2;animation:kdSpin 4s linear infinite}
-@keyframes kdWob{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg) translateY(-3px)}}
-@keyframes kdSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.3)}100%{transform:rotate(360deg) scale(1)}}
-@media (prefers-reduced-motion:reduce){.level-tile.lv-kids .kd-snow i,.level-tile.lv-kids .lv-tile-label,.level-tile.lv-kids::before,.level-tile.lv-kids::after{animation:none}}
+.level-tile.lv-kids .kd-snow i{position:absolute;top:-6%;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:#fff;opacity:var(--o);animation:kdFall var(--d) linear var(--l) infinite}
+@keyframes kdFall{0%{transform:translate(0,0)}33%{transform:translate(5px,45px)}66%{transform:translate(-5px,95px)}100%{transform:translate(2px,150px)}}
+.level-tile.lv-kids::after{content:"";width:24px;height:24px;top:10px;right:14px;font-size:0;color:transparent;text-shadow:none;background:url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23ffe9a8%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb347%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M12%201.8l2.9%206.3%206.9.8-5.1%204.7%201.4%206.8L12%2017l-6.1%203.4%201.4-6.8L2.2%208.9l6.9-.8z%22%20fill%3D%22url(%23g)%22%20stroke%3D%22%23fff3c9%22%20stroke-width%3D%221%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;filter:drop-shadow(0 0 6px rgba(255,210,122,.8));z-index:2;animation:kdDance 2.6s ease-in-out infinite}
+@keyframes kdDance{0%,100%{transform:rotate(-14deg) scale(1)}25%{transform:rotate(10deg) scale(1.2) translateY(-2px)}50%{transform:rotate(18deg) scale(.95)}75%{transform:rotate(-6deg) scale(1.15) translateY(-1px)}}
+@media (prefers-reduced-motion:reduce){.level-tile.lv-kids .kd-snow i,.level-tile.lv-kids::after{animation:none}}
