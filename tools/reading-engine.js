@@ -230,17 +230,39 @@ async function unit(U, idx, total) {
     ui.btns.innerHTML = ""; if (act === "next") break; hidePoints();
   }
 }
+
+var MIC = '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg>';
+function sceneDo(m) { try { var sc = window.__psScene; if (sc && sc[m]) sc[m](); } catch (e) {} }
+function musicOff() { try { if (window.pauseAppBgMusicForRecording) window.pauseAppBgMusicForRecording(); } catch (e) {} }
+function musicOn() { try { if (window.resumeAppBgMusicAfterRecording) window.resumeAppBgMusicAfterRecording(); } catch (e) {} }
+function introCard() {
+  return new Promise(function(resolve) {
+    root.innerHTML = '<div class="pc"><div class="pc-h"><div class="pc-lv">' + LEVEL.toUpperCase() + " &middot; " + (EN ? "Lesson" : "Le\u00e7on") + " " + LESSON + '</div><h2 class="pc-t">' + T.intro + '</h2><i class="pc-ln"></i></div><div class="pc-b"></div><button type="button" class="pc-skip" aria-label="Skip"><span>' + T.skip + '</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M13 6l6 6-6 6"/></svg></button></div>';
+    var card = root.firstChild, b = card.querySelector(".pc-b"), p = document.createElement("div"); p.className = "pc-pn first";
+    p.innerHTML = '<button type="button" class="pc-teach" aria-label="Teacher">' + MIC + '</button><div class="pc-st"></div>'; b.appendChild(p); void p.offsetWidth; p.classList.remove("first");
+    var btn = p.querySelector(".pc-teach"), media = new Audio(), done = false;
+    function end() { if (done) return; done = true; try { media.pause(); } catch (e) {} btn.classList.remove("on"); sceneDo("calm"); musicOn(); card.style.transition = "opacity .7s"; card.style.opacity = 0; setTimeout(resolve, 750); }
+    card.querySelector(".pc-skip").onclick = end;
+    media.preload = "auto"; media.src = AU + C.intro + ".mp3?v=2";
+    media.addEventListener("play", function() { var h = p.querySelector(".pc-hint"); if (h) h.remove(); btn.classList.add("on"); sceneDo("listen"); musicOff(); });
+    media.addEventListener("pause", function() { if (!media.ended) btn.classList.remove("on"); });
+    media.addEventListener("ended", end); media.addEventListener("error", end);
+    var pp = media.play();
+    if (pp && pp.catch) pp.catch(function() {
+      var hint = document.createElement("div"); hint.className = "pc-hint"; hint.textContent = EN ? "tap to listen" : "touchez pour \u00e9couter"; p.appendChild(hint);
+      var kick = function() { document.removeEventListener("pointerdown", kick, true); document.removeEventListener("keydown", kick, true); if (!done && media.paused && !media.ended) { var q = media.play(); if (q && q.catch) q.catch(function() {}); } };
+      document.addEventListener("pointerdown", kick, true); document.addEventListener("keydown", kick, true);
+    });
+    btn.onclick = function() { if (media.paused) { var q = media.play(); if (q && q.catch) q.catch(function() {}); } else media.pause(); };
+  });
+}
 (async function() {
   try { var D = await (await fetch("/levels/reading-data.json?t=" + Date.now())).json(); C = D[KEY]; } catch (e) {}
   if (!C) { root.innerHTML = '<div class="rd2"><p class="dir on">' + (EN ? "This reading lesson is not ready yet." : "Cette leçon de lecture n'est pas encore prête.") + "</p></div>"; return; }
-  bootScene(); build();
-  /* intro page: scenery only, no board */
-  ui.h.textContent = T.intro; ui.dir.classList.remove("on"); await wait(900);
-  if (C.intro) {
-    await play(C.intro);
-    if (blocked) { blocked = false; ui.g.innerHTML = '<button class="pri" id="rdGo">' + T.start + "</button>"; await new Promise(function(r) { ui.g.querySelector("#rdGo").onclick = r; }); ui.g.innerHTML = ""; await play(C.intro); }
-  }
-  ui.h.style.transition = "opacity .6s"; ui.h.style.opacity = 0; await wait(650); ui.h.textContent = ""; ui.h.style.opacity = 1;
+  bootScene();
+  /* intro page: the same teacher card as every other lesson (scenery, speaker card, no board) */
+  if (C.intro) await introCard(); else { await wait(300); }
+  build();
   await typeHeading(T.title);
   var units = C.mode === "guided" ? C.passages.map(function(p) { return { sents: p.sents, audio: p.audio }; }) : [{ sents: C.sents, audio: null }];
   for (var i = 0; i < units.length; i++) await unit(units[i], i, units.length);
