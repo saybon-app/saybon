@@ -1,14 +1,14 @@
 (function(){
 "use strict";
 var LV=window.PT_LEVELS, ITEMS=window.PT_ITEMS;
-var START=1, MAXQ=14, MINQ=5, CONF=0.8, FEEDBACK_MS=650;
+var START=1, MAXQ=14, MINQ=5, CONF=0.8, FEEDBACK_MS=1250;
 function sig(x){return 1/(1+Math.exp(-x))}
 function know(th,L){return .05+.9*sig(1.7*(th-L+.5))}
 function lik(th,L,res){var k=know(th,L);if(res==="ok")return k+(1-k)*.4*.25;if(res==="idk")return (1-k)*.6;return (1-k)*.4*.75}
 var TEACHER_TEXT="Hey, you. Take a breath, and look how far you've come. Honestly, you're doing really well. I already have everything I need to know your level. Would you like to see it now? Or keep going, just for fun. Either way, I'm so proud of you.";
 var $=function(i){return document.getElementById(i)};
 var st=null, okCache={};
-function fresh(){return{lv:START,n:0,post:LV.map(function(){return 1/7}),res:LV.map(function(){return{c:0,t:0}}),seen:{},hist:[],wrong:0,teacherShown:0,cur:null,log:[]}}
+function fresh(){return{lv:START,n:0,post:(function(){var w=[1,2,3,3,3,2,1],s=14;return w.map(function(x){return x/s})})(),res:LV.map(function(){return{c:0,t:0}}),seen:{},hist:[],wrong:0,teacherShown:0,cur:null,log:[]}}
 
 /* ---- asset availability: skip any item whose picture/audio is missing ---- */
 function check(url,kind){
@@ -53,11 +53,11 @@ function update(L,res){
 /* ---- screens ---- */
 function setFill(){ $("fill").style.width=Math.min(94,(st.n/12)*100)+"%"; }
 function intro(){
-  $("card").innerHTML='<div class="body"><div class="kick">Placement</div><h1>Let\'s find your level.</h1><p class="lead">A few short questions with pictures, sounds and sentences. There is no pass or fail, and it stops as soon as we know. Answer what you can, and guess if you are unsure.</p></div><button class="btn" id="go">Begin</button>';
+  $("card").innerHTML='<div class="body"><div class="kick">Placement</div><h1 class="big">Let\'s find your level.</h1><p class="lead">A few short questions with pictures, sounds and sentences. There is no pass or fail, and it stops as soon as we know. Answer what you can, and guess if you are unsure.</p></div><button class="btn" id="go">Begin</button>';
   $("go").onclick=function(){
     // unlock audio on this tap (mobile browsers)
     try{var a=$("qAud");a.muted=true;a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";a.play().then(function(){a.pause();a.muted=false}).catch(function(){a.muted=false})}catch(e){}
-    st=fresh(); ask();
+    st=fresh(); $("scoreN").textContent="0"; ask();
   };
 }
 async function ask(){
@@ -67,7 +67,7 @@ async function ask(){
   st.cur=it; st.seen[it.id]=1;
   var opts=shuffle(it.o.map(function(t,i){return{t:t,ok:i===it.c}}));
   st.cur.shown=opts;
-  var h='<div class="kick">'+LV[st.lv]+' · Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>';
+  var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>';
   if(it.img)h+='<img class="pic" src="'+imgUrl(it)+'" alt="">';
   if(it.say)h+='<button class="snd" id="snd"><i>▶</i> Play the audio</button>';
   h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div></div>';
@@ -78,20 +78,44 @@ async function ask(){
     $("snd").onclick=play; setTimeout(play,350);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(+b.dataset.i,b)}});
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
+function flyPlus(from){
+  var to=$("score").getBoundingClientRect(),f=from.getBoundingClientRect();
+  var p=document.createElement("div");p.className="plus";p.textContent="+1";
+  p.style.left=(f.left+f.width/2-14)+"px";p.style.top=(f.top+f.height/2-14)+"px";document.body.appendChild(p);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    p.style.transform="translate("+(to.left+to.width/2-f.left-f.width/2)+"px,"+(to.top+to.height/2-f.top-f.height/2)+"px) scale(.8)";
+  })});
+  setTimeout(function(){p.style.opacity="0"},650);
+  setTimeout(function(){
+    if(p.parentNode)p.parentNode.removeChild(p);
+    var s=$("score"),n=$("scoreN");n.textContent=(+n.textContent||0)+1;
+    s.classList.remove("bump");void s.offsetWidth;s.classList.add("bump");
+  },780);
+}
 function answer(i,btn){
   var it=st.cur, idk=(i<0), ok=!idk&&st.cur.shown[i].ok;
-  Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true});
-  btn.classList.add("pick");
+  var all=document.querySelectorAll(".opt");
+  Array.prototype.forEach.call(all,function(b){b.disabled=true});
+  // colour: your pick turns red if wrong, the right answer turns green
+  Array.prototype.forEach.call(all,function(b){
+    var bi=+b.dataset.i;
+    if(bi>=0&&st.cur.shown[bi].ok)b.classList.add("good");
+    else if(b===btn&&!idk)b.classList.add("bad");
+    else b.classList.add("dim");
+  });
+  if(ok)flyPlus(btn);
   try{$("qAud").pause()}catch(e){}
   var r=st.res[it.lv]; r.t++; if(ok)r.c++;
   update(it.lv,ok?"ok":(idk?"idk":"bad"));
   st.n++; st.hist.push(it.lv);
   st.log.push({id:it.id,lv:it.lv,ok:ok,idk:idk,kind:kind(it)});
   st.wrong=ok?0:st.wrong+1;
-  st.lv=mapLevel(); // ask next at the level we currently think they are
+  var want=Math.round(st.post.reduce(function(a,p,i){return a+p*i},0));
+  st.lv=Math.max(0,Math.min(6,Math.max(it.lv-1,Math.min(it.lv+1,want)))); // at most one step from the question just asked
   setFill();
   setTimeout(function(){
     if(st.wrong>=3 && st.teacherShown<2 ){return teacher()}
