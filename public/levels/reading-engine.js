@@ -138,8 +138,8 @@ function diffDet(rw, heardText) {
   }
   return out.map(function(o, k) { return { w: rw[k], s: o.s, e: o.e, heard: o.heard || "", st: null, en: null, ph: [] }; });
 }
-function grade(blob, ref) {
-  return decode16(blob).then(pcmToWav).then(function(wb) {
+function gradeWav(wb, ref) {
+  return Promise.resolve(wb).then(function(wb) {
     if (wb.pk < 0.012) return { quiet: true };
     return fetch(API + "/api/assessPronunciation?referenceText=" + encodeURIComponent(ref), { method: "POST", body: wb }).then(function(r) { return r.json(); }).then(function(j) {
       var rw = ref.split(/\s+/).filter(Boolean), raw, ws = null, det = null, az = azWords(j), items, src = "none", nAz = 0;
@@ -170,6 +170,37 @@ function grade(blob, ref) {
       if (raw < 8) return { quiet: true };
       var v = Math.round(raw); if (LEN) v = Math.max(Math.round(100 * Math.pow(Math.min(100, raw) / 100, LEN.g)), LEN.f);
       return { v: Math.min(100, v), raw: raw, ws: ws, det: det, derived: src === "heard" };
+    });
+  }).catch(function() { return { err: true }; });
+}
+/* The speech service can stop listening at a long pause and ignore the rest of a multi-line reading. When the words at the end come back "not heard"
+   but the recording goes on, grade the remaining audio against the remaining words and join the results. */
+function grade(blob, ref) {
+  return decode16(blob).then(function(pcm) {
+    var rw = ref.split(/\s+/).filter(Boolean), SR = 16000, pk = 0, i;
+    for (i = 0; i < pcm.length; i += 7) { var a = Math.abs(pcm[i]); if (a > pk) pk = a; }
+    function voiced(from) { var w = SR * 0.12, hits = 0; for (var o = from; o + w < pcm.length; o += w) { var sm = 0; for (var q = 0; q < w; q += 4) sm += pcm[o + q] * pcm[o + q]; if (Math.sqrt(sm / (w / 4)) > Math.max(0.012, pk * 0.1)) { hits++; if (hits >= 4) return true; } else hits = Math.max(0, hits - 1); } return false; }
+    var parts = [], start = 0, from = 0, segs = 0, first = null;
+    function loop() {
+      var seg = pcm.subarray(from), wb = pcmToWav(seg), sub = rw.slice(start).join(" ");
+      return gradeWav(wb, sub).then(function(g) {
+        segs++; if (!first) first = g;
+        if (g.quiet || g.err || !g.det) { if (!parts.length) return g; return parts; }
+        var offMs = from / SR * 1000, det = g.det.map(function(d) { return { w: d.w, s: d.s, e: d.e, heard: d.heard, ph: d.ph, st: d.st === null ? null : d.st + offMs, en: d.en === null ? null : d.en + offMs }; });
+        var L = -1; for (var k = det.length - 1; k >= 0; k--) { if (det[k].e !== "o") { L = k; break; } }
+        var tail = det.length - 1 - L;
+        if (!g.derived && L >= 0 && tail >= 1 && segs < 5 && det[L].en !== null) { var nf = Math.max(from, Math.round((det[L].en - 120) / 1000 * SR));
+          if (voiced(nf)) { parts = parts.concat(det.slice(0, L + 1)); start += L + 1; from = nf; return loop(); } }
+        parts = parts.concat(det); return parts;
+      });
+    }
+    return loop().then(function(r) {
+      if (!Array.isArray(r)) return r;
+      var det = r; if (det.length !== rw.length) return first;
+      var ws = det.map(function(d) { return { s: d.s, e: d.e === "o" ? "o" : "" }; }), raw = ws.reduce(function(a, b) { return a + b.s; }, 0) / ws.length, v = Math.round(raw);
+      if (LEN) v = Math.max(Math.round(100 * Math.pow(Math.min(100, raw) / 100, LEN.g)), LEN.f);
+      try { if (window.__rdLast) window.__rdLast.segments = segs; } catch (e) {}
+      return { v: Math.min(100, v), raw: raw, ws: ws, det: det, derived: false };
     });
   }).catch(function() { return { err: true }; });
 }
