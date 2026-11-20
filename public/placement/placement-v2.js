@@ -1,7 +1,7 @@
 (function(){
 "use strict";
 var LV=window.PT_LEVELS, ITEMS=window.PT_ITEMS;
-var START=1, MAXQ=18, MINQ=5, FRENCH_AFTER=7, CONF=0.8, FEEDBACK_MS=1250;
+var START=1, MAXQ=20, MINQ=14, FRENCH_AFTER=7, CONF=0.8, FEEDBACK_MS=1250;
 function sig(x){return 1/(1+Math.exp(-x))}
 function know(th,L){return .05+.9*sig(1.7*(th-L+.5))}
 function lik(th,L,res){var k=know(th,L);if(res==="ok")return k+(1-k)*.4*.25;if(res==="idk")return (1-k)*.6;return (1-k)*.4*.75}
@@ -42,9 +42,11 @@ function stageLevel(n){
 async function nextItem(){
   // rhythm: one special question (oral first, then photo, reading, listening in turn), then two regular ones, and so on
   var noOral=(speechOff||!canRecord())&&!(st.log.length&&st.log[0].kind==="speak"), n=st.log.length+(noOral?3:0), want;
-  if(n===0)want="speak";
-  else{var m=(n-1)%3; want=m<2?"text":["picture","read","listen"][Math.floor((n-1)/3)%3]}
-  if(n===0){var b=ITEMS.filter(function(x){return x.id==="a0_s_bonjour"})[0];if(b&&!st.seen[b.id]&&await usable(b))return b}   // the very first question is always Bonjour
+  // special questions: every third at the start (oral, photo), then every second one, so photos and listening come round often
+  var SPEC=["speak","picture","listen","picture","listen","speak","picture","read","listen","picture","listen"];
+  var special=n===0||(n<6?n%3===0:n%2===0);
+  if(special){var idx=st.log.filter(function(l){return l.kind!=="text"}).length+(noOral?1:0);want=SPEC[idx%SPEC.length];if(want==="speak"&&n>0&&st.lv>2)want="picture"}
+  else want="text";
   var sl=stageLevel(st.log.length), lv=null;
   if(sl>=0){lv=[sl];if(sl>0)lv.push(sl-1);lv.push(sl+1);if(want==="speak")lv=[0]}
   var f=await pick(false,[want],lv);

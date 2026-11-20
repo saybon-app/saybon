@@ -150,4 +150,18 @@ window.PT_ITEMS = [
 {id:"c2_x_err",lv:6,s:"mistake",q:"Quelle phrase est incorrecte ?",o:["Les décisions qu'il a pris sont contestées.", "Les décisions qu'il a prises sont contestées.", "Elle s'est rendu compte de son erreur.", "Ils se sont parlé hier."],c:0},
 {id:"c2_x_courrier",lv:6,s:"word",q:"Dans un courrier officiel, quelle formule de politesse finale convient ?",o:["Veuillez agréer, Madame, l'expression de mes salutations distinguées.", "À plus, bisous.", "Bien à toi, mon ami.", "Cordialement vôtre, kiss."],c:0},
 {id:"c2_x_same",lv:6,s:"same",q:"Quelle phrase a le même sens que « Il n'a de cesse de se plaindre » ?",o:["Il se plaint continuellement.", "Il ne se plaint jamais.", "Il se plaint rarement.", "Il a cessé de se plaindre."],c:0},
+/* ---------- more listening and spoken questions at A0 to A2 ---------- */
+{id:"a0_l_heure",lv:0,q:"Listen. What time is it?",say:"Il est trois heures.",o:["3 o'clock", "5 o'clock", "8 o'clock", "12 o'clock"],c:0},
+{id:"a0_l_chat",lv:0,q:"Listen. What does the person have?",say:"J'ai un chat noir.",o:["A black cat", "A black dog", "A red car", "A white bird"],c:0},
+{id:"a0_l_lait",lv:0,q:"Listen. What is he drinking?",say:"Il boit du lait.",o:["Milk", "Water", "Coffee", "Juice"],c:0},
+{id:"a1_l_ecole",lv:1,q:"Listen. When does the person go to school?",say:"Je vais à l'école à huit heures.",o:["At eight", "At five", "At noon", "At nine"],c:0},
+{id:"a1_l_hopital",lv:1,q:"Listen. Where does her mother work?",say:"Ma mère travaille dans un hôpital.",o:["In a hospital", "In a school", "In a shop", "In a bank"],c:0},
+{id:"a1_l_froid",lv:1,q:"Listen. What will the weather be like tomorrow?",say:"Demain, il va faire froid et il va pleuvoir.",o:["Cold and rainy", "Hot and sunny", "Windy and warm", "Snowy"],c:0},
+{id:"a2_l_gare",lv:2,q:"Listen. How far is the station?",say:"Excusez-moi, la gare est à cinq minutes à pied, tout droit.",o:["Five minutes on foot", "Five minutes by bus", "Fifty metres", "Ten kilometres"],c:0},
+{id:"a2_l_table",lv:2,q:"Listen. What does the person want?",say:"Je voulais réserver une table pour quatre personnes, samedi soir.",o:["A table for four on Saturday", "A room for four", "A taxi on Sunday", "A ticket for Saturday"],c:0},
+{id:"a2_l_bus",lv:2,q:"Listen. Why was he late?",say:"J'ai raté mon bus, donc je suis arrivé en retard au travail.",o:["He missed his bus", "He was ill", "He forgot his keys", "His car broke down"],c:0},
+{id:"a1_s_cafe",lv:1,q:"Say it back to me, out loud.",say:"Je voudrais un café, s'il vous plaît.",speak:"Je voudrais un café, s'il vous plaît.",o:[],c:0},
+{id:"a1_s_beau",lv:1,q:"Say it back to me, out loud.",say:"Il fait beau aujourd'hui.",speak:"Il fait beau aujourd'hui.",o:[],c:0},
+{id:"a2_s_resto",lv:2,q:"Say it back to me, out loud.",say:"Hier, nous sommes allés au restaurant.",speak:"Hier, nous sommes allés au restaurant.",o:[],c:0},
+{id:"a2_s_repeter",lv:2,q:"Say it back to me, out loud.",say:"Pouvez-vous répéter, s'il vous plaît ?",speak:"Pouvez-vous répéter, s'il vous plaît ?",o:[],c:0},
 ];
