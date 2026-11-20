@@ -1,166 +1,50 @@
-﻿(function(){
+(function(){
+  var BASE="/assets/talkletics/map/";
+  var mapEl=document.getElementById("tkmMap");
+  var PER_PAGE=10;
 
-  var API_BASE = "https://saybonapp-server.onrender.com";
-
-  var ROW_HEIGHT = 150;
-  var TOP_PADDING = 90;
-  var BOTTOM_PADDING = 90;
-  var RUNOFF = 160;
-
-  var X_DESKTOP = { left: 60, right: 340, center: 200 };
-  var X_MOBILE  = { left: 140, right: 260, center: 200 };
-
-  function slugify(name){
-    return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  function unlockedCount(){
+    var q=new URLSearchParams(location.search).get("unlocked");
+    if(q&&/^\d+$/.test(q))return Math.min(50,Math.max(1,+q));
+    try{var v=parseInt(localStorage.getItem("tkMapUnlocked"),10);if(v>0)return Math.min(50,v);}catch(e){}
+    return 1;
   }
 
-  function buildLayout(locations){
-
-    var n = locations.length;
-    var containerHeight = TOP_PADDING + BOTTOM_PADDING + Math.max(0, n - 1) * ROW_HEIGHT;
-
-    var nodesEl = document.getElementById("tkmNodes");
-    nodesEl.style.height = containerHeight + "px";
-
-    var points = [];
-
-    for(var i = 0; i < n; i++){
-      var top = TOP_PADDING + i * ROW_HEIGHT;
-      var side;
-      if(i === 0){
-        side = "center";
-      } else {
-        side = (i % 2 === 1) ? "left" : "right";
-      }
-      points.push({ top: top, side: side, loc: locations[i] });
+  function render(L,places){
+    var dev=window.matchMedia("(max-width:768px)").matches?"mobile":"desktop";
+    var c=L[dev],un=unlockedCount();
+    var pages=Math.min(Math.ceil(50/PER_PAGE),1+Math.floor(un/PER_PAGE));
+    var vis=Math.min(50,pages*PER_PAGE);
+    var bwN=c.btnW*c.w,ymax=0;
+    for(var i=0;i<vis;i++)ymax=Math.max(ymax,c.points[i].yb);
+    var n=Math.max(0,Math.ceil((ymax+bwN*0.62+50-c.bottom)/c.tile));
+    mapEl.innerHTML="";
+    function bg(name){var im=new Image();im.className="bg";im.alt="";im.draggable=false;im.src=BASE+"bg/"+dev+"-"+name+".webp";mapEl.appendChild(im);}
+    bg("top");for(var t=0;t<n;t++)bg("tile");bg("bottom");
+    var scale=mapEl.clientWidth/c.w,bwPx=c.btnW*mapEl.clientWidth;
+    mapEl.style.setProperty("--bw",bwPx+"px");
+    var last=null;
+    for(var k=0;k<vis;k++){
+      var p=places[k],pt=c.points[k],open=k<un;
+      var b=document.createElement("button");
+      b.className="tkm-node "+(open?"tkm-node-unlocked":"tkm-node-locked");
+      b.style.left=(pt.x*100)+"%";b.style.bottom=(pt.yb*scale)+"px";b.style.width=(c.btnW*100)+"%";
+      b.setAttribute("aria-label",(k+1)+" "+p.name+(open?"":" (locked)"));
+      if(!open)b.tabIndex=-1;
+      var im=new Image();im.className="tkm-node-img";im.alt=p.name;im.src=BASE+"places/"+p.img;
+      var bd=new Image();bd.className="tkm-node-badge";bd.alt="";bd.src=BASE+"badges/"+p.badge;
+      b.appendChild(im);b.appendChild(bd);
+      if(!open){var lk=document.createElement("span");lk.className="tkm-lock";lk.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';b.appendChild(lk);}
+      else{last=b;(function(page){b.addEventListener("click",function(){location.href=page;});})(p.slug+".html");}
+      mapEl.appendChild(b);
+      (function(el,d){setTimeout(function(){el.classList.add("tkm-node-visible");},d);})(b,k*60);
     }
-
-    renderNodes(points);
-    renderPath(points, containerHeight);
-
+    if(!render.done&&last){render.done=1;setTimeout(function(){var r=last.getBoundingClientRect();window.scrollTo(0,Math.max(0,window.scrollY+r.top-window.innerHeight*0.55));},120);}
   }
 
-  function renderNodes(points){
-
-    var nodesEl = document.getElementById("tkmNodes");
-    nodesEl.innerHTML = "";
-
-    points.forEach(function(p, tkmIndex){
-
-      var loc = p.loc;
-
-      var btn = document.createElement("button");
-      btn.className = "tkm-node " + (loc.unlocked ? "tkm-node-unlocked" : "tkm-node-locked");
-      btn.setAttribute("data-side", p.side);
-      btn.setAttribute("data-location-id", loc.id);
-      btn.style.top = p.top + "px";
-      if(!loc.unlocked){
-        btn.tabIndex = -1;
-      }
-
-      var badge = document.createElement("span");
-      badge.className = "tkm-node-badge";
-      badge.textContent = String(loc.order).padStart(2, "0");
-
-      var img = document.createElement("img");
-      img.className = "tkm-node-img";
-      img.src = loc.imageUrl;
-      img.alt = loc.name;
-
-      btn.appendChild(badge);
-      btn.appendChild(img);
-
-      if(loc.unlocked){
-        btn.addEventListener("click", function(){
-          window.location.href = slugify(loc.name) + ".html";
-        });
-      }
-
-      nodesEl.appendChild(btn);
-
-      setTimeout(function(){ btn.classList.add("tkm-node-visible"); }, tkmIndex * 90);
-
-    });
-
-  }
-
-  function pathD(points, xmap){
-
-    if(points.length === 0) return "";
-
-    var firstX = xmap[points[0].side];
-    var entryY = points[0].top - RUNOFF;
-    var entryMid = points[0].top - RUNOFF / 2;
-
-    var d = "M" + firstX + "," + entryY;
-    d += " C" + firstX + "," + entryMid + " " + firstX + "," + entryMid + " " + firstX + "," + points[0].top;
-
-    for(var i = 1; i < points.length; i++){
-      var prev = points[i-1];
-      var cur = points[i];
-      var x0 = xmap[prev.side];
-      var y0 = prev.top;
-      var x1 = xmap[cur.side];
-      var y1 = cur.top;
-      var midY = (y0 + y1) / 2;
-      d += " C" + x0 + "," + midY + " " + x1 + "," + midY + " " + x1 + "," + y1;
-    }
-
-    var last = points[points.length - 1];
-    var lastX = xmap[last.side];
-    var tailY = last.top + (RUNOFF * 0.5);
-    var tailMid = last.top + (RUNOFF * 0.25);
-
-    d += " C" + lastX + "," + tailMid + " " + lastX + "," + tailMid + " " + lastX + "," + tailY;
-
-    return d;
-
-  }
-
-  function renderPath(points, containerHeight){
-
-    var minY = -RUNOFF;
-    var vbHeight = containerHeight + RUNOFF + (RUNOFF * 0.5);
-    var viewBox = "0 " + minY + " 400 " + vbHeight;
-
-    document.getElementById("tkmPathDesktop").setAttribute("viewBox", viewBox);
-    document.getElementById("tkmPathMobile").setAttribute("viewBox", viewBox);
-    document.getElementById("tkmPathDesktop").style.height = vbHeight + "px";
-    document.getElementById("tkmPathMobile").style.height = vbHeight + "px";
-
-    var dDesktop = pathD(points, X_DESKTOP);
-    var dMobile = pathD(points, X_MOBILE);
-
-    document.getElementById("tkmPathBgDesktop").setAttribute("d", dDesktop);
-    document.getElementById("tkmPathLineDesktop").setAttribute("d", dDesktop);
-    document.getElementById("tkmPathBgMobile").setAttribute("d", dMobile);
-    document.getElementById("tkmPathLineMobile").setAttribute("d", dMobile);
-
-  }
-
-  async function loadLocations(){
-
-    var nodesEl = document.getElementById("tkmNodes");
-
-    try{
-
-      var res = await fetch(API_BASE + "/api/locations");
-      var locations = await res.json();
-
-      if(!locations.length){
-        nodesEl.innerHTML = "<p style='text-align:center;color:#0d2a4d;font-weight:700;padding:40px;'>No locations yet. Check back soon!</p>";
-        return;
-      }
-
-      buildLayout(locations);
-
-    }catch(err){
-      console.error(err);
-      nodesEl.innerHTML = "<p style='text-align:center;color:#0d2a4d;font-weight:700;padding:40px;'>Could not load the map. Please try again.</p>";
-    }
-
-  }
-
-  loadLocations();
-
+  Promise.all([fetch(BASE+"layout.json").then(function(r){return r.json();}),fetch(BASE+"places.json").then(function(r){return r.json();})])
+    .then(function(a){
+      var L=a[0],P=a[1];render(L,P);
+      var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){render(L,P);},150);});
+    }).catch(function(e){console.error(e);mapEl.innerHTML="<p style='text-align:center;color:#fff;font-weight:700;padding:80px 20px;'>Could not load the map. Please try again.</p>";});
 })();
