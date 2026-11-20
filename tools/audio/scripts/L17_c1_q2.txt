@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Neuf mois avec cinq pour cent de remise, et nous signons.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je dois consulter ma direction, mais je pense pouvoir vous répondre dans l'heure.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je dois consulter ma direction, mais je pense pouvoir vous répondre dans l'heure.
+
+[repeat]
+
+[calmly] Je dois consulter ma direction, mais je pense pouvoir vous répondre dans l'heure.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

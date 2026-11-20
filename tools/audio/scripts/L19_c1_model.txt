@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous débattez d'une mise en scène de théâtre avec un ami.
+
+[pause]
+
+[calmly] Cette mise en scène m'a paru d'une audace remarquable.
+
+[short pause]
+
+[as:Roger] [calmly] Audacieuse, certes, mais elle sacrifie parfois la clarté du texte.
+
+[short pause]
+
+[calmly] À mon sens, elle en renouvelle au contraire la lecture.
+
+[short pause]
+
+[as:Roger] [calmly] Je vous accorde que le décor dépouillé y contribue, il apporte une vraie tension.
+
+[short pause]
+
+[calmly] Et la performance des comédiens, qu'en pensez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Inégale : la distribution est brillante, mais deux rôles manquaient de souffle.
+
+[short pause]
+
+[calmly] Vous êtes sévère, tout de même.
+
+[short pause]
+
+[as:Roger] [calmly] Exigeant plutôt, car la qualité de l'ensemble le justifiait.
+
+[short pause]
+
+[calmly] Nous reviendrons sur ce sujet à la sortie de la prochaine pièce.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

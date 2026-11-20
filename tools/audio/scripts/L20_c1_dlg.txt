@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Quel est le motif de votre courrier ?
+
+[turn:Je me permets de vous écrire au sujet d'un manquement à vos engagements contractuels.]
+
+[calmly] Pouvez-vous préciser la nature de ce manquement ?
+
+[turn:Le service promis n'a pas été rendu dans les délais convenus, malgré mes relances.]
+
+[calmly] Quelle suite souhaitez-vous donner à cette affaire ?
+
+[turn:J'attends une réponse circonstanciée sous quinze jours, faute de quoi je saisirai le médiateur.]
+
+[calmly] Votre démarche est parfaitement claire.
+
+[turn:J'espère qu'elle permettra de régler ce différend à l'amiable.]
+
+[calmly] Je vous prie d'agréer, Madame, mes salutations distinguées.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

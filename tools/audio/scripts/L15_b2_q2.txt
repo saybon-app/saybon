@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je les préviens. Tu veux qu'on change le lieu ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[repeat]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

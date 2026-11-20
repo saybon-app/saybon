@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Votre démarche est parfaitement claire.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] J'espère qu'elle permettra de régler ce différend à l'amiable.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] J'espère qu'elle permettra de régler ce différend à l'amiable.
+
+[repeat]
+
+[calmly] J'espère qu'elle permettra de régler ce différend à l'amiable.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

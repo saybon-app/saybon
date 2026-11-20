@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vous vouliez me voir ?
+
+[turn:Oui, j'aimerais discuter de l'évolution de ma rémunération.]
+
+[calmly] Sur quoi vous appuyez-vous ?
+
+[turn:Sur les objectifs que j'ai dépassés depuis un an.]
+
+[calmly] Le budget est serré cette année.
+
+[turn:Je le comprends, mais mes responsabilités ont nettement augmenté.]
+
+[calmly] Que proposez-vous concrètement ?
+
+[turn:Une revalorisation de dix pour cent, ou à défaut, des jours de congé supplémentaires.]
+
+[calmly] Je vous donne une réponse d'ici la fin du mois.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

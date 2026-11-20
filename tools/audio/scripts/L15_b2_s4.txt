@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[short pause]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[repeat]
+
+[calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

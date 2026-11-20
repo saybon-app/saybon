@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et vos prétentions salariales ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je souhaiterais en discuter selon les responsabilités du poste.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je souhaiterais en discuter selon les responsabilités du poste.
+
+[repeat]
+
+[calmly] Je souhaiterais en discuter selon les responsabilités du poste.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Tu me le prêterais ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Avec plaisir, je te le donne dès que je l'ai terminé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Avec plaisir, je te le donne dès que je l'ai terminé.
+
+[repeat]
+
+[calmly] Avec plaisir, je te le donne dès que je l'ai terminé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Tu lis quelque chose en ce moment ?
+
+[turn:Oui, un roman qui se passe à Dakar, il est passionnant.]
+
+[calmly] De quoi ça parle ?
+
+[turn:D'une famille qui doit choisir entre tradition et modernité.]
+
+[calmly] Et le style, il est facile à lire ?
+
+[turn:Oui, les phrases sont courtes et l'histoire avance vite.]
+
+[calmly] Tu me le prêterais ?
+
+[turn:Avec plaisir, je te le donne dès que je l'ai terminé.]
+
+[calmly] Merci, je l'achète dès demain !
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

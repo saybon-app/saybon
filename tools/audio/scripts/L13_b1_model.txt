@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Votre chauffage est en panne et vous appelez le propriétaire.
+
+[pause]
+
+[calmly] Allô, bonjour. Que se passe-t-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour, le chauffage ne marche plus depuis hier soir.
+
+[short pause]
+
+[calmly] Avez-vous essayé de le redémarrer ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, plusieurs fois, mais rien n'a changé.
+
+[short pause]
+
+[calmly] Je vais envoyer un technicien. Vous serez là demain ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis disponible demain matin, avant midi, si possible.
+
+[short pause]
+
+[calmly] Entendu. Il passera entre neuf et onze heures.
+
+[short pause]
+
+[as:Roger] [calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[short pause]
+
+[calmly] Bien sûr, je vous écris dans quelques minutes.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

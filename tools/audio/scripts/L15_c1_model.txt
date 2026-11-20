@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous cherchez un compromis pour des vacances entre amis.
+
+[pause]
+
+[calmly] Je rêve d'une semaine de repos au bord de la mer.
+
+[short pause]
+
+[as:Roger] [calmly] Je comprends, mais j'aurais tant aimé découvrir une ville.
+
+[short pause]
+
+[calmly] Nous ne pourrons pas tout concilier, hélas.
+
+[short pause]
+
+[as:Roger] [calmly] Pas forcément : nous pourrions partager le séjour en deux étapes.
+
+[short pause]
+
+[calmly] Trois jours de plage, puis quatre de visites ?
+
+[short pause]
+
+[as:Roger] [calmly] Exactement, ainsi chacun y trouverait son compte.
+
+[short pause]
+
+[calmly] Reste à choisir un lieu qui permette les deux.
+
+[short pause]
+
+[as:Roger] [calmly] La côte basque offre à la fois des plages et de belles villes.
+
+[short pause]
+
+[calmly] Voilà une solution qui nous réconcilie tous.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

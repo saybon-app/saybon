@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] À mon sens, elle en renouvelle au contraire la lecture.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je vous accorde que le décor dépouillé y contribue, il apporte une vraie tension.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je vous accorde que le décor dépouillé y contribue, il apporte une vraie tension.
+
+[repeat]
+
+[calmly] Je vous accorde que le décor dépouillé y contribue, il apporte une vraie tension.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

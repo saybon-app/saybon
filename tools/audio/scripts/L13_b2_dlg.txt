@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Le loyer est fixé à mille deux cents euros.
+
+[turn:Ce montant dépasse un peu mon budget, serait-il négociable ?]
+
+[calmly] Nous pourrions descendre à mille cent cinquante.
+
+[turn:Si je m'engage pour deux ans, pourriez-vous faire un geste supplémentaire ?]
+
+[calmly] Pour deux ans, je peux offrir un mois de loyer réduit.
+
+[turn:Cela me conviendrait, à condition que les charges restent inchangées.]
+
+[calmly] Les charges ne bougeront pas pendant la durée du bail.
+
+[turn:Alors c'est d'accord, je prépare mon dossier dès demain.]
+
+[calmly] Excellent, je vous envoie le contrat par courriel.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

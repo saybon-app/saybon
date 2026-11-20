@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You talk about the weather with a neighbour.
+
+[pause]
+
+[calmly] Quel temps fait-il aujourd'hui ?
+
+[short pause]
+
+[as:Roger] [calmly] Il fait beau et chaud.
+
+[short pause]
+
+[calmly] Et demain ?
+
+[short pause]
+
+[as:Roger] [calmly] Demain, il va pleuvoir.
+
+[short pause]
+
+[calmly] Vous aimez la pluie ?
+
+[short pause]
+
+[as:Roger] [calmly] Non, je préfère le soleil.
+
+[short pause]
+
+[calmly] Moi aussi. Il fait froid en hiver ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, il fait très froid en hiver.
+
+[short pause]
+
+[calmly] Alors, bon week-end !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

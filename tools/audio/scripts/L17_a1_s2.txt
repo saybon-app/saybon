@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Très bien. Tu es libre samedi ?
+
+[short pause]
+
+[warmly] It means, Very well. Are you free on Saturday?
+
+[short pause]
+
+[calmly] Très bien. Tu es libre samedi ?
+
+[repeat]
+
+[calmly] Très bien. Tu es libre samedi ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

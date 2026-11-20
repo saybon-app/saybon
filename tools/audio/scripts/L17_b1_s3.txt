@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Très bien, je reste en ligne.
+
+[short pause]
+
+[calmly] Très bien, je reste en ligne.
+
+[repeat]
+
+[calmly] Très bien, je reste en ligne.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

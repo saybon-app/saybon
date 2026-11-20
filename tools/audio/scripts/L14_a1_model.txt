@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. It is your first day at the office.
+
+[pause]
+
+[calmly] Bonjour, vous êtes le nouveau collègue ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je m'appelle Karim.
+
+[short pause]
+
+[calmly] Vous travaillez dans quel service ?
+
+[short pause]
+
+[as:Roger] [calmly] Je travaille au service client.
+
+[short pause]
+
+[calmly] Vous commencez à quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] Je commence à neuf heures.
+
+[short pause]
+
+[calmly] Voici votre bureau, à côté de la fenêtre.
+
+[short pause]
+
+[as:Roger] [calmly] Merci, c'est très bien !
+
+[short pause]
+
+[calmly] Bienvenue dans l'équipe !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

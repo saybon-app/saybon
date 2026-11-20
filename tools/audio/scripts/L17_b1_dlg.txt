@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Service client, bonjour. Comment puis-je vous aider ?
+
+[turn:Bonjour, ma connexion internet est coupée depuis ce matin.]
+
+[calmly] Avez-vous redémarré votre box ?
+
+[turn:Oui, deux fois, mais le voyant reste rouge.]
+
+[calmly] Je vais lancer un test sur votre ligne. Ne quittez pas.
+
+[turn:Très bien, je reste en ligne.]
+
+[calmly] Il y a une panne dans votre quartier.
+
+[turn:Savez-vous à quelle heure le service sera rétabli ?]
+
+[calmly] Merci de votre patience, le problème devrait être résolu aujourd'hui.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

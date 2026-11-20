@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Votre stratégie nous paraît audacieuse, voire imprudente.
+
+[turn:L'audace ne devient imprudence que lorsqu'elle ignore ses propres limites.]
+
+[calmly] Les chiffres ne plaident pas en votre faveur.
+
+[turn:Ils plaident surtout pour que l'on ne se contente pas de les lire au présent.]
+
+[calmly] Vous pariez donc sur un avenir incertain.
+
+[turn:Je parie sur un avenir que nous préparons, plutôt que sur un avenir que nous subissons.]
+
+[calmly] Admettons. Quelle serait votre marge de manœuvre ?
+
+[turn:Elle tient en une décision : agir tôt, quitte à corriger en chemin.]
+
+[calmly] Messieurs, je crois que nous avons matière à réfléchir.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

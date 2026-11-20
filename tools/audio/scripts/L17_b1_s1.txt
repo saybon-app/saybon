@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Bonjour, ma connexion internet est coupée depuis ce matin.
+
+[short pause]
+
+[calmly] Bonjour, ma connexion internet est coupée depuis ce matin.
+
+[repeat]
+
+[calmly] Bonjour, ma connexion internet est coupée depuis ce matin.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

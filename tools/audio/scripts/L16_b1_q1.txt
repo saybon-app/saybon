@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Quand l'avez-vous utilisée pour la dernière fois ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Hier soir, dans un restaurant du centre-ville.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Hier soir, dans un restaurant du centre-ville.
+
+[repeat]
+
+[calmly] Hier soir, dans un restaurant du centre-ville.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

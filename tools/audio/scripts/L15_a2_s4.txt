@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, apporte des sandwichs et de l'eau.
+
+[short pause]
+
+[warmly] It means, Yes, bring sandwiches and water.
+
+[short pause]
+
+[calmly] Oui, apporte des sandwichs et de l'eau.
+
+[repeat]
+
+[calmly] Oui, apporte des sandwichs et de l'eau.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

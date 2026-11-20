@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Cette mise en scène m'a paru d'une audace remarquable.
+
+[turn:Audacieuse, certes, mais elle sacrifie parfois la clarté du texte.]
+
+[calmly] À mon sens, elle en renouvelle au contraire la lecture.
+
+[turn:Je vous accorde que le décor dépouillé y contribue, il apporte une vraie tension.]
+
+[calmly] Et la performance des comédiens, qu'en pensez-vous ?
+
+[turn:Inégale : la distribution est brillante, mais deux rôles manquaient de souffle.]
+
+[calmly] Vous êtes sévère, tout de même.
+
+[turn:Exigeant plutôt, car la qualité de l'ensemble le justifiait.]
+
+[calmly] Nous reviendrons sur ce sujet à la sortie de la prochaine pièce.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

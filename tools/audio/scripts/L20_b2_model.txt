@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un livreur a abîmé votre colis et refuse toute responsabilité.
+
+[pause]
+
+[calmly] Pourquoi avez-vous refusé le colis ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce que l'emballage était déchiré et le contenu visiblement endommagé.
+
+[short pause]
+
+[calmly] Nous ne sommes pas responsables des dégâts constatés après la livraison.
+
+[short pause]
+
+[as:Roger] [calmly] Je l'ai refusé devant vous, donc le dommage est bien antérieur à la remise.
+
+[short pause]
+
+[calmly] Avez-vous des photos ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'en ai pris plusieurs, et je peux vous les transmettre immédiatement.
+
+[short pause]
+
+[calmly] Dans ce cas, nous ouvrirons une enquête.
+
+[short pause]
+
+[as:Roger] [calmly] Merci, mais je souhaiterais être tenu informé de l'avancement par écrit.
+
+[short pause]
+
+[calmly] Je transmets le dossier à mon responsable pour traitement.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

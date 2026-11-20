@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Nous pouvons la plafonner à deux pour cent par an.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je préférerais que ce plafond figure explicitement dans le contrat.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je préférerais que ce plafond figure explicitement dans le contrat.
+
+[repeat]
+
+[calmly] Je préférerais que ce plafond figure explicitement dans le contrat.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

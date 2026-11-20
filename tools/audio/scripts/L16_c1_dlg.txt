@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Que reprochez-vous exactement à ces frais ?
+
+[turn:Ils ont été prélevés sans que j'en sois informé au préalable.]
+
+[calmly] Ils figurent pourtant dans nos conditions générales.
+
+[turn:Encore faut-il qu'ils aient été portés à ma connaissance de manière claire.]
+
+[calmly] Que souhaitez-vous obtenir ?
+
+[turn:Le remboursement intégral de ces frais, ainsi qu'un engagement écrit.]
+
+[calmly] Un geste commercial est envisageable.
+
+[turn:Je me satisferais d'un remboursement, car il s'agit d'une question de principe.]
+
+[calmly] Je transmets votre réclamation et reviens vers vous sous huit jours.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

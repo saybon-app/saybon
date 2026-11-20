@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, j'en ai pris plusieurs, et je peux vous les transmettre immédiatement.
+
+[short pause]
+
+[calmly] Oui, j'en ai pris plusieurs, et je peux vous les transmettre immédiatement.
+
+[repeat]
+
+[calmly] Oui, j'en ai pris plusieurs, et je peux vous les transmettre immédiatement.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

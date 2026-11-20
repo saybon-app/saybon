@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous demandez un prêt à votre banquier.
+
+[pause]
+
+[calmly] Quel est l'objet de votre demande ?
+
+[short pause]
+
+[as:Roger] [calmly] Je souhaite financer l'achat d'un appartement.
+
+[short pause]
+
+[calmly] De quel apport disposez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai économisé environ vingt pour cent du prix total.
+
+[short pause]
+
+[calmly] Sur quelle durée envisagez-vous le remboursement ?
+
+[short pause]
+
+[as:Roger] [calmly] Vingt ans me semblent raisonnables, avec des mensualités stables.
+
+[short pause]
+
+[calmly] Avez-vous des revenus réguliers ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je suis en contrat à durée indéterminée depuis quatre ans.
+
+[short pause]
+
+[calmly] Nous étudions votre dossier et vous répondons sous quinze jours.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

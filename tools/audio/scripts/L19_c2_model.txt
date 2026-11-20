@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous analysez avec un cinéaste le dernier plan d'un film.
+
+[pause]
+
+[calmly] Que vous inspire ce dernier plan, si long et si silencieux ?
+
+[short pause]
+
+[as:Roger] [calmly] Il refuse la clôture : le silence y prolonge l'histoire plutôt qu'il ne la termine.
+
+[short pause]
+
+[calmly] Certains y voient une simple facilité de réalisation.
+
+[short pause]
+
+[as:Roger] [calmly] À mon sens, c'est précisément une exigence : laisser le spectateur seul avec ce qu'il a vu.
+
+[short pause]
+
+[calmly] Vous attribuez beaucoup d'intention à ce choix.
+
+[short pause]
+
+[as:Roger] [calmly] On n'attribue rien : on constate qu'un cinéaste ne coupe pas par hasard.
+
+[short pause]
+
+[calmly] Et le spectateur, que lui reste-t-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Le soin d'achever le film, ce qui est peut-être la plus belle des libertés.
+
+[short pause]
+
+[calmly] Voilà un plan que je ne regarderai plus de la même manière.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

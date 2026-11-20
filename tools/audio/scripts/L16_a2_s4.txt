@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, et je voudrais aussi l'application sur mon téléphone.
+
+[short pause]
+
+[warmly] It means, Yes, and I would also like the app on my phone.
+
+[short pause]
+
+[calmly] Oui, et je voudrais aussi l'application sur mon téléphone.
+
+[repeat]
+
+[calmly] Oui, et je voudrais aussi l'application sur mon téléphone.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

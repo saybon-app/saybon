@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Dans ce cas, nous ouvrirons une enquête.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Merci, mais je souhaiterais être tenu informé de l'avancement par écrit.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Merci, mais je souhaiterais être tenu informé de l'avancement par écrit.
+
+[repeat]
+
+[calmly] Merci, mais je souhaiterais être tenu informé de l'avancement par écrit.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

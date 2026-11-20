@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You return a product that doesn't work.
+
+[pause]
+
+[calmly] Qu'est-ce qui ne va pas avec ce produit ?
+
+[short pause]
+
+[as:Roger] [calmly] Il ne marche pas. Je l'ai acheté hier.
+
+[short pause]
+
+[calmly] Vous avez gardé la facture ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je l'ai dans mon sac.
+
+[short pause]
+
+[calmly] Vous préférez un échange ou un remboursement ?
+
+[short pause]
+
+[as:Roger] [calmly] Je préfère un remboursement, s'il vous plaît.
+
+[short pause]
+
+[calmly] Pas de problème. Je vous rembourse sur votre carte.
+
+[short pause]
+
+[as:Roger] [calmly] Merci beaucoup, vous êtes très gentil.
+
+[short pause]
+
+[calmly] Très bien, je m'en occupe tout de suite.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

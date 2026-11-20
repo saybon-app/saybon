@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous demandez une augmentation à votre responsable.
+
+[pause]
+
+[calmly] Vous vouliez me voir ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'aimerais discuter de l'évolution de ma rémunération.
+
+[short pause]
+
+[calmly] Sur quoi vous appuyez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Sur les objectifs que j'ai dépassés depuis un an.
+
+[short pause]
+
+[calmly] Le budget est serré cette année.
+
+[short pause]
+
+[as:Roger] [calmly] Je le comprends, mais mes responsabilités ont nettement augmenté.
+
+[short pause]
+
+[calmly] Que proposez-vous concrètement ?
+
+[short pause]
+
+[as:Roger] [calmly] Une revalorisation de dix pour cent, ou à défaut, des jours de congé supplémentaires.
+
+[short pause]
+
+[calmly] Je vous donne une réponse d'ici la fin du mois.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

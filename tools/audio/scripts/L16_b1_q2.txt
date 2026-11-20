@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Voulez-vous une carte de remplacement ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[repeat]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

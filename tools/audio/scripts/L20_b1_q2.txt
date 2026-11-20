@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pouvez-vous m'envoyer votre billet par courriel ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Bien sûr, je vous l'envoie dans la minute qui suit.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Bien sûr, je vous l'envoie dans la minute qui suit.
+
+[repeat]
+
+[calmly] Bien sûr, je vous l'envoie dans la minute qui suit.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

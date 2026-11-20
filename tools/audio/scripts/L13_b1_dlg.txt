@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Allô, bonjour. Que se passe-t-il ?
+
+[turn:Bonjour, le chauffage ne marche plus depuis hier soir.]
+
+[calmly] Avez-vous essayé de le redémarrer ?
+
+[turn:Oui, plusieurs fois, mais rien n'a changé.]
+
+[calmly] Je vais envoyer un technicien. Vous serez là demain ?
+
+[turn:Je suis disponible demain matin, avant midi, si possible.]
+
+[calmly] Entendu. Il passera entre neuf et onze heures.
+
+[turn:Parfait. Pourriez-vous me confirmer par message ?]
+
+[calmly] Bien sûr, je vous écris dans quelques minutes.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

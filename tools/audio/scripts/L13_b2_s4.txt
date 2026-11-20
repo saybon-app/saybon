@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[short pause]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[repeat]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

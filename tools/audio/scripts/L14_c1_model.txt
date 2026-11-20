@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous présentez un projet à un client exigeant.
+
+[pause]
+
+[calmly] Quelle est la valeur ajoutée de votre proposition ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle réduit vos délais de moitié, sans compromettre la qualité.
+
+[short pause]
+
+[calmly] Cela suppose un investissement initial important.
+
+[short pause]
+
+[as:Roger] [calmly] Certes, mais il sera amorti en moins de dix-huit mois.
+
+[short pause]
+
+[calmly] Quels sont les principaux risques ?
+
+[short pause]
+
+[as:Roger] [calmly] Le principal risque serait un retard de livraison, que nous avons anticipé.
+
+[short pause]
+
+[calmly] Comment comptez-vous le maîtriser ?
+
+[short pause]
+
+[as:Roger] [calmly] En fixant des jalons hebdomadaires, avec un point de contrôle partagé.
+
+[short pause]
+
+[calmly] Je vous remercie, nous reviendrons vers vous rapidement.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Ce montant dépasse un peu mon budget, serait-il négociable ?
+
+[short pause]
+
+[calmly] Ce montant dépasse un peu mon budget, serait-il négociable ?
+
+[repeat]
+
+[calmly] Ce montant dépasse un peu mon budget, serait-il négociable ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

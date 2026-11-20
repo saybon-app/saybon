@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Avez-vous essayé de le redémarrer ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Oui, plusieurs fois, mais rien n'a changé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Oui, plusieurs fois, mais rien n'a changé.
+
+[repeat]
+
+[calmly] Oui, plusieurs fois, mais rien n'a changé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

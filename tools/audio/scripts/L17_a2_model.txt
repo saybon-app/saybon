@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You call a company and the person you need is away.
+
+[pause]
+
+[calmly] Société Bernard, bonjour.
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour, je voudrais parler à Madame Leroy, s'il vous plaît.
+
+[short pause]
+
+[calmly] Elle n'est pas là aujourd'hui. Vous voulez laisser un message ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, pouvez-vous lui dire que j'ai appelé ?
+
+[short pause]
+
+[calmly] Bien sûr. Quel est votre nom ?
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Paul Dupont, D-U-P-O-N-T.
+
+[short pause]
+
+[calmly] Et votre numéro de téléphone ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est le zéro six, douze, trente-quatre, cinquante-six, soixante-dix-huit.
+
+[short pause]
+
+[calmly] Je transmets votre message dès son retour.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

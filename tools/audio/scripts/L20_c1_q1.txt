@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pouvez-vous préciser la nature de ce manquement ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Le service promis n'a pas été rendu dans les délais convenus, malgré mes relances.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Le service promis n'a pas été rendu dans les délais convenus, malgré mes relances.
+
+[repeat]
+
+[calmly] Le service promis n'a pas été rendu dans les délais convenus, malgré mes relances.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

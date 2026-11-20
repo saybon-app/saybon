@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Voilà une attitude peu commune chez nos clients.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Elle l'est peut-être, mais elle évite bien des regrets.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Elle l'est peut-être, mais elle évite bien des regrets.
+
+[repeat]
+
+[calmly] Elle l'est peut-être, mais elle évite bien des regrets.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

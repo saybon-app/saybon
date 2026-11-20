@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Qu'est-ce qu'on fait samedi ?
+
+[turn:On peut aller au parc, s'il fait beau.]
+
+[calmly] Et s'il pleut ?
+
+[turn:S'il pleut, on ira au musée.]
+
+[calmly] On se retrouve à quelle heure ?
+
+[turn:À onze heures devant la gare, d'accord ?]
+
+[calmly] D'accord. Je dois apporter quelque chose ?
+
+[turn:Oui, apporte des sandwichs et de l'eau.]
+
+[calmly] Génial, je prépare le pique-nique !
+
+[warmly] Très bien. That's the lesson. Well done.

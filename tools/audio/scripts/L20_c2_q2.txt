@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que me proposez-vous, concrètement ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] De dire chacun, sans interruption, ce qui vous a le plus blessé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] De dire chacun, sans interruption, ce qui vous a le plus blessé.
+
+[repeat]
+
+[calmly] De dire chacun, sans interruption, ce qui vous a le plus blessé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

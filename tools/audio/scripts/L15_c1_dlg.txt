@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Je rêve d'une semaine de repos au bord de la mer.
+
+[turn:Je comprends, mais j'aurais tant aimé découvrir une ville.]
+
+[calmly] Nous ne pourrons pas tout concilier, hélas.
+
+[turn:Pas forcément : nous pourrions partager le séjour en deux étapes.]
+
+[calmly] Trois jours de plage, puis quatre de visites ?
+
+[turn:Exactement, ainsi chacun y trouverait son compte.]
+
+[calmly] Reste à choisir un lieu qui permette les deux.
+
+[turn:La côte basque offre à la fois des plages et de belles villes.]
+
+[calmly] Voilà une solution qui nous réconcilie tous.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

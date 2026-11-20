@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, j'aimerais discuter de l'évolution de ma rémunération.
+
+[short pause]
+
+[calmly] Oui, j'aimerais discuter de l'évolution de ma rémunération.
+
+[repeat]
+
+[calmly] Oui, j'aimerais discuter de l'évolution de ma rémunération.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

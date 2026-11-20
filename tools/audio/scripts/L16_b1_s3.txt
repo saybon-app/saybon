@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Non, mais je vais vérifier mes comptes dès maintenant.
+
+[short pause]
+
+[calmly] Non, mais je vais vérifier mes comptes dès maintenant.
+
+[repeat]
+
+[calmly] Non, mais je vais vérifier mes comptes dès maintenant.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

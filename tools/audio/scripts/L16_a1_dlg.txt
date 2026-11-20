@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour, vous désirez ?
+
+[turn:Je voudrais envoyer ce colis.]
+
+[calmly] Il va où ?
+
+[turn:Il va à Paris.]
+
+[calmly] Normal ou rapide ?
+
+[turn:Rapide, s'il vous plaît.]
+
+[calmly] Ça fait douze euros.
+
+[turn:Voilà. Merci beaucoup !]
+
+[calmly] Voilà votre reçu. Bonne journée !
+
+[warmly] Très bien. That's the lesson. Well done.

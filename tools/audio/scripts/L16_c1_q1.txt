@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Ils figurent pourtant dans nos conditions générales.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Encore faut-il qu'ils aient été portés à ma connaissance de manière claire.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Encore faut-il qu'ils aient été portés à ma connaissance de manière claire.
+
+[repeat]
+
+[calmly] Encore faut-il qu'ils aient été portés à ma connaissance de manière claire.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

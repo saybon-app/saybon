@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Alors, quelle issue entrevoyez-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Une fréquentation mesurée, pensée avec ceux qui habitent les lieux, non à leur place.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Une fréquentation mesurée, pensée avec ceux qui habitent les lieux, non à leur place.
+
+[repeat]
+
+[calmly] Une fréquentation mesurée, pensée avec ceux qui habitent les lieux, non à leur place.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Ce placement offre un rendement très attractif.
+
+[turn:Un rendement attractif m'inspire d'abord la méfiance plutôt que l'enthousiasme.]
+
+[calmly] Il est pourtant parfaitement encadré.
+
+[turn:Encadré, soit, mais encore faut-il en mesurer les risques résiduels.]
+
+[calmly] Vous seriez donc enclin à y renoncer ?
+
+[turn:Je serais enclin à comprendre avant de décider, et non l'inverse.]
+
+[calmly] Voilà une attitude peu commune chez nos clients.
+
+[turn:Elle l'est peut-être, mais elle évite bien des regrets.]
+
+[calmly] Je vous laisse réfléchir ; la prudence est souvent la meilleure des rentes.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

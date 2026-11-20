@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous débattez de la rénovation d'un quartier ancien avec un urbaniste.
+
+[pause]
+
+[calmly] Ce quartier mérite d'être entièrement repensé, ne croyez-vous pas ?
+
+[short pause]
+
+[as:Roger] [calmly] Entièrement, je n'en suis pas certain ; repenser n'est pas raser.
+
+[short pause]
+
+[calmly] Pourtant, ces bâtiments sont vétustes et peu rentables.
+
+[short pause]
+
+[as:Roger] [calmly] Leur rentabilité n'est qu'un critère parmi d'autres, et rarement le plus noble.
+
+[short pause]
+
+[calmly] Vous plaidez donc pour une préservation à tout prix ?
+
+[short pause]
+
+[as:Roger] [calmly] Pas à tout prix, mais pour une transformation qui respecte la mémoire des lieux.
+
+[short pause]
+
+[calmly] Voilà qui est séduisant, mais coûteux.
+
+[short pause]
+
+[as:Roger] [calmly] Le coût d'oublier d'où l'on vient me paraît autrement plus lourd.
+
+[short pause]
+
+[calmly] Voilà un argument que je n'oublierai pas.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

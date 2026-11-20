@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous m'inquiétez. De quoi s'agit-il ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Nous ne serons pas en mesure de renouveler notre collaboration l'an prochain.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Nous ne serons pas en mesure de renouveler notre collaboration l'an prochain.
+
+[repeat]
+
+[calmly] Nous ne serons pas en mesure de renouveler notre collaboration l'an prochain.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

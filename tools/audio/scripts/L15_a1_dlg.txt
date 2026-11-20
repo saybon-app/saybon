@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Quel temps fait-il aujourd'hui ?
+
+[turn:Il fait beau et chaud.]
+
+[calmly] Et demain ?
+
+[turn:Demain, il va pleuvoir.]
+
+[calmly] Vous aimez la pluie ?
+
+[turn:Non, je préfère le soleil.]
+
+[calmly] Moi aussi. Il fait froid en hiver ?
+
+[turn:Oui, il fait très froid en hiver.]
+
+[calmly] Alors, bon week-end !
+
+[warmly] Très bien. That's the lesson. Well done.

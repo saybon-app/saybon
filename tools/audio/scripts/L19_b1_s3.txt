@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, les phrases sont courtes et l'histoire avance vite.
+
+[short pause]
+
+[calmly] Oui, les phrases sont courtes et l'histoire avance vite.
+
+[repeat]
+
+[calmly] Oui, les phrases sont courtes et l'histoire avance vite.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

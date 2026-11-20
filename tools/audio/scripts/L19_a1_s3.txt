@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Tarif réduit, je suis étudiant.
+
+[short pause]
+
+[warmly] It means, Reduced price, I am a student.
+
+[short pause]
+
+[calmly] Tarif réduit, je suis étudiant.
+
+[repeat]
+
+[calmly] Tarif réduit, je suis étudiant.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

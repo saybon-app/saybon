@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Tout est prêt pour samedi ?
+
+[turn:Justement, je dois te dire que je ne pourrai pas venir.]
+
+[calmly] Ah bon ? Que s'est-il passé ?
+
+[turn:Mon fils est malade et je préfère rester auprès de lui.]
+
+[calmly] Je comprends. On pourrait décaler d'une semaine ?
+
+[turn:Ce serait idéal, si les autres sont d'accord.]
+
+[calmly] Je les préviens. Tu veux qu'on change le lieu ?
+
+[turn:Non, gardons-le, mais je te redis dès que possible si c'est confirmé.]
+
+[calmly] Pas de souci, on trouvera une autre date.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

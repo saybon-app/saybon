@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un imprévu vous oblige à reporter une sortie.
+
+[pause]
+
+[calmly] Tout est prêt pour samedi ?
+
+[short pause]
+
+[as:Roger] [calmly] Justement, je dois te dire que je ne pourrai pas venir.
+
+[short pause]
+
+[calmly] Ah bon ? Que s'est-il passé ?
+
+[short pause]
+
+[as:Roger] [calmly] Mon fils est malade et je préfère rester auprès de lui.
+
+[short pause]
+
+[calmly] Je comprends. On pourrait décaler d'une semaine ?
+
+[short pause]
+
+[as:Roger] [calmly] Ce serait idéal, si les autres sont d'accord.
+
+[short pause]
+
+[calmly] Je les préviens. Tu veux qu'on change le lieu ?
+
+[short pause]
+
+[as:Roger] [calmly] Non, gardons-le, mais je te redis dès que possible si c'est confirmé.
+
+[short pause]
+
+[calmly] Pas de souci, on trouvera une autre date.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You arrive at a hotel reception, after a long journey.
+
+[pause]
+
+[calmly] Bonjour. Vous avez une réservation ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, au nom de Martin.
+
+[short pause]
+
+[calmly] Pour combien de nuits ?
+
+[short pause]
+
+[as:Roger] [calmly] Pour trois nuits, s'il vous plaît.
+
+[short pause]
+
+[calmly] Vous voulez le petit-déjeuner ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, à quelle heure ?
+
+[short pause]
+
+[calmly] À sept heures, dans la salle à manger.
+
+[short pause]
+
+[as:Roger] [calmly] Merci. Quel est le numéro de ma chambre ?
+
+[short pause]
+
+[calmly] Voici votre clé. Bon séjour !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

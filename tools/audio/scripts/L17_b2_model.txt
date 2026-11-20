@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Un malentendu au téléphone complique un rendez-vous.
+
+[pause]
+
+[calmly] Je croyais que notre rendez-vous était mardi.
+
+[short pause]
+
+[as:Roger] [calmly] Je crois qu'il y a une confusion, nous avions convenu de jeudi.
+
+[short pause]
+
+[calmly] Ah bon ? J'ai pourtant noté mardi dans mon agenda.
+
+[short pause]
+
+[as:Roger] [calmly] Peut-être ai-je mal expliqué, je vous ai écrit « jeudi » par courriel.
+
+[short pause]
+
+[calmly] Je vérifie. Oui, vous avez raison, toutes mes excuses.
+
+[short pause]
+
+[as:Roger] [calmly] Ce n'est pas grave, mais pouvons-nous confirmer la date par écrit ?
+
+[short pause]
+
+[calmly] Bien sûr. Jeudi à quinze heures, cela vous convient ?
+
+[short pause]
+
+[as:Roger] [calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[short pause]
+
+[calmly] Parfait, tout est clair maintenant.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

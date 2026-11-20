@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et le spectateur, que lui reste-t-il ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Le soin d'achever le film, ce qui est peut-être la plus belle des libertés.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Le soin d'achever le film, ce qui est peut-être la plus belle des libertés.
+
+[repeat]
+
+[calmly] Le soin d'achever le film, ce qui est peut-être la plus belle des libertés.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

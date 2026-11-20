@@ -864,6 +864,44 @@ res.status(500).json({error:"donation checkout creation failed"})
 // SUBMIT FEEDBACK
 // ------------------------------------------------
 
+
+// ---- Tester feedback (public submit, admin read) ----
+var _tfHits={};
+app.post("/api/testerFeedbackSubmit", async(req,res)=>{
+  try{
+    var ip=String(req.headers["x-forwarded-for"]||req.ip||"").split(",")[0].trim();
+    var now=Date.now();var h=(_tfHits[ip]||[]).filter(function(t){return now-t<3600000});
+    if(h.length>=8) return res.status(429).json({error:"too many submissions"});
+    h.push(now);_tfHits[ip]=h;
+    var a=(req.body&&req.body.answers)||{};var clean={};
+    Object.keys(a).slice(0,60).forEach(function(k){
+      if(!/^[a-z_]{1,20}$/.test(k)) return;var v=a[k];
+      if(Array.isArray(v)) clean[k]=v.slice(0,15).map(function(x){return String(x).slice(0,80)});
+      else if(typeof v==="number") clean[k]=Math.max(0,Math.min(5,v));
+      else clean[k]=String(v==null?"":v).slice(0,2000);
+    });
+    if(!Object.keys(clean).length) return res.status(400).json({error:"empty"});
+    var ref=db.collection("testerFeedback").doc();
+    await ref.set({answers:clean,ua:String((req.body&&req.body.ua)||"").slice(0,200),reviewed:false,created:new Date().toISOString()});
+    res.json({success:true,id:ref.id});
+  }catch(err){console.error(err);res.status(500).json({error:"could not save"})}
+});
+app.get("/api/adminTesterFeedback", requireAdminAuth, async(req,res)=>{
+  try{var snap=await db.collection("testerFeedback").orderBy("created","desc").limit(500).get();
+    var items=[];snap.forEach(function(d){var x=d.data();items.push({id:d.id,answers:x.answers||{},reviewed:!!x.reviewed,created:(x.created||"").slice(0,16).replace("T"," ")})});
+    res.json({items:items});
+  }catch(err){console.error(err);res.status(500).json({error:"could not load"})}
+});
+app.post("/api/adminTesterFeedbackUpdate", requireAdminAuth, async(req,res)=>{
+  try{await db.collection("testerFeedback").doc(String(req.body.id)).update({reviewed:!!req.body.reviewed});res.json({success:true})}
+  catch(err){console.error(err);res.status(500).json({error:"failed"})}
+});
+app.post("/api/adminTesterFeedbackDelete", requireAdminAuth, async(req,res)=>{
+  try{await db.collection("testerFeedback").doc(String(req.body.id)).delete();res.json({success:true})}
+  catch(err){console.error(err);res.status(500).json({error:"failed"})}
+});
+// ---- end tester feedback ----
+
 app.post("/api/submitFeedback", rateLimit("fb",10,3600000), async(req,res)=>{
 
 try{

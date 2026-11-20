@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pourquoi voulez-vous rejoindre notre entreprise ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Parce que vos valeurs correspondent à ce que je recherche.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Parce que vos valeurs correspondent à ce que je recherche.
+
+[repeat]
+
+[calmly] Parce que vos valeurs correspondent à ce que je recherche.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

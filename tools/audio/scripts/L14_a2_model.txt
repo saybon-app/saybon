@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You talk about your schedule with a colleague.
+
+[pause]
+
+[calmly] Tu as une réunion aujourd'hui ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'ai une réunion à quatorze heures.
+
+[short pause]
+
+[calmly] Elle dure combien de temps ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle va durer une heure, je pense.
+
+[short pause]
+
+[calmly] Tu finis à quelle heure, ce soir ?
+
+[short pause]
+
+[as:Roger] [calmly] Je finis à dix-huit heures, comme d'habitude.
+
+[short pause]
+
+[calmly] On prend un café demain matin ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, avec plaisir ! Je suis libre vers dix heures.
+
+[short pause]
+
+[calmly] Super, à demain alors !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

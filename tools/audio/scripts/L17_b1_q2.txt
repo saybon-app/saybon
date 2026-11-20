@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Il y a une panne dans votre quartier.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[repeat]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

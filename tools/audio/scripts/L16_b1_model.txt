@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous avez perdu votre carte bancaire.
+
+[pause]
+
+[calmly] Service clientèle, bonjour. Je vous écoute.
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour, je viens de m'apercevoir que j'ai perdu ma carte.
+
+[short pause]
+
+[calmly] Quand l'avez-vous utilisée pour la dernière fois ?
+
+[short pause]
+
+[as:Roger] [calmly] Hier soir, dans un restaurant du centre-ville.
+
+[short pause]
+
+[calmly] Je bloque la carte immédiatement. Avez-vous remarqué des paiements suspects ?
+
+[short pause]
+
+[as:Roger] [calmly] Non, mais je vais vérifier mes comptes dès maintenant.
+
+[short pause]
+
+[calmly] Voulez-vous une carte de remplacement ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[short pause]
+
+[calmly] C'est fait, une nouvelle carte vous sera envoyée.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

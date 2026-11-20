@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Les charges ne bougeront pas pendant la durée du bail.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[repeat]
+
+[calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

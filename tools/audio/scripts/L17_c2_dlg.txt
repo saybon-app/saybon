@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] J'espère que vous m'appelez pour de bonnes nouvelles.
+
+[turn:Je voudrais qu'il en soit ainsi, mais je dois vous faire part d'une décision difficile.]
+
+[calmly] Vous m'inquiétez. De quoi s'agit-il ?
+
+[turn:Nous ne serons pas en mesure de renouveler notre collaboration l'an prochain.]
+
+[calmly] Après tant d'années, je m'y attendais si peu.
+
+[turn:Je mesure combien cette nouvelle vous surprend, et je tenais à vous l'annoncer moi-même.]
+
+[calmly] J'apprécie la franchise, même si elle coûte.
+
+[turn:Elle me paraissait la moindre des politesses que l'on se doit entre partenaires.]
+
+[calmly] Je vous remercie de m'avoir écouté jusqu'au bout.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

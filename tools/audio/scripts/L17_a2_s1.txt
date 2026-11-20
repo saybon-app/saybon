@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Bonjour, je voudrais parler à Madame Leroy, s'il vous plaît.
+
+[short pause]
+
+[warmly] It means, Hello, I would like to speak to Mrs Leroy, please.
+
+[short pause]
+
+[calmly] Bonjour, je voudrais parler à Madame Leroy, s'il vous plaît.
+
+[repeat]
+
+[calmly] Bonjour, je voudrais parler à Madame Leroy, s'il vous plaît.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Trois mois est la norme, mais nous pouvons envisager deux mois.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Dans ce cas, je suis prêt à signer dès que l'avenant sera rédigé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Dans ce cas, je suis prêt à signer dès que l'avenant sera rédigé.
+
+[repeat]
+
+[calmly] Dans ce cas, je suis prêt à signer dès que l'avenant sera rédigé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

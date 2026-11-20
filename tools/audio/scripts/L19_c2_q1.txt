@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Certains y voient une simple facilité de réalisation.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] À mon sens, c'est précisément une exigence : laisser le spectateur seul avec ce qu'il a vu.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] À mon sens, c'est précisément une exigence : laisser le spectateur seul avec ce qu'il a vu.
+
+[repeat]
+
+[calmly] À mon sens, c'est précisément une exigence : laisser le spectateur seul avec ce qu'il a vu.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

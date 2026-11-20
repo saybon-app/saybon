@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Il refuse obstinément de reconnaître ses torts !
+
+[turn:Peut-être est-ce moins une obstination qu'une manière de se protéger.]
+
+[calmly] Vous le défendez, à présent ?
+
+[turn:Je cherche surtout à comprendre ce qui rend la reconnaissance si coûteuse.]
+
+[calmly] Et moi, alors ? Qui comprend mes griefs ?
+
+[turn:Vos griefs sont entendus, et c'est précisément pour cela que nous sommes réunis.]
+
+[calmly] Que me proposez-vous, concrètement ?
+
+[turn:De dire chacun, sans interruption, ce qui vous a le plus blessé.]
+
+[calmly] Je crois que nous venons de faire un pas, et ce n'est pas rien.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vos tarifs ont augmenté de huit pour cent, c'est inacceptable.
+
+[turn:Je comprends votre réaction, mais cette hausse reflète celle de nos coûts de production.]
+
+[calmly] Vous devez bien avoir une marge de manœuvre.
+
+[turn:Nous pouvons envisager une remise, en échange d'un engagement sur douze mois.]
+
+[calmly] Douze mois, c'est long. Pourquoi pas six ?
+
+[turn:Six mois ne nous permettraient pas de garantir ce prix, mais neuf serait envisageable.]
+
+[calmly] Neuf mois avec cinq pour cent de remise, et nous signons.
+
+[turn:Je dois consulter ma direction, mais je pense pouvoir vous répondre dans l'heure.]
+
+[calmly] Nous avons un accord de principe, je vous envoie la proposition écrite.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

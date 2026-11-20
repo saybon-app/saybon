@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Comment comptez-vous le maîtriser ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] En fixant des jalons hebdomadaires, avec un point de contrôle partagé.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] En fixant des jalons hebdomadaires, avec un point de contrôle partagé.
+
+[repeat]
+
+[calmly] En fixant des jalons hebdomadaires, avec un point de contrôle partagé.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

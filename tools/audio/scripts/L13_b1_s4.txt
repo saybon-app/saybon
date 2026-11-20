@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[short pause]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[repeat]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

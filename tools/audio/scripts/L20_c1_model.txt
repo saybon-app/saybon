@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous formulez à voix haute une réclamation formelle.
+
+[pause]
+
+[calmly] Quel est le motif de votre courrier ?
+
+[short pause]
+
+[as:Roger] [calmly] Je me permets de vous écrire au sujet d'un manquement à vos engagements contractuels.
+
+[short pause]
+
+[calmly] Pouvez-vous préciser la nature de ce manquement ?
+
+[short pause]
+
+[as:Roger] [calmly] Le service promis n'a pas été rendu dans les délais convenus, malgré mes relances.
+
+[short pause]
+
+[calmly] Quelle suite souhaitez-vous donner à cette affaire ?
+
+[short pause]
+
+[as:Roger] [calmly] J'attends une réponse circonstanciée sous quinze jours, faute de quoi je saisirai le médiateur.
+
+[short pause]
+
+[calmly] Votre démarche est parfaitement claire.
+
+[short pause]
+
+[as:Roger] [calmly] J'espère qu'elle permettra de régler ce différend à l'amiable.
+
+[short pause]
+
+[calmly] Je vous prie d'agréer, Madame, mes salutations distinguées.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

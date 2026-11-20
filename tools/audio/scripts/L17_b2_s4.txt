@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[short pause]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[repeat]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

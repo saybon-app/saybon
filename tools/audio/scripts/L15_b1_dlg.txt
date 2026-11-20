@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, on part où ce week-end ?
+
+[turn:Je pensais aux Vosges, la météo y sera plus clémente.]
+
+[calmly] Combien de kilomètres veux-tu marcher ?
+
+[turn:Une quinzaine par jour, ce serait raisonnable pour tout le monde.]
+
+[calmly] Et pour dormir ?
+
+[turn:On pourrait réserver un gîte, c'est plus confortable qu'une tente.]
+
+[calmly] Et si le temps se gâte ?
+
+[turn:On changerait de programme et on visiterait un village en voiture.]
+
+[calmly] Parfait, je réserve le gîte dès ce soir.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

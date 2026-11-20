@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pourquoi avez-vous refusé le colis ?
+
+[turn:Parce que l'emballage était déchiré et le contenu visiblement endommagé.]
+
+[calmly] Nous ne sommes pas responsables des dégâts constatés après la livraison.
+
+[turn:Je l'ai refusé devant vous, donc le dommage est bien antérieur à la remise.]
+
+[calmly] Avez-vous des photos ?
+
+[turn:Oui, j'en ai pris plusieurs, et je peux vous les transmettre immédiatement.]
+
+[calmly] Dans ce cas, nous ouvrirons une enquête.
+
+[turn:Merci, mais je souhaiterais être tenu informé de l'avancement par écrit.]
+
+[calmly] Je transmets le dossier à mon responsable pour traitement.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

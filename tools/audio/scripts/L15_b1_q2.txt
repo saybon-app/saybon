@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et si le temps se gâte ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] On changerait de programme et on visiterait un village en voiture.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] On changerait de programme et on visiterait un village en voiture.
+
+[repeat]
+
+[calmly] On changerait de programme et on visiterait un village en voiture.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[short pause]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[repeat]
+
+[calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

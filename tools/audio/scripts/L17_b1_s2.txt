@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, deux fois, mais le voyant reste rouge.
+
+[short pause]
+
+[calmly] Oui, deux fois, mais le voyant reste rouge.
+
+[repeat]
+
+[calmly] Oui, deux fois, mais le voyant reste rouge.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Nous ne pourrons pas tout concilier, hélas.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Pas forcément : nous pourrions partager le séjour en deux étapes.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Pas forcément : nous pourrions partager le séjour en deux étapes.
+
+[repeat]
+
+[calmly] Pas forcément : nous pourrions partager le séjour en deux étapes.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

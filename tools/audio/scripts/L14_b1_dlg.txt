@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Parlez-moi de votre parcours.
+
+[turn:J'ai travaillé cinq ans dans la communication, puis j'ai changé de secteur.]
+
+[calmly] Pourquoi voulez-vous rejoindre notre entreprise ?
+
+[turn:Parce que vos valeurs correspondent à ce que je recherche.]
+
+[calmly] Quel est votre principal point fort ?
+
+[turn:Je sais m'adapter vite et travailler en équipe.]
+
+[calmly] Et vos prétentions salariales ?
+
+[turn:Je souhaiterais en discuter selon les responsabilités du poste.]
+
+[calmly] Merci, nous vous répondrons d'ici une semaine.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

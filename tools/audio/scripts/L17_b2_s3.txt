@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Ce n'est pas grave, mais pouvons-nous confirmer la date par écrit ?
+
+[short pause]
+
+[calmly] Ce n'est pas grave, mais pouvons-nous confirmer la date par écrit ?
+
+[repeat]
+
+[calmly] Ce n'est pas grave, mais pouvons-nous confirmer la date par écrit ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

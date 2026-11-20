@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous êtes sévère, tout de même.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Exigeant plutôt, car la qualité de l'ensemble le justifiait.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Exigeant plutôt, car la qualité de l'ensemble le justifiait.
+
+[repeat]
+
+[calmly] Exigeant plutôt, car la qualité de l'ensemble le justifiait.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

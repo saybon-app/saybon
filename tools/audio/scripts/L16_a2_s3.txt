@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] J'ai une facture d'électricité, ça va ?
+
+[short pause]
+
+[warmly] It means, I have an electricity bill, is that okay?
+
+[short pause]
+
+[calmly] J'ai une facture d'électricité, ça va ?
+
+[repeat]
+
+[calmly] J'ai une facture d'électricité, ça va ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

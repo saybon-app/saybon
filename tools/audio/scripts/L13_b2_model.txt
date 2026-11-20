@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous négociez le loyer avec une agence immobilière.
+
+[pause]
+
+[calmly] Le loyer est fixé à mille deux cents euros.
+
+[short pause]
+
+[as:Roger] [calmly] Ce montant dépasse un peu mon budget, serait-il négociable ?
+
+[short pause]
+
+[calmly] Nous pourrions descendre à mille cent cinquante.
+
+[short pause]
+
+[as:Roger] [calmly] Si je m'engage pour deux ans, pourriez-vous faire un geste supplémentaire ?
+
+[short pause]
+
+[calmly] Pour deux ans, je peux offrir un mois de loyer réduit.
+
+[short pause]
+
+[as:Roger] [calmly] Cela me conviendrait, à condition que les charges restent inchangées.
+
+[short pause]
+
+[calmly] Les charges ne bougeront pas pendant la durée du bail.
+
+[short pause]
+
+[as:Roger] [calmly] Alors c'est d'accord, je prépare mon dossier dès demain.
+
+[short pause]
+
+[calmly] Excellent, je vous envoie le contrat par courriel.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

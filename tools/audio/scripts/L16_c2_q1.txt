@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Il est pourtant parfaitement encadré.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Encadré, soit, mais encore faut-il en mesurer les risques résiduels.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Encadré, soit, mais encore faut-il en mesurer les risques résiduels.
+
+[repeat]
+
+[calmly] Encadré, soit, mais encore faut-il en mesurer les risques résiduels.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] De quel apport disposez-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] J'ai économisé environ vingt pour cent du prix total.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] J'ai économisé environ vingt pour cent du prix total.
+
+[repeat]
+
+[calmly] J'ai économisé environ vingt pour cent du prix total.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

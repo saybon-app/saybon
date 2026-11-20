@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Voilà l'appartement. Il vous plaît ?
+
+[turn:Oui, il est très lumineux.]
+
+[calmly] Il y a deux chambres et un balcon.
+
+[turn:Et combien coûte le loyer ?]
+
+[calmly] Neuf cents euros par mois, charges comprises.
+
+[turn:C'est un peu cher. Il y a un ascenseur ?]
+
+[calmly] Oui, et le métro est à cinq minutes.
+
+[turn:Je voudrais le visiter encore une fois demain.]
+
+[calmly] Bien sûr. Je vous attends demain à dix heures.
+
+[warmly] Très bien. That's the lesson. Well done.

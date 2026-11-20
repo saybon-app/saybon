@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous défendez une stratégie devant un comité de direction sceptique.
+
+[pause]
+
+[calmly] Votre stratégie nous paraît audacieuse, voire imprudente.
+
+[short pause]
+
+[as:Roger] [calmly] L'audace ne devient imprudence que lorsqu'elle ignore ses propres limites.
+
+[short pause]
+
+[calmly] Les chiffres ne plaident pas en votre faveur.
+
+[short pause]
+
+[as:Roger] [calmly] Ils plaident surtout pour que l'on ne se contente pas de les lire au présent.
+
+[short pause]
+
+[calmly] Vous pariez donc sur un avenir incertain.
+
+[short pause]
+
+[as:Roger] [calmly] Je parie sur un avenir que nous préparons, plutôt que sur un avenir que nous subissons.
+
+[short pause]
+
+[calmly] Admettons. Quelle serait votre marge de manœuvre ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle tient en une décision : agir tôt, quitte à corriger en chemin.
+
+[short pause]
+
+[calmly] Messieurs, je crois que nous avons matière à réfléchir.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

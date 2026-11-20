@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous contestez des frais bancaires injustifiés.
+
+[pause]
+
+[calmly] Que reprochez-vous exactement à ces frais ?
+
+[short pause]
+
+[as:Roger] [calmly] Ils ont été prélevés sans que j'en sois informé au préalable.
+
+[short pause]
+
+[calmly] Ils figurent pourtant dans nos conditions générales.
+
+[short pause]
+
+[as:Roger] [calmly] Encore faut-il qu'ils aient été portés à ma connaissance de manière claire.
+
+[short pause]
+
+[calmly] Que souhaitez-vous obtenir ?
+
+[short pause]
+
+[as:Roger] [calmly] Le remboursement intégral de ces frais, ainsi qu'un engagement écrit.
+
+[short pause]
+
+[calmly] Un geste commercial est envisageable.
+
+[short pause]
+
+[as:Roger] [calmly] Je me satisferais d'un remboursement, car il s'agit d'une question de principe.
+
+[short pause]
+
+[calmly] Je transmets votre réclamation et reviens vers vous sous huit jours.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

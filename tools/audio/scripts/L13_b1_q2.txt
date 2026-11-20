@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Entendu. Il passera entre neuf et onze heures.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[repeat]
+
+[calmly] Parfait. Pourriez-vous me confirmer par message ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Merci. Quel est le numéro de ma chambre ?
+
+[short pause]
+
+[warmly] It means, Thank you. What is my room number?
+
+[short pause]
+
+[calmly] Merci. Quel est le numéro de ma chambre ?
+
+[repeat]
+
+[calmly] Merci. Quel est le numéro de ma chambre ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You call a friend on the phone.
+
+[pause]
+
+[calmly] Allô ?
+
+[short pause]
+
+[as:Roger] [calmly] Allô, c'est Marie. Tu vas bien ?
+
+[short pause]
+
+[calmly] Oui, ça va, et toi ?
+
+[short pause]
+
+[as:Roger] [calmly] Très bien. Tu es libre samedi ?
+
+[short pause]
+
+[calmly] Samedi ? Oui, pourquoi ?
+
+[short pause]
+
+[as:Roger] [calmly] On va au cinéma ensemble ?
+
+[short pause]
+
+[calmly] Bonne idée ! À quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] À huit heures, devant le cinéma.
+
+[short pause]
+
+[calmly] À samedi alors !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

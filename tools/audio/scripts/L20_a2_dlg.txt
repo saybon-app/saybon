@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Qu'est-ce qui ne va pas avec ce produit ?
+
+[turn:Il ne marche pas. Je l'ai acheté hier.]
+
+[calmly] Vous avez gardé la facture ?
+
+[turn:Oui, je l'ai dans mon sac.]
+
+[calmly] Vous préférez un échange ou un remboursement ?
+
+[turn:Je préfère un remboursement, s'il vous plaît.]
+
+[calmly] Pas de problème. Je vous rembourse sur votre carte.
+
+[turn:Merci beaucoup, vous êtes très gentil.]
+
+[calmly] Très bien, je m'en occupe tout de suite.
+
+[warmly] Très bien. That's the lesson. Well done.

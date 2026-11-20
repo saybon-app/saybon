@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] De quoi ça parle ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] D'une famille qui doit choisir entre tradition et modernité.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] D'une famille qui doit choisir entre tradition et modernité.
+
+[repeat]
+
+[calmly] D'une famille qui doit choisir entre tradition et modernité.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

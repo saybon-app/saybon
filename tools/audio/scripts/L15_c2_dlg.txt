@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Le tourisme de masse n'est-il pas simplement le prix de la démocratisation du voyage ?
+
+[turn:C'en est une conséquence, mais pas une fatalité que l'on devrait accepter sans discussion.]
+
+[calmly] Vous voudriez donc restreindre l'accès aux sites ?
+
+[turn:Je voudrais surtout que l'on réfléchisse à ce que l'on abîme en les visitant.]
+
+[calmly] Les habitants vivent pourtant de cette manne.
+
+[turn:Certes, et c'est là tout le dilemme : on dépend de ce qui nous dépossède.]
+
+[calmly] Alors, quelle issue entrevoyez-vous ?
+
+[turn:Une fréquentation mesurée, pensée avec ceux qui habitent les lieux, non à leur place.]
+
+[calmly] Il faudrait en parler plus longuement, autour d'un autre café.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

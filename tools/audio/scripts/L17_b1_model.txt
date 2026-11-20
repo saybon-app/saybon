@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous appelez le service client pour un problème de connexion internet.
+
+[pause]
+
+[calmly] Service client, bonjour. Comment puis-je vous aider ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour, ma connexion internet est coupée depuis ce matin.
+
+[short pause]
+
+[calmly] Avez-vous redémarré votre box ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, deux fois, mais le voyant reste rouge.
+
+[short pause]
+
+[calmly] Je vais lancer un test sur votre ligne. Ne quittez pas.
+
+[short pause]
+
+[as:Roger] [calmly] Très bien, je reste en ligne.
+
+[short pause]
+
+[calmly] Il y a une panne dans votre quartier.
+
+[short pause]
+
+[as:Roger] [calmly] Savez-vous à quelle heure le service sera rétabli ?
+
+[short pause]
+
+[calmly] Merci de votre patience, le problème devrait être résolu aujourd'hui.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

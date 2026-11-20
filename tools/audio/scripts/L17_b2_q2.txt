@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Bien sûr. Jeudi à quinze heures, cela vous convient ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[repeat]
+
+[calmly] Tout à fait, je vous renvoie une confirmation tout de suite.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

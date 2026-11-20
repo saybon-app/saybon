@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous jouez le médiateur d'un différend entre deux associés.
+
+[pause]
+
+[calmly] Il refuse obstinément de reconnaître ses torts !
+
+[short pause]
+
+[as:Roger] [calmly] Peut-être est-ce moins une obstination qu'une manière de se protéger.
+
+[short pause]
+
+[calmly] Vous le défendez, à présent ?
+
+[short pause]
+
+[as:Roger] [calmly] Je cherche surtout à comprendre ce qui rend la reconnaissance si coûteuse.
+
+[short pause]
+
+[calmly] Et moi, alors ? Qui comprend mes griefs ?
+
+[short pause]
+
+[as:Roger] [calmly] Vos griefs sont entendus, et c'est précisément pour cela que nous sommes réunis.
+
+[short pause]
+
+[calmly] Que me proposez-vous, concrètement ?
+
+[short pause]
+
+[as:Roger] [calmly] De dire chacun, sans interruption, ce qui vous a le plus blessé.
+
+[short pause]
+
+[calmly] Je crois que nous venons de faire un pas, et ce n'est pas rien.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

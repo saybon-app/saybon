@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous menez un appel de négociation avec un fournisseur.
+
+[pause]
+
+[calmly] Vos tarifs ont augmenté de huit pour cent, c'est inacceptable.
+
+[short pause]
+
+[as:Roger] [calmly] Je comprends votre réaction, mais cette hausse reflète celle de nos coûts de production.
+
+[short pause]
+
+[calmly] Vous devez bien avoir une marge de manœuvre.
+
+[short pause]
+
+[as:Roger] [calmly] Nous pouvons envisager une remise, en échange d'un engagement sur douze mois.
+
+[short pause]
+
+[calmly] Douze mois, c'est long. Pourquoi pas six ?
+
+[short pause]
+
+[as:Roger] [calmly] Six mois ne nous permettraient pas de garantir ce prix, mais neuf serait envisageable.
+
+[short pause]
+
+[calmly] Neuf mois avec cinq pour cent de remise, et nous signons.
+
+[short pause]
+
+[as:Roger] [calmly] Je dois consulter ma direction, mais je pense pouvoir vous répondre dans l'heure.
+
+[short pause]
+
+[calmly] Nous avons un accord de principe, je vous envoie la proposition écrite.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

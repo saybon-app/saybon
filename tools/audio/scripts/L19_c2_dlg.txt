@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Que vous inspire ce dernier plan, si long et si silencieux ?
+
+[turn:Il refuse la clôture : le silence y prolonge l'histoire plutôt qu'il ne la termine.]
+
+[calmly] Certains y voient une simple facilité de réalisation.
+
+[turn:À mon sens, c'est précisément une exigence : laisser le spectateur seul avec ce qu'il a vu.]
+
+[calmly] Vous attribuez beaucoup d'intention à ce choix.
+
+[turn:On n'attribue rien : on constate qu'un cinéaste ne coupe pas par hasard.]
+
+[calmly] Et le spectateur, que lui reste-t-il ?
+
+[turn:Le soin d'achever le film, ce qui est peut-être la plus belle des libertés.]
+
+[calmly] Voilà un plan que je ne regarderai plus de la même manière.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Allô, c'est Marie. Tu vas bien ?
+
+[short pause]
+
+[warmly] It means, Hello, it's Marie. Are you well?
+
+[short pause]
+
+[calmly] Allô, c'est Marie. Tu vas bien ?
+
+[repeat]
+
+[calmly] Allô, c'est Marie. Tu vas bien ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

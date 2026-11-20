@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Quelle est la valeur ajoutée de votre proposition ?
+
+[turn:Elle réduit vos délais de moitié, sans compromettre la qualité.]
+
+[calmly] Cela suppose un investissement initial important.
+
+[turn:Certes, mais il sera amorti en moins de dix-huit mois.]
+
+[calmly] Quels sont les principaux risques ?
+
+[turn:Le principal risque serait un retard de livraison, que nous avons anticipé.]
+
+[calmly] Comment comptez-vous le maîtriser ?
+
+[turn:En fixant des jalons hebdomadaires, avec un point de contrôle partagé.]
+
+[calmly] Je vous remercie, nous reviendrons vers vous rapidement.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

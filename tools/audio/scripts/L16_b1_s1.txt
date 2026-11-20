@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Bonjour, je viens de m'apercevoir que j'ai perdu ma carte.
+
+[short pause]
+
+[calmly] Bonjour, je viens de m'apercevoir que j'ai perdu ma carte.
+
+[repeat]
+
+[calmly] Bonjour, je viens de m'apercevoir que j'ai perdu ma carte.
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

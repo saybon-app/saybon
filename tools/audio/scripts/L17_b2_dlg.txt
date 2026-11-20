@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Je croyais que notre rendez-vous était mardi.
+
+[turn:Je crois qu'il y a une confusion, nous avions convenu de jeudi.]
+
+[calmly] Ah bon ? J'ai pourtant noté mardi dans mon agenda.
+
+[turn:Peut-être ai-je mal expliqué, je vous ai écrit « jeudi » par courriel.]
+
+[calmly] Je vérifie. Oui, vous avez raison, toutes mes excuses.
+
+[turn:Ce n'est pas grave, mais pouvons-nous confirmer la date par écrit ?]
+
+[calmly] Bien sûr. Jeudi à quinze heures, cela vous convient ?
+
+[turn:Tout à fait, je vous renvoie une confirmation tout de suite.]
+
+[calmly] Parfait, tout est clair maintenant.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

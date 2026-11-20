@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous réclamez un remboursement pour un voyage annulé.
+
+[pause]
+
+[calmly] Quel est l'objet de votre réclamation ?
+
+[short pause]
+
+[as:Roger] [calmly] Mon vol a été annulé et je n'ai reçu aucune proposition de remplacement.
+
+[short pause]
+
+[calmly] Avez-vous été informé de cette annulation ?
+
+[short pause]
+
+[as:Roger] [calmly] Seulement deux heures avant le départ, ce qui était trop tard.
+
+[short pause]
+
+[calmly] Que souhaitez-vous obtenir ?
+
+[short pause]
+
+[as:Roger] [calmly] Je voudrais être remboursé intégralement et recevoir une compensation.
+
+[short pause]
+
+[calmly] Pouvez-vous m'envoyer votre billet par courriel ?
+
+[short pause]
+
+[as:Roger] [calmly] Bien sûr, je vous l'envoie dans la minute qui suit.
+
+[short pause]
+
+[calmly] Votre remboursement sera effectué sous dix jours.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Voici votre bureau, à côté de la fenêtre.
+
+[short pause]
+
+[warmly] It means, Here is your desk, next to the window.
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Merci, c'est très bien !
+
+[short pause]
+
+[warmly] It means, Thank you, it's very nice!
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Merci, c'est très bien !
+
+[repeat]
+
+[calmly] Merci, c'est très bien !
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

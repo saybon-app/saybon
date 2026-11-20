@@ -1,0 +1,17 @@
+[warmly] Écoutez et répétez.
+
+[short pause]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[short pause]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[repeat]
+
+[calmly] Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?
+
+[repeat]
+
+[warmly] Maintenant, enregistrez. Appuyez sur le micro, et dites la phrase.

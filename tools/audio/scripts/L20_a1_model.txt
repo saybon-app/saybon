@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You want to change a shirt in a shop.
+
+[pause]
+
+[calmly] Bonjour, je peux vous aider ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je voudrais changer cette chemise.
+
+[short pause]
+
+[calmly] Elle ne vous va pas ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle est trop petite.
+
+[short pause]
+
+[calmly] Vous avez le ticket de caisse ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, le voici.
+
+[short pause]
+
+[calmly] Quelle taille voulez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] La taille M, s'il vous plaît.
+
+[short pause]
+
+[calmly] Voilà. Bonne journée !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

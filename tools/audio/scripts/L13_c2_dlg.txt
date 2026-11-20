@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Ce quartier mérite d'être entièrement repensé, ne croyez-vous pas ?
+
+[turn:Entièrement, je n'en suis pas certain ; repenser n'est pas raser.]
+
+[calmly] Pourtant, ces bâtiments sont vétustes et peu rentables.
+
+[turn:Leur rentabilité n'est qu'un critère parmi d'autres, et rarement le plus noble.]
+
+[calmly] Vous plaidez donc pour une préservation à tout prix ?
+
+[turn:Pas à tout prix, mais pour une transformation qui respecte la mémoire des lieux.]
+
+[calmly] Voilà qui est séduisant, mais coûteux.
+
+[turn:Le coût d'oublier d'où l'on vient me paraît autrement plus lourd.]
+
+[calmly] Voilà un argument que je n'oublierai pas.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

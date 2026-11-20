@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Quel est l'objet de votre réclamation ?
+
+[turn:Mon vol a été annulé et je n'ai reçu aucune proposition de remplacement.]
+
+[calmly] Avez-vous été informé de cette annulation ?
+
+[turn:Seulement deux heures avant le départ, ce qui était trop tard.]
+
+[calmly] Que souhaitez-vous obtenir ?
+
+[turn:Je voudrais être remboursé intégralement et recevoir une compensation.]
+
+[calmly] Pouvez-vous m'envoyer votre billet par courriel ?
+
+[turn:Bien sûr, je vous l'envoie dans la minute qui suit.]
+
+[calmly] Votre remboursement sera effectué sous dix jours.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

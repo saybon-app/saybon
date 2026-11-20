@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Nous ne sommes pas responsables des dégâts constatés après la livraison.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je l'ai refusé devant vous, donc le dommage est bien antérieur à la remise.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je l'ai refusé devant vous, donc le dommage est bien antérieur à la remise.
+
+[repeat]
+
+[calmly] Je l'ai refusé devant vous, donc le dommage est bien antérieur à la remise.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

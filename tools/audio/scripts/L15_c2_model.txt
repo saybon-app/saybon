@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous débattez du tourisme de masse lors d'un dîner.
+
+[pause]
+
+[calmly] Le tourisme de masse n'est-il pas simplement le prix de la démocratisation du voyage ?
+
+[short pause]
+
+[as:Roger] [calmly] C'en est une conséquence, mais pas une fatalité que l'on devrait accepter sans discussion.
+
+[short pause]
+
+[calmly] Vous voudriez donc restreindre l'accès aux sites ?
+
+[short pause]
+
+[as:Roger] [calmly] Je voudrais surtout que l'on réfléchisse à ce que l'on abîme en les visitant.
+
+[short pause]
+
+[calmly] Les habitants vivent pourtant de cette manne.
+
+[short pause]
+
+[as:Roger] [calmly] Certes, et c'est là tout le dilemme : on dépend de ce qui nous dépossède.
+
+[short pause]
+
+[calmly] Alors, quelle issue entrevoyez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Une fréquentation mesurée, pensée avec ceux qui habitent les lieux, non à leur place.
+
+[short pause]
+
+[calmly] Il faudrait en parler plus longuement, autour d'un autre café.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

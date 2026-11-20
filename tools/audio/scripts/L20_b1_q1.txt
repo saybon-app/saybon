@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Avez-vous été informé de cette annulation ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Seulement deux heures avant le départ, ce qui était trop tard.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Seulement deux heures avant le départ, ce qui était trop tard.
+
+[repeat]
+
+[calmly] Seulement deux heures avant le départ, ce qui était trop tard.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

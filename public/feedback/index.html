@@ -1,69 +1,111 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feedback - SayBon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/feedback/feedback.css?v=20260811" />
-</head>
-<body class="feedback-page">
-
-<button class="feedback-home-btn" onclick="location.href='/dashboard/'" aria-label="Back to Dashboard">
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 10.5L12 3l9 7.5"/>
-    <path d="M5 9.5V21h14V9.5"/>
-  </svg>
-</button>
-
-<button class="feedback-dashboard-btn" onclick="location.href='/dashboard/'" aria-label="Go to Dashboard">
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-    <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-    <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-    <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-  </svg>
-</button>
-
-<main class="feedback-shell">
-
-  <div class="feedback-card">
-
-    <h1>We'd love your feedback</h1>
-    <p class="subtitle">Your voice helps us improve SayBon - for you and for every learner.</p>
-
-    <form id="feedbackForm">
-
-      <label>Your name</label>
-      <input type="text" name="name" placeholder="Your name" />
-
-      <label>Email address</label>
-      <input type="email" name="email" placeholder="you@example.com" required />
-
-      <label>Type of feedback</label>
-      <select name="type" required>
-        <option value="">Select one</option>
-        <option>Bug or issue</option>
-        <option>Suggestion or idea</option>
-        <option>Something I loved</option>
-        <option>Content or lesson feedback</option>
-        <option>Other</option>
-      </select>
-
-      <label>Your message</label>
-      <textarea name="message" placeholder="Tell us what's on your mind..." required></textarea>
-
-      <button type="submit" class="submit-btn" id="submitBtn">Send feedback</button>
-
-    </form>
-
-  </div>
-
-</main>
-
-<script src="/feedback/feedback.js?v=20260811"></script>
-</body>
-</html>
-
-
-
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tell us what you think - SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af6a;--ink:#f4efe6;--mute:rgba(244,239,230,.62);--line:rgba(212,175,106,.28)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:radial-gradient(120% 90% at 20% 0%,#1d2a44 0%,#0e1524 55%,#080c15 100%);overflow:hidden}
+.wrap{height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;max-width:640px;margin:0 auto}
+.brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.04em;color:var(--gold);margin-bottom:6px}
+.dots{display:flex;gap:6px;margin:6px 0 18px}
+.dots i{width:22px;height:3px;border-radius:2px;background:rgba(255,255,255,.14);transition:.3s}
+.dots i.on{background:var(--gold)}
+.card{width:100%;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);max-height:calc(100dvh - 150px);overflow:auto;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kick{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,5.4vw,32px);line-height:1.2;margin-bottom:8px}
+p.sub{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--mute);line-height:1.35;margin-bottom:16px}
+.q{font-size:14.5px;font-weight:500;margin:14px 0 8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:transparent;color:var(--ink);font:400 13.5px Poppins;padding:9px 14px;border-radius:999px;cursor:pointer;transition:.2s}
+.opt:hover{border-color:var(--gold)}
+.opt.sel{background:var(--gold);color:#16120a;border-color:var(--gold);font-weight:500}
+.stars{display:flex;gap:8px}
+.stars button{font-size:28px;background:none;border:0;color:rgba(255,255,255,.2);cursor:pointer;transition:.15s;padding:0}
+.stars button.on{color:var(--gold)}
+textarea,input[type=text]{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:400 14px Poppins;padding:11px 13px;resize:none;outline:none}
+textarea:focus,input:focus{border-color:var(--gold)}
+textarea{height:84px}
+::placeholder{color:rgba(244,239,230,.35)}
+.nav{position:sticky;bottom:-26px;padding:12px 0 4px;background:linear-gradient(transparent,#121a2b 35%);display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+.btn{font:500 14px Poppins;border-radius:999px;padding:12px 26px;border:0;cursor:pointer}
+.go{background:var(--gold);color:#16120a}
+.go:disabled{opacity:.45;cursor:default}
+.back{background:none;color:var(--mute);padding:12px 6px}
+.skip{font-size:12px;color:var(--mute);text-align:center;margin-top:10px}
+.hint{font-size:12px;color:var(--mute);margin-top:6px}
+.big{font-size:44px;color:var(--gold);font-family:'Playfair Display',serif}
+</style></head>
+<body><div class="wrap">
+<div class="brand">SayBon</div>
+<div class="dots" id="dots"></div>
+<div class="card" id="card"></div>
+</div>
+<script>
+var API="https://saybonapp-server.onrender.com/api/testerFeedbackSubmit";
+var A={};
+var STEPS=[
+{k:"welcome",t:"Thank you for trying SayBon",s:"Your honest view helps us build something genuinely good. It takes about three minutes, and every question can be skipped.",
+ f:[{id:"name",type:"text",q:"Your first name (optional)",ph:"e.g. Ama"},
+    {id:"device",type:"opts",q:"What are you using?",o:["Phone","Tablet","Laptop / desktop"]},
+    {id:"french",type:"opts",q:"Your French so far",o:["Complete beginner","I know a little","Fairly comfortable","Advanced"]}]},
+{k:"start",kick:"1 · The start page",t:"How did it feel to begin?",s:"The first page and the way into the platform.",
+ f:[{id:"start_r",type:"stars",q:"Overall"},
+    {id:"start_clear",type:"opts",q:"Was it clear what to do next?",o:["Very clear","Mostly","I was unsure","Lost"]},
+    {id:"start_n",type:"text",q:"Anything confusing or lovely?",ta:1}]},
+{k:"placement",kick:"2 · The placement test",t:"How was the placement test?",s:"The questions that find your level.",
+ f:[{id:"pl_done",type:"opts",q:"Did you finish it?",o:["Yes, all of it","Most of it","I stopped early","I skipped it"]},
+    {id:"pl_r",type:"stars",q:"Overall"},
+    {id:"pl_n",type:"text",q:"Too long? Unclear? Anything that went wrong?",ta:1}]},
+{k:"level",kick:"3 · Your level",t:"Did you land in the right place?",s:"The level you were given and the page that shows it.",
+ f:[{id:"lv_fit",type:"opts",q:"The level felt",o:["Too easy","About right","Too hard","I couldn't tell"]},
+    {id:"lv_r",type:"stars",q:"The level page"},
+    {id:"lv_n",type:"text",q:"Notes",ta:1}]},
+{k:"lesson",kick:"4 · The lesson",t:"What was the lesson like?",s:"The part that matters most.",
+ f:[{id:"ls_r",type:"stars",q:"Overall"},
+    {id:"ls_what",type:"multi",q:"What worked for you?",o:["The voices","Reading aloud","Feedback on my speech","The scenes","The pace","Clear instructions"]},
+    {id:"ls_n",type:"text",q:"What would make it better?",ta:1}]},
+{k:"motivation",kick:"5 · The honest one",t:"Did you want to keep going?",s:"Not to be kind. Just whether the lesson itself pulled you in.",
+ f:[{id:"mo",type:"opts",q:"When the lesson ended, I felt",o:["I want more, it was interesting","I might come back","Only continued to help","I wanted to stop"]},
+    {id:"stop",type:"multi",q:"If anything held you back, what was it?",o:["Too hard","Too easy","Too slow","Boring","Confusing","Technical problem","Audio / microphone","Nothing"]},
+    {id:"mo_n",type:"text",q:"In your own words",ta:1}]},
+{k:"other",kick:"6 · Everything else",t:"Other pages and anything we missed",s:"Other pages you opened, bugs, small details.",
+ f:[{id:"pages",type:"multi",q:"What else did you open?",o:["Levels","Les Petits","Tout Public","Talkletics","Music","About / pricing","Sign in"]},
+    {id:"pg_n",type:"text",q:"Page by page: what to fix or improve?",ta:1,ph:"Page name, then what you noticed"},
+    {id:"bug",type:"text",q:"Anything broken? (page, what you did, what happened)",ta:1},
+    {id:"first",type:"text",q:"If we could change just one thing first, what?",ta:1}]},
+{k:"done",t:"Merci !",s:"",last:1}
+];
+var i=0;
+var $=function(x){return document.getElementById(x)};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function dots(){var h="";STEPS.forEach(function(_,n){h+='<i class="'+(n<=i?'on':'')+'"></i>'});$("dots").innerHTML=h}
+function render(){
+ var S=STEPS[i];dots();var h="";
+ if(S.last){h='<div class="big">Merci</div><h1 style="margin-top:6px">Your words reached us.</h1><p class="sub">Thank you for giving SayBon your time. We read every answer.</p>';$("card").innerHTML=h;return}
+ if(S.kick)h+='<div class="kick">'+S.kick+'</div>';
+ h+='<h1>'+S.t+'</h1><p class="sub">'+S.s+'</p>';
+ S.f.forEach(function(f){
+  h+='<div class="q">'+f.q+'</div>';
+  if(f.type=="text"){h+=f.ta?'<textarea data-id="'+f.id+'" placeholder="'+(f.ph||'Write here…')+'">'+esc(A[f.id]||"")+'</textarea>':'<input type="text" data-id="'+f.id+'" placeholder="'+(f.ph||'')+'" value="'+esc(A[f.id]||"")+'">'}
+  if(f.type=="opts"||f.type=="multi"){h+='<div class="opts">';f.o.forEach(function(o){var on=f.type=="multi"?(A[f.id]||[]).indexOf(o)>-1:A[f.id]==o;h+='<button class="opt'+(on?' sel':'')+'" data-id="'+f.id+'" data-m="'+(f.type=="multi"?1:0)+'" data-v="'+esc(o)+'">'+o+'</button>'});h+='</div>'}
+  if(f.type=="stars"){h+='<div class="stars" data-id="'+f.id+'">';for(var s=1;s<=5;s++)h+='<button data-s="'+s+'" class="'+(A[f.id]>=s?'on':'')+'">★</button>';h+='</div>'}
+ });
+ h+='<div class="nav"><button class="btn back" id="b"'+(i?'':' style="visibility:hidden"')+'>Back</button><button class="btn go" id="n">'+(i==STEPS.length-2?'Send':'Next')+'</button></div>';
+ $("card").innerHTML=h;
+ $("card").querySelectorAll("textarea,input").forEach(function(e){e.oninput=function(){A[e.dataset.id]=e.value}});
+ $("card").querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var id=b.dataset.id,v=b.dataset.v;if(b.dataset.m=="1"){var a=A[id]||[],x=a.indexOf(v);x>-1?a.splice(x,1):a.push(v);A[id]=a}else A[id]=(A[id]==v?"":v);render()}});
+ $("card").querySelectorAll(".stars").forEach(function(w){w.querySelectorAll("button").forEach(function(b){b.onclick=function(){var n=+b.dataset.s;A[w.dataset.id]=A[w.dataset.id]==n?0:n;render()}})});
+ $("b").onclick=function(){i--;render()};
+ $("n").onclick=function(){if(i==STEPS.length-2)send();else{i++;render();$("card").scrollTop=0}};
+}
+function send(){
+ var b=$("n");b.disabled=true;b.textContent="Sending…";
+ var p={answers:A,page:"feedback",ua:navigator.userAgent.slice(0,200),w:innerWidth,h:innerHeight};
+ fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json()}).then(function(d){
+  if(d&&d.success){i++;render()}else throw 0}).catch(function(){b.disabled=false;b.textContent="Send";alert("Could not send just now. Please try once more.")});
+}
+render();
+</script></body></html>

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous recommandez un livre à un ami.
+
+[pause]
+
+[calmly] Tu lis quelque chose en ce moment ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, un roman qui se passe à Dakar, il est passionnant.
+
+[short pause]
+
+[calmly] De quoi ça parle ?
+
+[short pause]
+
+[as:Roger] [calmly] D'une famille qui doit choisir entre tradition et modernité.
+
+[short pause]
+
+[calmly] Et le style, il est facile à lire ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, les phrases sont courtes et l'histoire avance vite.
+
+[short pause]
+
+[calmly] Tu me le prêterais ?
+
+[short pause]
+
+[as:Roger] [calmly] Avec plaisir, je te le donne dès que je l'ai terminé.
+
+[short pause]
+
+[calmly] Merci, je l'achète dès demain !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous relisez les clauses d'un bail avec le propriétaire.
+
+[pause]
+
+[calmly] La clause de révision du loyer vous pose-t-elle problème ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle m'inquiète, car l'indexation n'est pas plafonnée.
+
+[short pause]
+
+[calmly] Nous pouvons la plafonner à deux pour cent par an.
+
+[short pause]
+
+[as:Roger] [calmly] Je préférerais que ce plafond figure explicitement dans le contrat.
+
+[short pause]
+
+[calmly] Soit, nous l'ajouterons en annexe. Autre remarque ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, le préavis de départ me semble excessivement long.
+
+[short pause]
+
+[calmly] Trois mois est la norme, mais nous pouvons envisager deux mois.
+
+[short pause]
+
+[as:Roger] [calmly] Dans ce cas, je suis prêt à signer dès que l'avenant sera rédigé.
+
+[short pause]
+
+[calmly] Entendu, notre notaire le prépare cette semaine.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

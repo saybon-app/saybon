@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous voudriez donc restreindre l'accès aux sites ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Je voudrais surtout que l'on réfléchisse à ce que l'on abîme en les visitant.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Je voudrais surtout que l'on réfléchisse à ce que l'on abîme en les visitant.
+
+[repeat]
+
+[calmly] Je voudrais surtout que l'on réfléchisse à ce que l'on abîme en les visitant.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

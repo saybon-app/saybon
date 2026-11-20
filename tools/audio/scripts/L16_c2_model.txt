@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous discutez d'un placement avec un conseiller financier prudent.
+
+[pause]
+
+[calmly] Ce placement offre un rendement très attractif.
+
+[short pause]
+
+[as:Roger] [calmly] Un rendement attractif m'inspire d'abord la méfiance plutôt que l'enthousiasme.
+
+[short pause]
+
+[calmly] Il est pourtant parfaitement encadré.
+
+[short pause]
+
+[as:Roger] [calmly] Encadré, soit, mais encore faut-il en mesurer les risques résiduels.
+
+[short pause]
+
+[calmly] Vous seriez donc enclin à y renoncer ?
+
+[short pause]
+
+[as:Roger] [calmly] Je serais enclin à comprendre avant de décider, et non l'inverse.
+
+[short pause]
+
+[calmly] Voilà une attitude peu commune chez nos clients.
+
+[short pause]
+
+[as:Roger] [calmly] Elle l'est peut-être, mais elle évite bien des regrets.
+
+[short pause]
+
+[calmly] Je vous laisse réfléchir ; la prudence est souvent la meilleure des rentes.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

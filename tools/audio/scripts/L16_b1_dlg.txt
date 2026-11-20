@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Service clientèle, bonjour. Je vous écoute.
+
+[turn:Bonjour, je viens de m'apercevoir que j'ai perdu ma carte.]
+
+[calmly] Quand l'avez-vous utilisée pour la dernière fois ?
+
+[turn:Hier soir, dans un restaurant du centre-ville.]
+
+[calmly] Je bloque la carte immédiatement. Avez-vous remarqué des paiements suspects ?
+
+[turn:Non, mais je vais vérifier mes comptes dès maintenant.]
+
+[calmly] Voulez-vous une carte de remplacement ?
+
+[turn:Oui, et pourriez-vous l'envoyer à mon adresse habituelle ?]
+
+[calmly] C'est fait, une nouvelle carte vous sera envoyée.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Ah bon ? Que s'est-il passé ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Mon fils est malade et je préfère rester auprès de lui.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Mon fils est malade et je préfère rester auprès de lui.
+
+[repeat]
+
+[calmly] Mon fils est malade et je préfère rester auprès de lui.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, avec plaisir ! Je suis libre vers dix heures.
+
+[short pause]
+
+[warmly] It means, Yes, with pleasure! I'm free around ten.
+
+[short pause]
+
+[calmly] Oui, avec plaisir ! Je suis libre vers dix heures.
+
+[repeat]
+
+[calmly] Oui, avec plaisir ! Je suis libre vers dix heures.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

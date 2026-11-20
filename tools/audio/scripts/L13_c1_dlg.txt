@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] La clause de révision du loyer vous pose-t-elle problème ?
+
+[turn:Elle m'inquiète, car l'indexation n'est pas plafonnée.]
+
+[calmly] Nous pouvons la plafonner à deux pour cent par an.
+
+[turn:Je préférerais que ce plafond figure explicitement dans le contrat.]
+
+[calmly] Soit, nous l'ajouterons en annexe. Autre remarque ?
+
+[turn:Oui, le préavis de départ me semble excessivement long.]
+
+[calmly] Trois mois est la norme, mais nous pouvons envisager deux mois.
+
+[turn:Dans ce cas, je suis prêt à signer dès que l'avenant sera rédigé.]
+
+[calmly] Entendu, notre notaire le prépare cette semaine.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

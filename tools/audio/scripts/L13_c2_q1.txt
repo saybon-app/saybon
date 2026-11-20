@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pourtant, ces bâtiments sont vétustes et peu rentables.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Leur rentabilité n'est qu'un critère parmi d'autres, et rarement le plus noble.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Leur rentabilité n'est qu'un critère parmi d'autres, et rarement le plus noble.
+
+[repeat]
+
+[calmly] Leur rentabilité n'est qu'un critère parmi d'autres, et rarement le plus noble.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

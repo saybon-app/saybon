@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous organisez un week-end de randonnée avec des amis.
+
+[pause]
+
+[calmly] Alors, on part où ce week-end ?
+
+[short pause]
+
+[as:Roger] [calmly] Je pensais aux Vosges, la météo y sera plus clémente.
+
+[short pause]
+
+[calmly] Combien de kilomètres veux-tu marcher ?
+
+[short pause]
+
+[as:Roger] [calmly] Une quinzaine par jour, ce serait raisonnable pour tout le monde.
+
+[short pause]
+
+[calmly] Et pour dormir ?
+
+[short pause]
+
+[as:Roger] [calmly] On pourrait réserver un gîte, c'est plus confortable qu'une tente.
+
+[short pause]
+
+[calmly] Et si le temps se gâte ?
+
+[short pause]
+
+[as:Roger] [calmly] On changerait de programme et on visiterait un village en voiture.
+
+[short pause]
+
+[calmly] Parfait, je réserve le gîte dès ce soir.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

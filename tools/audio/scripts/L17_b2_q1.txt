@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Ah bon ? J'ai pourtant noté mardi dans mon agenda.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Peut-être ai-je mal expliqué, je vous ai écrit « jeudi » par courriel.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Peut-être ai-je mal expliqué, je vous ai écrit « jeudi » par courriel.
+
+[repeat]
+
+[calmly] Peut-être ai-je mal expliqué, je vous ai écrit « jeudi » par courriel.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

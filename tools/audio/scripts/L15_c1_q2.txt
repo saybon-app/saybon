@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Reste à choisir un lieu qui permette les deux.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] La côte basque offre à la fois des plages et de belles villes.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] La côte basque offre à la fois des plages et de belles villes.
+
+[repeat]
+
+[calmly] La côte basque offre à la fois des plages et de belles villes.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

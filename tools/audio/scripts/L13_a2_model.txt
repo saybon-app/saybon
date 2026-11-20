@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You visit an apartment with the owner.
+
+[pause]
+
+[calmly] Voilà l'appartement. Il vous plaît ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, il est très lumineux.
+
+[short pause]
+
+[calmly] Il y a deux chambres et un balcon.
+
+[short pause]
+
+[as:Roger] [calmly] Et combien coûte le loyer ?
+
+[short pause]
+
+[calmly] Neuf cents euros par mois, charges comprises.
+
+[short pause]
+
+[as:Roger] [calmly] C'est un peu cher. Il y a un ascenseur ?
+
+[short pause]
+
+[calmly] Oui, et le métro est à cinq minutes.
+
+[short pause]
+
+[as:Roger] [calmly] Je voudrais le visiter encore une fois demain.
+
+[short pause]
+
+[calmly] Bien sûr. Je vous attends demain à dix heures.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

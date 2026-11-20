@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Société Bernard, bonjour.
+
+[turn:Bonjour, je voudrais parler à Madame Leroy, s'il vous plaît.]
+
+[calmly] Elle n'est pas là aujourd'hui. Vous voulez laisser un message ?
+
+[turn:Oui, pouvez-vous lui dire que j'ai appelé ?]
+
+[calmly] Bien sûr. Quel est votre nom ?
+
+[turn:Je m'appelle Paul Dupont, D-U-P-O-N-T.]
+
+[calmly] Et votre numéro de téléphone ?
+
+[turn:C'est le zéro six, douze, trente-quatre, cinquante-six, soixante-dix-huit.]
+
+[calmly] Je transmets votre message dès son retour.
+
+[warmly] Très bien. That's the lesson. Well done.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, voici mon passeport.
+
+[short pause]
+
+[warmly] It means, Yes, here is my passport.
+
+[short pause]
+
+[calmly] Oui, voici mon passeport.
+
+[repeat]
+
+[calmly] Oui, voici mon passeport.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

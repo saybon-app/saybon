@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, que pensez-vous de l'exposition ?
+
+[turn:Elle m'a laissé une impression mitigée, malgré quelques œuvres remarquables.]
+
+[calmly] Qu'est-ce qui vous a déçu ?
+
+[turn:Le parcours manquait de cohérence, on passait d'une époque à l'autre sans transition.]
+
+[calmly] Et qu'avez-vous apprécié ?
+
+[turn:Les portraits du premier étage, d'une sensibilité que l'on ne voit que rarement.]
+
+[calmly] Vous la recommanderiez, malgré tout ?
+
+[turn:Oui, mais à condition de la visiter sans a priori, en prenant son temps.]
+
+[calmly] Ce que vous dites me donne envie d'y retourner.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous donnez votre avis sur une exposition.
+
+[pause]
+
+[calmly] Alors, que pensez-vous de l'exposition ?
+
+[short pause]
+
+[as:Roger] [calmly] Elle m'a laissé une impression mitigée, malgré quelques œuvres remarquables.
+
+[short pause]
+
+[calmly] Qu'est-ce qui vous a déçu ?
+
+[short pause]
+
+[as:Roger] [calmly] Le parcours manquait de cohérence, on passait d'une époque à l'autre sans transition.
+
+[short pause]
+
+[calmly] Et qu'avez-vous apprécié ?
+
+[short pause]
+
+[as:Roger] [calmly] Les portraits du premier étage, d'une sensibilité que l'on ne voit que rarement.
+
+[short pause]
+
+[calmly] Vous la recommanderiez, malgré tout ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, mais à condition de la visiter sans a priori, en prenant son temps.
+
+[short pause]
+
+[calmly] Ce que vous dites me donne envie d'y retourner.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

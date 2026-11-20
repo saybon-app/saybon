@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Sur quoi vous appuyez-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Sur les objectifs que j'ai dépassés depuis un an.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Sur les objectifs que j'ai dépassés depuis un an.
+
+[repeat]
+
+[calmly] Sur les objectifs que j'ai dépassés depuis un an.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.
