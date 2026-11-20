@@ -2,17 +2,17 @@
   A0: pages WITHOUT the lesson engine: index.html lesson1.html
 A0: 2 pages (lesson1.html) engine: NO ENGINE
   A1: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-A1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+A1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
   A2: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-A2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+A2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
   B1: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-B1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+B1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
   B2: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-B2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+B2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
   C1: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-C1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+C1: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
   C2: pages WITHOUT the lesson engine: index.html lesson-1.html lesson6.html upgrade.html
-C2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=66
+C2: 28 pages (lesson1.html lesson10.html lesson11.html lesson12.html lesson13.html lesson14.html lesson15.html lesson16.html lesson17.html lesson18.html lesson19.html lesson2.html lesson20.html lesson21.html lesson22.html lesson23.html lesson24.html lesson25.html lesson3.html lesson4.html lesson5.html lesson6.html lesson7.html lesson8.html lesson9.html) engine: NO ENGINE , /levels/lesson-engine-tp.js?v=69
 import-data: 0 pages (-) engine: 
   scene-paris: pages WITHOUT the lesson engine: demo.html revision-demo.html
 scene-paris: 2 pages (-) engine: NO ENGINE
@@ -63,6 +63,36 @@ scene-paris/scene-ui.js: getUserMedia=true MediaRecorder=true assessPronunciatio
   B2-5: all 8 audio files + windows ok
   C1-5: all 8 audio files + windows ok
   C2-5: all 8 audio files + windows ok
+  A1-7: all 8 audio files + windows ok
+  A1-8: all 8 audio files + windows ok
+  A1-9: all 8 audio files + windows ok
+  A1-10: all 8 audio files + windows ok
+  A1-11: all 8 audio files + windows ok
+  A2-7: all 8 audio files + windows ok
+  A2-8: all 8 audio files + windows ok
+  A2-9: all 8 audio files + windows ok
+  A2-10: all 8 audio files + windows ok
+  A2-11: all 8 audio files + windows ok
+  B1-7: all 8 audio files + windows ok
+  B1-8: all 8 audio files + windows ok
+  B1-9: all 8 audio files + windows ok
+  B1-10: all 8 audio files + windows ok
+  B1-11: all 8 audio files + windows ok
+  B2-7: all 8 audio files + windows ok
+  B2-8: all 8 audio files + windows ok
+  B2-9: all 8 audio files + windows ok
+  B2-10: all 8 audio files + windows ok
+  B2-11: all 8 audio files + windows ok
+  C1-7: all 8 audio files + windows ok
+  C1-8: all 8 audio files + windows ok
+  C1-9: all 8 audio files + windows ok
+  C1-10: all 8 audio files + windows ok
+  C1-11: all 8 audio files + windows ok
+  C2-7: all 8 audio files + windows ok
+  C2-8: all 8 audio files + windows ok
+  C2-9: all 8 audio files + windows ok
+  C2-10: all 8 audio files + windows ok
+  C2-11: all 8 audio files + windows ok
 
 == 5. Live lessons from the server (assets per lesson) and their audio
 server answers: 200
@@ -121,6 +151,6 @@ server answers: 200
   /levels/C2/lesson1.html: 200
   /levels/lesson-engine-tp.js: 200
   /levels/scene-paris/scene-ui.js: 200
-  built lesson audio live: 270 of 270
+  built lesson audio live: 540 of 540
 
 RESULT: all good
