@@ -36,8 +36,9 @@
     if(un<pts.length&&pts[un].tile>t)vt=t+2;
     return vt;
   }
-  function style(b,pt,c,scale){
-    b.style.left=(pt.x*100)+"%";b.style.bottom=(pt.yb*scale)+"px";b.style.width=(pt.w/c.w*100)+"%";
+  // positions are percentages of the road stack itself, so they never depend on measured pixel sizes
+  function style(b,pt,c,vt){
+    b.style.left=(pt.x*100)+"%";b.style.bottom=(pt.yb/(vt*c.h)*100)+"%";b.style.width=(pt.w/c.w*100)+"%";
   }
   function build(b,p,open){
     b.className="tkm-node "+(open?"tkm-node-unlocked":"tkm-node-locked");
@@ -52,16 +53,17 @@
   function render(animate){
     var d=dev(),c=L[d],un=unlockedCount(),pts=layout(c,un),vt=Math.min(visibleTiles(pts,un,c),99);
     mapEl.innerHTML="";
-    for(var i=vt-1;i>=0;i--){var im=new Image();im.className="bg";im.alt="";im.draggable=false;im.src=BASE+"bg/"+d+"-"+(i===0?"start":"cont")+".webp";mapEl.appendChild(im);}
-    var scale=mapEl.clientWidth/c.w,nodes=[];
+    var stack=document.createElement("div");stack.className="tkm-stack";mapEl.appendChild(stack);
+    for(var i=vt-1;i>=0;i--){var im=new Image();im.className="bg";im.alt="";im.draggable=false;im.src=BASE+"bg/"+d+"-"+(i===0?"start":"cont")+".webp";stack.appendChild(im);}
+    var nodes=[];
     for(var k=0;k<50;k++){
       if(pts[k].tile>=vt)break;
       var p=P[k],b=document.createElement("button");
       var img=new Image();img.className="tkm-node-img";img.alt=p.name;img.src=BASE+"places/"+p.img;
       var bd=new Image();bd.className="tkm-node-badge";bd.alt="";bd.src=BASE+"badges/"+p.badge;
       b.appendChild(img);b.appendChild(bd);
-      build(b,p,k<un);style(b,pts[k],c,scale);
-      mapEl.appendChild(b);nodes.push(b);
+      build(b,p,k<un);style(b,pts[k],c,vt);
+      stack.appendChild(b);nodes.push(b);
     }
     state={d:d,un:un,vt:vt,nodes:nodes,c:c};
     var bgs=[].slice.call(mapEl.querySelectorAll("img.bg")),left=bgs.length;
@@ -82,14 +84,13 @@
     if(!state||un===state.un)return;
     var c=state.c,pts=layout(c,un),vt=visibleTiles(pts,un,c);
     if(vt!==state.vt||dev()!==state.d){render(false);return;}
-    var scale=mapEl.clientWidth/c.w;
-    state.nodes.forEach(function(b,k){build(b,P[k],k<un);style(b,pts[k],c,scale);});
+    state.nodes.forEach(function(b,k){build(b,P[k],k<un);style(b,pts[k],c,vt);});
     state.un=un;
   }
   window.tkMapSetUnlocked=function(n){try{localStorage.setItem("tkMapUnlocked",String(n));}catch(e){}refresh();};
   window.addEventListener("storage",function(e){if(e.key==="tkMapUnlocked")refresh();});
 
-  Promise.all([fetch(BASE+"layout.json").then(function(r){return r.json();}),fetch(BASE+"places.json").then(function(r){return r.json();})])
+  Promise.all([fetch(BASE+"layout.json?v=8").then(function(r){return r.json();}),fetch(BASE+"places.json?v=8").then(function(r){return r.json();})])
     .then(function(a){
       L=a[0];P=a[1];
       var pre=new Image();pre.onload=pre.onerror=function(){render();};pre.src=BASE+"bg/"+dev()+"-start.webp";
