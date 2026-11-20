@@ -1,7 +1,7 @@
 (function(){
 "use strict";
 var LV=window.PT_LEVELS, ITEMS=window.PT_ITEMS;
-var START=1, MAXQ=14, MINQ=5, CONF=0.8, FEEDBACK_MS=1250;
+var START=1, MAXQ=14, MINQ=5, FRENCH_AFTER=7, CONF=0.8, FEEDBACK_MS=1250;
 function sig(x){return 1/(1+Math.exp(-x))}
 function know(th,L){return .05+.9*sig(1.7*(th-L+.5))}
 function lik(th,L,res){var k=know(th,L);if(res==="ok")return k+(1-k)*.4*.25;if(res==="idk")return (1-k)*.6;return (1-k)*.4*.75}
@@ -31,6 +31,7 @@ async function nextItem(){
   var order=[0,-1,1,-2,2,-3,3];
   for(var k=0;k<order.length;k++){
     var L=st.lv+order[k]; if(L<0||L>6)continue;
+    if(st.n<FRENCH_AFTER&&L>2)continue;   // French-only questions wait until after question 7
     var pool=shuffle(ITEMS.filter(function(x){return x.lv===L&&!st.seen[x.id]}));
     // keep a mix: prefer a kind (picture / listening / text) not used in the last two questions
     var last=st.log.slice(-2).map(function(l){return l.kind});
@@ -124,7 +125,7 @@ function answer(i,btn){
     if(st.wrong>=3 && st.teacherShown<2 ){return teacher()}
     if(st.wrong>=3 && st.n>=3 && st.teacherShown>=2){return finish()}
     var top3=st.log.slice(-3).length===3&&st.log.slice(-3).every(function(l){return l.ok&&l.lv===6});
-    if(top3||st.n>=MAXQ||(st.n>=MINQ&&conf()>=CONF))return finish();
+    if(top3||st.n>=MAXQ||(st.n>=MINQ&&conf()>=CONF&&(st.n>=FRENCH_AFTER||mapLevel()<=1)))return finish();
     ask();
   },FEEDBACK_MS);
 }
