@@ -10,7 +10,7 @@ var clamp=function(x,a,b){return Math.max(a,Math.min(b,x));};
 /* ---------- two house layouts: points are in house-picture pixels ---------- */
 var PORTRAIT=window.innerWidth/window.innerHeight<0.9;
 var LAY=PORTRAIT?{
-  img:"house-mobile.webp",W:1086,H:1448,ch:190,zoom:1.9,anchor:0.34,
+  img:"house-mobile.webp",W:1086,H:1448,ch:190,doorH:70,zoom:1.9,anchor:0.34,
   n:{gate:[540,1338],path:[540,1245],porch:[540,1165],door:[540,1090],hall:[540,985],A:[548,745],liv1:[545,835],liv2:[480,905],
      din1:[465,725],din2:[660,735],kit1:[540,565],kit2:[440,560],B1:[395,650],pinkIn:[310,560],pink:[240,535],bathIn:[300,690],bath:[215,690],
      B2:[400,795],blueIn:[315,830],blue:[215,895],E1:[705,640],bunkIn:[790,650],bunk:[860,625],E2:[715,795],studyIn:[800,830],study:[885,895],
@@ -18,7 +18,7 @@ var LAY=PORTRAIT?{
   e:"gate-path path-porch porch-door door-hall hall-liv1 liv1-A liv1-liv2 A-din1 A-din2 din1-kit1 din2-kit1 kit1-kit2 din1-B1 B1-pinkIn pinkIn-pink B1-bathIn bathIn-bath liv1-B2 B2-blueIn blueIn-blue din2-E1 E1-bunkIn bunkIn-bunk A-E2 E2-studyIn studyIn-study path-lawnM lawnM-lawnL lawnL-w1 w1-w2 w2-w3 w3-w4 w4-back1 back1-back2 back2-patio patio-bk3 bk3-garage",
   lamps:[[125,775],[115,930],[920,610],[950,890],[710,915],[545,1020],[470,1055],[615,1055],[225,1250],[1050,1250]]
 }:{
-  img:"house-desktop.webp",W:1672,H:941,ch:150,zoom:1.45,anchor:0.42,
+  img:"house-desktop.webp",W:1672,H:941,ch:150,doorH:66,zoom:1.45,anchor:0.42,
   n:{gate:[800,868],path:[800,785],porch:[808,705],door:[808,650],hall:[800,578],A:[790,440],liv1:[735,455],liv2:[880,430],
      din1:[700,385],din2:[930,380],kit1:[790,268],kit2:[650,250],B1:[618,345],pinkIn:[525,240],pink:[440,232],bathIn:[505,345],bath:[430,352],
      B2:[612,435],blueIn:[525,478],blue:[420,535],E1:[990,335],bunkIn:[1105,325],bunk:[1185,285],E2:[1002,445],studyIn:[1110,455],study:[1175,535],
@@ -56,19 +56,35 @@ function pos(x,y){actor.style.left=x+"px";actor.style.top=y+"px";}
 
 // the whole walk through the house as one long line, so every score can move the child a little further along it
 var CHAIN=[],ARCS=[],OCC={},SECARC={};
+var JUMPS=[],DOORA=1,DOORB=2; // closed gate and closed front door: the child vanishes at them and appears on the other side
 function buildChain(){
   var nodes=[],occ=[];
   C.sections.forEach(function(sec){
-    var spots=SPOTS[sec.id];
-    spots.forEach(function(sp,i){
+    SPOTS[sec.id].forEach(function(sp,i){
       if(!nodes.length){nodes.push(sp);}
       else if(nodes[nodes.length-1]!==sp){var r=route(nodes[nodes.length-1],sp);for(var j=1;j<r.length;j++)nodes.push(r[j]);}
       occ.push({sec:sec.id,i:i,at:nodes.length-1});
     });
   });
   CHAIN=nodes.map(function(n){return LAY.n[n];});
-  ARCS=[0];for(var i=1;i<CHAIN.length;i++)ARCS.push(ARCS[i-1]+dist(CHAIN[i-1],CHAIN[i]));
+  ARCS=[0];JUMPS=[];
+  for(var i=1;i<CHAIN.length;i++){
+    var jump=(nodes[i-1]==="gate"&&nodes[i]==="path")||(nodes[i-1]==="door"&&nodes[i]==="hall");
+    ARCS.push(ARCS[i-1]+(jump?130:dist(CHAIN[i-1],CHAIN[i])));
+    if(jump)JUMPS.push([ARCS[i-1],ARCS[i]]);
+  }
+  JUMPS.forEach(function(j,n){if(n===1){DOORA=j[0];DOORB=j[1];}});
   occ.forEach(function(o){(SECARC[o.sec]=SECARC[o.sec]||[]).push(ARCS[o.at]);});
+}
+function settle(a){ // a child never comes to rest inside a gate or door: the step carries them through
+  for(var i=0;i<JUMPS.length;i++)if(a>JUMPS[i][0]+4&&a<JUMPS[i][1])return JUMPS[i][1];
+  return a;
+}
+function hiddenAt(a){for(var i=0;i<JUMPS.length;i++)if(a>JUMPS[i][0]+14&&a<JUMPS[i][1]-14)return true;return false;}
+function scaleAt(a){ // walking away from the viewer: smaller and smaller until small enough for the door
+  var end=Math.max(0.34,LAY.doorH*0.92/LAY.ch);
+  if(a<(DOORA+DOORB)/2)return 1-(1-end)*ease(clamp(a/DOORA,0,1));
+  return 0.82+0.13*clamp((a-DOORB)/120,0,1); // stepping out from behind the door at nearly full size
 }
 function pointAt(a){
   a=clamp(a,0,ARCS[ARCS.length-1]);var i=1;while(i<ARCS.length-1&&ARCS[i]<a)i++;
@@ -79,7 +95,7 @@ var arc=0,glideA=null,idleSince=performance.now(),want=null,wantSince=0;
 function ease(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
 function glide(to,speed){ // smooth, no bobbing, no picture swapping
   return new Promise(function(done){
-    var from=arc,d=Math.abs(to-from);if(d<1){arc=to;done();return;}
+    to=settle(to);var from=arc,d=Math.abs(to-from);if(d<1){arc=to;done();return;}
     var dur=clamp(d/speed*1000,1100,9500);
     if(glideA&&glideA.done)glideA.done();
     glideA={from:from,to:to,t0:performance.now(),dur:dur,done:done};
@@ -92,6 +108,8 @@ function faceOf(dx,dy){
   return "front";
 }
 var TURNS=[["back",3300],["tiltR",1100],["tiltL",1100],["back",2700],["tiltR",1000],["tiltL",1000],["back",2300]],TURN_TOTAL=TURNS.reduce(function(a,t){return a+t[1];},0);
+var lastVis=1;
+function dress(){var h=hiddenAt(arc)?0:1,sc=scaleAt(arc);actor.style.transform="translate(-50%,-100%) scale("+sc.toFixed(3)+")";if(h!==lastVis){lastVis=h;actor.style.opacity=h;}}
 function updateActor(t){
   var bobY=0;
   if(glideA){
@@ -100,7 +118,7 @@ function updateActor(t){
     var f=faceOf(p2[0]-p[0],p2[1]-p[1]);
     if(f!==want){want=f;wantSince=t;}
     if(t-wantSince>220)setPose(want);
-    pos(charX,charY);bop.style.transform="none";
+    pos(charX,charY);bop.style.transform="none";dress();
     if(k>=1){var d=glideA.done;glideA=null;idleSince=t;want=null;d();}
   }else{
     var p3=pointAt(arc);charX=p3[0];charY=p3[1];
@@ -108,7 +126,7 @@ function updateActor(t){
     for(var i=0;i<TURNS.length;i++){acc+=TURNS[i][1];if(e<acc){key=TURNS[i][0];break;}}
     setPose(key);
     bobY=-Math.abs(Math.sin((t-idleSince)/720*Math.PI))*7; // bopping on the spot
-    pos(charX,charY);bop.style.transform="translateY("+bobY.toFixed(1)+"px)";
+    pos(charX,charY);bop.style.transform="translateY("+bobY.toFixed(1)+"px)";dress();
   }
 }
 
@@ -282,7 +300,7 @@ async function runItem(){
   $("en").textContent=item.en;
   var fails=0,noHear=0,first=true;
   for(;;){
-    var reps=first?3:2;first=false;
+    var reps=3;first=false;
     $("result").hidden=true;
     for(var k=0;k<reps;k++){
       setPhase("","Listen · "+(k+1)+"/"+reps);dots(k,"on");
@@ -323,10 +341,13 @@ async function runItem(){
       await Promise.all([glide(Math.max(arc,step),LAY.ch*1.05),say("ok"+(1+Math.floor(Math.random()*6))),sleep(2400)]);
       break;
     }
-    fails++;setPhase("","Almost");setDir("Not quite yet. Listen again and match it as closely as you can.");
-    $("againBtn").hidden=true;if(fails>=3)$("skipBtn").hidden=false;
-    await Promise.all([say("retry"+(1+Math.floor(Math.random()*4))),sleep(2600)]);
-    if(skipThis){skipThis=false;st.done++;break;}
+    fails++;setPhase("","Almost");setDir("Not quite yet. Press the replay button, listen again and match it as closely as you can.");
+    // the replay button stays until they get across, however many tries it takes
+    var tapped=new Promise(function(res){$("againBtn").onclick=function(){stopVoice();res();};});
+    $("againBtn").hidden=false;$("skipBtn").hidden=true;
+    say("retry"+(1+Math.floor(Math.random()*4)));
+    await tapped;
+    $("againBtn").hidden=true;
   }
   skipThis=false;
   st.idx++;save();

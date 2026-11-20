@@ -7,7 +7,7 @@ html,body{height:100%;overflow:hidden;background:#1d2a1a;font-family:'Poppins',s
 .mz-glows{position:absolute;inset:0;pointer-events:none}
 .mz-glows i{position:absolute;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,214,120,.55),rgba(255,190,80,0) 68%);mix-blend-mode:screen;animation:mzFlick 3.4s ease-in-out infinite}
 @keyframes mzFlick{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:.75}}
-.mz-actor{position:absolute;transform:translate(-50%,-100%);pointer-events:none;will-change:left,top}
+.mz-actor{position:absolute;transform:translate(-50%,-100%);transform-origin:50% 100%;transition:opacity .22s linear;pointer-events:none;will-change:left,top}
 .mz-bop{position:relative;height:100%;will-change:transform}
 .mz-spr{display:block;height:100%;width:auto;position:absolute;left:50%;bottom:0;transform:translateX(-50%);opacity:0;transition:opacity .28s linear;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .mz-spr.on{opacity:1}
@@ -90,3 +90,7 @@ html,body{height:100%;overflow:hidden;background:#1d2a1a;font-family:'Poppins',s
 .mz-dir svg{width:22px;height:22px;flex:none}
 .mz-dir.go{color:#ffd9d9;font-size:1.02rem}
 .mz-card.speaking{box-shadow:0 0 0 3px rgba(255,107,107,.85),0 0 34px rgba(255,107,107,.5);transition:box-shadow .25s}
+
+.mz-replay{display:inline-flex;align-items:center;gap:8px;margin:6px auto;padding:9px 20px;border-radius:99px;border:0;background:#ffd36b;color:#3a2a00;font:700 .95rem Poppins,sans-serif;cursor:pointer;animation:mzPulse 1.4s ease-in-out infinite;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.mz-replay svg{width:22px;height:22px}
+.mz-replay[hidden]{display:none}
