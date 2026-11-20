@@ -6,6 +6,6 @@ let n = 0;
 for (const lv of ["A1", "A2", "B1", "B2", "C1", "C2"]) {
   const f = path.join(base, lv, "lesson6.html"); if (!fs.existsSync(f)) { console.log("missing " + f); process.exit(1); }
   let s = fs.readFileSync(f, "utf8"); if (!/reading-engine\.js/.test(s)) { console.log(f + " is not a reading page"); process.exit(1); }
-  s = s.replace(/reading-engine\.js\?v=\d+/, "reading-engine.js?v=4"); fs.writeFileSync(f, s); n++;
+  s = s.replace(/reading-engine\.js\?v=\d+/, "reading-engine.js?v=5"); fs.writeFileSync(f, s); n++;
 }
 console.log("Done: reading engine v2 installed on " + n + " levels");

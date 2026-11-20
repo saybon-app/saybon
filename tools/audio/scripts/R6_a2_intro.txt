@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] In life, sometimes you read a short story out loud, to a friend or to a child.
+[warmly] Reading aloud is a big part of language competence. It trains your pronunciation, your rhythm, and the natural flow of your sentences.
 
 [short pause]
 
@@ -14,7 +14,7 @@
 
 [short pause]
 
-[warmly] I want to teach you how to read French aloud, clearly and smoothly.
+[warmly] I want to teach you how to read French out loud with a clear, natural flow.
 
 [short pause]
 
@@ -22,4 +22,12 @@
 
 [short pause]
 
-[warmly] And here is my promise. By the end of this lesson, you'll read short stories aloud, smoothly, just like me. You'll see the result yourself. We've got you.
+[warmly] Here is how it works. I read the text slowly, and you listen carefully. Then you read it, and I point out the words to work on. We repeat it line by line, and you read it one last time.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] And here is my promise. By the end of this lesson, you'll read these texts aloud smoothly and naturally, just like me. You'll see the result yourself. We've got you.

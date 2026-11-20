@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Dans la vie, il arrive que vous deviez lire à voix haute un texte dense, et lui donner son souffle.
+[warmly] La lecture à voix haute est l'une des marques de la maîtrise d'une langue. Elle exige de la justesse, du souffle et de l'intention.
 
 [short pause]
 
@@ -14,7 +14,7 @@
 
 [short pause]
 
-[warmly] Je veux vous apprendre à lire avec nuance et expression.
+[warmly] Je veux vous apprendre à lire un texte exigeant avec justesse et expressivité.
 
 [short pause]
 
@@ -22,4 +22,12 @@
 
 [short pause]
 
-[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez un texte dense avec expression, comme moi. Vous verrez les résultats. Nous sommes avec vous.
+[warmly] Voici le déroulement. Je lis le texte lentement, et vous écoutez avec attention. Puis vous lisez à votre tour, et je vous indique ce qui mérite d'être affiné.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez ce texte avec justesse et expressivité, comme moi. Vous verrez le résultat. Nous sommes avec vous.

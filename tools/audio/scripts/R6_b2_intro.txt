@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Dans la vie, il arrive que vous deviez lire à voix haute un texte long, sans hésiter, devant un public.
+[warmly] La lecture à voix haute est au cœur de la compétence linguistique. Elle affine la prononciation, le rythme et l'aisance.
 
 [short pause]
 
@@ -14,7 +14,7 @@
 
 [short pause]
 
-[warmly] Je veux vous apprendre à lire avec rythme et précision.
+[warmly] Je veux vous apprendre à lire un texte soutenu avec naturel et précision.
 
 [short pause]
 
@@ -22,4 +22,12 @@
 
 [short pause]
 
-[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez un texte long avec assurance, comme moi. Vous verrez les résultats. Nous sommes avec vous.
+[warmly] Voici le déroulement. Je lis le texte lentement, et vous écoutez attentivement. Puis vous lisez à votre tour, et je vous signale les mots à retravailler.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez ce texte avec naturel et précision, comme moi. Vous verrez le résultat. Nous sommes avec vous.

@@ -8,17 +8,17 @@ var pp = location.pathname.split("/").filter(Boolean), LEVEL = (pp[1] || "a1").t
 var LESSON = parseInt((location.pathname.match(/lesson(\d+)\.html/) || [null, "6"])[1]);
 var KEY = LEVEL + "-" + LESSON, C = null, root = document.getElementById("lsRoot");
 var EN = (LEVEL === "a1" || LEVEL === "a2"), PFX = EN ? "R2_en_" : "R2_fr_", OLD = EN ? "R_en_" : "R_fr_";
-var T = EN ? { title: "Reading practice", dir0: "I will read this out one time. Listen attentively, then you read.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
+var T = EN ? { title: "Reading practice", intro: "Reading", dir0: "Listen carefully while I read aloud.", dirNow: "Now you read it aloud. I am listening.", dirSlow: "Listen again, slowly. Repeat each line after me.", dirWhole: "Now read the whole text again.",
   start: "Tap to begin", skip: "Skip", again: "Read again", next: "Next text", fin: "Finish", redo: "Redo lesson", back: "Back to lessons", done: "Lesson complete", well: "Well done.",
   listening: "Listening", hear: "I could not hear you. Let's try once more.", err: "I could not score that. Let's try once more.", scoring: "Scoring", teacher: "Listen", points: "A few things to work on", first: "First reading", last: "Second reading",
   perfect: "Nothing to correct. Excellent.", mic: "The microphone is blocked. Allow it, then reload the page.", miss: "skipped", weak: "to rework", close: "almost", text: "Text", tip: "Say it slowly, then at normal speed." }
- : { title: "Lecture à voix haute", dir0: "Je vais lire ce texte une seule fois. Écoutez attentivement, puis vous lirez.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
+ : { title: "Lecture à voix haute", intro: "La lecture", dir0: "Écoutez attentivement pendant que je lis à voix haute.", dirNow: "À vous de lire à voix haute. Je vous écoute.", dirSlow: "Écoutons encore, lentement. Répétez chaque ligne après moi.", dirWhole: "Lisez maintenant tout le texte une dernière fois.",
   start: "Touchez pour commencer", skip: "Passer", again: "Lire encore", next: "Texte suivant", fin: "Terminer", redo: "Refaire la leçon", back: "Retour aux leçons", done: "Leçon terminée", well: "Bien joué.",
   listening: "Je vous écoute", hear: "Je ne vous ai pas entendu. Essayons encore.", err: "Évaluation impossible. Essayons encore.", scoring: "Évaluation", teacher: "Écoutez", points: "Quelques points à travailler", first: "Première lecture", last: "Seconde lecture",
   perfect: "Rien à corriger. Excellent.", mic: "Micro bloqué. Autorisez-le, puis rechargez la page.", miss: "oublié", weak: "à retravailler", close: "presque", text: "Texte", tip: "Dites-le lentement, puis à vitesse normale." };
 var LEN = { a1: { g: .77, f: 28 }, a2: { g: .86, f: 17 } }[LEVEL] || null;
 var THR = { a1: 60, a2: 65, b1: 70, b2: 75, c1: 80, c2: 82 }[LEVEL] || 70;
-var SLOW = EN ? .78 : .82;
+var SLOW = EN ? .78 : .82, SLOWREAD = EN ? .84 : .88;
 var st = document.createElement("style");
 st.textContent = `
 .rd2{max-width:820px;margin:0 auto;padding:64px 18px 40px;color:#f4f1ea;font-family:Poppins,system-ui,sans-serif;text-align:center}
@@ -197,17 +197,10 @@ async function unit(U, idx, total) {
   if (idx > 0) { await rollUp(); }
   if (total > 1) { var lvEl = root.querySelector(".lv"); if (lvEl) lvEl.textContent = LEVEL.toUpperCase() + " · " + (EN ? "Lesson" : "Leçon") + " " + LESSON + " · " + T.text + " " + (idx + 1) + "/" + total; }
   await setDir(T.dir0);
-  if (idx === 0) {
-    var intro = Promise.all([rollDown(S), C.intro ? play(C.intro) : wait(0)]);
-    await intro;
-    if (blocked && C.intro) {
-      blocked = false; ui.g.innerHTML = '<button class="pri" id="rdGo">' + T.start + "</button>";
-      await new Promise(function(r) { ui.g.querySelector("#rdGo").onclick = r; }); ui.g.innerHTML = ""; await play(C.intro);
-    }
-  } else { await rollDown(S); }
+  await rollDown(S);
   /* 1. the teacher reads once */
   ui.stt.textContent = T.teacher; await play(PFX + "listen");
-  if (U.audio) await play(U.audio); else { for (var i = 0; i < S.length; i++) { cur(i); await play(S[i].a); await wait(350); } cur(-1); }
+  if (U.audio) await play(U.audio, SLOWREAD); else { for (var i = 0; i < S.length; i++) { cur(i); await play(S[i].a, SLOWREAD); await wait(450); } cur(-1); }
   ui.stt.textContent = "";
   /* 2. the learner reads, recorded automatically */
   await setDir(T.dirNow); await play(PFX + "now");
@@ -240,7 +233,15 @@ async function unit(U, idx, total) {
 (async function() {
   try { var D = await (await fetch("/levels/reading-data.json?t=" + Date.now())).json(); C = D[KEY]; } catch (e) {}
   if (!C) { root.innerHTML = '<div class="rd2"><p class="dir on">' + (EN ? "This reading lesson is not ready yet." : "Cette leçon de lecture n'est pas encore prête.") + "</p></div>"; return; }
-  bootScene(); build(); await typeHeading(T.title);
+  bootScene(); build();
+  /* intro page: scenery only, no board */
+  ui.h.textContent = T.intro; ui.dir.classList.remove("on"); await wait(900);
+  if (C.intro) {
+    await play(C.intro);
+    if (blocked) { blocked = false; ui.g.innerHTML = '<button class="pri" id="rdGo">' + T.start + "</button>"; await new Promise(function(r) { ui.g.querySelector("#rdGo").onclick = r; }); ui.g.innerHTML = ""; await play(C.intro); }
+  }
+  ui.h.style.transition = "opacity .6s"; ui.h.style.opacity = 0; await wait(650); ui.h.textContent = ""; ui.h.style.opacity = 1;
+  await typeHeading(T.title);
   var units = C.mode === "guided" ? C.passages.map(function(p) { return { sents: p.sents, audio: p.audio }; }) : [{ sents: C.sents, audio: null }];
   for (var i = 0; i < units.length; i++) await unit(units[i], i, units.length);
   complete();

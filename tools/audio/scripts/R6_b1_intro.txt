@@ -6,7 +6,7 @@
 
 [short pause]
 
-[warmly] Dans la vie, il arrive que vous deviez lire à voix haute un texte entier, devant des gens.
+[warmly] Lire à voix haute fait partie des compétences essentielles en langue. Cela travaille la prononciation, le rythme et la confiance.
 
 [short pause]
 
@@ -14,7 +14,7 @@
 
 [short pause]
 
-[warmly] Je veux vous apprendre à lire avec fluidité et justesse.
+[warmly] Je veux vous apprendre à lire un texte entier avec fluidité et justesse.
 
 [short pause]
 
@@ -22,4 +22,12 @@
 
 [short pause]
 
-[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez un texte entier avec fluidité, comme moi. Vous verrez les résultats. Nous sommes avec vous.
+[warmly] Voici comment cela va se passer. Je lis le texte lentement, vous écoutez attentivement. Ensuite, vous lisez à votre tour, et je vous indique ce qu'il faut améliorer.
+
+[short pause]
+
+[pause]
+
+[short pause]
+
+[warmly] Voici ma promesse. À la fin de cette leçon, vous lirez ce texte avec fluidité, comme moi. Vous verrez le résultat. Nous sommes avec vous.
