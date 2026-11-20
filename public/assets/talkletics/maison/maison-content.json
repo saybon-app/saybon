@@ -1,0 +1,870 @@
+{
+ "voice": "Eryn",
+ "sections": [
+  {
+   "id": "salutations",
+   "title": "Greetings",
+   "fr": "Les salutations",
+   "intro": "Let's begin with greetings.",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "p001"
+    },
+    {
+     "fr": "Salut.",
+     "en": "Hi.",
+     "id": "p002"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "p003"
+    },
+    {
+     "fr": "Merci.",
+     "en": "Thank you.",
+     "id": "p004"
+    },
+    {
+     "fr": "S'il vous plaît.",
+     "en": "Please.",
+     "id": "p005"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "p006"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "p007"
+    },
+    {
+     "fr": "Ça va ?",
+     "en": "How are you?",
+     "id": "p008"
+    },
+    {
+     "fr": "Ça va bien.",
+     "en": "I'm fine.",
+     "id": "p009"
+    },
+    {
+     "fr": "Ça va très bien, merci.",
+     "en": "I'm very well, thank you.",
+     "id": "p010"
+    },
+    {
+     "fr": "Bonjour, ça va ?",
+     "en": "Hello, how are you?",
+     "id": "p011"
+    },
+    {
+     "fr": "Bonjour, bienvenue !",
+     "en": "Hello, welcome!",
+     "id": "p012"
+    },
+    {
+     "fr": "Bienvenue chez moi.",
+     "en": "Welcome to my home.",
+     "id": "p013"
+    },
+    {
+     "fr": "Entrez, s'il vous plaît.",
+     "en": "Come in, please.",
+     "id": "p014"
+    }
+   ],
+   "introId": "sec-salutations"
+  },
+  {
+   "id": "entree",
+   "title": "The entrance",
+   "fr": "L'entrée",
+   "intro": "Now, the entrance. L'entrée.",
+   "items": [
+    {
+     "fr": "La maison.",
+     "en": "The house.",
+     "id": "p015"
+    },
+    {
+     "fr": "La porte.",
+     "en": "The door.",
+     "id": "p016"
+    },
+    {
+     "fr": "Le portail.",
+     "en": "The gate.",
+     "id": "p017"
+    },
+    {
+     "fr": "L'entrée.",
+     "en": "The entrance.",
+     "id": "p018"
+    },
+    {
+     "fr": "C'est ma maison.",
+     "en": "This is my house.",
+     "id": "p019"
+    },
+    {
+     "fr": "Voici la porte.",
+     "en": "Here is the door.",
+     "id": "p020"
+    },
+    {
+     "fr": "J'ouvre la porte.",
+     "en": "I open the door.",
+     "id": "p021"
+    },
+    {
+     "fr": "Je ferme la porte.",
+     "en": "I close the door.",
+     "id": "p022"
+    },
+    {
+     "fr": "Le portail est ouvert.",
+     "en": "The gate is open.",
+     "id": "p023"
+    },
+    {
+     "fr": "Je retire mes chaussures.",
+     "en": "I take off my shoes.",
+     "id": "p024"
+    },
+    {
+     "fr": "Je pose mon sac dans l'entrée.",
+     "en": "I put my bag in the entrance.",
+     "id": "p025"
+    },
+    {
+     "fr": "Les clés sont sur la table.",
+     "en": "The keys are on the table.",
+     "id": "p026"
+    }
+   ],
+   "introId": "sec-entree"
+  },
+  {
+   "id": "salon",
+   "title": "The living room",
+   "fr": "Le salon",
+   "intro": "Now, the living room. Le salon.",
+   "items": [
+    {
+     "fr": "Le salon.",
+     "en": "The living room.",
+     "id": "p027"
+    },
+    {
+     "fr": "Le canapé.",
+     "en": "The sofa.",
+     "id": "p028"
+    },
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "p029"
+    },
+    {
+     "fr": "La télévision.",
+     "en": "The television.",
+     "id": "p030"
+    },
+    {
+     "fr": "La table basse.",
+     "en": "The coffee table.",
+     "id": "p031"
+    },
+    {
+     "fr": "Les coussins.",
+     "en": "The cushions.",
+     "id": "p032"
+    },
+    {
+     "fr": "Je suis dans le salon.",
+     "en": "I am in the living room.",
+     "id": "p033"
+    },
+    {
+     "fr": "Je m'assois sur le canapé.",
+     "en": "I sit on the sofa.",
+     "id": "p034"
+    },
+    {
+     "fr": "Je regarde la télévision.",
+     "en": "I watch television.",
+     "id": "p035"
+    },
+    {
+     "fr": "Les coussins sont jaunes et bleus.",
+     "en": "The cushions are yellow and blue.",
+     "id": "p036"
+    },
+    {
+     "fr": "Il y a des fleurs sur la table.",
+     "en": "There are flowers on the table.",
+     "id": "p037"
+    },
+    {
+     "fr": "Le salon est grand et confortable.",
+     "en": "The living room is big and comfortable.",
+     "id": "p038"
+    },
+    {
+     "fr": "Ma mère est dans le fauteuil.",
+     "en": "My mother is in the armchair.",
+     "id": "p039"
+    }
+   ],
+   "introId": "sec-salon"
+  },
+  {
+   "id": "salle-a-manger",
+   "title": "The dining room",
+   "fr": "La salle à manger",
+   "intro": "Now, the dining room. La salle à manger.",
+   "items": [
+    {
+     "fr": "La salle à manger.",
+     "en": "The dining room.",
+     "id": "p040"
+    },
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "p041"
+    },
+    {
+     "fr": "Les chaises.",
+     "en": "The chairs.",
+     "id": "p042"
+    },
+    {
+     "fr": "Le repas.",
+     "en": "The meal.",
+     "id": "p043"
+    },
+    {
+     "fr": "À table !",
+     "en": "Come to the table!",
+     "id": "p044"
+    },
+    {
+     "fr": "J'ai faim.",
+     "en": "I'm hungry.",
+     "id": "p045"
+    },
+    {
+     "fr": "J'ai soif.",
+     "en": "I'm thirsty.",
+     "id": "p046"
+    },
+    {
+     "fr": "On mange à table.",
+     "en": "We eat at the table.",
+     "id": "p047"
+    },
+    {
+     "fr": "Il y a des chaises autour de la table.",
+     "en": "There are chairs around the table.",
+     "id": "p048"
+    },
+    {
+     "fr": "Un verre d'eau, s'il vous plaît.",
+     "en": "A glass of water, please.",
+     "id": "p049"
+    },
+    {
+     "fr": "Bon appétit !",
+     "en": "Enjoy your meal!",
+     "id": "p050"
+    },
+    {
+     "fr": "Nous mangeons ensemble le soir.",
+     "en": "We eat together in the evening.",
+     "id": "p051"
+    }
+   ],
+   "introId": "sec-salle-a-manger"
+  },
+  {
+   "id": "cuisine",
+   "title": "The kitchen",
+   "fr": "La cuisine",
+   "intro": "Now, the kitchen. La cuisine.",
+   "items": [
+    {
+     "fr": "La cuisine.",
+     "en": "The kitchen.",
+     "id": "p052"
+    },
+    {
+     "fr": "Le frigo.",
+     "en": "The fridge.",
+     "id": "p053"
+    },
+    {
+     "fr": "L'évier.",
+     "en": "The sink.",
+     "id": "p054"
+    },
+    {
+     "fr": "La cuisinière.",
+     "en": "The cooker.",
+     "id": "p055"
+    },
+    {
+     "fr": "La casserole.",
+     "en": "The saucepan.",
+     "id": "p056"
+    },
+    {
+     "fr": "Les fruits.",
+     "en": "The fruit.",
+     "id": "p057"
+    },
+    {
+     "fr": "J'ouvre le frigo.",
+     "en": "I open the fridge.",
+     "id": "p058"
+    },
+    {
+     "fr": "Je prépare le repas.",
+     "en": "I prepare the meal.",
+     "id": "p059"
+    },
+    {
+     "fr": "La casserole est sur la cuisinière.",
+     "en": "The saucepan is on the cooker.",
+     "id": "p060"
+    },
+    {
+     "fr": "Les fruits sont sur le comptoir.",
+     "en": "The fruit is on the counter.",
+     "id": "p061"
+    },
+    {
+     "fr": "Je cuisine pour ma famille.",
+     "en": "I cook for my family.",
+     "id": "p062"
+    },
+    {
+     "fr": "Qu'est-ce qu'on mange ce soir ?",
+     "en": "What are we eating tonight?",
+     "id": "p063"
+    },
+    {
+     "fr": "Le frigo est grand et il est gris.",
+     "en": "The fridge is big and it is grey.",
+     "id": "p064"
+    }
+   ],
+   "introId": "sec-cuisine"
+  },
+  {
+   "id": "chambre",
+   "title": "The bedroom",
+   "fr": "La chambre",
+   "intro": "Now, the bedroom. La chambre.",
+   "items": [
+    {
+     "fr": "La chambre.",
+     "en": "The bedroom.",
+     "id": "p065"
+    },
+    {
+     "fr": "Le lit.",
+     "en": "The bed.",
+     "id": "p066"
+    },
+    {
+     "fr": "L'oreiller.",
+     "en": "The pillow.",
+     "id": "p067"
+    },
+    {
+     "fr": "La lampe.",
+     "en": "The lamp.",
+     "id": "p068"
+    },
+    {
+     "fr": "La fenêtre.",
+     "en": "The window.",
+     "id": "p069"
+    },
+    {
+     "fr": "Le lit est bleu.",
+     "en": "The bed is blue.",
+     "id": "p070"
+    },
+    {
+     "fr": "Je dors dans ma chambre.",
+     "en": "I sleep in my bedroom.",
+     "id": "p071"
+    },
+    {
+     "fr": "J'ai sommeil.",
+     "en": "I'm sleepy.",
+     "id": "p072"
+    },
+    {
+     "fr": "Je me couche.",
+     "en": "I go to bed.",
+     "id": "p073"
+    },
+    {
+     "fr": "Je me lève.",
+     "en": "I get up.",
+     "id": "p074"
+    },
+    {
+     "fr": "J'allume la lampe.",
+     "en": "I turn on the lamp.",
+     "id": "p075"
+    },
+    {
+     "fr": "J'éteins la lumière.",
+     "en": "I turn off the light.",
+     "id": "p076"
+    },
+    {
+     "fr": "Il y a deux oreillers sur le lit.",
+     "en": "There are two pillows on the bed.",
+     "id": "p077"
+    },
+    {
+     "fr": "Bonne nuit, à demain !",
+     "en": "Good night, see you tomorrow!",
+     "id": "p078"
+    }
+   ],
+   "introId": "sec-chambre"
+  },
+  {
+   "id": "chambre-fille",
+   "title": "The girl's room",
+   "fr": "La chambre de la fille",
+   "intro": "Now, the girl's room. La chambre de la fille.",
+   "items": [
+    {
+     "fr": "Le lit est rose.",
+     "en": "The bed is pink.",
+     "id": "p079"
+    },
+    {
+     "fr": "L'ours en peluche.",
+     "en": "The teddy bear.",
+     "id": "p080"
+    },
+    {
+     "fr": "Les livres.",
+     "en": "The books.",
+     "id": "p081"
+    },
+    {
+     "fr": "L'étagère.",
+     "en": "The shelf.",
+     "id": "p082"
+    },
+    {
+     "fr": "Il y a un ours sur le lit.",
+     "en": "There is a teddy bear on the bed.",
+     "id": "p083"
+    },
+    {
+     "fr": "J'aime lire.",
+     "en": "I like reading.",
+     "id": "p084"
+    },
+    {
+     "fr": "Je lis un livre avant de dormir.",
+     "en": "I read a book before sleeping.",
+     "id": "p085"
+    },
+    {
+     "fr": "L'arc-en-ciel est sur le mur.",
+     "en": "The rainbow is on the wall.",
+     "id": "p086"
+    },
+    {
+     "fr": "Elle range ses livres sur l'étagère.",
+     "en": "She puts her books on the shelf.",
+     "id": "p087"
+    }
+   ],
+   "introId": "sec-chambre-fille"
+  },
+  {
+   "id": "chambre-garcons",
+   "title": "The boys' room",
+   "fr": "La chambre des garçons",
+   "intro": "Now, the boys' room. La chambre des garçons.",
+   "items": [
+    {
+     "fr": "Les lits superposés.",
+     "en": "The bunk beds.",
+     "id": "p088"
+    },
+    {
+     "fr": "Le ballon.",
+     "en": "The ball.",
+     "id": "p089"
+    },
+    {
+     "fr": "Le tapis.",
+     "en": "The rug.",
+     "id": "p090"
+    },
+    {
+     "fr": "Le bureau.",
+     "en": "The desk.",
+     "id": "p091"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "p092"
+    },
+    {
+     "fr": "Mon frère dort en haut.",
+     "en": "My brother sleeps on top.",
+     "id": "p093"
+    },
+    {
+     "fr": "Je dors en bas.",
+     "en": "I sleep on the bottom.",
+     "id": "p094"
+    },
+    {
+     "fr": "Le ballon est par terre.",
+     "en": "The ball is on the floor.",
+     "id": "p095"
+    },
+    {
+     "fr": "Le tapis est bleu et rond.",
+     "en": "The rug is blue and round.",
+     "id": "p096"
+    },
+    {
+     "fr": "Je fais mes devoirs au bureau.",
+     "en": "I do my homework at the desk.",
+     "id": "p097"
+    }
+   ],
+   "introId": "sec-chambre-garcons"
+  },
+  {
+   "id": "salle-de-bains",
+   "title": "The bathroom",
+   "fr": "La salle de bains",
+   "intro": "Now, the bathroom. La salle de bains.",
+   "items": [
+    {
+     "fr": "La salle de bains.",
+     "en": "The bathroom.",
+     "id": "p098"
+    },
+    {
+     "fr": "La douche.",
+     "en": "The shower.",
+     "id": "p099"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "p100"
+    },
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilet.",
+     "id": "p101"
+    },
+    {
+     "fr": "La serviette.",
+     "en": "The towel.",
+     "id": "p102"
+    },
+    {
+     "fr": "L'eau est chaude.",
+     "en": "The water is hot.",
+     "id": "p103"
+    },
+    {
+     "fr": "Je prends une douche.",
+     "en": "I take a shower.",
+     "id": "p104"
+    },
+    {
+     "fr": "Je me lave les mains.",
+     "en": "I wash my hands.",
+     "id": "p105"
+    },
+    {
+     "fr": "Je me brosse les dents.",
+     "en": "I brush my teeth.",
+     "id": "p106"
+    },
+    {
+     "fr": "La serviette est propre.",
+     "en": "The towel is clean.",
+     "id": "p107"
+    },
+    {
+     "fr": "Je me lave le matin et le soir.",
+     "en": "I wash in the morning and in the evening.",
+     "id": "p108"
+    }
+   ],
+   "introId": "sec-salle-de-bains"
+  },
+  {
+   "id": "bureau",
+   "title": "The study",
+   "fr": "Le bureau",
+   "intro": "Now, the study. Le bureau.",
+   "items": [
+    {
+     "fr": "Le bureau.",
+     "en": "The study.",
+     "id": "p109"
+    },
+    {
+     "fr": "L'ordinateur.",
+     "en": "The computer.",
+     "id": "p110"
+    },
+    {
+     "fr": "Le livre.",
+     "en": "The book.",
+     "id": "p111"
+    },
+    {
+     "fr": "La bibliothèque.",
+     "en": "The bookcase.",
+     "id": "p112"
+    },
+    {
+     "fr": "Je travaille au bureau.",
+     "en": "I work at the desk.",
+     "id": "p113"
+    },
+    {
+     "fr": "J'ouvre l'ordinateur.",
+     "en": "I open the computer.",
+     "id": "p114"
+    },
+    {
+     "fr": "La lampe est sur le bureau.",
+     "en": "The lamp is on the desk.",
+     "id": "p115"
+    },
+    {
+     "fr": "Il y a beaucoup de livres.",
+     "en": "There are a lot of books.",
+     "id": "p116"
+    },
+    {
+     "fr": "Je lis et j'écris à mon bureau.",
+     "en": "I read and write at my desk.",
+     "id": "p117"
+    },
+    {
+     "fr": "Le soir, je travaille un peu.",
+     "en": "In the evening, I work a little.",
+     "id": "p118"
+    }
+   ],
+   "introId": "sec-bureau"
+  },
+  {
+   "id": "jardin",
+   "title": "The garden",
+   "fr": "Le jardin",
+   "intro": "Now, the garden. Le jardin.",
+   "items": [
+    {
+     "fr": "Le jardin.",
+     "en": "The garden.",
+     "id": "p119"
+    },
+    {
+     "fr": "L'arbre.",
+     "en": "The tree.",
+     "id": "p120"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "p121"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "p122"
+    },
+    {
+     "fr": "Le jardin est beau.",
+     "en": "The garden is beautiful.",
+     "id": "p123"
+    },
+    {
+     "fr": "Les fleurs sont rouges et jaunes.",
+     "en": "The flowers are red and yellow.",
+     "id": "p124"
+    },
+    {
+     "fr": "Je m'assois sur le banc.",
+     "en": "I sit on the bench.",
+     "id": "p125"
+    },
+    {
+     "fr": "La table du jardin.",
+     "en": "The garden table.",
+     "id": "p126"
+    },
+    {
+     "fr": "Le parasol.",
+     "en": "The parasol.",
+     "id": "p127"
+    },
+    {
+     "fr": "On mange dehors quand il fait beau.",
+     "en": "We eat outside when the weather is nice.",
+     "id": "p128"
+    },
+    {
+     "fr": "Il fait beau, nous sommes dans le jardin.",
+     "en": "It's nice out, we are in the garden.",
+     "id": "p129"
+    }
+   ],
+   "introId": "sec-jardin"
+  },
+  {
+   "id": "garage",
+   "title": "The garage",
+   "fr": "Le garage",
+   "intro": "Last stop, the garage. Le garage.",
+   "items": [
+    {
+     "fr": "Le garage.",
+     "en": "The garage.",
+     "id": "p130"
+    },
+    {
+     "fr": "La voiture.",
+     "en": "The car.",
+     "id": "p131"
+    },
+    {
+     "fr": "La voiture est bleue.",
+     "en": "The car is blue.",
+     "id": "p132"
+    },
+    {
+     "fr": "Je gare la voiture.",
+     "en": "I park the car.",
+     "id": "p133"
+    },
+    {
+     "fr": "Je prends la voiture.",
+     "en": "I take the car.",
+     "id": "p134"
+    },
+    {
+     "fr": "Ma voiture est dans le garage.",
+     "en": "My car is in the garage.",
+     "id": "p135"
+    },
+    {
+     "fr": "Nous quittons la maison en voiture.",
+     "en": "We leave the house by car.",
+     "id": "p136"
+    },
+    {
+     "fr": "Au revoir, à bientôt !",
+     "en": "Goodbye, see you soon!",
+     "id": "p137"
+    }
+   ],
+   "introId": "sec-garage"
+  }
+ ],
+ "extras": [
+  {
+   "id": "intro",
+   "text": "Welcome to Talkletics! In this game, it's all about repeating. I say each phrase three times. Then it's your turn. There's no button to press, just say it out loud. The more accurately you speak, the further you go. Ready? Let's go!",
+   "lang": "en"
+  },
+  {
+   "id": "final",
+   "text": "Bravo! You've visited the whole house, and you spoke the entire way. That's a real achievement. See you at the next place!",
+   "lang": "en"
+  },
+  {
+   "id": "again",
+   "text": "Listen again.",
+   "lang": "en"
+  },
+  {
+   "id": "ok1",
+   "text": "Great!",
+   "lang": "en"
+  },
+  {
+   "id": "ok2",
+   "text": "Wonderful!",
+   "lang": "en"
+  },
+  {
+   "id": "ok3",
+   "text": "Très bien!",
+   "lang": "en"
+  },
+  {
+   "id": "ok4",
+   "text": "Perfect!",
+   "lang": "en"
+  },
+  {
+   "id": "ok5",
+   "text": "Yes, that's it!",
+   "lang": "en"
+  },
+  {
+   "id": "ok6",
+   "text": "Nice one!",
+   "lang": "en"
+  },
+  {
+   "id": "retry1",
+   "text": "Almost! Listen again.",
+   "lang": "en"
+  },
+  {
+   "id": "retry2",
+   "text": "Not quite. One more time.",
+   "lang": "en"
+  },
+  {
+   "id": "retry3",
+   "text": "Close! Let's hear it again.",
+   "lang": "en"
+  },
+  {
+   "id": "retry4",
+   "text": "Try again, you can do it.",
+   "lang": "en"
+  },
+  {
+   "id": "nohear",
+   "text": "I didn't hear you. Let's try again.",
+   "lang": "en"
+  }
+ ]
+}

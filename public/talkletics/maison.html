@@ -1,121 +1,81 @@
-﻿<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Talkletics - Maison - Mission 1</title>
+<title>Talkletics - Chez moi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="maison.css?v=12">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="maison.css?v=20">
 </head>
 <body>
-<div class="ms-stage">
+<div class="mz" id="mz">
+  <div class="mz-world" id="world">
+    <img class="mz-house" id="house" alt="" draggable="false">
+    <div class="mz-glows" id="glows"></div>
+    <div class="mz-actor" id="actor"><div class="mz-shadow"></div><img id="actorImg" alt="" draggable="false"></div>
+  </div>
+  <div class="mz-vignette"></div>
 
-  <div class="ms-bg-blur"></div>
-  <div class="ms-scrim"></div>
-
-  <button class="ms-corner-icon ms-corner-back" onclick="location.href='map.html'" aria-label="Back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
+  <button class="mz-icon mz-back" onclick="location.href='map.html'" aria-label="Back to the map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
   </button>
-  <button class="ms-corner-icon ms-corner-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
-      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
-      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
-      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
-    </svg>
+  <button class="mz-icon mz-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>
   </button>
 
-  <div class="ms-preloader" id="msPreloader">
-    <video id="msPreloaderVideo" class="ms-preloader-video" playsinline muted autoplay></video>
-    <p class="ms-preloader-note" id="msPreloaderNote" style="display:none;">Preloader video not uploaded yet - continuing…</p>
+  <div class="mz-top" id="top" hidden>
+    <div class="mz-chip"><span id="secFr">Les salutations</span><small id="secEn">Greetings</small></div>
+    <div class="mz-bar" title="Distance covered"><i id="barFill"></i></div>
   </div>
 
-  <div class="ms-guide-intro" id="msGuideIntro" style="display:none;">
-    <button class="ms-guide-tap" id="msGuideAvatarBtn" aria-label="Play instructions">
-      <img id="msGuideAvatarImg" src="" alt="Guide">
-      <span class="ms-guide-tap-hint">Tap to hear instructions</span>
-    </button>
-    <div class="ms-guide-intro-actions">
-      <button class="ms-btn ms-btn-skip" id="msGuideSkipBtn">Skip</button>
-      <button class="ms-btn ms-btn-primary" id="msGuideStartBtn">Start Mission</button>
-    </div>
-  </div>
+  <div class="mz-banner" id="banner" hidden><b id="banFr"></b><span id="banEn"></span></div>
 
-  <div class="ms-mission" id="msMission" style="display:none;">
-
-    <div class="ms-topbar">
-      <span class="ms-item-counter" id="msItemCounter">Item 1 of 12</span>
-      <span class="ms-tier-label" id="msTierLabel">Words</span>
-    </div>
-
-    <div class="ms-card">
-      <p class="ms-french" id="msFrench">-</p>
-      <p class="ms-english" id="msEnglish">-</p>
-
-      <div class="ms-dots" id="msDots">
-        <span class="ms-dot"></span><span class="ms-dot"></span><span class="ms-dot"></span>
-        <span class="ms-dot"></span><span class="ms-dot"></span><span class="ms-dot"></span>
+  <section class="mz-pick" id="pick">
+    <div class="mz-pick-card">
+      <p class="mz-kicker">Talkletics · Mission 1</p>
+      <h1>Chez moi</h1>
+      <p class="mz-sub">Repeat after the teacher. Speak well, go further.</p>
+      <p class="mz-who">Choose your player</p>
+      <div class="mz-chars">
+        <button class="mz-char" data-who="girl" aria-label="Girl"><img src="/assets/talkletics/maison/chars/c18.webp" alt=""></button>
+        <button class="mz-char" data-who="boy" aria-label="Boy"><img src="/assets/talkletics/maison/chars/c17.webp" alt=""></button>
       </div>
-
-      <p class="ms-phase-label" id="msPhaseLabel">Listen carefully</p>
-
-      <button class="ms-btn ms-btn-primary" id="msListenBtn">▶ Listen</button>
-      <canvas id="msWaveCanvas" class="ms-wave-canvas" width="280" height="56" style="display:none;"></canvas>
-      <button class="ms-btn ms-btn-record" id="msRecordBtn" style="display:none;">● Record</button>
-      <button class="ms-btn ms-btn-stop" id="msStopBtn" style="display:none;">■ Stop</button>
-      <button class="ms-btn ms-btn-secondary" id="msPlayRecordingBtn" style="display:none;">▶ Play My Recording</button>
-      <button class="ms-btn ms-btn-secondary" id="msRerecordBtn" style="display:none;">↻ Re-record</button>
-      <button class="ms-btn ms-btn-primary" id="msSubmitBtn" style="display:none;">Submit</button>
-
-      <p class="ms-status" id="msStatus"></p>
-      <button class="ms-skip-link" id="msPreSkipBtn">Skip</button>
+      <button class="mz-btn mz-go" id="goBtn" disabled>Start</button>
+      <button class="mz-link" id="restartBtn" hidden>Start over</button>
+      <p class="mz-err" id="pickErr" hidden></p>
     </div>
+  </section>
 
-    <div class="ms-feedback" id="msFeedback" style="display:none;">
-      <p class="ms-feedback-score" id="msFeedbackScore">-</p>
-      <p class="ms-feedback-msg" id="msFeedbackMsg">-</p>
-      <button class="ms-btn ms-btn-primary" id="msTryAgainBtn">Try Again?</button>
-      <button class="ms-btn ms-btn-secondary" id="msNextBtn">Next</button>
+  <section class="mz-card" id="card" hidden>
+    <div class="mz-phase"><span class="mz-dot" id="phaseDot"></span><span id="phaseTxt">Listen</span></div>
+    <p class="mz-en" id="en">&nbsp;</p>
+    <div class="mz-listen" id="listenDots"><i></i><i></i><i></i></div>
+    <canvas class="mz-wave" id="wave" width="360" height="54"></canvas>
+    <div class="mz-result" id="result" hidden>
+      <div class="mz-score"><b id="scoreNum">0</b><span id="scoreLbl"></span></div>
+      <p class="mz-fr" id="frWords"></p>
+      <p class="mz-hint" id="hint"></p>
     </div>
-
-    <div class="ms-final" id="msFinal" style="display:none;">
-      <p class="ms-final-title">Mission Complete</p>
-      <p class="ms-final-score" id="msFinalScore">-</p>
-      <p class="ms-final-pass" id="msFinalPass">-</p>
-      <button class="ms-btn ms-btn-secondary" id="msRetakeBtn">Retake Mission</button>
-      <button class="ms-btn ms-btn-primary" id="msContinueBtn">Continue to Mission 2</button>
+    <div class="mz-actions">
+      <button class="mz-ghost" id="againBtn" hidden>Hear it again</button>
+      <button class="mz-ghost" id="skipBtn" hidden>Skip this one</button>
+      <button class="mz-btn" id="introSkip" hidden>Skip intro</button>
     </div>
+  </section>
 
-  </div>
-
-  <div class="ms-confirm-overlay" id="msConfirmOverlay" style="display:none;">
-    <div class="ms-confirm-box">
-      <p class="ms-confirm-msg">Skipping this item may affect your score. Are you sure?</p>
-      <div class="ms-confirm-actions">
-        <button class="ms-btn ms-btn-secondary" id="msConfirmCancel">Cancel</button>
-        <button class="ms-btn ms-btn-record" id="msConfirmYes">Yes, Skip</button>
-      </div>
+  <section class="mz-final" id="final" hidden>
+    <div class="mz-pick-card">
+      <p class="mz-kicker">Visite terminée</p>
+      <h1>Bravo !</h1>
+      <p class="mz-sub" id="finalTxt"></p>
+      <div class="mz-final-stats"><div><b id="fDist">0%</b><span>distance covered</span></div><div><b id="fAvg">0</b><span>average score</span></div></div>
+      <button class="mz-btn mz-go" onclick="location.href='map.html'">Back to the map</button>
+      <button class="mz-link" id="replayBtn">Play again to go further</button>
     </div>
-  </div>
-
-  <div class="ms-hype-video" id="msHypeVideo" style="display:none;">
-    <button class="ms-hype-close" id="msHypeClose" aria-label="Close">&times;</button>
-    <video id="msHypeVideoEl" playsinline muted></video>
-  </div>
-
+  </section>
 </div>
-<audio id="msRefAudio"></audio>
-<audio id="msGuideAudio"></audio>
-<script src="/js/activity-tracker.js?v=1" data-type="game"></script>
-<script src="maison.js?v=12"></script>
+<script src="maison.js?v=20"></script>
 </body>
 </html>
-
-
-
-
-

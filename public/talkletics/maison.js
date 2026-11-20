@@ -1,587 +1,359 @@
-﻿(function(){
+(function(){
+"use strict";
+var API="https://saybonapp-server.onrender.com";
+var BASE="/assets/talkletics/maison/";
+var SAVE="tkMaison";
+var $=function(id){return document.getElementById(id);};
+var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms);});};
+var clamp=function(x,a,b){return Math.max(a,Math.min(b,x));};
 
-  var API_BASE = "https://saybonapp-server.onrender.com";
-  var PASS_MARK = 70;
+/* ---------- two house layouts: points are in house-picture pixels ---------- */
+var PORTRAIT=window.innerWidth/window.innerHeight<0.9;
+var LAY=PORTRAIT?{
+  img:"house-mobile.webp",W:1086,H:1448,ch:190,zoom:1.9,anchor:0.34,
+  n:{gate:[540,1338],path:[540,1245],porch:[540,1165],door:[540,1090],hall:[540,985],A:[548,745],liv1:[545,835],liv2:[480,905],
+     din1:[465,725],din2:[660,735],kit1:[540,565],kit2:[440,560],B1:[395,650],pinkIn:[310,560],pink:[240,535],bathIn:[300,690],bath:[215,690],
+     B2:[400,795],blueIn:[315,830],blue:[215,895],E1:[705,640],bunkIn:[790,650],bunk:[860,625],E2:[715,795],studyIn:[800,830],study:[885,895],
+     lawnM:[400,1255],lawnL:[250,1255],w1:[70,1190],w2:[60,900],w3:[65,560],w4:[85,400],back1:[190,345],back2:[420,300],patio:[620,300],bk3:[780,345],garage:[850,430]},
+  e:"gate-path path-porch porch-door door-hall hall-liv1 liv1-A liv1-liv2 A-din1 A-din2 din1-kit1 din2-kit1 kit1-kit2 din1-B1 B1-pinkIn pinkIn-pink B1-bathIn bathIn-bath liv1-B2 B2-blueIn blueIn-blue din2-E1 E1-bunkIn bunkIn-bunk A-E2 E2-studyIn studyIn-study path-lawnM lawnM-lawnL lawnL-w1 w1-w2 w2-w3 w3-w4 w4-back1 back1-back2 back2-patio patio-bk3 bk3-garage",
+  lamps:[[125,775],[115,930],[920,610],[950,890],[710,915],[545,1020],[470,1055],[615,1055],[225,1250],[1050,1250]]
+}:{
+  img:"house-desktop.webp",W:1672,H:941,ch:150,zoom:1.45,anchor:0.42,
+  n:{gate:[800,868],path:[800,785],porch:[808,705],door:[808,650],hall:[800,578],A:[790,440],liv1:[735,455],liv2:[880,430],
+     din1:[700,385],din2:[930,380],kit1:[790,268],kit2:[650,250],B1:[618,345],pinkIn:[525,240],pink:[440,232],bathIn:[505,345],bath:[430,352],
+     B2:[612,435],blueIn:[525,478],blue:[420,535],E1:[990,335],bunkIn:[1105,325],bunk:[1185,285],E2:[1002,445],studyIn:[1110,455],study:[1175,535],
+     lawnL:[400,805],lawnM:[600,800],lawnR:[1000,800],lawnR2:[1250,790],garR:[1380,735],garage:[1480,722],gp1:[1372,560],gp2:[1378,430],gp3:[1410,335],patio:[1465,305]},
+  e:"gate-path path-porch porch-door door-hall hall-A A-liv1 A-liv2 A-din1 A-din2 din1-kit1 din2-kit1 kit1-kit2 din1-B1 B1-pinkIn pinkIn-pink B1-bathIn bathIn-bath liv1-B2 B2-blueIn blueIn-blue din2-E1 E1-bunkIn bunkIn-bunk liv2-E2 E2-studyIn studyIn-study path-lawnM lawnM-lawnL path-lawnR lawnR-lawnR2 lawnR2-garR garR-garage garR-gp1 gp1-gp2 gp2-gp3 gp3-patio",
+  lamps:[[330,430],[310,570],[1270,290],[1300,520],[1000,540],[810,610],[730,640],[880,640],[180,790],[1420,790]]
+};
+var SPOTS={"salutations":["gate","path"],"entree":["porch","door","hall"],"salon":["liv1","liv2"],"salle-a-manger":["din1","din2"],
+  "cuisine":["kit1","kit2"],"chambre":["blueIn","blue"],"chambre-fille":["pinkIn","pink"],"chambre-garcons":["bunkIn","bunk"],
+  "salle-de-bains":["bathIn","bath"],"bureau":["studyIn","study"],"jardin":["lawnL","patio"],"garage":["garage"]};
+var ADJ={};LAY.e.split(" ").forEach(function(p){var a=p.split("-");(ADJ[a[0]]=ADJ[a[0]]||[]).push(a[1]);(ADJ[a[1]]=ADJ[a[1]]||[]).push(a[0]);});
+function dist(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1]);}
+function route(from,to){ // Dijkstra over the walkable points
+  var D={},P={},Q=Object.keys(LAY.n);Q.forEach(function(k){D[k]=1e9;});D[from]=0;
+  while(Q.length){var u=Q.reduce(function(a,b){return D[a]<=D[b]?a:b;});Q.splice(Q.indexOf(u),1);if(u===to)break;
+    (ADJ[u]||[]).forEach(function(v){var d=D[u]+dist(LAY.n[u],LAY.n[v]);if(d<D[v]){D[v]=d;P[v]=u;}});}
+  var r=[to];while(P[r[0]])r.unshift(P[r[0]]);return r;
+}
 
-  var CURRICULUM = [
-    { french:"Bonjour", english:"Hello", asset:"mission1-item1", tier:"Words" },
-    { french:"Salut", english:"Hi", asset:"mission1-item2", tier:"Words" },
-    { french:"Merci", english:"Thanks", asset:"mission1-item3", tier:"Words" },
-    { french:"Bonsoir", english:"Good evening", asset:"mission1-item4", tier:"Words" },
-    { french:"Pardon", english:"Excuse me", asset:"mission1-item5", tier:"Words" },
-    { french:"Comment Ça va ?", english:"How are you?", asset:"mission1-item6", tier:"Phrases" },
-    { french:"Très bien, merci", english:"Very well, thanks", asset:"mission1-item7", tier:"Phrases" },
-    { french:"Ã€ bientôt", english:"See you soon", asset:"mission1-item8", tier:"Phrases" },
-    { french:"EnchantÉ", english:"Nice to meet you", asset:"mission1-item9", tier:"Phrases" },
-    { french:"Je m'appelle Marie", english:"My name is Marie", asset:"mission1-item10", tier:"Sentences" },
-    { french:"Comment vous appelez-vous ?", english:"What is your name?", asset:"mission1-item11", tier:"Sentences" },
-    { french:"Bonjour, comment allez-vous aujourd'hui ?", english:"Hello, how are you today?", asset:"mission1-item12", tier:"Sentences" }
-  ];
-
-  var assetMap = {};
-  var currentIndex = 0;
-  var listenCount = 0;
-  var scores = new Array(CURRICULUM.length).fill(0);
-  var mediaRecorder = null;
-  var recordedChunks = [];
-  var currentStream = null;
-  var sequenceToken = 0;
-
-  var refAudio = document.getElementById("msRefAudio");
-  var listenBtn = document.getElementById("msListenBtn");
-  var recordBtn = document.getElementById("msRecordBtn");
-  var stopBtn = document.getElementById("msStopBtn");
-  var submitBtn = document.getElementById("msSubmitBtn");
-  var statusEl = document.getElementById("msStatus");
-  var frenchEl = document.getElementById("msFrench");
-  var englishEl = document.getElementById("msEnglish");
-  var itemCounterEl = document.getElementById("msItemCounter");
-  var tierLabelEl = document.getElementById("msTierLabel");
-  var phaseLabelEl = document.getElementById("msPhaseLabel");
-  var dots = document.querySelectorAll(".ms-dot");
-  var missionEl = document.getElementById("msMission");
-  var feedbackEl = document.getElementById("msFeedback");
-  var feedbackScoreEl = document.getElementById("msFeedbackScore");
-  var feedbackMsgEl = document.getElementById("msFeedbackMsg");
-  var tryAgainBtn = document.getElementById("msTryAgainBtn");
-  var nextBtn = document.getElementById("msNextBtn");
-  var finalEl = document.getElementById("msFinal");
-  var finalScoreEl = document.getElementById("msFinalScore");
-  var finalPassEl = document.getElementById("msFinalPass");
-  var retakeBtn = document.getElementById("msRetakeBtn");
-  var continueBtn = document.getElementById("msContinueBtn");
-  var preloaderEl = document.getElementById("msPreloader");
-  var preloaderVideo = document.getElementById("msPreloaderVideo");
-  var preloaderNote = document.getElementById("msPreloaderNote");
-  var cardEl = document.querySelector(".ms-card");
-  var preSkipBtn = document.getElementById("msPreSkipBtn");
-  var confirmOverlay = document.getElementById("msConfirmOverlay");
-  var confirmCancel = document.getElementById("msConfirmCancel");
-  var confirmYes = document.getElementById("msConfirmYes");
-  var playRecordingBtn = document.getElementById("msPlayRecordingBtn");
-  var rerecordBtn = document.getElementById("msRerecordBtn");
-  var playbackAudioEl = new Audio();
-  var recordedBlobUrl = null;
-  var waveCanvas = document.getElementById("msWaveCanvas");
-  var waveCtx = waveCanvas.getContext("2d");
-  var waveAudioCtx = null;
-  var waveAnalyser = null;
-  var waveSource = null;
-  var waveAnimId = null;
-
-  function startWave(streamOrElement, isElement){
-    waveCanvas.style.display = "block";
-    if(!waveAudioCtx){
-      waveAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    waveAnalyser = waveAudioCtx.createAnalyser();
-    waveAnalyser.fftSize = 64;
-
-    if(isElement){
-      if(!streamOrElement._msWaveSource){
-        streamOrElement._msWaveSource = waveAudioCtx.createMediaElementSource(streamOrElement);
-        streamOrElement._msWaveSource.connect(waveAudioCtx.destination);
+/* ---------- the walking kids: swap pictures so they look animated ---------- */
+var SETS={
+  girl:{right:[4,3],left:[7,6],up:[2,5],upR:[2,3],upL:[5,5],front:[18],idle:[18,4,18,6]},
+  boy:{right:[13,14],left:[10,11],up:[8,12,8,9],upR:[12,8],upL:[9,8],front:[17],idle:[17,13,17,10]}
+};
+function spr(n){return BASE+"chars/c"+(n<10?"0":"")+n+".webp";}
+var who=null,cur="gate",facing="front",frameT=0,walking=false;
+var actor=$("actor"),actorImg=$("actorImg");
+actor.style.height=LAY.ch+"px";
+function pos(x,y){actor.style.left=x+"px";actor.style.top=y+"px";}
+function setFrame(){
+  if(!who)return;var S=SETS[who],list=walking?S[facing]:S.idle;
+  var i=Math.floor(frameT/(walking?230:1700))%list.length;var u=spr(list[i]);
+  if(actorImg.getAttribute("data-u")!==u){actorImg.setAttribute("data-u",u);actorImg.src=u;}
+}
+var charX=0,charY=0,focus=[0,0];
+function placeAt(node){var p=LAY.n[node];charX=p[0];charY=p[1];pos(charX,charY);cur=node;}
+function walkPoints(pts,speed){ // pts = array of [x,y]
+  return new Promise(function(done){
+    var i=0,last=performance.now();walking=true;
+    function step(now){
+      var dt=Math.min(60,now-last)/1000;last=now;var left=speed*dt;
+      while(left>0&&i<pts.length){
+        var t=pts[i],dx=t[0]-charX,dy=t[1]-charY,d=Math.hypot(dx,dy);
+        if(d>1){var ax=Math.abs(dx),ay=Math.abs(dy);
+          facing=ax>=ay*0.8?(dx>0?"right":"left"):(dy<0?(dx>ay*0.18?"upR":dx<-ay*0.18?"upL":"up"):"front");}
+        if(d<=left){charX=t[0];charY=t[1];left-=d;i++;}else{charX+=dx/d*left;charY+=dy/d*left;left=0;}
       }
-      streamOrElement._msWaveSource.connect(waveAnalyser);
-    } else {
-      waveSource = waveAudioCtx.createMediaStreamSource(streamOrElement);
-      waveSource.connect(waveAnalyser);
+      var bob=Math.abs(Math.sin(now/115))*4;
+      pos(charX,charY-bob);actorImg.style.transform="rotate("+Math.sin(now/230)*2.2+"deg)";
+      frameT=now;setFrame();
+      if(i>=pts.length){walking=false;facing="front";actorImg.style.transform="";pos(charX,charY);setFrame();done();return;}
+      requestAnimationFrame(step);
     }
+    requestAnimationFrame(step);
+  });
+}
+var partialTo=null;
+function nearest(){var b=cur,bd=1e9;Object.keys(LAY.n).forEach(function(k){var d=dist(LAY.n[k],[charX,charY]);if(d<bd){bd=d;b=k;}});return b;}
+function walkRoute(to,frac){
+  cur=nearest();
+  var names=route(cur,to);if(names.length<2){return Promise.resolve();}
+  var pts=names.slice(1).map(function(n){return LAY.n[n];});
+  if(frac&&frac<1&&pts.length===1){var a=[charX,charY],b=pts[0];pts=[[a[0]+(b[0]-a[0])*frac,a[1]+(b[1]-a[1])*frac]];}
+  var len=0,p=[charX,charY];pts.forEach(function(q){len+=dist(p,q);p=q;});
+  var speed=Math.max(LAY.ch*1.7,len/7);
+  var full=!frac||frac>=1||names.length>2;partialTo=full?null:to;
+  return walkPoints(pts,speed).then(function(){if(full)cur=to;});
+}
+// idle: look around now and then
+setInterval(function(){if(!walking){frameT=performance.now();setFrame();}},400);
 
-    var bufferLength = waveAnalyser.frequencyBinCount;
-    var dataArray = new Uint8Array(bufferLength);
+/* ---------- the camera: pans slowly, follows the child, never stops moving ---------- */
+var world=$("world"),house=$("house"),cam={x:0,y:0,s:1,ready:false},vw=0,vh=0;
+function sizeWorld(){
+  vw=window.innerWidth;vh=window.innerHeight;
+  world.style.width=LAY.W+"px";world.style.height=LAY.H+"px";house.style.width=LAY.W+"px";house.style.height=LAY.H+"px";
+}
+function camTarget(t){
+  var cover=Math.max(vw/LAY.W,(vh*1.0)/LAY.H);
+  var z=cover*Math.max(1,LAY.zoom*(PORTRAIT?1:Math.min(1.15,vw/1300+0.3)));
+  var breathe=1+Math.sin(t/5200)*0.018;var s=Math.max(cover,z*breathe);
+  var fx=charX+Math.sin(t/4300)*26,fy=charY-LAY.ch*0.45+Math.cos(t/3700)*18;
+  var tx=vw/2-fx*s,ty=vh*LAY.anchor-fy*s;
+  tx=clamp(tx,vw-LAY.W*s,0);ty=clamp(ty,vh-LAY.H*s-vh*0.24,0); // the picture may slide up a little so the card never hides the child at the gate
+  return {x:tx,y:ty,s:s};
+}
+var lastT=performance.now();
+function loop(t){
+  var dt=Math.min(80,t-lastT);lastT=t;var g=camTarget(t);
+  if(!cam.ready){cam.x=g.x;cam.y=g.y;cam.s=g.s;cam.ready=true;}
+  var k=1-Math.pow(0.0008,dt/1000);cam.x+=(g.x-cam.x)*k;cam.y+=(g.y-cam.y)*k;cam.s+=(g.s-cam.s)*k;
+  world.style.transform="translate("+cam.x.toFixed(1)+"px,"+cam.y.toFixed(1)+"px) scale("+cam.s.toFixed(4)+")";
+  requestAnimationFrame(loop);
+}
+// lamp glows
+(function(){var g=$("glows");LAY.lamps.forEach(function(p,i){var e=document.createElement("i");var r=PORTRAIT?150:130;
+  e.style.cssText="left:"+p[0]+"px;top:"+p[1]+"px;width:"+r+"px;height:"+r+"px;animation-delay:"+(-i*0.55)+"s";g.appendChild(e);});})();
+house.onload=function(){ // continue the pavement below the picture so the card never sits on an empty strip
+  try{var c=document.createElement("canvas");c.width=LAY.W;c.height=520;c.className="mz-ext";var x=c.getContext("2d");
+    x.drawImage(house,0,LAY.H-10,LAY.W,10,0,0,LAY.W,520);world.appendChild(c);}catch(e){}
+};
+house.src=BASE+LAY.img;
 
-    function draw(){
-      waveAnimId = requestAnimationFrame(draw);
-      waveAnalyser.getByteFrequencyData(dataArray);
-      waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-      var barWidth = (waveCanvas.width / bufferLength) * 1.8;
-      var x = 0;
-      for(var i = 0; i < bufferLength; i++){
-        var barHeight = (dataArray[i] / 255) * waveCanvas.height;
-        waveCtx.fillStyle = "#5fbf5f";
-        waveCtx.fillRect(x, waveCanvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 2;
+/* ---------- teacher voice ---------- */
+var voice=new Audio();voice.preload="auto";
+var SILENT="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
+var curFin=null;
+function say(file){ // resolves true when it finished playing, false if it was missing or stopped
+  return new Promise(function(res){
+    var done=false;function fin(ok){if(done)return;done=true;voice.onended=voice.onerror=null;curFin=null;res(ok);}
+    curFin=fin;voice.onended=function(){fin(true);};voice.onerror=function(){fin(false);};
+    voice.src=BASE+"audio/"+file+".mp3";var p=voice.play();if(p&&p.catch)p.catch(function(){fin(false);});
+  });
+}
+function stopVoice(){try{voice.pause();}catch(e){}if(curFin)curFin(false);}
+
+/* ---------- microphone: opens by itself, no record button ---------- */
+var stream=null,actx=null,analyser=null,srcNode=null;
+function wavOf(blob){
+  return blob.arrayBuffer().then(function(buf){
+    var Ctx=window.AudioContext||window.webkitAudioContext,c=new Ctx();
+    return new Promise(function(res,rej){c.decodeAudioData(buf,res,rej);}).then(function(dec){
+      try{c.close();}catch(e){}
+      var rate=16000,len=Math.max(1,Math.ceil(Math.min(dec.duration,60)*rate)),off=new OfflineAudioContext(1,len,rate),s=off.createBufferSource();
+      s.buffer=dec;s.connect(off.destination);s.start(0);return off.startRendering();});
+  }).then(function(r){
+    var d=r.getChannelData(0),n=d.length,v=new DataView(new ArrayBuffer(44+n*2));
+    function str(o,t){for(var i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i));}
+    str(0,"RIFF");v.setUint32(4,36+n*2,true);str(8,"WAVE");str(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);str(36,"data");v.setUint32(40,n*2,true);
+    for(var i=0;i<n;i++){var s=Math.max(-1,Math.min(1,d[i]));v.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true);}
+    return new Blob([v],{type:"audio/wav"});
+  });
+}
+function openMic(){
+  if(stream)return Promise.resolve();
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return Promise.reject(new Error("nomic"));
+  return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}).then(function(s){
+    stream=s;var C=window.AudioContext||window.webkitAudioContext;actx=new C();
+    srcNode=actx.createMediaStreamSource(s);analyser=actx.createAnalyser();analyser.fftSize=1024;srcNode.connect(analyser);
+  });
+}
+var wave=$("wave"),wctx=wave.getContext("2d"),levels=[];
+function drawWave(){
+  var w=wave.width,h=wave.height;wctx.clearRect(0,0,w,h);var n=48,bw=w/n;
+  for(var i=0;i<n;i++){var v=levels[levels.length-n+i]||0,bh=Math.max(4,Math.min(h,v*h*5));
+    wctx.fillStyle="rgba(255,215,106,"+(0.45+Math.min(.55,v*4))+")";var x=i*bw+bw*0.2;
+    wctx.beginPath();if(wctx.roundRect)wctx.roundRect(x,(h-bh)/2,bw*0.6,bh,3);else wctx.rect(x,(h-bh)/2,bw*0.6,bh);wctx.fill();}
+}
+// listens until the learner has spoken and then stopped; resolves {blob} or {none:true}
+function capture(){
+  return new Promise(function(resolve){
+    if(actx&&actx.state==="suspended")actx.resume();
+    stream.getAudioTracks().forEach(function(t){t.enabled=true;});
+    var mime=window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":"";
+    var rec=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream),chunks=[];
+    rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
+    var buf=new Uint8Array(analyser.fftSize),start=performance.now(),spoke=false,voiceAt=0,quietAt=0,floor=null,calib=[],ended=false;
+    levels=[];wave.classList.add("show");
+    function fin(none){
+      if(ended)return;ended=true;wave.classList.remove("show");
+      stream.getAudioTracks().forEach(function(t){t.enabled=false;});
+      if(none){try{rec.stop();}catch(e){}resolve({none:true});return;}
+      rec.onstop=function(){resolve({blob:new Blob(chunks,{type:rec.mimeType||"audio/webm"})});};try{rec.stop();}catch(e){resolve({none:true});}
+    }
+    rec.start(100);
+    (function tick(){
+      if(ended)return;
+      analyser.getByteTimeDomainData(buf);var sum=0;for(var i=0;i<buf.length;i++){var x=(buf[i]-128)/128;sum+=x*x;}
+      var rms=Math.sqrt(sum/buf.length);levels.push(rms);drawWave();
+      var now=performance.now(),el=now-start;
+      if(el<450){calib.push(rms);}else if(floor===null){floor=calib.reduce(function(a,b){return a+b;},0)/Math.max(1,calib.length);}
+      if(floor!==null){
+        var thr=Math.max(0.028,floor*3.4);
+        if(rms>thr){if(!voiceAt)voiceAt=now;if(now-voiceAt>140)spoke=true;quietAt=0;}
+        else{voiceAt=0;if(spoke){if(!quietAt)quietAt=now;if(now-quietAt>1250)return fin(false);}}
       }
-    }
-    draw();
+      if(!spoke&&el>9000)return fin(true);
+      if(el>14000)return fin(false);
+      requestAnimationFrame(tick);
+    })();
+  });
+}
+
+/* ---------- scoring: generous at first, stricter and stricter, always honest about what Azure measured ---------- */
+function adjust(raw,i,N){
+  var t=N>1?i/(N-1):1,bonus=28*Math.max(0,1-t/0.7),strict=t>0.8?(t-0.8)/0.2*6:0;
+  return clamp(Math.round(raw+bonus-strict),0,100);
+}
+function assess(blob,ref){
+  return wavOf(blob).then(function(wav){
+    return fetch(API+"/api/assessPronunciation?referenceText="+encodeURIComponent(ref),{method:"POST",body:wav});
+  }).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j&&j.error||"fail");return j;});});
+}
+
+/* ---------- content + state ---------- */
+var C=null,flat=[],N=0,st={idx:0,gain:0,sum:0,done:0,who:null,finished:false};
+function load(){try{var s=JSON.parse(localStorage.getItem(SAVE));if(s&&typeof s.idx==="number")st=Object.assign(st,s);}catch(e){}}
+function save(){try{localStorage.setItem(SAVE,JSON.stringify(st));}catch(e){}}
+function unlockNext(){try{var c=parseInt(localStorage.getItem("tkMapUnlocked"),10)||1;if(c<2)localStorage.setItem("tkMapUnlocked","2");}catch(e){}}
+function setBar(){$("barFill").style.width=Math.min(100,st.gain/N*100).toFixed(1)+"%";}
+function setPhase(cls,txt){var p=document.querySelector(".mz-phase");p.className="mz-phase "+cls;$("phaseTxt").textContent=txt;}
+function dots(n,state){var d=$("listenDots").children;for(var i=0;i<3;i++)d[i].className=i<n?"done":(i===n&&state==="on"?"on":"");}
+function chips(words,ref){
+  var el=$("frWords");el.innerHTML="";
+  var list=words&&words.length?words:ref.split(/\s+/).map(function(w){return {word:w,accuracyScore:null,errorType:null};});
+  list.forEach(function(w){var e=document.createElement("em"),a=w.accuracyScore;
+    e.textContent=w.word;e.className=(w.errorType==="Omission"||(a!=null&&a<55))?"r":(a!=null&&a<80)?"a":(a!=null?"g":"");el.appendChild(e);});
+}
+function label(s){return s>=88?"Parfait !":s>=75?"Très bien !":s>=62?"Bien !":s>=50?"On avance !":"Presque !";}
+function hintFor(words){
+  if(!words||!words.length)return "";
+  var bad=words.filter(function(w){return w.errorType==="Omission"||(w.accuracyScore!=null&&w.accuracyScore<55);}).map(function(w){return w.word.replace(/[.,!?;:]/g,"");}).filter(Boolean);
+  if(!bad.length)return "";
+  return (bad.length===1?"Work on this word: ":"Work on these words: ")+bad.slice(0,3).join(", ")+".";
+}
+function sectionOf(i){var n=0;for(var s=0;s<C.sections.length;s++){var L=C.sections[s].items.length;if(i<n+L)return {sec:C.sections[s],k:i-n,L:L};n+=L;}return null;}
+
+var lastSec=null;
+async function runItem(){
+  var info=sectionOf(st.idx),item=info.sec.items[info.k],spots=SPOTS[info.sec.id]||["hall"];
+  var spot=spots[Math.floor(info.k*spots.length/info.L)];
+  $("result").hidden=true;$("againBtn").hidden=true;$("skipBtn").hidden=true;$("introSkip").hidden=true;
+  $("en").innerHTML="&nbsp;";dots(0);
+  if(lastSec!==info.sec.id){
+    lastSec=info.sec.id;
+    $("secFr").textContent=info.sec.fr;$("secEn").textContent=info.sec.title;
+    var b=$("banner");$("banFr").textContent=info.sec.fr;$("banEn").textContent=info.sec.title;b.hidden=false;b.style.animation="none";void b.offsetWidth;b.style.animation="";
+    setTimeout(function(){b.hidden=true;},2700);
+    setPhase("","Next place");$("en").textContent=info.sec.intro;
+    var walk=walkRoute(spot,1);
+    await Promise.all([say("sec-"+info.sec.id),walk]);
+    await sleep(250);
+  }else if(spot!==cur){
+    await walkRoute(spot,spot===partialTo?1:0.55+0.45*(st.lastQ==null?1:st.lastQ)); // a better score = a longer step forward
   }
-
-  function stopWave(){
-    if(waveAnimId){
-      cancelAnimationFrame(waveAnimId);
-      waveAnimId = null;
+  $("en").textContent=item.en;
+  var fails=0,noHear=0,first=true;
+  for(;;){
+    var reps=first?3:2;first=false;
+    $("result").hidden=true;
+    for(var k=0;k<reps;k++){
+      setPhase("","Listen · "+(k+1)+"/"+reps);dots(k,"on");
+      var played=await say(item.id);
+      if(!played&&!skipThis){$("en").textContent="Teacher audio is still being prepared for this phrase.";await sleep(1400);}
+      await sleep(850);dots(k+1);
+      if(skipThis)break;
     }
-    waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-    waveCanvas.style.display = "none";
-  }
-
-  var encourageMessages = [
-    "You're SO close - I think one more try gets you there!",
-    "Almost! I bet a second go pushes you even higher.",
-    "Great effort - try again, I think you'll surprise yourself.",
-    "You're closer than you think. One more shot?"
-  ];
-  var passMessages = [
-    "Beautifully done!",
-    "That was great!",
-    "Parfait !",
-    "You nailed it!"
-  ];
-
-  // ===== WAV encoding (proven pattern from Levels prototype) =====
-  function encodeWAV(samples, sampleRate){
-    var buffer = new ArrayBuffer(44 + samples.length * 2);
-    var view = new DataView(buffer);
-    function writeString(offset, str){
-      for(var i=0;i<str.length;i++) view.setUint8(offset+i, str.charCodeAt(i));
+    if(skipThis){skipThis=false;st.done++;break;}
+    setPhase("speak","Your turn — say it");
+    var cap;try{cap=await capture();}catch(e){cap={none:true};}
+    if(skipThis){skipThis=false;st.done++;break;}
+    if(cap.none){
+      noHear++;setPhase("","I didn't hear you");await say("nohear");await sleep(300);
+      if(noHear>=2){$("hint").textContent="Check your microphone is allowed, and speak after the dots.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);}
+      continue;
     }
-    writeString(0,"RIFF");
-    view.setUint32(4, 36 + samples.length*2, true);
-    writeString(8,"WAVE");
-    writeString(12,"fmt ");
-    view.setUint32(16,16,true);
-    view.setUint16(20,1,true);
-    view.setUint16(22,1,true);
-    view.setUint32(24,sampleRate,true);
-    view.setUint32(28,sampleRate*2,true);
-    view.setUint16(32,2,true);
-    view.setUint16(34,16,true);
-    writeString(36,"data");
-    view.setUint32(40, samples.length*2, true);
-    var offset = 44;
-    for(var i=0;i<samples.length;i++, offset+=2){
-      var s = Math.max(-1, Math.min(1, samples[i]));
-      view.setInt16(offset, s<0 ? s*0x8000 : s*0x7FFF, true);
+    setPhase("eval","Evaluating…");
+    var out;
+    try{out=await assess(cap.blob,item.fr.replace(/[«»]/g,""));}catch(e){
+      noHear++;setPhase("","Couldn't evaluate");$("hint").textContent="The scoring service didn't answer. Let's try again.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);
+      await sleep(1800);continue;
     }
-    return buffer;
+    var acc=out.accuracyScore||0,comp=out.completenessScore||0,flu=out.fluencyScore||0;
+    var raw=out.recognizedText?(0.55*acc+0.25*comp+0.20*flu):0;
+    var score=adjust(raw,st.idx,N),pass=score>=50;
+    $("scoreNum").textContent=score;$("scoreLbl").textContent=label(score);chips(out.words,item.fr);
+    $("hint").textContent=hintFor(out.words);$("result").hidden=false;
+    if(pass){
+      var q=clamp((score-50)/45,0,1);st.lastQ=q;st.gain+=0.45+0.55*q;st.sum+=score;st.done++;setBar();
+      setPhase("","Well done");
+      await Promise.all([say("ok"+(1+Math.floor(Math.random()*6))),sleep(2400)]);
+      break;
+    }
+    fails++;setPhase("","Almost — again");
+    $("againBtn").hidden=true;if(fails>=3)$("skipBtn").hidden=false;
+    await Promise.all([say("retry"+(1+Math.floor(Math.random()*4))),sleep(2600)]);
+    if(skipThis){skipThis=false;st.done++;break;}
   }
+  skipThis=false;
+  st.idx++;save();
+}
+var skipThis=false;
+$("skipBtn").onclick=function(){skipThis=true;stopVoice();$("skipBtn").hidden=true;};
 
-  async function convertBlobToWav(blob){
-    var arrayBuffer = await blob.arrayBuffer();
-    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    var decoded = await audioCtx.decodeAudioData(arrayBuffer);
-    var offlineCtx = new OfflineAudioContext(1, Math.ceil(decoded.duration * 16000), 16000);
-    var source = offlineCtx.createBufferSource();
-    source.buffer = decoded;
-    source.connect(offlineCtx.destination);
-    source.start(0);
-    var rendered = await offlineCtx.startRendering();
-    var wavBuffer = encodeWAV(rendered.getChannelData(0), 16000);
-    audioCtx.close();
-    return wavBuffer;
+async function game(){
+  $("top").hidden=false;$("card").hidden=false;
+  if(st.idx===0&&!st.introDone){
+    setPhase("","Welcome");$("en").textContent="Welcome to Talkletics!";
+    $("introSkip").hidden=false;$("introSkip").onclick=function(){stopVoice();};
+    await say("intro");$("introSkip").hidden=true;st.introDone=true;save();
   }
+  while(st.idx<N){await runItem();}
+  st.finished=true;save();unlockNext();
+  $("card").hidden=true;$("top").hidden=true;
+  var dist=Math.round(st.gain/N*100),avg=st.done?Math.round(st.sum/st.done):0;
+  $("fDist").textContent=dist+"%";$("fAvg").textContent=avg;
+  $("finalTxt").textContent=dist>=90?"You spoke it beautifully, all the way round.":"You made it round the whole house. Play again to go even further.";
+  $("final").hidden=false;say("final");
+}
 
-  function updateDots(){
-    dots.forEach(function(d, i){
-      d.classList.toggle("ms-dot-filled", i < listenCount);
+/* ---------- start screen ---------- */
+function reset(){st={idx:0,gain:0,sum:0,done:0,who:st.who,finished:false,introDone:false};save();}
+function init(){
+  sizeWorld();requestAnimationFrame(loop);
+  fetch(API+"/api/health",{mode:"no-cors"}).catch(function(){}); // wakes the scoring server before the first answer
+  var btns=document.querySelectorAll(".mz-char");
+  function choose(w){who=w;st.who=w;btns.forEach(function(b){b.classList.toggle("on",b.getAttribute("data-who")===w);});$("goBtn").disabled=false;facing="front";setFrame();}
+  btns.forEach(function(b){b.onclick=function(){choose(b.getAttribute("data-who"));};});
+  if(st.who&&SETS[st.who])choose(st.who);else{who="girl";}
+  placeAt(st.idx>0&&!st.finished?"hall":"gate");
+  setFrame();
+  Object.keys(SETS).forEach(function(k){[].concat(SETS[k].right,SETS[k].left,SETS[k].up,SETS[k].upR,SETS[k].upL,SETS[k].front).forEach(function(n){(new Image()).src=spr(n);});});
+  if(st.idx>0&&!st.finished){$("goBtn").textContent="Continue";$("restartBtn").hidden=false;}
+  $("restartBtn").onclick=function(){reset();location.reload();};
+  $("replayBtn").onclick=function(){reset();location.reload();};
+  $("goBtn").onclick=function(){
+    // everything audio-related starts from this tap so phones allow sound and the microphone
+    voice.src=SILENT;var p=voice.play();if(p&&p.catch)p.catch(function(){});
+    $("goBtn").disabled=true;$("pickErr").hidden=true;
+    openMic().then(function(){
+      $("pick").hidden=true;
+      if(st.idx>0&&!st.finished){var s=sectionOf(st.idx);lastSec=null;placeAt("hall");}
+      game();
+    }).catch(function(){
+      $("goBtn").disabled=false;$("pickErr").hidden=false;
+      $("pickErr").textContent="Talkletics needs your microphone. Please allow it in your browser, then tap again.";
     });
-  }
-
-  function resetItemUI(){
-    listenCount = 0;
-    updateDots();
-    listenBtn.style.display = "inline-block";
-    listenBtn.disabled = false;
-    listenBtn.textContent = "▶ Listen";
-    recordBtn.style.display = "none";
-    stopBtn.style.display = "none";
-    submitBtn.style.display = "none";
-    playRecordingBtn.style.display = "none";
-    rerecordBtn.style.display = "none";
-    statusEl.textContent = "";
-    feedbackEl.style.display = "none";
-    cardEl.style.display = "block";
-    preSkipBtn.style.display = "block";
-    phaseLabelEl.textContent = "Tap Listen to begin";
-  }
-
-  function renderItem(index){
-    sequenceToken++;
-    var item = CURRICULUM[index];
-    frenchEl.textContent = item.french;
-    englishEl.textContent = item.english;
-    itemCounterEl.textContent = "Item " + (index+1) + " of " + CURRICULUM.length;
-    tierLabelEl.textContent = item.tier;
-    refAudio.src = assetMap[item.asset] || "";
-    resetItemUI();
-  }
-
-  // ===== Locked auto-play sequence: one click starts everything =====
-  listenBtn.addEventListener("click", function(){
-    if(!refAudio.src){
-      statusEl.textContent = "Reference audio not uploaded yet for this item.";
-      return;
-    }
-    listenBtn.style.display = "none";
-    phaseLabelEl.textContent = "Listen intently...";
-    runAutoSequence(sequenceToken);
-  });
-
-  function runAutoSequence(token){
-    if(token !== sequenceToken) return;
-    refAudio.currentTime = 0;
-    refAudio.play();
-  }
-
-  refAudio.addEventListener("ended", function(){
-    var token = sequenceToken;
-
-    listenCount++;
-    updateDots();
-
-    if(listenCount === 3){
-      phaseLabelEl.textContent = "Get ready - you'll record exactly what you hear once the audio stops.";
-    }
-
-    if(listenCount >= 6){
-      phaseLabelEl.textContent = "Record a replica - the closer, the higher your score!";
-      recordBtn.style.display = "inline-block";
-      return;
-    }
-
-    setTimeout(function(){
-      runAutoSequence(token);
-    }, 500);
-  });
-
-  recordBtn.addEventListener("click", async function(){
-    try{
-      currentStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    }catch(err){
-      statusEl.textContent = "Microphone access is needed to record.";
-      return;
-    }
-    recordedChunks = [];
-    mediaRecorder = new MediaRecorder(currentStream);
-    mediaRecorder.ondataavailable = function(e){ recordedChunks.push(e.data); };
-    if(window.pauseAppBgMusicForRecording){ window.pauseAppBgMusicForRecording(); }
-    mediaRecorder.start();
-    recordBtn.style.display = "none";
-    stopBtn.style.display = "inline-block";
-    statusEl.textContent = "Recording...";
-    startWave(currentStream, false);
-  });
-
-  stopBtn.addEventListener("click", function(){
-    mediaRecorder.stop();
-    if(window.resumeAppBgMusicAfterRecording){ window.resumeAppBgMusicAfterRecording(); }
-    currentStream.getTracks().forEach(function(t){ t.stop(); });
-    stopBtn.style.display = "none";
-    stopWave();
-
-    mediaRecorder.addEventListener("stop", function(){
-      var blob = new Blob(recordedChunks);
-      if(recordedBlobUrl){
-        URL.revokeObjectURL(recordedBlobUrl);
-      }
-      recordedBlobUrl = URL.createObjectURL(blob);
-      playbackAudioEl.src = recordedBlobUrl;
-
-      playRecordingBtn.style.display = "inline-block";
-      rerecordBtn.style.display = "inline-block";
-      submitBtn.style.display = "inline-block";
-      statusEl.textContent = "Listen back, re-record, or submit when ready.";
-    }, { once: true });
-  });
-
-  playRecordingBtn.addEventListener("click", function(){
-    playRecordingBtn.disabled = true;
-    var originalLabel = playRecordingBtn.innerHTML;
-    playRecordingBtn.innerHTML = "<span class='ms-loading-pulse'></span>Loading...";
-
-    var onReady = function(){
-      playRecordingBtn.innerHTML = originalLabel;
-      playRecordingBtn.disabled = false;
-      startWave(playbackAudioEl, true);
-      playbackAudioEl.currentTime = 0;
-      playbackAudioEl.play();
-    };
-
-    if(playbackAudioEl.readyState >= 2){
-      onReady();
-    } else {
-      playbackAudioEl.addEventListener("canplay", onReady, { once: true });
-    }
-  });
-
-  playbackAudioEl.addEventListener("ended", stopWave);
-
-  rerecordBtn.addEventListener("click", function(){
-    playRecordingBtn.style.display = "none";
-    rerecordBtn.style.display = "none";
-    submitBtn.style.display = "none";
-    recordBtn.style.display = "inline-block";
-    statusEl.textContent = "";
-  });
-
-  submitBtn.addEventListener("click", async function(){
-
-    submitBtn.disabled = true;
-    preSkipBtn.style.display = "none";
-    statusEl.textContent = "Analyzing your pronunciation...";
-
-    try{
-
-      var blob = new Blob(recordedChunks);
-      var wavBuffer = await convertBlobToWav(blob);
-      var item = CURRICULUM[currentIndex];
-
-      var res = await fetch(API_BASE + "/api/assessPronunciation?referenceText=" + encodeURIComponent(item.french), {
-        method: "POST",
-        headers: { "Content-Type": "audio/wav" },
-        body: wavBuffer
-      });
-
-      var data = await res.json();
-
-      if(!res.ok){
-        statusEl.textContent = "Could not assess that recording. Please try again.";
-        submitBtn.disabled = false;
-        preSkipBtn.style.display = "block";
-        return;
-      }
-
-      var rawScore = data.finalScore || 0;
-      var taperBonus = 15 * (1 - (currentIndex / (CURRICULUM.length - 1)));
-      var score = Math.min(100, Math.round(rawScore + taperBonus));
-      if(score > scores[currentIndex]) scores[currentIndex] = score;
-
-      showFeedback(score);
-
-    }catch(err){
-      console.error(err);
-      statusEl.textContent = "Something went wrong. Please try again.";
-      submitBtn.disabled = false;
-      preSkipBtn.style.display = "block";
-    }
-
-  });
-
-  function showFeedback(score){
-    cardEl.style.display = "none";
-    feedbackEl.style.display = "block";
-    feedbackScoreEl.textContent = score + "%";
-
-    var passed = score >= PASS_MARK;
-    feedbackMsgEl.textContent = passed
-      ? passMessages[Math.floor(Math.random()*passMessages.length)]
-      : encourageMessages[Math.floor(Math.random()*encourageMessages.length)];
-
-    tryAgainBtn.style.display = "inline-block";
-    nextBtn.textContent = passed ? "Next" : "Nah, I'm good";
-  }
-
-  tryAgainBtn.addEventListener("click", function(){
-    submitBtn.disabled = false;
-    renderItem(currentIndex);
-  });
-
-  function advanceItem(){
-    submitBtn.disabled = false;
-    currentIndex++;
-    if(currentIndex >= CURRICULUM.length){
-      showFinal();
-    } else {
-      renderItem(currentIndex);
-    }
-  }
-
-  nextBtn.addEventListener("click", advanceItem);
-
-  // ===== Pre-submit skip, with confirmation =====
-  preSkipBtn.addEventListener("click", function(){
-    confirmOverlay.style.display = "flex";
-  });
-  confirmCancel.addEventListener("click", function(){
-    confirmOverlay.style.display = "none";
-  });
-  confirmYes.addEventListener("click", function(){
-    confirmOverlay.style.display = "none";
-    sequenceToken++;
-    refAudio.pause();
-    advanceItem();
-  });
-
-  function showFinal(){
-    try{ if(window.SayBonActivity) window.SayBonActivity.complete("game_complete"); }catch(e){}
-    missionEl.querySelector(".ms-topbar").style.display = "none";
-    cardEl.style.display = "none";
-    feedbackEl.style.display = "none";
-    finalEl.style.display = "block";
-
-    var avg = Math.round(scores.reduce(function(a,b){return a+b;},0) / scores.length);
-    var passed = avg >= PASS_MARK;
-
-    finalScoreEl.textContent = avg + "%";
-    finalPassEl.textContent = passed
-      ? "Pass mark: " + PASS_MARK + "% - You passed!"
-      : "Pass mark: " + PASS_MARK + "% - Not quite yet.";
-    finalPassEl.style.color = passed ? "#3f9f3f" : "#c23e3e";
-
-    playHypeVideo();
-  }
-
-  function playHypeVideo(){
-    var lastShown = localStorage.getItem("tkHypeLastShown");
-    var nextAsset = lastShown === "1" ? "mission-complete-hype-2" : "mission-complete-hype-1";
-    var nextFlag = lastShown === "1" ? "2" : "1";
-
-    var url = assetMap[nextAsset];
-    if(!url) return;
-
-    var hypeWrap = document.getElementById("msHypeVideo");
-    var hypeVideo = document.getElementById("msHypeVideoEl");
-    var hypeClose = document.getElementById("msHypeClose");
-
-    hypeVideo.src = url;
-    hypeWrap.style.display = "block";
-    hypeVideo.play().catch(function(){});
-
-    hypeVideo.addEventListener("click", function(){
-      hypeVideo.muted = !hypeVideo.muted;
-    });
-    hypeClose.addEventListener("click", function(){
-      hypeVideo.pause();
-      hypeWrap.style.display = "none";
-    });
-    hypeVideo.addEventListener("ended", function(){
-      hypeWrap.style.display = "none";
-    });
-
-    localStorage.setItem("tkHypeLastShown", nextFlag);
-  }
-
-  retakeBtn.addEventListener("click", function(){
-    currentIndex = 0;
-    scores = new Array(CURRICULUM.length).fill(0);
-    missionEl.querySelector(".ms-topbar").style.display = "flex";
-    finalEl.style.display = "none";
-    renderItem(0);
-  });
-
-  continueBtn.addEventListener("click", function(){
-    window.location.href = "mission2.html";
-  });
-
-  // ===== Guide intro screen =====
-  function startMission(){
-    var guideAudio = document.getElementById("msGuideAudio");
-    guideAudio.pause();
-    document.getElementById("msGuideAvatarBtn").classList.remove("ms-guide-active");
-
-    document.getElementById("msGuideIntro").style.display = "none";
-    missionEl.style.display = "flex";
-    missionEl.style.flexDirection = "column";
-    missionEl.style.alignItems = "center";
-    renderItem(0);
-  }
-
-  function showGuideIntro(){
-    preloaderEl.classList.add("ms-preloader-fadeout");
-    setTimeout(function(){
-      preloaderEl.style.display = "none";
-      document.getElementById("msGuideIntro").style.display = "flex";
-    }, 600);
-  }
-
-  function setupGuideHelp(){
-    var avatarImg = document.getElementById("msGuideAvatarImg");
-    var avatarBtn = document.getElementById("msGuideAvatarBtn");
-    var guideAudio = document.getElementById("msGuideAudio");
-    var startBtn = document.getElementById("msGuideStartBtn");
-    var skipBtn = document.getElementById("msGuideSkipBtn");
-
-    if(assetMap["guide-photo"]){
-      avatarImg.src = assetMap["guide-photo"];
-    }
-    if(assetMap["guide-instructions"]){
-      guideAudio.src = assetMap["guide-instructions"];
-    }
-
-    avatarBtn.addEventListener("click", function(){
-      if(!guideAudio.src) return;
-      if(guideAudio.paused){
-        guideAudio.currentTime = 0;
-        guideAudio.play();
-        avatarBtn.classList.add("ms-guide-active");
-      } else {
-        guideAudio.pause();
-        avatarBtn.classList.remove("ms-guide-active");
-      }
-    });
-    guideAudio.addEventListener("ended", function(){
-      avatarBtn.classList.remove("ms-guide-active");
-    });
-
-    startBtn.addEventListener("click", startMission);
-    skipBtn.addEventListener("click", startMission);
-  }
-
-  // ===== Init: load assets, run preloader with mobile-safe fallback =====
-  async function init(){
-
-    try{
-      var res = await fetch(API_BASE + "/api/assets");
-      var assets = await res.json();
-      assets.forEach(function(a){ assetMap[a.name] = a.url; });
-    }catch(err){
-      console.error(err);
-    }
-
-    if(assetMap["mission-preloader"]){
-      preloaderVideo.src = assetMap["mission-preloader"];
-      preloaderVideo.muted = true;
-      preloaderVideo.defaultMuted = true;
-      preloaderNote.style.display = "none";
-      preloaderVideo.load();
-
-      var advanced = false;
-      var safeAdvance = function(){
-        if(advanced) return;
-        advanced = true;
-        showGuideIntro();
-      };
-
-      var attemptPlay = function(){
-        preloaderVideo.play().catch(function(){});
-      };
-      attemptPlay();
-      preloaderVideo.addEventListener("canplay", attemptPlay);
-      preloaderVideo.addEventListener("ended", safeAdvance);
-
-      setTimeout(function(){
-        if(preloaderVideo.paused){
-          safeAdvance();
-        }
-      }, 1800);
-
-    } else {
-      preloaderNote.style.display = "block";
-      preloaderNote.textContent = "Preloader video not uploaded yet - continuing…";
-      setTimeout(showGuideIntro, 1500);
-    }
-
-    setupGuideHelp();
-
-  }
-
-  init();
-
+  };
+}
+fetch(BASE+"maison-content.json?v=20").then(function(r){return r.json();}).then(function(j){
+  C=j;C.sections.forEach(function(s){s.items.forEach(function(i){flat.push(i);});});N=flat.length;
+  load();if(st.finished){st.finished=false;}
+  if(st.idx>=N){st.idx=0;}
+  init();setBar();
+}).catch(function(e){console.error(e);$("pickErr").hidden=false;$("pickErr").textContent="Could not load the lesson. Please refresh.";});
+window.addEventListener("resize",function(){var p=window.innerWidth/window.innerHeight<0.9;if(p!==PORTRAIT){location.reload();}sizeWorld();});
 })();
-
-// universal press feedback (covers touch devices where :active is unreliable)
-document.addEventListener("pointerdown", function(e){
-  var target = e.target.closest(".ms-btn, .ms-guide-tap, .ms-corner-icon, .ms-skip-link");
-  if(target) target.classList.add("ms-pressed");
-});
-document.addEventListener("pointerup", function(e){
-  document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
-});
-document.addEventListener("pointercancel", function(e){
-  document.querySelectorAll(".ms-pressed").forEach(function(el){ el.classList.remove("ms-pressed"); });
-});
-
-
-
-
