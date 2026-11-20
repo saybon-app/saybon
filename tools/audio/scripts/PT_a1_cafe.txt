@@ -1,1 +1,1 @@
-[slowly] Un café et un croissant, s'il vous plaît. Ça fait quatre euros cinquante.
+[quickly] Un café et un croissant, s'il vous plaît. Ça fait quatre euros cinquante.

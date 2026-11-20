@@ -17,7 +17,7 @@ const takes = {
 const lvlVoice = ["a1", "a1", "a2", "b1", "b2", "c1", "c2"];
 const jobs = [];
 if (only !== "listening") for (const k of Object.keys(takes)) jobs.push({ name: "teacher_" + k, level: "a0-les-petits", text: takes[k] });
-if (only !== "teacher") for (const it of items) if (it.say) jobs.push(it.speak ? { name: it.id, level: "a0-les-petits", text: "[excited] [playful] " + it.say } : { name: it.id, level: lvlVoice[it.lv], text: (it.lv <= 1 ? "[slowly] " : "[calmly] ") + it.say });
+if (only !== "teacher") for (const it of items) if (it.say) jobs.push(it.speak ? { name: it.id, level: "a0-les-petits", text: "[excited] [quickly] " + it.say } : { name: it.id, level: lvlVoice[it.lv], text: "[quickly] " + it.say });
 const tmp = path.join(here, "scripts"); fs.mkdirSync(tmp, { recursive: true });
 let made = 0, kept = 0;
 for (const j of jobs) {

@@ -1,7 +1,7 @@
 (function(){
 "use strict";
 var LV=window.PT_LEVELS, ITEMS=window.PT_ITEMS;
-var START=1, MAXQ=14, MINQ=5, FRENCH_AFTER=7, CONF=0.8, FEEDBACK_MS=1250;
+var START=1, MAXQ=18, MINQ=5, FRENCH_AFTER=7, CONF=0.8, FEEDBACK_MS=1250;
 function sig(x){return 1/(1+Math.exp(-x))}
 function know(th,L){return .05+.9*sig(1.7*(th-L+.5))}
 function lik(th,L,res){var k=know(th,L);if(res==="ok")return k+(1-k)*.4*.25;if(res==="idk")return (1-k)*.6;return (1-k)*.4*.75}
@@ -28,23 +28,29 @@ function usable(it){
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
 
 /* ---- pick the next question: nearest level with an unseen, usable item ---- */
-var A0_STRETCH=8, A0_SKIP=5;   // the opening questions are all A0; a learner who gets 5 in a row right moves on early
-function inA0(){
-  if(st.a0Done)return false;
-  var s=0;for(var i=st.log.length-1;i>=0&&st.log[i].ok;i--)s++;
-  if(st.log.length>=A0_STRETCH||s>=A0_SKIP){st.a0Done=true;return false}
-  return true;
+// Opening staircase, same for everyone, never skipping a level: questions 1-5 are A0, 6-9 are A1, 10-11 are A2.
+// After that the test adapts. If a learner got fewer than half of a stage right, they stay at the lower level instead of moving up.
+var STAIR=[5,9,11];
+function stageLevel(n){
+  var lv=n<STAIR[0]?0:n<STAIR[1]?1:n<STAIR[2]?2:-1;
+  while(lv>0){
+    var prev=st.log.filter(function(l){return l.lv===lv-1&&l.kind!=="speak"||l.lv===lv-1&&l.kind==="speak"});
+    if(prev.length&&prev.filter(function(l){return l.ok}).length/prev.length<0.5)lv--; else break;
+  }
+  return lv;
 }
 async function nextItem(){
   // rhythm: one special question (oral first, then photo, reading, listening in turn), then two regular ones, and so on
   var noOral=(speechOff||!canRecord())&&!(st.log.length&&st.log[0].kind==="speak"), n=st.log.length+(noOral?3:0), want;
   if(n===0)want="speak";
   else{var m=(n-1)%3; want=m<2?"text":["picture","read","listen"][Math.floor((n-1)/3)%3]}
-  var a0=inA0(), lv=a0?(want==="speak"?[0]:[0,1]):null;
+  if(n===0){var b=ITEMS.filter(function(x){return x.id==="a0_s_bonjour"})[0];if(b&&!st.seen[b.id]&&await usable(b))return b}   // the very first question is always Bonjour
+  var sl=stageLevel(st.log.length), lv=null;
+  if(sl>=0){lv=[sl];if(sl>0)lv.push(sl-1);lv.push(sl+1);if(want==="speak")lv=[0]}
   var f=await pick(false,[want],lv);
   if(f)return f;
   if(want!=="text"){f=await pick(false,["text"],lv);if(f)return f}
-  if(a0){f=await pick(false,null,[0,1]);if(f)return f}
+  if(lv){f=await pick(false,null,lv);if(f)return f}
   return (await pick(true))||(await pick(false));
 }
 async function pick(strict,only,lvls){

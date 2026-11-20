@@ -1,1 +1,1 @@
-[calmly] Allô, c'est Sophie. Je suis en retard, mon bus est tombé en panne. Je serai là dans vingt minutes.
+[quickly] Allô, c'est Sophie. Je suis en retard, mon bus est tombé en panne. Je serai là dans vingt minutes.
