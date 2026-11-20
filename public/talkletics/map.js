@@ -90,7 +90,7 @@
   window.tkMapSetUnlocked=function(n){try{localStorage.setItem("tkMapUnlocked",String(n));}catch(e){}refresh();};
   window.addEventListener("storage",function(e){if(e.key==="tkMapUnlocked")refresh();});
 
-  Promise.all([fetch(BASE+"layout.json?v=8").then(function(r){return r.json();}),fetch(BASE+"places.json?v=8").then(function(r){return r.json();})])
+  Promise.all([fetch(BASE+"layout.json?v=9").then(function(r){return r.json();}),fetch(BASE+"places.json?v=9").then(function(r){return r.json();})])
     .then(function(a){
       L=a[0];P=a[1];
       var pre=new Image();pre.onload=pre.onerror=function(){render();};pre.src=BASE+"bg/"+dev()+"-start.webp";
