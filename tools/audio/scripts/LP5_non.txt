@@ -1,0 +1,126 @@
+[playful] [playful] And now its opposite. Shake your head while you say it. Repeat after me.
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+
+[playful] Ooh, perfect!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Non means, no.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non ?
+
+[turn: Non ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+[pause] [pause] [slowly]
+ [playful] [playful] Non !
+
+[turn: Non ]
+
+
+[excited] [playful] Lovely! Non, non, non, but with a big smile. [giggles]

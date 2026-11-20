@@ -1,0 +1,45 @@
+Mon petit, let's chat like real friends. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour!
+
+[turn: Bonjour]
+
+[playful] Mm-hmm, hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] Yes, a friendly question.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va bien !
+
+[turn: Ça va bien ]
+
+[playful] I'm doing well!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Et toi ?
+
+[turn: Et toi ]
+
+[playful] And you?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va bien.
+
+[turn: Ça va bien]
+
+[playful] Lovely.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir!
+
+[turn: Au revoir]
+
+[playful] Wave, wave, wave!
+
+[excited] [playful] You did it, mon petit! [giggles] A whole little conversation in French.

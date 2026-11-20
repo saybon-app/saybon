@@ -1,0 +1,126 @@
+[excited] [playful] First, the colour of strawberries and ladybirds. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+
+[playful] Super!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+
+[playful] Great!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Rouge means, red.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+
+[playful] Mm-hmm!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge ?
+
+[turn: Rouge ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+
+[excited] [playful] Super! Rouge, like a strawberry. [giggles]

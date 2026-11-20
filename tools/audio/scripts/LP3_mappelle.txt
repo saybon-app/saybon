@@ -1,0 +1,187 @@
+[warmly] [playful] Now, how to say your own name. Repeat after me.
+
+[playful] Let's take it in little pieces first, like building blocks.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je
+
+[turn: Je]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je
+
+[turn: Je]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] m'appelle
+
+[turn: m'appelle]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] m'appelle
+
+[turn: m'appelle]
+
+[playful] Now we put the blocks together!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+
+[playful] Ooh, perfect!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Je m'appelle means, my name is. After it, we put the name. Léa, or Tom, or yours!
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Léa.
+
+[turn: Je m'appelle Léa]
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Je m'appelle Tom.
+
+[turn: Je m'appelle Tom]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[playful] Now we play a game. I ask, and you answer. [short pause] I say Comment tu t'appelles ?, [short pause] and you say...?
+
+[pause] [pause]
+
+[excited] [playful] Yes, that's it! Alright, let's go.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Comment tu t'appelles ?
+
+[turn: Je m'appelle]
+
+[playful] Mm-hmm, again.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Comment tu t'appelles ?
+
+[turn: Je m'appelle]
+
+[playful] Lovely. Once more.
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Comment tu t'appelles ?
+
+[turn: Je m'appelle]
+
+[playful] Ooh, good one!
+
+[pause] [pause] [slowly]
+ [warmly] [playful] Comment tu t'appelles ?
+
+[turn: Je m'appelle]
+
+[playful] Last one!
+
+
+[excited] [playful] Lovely! Next time, add your own name after je m'appelle. [giggles]

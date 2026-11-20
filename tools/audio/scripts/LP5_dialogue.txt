@@ -1,0 +1,52 @@
+Let's play, mon petit. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] How are you?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[playful] Yes!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Non !
+
+[turn: Non ]
+
+[playful] No!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Un !
+
+[turn: Un ]
+
+[playful] One!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Deux !
+
+[turn: Deux ]
+
+[playful] Two!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Trois !
+
+[turn: Trois ]
+
+[playful] Three!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Wave!
+
+[excited] [playful] Bravo, mon petit! [giggles] Yes, no, and counting. You're doing so well.

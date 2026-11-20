@@ -1,0 +1,126 @@
+[excited] [playful] The second magic word is for saying thank you. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+
+[playful] Ooh, perfect!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+
+[playful] Beautiful!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Merci means, thank you.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+
+[playful] So good, mon petit!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci.
+
+[turn: Merci]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+
+[excited] [playful] Great job! Merci, merci, merci. [giggles]

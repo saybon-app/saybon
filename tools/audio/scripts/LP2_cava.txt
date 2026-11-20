@@ -1,0 +1,145 @@
+[excited] [playful] First, a little question that friends ask each other all the time. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+
+[playful] Great!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+
+[playful] Mm-hmm!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Ça va means, how are you? And it also means, I'm fine.
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va.
+
+[turn: Ça va]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[playful] Now we play a game. I ask, and you answer. [short pause] I say Ça va ?, [short pause] and you say...?
+
+[pause] [pause]
+
+[excited] [playful] Yes, that's it! Alright, let's go.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va]
+
+[playful] Mm-hmm, again.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va]
+
+[playful] Lovely. Once more.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va]
+
+[playful] Ooh, good one!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va]
+
+[playful] Last one!
+
+
+[excited] [playful] Great job, mon petit! You can ask a friend how they are. [giggles]

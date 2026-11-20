@@ -1,0 +1,126 @@
+[excited] [playful] First, the happiest little word. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+
+[playful] Great!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+
+[playful] Mm-hmm!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Oui means, yes!
+
+[playful] Now the second way. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[playful] Do you hear the two different ways?
+
+[playful] First,
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[playful] and then,
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui ?
+
+[turn: Oui ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Oui !
+
+[turn: Oui ]
+
+
+[excited] [playful] Great job! Oui, oui, oui! [giggles]

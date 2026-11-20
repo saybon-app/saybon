@@ -1,0 +1,52 @@
+Let's paint with words, mon petit. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[playful] Red!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bleu !
+
+[turn: Bleu ]
+
+[playful] Blue!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Jaune !
+
+[turn: Jaune ]
+
+[playful] Yellow!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] How are you?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge, bleu, jaune !
+
+[turn: Rouge bleu jaune ]
+
+[playful] Three colours!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Wave!
+
+[excited] [playful] Bravo, mon petit! [giggles] What a rainbow of French words.

@@ -1,0 +1,143 @@
+[excited] [playful] First, how to ask someone's name. It's a long one, so we go step by step. Repeat after me.
+
+[playful] Let's take it in little pieces first, like building blocks.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment
+
+[turn: Comment]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment
+
+[turn: Comment]
+
+[pause] [pause] [slowly]
+ [excited] [playful] tu t'appelles
+
+[turn: tu t'appelles]
+
+[pause] [pause] [slowly]
+ [excited] [playful] tu t'appelles
+
+[turn: tu t'appelles]
+
+[playful] Now we put the blocks together!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+
+[playful] Great!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+
+[playful] Mm-hmm!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. It means, what is your name?
+
+[playful] Now a tiny secret. Say it slowly like a sleepy bear, and then fast like a happy bunny. [chuckles]
+
+[playful] Slowly,
+[pause] [pause] [slowly]
+ [softly] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[playful] and fast,
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[playful] Now both together. Repeat after me:
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [softly] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+
+[excited] [playful] [laughs softly] Great job!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+
+[excited] [playful] Great job, mon petit! You can ask a new friend their name. [giggles]
