@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -303,6 +303,7 @@ document.getElementById("sideToggleTab").addEventListener("click", function(){
 </div>
 
 <div class="sbm-overlay" id="sbmOverlay" hidden><iframe id="sbmFrame" title="SayBon" allow="microphone; camera; autoplay; fullscreen; clipboard-write"></iframe></div>
+<script type="module" src="/music/music-auth.js?v=1"></script>
 <script src="/music/music-core.js?v=1"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -752,38 +753,33 @@ function attachHoverPreview(row, v){
 window.loadVideoById = loadVideoById;
 
 document.getElementById("likeBtn").addEventListener("click", async () => {
-
   const realUser = auth.currentUser;
-
   if(!realUser){
     alert("Please sign in to react to videos.");
     return;
   }
-
-  const res = await fetch(API_BASE + "/api/musicToggleReaction", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ videoId: currentVideo.id, userId: realUser.uid })
-  });
-
-  const data = await res.json();
-
   const btn = document.getElementById("likeBtn");
   const countEl = document.getElementById("likeCount");
-  let count = Number(countEl.innerText);
-
-  SBM.setLiked(currentVideo.id, !!data.liked);
-
-  if(data.liked){
-    btn.classList.add("liked");
-    countEl.innerText = count + 1;
-  }else{
-    btn.classList.remove("liked");
-    countEl.innerText = count - 1;
+  if(btn.dataset.busy) return;
+  btn.dataset.busy = "1";
+  try{
+    const res = await fetch(API_BASE + "/api/musicToggleReaction", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoId: currentVideo.id, userId: realUser.uid })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok || typeof data.liked !== "boolean") throw new Error(data.error || "not saved");
+    const before = Number(countEl.innerText) || 0;
+    SBM.setLiked(currentVideo.id, data.liked);
+    btn.classList.toggle("liked", data.liked);
+    countEl.innerText = (typeof data.likeCount === "number") ? data.likeCount : Math.max(0, before + (data.liked ? 1 : -1));
+  }catch(err){
+    alert("Could not save your like. Please try again.");
+  }finally{
+    delete btn.dataset.busy;
   }
-
 });
-
 async function loadComments(id){
 
   const idToUse = id || videoId;
