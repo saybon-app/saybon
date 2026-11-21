@@ -1,0 +1,783 @@
+{
+ "slug": "la-maison",
+ "name": "Maison",
+ "fr": "Les maisons",
+ "order": 6,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 72,
+   "zoom": 1.9,
+   "anchor": 0.5,
+   "n": {
+    "A": [
+     45,
+     888
+    ],
+    "w1": [
+     150,
+     888
+    ],
+    "aTerr": [
+     235,
+     888
+    ],
+    "gTerr": [
+     335,
+     888
+    ],
+    "jb": [
+     595,
+     888
+    ],
+    "aCase": [
+     740,
+     888
+    ],
+    "gCase": [
+     840,
+     888
+    ],
+    "j3": [
+     1100,
+     888
+    ],
+    "aBlock": [
+     1300,
+     888
+    ],
+    "gBlock": [
+     1420,
+     888
+    ],
+    "mM": [
+     595,
+     455
+    ],
+    "m3": [
+     1100,
+     455
+    ],
+    "gRed": [
+     790,
+     455
+    ],
+    "aRed": [
+     920,
+     455
+    ],
+    "aGrey": [
+     1250,
+     455
+    ],
+    "gGrey": [
+     1350,
+     455
+    ],
+    "aModern": [
+     430,
+     455
+    ],
+    "gModern": [
+     300,
+     455
+    ],
+    "m1": [
+     45,
+     455
+    ]
+   },
+   "e": "A-w1 w1-aTerr aTerr-gTerr gTerr-jb jb-aCase aCase-gCase gCase-j3 j3-aBlock aBlock-gBlock jb-mM j3-m3 mM-gRed gRed-aRed aRed-m3 m3-aGrey aGrey-gGrey mM-aModern aModern-gModern gModern-m1",
+   "spots": {
+    "salutations": [
+     "A",
+     "w1"
+    ],
+    "les-maisons-mitoyennes": [
+     "w1",
+     "gTerr"
+    ],
+    "la-case": [
+     "jb",
+     "gCase"
+    ],
+    "l-immeuble": [
+     "j3",
+     "gBlock"
+    ],
+    "la-maison-grise": [
+     "m3",
+     "gGrey"
+    ],
+    "la-maison-rouge": [
+     "m3",
+     "gRed"
+    ],
+    "la-villa-moderne": [
+     "mM",
+     "gModern"
+    ],
+    "au-revoir": [
+     "gModern",
+     "m1"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1199,
+   "H": 1312,
+   "ch": 80,
+   "zoom": 2.4,
+   "anchor": 0.5,
+   "n": {
+    "A": [
+     45,
+     1290
+    ],
+    "w1": [
+     170,
+     1290
+    ],
+    "jb": [
+     600,
+     1290
+    ],
+    "aCase": [
+     450,
+     1290
+    ],
+    "gCase": [
+     300,
+     1290
+    ],
+    "aBlock": [
+     750,
+     1290
+    ],
+    "gBlock": [
+     880,
+     1290
+    ],
+    "mM": [
+     600,
+     842
+    ],
+    "aTerr": [
+     720,
+     842
+    ],
+    "gTerr": [
+     850,
+     842
+    ],
+    "aGrey": [
+     470,
+     842
+    ],
+    "gGrey": [
+     340,
+     842
+    ],
+    "mT": [
+     600,
+     457
+    ],
+    "aRed": [
+     700,
+     457
+    ],
+    "gRed": [
+     800,
+     457
+    ],
+    "aModern": [
+     450,
+     457
+    ],
+    "gModern": [
+     300,
+     457
+    ],
+    "m1": [
+     45,
+     457
+    ]
+   },
+   "e": "A-w1 w1-jb jb-aCase aCase-gCase jb-aBlock aBlock-gBlock jb-mM mM-aTerr aTerr-gTerr mM-aGrey aGrey-gGrey mM-mT mT-aRed aRed-gRed mT-aModern aModern-gModern gModern-m1",
+   "spots": {
+    "salutations": [
+     "A",
+     "w1"
+    ],
+    "les-maisons-mitoyennes": [
+     "mM",
+     "gTerr"
+    ],
+    "la-case": [
+     "jb",
+     "gCase"
+    ],
+    "l-immeuble": [
+     "jb",
+     "gBlock"
+    ],
+    "la-maison-grise": [
+     "mM",
+     "gGrey"
+    ],
+    "la-maison-rouge": [
+     "mT",
+     "gRed"
+    ],
+    "la-villa-moderne": [
+     "mT",
+     "gModern"
+    ],
+    "au-revoir": [
+     "gModern",
+     "m1"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "A",
+   "w1"
+  ],
+  "les-maisons-mitoyennes": [
+   "w1",
+   "gTerr"
+  ],
+  "la-case": [
+   "jb",
+   "gCase"
+  ],
+  "l-immeuble": [
+   "j3",
+   "gBlock"
+  ],
+  "la-maison-grise": [
+   "m3",
+   "gGrey"
+  ],
+  "la-maison-rouge": [
+   "m3",
+   "gRed"
+  ],
+  "la-villa-moderne": [
+   "mM",
+   "gModern"
+  ],
+  "au-revoir": [
+   "gModern",
+   "m1"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "lm-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "lm001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "lm002"
+    },
+    {
+     "fr": "Salut !",
+     "en": "Hi!",
+     "id": "lm003"
+    },
+    {
+     "fr": "Bienvenue dans le quartier.",
+     "en": "Welcome to the neighbourhood.",
+     "id": "lm004"
+    },
+    {
+     "fr": "Bonjour, voisin.",
+     "en": "Hello, neighbour.",
+     "id": "lm005"
+    },
+    {
+     "fr": "Bonjour, voisine.",
+     "en": "Hello, neighbour.",
+     "id": "lm006"
+    },
+    {
+     "fr": "Comment ça va ?",
+     "en": "How are you?",
+     "id": "lm007"
+    },
+    {
+     "fr": "Ça va bien, merci.",
+     "en": "I'm fine, thank you.",
+     "id": "lm008"
+    },
+    {
+     "fr": "Enchanté.",
+     "en": "Nice to meet you.",
+     "id": "lm009"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "lm010"
+    }
+   ]
+  },
+  {
+   "id": "les-maisons-mitoyennes",
+   "fr": "Les maisons mitoyennes",
+   "title": "The terraced houses",
+   "intro": "First, the terraced houses.",
+   "introId": "lm-les-maisons-mitoyennes",
+   "items": [
+    {
+     "fr": "Le quartier.",
+     "en": "The neighbourhood.",
+     "id": "lm011"
+    },
+    {
+     "fr": "La rue.",
+     "en": "The street.",
+     "id": "lm012"
+    },
+    {
+     "fr": "Les maisons.",
+     "en": "The houses.",
+     "id": "lm013"
+    },
+    {
+     "fr": "La maison est jolie.",
+     "en": "The house is pretty.",
+     "id": "lm014"
+    },
+    {
+     "fr": "Les maisons se touchent.",
+     "en": "The houses touch each other.",
+     "id": "lm015"
+    },
+    {
+     "fr": "Il y a trois maisons.",
+     "en": "There are three houses.",
+     "id": "lm016"
+    },
+    {
+     "fr": "Le portail est noir.",
+     "en": "The gate is black.",
+     "id": "lm017"
+    },
+    {
+     "fr": "Le mur.",
+     "en": "The wall.",
+     "id": "lm018"
+    },
+    {
+     "fr": "Le balcon.",
+     "en": "The balcony.",
+     "id": "lm019"
+    },
+    {
+     "fr": "Les fenêtres sont allumées.",
+     "en": "The windows are lit.",
+     "id": "lm020"
+    },
+    {
+     "fr": "Une maison de ville.",
+     "en": "A townhouse.",
+     "id": "lm021"
+    },
+    {
+     "fr": "J'habite dans une maison de ville.",
+     "en": "I live in a townhouse.",
+     "id": "lm022"
+    }
+   ]
+  },
+  {
+   "id": "la-case",
+   "fr": "La case",
+   "title": "The thatched house",
+   "intro": "Now, the thatched house.",
+   "introId": "lm-la-case",
+   "items": [
+    {
+     "fr": "La case.",
+     "en": "The thatched house.",
+     "id": "lm023"
+    },
+    {
+     "fr": "Le toit de paille.",
+     "en": "The thatched roof.",
+     "id": "lm024"
+    },
+    {
+     "fr": "Le toit est rond.",
+     "en": "The roof is round.",
+     "id": "lm025"
+    },
+    {
+     "fr": "La porte.",
+     "en": "The door.",
+     "id": "lm026"
+    },
+    {
+     "fr": "Les fenêtres.",
+     "en": "The windows.",
+     "id": "lm027"
+    },
+    {
+     "fr": "Les palmiers.",
+     "en": "The palm trees.",
+     "id": "lm028"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "lm029"
+    },
+    {
+     "fr": "La maison est jaune.",
+     "en": "The house is yellow.",
+     "id": "lm030"
+    },
+    {
+     "fr": "Le jardin.",
+     "en": "The garden.",
+     "id": "lm031"
+    },
+    {
+     "fr": "C'est une maison traditionnelle.",
+     "en": "It's a traditional house.",
+     "id": "lm032"
+    },
+    {
+     "fr": "J'aime cette case.",
+     "en": "I like this house.",
+     "id": "lm033"
+    }
+   ]
+  },
+  {
+   "id": "l-immeuble",
+   "fr": "L'immeuble",
+   "title": "The apartment block",
+   "intro": "Now, the apartment block.",
+   "introId": "lm-l-immeuble",
+   "items": [
+    {
+     "fr": "L'immeuble.",
+     "en": "The apartment block.",
+     "id": "lm034"
+    },
+    {
+     "fr": "L'appartement.",
+     "en": "The apartment.",
+     "id": "lm035"
+    },
+    {
+     "fr": "Le balcon.",
+     "en": "The balcony.",
+     "id": "lm036"
+    },
+    {
+     "fr": "Les étages.",
+     "en": "The floors.",
+     "id": "lm037"
+    },
+    {
+     "fr": "Il y a quatre étages.",
+     "en": "There are four floors.",
+     "id": "lm038"
+    },
+    {
+     "fr": "Le parking.",
+     "en": "The car park.",
+     "id": "lm039"
+    },
+    {
+     "fr": "La voiture blanche.",
+     "en": "The white car.",
+     "id": "lm040"
+    },
+    {
+     "fr": "La voiture bleue.",
+     "en": "The blue car.",
+     "id": "lm041"
+    },
+    {
+     "fr": "J'habite dans un appartement.",
+     "en": "I live in an apartment.",
+     "id": "lm042"
+    },
+    {
+     "fr": "J'habite au troisième étage.",
+     "en": "I live on the third floor.",
+     "id": "lm043"
+    },
+    {
+     "fr": "Je gare la voiture.",
+     "en": "I park the car.",
+     "id": "lm044"
+    }
+   ]
+  },
+  {
+   "id": "la-maison-grise",
+   "fr": "La maison au toit gris",
+   "title": "The house with the grey roof",
+   "intro": "Now, the house with the grey roof.",
+   "introId": "lm-la-maison-grise",
+   "items": [
+    {
+     "fr": "La maison.",
+     "en": "The house.",
+     "id": "lm045"
+    },
+    {
+     "fr": "Le toit gris.",
+     "en": "The grey roof.",
+     "id": "lm046"
+    },
+    {
+     "fr": "Le toit est gris.",
+     "en": "The roof is grey.",
+     "id": "lm047"
+    },
+    {
+     "fr": "La véranda.",
+     "en": "The veranda.",
+     "id": "lm048"
+    },
+    {
+     "fr": "Le salon de jardin.",
+     "en": "The garden furniture.",
+     "id": "lm049"
+    },
+    {
+     "fr": "Les marches.",
+     "en": "The steps.",
+     "id": "lm050"
+    },
+    {
+     "fr": "Le chemin.",
+     "en": "The path.",
+     "id": "lm051"
+    },
+    {
+     "fr": "La porte est marron.",
+     "en": "The door is brown.",
+     "id": "lm052"
+    },
+    {
+     "fr": "La maison a un seul étage.",
+     "en": "The house has only one floor.",
+     "id": "lm053"
+    },
+    {
+     "fr": "Le jardin est vert.",
+     "en": "The garden is green.",
+     "id": "lm054"
+    },
+    {
+     "fr": "Il y a des fleurs rouges.",
+     "en": "There are red flowers.",
+     "id": "lm055"
+    }
+   ]
+  },
+  {
+   "id": "la-maison-rouge",
+   "fr": "La maison au toit rouge",
+   "title": "The house with the red roof",
+   "intro": "Now, the house with the red roof.",
+   "introId": "lm-la-maison-rouge",
+   "items": [
+    {
+     "fr": "Le toit rouge.",
+     "en": "The red roof.",
+     "id": "lm056"
+    },
+    {
+     "fr": "La grande maison.",
+     "en": "The big house.",
+     "id": "lm057"
+    },
+    {
+     "fr": "La porte d'entrée.",
+     "en": "The front door.",
+     "id": "lm058"
+    },
+    {
+     "fr": "Le balcon.",
+     "en": "The balcony.",
+     "id": "lm059"
+    },
+    {
+     "fr": "L'arbre rose.",
+     "en": "The pink tree.",
+     "id": "lm060"
+    },
+    {
+     "fr": "Les fenêtres.",
+     "en": "The windows.",
+     "id": "lm061"
+    },
+    {
+     "fr": "La maison a deux étages.",
+     "en": "The house has two floors.",
+     "id": "lm062"
+    },
+    {
+     "fr": "Il y a un balcon.",
+     "en": "There is a balcony.",
+     "id": "lm063"
+    },
+    {
+     "fr": "Les fleurs sont rouges et orange.",
+     "en": "The flowers are red and orange.",
+     "id": "lm064"
+    },
+    {
+     "fr": "C'est une belle maison.",
+     "en": "It's a beautiful house.",
+     "id": "lm065"
+    },
+    {
+     "fr": "Le portail.",
+     "en": "The gate.",
+     "id": "lm066"
+    }
+   ]
+  },
+  {
+   "id": "la-villa-moderne",
+   "fr": "La villa moderne",
+   "title": "The modern villa",
+   "intro": "Last, the modern villa.",
+   "introId": "lm-la-villa-moderne",
+   "items": [
+    {
+     "fr": "La villa.",
+     "en": "The villa.",
+     "id": "lm067"
+    },
+    {
+     "fr": "Une villa moderne.",
+     "en": "A modern villa.",
+     "id": "lm068"
+    },
+    {
+     "fr": "Le garage.",
+     "en": "The garage.",
+     "id": "lm069"
+    },
+    {
+     "fr": "La voiture.",
+     "en": "The car.",
+     "id": "lm070"
+    },
+    {
+     "fr": "La terrasse.",
+     "en": "The terrace.",
+     "id": "lm071"
+    },
+    {
+     "fr": "Le toit plat.",
+     "en": "The flat roof.",
+     "id": "lm072"
+    },
+    {
+     "fr": "La villa est blanche et grise.",
+     "en": "The villa is white and grey.",
+     "id": "lm073"
+    },
+    {
+     "fr": "La voiture est blanche.",
+     "en": "The car is white.",
+     "id": "lm074"
+    },
+    {
+     "fr": "Il y a un garage.",
+     "en": "There is a garage.",
+     "id": "lm075"
+    },
+    {
+     "fr": "Nous avons une belle villa.",
+     "en": "We have a beautiful villa.",
+     "id": "lm076"
+    },
+    {
+     "fr": "Les chaises sont sur la terrasse.",
+     "en": "The chairs are on the terrace.",
+     "id": "lm077"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "lm-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour la visite.",
+     "en": "Thank you for the visit.",
+     "id": "lm078"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "lm079"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "lm080"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "lm081"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "lm082"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "lm083"
+    },
+    {
+     "fr": "Au revoir, le quartier !",
+     "en": "Goodbye, neighbourhood!",
+     "id": "lm084"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "lm-final",
+   "text": "Bravo! You've visited the whole neighbourhood, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "lm-final"
+}

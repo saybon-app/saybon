@@ -1,0 +1,613 @@
+{
+ "slug": "salle-de-bains",
+ "name": "Salle de bains",
+ "fr": "La salle de bains",
+ "order": 5,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     819,
+     925
+    ],
+    "door": [
+     819,
+     849
+    ],
+    "in": [
+     819,
+     761
+    ],
+    "B": [
+     719,
+     722
+    ],
+    "shelf": [
+     359,
+     782
+    ],
+    "rug": [
+     803,
+     582
+    ],
+    "sinkL": [
+     694,
+     460
+    ],
+    "sinkR": [
+     1020,
+     460
+    ],
+    "C": [
+     502,
+     538
+    ],
+    "shower": [
+     334,
+     468
+    ],
+    "T": [
+     1321,
+     448
+    ],
+    "tub": [
+     1070,
+     560
+    ]
+   },
+   "e": "out-door door-in in-B B-shelf B-rug rug-sinkL rug-sinkR rug-C C-shower sinkR-T T-tub tub-rug",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-serviettes": [
+     "B",
+     "shelf"
+    ],
+    "la-douche": [
+     "C",
+     "shower"
+    ],
+    "le-lavabo": [
+     "sinkL",
+     "sinkR"
+    ],
+    "les-toilettes": [
+     "sinkR",
+     "T"
+    ],
+    "la-baignoire": [
+     "T",
+     "tub"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1024,
+   "H": 1536,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     530,
+     1487
+    ],
+    "door": [
+     568,
+     1370
+    ],
+    "in": [
+     568,
+     1275
+    ],
+    "B": [
+     507,
+     1144
+    ],
+    "shelf": [
+     261,
+     929
+    ],
+    "rug": [
+     492,
+     860
+    ],
+    "sinkL": [
+     415,
+     576
+    ],
+    "sinkR": [
+     630,
+     576
+    ],
+    "C": [
+     284,
+     722
+    ],
+    "shower": [
+     230,
+     596
+    ],
+    "T": [
+     799,
+     614
+    ],
+    "tub": [
+     676,
+     991
+    ]
+   },
+   "e": "out-door door-in in-B B-shelf B-rug rug-sinkL rug-sinkR rug-C C-shower sinkR-T B-tub tub-T",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-serviettes": [
+     "B",
+     "shelf"
+    ],
+    "la-douche": [
+     "C",
+     "shower"
+    ],
+    "le-lavabo": [
+     "sinkL",
+     "sinkR"
+    ],
+    "les-toilettes": [
+     "sinkR",
+     "T"
+    ],
+    "la-baignoire": [
+     "T",
+     "tub"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "les-serviettes": [
+   "B",
+   "shelf"
+  ],
+  "la-douche": [
+   "C",
+   "shower"
+  ],
+  "le-lavabo": [
+   "sinkL",
+   "sinkR"
+  ],
+  "les-toilettes": [
+   "sinkR",
+   "T"
+  ],
+  "la-baignoire": [
+   "T",
+   "tub"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "sb-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "sb001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "sb002"
+    },
+    {
+     "fr": "Salut !",
+     "en": "Hi!",
+     "id": "sb003"
+    },
+    {
+     "fr": "Bienvenue dans la salle de bains.",
+     "en": "Welcome to the bathroom.",
+     "id": "sb004"
+    },
+    {
+     "fr": "Comment ça va ?",
+     "en": "How are you?",
+     "id": "sb005"
+    },
+    {
+     "fr": "Ça va bien, merci.",
+     "en": "I'm fine, thank you.",
+     "id": "sb006"
+    },
+    {
+     "fr": "Excusez-moi.",
+     "en": "Excuse me.",
+     "id": "sb007"
+    },
+    {
+     "fr": "Pardon.",
+     "en": "Sorry.",
+     "id": "sb008"
+    },
+    {
+     "fr": "Merci.",
+     "en": "Thank you.",
+     "id": "sb009"
+    }
+   ]
+  },
+  {
+   "id": "les-serviettes",
+   "fr": "Les serviettes",
+   "title": "The towels",
+   "intro": "First, the towels and the shelf.",
+   "introId": "sb-les-serviettes",
+   "items": [
+    {
+     "fr": "La salle de bains.",
+     "en": "The bathroom.",
+     "id": "sb010"
+    },
+    {
+     "fr": "La serviette.",
+     "en": "The towel.",
+     "id": "sb011"
+    },
+    {
+     "fr": "Les serviettes sont blanches.",
+     "en": "The towels are white.",
+     "id": "sb012"
+    },
+    {
+     "fr": "L'étagère.",
+     "en": "The shelf.",
+     "id": "sb013"
+    },
+    {
+     "fr": "Le panier.",
+     "en": "The basket.",
+     "id": "sb014"
+    },
+    {
+     "fr": "La plante.",
+     "en": "The plant.",
+     "id": "sb015"
+    },
+    {
+     "fr": "Le savon.",
+     "en": "The soap.",
+     "id": "sb016"
+    },
+    {
+     "fr": "Le shampoing.",
+     "en": "The shampoo.",
+     "id": "sb017"
+    },
+    {
+     "fr": "J'ai besoin d'une serviette.",
+     "en": "I need a towel.",
+     "id": "sb018"
+    },
+    {
+     "fr": "La serviette est propre.",
+     "en": "The towel is clean.",
+     "id": "sb019"
+    },
+    {
+     "fr": "Les serviettes sont sur l'étagère.",
+     "en": "The towels are on the shelf.",
+     "id": "sb020"
+    }
+   ]
+  },
+  {
+   "id": "la-douche",
+   "fr": "La douche",
+   "title": "The shower",
+   "intro": "Now, the shower.",
+   "introId": "sb-la-douche",
+   "items": [
+    {
+     "fr": "La douche.",
+     "en": "The shower.",
+     "id": "sb021"
+    },
+    {
+     "fr": "La porte de la douche.",
+     "en": "The shower door.",
+     "id": "sb022"
+    },
+    {
+     "fr": "Le gel douche.",
+     "en": "The shower gel.",
+     "id": "sb023"
+    },
+    {
+     "fr": "L'eau.",
+     "en": "The water.",
+     "id": "sb024"
+    },
+    {
+     "fr": "L'eau est chaude.",
+     "en": "The water is hot.",
+     "id": "sb025"
+    },
+    {
+     "fr": "L'eau est froide.",
+     "en": "The water is cold.",
+     "id": "sb026"
+    },
+    {
+     "fr": "Je prends une douche.",
+     "en": "I take a shower.",
+     "id": "sb027"
+    },
+    {
+     "fr": "Je me lave.",
+     "en": "I wash.",
+     "id": "sb028"
+    },
+    {
+     "fr": "Je me lave le matin et le soir.",
+     "en": "I wash in the morning and in the evening.",
+     "id": "sb029"
+    },
+    {
+     "fr": "Je me sèche avec la serviette.",
+     "en": "I dry myself with the towel.",
+     "id": "sb030"
+    }
+   ]
+  },
+  {
+   "id": "le-lavabo",
+   "fr": "Le lavabo",
+   "title": "The sink",
+   "intro": "Now, the sink.",
+   "introId": "sb-le-lavabo",
+   "items": [
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "sb031"
+    },
+    {
+     "fr": "Le miroir.",
+     "en": "The mirror.",
+     "id": "sb032"
+    },
+    {
+     "fr": "Le robinet.",
+     "en": "The tap.",
+     "id": "sb033"
+    },
+    {
+     "fr": "La brosse à dents.",
+     "en": "The toothbrush.",
+     "id": "sb034"
+    },
+    {
+     "fr": "Le dentifrice.",
+     "en": "The toothpaste.",
+     "id": "sb035"
+    },
+    {
+     "fr": "Je me lave les mains.",
+     "en": "I wash my hands.",
+     "id": "sb036"
+    },
+    {
+     "fr": "Je me brosse les dents.",
+     "en": "I brush my teeth.",
+     "id": "sb037"
+    },
+    {
+     "fr": "Je me regarde dans le miroir.",
+     "en": "I look at myself in the mirror.",
+     "id": "sb038"
+    },
+    {
+     "fr": "Je me lave le visage.",
+     "en": "I wash my face.",
+     "id": "sb039"
+    },
+    {
+     "fr": "Les lavabos sont blancs.",
+     "en": "The sinks are white.",
+     "id": "sb040"
+    }
+   ]
+  },
+  {
+   "id": "les-toilettes",
+   "fr": "Les toilettes",
+   "title": "The toilet",
+   "intro": "Now, the toilet.",
+   "introId": "sb-les-toilettes",
+   "items": [
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilet.",
+     "id": "sb041"
+    },
+    {
+     "fr": "Le papier toilette.",
+     "en": "The toilet paper.",
+     "id": "sb042"
+    },
+    {
+     "fr": "La poubelle.",
+     "en": "The bin.",
+     "id": "sb043"
+    },
+    {
+     "fr": "Les toilettes sont propres.",
+     "en": "The toilet is clean.",
+     "id": "sb044"
+    },
+    {
+     "fr": "Je tire la chasse d'eau.",
+     "en": "I flush the toilet.",
+     "id": "sb045"
+    },
+    {
+     "fr": "Je me lave les mains après.",
+     "en": "I wash my hands afterwards.",
+     "id": "sb046"
+    },
+    {
+     "fr": "La plante est verte.",
+     "en": "The plant is green.",
+     "id": "sb047"
+    }
+   ]
+  },
+  {
+   "id": "la-baignoire",
+   "fr": "La baignoire",
+   "title": "The bathtub",
+   "intro": "Last, the bathtub.",
+   "introId": "sb-la-baignoire",
+   "items": [
+    {
+     "fr": "La baignoire.",
+     "en": "The bathtub.",
+     "id": "sb048"
+    },
+    {
+     "fr": "Le bain.",
+     "en": "The bath.",
+     "id": "sb049"
+    },
+    {
+     "fr": "Les bougies.",
+     "en": "The candles.",
+     "id": "sb050"
+    },
+    {
+     "fr": "Le peignoir.",
+     "en": "The bathrobe.",
+     "id": "sb051"
+    },
+    {
+     "fr": "Les pétales de fleurs.",
+     "en": "The flower petals.",
+     "id": "sb052"
+    },
+    {
+     "fr": "Je prends un bain.",
+     "en": "I take a bath.",
+     "id": "sb053"
+    },
+    {
+     "fr": "Le bain est chaud.",
+     "en": "The bath is hot.",
+     "id": "sb054"
+    },
+    {
+     "fr": "Les bougies sont allumées.",
+     "en": "The candles are lit.",
+     "id": "sb055"
+    },
+    {
+     "fr": "Je me détends dans le bain.",
+     "en": "I relax in the bath.",
+     "id": "sb056"
+    },
+    {
+     "fr": "Quel bon bain !",
+     "en": "What a good bath!",
+     "id": "sb057"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "sb-au-revoir",
+   "items": [
+    {
+     "fr": "C'est propre.",
+     "en": "It's clean.",
+     "id": "sb058"
+    },
+    {
+     "fr": "Merci.",
+     "en": "Thank you.",
+     "id": "sb059"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "sb060"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "sb061"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "sb062"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "sb063"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "sb064"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "sb-final",
+   "text": "Bravo! You've visited the whole bathroom, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "sb-final"
+}

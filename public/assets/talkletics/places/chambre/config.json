@@ -1,0 +1,764 @@
+{
+ "slug": "chambre",
+ "name": "Chambre",
+ "fr": "La chambre",
+ "order": 4,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     878,
+     925
+    ],
+    "door": [
+     878,
+     849
+    ],
+    "in": [
+     878,
+     786
+    ],
+    "tv": [
+     786,
+     732
+    ],
+    "F": [
+     936,
+     669
+    ],
+    "bedF": [
+     669,
+     649
+    ],
+    "desk": [
+     318,
+     716
+    ],
+    "chair": [
+     418,
+     505
+    ],
+    "bedL": [
+     460,
+     364
+    ],
+    "R": [
+     1003,
+     538
+    ],
+    "bedR": [
+     903,
+     364
+    ],
+    "bIn": [
+     1154,
+     388
+    ],
+    "bath": [
+     1321,
+     328
+    ],
+    "cIn": [
+     1154,
+     694
+    ],
+    "closet": [
+     1371,
+     702
+    ]
+   },
+   "e": "out-door door-in in-tv in-F tv-bedF bedF-desk desk-chair chair-bedL F-R R-bedR R-bIn bIn-bath R-cIn cIn-closet",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "television": [
+     "in",
+     "tv"
+    ],
+    "le-lit": [
+     "F",
+     "bedF"
+    ],
+    "le-bureau": [
+     "desk",
+     "chair"
+    ],
+    "le-coin-detente": [
+     "chair",
+     "bedL"
+    ],
+    "la-commode": [
+     "R",
+     "bedR"
+    ],
+    "la-salle-de-bains": [
+     "bIn",
+     "bath"
+    ],
+    "le-dressing": [
+     "cIn",
+     "closet"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     529,
+     1383
+    ],
+    "door": [
+     529,
+     1277
+    ],
+    "in": [
+     529,
+     1115
+    ],
+    "tv": [
+     391,
+     1118
+    ],
+    "F": [
+     594,
+     941
+    ],
+    "bedF": [
+     434,
+     833
+    ],
+    "desk": [
+     217,
+     1045
+    ],
+    "chair": [
+     217,
+     756
+    ],
+    "bedL": [
+     261,
+     446
+    ],
+    "R": [
+     615,
+     811
+    ],
+    "bedR": [
+     615,
+     442
+    ],
+    "bIn": [
+     746,
+     579
+    ],
+    "bath": [
+     869,
+     434
+    ],
+    "cIn": [
+     753,
+     1064
+    ],
+    "closet": [
+     883,
+     1072
+    ]
+   },
+   "e": "out-door door-in in-tv in-F F-bedF tv-desk desk-chair chair-bedL F-R R-bedR R-bIn bIn-bath F-cIn cIn-closet",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "television": [
+     "in",
+     "tv"
+    ],
+    "le-lit": [
+     "F",
+     "bedF"
+    ],
+    "le-bureau": [
+     "desk",
+     "chair"
+    ],
+    "le-coin-detente": [
+     "chair",
+     "bedL"
+    ],
+    "la-commode": [
+     "R",
+     "bedR"
+    ],
+    "la-salle-de-bains": [
+     "bIn",
+     "bath"
+    ],
+    "le-dressing": [
+     "cIn",
+     "closet"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "television": [
+   "in",
+   "tv"
+  ],
+  "le-lit": [
+   "F",
+   "bedF"
+  ],
+  "le-bureau": [
+   "desk",
+   "chair"
+  ],
+  "le-coin-detente": [
+   "chair",
+   "bedL"
+  ],
+  "la-commode": [
+   "R",
+   "bedR"
+  ],
+  "la-salle-de-bains": [
+   "bIn",
+   "bath"
+  ],
+  "le-dressing": [
+   "cIn",
+   "closet"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "ch-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "ch001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "ch002"
+    },
+    {
+     "fr": "Bonne nuit.",
+     "en": "Good night.",
+     "id": "ch003"
+    },
+    {
+     "fr": "Bienvenue dans ma chambre.",
+     "en": "Welcome to my bedroom.",
+     "id": "ch004"
+    },
+    {
+     "fr": "Salut, ça va ?",
+     "en": "Hi, how's it going?",
+     "id": "ch005"
+    },
+    {
+     "fr": "Entre, je t'en prie.",
+     "en": "Come in, please.",
+     "id": "ch006"
+    },
+    {
+     "fr": "Merci.",
+     "en": "Thank you.",
+     "id": "ch007"
+    },
+    {
+     "fr": "J'ai sommeil.",
+     "en": "I'm sleepy.",
+     "id": "ch008"
+    },
+    {
+     "fr": "Ça va bien, merci.",
+     "en": "I'm fine, thank you.",
+     "id": "ch009"
+    }
+   ]
+  },
+  {
+   "id": "television",
+   "fr": "La télévision",
+   "title": "The television",
+   "intro": "First, the television.",
+   "introId": "ch-television",
+   "items": [
+    {
+     "fr": "La chambre.",
+     "en": "The bedroom.",
+     "id": "ch010"
+    },
+    {
+     "fr": "La télévision.",
+     "en": "The television.",
+     "id": "ch011"
+    },
+    {
+     "fr": "Le meuble.",
+     "en": "The cabinet.",
+     "id": "ch012"
+    },
+    {
+     "fr": "La plante.",
+     "en": "The plant.",
+     "id": "ch013"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "ch014"
+    },
+    {
+     "fr": "Je regarde la télé le soir.",
+     "en": "I watch TV in the evening.",
+     "id": "ch015"
+    },
+    {
+     "fr": "La télé est éteinte.",
+     "en": "The TV is off.",
+     "id": "ch016"
+    },
+    {
+     "fr": "Il y a des fleurs roses.",
+     "en": "There are pink flowers.",
+     "id": "ch017"
+    }
+   ]
+  },
+  {
+   "id": "le-lit",
+   "fr": "Le lit",
+   "title": "The bed",
+   "intro": "Now, the bed.",
+   "introId": "ch-le-lit",
+   "items": [
+    {
+     "fr": "Le lit.",
+     "en": "The bed.",
+     "id": "ch018"
+    },
+    {
+     "fr": "Le lit est grand.",
+     "en": "The bed is big.",
+     "id": "ch019"
+    },
+    {
+     "fr": "L'oreiller.",
+     "en": "The pillow.",
+     "id": "ch020"
+    },
+    {
+     "fr": "Les coussins.",
+     "en": "The cushions.",
+     "id": "ch021"
+    },
+    {
+     "fr": "La couverture.",
+     "en": "The blanket.",
+     "id": "ch022"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "ch023"
+    },
+    {
+     "fr": "Le tapis.",
+     "en": "The rug.",
+     "id": "ch024"
+    },
+    {
+     "fr": "Les draps sont blancs.",
+     "en": "The sheets are white.",
+     "id": "ch025"
+    },
+    {
+     "fr": "Les coussins sont verts et jaunes.",
+     "en": "The cushions are green and yellow.",
+     "id": "ch026"
+    },
+    {
+     "fr": "Je dors dans mon lit.",
+     "en": "I sleep in my bed.",
+     "id": "ch027"
+    },
+    {
+     "fr": "Je fais mon lit.",
+     "en": "I make my bed.",
+     "id": "ch028"
+    },
+    {
+     "fr": "Je me couche tôt.",
+     "en": "I go to bed early.",
+     "id": "ch029"
+    }
+   ]
+  },
+  {
+   "id": "le-bureau",
+   "fr": "Le bureau",
+   "title": "The desk",
+   "intro": "Now, the desk.",
+   "introId": "ch-le-bureau",
+   "items": [
+    {
+     "fr": "Le bureau.",
+     "en": "The desk.",
+     "id": "ch030"
+    },
+    {
+     "fr": "L'ordinateur.",
+     "en": "The computer.",
+     "id": "ch031"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "ch032"
+    },
+    {
+     "fr": "La lampe.",
+     "en": "The lamp.",
+     "id": "ch033"
+    },
+    {
+     "fr": "Je travaille à mon bureau.",
+     "en": "I work at my desk.",
+     "id": "ch034"
+    },
+    {
+     "fr": "J'allume l'ordinateur.",
+     "en": "I turn on the computer.",
+     "id": "ch035"
+    },
+    {
+     "fr": "La chaise est beige.",
+     "en": "The chair is beige.",
+     "id": "ch036"
+    },
+    {
+     "fr": "J'écris un message.",
+     "en": "I write a message.",
+     "id": "ch037"
+    },
+    {
+     "fr": "Je fais mes devoirs.",
+     "en": "I do my homework.",
+     "id": "ch038"
+    }
+   ]
+  },
+  {
+   "id": "le-coin-detente",
+   "fr": "Le coin détente",
+   "title": "The relaxing corner",
+   "intro": "Now, the relaxing corner.",
+   "introId": "ch-le-coin-detente",
+   "items": [
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "ch039"
+    },
+    {
+     "fr": "Le pouf.",
+     "en": "The pouf.",
+     "id": "ch040"
+    },
+    {
+     "fr": "La fenêtre.",
+     "en": "The window.",
+     "id": "ch041"
+    },
+    {
+     "fr": "Les rideaux sont verts.",
+     "en": "The curtains are green.",
+     "id": "ch042"
+    },
+    {
+     "fr": "La table de chevet.",
+     "en": "The bedside table.",
+     "id": "ch043"
+    },
+    {
+     "fr": "Je lis dans le fauteuil.",
+     "en": "I read in the armchair.",
+     "id": "ch044"
+    },
+    {
+     "fr": "Il y a des fleurs jaunes.",
+     "en": "There are yellow flowers.",
+     "id": "ch045"
+    },
+    {
+     "fr": "Le tableau est beau.",
+     "en": "The painting is beautiful.",
+     "id": "ch046"
+    },
+    {
+     "fr": "La lampe est allumée.",
+     "en": "The lamp is on.",
+     "id": "ch047"
+    }
+   ]
+  },
+  {
+   "id": "la-commode",
+   "fr": "La commode",
+   "title": "The chest of drawers",
+   "intro": "Now, the chest of drawers.",
+   "introId": "ch-la-commode",
+   "items": [
+    {
+     "fr": "La commode.",
+     "en": "The chest of drawers.",
+     "id": "ch048"
+    },
+    {
+     "fr": "Le parfum.",
+     "en": "The perfume.",
+     "id": "ch049"
+    },
+    {
+     "fr": "Les tableaux.",
+     "en": "The pictures.",
+     "id": "ch050"
+    },
+    {
+     "fr": "Les plantes.",
+     "en": "The plants.",
+     "id": "ch051"
+    },
+    {
+     "fr": "Je mets mon parfum.",
+     "en": "I put on my perfume.",
+     "id": "ch052"
+    },
+    {
+     "fr": "Il y a trois tableaux au mur.",
+     "en": "There are three pictures on the wall.",
+     "id": "ch053"
+    },
+    {
+     "fr": "La chambre est calme.",
+     "en": "The bedroom is calm.",
+     "id": "ch054"
+    },
+    {
+     "fr": "La lampe est sur la table de chevet.",
+     "en": "The lamp is on the bedside table.",
+     "id": "ch055"
+    },
+    {
+     "fr": "La fenêtre est ouverte.",
+     "en": "The window is open.",
+     "id": "ch056"
+    }
+   ]
+  },
+  {
+   "id": "la-salle-de-bains",
+   "fr": "La salle de bains",
+   "title": "The bathroom",
+   "intro": "Now, the bathroom next door.",
+   "introId": "ch-la-salle-de-bains",
+   "items": [
+    {
+     "fr": "La salle de bains.",
+     "en": "The bathroom.",
+     "id": "ch057"
+    },
+    {
+     "fr": "La douche.",
+     "en": "The shower.",
+     "id": "ch058"
+    },
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilet.",
+     "id": "ch059"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "ch060"
+    },
+    {
+     "fr": "Le miroir.",
+     "en": "The mirror.",
+     "id": "ch061"
+    },
+    {
+     "fr": "Je prends une douche.",
+     "en": "I take a shower.",
+     "id": "ch062"
+    },
+    {
+     "fr": "Je me lave les mains.",
+     "en": "I wash my hands.",
+     "id": "ch063"
+    },
+    {
+     "fr": "Je me regarde dans le miroir.",
+     "en": "I look at myself in the mirror.",
+     "id": "ch064"
+    }
+   ]
+  },
+  {
+   "id": "le-dressing",
+   "fr": "Le dressing",
+   "title": "The wardrobe room",
+   "intro": "Last, the walk-in wardrobe.",
+   "introId": "ch-le-dressing",
+   "items": [
+    {
+     "fr": "Le dressing.",
+     "en": "The wardrobe room.",
+     "id": "ch065"
+    },
+    {
+     "fr": "Les vêtements.",
+     "en": "The clothes.",
+     "id": "ch066"
+    },
+    {
+     "fr": "La chemise.",
+     "en": "The shirt.",
+     "id": "ch067"
+    },
+    {
+     "fr": "Les chaussures.",
+     "en": "The shoes.",
+     "id": "ch068"
+    },
+    {
+     "fr": "Les étagères.",
+     "en": "The shelves.",
+     "id": "ch069"
+    },
+    {
+     "fr": "Les boîtes.",
+     "en": "The boxes.",
+     "id": "ch070"
+    },
+    {
+     "fr": "Je choisis mes vêtements.",
+     "en": "I choose my clothes.",
+     "id": "ch071"
+    },
+    {
+     "fr": "Je mets mes chaussures.",
+     "en": "I put on my shoes.",
+     "id": "ch072"
+    },
+    {
+     "fr": "Ma chemise est blanche.",
+     "en": "My shirt is white.",
+     "id": "ch073"
+    },
+    {
+     "fr": "Le dressing est bien rangé.",
+     "en": "The wardrobe is tidy.",
+     "id": "ch074"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodnight",
+   "intro": "Time to say goodnight.",
+   "introId": "ch-au-revoir",
+   "items": [
+    {
+     "fr": "Je vais me coucher.",
+     "en": "I'm going to bed.",
+     "id": "ch075"
+    },
+    {
+     "fr": "Bonne nuit.",
+     "en": "Good night.",
+     "id": "ch076"
+    },
+    {
+     "fr": "Dors bien.",
+     "en": "Sleep well.",
+     "id": "ch077"
+    },
+    {
+     "fr": "Fais de beaux rêves.",
+     "en": "Sweet dreams.",
+     "id": "ch078"
+    },
+    {
+     "fr": "À demain matin.",
+     "en": "See you tomorrow morning.",
+     "id": "ch079"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "ch080"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "ch081"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "ch-final",
+   "text": "Bravo! You've visited the whole bedroom, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "ch-final"
+}

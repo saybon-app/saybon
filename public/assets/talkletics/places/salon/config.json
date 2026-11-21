@@ -1,0 +1,622 @@
+{
+ "slug": "salon",
+ "name": "Salon",
+ "fr": "Le salon",
+ "order": 3,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1671,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     922
+    ],
+    "door": [
+     836,
+     856
+    ],
+    "in": [
+     836,
+     772
+    ],
+    "L1": [
+     652,
+     749
+    ],
+    "R1": [
+     1069,
+     755
+    ],
+    "chess": [
+     359,
+     715
+    ],
+    "lw": [
+     501,
+     568
+    ],
+    "read": [
+     443,
+     448
+    ],
+    "tA": [
+     602,
+     301
+    ],
+    "tv": [
+     869,
+     297
+    ],
+    "side": [
+     1320,
+     364
+    ],
+    "rS": [
+     1287,
+     555
+    ],
+    "pouf": [
+     1170,
+     576
+    ]
+   },
+   "e": "out-door door-in in-L1 in-R1 L1-chess L1-lw lw-read read-tA tA-tv tv-side side-rS rS-pouf pouf-R1",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "coin-jeux": [
+     "L1",
+     "chess"
+    ],
+    "coin-lecture": [
+     "lw",
+     "read"
+    ],
+    "television": [
+     "read",
+     "tv"
+    ],
+    "le-cote-droit": [
+     "side",
+     "rS"
+    ],
+    "canape-table": [
+     "pouf",
+     "R1"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     536,
+     1383
+    ],
+    "door": [
+     536,
+     1281
+    ],
+    "in": [
+     536,
+     1158
+    ],
+    "L1": [
+     319,
+     1147
+    ],
+    "R1": [
+     811,
+     1147
+    ],
+    "chess": [
+     167,
+     1083
+    ],
+    "lw": [
+     159,
+     753
+    ],
+    "read": [
+     290,
+     568
+    ],
+    "tv": [
+     637,
+     413
+    ],
+    "side": [
+     912,
+     388
+    ],
+    "rS": [
+     811,
+     608
+    ],
+    "pouf": [
+     898,
+     782
+    ]
+   },
+   "e": "out-door door-in in-L1 in-R1 L1-chess chess-lw lw-read read-tv tv-side side-rS rS-pouf pouf-R1",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "coin-jeux": [
+     "L1",
+     "chess"
+    ],
+    "coin-lecture": [
+     "lw",
+     "read"
+    ],
+    "television": [
+     "read",
+     "tv"
+    ],
+    "le-cote-droit": [
+     "side",
+     "rS"
+    ],
+    "canape-table": [
+     "pouf",
+     "R1"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "coin-jeux": [
+   "L1",
+   "chess"
+  ],
+  "coin-lecture": [
+   "lw",
+   "read"
+  ],
+  "television": [
+   "read",
+   "tv"
+  ],
+  "le-cote-droit": [
+   "side",
+   "rS"
+  ],
+  "canape-table": [
+   "pouf",
+   "R1"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "sa-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "sa001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "sa002"
+    },
+    {
+     "fr": "Salut, ça va ?",
+     "en": "Hi, how's it going?",
+     "id": "sa003"
+    },
+    {
+     "fr": "Bienvenue dans le salon.",
+     "en": "Welcome to the living room.",
+     "id": "sa004"
+    },
+    {
+     "fr": "Entrez, asseyez-vous.",
+     "en": "Come in, sit down.",
+     "id": "sa005"
+    },
+    {
+     "fr": "Merci, c'est gentil.",
+     "en": "Thank you, that's kind.",
+     "id": "sa006"
+    },
+    {
+     "fr": "Comment allez-vous ?",
+     "en": "How are you?",
+     "id": "sa007"
+    },
+    {
+     "fr": "Je vais bien, merci.",
+     "en": "I'm fine, thank you.",
+     "id": "sa008"
+    },
+    {
+     "fr": "Enchanté de faire votre connaissance.",
+     "en": "Pleased to meet you.",
+     "id": "sa009"
+    }
+   ]
+  },
+  {
+   "id": "coin-jeux",
+   "fr": "Le coin jeux",
+   "title": "The games corner",
+   "intro": "First, the games corner.",
+   "introId": "sa-coin-jeux",
+   "items": [
+    {
+     "fr": "Le salon.",
+     "en": "The living room.",
+     "id": "sa010"
+    },
+    {
+     "fr": "Les échecs.",
+     "en": "Chess.",
+     "id": "sa011"
+    },
+    {
+     "fr": "Le jeu d'échecs.",
+     "en": "The chess set.",
+     "id": "sa012"
+    },
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "sa013"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "sa014"
+    },
+    {
+     "fr": "Le tapis.",
+     "en": "The rug.",
+     "id": "sa015"
+    },
+    {
+     "fr": "Je joue aux échecs.",
+     "en": "I play chess.",
+     "id": "sa016"
+    },
+    {
+     "fr": "Tu joues avec moi ?",
+     "en": "Do you play with me?",
+     "id": "sa017"
+    },
+    {
+     "fr": "C'est mon tour.",
+     "en": "It's my turn.",
+     "id": "sa018"
+    },
+    {
+     "fr": "J'aime ce jeu.",
+     "en": "I like this game.",
+     "id": "sa019"
+    }
+   ]
+  },
+  {
+   "id": "coin-lecture",
+   "fr": "Le coin lecture",
+   "title": "The reading corner",
+   "intro": "Now, the reading corner.",
+   "introId": "sa-coin-lecture",
+   "items": [
+    {
+     "fr": "La fenêtre.",
+     "en": "The window.",
+     "id": "sa020"
+    },
+    {
+     "fr": "Les rideaux.",
+     "en": "The curtains.",
+     "id": "sa021"
+    },
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "sa022"
+    },
+    {
+     "fr": "La lampe.",
+     "en": "The lamp.",
+     "id": "sa023"
+    },
+    {
+     "fr": "Le livre.",
+     "en": "The book.",
+     "id": "sa024"
+    },
+    {
+     "fr": "La bibliothèque.",
+     "en": "The bookcase.",
+     "id": "sa025"
+    },
+    {
+     "fr": "Je lis un livre.",
+     "en": "I read a book.",
+     "id": "sa026"
+    },
+    {
+     "fr": "Le fauteuil est orange.",
+     "en": "The armchair is orange.",
+     "id": "sa027"
+    },
+    {
+     "fr": "La lampe est allumée.",
+     "en": "The lamp is on.",
+     "id": "sa028"
+    },
+    {
+     "fr": "J'aime lire le soir.",
+     "en": "I like to read in the evening.",
+     "id": "sa029"
+    }
+   ]
+  },
+  {
+   "id": "television",
+   "fr": "La télévision",
+   "title": "The television",
+   "intro": "Now, the television.",
+   "introId": "sa-television",
+   "items": [
+    {
+     "fr": "La télévision.",
+     "en": "The television.",
+     "id": "sa030"
+    },
+    {
+     "fr": "La télé est grande.",
+     "en": "The TV is big.",
+     "id": "sa031"
+    },
+    {
+     "fr": "Les haut-parleurs.",
+     "en": "The speakers.",
+     "id": "sa032"
+    },
+    {
+     "fr": "Le ventilateur.",
+     "en": "The fan.",
+     "id": "sa033"
+    },
+    {
+     "fr": "Les étagères.",
+     "en": "The shelves.",
+     "id": "sa034"
+    },
+    {
+     "fr": "Je regarde la télé.",
+     "en": "I watch TV.",
+     "id": "sa035"
+    },
+    {
+     "fr": "J'écoute de la musique.",
+     "en": "I listen to music.",
+     "id": "sa036"
+    },
+    {
+     "fr": "Le ventilateur tourne.",
+     "en": "The fan is turning.",
+     "id": "sa037"
+    }
+   ]
+  },
+  {
+   "id": "le-cote-droit",
+   "fr": "Le côté droit",
+   "title": "The right side",
+   "intro": "Now, the right side of the room.",
+   "introId": "sa-le-cote-droit",
+   "items": [
+    {
+     "fr": "La climatisation.",
+     "en": "The air conditioning.",
+     "id": "sa038"
+    },
+    {
+     "fr": "Il fait vingt-quatre degrés.",
+     "en": "It's twenty-four degrees.",
+     "id": "sa039"
+    },
+    {
+     "fr": "Le tableau.",
+     "en": "The painting.",
+     "id": "sa040"
+    },
+    {
+     "fr": "La plante.",
+     "en": "The plant.",
+     "id": "sa041"
+    },
+    {
+     "fr": "Le fauteuil bleu.",
+     "en": "The blue armchair.",
+     "id": "sa042"
+    },
+    {
+     "fr": "Les deux fauteuils.",
+     "en": "The two armchairs.",
+     "id": "sa043"
+    },
+    {
+     "fr": "Les fleurs sont roses.",
+     "en": "The flowers are pink.",
+     "id": "sa044"
+    },
+    {
+     "fr": "La plante est grande.",
+     "en": "The plant is big.",
+     "id": "sa045"
+    },
+    {
+     "fr": "Il fait frais dans le salon.",
+     "en": "It's cool in the living room.",
+     "id": "sa046"
+    }
+   ]
+  },
+  {
+   "id": "canape-table",
+   "fr": "Le canapé et la table",
+   "title": "The sofa and table",
+   "intro": "Now, the sofa and the table.",
+   "introId": "sa-canape-table",
+   "items": [
+    {
+     "fr": "Le canapé.",
+     "en": "The sofa.",
+     "id": "sa047"
+    },
+    {
+     "fr": "Le canapé est beige.",
+     "en": "The sofa is beige.",
+     "id": "sa048"
+    },
+    {
+     "fr": "Le coussin.",
+     "en": "The cushion.",
+     "id": "sa049"
+    },
+    {
+     "fr": "La table basse.",
+     "en": "The coffee table.",
+     "id": "sa050"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "sa051"
+    },
+    {
+     "fr": "Les poufs.",
+     "en": "The poufs.",
+     "id": "sa052"
+    },
+    {
+     "fr": "Les pommes vertes.",
+     "en": "The green apples.",
+     "id": "sa053"
+    },
+    {
+     "fr": "Les bougies.",
+     "en": "The candles.",
+     "id": "sa054"
+    },
+    {
+     "fr": "La lampe est sur la table.",
+     "en": "The lamp is on the table.",
+     "id": "sa055"
+    },
+    {
+     "fr": "Je m'assois sur le canapé.",
+     "en": "I sit on the sofa.",
+     "id": "sa056"
+    },
+    {
+     "fr": "Nous sommes bien ici.",
+     "en": "We are comfortable here.",
+     "id": "sa057"
+    },
+    {
+     "fr": "On se repose dans le salon.",
+     "en": "We relax in the living room.",
+     "id": "sa058"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "sa-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour l'invitation.",
+     "en": "Thank you for the invitation.",
+     "id": "sa059"
+    },
+    {
+     "fr": "Nous avons bien parlé.",
+     "en": "We had a good chat.",
+     "id": "sa060"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "sa061"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "sa062"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "sa063"
+    },
+    {
+     "fr": "À la prochaine.",
+     "en": "Until next time.",
+     "id": "sa064"
+    },
+    {
+     "fr": "Bonne nuit.",
+     "en": "Good night.",
+     "id": "sa065"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "sa-final",
+   "text": "Bravo! You've visited the whole living room, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "sa-final"
+}

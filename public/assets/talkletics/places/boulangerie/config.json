@@ -1,0 +1,652 @@
+{
+ "slug": "boulangerie",
+ "name": "Boulangerie",
+ "fr": "La boulangerie",
+ "order": 7,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     828,
+     920
+    ],
+    "door": [
+     828,
+     839
+    ],
+    "in": [
+     828,
+     772
+    ],
+    "c1": [
+     649,
+     644
+    ],
+    "c2": [
+     903,
+     644
+    ],
+    "pain": [
+     415,
+     522
+    ],
+    "T1": [
+     502,
+     385
+    ],
+    "cnt": [
+     828,
+     378
+    ],
+    "T3": [
+     1087,
+     385
+    ],
+    "vien": [
+     1271,
+     482
+    ],
+    "tbl": [
+     1154,
+     555
+    ],
+    "pat": [
+     1388,
+     689
+    ],
+    "R1": [
+     1020,
+     716
+    ]
+   },
+   "e": "out-door door-in in-c1 in-c2 c1-pain pain-T1 T1-cnt cnt-T3 T3-vien vien-tbl tbl-R1 R1-c2 R1-pat",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-viennoiseries": [
+     "c1",
+     "c2"
+    ],
+    "le-pain": [
+     "c1",
+     "pain"
+    ],
+    "le-comptoir": [
+     "T1",
+     "cnt"
+    ],
+    "les-patisseries": [
+     "T3",
+     "vien"
+    ],
+    "le-cafe": [
+     "tbl",
+     "pat"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1024,
+   "H": 1536,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     515,
+     1471
+    ],
+    "door": [
+     515,
+     1252
+    ],
+    "in": [
+     515,
+     1026
+    ],
+    "c1": [
+     402,
+     799
+    ],
+    "c2": [
+     699,
+     799
+    ],
+    "pain": [
+     253,
+     860
+    ],
+    "T1": [
+     307,
+     541
+    ],
+    "cnt": [
+     538,
+     538
+    ],
+    "T3": [
+     722,
+     541
+    ],
+    "vien": [
+     837,
+     556
+    ],
+    "tbl": [
+     768,
+     722
+    ],
+    "pat": [
+     906,
+     868
+    ]
+   },
+   "e": "out-door door-in in-c1 in-c2 c1-pain pain-T1 T1-cnt cnt-T3 T3-vien vien-tbl tbl-c2 tbl-pat",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-viennoiseries": [
+     "c1",
+     "c2"
+    ],
+    "le-pain": [
+     "c1",
+     "pain"
+    ],
+    "le-comptoir": [
+     "T1",
+     "cnt"
+    ],
+    "les-patisseries": [
+     "T3",
+     "vien"
+    ],
+    "le-cafe": [
+     "tbl",
+     "pat"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "les-viennoiseries": [
+   "c1",
+   "c2"
+  ],
+  "le-pain": [
+   "c1",
+   "pain"
+  ],
+  "le-comptoir": [
+   "T1",
+   "cnt"
+  ],
+  "les-patisseries": [
+   "T3",
+   "vien"
+  ],
+  "le-cafe": [
+   "tbl",
+   "pat"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "bo-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "bo001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "bo002"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "bo003"
+    },
+    {
+     "fr": "Salut !",
+     "en": "Hi!",
+     "id": "bo004"
+    },
+    {
+     "fr": "Bienvenue à la boulangerie.",
+     "en": "Welcome to the bakery.",
+     "id": "bo005"
+    },
+    {
+     "fr": "Comment allez-vous ?",
+     "en": "How are you?",
+     "id": "bo006"
+    },
+    {
+     "fr": "Très bien, merci.",
+     "en": "Very well, thank you.",
+     "id": "bo007"
+    },
+    {
+     "fr": "S'il vous plaît.",
+     "en": "Please.",
+     "id": "bo008"
+    },
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "bo009"
+    },
+    {
+     "fr": "Excusez-moi.",
+     "en": "Excuse me.",
+     "id": "bo010"
+    }
+   ]
+  },
+  {
+   "id": "les-viennoiseries",
+   "fr": "Les viennoiseries",
+   "title": "The pastries",
+   "intro": "First, the pastries in the middle.",
+   "introId": "bo-les-viennoiseries",
+   "items": [
+    {
+     "fr": "La boulangerie.",
+     "en": "The bakery.",
+     "id": "bo011"
+    },
+    {
+     "fr": "Le croissant.",
+     "en": "The croissant.",
+     "id": "bo012"
+    },
+    {
+     "fr": "Les croissants.",
+     "en": "The croissants.",
+     "id": "bo013"
+    },
+    {
+     "fr": "Le pain au chocolat.",
+     "en": "The chocolate pastry.",
+     "id": "bo014"
+    },
+    {
+     "fr": "Les macarons.",
+     "en": "The macarons.",
+     "id": "bo015"
+    },
+    {
+     "fr": "Les tartes aux fruits.",
+     "en": "The fruit tarts.",
+     "id": "bo016"
+    },
+    {
+     "fr": "La brioche.",
+     "en": "The brioche.",
+     "id": "bo017"
+    },
+    {
+     "fr": "Je voudrais un croissant.",
+     "en": "I would like a croissant.",
+     "id": "bo018"
+    },
+    {
+     "fr": "Les croissants sont chauds.",
+     "en": "The croissants are warm.",
+     "id": "bo019"
+    },
+    {
+     "fr": "Les macarons sont roses et verts.",
+     "en": "The macarons are pink and green.",
+     "id": "bo020"
+    },
+    {
+     "fr": "C'est très bon.",
+     "en": "It's very good.",
+     "id": "bo021"
+    }
+   ]
+  },
+  {
+   "id": "le-pain",
+   "fr": "Le pain",
+   "title": "The bread",
+   "intro": "Now, the bread.",
+   "introId": "bo-le-pain",
+   "items": [
+    {
+     "fr": "Le pain.",
+     "en": "The bread.",
+     "id": "bo022"
+    },
+    {
+     "fr": "La baguette.",
+     "en": "The baguette.",
+     "id": "bo023"
+    },
+    {
+     "fr": "Les baguettes.",
+     "en": "The baguettes.",
+     "id": "bo024"
+    },
+    {
+     "fr": "Le pain complet.",
+     "en": "The wholemeal bread.",
+     "id": "bo025"
+    },
+    {
+     "fr": "Le pain de campagne.",
+     "en": "The country loaf.",
+     "id": "bo026"
+    },
+    {
+     "fr": "Le panier.",
+     "en": "The basket.",
+     "id": "bo027"
+    },
+    {
+     "fr": "Je voudrais une baguette.",
+     "en": "I would like a baguette.",
+     "id": "bo028"
+    },
+    {
+     "fr": "Une baguette, s'il vous plaît.",
+     "en": "A baguette, please.",
+     "id": "bo029"
+    },
+    {
+     "fr": "Le pain est frais.",
+     "en": "The bread is fresh.",
+     "id": "bo030"
+    },
+    {
+     "fr": "Le pain sent bon.",
+     "en": "The bread smells good.",
+     "id": "bo031"
+    }
+   ]
+  },
+  {
+   "id": "le-comptoir",
+   "fr": "Le comptoir",
+   "title": "The counter",
+   "intro": "Now, the counter.",
+   "introId": "bo-le-comptoir",
+   "items": [
+    {
+     "fr": "Le comptoir.",
+     "en": "The counter.",
+     "id": "bo032"
+    },
+    {
+     "fr": "La vitrine.",
+     "en": "The display case.",
+     "id": "bo033"
+    },
+    {
+     "fr": "Les gâteaux.",
+     "en": "The cakes.",
+     "id": "bo034"
+    },
+    {
+     "fr": "Le gâteau au chocolat.",
+     "en": "The chocolate cake.",
+     "id": "bo035"
+    },
+    {
+     "fr": "Le gâteau aux fraises.",
+     "en": "The strawberry cake.",
+     "id": "bo036"
+    },
+    {
+     "fr": "Les fraises.",
+     "en": "The strawberries.",
+     "id": "bo037"
+    },
+    {
+     "fr": "La caisse.",
+     "en": "The till.",
+     "id": "bo038"
+    },
+    {
+     "fr": "Le café.",
+     "en": "The coffee.",
+     "id": "bo039"
+    },
+    {
+     "fr": "Je voudrais un gâteau.",
+     "en": "I would like a cake.",
+     "id": "bo040"
+    },
+    {
+     "fr": "Combien ça coûte ?",
+     "en": "How much is it?",
+     "id": "bo041"
+    },
+    {
+     "fr": "Ça coûte trois euros.",
+     "en": "It costs three euros.",
+     "id": "bo042"
+    },
+    {
+     "fr": "Voilà.",
+     "en": "Here you are.",
+     "id": "bo043"
+    }
+   ]
+  },
+  {
+   "id": "les-patisseries",
+   "fr": "Les pâtisseries",
+   "title": "The pastry shop",
+   "intro": "Now, the sweet pastries.",
+   "introId": "bo-les-patisseries",
+   "items": [
+    {
+     "fr": "Les pâtisseries.",
+     "en": "The pastries.",
+     "id": "bo044"
+    },
+    {
+     "fr": "Les viennoiseries.",
+     "en": "The viennoiseries.",
+     "id": "bo045"
+    },
+    {
+     "fr": "Les petits gâteaux.",
+     "en": "The little cakes.",
+     "id": "bo046"
+    },
+    {
+     "fr": "Les gâteaux sont sur l'étagère.",
+     "en": "The cakes are on the shelf.",
+     "id": "bo047"
+    },
+    {
+     "fr": "Je prends deux pains au chocolat.",
+     "en": "I take two chocolate pastries.",
+     "id": "bo048"
+    },
+    {
+     "fr": "Quelque chose de sucré.",
+     "en": "Something sweet.",
+     "id": "bo049"
+    },
+    {
+     "fr": "J'aime les gâteaux.",
+     "en": "I like cakes.",
+     "id": "bo050"
+    },
+    {
+     "fr": "C'est délicieux.",
+     "en": "It's delicious.",
+     "id": "bo051"
+    },
+    {
+     "fr": "Vous avez des éclairs ?",
+     "en": "Do you have éclairs?",
+     "id": "bo052"
+    },
+    {
+     "fr": "Oui, bien sûr.",
+     "en": "Yes, of course.",
+     "id": "bo053"
+    }
+   ]
+  },
+  {
+   "id": "le-cafe",
+   "fr": "Le café",
+   "title": "The café area",
+   "intro": "Now, the café area.",
+   "introId": "bo-le-cafe",
+   "items": [
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "bo054"
+    },
+    {
+     "fr": "Les chaises.",
+     "en": "The chairs.",
+     "id": "bo055"
+    },
+    {
+     "fr": "Une table pour deux, s'il vous plaît.",
+     "en": "A table for two, please.",
+     "id": "bo056"
+    },
+    {
+     "fr": "Je m'assois ici.",
+     "en": "I sit here.",
+     "id": "bo057"
+    },
+    {
+     "fr": "Un café, s'il vous plaît.",
+     "en": "A coffee, please.",
+     "id": "bo058"
+    },
+    {
+     "fr": "Un thé, s'il vous plaît.",
+     "en": "A tea, please.",
+     "id": "bo059"
+    },
+    {
+     "fr": "Un jus d'orange.",
+     "en": "An orange juice.",
+     "id": "bo060"
+    },
+    {
+     "fr": "Je mange un croissant.",
+     "en": "I eat a croissant.",
+     "id": "bo061"
+    },
+    {
+     "fr": "Je bois un café.",
+     "en": "I drink a coffee.",
+     "id": "bo062"
+    },
+    {
+     "fr": "C'est calme ici.",
+     "en": "It's quiet here.",
+     "id": "bo063"
+    },
+    {
+     "fr": "L'addition, s'il vous plaît.",
+     "en": "The bill, please.",
+     "id": "bo064"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "bo-au-revoir",
+   "items": [
+    {
+     "fr": "Merci, bonne journée.",
+     "en": "Thank you, have a good day.",
+     "id": "bo065"
+    },
+    {
+     "fr": "Merci beaucoup, madame.",
+     "en": "Thank you very much, madam.",
+     "id": "bo066"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "bo067"
+    },
+    {
+     "fr": "Bon appétit !",
+     "en": "Enjoy your meal!",
+     "id": "bo068"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "bo069"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "bo070"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "bo071"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "bo-final",
+   "text": "Bravo! You've visited the whole bakery, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "bo-final"
+}

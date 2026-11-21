@@ -1,0 +1,765 @@
+{
+ "slug": "cuisine",
+ "name": "Cuisine",
+ "fr": "La cuisine",
+ "order": 2,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     920
+    ],
+    "door": [
+     836,
+     844
+    ],
+    "in": [
+     836,
+     799
+    ],
+    "din": [
+     844,
+     766
+    ],
+    "dinL": [
+     669,
+     744
+    ],
+    "dinR": [
+     1028,
+     744
+    ],
+    "L1": [
+     502,
+     716
+    ],
+    "fridge": [
+     209,
+     739
+    ],
+    "sink": [
+     326,
+     649
+    ],
+    "stove": [
+     359,
+     527
+    ],
+    "oven": [
+     1391,
+     502
+    ],
+    "R1": [
+     1388,
+     655
+    ],
+    "pIn": [
+     1513,
+     659
+    ],
+    "pantry": [
+     1588,
+     639
+    ],
+    "s1": [
+     518,
+     655
+    ],
+    "s2": [
+     644,
+     655
+    ],
+    "s3": [
+     1087,
+     655
+    ],
+    "s4": [
+     1221,
+     662
+    ]
+   },
+   "e": "out-door door-in in-din in-dinL in-dinR dinL-L1 L1-fridge L1-sink sink-stove L1-s1 s1-s2 s2-dinL dinR-s3 s3-s4 s4-R1 R1-oven R1-pIn pIn-pantry",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-table": [
+     "dinL",
+     "din",
+     "dinR"
+    ],
+    "le-frigo": [
+     "L1",
+     "fridge"
+    ],
+    "l-ilot": [
+     "s1",
+     "s2",
+     "s3",
+     "s4"
+    ],
+    "le-garde-manger": [
+     "pIn",
+     "pantry"
+    ],
+    "la-cuisson": [
+     "oven",
+     "stove"
+    ],
+    "l-evier": [
+     "stove",
+     "sink"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1087,
+   "H": 1447,
+   "ch": 150,
+   "zoom": 1.35,
+   "anchor": 0.4,
+   "n": {
+    "out": [
+     521,
+     1375
+    ],
+    "door": [
+     521,
+     1295
+    ],
+    "in": [
+     521,
+     1230
+    ],
+    "din": [
+     485,
+     1187
+    ],
+    "dinL": [
+     340,
+     1179
+    ],
+    "dinR": [
+     644,
+     1179
+    ],
+    "L1": [
+     260,
+     1013
+    ],
+    "fridge": [
+     195,
+     886
+    ],
+    "s1": [
+     355,
+     929
+    ],
+    "s2": [
+     485,
+     929
+    ],
+    "s3": [
+     615,
+     929
+    ],
+    "s4": [
+     745,
+     929
+    ],
+    "R3": [
+     854,
+     886
+    ],
+    "R2": [
+     912,
+     724
+    ],
+    "oven": [
+     904,
+     586
+    ],
+    "stove": [
+     557,
+     521
+    ],
+    "sink": [
+     268,
+     538
+    ],
+    "pIn": [
+     752,
+     1121
+    ],
+    "pantry": [
+     883,
+     1107
+    ]
+   },
+   "e": "out-door door-in in-din in-dinL in-dinR dinL-L1 L1-fridge L1-s1 s1-s2 s2-s3 s3-s4 dinR-pIn pIn-pantry s4-R3 R3-R2 R2-oven oven-stove stove-sink",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-table": [
+     "dinL",
+     "din",
+     "dinR"
+    ],
+    "le-frigo": [
+     "L1",
+     "fridge"
+    ],
+    "l-ilot": [
+     "s1",
+     "s2",
+     "s3",
+     "s4"
+    ],
+    "le-garde-manger": [
+     "pIn",
+     "pantry"
+    ],
+    "la-cuisson": [
+     "oven",
+     "stove"
+    ],
+    "l-evier": [
+     "stove",
+     "sink"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "la-table": [
+   "dinL",
+   "din",
+   "dinR"
+  ],
+  "le-frigo": [
+   "L1",
+   "fridge"
+  ],
+  "l-ilot": [
+   "s1",
+   "s2",
+   "s3",
+   "s4"
+  ],
+  "le-garde-manger": [
+   "pIn",
+   "pantry"
+  ],
+  "la-cuisson": [
+   "oven",
+   "stove"
+  ],
+  "l-evier": [
+   "stove",
+   "sink"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Let's begin with greetings.",
+   "introId": "cu-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "cu001"
+    },
+    {
+     "fr": "Salut !",
+     "en": "Hi!",
+     "id": "cu002"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "cu003"
+    },
+    {
+     "fr": "Bienvenue dans la cuisine.",
+     "en": "Welcome to the kitchen.",
+     "id": "cu004"
+    },
+    {
+     "fr": "Comment ça va ?",
+     "en": "How are you?",
+     "id": "cu005"
+    },
+    {
+     "fr": "Ça va très bien, merci.",
+     "en": "I'm very well, thank you.",
+     "id": "cu006"
+    },
+    {
+     "fr": "Et toi ?",
+     "en": "And you?",
+     "id": "cu007"
+    },
+    {
+     "fr": "Enchanté.",
+     "en": "Nice to meet you.",
+     "id": "cu008"
+    },
+    {
+     "fr": "Entrez, s'il vous plaît.",
+     "en": "Come in, please.",
+     "id": "cu009"
+    },
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "cu010"
+    }
+   ]
+  },
+  {
+   "id": "la-table",
+   "fr": "La table",
+   "title": "The table",
+   "intro": "First, the table. La table.",
+   "introId": "cu-la-table",
+   "items": [
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "cu011"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "cu012"
+    },
+    {
+     "fr": "L'assiette.",
+     "en": "The plate.",
+     "id": "cu013"
+    },
+    {
+     "fr": "Le verre.",
+     "en": "The glass.",
+     "id": "cu014"
+    },
+    {
+     "fr": "La fourchette.",
+     "en": "The fork.",
+     "id": "cu015"
+    },
+    {
+     "fr": "Le couteau.",
+     "en": "The knife.",
+     "id": "cu016"
+    },
+    {
+     "fr": "La cuillère.",
+     "en": "The spoon.",
+     "id": "cu017"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "cu018"
+    },
+    {
+     "fr": "La table est ronde.",
+     "en": "The table is round.",
+     "id": "cu019"
+    },
+    {
+     "fr": "Il y a quatre chaises.",
+     "en": "There are four chairs.",
+     "id": "cu020"
+    },
+    {
+     "fr": "Nous mangeons à table.",
+     "en": "We eat at the table.",
+     "id": "cu021"
+    },
+    {
+     "fr": "Le verre est plein de jus d'orange.",
+     "en": "The glass is full of orange juice.",
+     "id": "cu022"
+    }
+   ]
+  },
+  {
+   "id": "le-frigo",
+   "fr": "Le frigo",
+   "title": "The fridge",
+   "intro": "Now, the fridge. Le frigo.",
+   "introId": "cu-le-frigo",
+   "items": [
+    {
+     "fr": "Le frigo.",
+     "en": "The fridge.",
+     "id": "cu023"
+    },
+    {
+     "fr": "Le frigo est grand.",
+     "en": "The fridge is big.",
+     "id": "cu024"
+    },
+    {
+     "fr": "J'ouvre le frigo.",
+     "en": "I open the fridge.",
+     "id": "cu025"
+    },
+    {
+     "fr": "Le lait est froid.",
+     "en": "The milk is cold.",
+     "id": "cu026"
+    },
+    {
+     "fr": "La cafetière.",
+     "en": "The coffee machine.",
+     "id": "cu027"
+    },
+    {
+     "fr": "Je prépare le café.",
+     "en": "I make the coffee.",
+     "id": "cu028"
+    },
+    {
+     "fr": "Le café est chaud.",
+     "en": "The coffee is hot.",
+     "id": "cu029"
+    },
+    {
+     "fr": "La tasse.",
+     "en": "The cup.",
+     "id": "cu030"
+    }
+   ]
+  },
+  {
+   "id": "l-ilot",
+   "fr": "L'îlot",
+   "title": "The island",
+   "intro": "Now, the big island. L'îlot.",
+   "introId": "cu-l-ilot",
+   "items": [
+    {
+     "fr": "L'îlot.",
+     "en": "The island.",
+     "id": "cu031"
+    },
+    {
+     "fr": "Le tabouret.",
+     "en": "The stool.",
+     "id": "cu032"
+    },
+    {
+     "fr": "Il y a des tabourets.",
+     "en": "There are stools.",
+     "id": "cu033"
+    },
+    {
+     "fr": "Le repas est prêt.",
+     "en": "The meal is ready.",
+     "id": "cu034"
+    },
+    {
+     "fr": "Le poulet.",
+     "en": "The chicken.",
+     "id": "cu035"
+    },
+    {
+     "fr": "Le riz.",
+     "en": "The rice.",
+     "id": "cu036"
+    },
+    {
+     "fr": "Le poisson.",
+     "en": "The fish.",
+     "id": "cu037"
+    },
+    {
+     "fr": "La soupe.",
+     "en": "The soup.",
+     "id": "cu038"
+    },
+    {
+     "fr": "Les fruits.",
+     "en": "The fruit.",
+     "id": "cu039"
+    },
+    {
+     "fr": "La pastèque.",
+     "en": "The watermelon.",
+     "id": "cu040"
+    },
+    {
+     "fr": "Le gâteau.",
+     "en": "The cake.",
+     "id": "cu041"
+    },
+    {
+     "fr": "Le jus.",
+     "en": "The juice.",
+     "id": "cu042"
+    },
+    {
+     "fr": "J'ai faim.",
+     "en": "I'm hungry.",
+     "id": "cu043"
+    },
+    {
+     "fr": "Je mange du poulet avec du riz.",
+     "en": "I eat chicken with rice.",
+     "id": "cu044"
+    }
+   ]
+  },
+  {
+   "id": "le-garde-manger",
+   "fr": "Le garde-manger",
+   "title": "The pantry",
+   "intro": "Now, the pantry. Le garde-manger.",
+   "introId": "cu-le-garde-manger",
+   "items": [
+    {
+     "fr": "Le garde-manger.",
+     "en": "The pantry.",
+     "id": "cu045"
+    },
+    {
+     "fr": "Les bocaux.",
+     "en": "The jars.",
+     "id": "cu046"
+    },
+    {
+     "fr": "Les étagères.",
+     "en": "The shelves.",
+     "id": "cu047"
+    },
+    {
+     "fr": "Les fruits et les légumes.",
+     "en": "The fruit and vegetables.",
+     "id": "cu048"
+    },
+    {
+     "fr": "Les pommes.",
+     "en": "The apples.",
+     "id": "cu049"
+    },
+    {
+     "fr": "Les tomates.",
+     "en": "The tomatoes.",
+     "id": "cu050"
+    },
+    {
+     "fr": "Il y a beaucoup de bocaux.",
+     "en": "There are a lot of jars.",
+     "id": "cu051"
+    },
+    {
+     "fr": "Je prends une pomme.",
+     "en": "I take an apple.",
+     "id": "cu052"
+    },
+    {
+     "fr": "La porte est ouverte.",
+     "en": "The door is open.",
+     "id": "cu053"
+    }
+   ]
+  },
+  {
+   "id": "la-cuisson",
+   "fr": "La cuisson",
+   "title": "Cooking",
+   "intro": "Now, the cooking area. La cuisson.",
+   "introId": "cu-la-cuisson",
+   "items": [
+    {
+     "fr": "Le four.",
+     "en": "The oven.",
+     "id": "cu054"
+    },
+    {
+     "fr": "La cuisinière.",
+     "en": "The stove.",
+     "id": "cu055"
+    },
+    {
+     "fr": "La casserole.",
+     "en": "The pot.",
+     "id": "cu056"
+    },
+    {
+     "fr": "La poêle.",
+     "en": "The frying pan.",
+     "id": "cu057"
+    },
+    {
+     "fr": "Le mixeur.",
+     "en": "The blender.",
+     "id": "cu058"
+    },
+    {
+     "fr": "Le grille-pain.",
+     "en": "The toaster.",
+     "id": "cu059"
+    },
+    {
+     "fr": "Je fais cuire le riz.",
+     "en": "I cook the rice.",
+     "id": "cu060"
+    },
+    {
+     "fr": "Le four est chaud.",
+     "en": "The oven is hot.",
+     "id": "cu061"
+    },
+    {
+     "fr": "Attention, c'est chaud !",
+     "en": "Careful, it's hot!",
+     "id": "cu062"
+    },
+    {
+     "fr": "Je prépare le dîner.",
+     "en": "I make dinner.",
+     "id": "cu063"
+    }
+   ]
+  },
+  {
+   "id": "l-evier",
+   "fr": "L'évier",
+   "title": "The sink",
+   "intro": "Now, the sink. L'évier.",
+   "introId": "cu-l-evier",
+   "items": [
+    {
+     "fr": "L'évier.",
+     "en": "The sink.",
+     "id": "cu064"
+    },
+    {
+     "fr": "Le robinet.",
+     "en": "The tap.",
+     "id": "cu065"
+    },
+    {
+     "fr": "L'eau.",
+     "en": "The water.",
+     "id": "cu066"
+    },
+    {
+     "fr": "Je lave les assiettes.",
+     "en": "I wash the plates.",
+     "id": "cu067"
+    },
+    {
+     "fr": "Je lave les fruits.",
+     "en": "I wash the fruit.",
+     "id": "cu068"
+    },
+    {
+     "fr": "La fenêtre.",
+     "en": "The window.",
+     "id": "cu069"
+    },
+    {
+     "fr": "Le jardin est beau.",
+     "en": "The garden is beautiful.",
+     "id": "cu070"
+    },
+    {
+     "fr": "Le lave-vaisselle.",
+     "en": "The dishwasher.",
+     "id": "cu071"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "cu-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour le repas.",
+     "en": "Thank you for the meal.",
+     "id": "cu072"
+    },
+    {
+     "fr": "C'est délicieux.",
+     "en": "It's delicious.",
+     "id": "cu073"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "cu074"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "cu075"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "cu076"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "cu077"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "cu078"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "cu-final",
+   "text": "Bravo! You've visited the whole kitchen, and you spoke the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "cu-final"
+}
