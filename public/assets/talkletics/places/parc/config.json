@@ -1,0 +1,880 @@
+{
+ "slug": "parc",
+ "name": "Parc",
+ "fr": "Le parc",
+ "order": 21,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     925
+    ],
+    "gate": [
+     836,
+     792
+    ],
+    "in": [
+     836,
+     691
+    ],
+    "pl": [
+     836,
+     611
+    ],
+    "pL": [
+     658,
+     524
+    ],
+    "pR": [
+     1014,
+     524
+    ],
+    "a1": [
+     624,
+     390
+    ],
+    "a2": [
+     535,
+     284
+    ],
+    "pg": [
+     446,
+     251
+    ],
+    "pg2": [
+     323,
+     251
+    ],
+    "b2": [
+     713,
+     240
+    ],
+    "gz": [
+     836,
+     232
+    ],
+    "c1": [
+     1070,
+     379
+    ],
+    "c2": [
+     1126,
+     279
+    ],
+    "bc": [
+     1215,
+     273
+    ],
+    "bc2": [
+     1360,
+     281
+    ],
+    "fg": [
+     1237,
+     468
+    ],
+    "fg2": [
+     1394,
+     468
+    ],
+    "r1": [
+     1126,
+     591
+    ],
+    "r2": [
+     1226,
+     674
+    ],
+    "am": [
+     1327,
+     669
+    ],
+    "l1": [
+     557,
+     496
+    ],
+    "br": [
+     401,
+     477
+    ],
+    "po": [
+     279,
+     524
+    ],
+    "w1": [
+     691,
+     741
+    ],
+    "pk2": [
+     468,
+     730
+    ],
+    "pk": [
+     301,
+     713
+    ]
+   },
+   "e": "out-gate gate-in in-pl pl-pL pl-pR pL-a1 a1-b2 b2-gz a1-a2 a2-pg pg-pg2 pR-c1 c1-c2 c2-bc bc-bc2 pR-fg fg-fg2 pR-r1 r1-r2 r2-am pL-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "in"
+    ],
+    "la-grande-place": [
+     "pl",
+     "pL",
+     "pR"
+    ],
+    "le-kiosque": [
+     "gz"
+    ],
+    "l-aire-de-jeux": [
+     "pg",
+     "pg2"
+    ],
+    "l-etang": [
+     "br",
+     "po"
+    ],
+    "le-pique-nique": [
+     "pk2",
+     "pk"
+    ],
+    "le-terrain-de-basket": [
+     "bc",
+     "bc2"
+    ],
+    "la-gym-en-plein-air": [
+     "fg",
+     "fg2"
+    ],
+    "l-amphitheatre": [
+     "am"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     545,
+     1332
+    ],
+    "gate": [
+     545,
+     1207
+    ],
+    "in": [
+     545,
+     1110
+    ],
+    "pl": [
+     541,
+     878
+    ],
+    "pL": [
+     386,
+     676
+    ],
+    "pR": [
+     714,
+     676
+    ],
+    "a1": [
+     367,
+     541
+    ],
+    "a2": [
+     386,
+     454
+    ],
+    "gz": [
+     526,
+     401
+    ],
+    "pg": [
+     290,
+     391
+    ],
+    "pg2": [
+     193,
+     386
+    ],
+    "c1": [
+     705,
+     502
+    ],
+    "c2": [
+     753,
+     454
+    ],
+    "bc": [
+     849,
+     410
+    ],
+    "bc2": [
+     956,
+     410
+    ],
+    "fg": [
+     830,
+     618
+    ],
+    "fg2": [
+     965,
+     613
+    ],
+    "r1": [
+     753,
+     849
+    ],
+    "am": [
+     830,
+     956
+    ],
+    "l1": [
+     328,
+     772
+    ],
+    "br": [
+     241,
+     734
+    ],
+    "po": [
+     106,
+     705
+    ],
+    "w1": [
+     454,
+     1110
+    ],
+    "pk2": [
+     290,
+     1062
+    ],
+    "pk": [
+     164,
+     1042
+    ]
+   },
+   "e": "out-gate gate-in in-pl pl-pL pl-pR pL-a1 a1-a2 a2-gz a2-pg pg-pg2 pR-c1 c1-c2 c2-bc bc-bc2 pR-fg fg-fg2 pR-r1 r1-am pL-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "in"
+    ],
+    "la-grande-place": [
+     "pl",
+     "pL",
+     "pR"
+    ],
+    "le-kiosque": [
+     "gz"
+    ],
+    "l-aire-de-jeux": [
+     "pg",
+     "pg2"
+    ],
+    "l-etang": [
+     "br",
+     "po"
+    ],
+    "le-pique-nique": [
+     "pk2",
+     "pk"
+    ],
+    "le-terrain-de-basket": [
+     "bc",
+     "bc2"
+    ],
+    "la-gym-en-plein-air": [
+     "fg",
+     "fg2"
+    ],
+    "l-amphitheatre": [
+     "am"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "gate",
+   "in"
+  ],
+  "la-grande-place": [
+   "pl",
+   "pL",
+   "pR"
+  ],
+  "le-kiosque": [
+   "gz"
+  ],
+  "l-aire-de-jeux": [
+   "pg",
+   "pg2"
+  ],
+  "l-etang": [
+   "br",
+   "po"
+  ],
+  "le-pique-nique": [
+   "pk2",
+   "pk"
+  ],
+  "le-terrain-de-basket": [
+   "bc",
+   "bc2"
+  ],
+  "la-gym-en-plein-air": [
+   "fg",
+   "fg2"
+  ],
+  "l-amphitheatre": [
+   "am"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the park!",
+   "introId": "pr-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "pr001"
+    },
+    {
+     "fr": "Bienvenue au parc.",
+     "en": "Welcome to the park.",
+     "id": "pr002"
+    },
+    {
+     "fr": "Quelle belle journée !",
+     "en": "What a beautiful day!",
+     "id": "pr003"
+    },
+    {
+     "fr": "Il fait beau.",
+     "en": "The weather is nice.",
+     "id": "pr004"
+    },
+    {
+     "fr": "Il y a beaucoup de monde.",
+     "en": "There are a lot of people.",
+     "id": "pr005"
+    },
+    {
+     "fr": "J'adore ce parc.",
+     "en": "I love this park.",
+     "id": "pr006"
+    },
+    {
+     "fr": "Je me promène.",
+     "en": "I'm going for a walk.",
+     "id": "pr007"
+    },
+    {
+     "fr": "Le parc est ouvert à six heures.",
+     "en": "The park opens at six.",
+     "id": "pr008"
+    }
+   ]
+  },
+  {
+   "id": "la-grande-place",
+   "fr": "La grande place",
+   "title": "The main square",
+   "intro": "First, the big tree in the middle.",
+   "introId": "pr-la-grande-place",
+   "items": [
+    {
+     "fr": "L'arbre.",
+     "en": "The tree.",
+     "id": "pr009"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "pr010"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "pr011"
+    },
+    {
+     "fr": "Le chemin.",
+     "en": "The path.",
+     "id": "pr012"
+    },
+    {
+     "fr": "La poubelle.",
+     "en": "The bin.",
+     "id": "pr013"
+    },
+    {
+     "fr": "Le lampadaire.",
+     "en": "The lamp post.",
+     "id": "pr014"
+    },
+    {
+     "fr": "L'arbre est grand.",
+     "en": "The tree is big.",
+     "id": "pr015"
+    },
+    {
+     "fr": "Les fleurs sont rouges et orange.",
+     "en": "The flowers are red and orange.",
+     "id": "pr016"
+    },
+    {
+     "fr": "Je m'assois sur le banc.",
+     "en": "I sit on the bench.",
+     "id": "pr017"
+    },
+    {
+     "fr": "Je regarde les gens.",
+     "en": "I watch the people.",
+     "id": "pr018"
+    }
+   ]
+  },
+  {
+   "id": "le-kiosque",
+   "fr": "Le kiosque",
+   "title": "The gazebo",
+   "intro": "Now, the gazebo.",
+   "introId": "pr-le-kiosque",
+   "items": [
+    {
+     "fr": "Le kiosque.",
+     "en": "The gazebo.",
+     "id": "pr019"
+    },
+    {
+     "fr": "Le toit rouge.",
+     "en": "The red roof.",
+     "id": "pr020"
+    },
+    {
+     "fr": "La table de pique-nique.",
+     "en": "The picnic table.",
+     "id": "pr021"
+    },
+    {
+     "fr": "Les marches.",
+     "en": "The steps.",
+     "id": "pr022"
+    },
+    {
+     "fr": "Les colonnes.",
+     "en": "The columns.",
+     "id": "pr023"
+    },
+    {
+     "fr": "On mange sous le kiosque.",
+     "en": "We eat under the gazebo.",
+     "id": "pr024"
+    },
+    {
+     "fr": "C'est un bel endroit.",
+     "en": "It's a lovely spot.",
+     "id": "pr025"
+    },
+    {
+     "fr": "On fait une fête ici.",
+     "en": "We have a party here.",
+     "id": "pr026"
+    }
+   ]
+  },
+  {
+   "id": "l-aire-de-jeux",
+   "fr": "L'aire de jeux",
+   "title": "The playground",
+   "intro": "Now, the playground.",
+   "introId": "pr-l-aire-de-jeux",
+   "items": [
+    {
+     "fr": "L'aire de jeux.",
+     "en": "The playground.",
+     "id": "pr027"
+    },
+    {
+     "fr": "Le toboggan.",
+     "en": "The slide.",
+     "id": "pr028"
+    },
+    {
+     "fr": "La balançoire.",
+     "en": "The swing.",
+     "id": "pr029"
+    },
+    {
+     "fr": "La bascule.",
+     "en": "The seesaw.",
+     "id": "pr030"
+    },
+    {
+     "fr": "Le sable.",
+     "en": "The sand.",
+     "id": "pr031"
+    },
+    {
+     "fr": "Les enfants jouent.",
+     "en": "The children are playing.",
+     "id": "pr032"
+    },
+    {
+     "fr": "Je glisse sur le toboggan.",
+     "en": "I slide down the slide.",
+     "id": "pr033"
+    },
+    {
+     "fr": "Je me balance.",
+     "en": "I swing.",
+     "id": "pr034"
+    },
+    {
+     "fr": "C'est amusant.",
+     "en": "It's fun.",
+     "id": "pr035"
+    }
+   ]
+  },
+  {
+   "id": "l-etang",
+   "fr": "L'étang",
+   "title": "The pond",
+   "intro": "Now, the pond and the bridge.",
+   "introId": "pr-l-etang",
+   "items": [
+    {
+     "fr": "L'étang.",
+     "en": "The pond.",
+     "id": "pr036"
+    },
+    {
+     "fr": "Le pont.",
+     "en": "The bridge.",
+     "id": "pr037"
+    },
+    {
+     "fr": "La cascade.",
+     "en": "The waterfall.",
+     "id": "pr038"
+    },
+    {
+     "fr": "Les rochers.",
+     "en": "The rocks.",
+     "id": "pr039"
+    },
+    {
+     "fr": "Les nénuphars.",
+     "en": "The water lilies.",
+     "id": "pr040"
+    },
+    {
+     "fr": "L'eau est claire.",
+     "en": "The water is clear.",
+     "id": "pr041"
+    },
+    {
+     "fr": "Je traverse le pont.",
+     "en": "I cross the bridge.",
+     "id": "pr042"
+    },
+    {
+     "fr": "C'est calme et joli.",
+     "en": "It's calm and pretty.",
+     "id": "pr043"
+    }
+   ]
+  },
+  {
+   "id": "le-pique-nique",
+   "fr": "Le pique-nique",
+   "title": "The picnic",
+   "intro": "Now, the picnic tables.",
+   "introId": "pr-le-pique-nique",
+   "items": [
+    {
+     "fr": "Le pique-nique.",
+     "en": "The picnic.",
+     "id": "pr044"
+    },
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "pr045"
+    },
+    {
+     "fr": "Le parasol.",
+     "en": "The parasol.",
+     "id": "pr046"
+    },
+    {
+     "fr": "Le tabouret.",
+     "en": "The stool.",
+     "id": "pr047"
+    },
+    {
+     "fr": "J'apporte des sandwichs.",
+     "en": "I bring sandwiches.",
+     "id": "pr048"
+    },
+    {
+     "fr": "Je mange sous le parasol.",
+     "en": "I eat under the parasol.",
+     "id": "pr049"
+    },
+    {
+     "fr": "On partage le repas.",
+     "en": "We share the meal.",
+     "id": "pr050"
+    },
+    {
+     "fr": "J'ai faim.",
+     "en": "I'm hungry.",
+     "id": "pr051"
+    },
+    {
+     "fr": "J'ai soif.",
+     "en": "I'm thirsty.",
+     "id": "pr052"
+    }
+   ]
+  },
+  {
+   "id": "le-terrain-de-basket",
+   "fr": "Le terrain de basket",
+   "title": "The basketball court",
+   "intro": "Now, the basketball court.",
+   "introId": "pr-le-terrain-de-basket",
+   "items": [
+    {
+     "fr": "Le terrain de basket.",
+     "en": "The basketball court.",
+     "id": "pr053"
+    },
+    {
+     "fr": "Le ballon.",
+     "en": "The ball.",
+     "id": "pr054"
+    },
+    {
+     "fr": "Le panier.",
+     "en": "The basket.",
+     "id": "pr055"
+    },
+    {
+     "fr": "Le filet.",
+     "en": "The net.",
+     "id": "pr056"
+    },
+    {
+     "fr": "Je joue au basket.",
+     "en": "I play basketball.",
+     "id": "pr057"
+    },
+    {
+     "fr": "Je lance le ballon.",
+     "en": "I throw the ball.",
+     "id": "pr058"
+    },
+    {
+     "fr": "Il marque un panier.",
+     "en": "He scores a basket.",
+     "id": "pr059"
+    },
+    {
+     "fr": "Quelle équipe gagne ?",
+     "en": "Which team is winning?",
+     "id": "pr060"
+    }
+   ]
+  },
+  {
+   "id": "la-gym-en-plein-air",
+   "fr": "La gym en plein air",
+   "title": "The outdoor gym",
+   "intro": "Now, the outdoor gym.",
+   "introId": "pr-la-gym-en-plein-air",
+   "items": [
+    {
+     "fr": "La gym en plein air.",
+     "en": "The outdoor gym.",
+     "id": "pr061"
+    },
+    {
+     "fr": "Les appareils jaunes.",
+     "en": "The yellow machines.",
+     "id": "pr062"
+    },
+    {
+     "fr": "Je fais du sport.",
+     "en": "I do sport.",
+     "id": "pr063"
+    },
+    {
+     "fr": "Je m'entraîne.",
+     "en": "I train.",
+     "id": "pr064"
+    },
+    {
+     "fr": "J'ai chaud.",
+     "en": "I'm hot.",
+     "id": "pr065"
+    },
+    {
+     "fr": "Je cours dans le parc.",
+     "en": "I run in the park.",
+     "id": "pr066"
+    },
+    {
+     "fr": "Je bois de l'eau.",
+     "en": "I drink water.",
+     "id": "pr067"
+    },
+    {
+     "fr": "C'est bon pour la santé.",
+     "en": "It's good for your health.",
+     "id": "pr068"
+    }
+   ]
+  },
+  {
+   "id": "l-amphitheatre",
+   "fr": "L'amphithéâtre",
+   "title": "The amphitheatre",
+   "intro": "Last, the open-air amphitheatre.",
+   "introId": "pr-l-amphitheatre",
+   "items": [
+    {
+     "fr": "L'amphithéâtre.",
+     "en": "The amphitheatre.",
+     "id": "pr069"
+    },
+    {
+     "fr": "Les gradins.",
+     "en": "The tiered seats.",
+     "id": "pr070"
+    },
+    {
+     "fr": "La scène.",
+     "en": "The stage.",
+     "id": "pr071"
+    },
+    {
+     "fr": "Le spectacle.",
+     "en": "The show.",
+     "id": "pr072"
+    },
+    {
+     "fr": "Il y a un concert ce soir.",
+     "en": "There's a concert tonight.",
+     "id": "pr073"
+    },
+    {
+     "fr": "Les gens applaudissent.",
+     "en": "The people clap.",
+     "id": "pr074"
+    },
+    {
+     "fr": "J'adore la musique.",
+     "en": "I love music.",
+     "id": "pr075"
+    },
+    {
+     "fr": "On s'assoit sur les marches.",
+     "en": "We sit on the steps.",
+     "id": "pr076"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "pr-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour cette belle promenade.",
+     "en": "Thank you for this lovely walk.",
+     "id": "pr077"
+    },
+    {
+     "fr": "Bonne promenade.",
+     "en": "Enjoy your walk.",
+     "id": "pr078"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "pr079"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "pr080"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "pr081"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "pr082"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "pr083"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "pr-final",
+   "text": "Bravo! You've walked all around the park speaking French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "pr-final"
+}

@@ -1,0 +1,817 @@
+{
+ "slug": "marche",
+ "name": "Marché",
+ "fr": "Le marché",
+ "order": 9,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 135,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     835,
+     925
+    ],
+    "door": [
+     835,
+     880
+    ],
+    "in": [
+     835,
+     830
+    ],
+    "hub": [
+     835,
+     640
+    ],
+    "hubL": [
+     700,
+     585
+    ],
+    "leg": [
+     570,
+     562
+    ],
+    "fru": [
+     330,
+     562
+    ],
+    "lo": [
+     165,
+     562
+    ],
+    "lo2": [
+     165,
+     312
+    ],
+    "boul": [
+     340,
+     312
+    ],
+    "pat": [
+     630,
+     312
+    ],
+    "cp": [
+     835,
+     312
+    ],
+    "bou": [
+     1000,
+     312
+    ],
+    "poi": [
+     1210,
+     312
+    ],
+    "fro": [
+     1395,
+     312
+    ],
+    "ro2": [
+     1565,
+     312
+    ],
+    "ro": [
+     1565,
+     562
+    ],
+    "epi": [
+     1370,
+     562
+    ],
+    "loc": [
+     1110,
+     562
+    ],
+    "hubR": [
+     980,
+     585
+    ],
+    "fl3": [
+     300,
+     830
+    ],
+    "fl4": [
+     470,
+     830
+    ],
+    "pl3": [
+     1060,
+     830
+    ],
+    "fer3": [
+     1370,
+     830
+    ]
+   },
+   "e": "out-door door-in in-hub hub-hubL hubL-leg leg-fru fru-lo lo-lo2 lo2-boul boul-pat pat-cp cp-bou bou-poi poi-fro fro-ro2 ro2-ro ro-epi epi-loc loc-hubR hubR-hub in-fl4 fl4-fl3 in-pl3 pl3-fer3",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-fruits-et-legumes": [
+     "leg",
+     "fru"
+    ],
+    "le-pain-et-les-gateaux": [
+     "boul",
+     "pat"
+    ],
+    "la-viande-et-le-poisson": [
+     "bou",
+     "poi"
+    ],
+    "le-fromage": [
+     "poi",
+     "fro"
+    ],
+    "l-epicerie": [
+     "loc",
+     "epi"
+    ],
+    "les-plats-et-les-produits-fermiers": [
+     "pl3",
+     "fer3"
+    ],
+    "les-fleurs": [
+     "fl4",
+     "fl3"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 135,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     545,
+     1425
+    ],
+    "door": [
+     545,
+     1335
+    ],
+    "in": [
+     545,
+     1215
+    ],
+    "hub": [
+     548,
+     900
+    ],
+    "hubL": [
+     430,
+     885
+    ],
+    "L1": [
+     425,
+     705
+    ],
+    "L2": [
+     430,
+     545
+    ],
+    "hubR": [
+     665,
+     885
+    ],
+    "R1": [
+     668,
+     705
+    ],
+    "R2": [
+     668,
+     545
+    ],
+    "leg": [
+     320,
+     872
+    ],
+    "fru": [
+     118,
+     872
+    ],
+    "loc": [
+     770,
+     872
+    ],
+    "epi": [
+     968,
+     872
+    ],
+    "boul": [
+     150,
+     540
+    ],
+    "pat": [
+     360,
+     540
+    ],
+    "bou": [
+     575,
+     540
+    ],
+    "poi": [
+     757,
+     540
+    ],
+    "fro": [
+     948,
+     540
+    ],
+    "fl3": [
+     135,
+     1205
+    ],
+    "fl4": [
+     310,
+     1205
+    ],
+    "pl3": [
+     720,
+     1205
+    ],
+    "fer3": [
+     948,
+     1205
+    ]
+   },
+   "e": "out-door door-in in-hub hub-hubL hub-hubR hubL-leg leg-fru hubL-L1 L1-L2 L2-pat pat-boul L2-bou bou-R2 R2-poi poi-fro R2-R1 R1-hubR hubR-loc loc-epi in-fl4 fl4-fl3 in-pl3 pl3-fer3",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-fruits-et-legumes": [
+     "leg",
+     "fru"
+    ],
+    "le-pain-et-les-gateaux": [
+     "boul",
+     "pat"
+    ],
+    "la-viande-et-le-poisson": [
+     "bou",
+     "poi"
+    ],
+    "le-fromage": [
+     "poi",
+     "fro"
+    ],
+    "l-epicerie": [
+     "loc",
+     "epi"
+    ],
+    "les-plats-et-les-produits-fermiers": [
+     "pl3",
+     "fer3"
+    ],
+    "les-fleurs": [
+     "fl4",
+     "fl3"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "les-fruits-et-legumes": [
+   "leg",
+   "fru"
+  ],
+  "le-pain-et-les-gateaux": [
+   "boul",
+   "pat"
+  ],
+  "la-viande-et-le-poisson": [
+   "bou",
+   "poi"
+  ],
+  "le-fromage": [
+   "poi",
+   "fro"
+  ],
+  "l-epicerie": [
+   "loc",
+   "epi"
+  ],
+  "les-plats-et-les-produits-fermiers": [
+   "pl3",
+   "fer3"
+  ],
+  "les-fleurs": [
+   "fl4",
+   "fl3"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the market!",
+   "introId": "ma-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "ma001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "ma002"
+    },
+    {
+     "fr": "Bienvenue au marché.",
+     "en": "Welcome to the market.",
+     "id": "ma003"
+    },
+    {
+     "fr": "Quelle belle journée !",
+     "en": "What a beautiful day!",
+     "id": "ma004"
+    },
+    {
+     "fr": "Il y a beaucoup de monde.",
+     "en": "There are a lot of people.",
+     "id": "ma005"
+    },
+    {
+     "fr": "J'aime le marché.",
+     "en": "I like the market.",
+     "id": "ma006"
+    },
+    {
+     "fr": "Je viens ici le samedi.",
+     "en": "I come here on Saturdays.",
+     "id": "ma007"
+    },
+    {
+     "fr": "Tout est frais ici.",
+     "en": "Everything is fresh here.",
+     "id": "ma008"
+    }
+   ]
+  },
+  {
+   "id": "les-fruits-et-legumes",
+   "fr": "Les fruits et légumes",
+   "title": "Fruit and vegetables",
+   "intro": "First, the fruit and vegetable stalls.",
+   "introId": "ma-les-fruits-et-legumes",
+   "items": [
+    {
+     "fr": "Le stand.",
+     "en": "The stall.",
+     "id": "ma009"
+    },
+    {
+     "fr": "Les fruits.",
+     "en": "The fruit.",
+     "id": "ma010"
+    },
+    {
+     "fr": "Les légumes.",
+     "en": "The vegetables.",
+     "id": "ma011"
+    },
+    {
+     "fr": "L'ananas.",
+     "en": "The pineapple.",
+     "id": "ma012"
+    },
+    {
+     "fr": "La mangue.",
+     "en": "The mango.",
+     "id": "ma013"
+    },
+    {
+     "fr": "Les carottes.",
+     "en": "The carrots.",
+     "id": "ma014"
+    },
+    {
+     "fr": "Les aubergines.",
+     "en": "The aubergines.",
+     "id": "ma015"
+    },
+    {
+     "fr": "Le chou.",
+     "en": "The cabbage.",
+     "id": "ma016"
+    },
+    {
+     "fr": "Un kilo de carottes, s'il vous plaît.",
+     "en": "A kilo of carrots, please.",
+     "id": "ma017"
+    },
+    {
+     "fr": "Ces mangues sont mûres.",
+     "en": "These mangoes are ripe.",
+     "id": "ma018"
+    },
+    {
+     "fr": "C'est combien le kilo ?",
+     "en": "How much is a kilo?",
+     "id": "ma019"
+    }
+   ]
+  },
+  {
+   "id": "le-pain-et-les-gateaux",
+   "fr": "Le pain et les gâteaux",
+   "title": "Bread and cakes",
+   "intro": "Now, bread and cakes.",
+   "introId": "ma-le-pain-et-les-gateaux",
+   "items": [
+    {
+     "fr": "La boulangerie.",
+     "en": "The bakery.",
+     "id": "ma020"
+    },
+    {
+     "fr": "La pâtisserie.",
+     "en": "The pastry shop.",
+     "id": "ma021"
+    },
+    {
+     "fr": "Le pain.",
+     "en": "The bread.",
+     "id": "ma022"
+    },
+    {
+     "fr": "Le petit pain.",
+     "en": "The bread roll.",
+     "id": "ma023"
+    },
+    {
+     "fr": "Le gâteau au chocolat.",
+     "en": "The chocolate cake.",
+     "id": "ma024"
+    },
+    {
+     "fr": "La tarte aux fraises.",
+     "en": "The strawberry tart.",
+     "id": "ma025"
+    },
+    {
+     "fr": "Je voudrais une baguette.",
+     "en": "I would like a baguette.",
+     "id": "ma026"
+    },
+    {
+     "fr": "Deux croissants, s'il vous plaît.",
+     "en": "Two croissants, please.",
+     "id": "ma027"
+    },
+    {
+     "fr": "C'est encore chaud.",
+     "en": "It's still warm.",
+     "id": "ma028"
+    }
+   ]
+  },
+  {
+   "id": "la-viande-et-le-poisson",
+   "fr": "La viande et le poisson",
+   "title": "Meat and fish",
+   "intro": "Now, meat and fish.",
+   "introId": "ma-la-viande-et-le-poisson",
+   "items": [
+    {
+     "fr": "La boucherie.",
+     "en": "The butcher's.",
+     "id": "ma029"
+    },
+    {
+     "fr": "La poissonnerie.",
+     "en": "The fish stall.",
+     "id": "ma030"
+    },
+    {
+     "fr": "La viande.",
+     "en": "The meat.",
+     "id": "ma031"
+    },
+    {
+     "fr": "Le poisson.",
+     "en": "The fish.",
+     "id": "ma032"
+    },
+    {
+     "fr": "Le steak.",
+     "en": "The steak.",
+     "id": "ma033"
+    },
+    {
+     "fr": "Le poulet.",
+     "en": "The chicken.",
+     "id": "ma034"
+    },
+    {
+     "fr": "Je voudrais du poisson frais.",
+     "en": "I would like some fresh fish.",
+     "id": "ma035"
+    },
+    {
+     "fr": "Cinq cents grammes de viande.",
+     "en": "Five hundred grams of meat.",
+     "id": "ma036"
+    },
+    {
+     "fr": "Le boucher est sympa.",
+     "en": "The butcher is nice.",
+     "id": "ma037"
+    }
+   ]
+  },
+  {
+   "id": "le-fromage",
+   "fr": "La fromagerie",
+   "title": "The cheese stall",
+   "intro": "Now, the cheese stall.",
+   "introId": "ma-le-fromage",
+   "items": [
+    {
+     "fr": "La fromagerie.",
+     "en": "The cheese stall.",
+     "id": "ma038"
+    },
+    {
+     "fr": "Le fromage.",
+     "en": "The cheese.",
+     "id": "ma039"
+    },
+    {
+     "fr": "Le fromage de chèvre.",
+     "en": "The goat's cheese.",
+     "id": "ma040"
+    },
+    {
+     "fr": "Le camembert.",
+     "en": "The camembert.",
+     "id": "ma041"
+    },
+    {
+     "fr": "Je goûte ce fromage.",
+     "en": "I taste this cheese.",
+     "id": "ma042"
+    },
+    {
+     "fr": "Il sent fort.",
+     "en": "It smells strong.",
+     "id": "ma043"
+    },
+    {
+     "fr": "C'est délicieux.",
+     "en": "It's delicious.",
+     "id": "ma044"
+    },
+    {
+     "fr": "Un morceau, s'il vous plaît.",
+     "en": "A piece, please.",
+     "id": "ma045"
+    }
+   ]
+  },
+  {
+   "id": "l-epicerie",
+   "fr": "L'épicerie et les produits locaux",
+   "title": "Groceries and local goods",
+   "intro": "Now, groceries and local products.",
+   "introId": "ma-l-epicerie",
+   "items": [
+    {
+     "fr": "L'épicerie.",
+     "en": "The grocery stall.",
+     "id": "ma046"
+    },
+    {
+     "fr": "Les produits locaux.",
+     "en": "The local products.",
+     "id": "ma047"
+    },
+    {
+     "fr": "Le riz.",
+     "en": "The rice.",
+     "id": "ma048"
+    },
+    {
+     "fr": "Les épices.",
+     "en": "The spices.",
+     "id": "ma049"
+    },
+    {
+     "fr": "Le miel.",
+     "en": "The honey.",
+     "id": "ma050"
+    },
+    {
+     "fr": "La confiture.",
+     "en": "The jam.",
+     "id": "ma051"
+    },
+    {
+     "fr": "Les bouteilles de jus.",
+     "en": "The bottles of juice.",
+     "id": "ma052"
+    },
+    {
+     "fr": "C'est fait ici.",
+     "en": "It's made here.",
+     "id": "ma053"
+    },
+    {
+     "fr": "Je prends un pot de miel.",
+     "en": "I'll take a jar of honey.",
+     "id": "ma054"
+    }
+   ]
+  },
+  {
+   "id": "les-plats-et-les-produits-fermiers",
+   "fr": "Les plats préparés et les produits fermiers",
+   "title": "Ready meals and farm goods",
+   "intro": "Now, ready meals and farm products.",
+   "introId": "ma-les-plats-et-les-produits-fermiers",
+   "items": [
+    {
+     "fr": "Les plats préparés.",
+     "en": "The ready meals.",
+     "id": "ma055"
+    },
+    {
+     "fr": "Les produits fermiers.",
+     "en": "The farm products.",
+     "id": "ma056"
+    },
+    {
+     "fr": "Les œufs.",
+     "en": "The eggs.",
+     "id": "ma057"
+    },
+    {
+     "fr": "Le lait.",
+     "en": "The milk.",
+     "id": "ma058"
+    },
+    {
+     "fr": "Le riz jollof.",
+     "en": "The jollof rice.",
+     "id": "ma059"
+    },
+    {
+     "fr": "Le poulet rôti.",
+     "en": "The roast chicken.",
+     "id": "ma060"
+    },
+    {
+     "fr": "Les œufs sont frais.",
+     "en": "The eggs are fresh.",
+     "id": "ma061"
+    },
+    {
+     "fr": "C'est cuisiné ce matin.",
+     "en": "It was cooked this morning.",
+     "id": "ma062"
+    },
+    {
+     "fr": "Je prends une portion.",
+     "en": "I'll take a portion.",
+     "id": "ma063"
+    }
+   ]
+  },
+  {
+   "id": "les-fleurs",
+   "fr": "Les fleurs",
+   "title": "The flowers",
+   "intro": "Now, the flower stall.",
+   "introId": "ma-les-fleurs",
+   "items": [
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "ma064"
+    },
+    {
+     "fr": "Le bouquet.",
+     "en": "The bouquet.",
+     "id": "ma065"
+    },
+    {
+     "fr": "Les tournesols.",
+     "en": "The sunflowers.",
+     "id": "ma066"
+    },
+    {
+     "fr": "Les roses.",
+     "en": "The roses.",
+     "id": "ma067"
+    },
+    {
+     "fr": "Un bouquet de fleurs, s'il vous plaît.",
+     "en": "A bunch of flowers, please.",
+     "id": "ma068"
+    },
+    {
+     "fr": "Les fleurs sentent bon.",
+     "en": "The flowers smell nice.",
+     "id": "ma069"
+    },
+    {
+     "fr": "Elles sont pour ma mère.",
+     "en": "They are for my mother.",
+     "id": "ma070"
+    },
+    {
+     "fr": "Elles sont jolies.",
+     "en": "They are pretty.",
+     "id": "ma071"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "ma-au-revoir",
+   "items": [
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "ma072"
+    },
+    {
+     "fr": "Bon marché !",
+     "en": "Enjoy the market!",
+     "id": "ma073"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "ma074"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "ma075"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "ma076"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "ma077"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "ma078"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "ma-final",
+   "text": "Bravo! You've been all around the market and spoken the whole way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "ma-final"
+}

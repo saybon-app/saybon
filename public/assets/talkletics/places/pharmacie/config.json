@@ -1,0 +1,1068 @@
+{
+ "slug": "pharmacie",
+ "name": "Pharmacie",
+ "fr": "La pharmacie",
+ "order": 15,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 140,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     903
+    ],
+    "door": [
+     836,
+     819
+    ],
+    "in": [
+     836,
+     674
+    ],
+    "l0": [
+     368,
+     669
+    ],
+    "v1b": [
+     535,
+     669
+    ],
+    "v2b": [
+     736,
+     669
+    ],
+    "v3b": [
+     959,
+     669
+    ],
+    "v4b": [
+     1159,
+     669
+    ],
+    "r0": [
+     1304,
+     669
+    ],
+    "a2": [
+     535,
+     502
+    ],
+    "a3": [
+     736,
+     502
+    ],
+    "a4": [
+     959,
+     502
+    ],
+    "v1c": [
+     535,
+     279
+    ],
+    "cs": [
+     479,
+     279
+    ],
+    "rc": [
+     736,
+     355
+    ],
+    "rc2": [
+     959,
+     355
+    ],
+    "v4c": [
+     1159,
+     334
+    ],
+    "st": [
+     1187,
+     268
+    ],
+    "lu": [
+     334,
+     591
+    ],
+    "sc": [
+     329,
+     502
+    ],
+    "vi": [
+     329,
+     401
+    ],
+    "sb": [
+     329,
+     362
+    ],
+    "ru": [
+     1355,
+     591
+    ],
+    "hy": [
+     1355,
+     535
+    ],
+    "ps": [
+     1355,
+     446
+    ],
+    "bb": [
+     1355,
+     368
+    ],
+    "wa": [
+     279,
+     716
+    ],
+    "wr": [
+     1438,
+     713
+    ]
+   },
+   "e": "out-door door-in in-v2b in-v3b v2b-v1b v1b-l0 v3b-v4b v4b-r0 v1b-a2 a2-v1c v1c-cs v2b-a3 a3-rc v3b-a4 a4-rc2 v4b-v4c v4c-st l0-lu lu-sc sc-vi vi-sb r0-ru ru-hy hy-ps ps-bb l0-wa r0-wr",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-comptoir": [
+     "rc",
+     "rc2"
+    ],
+    "les-rayons": [
+     "a2",
+     "a3",
+     "a4"
+    ],
+    "sante-et-bien-etre": [
+     "sb"
+    ],
+    "les-vitamines": [
+     "vi"
+    ],
+    "les-soins-du-corps": [
+     "sc"
+    ],
+    "bebe": [
+     "bb"
+    ],
+    "les-premiers-soins": [
+     "ps"
+    ],
+    "l-hygiene": [
+     "hy"
+    ],
+    "la-consultation": [
+     "v1c",
+     "cs"
+    ],
+    "le-stock": [
+     "v4c",
+     "st"
+    ],
+    "la-salle-d-attente": [
+     "wa",
+     "wr"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 140,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     541,
+     1332
+    ],
+    "door": [
+     541,
+     1226
+    ],
+    "in": [
+     541,
+     1014
+    ],
+    "l0": [
+     290,
+     1004
+    ],
+    "v1b": [
+     357,
+     1004
+    ],
+    "v2b": [
+     465,
+     1004
+    ],
+    "v3b": [
+     625,
+     1004
+    ],
+    "v4b": [
+     736,
+     1004
+    ],
+    "r0": [
+     849,
+     1004
+    ],
+    "a2": [
+     357,
+     772
+    ],
+    "a3": [
+     465,
+     772
+    ],
+    "a4": [
+     625,
+     772
+    ],
+    "a5": [
+     736,
+     772
+    ],
+    "t1": [
+     357,
+     574
+    ],
+    "t2": [
+     465,
+     574
+    ],
+    "t3": [
+     625,
+     574
+    ],
+    "t4": [
+     736,
+     574
+    ],
+    "la": [
+     241,
+     927
+    ],
+    "sc": [
+     232,
+     792
+    ],
+    "vi": [
+     236,
+     627
+    ],
+    "lt": [
+     280,
+     574
+    ],
+    "sb": [
+     280,
+     502
+    ],
+    "cs": [
+     270,
+     391
+    ],
+    "od": [
+     541,
+     401
+    ],
+    "st": [
+     811,
+     391
+    ],
+    "ra": [
+     854,
+     927
+    ],
+    "hy": [
+     854,
+     801
+    ],
+    "ps": [
+     847,
+     666
+    ],
+    "rt": [
+     811,
+     574
+    ],
+    "bb": [
+     811,
+     502
+    ],
+    "wa": [
+     319,
+     965
+    ],
+    "wr": [
+     801,
+     965
+    ]
+   },
+   "e": "out-door door-in in-v2b in-v3b l0-v1b v1b-v2b v3b-v4b v4b-r0 v1b-a2 a2-t1 v2b-a3 a3-t2 v3b-a4 a4-t3 v4b-a5 a5-t4 t1-t2 t2-t3 t3-t4 l0-la la-sc sc-vi vi-lt lt-sb lt-t1 sb-cs cs-od od-st r0-ra ra-hy hy-ps ps-rt rt-t4 rt-bb bb-st l0-wa r0-wr",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-comptoir": [
+     "t2",
+     "t3"
+    ],
+    "les-rayons": [
+     "a2",
+     "a3",
+     "a4"
+    ],
+    "sante-et-bien-etre": [
+     "sb"
+    ],
+    "les-vitamines": [
+     "vi"
+    ],
+    "les-soins-du-corps": [
+     "sc"
+    ],
+    "bebe": [
+     "bb"
+    ],
+    "les-premiers-soins": [
+     "ps"
+    ],
+    "l-hygiene": [
+     "hy"
+    ],
+    "la-consultation": [
+     "cs",
+     "sb"
+    ],
+    "le-stock": [
+     "bb",
+     "st"
+    ],
+    "la-salle-d-attente": [
+     "wa",
+     "wr"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "le-comptoir": [
+   "rc",
+   "rc2"
+  ],
+  "les-rayons": [
+   "a2",
+   "a3",
+   "a4"
+  ],
+  "sante-et-bien-etre": [
+   "sb"
+  ],
+  "les-vitamines": [
+   "vi"
+  ],
+  "les-soins-du-corps": [
+   "sc"
+  ],
+  "bebe": [
+   "bb"
+  ],
+  "les-premiers-soins": [
+   "ps"
+  ],
+  "l-hygiene": [
+   "hy"
+  ],
+  "la-consultation": [
+   "v1c",
+   "cs"
+  ],
+  "le-stock": [
+   "v4c",
+   "st"
+  ],
+  "la-salle-d-attente": [
+   "wa",
+   "wr"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the pharmacy.",
+   "introId": "ph-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "ph001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "ph002"
+    },
+    {
+     "fr": "Bienvenue à la pharmacie.",
+     "en": "Welcome to the pharmacy.",
+     "id": "ph003"
+    },
+    {
+     "fr": "Je peux vous aider ?",
+     "en": "Can I help you?",
+     "id": "ph004"
+    },
+    {
+     "fr": "Je cherche un médicament.",
+     "en": "I'm looking for a medicine.",
+     "id": "ph005"
+    },
+    {
+     "fr": "Je ne me sens pas bien.",
+     "en": "I don't feel well.",
+     "id": "ph006"
+    },
+    {
+     "fr": "Je suis malade.",
+     "en": "I'm ill.",
+     "id": "ph007"
+    },
+    {
+     "fr": "La pharmacie est ouverte.",
+     "en": "The pharmacy is open.",
+     "id": "ph008"
+    }
+   ]
+  },
+  {
+   "id": "le-comptoir",
+   "fr": "Le comptoir",
+   "title": "The counter",
+   "intro": "First, the counter.",
+   "introId": "ph-le-comptoir",
+   "items": [
+    {
+     "fr": "Le comptoir.",
+     "en": "The counter.",
+     "id": "ph009"
+    },
+    {
+     "fr": "Le pharmacien.",
+     "en": "The pharmacist (man).",
+     "id": "ph010"
+    },
+    {
+     "fr": "La pharmacienne.",
+     "en": "The pharmacist (woman).",
+     "id": "ph011"
+    },
+    {
+     "fr": "L'ordonnance.",
+     "en": "The prescription.",
+     "id": "ph012"
+    },
+    {
+     "fr": "Le médicament.",
+     "en": "The medicine.",
+     "id": "ph013"
+    },
+    {
+     "fr": "J'ai une ordonnance.",
+     "en": "I have a prescription.",
+     "id": "ph014"
+    },
+    {
+     "fr": "Voici l'ordonnance du docteur.",
+     "en": "Here is the doctor's prescription.",
+     "id": "ph015"
+    },
+    {
+     "fr": "Un moment, s'il vous plaît.",
+     "en": "One moment, please.",
+     "id": "ph016"
+    },
+    {
+     "fr": "Ça fait quinze euros.",
+     "en": "That's fifteen euros.",
+     "id": "ph017"
+    }
+   ]
+  },
+  {
+   "id": "les-rayons",
+   "fr": "Les rayons",
+   "title": "The aisles",
+   "intro": "Now, the aisles.",
+   "introId": "ph-les-rayons",
+   "items": [
+    {
+     "fr": "Le rayon.",
+     "en": "The aisle.",
+     "id": "ph018"
+    },
+    {
+     "fr": "Les produits.",
+     "en": "The products.",
+     "id": "ph019"
+    },
+    {
+     "fr": "La boîte.",
+     "en": "The box.",
+     "id": "ph020"
+    },
+    {
+     "fr": "Le flacon.",
+     "en": "The bottle.",
+     "id": "ph021"
+    },
+    {
+     "fr": "Où est le rayon des vitamines ?",
+     "en": "Where is the vitamins aisle?",
+     "id": "ph022"
+    },
+    {
+     "fr": "C'est au fond, à gauche.",
+     "en": "It's at the back, on the left.",
+     "id": "ph023"
+    },
+    {
+     "fr": "Je regarde les produits.",
+     "en": "I'm looking at the products.",
+     "id": "ph024"
+    },
+    {
+     "fr": "Il y a beaucoup de choix.",
+     "en": "There is a lot of choice.",
+     "id": "ph025"
+    }
+   ]
+  },
+  {
+   "id": "sante-et-bien-etre",
+   "fr": "Santé et bien-être",
+   "title": "Health and well-being",
+   "intro": "Now, the health and well-being section.",
+   "introId": "ph-sante-et-bien-etre",
+   "items": [
+    {
+     "fr": "La santé.",
+     "en": "Health.",
+     "id": "ph026"
+    },
+    {
+     "fr": "Le bien-être.",
+     "en": "Well-being.",
+     "id": "ph027"
+    },
+    {
+     "fr": "Le mal de tête.",
+     "en": "The headache.",
+     "id": "ph028"
+    },
+    {
+     "fr": "Le mal de gorge.",
+     "en": "The sore throat.",
+     "id": "ph029"
+    },
+    {
+     "fr": "La toux.",
+     "en": "The cough.",
+     "id": "ph030"
+    },
+    {
+     "fr": "La fièvre.",
+     "en": "The fever.",
+     "id": "ph031"
+    },
+    {
+     "fr": "J'ai mal à la tête.",
+     "en": "I have a headache.",
+     "id": "ph032"
+    },
+    {
+     "fr": "J'ai de la fièvre.",
+     "en": "I have a fever.",
+     "id": "ph033"
+    },
+    {
+     "fr": "Prenez ce médicament.",
+     "en": "Take this medicine.",
+     "id": "ph034"
+    }
+   ]
+  },
+  {
+   "id": "les-vitamines",
+   "fr": "Les vitamines",
+   "title": "The vitamins",
+   "intro": "Now, the vitamins.",
+   "introId": "ph-les-vitamines",
+   "items": [
+    {
+     "fr": "Les vitamines.",
+     "en": "The vitamins.",
+     "id": "ph035"
+    },
+    {
+     "fr": "La vitamine C.",
+     "en": "Vitamin C.",
+     "id": "ph036"
+    },
+    {
+     "fr": "Le comprimé.",
+     "en": "The tablet.",
+     "id": "ph037"
+    },
+    {
+     "fr": "Le sirop.",
+     "en": "The syrup.",
+     "id": "ph038"
+    },
+    {
+     "fr": "Je suis fatigué.",
+     "en": "I'm tired.",
+     "id": "ph039"
+    },
+    {
+     "fr": "Un comprimé par jour.",
+     "en": "One tablet a day.",
+     "id": "ph040"
+    },
+    {
+     "fr": "Le matin, avec de l'eau.",
+     "en": "In the morning, with water.",
+     "id": "ph041"
+    },
+    {
+     "fr": "C'est bon pour la santé.",
+     "en": "It's good for your health.",
+     "id": "ph042"
+    }
+   ]
+  },
+  {
+   "id": "les-soins-du-corps",
+   "fr": "Les soins du corps",
+   "title": "Body care",
+   "intro": "Now, body care.",
+   "introId": "ph-les-soins-du-corps",
+   "items": [
+    {
+     "fr": "La crème.",
+     "en": "The cream.",
+     "id": "ph043"
+    },
+    {
+     "fr": "La crème pour les mains.",
+     "en": "The hand cream.",
+     "id": "ph044"
+    },
+    {
+     "fr": "La crème solaire.",
+     "en": "The sunscreen.",
+     "id": "ph045"
+    },
+    {
+     "fr": "Le savon.",
+     "en": "The soap.",
+     "id": "ph046"
+    },
+    {
+     "fr": "La peau.",
+     "en": "The skin.",
+     "id": "ph047"
+    },
+    {
+     "fr": "J'ai la peau sèche.",
+     "en": "I have dry skin.",
+     "id": "ph048"
+    },
+    {
+     "fr": "Il fait très chaud en Afrique.",
+     "en": "It's very hot in Africa.",
+     "id": "ph049"
+    },
+    {
+     "fr": "Je mets de la crème.",
+     "en": "I put on cream.",
+     "id": "ph050"
+    }
+   ]
+  },
+  {
+   "id": "bebe",
+   "fr": "Bébé",
+   "title": "Baby",
+   "intro": "Now, the baby section.",
+   "introId": "ph-bebe",
+   "items": [
+    {
+     "fr": "Le bébé.",
+     "en": "The baby.",
+     "id": "ph051"
+    },
+    {
+     "fr": "Les couches.",
+     "en": "The nappies.",
+     "id": "ph052"
+    },
+    {
+     "fr": "Le lait pour bébé.",
+     "en": "The baby milk.",
+     "id": "ph053"
+    },
+    {
+     "fr": "Le biberon.",
+     "en": "The baby bottle.",
+     "id": "ph054"
+    },
+    {
+     "fr": "Les lingettes.",
+     "en": "The wipes.",
+     "id": "ph055"
+    },
+    {
+     "fr": "Mon bébé a un an.",
+     "en": "My baby is one year old.",
+     "id": "ph056"
+    },
+    {
+     "fr": "Elle a de la fièvre.",
+     "en": "She has a fever.",
+     "id": "ph057"
+    },
+    {
+     "fr": "C'est pour mon bébé.",
+     "en": "It's for my baby.",
+     "id": "ph058"
+    }
+   ]
+  },
+  {
+   "id": "les-premiers-soins",
+   "fr": "Les premiers soins",
+   "title": "First aid",
+   "intro": "Now, first aid.",
+   "introId": "ph-les-premiers-soins",
+   "items": [
+    {
+     "fr": "Les premiers soins.",
+     "en": "First aid.",
+     "id": "ph059"
+    },
+    {
+     "fr": "La trousse de secours.",
+     "en": "The first-aid kit.",
+     "id": "ph060"
+    },
+    {
+     "fr": "Le pansement.",
+     "en": "The plaster.",
+     "id": "ph061"
+    },
+    {
+     "fr": "Le bandage.",
+     "en": "The bandage.",
+     "id": "ph062"
+    },
+    {
+     "fr": "Le thermomètre.",
+     "en": "The thermometer.",
+     "id": "ph063"
+    },
+    {
+     "fr": "Je me suis coupé.",
+     "en": "I cut myself.",
+     "id": "ph064"
+    },
+    {
+     "fr": "J'ai mal au genou.",
+     "en": "My knee hurts.",
+     "id": "ph065"
+    },
+    {
+     "fr": "Mettez un pansement.",
+     "en": "Put on a plaster.",
+     "id": "ph066"
+    }
+   ]
+  },
+  {
+   "id": "l-hygiene",
+   "fr": "L'hygiène",
+   "title": "Hygiene",
+   "intro": "Now, hygiene products.",
+   "introId": "ph-l-hygiene",
+   "items": [
+    {
+     "fr": "L'hygiène.",
+     "en": "Hygiene.",
+     "id": "ph067"
+    },
+    {
+     "fr": "Le dentifrice.",
+     "en": "The toothpaste.",
+     "id": "ph068"
+    },
+    {
+     "fr": "La brosse à dents.",
+     "en": "The toothbrush.",
+     "id": "ph069"
+    },
+    {
+     "fr": "Le shampoing.",
+     "en": "The shampoo.",
+     "id": "ph070"
+    },
+    {
+     "fr": "Le gel douche.",
+     "en": "The shower gel.",
+     "id": "ph071"
+    },
+    {
+     "fr": "Le mouchoir.",
+     "en": "The tissue.",
+     "id": "ph072"
+    },
+    {
+     "fr": "Je me lave les mains.",
+     "en": "I wash my hands.",
+     "id": "ph073"
+    },
+    {
+     "fr": "Je me brosse les dents.",
+     "en": "I brush my teeth.",
+     "id": "ph074"
+    }
+   ]
+  },
+  {
+   "id": "la-consultation",
+   "fr": "La consultation",
+   "title": "Consultation",
+   "intro": "Now, the consultation room.",
+   "introId": "ph-la-consultation",
+   "items": [
+    {
+     "fr": "La consultation.",
+     "en": "The consultation.",
+     "id": "ph075"
+    },
+    {
+     "fr": "Le lit d'examen.",
+     "en": "The examination bed.",
+     "id": "ph076"
+    },
+    {
+     "fr": "La tension.",
+     "en": "The blood pressure.",
+     "id": "ph077"
+    },
+    {
+     "fr": "Le conseil.",
+     "en": "The advice.",
+     "id": "ph078"
+    },
+    {
+     "fr": "Je vous écoute.",
+     "en": "I'm listening.",
+     "id": "ph079"
+    },
+    {
+     "fr": "Où avez-vous mal ?",
+     "en": "Where does it hurt?",
+     "id": "ph080"
+    },
+    {
+     "fr": "Depuis quand ?",
+     "en": "Since when?",
+     "id": "ph081"
+    },
+    {
+     "fr": "Depuis hier.",
+     "en": "Since yesterday.",
+     "id": "ph082"
+    },
+    {
+     "fr": "Reposez-vous.",
+     "en": "Get some rest.",
+     "id": "ph083"
+    }
+   ]
+  },
+  {
+   "id": "le-stock",
+   "fr": "Le stock",
+   "title": "The stockroom",
+   "intro": "Now, the stockroom.",
+   "introId": "ph-le-stock",
+   "items": [
+    {
+     "fr": "Le stock.",
+     "en": "The stockroom.",
+     "id": "ph084"
+    },
+    {
+     "fr": "Les cartons.",
+     "en": "The boxes.",
+     "id": "ph085"
+    },
+    {
+     "fr": "Le frigo.",
+     "en": "The fridge.",
+     "id": "ph086"
+    },
+    {
+     "fr": "Un instant, je vais voir.",
+     "en": "One moment, I'll go and see.",
+     "id": "ph087"
+    },
+    {
+     "fr": "Nous n'en avons plus.",
+     "en": "We have none left.",
+     "id": "ph088"
+    },
+    {
+     "fr": "Je vais le commander.",
+     "en": "I'll order it.",
+     "id": "ph089"
+    },
+    {
+     "fr": "Ce sera prêt demain.",
+     "en": "It will be ready tomorrow.",
+     "id": "ph090"
+    }
+   ]
+  },
+  {
+   "id": "la-salle-d-attente",
+   "fr": "Les chaises",
+   "title": "The waiting chairs",
+   "intro": "Now, the waiting chairs.",
+   "introId": "ph-la-salle-d-attente",
+   "items": [
+    {
+     "fr": "La chaise verte.",
+     "en": "The green chair.",
+     "id": "ph091"
+    },
+    {
+     "fr": "La table ronde.",
+     "en": "The round table.",
+     "id": "ph092"
+    },
+    {
+     "fr": "J'attends.",
+     "en": "I'm waiting.",
+     "id": "ph093"
+    },
+    {
+     "fr": "Je m'assois.",
+     "en": "I sit down.",
+     "id": "ph094"
+    },
+    {
+     "fr": "Je lis un magazine.",
+     "en": "I read a magazine.",
+     "id": "ph095"
+    },
+    {
+     "fr": "Il y a du monde.",
+     "en": "There are people.",
+     "id": "ph096"
+    },
+    {
+     "fr": "C'est bientôt mon tour.",
+     "en": "It's almost my turn.",
+     "id": "ph097"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "ph-au-revoir",
+   "items": [
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "ph098"
+    },
+    {
+     "fr": "Bon rétablissement.",
+     "en": "Get well soon.",
+     "id": "ph099"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "ph100"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "ph101"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "ph102"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "ph103"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "ph104"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "ph-final",
+   "text": "Bravo! You've handled the whole pharmacy visit in French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "ph-final"
+}

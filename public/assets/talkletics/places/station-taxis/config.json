@@ -1,0 +1,751 @@
+{
+ "slug": "station-taxis",
+ "name": "Station de taxis",
+ "fr": "La station de taxis",
+ "order": 20,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     916
+    ],
+    "gate": [
+     836,
+     819
+    ],
+    "in": [
+     836,
+     697
+    ],
+    "hub": [
+     792,
+     608
+    ],
+    "v1": [
+     948,
+     608
+    ],
+    "v2": [
+     948,
+     404
+    ],
+    "wr0": [
+     713,
+     385
+    ],
+    "wr1": [
+     713,
+     323
+    ],
+    "gu": [
+     736,
+     292
+    ],
+    "ho": [
+     457,
+     284
+    ],
+    "wa": [
+     373,
+     340
+    ],
+    "bo": [
+     446,
+     474
+    ],
+    "to": [
+     407,
+     652
+    ],
+    "t1": [
+     1031,
+     396
+    ],
+    "t2": [
+     1165,
+     396
+    ],
+    "t3": [
+     1304,
+     396
+    ],
+    "t4": [
+     1444,
+     396
+    ],
+    "t5": [
+     1059,
+     624
+    ],
+    "t6": [
+     1198,
+     624
+    ],
+    "pg": [
+     1327,
+     725
+    ]
+   },
+   "e": "out-gate gate-in in-hub hub-v1 v1-v2 v2-t1 t1-t2 t2-t3 t3-t4 v1-t5 t5-t6 t6-pg hub-wr0 wr0-wr1 wr1-gu wr1-ho ho-wa hub-bo hub-to to-bo",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "in"
+    ],
+    "le-guichet": [
+     "wr1",
+     "gu"
+    ],
+    "la-salle-d-attente": [
+     "ho",
+     "wa"
+    ],
+    "la-boutique": [
+     "bo"
+    ],
+    "les-toilettes": [
+     "to"
+    ],
+    "les-taxis": [
+     "t1",
+     "t2",
+     "t3",
+     "t4"
+    ],
+    "le-parking": [
+     "t5",
+     "t6"
+    ],
+    "l-abri": [
+     "pg"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1199,
+   "H": 1312,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     604,
+     1242
+    ],
+    "gate": [
+     604,
+     1089
+    ],
+    "in": [
+     604,
+     980
+    ],
+    "hub": [
+     569,
+     726
+    ],
+    "v1": [
+     700,
+     726
+    ],
+    "t4": [
+     717,
+     612
+    ],
+    "t5": [
+     717,
+     542
+    ],
+    "v2": [
+     713,
+     477
+    ],
+    "t1": [
+     801,
+     472
+    ],
+    "t2": [
+     927,
+     472
+    ],
+    "t3": [
+     1054,
+     472
+    ],
+    "pg": [
+     919,
+     787
+    ],
+    "wr0": [
+     512,
+     455
+    ],
+    "wr1": [
+     560,
+     367
+    ],
+    "gu": [
+     612,
+     341
+    ],
+    "ho": [
+     420,
+     394
+    ],
+    "wa": [
+     201,
+     411
+    ],
+    "bo": [
+     350,
+     560
+    ],
+    "to": [
+     346,
+     735
+    ]
+   },
+   "e": "out-gate gate-in in-hub hub-v1 v1-t4 t4-t5 t5-v2 v2-t1 t1-t2 t2-t3 v1-pg hub-wr0 wr0-wr1 wr1-gu wr1-ho ho-wa hub-bo hub-to",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "in"
+    ],
+    "le-guichet": [
+     "wr1",
+     "gu"
+    ],
+    "la-salle-d-attente": [
+     "ho",
+     "wa"
+    ],
+    "la-boutique": [
+     "bo"
+    ],
+    "les-toilettes": [
+     "to"
+    ],
+    "les-taxis": [
+     "t1",
+     "t2",
+     "t3"
+    ],
+    "le-parking": [
+     "t4",
+     "t5"
+    ],
+    "l-abri": [
+     "pg"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "gate",
+   "in"
+  ],
+  "le-guichet": [
+   "wr1",
+   "gu"
+  ],
+  "la-salle-d-attente": [
+   "ho",
+   "wa"
+  ],
+  "la-boutique": [
+   "bo"
+  ],
+  "les-toilettes": [
+   "to"
+  ],
+  "les-taxis": [
+   "t1",
+   "t2",
+   "t3",
+   "t4"
+  ],
+  "le-parking": [
+   "t5",
+   "t6"
+  ],
+  "l-abri": [
+   "pg"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the taxi station!",
+   "introId": "tx-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "tx001"
+    },
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "tx002"
+    },
+    {
+     "fr": "Bienvenue à la station de taxis.",
+     "en": "Welcome to the taxi station.",
+     "id": "tx003"
+    },
+    {
+     "fr": "L'entrée.",
+     "en": "The entrance.",
+     "id": "tx004"
+    },
+    {
+     "fr": "La barrière.",
+     "en": "The barrier.",
+     "id": "tx005"
+    },
+    {
+     "fr": "Je cherche un taxi.",
+     "en": "I'm looking for a taxi.",
+     "id": "tx006"
+    },
+    {
+     "fr": "Il y a beaucoup de taxis.",
+     "en": "There are a lot of taxis.",
+     "id": "tx007"
+    },
+    {
+     "fr": "Les taxis sont jaunes.",
+     "en": "The taxis are yellow.",
+     "id": "tx008"
+    }
+   ]
+  },
+  {
+   "id": "le-guichet",
+   "fr": "Le guichet de billets",
+   "title": "The ticket counter",
+   "intro": "First, the ticket counter.",
+   "introId": "tx-le-guichet",
+   "items": [
+    {
+     "fr": "Le guichet.",
+     "en": "The ticket counter.",
+     "id": "tx009"
+    },
+    {
+     "fr": "Le billet.",
+     "en": "The ticket.",
+     "id": "tx010"
+    },
+    {
+     "fr": "L'employé.",
+     "en": "The clerk.",
+     "id": "tx011"
+    },
+    {
+     "fr": "Je voudrais un billet.",
+     "en": "I would like a ticket.",
+     "id": "tx012"
+    },
+    {
+     "fr": "Pour aller où ?",
+     "en": "To go where?",
+     "id": "tx013"
+    },
+    {
+     "fr": "Pour le centre-ville.",
+     "en": "To the city centre.",
+     "id": "tx014"
+    },
+    {
+     "fr": "C'est combien ?",
+     "en": "How much is it?",
+     "id": "tx015"
+    },
+    {
+     "fr": "Ça fait quinze cedis.",
+     "en": "That's fifteen cedis.",
+     "id": "tx016"
+    },
+    {
+     "fr": "Voici votre billet.",
+     "en": "Here is your ticket.",
+     "id": "tx017"
+    }
+   ]
+  },
+  {
+   "id": "la-salle-d-attente",
+   "fr": "La salle d'attente",
+   "title": "The waiting room",
+   "intro": "Now, the waiting room.",
+   "introId": "tx-la-salle-d-attente",
+   "items": [
+    {
+     "fr": "La salle d'attente.",
+     "en": "The waiting room.",
+     "id": "tx018"
+    },
+    {
+     "fr": "Les horaires.",
+     "en": "The timetable.",
+     "id": "tx019"
+    },
+    {
+     "fr": "Le tableau.",
+     "en": "The board.",
+     "id": "tx020"
+    },
+    {
+     "fr": "La chaise grise.",
+     "en": "The grey chair.",
+     "id": "tx021"
+    },
+    {
+     "fr": "J'attends mon taxi.",
+     "en": "I'm waiting for my taxi.",
+     "id": "tx022"
+    },
+    {
+     "fr": "Le taxi arrive dans dix minutes.",
+     "en": "The taxi arrives in ten minutes.",
+     "id": "tx023"
+    },
+    {
+     "fr": "À quelle heure part le taxi ?",
+     "en": "What time does the taxi leave?",
+     "id": "tx024"
+    },
+    {
+     "fr": "Il part à midi.",
+     "en": "It leaves at noon.",
+     "id": "tx025"
+    }
+   ]
+  },
+  {
+   "id": "la-boutique",
+   "fr": "La boutique",
+   "title": "The shop",
+   "intro": "Now, the little shop.",
+   "introId": "tx-la-boutique",
+   "items": [
+    {
+     "fr": "La boutique.",
+     "en": "The shop.",
+     "id": "tx026"
+    },
+    {
+     "fr": "Les boissons.",
+     "en": "The drinks.",
+     "id": "tx027"
+    },
+    {
+     "fr": "Le frigo.",
+     "en": "The fridge.",
+     "id": "tx028"
+    },
+    {
+     "fr": "Les biscuits.",
+     "en": "The biscuits.",
+     "id": "tx029"
+    },
+    {
+     "fr": "Je voudrais une bouteille d'eau.",
+     "en": "I would like a bottle of water.",
+     "id": "tx030"
+    },
+    {
+     "fr": "Un jus d'orange, s'il vous plaît.",
+     "en": "An orange juice, please.",
+     "id": "tx031"
+    },
+    {
+     "fr": "Combien je vous dois ?",
+     "en": "How much do I owe you?",
+     "id": "tx032"
+    },
+    {
+     "fr": "Merci, c'est tout.",
+     "en": "Thank you, that's all.",
+     "id": "tx033"
+    }
+   ]
+  },
+  {
+   "id": "les-toilettes",
+   "fr": "Les toilettes",
+   "title": "The toilets",
+   "intro": "Now, the toilets.",
+   "introId": "tx-les-toilettes",
+   "items": [
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilets.",
+     "id": "tx034"
+    },
+    {
+     "fr": "Où sont les toilettes ?",
+     "en": "Where are the toilets?",
+     "id": "tx035"
+    },
+    {
+     "fr": "C'est à gauche.",
+     "en": "It's on the left.",
+     "id": "tx036"
+    },
+    {
+     "fr": "Les toilettes pour hommes.",
+     "en": "The men's toilets.",
+     "id": "tx037"
+    },
+    {
+     "fr": "Les toilettes pour femmes.",
+     "en": "The women's toilets.",
+     "id": "tx038"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "tx039"
+    },
+    {
+     "fr": "C'est propre.",
+     "en": "It's clean.",
+     "id": "tx040"
+    }
+   ]
+  },
+  {
+   "id": "les-taxis",
+   "fr": "Les taxis",
+   "title": "The taxis",
+   "intro": "Now, the taxis.",
+   "introId": "tx-les-taxis",
+   "items": [
+    {
+     "fr": "Le taxi.",
+     "en": "The taxi.",
+     "id": "tx041"
+    },
+    {
+     "fr": "Le chauffeur.",
+     "en": "The driver.",
+     "id": "tx042"
+    },
+    {
+     "fr": "La voiture jaune.",
+     "en": "The yellow car.",
+     "id": "tx043"
+    },
+    {
+     "fr": "Le taxi est libre.",
+     "en": "The taxi is free.",
+     "id": "tx044"
+    },
+    {
+     "fr": "Le taxi est occupé.",
+     "en": "The taxi is taken.",
+     "id": "tx045"
+    },
+    {
+     "fr": "Taxi, s'il vous plaît !",
+     "en": "Taxi, please!",
+     "id": "tx046"
+    },
+    {
+     "fr": "Où allez-vous ?",
+     "en": "Where are you going?",
+     "id": "tx047"
+    },
+    {
+     "fr": "Je vais à l'aéroport.",
+     "en": "I'm going to the airport.",
+     "id": "tx048"
+    },
+    {
+     "fr": "Montez, s'il vous plaît.",
+     "en": "Get in, please.",
+     "id": "tx049"
+    },
+    {
+     "fr": "Ouvrez le coffre.",
+     "en": "Open the boot.",
+     "id": "tx050"
+    }
+   ]
+  },
+  {
+   "id": "le-parking",
+   "fr": "Le parking",
+   "title": "The parking spaces",
+   "intro": "Now, the parking spaces.",
+   "introId": "tx-le-parking",
+   "items": [
+    {
+     "fr": "Le parking.",
+     "en": "The car park.",
+     "id": "tx051"
+    },
+    {
+     "fr": "La place.",
+     "en": "The space.",
+     "id": "tx052"
+    },
+    {
+     "fr": "Les lignes blanches.",
+     "en": "The white lines.",
+     "id": "tx053"
+    },
+    {
+     "fr": "Le taxi se gare.",
+     "en": "The taxi parks.",
+     "id": "tx054"
+    },
+    {
+     "fr": "Le taxi démarre.",
+     "en": "The taxi starts.",
+     "id": "tx055"
+    },
+    {
+     "fr": "Le taxi s'arrête ici.",
+     "en": "The taxi stops here.",
+     "id": "tx056"
+    },
+    {
+     "fr": "Attention aux voitures !",
+     "en": "Watch out for the cars!",
+     "id": "tx057"
+    }
+   ]
+  },
+  {
+   "id": "l-abri",
+   "fr": "L'abri",
+   "title": "The shelter",
+   "intro": "Now, the shelter with benches.",
+   "introId": "tx-l-abri",
+   "items": [
+    {
+     "fr": "L'abri.",
+     "en": "The shelter.",
+     "id": "tx058"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "tx059"
+    },
+    {
+     "fr": "Le toit.",
+     "en": "The roof.",
+     "id": "tx060"
+    },
+    {
+     "fr": "La table basse.",
+     "en": "The low table.",
+     "id": "tx061"
+    },
+    {
+     "fr": "Je m'assois sur le banc.",
+     "en": "I sit on the bench.",
+     "id": "tx062"
+    },
+    {
+     "fr": "Il fait chaud.",
+     "en": "It's hot.",
+     "id": "tx063"
+    },
+    {
+     "fr": "On est à l'ombre ici.",
+     "en": "We're in the shade here.",
+     "id": "tx064"
+    },
+    {
+     "fr": "On attend ensemble.",
+     "en": "We wait together.",
+     "id": "tx065"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "tx-au-revoir",
+   "items": [
+    {
+     "fr": "Merci, monsieur le chauffeur.",
+     "en": "Thank you, Mr driver.",
+     "id": "tx066"
+    },
+    {
+     "fr": "Bon voyage !",
+     "en": "Have a good trip!",
+     "id": "tx067"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "tx068"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "tx069"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "tx070"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "tx071"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "tx072"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "tx-final",
+   "text": "Bravo! You've found your taxi and spoken the whole way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "tx-final"
+}

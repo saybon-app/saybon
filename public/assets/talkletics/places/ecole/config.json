@@ -1,0 +1,804 @@
+{
+ "slug": "ecole",
+ "name": "École",
+ "fr": "L'école",
+ "order": 22,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     836,
+     928
+    ],
+    "gate": [
+     836,
+     881
+    ],
+    "door": [
+     836,
+     794
+    ],
+    "in": [
+     836,
+     730
+    ],
+    "hub": [
+     836,
+     557
+    ],
+    "lbl": [
+     669,
+     546
+    ],
+    "lbr": [
+     1003,
+     546
+    ],
+    "ll2": [
+     669,
+     479
+    ],
+    "ll1": [
+     669,
+     379
+    ],
+    "lib": [
+     836,
+     385
+    ],
+    "rl1": [
+     1003,
+     379
+    ],
+    "rl2": [
+     1003,
+     479
+    ],
+    "lib2": [
+     836,
+     307
+    ],
+    "ci": [
+     524,
+     279
+    ],
+    "lab": [
+     524,
+     440
+    ],
+    "ar": [
+     1226,
+     524
+    ],
+    "bu": [
+     557,
+     669
+    ],
+    "cn": [
+     1093,
+     658
+    ],
+    "ca": [
+     1204,
+     682
+    ],
+    "ca2": [
+     1394,
+     682
+    ]
+   },
+   "e": "out-gate gate-door door-in in-hub hub-lbl hub-lbr lbl-ll2 ll2-ll1 lbr-rl2 rl2-rl1 ll1-lib lib-rl1 lib-lib2 ll1-ci ll2-lab rl2-ar lbl-bu lbr-cn cn-ca ca-ca2",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "door"
+    ],
+    "le-hall": [
+     "hub",
+     "lbl",
+     "lbr"
+    ],
+    "la-classe": [
+     "ll1",
+     "ci"
+    ],
+    "la-bibliotheque": [
+     "lib",
+     "lib2"
+    ],
+    "le-laboratoire": [
+     "ll2",
+     "lab"
+    ],
+    "l-art": [
+     "rl2",
+     "ar"
+    ],
+    "le-bureau": [
+     "bu"
+    ],
+    "la-cantine": [
+     "ca",
+     "ca2"
+    ],
+    "au-revoir": [
+     "door",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1199,
+   "H": 1312,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     599,
+     1286
+    ],
+    "gate": [
+     599,
+     1216
+    ],
+    "door": [
+     599,
+     1098
+    ],
+    "in": [
+     599,
+     993
+    ],
+    "hub": [
+     599,
+     792
+    ],
+    "lbl": [
+     472,
+     792
+    ],
+    "lbr": [
+     726,
+     792
+    ],
+    "ll2": [
+     455,
+     700
+    ],
+    "ll1": [
+     455,
+     534
+    ],
+    "lib": [
+     599,
+     534
+    ],
+    "rl1": [
+     748,
+     534
+    ],
+    "rl2": [
+     748,
+     700
+    ],
+    "lib2": [
+     599,
+     446
+    ],
+    "ci": [
+     262,
+     411
+    ],
+    "lab": [
+     262,
+     612
+    ],
+    "ar": [
+     875,
+     682
+    ],
+    "bu": [
+     367,
+     875
+    ],
+    "cn": [
+     787,
+     814
+    ],
+    "ca": [
+     866,
+     919
+    ],
+    "ca2": [
+     1032,
+     919
+    ]
+   },
+   "e": "out-gate gate-door door-in in-hub hub-lbl hub-lbr lbl-ll2 ll2-ll1 lbr-rl2 rl2-rl1 ll1-lib lib-rl1 lib-lib2 ll1-ci ll2-lab rl2-ar lbl-bu lbr-cn cn-ca ca-ca2",
+   "spots": {
+    "salutations": [
+     "out",
+     "gate",
+     "door"
+    ],
+    "le-hall": [
+     "hub",
+     "lbl",
+     "lbr"
+    ],
+    "la-classe": [
+     "ll1",
+     "ci"
+    ],
+    "la-bibliotheque": [
+     "lib",
+     "lib2"
+    ],
+    "le-laboratoire": [
+     "ll2",
+     "lab"
+    ],
+    "l-art": [
+     "rl2",
+     "ar"
+    ],
+    "le-bureau": [
+     "bu"
+    ],
+    "la-cantine": [
+     "ca",
+     "ca2"
+    ],
+    "au-revoir": [
+     "door",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "gate",
+   "door"
+  ],
+  "le-hall": [
+   "hub",
+   "lbl",
+   "lbr"
+  ],
+  "la-classe": [
+   "ll1",
+   "ci"
+  ],
+  "la-bibliotheque": [
+   "lib",
+   "lib2"
+  ],
+  "le-laboratoire": [
+   "ll2",
+   "lab"
+  ],
+  "l-art": [
+   "rl2",
+   "ar"
+  ],
+  "le-bureau": [
+   "bu"
+  ],
+  "la-cantine": [
+   "ca",
+   "ca2"
+  ],
+  "au-revoir": [
+   "door",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the school!",
+   "introId": "ec-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "ec001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "ec002"
+    },
+    {
+     "fr": "Bienvenue à l'école.",
+     "en": "Welcome to the school.",
+     "id": "ec003"
+    },
+    {
+     "fr": "Le portail.",
+     "en": "The gate.",
+     "id": "ec004"
+    },
+    {
+     "fr": "La porte.",
+     "en": "The door.",
+     "id": "ec005"
+    },
+    {
+     "fr": "Je suis nouveau ici.",
+     "en": "I'm new here.",
+     "id": "ec006"
+    },
+    {
+     "fr": "Je m'appelle Kofi.",
+     "en": "My name is Kofi.",
+     "id": "ec007"
+    },
+    {
+     "fr": "Je suis élève dans cette école.",
+     "en": "I'm a pupil at this school.",
+     "id": "ec008"
+    },
+    {
+     "fr": "L'école commence à huit heures.",
+     "en": "School starts at eight.",
+     "id": "ec009"
+    }
+   ]
+  },
+  {
+   "id": "le-hall",
+   "fr": "Le hall",
+   "title": "The hall",
+   "intro": "First, the school hall.",
+   "introId": "ec-le-hall",
+   "items": [
+    {
+     "fr": "Le hall.",
+     "en": "The hall.",
+     "id": "ec010"
+    },
+    {
+     "fr": "Le canapé bleu.",
+     "en": "The blue sofa.",
+     "id": "ec011"
+    },
+    {
+     "fr": "Le canapé jaune.",
+     "en": "The yellow sofa.",
+     "id": "ec012"
+    },
+    {
+     "fr": "La plante.",
+     "en": "The plant.",
+     "id": "ec013"
+    },
+    {
+     "fr": "La porte brune.",
+     "en": "The brown door.",
+     "id": "ec014"
+    },
+    {
+     "fr": "L'entrée est grande.",
+     "en": "The entrance is big.",
+     "id": "ec015"
+    },
+    {
+     "fr": "Les couloirs sont propres.",
+     "en": "The corridors are clean.",
+     "id": "ec016"
+    },
+    {
+     "fr": "Je ne cours pas dans le hall.",
+     "en": "I don't run in the hall.",
+     "id": "ec017"
+    }
+   ]
+  },
+  {
+   "id": "la-classe",
+   "fr": "La salle de classe",
+   "title": "The classroom",
+   "intro": "Now, the classroom.",
+   "introId": "ec-la-classe",
+   "items": [
+    {
+     "fr": "La salle de classe.",
+     "en": "The classroom.",
+     "id": "ec018"
+    },
+    {
+     "fr": "Le tableau vert.",
+     "en": "The green board.",
+     "id": "ec019"
+    },
+    {
+     "fr": "Le bureau.",
+     "en": "The desk.",
+     "id": "ec020"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "ec021"
+    },
+    {
+     "fr": "Le cahier.",
+     "en": "The notebook.",
+     "id": "ec022"
+    },
+    {
+     "fr": "Le livre.",
+     "en": "The book.",
+     "id": "ec023"
+    },
+    {
+     "fr": "Le stylo.",
+     "en": "The pen.",
+     "id": "ec024"
+    },
+    {
+     "fr": "Le crayon.",
+     "en": "The pencil.",
+     "id": "ec025"
+    },
+    {
+     "fr": "Le professeur.",
+     "en": "The teacher.",
+     "id": "ec026"
+    },
+    {
+     "fr": "L'élève.",
+     "en": "The pupil.",
+     "id": "ec027"
+    },
+    {
+     "fr": "Ouvrez vos livres.",
+     "en": "Open your books.",
+     "id": "ec028"
+    },
+    {
+     "fr": "Écoutez, s'il vous plaît.",
+     "en": "Listen, please.",
+     "id": "ec029"
+    }
+   ]
+  },
+  {
+   "id": "la-bibliotheque",
+   "fr": "La bibliothèque",
+   "title": "The library",
+   "intro": "Now, the library.",
+   "introId": "ec-la-bibliotheque",
+   "items": [
+    {
+     "fr": "La bibliothèque.",
+     "en": "The library.",
+     "id": "ec030"
+    },
+    {
+     "fr": "Les livres.",
+     "en": "The books.",
+     "id": "ec031"
+    },
+    {
+     "fr": "L'étagère.",
+     "en": "The shelf.",
+     "id": "ec032"
+    },
+    {
+     "fr": "La table ronde.",
+     "en": "The round table.",
+     "id": "ec033"
+    },
+    {
+     "fr": "Je lis un livre.",
+     "en": "I read a book.",
+     "id": "ec034"
+    },
+    {
+     "fr": "Je cherche un livre.",
+     "en": "I'm looking for a book.",
+     "id": "ec035"
+    },
+    {
+     "fr": "Chut ! Silence, s'il vous plaît.",
+     "en": "Shh! Silence, please.",
+     "id": "ec036"
+    },
+    {
+     "fr": "J'emprunte ce livre.",
+     "en": "I borrow this book.",
+     "id": "ec037"
+    },
+    {
+     "fr": "Je le rends demain.",
+     "en": "I'll return it tomorrow.",
+     "id": "ec038"
+    }
+   ]
+  },
+  {
+   "id": "le-laboratoire",
+   "fr": "Le laboratoire",
+   "title": "The science lab",
+   "intro": "Now, the science lab.",
+   "introId": "ec-le-laboratoire",
+   "items": [
+    {
+     "fr": "Le laboratoire.",
+     "en": "The lab.",
+     "id": "ec039"
+    },
+    {
+     "fr": "Les sciences.",
+     "en": "Science.",
+     "id": "ec040"
+    },
+    {
+     "fr": "Le microscope.",
+     "en": "The microscope.",
+     "id": "ec041"
+    },
+    {
+     "fr": "Le squelette.",
+     "en": "The skeleton.",
+     "id": "ec042"
+    },
+    {
+     "fr": "Le tube.",
+     "en": "The test tube.",
+     "id": "ec043"
+    },
+    {
+     "fr": "L'expérience.",
+     "en": "The experiment.",
+     "id": "ec044"
+    },
+    {
+     "fr": "Je regarde dans le microscope.",
+     "en": "I look into the microscope.",
+     "id": "ec045"
+    },
+    {
+     "fr": "L'expérience est amusante.",
+     "en": "The experiment is fun.",
+     "id": "ec046"
+    },
+    {
+     "fr": "Attention, c'est fragile.",
+     "en": "Careful, it's fragile.",
+     "id": "ec047"
+    }
+   ]
+  },
+  {
+   "id": "l-art",
+   "fr": "La salle d'art",
+   "title": "The art room",
+   "intro": "Now, the art room.",
+   "introId": "ec-l-art",
+   "items": [
+    {
+     "fr": "L'art.",
+     "en": "Art.",
+     "id": "ec048"
+    },
+    {
+     "fr": "Le tableau.",
+     "en": "The painting.",
+     "id": "ec049"
+    },
+    {
+     "fr": "Le chevalet.",
+     "en": "The easel.",
+     "id": "ec050"
+    },
+    {
+     "fr": "La peinture.",
+     "en": "The paint.",
+     "id": "ec051"
+    },
+    {
+     "fr": "Le pinceau.",
+     "en": "The paintbrush.",
+     "id": "ec052"
+    },
+    {
+     "fr": "Les couleurs.",
+     "en": "The colours.",
+     "id": "ec053"
+    },
+    {
+     "fr": "Je peins un paysage.",
+     "en": "I paint a landscape.",
+     "id": "ec054"
+    },
+    {
+     "fr": "Mon dessin est joli.",
+     "en": "My drawing is pretty.",
+     "id": "ec055"
+    },
+    {
+     "fr": "J'aime dessiner.",
+     "en": "I like drawing.",
+     "id": "ec056"
+    }
+   ]
+  },
+  {
+   "id": "le-bureau",
+   "fr": "Le bureau du directeur",
+   "title": "The principal's office",
+   "intro": "Now, the principal's office.",
+   "introId": "ec-le-bureau",
+   "items": [
+    {
+     "fr": "Le directeur.",
+     "en": "The principal (man).",
+     "id": "ec057"
+    },
+    {
+     "fr": "La directrice.",
+     "en": "The principal (woman).",
+     "id": "ec058"
+    },
+    {
+     "fr": "Le bureau.",
+     "en": "The office.",
+     "id": "ec059"
+    },
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "ec060"
+    },
+    {
+     "fr": "Les chaises bleues.",
+     "en": "The blue chairs.",
+     "id": "ec061"
+    },
+    {
+     "fr": "Je frappe à la porte.",
+     "en": "I knock on the door.",
+     "id": "ec062"
+    },
+    {
+     "fr": "Entrez, asseyez-vous.",
+     "en": "Come in, sit down.",
+     "id": "ec063"
+    },
+    {
+     "fr": "Je voudrais parler au directeur.",
+     "en": "I would like to speak to the principal.",
+     "id": "ec064"
+    }
+   ]
+  },
+  {
+   "id": "la-cantine",
+   "fr": "La cantine",
+   "title": "The canteen",
+   "intro": "Now, the canteen.",
+   "introId": "ec-la-cantine",
+   "items": [
+    {
+     "fr": "La cantine.",
+     "en": "The canteen.",
+     "id": "ec065"
+    },
+    {
+     "fr": "Le déjeuner.",
+     "en": "Lunch.",
+     "id": "ec066"
+    },
+    {
+     "fr": "Le plateau.",
+     "en": "The tray.",
+     "id": "ec067"
+    },
+    {
+     "fr": "L'assiette.",
+     "en": "The plate.",
+     "id": "ec068"
+    },
+    {
+     "fr": "Le jus d'orange.",
+     "en": "The orange juice.",
+     "id": "ec069"
+    },
+    {
+     "fr": "Les légumes.",
+     "en": "The vegetables.",
+     "id": "ec070"
+    },
+    {
+     "fr": "J'ai faim.",
+     "en": "I'm hungry.",
+     "id": "ec071"
+    },
+    {
+     "fr": "Je mange du riz et du poisson.",
+     "en": "I eat rice and fish.",
+     "id": "ec072"
+    },
+    {
+     "fr": "C'est bon.",
+     "en": "It's good.",
+     "id": "ec073"
+    },
+    {
+     "fr": "Je bois de l'eau.",
+     "en": "I drink water.",
+     "id": "ec074"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "ec-au-revoir",
+   "items": [
+    {
+     "fr": "Merci, professeur.",
+     "en": "Thank you, teacher.",
+     "id": "ec075"
+    },
+    {
+     "fr": "À demain à l'école.",
+     "en": "See you tomorrow at school.",
+     "id": "ec076"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "ec077"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "ec078"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "ec079"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "ec080"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "ec081"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "ec-final",
+   "text": "Bravo! You've been all around the school and spoken the whole way. That's the last of this batch. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "ec-final"
+}

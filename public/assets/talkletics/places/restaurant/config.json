@@ -1,0 +1,991 @@
+{
+ "slug": "restaurant",
+ "name": "Restaurant",
+ "fr": "Le restaurant",
+ "order": 12,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     847,
+     886
+    ],
+    "o2": [
+     847,
+     836
+    ],
+    "door": [
+     847,
+     725
+    ],
+    "in": [
+     847,
+     600
+    ],
+    "pi": [
+     847,
+     546
+    ],
+    "pi2": [
+     769,
+     535
+    ],
+    "l0": [
+     340,
+     600
+    ],
+    "pl": [
+     524,
+     600
+    ],
+    "r0": [
+     1154,
+     600
+    ],
+    "cv": [
+     1449,
+     600
+    ],
+    "p3": [
+     334,
+     524
+    ],
+    "p2": [
+     334,
+     357
+    ],
+    "p1": [
+     334,
+     223
+    ],
+    "tb1": [
+     524,
+     524
+    ],
+    "tb2": [
+     524,
+     390
+    ],
+    "k0": [
+     524,
+     323
+    ],
+    "k1": [
+     524,
+     251
+    ],
+    "b1": [
+     1154,
+     468
+    ],
+    "b2": [
+     1154,
+     368
+    ],
+    "t1": [
+     1154,
+     195
+    ],
+    "tw": [
+     1394,
+     184
+    ],
+    "tr1": [
+     491,
+     836
+    ],
+    "tr2": [
+     1126,
+     836
+    ]
+   },
+   "e": "out-o2 o2-door door-in in-pi pi-pi2 in-pl pl-l0 in-r0 r0-cv l0-p3 p3-p2 p2-p1 pl-tb1 tb1-tb2 tb2-k0 k0-k1 r0-b1 b1-b2 b2-t1 t1-tw o2-tr1 o2-tr2",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-terrasse": [
+     "tr1",
+     "tr2"
+    ],
+    "le-piano": [
+     "pi",
+     "pi2"
+    ],
+    "la-table": [
+     "tb1",
+     "tb2"
+    ],
+    "la-commande": [
+     "tb2",
+     "tb1"
+    ],
+    "la-cuisine": [
+     "k0",
+     "k1"
+    ],
+    "le-bar": [
+     "b1",
+     "b2"
+    ],
+    "la-cave": [
+     "cv"
+    ],
+    "les-salons-prives": [
+     "p3",
+     "p2",
+     "p1"
+    ],
+    "les-toilettes": [
+     "t1",
+     "tw"
+    ],
+    "l-addition": [
+     "in"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1024,
+   "H": 1536,
+   "ch": 140,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     522,
+     1433
+    ],
+    "o2": [
+     522,
+     1361
+    ],
+    "door": [
+     522,
+     1208
+    ],
+    "in": [
+     522,
+     1013
+    ],
+    "l0": [
+     268,
+     1008
+    ],
+    "c1": [
+     450,
+     1008
+    ],
+    "rl": [
+     780,
+     1008
+    ],
+    "r0": [
+     947,
+     1008
+    ],
+    "cv": [
+     947,
+     962
+    ],
+    "p3": [
+     268,
+     850
+    ],
+    "p2": [
+     268,
+     583
+    ],
+    "p1": [
+     268,
+     360
+    ],
+    "kA": [
+     297,
+     233
+    ],
+    "kB": [
+     430,
+     360
+    ],
+    "kC": [
+     614,
+     360
+    ],
+    "t1": [
+     716,
+     360
+    ],
+    "tw": [
+     763,
+     333
+    ],
+    "c2": [
+     450,
+     865
+    ],
+    "tb1": [
+     450,
+     926
+    ],
+    "pi": [
+     532,
+     862
+    ],
+    "pi2": [
+     635,
+     862
+    ],
+    "tb2": [
+     780,
+     926
+    ],
+    "b1": [
+     783,
+     752
+    ],
+    "tr1": [
+     276,
+     1356
+    ],
+    "tr2": [
+     778,
+     1356
+    ]
+   },
+   "e": "out-o2 o2-door door-in in-c1 c1-l0 in-rl rl-r0 r0-cv l0-p3 p3-p2 p2-p1 p1-kA p1-kB kB-kC kC-t1 t1-tw c1-tb1 tb1-c2 c2-pi pi-pi2 rl-tb2 tb2-b1 o2-tr1 o2-tr2",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-terrasse": [
+     "tr1",
+     "tr2"
+    ],
+    "le-piano": [
+     "pi",
+     "pi2"
+    ],
+    "la-table": [
+     "tb1",
+     "tb2"
+    ],
+    "la-commande": [
+     "tb2",
+     "tb1"
+    ],
+    "la-cuisine": [
+     "kA",
+     "kB"
+    ],
+    "le-bar": [
+     "tb2",
+     "b1"
+    ],
+    "la-cave": [
+     "cv"
+    ],
+    "les-salons-prives": [
+     "p3",
+     "p2",
+     "p1"
+    ],
+    "les-toilettes": [
+     "t1",
+     "tw"
+    ],
+    "l-addition": [
+     "in"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "la-terrasse": [
+   "tr1",
+   "tr2"
+  ],
+  "le-piano": [
+   "pi",
+   "pi2"
+  ],
+  "la-table": [
+   "tb1",
+   "tb2"
+  ],
+  "la-commande": [
+   "tb2",
+   "tb1"
+  ],
+  "la-cuisine": [
+   "k0",
+   "k1"
+  ],
+  "le-bar": [
+   "b1",
+   "b2"
+  ],
+  "la-cave": [
+   "cv"
+  ],
+  "les-salons-prives": [
+   "p3",
+   "p2",
+   "p1"
+  ],
+  "les-toilettes": [
+   "t1",
+   "tw"
+  ],
+  "l-addition": [
+   "in"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the restaurant!",
+   "introId": "re-salutations",
+   "items": [
+    {
+     "fr": "Bonsoir, madame.",
+     "en": "Good evening, madam.",
+     "id": "re001"
+    },
+    {
+     "fr": "Bonsoir, monsieur.",
+     "en": "Good evening, sir.",
+     "id": "re002"
+    },
+    {
+     "fr": "Bienvenue au restaurant.",
+     "en": "Welcome to the restaurant.",
+     "id": "re003"
+    },
+    {
+     "fr": "Vous avez réservé ?",
+     "en": "Do you have a reservation?",
+     "id": "re004"
+    },
+    {
+     "fr": "Oui, j'ai réservé une table.",
+     "en": "Yes, I booked a table.",
+     "id": "re005"
+    },
+    {
+     "fr": "Une table pour quatre personnes.",
+     "en": "A table for four people.",
+     "id": "re006"
+    },
+    {
+     "fr": "Par ici, s'il vous plaît.",
+     "en": "This way, please.",
+     "id": "re007"
+    },
+    {
+     "fr": "C'est très beau ici.",
+     "en": "It's very beautiful here.",
+     "id": "re008"
+    }
+   ]
+  },
+  {
+   "id": "la-terrasse",
+   "fr": "La terrasse",
+   "title": "The terrace",
+   "intro": "First, the terrace outside.",
+   "introId": "re-la-terrasse",
+   "items": [
+    {
+     "fr": "La terrasse.",
+     "en": "The terrace.",
+     "id": "re009"
+    },
+    {
+     "fr": "Le parasol.",
+     "en": "The parasol.",
+     "id": "re010"
+    },
+    {
+     "fr": "La fontaine.",
+     "en": "The fountain.",
+     "id": "re011"
+    },
+    {
+     "fr": "La table dehors.",
+     "en": "The outdoor table.",
+     "id": "re012"
+    },
+    {
+     "fr": "Il fait beau.",
+     "en": "The weather is nice.",
+     "id": "re013"
+    },
+    {
+     "fr": "Je préfère la terrasse.",
+     "en": "I prefer the terrace.",
+     "id": "re014"
+    },
+    {
+     "fr": "On mange dehors ?",
+     "en": "Shall we eat outside?",
+     "id": "re015"
+    },
+    {
+     "fr": "L'eau fait un joli bruit.",
+     "en": "The water makes a nice sound.",
+     "id": "re016"
+    }
+   ]
+  },
+  {
+   "id": "le-piano",
+   "fr": "Le piano",
+   "title": "The piano",
+   "intro": "Now, the piano in the middle of the room.",
+   "introId": "re-le-piano",
+   "items": [
+    {
+     "fr": "Le piano.",
+     "en": "The piano.",
+     "id": "re017"
+    },
+    {
+     "fr": "Le pianiste.",
+     "en": "The pianist.",
+     "id": "re018"
+    },
+    {
+     "fr": "La musique.",
+     "en": "The music.",
+     "id": "re019"
+    },
+    {
+     "fr": "Le fauteuil rouge.",
+     "en": "The red armchair.",
+     "id": "re020"
+    },
+    {
+     "fr": "Les fleurs.",
+     "en": "The flowers.",
+     "id": "re021"
+    },
+    {
+     "fr": "Il joue du piano.",
+     "en": "He plays the piano.",
+     "id": "re022"
+    },
+    {
+     "fr": "La musique est douce.",
+     "en": "The music is soft.",
+     "id": "re023"
+    },
+    {
+     "fr": "J'aime la musique ici.",
+     "en": "I like the music here.",
+     "id": "re024"
+    }
+   ]
+  },
+  {
+   "id": "la-table",
+   "fr": "La table",
+   "title": "The table",
+   "intro": "Now, a table set for dinner.",
+   "introId": "re-la-table",
+   "items": [
+    {
+     "fr": "La nappe.",
+     "en": "The tablecloth.",
+     "id": "re025"
+    },
+    {
+     "fr": "L'assiette.",
+     "en": "The plate.",
+     "id": "re026"
+    },
+    {
+     "fr": "Le verre.",
+     "en": "The glass.",
+     "id": "re027"
+    },
+    {
+     "fr": "La fourchette.",
+     "en": "The fork.",
+     "id": "re028"
+    },
+    {
+     "fr": "Le couteau.",
+     "en": "The knife.",
+     "id": "re029"
+    },
+    {
+     "fr": "La cuillère.",
+     "en": "The spoon.",
+     "id": "re030"
+    },
+    {
+     "fr": "La serviette.",
+     "en": "The napkin.",
+     "id": "re031"
+    },
+    {
+     "fr": "La bougie.",
+     "en": "The candle.",
+     "id": "re032"
+    },
+    {
+     "fr": "La carafe d'eau.",
+     "en": "The jug of water.",
+     "id": "re033"
+    },
+    {
+     "fr": "La table est bien mise.",
+     "en": "The table is nicely set.",
+     "id": "re034"
+    }
+   ]
+  },
+  {
+   "id": "la-commande",
+   "fr": "La commande",
+   "title": "Ordering",
+   "intro": "Now, let's order.",
+   "introId": "re-la-commande",
+   "items": [
+    {
+     "fr": "Le serveur.",
+     "en": "The waiter.",
+     "id": "re035"
+    },
+    {
+     "fr": "La serveuse.",
+     "en": "The waitress.",
+     "id": "re036"
+    },
+    {
+     "fr": "La carte.",
+     "en": "The menu.",
+     "id": "re037"
+    },
+    {
+     "fr": "L'entrée.",
+     "en": "The starter.",
+     "id": "re038"
+    },
+    {
+     "fr": "Le plat principal.",
+     "en": "The main course.",
+     "id": "re039"
+    },
+    {
+     "fr": "Le dessert.",
+     "en": "The dessert.",
+     "id": "re040"
+    },
+    {
+     "fr": "Qu'est-ce que vous désirez ?",
+     "en": "What would you like?",
+     "id": "re041"
+    },
+    {
+     "fr": "Je voudrais la soupe, s'il vous plaît.",
+     "en": "I would like the soup, please.",
+     "id": "re042"
+    },
+    {
+     "fr": "Je prends le poulet avec du riz.",
+     "en": "I'll have the chicken with rice.",
+     "id": "re043"
+    },
+    {
+     "fr": "Et comme boisson ?",
+     "en": "And to drink?",
+     "id": "re044"
+    },
+    {
+     "fr": "De l'eau, s'il vous plaît.",
+     "en": "Water, please.",
+     "id": "re045"
+    }
+   ]
+  },
+  {
+   "id": "la-cuisine",
+   "fr": "La cuisine",
+   "title": "The kitchen",
+   "intro": "Now, a look at the kitchen.",
+   "introId": "re-la-cuisine",
+   "items": [
+    {
+     "fr": "La cuisine.",
+     "en": "The kitchen.",
+     "id": "re046"
+    },
+    {
+     "fr": "Le chef.",
+     "en": "The chef.",
+     "id": "re047"
+    },
+    {
+     "fr": "La casserole rouge.",
+     "en": "The red pot.",
+     "id": "re048"
+    },
+    {
+     "fr": "Le four.",
+     "en": "The oven.",
+     "id": "re049"
+    },
+    {
+     "fr": "Le frigo.",
+     "en": "The fridge.",
+     "id": "re050"
+    },
+    {
+     "fr": "Le buffet.",
+     "en": "The buffet.",
+     "id": "re051"
+    },
+    {
+     "fr": "Le chef cuisine.",
+     "en": "The chef is cooking.",
+     "id": "re052"
+    },
+    {
+     "fr": "Ça sent très bon.",
+     "en": "It smells very good.",
+     "id": "re053"
+    },
+    {
+     "fr": "Le gâteau est prêt.",
+     "en": "The cake is ready.",
+     "id": "re054"
+    }
+   ]
+  },
+  {
+   "id": "le-bar",
+   "fr": "Le bar",
+   "title": "The bar",
+   "intro": "Now, the bar.",
+   "introId": "re-le-bar",
+   "items": [
+    {
+     "fr": "Le bar.",
+     "en": "The bar.",
+     "id": "re055"
+    },
+    {
+     "fr": "Le tabouret.",
+     "en": "The stool.",
+     "id": "re056"
+    },
+    {
+     "fr": "Le barman.",
+     "en": "The bartender.",
+     "id": "re057"
+    },
+    {
+     "fr": "La bouteille.",
+     "en": "The bottle.",
+     "id": "re058"
+    },
+    {
+     "fr": "Le jus de fruit.",
+     "en": "The fruit juice.",
+     "id": "re059"
+    },
+    {
+     "fr": "Une limonade, s'il vous plaît.",
+     "en": "A lemonade, please.",
+     "id": "re060"
+    },
+    {
+     "fr": "Je m'assois au bar.",
+     "en": "I sit at the bar.",
+     "id": "re061"
+    },
+    {
+     "fr": "Il y a beaucoup de bouteilles.",
+     "en": "There are a lot of bottles.",
+     "id": "re062"
+    }
+   ]
+  },
+  {
+   "id": "la-cave",
+   "fr": "La cave à vin",
+   "title": "The wine cellar",
+   "intro": "Now, the wine cellar.",
+   "introId": "re-la-cave",
+   "items": [
+    {
+     "fr": "La cave.",
+     "en": "The cellar.",
+     "id": "re063"
+    },
+    {
+     "fr": "Le vin rouge.",
+     "en": "The red wine.",
+     "id": "re064"
+    },
+    {
+     "fr": "Le vin blanc.",
+     "en": "The white wine.",
+     "id": "re065"
+    },
+    {
+     "fr": "La bouteille de vin.",
+     "en": "The bottle of wine.",
+     "id": "re066"
+    },
+    {
+     "fr": "Le sommelier.",
+     "en": "The wine waiter.",
+     "id": "re067"
+    },
+    {
+     "fr": "Quel vin conseillez-vous ?",
+     "en": "Which wine do you recommend?",
+     "id": "re068"
+    },
+    {
+     "fr": "Il y a beaucoup de bouteilles.",
+     "en": "There are lots of bottles.",
+     "id": "re069"
+    },
+    {
+     "fr": "C'est une belle cave.",
+     "en": "It's a beautiful cellar.",
+     "id": "re070"
+    }
+   ]
+  },
+  {
+   "id": "les-salons-prives",
+   "fr": "Les salons privés",
+   "title": "The private rooms",
+   "intro": "Now, the private dining rooms.",
+   "introId": "re-les-salons-prives",
+   "items": [
+    {
+     "fr": "Le salon privé.",
+     "en": "The private room.",
+     "id": "re071"
+    },
+    {
+     "fr": "Le lustre.",
+     "en": "The chandelier.",
+     "id": "re072"
+    },
+    {
+     "fr": "Le rideau rouge.",
+     "en": "The red curtain.",
+     "id": "re073"
+    },
+    {
+     "fr": "La grande table.",
+     "en": "The big table.",
+     "id": "re074"
+    },
+    {
+     "fr": "Il y a dix chaises.",
+     "en": "There are ten chairs.",
+     "id": "re075"
+    },
+    {
+     "fr": "C'est pour une fête de famille.",
+     "en": "It's for a family party.",
+     "id": "re076"
+    },
+    {
+     "fr": "Nous sommes douze.",
+     "en": "There are twelve of us.",
+     "id": "re077"
+    },
+    {
+     "fr": "Le salon est calme.",
+     "en": "The room is quiet.",
+     "id": "re078"
+    }
+   ]
+  },
+  {
+   "id": "les-toilettes",
+   "fr": "Les toilettes",
+   "title": "The toilets",
+   "intro": "Now, the toilets.",
+   "introId": "re-les-toilettes",
+   "items": [
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilets.",
+     "id": "re079"
+    },
+    {
+     "fr": "Où sont les toilettes ?",
+     "en": "Where are the toilets?",
+     "id": "re080"
+    },
+    {
+     "fr": "C'est au fond, à droite.",
+     "en": "It's at the back, on the right.",
+     "id": "re081"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "re082"
+    },
+    {
+     "fr": "Le savon.",
+     "en": "The soap.",
+     "id": "re083"
+    },
+    {
+     "fr": "Les toilettes sont propres.",
+     "en": "The toilets are clean.",
+     "id": "re084"
+    },
+    {
+     "fr": "Merci, monsieur.",
+     "en": "Thank you, sir.",
+     "id": "re085"
+    }
+   ]
+  },
+  {
+   "id": "l-addition",
+   "fr": "L'addition",
+   "title": "The bill",
+   "intro": "Now, the bill.",
+   "introId": "re-l-addition",
+   "items": [
+    {
+     "fr": "L'addition, s'il vous plaît.",
+     "en": "The bill, please.",
+     "id": "re086"
+    },
+    {
+     "fr": "C'était délicieux.",
+     "en": "It was delicious.",
+     "id": "re087"
+    },
+    {
+     "fr": "Ça fait quarante euros.",
+     "en": "That's forty euros.",
+     "id": "re088"
+    },
+    {
+     "fr": "Je paie par carte.",
+     "en": "I pay by card.",
+     "id": "re089"
+    },
+    {
+     "fr": "Le pourboire.",
+     "en": "The tip.",
+     "id": "re090"
+    },
+    {
+     "fr": "Voici pour vous.",
+     "en": "This is for you.",
+     "id": "re091"
+    },
+    {
+     "fr": "Le service est compris ?",
+     "en": "Is service included?",
+     "id": "re092"
+    },
+    {
+     "fr": "Merci pour cette belle soirée.",
+     "en": "Thank you for this lovely evening.",
+     "id": "re093"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "re-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour le repas.",
+     "en": "Thank you for the meal.",
+     "id": "re094"
+    },
+    {
+     "fr": "Bonne soirée à vous.",
+     "en": "Have a good evening.",
+     "id": "re095"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "re096"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "re097"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "re098"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "re099"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "re100"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "re-final",
+   "text": "Bravo! You've had a whole dinner at the restaurant, entirely in French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "re-final"
+}

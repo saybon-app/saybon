@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Talkletics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="maison.css?v=22">
+</head>
+<body data-place="ecole">
+<div class="mz" id="mz">
+  <div class="mz-world" id="world">
+    <img class="mz-house" id="house" alt="" draggable="false">
+    <div class="mz-glows" id="glows"></div>
+    <div class="mz-actor" id="actor"><div class="mz-shadow"></div><div class="mz-bop" id="bopper"><img class="mz-spr on" id="actorImg" alt="" draggable="false"><img class="mz-spr" id="actorImg2" alt="" draggable="false"></div></div>
+  </div>
+  <div class="mz-vignette"></div>
+
+  <button class="mz-icon mz-back" onclick="location.href='map.html'" aria-label="Back to the map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button class="mz-icon mz-dash" onclick="location.href='/dashboard/'" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>
+  </button>
+
+  <div class="mz-top" id="top" hidden>
+    <div class="mz-chip"><span id="secFr">Les salutations</span><small id="secEn">Greetings</small></div>
+    <div class="mz-bar" title="Distance covered"><i id="barFill"></i></div>
+  </div>
+
+  <div class="mz-banner" id="banner" hidden><b id="banFr"></b><span id="banEn"></span></div>
+
+  <section class="mz-pick" id="pick">
+    <div class="mz-pick-card">
+      <p class="mz-kicker" id="pickKicker">Talkletics</p>
+      <h1 id="pickTitle"></h1>
+      <p class="mz-sub">Repeat after the teacher. Speak well, go further.</p>
+      <p class="mz-who">Choose your player</p>
+      <div class="mz-chars">
+        <button class="mz-char" data-who="girl" aria-label="Girl"><img src="/assets/talkletics/maison/chars/c18.webp" alt=""></button>
+        <button class="mz-char" data-who="boy" aria-label="Boy"><img src="/assets/talkletics/maison/chars/c17.webp" alt=""></button>
+      </div>
+      <button class="mz-btn mz-go" id="goBtn" disabled>Start</button>
+      <button class="mz-link" id="restartBtn" hidden>Start over</button>
+      <p class="mz-err" id="pickErr" hidden></p>
+    </div>
+  </section>
+
+  <section class="mz-card" id="card" hidden>
+    <div class="mz-phase"><span class="mz-dot" id="phaseDot"></span><span id="phaseTxt">Listen</span></div>
+    <p class="mz-en" id="en">&nbsp;</p>
+    <p class="mz-dir" id="dir"><span></span></p>
+    <div class="mz-listen" id="listenDots"><i></i><i></i><i></i></div>
+    <canvas class="mz-wave" id="wave" width="360" height="54"></canvas>
+    <div class="mz-result" id="result" hidden>
+      <div class="mz-score"><b id="scoreNum">0</b><span id="scoreLbl"></span></div>
+      <p class="mz-fr" id="frWords"></p>
+      <p class="mz-hint" id="hint"></p>
+    </div>
+    <div class="mz-actions">
+      <button class="mz-replay" id="againBtn" hidden aria-label="Replay and try again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span>Replay</span></button>
+      <button class="mz-ghost" id="skipBtn" hidden>Skip this one</button>
+      <button class="mz-btn" id="introSkip" hidden>Skip intro</button>
+    </div>
+  </section>
+
+  <section class="mz-final" id="final" hidden>
+    <div class="mz-pick-card">
+      <p class="mz-kicker">Visite terminée</p>
+      <h1>Bravo !</h1>
+      <p class="mz-sub" id="finalTxt"></p>
+      <div class="mz-final-stats"><div><b id="fDist">0%</b><span>distance covered</span></div><div><b id="fAvg">0</b><span>average score</span></div></div>
+      <button class="mz-btn mz-go" onclick="location.href='map.html'">Back to the map</button>
+      <button class="mz-link" id="replayBtn">Play again to go further</button>
+    </div>
+  </section>
+</div>
+<script src="place.js?v=2"></script>
+</body>
+</html>

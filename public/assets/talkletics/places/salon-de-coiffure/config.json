@@ -1,0 +1,946 @@
+{
+ "slug": "salon-de-coiffure",
+ "name": "Salon de coiffure",
+ "fr": "Le salon de coiffure",
+ "order": 13,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     819,
+     936
+    ],
+    "door": [
+     819,
+     847
+    ],
+    "in": [
+     819,
+     738
+    ],
+    "l0": [
+     373,
+     736
+    ],
+    "s4": [
+     373,
+     647
+    ],
+    "s3": [
+     373,
+     524
+    ],
+    "s2": [
+     373,
+     401
+    ],
+    "s1": [
+     373,
+     292
+    ],
+    "dr2": [
+     457,
+     295
+    ],
+    "sh": [
+     491,
+     602
+    ],
+    "shm": [
+     580,
+     602
+    ],
+    "sh2": [
+     580,
+     479
+    ],
+    "w1": [
+     580,
+     334
+    ],
+    "w2": [
+     658,
+     334
+    ],
+    "rc": [
+     819,
+     596
+    ],
+    "rc2": [
+     981,
+     580
+    ],
+    "r0": [
+     1026,
+     736
+    ],
+    "r1": [
+     1026,
+     602
+    ],
+    "tr": [
+     1070,
+     390
+    ],
+    "tr2": [
+     1148,
+     362
+    ],
+    "lo": [
+     1093,
+     624
+    ],
+    "r2": [
+     1304,
+     736
+    ],
+    "na": [
+     1304,
+     658
+    ],
+    "ex1": [
+     1315,
+     535
+    ],
+    "wg": [
+     1394,
+     446
+    ],
+    "wg2": [
+     1449,
+     468
+    ]
+   },
+   "e": "out-door door-in in-l0 l0-s4 s4-s3 s3-s2 s2-s1 s1-dr2 s4-sh sh-shm shm-sh2 sh2-w1 w1-w2 shm-rc rc-rc2 in-r0 r0-r1 r1-rc2 r1-tr tr-tr2 r1-lo r0-r2 r2-na na-ex1 ex1-wg wg-wg2",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "l-accueil": [
+     "rc",
+     "rc2"
+    ],
+    "les-postes": [
+     "s4",
+     "s3",
+     "s2"
+    ],
+    "les-casques": [
+     "s1",
+     "dr2"
+    ],
+    "le-shampoing": [
+     "w1",
+     "w2"
+    ],
+    "les-produits": [
+     "sh",
+     "sh2"
+    ],
+    "la-salle-de-soin": [
+     "tr",
+     "tr2"
+    ],
+    "le-salon-d-attente": [
+     "lo"
+    ],
+    "les-ongles": [
+     "na"
+    ],
+    "les-extensions": [
+     "wg",
+     "wg2"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     541,
+     1390
+    ],
+    "door": [
+     541,
+     1303
+    ],
+    "in": [
+     541,
+     1218
+    ],
+    "l0": [
+     309,
+     1218
+    ],
+    "s4": [
+     309,
+     965
+    ],
+    "s3": [
+     309,
+     820
+    ],
+    "s2": [
+     309,
+     666
+    ],
+    "s1": [
+     309,
+     521
+    ],
+    "sE": [
+     309,
+     372
+    ],
+    "dr2": [
+     241,
+     396
+    ],
+    "tr": [
+     454,
+     372
+    ],
+    "tr2": [
+     521,
+     372
+    ],
+    "rc": [
+     502,
+     1091
+    ],
+    "rc2": [
+     627,
+     1091
+    ],
+    "w1": [
+     425,
+     676
+    ],
+    "sh": [
+     415,
+     763
+    ],
+    "w2": [
+     676,
+     681
+    ],
+    "sh2": [
+     676,
+     763
+    ],
+    "m3": [
+     748,
+     681
+    ],
+    "m4": [
+     748,
+     763
+    ],
+    "r0": [
+     801,
+     1218
+    ],
+    "na": [
+     763,
+     1004
+    ],
+    "lo": [
+     777,
+     830
+    ],
+    "m2": [
+     748,
+     454
+    ],
+    "wg": [
+     801,
+     454
+    ],
+    "wg2": [
+     869,
+     454
+    ]
+   },
+   "e": "out-door door-in in-l0 l0-s4 s4-s3 s3-s2 s2-s1 s1-sE sE-dr2 sE-tr tr-tr2 s2-w1 w1-sh in-rc rc-rc2 in-r0 r0-na na-lo lo-m4 m4-m3 m3-m2 m2-wg wg-wg2 m4-sh2 m3-w2",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "l-accueil": [
+     "rc",
+     "rc2"
+    ],
+    "les-postes": [
+     "s4",
+     "s3",
+     "s2"
+    ],
+    "les-casques": [
+     "sE",
+     "dr2"
+    ],
+    "le-shampoing": [
+     "w1",
+     "w2"
+    ],
+    "les-produits": [
+     "sh",
+     "sh2"
+    ],
+    "la-salle-de-soin": [
+     "tr",
+     "tr2"
+    ],
+    "le-salon-d-attente": [
+     "lo"
+    ],
+    "les-ongles": [
+     "na"
+    ],
+    "les-extensions": [
+     "wg",
+     "wg2"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "l-accueil": [
+   "rc",
+   "rc2"
+  ],
+  "les-postes": [
+   "s4",
+   "s3",
+   "s2"
+  ],
+  "les-casques": [
+   "s1",
+   "dr2"
+  ],
+  "le-shampoing": [
+   "w1",
+   "w2"
+  ],
+  "les-produits": [
+   "sh",
+   "sh2"
+  ],
+  "la-salle-de-soin": [
+   "tr",
+   "tr2"
+  ],
+  "le-salon-d-attente": [
+   "lo"
+  ],
+  "les-ongles": [
+   "na"
+  ],
+  "les-extensions": [
+   "wg",
+   "wg2"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the hair salon!",
+   "introId": "co-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "co001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "co002"
+    },
+    {
+     "fr": "Bienvenue au salon de coiffure.",
+     "en": "Welcome to the hair salon.",
+     "id": "co003"
+    },
+    {
+     "fr": "Vous avez rendez-vous ?",
+     "en": "Do you have an appointment?",
+     "id": "co004"
+    },
+    {
+     "fr": "Oui, j'ai rendez-vous à dix heures.",
+     "en": "Yes, I have an appointment at ten o'clock.",
+     "id": "co005"
+    },
+    {
+     "fr": "Quel est votre nom ?",
+     "en": "What is your name?",
+     "id": "co006"
+    },
+    {
+     "fr": "Je m'appelle Awa.",
+     "en": "My name is Awa.",
+     "id": "co007"
+    },
+    {
+     "fr": "Asseyez-vous, s'il vous plaît.",
+     "en": "Please sit down.",
+     "id": "co008"
+    }
+   ]
+  },
+  {
+   "id": "l-accueil",
+   "fr": "L'accueil",
+   "title": "Reception",
+   "intro": "First, the reception desk.",
+   "introId": "co-l-accueil",
+   "items": [
+    {
+     "fr": "L'accueil.",
+     "en": "The reception.",
+     "id": "co009"
+    },
+    {
+     "fr": "La réceptionniste.",
+     "en": "The receptionist.",
+     "id": "co010"
+    },
+    {
+     "fr": "L'ordinateur.",
+     "en": "The computer.",
+     "id": "co011"
+    },
+    {
+     "fr": "Le rendez-vous.",
+     "en": "The appointment.",
+     "id": "co012"
+    },
+    {
+     "fr": "Je voudrais prendre rendez-vous.",
+     "en": "I would like to make an appointment.",
+     "id": "co013"
+    },
+    {
+     "fr": "Pour quel jour ?",
+     "en": "For which day?",
+     "id": "co014"
+    },
+    {
+     "fr": "Samedi matin, s'il vous plaît.",
+     "en": "Saturday morning, please.",
+     "id": "co015"
+    },
+    {
+     "fr": "C'est noté.",
+     "en": "It's noted.",
+     "id": "co016"
+    }
+   ]
+  },
+  {
+   "id": "le-salon-d-attente",
+   "fr": "Le coin attente",
+   "title": "The waiting area",
+   "intro": "Now, the waiting area.",
+   "introId": "co-le-salon-d-attente",
+   "items": [
+    {
+     "fr": "Le canapé rose.",
+     "en": "The pink sofa.",
+     "id": "co017"
+    },
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "co018"
+    },
+    {
+     "fr": "La table basse.",
+     "en": "The coffee table.",
+     "id": "co019"
+    },
+    {
+     "fr": "Le magazine.",
+     "en": "The magazine.",
+     "id": "co020"
+    },
+    {
+     "fr": "Le coussin jaune.",
+     "en": "The yellow cushion.",
+     "id": "co021"
+    },
+    {
+     "fr": "J'attends mon tour.",
+     "en": "I'm waiting my turn.",
+     "id": "co022"
+    },
+    {
+     "fr": "Vous voulez un thé ?",
+     "en": "Would you like a tea?",
+     "id": "co023"
+    },
+    {
+     "fr": "Je lis un magazine.",
+     "en": "I'm reading a magazine.",
+     "id": "co024"
+    }
+   ]
+  },
+  {
+   "id": "le-shampoing",
+   "fr": "Le shampoing",
+   "title": "The hair wash",
+   "intro": "Now, the hair wash. Le shampoing.",
+   "introId": "co-le-shampoing",
+   "items": [
+    {
+     "fr": "Le lavabo.",
+     "en": "The basin.",
+     "id": "co025"
+    },
+    {
+     "fr": "Le fauteuil noir.",
+     "en": "The black chair.",
+     "id": "co026"
+    },
+    {
+     "fr": "Le shampoing.",
+     "en": "The shampoo.",
+     "id": "co027"
+    },
+    {
+     "fr": "L'après-shampoing.",
+     "en": "The conditioner.",
+     "id": "co028"
+    },
+    {
+     "fr": "La serviette.",
+     "en": "The towel.",
+     "id": "co029"
+    },
+    {
+     "fr": "L'eau est trop chaude.",
+     "en": "The water is too hot.",
+     "id": "co030"
+    },
+    {
+     "fr": "L'eau est parfaite.",
+     "en": "The water is perfect.",
+     "id": "co031"
+    },
+    {
+     "fr": "Je me détends.",
+     "en": "I'm relaxing.",
+     "id": "co032"
+    },
+    {
+     "fr": "Ça sent bon.",
+     "en": "It smells nice.",
+     "id": "co033"
+    }
+   ]
+  },
+  {
+   "id": "les-postes",
+   "fr": "Les postes de coiffure",
+   "title": "The styling stations",
+   "intro": "Now, the styling stations.",
+   "introId": "co-les-postes",
+   "items": [
+    {
+     "fr": "Le miroir.",
+     "en": "The mirror.",
+     "id": "co034"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "co035"
+    },
+    {
+     "fr": "La coiffeuse.",
+     "en": "The hairdresser (woman).",
+     "id": "co036"
+    },
+    {
+     "fr": "Le coiffeur.",
+     "en": "The hairdresser (man).",
+     "id": "co037"
+    },
+    {
+     "fr": "Les ciseaux.",
+     "en": "The scissors.",
+     "id": "co038"
+    },
+    {
+     "fr": "Le peigne.",
+     "en": "The comb.",
+     "id": "co039"
+    },
+    {
+     "fr": "Le sèche-cheveux.",
+     "en": "The hair dryer.",
+     "id": "co040"
+    },
+    {
+     "fr": "Les cheveux.",
+     "en": "The hair.",
+     "id": "co041"
+    },
+    {
+     "fr": "Je voudrais une coupe.",
+     "en": "I would like a haircut.",
+     "id": "co042"
+    },
+    {
+     "fr": "Pas trop court, s'il vous plaît.",
+     "en": "Not too short, please.",
+     "id": "co043"
+    },
+    {
+     "fr": "Vous aimez ?",
+     "en": "Do you like it?",
+     "id": "co044"
+    }
+   ]
+  },
+  {
+   "id": "les-casques",
+   "fr": "Les casques",
+   "title": "The hood dryers",
+   "intro": "Now, the hood dryers.",
+   "introId": "co-les-casques",
+   "items": [
+    {
+     "fr": "Le casque.",
+     "en": "The hood dryer.",
+     "id": "co045"
+    },
+    {
+     "fr": "Je mets le casque.",
+     "en": "I put on the dryer.",
+     "id": "co046"
+    },
+    {
+     "fr": "Il fait chaud.",
+     "en": "It's hot.",
+     "id": "co047"
+    },
+    {
+     "fr": "Les cheveux sont secs.",
+     "en": "The hair is dry.",
+     "id": "co048"
+    },
+    {
+     "fr": "Les cheveux sont mouillés.",
+     "en": "The hair is wet.",
+     "id": "co049"
+    },
+    {
+     "fr": "Encore dix minutes.",
+     "en": "Ten more minutes.",
+     "id": "co050"
+    },
+    {
+     "fr": "Les photos au mur.",
+     "en": "The photos on the wall.",
+     "id": "co051"
+    },
+    {
+     "fr": "Quelle belle coiffure !",
+     "en": "What a beautiful hairstyle!",
+     "id": "co052"
+    }
+   ]
+  },
+  {
+   "id": "les-produits",
+   "fr": "Les produits",
+   "title": "The products",
+   "intro": "Now, the hair products.",
+   "introId": "co-les-produits",
+   "items": [
+    {
+     "fr": "Les produits.",
+     "en": "The products.",
+     "id": "co053"
+    },
+    {
+     "fr": "La bouteille.",
+     "en": "The bottle.",
+     "id": "co054"
+    },
+    {
+     "fr": "La crème.",
+     "en": "The cream.",
+     "id": "co055"
+    },
+    {
+     "fr": "L'huile pour les cheveux.",
+     "en": "The hair oil.",
+     "id": "co056"
+    },
+    {
+     "fr": "C'est pour les cheveux secs.",
+     "en": "It's for dry hair.",
+     "id": "co057"
+    },
+    {
+     "fr": "C'est combien ?",
+     "en": "How much is it?",
+     "id": "co058"
+    },
+    {
+     "fr": "Je prends celui-ci.",
+     "en": "I'll take this one.",
+     "id": "co059"
+    },
+    {
+     "fr": "Je cherche un shampoing doux.",
+     "en": "I'm looking for a gentle shampoo.",
+     "id": "co060"
+    }
+   ]
+  },
+  {
+   "id": "la-salle-de-soin",
+   "fr": "La salle de soin",
+   "title": "The treatment room",
+   "intro": "Now, the treatment room.",
+   "introId": "co-la-salle-de-soin",
+   "items": [
+    {
+     "fr": "La salle de soin.",
+     "en": "The treatment room.",
+     "id": "co061"
+    },
+    {
+     "fr": "Le lit.",
+     "en": "The bed.",
+     "id": "co062"
+    },
+    {
+     "fr": "Le massage.",
+     "en": "The massage.",
+     "id": "co063"
+    },
+    {
+     "fr": "Le soin du visage.",
+     "en": "The facial.",
+     "id": "co064"
+    },
+    {
+     "fr": "La lampe ronde.",
+     "en": "The round lamp.",
+     "id": "co065"
+    },
+    {
+     "fr": "Je m'allonge.",
+     "en": "I lie down.",
+     "id": "co066"
+    },
+    {
+     "fr": "C'est très relaxant.",
+     "en": "It's very relaxing.",
+     "id": "co067"
+    },
+    {
+     "fr": "Je me sens bien.",
+     "en": "I feel good.",
+     "id": "co068"
+    }
+   ]
+  },
+  {
+   "id": "les-ongles",
+   "fr": "Les ongles",
+   "title": "The nails",
+   "intro": "Now, the nail bar.",
+   "introId": "co-les-ongles",
+   "items": [
+    {
+     "fr": "Les ongles.",
+     "en": "The nails.",
+     "id": "co069"
+    },
+    {
+     "fr": "Le vernis.",
+     "en": "The nail polish.",
+     "id": "co070"
+    },
+    {
+     "fr": "Le vernis rouge.",
+     "en": "The red nail polish.",
+     "id": "co071"
+    },
+    {
+     "fr": "La manucure.",
+     "en": "The manicure.",
+     "id": "co072"
+    },
+    {
+     "fr": "La table de manucure.",
+     "en": "The manicure table.",
+     "id": "co073"
+    },
+    {
+     "fr": "Quelle couleur ?",
+     "en": "Which colour?",
+     "id": "co074"
+    },
+    {
+     "fr": "Rose ou rouge ?",
+     "en": "Pink or red?",
+     "id": "co075"
+    },
+    {
+     "fr": "Mes ongles sont jolis.",
+     "en": "My nails look pretty.",
+     "id": "co076"
+    }
+   ]
+  },
+  {
+   "id": "les-extensions",
+   "fr": "Les perruques et les extensions",
+   "title": "Wigs and extensions",
+   "intro": "Last, the wigs and extensions.",
+   "introId": "co-les-extensions",
+   "items": [
+    {
+     "fr": "La perruque.",
+     "en": "The wig.",
+     "id": "co077"
+    },
+    {
+     "fr": "Les extensions.",
+     "en": "The extensions.",
+     "id": "co078"
+    },
+    {
+     "fr": "Les cheveux longs.",
+     "en": "Long hair.",
+     "id": "co079"
+    },
+    {
+     "fr": "Les cheveux courts.",
+     "en": "Short hair.",
+     "id": "co080"
+    },
+    {
+     "fr": "Les cheveux noirs.",
+     "en": "Black hair.",
+     "id": "co081"
+    },
+    {
+     "fr": "Les cheveux bouclés.",
+     "en": "Curly hair.",
+     "id": "co082"
+    },
+    {
+     "fr": "Les cheveux lisses.",
+     "en": "Straight hair.",
+     "id": "co083"
+    },
+    {
+     "fr": "Elle essaie une perruque.",
+     "en": "She tries on a wig.",
+     "id": "co084"
+    },
+    {
+     "fr": "Ça te va bien.",
+     "en": "It suits you.",
+     "id": "co085"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "co-au-revoir",
+   "items": [
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "co086"
+    },
+    {
+     "fr": "Vous êtes magnifique !",
+     "en": "You look wonderful!",
+     "id": "co087"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "co088"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "co089"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "co090"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "co091"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "co092"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "co-final",
+   "text": "Bravo! You've spoken French all through the hair salon. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "co-final"
+}

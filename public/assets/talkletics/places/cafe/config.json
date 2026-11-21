@@ -1,0 +1,651 @@
+{
+ "slug": "cafe",
+ "name": "Café",
+ "fr": "Le café",
+ "order": 11,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     822,
+     925
+    ],
+    "door": [
+     822,
+     705
+    ],
+    "in": [
+     822,
+     612
+    ],
+    "l": [
+     425,
+     612
+    ],
+    "g1": [
+     635,
+     612
+    ],
+    "r1": [
+     1075,
+     612
+    ],
+    "bs": [
+     425,
+     455
+    ],
+    "t1": [
+     425,
+     285
+    ],
+    "tw": [
+     310,
+     285
+    ],
+    "cA": [
+     560,
+     440
+    ],
+    "m1": [
+     635,
+     440
+    ],
+    "cB": [
+     760,
+     440
+    ],
+    "cC": [
+     950,
+     437
+    ],
+    "tl": [
+     1075,
+     437
+    ]
+   },
+   "e": "out-door door-in in-g1 g1-l in-r1 l-bs bs-t1 t1-tw bs-cA cA-m1 m1-cB cB-cC cC-tl tl-r1 g1-m1",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-menu": [
+     "m1",
+     "cB"
+    ],
+    "les-patisseries": [
+     "cB",
+     "cC"
+    ],
+    "la-caisse": [
+     "cC",
+     "tl"
+    ],
+    "les-tables": [
+     "r1",
+     "g1"
+    ],
+    "le-canape": [
+     "l",
+     "bs"
+    ],
+    "les-toilettes": [
+     "t1",
+     "tw"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     545,
+     1385
+    ],
+    "door": [
+     545,
+     1160
+    ],
+    "in": [
+     545,
+     1040
+    ],
+    "l": [
+     305,
+     1040
+    ],
+    "r1": [
+     755,
+     1040
+    ],
+    "bs": [
+     305,
+     868
+    ],
+    "bu": [
+     305,
+     700
+    ],
+    "t1": [
+     305,
+     345
+    ],
+    "tw": [
+     230,
+     330
+    ],
+    "cA": [
+     400,
+     768
+    ],
+    "cB": [
+     535,
+     768
+    ],
+    "cC": [
+     752,
+     768
+    ],
+    "tl": [
+     860,
+     735
+    ]
+   },
+   "e": "out-door door-in in-l in-r1 in-cB cB-cA cB-cC cC-tl r1-cC l-bs bs-bu bu-t1 t1-tw cA-bu",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-menu": [
+     "cB",
+     "cA"
+    ],
+    "les-patisseries": [
+     "cA",
+     "cB"
+    ],
+    "la-caisse": [
+     "cC",
+     "tl"
+    ],
+    "les-tables": [
+     "r1",
+     "in"
+    ],
+    "le-canape": [
+     "l",
+     "bs"
+    ],
+    "les-toilettes": [
+     "t1",
+     "tw"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "le-menu": [
+   "m1",
+   "cB"
+  ],
+  "les-patisseries": [
+   "cB",
+   "cC"
+  ],
+  "la-caisse": [
+   "cC",
+   "tl"
+  ],
+  "les-tables": [
+   "r1",
+   "g1"
+  ],
+  "le-canape": [
+   "l",
+   "bs"
+  ],
+  "les-toilettes": [
+   "t1",
+   "tw"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the café!",
+   "introId": "ca-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "ca001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "ca002"
+    },
+    {
+     "fr": "Bienvenue au café.",
+     "en": "Welcome to the café.",
+     "id": "ca003"
+    },
+    {
+     "fr": "Une table pour deux, s'il vous plaît.",
+     "en": "A table for two, please.",
+     "id": "ca004"
+    },
+    {
+     "fr": "Asseyez-vous où vous voulez.",
+     "en": "Sit wherever you like.",
+     "id": "ca005"
+    },
+    {
+     "fr": "Merci, c'est gentil.",
+     "en": "Thank you, that's kind.",
+     "id": "ca006"
+    },
+    {
+     "fr": "Il fait chaud ici.",
+     "en": "It's warm in here.",
+     "id": "ca007"
+    },
+    {
+     "fr": "J'aime ce café.",
+     "en": "I like this café.",
+     "id": "ca008"
+    }
+   ]
+  },
+  {
+   "id": "le-menu",
+   "fr": "Le menu",
+   "title": "The menu",
+   "intro": "Now, the menu. Le menu.",
+   "introId": "ca-le-menu",
+   "items": [
+    {
+     "fr": "Le menu.",
+     "en": "The menu.",
+     "id": "ca009"
+    },
+    {
+     "fr": "Le café.",
+     "en": "The coffee.",
+     "id": "ca010"
+    },
+    {
+     "fr": "Le thé.",
+     "en": "The tea.",
+     "id": "ca011"
+    },
+    {
+     "fr": "Le cappuccino.",
+     "en": "The cappuccino.",
+     "id": "ca012"
+    },
+    {
+     "fr": "Le jus frais.",
+     "en": "The fresh juice.",
+     "id": "ca013"
+    },
+    {
+     "fr": "Le smoothie.",
+     "en": "The smoothie.",
+     "id": "ca014"
+    },
+    {
+     "fr": "Le sandwich.",
+     "en": "The sandwich.",
+     "id": "ca015"
+    },
+    {
+     "fr": "Je voudrais un café, s'il vous plaît.",
+     "en": "I would like a coffee, please.",
+     "id": "ca016"
+    },
+    {
+     "fr": "Qu'est-ce que vous prenez ?",
+     "en": "What will you have?",
+     "id": "ca017"
+    },
+    {
+     "fr": "Je prends un thé.",
+     "en": "I'll have a tea.",
+     "id": "ca018"
+    }
+   ]
+  },
+  {
+   "id": "les-patisseries",
+   "fr": "Les pâtisseries",
+   "title": "The pastries",
+   "intro": "Now, the pastry display.",
+   "introId": "ca-les-patisseries",
+   "items": [
+    {
+     "fr": "La vitrine.",
+     "en": "The display case.",
+     "id": "ca019"
+    },
+    {
+     "fr": "Le croissant.",
+     "en": "The croissant.",
+     "id": "ca020"
+    },
+    {
+     "fr": "Le gâteau.",
+     "en": "The cake.",
+     "id": "ca021"
+    },
+    {
+     "fr": "Le beignet.",
+     "en": "The doughnut.",
+     "id": "ca022"
+    },
+    {
+     "fr": "La part de gâteau.",
+     "en": "The slice of cake.",
+     "id": "ca023"
+    },
+    {
+     "fr": "Je voudrais un croissant.",
+     "en": "I would like a croissant.",
+     "id": "ca024"
+    },
+    {
+     "fr": "Il est encore chaud.",
+     "en": "It's still warm.",
+     "id": "ca025"
+    },
+    {
+     "fr": "Avec du sucre ?",
+     "en": "With sugar?",
+     "id": "ca026"
+    },
+    {
+     "fr": "Sans sucre, merci.",
+     "en": "No sugar, thank you.",
+     "id": "ca027"
+    }
+   ]
+  },
+  {
+   "id": "la-caisse",
+   "fr": "La caisse",
+   "title": "The till",
+   "intro": "Now, the till. La caisse.",
+   "introId": "ca-la-caisse",
+   "items": [
+    {
+     "fr": "La caisse.",
+     "en": "The till.",
+     "id": "ca028"
+    },
+    {
+     "fr": "L'addition.",
+     "en": "The bill.",
+     "id": "ca029"
+    },
+    {
+     "fr": "Ça fait dix-huit.",
+     "en": "That's eighteen.",
+     "id": "ca030"
+    },
+    {
+     "fr": "Je paie par carte.",
+     "en": "I pay by card.",
+     "id": "ca031"
+    },
+    {
+     "fr": "Je paie en espèces.",
+     "en": "I pay in cash.",
+     "id": "ca032"
+    },
+    {
+     "fr": "Voici la monnaie.",
+     "en": "Here is the change.",
+     "id": "ca033"
+    },
+    {
+     "fr": "Le reçu.",
+     "en": "The receipt.",
+     "id": "ca034"
+    },
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "ca035"
+    }
+   ]
+  },
+  {
+   "id": "les-tables",
+   "fr": "Les tables",
+   "title": "The tables",
+   "intro": "Now, the tables.",
+   "introId": "ca-les-tables",
+   "items": [
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "ca036"
+    },
+    {
+     "fr": "La chaise verte.",
+     "en": "The green chair.",
+     "id": "ca037"
+    },
+    {
+     "fr": "Le bouquet.",
+     "en": "The bouquet.",
+     "id": "ca038"
+    },
+    {
+     "fr": "La table est ronde.",
+     "en": "The table is round.",
+     "id": "ca039"
+    },
+    {
+     "fr": "La table est carrée.",
+     "en": "The table is square.",
+     "id": "ca040"
+    },
+    {
+     "fr": "Je m'assois ici.",
+     "en": "I sit here.",
+     "id": "ca041"
+    },
+    {
+     "fr": "Il y a quatre chaises.",
+     "en": "There are four chairs.",
+     "id": "ca042"
+    },
+    {
+     "fr": "On boit un café.",
+     "en": "We drink a coffee.",
+     "id": "ca043"
+    }
+   ]
+  },
+  {
+   "id": "le-canape",
+   "fr": "Le canapé",
+   "title": "The sofa",
+   "intro": "Now, the comfy sofa.",
+   "introId": "ca-le-canape",
+   "items": [
+    {
+     "fr": "Le canapé.",
+     "en": "The sofa.",
+     "id": "ca044"
+    },
+    {
+     "fr": "Le coussin jaune.",
+     "en": "The yellow cushion.",
+     "id": "ca045"
+    },
+    {
+     "fr": "Le canapé est confortable.",
+     "en": "The sofa is comfortable.",
+     "id": "ca046"
+    },
+    {
+     "fr": "Je lis un livre.",
+     "en": "I read a book.",
+     "id": "ca047"
+    },
+    {
+     "fr": "Je discute avec une amie.",
+     "en": "I chat with a friend.",
+     "id": "ca048"
+    },
+    {
+     "fr": "Je suis bien ici.",
+     "en": "I feel good here.",
+     "id": "ca049"
+    },
+    {
+     "fr": "Le tableau est joli.",
+     "en": "The painting is pretty.",
+     "id": "ca050"
+    }
+   ]
+  },
+  {
+   "id": "les-toilettes",
+   "fr": "Les toilettes",
+   "title": "The toilets",
+   "intro": "Now, the toilets.",
+   "introId": "ca-les-toilettes",
+   "items": [
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilets.",
+     "id": "ca051"
+    },
+    {
+     "fr": "Où sont les toilettes ?",
+     "en": "Where are the toilets?",
+     "id": "ca052"
+    },
+    {
+     "fr": "C'est là-bas.",
+     "en": "It's over there.",
+     "id": "ca053"
+    },
+    {
+     "fr": "À gauche.",
+     "en": "On the left.",
+     "id": "ca054"
+    },
+    {
+     "fr": "À droite.",
+     "en": "On the right.",
+     "id": "ca055"
+    },
+    {
+     "fr": "Tout droit.",
+     "en": "Straight ahead.",
+     "id": "ca056"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "ca057"
+    },
+    {
+     "fr": "Le savon.",
+     "en": "The soap.",
+     "id": "ca058"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "ca-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour le café.",
+     "en": "Thank you for the coffee.",
+     "id": "ca059"
+    },
+    {
+     "fr": "À la prochaine !",
+     "en": "Until next time!",
+     "id": "ca060"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "ca061"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "ca062"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "ca063"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "ca064"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "ca065"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "ca-final",
+   "text": "Bravo! You've visited the whole café and spoken the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "ca-final"
+}

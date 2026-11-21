@@ -1,0 +1,591 @@
+{
+ "slug": "patisserie",
+ "name": "Pâtisserie",
+ "fr": "La pâtisserie",
+ "order": 10,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1671,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     820,
+     915
+    ],
+    "door": [
+     820,
+     790
+    ],
+    "in": [
+     820,
+     705
+    ],
+    "l1": [
+     390,
+     695
+    ],
+    "bt": [
+     392,
+     610
+    ],
+    "ls": [
+     392,
+     500
+    ],
+    "c1": [
+     540,
+     562
+    ],
+    "c2": [
+     830,
+     562
+    ],
+    "c3": [
+     1100,
+     562
+    ],
+    "r1": [
+     1330,
+     700
+    ],
+    "till": [
+     1330,
+     640
+    ],
+    "gf": [
+     1590,
+     610
+    ]
+   },
+   "e": "out-door door-in in-l1 l1-bt bt-ls ls-c1 c1-c2 c2-c3 c3-till till-gf till-r1 r1-in",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-coin-salon": [
+     "l1",
+     "bt",
+     "ls"
+    ],
+    "les-gateaux": [
+     "c1",
+     "c2"
+    ],
+    "les-patisseries": [
+     "c2",
+     "c3"
+    ],
+    "la-caisse": [
+     "c3",
+     "till"
+    ],
+    "les-cadeaux": [
+     "till",
+     "gf"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     540,
+     1400
+    ],
+    "door": [
+     540,
+     1225
+    ],
+    "in": [
+     540,
+     1062
+    ],
+    "a": [
+     440,
+     1062
+    ],
+    "b": [
+     640,
+     1062
+    ],
+    "c1": [
+     440,
+     912
+    ],
+    "c2": [
+     640,
+     912
+    ],
+    "c3": [
+     780,
+     912
+    ],
+    "till": [
+     900,
+     935
+    ],
+    "gf": [
+     1005,
+     930
+    ],
+    "bt": [
+     262,
+     862
+    ],
+    "ls": [
+     262,
+     700
+    ]
+   },
+   "e": "out-door door-in in-a a-c1 in-b b-c2 c1-c2 c2-c3 c3-till till-gf c1-bt bt-ls",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "le-coin-salon": [
+     "a",
+     "bt",
+     "ls"
+    ],
+    "les-gateaux": [
+     "c1",
+     "c2"
+    ],
+    "les-patisseries": [
+     "c2",
+     "c3"
+    ],
+    "la-caisse": [
+     "c3",
+     "till"
+    ],
+    "les-cadeaux": [
+     "till",
+     "gf"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "le-coin-salon": [
+   "l1",
+   "bt",
+   "ls"
+  ],
+  "les-gateaux": [
+   "c1",
+   "c2"
+  ],
+  "les-patisseries": [
+   "c2",
+   "c3"
+  ],
+  "la-caisse": [
+   "c3",
+   "till"
+  ],
+  "les-cadeaux": [
+   "till",
+   "gf"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the pastry shop!",
+   "introId": "pa-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "pa001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "pa002"
+    },
+    {
+     "fr": "Bienvenue à la pâtisserie.",
+     "en": "Welcome to the pastry shop.",
+     "id": "pa003"
+    },
+    {
+     "fr": "Ça sent bon ici !",
+     "en": "It smells good in here!",
+     "id": "pa004"
+    },
+    {
+     "fr": "Je voudrais regarder.",
+     "en": "I would like to look.",
+     "id": "pa005"
+    },
+    {
+     "fr": "Prenez votre temps.",
+     "en": "Take your time.",
+     "id": "pa006"
+    },
+    {
+     "fr": "Tout a l'air délicieux.",
+     "en": "Everything looks delicious.",
+     "id": "pa007"
+    },
+    {
+     "fr": "C'est la meilleure pâtisserie de la ville.",
+     "en": "It's the best pastry shop in town.",
+     "id": "pa008"
+    }
+   ]
+  },
+  {
+   "id": "le-coin-salon",
+   "fr": "Le coin salon",
+   "title": "The seating corner",
+   "intro": "First, the cosy seating corner.",
+   "introId": "pa-le-coin-salon",
+   "items": [
+    {
+     "fr": "Le canapé rose.",
+     "en": "The pink sofa.",
+     "id": "pa009"
+    },
+    {
+     "fr": "La table ronde.",
+     "en": "The round table.",
+     "id": "pa010"
+    },
+    {
+     "fr": "La chaise.",
+     "en": "The chair.",
+     "id": "pa011"
+    },
+    {
+     "fr": "Le vase de fleurs.",
+     "en": "The vase of flowers.",
+     "id": "pa012"
+    },
+    {
+     "fr": "Le tableau.",
+     "en": "The picture.",
+     "id": "pa013"
+    },
+    {
+     "fr": "Je m'assois ici.",
+     "en": "I sit here.",
+     "id": "pa014"
+    },
+    {
+     "fr": "Cette table est libre.",
+     "en": "This table is free.",
+     "id": "pa015"
+    },
+    {
+     "fr": "On est bien ici.",
+     "en": "It's nice here.",
+     "id": "pa016"
+    }
+   ]
+  },
+  {
+   "id": "les-gateaux",
+   "fr": "Les gâteaux",
+   "title": "The cakes",
+   "intro": "Now, the cakes. Les gâteaux.",
+   "introId": "pa-les-gateaux",
+   "items": [
+    {
+     "fr": "Le gâteau.",
+     "en": "The cake.",
+     "id": "pa017"
+    },
+    {
+     "fr": "Le gâteau au chocolat.",
+     "en": "The chocolate cake.",
+     "id": "pa018"
+    },
+    {
+     "fr": "Le gâteau aux fraises.",
+     "en": "The strawberry cake.",
+     "id": "pa019"
+    },
+    {
+     "fr": "Le gâteau à la vanille.",
+     "en": "The vanilla cake.",
+     "id": "pa020"
+    },
+    {
+     "fr": "La part de gâteau.",
+     "en": "The slice of cake.",
+     "id": "pa021"
+    },
+    {
+     "fr": "Je voudrais une part.",
+     "en": "I would like a slice.",
+     "id": "pa022"
+    },
+    {
+     "fr": "Il est grand.",
+     "en": "It's big.",
+     "id": "pa023"
+    },
+    {
+     "fr": "C'est pour un anniversaire.",
+     "en": "It's for a birthday.",
+     "id": "pa024"
+    },
+    {
+     "fr": "Il est très beau.",
+     "en": "It's very pretty.",
+     "id": "pa025"
+    }
+   ]
+  },
+  {
+   "id": "les-patisseries",
+   "fr": "Les pâtisseries",
+   "title": "The pastries",
+   "intro": "Now, the little pastries.",
+   "introId": "pa-les-patisseries",
+   "items": [
+    {
+     "fr": "Les petits gâteaux.",
+     "en": "The little cakes.",
+     "id": "pa026"
+    },
+    {
+     "fr": "Le macaron.",
+     "en": "The macaron.",
+     "id": "pa027"
+    },
+    {
+     "fr": "Le cupcake.",
+     "en": "The cupcake.",
+     "id": "pa028"
+    },
+    {
+     "fr": "La tartelette aux fruits.",
+     "en": "The fruit tartlet.",
+     "id": "pa029"
+    },
+    {
+     "fr": "L'éclair.",
+     "en": "The éclair.",
+     "id": "pa030"
+    },
+    {
+     "fr": "Les croissants.",
+     "en": "The croissants.",
+     "id": "pa031"
+    },
+    {
+     "fr": "Je prends trois macarons.",
+     "en": "I'll take three macarons.",
+     "id": "pa032"
+    },
+    {
+     "fr": "Un éclair au café, s'il vous plaît.",
+     "en": "A coffee éclair, please.",
+     "id": "pa033"
+    },
+    {
+     "fr": "Quel parfum ?",
+     "en": "Which flavour?",
+     "id": "pa034"
+    },
+    {
+     "fr": "Rose ou citron ?",
+     "en": "Rose or lemon?",
+     "id": "pa035"
+    }
+   ]
+  },
+  {
+   "id": "la-caisse",
+   "fr": "La caisse",
+   "title": "The till",
+   "intro": "Now, the till. La caisse.",
+   "introId": "pa-la-caisse",
+   "items": [
+    {
+     "fr": "La caisse.",
+     "en": "The till.",
+     "id": "pa036"
+    },
+    {
+     "fr": "La vendeuse.",
+     "en": "The shop assistant.",
+     "id": "pa037"
+    },
+    {
+     "fr": "Le sac.",
+     "en": "The bag.",
+     "id": "pa038"
+    },
+    {
+     "fr": "La boîte.",
+     "en": "The box.",
+     "id": "pa039"
+    },
+    {
+     "fr": "C'est combien ?",
+     "en": "How much is it?",
+     "id": "pa040"
+    },
+    {
+     "fr": "Ça fait douze euros.",
+     "en": "That's twelve euros.",
+     "id": "pa041"
+    },
+    {
+     "fr": "Je paie par carte.",
+     "en": "I pay by card.",
+     "id": "pa042"
+    },
+    {
+     "fr": "Voici votre monnaie.",
+     "en": "Here is your change.",
+     "id": "pa043"
+    },
+    {
+     "fr": "Merci, bonne journée.",
+     "en": "Thank you, have a good day.",
+     "id": "pa044"
+    }
+   ]
+  },
+  {
+   "id": "les-cadeaux",
+   "fr": "Les cadeaux",
+   "title": "The gifts",
+   "intro": "Now, the gift shelves.",
+   "introId": "pa-les-cadeaux",
+   "items": [
+    {
+     "fr": "Les cadeaux.",
+     "en": "The gifts.",
+     "id": "pa045"
+    },
+    {
+     "fr": "Le paquet.",
+     "en": "The parcel.",
+     "id": "pa046"
+    },
+    {
+     "fr": "Le ruban.",
+     "en": "The ribbon.",
+     "id": "pa047"
+    },
+    {
+     "fr": "La boîte rose.",
+     "en": "The pink box.",
+     "id": "pa048"
+    },
+    {
+     "fr": "C'est pour toi.",
+     "en": "It's for you.",
+     "id": "pa049"
+    },
+    {
+     "fr": "Je cherche un cadeau.",
+     "en": "I'm looking for a gift.",
+     "id": "pa050"
+    },
+    {
+     "fr": "Joyeux anniversaire !",
+     "en": "Happy birthday!",
+     "id": "pa051"
+    },
+    {
+     "fr": "C'est une surprise.",
+     "en": "It's a surprise.",
+     "id": "pa052"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "pa-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour les gâteaux.",
+     "en": "Thank you for the cakes.",
+     "id": "pa053"
+    },
+    {
+     "fr": "Régalez-vous !",
+     "en": "Enjoy!",
+     "id": "pa054"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "pa055"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "pa056"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "pa057"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "pa058"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "pa059"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "pa-final",
+   "text": "Bravo! You've visited the whole pastry shop and spoken the entire way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "pa-final"
+}

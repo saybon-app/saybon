@@ -1,0 +1,942 @@
+{
+ "slug": "salle-de-sport",
+ "name": "Salle de sport",
+ "fr": "La salle de sport",
+ "order": 18,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     825,
+     914
+    ],
+    "door": [
+     825,
+     786
+    ],
+    "in": [
+     825,
+     736
+    ],
+    "l0": [
+     557,
+     719
+    ],
+    "m1": [
+     691,
+     722
+    ],
+    "m2": [
+     870,
+     722
+    ],
+    "m3": [
+     1003,
+     722
+    ],
+    "m4": [
+     1148,
+     722
+    ],
+    "r0": [
+     1260,
+     719
+    ],
+    "wc": [
+     1427,
+     736
+    ],
+    "lk": [
+     557,
+     658
+    ],
+    "lk2": [
+     557,
+     585
+    ],
+    "g0": [
+     557,
+     557
+    ],
+    "g1": [
+     660,
+     557
+    ],
+    "g2": [
+     660,
+     446
+    ],
+    "g3": [
+     660,
+     357
+    ],
+    "tm": [
+     691,
+     279
+    ],
+    "tm2": [
+     819,
+     276
+    ],
+    "bk": [
+     970,
+     273
+    ],
+    "bk2": [
+     1115,
+     273
+    ],
+    "rw": [
+     1249,
+     262
+    ],
+    "y1": [
+     412,
+     557
+    ],
+    "yo": [
+     412,
+     446
+    ],
+    "yo2": [
+     412,
+     357
+    ],
+    "lg": [
+     396,
+     229
+    ],
+    "r1": [
+     1260,
+     602
+    ],
+    "wt": [
+     1137,
+     468
+    ],
+    "db": [
+     1405,
+     580
+    ]
+   },
+   "e": "out-door door-in in-m1 in-m2 l0-m1 m2-m3 m3-m4 m4-r0 r0-wc l0-lk lk-lk2 lk2-g0 g0-g1 g1-g2 g2-g3 g3-tm tm-tm2 tm2-bk bk-bk2 bk2-rw g0-y1 y1-yo yo-yo2 yo2-lg r0-r1 r1-wt r1-db",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-tapis-de-course": [
+     "tm",
+     "tm2"
+    ],
+    "les-velos": [
+     "bk",
+     "bk2"
+    ],
+    "le-rameur": [
+     "rw"
+    ],
+    "les-machines": [
+     "m1",
+     "m2",
+     "m3",
+     "m4"
+    ],
+    "les-poids": [
+     "wt",
+     "db"
+    ],
+    "le-yoga": [
+     "yo",
+     "yo2"
+    ],
+    "le-vestiaire": [
+     "lk",
+     "lk2"
+    ],
+    "la-fontaine": [
+     "wc"
+    ],
+    "le-coin-detente": [
+     "lg"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     541,
+     1351
+    ],
+    "door": [
+     541,
+     1207
+    ],
+    "in": [
+     541,
+     1153
+    ],
+    "l0": [
+     405,
+     1096
+    ],
+    "m1": [
+     454,
+     1091
+    ],
+    "vb": [
+     538,
+     1091
+    ],
+    "m2": [
+     569,
+     1091
+    ],
+    "m3": [
+     676,
+     1091
+    ],
+    "m4": [
+     820,
+     1052
+    ],
+    "wc": [
+     994,
+     1057
+    ],
+    "lk": [
+     396,
+     965
+    ],
+    "lk2": [
+     396,
+     898
+    ],
+    "g0": [
+     396,
+     849
+    ],
+    "yb": [
+     333,
+     830
+    ],
+    "yo": [
+     333,
+     676
+    ],
+    "yo2": [
+     333,
+     502
+    ],
+    "tm": [
+     333,
+     372
+    ],
+    "tm2": [
+     463,
+     367
+    ],
+    "tmb": [
+     569,
+     372
+    ],
+    "bk": [
+     666,
+     372
+    ],
+    "bk2": [
+     763,
+     372
+    ],
+    "rw": [
+     869,
+     352
+    ],
+    "lg": [
+     183,
+     359
+    ],
+    "v1": [
+     538,
+     869
+    ],
+    "v2": [
+     569,
+     830
+    ],
+    "v3": [
+     569,
+     618
+    ],
+    "wt": [
+     700,
+     830
+    ],
+    "db": [
+     946,
+     840
+    ]
+   },
+   "e": "out-door door-in in-m2 l0-m1 m1-vb vb-m2 m2-m3 m3-m4 m4-wc l0-lk lk-lk2 lk2-g0 g0-yb yb-yo yo-yo2 yo2-tm tm-lg tm-tm2 tm2-tmb tmb-bk bk-bk2 bk2-rw vb-v1 v1-v2 v2-v3 v3-tmb v2-wt wt-db",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-tapis-de-course": [
+     "tm",
+     "tm2"
+    ],
+    "les-velos": [
+     "bk",
+     "bk2"
+    ],
+    "le-rameur": [
+     "rw"
+    ],
+    "les-machines": [
+     "m1",
+     "m2",
+     "m3",
+     "m4"
+    ],
+    "les-poids": [
+     "wt",
+     "db"
+    ],
+    "le-yoga": [
+     "yo",
+     "yo2"
+    ],
+    "le-vestiaire": [
+     "lk",
+     "lk2"
+    ],
+    "la-fontaine": [
+     "wc"
+    ],
+    "le-coin-detente": [
+     "lg"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "les-tapis-de-course": [
+   "tm",
+   "tm2"
+  ],
+  "les-velos": [
+   "bk",
+   "bk2"
+  ],
+  "le-rameur": [
+   "rw"
+  ],
+  "les-machines": [
+   "m1",
+   "m2",
+   "m3",
+   "m4"
+  ],
+  "les-poids": [
+   "wt",
+   "db"
+  ],
+  "le-yoga": [
+   "yo",
+   "yo2"
+  ],
+  "le-vestiaire": [
+   "lk",
+   "lk2"
+  ],
+  "la-fontaine": [
+   "wc"
+  ],
+  "le-coin-detente": [
+   "lg"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the gym!",
+   "introId": "sp-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "sp001"
+    },
+    {
+     "fr": "Bienvenue à la salle de sport.",
+     "en": "Welcome to the gym.",
+     "id": "sp002"
+    },
+    {
+     "fr": "Vous avez un abonnement ?",
+     "en": "Do you have a membership?",
+     "id": "sp003"
+    },
+    {
+     "fr": "Oui, voici ma carte.",
+     "en": "Yes, here is my card.",
+     "id": "sp004"
+    },
+    {
+     "fr": "Je viens m'entraîner.",
+     "en": "I've come to work out.",
+     "id": "sp005"
+    },
+    {
+     "fr": "Je fais du sport trois fois par semaine.",
+     "en": "I do sport three times a week.",
+     "id": "sp006"
+    },
+    {
+     "fr": "Je veux être en forme.",
+     "en": "I want to be fit.",
+     "id": "sp007"
+    },
+    {
+     "fr": "La salle est grande.",
+     "en": "The gym is big.",
+     "id": "sp008"
+    }
+   ]
+  },
+  {
+   "id": "les-tapis-de-course",
+   "fr": "Les tapis de course",
+   "title": "The treadmills",
+   "intro": "First, the treadmills.",
+   "introId": "sp-les-tapis-de-course",
+   "items": [
+    {
+     "fr": "Le tapis de course.",
+     "en": "The treadmill.",
+     "id": "sp009"
+    },
+    {
+     "fr": "Je cours.",
+     "en": "I run.",
+     "id": "sp010"
+    },
+    {
+     "fr": "Je marche vite.",
+     "en": "I walk fast.",
+     "id": "sp011"
+    },
+    {
+     "fr": "L'écran.",
+     "en": "The screen.",
+     "id": "sp012"
+    },
+    {
+     "fr": "Je cours vingt minutes.",
+     "en": "I run for twenty minutes.",
+     "id": "sp013"
+    },
+    {
+     "fr": "Je suis fatigué.",
+     "en": "I'm tired.",
+     "id": "sp014"
+    },
+    {
+     "fr": "Je suis essoufflé.",
+     "en": "I'm out of breath.",
+     "id": "sp015"
+    },
+    {
+     "fr": "C'est bon pour le cœur.",
+     "en": "It's good for the heart.",
+     "id": "sp016"
+    }
+   ]
+  },
+  {
+   "id": "les-velos",
+   "fr": "Les vélos",
+   "title": "The bikes",
+   "intro": "Now, the exercise bikes.",
+   "introId": "sp-les-velos",
+   "items": [
+    {
+     "fr": "Le vélo.",
+     "en": "The bike.",
+     "id": "sp017"
+    },
+    {
+     "fr": "Le vélo elliptique.",
+     "en": "The cross trainer.",
+     "id": "sp018"
+    },
+    {
+     "fr": "Je pédale.",
+     "en": "I pedal.",
+     "id": "sp019"
+    },
+    {
+     "fr": "Je pédale doucement.",
+     "en": "I pedal slowly.",
+     "id": "sp020"
+    },
+    {
+     "fr": "Je pédale vite.",
+     "en": "I pedal fast.",
+     "id": "sp021"
+    },
+    {
+     "fr": "Mes jambes sont fortes.",
+     "en": "My legs are strong.",
+     "id": "sp022"
+    },
+    {
+     "fr": "Encore cinq minutes.",
+     "en": "Five more minutes.",
+     "id": "sp023"
+    }
+   ]
+  },
+  {
+   "id": "le-rameur",
+   "fr": "Le rameur",
+   "title": "The rowing machine",
+   "intro": "Now, the rowing machine.",
+   "introId": "sp-le-rameur",
+   "items": [
+    {
+     "fr": "Le rameur.",
+     "en": "The rowing machine.",
+     "id": "sp024"
+    },
+    {
+     "fr": "Je rame.",
+     "en": "I row.",
+     "id": "sp025"
+    },
+    {
+     "fr": "Je tire avec les bras.",
+     "en": "I pull with my arms.",
+     "id": "sp026"
+    },
+    {
+     "fr": "Je pousse avec les jambes.",
+     "en": "I push with my legs.",
+     "id": "sp027"
+    },
+    {
+     "fr": "Le dos.",
+     "en": "The back.",
+     "id": "sp028"
+    },
+    {
+     "fr": "J'ai mal au dos.",
+     "en": "My back hurts.",
+     "id": "sp029"
+    },
+    {
+     "fr": "Respirez.",
+     "en": "Breathe.",
+     "id": "sp030"
+    }
+   ]
+  },
+  {
+   "id": "les-machines",
+   "fr": "Les machines de musculation",
+   "title": "The weight machines",
+   "intro": "Now, the weight machines.",
+   "introId": "sp-les-machines",
+   "items": [
+    {
+     "fr": "La machine.",
+     "en": "The machine.",
+     "id": "sp031"
+    },
+    {
+     "fr": "Le siège.",
+     "en": "The seat.",
+     "id": "sp032"
+    },
+    {
+     "fr": "Les bras.",
+     "en": "The arms.",
+     "id": "sp033"
+    },
+    {
+     "fr": "Les jambes.",
+     "en": "The legs.",
+     "id": "sp034"
+    },
+    {
+     "fr": "Les épaules.",
+     "en": "The shoulders.",
+     "id": "sp035"
+    },
+    {
+     "fr": "La poitrine.",
+     "en": "The chest.",
+     "id": "sp036"
+    },
+    {
+     "fr": "Je règle le siège.",
+     "en": "I adjust the seat.",
+     "id": "sp037"
+    },
+    {
+     "fr": "Dix répétitions.",
+     "en": "Ten repetitions.",
+     "id": "sp038"
+    },
+    {
+     "fr": "Trois séries.",
+     "en": "Three sets.",
+     "id": "sp039"
+    },
+    {
+     "fr": "C'est trop lourd.",
+     "en": "It's too heavy.",
+     "id": "sp040"
+    }
+   ]
+  },
+  {
+   "id": "les-poids",
+   "fr": "Les poids et les haltères",
+   "title": "Weights and dumbbells",
+   "intro": "Now, the free weights.",
+   "introId": "sp-les-poids",
+   "items": [
+    {
+     "fr": "Les poids.",
+     "en": "The weights.",
+     "id": "sp041"
+    },
+    {
+     "fr": "L'haltère.",
+     "en": "The dumbbell.",
+     "id": "sp042"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "sp043"
+    },
+    {
+     "fr": "Les ballons lestés.",
+     "en": "The medicine balls.",
+     "id": "sp044"
+    },
+    {
+     "fr": "Je soulève des poids.",
+     "en": "I lift weights.",
+     "id": "sp045"
+    },
+    {
+     "fr": "Je prends cinq kilos.",
+     "en": "I take five kilos.",
+     "id": "sp046"
+    },
+    {
+     "fr": "Je suis fort.",
+     "en": "I'm strong.",
+     "id": "sp047"
+    },
+    {
+     "fr": "Je repose les haltères.",
+     "en": "I put the dumbbells back.",
+     "id": "sp048"
+    }
+   ]
+  },
+  {
+   "id": "le-yoga",
+   "fr": "La salle de yoga",
+   "title": "The yoga studio",
+   "intro": "Now, the yoga studio.",
+   "introId": "sp-le-yoga",
+   "items": [
+    {
+     "fr": "Le yoga.",
+     "en": "Yoga.",
+     "id": "sp049"
+    },
+    {
+     "fr": "Le tapis de yoga.",
+     "en": "The yoga mat.",
+     "id": "sp050"
+    },
+    {
+     "fr": "Le ballon.",
+     "en": "The ball.",
+     "id": "sp051"
+    },
+    {
+     "fr": "La bouteille d'eau.",
+     "en": "The water bottle.",
+     "id": "sp052"
+    },
+    {
+     "fr": "La serviette.",
+     "en": "The towel.",
+     "id": "sp053"
+    },
+    {
+     "fr": "Je m'étire.",
+     "en": "I stretch.",
+     "id": "sp054"
+    },
+    {
+     "fr": "Je respire doucement.",
+     "en": "I breathe slowly.",
+     "id": "sp055"
+    },
+    {
+     "fr": "Je ferme les yeux.",
+     "en": "I close my eyes.",
+     "id": "sp056"
+    },
+    {
+     "fr": "Je me sens calme.",
+     "en": "I feel calm.",
+     "id": "sp057"
+    }
+   ]
+  },
+  {
+   "id": "le-vestiaire",
+   "fr": "Le vestiaire",
+   "title": "The changing room",
+   "intro": "Now, the changing room.",
+   "introId": "sp-le-vestiaire",
+   "items": [
+    {
+     "fr": "Le vestiaire.",
+     "en": "The changing room.",
+     "id": "sp058"
+    },
+    {
+     "fr": "Le casier.",
+     "en": "The locker.",
+     "id": "sp059"
+    },
+    {
+     "fr": "La douche.",
+     "en": "The shower.",
+     "id": "sp060"
+    },
+    {
+     "fr": "La serviette blanche.",
+     "en": "The white towel.",
+     "id": "sp061"
+    },
+    {
+     "fr": "Le banc.",
+     "en": "The bench.",
+     "id": "sp062"
+    },
+    {
+     "fr": "Je range mes affaires.",
+     "en": "I put my things away.",
+     "id": "sp063"
+    },
+    {
+     "fr": "Je prends une douche.",
+     "en": "I take a shower.",
+     "id": "sp064"
+    },
+    {
+     "fr": "L'eau est chaude.",
+     "en": "The water is hot.",
+     "id": "sp065"
+    },
+    {
+     "fr": "Je ferme le casier.",
+     "en": "I lock the locker.",
+     "id": "sp066"
+    }
+   ]
+  },
+  {
+   "id": "la-fontaine",
+   "fr": "La fontaine à eau",
+   "title": "The water cooler",
+   "intro": "Now, the water and towels.",
+   "introId": "sp-la-fontaine",
+   "items": [
+    {
+     "fr": "La fontaine à eau.",
+     "en": "The water cooler.",
+     "id": "sp067"
+    },
+    {
+     "fr": "La bouteille.",
+     "en": "The bottle.",
+     "id": "sp068"
+    },
+    {
+     "fr": "Les fruits.",
+     "en": "The fruit.",
+     "id": "sp069"
+    },
+    {
+     "fr": "Les serviettes.",
+     "en": "The towels.",
+     "id": "sp070"
+    },
+    {
+     "fr": "J'ai soif.",
+     "en": "I'm thirsty.",
+     "id": "sp071"
+    },
+    {
+     "fr": "Je bois de l'eau.",
+     "en": "I drink water.",
+     "id": "sp072"
+    },
+    {
+     "fr": "Je mange une pomme.",
+     "en": "I eat an apple.",
+     "id": "sp073"
+    },
+    {
+     "fr": "L'eau est fraîche.",
+     "en": "The water is cool.",
+     "id": "sp074"
+    }
+   ]
+  },
+  {
+   "id": "le-coin-detente",
+   "fr": "Le coin détente",
+   "title": "The lounge",
+   "intro": "Last, the lounge area.",
+   "introId": "sp-le-coin-detente",
+   "items": [
+    {
+     "fr": "Le canapé jaune.",
+     "en": "The yellow sofa.",
+     "id": "sp075"
+    },
+    {
+     "fr": "Le fauteuil.",
+     "en": "The armchair.",
+     "id": "sp076"
+    },
+    {
+     "fr": "La table basse.",
+     "en": "The coffee table.",
+     "id": "sp077"
+    },
+    {
+     "fr": "Je me repose.",
+     "en": "I rest.",
+     "id": "sp078"
+    },
+    {
+     "fr": "Je me détends.",
+     "en": "I relax.",
+     "id": "sp079"
+    },
+    {
+     "fr": "C'était une bonne séance.",
+     "en": "It was a good session.",
+     "id": "sp080"
+    },
+    {
+     "fr": "Je suis content.",
+     "en": "I'm happy.",
+     "id": "sp081"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "sp-au-revoir",
+   "items": [
+    {
+     "fr": "Bon entraînement.",
+     "en": "Have a good workout.",
+     "id": "sp082"
+    },
+    {
+     "fr": "À demain à la salle.",
+     "en": "See you tomorrow at the gym.",
+     "id": "sp083"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "sp084"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "sp085"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "sp086"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "sp087"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "sp088"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "sp-final",
+   "text": "Bravo! You've done the whole workout in French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "sp-final"
+}

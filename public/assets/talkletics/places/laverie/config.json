@@ -1,0 +1,725 @@
+{
+ "slug": "laverie",
+ "name": "Laverie",
+ "fr": "La laverie",
+ "order": 14,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     819,
+     897
+    ],
+    "door": [
+     819,
+     814
+    ],
+    "in": [
+     819,
+     713
+    ],
+    "l0": [
+     557,
+     691
+    ],
+    "wa": [
+     535,
+     602
+    ],
+    "wb": [
+     491,
+     491
+    ],
+    "sink": [
+     535,
+     351
+    ],
+    "rk": [
+     808,
+     346
+    ],
+    "r0": [
+     1109,
+     691
+    ],
+    "ir": [
+     1109,
+     368
+    ],
+    "tw": [
+     1260,
+     368
+    ],
+    "r2": [
+     1271,
+     691
+    ],
+    "rwa": [
+     1271,
+     602
+    ],
+    "ct": [
+     1494,
+     713
+    ],
+    "isl": [
+     831,
+     641
+    ],
+    "isl2": [
+     669,
+     641
+    ],
+    "isl3": [
+     992,
+     641
+    ]
+   },
+   "e": "out-door door-in in-l0 l0-wa wa-wb wb-sink sink-rk in-isl isl-isl2 isl-isl3 in-r0 r0-ir ir-tw r0-r2 r2-rwa r2-ct rk-ir",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-machines": [
+     "wa",
+     "wb",
+     "rwa"
+    ],
+    "l-evier": [
+     "sink"
+    ],
+    "les-vetements": [
+     "rk"
+    ],
+    "le-repassage": [
+     "ir"
+    ],
+    "les-serviettes": [
+     "tw"
+    ],
+    "la-table-de-pliage": [
+     "isl",
+     "isl2",
+     "isl3"
+    ],
+    "le-chariot": [
+     "ct"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     541,
+     1332
+    ],
+    "door": [
+     541,
+     1139
+    ],
+    "in": [
+     541,
+     1014
+    ],
+    "l0": [
+     256,
+     1047
+    ],
+    "wa": [
+     256,
+     917
+    ],
+    "wb": [
+     256,
+     772
+    ],
+    "wc": [
+     256,
+     627
+    ],
+    "sink": [
+     386,
+     487
+    ],
+    "rk": [
+     618,
+     531
+    ],
+    "ir": [
+     676,
+     533
+    ],
+    "tw": [
+     801,
+     521
+    ],
+    "r0": [
+     816,
+     1047
+    ],
+    "rwa": [
+     820,
+     869
+    ],
+    "rwb": [
+     820,
+     676
+    ],
+    "ct": [
+     898,
+     1050
+    ],
+    "isl": [
+     541,
+     912
+    ],
+    "isl2": [
+     405,
+     912
+    ],
+    "isl3": [
+     676,
+     912
+    ]
+   },
+   "e": "out-door door-in in-l0 l0-wa wa-wb wb-wc wc-sink sink-rk rk-ir ir-tw tw-rwb rwb-rwa rwa-r0 r0-in in-isl isl-isl2 isl-isl3 r0-ct",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "les-machines": [
+     "wa",
+     "wb",
+     "rwa"
+    ],
+    "l-evier": [
+     "sink"
+    ],
+    "les-vetements": [
+     "rk"
+    ],
+    "le-repassage": [
+     "ir"
+    ],
+    "les-serviettes": [
+     "tw"
+    ],
+    "la-table-de-pliage": [
+     "isl",
+     "isl2",
+     "isl3"
+    ],
+    "le-chariot": [
+     "ct"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "les-machines": [
+   "wa",
+   "wb",
+   "rwa"
+  ],
+  "l-evier": [
+   "sink"
+  ],
+  "les-vetements": [
+   "rk"
+  ],
+  "le-repassage": [
+   "ir"
+  ],
+  "les-serviettes": [
+   "tw"
+  ],
+  "la-table-de-pliage": [
+   "isl",
+   "isl2",
+   "isl3"
+  ],
+  "le-chariot": [
+   "ct"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the laundromat!",
+   "introId": "la-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "la001"
+    },
+    {
+     "fr": "Bienvenue à la laverie.",
+     "en": "Welcome to the laundromat.",
+     "id": "la002"
+    },
+    {
+     "fr": "Je viens laver mon linge.",
+     "en": "I'm here to wash my clothes.",
+     "id": "la003"
+    },
+    {
+     "fr": "C'est ouvert tous les jours.",
+     "en": "It's open every day.",
+     "id": "la004"
+    },
+    {
+     "fr": "Il y a beaucoup de machines.",
+     "en": "There are lots of machines.",
+     "id": "la005"
+    },
+    {
+     "fr": "C'est propre ici.",
+     "en": "It's clean here.",
+     "id": "la006"
+    },
+    {
+     "fr": "Le sol est propre.",
+     "en": "The floor is clean.",
+     "id": "la007"
+    },
+    {
+     "fr": "Je suis seul ici.",
+     "en": "I'm alone here.",
+     "id": "la008"
+    }
+   ]
+  },
+  {
+   "id": "les-machines",
+   "fr": "Les machines à laver",
+   "title": "The washing machines",
+   "intro": "First, the washing machines.",
+   "introId": "la-les-machines",
+   "items": [
+    {
+     "fr": "La machine à laver.",
+     "en": "The washing machine.",
+     "id": "la009"
+    },
+    {
+     "fr": "Le sèche-linge.",
+     "en": "The dryer.",
+     "id": "la010"
+    },
+    {
+     "fr": "Le linge sale.",
+     "en": "The dirty laundry.",
+     "id": "la011"
+    },
+    {
+     "fr": "Le linge propre.",
+     "en": "The clean laundry.",
+     "id": "la012"
+    },
+    {
+     "fr": "La lessive.",
+     "en": "The detergent.",
+     "id": "la013"
+    },
+    {
+     "fr": "J'ouvre la machine.",
+     "en": "I open the machine.",
+     "id": "la014"
+    },
+    {
+     "fr": "Je ferme la porte.",
+     "en": "I close the door.",
+     "id": "la015"
+    },
+    {
+     "fr": "Je mets le linge dedans.",
+     "en": "I put the clothes inside.",
+     "id": "la016"
+    },
+    {
+     "fr": "Je choisis le programme.",
+     "en": "I choose the programme.",
+     "id": "la017"
+    },
+    {
+     "fr": "Ça dure quarante minutes.",
+     "en": "It lasts forty minutes.",
+     "id": "la018"
+    }
+   ]
+  },
+  {
+   "id": "l-evier",
+   "fr": "L'évier",
+   "title": "The sink",
+   "intro": "Now, the sink.",
+   "introId": "la-l-evier",
+   "items": [
+    {
+     "fr": "L'évier.",
+     "en": "The sink.",
+     "id": "la019"
+    },
+    {
+     "fr": "Le robinet.",
+     "en": "The tap.",
+     "id": "la020"
+    },
+    {
+     "fr": "L'eau froide.",
+     "en": "The cold water.",
+     "id": "la021"
+    },
+    {
+     "fr": "L'eau chaude.",
+     "en": "The hot water.",
+     "id": "la022"
+    },
+    {
+     "fr": "Le savon.",
+     "en": "The soap.",
+     "id": "la023"
+    },
+    {
+     "fr": "La fenêtre.",
+     "en": "The window.",
+     "id": "la024"
+    },
+    {
+     "fr": "Je lave à la main.",
+     "en": "I wash by hand.",
+     "id": "la025"
+    },
+    {
+     "fr": "J'ai une tache.",
+     "en": "I have a stain.",
+     "id": "la026"
+    }
+   ]
+  },
+  {
+   "id": "les-vetements",
+   "fr": "Les vêtements",
+   "title": "The clothes",
+   "intro": "Now, the clothes on the rail.",
+   "introId": "la-les-vetements",
+   "items": [
+    {
+     "fr": "Les vêtements.",
+     "en": "The clothes.",
+     "id": "la027"
+    },
+    {
+     "fr": "La chemise blanche.",
+     "en": "The white shirt.",
+     "id": "la028"
+    },
+    {
+     "fr": "La chemise bleue.",
+     "en": "The blue shirt.",
+     "id": "la029"
+    },
+    {
+     "fr": "La chemise jaune.",
+     "en": "The yellow shirt.",
+     "id": "la030"
+    },
+    {
+     "fr": "Le cintre.",
+     "en": "The hanger.",
+     "id": "la031"
+    },
+    {
+     "fr": "Le pantalon.",
+     "en": "The trousers.",
+     "id": "la032"
+    },
+    {
+     "fr": "Mes vêtements sont propres.",
+     "en": "My clothes are clean.",
+     "id": "la033"
+    },
+    {
+     "fr": "Ça sent bon.",
+     "en": "It smells nice.",
+     "id": "la034"
+    }
+   ]
+  },
+  {
+   "id": "le-repassage",
+   "fr": "Le repassage",
+   "title": "Ironing",
+   "intro": "Now, the ironing board.",
+   "introId": "la-le-repassage",
+   "items": [
+    {
+     "fr": "Le fer à repasser.",
+     "en": "The iron.",
+     "id": "la035"
+    },
+    {
+     "fr": "La planche à repasser.",
+     "en": "The ironing board.",
+     "id": "la036"
+    },
+    {
+     "fr": "Je repasse ma chemise.",
+     "en": "I'm ironing my shirt.",
+     "id": "la037"
+    },
+    {
+     "fr": "Le fer est chaud.",
+     "en": "The iron is hot.",
+     "id": "la038"
+    },
+    {
+     "fr": "Attention, ça brûle !",
+     "en": "Careful, it's hot!",
+     "id": "la039"
+    },
+    {
+     "fr": "Le spray.",
+     "en": "The spray.",
+     "id": "la040"
+    },
+    {
+     "fr": "La chemise est lisse.",
+     "en": "The shirt is smooth.",
+     "id": "la041"
+    }
+   ]
+  },
+  {
+   "id": "les-serviettes",
+   "fr": "Les serviettes",
+   "title": "The towels",
+   "intro": "Now, the towel shelves.",
+   "introId": "la-les-serviettes",
+   "items": [
+    {
+     "fr": "Les serviettes.",
+     "en": "The towels.",
+     "id": "la042"
+    },
+    {
+     "fr": "La serviette bleue.",
+     "en": "The blue towel.",
+     "id": "la043"
+    },
+    {
+     "fr": "La serviette jaune.",
+     "en": "The yellow towel.",
+     "id": "la044"
+    },
+    {
+     "fr": "L'étagère.",
+     "en": "The shelf.",
+     "id": "la045"
+    },
+    {
+     "fr": "Les draps.",
+     "en": "The sheets.",
+     "id": "la046"
+    },
+    {
+     "fr": "Le panier.",
+     "en": "The basket.",
+     "id": "la047"
+    },
+    {
+     "fr": "Elles sont douces.",
+     "en": "They are soft.",
+     "id": "la048"
+    },
+    {
+     "fr": "Je plie les serviettes.",
+     "en": "I fold the towels.",
+     "id": "la049"
+    }
+   ]
+  },
+  {
+   "id": "la-table-de-pliage",
+   "fr": "La table de pliage",
+   "title": "The folding table",
+   "intro": "Now, the big folding table.",
+   "introId": "la-la-table-de-pliage",
+   "items": [
+    {
+     "fr": "La table.",
+     "en": "The table.",
+     "id": "la050"
+    },
+    {
+     "fr": "Je plie le linge.",
+     "en": "I fold the laundry.",
+     "id": "la051"
+    },
+    {
+     "fr": "Le linge est sec.",
+     "en": "The laundry is dry.",
+     "id": "la052"
+    },
+    {
+     "fr": "Le panier en osier.",
+     "en": "The wicker basket.",
+     "id": "la053"
+    },
+    {
+     "fr": "Le tapis.",
+     "en": "The rug.",
+     "id": "la054"
+    },
+    {
+     "fr": "Les bouteilles de lessive.",
+     "en": "The bottles of detergent.",
+     "id": "la055"
+    },
+    {
+     "fr": "Les fleurs jaunes.",
+     "en": "The yellow flowers.",
+     "id": "la056"
+    },
+    {
+     "fr": "Tout est bien rangé.",
+     "en": "Everything is neatly put away.",
+     "id": "la057"
+    }
+   ]
+  },
+  {
+   "id": "le-chariot",
+   "fr": "Le chariot",
+   "title": "The laundry cart",
+   "intro": "Now, the laundry cart.",
+   "introId": "la-le-chariot",
+   "items": [
+    {
+     "fr": "Le chariot à linge.",
+     "en": "The laundry cart.",
+     "id": "la058"
+    },
+    {
+     "fr": "Le sac.",
+     "en": "The bag.",
+     "id": "la059"
+    },
+    {
+     "fr": "Je prends le chariot.",
+     "en": "I take the cart.",
+     "id": "la060"
+    },
+    {
+     "fr": "Le chariot est lourd.",
+     "en": "The cart is heavy.",
+     "id": "la061"
+    },
+    {
+     "fr": "Le chariot est plein.",
+     "en": "The cart is full.",
+     "id": "la062"
+    },
+    {
+     "fr": "Je porte mon sac.",
+     "en": "I carry my bag.",
+     "id": "la063"
+    },
+    {
+     "fr": "Je rentre à la maison.",
+     "en": "I'm going home.",
+     "id": "la064"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "la-au-revoir",
+   "items": [
+    {
+     "fr": "Mon linge est prêt.",
+     "en": "My laundry is ready.",
+     "id": "la065"
+    },
+    {
+     "fr": "Merci et à bientôt.",
+     "en": "Thank you and see you soon.",
+     "id": "la066"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "la067"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "la068"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "la069"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "la070"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "la071"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "la-final",
+   "text": "Bravo! You've done the whole laundry in French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "la-final"
+}

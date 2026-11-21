@@ -1,0 +1,1030 @@
+{
+ "slug": "poste",
+ "name": "La Poste",
+ "fr": "La poste",
+ "order": 16,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1671,
+   "H": 941,
+   "ch": 150,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     812,
+     903
+    ],
+    "door": [
+     812,
+     741
+    ],
+    "in": [
+     831,
+     574
+    ],
+    "mb": [
+     1109,
+     858
+    ],
+    "wa": [
+     680,
+     571
+    ],
+    "wb": [
+     981,
+     571
+    ],
+    "lw": [
+     446,
+     563
+    ],
+    "lr": [
+     323,
+     563
+    ],
+    "ql": [
+     491,
+     477
+    ],
+    "pc": [
+     491,
+     415
+    ],
+    "q0": [
+     635,
+     477
+    ],
+    "q1": [
+     773,
+     477
+    ],
+    "q2": [
+     903,
+     477
+    ],
+    "q3": [
+     1048,
+     477
+    ],
+    "c1": [
+     635,
+     346
+    ],
+    "c2": [
+     773,
+     346
+    ],
+    "c3": [
+     903,
+     346
+    ],
+    "c4": [
+     1048,
+     346
+    ],
+    "qa": [
+     747,
+     390
+    ],
+    "qb": [
+     909,
+     390
+    ],
+    "atm": [
+     1120,
+     474
+    ],
+    "cards": [
+     1193,
+     524
+    ],
+    "rv": [
+     1246,
+     479
+    ],
+    "of": [
+     1215,
+     334
+    ],
+    "mr": [
+     1282,
+     446
+    ],
+    "tl": [
+     1327,
+     535
+    ]
+   },
+   "e": "out-door door-in in-wa in-wb wa-lw lw-lr lw-ql ql-pc ql-q0 wa-q0 q0-q1 q1-q2 q2-q3 wb-q3 q3-atm atm-cards cards-rv rv-of rv-mr rv-tl q0-c1 q1-c2 q2-c3 q3-c4 c2-qa c3-qb out-mb",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-boite-aux-lettres": [
+     "mb"
+    ],
+    "les-guichets": [
+     "c1",
+     "c2",
+     "c3",
+     "c4"
+    ],
+    "la-file-d-attente": [
+     "qa",
+     "qb"
+    ],
+    "le-distributeur": [
+     "atm"
+    ],
+    "les-cartes-postales": [
+     "cards"
+    ],
+    "les-colis": [
+     "ql",
+     "pc"
+    ],
+    "la-salle-d-attente": [
+     "wa",
+     "wb"
+    ],
+    "le-coin-boutique": [
+     "lw",
+     "lr"
+    ],
+    "le-bureau": [
+     "of"
+    ],
+    "la-reunion": [
+     "mr"
+    ],
+    "les-toilettes": [
+     "tl"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1086,
+   "H": 1448,
+   "ch": 150,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     541,
+     1284
+    ],
+    "door": [
+     541,
+     1187
+    ],
+    "in": [
+     541,
+     941
+    ],
+    "mb": [
+     782,
+     1245
+    ],
+    "w1": [
+     386,
+     917
+    ],
+    "wa": [
+     415,
+     917
+    ],
+    "wb": [
+     666,
+     917
+    ],
+    "w2": [
+     705,
+     917
+    ],
+    "lw": [
+     290,
+     912
+    ],
+    "lr": [
+     164,
+     907
+    ],
+    "ll": [
+     314,
+     849
+    ],
+    "ql": [
+     290,
+     676
+    ],
+    "pc": [
+     307,
+     594
+    ],
+    "c1": [
+     415,
+     591
+    ],
+    "c2": [
+     512,
+     591
+    ],
+    "c3": [
+     603,
+     591
+    ],
+    "c4": [
+     676,
+     591
+    ],
+    "c5": [
+     801,
+     591
+    ],
+    "qa": [
+     463,
+     661
+    ],
+    "qb": [
+     589,
+     661
+    ],
+    "of": [
+     801,
+     541
+    ],
+    "mr": [
+     830,
+     627
+    ],
+    "atm": [
+     719,
+     745
+    ],
+    "cards": [
+     782,
+     830
+    ],
+    "tl": [
+     816,
+     883
+    ]
+   },
+   "e": "out-door door-in in-wa in-wb wa-w1 wb-w2 w1-ll ll-ql ql-pc pc-c1 c1-c2 c2-c3 c3-c4 c4-c5 c5-of c5-mr c4-atm atm-cards cards-tl w2-tl w1-lw lw-lr c2-qa c3-qb out-mb",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "la-boite-aux-lettres": [
+     "mb"
+    ],
+    "les-guichets": [
+     "c1",
+     "c2",
+     "c3",
+     "c4"
+    ],
+    "la-file-d-attente": [
+     "qa",
+     "qb"
+    ],
+    "le-distributeur": [
+     "atm"
+    ],
+    "les-cartes-postales": [
+     "cards"
+    ],
+    "les-colis": [
+     "ql",
+     "pc"
+    ],
+    "la-salle-d-attente": [
+     "wa",
+     "wb"
+    ],
+    "le-coin-boutique": [
+     "lw",
+     "lr"
+    ],
+    "le-bureau": [
+     "of"
+    ],
+    "la-reunion": [
+     "mr"
+    ],
+    "les-toilettes": [
+     "tl"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "la-boite-aux-lettres": [
+   "mb"
+  ],
+  "les-guichets": [
+   "c1",
+   "c2",
+   "c3",
+   "c4"
+  ],
+  "la-file-d-attente": [
+   "qa",
+   "qb"
+  ],
+  "le-distributeur": [
+   "atm"
+  ],
+  "les-cartes-postales": [
+   "cards"
+  ],
+  "les-colis": [
+   "ql",
+   "pc"
+  ],
+  "la-salle-d-attente": [
+   "wa",
+   "wb"
+  ],
+  "le-coin-boutique": [
+   "lw",
+   "lr"
+  ],
+  "le-bureau": [
+   "of"
+  ],
+  "la-reunion": [
+   "mr"
+  ],
+  "les-toilettes": [
+   "tl"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the post office!",
+   "introId": "po-salutations",
+   "items": [
+    {
+     "fr": "Bonjour, madame.",
+     "en": "Hello, madam.",
+     "id": "po001"
+    },
+    {
+     "fr": "Bonjour, monsieur.",
+     "en": "Hello, sir.",
+     "id": "po002"
+    },
+    {
+     "fr": "Bienvenue à la poste.",
+     "en": "Welcome to the post office.",
+     "id": "po003"
+    },
+    {
+     "fr": "Je voudrais envoyer une lettre.",
+     "en": "I would like to send a letter.",
+     "id": "po004"
+    },
+    {
+     "fr": "Je voudrais envoyer un colis.",
+     "en": "I would like to send a parcel.",
+     "id": "po005"
+    },
+    {
+     "fr": "Il y a beaucoup de monde.",
+     "en": "There are a lot of people.",
+     "id": "po006"
+    },
+    {
+     "fr": "La poste est ouverte.",
+     "en": "The post office is open.",
+     "id": "po007"
+    },
+    {
+     "fr": "Je viens de loin.",
+     "en": "I've come from far away.",
+     "id": "po008"
+    }
+   ]
+  },
+  {
+   "id": "la-boite-aux-lettres",
+   "fr": "La boîte aux lettres",
+   "title": "The mailbox",
+   "intro": "First, the red mailbox outside.",
+   "introId": "po-la-boite-aux-lettres",
+   "items": [
+    {
+     "fr": "La boîte aux lettres.",
+     "en": "The mailbox.",
+     "id": "po009"
+    },
+    {
+     "fr": "La boîte est rouge.",
+     "en": "The mailbox is red.",
+     "id": "po010"
+    },
+    {
+     "fr": "La lettre.",
+     "en": "The letter.",
+     "id": "po011"
+    },
+    {
+     "fr": "L'enveloppe.",
+     "en": "The envelope.",
+     "id": "po012"
+    },
+    {
+     "fr": "Le timbre.",
+     "en": "The stamp.",
+     "id": "po013"
+    },
+    {
+     "fr": "Je poste une lettre.",
+     "en": "I post a letter.",
+     "id": "po014"
+    },
+    {
+     "fr": "La lettre part demain.",
+     "en": "The letter leaves tomorrow.",
+     "id": "po015"
+    },
+    {
+     "fr": "J'écris à ma famille.",
+     "en": "I write to my family.",
+     "id": "po016"
+    }
+   ]
+  },
+  {
+   "id": "les-guichets",
+   "fr": "Les guichets",
+   "title": "The counters",
+   "intro": "Now, the counters, one to four.",
+   "introId": "po-les-guichets",
+   "items": [
+    {
+     "fr": "Le guichet.",
+     "en": "The counter.",
+     "id": "po017"
+    },
+    {
+     "fr": "Le guichet numéro un.",
+     "en": "Counter number one.",
+     "id": "po018"
+    },
+    {
+     "fr": "Le guichet numéro deux.",
+     "en": "Counter number two.",
+     "id": "po019"
+    },
+    {
+     "fr": "Le guichet numéro trois.",
+     "en": "Counter number three.",
+     "id": "po020"
+    },
+    {
+     "fr": "Le guichet numéro quatre.",
+     "en": "Counter number four.",
+     "id": "po021"
+    },
+    {
+     "fr": "L'employé.",
+     "en": "The clerk.",
+     "id": "po022"
+    },
+    {
+     "fr": "L'employée.",
+     "en": "The clerk (woman).",
+     "id": "po023"
+    },
+    {
+     "fr": "Je vais au guichet trois.",
+     "en": "I go to counter three.",
+     "id": "po024"
+    },
+    {
+     "fr": "Je voudrais un timbre, s'il vous plaît.",
+     "en": "I would like a stamp, please.",
+     "id": "po025"
+    },
+    {
+     "fr": "Ça fait deux euros.",
+     "en": "That's two euros.",
+     "id": "po026"
+    }
+   ]
+  },
+  {
+   "id": "la-file-d-attente",
+   "fr": "La file d'attente",
+   "title": "The queue",
+   "intro": "Now, the queue.",
+   "introId": "po-la-file-d-attente",
+   "items": [
+    {
+     "fr": "La file d'attente.",
+     "en": "The queue.",
+     "id": "po027"
+    },
+    {
+     "fr": "Je fais la queue.",
+     "en": "I'm queueing.",
+     "id": "po028"
+    },
+    {
+     "fr": "Le client.",
+     "en": "The customer.",
+     "id": "po029"
+    },
+    {
+     "fr": "Le numéro.",
+     "en": "The number.",
+     "id": "po030"
+    },
+    {
+     "fr": "C'est votre tour.",
+     "en": "It's your turn.",
+     "id": "po031"
+    },
+    {
+     "fr": "Attendez ici, s'il vous plaît.",
+     "en": "Wait here, please.",
+     "id": "po032"
+    },
+    {
+     "fr": "Après vous.",
+     "en": "After you.",
+     "id": "po033"
+    },
+    {
+     "fr": "Ça avance vite.",
+     "en": "It's moving fast.",
+     "id": "po034"
+    }
+   ]
+  },
+  {
+   "id": "les-colis",
+   "fr": "Les colis",
+   "title": "The parcels",
+   "intro": "Now, the parcel room.",
+   "introId": "po-les-colis",
+   "items": [
+    {
+     "fr": "Le colis.",
+     "en": "The parcel.",
+     "id": "po035"
+    },
+    {
+     "fr": "Le carton.",
+     "en": "The box.",
+     "id": "po036"
+    },
+    {
+     "fr": "Le chariot.",
+     "en": "The trolley.",
+     "id": "po037"
+    },
+    {
+     "fr": "Le poids.",
+     "en": "The weight.",
+     "id": "po038"
+    },
+    {
+     "fr": "Le colis est lourd.",
+     "en": "The parcel is heavy.",
+     "id": "po039"
+    },
+    {
+     "fr": "Le colis est léger.",
+     "en": "The parcel is light.",
+     "id": "po040"
+    },
+    {
+     "fr": "Je voudrais envoyer ce colis en France.",
+     "en": "I would like to send this parcel to France.",
+     "id": "po041"
+    },
+    {
+     "fr": "Ça arrive dans une semaine.",
+     "en": "It arrives in a week.",
+     "id": "po042"
+    },
+    {
+     "fr": "Voici l'adresse.",
+     "en": "Here is the address.",
+     "id": "po043"
+    }
+   ]
+  },
+  {
+   "id": "le-distributeur",
+   "fr": "Le distributeur",
+   "title": "The cash machine",
+   "intro": "Now, the cash machine.",
+   "introId": "po-le-distributeur",
+   "items": [
+    {
+     "fr": "Le distributeur.",
+     "en": "The cash machine.",
+     "id": "po044"
+    },
+    {
+     "fr": "La carte.",
+     "en": "The card.",
+     "id": "po045"
+    },
+    {
+     "fr": "Le code.",
+     "en": "The PIN.",
+     "id": "po046"
+    },
+    {
+     "fr": "L'argent.",
+     "en": "The money.",
+     "id": "po047"
+    },
+    {
+     "fr": "Je retire de l'argent.",
+     "en": "I withdraw money.",
+     "id": "po048"
+    },
+    {
+     "fr": "Je tape mon code.",
+     "en": "I type my code.",
+     "id": "po049"
+    },
+    {
+     "fr": "Le distributeur est en panne.",
+     "en": "The machine is out of order.",
+     "id": "po050"
+    },
+    {
+     "fr": "Voici le reçu.",
+     "en": "Here is the receipt.",
+     "id": "po051"
+    }
+   ]
+  },
+  {
+   "id": "les-cartes-postales",
+   "fr": "Les cartes postales",
+   "title": "The postcards",
+   "intro": "Now, the postcards.",
+   "introId": "po-les-cartes-postales",
+   "items": [
+    {
+     "fr": "La carte postale.",
+     "en": "The postcard.",
+     "id": "po052"
+    },
+    {
+     "fr": "Les cartes postales.",
+     "en": "The postcards.",
+     "id": "po053"
+    },
+    {
+     "fr": "Je choisis une carte.",
+     "en": "I choose a card.",
+     "id": "po054"
+    },
+    {
+     "fr": "C'est une belle photo.",
+     "en": "It's a nice photo.",
+     "id": "po055"
+    },
+    {
+     "fr": "J'écris à mon ami.",
+     "en": "I write to my friend.",
+     "id": "po056"
+    },
+    {
+     "fr": "Cher Paul,",
+     "en": "Dear Paul,",
+     "id": "po057"
+    },
+    {
+     "fr": "Bons baisers du Ghana !",
+     "en": "Greetings from Ghana!",
+     "id": "po058"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "po059"
+    }
+   ]
+  },
+  {
+   "id": "la-salle-d-attente",
+   "fr": "Les chaises",
+   "title": "The waiting chairs",
+   "intro": "Now, the waiting chairs.",
+   "introId": "po-la-salle-d-attente",
+   "items": [
+    {
+     "fr": "La chaise bleue.",
+     "en": "The blue chair.",
+     "id": "po060"
+    },
+    {
+     "fr": "Je m'assois.",
+     "en": "I sit down.",
+     "id": "po061"
+    },
+    {
+     "fr": "J'attends mon numéro.",
+     "en": "I wait for my number.",
+     "id": "po062"
+    },
+    {
+     "fr": "La petite table.",
+     "en": "The small table.",
+     "id": "po063"
+    },
+    {
+     "fr": "Le magazine.",
+     "en": "The magazine.",
+     "id": "po064"
+    },
+    {
+     "fr": "Il y a six chaises.",
+     "en": "There are six chairs.",
+     "id": "po065"
+    },
+    {
+     "fr": "C'est bientôt mon tour.",
+     "en": "It will soon be my turn.",
+     "id": "po066"
+    }
+   ]
+  },
+  {
+   "id": "le-coin-boutique",
+   "fr": "Le coin boutique",
+   "title": "The shop corner",
+   "intro": "Now, the little shop corner.",
+   "introId": "po-le-coin-boutique",
+   "items": [
+    {
+     "fr": "La boutique.",
+     "en": "The shop.",
+     "id": "po067"
+    },
+    {
+     "fr": "Les enveloppes.",
+     "en": "The envelopes.",
+     "id": "po068"
+    },
+    {
+     "fr": "Le papier.",
+     "en": "The paper.",
+     "id": "po069"
+    },
+    {
+     "fr": "Le stylo.",
+     "en": "The pen.",
+     "id": "po070"
+    },
+    {
+     "fr": "Les cartes.",
+     "en": "The cards.",
+     "id": "po071"
+    },
+    {
+     "fr": "Je cherche une enveloppe.",
+     "en": "I'm looking for an envelope.",
+     "id": "po072"
+    },
+    {
+     "fr": "C'est combien ?",
+     "en": "How much is it?",
+     "id": "po073"
+    },
+    {
+     "fr": "Je prends deux enveloppes.",
+     "en": "I'll take two envelopes.",
+     "id": "po074"
+    }
+   ]
+  },
+  {
+   "id": "le-bureau",
+   "fr": "Le bureau",
+   "title": "The office",
+   "intro": "Now, the manager's office.",
+   "introId": "po-le-bureau",
+   "items": [
+    {
+     "fr": "Le bureau.",
+     "en": "The office.",
+     "id": "po075"
+    },
+    {
+     "fr": "Le directeur.",
+     "en": "The manager.",
+     "id": "po076"
+    },
+    {
+     "fr": "L'ordinateur.",
+     "en": "The computer.",
+     "id": "po077"
+    },
+    {
+     "fr": "Le classeur.",
+     "en": "The folder.",
+     "id": "po078"
+    },
+    {
+     "fr": "L'armoire.",
+     "en": "The cupboard.",
+     "id": "po079"
+    },
+    {
+     "fr": "Le directeur est occupé.",
+     "en": "The manager is busy.",
+     "id": "po080"
+    },
+    {
+     "fr": "Frappez à la porte.",
+     "en": "Knock on the door.",
+     "id": "po081"
+    },
+    {
+     "fr": "Entrez.",
+     "en": "Come in.",
+     "id": "po082"
+    }
+   ]
+  },
+  {
+   "id": "la-reunion",
+   "fr": "La salle de réunion",
+   "title": "The meeting room",
+   "intro": "Now, the meeting room.",
+   "introId": "po-la-reunion",
+   "items": [
+    {
+     "fr": "La salle de réunion.",
+     "en": "The meeting room.",
+     "id": "po083"
+    },
+    {
+     "fr": "La réunion.",
+     "en": "The meeting.",
+     "id": "po084"
+    },
+    {
+     "fr": "La table ronde.",
+     "en": "The round table.",
+     "id": "po085"
+    },
+    {
+     "fr": "Les employés.",
+     "en": "The staff.",
+     "id": "po086"
+    },
+    {
+     "fr": "La réunion commence à dix heures.",
+     "en": "The meeting starts at ten.",
+     "id": "po087"
+    },
+    {
+     "fr": "Il y a quatre chaises.",
+     "en": "There are four chairs.",
+     "id": "po088"
+    },
+    {
+     "fr": "C'est important.",
+     "en": "It's important.",
+     "id": "po089"
+    }
+   ]
+  },
+  {
+   "id": "les-toilettes",
+   "fr": "Les toilettes",
+   "title": "The toilets",
+   "intro": "Now, the toilets.",
+   "introId": "po-les-toilettes",
+   "items": [
+    {
+     "fr": "Les toilettes.",
+     "en": "The toilets.",
+     "id": "po090"
+    },
+    {
+     "fr": "Où sont les toilettes ?",
+     "en": "Where are the toilets?",
+     "id": "po091"
+    },
+    {
+     "fr": "C'est au fond, à droite.",
+     "en": "It's at the back, on the right.",
+     "id": "po092"
+    },
+    {
+     "fr": "Les toilettes pour hommes.",
+     "en": "The men's toilets.",
+     "id": "po093"
+    },
+    {
+     "fr": "Les toilettes pour femmes.",
+     "en": "The women's toilets.",
+     "id": "po094"
+    },
+    {
+     "fr": "Le lavabo.",
+     "en": "The sink.",
+     "id": "po095"
+    },
+    {
+     "fr": "Merci, madame.",
+     "en": "Thank you, madam.",
+     "id": "po096"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "po-au-revoir",
+   "items": [
+    {
+     "fr": "Merci pour votre aide.",
+     "en": "Thank you for your help.",
+     "id": "po097"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "po098"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "po099"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "po100"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "po101"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "po102"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "po103"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "po-final",
+   "text": "Bravo! You've sent your post and spoken the whole way. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "po-final"
+}

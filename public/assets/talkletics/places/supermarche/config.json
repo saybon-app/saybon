@@ -1,0 +1,1083 @@
+{
+ "slug": "supermarche",
+ "name": "Supermarché",
+ "fr": "Le supermarché",
+ "order": 8,
+ "layouts": {
+  "d": {
+   "img": "desktop.webp",
+   "W": 1672,
+   "H": 941,
+   "ch": 125,
+   "zoom": 0.9,
+   "anchor": 0.46,
+   "n": {
+    "out": [
+     835,
+     885
+    ],
+    "door": [
+     835,
+     790
+    ],
+    "in": [
+     835,
+     700
+    ],
+    "gate": [
+     833,
+     652
+    ],
+    "isl": [
+     833,
+     624
+    ],
+    "w1": [
+     640,
+     692
+    ],
+    "cart": [
+     420,
+     695
+    ],
+    "c1": [
+     392,
+     640
+    ],
+    "poi": [
+     395,
+     575
+    ],
+    "c3": [
+     392,
+     476
+    ],
+    "char": [
+     395,
+     440
+    ],
+    "pat": [
+     395,
+     335
+    ],
+    "bak": [
+     330,
+     242
+    ],
+    "a1b": [
+     548,
+     476
+    ],
+    "a1m": [
+     548,
+     380
+    ],
+    "lait": [
+     548,
+     212
+    ],
+    "t2": [
+     845,
+     208
+    ],
+    "t2b": [
+     997,
+     208
+    ],
+    "t3": [
+     1110,
+     208
+    ],
+    "t4": [
+     1290,
+     208
+    ],
+    "e1": [
+     1315,
+     275
+    ],
+    "bou": [
+     1430,
+     272
+    ],
+    "e2": [
+     1315,
+     540
+    ],
+    "fr": [
+     1440,
+     545
+    ],
+    "r1": [
+     1440,
+     690
+    ],
+    "cr3": [
+     1340,
+     688
+    ],
+    "cr2": [
+     1210,
+     688
+    ],
+    "cr1": [
+     1080,
+     688
+    ],
+    "r0": [
+     1000,
+     692
+    ],
+    "a2": [
+     997,
+     380
+    ],
+    "a2b": [
+     997,
+     472
+    ],
+    "ra": [
+     1315,
+     472
+    ]
+   },
+   "e": "out-door door-in in-w1 w1-cart cart-c1 c1-poi poi-c3 c3-char char-pat pat-bak c3-a1b a1b-a1m a1m-lait lait-t2 t2-t2b t2b-t3 t3-t4 t4-e1 e1-bou e1-e2 e2-fr fr-r1 r1-cr3 cr3-cr2 cr2-cr1 cr1-r0 r0-in in-gate gate-isl t2b-a2 a2-a2b a2b-ra ra-e2",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "chariots": [
+     "w1",
+     "cart"
+    ],
+    "la-poissonnerie": [
+     "c1",
+     "poi"
+    ],
+    "la-charcuterie": [
+     "c3",
+     "char"
+    ],
+    "la-patisserie": [
+     "pat",
+     "bak"
+    ],
+    "les-rayons": [
+     "a1b",
+     "a1m"
+    ],
+    "les-produits-frais": [
+     "lait",
+     "t2",
+     "t3"
+    ],
+    "la-boucherie": [
+     "e1",
+     "bou"
+    ],
+    "les-fruits-et-legumes": [
+     "e2",
+     "fr"
+    ],
+    "la-caisse": [
+     "cr3",
+     "cr2",
+     "cr1"
+    ],
+    "le-comptoir": [
+     "gate",
+     "isl"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  },
+  "m": {
+   "img": "mobile.webp",
+   "W": 1199,
+   "H": 1312,
+   "ch": 125,
+   "zoom": 1.3,
+   "anchor": 0.42,
+   "n": {
+    "out": [
+     600,
+     1130
+    ],
+    "door": [
+     600,
+     1005
+    ],
+    "in": [
+     600,
+     880
+    ],
+    "gate": [
+     548,
+     848
+    ],
+    "isl": [
+     520,
+     805
+    ],
+    "w1": [
+     400,
+     888
+    ],
+    "cart": [
+     345,
+     885
+    ],
+    "c1": [
+     325,
+     780
+    ],
+    "poi": [
+     330,
+     700
+    ],
+    "c3": [
+     325,
+     600
+    ],
+    "char": [
+     325,
+     515
+    ],
+    "pat": [
+     325,
+     370
+    ],
+    "bak": [
+     330,
+     285
+    ],
+    "a1b": [
+     462,
+     610
+    ],
+    "a1m": [
+     462,
+     430
+    ],
+    "lait": [
+     470,
+     247
+    ],
+    "surg": [
+     690,
+     247
+    ],
+    "boiss": [
+     860,
+     243
+    ],
+    "bou": [
+     880,
+     350
+    ],
+    "fr": [
+     885,
+     640
+    ],
+    "jn": [
+     815,
+     700
+    ],
+    "cr1": [
+     752,
+     880
+    ],
+    "cr2": [
+     875,
+     882
+    ],
+    "cr3": [
+     1000,
+     885
+    ],
+    "r0": [
+     700,
+     888
+    ]
+   },
+   "e": "out-door door-in in-w1 w1-cart cart-c1 c1-poi poi-c3 c3-char char-pat pat-bak c3-a1b a1b-a1m a1m-lait lait-surg surg-boiss boiss-bou bou-fr fr-jn jn-cr2 cr2-cr1 cr2-cr3 cr1-r0 r0-in in-gate gate-isl",
+   "spots": {
+    "salutations": [
+     "out",
+     "door",
+     "in"
+    ],
+    "chariots": [
+     "w1",
+     "cart"
+    ],
+    "la-poissonnerie": [
+     "c1",
+     "poi"
+    ],
+    "la-charcuterie": [
+     "c3",
+     "char"
+    ],
+    "la-patisserie": [
+     "pat",
+     "bak"
+    ],
+    "les-rayons": [
+     "a1b",
+     "a1m"
+    ],
+    "les-produits-frais": [
+     "lait",
+     "surg",
+     "boiss"
+    ],
+    "la-boucherie": [
+     "bou"
+    ],
+    "les-fruits-et-legumes": [
+     "fr"
+    ],
+    "la-caisse": [
+     "cr2",
+     "cr1"
+    ],
+    "le-comptoir": [
+     "gate",
+     "isl"
+    ],
+    "au-revoir": [
+     "in",
+     "out"
+    ]
+   }
+  }
+ },
+ "spots": {
+  "salutations": [
+   "out",
+   "door",
+   "in"
+  ],
+  "chariots": [
+   "w1",
+   "cart"
+  ],
+  "la-poissonnerie": [
+   "c1",
+   "poi"
+  ],
+  "la-charcuterie": [
+   "c3",
+   "char"
+  ],
+  "la-patisserie": [
+   "pat",
+   "bak"
+  ],
+  "les-rayons": [
+   "a1b",
+   "a1m"
+  ],
+  "les-produits-frais": [
+   "lait",
+   "t2",
+   "t3"
+  ],
+  "la-boucherie": [
+   "e1",
+   "bou"
+  ],
+  "les-fruits-et-legumes": [
+   "e2",
+   "fr"
+  ],
+  "la-caisse": [
+   "cr3",
+   "cr2",
+   "cr1"
+  ],
+  "le-comptoir": [
+   "gate",
+   "isl"
+  ],
+  "au-revoir": [
+   "in",
+   "out"
+  ]
+ },
+ "sections": [
+  {
+   "id": "salutations",
+   "fr": "Les salutations",
+   "title": "Greetings",
+   "intro": "Welcome to the supermarket.",
+   "introId": "su-salutations",
+   "items": [
+    {
+     "fr": "Bonjour.",
+     "en": "Hello.",
+     "id": "su001"
+    },
+    {
+     "fr": "Bonsoir.",
+     "en": "Good evening.",
+     "id": "su002"
+    },
+    {
+     "fr": "Bienvenue au supermarché.",
+     "en": "Welcome to the supermarket.",
+     "id": "su003"
+    },
+    {
+     "fr": "Je fais les courses.",
+     "en": "I'm doing the shopping.",
+     "id": "su004"
+    },
+    {
+     "fr": "J'ai une liste.",
+     "en": "I have a list.",
+     "id": "su005"
+    },
+    {
+     "fr": "Le magasin est grand.",
+     "en": "The store is big.",
+     "id": "su006"
+    },
+    {
+     "fr": "Il y a beaucoup de choses ici.",
+     "en": "There are a lot of things here.",
+     "id": "su007"
+    },
+    {
+     "fr": "C'est ouvert jusqu'à vingt heures.",
+     "en": "It's open until eight p.m.",
+     "id": "su008"
+    },
+    {
+     "fr": "Je suis content d'être ici.",
+     "en": "I'm happy to be here.",
+     "id": "su009"
+    }
+   ]
+  },
+  {
+   "id": "chariots",
+   "fr": "Le chariot",
+   "title": "The trolley",
+   "intro": "First, a trolley. Le chariot.",
+   "introId": "su-chariots",
+   "items": [
+    {
+     "fr": "Le chariot.",
+     "en": "The trolley.",
+     "id": "su010"
+    },
+    {
+     "fr": "Le panier.",
+     "en": "The basket.",
+     "id": "su011"
+    },
+    {
+     "fr": "Je prends un chariot.",
+     "en": "I take a trolley.",
+     "id": "su012"
+    },
+    {
+     "fr": "Le chariot est vide.",
+     "en": "The trolley is empty.",
+     "id": "su013"
+    },
+    {
+     "fr": "Le chariot est plein.",
+     "en": "The trolley is full.",
+     "id": "su014"
+    },
+    {
+     "fr": "Je pousse le chariot.",
+     "en": "I push the trolley.",
+     "id": "su015"
+    },
+    {
+     "fr": "Où sont les paniers ?",
+     "en": "Where are the baskets?",
+     "id": "su016"
+    },
+    {
+     "fr": "Il y a beaucoup de chariots.",
+     "en": "There are a lot of trolleys.",
+     "id": "su017"
+    }
+   ]
+  },
+  {
+   "id": "la-poissonnerie",
+   "fr": "La poissonnerie",
+   "title": "The fish counter",
+   "intro": "Now, the fish counter. La poissonnerie.",
+   "introId": "su-la-poissonnerie",
+   "items": [
+    {
+     "fr": "La poissonnerie.",
+     "en": "The fish counter.",
+     "id": "su018"
+    },
+    {
+     "fr": "Le poisson.",
+     "en": "The fish.",
+     "id": "su019"
+    },
+    {
+     "fr": "Le saumon.",
+     "en": "The salmon.",
+     "id": "su020"
+    },
+    {
+     "fr": "Les crevettes.",
+     "en": "The shrimps.",
+     "id": "su021"
+    },
+    {
+     "fr": "Le poisson est frais.",
+     "en": "The fish is fresh.",
+     "id": "su022"
+    },
+    {
+     "fr": "Je voudrais du poisson.",
+     "en": "I would like some fish.",
+     "id": "su023"
+    },
+    {
+     "fr": "C'est combien le kilo ?",
+     "en": "How much is a kilo?",
+     "id": "su024"
+    },
+    {
+     "fr": "Un kilo de saumon, s'il vous plaît.",
+     "en": "A kilo of salmon, please.",
+     "id": "su025"
+    },
+    {
+     "fr": "Le poisson est sur la glace.",
+     "en": "The fish is on ice.",
+     "id": "su026"
+    }
+   ]
+  },
+  {
+   "id": "la-charcuterie",
+   "fr": "La charcuterie",
+   "title": "The deli",
+   "intro": "Now, the deli. La charcuterie.",
+   "introId": "su-la-charcuterie",
+   "items": [
+    {
+     "fr": "La charcuterie.",
+     "en": "The deli.",
+     "id": "su027"
+    },
+    {
+     "fr": "Le jambon.",
+     "en": "The ham.",
+     "id": "su028"
+    },
+    {
+     "fr": "Le saucisson.",
+     "en": "The salami.",
+     "id": "su029"
+    },
+    {
+     "fr": "Le pâté.",
+     "en": "The pâté.",
+     "id": "su030"
+    },
+    {
+     "fr": "Les saucisses.",
+     "en": "The sausages.",
+     "id": "su031"
+    },
+    {
+     "fr": "Je voudrais quatre tranches de jambon.",
+     "en": "I would like four slices of ham.",
+     "id": "su032"
+    },
+    {
+     "fr": "Une tranche, s'il vous plaît.",
+     "en": "One slice, please.",
+     "id": "su033"
+    },
+    {
+     "fr": "C'est un peu salé.",
+     "en": "It's a bit salty.",
+     "id": "su034"
+    }
+   ]
+  },
+  {
+   "id": "la-patisserie",
+   "fr": "La pâtisserie et le pain",
+   "title": "Pastries and bread",
+   "intro": "Now, pastries and bread. La pâtisserie.",
+   "introId": "su-la-patisserie",
+   "items": [
+    {
+     "fr": "La pâtisserie.",
+     "en": "The pastry counter.",
+     "id": "su035"
+    },
+    {
+     "fr": "Le gâteau.",
+     "en": "The cake.",
+     "id": "su036"
+    },
+    {
+     "fr": "La tarte.",
+     "en": "The tart.",
+     "id": "su037"
+    },
+    {
+     "fr": "Le pain.",
+     "en": "The bread.",
+     "id": "su038"
+    },
+    {
+     "fr": "La baguette.",
+     "en": "The baguette.",
+     "id": "su039"
+    },
+    {
+     "fr": "Les croissants.",
+     "en": "The croissants.",
+     "id": "su040"
+    },
+    {
+     "fr": "Une baguette, s'il vous plaît.",
+     "en": "A baguette, please.",
+     "id": "su041"
+    },
+    {
+     "fr": "Le pain est chaud.",
+     "en": "The bread is warm.",
+     "id": "su042"
+    },
+    {
+     "fr": "J'aime les gâteaux.",
+     "en": "I like cakes.",
+     "id": "su043"
+    }
+   ]
+  },
+  {
+   "id": "les-rayons",
+   "fr": "Les rayons",
+   "title": "The aisles",
+   "intro": "Now, the aisles. Les rayons.",
+   "introId": "su-les-rayons",
+   "items": [
+    {
+     "fr": "Le rayon.",
+     "en": "The aisle.",
+     "id": "su044"
+    },
+    {
+     "fr": "Les rayons sont longs.",
+     "en": "The aisles are long.",
+     "id": "su045"
+    },
+    {
+     "fr": "Les pâtes.",
+     "en": "The pasta.",
+     "id": "su046"
+    },
+    {
+     "fr": "Le riz.",
+     "en": "The rice.",
+     "id": "su047"
+    },
+    {
+     "fr": "L'huile.",
+     "en": "The oil.",
+     "id": "su048"
+    },
+    {
+     "fr": "Les conserves.",
+     "en": "The tins.",
+     "id": "su049"
+    },
+    {
+     "fr": "Les céréales.",
+     "en": "The cereal.",
+     "id": "su050"
+    },
+    {
+     "fr": "Où est le sucre ?",
+     "en": "Where is the sugar?",
+     "id": "su051"
+    },
+    {
+     "fr": "Je cherche le riz.",
+     "en": "I'm looking for the rice.",
+     "id": "su052"
+    },
+    {
+     "fr": "C'est au rayon trois.",
+     "en": "It's in aisle three.",
+     "id": "su053"
+    }
+   ]
+  },
+  {
+   "id": "les-produits-frais",
+   "fr": "Les produits frais",
+   "title": "Chilled and frozen",
+   "intro": "Now, the fridges and freezers.",
+   "introId": "su-les-produits-frais",
+   "items": [
+    {
+     "fr": "Les produits laitiers.",
+     "en": "The dairy products.",
+     "id": "su054"
+    },
+    {
+     "fr": "Le lait.",
+     "en": "The milk.",
+     "id": "su055"
+    },
+    {
+     "fr": "Le yaourt.",
+     "en": "The yoghurt.",
+     "id": "su056"
+    },
+    {
+     "fr": "Le fromage.",
+     "en": "The cheese.",
+     "id": "su057"
+    },
+    {
+     "fr": "Le beurre.",
+     "en": "The butter.",
+     "id": "su058"
+    },
+    {
+     "fr": "Les surgelés.",
+     "en": "The frozen food.",
+     "id": "su059"
+    },
+    {
+     "fr": "La glace.",
+     "en": "The ice cream.",
+     "id": "su060"
+    },
+    {
+     "fr": "Les boissons.",
+     "en": "The drinks.",
+     "id": "su061"
+    },
+    {
+     "fr": "L'eau.",
+     "en": "The water.",
+     "id": "su062"
+    },
+    {
+     "fr": "Le jus d'orange.",
+     "en": "The orange juice.",
+     "id": "su063"
+    },
+    {
+     "fr": "La bouteille est froide.",
+     "en": "The bottle is cold.",
+     "id": "su064"
+    }
+   ]
+  },
+  {
+   "id": "la-boucherie",
+   "fr": "La boucherie",
+   "title": "The butcher",
+   "intro": "Now, the butcher. La boucherie.",
+   "introId": "su-la-boucherie",
+   "items": [
+    {
+     "fr": "La boucherie.",
+     "en": "The butcher's.",
+     "id": "su065"
+    },
+    {
+     "fr": "La viande.",
+     "en": "The meat.",
+     "id": "su066"
+    },
+    {
+     "fr": "Le bœuf.",
+     "en": "The beef.",
+     "id": "su067"
+    },
+    {
+     "fr": "Le poulet.",
+     "en": "The chicken.",
+     "id": "su068"
+    },
+    {
+     "fr": "Le porc.",
+     "en": "The pork.",
+     "id": "su069"
+    },
+    {
+     "fr": "Je voudrais du poulet.",
+     "en": "I would like some chicken.",
+     "id": "su070"
+    },
+    {
+     "fr": "Cinq cents grammes de bœuf.",
+     "en": "Five hundred grams of beef.",
+     "id": "su071"
+    },
+    {
+     "fr": "La viande est fraîche.",
+     "en": "The meat is fresh.",
+     "id": "su072"
+    },
+    {
+     "fr": "C'est pour ce soir.",
+     "en": "It's for tonight.",
+     "id": "su073"
+    }
+   ]
+  },
+  {
+   "id": "les-fruits-et-legumes",
+   "fr": "Les fruits et légumes",
+   "title": "Fruit and vegetables",
+   "intro": "Now, fruit and vegetables.",
+   "introId": "su-les-fruits-et-legumes",
+   "items": [
+    {
+     "fr": "Les fruits.",
+     "en": "The fruit.",
+     "id": "su074"
+    },
+    {
+     "fr": "Les légumes.",
+     "en": "The vegetables.",
+     "id": "su075"
+    },
+    {
+     "fr": "La banane.",
+     "en": "The banana.",
+     "id": "su076"
+    },
+    {
+     "fr": "L'orange.",
+     "en": "The orange.",
+     "id": "su077"
+    },
+    {
+     "fr": "La pomme.",
+     "en": "The apple.",
+     "id": "su078"
+    },
+    {
+     "fr": "La tomate.",
+     "en": "The tomato.",
+     "id": "su079"
+    },
+    {
+     "fr": "La carotte.",
+     "en": "The carrot.",
+     "id": "su080"
+    },
+    {
+     "fr": "La salade.",
+     "en": "The lettuce.",
+     "id": "su081"
+    },
+    {
+     "fr": "Je voudrais deux kilos de tomates.",
+     "en": "I would like two kilos of tomatoes.",
+     "id": "su082"
+    },
+    {
+     "fr": "Les légumes sont frais.",
+     "en": "The vegetables are fresh.",
+     "id": "su083"
+    },
+    {
+     "fr": "C'est combien ?",
+     "en": "How much is it?",
+     "id": "su084"
+    }
+   ]
+  },
+  {
+   "id": "la-caisse",
+   "fr": "La caisse",
+   "title": "The checkout",
+   "intro": "Now, the checkout. La caisse.",
+   "introId": "su-la-caisse",
+   "items": [
+    {
+     "fr": "La caisse.",
+     "en": "The checkout.",
+     "id": "su085"
+    },
+    {
+     "fr": "Le caissier.",
+     "en": "The cashier.",
+     "id": "su086"
+    },
+    {
+     "fr": "La caissière.",
+     "en": "The cashier (woman).",
+     "id": "su087"
+    },
+    {
+     "fr": "Le sac.",
+     "en": "The bag.",
+     "id": "su088"
+    },
+    {
+     "fr": "Le ticket.",
+     "en": "The receipt.",
+     "id": "su089"
+    },
+    {
+     "fr": "Vous avez une carte ?",
+     "en": "Do you have a card?",
+     "id": "su090"
+    },
+    {
+     "fr": "Je paie par carte.",
+     "en": "I pay by card.",
+     "id": "su091"
+    },
+    {
+     "fr": "Je paie en espèces.",
+     "en": "I pay in cash.",
+     "id": "su092"
+    },
+    {
+     "fr": "Ça fait vingt euros.",
+     "en": "That's twenty euros.",
+     "id": "su093"
+    },
+    {
+     "fr": "Voici l'argent.",
+     "en": "Here is the money.",
+     "id": "su094"
+    },
+    {
+     "fr": "Merci, bonne journée.",
+     "en": "Thank you, have a good day.",
+     "id": "su095"
+    }
+   ]
+  },
+  {
+   "id": "le-comptoir",
+   "fr": "Le comptoir des fromages",
+   "title": "The cheese counter",
+   "intro": "One last stop, the cheese counter.",
+   "introId": "su-le-comptoir",
+   "items": [
+    {
+     "fr": "Le comptoir.",
+     "en": "The counter.",
+     "id": "su096"
+    },
+    {
+     "fr": "Le fromage de chèvre.",
+     "en": "The goat's cheese.",
+     "id": "su097"
+    },
+    {
+     "fr": "L'huile d'olive.",
+     "en": "The olive oil.",
+     "id": "su098"
+    },
+    {
+     "fr": "Les olives.",
+     "en": "The olives.",
+     "id": "su099"
+    },
+    {
+     "fr": "Les noix.",
+     "en": "The nuts.",
+     "id": "su100"
+    },
+    {
+     "fr": "Je goûte le fromage.",
+     "en": "I taste the cheese.",
+     "id": "su101"
+    },
+    {
+     "fr": "C'est délicieux.",
+     "en": "It's delicious.",
+     "id": "su102"
+    },
+    {
+     "fr": "J'en prends un morceau.",
+     "en": "I'll take a piece.",
+     "id": "su103"
+    }
+   ]
+  },
+  {
+   "id": "au-revoir",
+   "fr": "Au revoir",
+   "title": "Goodbye",
+   "intro": "Time to say goodbye.",
+   "introId": "su-au-revoir",
+   "items": [
+    {
+     "fr": "Merci beaucoup.",
+     "en": "Thank you very much.",
+     "id": "su104"
+    },
+    {
+     "fr": "À la semaine prochaine.",
+     "en": "See you next week.",
+     "id": "su105"
+    },
+    {
+     "fr": "Au revoir.",
+     "en": "Goodbye.",
+     "id": "su106"
+    },
+    {
+     "fr": "À bientôt.",
+     "en": "See you soon.",
+     "id": "su107"
+    },
+    {
+     "fr": "Bonne journée.",
+     "en": "Have a good day.",
+     "id": "su108"
+    },
+    {
+     "fr": "Bonne soirée.",
+     "en": "Have a good evening.",
+     "id": "su109"
+    },
+    {
+     "fr": "À demain.",
+     "en": "See you tomorrow.",
+     "id": "su110"
+    }
+   ]
+  }
+ ],
+ "voice": "Eryn",
+ "extras": [
+  {
+   "id": "su-final",
+   "text": "Bravo! You've done the whole supermarket shopping in French. See you at the next place!",
+   "lang": "en"
+  }
+ ],
+ "finalId": "su-final"
+}
