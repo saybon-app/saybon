@@ -14,6 +14,7 @@ $h = @{ "xi-api-key" = $key }
 $placesDir = Join-Path $root "public\assets\talkletics\places"
 $configs = Get-ChildItem $placesDir -Directory | ForEach-Object { Join-Path $_.FullName "config.json" } | Where-Object { Test-Path $_ }
 
+$configs = @($configs) + (Join-Path $root "public\assets\talkletics\maison\extras.json")
 $first = Get-Content $configs[0] -Raw -Encoding UTF8 | ConvertFrom-Json
 $voice = $null
 try {
@@ -39,10 +40,17 @@ foreach ($cfgPath in $configs) {
   New-Item -ItemType Directory -Force -Path $outDir | Out-Null
   Write-Host ("Place: " + $content.slug)
   $clips = New-Object System.Collections.ArrayList
+  if ($cfgPath -like "*extras.json") {
+    Write-Host "Shared: welcome intros and encouragements"
+    for ($n = 0; $n -lt $content.intro_new.Count; $n++) { [void]$clips.Add(@(("intro_new" + ($n + 1)), $content.intro_new[$n])) }
+    for ($n = 0; $n -lt $content.intro_back.Count; $n++) { [void]$clips.Add(@(("intro_back" + ($n + 1)), $content.intro_back[$n])) }
+    for ($n = 0; $n -lt $content.enc.Count; $n++) { [void]$clips.Add(@(("enc" + ($n + 1)), $content.enc[$n])) }
+  } else {
   foreach ($x in $content.extras) { [void]$clips.Add(@($x.id, $x.text)) }
   foreach ($s in $content.sections) {
     [void]$clips.Add(@($s.introId, $s.intro))
     foreach ($i in $s.items) { [void]$clips.Add(@($i.id, $i.fr)) }
+  }
   }
   foreach ($c in $clips) {
     $total++
@@ -51,7 +59,7 @@ foreach ($cfgPath in $configs) {
     if ((Test-Path $file) -and ((Get-Item $file).Length -gt 1000)) { $skipped++; continue }
     $ok = $false
     for ($try = 0; $try -lt 6 -and -not $ok; $try++) {
-      $body = @{ text = $text; model_id = $models[$mi]; voice_settings = @{ stability = 0.5; similarity_boost = 0.75 } } | ConvertTo-Json -Depth 4
+      $body = @{ text = $text; model_id = $models[$mi]; voice_settings = @{ stability = $(if ($id -like "enc*") { 0.3 } else { 0.5 }); similarity_boost = 0.75 } } | ConvertTo-Json -Depth 4
       $bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
       try {
         Invoke-WebRequest -Method Post -Uri ("https://api.elevenlabs.io/v1/text-to-speech/" + $voice.voice_id + "?output_format=mp3_44100_128") `

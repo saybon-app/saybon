@@ -1,0 +1,32 @@
+{
+ "intro_new": [
+  "Welcome! I'm so happy you're here. Listen carefully: I'll say each phrase three times. When you hear the little sound, it's your turn to speak. Are you ready?",
+  "Hello and welcome! Here's how it works. Listen to the phrase three times, without speaking. Then, when you hear the signal, say it back. Ready when you are.",
+  "Welcome, and well done for starting! First, just listen, three times. When the signal sounds, you begin. Take your time. Are you ready?",
+  "Bonjour, and welcome! You listen, then you speak. I'll play each phrase three times, and when you hear the signal, it's your turn. Shall we begin?"
+ ],
+ "intro_back": [
+  "Welcome back! So good to see you again. Remember: listen three times, and when you hear the signal, you speak. Are you ready?",
+  "Welcome back! Let's keep going. Listen carefully, and when the signal sounds, it's your turn. Ready?",
+  "Hello again! I'm so glad you're back. Same as before: three listens, then you speak. Are you ready to begin?",
+  "Welcome back, you're doing so well! Listen three times, then speak when you hear the signal. Shall we go?"
+ ],
+ "enc": [
+  "Wow, look how far you've come!",
+  "You keep going, that's amazing!",
+  "At this rate, you'll be speaking like a pro!",
+  "Beautiful! Keep it up!",
+  "Halfway there, and you're doing so well!",
+  "You're on fire!",
+  "Look at you go!",
+  "Your French is getting better with every phrase!",
+  "Wow, that was fast! You're flying!",
+  "Every repetition counts, and you're doing it!",
+  "Almost there, don't stop now!",
+  "You should be so proud of yourself!",
+  "That's the way! Keep going!",
+  "Incredible progress, truly!",
+  "You're really getting the hang of this!",
+  "Magnifique! Keep that energy!"
+ ]
+}

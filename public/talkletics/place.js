@@ -156,14 +156,60 @@ house.src=BASE+LAY.img;
 var voice=new Audio();voice.preload="auto";
 var SILENT="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
 var curFin=null;
-function say(file){ // resolves true when it finished playing, false if it was missing or stopped
+function say(file){ if(paused)return waitResume().then(function(){return say(file);}); // resolves true when it finished playing, false if it was missing or stopped
   return new Promise(function(res){
     var done=false;function fin(ok){if(done)return;done=true;voice.onended=voice.onerror=null;curFin=null;res(ok);}
     curFin=fin;voice.onended=function(){fin(true);};voice.onerror=function(){fin(false);};
-    voice.src=(/^(ok|retry)\d$|^nohear$|^again$|^intro$/.test(file)?SH:BASE)+"audio/"+file+".mp3";var p=voice.play();if(p&&p.catch)p.catch(function(){fin(false);});
+    voice.src=(/^(ok|retry)\d$|^nohear$|^again$|^intro$|^intro_(new|back)\d+$|^enc\d+$/.test(file)?SH:BASE)+"audio/"+file+".mp3";var p=voice.play();if(p&&p.catch)p.catch(function(){fin(false);});
   });
 }
 function stopVoice(){try{voice.pause();}catch(e){}if(curFin)curFin(false);}
+/* ---------- pause, exit, spoken intro, encouragement ---------- */
+var XS=SH,XT=null,paused=false,pauseHit=false,resumeWait=[],streak=0,sinceEnc=0,lastEnc=0,encGap=8+Math.floor(Math.random()*5);
+function waitResume(){return paused?new Promise(function(r){resumeWait.push(r);}):Promise.resolve();}
+var sleep=function(ms){return new Promise(function(r){var left=ms;(function tk(){if(!paused)left-=80;if(left<=0)return r();setTimeout(tk,80);})();});};
+(function(){
+  var st0=document.createElement("style");
+  st0.textContent=".mz-pause{right:70px}.mz-pause[hidden]{display:none}.mz-gate{z-index:60}.mz-gate .mz-sub{font-size:1.02rem;line-height:1.5;max-width:420px;margin-left:auto;margin-right:auto}.mz-gate .mz-ghost2{display:block;margin:12px auto 0;background:none;border:none;color:#fff;opacity:.85;font:500 .9rem Poppins,sans-serif;text-decoration:underline;cursor:pointer}";
+  document.head.appendChild(st0);
+  var mz=document.querySelector(".mz");
+  mz.insertAdjacentHTML("beforeend",'<button class="mz-icon mz-pause" id="pauseBtn" hidden aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>'+
+   '<section class="mz-pick mz-gate" id="gateBox" hidden><div class="mz-pick-card"><p class="mz-kicker" id="gateK"></p><h1 id="gateH"></h1><p class="mz-sub" id="gateT"></p><button class="mz-btn mz-go" id="gateGo"></button><button class="mz-ghost2" id="gateExit" hidden>Exit to the map</button></div></section>');
+  document.getElementById("gateExit").onclick=function(){location.href="map.html";};
+})();
+function gateShow(k,h,t,go,exit){$("gateK").textContent=k;$("gateH").textContent=h;$("gateT").textContent=t;$("gateGo").textContent=go;$("gateExit").hidden=!exit;$("gateBox").hidden=false;
+  return new Promise(function(res){$("gateGo").onclick=function(){$("gateBox").hidden=true;res();};});}
+function pauseGame(){
+  if(paused)return;paused=true;pauseHit=true;try{voice.pause();}catch(e){}
+  gateShow("Talkletics","Paused","Take a break. Your progress is saved.","Resume",true).then(function(){
+    paused=false;pauseHit=false;
+    try{if(voice.src&&voice.src.indexOf("data:")!==0&&!voice.ended&&voice.currentTime>0){var p=voice.play();if(p&&p.catch)p.catch(function(){});}}catch(e){}
+    resumeWait.splice(0).forEach(function(r){r();});
+  });
+}
+$("pauseBtn").onclick=pauseGame;
+fetch(XS+"extras.json?v=1").then(function(r){return r.json();}).then(function(j){XT=j;}).catch(function(){});
+async function introGate(){
+  if(!XT)return;
+  var seen=false;try{seen=!!localStorage.getItem("tkIntroSeen");}catch(e){}
+  var key=seen?"intro_back":"intro_new",arr=XT[key],k=Math.floor(Math.random()*arr.length);
+  var done=gateShow("Talkletics",seen?"Welcome back!":"Welcome!",arr[k],"I'm ready",false);
+  say(key+(k+1));
+  await done;stopVoice();
+  try{localStorage.setItem("tkIntroSeen","1");}catch(e){}
+}
+async function encourage(score,idx){
+  if(!XT||score<62)return;
+  var pool=null;
+  if(idx+1===Math.floor(N/2))pool=[5];
+  else if(N>14&&idx+1===N-3)pool=[11];
+  else if(sinceEnc>=encGap)pool=streak>=5?[1,3,4,6,7,8,9,12,14,15,16]:[1,2,4,10,13,15,16];
+  if(!pool)return;
+  pool=pool.filter(function(n){return n!==lastEnc;});var n=pool[Math.floor(Math.random()*pool.length)];
+  lastEnc=n;sinceEnc=0;encGap=8+Math.floor(Math.random()*5);
+  setPhase("","Well done");setDir(XT.enc[n-1]);await say("enc"+n);await sleep(300);
+}
+
 
 /* ---------- microphone: opens by itself, no record button ---------- */
 var stream=null,actx=null,analyser=null,srcNode=null;
@@ -216,7 +262,7 @@ function capture(){
     }
     rec.start(100);
     (function tick(){
-      if(ended)return;
+      if(ended)return;if(paused)return fin(true);
       analyser.getByteTimeDomainData(buf);var sum=0;for(var i=0;i<buf.length;i++){var x=(buf[i]-128)/128;sum+=x*x;}
       var rms=Math.sqrt(sum/buf.length);levels.push(rms);drawWave();
       var now=performance.now(),el=now-start;
@@ -304,7 +350,7 @@ async function runItem(){
   $("en").textContent=item.en;
   var fails=0,noHear=0,first=true;
   for(;;){
-    var reps=3;first=false;
+    await waitResume();    var reps=3;first=false;
     $("result").hidden=true;
     for(var k=0;k<reps;k++){
       setPhase("","Listen · "+(k+1)+"/"+reps);dots(k,"on");
@@ -321,6 +367,7 @@ async function runItem(){
     var cap;try{cap=await capture();}catch(e){cap={none:true};}
     $("card").classList.remove("speaking");
     if(skipThis){skipThis=false;st.done++;break;}
+    if(cap.none&&pauseHit){pauseHit=false;await waitResume();continue;}
     if(cap.none){
       noHear++;setPhase("","I didn't hear you");setDir("I didn't hear you. Listen once more, then speak a little louder.");await say("nohear");await sleep(300);
       if(noHear>=2){$("hint").textContent="Check your microphone is allowed, and speak right after the signal.";$("result").hidden=false;$("scoreNum").textContent="–";$("scoreLbl").textContent="";chips([],item.fr);}
@@ -341,9 +388,10 @@ async function runItem(){
       // every passing score propels the child along the route: a better score, a longer step
       var target=a0+(a1-a0)*(info.k+1)/info.L,step=arc+(target-arc)*(0.55+0.45*q);
       await Promise.all([glide(Math.max(arc,step),LAY.ch*1.05),say("ok"+(1+Math.floor(Math.random()*6))),sleep(2400)]);
+      streak++;sinceEnc++;await encourage(score,st.idx);
       break;
     }
-    fails++;setPhase("","Almost");setDir("Not quite yet. Press the replay button, listen again and match it as closely as you can.");
+    fails++;streak=0;setPhase("","Almost");setDir("Not quite yet. Press the replay button, listen again and match it as closely as you can.");
     // the replay button stays until they get across, however many tries it takes
     var tapped=new Promise(function(res){$("againBtn").onclick=function(){stopVoice();res();};});
     $("againBtn").hidden=false;$("skipBtn").hidden=true;
@@ -358,8 +406,9 @@ var skipThis=false;
 $("skipBtn").onclick=function(){skipThis=true;stopVoice();$("skipBtn").hidden=true;};
 
 async function game(){
-  $("top").hidden=false;$("card").hidden=false;
+  $("top").hidden=false;$("card").hidden=false;await introGate();$("pauseBtn").hidden=false;
   while(st.idx<N){await runItem();}
+  $("pauseBtn").hidden=true;
   st.finished=true;save();unlockNext();
   $("card").hidden=true;$("top").hidden=true;
   var dist=Math.round(st.gain/N*100),avg=st.done?Math.round(st.sum/st.done):0;
@@ -390,9 +439,14 @@ function init(){
     // everything audio-related starts from this tap so phones allow sound and the microphone
     voice.src=SILENT;var p=voice.play();if(p&&p.catch)p.catch(function(){});
     $("goBtn").disabled=true;$("pickErr").hidden=true;
-    openMic().then(function(){$("pick").hidden=true;game();}).catch(function(){
+    openMic().then(function(){$("pick").hidden=true;game();}).catch(function(e){
       $("goBtn").disabled=false;$("pickErr").hidden=false;
-      $("pickErr").textContent="Talkletics needs your microphone. Please allow it in your browser, then tap again.";
+      var n=(e&&e.name)||"",m="Talkletics needs your microphone. Please allow it in your browser, then tap again.";
+      if(n==="NotAllowedError"||n==="SecurityError")m="The microphone is blocked for this site. Tap the lock icon next to the address, choose Permissions, allow Microphone, then tap Start again.";
+      else if(n==="NotFoundError"||n==="OverconstrainedError"||(e&&e.message==="nomic"))m="No microphone was found on this device. Plug one in or check your phone settings, then tap again.";
+      else if(n==="NotReadableError"||n==="AbortError")m="Your microphone is being used by another app. Close it (calls, recorders), then tap again.";
+      else m="Could not start the microphone ("+(n||"unknown")+"). Close other apps using it, reload the page and tap again.";
+      $("pickErr").textContent=m;
     });
   };
 }
