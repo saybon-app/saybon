@@ -4,7 +4,9 @@
   try{history.scrollRestoration="manual";}catch(e){}
   var L=null,P=null,state=null;
 
+  var ADMIN=false,BUILT={maison:1,cuisine:1,salon:1,chambre:1,"salle-de-bains":1,"la-maison":1,boulangerie:1};
   function unlockedCount(){
+    if(ADMIN)return 50;
     var q=new URLSearchParams(location.search).get("unlocked");
     if(q&&/^\d+$/.test(q))return Math.min(50,Math.max(1,+q));
     try{var v=parseInt(localStorage.getItem("tkMapUnlocked"),10);if(v>0)return Math.min(50,v);}catch(e){}
@@ -47,9 +49,11 @@
     var lk=b.querySelector(".tkm-lock");
     if(!open&&!lk){lk=document.createElement("span");lk.className="tkm-lock";lk.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';b.appendChild(lk);}
     if(open&&lk)lk.remove();
-    b.onclick=open?function(){location.href=p.slug+".html";}:null;
+    b.onclick=open?function(){if(BUILT[p.slug])location.href=p.slug+".html";else toast(p.name+" is being built.");}:null;
   }
 
+  function toast(t){var e=document.getElementById("tkmToast");if(!e){e=document.createElement("div");e.id="tkmToast";e.style.cssText="position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:50;padding:10px 18px;border-radius:99px;background:rgba(20,20,30,.82);color:#fff;font:600 14px Poppins,sans-serif;backdrop-filter:blur(8px);transition:opacity .3s";document.body.appendChild(e);}
+    e.textContent=t;e.style.opacity=1;clearTimeout(e._t);e._t=setTimeout(function(){e.style.opacity=0;},2200);}
   function lock(un){document.documentElement.classList.toggle("tkm-locked",un<25);if(un<25)window.scrollTo(0,0);}
   function render(animate){
     var d=dev(),c=L[d],un=unlockedCount(),pts=layout(c,un),vt=Math.min(visibleTiles(pts,un,c),99);lock(un);
@@ -94,6 +98,7 @@
   Promise.all([fetch(BASE+"layout.json?v=9").then(function(r){return r.json();}),fetch(BASE+"places.json?v=9").then(function(r){return r.json();})])
     .then(function(a){
       L=a[0];P=a[1];
+      if(window.tkIsAdmin)window.tkIsAdmin().then(function(ok){if(ok){ADMIN=true;refresh();}});
       var pre=new Image();pre.onload=pre.onerror=function(){render();};pre.src=BASE+"bg/"+dev()+"-start.webp";
       var rt,lw=window.innerWidth;window.addEventListener("resize",function(){if(window.innerWidth===lw)return;lw=window.innerWidth;clearTimeout(rt);rt=setTimeout(function(){render(false);},200);});
     }).catch(function(e){console.error(e);mapEl.innerHTML="<p style='text-align:center;color:#fff;font-weight:700;padding:80px 20px;'>Could not load the map. Please try again.</p>";});
