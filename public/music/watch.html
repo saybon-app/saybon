@@ -304,7 +304,7 @@ document.getElementById("sideToggleTab").addEventListener("click", function(){
 
 <div class="sbm-overlay" id="sbmOverlay" hidden><iframe id="sbmFrame" title="SayBon" allow="microphone; camera; autoplay; fullscreen; clipboard-write"></iframe></div>
 <script type="module" src="/music/music-auth.js?v=1"></script>
-<script src="/music/music-core.js?v=1"></script>
+<script src="/music/music-core.js?v=2"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
@@ -905,38 +905,44 @@ window.openPlaylistModal = async function(){
 document.getElementById("playlistBtn").addEventListener("click", () => window.openPlaylistModal());
 
 async function addToPlaylist(playlistId){
-
-  await fetch(API_BASE + "/api/musicAddToPlaylist", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ playlistId, videoId: currentVideo.id })
-  });
-
-  document.getElementById("playlistModal").style.display = "none";
-  alert("Added to playlist.");
-
+  const realUser = auth.currentUser || currentUser;
+  try{
+    const res = await fetch(API_BASE + "/api/musicAddToPlaylist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playlistId, videoId: currentVideo.id, userId: realUser ? realUser.uid : undefined })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new Error(data.error || ("server said " + res.status));
+    document.getElementById("playlistModal").style.display = "none";
+    alert("Added to playlist.");
+    return true;
+  }catch(err){
+    alert("Could not add to the playlist: " + err.message);
+    return false;
+  }
 }
 
 window.createAndAdd = async function(){
-
   const realUser = auth.currentUser || currentUser;
-  const name = document.getElementById("newPlaylistName").value.trim();
-  if(!name) return;
-
-  const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: realUser.uid, name })
-  });
-
-  const data = await res.json();
-
-  if(res.ok){
+  if(!realUser){ alert("Please sign in to use playlists."); return; }
+  const input = document.getElementById("newPlaylistName");
+  const name = input.value.trim();
+  if(!name){ alert("Type a name for the playlist first."); return; }
+  try{
+    const res = await fetch(API_BASE + "/api/musicCreatePlaylist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: realUser.uid, name })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok || !data.id) throw new Error(data.error || ("server said " + res.status));
+    input.value = "";
     await addToPlaylist(data.id);
-    document.getElementById("newPlaylistName").value = "";
+  }catch(err){
+    alert("Could not create the playlist: " + err.message);
   }
-
-}
+};
 
 </script>
 
