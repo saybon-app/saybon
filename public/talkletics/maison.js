@@ -180,12 +180,12 @@ function waitResume(){return paused?new Promise(function(r){resumeWait.push(r);}
 var sleep=function(ms){return new Promise(function(r){var left=ms;(function tk(){if(!paused)left-=80;if(left<=0)return r();setTimeout(tk,80);})();});};
 (function(){
   var st0=document.createElement("style");
-  st0.textContent=".mz-pause{right:70px}.mz-pause[hidden]{display:none}.mz-gate{z-index:60}.mz-gate .mz-sub{font-size:1.02rem;line-height:1.5;max-width:420px;margin-left:auto;margin-right:auto}.mz-gate .mz-ghost2{display:block;margin:12px auto 0;background:none;border:none;color:#fff;opacity:.85;font:500 .9rem Poppins,sans-serif;text-decoration:underline;cursor:pointer}";
+  st0.textContent=".mz-pausebar{display:flex;justify-content:center;margin-top:10px}.mz-pausebtn{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.14);color:#fff;font:600 .92rem Poppins,sans-serif;cursor:pointer}.mz-pausebtn svg{width:16px;height:16px}.mz-pausebtn[hidden]{display:none}.mz-gate{z-index:60}.mz-gate .mz-sub{font-size:1.02rem;line-height:1.5;max-width:420px;margin-left:auto;margin-right:auto}.mz-gate .mz-ghost2{display:block;margin:12px auto 0;background:none;border:none;color:#fff;opacity:.85;font:500 .9rem Poppins,sans-serif;text-decoration:underline;cursor:pointer}";
   document.head.appendChild(st0);
   var mz=document.querySelector(".mz");
-  mz.insertAdjacentHTML("beforeend",'<button class="mz-icon mz-pause" id="pauseBtn" hidden aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>'+
-   '<section class="mz-pick mz-gate" id="gateBox" hidden><div class="mz-pick-card"><p class="mz-kicker" id="gateK"></p><h1 id="gateH"></h1><p class="mz-sub" id="gateT"></p><button class="mz-btn mz-go" id="gateGo"></button><button class="mz-ghost2" id="gateExit" hidden>Exit to the map</button></div></section>');
+  mz.insertAdjacentHTML("beforeend",'<section class="mz-pick mz-gate" id="gateBox" hidden><div class="mz-pick-card"><p class="mz-kicker" id="gateK"></p><h1 id="gateH"></h1><p class="mz-sub" id="gateT"></p><button class="mz-btn mz-go" id="gateGo"></button><button class="mz-ghost2" id="gateExit" hidden>Exit to the map</button></div></section>');
   document.getElementById("gateExit").onclick=function(){location.href="map.html";};
+  var pb=document.createElement("div");pb.className="mz-pausebar";pb.innerHTML='<button class="mz-pausebtn" id="pauseBtn" hidden aria-label="Pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>Pause</button>';document.getElementById("card").appendChild(pb);
 })();
 function gateShow(k,h,t,go,exit){$("gateK").textContent=k;$("gateH").textContent=h;$("gateT").textContent=t;$("gateGo").textContent=go;$("gateExit").hidden=!exit;$("gateBox").hidden=false;
   return new Promise(function(res){$("gateGo").onclick=function(){$("gateBox").hidden=true;res();};});}
@@ -203,9 +203,12 @@ async function introGate(){
   if(!XT)return;
   var seen=false;try{seen=!!localStorage.getItem("tkIntroSeen");}catch(e){}
   var key=seen?"intro_back":"intro_new",arr=XT[key],k=Math.floor(Math.random()*arr.length);
-  var done=gateShow("Talkletics",seen?"Welcome back!":"Welcome!",arr[k],"I'm ready",false);
+  var b=$("introSkip");
+  setPhase("",seen?"Welcome back":"Welcome");$("en").innerHTML="&nbsp;";setDir("Listen to the teacher, then tap Ready.");
+  b.textContent="I'm ready";b.hidden=false;
+  var done=new Promise(function(res){b.onclick=res;});
   say(key+(k+1));
-  await done;stopVoice();
+  await done;stopVoice();b.hidden=true;
   try{localStorage.setItem("tkIntroSeen","1");}catch(e){}
 }
 async function encourage(score,idx){
@@ -417,7 +420,7 @@ $("skipBtn").onclick=function(){skipThis=true;stopVoice();$("skipBtn").hidden=tr
 
 async function game(){
   $("top").hidden=false;$("card").hidden=false;
-  await introGate();$("pauseBtn").hidden=false;
+  $("pauseBtn").hidden=false;await introGate();
   while(st.idx<N){await runItem();}
   $("pauseBtn").hidden=true;
   st.finished=true;save();unlockNext();
