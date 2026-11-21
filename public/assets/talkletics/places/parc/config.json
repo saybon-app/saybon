@@ -28,11 +28,11 @@
      836,
      611
     ],
-    "pL": [
+    "pw": [
      658,
      524
     ],
-    "pR": [
+    "pe": [
      1014,
      524
     ],
@@ -121,7 +121,7 @@
      713
     ]
    },
-   "e": "out-gate gate-in in-pl pl-pL pl-pR pL-a1 a1-b2 b2-gz a1-a2 a2-pg pg-pg2 pR-c1 c1-c2 c2-bc bc-bc2 pR-fg fg-fg2 pR-r1 r1-r2 r2-am pL-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
+   "e": "out-gate gate-in in-pl pl-pw pl-pe pw-a1 a1-b2 b2-gz a1-a2 a2-pg pg-pg2 pe-c1 c1-c2 c2-bc bc-bc2 pe-fg fg-fg2 pe-r1 r1-r2 r2-am pw-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
    "spots": {
     "salutations": [
      "out",
@@ -130,8 +130,8 @@
     ],
     "la-grande-place": [
      "pl",
-     "pL",
-     "pR"
+     "pw",
+     "pe"
     ],
     "le-kiosque": [
      "gz"
@@ -189,11 +189,11 @@
      541,
      878
     ],
-    "pL": [
+    "pw": [
      386,
      676
     ],
-    "pR": [
+    "pe": [
      714,
      676
     ],
@@ -274,7 +274,7 @@
      1042
     ]
    },
-   "e": "out-gate gate-in in-pl pl-pL pl-pR pL-a1 a1-a2 a2-gz a2-pg pg-pg2 pR-c1 c1-c2 c2-bc bc-bc2 pR-fg fg-fg2 pR-r1 r1-am pL-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
+   "e": "out-gate gate-in in-pl pl-pw pl-pe pw-a1 a1-a2 a2-gz a2-pg pg-pg2 pe-c1 c1-c2 c2-bc bc-bc2 pe-fg fg-fg2 pe-r1 r1-am pw-l1 l1-br br-po in-w1 w1-pk2 pk2-pk",
    "spots": {
     "salutations": [
      "out",
@@ -283,8 +283,8 @@
     ],
     "la-grande-place": [
      "pl",
-     "pL",
-     "pR"
+     "pw",
+     "pe"
     ],
     "le-kiosque": [
      "gz"
@@ -327,8 +327,8 @@
   ],
   "la-grande-place": [
    "pl",
-   "pL",
-   "pR"
+   "pw",
+   "pe"
   ],
   "le-kiosque": [
    "gz"
