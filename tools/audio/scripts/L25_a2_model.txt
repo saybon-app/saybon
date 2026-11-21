@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You have a job interview.
+
+[pause]
+
+[calmly] Bonjour. Parlez-moi un peu de vous.
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour. J'ai trois ans d'expérience dans la vente.
+
+[short pause]
+
+[calmly] Pourquoi voulez-vous travailler chez nous ?
+
+[short pause]
+
+[as:Roger] [calmly] J'aime votre entreprise et j'aime parler aux clients.
+
+[short pause]
+
+[calmly] Quelles sont vos qualités ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis sérieux, organisé et toujours ponctuel.
+
+[short pause]
+
+[calmly] Vous pouvez commencer le mois prochain ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je suis disponible dès le premier du mois.
+
+[short pause]
+
+[calmly] Très bien. Nous vous répondons demain.
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

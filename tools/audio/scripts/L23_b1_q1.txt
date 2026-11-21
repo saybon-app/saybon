@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et quels avantages l'auteur mentionne-t-il ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Il cite le gain de temps et une meilleure organisation personnelle.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Il cite le gain de temps et une meilleure organisation personnelle.
+
+[repeat]
+
+[calmly] Il cite le gain de temps et une meilleure organisation personnelle.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

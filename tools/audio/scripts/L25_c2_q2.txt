@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Soit. Vous m'accordez au moins que la question reste ouverte ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Volontiers : c'est même ce qui la rend si passionnante à discuter.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Volontiers : c'est même ce qui la rend si passionnante à discuter.
+
+[repeat]
+
+[calmly] Volontiers : c'est même ce qui la rend si passionnante à discuter.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous prenez la parole lors d'un départ à la retraite.
+
+[pause]
+
+[calmly] Chers amis, notre collègue nous quitte. Qui veut dire quelques mots ?
+
+[short pause]
+
+[as:Roger] [calmly] Moi, avec plaisir, même si je crains de ne pas trouver les mots justes.
+
+[short pause]
+
+[calmly] Que retiendrez-vous de lui, au fond ?
+
+[short pause]
+
+[as:Roger] [calmly] Une rare manière de rendre exigeantes les choses simples, et simples les choses exigeantes.
+
+[short pause]
+
+[calmly] Un souvenir qui vous a marqué ?
+
+[short pause]
+
+[as:Roger] [calmly] Le jour où il a reconnu une erreur devant tous, avec une simplicité qui nous a désarmés.
+
+[short pause]
+
+[calmly] Que lui souhaitez-vous pour la suite ?
+
+[short pause]
+
+[as:Roger] [calmly] Du temps, pour ne plus rien devoir à personne, et surtout pas à sa montre.
+
+[short pause]
+
+[calmly] Voilà qui lui ressemble tant ! Levons nos verres.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

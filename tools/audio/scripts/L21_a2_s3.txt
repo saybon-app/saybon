@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Le vol de Paris, arrivé ce matin à huit heures.
+
+[short pause]
+
+[warmly] It means, The flight from Paris, arrived this morning at eight.
+
+[short pause]
+
+[calmly] Le vol de Paris, arrivé ce matin à huit heures.
+
+[repeat]
+
+[calmly] Le vol de Paris, arrivé ce matin à huit heures.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

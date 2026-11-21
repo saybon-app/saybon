@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Les études supérieures devraient-elles être entièrement gratuites ?
+
+[turn:Je le crois, car l'accès au savoir ne devrait pas dépendre du patrimoine familial.]
+
+[calmly] Mais qui financerait un tel système, sinon le contribuable ?
+
+[turn:Le contribuable, justement, puisque la société entière profite d'une population qualifiée.]
+
+[calmly] Cela n'encouragerait-il pas un certain laisser-aller chez les étudiants ?
+
+[turn:Je ne le pense pas : on peut exiger de l'assiduité sans faire payer.]
+
+[calmly] Admettons. Mais les universités auraient-elles les moyens de leur ambition ?
+
+[turn:À condition de les financer sérieusement, ce qui suppose d'en faire une priorité nationale.]
+
+[calmly] Voilà une discussion dense, et vous l'avez menée avec talent.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

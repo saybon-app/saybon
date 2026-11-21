@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[short pause]
+
+[warmly] It means, Yes, I am available from the first of the month.
+
+[short pause]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[repeat]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

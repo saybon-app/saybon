@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Pourtant, on reproche souvent aux traducteurs de trop s'écarter du texte.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] On oublie qu'une traduction est toujours une interprétation, et qu'il faut l'assumer.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] On oublie qu'une traduction est toujours une interprétation, et qu'il faut l'assumer.
+
+[repeat]
+
+[calmly] On oublie qu'une traduction est toujours une interprétation, et qu'il faut l'assumer.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

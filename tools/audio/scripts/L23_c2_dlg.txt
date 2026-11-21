@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Cette proposition est tout bonnement irréaliste, et je m'étonne qu'on ose la défendre !
+
+[turn:Je vous invite à discuter les arguments, et non les personnes, si vous le voulez bien.]
+
+[calmly] Mais enfin, tout le monde sait que ce budget est intenable !
+
+[turn:Alors démontrez-le, chiffres à l'appui, et nous en débattrons sereinement.]
+
+[calmly] Très bien, mais je ne céderai pas sur le fond.
+
+[turn:Nul ne vous le demande : il s'agit seulement de trouver ce qui peut nous réunir.]
+
+[calmly] Et si nous n'y parvenons pas aujourd'hui ?
+
+[turn:Nous reprendrons la discussion demain, mieux préparés et, je l'espère, plus apaisés.]
+
+[calmly] Soit. Je m'en remets à votre arbitrage.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

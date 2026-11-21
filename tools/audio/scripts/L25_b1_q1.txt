@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Mais les commerçants risquent de perdre des clients, non ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] C'est possible au début, mais les rues piétonnes attirent généralement plus de monde.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] C'est possible au début, mais les rues piétonnes attirent généralement plus de monde.
+
+[repeat]
+
+[calmly] C'est possible au début, mais les rues piétonnes attirent généralement plus de monde.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous discutez d'un choix de traduction avec un traducteur littéraire.
+
+[pause]
+
+[calmly] J'hésite à rendre ce vers littéralement. Qu'en pensez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] La littéralité serait fidèle à la lettre, mais infidèle à l'esprit du poème.
+
+[short pause]
+
+[calmly] Pourtant, on reproche souvent aux traducteurs de trop s'écarter du texte.
+
+[short pause]
+
+[as:Roger] [calmly] On oublie qu'une traduction est toujours une interprétation, et qu'il faut l'assumer.
+
+[short pause]
+
+[calmly] Comment trancheriez-vous, ici ?
+
+[short pause]
+
+[as:Roger] [calmly] Je sacrifierais la rime pour sauver le rythme, qui porte l'émotion.
+
+[short pause]
+
+[calmly] Et si l'auteur n'avait pas voulu de cette liberté ?
+
+[short pause]
+
+[as:Roger] [calmly] Alors il faudrait se demander ce qu'il craint de perdre, car on ne trahit bien que ce qu'on aime.
+
+[short pause]
+
+[calmly] Voilà une belle conception du métier.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

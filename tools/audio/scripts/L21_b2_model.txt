@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous présentez un projet devant votre équipe.
+
+[pause]
+
+[calmly] Nous vous écoutons : quel est l'objectif de votre projet ?
+
+[short pause]
+
+[as:Roger] [calmly] Il vise à réduire de moitié nos délais de livraison d'ici la fin de l'année.
+
+[short pause]
+
+[calmly] Comment comptez-vous y parvenir concrètement ?
+
+[short pause]
+
+[as:Roger] [calmly] En réorganisant les stocks et en automatisant le suivi des commandes.
+
+[short pause]
+
+[calmly] Cela ne représente-t-il pas un investissement considérable ?
+
+[short pause]
+
+[as:Roger] [calmly] Certes, mais il serait amorti en dix-huit mois grâce aux économies réalisées.
+
+[short pause]
+
+[calmly] Quels risques identifiez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Principalement la résistance au changement, que nous anticipons par une formation progressive.
+
+[short pause]
+
+[calmly] Voilà un dossier solide. Nous en reparlons demain.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

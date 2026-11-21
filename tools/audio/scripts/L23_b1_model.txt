@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous résumez un article à un collègue pressé.
+
+[pause]
+
+[calmly] Vous avez lu l'article sur le télétravail ? De quoi parle-t-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Il explique que le télétravail est devenu habituel dans beaucoup d'entreprises.
+
+[short pause]
+
+[calmly] Et quels avantages l'auteur mentionne-t-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Il cite le gain de temps et une meilleure organisation personnelle.
+
+[short pause]
+
+[calmly] Y a-t-il des inconvénients ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, l'isolement et la difficulté de séparer vie privée et vie professionnelle.
+
+[short pause]
+
+[calmly] Quelle est sa conclusion ?
+
+[short pause]
+
+[as:Roger] [calmly] Selon lui, un équilibre entre présence et distance est la meilleure solution.
+
+[short pause]
+
+[calmly] Merci, c'est clair et très utile.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, c'était délicieux. Et toi ?
+
+[short pause]
+
+[warmly] It means, Yes, it was delicious. And you?
+
+[short pause]
+
+[calmly] Oui, c'était délicieux. Et toi ?
+
+[repeat]
+
+[calmly] Oui, c'était délicieux. Et toi ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

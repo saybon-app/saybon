@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Tu as grandi dans une grande ville ?
+
+[turn:Non, j'habitais dans un petit village.]
+
+[calmly] Et qu'est-ce que tu faisais après l'école ?
+
+[turn:Je jouais au football avec mes voisins.]
+
+[calmly] Tu aimais l'école ?
+
+[turn:Oui, surtout les cours de musique.]
+
+[calmly] Et pendant les vacances ?
+
+[turn:Nous allions chez mes grands-parents, à la campagne.]
+
+[calmly] Quelle belle enfance !
+
+[warmly] Très bien. That's the lesson. Well done.

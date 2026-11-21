@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que lui souhaitez-vous pour la suite ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Du temps, pour ne plus rien devoir à personne, et surtout pas à sa montre.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Du temps, pour ne plus rien devoir à personne, et surtout pas à sa montre.
+
+[repeat]
+
+[calmly] Du temps, pour ne plus rien devoir à personne, et surtout pas à sa montre.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

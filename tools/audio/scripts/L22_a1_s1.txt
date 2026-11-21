@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Rien de spécial. Tu veux dîner chez moi ?
+
+[short pause]
+
+[warmly] It means, Nothing special. Do you want to have dinner at my place?
+
+[short pause]
+
+[calmly] Rien de spécial. Tu veux dîner chez moi ?
+
+[repeat]
+
+[calmly] Rien de spécial. Tu veux dîner chez moi ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

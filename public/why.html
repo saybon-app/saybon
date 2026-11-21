@@ -1,109 +1,47 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Why Learn French? | SayBon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/why.css?v=20260811">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/why2.css?v=1">
 </head>
-<body class="why-page">
+<body class="why2">
 
-<main class="why-shell">
+<button class="w2-home" id="whyHomeBtn" aria-label="Back home">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+</button>
 
-  <button class="why-home-btn" id="whyHomeBtn" aria-label="Back Home">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1f2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 10.5L12 3l9 7.5"/>
-      <path d="M5 9.5V21h14V9.5"/>
-    </svg>
-  </button>
+<main class="w2-wrap">
+  <header class="w2-head">
+    <p class="w2-kick">Welcome to SayBon</p>
+    <h1>Why do you want to learn French?</h1>
+    <p class="w2-sub">Choose the one that fits you best.</p>
+  </header>
 
-  <section class="why-stage-desktop">
-    <div class="why-bg-wrap-desktop">
-      <img src="/assets/why/desktop-background.webp" alt="" class="why-bg-desktop">
-    </div>
-
-    <h1 class="why-title" aria-label="Why do you want to learn French?">
-      <span class="why-title-text" data-text="Why do you want to learn French?"></span>
-      <span class="why-title-icon">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="7"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </span>
-    </h1>
-
-    <button class="why-option why-option-desktop why-option-personal" data-reason="personal">
-      <div class="why-option-frame">
-        <img src="/assets/why/desktop-1.webp" alt="Personal Interest">
-      </div>
+  <div class="w2-grid" role="list">
+    <button class="w2-card" data-reason="personal" role="listitem">
+      <span class="w2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg></span>
+      <span class="w2-txt"><b>Personal Interest</b><small>Learning for the joy of it</small></span>
     </button>
-
-    <button class="why-option why-option-desktop why-option-school" data-reason="school">
-      <div class="why-option-frame">
-        <img src="/assets/why/desktop-2.webp" alt="School and Exams">
-      </div>
+    <button class="w2-card" data-reason="school" role="listitem">
+      <span class="w2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5 12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.7v4.3c0 1.2 2.5 2.5 5.5 2.5s5.5-1.3 5.5-2.5v-4.3"/><path d="M21.5 9.5v5"/></svg></span>
+      <span class="w2-txt"><b>School and Exams</b><small>Classes, tests and DELF goals</small></span>
     </button>
-
-    <button class="why-option why-option-desktop why-option-travel" data-reason="travel">
-      <div class="why-option-frame">
-        <img src="/assets/why/desktop-3.webp" alt="Travel and Culture">
-      </div>
+    <button class="w2-card" data-reason="travel" role="listitem">
+      <span class="w2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.5 3.9 5.5 3.9 9s-1.3 6.5-3.9 9c-2.6-2.5-3.9-5.5-3.9-9S9.4 5.5 12 3z"/></svg></span>
+      <span class="w2-txt"><b>Travel and Culture</b><small>Trips, people and places</small></span>
     </button>
-
-    <button class="why-option why-option-desktop why-option-career" data-reason="career">
-      <div class="why-option-frame">
-        <img src="/assets/why/desktop-4.webp" alt="Career Growth">
-      </div>
+    <button class="w2-card" data-reason="career" role="listitem">
+      <span class="w2-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12.5" rx="2.2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3 13h18"/></svg></span>
+      <span class="w2-txt"><b>Career Growth</b><small>Work and professional life</small></span>
     </button>
-  </section>
-
-  <section class="why-stage-mobile">
-    <div class="why-bg-wrap-mobile">
-      <img src="/assets/why/mobile-background.webp" alt="" class="why-bg-mobile">
-    </div>
-
-    <h1 class="why-title" aria-label="Why do you want to learn French?">
-      <span class="why-title-text" data-text="Why do you want to learn French?"></span>
-      <span class="why-title-icon">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="7"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </span>
-    </h1>
-
-    <button class="why-option why-option-mobile why-option-mobile-1" data-reason="personal">
-      <div class="why-option-frame">
-        <img src="/assets/why/mobile-1.webp" alt="Personal Interest">
-      </div>
-    </button>
-
-    <button class="why-option why-option-mobile why-option-mobile-2" data-reason="school">
-      <div class="why-option-frame">
-        <img src="/assets/why/mobile-2.webp" alt="School and Exams">
-      </div>
-    </button>
-
-    <button class="why-option why-option-mobile why-option-mobile-3" data-reason="travel">
-      <div class="why-option-frame">
-        <img src="/assets/why/mobile-3.webp" alt="Travel and Culture">
-      </div>
-    </button>
-
-    <button class="why-option why-option-mobile why-option-mobile-4" data-reason="career">
-      <div class="why-option-frame">
-        <img src="/assets/why/mobile-4.webp" alt="Career Growth">
-      </div>
-    </button>
-  </section>
-
+  </div>
 </main>
 
-<script src="/js/why.js?v=20260825"></script>
+<script src="/js/why2.js?v=1"></script>
 </body>
 </html>
-
-

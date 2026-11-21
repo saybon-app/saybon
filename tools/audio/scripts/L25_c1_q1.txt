@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Mais qui financerait un tel système, sinon le contribuable ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Le contribuable, justement, puisque la société entière profite d'une population qualifiée.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Le contribuable, justement, puisque la société entière profite d'une population qualifiée.
+
+[repeat]
+
+[calmly] Le contribuable, justement, puisque la société entière profite d'une population qualifiée.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

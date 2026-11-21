@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous participez à une discussion argumentée sur la gratuité des études supérieures.
+
+[pause]
+
+[calmly] Les études supérieures devraient-elles être entièrement gratuites ?
+
+[short pause]
+
+[as:Roger] [calmly] Je le crois, car l'accès au savoir ne devrait pas dépendre du patrimoine familial.
+
+[short pause]
+
+[calmly] Mais qui financerait un tel système, sinon le contribuable ?
+
+[short pause]
+
+[as:Roger] [calmly] Le contribuable, justement, puisque la société entière profite d'une population qualifiée.
+
+[short pause]
+
+[calmly] Cela n'encouragerait-il pas un certain laisser-aller chez les étudiants ?
+
+[short pause]
+
+[as:Roger] [calmly] Je ne le pense pas : on peut exiger de l'assiduité sans faire payer.
+
+[short pause]
+
+[calmly] Admettons. Mais les universités auraient-elles les moyens de leur ambition ?
+
+[short pause]
+
+[as:Roger] [calmly] À condition de les financer sérieusement, ce qui suppose d'en faire une priorité nationale.
+
+[short pause]
+
+[calmly] Voilà une discussion dense, et vous l'avez menée avec talent.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

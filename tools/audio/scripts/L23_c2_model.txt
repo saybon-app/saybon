@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous présidez une réunion qui s'envenime.
+
+[pause]
+
+[calmly] Cette proposition est tout bonnement irréaliste, et je m'étonne qu'on ose la défendre !
+
+[short pause]
+
+[as:Roger] [calmly] Je vous invite à discuter les arguments, et non les personnes, si vous le voulez bien.
+
+[short pause]
+
+[calmly] Mais enfin, tout le monde sait que ce budget est intenable !
+
+[short pause]
+
+[as:Roger] [calmly] Alors démontrez-le, chiffres à l'appui, et nous en débattrons sereinement.
+
+[short pause]
+
+[calmly] Très bien, mais je ne céderai pas sur le fond.
+
+[short pause]
+
+[as:Roger] [calmly] Nul ne vous le demande : il s'agit seulement de trouver ce qui peut nous réunir.
+
+[short pause]
+
+[calmly] Et si nous n'y parvenons pas aujourd'hui ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous reprendrons la discussion demain, mieux préparés et, je l'espère, plus apaisés.
+
+[short pause]
+
+[calmly] Soit. Je m'en remets à votre arbitrage.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

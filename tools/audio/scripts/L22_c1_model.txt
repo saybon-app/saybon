@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous débattez des effets de la mondialisation avec un économiste.
+
+[pause]
+
+[calmly] On présente la mondialisation comme un progrès. Y souscrivez-vous sans réserve ?
+
+[short pause]
+
+[as:Roger] [calmly] Sûrement pas : elle a enrichi des régions entières, mais en a laissé d'autres au bord de la route.
+
+[short pause]
+
+[calmly] N'est-ce pas le prix inévitable de la croissance ?
+
+[short pause]
+
+[as:Roger] [calmly] Rien d'inévitable là-dedans : ce sont des choix politiques que l'on pourrait infléchir.
+
+[short pause]
+
+[calmly] Lesquels, par exemple ?
+
+[short pause]
+
+[as:Roger] [calmly] La fiscalité des multinationales, ou encore l'accompagnement des travailleurs touchés par les délocalisations.
+
+[short pause]
+
+[calmly] Vous seriez donc favorable à un certain protectionnisme ?
+
+[short pause]
+
+[as:Roger] [calmly] À un protectionnisme ciblé, tout au plus, car la fermeture totale appauvrirait tout le monde.
+
+[short pause]
+
+[calmly] Intéressant : vous refusez à la fois le dogme et la caricature.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

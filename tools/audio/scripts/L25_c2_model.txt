@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous défendez, au cours d'un dîner, l'idée que la langue façonne la pensée.
+
+[pause]
+
+[calmly] On dit que la langue façonne la pensée. N'est-ce pas exagéré ?
+
+[short pause]
+
+[as:Roger] [calmly] Peut-être, mais nier toute influence reviendrait à ignorer ce que chaque langue rend aisé ou malaisé à dire.
+
+[short pause]
+
+[calmly] Vous croyez donc que penser en français diffère de penser en anglais ?
+
+[short pause]
+
+[as:Roger] [calmly] Pas en tout, mais assez pour qu'un même raisonnement n'emprunte pas les mêmes détours.
+
+[short pause]
+
+[calmly] Cela relève de l'intuition, non d'une preuve.
+
+[short pause]
+
+[as:Roger] [calmly] Les travaux sur la perception des couleurs offrent pourtant des indices qu'il serait imprudent de balayer.
+
+[short pause]
+
+[calmly] Soit. Vous m'accordez au moins que la question reste ouverte ?
+
+[short pause]
+
+[as:Roger] [calmly] Volontiers : c'est même ce qui la rend si passionnante à discuter.
+
+[short pause]
+
+[calmly] Je vous l'accorde, et quel plaisir d'en débattre avec vous.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

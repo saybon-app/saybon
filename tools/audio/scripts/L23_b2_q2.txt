@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous plaidez donc pour la pédagogie plutôt que pour la régulation ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Pour les deux, mais la pédagogie me paraît la condition de toute régulation efficace.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Pour les deux, mais la pédagogie me paraît la condition de toute régulation efficace.
+
+[repeat]
+
+[calmly] Pour les deux, mais la pédagogie me paraît la condition de toute régulation efficace.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Alors, que pensez-vous de la semaine de quatre jours ?
+
+[turn:À mon avis, c'est une bonne idée, à condition que la productivité suive.]
+
+[calmly] Vous ne craignez pas que la journée devienne trop longue ?
+
+[turn:Si, c'est un risque, mais je crois que le repos supplémentaire compense.]
+
+[calmly] Certains disent que les clients seraient moins bien servis.
+
+[turn:Je ne suis pas d'accord, car on peut organiser des permanences.]
+
+[calmly] Admettons. Seriez-vous prêt à essayer ?
+
+[turn:Volontiers, au moins pendant six mois, pour juger sur des faits.]
+
+[calmly] Voilà une réponse équilibrée, merci.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, apporte un dessert, s'il te plaît.
+
+[short pause]
+
+[warmly] It means, Yes, bring a dessert, please.
+
+[short pause]
+
+[calmly] Oui, apporte un dessert, s'il te plaît.
+
+[repeat]
+
+[calmly] Oui, apporte un dessert, s'il te plaît.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

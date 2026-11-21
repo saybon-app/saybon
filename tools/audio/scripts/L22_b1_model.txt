@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous parlez de vos habitudes écologiques avec une voisine.
+
+[pause]
+
+[calmly] Vous faites attention à votre consommation d'énergie ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'éteins les appareils en veille et je privilégie les ampoules économiques.
+
+[short pause]
+
+[calmly] Et pour les déchets, vous triez ?
+
+[short pause]
+
+[as:Roger] [calmly] Bien sûr, et je composte même les épluchures dans mon jardin.
+
+[short pause]
+
+[calmly] Vous n'utilisez plus de sacs en plastique ?
+
+[short pause]
+
+[as:Roger] [calmly] Plus du tout, j'emporte toujours un sac en tissu quand je fais mes courses.
+
+[short pause]
+
+[calmly] Et vos déplacements, vous les faites comment ?
+
+[short pause]
+
+[as:Roger] [calmly] La plupart du temps à vélo, sauf quand il pleut vraiment beaucoup.
+
+[short pause]
+
+[calmly] Vous êtes un exemple pour le quartier !
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

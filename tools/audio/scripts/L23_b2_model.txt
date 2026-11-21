@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous réagissez à un éditorial avec nuance.
+
+[pause]
+
+[calmly] Cet éditorial affirme que les réseaux sociaux appauvrissent le débat public. Qu'en pensez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je n'irais pas aussi loin : ils appauvrissent parfois le débat, mais ils l'ouvrent aussi à de nouvelles voix.
+
+[short pause]
+
+[calmly] Lesquelles, selon vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Celles de personnes qui n'avaient auparavant aucun accès aux médias traditionnels.
+
+[short pause]
+
+[calmly] Pourtant, la désinformation s'y propage à une vitesse inquiétante.
+
+[short pause]
+
+[as:Roger] [calmly] Certes, et c'est précisément là qu'il faudrait renforcer l'éducation aux médias.
+
+[short pause]
+
+[calmly] Vous plaidez donc pour la pédagogie plutôt que pour la régulation ?
+
+[short pause]
+
+[as:Roger] [calmly] Pour les deux, mais la pédagogie me paraît la condition de toute régulation efficace.
+
+[short pause]
+
+[calmly] Voilà un point de vue nuancé, et j'y souscris largement.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

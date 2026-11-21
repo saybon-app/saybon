@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Cet éditorial affirme que les réseaux sociaux appauvrissent le débat public. Qu'en pensez-vous ?
+
+[turn:Je n'irais pas aussi loin : ils appauvrissent parfois le débat, mais ils l'ouvrent aussi à de nouvelles voix.]
+
+[calmly] Lesquelles, selon vous ?
+
+[turn:Celles de personnes qui n'avaient auparavant aucun accès aux médias traditionnels.]
+
+[calmly] Pourtant, la désinformation s'y propage à une vitesse inquiétante.
+
+[turn:Certes, et c'est précisément là qu'il faudrait renforcer l'éducation aux médias.]
+
+[calmly] Vous plaidez donc pour la pédagogie plutôt que pour la régulation ?
+
+[turn:Pour les deux, mais la pédagogie me paraît la condition de toute régulation efficace.]
+
+[calmly] Voilà un point de vue nuancé, et j'y souscris largement.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

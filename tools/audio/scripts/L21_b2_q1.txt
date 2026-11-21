@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Comment comptez-vous y parvenir concrètement ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] En réorganisant les stocks et en automatisant le suivi des commandes.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] En réorganisant les stocks et en automatisant le suivi des commandes.
+
+[repeat]
+
+[calmly] En réorganisant les stocks et en automatisant le suivi des commandes.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

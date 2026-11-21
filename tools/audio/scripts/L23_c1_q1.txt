@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] J'admire votre politique d'innovation et votre engagement envers les équipes.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Soit, mais concrètement, quelle expérience pourriez-vous mettre au service de ce projet ?
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Soit, mais concrètement, quelle expérience pourriez-vous mettre au service de ce projet ?
+
+[repeat]
+
+[calmly] Soit, mais concrètement, quelle expérience pourriez-vous mettre au service de ce projet ?
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

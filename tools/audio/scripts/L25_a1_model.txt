@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You ask for help at the tourist office in a French city.
+
+[pause]
+
+[calmly] Bonjour, bienvenue à Bordeaux. Je peux vous aider ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je voudrais un plan de la ville, s'il vous plaît.
+
+[short pause]
+
+[calmly] Bien sûr. Vous restez combien de temps ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous restons trois jours.
+
+[short pause]
+
+[calmly] Je vous conseille la cathédrale et le marché.
+
+[short pause]
+
+[as:Roger] [calmly] Merci. La cathédrale est ouverte aujourd'hui ?
+
+[short pause]
+
+[calmly] Oui, elle ouvre à dix heures.
+
+[short pause]
+
+[as:Roger] [calmly] Parfait. Où est-ce, exactement ?
+
+[short pause]
+
+[calmly] Là, sur le plan. Passez une belle journée !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Pour ouvrir le débat, pensez-vous qu'il faille interdire les voitures en centre-ville ?
+
+[turn:Je pense qu'il faut les limiter, car la pollution nuit à la santé de tous.]
+
+[calmly] Mais les commerçants risquent de perdre des clients, non ?
+
+[turn:C'est possible au début, mais les rues piétonnes attirent généralement plus de monde.]
+
+[calmly] Et les personnes âgées, comment feront-elles pour se déplacer ?
+
+[turn:Il faudrait prévoir des navettes gratuites et des places réservées.]
+
+[calmly] Vous êtes donc pour une solution progressive ?
+
+[turn:Exactement, car un changement trop brutal risquerait de mécontenter tout le monde.]
+
+[calmly] Merci, voilà un débat constructif.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

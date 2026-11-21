@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous menez un entretien de recrutement en tant qu'employeur.
+
+[pause]
+
+[calmly] Je vous remercie de me recevoir. Je suis très motivée par ce poste.
+
+[short pause]
+
+[as:Roger] [calmly] C'est un plaisir. Dites-moi ce qui vous a conduite à postuler chez nous.
+
+[short pause]
+
+[calmly] J'admire votre politique d'innovation et votre engagement envers les équipes.
+
+[short pause]
+
+[as:Roger] [calmly] Soit, mais concrètement, quelle expérience pourriez-vous mettre au service de ce projet ?
+
+[short pause]
+
+[calmly] J'ai dirigé pendant cinq ans une équipe de douze personnes.
+
+[short pause]
+
+[as:Roger] [calmly] Et quelle leçon retirez-vous de votre plus grande difficulté de management ?
+
+[short pause]
+
+[calmly] J'ai appris qu'il vaut mieux écouter avant de trancher.
+
+[short pause]
+
+[as:Roger] [calmly] Voilà une réponse que j'apprécie. Nous vous recontacterons d'ici la fin de la semaine.
+
+[short pause]
+
+[calmly] Merci infiniment, j'attendrai de vos nouvelles.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

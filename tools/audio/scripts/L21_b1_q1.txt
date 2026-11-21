@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous ne craignez pas que la journée devienne trop longue ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Si, c'est un risque, mais je crois que le repos supplémentaire compense.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Si, c'est un risque, mais je crois que le repos supplémentaire compense.
+
+[repeat]
+
+[calmly] Si, c'est un risque, mais je crois que le repos supplémentaire compense.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

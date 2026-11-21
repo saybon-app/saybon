@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Admettons. Seriez-vous prêt à essayer ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Volontiers, au moins pendant six mois, pour juger sur des faits.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Volontiers, au moins pendant six mois, pour juger sur des faits.
+
+[repeat]
+
+[calmly] Volontiers, au moins pendant six mois, pour juger sur des faits.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Merci pour cet exposé. Pourquoi avoir choisi cette méthode plutôt qu'une autre ?
+
+[turn:Parce qu'elle offre le meilleur compromis entre rapidité et fiabilité.]
+
+[calmly] Vos résultats sont-ils vraiment généralisables ?
+
+[turn:Dans une certaine mesure, mais il faudrait les confirmer sur un échantillon plus large.]
+
+[calmly] N'y a-t-il pas un risque de biais dans vos données ?
+
+[turn:Vous soulevez un point important, et nous l'avons limité en tirant les participants au sort.]
+
+[calmly] Très bien. Et quelle serait la prochaine étape ?
+
+[turn:Un test à grande échelle, dès que le financement sera obtenu.]
+
+[calmly] Merci, la discussion était riche.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] J'hésite à rendre ce vers littéralement. Qu'en pensez-vous ?
+
+[turn:La littéralité serait fidèle à la lettre, mais infidèle à l'esprit du poème.]
+
+[calmly] Pourtant, on reproche souvent aux traducteurs de trop s'écarter du texte.
+
+[turn:On oublie qu'une traduction est toujours une interprétation, et qu'il faut l'assumer.]
+
+[calmly] Comment trancheriez-vous, ici ?
+
+[turn:Je sacrifierais la rime pour sauver le rythme, qui porte l'émotion.]
+
+[calmly] Et si l'auteur n'avait pas voulu de cette liberté ?
+
+[turn:Alors il faudrait se demander ce qu'il craint de perdre, car on ne trahit bien que ce qu'on aime.]
+
+[calmly] Voilà une belle conception du métier.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

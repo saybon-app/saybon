@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vous m'aviez promis le rapport pour ce soir, n'est-ce pas ?
+
+[turn:En effet, mais un imprévu m'oblige à vous demander un délai supplémentaire.]
+
+[calmly] De quel ordre d'imprévu s'agit-il ?
+
+[turn:Deux collègues sont absents, si bien que les données ne sont pas encore consolidées.]
+
+[calmly] Et de combien de temps auriez-vous besoin ?
+
+[turn:Deux jours me suffiraient pour livrer un travail irréprochable.]
+
+[calmly] Je peux accepter, à condition que vous me transmettiez un état d'avancement demain.
+
+[turn:C'est tout à fait raisonnable, je vous l'enverrai avant midi.]
+
+[calmly] Dans ce cas, c'est entendu.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

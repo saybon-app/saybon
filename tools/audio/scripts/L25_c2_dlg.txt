@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] On dit que la langue façonne la pensée. N'est-ce pas exagéré ?
+
+[turn:Peut-être, mais nier toute influence reviendrait à ignorer ce que chaque langue rend aisé ou malaisé à dire.]
+
+[calmly] Vous croyez donc que penser en français diffère de penser en anglais ?
+
+[turn:Pas en tout, mais assez pour qu'un même raisonnement n'emprunte pas les mêmes détours.]
+
+[calmly] Cela relève de l'intuition, non d'une preuve.
+
+[turn:Les travaux sur la perception des couleurs offrent pourtant des indices qu'il serait imprudent de balayer.]
+
+[calmly] Soit. Vous m'accordez au moins que la question reste ouverte ?
+
+[turn:Volontiers : c'est même ce qui la rend si passionnante à discuter.]
+
+[calmly] Je vous l'accorde, et quel plaisir d'en débattre avec vous.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

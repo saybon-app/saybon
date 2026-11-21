@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Bonjour. J'ai trois ans d'expérience dans la vente.
+
+[short pause]
+
+[warmly] It means, Hello. I have three years of experience in sales.
+
+[short pause]
+
+[calmly] Bonjour. J'ai trois ans d'expérience dans la vente.
+
+[repeat]
+
+[calmly] Bonjour. J'ai trois ans d'expérience dans la vente.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

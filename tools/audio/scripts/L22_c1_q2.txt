@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous seriez donc favorable à un certain protectionnisme ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] À un protectionnisme ciblé, tout au plus, car la fermeture totale appauvrirait tout le monde.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] À un protectionnisme ciblé, tout au plus, car la fermeture totale appauvrirait tout le monde.
+
+[repeat]
+
+[calmly] À un protectionnisme ciblé, tout au plus, car la fermeture totale appauvrirait tout le monde.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

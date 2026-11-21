@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Ce choix ne contredit-il pas votre propre prudence ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Pas nécessairement : être prudent, c'est aussi savoir qu'attendre a un coût.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Pas nécessairement : être prudent, c'est aussi savoir qu'attendre a un coût.
+
+[repeat]
+
+[calmly] Pas nécessairement : être prudent, c'est aussi savoir qu'attendre a un coût.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

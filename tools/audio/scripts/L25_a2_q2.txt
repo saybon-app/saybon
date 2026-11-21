@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Vous pouvez commencer le mois prochain ?
+
+[short pause]
+
+[warmly] It means, Can you start next month?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[short pause]
+
+[warmly] It means, Yes, I am available from the first of the month.
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[repeat]
+
+[calmly] Oui, je suis disponible dès le premier du mois.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

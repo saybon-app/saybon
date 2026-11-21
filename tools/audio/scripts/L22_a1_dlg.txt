@@ -1,0 +1,21 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Salut ! Qu'est-ce que tu fais samedi soir ?
+
+[turn:Rien de spécial. Tu veux dîner chez moi ?]
+
+[calmly] Avec plaisir ! À quelle heure ?
+
+[turn:À huit heures, ça va ?]
+
+[calmly] Parfait. Je peux apporter quelque chose ?
+
+[turn:Oui, apporte un dessert, s'il te plaît.]
+
+[calmly] Super idée ! Tu aimes le chocolat ?
+
+[turn:Oui, j'adore ça. Et toi ?]
+
+[calmly] Moi aussi ! À samedi !
+
+[warmly] Très bien. That's the lesson. Well done.

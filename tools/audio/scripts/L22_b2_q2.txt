@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Je peux accepter, à condition que vous me transmettiez un état d'avancement demain.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] C'est tout à fait raisonnable, je vous l'enverrai avant midi.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] C'est tout à fait raisonnable, je vous l'enverrai avant midi.
+
+[repeat]
+
+[calmly] C'est tout à fait raisonnable, je vous l'enverrai avant midi.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

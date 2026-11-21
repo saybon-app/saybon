@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous donnez votre opinion sur la semaine de quatre jours avec un collègue.
+
+[pause]
+
+[calmly] Alors, que pensez-vous de la semaine de quatre jours ?
+
+[short pause]
+
+[as:Roger] [calmly] À mon avis, c'est une bonne idée, à condition que la productivité suive.
+
+[short pause]
+
+[calmly] Vous ne craignez pas que la journée devienne trop longue ?
+
+[short pause]
+
+[as:Roger] [calmly] Si, c'est un risque, mais je crois que le repos supplémentaire compense.
+
+[short pause]
+
+[calmly] Certains disent que les clients seraient moins bien servis.
+
+[short pause]
+
+[as:Roger] [calmly] Je ne suis pas d'accord, car on peut organiser des permanences.
+
+[short pause]
+
+[calmly] Admettons. Seriez-vous prêt à essayer ?
+
+[short pause]
+
+[as:Roger] [calmly] Volontiers, au moins pendant six mois, pour juger sur des faits.
+
+[short pause]
+
+[calmly] Voilà une réponse équilibrée, merci.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

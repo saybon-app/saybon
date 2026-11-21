@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Très bien. Et quelle serait la prochaine étape ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Un test à grande échelle, dès que le financement sera obtenu.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Un test à grande échelle, dès que le financement sera obtenu.
+
+[repeat]
+
+[calmly] Un test à grande échelle, dès que le financement sera obtenu.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

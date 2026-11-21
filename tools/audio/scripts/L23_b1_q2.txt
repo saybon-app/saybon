@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Quelle est sa conclusion ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Selon lui, un équilibre entre présence et distance est la meilleure solution.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Selon lui, un équilibre entre présence et distance est la meilleure solution.
+
+[repeat]
+
+[calmly] Selon lui, un équilibre entre présence et distance est la meilleure solution.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

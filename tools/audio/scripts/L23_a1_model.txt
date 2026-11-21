@@ -1,0 +1,41 @@
+[warmly] Listen to this dialogue. You tell a friend what you did at the weekend.
+
+[pause]
+
+[calmly] Alors, ton week-end, c'était comment ?
+
+[short pause]
+
+[as:Roger] [calmly] Super ! Samedi, j'ai visité un musée.
+
+[short pause]
+
+[calmly] Ah bon ? Et dimanche, qu'est-ce que tu as fait ?
+
+[short pause]
+
+[as:Roger] [calmly] Dimanche, j'ai mangé chez ma sœur.
+
+[short pause]
+
+[calmly] Vous avez mangé quoi ?
+
+[short pause]
+
+[as:Roger] [calmly] Nous avons mangé du poisson.
+
+[short pause]
+
+[calmly] Et tu as aimé ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, c'était délicieux. Et toi ?
+
+[short pause]
+
+[calmly] Moi, j'ai dormi presque tout le week-end !
+
+[pause]
+
+[warmly] That's the conversation. I'm going to teach you how to have it, and at the end of this lesson, you'll have it with me.

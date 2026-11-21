@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous répondez aux questions après une présentation.
+
+[pause]
+
+[calmly] Merci pour cet exposé. Pourquoi avoir choisi cette méthode plutôt qu'une autre ?
+
+[short pause]
+
+[as:Roger] [calmly] Parce qu'elle offre le meilleur compromis entre rapidité et fiabilité.
+
+[short pause]
+
+[calmly] Vos résultats sont-ils vraiment généralisables ?
+
+[short pause]
+
+[as:Roger] [calmly] Dans une certaine mesure, mais il faudrait les confirmer sur un échantillon plus large.
+
+[short pause]
+
+[calmly] N'y a-t-il pas un risque de biais dans vos données ?
+
+[short pause]
+
+[as:Roger] [calmly] Vous soulevez un point important, et nous l'avons limité en tirant les participants au sort.
+
+[short pause]
+
+[calmly] Très bien. Et quelle serait la prochaine étape ?
+
+[short pause]
+
+[as:Roger] [calmly] Un test à grande échelle, dès que le financement sera obtenu.
+
+[short pause]
+
+[calmly] Merci, la discussion était riche.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Vous croyez donc que penser en français diffère de penser en anglais ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Pas en tout, mais assez pour qu'un même raisonnement n'emprunte pas les mêmes détours.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Pas en tout, mais assez pour qu'un même raisonnement n'emprunte pas les mêmes détours.
+
+[repeat]
+
+[calmly] Pas en tout, mais assez pour qu'un même raisonnement n'emprunte pas les mêmes détours.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

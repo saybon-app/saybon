@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, je voudrais un plan de la ville, s'il vous plaît.
+
+[short pause]
+
+[warmly] It means, Yes, I would like a map of the city, please.
+
+[short pause]
+
+[calmly] Oui, je voudrais un plan de la ville, s'il vous plaît.
+
+[repeat]
+
+[calmly] Oui, je voudrais un plan de la ville, s'il vous plaît.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

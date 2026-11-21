@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Que retiendrez-vous de lui, au fond ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Une rare manière de rendre exigeantes les choses simples, et simples les choses exigeantes.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Une rare manière de rendre exigeantes les choses simples, et simples les choses exigeantes.
+
+[repeat]
+
+[calmly] Une rare manière de rendre exigeantes les choses simples, et simples les choses exigeantes.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

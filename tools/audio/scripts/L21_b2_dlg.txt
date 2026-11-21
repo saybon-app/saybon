@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Nous vous écoutons : quel est l'objectif de votre projet ?
+
+[turn:Il vise à réduire de moitié nos délais de livraison d'ici la fin de l'année.]
+
+[calmly] Comment comptez-vous y parvenir concrètement ?
+
+[turn:En réorganisant les stocks et en automatisant le suivi des commandes.]
+
+[calmly] Cela ne représente-t-il pas un investissement considérable ?
+
+[turn:Certes, mais il serait amorti en dix-huit mois grâce aux économies réalisées.]
+
+[calmly] Quels risques identifiez-vous ?
+
+[turn:Principalement la résistance au changement, que nous anticipons par une formation progressive.]
+
+[calmly] Voilà un dossier solide. Nous en reparlons demain.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vous avez lu l'article sur le télétravail ? De quoi parle-t-il ?
+
+[turn:Il explique que le télétravail est devenu habituel dans beaucoup d'entreprises.]
+
+[calmly] Et quels avantages l'auteur mentionne-t-il ?
+
+[turn:Il cite le gain de temps et une meilleure organisation personnelle.]
+
+[calmly] Y a-t-il des inconvénients ?
+
+[turn:Oui, l'isolement et la difficulté de séparer vie privée et vie professionnelle.]
+
+[calmly] Quelle est sa conclusion ?
+
+[turn:Selon lui, un équilibre entre présence et distance est la meilleure solution.]
+
+[calmly] Merci, c'est clair et très utile.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

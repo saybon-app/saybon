@@ -1,3 +1,4 @@
+/*AF*/(function(){try{var st=document.createElement('style');st.textContent='.pc-hint{display:inline-block!important;margin:10px auto 0!important;padding:9px 18px!important;border-radius:999px!important;background:rgba(255,214,140,.95)!important;color:#3a2410!important;font:700 15px/1.2 Poppins,Manrope,sans-serif!important;letter-spacing:.02em!important;text-transform:none!important;opacity:1!important;box-shadow:0 4px 14px rgba(0,0,0,.25)!important;animation:afPulse 1.4s ease-in-out infinite}@keyframes afPulse{50%{transform:scale(1.06)}}';document.head.appendChild(st);}catch(e){}})();
 /* SayBon - Lesson 1 on the Paris scene: one frosted glass card.
    Intro: a calm teacher button (microphone icon) pulses while the intro plays, then the card's content slides out left.
    Practice: teacher phrase + speaker, microphone, live wave, replay + submit, grade, next. Skip is always available. */
@@ -220,8 +221,8 @@ window.__psUI=function(partNum,blocks,ctx){
    media.addEventListener('ended',kEnd);
    media.addEventListener('error',function(){kSt.textContent='Audio unavailable';musicOn();T(kNext,1500);});
    var kq0=media.play();if(kq0&&kq0.catch)kq0.catch(function(){
-    var hh2=document.createElement('div');hh2.className='pc-hint';hh2.textContent='tap to listen';kp.querySelector('.pc-hslot').appendChild(hh2);
-    var kick2=function(){document.removeEventListener('pointerdown',kick2,true);if(!dead&&media.paused&&!media.ended){var q9=media.play();if(q9&&q9.catch)q9.catch(function(){});}};
+    var hh2=document.createElement('div');hh2.className='pc-hint';hh2.textContent='Tap to hear the teacher';kp.querySelector('.pc-hslot').appendChild(hh2);
+    var kick2=function(){window.__psKickAt=Date.now();document.removeEventListener('pointerdown',kick2,true);if(!dead&&media.paused&&!media.ended){var q9=media.play();if(q9&&q9.catch)q9.catch(function(){});}};
     document.addEventListener('pointerdown',kick2,true);
    });
   }).catch(function(){kSt.textContent='Microphone blocked \u2014 allow it, then reload';});
@@ -248,11 +249,11 @@ window.__psUI=function(partNum,blocks,ctx){
   media.addEventListener('error',function(){try{console.warn('intro audio error',media.src,media.error&&media.error.code);}catch(e){}musicOn();if(ovr)window.__psSkipIntro=1;if(sc())sc().calm();more();});
   var pp=media.play();
   if(pp&&pp.catch)pp.catch(function(){
-   var hint=document.createElement('div');hint.className='pc-hint';hint.textContent='tap to listen';p.appendChild(hint);
-   var kick=function(){document.removeEventListener('pointerdown',kick,true);document.removeEventListener('keydown',kick,true);if(!dead&&media.paused&&!media.ended){var q=media.play();if(q&&q.catch)q.catch(function(){});}};
+   var hint=document.createElement('div');hint.className='pc-hint';hint.textContent='Tap to hear the teacher';p.appendChild(hint);
+   var kick=function(){window.__psKickAt=Date.now();document.removeEventListener('pointerdown',kick,true);document.removeEventListener('keydown',kick,true);if(!dead&&media.paused&&!media.ended){var q=media.play();if(q&&q.catch)q.catch(function(){});}};
    document.addEventListener('pointerdown',kick,true);document.addEventListener('keydown',kick,true);
   });
-  btn.onclick=function(){if(media.paused){try{if(media.ended)media.currentTime=0;}catch(e){}var q=media.play();if(q&&q.catch)q.catch(function(){});}else media.pause();};
+  btn.onclick=function(){if(Date.now()-(window.__psKickAt||0)<800)return;if(media.paused){try{if(media.ended)media.currentTime=0;}catch(e){}var q=media.play();if(q&&q.catch)q.catch(function(){});}else media.pause();};
   return true;
  }
 
@@ -303,8 +304,8 @@ window.__psUI=function(partNum,blocks,ctx){
     media.addEventListener('ended',function(){dSpk.classList.remove('on');dp.classList.remove('is-rec');dDots.forEach(function(x){x.className='done';});if(sc()){sc().calm();sc().micState('');}dOk=true;dSt.textContent='Scoring...';T(function(){if(recorder&&recorder.state==='recording')recorder.stop();},700);});
     media.addEventListener('error',function(){dSt.textContent='Audio unavailable';try{if(recorder&&recorder.state==='recording')recorder.stop();}catch(e){}});
     var q0=media.play();if(q0&&q0.catch)q0.catch(function(){
-     var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';dp.querySelector('.pc-hslot').appendChild(hh);
-     var kick=function(){document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
+     var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='Tap to hear the teacher';dp.querySelector('.pc-hslot').appendChild(hh);
+     var kick=function(){window.__psKickAt=Date.now();document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
      document.addEventListener('pointerdown',kick,true);
     });
    }).catch(function(){dSt.textContent='Microphone blocked — allow it and try again';});
@@ -392,8 +393,8 @@ window.__psUI=function(partNum,blocks,ctx){
   media.addEventListener('ended',function(){musicOn();ready();});
   media.addEventListener('error',function(){musicOn();ready();});
   var q=media.play();if(q&&q.catch)q.catch(function(){
-   var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='tap to listen';p.querySelector('.pc-hslot').appendChild(hh);
-   var kick=function(){document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
+   var hh=document.createElement('div');hh.className='pc-hint';hh.textContent='Tap to hear the teacher';p.querySelector('.pc-hslot').appendChild(hh);
+   var kick=function(){window.__psKickAt=Date.now();document.removeEventListener('pointerdown',kick,true);if(!dead&&media.paused&&!media.ended){var q4=media.play();if(q4&&q4.catch)q4.catch(function(){});}};
    document.addEventListener('pointerdown',kick,true);
   });
  }else{spk.disabled=true;ready();}

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] On présente la mondialisation comme un progrès. Y souscrivez-vous sans réserve ?
+
+[turn:Sûrement pas : elle a enrichi des régions entières, mais en a laissé d'autres au bord de la route.]
+
+[calmly] N'est-ce pas le prix inévitable de la croissance ?
+
+[turn:Rien d'inévitable là-dedans : ce sont des choix politiques que l'on pourrait infléchir.]
+
+[calmly] Lesquels, par exemple ?
+
+[turn:La fiscalité des multinationales, ou encore l'accompagnement des travailleurs touchés par les délocalisations.]
+
+[calmly] Vous seriez donc favorable à un certain protectionnisme ?
+
+[turn:À un protectionnisme ciblé, tout au plus, car la fermeture totale appauvrirait tout le monde.]
+
+[calmly] Intéressant : vous refusez à la fois le dogme et la caricature.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

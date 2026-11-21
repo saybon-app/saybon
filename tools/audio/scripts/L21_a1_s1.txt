@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Oui, je voudrais un billet pour Lyon.
+
+[short pause]
+
+[warmly] It means, Yes, I would like a ticket to Lyon.
+
+[short pause]
+
+[calmly] Oui, je voudrais un billet pour Lyon.
+
+[repeat]
+
+[calmly] Oui, je voudrais un billet pour Lyon.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

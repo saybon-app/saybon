@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Précisez : où se situe, au juste, le point de rupture ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Dans l'horizon retenu : l'un raisonne à deux ans, l'autre à dix.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Dans l'horizon retenu : l'un raisonne à deux ans, l'autre à dix.
+
+[repeat]
+
+[calmly] Dans l'horizon retenu : l'un raisonne à deux ans, l'autre à dix.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

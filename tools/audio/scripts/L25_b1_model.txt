@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous participez à un débat sur la limitation des voitures en centre-ville.
+
+[pause]
+
+[calmly] Pour ouvrir le débat, pensez-vous qu'il faille interdire les voitures en centre-ville ?
+
+[short pause]
+
+[as:Roger] [calmly] Je pense qu'il faut les limiter, car la pollution nuit à la santé de tous.
+
+[short pause]
+
+[calmly] Mais les commerçants risquent de perdre des clients, non ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est possible au début, mais les rues piétonnes attirent généralement plus de monde.
+
+[short pause]
+
+[calmly] Et les personnes âgées, comment feront-elles pour se déplacer ?
+
+[short pause]
+
+[as:Roger] [calmly] Il faudrait prévoir des navettes gratuites et des places réservées.
+
+[short pause]
+
+[calmly] Vous êtes donc pour une solution progressive ?
+
+[short pause]
+
+[as:Roger] [calmly] Exactement, car un changement trop brutal risquerait de mécontenter tout le monde.
+
+[short pause]
+
+[calmly] Merci, voilà un débat constructif.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

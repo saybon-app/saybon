@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Ces deux rapports se contredisent sur l'impact du projet. Comment les articulez-vous ?
+
+[turn:Ils divergent moins sur les faits que sur la manière de les interpréter.]
+
+[calmly] Précisez : où se situe, au juste, le point de rupture ?
+
+[turn:Dans l'horizon retenu : l'un raisonne à deux ans, l'autre à dix.]
+
+[calmly] Lequel vous paraît le plus convaincant ?
+
+[turn:Le second, bien qu'il repose sur des hypothèses plus fragiles.]
+
+[calmly] Ce choix ne contredit-il pas votre propre prudence ?
+
+[turn:Pas nécessairement : être prudent, c'est aussi savoir qu'attendre a un coût.]
+
+[calmly] Voilà une synthèse qui éclaire vraiment le débat.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

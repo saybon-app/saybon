@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Quels risques identifiez-vous ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Principalement la résistance au changement, que nous anticipons par une formation progressive.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Principalement la résistance au changement, que nous anticipons par une formation progressive.
+
+[repeat]
+
+[calmly] Principalement la résistance au changement, que nous anticipons par une formation progressive.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Je vous remercie de me recevoir. Je suis très motivée par ce poste.
+
+[turn:C'est un plaisir. Dites-moi ce qui vous a conduite à postuler chez nous.]
+
+[calmly] J'admire votre politique d'innovation et votre engagement envers les équipes.
+
+[turn:Soit, mais concrètement, quelle expérience pourriez-vous mettre au service de ce projet ?]
+
+[calmly] J'ai dirigé pendant cinq ans une équipe de douze personnes.
+
+[turn:Et quelle leçon retirez-vous de votre plus grande difficulté de management ?]
+
+[calmly] J'ai appris qu'il vaut mieux écouter avant de trancher.
+
+[turn:Voilà une réponse que j'apprécie. Nous vous recontacterons d'ici la fin de la semaine.]
+
+[calmly] Merci infiniment, j'attendrai de vos nouvelles.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

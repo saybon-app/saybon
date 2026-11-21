@@ -1,0 +1,41 @@
+[warmly] Écoutez ce dialogue. Vous négociez un délai supplémentaire pour un rapport.
+
+[pause]
+
+[calmly] Vous m'aviez promis le rapport pour ce soir, n'est-ce pas ?
+
+[short pause]
+
+[as:Roger] [calmly] En effet, mais un imprévu m'oblige à vous demander un délai supplémentaire.
+
+[short pause]
+
+[calmly] De quel ordre d'imprévu s'agit-il ?
+
+[short pause]
+
+[as:Roger] [calmly] Deux collègues sont absents, si bien que les données ne sont pas encore consolidées.
+
+[short pause]
+
+[calmly] Et de combien de temps auriez-vous besoin ?
+
+[short pause]
+
+[as:Roger] [calmly] Deux jours me suffiraient pour livrer un travail irréprochable.
+
+[short pause]
+
+[calmly] Je peux accepter, à condition que vous me transmettiez un état d'avancement demain.
+
+[short pause]
+
+[as:Roger] [calmly] C'est tout à fait raisonnable, je vous l'enverrai avant midi.
+
+[short pause]
+
+[calmly] Dans ce cas, c'est entendu.
+
+[pause]
+
+[warmly] Voilà la conversation. Je vais vous apprendre à l'avoir, et à la fin de cette leçon, vous l'aurez avec moi.

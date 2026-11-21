@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et vos déplacements, vous les faites comment ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] La plupart du temps à vélo, sauf quand il pleut vraiment beaucoup.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] La plupart du temps à vélo, sauf quand il pleut vraiment beaucoup.
+
+[repeat]
+
+[calmly] La plupart du temps à vélo, sauf quand il pleut vraiment beaucoup.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

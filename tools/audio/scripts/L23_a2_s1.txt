@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] J'ai raté mon train et j'ai dû attendre deux heures.
+
+[short pause]
+
+[warmly] It means, I missed my train and had to wait two hours.
+
+[short pause]
+
+[calmly] J'ai raté mon train et j'ai dû attendre deux heures.
+
+[repeat]
+
+[calmly] J'ai raté mon train et j'ai dû attendre deux heures.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

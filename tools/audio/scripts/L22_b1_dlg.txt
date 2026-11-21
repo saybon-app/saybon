@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Vous faites attention à votre consommation d'énergie ?
+
+[turn:Oui, j'éteins les appareils en veille et je privilégie les ampoules économiques.]
+
+[calmly] Et pour les déchets, vous triez ?
+
+[turn:Bien sûr, et je composte même les épluchures dans mon jardin.]
+
+[calmly] Vous n'utilisez plus de sacs en plastique ?
+
+[turn:Plus du tout, j'emporte toujours un sac en tissu quand je fais mes courses.]
+
+[calmly] Et vos déplacements, vous les faites comment ?
+
+[turn:La plupart du temps à vélo, sauf quand il pleut vraiment beaucoup.]
+
+[calmly] Vous êtes un exemple pour le quartier !
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

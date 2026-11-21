@@ -1,0 +1,21 @@
+[warmly] Dernière partie : la conversation du début, mais cette fois, c'est vous qui parlez. Je joue votre ami. Le micro est allumé.
+
+[calmly] Chers amis, notre collègue nous quitte. Qui veut dire quelques mots ?
+
+[turn:Moi, avec plaisir, même si je crains de ne pas trouver les mots justes.]
+
+[calmly] Que retiendrez-vous de lui, au fond ?
+
+[turn:Une rare manière de rendre exigeantes les choses simples, et simples les choses exigeantes.]
+
+[calmly] Un souvenir qui vous a marqué ?
+
+[turn:Le jour où il a reconnu une erreur devant tous, avec une simplicité qui nous a désarmés.]
+
+[calmly] Que lui souhaitez-vous pour la suite ?
+
+[turn:Du temps, pour ne plus rien devoir à personne, et surtout pas à sa montre.]
+
+[calmly] Voilà qui lui ressemble tant ! Levons nos verres.
+
+[warmly] Très bien. C'est la fin de la leçon. Bravo.

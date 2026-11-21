@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] J'ai appris qu'il vaut mieux écouter avant de trancher.
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Voilà une réponse que j'apprécie. Nous vous recontacterons d'ici la fin de la semaine.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Voilà une réponse que j'apprécie. Nous vous recontacterons d'ici la fin de la semaine.
+
+[repeat]
+
+[calmly] Voilà une réponse que j'apprécie. Nous vous recontacterons d'ici la fin de la semaine.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.

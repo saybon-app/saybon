@@ -1,0 +1,29 @@
+[warmly] Maintenant, un moment de la conversation. Écoutez.
+
+[short pause]
+
+[calmly] Et si nous n'y parvenons pas aujourd'hui ?
+
+[short pause]
+
+[warmly] Vous répondez ainsi.
+
+[short pause]
+
+[calmly] Nous reprendrons la discussion demain, mieux préparés et, je l'espère, plus apaisés.
+
+[short pause]
+
+[warmly] Répétez après moi.
+
+[short pause]
+
+[calmly] Nous reprendrons la discussion demain, mieux préparés et, je l'espère, plus apaisés.
+
+[repeat]
+
+[calmly] Nous reprendrons la discussion demain, mieux préparés et, je l'espère, plus apaisés.
+
+[repeat]
+
+[warmly] À vous. Appuyez sur le micro, et répondez-moi.
