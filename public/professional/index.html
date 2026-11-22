@@ -151,6 +151,7 @@ h1 b{font-weight:800;display:inline-block}
  .opt2,.opt2:hover{padding:9px 5px;font-size:.84rem;border-radius:0;margin:0}.opt2 small{font-size:.66rem}
  .drop{padding:5px 8px 7px}
 }
+.bdg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 14px}.bdg span{background:#e3f6ec;border:1.5px solid #9fd6b7;color:#0b3d2c;border-radius:999px;padding:6px 14px;font:800 .78rem Montserrat,sans-serif}
 </style></head>
 <body>
 <button class="corner l" id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.5 20.5 11"/><path d="M5.5 9.5V20h4.5v-6h4v6h4.5V9.5"/></svg></button>
@@ -200,7 +201,10 @@ function speak(t){if(!canSpeak)return;try{speechSynthesis.cancel();var u=new Spe
 function lbtn(t){return canSpeak?' <button class="listen" data-say="'+esc(t)+'">Listen</button>':''}
 document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(b){e.stopPropagation();speak(b.getAttribute("data-say"))}},true);
 
-var sel=ls("sbpro_sel")||{f:"",other:"",lv:""};sel.tg=sel.tg||"";sel.pc=sel.pc||"";sel.started=!!sel.started;
+function sel0(){return{f:"",other:"",lv:"",tg:"",pc:"",started:false}}
+var sel=sel0();
+function sv(){ls("sbpro_sel_"+(user?user.uid:"anon"),sel);ls("sbpro_sel",sel)}
+function badges(){var a=[];if(fieldOk())a.push(fieldName());if(level())a.push(sel.lv+(sel.tg&&sel.tg!==sel.lv?" \u2192 "+sel.tg:""));if(pace())a.push(pace().name);return a.length?'<div class="bdg">'+a.map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+"</div>":""}
 var state={tab:"lessons",card:null,open:false,quiz:null,play:null};
 var user=null,progressMap={};
 var PACES=[{k:"relaxed",name:"Relaxed",sub:"3 lessons a week",per:3,days:"3 days a week, one lesson a day"},{k:"steady",name:"Steady",sub:"5 lessons a week",per:5,days:"5 days a week, one lesson a day"},{k:"intensive",name:"Intensive",sub:"10 lessons a week",per:10,days:"5 days a week, two lessons a day"}];
@@ -219,10 +223,7 @@ var KEYS=["f","l","t","p"];
 function openDrop(w){KEYS.forEach(function(k){$("p"+k+"d").classList.toggle("open",k===w);$("p"+k).classList.toggle("open",k===w)})}
 function closeDrops(){openDrop("")}
 function updatePills(){
- $("pfl").textContent=fieldOk()?fieldName():"Pick Your Field";
- $("pll").textContent=level()?level().name:"Select Your Level";
- var t=LEVELS[idx(sel.tg)];$("ptl").textContent=t?t.name:"Level You Need";
- $("ppl").textContent=pace()?pace().name:"How Fast";
+ $("pfl").textContent="Pick Your Field";$("pll").textContent="Select Your Level";$("ptl").textContent="Level You Need";$("ppl").textContent="How Fast";
 }
 function optHtml(attr,key,name,sub,on){return'<button class="opt2'+(on?" sel":"")+'" '+attr+'="'+key+'"><span>'+esc(name)+'<small>'+esc(sub)+'</small></span>'+(on?CHECK:"")+'</button>'}
 function fieldDrop(){
@@ -256,7 +257,7 @@ function chosen(k,v){
  for(var x in v)sel[x]=v[x];
  if(k==="l"&&idx(sel.tg)<idx(sel.lv))sel.tg="";
  sel.started=false;state.tab="lessons";state.card=null;state.quiz=null;state.play=null;state.hub=0;
- ls("sbpro_sel",sel);updatePills();
+ sv();updatePills();
  var n=nextOpen();
  if(n){DR[n]();openDrop(n)}else{closeDrops();save()}
  renderPlan();renderLearn();
@@ -271,12 +272,12 @@ function renderPlan(){
  var c=$("plan");if(!ready()||sel.started){c.classList.add("hide");return}
  var p=pace(),ps=path(),total=ps.length*25,weeks=Math.ceil(total/p.per),months=Math.round(weeks/4.3*10)/10;
  c.classList.remove("hide");
- c.innerHTML='<h2>Your recommended plan</h2><div class="path">'+esc(fieldName())+' &middot; '+ps.map(function(l){return l.k}).join(" &rarr; ")+'</div>'
+ c.innerHTML=badges()+'<h2>Your recommended plan</h2><div class="path">'+esc(fieldName())+' &middot; '+ps.map(function(l){return l.k}).join(" &rarr; ")+'</div>'
   +'<div class="stats"><div class="st"><b>'+total+'</b><span>lessons</span></div><div class="st"><b>'+p.per+'</b><span>per week</span></div><div class="st"><b>~'+weeks+'</b><span>weeks</span></div></div>'
   +'<p><b>Recommended routine:</b> '+esc(p.days)+'. At that pace, about '+weeks+' weeks (roughly '+months+' months) to finish '+(ps.length>1?'all '+ps.length+' levels':'your level')+'.</p>'
   +'<p class="cav">These are our recommended estimates, not a guarantee. We assume about 20 minutes a lesson. Your own practice decides how fast you go. You unlock each lesson by finishing the one before it.</p>'
   +'<button class="go" id="start">Start</button>';
- $("start").onclick=function(){sel.started=true;state.hub=0;ls("sbpro_sel",sel);renderPlan();renderLearn();save();setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)};
+ $("start").onclick=function(){sel.started=true;state.hub=0;sv();renderPlan();renderLearn();save();setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)};
 }
 async function save(){try{if(!user||!ready())return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv,target:sel.tg,pace:sel.pc}),keepalive:true}).catch(function(){})}catch(e){}}
 
@@ -317,7 +318,7 @@ function renderLearn(){
  c.classList.remove("hide");
  var f=field(sel.f),l=path()[0],tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);tabs.push(["scen","Scenarios"]);/*scen*/
  if(!f&&state.tab!=="scen")state.tab="lessons";
- c.innerHTML='<p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
+ c.innerHTML=badges()+'<p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
  c.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){state.tab=b.dataset.tab;state.card=null;state.quiz=null;state.play=null;renderLearn()}});
  var body=$("body");
  if(state.tab==="lessons"){drawLessons();loadProgress()}
@@ -381,7 +382,7 @@ function plays(f,el){
  step();
 }
 
-onAuthStateChanged(auth,function(u){user=u;if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
+onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null;sel=sel0();if(sv0)for(var x in sv0)sel[x]=sv0[x];sel.started=!!sel.started;ls("sbpro_sel",sel);closeDrops();updatePills();renderPlan();renderLearn();if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
 updatePills();renderPlan();renderLearn();
 </script>
 </body></html>
