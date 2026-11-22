@@ -15,42 +15,49 @@
 html,body{min-height:100%}
 body{font-family:"Montserrat",sans-serif;color:#fff;background:#04382a;position:relative}
 body::before{content:"";position:fixed;inset:0;z-index:-1;background:#04382a url(bg-desktop.webp) center/cover no-repeat}
-@media(max-width:700px){body::before{background-image:url(bg-mobile.webp)}}
-.hero{height:100vh;height:100svh;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--u)*7) 4vw calc(var(--u)*2)}
-.corner{position:fixed;top:calc(var(--u)*2.9);width:calc(var(--u)*5.4);height:calc(var(--u)*5.4);min-width:42px;min-height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.95);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20;transition:background .2s}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(0,18,11,.42)}
+@media(max-width:700px){body::before{background-image:url(bg-mobile.webp)}body::after{background:rgba(0,18,11,.5)}}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:calc(var(--u)*10) 4vw calc(var(--u)*5)}
+.corner{position:fixed;top:calc(var(--u)*2.6);width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);min-width:36px;min-height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.95);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20;transition:background .2s}
 .corner:hover{background:rgba(255,255,255,.14)}
-.corner.l{left:calc(var(--u)*4.5)}.corner.r{right:calc(var(--u)*4.5)}
+.corner.l{left:calc(var(--u)*3.6)}.corner.r{right:calc(var(--u)*3.6)}
 .corner svg{width:50%;height:50%}
 h1{font-weight:300;font-size:calc(var(--u)*5.2);line-height:1.08;letter-spacing:-.01em;color:#f3fbf6;white-space:nowrap}
 h1 b{font-weight:800;display:inline-block}
-.bar{width:calc(var(--u)*16.7);height:5px;border-radius:5px;background:var(--mint);margin:calc(var(--u)*2) auto calc(var(--u)*1.7);box-shadow:0 0 14px rgba(110,240,176,.45)}
-.tag{font-weight:500;font-size:calc(var(--u)*1.55);line-height:1.5;color:#eefaf2;max-width:calc(var(--u)*70)}
-.pills{width:calc(var(--u)*50);margin-top:calc(var(--u)*3.4);display:flex;flex-direction:column;gap:calc(var(--u)*2)}
-.pill{display:flex;align-items:center;width:100%;height:calc(var(--u)*7);border-radius:999px;cursor:pointer;font:700 calc(var(--u)*2.2) "Montserrat",sans-serif;text-align:left;padding:0 calc(var(--u)*2.6) 0 calc(var(--u)*3.6);position:relative;border:0}
-.pill .ico{flex:none;width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);display:flex;align-items:center;justify-content:center}
+.bar{width:calc(var(--u)*12);height:4px;border-radius:5px;background:var(--mint);margin:calc(var(--u)*1.6) auto calc(var(--u)*1.3);box-shadow:0 0 12px rgba(110,240,176,.45)}
+.tag{font-weight:500;font-size:calc(var(--u)*1.15);line-height:1.5;color:#eefaf2;max-width:calc(var(--u)*60)}
+.pills{width:calc(var(--u)*38);margin-top:calc(var(--u)*2.6);display:flex;flex-direction:column;gap:calc(var(--u)*1.2)}
+.pill{display:flex;align-items:center;width:100%;height:calc(var(--u)*4.8);min-height:46px;border-radius:999px;cursor:pointer;font:700 calc(var(--u)*1.55) "Montserrat",sans-serif;text-align:left;padding:0 calc(var(--u)*1.8) 0 calc(var(--u)*2.4);position:relative;border:0}
+.pill .ico{flex:none;width:calc(var(--u)*2.5);height:calc(var(--u)*2.5);min-width:22px;min-height:22px;display:flex;align-items:center;justify-content:center}
 .pill .ico svg{width:100%;height:100%}
-.pill .div{flex:none;width:2px;align-self:center;height:56%;margin:0 calc(var(--u)*2.4) 0 calc(var(--u)*2.4);opacity:.55}
+.pill .div{flex:none;width:2px;align-self:center;height:52%;margin:0 calc(var(--u)*1.6);opacity:.55}
 .pill .lab{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill .chev{flex:none;width:calc(var(--u)*2.2);height:calc(var(--u)*2.2);margin-left:calc(var(--u)*.8)}
-.pill.light{background:linear-gradient(180deg,#f4fcf7 0%,#cfeedd 100%);color:var(--ink);box-shadow:0 16px 36px rgba(0,30,20,.45),inset 0 1px 0 #fff}
+.pill .chev{flex:none;width:calc(var(--u)*1.6);height:calc(var(--u)*1.6);min-width:16px;min-height:16px;transition:transform .25s}
+.pill.open .chev{transform:rotate(90deg)}
+.pill.light{background:linear-gradient(180deg,#f4fcf7 0%,#cfeedd 100%);color:var(--ink);box-shadow:0 12px 28px rgba(0,30,20,.4),inset 0 1px 0 #fff}
 .pill.light .div{background:var(--ink)}
-.pill.dark{background:linear-gradient(180deg,rgba(6,70,52,.78),rgba(3,52,38,.9));color:#fff;border:3px solid var(--mint);box-shadow:0 14px 32px rgba(0,25,16,.45);padding-left:calc(var(--u)*3.6 - 3px)}
+.pill.dark{background:linear-gradient(180deg,rgba(6,70,52,.78),rgba(3,52,38,.9));color:#fff;border:2.5px solid var(--mint);box-shadow:0 10px 26px rgba(0,25,16,.4);padding-left:calc(var(--u)*2.4 - 2.5px)}
 .pill.dark .div{background:#fff}
-.pill.dim{opacity:.9}
-.free{margin-top:calc(var(--u)*1.6);font-weight:600;font-size:calc(var(--u)*1.05);color:rgba(238,250,242,.9)}
+.free{margin-top:calc(var(--u)*1.2);font-weight:600;font-size:calc(var(--u)*.9);color:rgba(238,250,242,.9)}
 .free i{font-style:normal;color:var(--mint)}
+.drop{display:none;background:linear-gradient(180deg,rgba(6,70,52,.88),rgba(3,52,38,.94));border:1px solid rgba(110,240,176,.4);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1) calc(var(--u)*1.2) calc(var(--u)*1.3);text-align:left;margin-top:calc(var(--u)*-.4);animation:dr .25s ease}
+.drop.open{display:block}
+@keyframes dr{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media(max-width:700px){
  :root{--u:1vw}
- .hero{height:auto;min-height:100svh;justify-content:flex-start;padding:max(104px,15svh) 6vw 40px}
- h1{font-size:clamp(2rem,10.6vw,3.6rem);line-height:1.12;white-space:normal}h1 b{display:block}
- .bar{width:clamp(110px,36vw,200px);margin:16px auto}
- .tag{font-size:clamp(.95rem,4.1vw,1.3rem);max-width:84%}
- .pills{width:88vw;margin-top:34px;gap:18px}
- .pill{height:17vw;max-height:84px;min-height:60px;font-size:clamp(1.05rem,5.5vw,1.6rem);padding:0 22px 0 24px}
- .pill.dark{padding-left:21px}
- .pill .ico{width:38px;height:38px}.pill .div{margin:0 20px 0 18px}.pill .chev{width:24px;height:24px}
- .free{font-size:.85rem;margin-top:22px}
- .corner{top:16px;width:46px;height:46px}.corner.l{left:16px}.corner.r{right:16px}
+ .hero{padding:max(70px,10svh) 8vw 40px}
+ h1{font-size:clamp(1.5rem,7.6vw,2.4rem);line-height:1.12;white-space:normal}h1 b{display:block}
+ .bar{width:clamp(70px,22vw,120px);height:3px;margin:10px auto}
+ .tag{font-size:clamp(.72rem,3vw,.9rem);max-width:80%;line-height:1.45}
+ .pills{width:78vw;margin-top:20px;gap:10px}
+ .pill{height:11vw;max-height:46px;min-height:38px;font-size:clamp(.8rem,3.7vw,1rem);padding:0 14px 0 16px}
+ .pill.dark{padding-left:13.5px;border-width:2px}
+ .pill .ico{width:20px;height:20px;min-width:0;min-height:0}.pill .div{margin:0 10px}.pill .chev{width:13px;height:13px;min-width:0;min-height:0}
+ .free{font-size:.7rem;margin-top:12px}
+ .corner{top:12px;width:30px;height:30px;min-width:0;min-height:0}.corner.l{left:12px}.corner.r{right:12px}
+ .opt2{padding:11px 13px;font-size:.88rem;border-radius:13px;margin-top:7px}.opt2 small{font-size:.7rem}
+ .drop{padding:8px 9px 10px}.drop p.s{font-size:.72rem}
+}
 }
 /* ---- sheets ---- */
 .ov{position:fixed;inset:0;background:rgba(0,12,8,.62);z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
@@ -60,11 +67,11 @@ h1 b{font-weight:800;display:inline-block}
 @media(max-width:700px){.sheet{border-radius:28px 28px 0 0;padding-bottom:30px}}
 .sheet h3{font-weight:800;font-size:1.25rem;margin-bottom:4px;color:#fff}
 .sheet p.s{font-size:.88rem;color:rgba(238,250,242,.8);margin-bottom:14px;line-height:1.5}
-.opt2{display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:16px;padding:15px 16px;margin-top:9px;font:600 1rem Montserrat,sans-serif;cursor:pointer}
+.drop h3{display:none}.drop p.s{font-size:.8rem;color:rgba(238,250,242,.8);margin:2px 4px 8px}.opt2{display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:16px;padding:15px 16px;margin-top:9px;font:600 1rem Montserrat,sans-serif;cursor:pointer}
 .opt2:hover,.opt2.sel{border-color:var(--mint);background:rgba(110,240,176,.14)}
 .opt2 small{display:block;font-weight:500;font-size:.78rem;color:rgba(238,250,242,.75);margin-top:3px}
 .opt2 svg{width:20px;height:20px;color:var(--mint);flex:none}
-.sheet input{width:100%;font:600 1rem Montserrat,sans-serif;color:var(--ink);background:#f4fcf7;border:2px solid transparent;border-radius:999px;padding:15px 20px;margin-top:6px}
+.drop input,.sheet input{width:100%;font:600 1rem Montserrat,sans-serif;color:var(--ink);background:#f4fcf7;border:2px solid transparent;border-radius:999px;padding:15px 20px;margin-top:6px}
 .sheet input:focus{outline:none;border-color:var(--mint)}
 .sbtn{display:inline-block;margin-top:14px;background:linear-gradient(180deg,#f4fcf7,#cfeedd);color:var(--ink);border:0;border-radius:999px;padding:13px 26px;font:800 .92rem Montserrat,sans-serif;cursor:pointer}
 .sbtn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-left:8px}
@@ -112,6 +119,7 @@ h1 b{font-weight:800;display:inline-block}
 .note{font-size:.8rem;line-height:1.55;margin-top:14px}
 .shake{animation:shk .3s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 #learn .opt + .goal,#turn .opt{background:#f6fbf8}
+@media(max-width:700px){.opt2{padding:10px 13px;font-size:.84rem;border-radius:13px;margin-top:6px}.opt2 small{font-size:.68rem;margin-top:2px}.opt2 svg{width:16px;height:16px}.drop{padding:8px 9px 10px}.drop p.s{font-size:.7rem}}
 </style></head>
 <body>
 <button class="corner l" id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.5 20.5 11"/><path d="M5.5 9.5V20h4.5v-6h4v6h4.5V9.5"/></svg></button>
@@ -123,13 +131,14 @@ h1 b{font-weight:800;display:inline-block}
  <p class="tag">Build real French fluency for your work, career, and professional goals.</p>
  <div class="pills">
   <button class="pill light" id="pf"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5c3 1.5 6 2.2 9 2.2s6-.7 9-2.2"/><rect x="10.6" y="12.6" width="2.8" height="2.6" rx=".6" fill="currentColor" stroke="none"/></svg></span><span class="div"></span><span class="lab" id="pfl">Pick Your Field</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
-  <button class="pill dark dim" id="pl"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="14" width="4.6" height="7" rx="1.3"/><rect x="9.7" y="9" width="4.6" height="12" rx="1.3"/><rect x="16.4" y="3" width="4.6" height="18" rx="1.3"/></svg></span><span class="div"></span><span class="lab" id="pll">Select Your Level</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+  <div class="drop" id="pfd"></div>
+  <button class="pill dark" id="pl"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="14" width="4.6" height="7" rx="1.3"/><rect x="9.7" y="9" width="4.6" height="12" rx="1.3"/><rect x="16.4" y="3" width="4.6" height="18" rx="1.3"/></svg></span><span class="div"></span><span class="lab" id="pll">Select Your Level</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+  <div class="drop" id="pld"></div>
  </div>
  <p class="free"><i>Free</i> for everyone. No payment needed.</p>
 </main>
 <section id="learn" class="hide"></section>
 
-<div class="ov" id="ov"><div class="sheet" id="sheet"></div></div>
 
 <script src="pro-data.js?v=2"></script>
 <script type="module">
@@ -163,44 +172,47 @@ function level(){return LEVELS.find(function(l){return l.k===sel.lv})}
 function fieldOk(){return !!sel.f&&(sel.f!=="__other"||(sel.other||"").trim().length>=2)}
 function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var f=field(sel.f);return f?f.name:""}
 
-/* ---------- the two pills and their pick sheets ---------- */
+/* ---------- the two pills: each opens downward inside the page ---------- */
 var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 13 10 18 19 7"/></svg>';
-function openSheet(html){$("sheet").innerHTML=html;$("ov").classList.add("on")}
-function closeSheet(){$("ov").classList.remove("on")}
-$("ov").addEventListener("click",function(e){if(e.target.id==="ov")closeSheet()});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
+function openDrop(which){
+ var f=which==="f";
+ $("pfd").classList.toggle("open",f);$("pld").classList.toggle("open",!f&&which==="l");
+ $("pf").classList.toggle("open",f);$("pl").classList.toggle("open",which==="l");
+}
+function closeDrops(){openDrop("")}
 function updatePills(){
  $("pfl").textContent=fieldOk()?fieldName():"Pick Your Field";
- $("pll").textContent=level()&&fieldOk()?level().name:"Select Your Level";
- $("pl").classList.toggle("dim",!fieldOk());
+ $("pll").textContent=level()?level().name:"Select Your Level";
 }
-function fieldSheet(){
- openSheet('<h3>Pick your field</h3><p class="s">Choose the profession you want to become proficient in. It is free.</p>'
+function fieldDrop(){
+ var el=$("pfd");
+ el.innerHTML='<p class="s">Choose the profession you want to become proficient in. It is free.</p>'
   +D.map(function(f){return'<button class="opt2'+(sel.f===f.id?" sel":"")+'" data-f="'+f.id+'"><span>'+esc(f.name)+'<small>'+esc(f.blurb)+'</small></span>'+(sel.f===f.id?CHECK:"")+'</button>'}).join("")
-  +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" data-f="__other"><span>My field is not listed<small>Type your own field</small></span></button>');
- document.querySelectorAll("#sheet [data-f]").forEach(function(b){b.onclick=function(){
+  +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" data-f="__other"><span>My field is not listed<small>Type your own field</small></span></button>';
+ el.querySelectorAll("[data-f]").forEach(function(b){b.onclick=function(){
   var v=b.dataset.f;
-  if(v==="__other"){openSheet('<h3>Type your field</h3><p class="s">For example: agriculture, law, education. This helps us decide which professions to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your field" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>');
+  if(v==="__other"){el.innerHTML='<p class="s">Type your field, for example agriculture, law or education. This helps us decide which professions to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your field" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>';
    setTimeout(function(){var i=$("oth");i&&i.focus()},50);
-   $("bk").onclick=fieldSheet;
+   $("bk").onclick=fieldDrop;
    var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}pickField("__other",t)};
    $("ok").onclick=go;$("oth").onkeydown=function(e){if(e.key==="Enter")go()};return}
   pickField(v,"")}});
 }
 function pickField(v,other){
  sel.f=v;sel.other=other;ls("sbpro_sel",sel);state.tab="lessons";state.card=null;state.quiz=null;state.play=null;
- updatePills();closeSheet();
- if(sel.lv){save();renderLearn()}else setTimeout(levelSheet,260);
+ updatePills();
+ if(sel.lv){closeDrops();save();renderLearn()}else{levelDrop();openDrop("l")}
 }
-function levelSheet(){
- openSheet('<h3>Select your level</h3><p class="s">Pick the level that fits you. You can change it any time.</p>'
-  +LEVELS.map(function(l){return'<button class="opt2'+(sel.lv===l.k?" sel":"")+'" data-l="'+l.k+'"><span>'+esc(l.name)+'<small>'+esc(l.sub)+'</small></span>'+(sel.lv===l.k?CHECK:"")+'</button>'}).join(""));
- document.querySelectorAll("#sheet [data-l]").forEach(function(b){b.onclick=function(){
-  sel.lv=b.dataset.l;ls("sbpro_sel",sel);state.tab="lessons";progress=null;updatePills();closeSheet();save();renderLearn();
-  setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},120)}});
+function levelDrop(){
+ var el=$("pld");
+ el.innerHTML='<p class="s">Pick the level that fits you. You can change it any time.</p>'
+  +LEVELS.map(function(l){return'<button class="opt2'+(sel.lv===l.k?" sel":"")+'" data-l="'+l.k+'"><span>'+esc(l.name)+'<small>'+esc(l.sub)+'</small></span>'+(sel.lv===l.k?CHECK:"")+'</button>'}).join("");
+ el.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){
+  sel.lv=b.dataset.l;ls("sbpro_sel",sel);state.tab="lessons";progress=null;updatePills();closeDrops();save();renderLearn();
+  if(fieldOk())setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)}});
 }
-$("pf").onclick=fieldSheet;
-$("pl").onclick=function(){if(!fieldOk())fieldSheet();else levelSheet()};
+$("pf").onclick=function(){if($("pfd").classList.contains("open"))closeDrops();else{fieldDrop();openDrop("f")}};
+$("pl").onclick=function(){if($("pld").classList.contains("open"))closeDrops();else{levelDrop();openDrop("l")}};
 $("home").onclick=function(){if(window.stopAppBgMusic){window.stopAppBgMusic()}location.href="/"};
 $("dash").onclick=function(){location.href="/dashboard/"};
 async function save(){try{if(!user||!fieldOk()||!sel.lv)return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv}),keepalive:true}).catch(function(){})}catch(e){}}
