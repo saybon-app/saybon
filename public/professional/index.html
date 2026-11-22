@@ -130,6 +130,26 @@ h1 b{font-weight:800;display:inline-block}
 .shake{animation:shk .3s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 #learn .opt + .goal,#turn .opt{background:#f6fbf8}
 @media(max-width:700px){.plan{width:78vw;padding:14px}.plan h2{font-size:1rem}.plan .path{font-size:.78rem}.plan .st b{font-size:1rem}.plan .st span{font-size:.62rem}.plan p{font-size:.76rem}.plan p.cav{font-size:.68rem}.plan .go{font-size:.88rem;padding:11px 0}.opt2{padding:10px 13px;font-size:.84rem;border-radius:13px;margin-top:6px}.opt2 small{font-size:.68rem;margin-top:2px}.opt2 svg{width:16px;height:16px}.drop{padding:8px 9px 10px}.drop p.s{font-size:.7rem}}
+/* slim rows and pills */
+.opt2,.opt2:hover{background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.13);border-radius:0;padding:9px 6px;margin:0;font-weight:600;font-size:.88rem}
+.opt2:last-child{border-bottom:0}
+.opt2:hover{background:rgba(110,240,176,.08)}.opt2.sel{background:rgba(110,240,176,.12);border-bottom-color:rgba(110,240,176,.4)}
+.opt2 small{font-size:.68rem;margin-top:1px}.opt2 svg{width:15px;height:15px}
+.drop{padding:6px 10px 8px;border-radius:calc(var(--u)*1.2)}.drop p.s{font-size:.72rem;margin:2px 4px 6px}
+.drop input{padding:9px 16px;font-size:.85rem;margin:2px 0 6px}
+.flist{max-height:min(42vh,300px);margin:2px 0}
+.pill{height:calc(var(--u)*3.7);min-height:38px;font-size:calc(var(--u)*1.2);padding:0 calc(var(--u)*1.6) 0 calc(var(--u)*2)}
+.pill.dark{padding-left:calc(var(--u)*2 - 2.5px)}
+.pill .ico{width:calc(var(--u)*1.9);height:calc(var(--u)*1.9);min-width:17px;min-height:17px}.pill .chev{width:calc(var(--u)*1.2);height:calc(var(--u)*1.2);min-width:13px;min-height:13px}
+.pills{gap:calc(var(--u)*.9)}
+.plan .st{padding:6px 4px;border-radius:10px}.plan .st b{font-size:calc(var(--u)*1.3)}
+@media(max-width:700px){
+ .pill{height:9.5vw;min-height:36px;max-height:42px;font-size:clamp(.78rem,3.5vw,.95rem);padding:0 14px 0 16px}
+ .pill.dark{padding-left:13.5px}.pill .ico{width:17px;height:17px}.pill .div{margin:0 10px}.pill .chev{width:12px;height:12px}
+ .pills{gap:8px}
+ .opt2,.opt2:hover{padding:9px 5px;font-size:.84rem;border-radius:0;margin:0}.opt2 small{font-size:.66rem}
+ .drop{padding:5px 8px 7px}
+}
 </style></head>
 <body>
 <button class="corner l" id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.5 20.5 11"/><path d="M5.5 9.5V20h4.5v-6h4v6h4.5V9.5"/></svg></button>
@@ -205,7 +225,7 @@ function updatePills(){
 }
 function optHtml(attr,key,name,sub,on){return'<button class="opt2'+(on?" sel":"")+'" '+attr+'="'+key+'"><span>'+esc(name)+'<small>'+esc(sub)+'</small></span>'+(on?CHECK:"")+'</button>'}
 function fieldDrop(){
- var el=$("pfd"),L=window.PRO_LIST;
+ var el=$("pfd"),L=window.PRO_LIST.slice().sort(function(x,y){return x.name<y.name?-1:1});
  el.innerHTML='<p class="s">Search or scroll for your profession. It is free.</p><input type="search" id="fq" placeholder="Search, for example nurse or electric" autocomplete="off"><div class="flist" id="fl"></div>'
   +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" id="fo"><span>My profession is not listed<small>Type your own</small></span></button>';
  function draw(q){

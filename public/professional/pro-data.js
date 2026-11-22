@@ -229,36 +229,6 @@ window.PRO_DATA = [
 /* 34 professions. g = the shared word and role-play set it uses (empty = lessons only). kw = extra search words. */
 window.PRO_LIST=[
 {
-"id": "nurse",
-"name": "Nurse",
-"g": "health",
-"kw": "ward patient hospital clinic"
-},
-{
-"id": "doctor",
-"name": "Doctor",
-"g": "health",
-"kw": "physician medical hospital"
-},
-{
-"id": "pharmacist",
-"name": "Pharmacist",
-"g": "health",
-"kw": "pharmacy medicine drugs"
-},
-{
-"id": "midwife",
-"name": "Midwife",
-"g": "health",
-"kw": "maternity birth"
-},
-{
-"id": "dentist",
-"name": "Dentist",
-"g": "health",
-"kw": "dental teeth"
-},
-{
 "id": "banker",
 "name": "Banker or bank teller",
 "g": "banking",
@@ -343,18 +313,6 @@ window.PRO_LIST=[
 "kw": "border passport"
 },
 {
-"id": "lawyer",
-"name": "Lawyer",
-"g": "",
-"kw": "law legal court"
-},
-{
-"id": "teacher",
-"name": "Teacher",
-"g": "",
-"kw": "school education lecturer"
-},
-{
 "id": "electrician",
 "name": "Electrician",
 "g": "",
@@ -431,7 +389,110 @@ window.PRO_LIST=[
 "name": "Agribusiness professional",
 "g": "",
 "kw": "farming agriculture cocoa farm"
+},
+{
+"id": "freelancer",
+"name": "Freelancer or self-employed",
+"g": "business",
+"kw": "independent contractor"
+},
+{
+"id": "hr-officer",
+"name": "Human resources officer",
+"g": "business",
+"kw": "hr recruitment staff"
+},
+{
+"id": "marketing",
+"name": "Marketing or communications officer",
+"g": "business",
+"kw": "advertising pr media"
+},
+{
+"id": "customer-service",
+"name": "Customer service agent",
+"g": "business",
+"kw": "call centre support"
+},
+{
+"id": "procurement",
+"name": "Procurement or supply officer",
+"g": "logistics",
+"kw": "purchasing buyer supply chain"
+},
+{
+"id": "real-estate",
+"name": "Real estate agent",
+"g": "business",
+"kw": "property estate broker"
+},
+{
+"id": "translator",
+"name": "Translator or interpreter",
+"g": "",
+"kw": "languages interpreting"
+},
+{
+"id": "ngo-worker",
+"name": "NGO or aid worker",
+"g": "",
+"kw": "humanitarian charity development"
+},
+{
+"id": "security-guard",
+"name": "Security guard",
+"g": "defence",
+"kw": "guard protection"
+},
+{
+"id": "pilot",
+"name": "Pilot",
+"g": "",
+"kw": "aviation airline aircraft"
+},
+{
+"id": "architect",
+"name": "Architect",
+"g": "",
+"kw": "design building"
+},
+{
+"id": "surveyor",
+"name": "Surveyor",
+"g": "",
+"kw": "land survey construction"
+},
+{
+"id": "technician",
+"name": "Technician or artisan",
+"g": "",
+"kw": "mechanic welder plumber repair"
+},
+{
+"id": "medical-professionals",
+"name": "Medical professionals",
+"g": "health",
+"kw": "nurse doctor physician pharmacist pharmacy midwife dentist dental hospital clinic ward health"
+},
+{
+"id": "legal-professionals",
+"name": "Legal professionals",
+"g": "",
+"kw": "lawyer attorney judge magistrate court clerk registrar paralegal notary legal consultant law counsel"
+},
+{
+"id": "consultants-advisors",
+"name": "Consultants and advisors",
+"g": "business",
+"kw": "consultant consulting adviser advisor management business financial investment planner strategy"
+},
+{
+"id": "education-research",
+"name": "Education and research",
+"g": "",
+"kw": "teacher lecturer professor academic researcher scholar school university education science"
 }
 ];
-window.proOf=function(id){return (window.PRO_LIST||[]).find(function(x){return x.id===id})||null};
+window.PRO_OLD={"nurse": "medical-professionals", "doctor": "medical-professionals", "pharmacist": "medical-professionals", "midwife": "medical-professionals", "dentist": "medical-professionals", "lawyer": "legal-professionals", "judge": "legal-professionals", "magistrate": "legal-professionals", "court-clerk": "legal-professionals", "paralegal": "legal-professionals", "legal-consultant": "legal-professionals", "notary": "legal-professionals", "consultant": "consultants-advisors", "management-consultant": "consultants-advisors", "business-advisor": "consultants-advisors", "financial-advisor": "consultants-advisors", "teacher": "education-research", "researcher": "education-research"};
+window.proOf=function(id){id=(window.PRO_OLD||{})[id]||id;return (window.PRO_LIST||[]).find(function(x){return x.id===id})||null};
 window.proGroup=function(id){var p=window.proOf(id),g=p?p.g:id;return g?(window.PRO_DATA||[]).find(function(x){return x.id===g})||null:null};
