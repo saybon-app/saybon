@@ -6,8 +6,10 @@ if (!process.env.ELEVENLABS_API_KEY) { console.log("\nNo ELEVENLABS_API_KEY set:
 const tmp = path.join(os.tmpdir(), "saybon-audio-tmp"); fs.mkdirSync(tmp, { recursive: true });
 const steps = [
   ["Les Petits lessons 13-25", ["build-lp.mjs", path.join(aud, "lp")]],
+  ["Les Petits reading lessons 13, 19, 25", ["build-lp-read.mjs", path.join(aud, "lp")]],
   ["Reading lessons 12, 18, 24", ["build-reading-extra.mjs", path.join(aud, "lessons")]],
   ["Lessons 21, 22, 23, 25 (A1-C2)", ["build-scenes.mjs", path.join(aud, "lessons"), tmp, "--rounds=21,22,23,25"]],
+  ["Tout Public lessons 4-25", ["build-tp.mjs", path.join(aud, "lessons"), tmp]],
 ];
 let stopped = false;
 for (const [label, args] of steps) {

@@ -1,0 +1,21 @@
+[warmly] Hello!
+
+[short pause]
+
+[calmly] Today you describe your day in simple steps.
+
+[short pause]
+
+[warmly] You learn a few daily verbs and put them with times.
+
+[short pause]
+
+[calmly] It uses numbers, hours and meals from earlier lessons.
+
+[short pause]
+
+[warmly] At the end, you will be able to say what you do, and when, from morning to evening.
+
+[pause]
+
+[warmly] Ready? Let's begin.

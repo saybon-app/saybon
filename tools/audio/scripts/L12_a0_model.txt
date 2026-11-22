@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va très bien, merci. Et vous ?
+
+[short pause]
+
+[calmly] Bien. Regardez : qu'est-ce que c'est ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est un sac.
+
+[short pause]
+
+[calmly] De quelle couleur est le sac ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est un sac rouge.
+
+[short pause]
+
+[calmly] Et ma clé ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est une clé noire.
+
+[short pause]
+
+[calmly] Parfait ! Et le livre ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est un livre bleu.
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

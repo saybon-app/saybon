@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Votre carte d'identité, s'il vous plaît.
+
+[turn:Pardon, je ne comprends pas.]
+
+[calmly] Votre carte d'identité.
+
+[turn:Pouvez-vous répéter, s'il vous plaît ?]
+
+[calmly] Votre carte, madame ou monsieur, s'il vous plaît.
+
+[turn:Parlez plus lentement, s'il vous plaît.]
+
+[calmly] Ah, d'accord. Votre... carte... d'identité.
+
+[turn:Ah, d'accord ! Voilà.]
+
+[calmly] Merci. Ça va ?
+
+[turn:Oui, merci beaucoup. Au revoir !]
+
+[warmly] Très bien. That's the lesson. Well done.

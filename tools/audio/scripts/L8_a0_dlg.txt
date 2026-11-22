@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Je m'appelle Camille. Et vous ?
+
+[turn:Je m'appelle Alex.]
+
+[calmly] D'où venez-vous ?
+
+[turn:Je viens du Ghana.]
+
+[calmly] Vous parlez quelles langues ?
+
+[turn:Je parle anglais.]
+
+[calmly] Et le français ?
+
+[turn:Je parle un peu français.]
+
+[calmly] C'est très bien ! Moi, je parle français et anglais.
+
+[turn:Bravo ! Au revoir !]
+
+[warmly] Très bien. That's the lesson. Well done.

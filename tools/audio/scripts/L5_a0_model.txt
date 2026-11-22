@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Je m'appelle Camille. Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va bien, merci. Je m'appelle Alex.
+
+[short pause]
+
+[calmly] Enchantée, Alex. Vous avez quel âge ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai vingt ans.
+
+[short pause]
+
+[calmly] Moi, j'ai trente ans. Comptez avec moi : un, deux, trois !
+
+[short pause]
+
+[as:Roger] [calmly] Un, deux, trois, quatre, cinq !
+
+[short pause]
+
+[calmly] Encore !
+
+[short pause]
+
+[as:Roger] [calmly] Six, sept, huit, neuf, dix !
+
+[short pause]
+
+[calmly] Bravo ! À bientôt !
+
+[short pause]
+
+[as:Roger] [calmly] Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

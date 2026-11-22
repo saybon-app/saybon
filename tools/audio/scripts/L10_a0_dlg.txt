@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Ça va ?
+
+[turn:Ça va bien, merci. Et vous ?]
+
+[calmly] Très bien. Vous avez une famille ?
+
+[turn:Oui, j'ai un frère.]
+
+[calmly] Il s'appelle comment ?
+
+[turn:Il s'appelle Paul.]
+
+[calmly] Et vous avez une sœur ?
+
+[turn:Oui, j'ai une sœur.]
+
+[calmly] Il a quel âge, votre frère ?
+
+[turn:Il a dix-huit ans.]
+
+[warmly] Très bien. That's the lesson. Well done.

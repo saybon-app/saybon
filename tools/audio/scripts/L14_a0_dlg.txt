@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Ça va ?
+
+[turn:Ça va très bien, merci.]
+
+[calmly] Quelle heure est-il ?
+
+[turn:Il est trois heures.]
+
+[calmly] Et maintenant ?
+
+[turn:Il est dix heures et demie.]
+
+[calmly] À quelle heure vous déjeunez ?
+
+[turn:Je déjeune à midi.]
+
+[calmly] Parfait ! Quel jour est la réunion ?
+
+[turn:La réunion est lundi à neuf heures.]
+
+[warmly] Très bien. That's the lesson. Well done.

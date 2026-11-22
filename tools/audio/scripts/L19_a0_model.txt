@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour !
+
+[short pause]
+
+[as:Roger] [calmly] Excusez-moi, où est la gare, s'il vous plaît ?
+
+[short pause]
+
+[calmly] La gare ? Allez tout droit.
+
+[short pause]
+
+[as:Roger] [calmly] Tout droit, d'accord.
+
+[short pause]
+
+[calmly] Puis tournez à gauche.
+
+[short pause]
+
+[as:Roger] [calmly] À gauche. C'est loin ?
+
+[short pause]
+
+[calmly] Non, c'est près d'ici. Cinq minutes.
+
+[short pause]
+
+[as:Roger] [calmly] Merci beaucoup !
+
+[short pause]
+
+[calmly] Je vous en prie. Au revoir !
+
+[short pause]
+
+[as:Roger] [calmly] Au revoir, bonne journée !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

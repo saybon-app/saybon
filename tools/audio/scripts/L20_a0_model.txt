@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Pour l'inscription, quel est votre nom ?
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Alex.
+
+[short pause]
+
+[calmly] Comment ça s'écrit ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça s'écrit A, L, E, X.
+
+[short pause]
+
+[calmly] Merci. Où habitez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] J'habite à Accra.
+
+[short pause]
+
+[calmly] Quel est votre numéro de téléphone ?
+
+[short pause]
+
+[as:Roger] [calmly] Mon numéro est le zéro six, douze, trente-quatre, cinquante-six.
+
+[short pause]
+
+[calmly] Parfait. Merci, et bienvenue !
+
+[short pause]
+
+[as:Roger] [calmly] Merci, au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

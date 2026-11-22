@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Je m'appelle Camille. Ça va ?
+
+[turn:Ça va bien, merci. Je m'appelle Alex.]
+
+[calmly] Enchantée, Alex. Vous avez quel âge ?
+
+[turn:J'ai vingt ans.]
+
+[calmly] Moi, j'ai trente ans. Comptez avec moi : un, deux, trois !
+
+[turn:Un, deux, trois, quatre, cinq !]
+
+[calmly] Encore !
+
+[turn:Six, sept, huit, neuf, dix !]
+
+[calmly] Bravo ! À bientôt !
+
+[turn:Au revoir !]
+
+[warmly] Très bien. That's the lesson. Well done.

@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Regardez la table. Qu'est-ce que c'est ?
+
+[short pause]
+
+[warmly] It means, Look at the table. What is it?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] C'est un téléphone.
+
+[short pause]
+
+[warmly] It means, It's a phone.
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] C'est un téléphone.
+
+[repeat]
+
+[calmly] C'est un téléphone.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

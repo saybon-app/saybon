@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Comment vous appelez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Alex.
+
+[short pause]
+
+[calmly] Comment ça s'écrit ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça s'écrit A, L, E, X.
+
+[short pause]
+
+[calmly] Merci ! Et vous avez quel âge ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai vingt ans.
+
+[short pause]
+
+[calmly] Ça va bien ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va très bien, merci.
+
+[short pause]
+
+[calmly] Je m'appelle Camille. Ça s'écrit C, A, M, I, L, L, E.
+
+[short pause]
+
+[as:Roger] [calmly] Merci, Camille. Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

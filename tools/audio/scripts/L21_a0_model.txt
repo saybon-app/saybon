@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va très bien, merci.
+
+[short pause]
+
+[calmly] À midi, qu'est-ce que vous mangez ?
+
+[short pause]
+
+[as:Roger] [calmly] Je mange du riz et du poisson.
+
+[short pause]
+
+[calmly] Et le matin ?
+
+[short pause]
+
+[as:Roger] [calmly] Au petit déjeuner, je mange du pain.
+
+[short pause]
+
+[calmly] Vous buvez du café ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, je voudrais un café, s'il vous plaît !
+
+[short pause]
+
+[calmly] Voilà ! À bientôt !
+
+[short pause]
+
+[as:Roger] [calmly] Merci, au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

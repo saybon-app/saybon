@@ -8,7 +8,7 @@ let u = fs.readFileSync(ui, "utf8"), e = fs.readFileSync(en, "utf8"); const u0 =
 for (const n of ["KDR", "KDT", "KINTRO"]) if (!new RegExp(n + "\\s*=\\s*\\{[^}]*\\}").test(u)) { console.log("STOP: cannot find " + n + " in scene-ui.js"); process.exit(1); }
 if (!e.includes("allAssets = assets || [];")) { console.log("STOP: cannot find the allAssets line in the Les Petits engine"); process.exit(1); }
 const done = [], missing = {};
-for (let n = 13; n <= 25; n++) {
+for (let n = 14; n <= 24; n++) { if ([19].includes(n)) continue;
   const jobs = man.man.filter(m => m.lesson === n), miss = [];
   for (const j of jobs) { if (!fs.existsSync(path.join(aud, j.name + ".mp3"))) miss.push(j.name); }
   if (!miss.length && jobs.length === 5) done.push(n); else missing[n] = miss.length;

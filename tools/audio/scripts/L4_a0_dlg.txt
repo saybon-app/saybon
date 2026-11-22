@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Ça va ?
+
+[turn:Ça va très bien, merci. Et vous ?]
+
+[calmly] Très bien. Répétez : salut.
+
+[turn:Salut.]
+
+[calmly] Maintenant : vous.
+
+[turn:Vous.]
+
+[calmly] Et le mot « rue » ?
+
+[turn:Une rue.]
+
+[calmly] Bravo ! Dernier mot : bon.
+
+[turn:Bon, enchanté. Au revoir !]
+
+[warmly] Très bien. That's the lesson. Well done.

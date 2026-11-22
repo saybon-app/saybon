@@ -1,0 +1,21 @@
+[warmly] Hello!
+
+[short pause]
+
+[calmly] Today you give your contact details: your address and your phone number.
+
+[short pause]
+
+[warmly] This is common in forms, hotels and shops.
+
+[short pause]
+
+[calmly] The numbers are said two by two in France, so a phone number sounds like a short sequence of pairs.
+
+[short pause]
+
+[warmly] Listen for the rhythm.
+
+[pause]
+
+[warmly] Ready? Let's begin.

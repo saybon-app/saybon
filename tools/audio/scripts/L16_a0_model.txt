@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour !
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour ! Excusez-moi, vous avez l'heure, s'il vous plaît ?
+
+[short pause]
+
+[calmly] Oui. Il est quatre heures.
+
+[short pause]
+
+[as:Roger] [calmly] Merci beaucoup !
+
+[short pause]
+
+[calmly] De rien. Oh, pardon, j'ai marché sur votre pied !
+
+[short pause]
+
+[as:Roger] [calmly] Ce n'est pas grave.
+
+[short pause]
+
+[calmly] Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, ça va, merci.
+
+[short pause]
+
+[calmly] Au revoir !
+
+[short pause]
+
+[as:Roger] [calmly] Au revoir, bonne journée !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[short pause]
+
+[warmly] It means, Can you repeat, please?
+
+[short pause]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[repeat]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

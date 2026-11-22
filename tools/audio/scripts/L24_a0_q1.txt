@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Votre carte d'identité.
+
+[short pause]
+
+[warmly] It means, Your ID card.
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[short pause]
+
+[warmly] It means, Can you repeat, please?
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[repeat]
+
+[calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

@@ -1,0 +1,55 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Bienvenue ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour ! Ça va très bien, merci. Et vous ?
+
+[short pause]
+
+[calmly] Très bien, merci. Comment vous appelez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je m'appelle Alex.
+
+[short pause]
+
+[calmly] D'où venez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je viens du Ghana.
+
+[short pause]
+
+[calmly] Qu'est-ce que vous faites dans la vie ?
+
+[short pause]
+
+[as:Roger] [calmly] Je suis professeur.
+
+[short pause]
+
+[calmly] Vous parlez français ?
+
+[short pause]
+
+[as:Roger] [calmly] Je parle un peu français.
+
+[short pause]
+
+[calmly] Qu'est-ce que vous aimez ?
+
+[short pause]
+
+[as:Roger] [calmly] J'aime le chocolat. Merci, au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

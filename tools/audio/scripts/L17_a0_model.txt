@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Vous désirez ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour ! Je voudrais une baguette, s'il vous plaît.
+
+[short pause]
+
+[calmly] Voilà. Autre chose ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, un kilo de pommes.
+
+[short pause]
+
+[calmly] Rouges ou vertes ?
+
+[short pause]
+
+[as:Roger] [calmly] Rouges, s'il vous plaît.
+
+[short pause]
+
+[calmly] Très bien. Autre chose ?
+
+[short pause]
+
+[as:Roger] [calmly] C'est tout, merci.
+
+[short pause]
+
+[calmly] Voilà. Bonne journée !
+
+[short pause]
+
+[as:Roger] [calmly] Merci, au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

@@ -1,0 +1,21 @@
+[warmly] Listen and repeat.
+
+[short pause]
+
+[calmly] Je parle un peu français.
+
+[short pause]
+
+[warmly] It means, I speak a little French.
+
+[short pause]
+
+[calmly] Je parle un peu français.
+
+[repeat]
+
+[calmly] Je parle un peu français.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and say it.

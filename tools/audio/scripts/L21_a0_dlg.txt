@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour ! Ça va ?
+
+[turn:Ça va très bien, merci.]
+
+[calmly] À midi, qu'est-ce que vous mangez ?
+
+[turn:Je mange du riz et du poisson.]
+
+[calmly] Et le matin ?
+
+[turn:Au petit déjeuner, je mange du pain.]
+
+[calmly] Vous buvez du café ?
+
+[turn:Oui, je voudrais un café, s'il vous plaît !]
+
+[calmly] Voilà ! À bientôt !
+
+[turn:Merci, au revoir !]
+
+[warmly] Très bien. That's the lesson. Well done.

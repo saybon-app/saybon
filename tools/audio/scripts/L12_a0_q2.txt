@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Parfait ! Et le livre ?
+
+[short pause]
+
+[warmly] It means, Perfect! And the book?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] C'est un livre bleu.
+
+[short pause]
+
+[warmly] It means, It's a blue book.
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] C'est un livre bleu.
+
+[repeat]
+
+[calmly] C'est un livre bleu.
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

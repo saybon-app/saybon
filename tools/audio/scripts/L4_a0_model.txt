@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va très bien, merci. Et vous ?
+
+[short pause]
+
+[calmly] Très bien. Répétez : salut.
+
+[short pause]
+
+[as:Roger] [calmly] Salut.
+
+[short pause]
+
+[calmly] Maintenant : vous.
+
+[short pause]
+
+[as:Roger] [calmly] Vous.
+
+[short pause]
+
+[calmly] Et le mot « rue » ?
+
+[short pause]
+
+[as:Roger] [calmly] Une rue.
+
+[short pause]
+
+[calmly] Bravo ! Dernier mot : bon.
+
+[short pause]
+
+[as:Roger] [calmly] Bon, enchanté. Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

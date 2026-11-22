@@ -6,10 +6,10 @@
 
   var ADMIN=false,BUILT={maison:1,cuisine:1,salon:1,chambre:1,"salle-de-bains":1,"la-maison":1,boulangerie:1,supermarche:1,marche:1,patisserie:1,cafe:1,restaurant:1,"salon-de-coiffure":1,laverie:1,pharmacie:1,poste:1,"salle-de-sport":1,"station-taxis":1,parc:1,ecole:1};
   function unlockedCount(){
-    if(ADMIN)return 50;
+    if(ADMIN)return P.length;
     var q=new URLSearchParams(location.search).get("unlocked");
-    if(q&&/^\d+$/.test(q))return Math.min(50,Math.max(1,+q));
-    try{var v=parseInt(localStorage.getItem("tkMapUnlocked"),10);if(v>0)return Math.min(50,v);}catch(e){}
+    if(q&&/^\d+$/.test(q))return Math.min(P.length,Math.max(1,+q));
+    try{var v=parseInt(localStorage.getItem("tkMapUnlocked"),10);if(v>0)return Math.min(P.length,v);}catch(e){}
     return 1;
   }
   function dev(){return window.matchMedia("(max-width:768px)").matches?"mobile":"desktop";}
@@ -24,7 +24,7 @@
       var a=pathOf(t),l=lenOf(t),f=Math.min(a.length-1,Math.max(0,s/l*(a.length-1))),i0=Math.floor(f),t1=f-i0,p0=a[i0],p1=a[Math.min(a.length-1,i0+1)];
       return [p0[0]+(p1[0]-p0[0])*t1,p0[1]+(p1[1]-p0[1])*t1];
     }
-    for(k=0;k<50;k++){
+    for(k=0;k<P.length;k++){
       var w=(k<un?c.big:c.small)*c.w,half=w*0.54;
       if(cursor+2*half>lenOf(tile)-c.tail){tile++;cursor=c.cstart;}
       var center=cursor+half,p=pt(tile,center);
@@ -61,7 +61,7 @@
     var stack=document.createElement("div");stack.className="tkm-stack";mapEl.appendChild(stack);
     for(var i=vt-1;i>=0;i--){var im=new Image();im.className="bg";im.alt="";im.draggable=false;im.src=BASE+"bg/"+d+"-"+(i===0?"start":"cont")+".webp";stack.appendChild(im);}
     var nodes=[];
-    for(var k=0;k<50;k++){
+    for(var k=0;k<P.length;k++){
       if(pts[k].tile>=vt)break;
       var p=P[k],b=document.createElement("button");
       var img=new Image();img.className="tkm-node-img";img.alt=p.name;img.src=BASE+"places/"+p.img;

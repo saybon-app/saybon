@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va très bien, merci.
+
+[short pause]
+
+[calmly] Parlez-moi de votre journée. Vous vous levez à quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] Je me lève à six heures.
+
+[short pause]
+
+[calmly] Et vous travaillez à quelle heure ?
+
+[short pause]
+
+[as:Roger] [calmly] Je travaille à neuf heures.
+
+[short pause]
+
+[calmly] À midi ?
+
+[short pause]
+
+[as:Roger] [calmly] Je mange à midi.
+
+[short pause]
+
+[calmly] Et le soir ?
+
+[short pause]
+
+[as:Roger] [calmly] Je rentre le soir. Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

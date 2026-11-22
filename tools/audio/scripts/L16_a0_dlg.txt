@@ -1,0 +1,23 @@
+[warmly] Now the last part: the conversation from the beginning, but this time you are the one who talks. I'll play your friend. The microphone is on.
+
+[calmly] Bonjour !
+
+[turn:Bonjour ! Excusez-moi, vous avez l'heure, s'il vous plaît ?]
+
+[calmly] Oui. Il est quatre heures.
+
+[turn:Merci beaucoup !]
+
+[calmly] De rien. Oh, pardon, j'ai marché sur votre pied !
+
+[turn:Ce n'est pas grave.]
+
+[calmly] Ça va ?
+
+[turn:Oui, ça va, merci.]
+
+[calmly] Au revoir !
+
+[turn:Au revoir, bonne journée !]
+
+[warmly] Très bien. That's the lesson. Well done.

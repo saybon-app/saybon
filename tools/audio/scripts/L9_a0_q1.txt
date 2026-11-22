@@ -1,0 +1,37 @@
+[warmly] Now, a piece of the conversation. Listen.
+
+[short pause]
+
+[calmly] Je m'appelle Camille. Et vous ?
+
+[short pause]
+
+[warmly] It means, My name is Camille. And you?
+
+[short pause]
+
+[warmly] You answer like this.
+
+[short pause]
+
+[calmly] Je m'appelle Alex. Enchanté !
+
+[short pause]
+
+[warmly] It means, My name is Alex. Pleased to meet you!
+
+[short pause]
+
+[warmly] Repeat after me.
+
+[short pause]
+
+[calmly] Je m'appelle Alex. Enchanté !
+
+[repeat]
+
+[calmly] Je m'appelle Alex. Enchanté !
+
+[repeat]
+
+[warmly] Now it's time to record. Tap the microphone, and answer me.

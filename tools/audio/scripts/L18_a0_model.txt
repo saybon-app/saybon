@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Vous désirez ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour ! Je voudrais un sac, s'il vous plaît.
+
+[short pause]
+
+[calmly] Voilà. Il est noir ou rouge ?
+
+[short pause]
+
+[as:Roger] [calmly] Noir, s'il vous plaît. Ça coûte combien ?
+
+[short pause]
+
+[calmly] Ça coûte quarante euros.
+
+[short pause]
+
+[as:Roger] [calmly] Quarante euros, d'accord.
+
+[short pause]
+
+[calmly] Et le livre ? Soixante-dix euros.
+
+[short pause]
+
+[as:Roger] [calmly] C'est cher ! Quatre-vingts euros en tout ?
+
+[short pause]
+
+[calmly] Non, cent dix euros. Mais je vous fais un prix.
+
+[short pause]
+
+[as:Roger] [calmly] Merci beaucoup !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

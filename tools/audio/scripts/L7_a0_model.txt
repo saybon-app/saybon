@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va bien, merci. Et vous ?
+
+[short pause]
+
+[calmly] Très bien. D'où venez-vous ?
+
+[short pause]
+
+[as:Roger] [calmly] Je viens du Ghana.
+
+[short pause]
+
+[calmly] Ah, le Ghana ! Moi, je viens de Lyon.
+
+[short pause]
+
+[as:Roger] [calmly] Lyon, en France ?
+
+[short pause]
+
+[calmly] Oui, exactement. Vous avez quel âge ?
+
+[short pause]
+
+[as:Roger] [calmly] J'ai vingt ans.
+
+[short pause]
+
+[calmly] Enchantée. À bientôt !
+
+[short pause]
+
+[as:Roger] [calmly] À bientôt !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

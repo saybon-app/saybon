@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Votre carte d'identité, s'il vous plaît.
+
+[short pause]
+
+[as:Roger] [calmly] Pardon, je ne comprends pas.
+
+[short pause]
+
+[calmly] Votre carte d'identité.
+
+[short pause]
+
+[as:Roger] [calmly] Pouvez-vous répéter, s'il vous plaît ?
+
+[short pause]
+
+[calmly] Votre carte, madame ou monsieur, s'il vous plaît.
+
+[short pause]
+
+[as:Roger] [calmly] Parlez plus lentement, s'il vous plaît.
+
+[short pause]
+
+[calmly] Ah, d'accord. Votre... carte... d'identité.
+
+[short pause]
+
+[as:Roger] [calmly] Ah, d'accord ! Voilà.
+
+[short pause]
+
+[calmly] Merci. Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, merci beaucoup. Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

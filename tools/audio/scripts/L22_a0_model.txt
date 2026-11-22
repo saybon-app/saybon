@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Ça va ?
+
+[short pause]
+
+[as:Roger] [calmly] Ça va bien, merci. Et vous ?
+
+[short pause]
+
+[calmly] Très bien. Vous aimez le fromage ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, j'aime le fromage.
+
+[short pause]
+
+[calmly] Et les légumes ?
+
+[short pause]
+
+[as:Roger] [calmly] Je n'aime pas les légumes.
+
+[short pause]
+
+[calmly] Quelle est votre couleur préférée ?
+
+[short pause]
+
+[as:Roger] [calmly] J'aime le bleu.
+
+[short pause]
+
+[calmly] Moi, j'adore le chocolat !
+
+[short pause]
+
+[as:Roger] [calmly] Moi aussi ! Au revoir !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.

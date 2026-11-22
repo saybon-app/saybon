@@ -1,0 +1,47 @@
+[warmly] Listen to the whole conversation first. Then you will take part.
+
+[pause]
+
+[calmly] Bonjour ! Vous désirez ?
+
+[short pause]
+
+[as:Roger] [calmly] Bonjour ! Je voudrais un café, s'il vous plaît.
+
+[short pause]
+
+[calmly] Un café. Et avec ça ?
+
+[short pause]
+
+[as:Roger] [calmly] Un croissant, s'il vous plaît.
+
+[short pause]
+
+[calmly] Très bien. Vous voulez de l'eau ?
+
+[short pause]
+
+[as:Roger] [calmly] Oui, de l'eau, s'il vous plaît.
+
+[short pause]
+
+[calmly] Voilà !
+
+[short pause]
+
+[as:Roger] [calmly] Merci beaucoup !
+
+[short pause]
+
+[calmly] Je vous en prie. Au revoir !
+
+[short pause]
+
+[as:Roger] [calmly] Au revoir ! À bientôt !
+
+[short pause]
+
+[pause]
+
+[warmly] That's the conversation. Now I'll teach you how to have it, and at the end, you'll have it with me.
