@@ -315,13 +315,19 @@ function drawLessons(){
 function renderLearn(){
  var c=$("learn");if(!ready()||!sel.started){c.classList.add("hide");return}
  c.classList.remove("hide");
- var f=field(sel.f),l=path()[0],tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);
- if(!f)state.tab="lessons";
+ var f=field(sel.f),l=path()[0],tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);tabs.push(["scen","Scenarios"]);/*scen*/
+ if(!f&&state.tab!=="scen")state.tab="lessons";
  c.innerHTML='<p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
  c.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){state.tab=b.dataset.tab;state.card=null;state.quiz=null;state.play=null;renderLearn()}});
  var body=$("body");
  if(state.tab==="lessons"){drawLessons();loadProgress()}
- else if(state.tab==="words")words(f,body);else plays(f,body);
+ else if(state.tab==="scen")scenarios(body);else if(state.tab==="words")words(f,body);else plays(f,body);
+}
+var SCEN_DIRECT={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
+function scenarios(el){
+ var g=SCEN_DIRECT[sel.f]||"business";
+ el.innerHTML='<div class="panel"><p style="font-size:.9rem;line-height:1.55;color:#16382b;font-weight:600">Real work conversations, from your first greeting at A0 to a formal meeting at C2. You hear the scene, practise the phrases, then play it yourself.</p><button class="go" id="scenGo" style="display:block;width:100%;margin-top:14px;background:linear-gradient(180deg,#0f6b4c,#0a4a35);color:#fff;border:0;border-radius:999px;padding:13px 0;font:800 .9rem Montserrat,sans-serif;cursor:pointer">Open scenario lessons</button></div>';
+ $("scenGo").onclick=function(){location.href="scenario/?g="+g+"&pc="+encodeURIComponent(sel.pc||"steady")};
 }
 function render(){renderLearn()}
 

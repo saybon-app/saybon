@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Scenario lessons - French for Professionals</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--mint:#6ef0b0;--ink:#0b3d2c;--mut:#5b7568;--line:#d5eadd}
+body{font-family:Montserrat,sans-serif;color:#fff;background:#04382a;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:#04382a url(../bg-desktop.webp) center/cover no-repeat}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(0,18,11,.5)}
+@media(max-width:700px){body::before{background-image:url(../bg-mobile.webp)}}
+.wrap{max-width:560px;margin:0 auto;padding:64px 16px 40px}
+.back{position:fixed;top:14px;left:14px;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);background:rgba(0,0,0,.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.back svg{width:18px;height:18px}
+h1{font-weight:300;font-size:1.7rem;line-height:1.1}h1 b{font-weight:800}
+.bar{width:64px;height:3px;border-radius:3px;background:var(--mint);margin:10px 0 8px}
+.sub{font-size:.82rem;line-height:1.5;color:#e3f6ea}
+h2{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:700;margin:18px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:7px 12px;font:700 .74rem Montserrat,sans-serif;cursor:pointer}
+.chips button.on{background:linear-gradient(180deg,#f4fcf7,#cfeedd);color:var(--ink);border-color:transparent}
+.rows{display:flex;flex-direction:column;gap:7px}
+.row{display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(226,246,235,.96));color:#16382b;border-radius:14px;padding:10px 14px;text-decoration:none;border:0;width:100%;text-align:left;font-family:inherit;cursor:pointer}
+.row .lv{flex:none;width:38px;height:38px;border-radius:50%;background:#0f6b4c;color:#fff;font-weight:800;font-size:.78rem;display:flex;align-items:center;justify-content:center}
+.row .t{flex:1;font-weight:700;font-size:.84rem;line-height:1.3}.row .t small{display:block;font-weight:500;color:var(--mut);font-size:.72rem;margin-top:2px}
+.row .st{flex:none;font-size:.68rem;font-weight:700;color:var(--mut)}.row .st.ok{color:#1f8a55}
+.row.off{opacity:.62;cursor:default}
+.note{font-size:.72rem;color:#cfeedd;margin-top:14px;line-height:1.5}
+</style></head>
+<body>
+<button class="back" id="bk" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+<div class="wrap">
+<h1>Scenario <b>lessons</b></h1><div class="bar"></div>
+<p class="sub">One real work conversation at every level, from your first greeting to a formal meeting. Listen to the scene, practise the phrases, then play it yourself.</p>
+<h2>Your field</h2><div class="chips" id="gs"></div>
+<h2>Your pace</h2><div class="chips" id="ps"></div>
+<h2>Your lessons</h2><div class="rows" id="rows"></div>
+<p class="note">Lessons appear as soon as their audio is recorded. Your voice is used only to give you time to speak: it is not saved or sent anywhere. Progress is kept on this device.</p>
+</div>
+<script src="engine.js?v=1"></script>
+<script src="../pro-data.js?v=3"></script>
+<script>
+(function(){
+var GROUPS=[["medical","Medical"],["legal","Legal"],["military","Military and Peacekeeping"],["police","Police and Security"],["border","Immigration, Customs and Border"],["banking","Banking and finance"],["logistics","Logistics and supply"],["hospitality","Hospitality and tourism"],["business","Business and consulting"],["education","Education and research"]];
+var PACES=[["relaxed","Relaxed"],["steady","Steady"],["intensive","Intensive"]];
+var LV=["a0","a1","a2","b1","b2","c1","c2"];
+var DIRECT={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function ls(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}}
+var q=new URLSearchParams(location.search),sel=ls("sbpro_sel")||{};
+var g=q.get("g"),pc=q.get("pc")||sel.pc||"steady";
+if(!g){var f=(sel.f||"").replace(/^__other$/,"");g=DIRECT[f]||"business"}
+if(!PACES.some(function(p){return p[0]===pc}))pc="steady";
+var data=null,ready={},done=ls("sbpro_scen_done")||{};
+$("bk").onclick=function(){location.href="/professional/"};
+function chips(el,list,cur,fn){el.innerHTML=list.map(function(x){return'<button data-k="'+x[0]+'" class="'+(x[0]===cur?"on":"")+'">'+esc(x[1])+'</button>'}).join("");el.querySelectorAll("button").forEach(function(b){b.onclick=function(){fn(b.dataset.k)}})}
+function draw(){
+ chips($("gs"),GROUPS,g,function(k){g=k;load()});chips($("ps"),PACES,pc,function(k){pc=k;draw()});
+ var h="";
+ LV.forEach(function(lv){
+  var L=data&&data.levels[lv],key=g+"-"+lv+"-"+pc,ok=!!ready[key],dn=!!done[key];
+  var t=L?esc(L.goal):"",small=ok?"":"Audio coming soon";
+  var inner='<span class="lv">'+lv.toUpperCase()+'</span><span class="t">'+t+(small?'<small>'+small+'</small>':'')+'</span><span class="st '+(dn?"ok":"")+'">'+(dn?"Done":(ok?"Open":""))+'</span>';
+  h+=ok?'<a class="row" href="lesson.html?g='+g+'&lv='+lv+'&pc='+pc+'">'+inner+'</a>':'<div class="row off">'+inner+'</div>';
+ });
+ $("rows").innerHTML=h;
+}
+function load(){fetch("data/"+g+".json").then(function(r){return r.json()}).then(function(d){data=d;draw()}).catch(function(){data=null;draw()})}
+fetch("ready.json?t="+Date.now()).then(function(r){return r.json()}).then(function(d){(d.lessons||[]).forEach(function(k){ready[k]=1})}).catch(function(){}).then(load);
+})();
+</script></body></html>
