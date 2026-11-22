@@ -25,7 +25,6 @@ Promise.all([
  var D=a[0],R=a[1];L=N>1?D[LV+"-"+N]:D.levels[LV];
  if(!L){notice("Not found","This lesson does not exist.",false);return}
  L=Object.assign({lv:LV},L);S=E.build(L,PC);
- if(N===1&&!FORCE&&(R.lessons||[]).indexOf(KEY)<0){notice("Audio coming soon","This lesson's audio is not recorded yet. It will open as soon as it is ready.",false);return}
  init();
 }).catch(function(){notice("Not found","This lesson does not exist.",false)});
 
