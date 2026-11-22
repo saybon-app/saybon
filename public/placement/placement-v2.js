@@ -281,7 +281,7 @@ async function loadFrames(){
   var list=[];
   for(var i=1;i<=5;i++){var u="/assets/images/placement/teacher_"+i+".png";if(await check(u,"image"))list.push(u)}
   if(!list.length&&await check("/assets/images/teacher-intervention.webp","image"))list.push("/assets/images/teacher-intervention.webp");
-  tFrames=list;return list;
+  tFrames=list.slice(0,1);return tFrames;/*one-pose*/
 }
 async function teacher(){
   st.teacherShown++;
