@@ -26,6 +26,7 @@
 <button class="pro-skip" id="sk" style="display:none">Passer</button>
 <div id="end" class="sc-end" hidden><div class="card"><h2 id="endT">Bravo !</h2><p id="endP"></p><div class="btns"><button id="endBack">Retour</button><button id="endAgain" class="alt">Refaire</button></div></div></div>
 <audio id="au" preload="auto"></audio>
+<script type="module">import { auth } from "/js/firebase-init.js";import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";window.scUid=null;onAuthStateChanged(auth,function(u){window.scUid=u?u.uid:null});</script>
 <script src="engine.js?v=1"></script>
 <script src="lesson.js?v=1"></script>
 </body></html>

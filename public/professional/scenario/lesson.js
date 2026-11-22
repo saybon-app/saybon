@@ -5,12 +5,13 @@ var q=new URLSearchParams(location.search),G=q.get("g")||"",LV=(q.get("lv")||"a0
 if(!E.PACES[PC])PC="steady";
 var KEY=G+"-"+LV+"-"+PC,au=$("au"),scene=null,started=false,paused=false,missing=0,L=null,S=[],micState=0,stream=null,actx=null,an=null,CAPON=true;
 function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
-function back(){location.href="./?g="+encodeURIComponent(G)+"&pc="+PC}
+var RET=q.get("ret")||"",HUB=q.get("hub")==="1";
+function back(){if(HUB&&RET.indexOf("/professional/hub.html")===0){location.href=RET;return}location.href="./?g="+encodeURIComponent(G)+"&pc="+PC}
 $("bk").onclick=back;
 function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
 function notice(t,p,again){$("endT").textContent=t;$("endP").textContent=p;$("endAgain").style.display=again?"":"none";$("end").hidden=false}
 $("endBack").onclick=back;
-$("endAgain").onclick=function(){location.href=location.pathname+"?g="+G+"&lv="+LV+"&pc="+PC+"&skip=1"+(FORCE?"&force=1":"")};
+$("endAgain").onclick=function(){location.href=location.pathname+"?g="+G+"&lv="+LV+"&pc="+PC+"&skip=1"+(FORCE?"&force=1":"")+(HUB?"&hub=1&ret="+encodeURIComponent(RET):"")};
 $("rs").onclick=$("endAgain").onclick;
 $("cc").onclick=function(){CAPON=!CAPON;$("cc").classList.toggle("on",CAPON);$("cap").classList.toggle("off",!CAPON)};
 $("pz").onclick=function(){paused=!paused;$("pz").textContent=paused?"Resume":"Pause";$("pz").classList.toggle("on",paused);if(paused){try{au.pause()}catch(e){}}else{if(au.src&&!au.ended&&au.currentTime>0){au.play().catch(function(){})}}};
@@ -40,7 +41,7 @@ function init(){
  sc.onload=function(){try{scene=window.ParisScene.mount({mic:false,overlay:true,theme:th,start:Math.floor(Math.random()*3)})}catch(e){}};
  document.head.appendChild(sc);
  var orb=$("orb"),sk=$("sk");sk.style.display="";
- au.src="../audio/intro-"+LV.toUpperCase()+"-"+PC+".mp3";
+ au.src="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";
  au.onplay=function(){orb.style.display="";orb.classList.add("on")};au.onpause=function(){orb.classList.remove("on")};
  au.onended=begin;au.onerror=begin;sk.onclick=begin;
  orb.onclick=function(){au.play().catch(function(){begin()})};
@@ -126,6 +127,7 @@ async function run(){
  }
  tool.style.width="100%";
  var d=ls("sbpro_scen_done")||{};d[KEY]=Date.now();ls("sbpro_scen_done",d);
+ if(HUB&&window.scUid&&!FAST){try{fetch("https://saybonapp-server.onrender.com/api/levelProgressComplete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({uid:window.scUid,level:LV==="a0"?"a0-tout-public":LV,lesson:1})}).catch(function(){})}catch(e){}}
  $("state").textContent="";
  notice("Bravo !",missing?("Done. "+missing+" line(s) had no audio yet."):"You played the whole scene. Saved on this device.",true);
 }
