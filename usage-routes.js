@@ -62,7 +62,8 @@ module.exports = function (app, ctx) {
       if (PF_FIELDS.indexOf(f) < 0 || PF_LEVELS.indexOf(lv) < 0) return res.status(400).json({ error: "unknown field or level" });
       var other = f === "__other" ? String(b.other || "").replace(/[\u0000-\u001f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, 60) : "";
       if (f === "__other" && other.length < 2) return res.status(400).json({ error: "type your field" });
-      await db.collection("professionalSelections").doc(uid).set({ field: f, other: other, level: lv, updatedAt: FV.serverTimestamp() }, { merge: true });
+      var tg = String(b.target || "").toUpperCase(), pc = String(b.pace || ""); if (PF_LEVELS.indexOf(tg) < 0 || PF_LEVELS.indexOf(tg) < PF_LEVELS.indexOf(lv)) tg = ""; if (["relaxed", "steady", "intensive"].indexOf(pc) < 0) pc = "";
+      await db.collection("professionalSelections").doc(uid).set({ field: f, other: other, level: lv, target: tg, pace: pc, updatedAt: FV.serverTimestamp() }, { merge: true });
       res.json({ ok: true });
     } catch (e) { console.error("professionalProfile", e.message); res.status(500).json({ error: "not saved" }); }
   });

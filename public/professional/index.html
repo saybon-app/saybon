@@ -40,6 +40,15 @@ h1 b{font-weight:800;display:inline-block}
 .pill.dark .div{background:#fff}
 .free{margin-top:calc(var(--u)*1.2);font-weight:600;font-size:calc(var(--u)*.9);color:rgba(238,250,242,.9)}
 .free i{font-style:normal;color:var(--mint)}
+.plan{width:calc(var(--u)*38);margin-top:calc(var(--u)*1.6);background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(226,246,235,.96));color:#16382b;border-radius:calc(var(--u)*1.8);padding:calc(var(--u)*1.8) calc(var(--u)*2);text-align:left;box-shadow:0 14px 34px rgba(0,25,16,.4)}
+.plan h2{font-weight:800;font-size:calc(var(--u)*1.7);color:#0b3d2c;margin-bottom:6px}
+.plan .path{font-weight:700;color:#1f8a55;font-size:calc(var(--u)*1.2);margin-bottom:10px}
+.plan .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.plan .st{background:#fff;border:1px solid #d5eadd;border-radius:12px;padding:10px 6px;text-align:center}
+.plan .st b{display:block;font-size:calc(var(--u)*1.7);color:#0b3d2c;font-weight:800}.plan .st span{font-size:calc(var(--u)*.9);color:#5b7568;font-weight:600}
+.plan p{font-size:calc(var(--u)*1.05);line-height:1.55;color:#2b4a3d;margin-top:8px}.plan p.cav{font-size:calc(var(--u)*.92);color:#5b7568}
+.plan .go{display:block;width:100%;margin-top:14px;background:linear-gradient(180deg,#0f6b4c,#0a4a35);color:#fff;border:0;border-radius:999px;padding:calc(var(--u)*1.3) 0;font:800 calc(var(--u)*1.3) Montserrat,sans-serif;cursor:pointer}
+.chips{display:flex;gap:8px;margin:0 0 12px;overflow-x:auto}.chips button{flex:none;display:flex;align-items:center;gap:6px;background:#f1f8f4;border:1.5px solid #d5eadd;color:#0b3d2c;border-radius:999px;padding:8px 14px;font:800 .8rem Montserrat,sans-serif;cursor:pointer}.chips button.on{background:linear-gradient(180deg,#e6fbef,#a9ecc8);border-color:#6ef0b0}.chips button.lk{color:#9db3a8;cursor:default}.chips svg{width:13px;height:13px}
 .drop{display:none;background:linear-gradient(180deg,rgba(6,70,52,.88),rgba(3,52,38,.94));border:1px solid rgba(110,240,176,.4);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1) calc(var(--u)*1.2) calc(var(--u)*1.3);text-align:left;margin-top:calc(var(--u)*-.4);animation:dr .25s ease}
 .drop.open{display:block}
 @keyframes dr{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
@@ -119,7 +128,7 @@ h1 b{font-weight:800;display:inline-block}
 .note{font-size:.8rem;line-height:1.55;margin-top:14px}
 .shake{animation:shk .3s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 #learn .opt + .goal,#turn .opt{background:#f6fbf8}
-@media(max-width:700px){.opt2{padding:10px 13px;font-size:.84rem;border-radius:13px;margin-top:6px}.opt2 small{font-size:.68rem;margin-top:2px}.opt2 svg{width:16px;height:16px}.drop{padding:8px 9px 10px}.drop p.s{font-size:.7rem}}
+@media(max-width:700px){.plan{width:78vw;padding:14px}.plan h2{font-size:1rem}.plan .path{font-size:.78rem}.plan .st b{font-size:1rem}.plan .st span{font-size:.62rem}.plan p{font-size:.76rem}.plan p.cav{font-size:.68rem}.plan .go{font-size:.88rem;padding:11px 0}.opt2{padding:10px 13px;font-size:.84rem;border-radius:13px;margin-top:6px}.opt2 small{font-size:.68rem;margin-top:2px}.opt2 svg{width:16px;height:16px}.drop{padding:8px 9px 10px}.drop p.s{font-size:.7rem}}
 </style></head>
 <body>
 <button class="corner l" id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.5 20.5 11"/><path d="M5.5 9.5V20h4.5v-6h4v6h4.5V9.5"/></svg></button>
@@ -134,8 +143,13 @@ h1 b{font-weight:800;display:inline-block}
   <div class="drop" id="pfd"></div>
   <button class="pill dark" id="pl"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="14" width="4.6" height="7" rx="1.3"/><rect x="9.7" y="9" width="4.6" height="12" rx="1.3"/><rect x="16.4" y="3" width="4.6" height="18" rx="1.3"/></svg></span><span class="div"></span><span class="lab" id="pll">Select Your Level</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
   <div class="drop" id="pld"></div>
+  <button class="pill dark" id="pt"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span class="div"></span><span class="lab" id="ptl">Level You Need</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+  <div class="drop" id="ptd"></div>
+  <button class="pill dark" id="pp"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg></span><span class="div"></span><span class="lab" id="ppl">How Fast</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+  <div class="drop" id="ppd"></div>
  </div>
  <p class="free"><i>Free</i> for everyone. No payment needed.</p>
+ <section id="plan" class="plan hide"></section>
 </main>
 <section id="learn" class="hide"></section>
 
@@ -164,84 +178,119 @@ function speak(t){if(!canSpeak)return;try{speechSynthesis.cancel();var u=new Spe
 function lbtn(t){return canSpeak?' <button class="listen" data-say="'+esc(t)+'">Listen</button>':''}
 document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(b){e.stopPropagation();speak(b.getAttribute("data-say"))}},true);
 
-var sel=ls("sbpro_sel")||{f:"",other:"",lv:""};
+var sel=ls("sbpro_sel")||{f:"",other:"",lv:""};sel.tg=sel.tg||"";sel.pc=sel.pc||"";sel.started=!!sel.started;
 var state={tab:"lessons",card:null,open:false,quiz:null,play:null};
-var user=null,progress=null;
+var user=null,progressMap={};
+var PACES=[{k:"relaxed",name:"Relaxed",sub:"3 lessons a week",per:3,days:"3 days a week, one lesson a day"},{k:"steady",name:"Steady",sub:"5 lessons a week",per:5,days:"5 days a week, one lesson a day"},{k:"intensive",name:"Intensive",sub:"10 lessons a week",per:10,days:"5 days a week, two lessons a day"}];
+function idx(k){return LEVELS.findIndex(function(l){return l.k===k})}
+function pace(){return PACES.find(function(p){return p.k===sel.pc})}
+function ready(){return fieldOk()&&!!level()&&idx(sel.tg)>=idx(sel.lv)&&idx(sel.tg)>=0&&!!pace()}
+function path(){return LEVELS.slice(idx(sel.lv),idx(sel.tg)+1)}
 function known(f){return ls("sbpro_known_"+f)||[]}
 function level(){return LEVELS.find(function(l){return l.k===sel.lv})}
 function fieldOk(){return !!sel.f&&(sel.f!=="__other"||(sel.other||"").trim().length>=2)}
 function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var f=field(sel.f);return f?f.name:""}
 
-/* ---------- the two pills: each opens downward inside the page ---------- */
+/* ---------- the pills: each opens downward inside the page ---------- */
 var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 13 10 18 19 7"/></svg>';
-function openDrop(which){
- var f=which==="f";
- $("pfd").classList.toggle("open",f);$("pld").classList.toggle("open",!f&&which==="l");
- $("pf").classList.toggle("open",f);$("pl").classList.toggle("open",which==="l");
-}
+var KEYS=["f","l","t","p"];
+function openDrop(w){KEYS.forEach(function(k){$("p"+k+"d").classList.toggle("open",k===w);$("p"+k).classList.toggle("open",k===w)})}
 function closeDrops(){openDrop("")}
 function updatePills(){
  $("pfl").textContent=fieldOk()?fieldName():"Pick Your Field";
  $("pll").textContent=level()?level().name:"Select Your Level";
+ var t=LEVELS[idx(sel.tg)];$("ptl").textContent=t?t.name:"Level You Need";
+ $("ppl").textContent=pace()?pace().name:"How Fast";
 }
+function optHtml(attr,key,name,sub,on){return'<button class="opt2'+(on?" sel":"")+'" '+attr+'="'+key+'"><span>'+esc(name)+'<small>'+esc(sub)+'</small></span>'+(on?CHECK:"")+'</button>'}
 function fieldDrop(){
  var el=$("pfd");
  el.innerHTML='<p class="s">Choose the profession you want to become proficient in. It is free.</p>'
-  +D.map(function(f){return'<button class="opt2'+(sel.f===f.id?" sel":"")+'" data-f="'+f.id+'"><span>'+esc(f.name)+'<small>'+esc(f.blurb)+'</small></span>'+(sel.f===f.id?CHECK:"")+'</button>'}).join("")
-  +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" data-f="__other"><span>My field is not listed<small>Type your own field</small></span></button>';
+  +D.map(function(f){return optHtml("data-f",f.id,f.name,f.blurb,sel.f===f.id)}).join("")
+  +optHtml("data-f","__other","My field is not listed","Type your own field",sel.f==="__other");
  el.querySelectorAll("[data-f]").forEach(function(b){b.onclick=function(){
   var v=b.dataset.f;
   if(v==="__other"){el.innerHTML='<p class="s">Type your field, for example agriculture, law or education. This helps us decide which professions to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your field" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>';
    setTimeout(function(){var i=$("oth");i&&i.focus()},50);
    $("bk").onclick=fieldDrop;
-   var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}pickField("__other",t)};
+   var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}chosen("f",{f:"__other",other:t})};
    $("ok").onclick=go;$("oth").onkeydown=function(e){if(e.key==="Enter")go()};return}
-  pickField(v,"")}});
+  chosen("f",{f:v,other:""})}});
 }
-function pickField(v,other){
- sel.f=v;sel.other=other;ls("sbpro_sel",sel);state.tab="lessons";state.card=null;state.quiz=null;state.play=null;
- updatePills();
- if(sel.lv){closeDrops();save();renderLearn()}else{levelDrop();openDrop("l")}
+function levelDrop(){var el=$("pld");el.innerHTML='<p class="s">Where are you now? Pick the level that fits you.</p>'+LEVELS.map(function(l){return optHtml("data-l",l.k,l.name,l.sub,sel.lv===l.k)}).join("");
+ el.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){chosen("l",{lv:b.dataset.l})}})}
+function targetDrop(){var el=$("ptd"),i=idx(sel.lv);
+ el.innerHTML='<p class="s">'+(i<0?"Pick your starting level first.":"Which level do you need to reach for your work?")+'</p>'+(i<0?"":LEVELS.slice(i).map(function(l){return optHtml("data-t",l.k,l.name,l.sub,sel.tg===l.k)}).join(""));
+ el.querySelectorAll("[data-t]").forEach(function(b){b.onclick=function(){chosen("t",{tg:b.dataset.t})}})}
+function paceDrop(){var el=$("ppd");el.innerHTML='<p class="s">How fast do you want to go? We will recommend a routine.</p>'+PACES.map(function(p){return optHtml("data-p",p.k,p.name,p.sub+" - "+p.days,sel.pc===p.k)}).join("");
+ el.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){chosen("p",{pc:b.dataset.p})}})}
+var DR={f:fieldDrop,l:levelDrop,t:targetDrop,p:paceDrop};
+function nextOpen(){ // open the first thing still missing, in order
+ if(!fieldOk())return"f";if(!level())return"l";if(idx(sel.tg)<idx(sel.lv)||idx(sel.tg)<0)return"t";if(!pace())return"p";return""}
+function chosen(k,v){
+ for(var x in v)sel[x]=v[x];
+ if(k==="l"&&idx(sel.tg)<idx(sel.lv))sel.tg="";
+ sel.started=false;state.tab="lessons";state.card=null;state.quiz=null;state.play=null;state.hub=0;
+ ls("sbpro_sel",sel);updatePills();
+ var n=nextOpen();
+ if(n){DR[n]();openDrop(n)}else{closeDrops();save()}
+ renderPlan();renderLearn();
 }
-function levelDrop(){
- var el=$("pld");
- el.innerHTML='<p class="s">Pick the level that fits you. You can change it any time.</p>'
-  +LEVELS.map(function(l){return'<button class="opt2'+(sel.lv===l.k?" sel":"")+'" data-l="'+l.k+'"><span>'+esc(l.name)+'<small>'+esc(l.sub)+'</small></span>'+(sel.lv===l.k?CHECK:"")+'</button>'}).join("");
- el.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){
-  sel.lv=b.dataset.l;ls("sbpro_sel",sel);state.tab="lessons";progress=null;updatePills();closeDrops();save();renderLearn();
-  if(fieldOk())setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)}});
-}
-$("pf").onclick=function(){if($("pfd").classList.contains("open"))closeDrops();else{fieldDrop();openDrop("f")}};
-$("pl").onclick=function(){if($("pld").classList.contains("open"))closeDrops();else{levelDrop();openDrop("l")}};
+KEYS.forEach(function(k){$("p"+k).onclick=function(){if($("p"+k+"d").classList.contains("open"))closeDrops();else{DR[k]();openDrop(k)}}});
 $("home").onclick=function(){if(window.stopAppBgMusic){window.stopAppBgMusic()}location.href="/"};
 $("dash").onclick=function(){location.href="/dashboard/"};
-async function save(){try{if(!user||!fieldOk()||!sel.lv)return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv}),keepalive:true}).catch(function(){})}catch(e){}}
+/* ---------- the plan ---------- */
+function renderPlan(){
+ var c=$("plan");if(!ready()||sel.started){c.classList.add("hide");return}
+ var p=pace(),ps=path(),total=ps.length*25,weeks=Math.ceil(total/p.per),months=Math.round(weeks/4.3*10)/10;
+ c.classList.remove("hide");
+ c.innerHTML='<h2>Your recommended plan</h2><div class="path">'+esc(fieldName())+' &middot; '+ps.map(function(l){return l.k}).join(" &rarr; ")+'</div>'
+  +'<div class="stats"><div class="st"><b>'+total+'</b><span>lessons</span></div><div class="st"><b>'+p.per+'</b><span>per week</span></div><div class="st"><b>~'+weeks+'</b><span>weeks</span></div></div>'
+  +'<p><b>Recommended routine:</b> '+esc(p.days)+'. At that pace, about '+weeks+' weeks (roughly '+months+' months) to finish '+(ps.length>1?'all '+ps.length+' levels':'your level')+'.</p>'
+  +'<p class="cav">These are our recommended estimates, not a guarantee. We assume about 20 minutes a lesson. Your own practice decides how fast you go. You unlock each lesson by finishing the one before it.</p>'
+  +'<button class="go" id="start">Start</button>';
+ $("start").onclick=function(){sel.started=true;state.hub=0;ls("sbpro_sel",sel);renderPlan();renderLearn();save();setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)};
+}
+async function save(){try{if(!user||!ready())return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv,target:sel.tg,pace:sel.pc}),keepalive:true}).catch(function(){})}catch(e){}}
 
-/* ---------- lessons (same unlock rule as the level hubs) ---------- */
-function maxUnlocked(){
+/* ---------- the hub: 25 lessons per level, same unlock rule as the level hubs ---------- */
+function mx(arr){return arr&&arr.length?Math.max.apply(null,arr):0}
+function unlockedFor(i){
  if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 25;
  if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 100;
- if(progress==null)return 1;
- return (progress.length?Math.max.apply(null,progress):0)+1;
+ var ps=path();
+ if(i>0){var pv=progressMap[ps[i-1].key];if(!pv||new Set(pv).size<25)return 0}
+ var cur=progressMap[ps[i].key];return cur?mx(cur)+1:1;
 }
 async function loadProgress(){
- var l=level();if(!l||!user){return}
- try{var r=await fetch(API+"/api/levelProgress?uid="+user.uid+"&level="+l.key);var d=await r.json();progress=(d.completedLessons||[]).map(Number)}catch(e){progress=[]}
+ if(!user||!ready())return;
+ var ps=path();
+ await Promise.all(ps.map(async function(l){try{var r=await fetch(API+"/api/levelProgress?uid="+user.uid+"&level="+l.key);var d=await r.json();progressMap[l.key]=(d.completedLessons||[]).map(Number)}catch(e){progressMap[l.key]=[]}}));
  if(state.tab==="lessons")drawLessons();
 }
 var LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+function lessonUrl(l,n){
+ if(n===1)return "lesson1.html?f="+encodeURIComponent(sel.f)+"&o="+encodeURIComponent(sel.f==="__other"?(sel.other||""):"")+"&lv="+l.k+"&pc="+encodeURIComponent(sel.pc);
+ return l.base+"lesson"+n+".html";
+}
 function drawLessons(){
- var el=$("body");if(!el)return;var l=level(),m=maxUnlocked(),h='<div class="panel"><div class="grid">';
+ var el=$("body");if(!el)return;var ps=path();if(!ps.length)return;
+ if(state.hub==null||state.hub>=ps.length)state.hub=0;
+ var l=ps[state.hub],m=unlockedFor(state.hub),h='<div class="panel">';
+ if(ps.length>1){h+='<div class="chips">'+ps.map(function(x,i){var lk=unlockedFor(i)===0;return'<button data-hub="'+i+'" class="'+(i===state.hub?"on ":"")+(lk?"lk":"")+'">'+(lk?LOCK:"")+x.k+'</button>'}).join("")+'</div>'}
+ h+='<div class="grid">';
  for(var n=1;n<=25;n++){h+=n<=m?'<button class="les u" data-n="'+n+'">'+n+'</button>':'<div class="les l">'+LOCK+'</div>'}
- h+='</div><p class="note">Lesson 1 is open. Finish each lesson to unlock the next.</p></div>';
- el.innerHTML=h;el.querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=l.base+"lesson"+b.dataset.n+".html"}});
+ h+='</div><p class="note">'+(m===0?'Finish all 25 lessons of the previous level to open this one.':'Lesson 1 is open. Finish each lesson to unlock the next.')+' Your plan: '+esc(pace().name)+', '+esc(pace().days)+'.</p></div>';
+ el.innerHTML=h;
+ el.querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=lessonUrl(l,+b.dataset.n)}});
+ el.querySelectorAll("[data-hub]").forEach(function(b){b.onclick=function(){var i=+b.dataset.hub;if(unlockedFor(i)===0)return;state.hub=i;drawLessons()}});
 }
 function renderLearn(){
- var c=$("learn"),l=level();if(!l||!fieldOk()){c.classList.add("hide");return}
+ var c=$("learn");if(!ready()||!sel.started){c.classList.add("hide");return}
  c.classList.remove("hide");
- var f=field(sel.f),tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);
+ var f=field(sel.f),l=path()[0],tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);
  if(!f)state.tab="lessons";
- c.innerHTML='<p class="eb">'+esc(fieldName())+' · '+esc(l.k)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
+ c.innerHTML='<p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
  c.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){state.tab=b.dataset.tab;state.card=null;state.quiz=null;state.play=null;renderLearn()}});
  var body=$("body");
  if(state.tab==="lessons"){drawLessons();loadProgress()}
@@ -299,8 +348,7 @@ function plays(f,el){
  step();
 }
 
-onAuthStateChanged(auth,function(u){user=u;if(u){if(sel.lv&&fieldOk()){save();loadProgress()}}else if(sel.lv)drawLessons()});
-updatePills();
-if(sel.lv&&fieldOk())renderLearn();
+onAuthStateChanged(auth,function(u){user=u;if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
+updatePills();renderPlan();renderLearn();
 </script>
 </body></html>
