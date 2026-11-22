@@ -44,13 +44,28 @@ function init(){
   $("intro").hidden=false;var tx=$("inTx"),k=0,done=false,tm=null;
   function paint(n){tx.innerHTML="";var a=document.createElement("span");a.textContent=T.slice(0,n);tx.appendChild(a);if(n<T.length){var c=document.createElement("span");c.className="caret";tx.appendChild(c);var r=document.createElement("span");r.className="rest";r.textContent=T.slice(n);tx.appendChild(r)}}
   function finish(){if(done)return;done=true;clearInterval(tm);paint(T.length);$("inGo").hidden=false}
-  paint(0);tm=setInterval(function(){k+=1;paint(k);if(k>=T.length)finish()},FAST?1:32);
-  $("intro").querySelector(".in-card").onclick=function(e){if(e.target.closest("button"))return;finish()};
-  $("inGo").onclick=begin;
-  /* when the voice has been recorded, a Listen button appears */
-  au.src="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";au.onerror=function(){};if(N>1)au.removeAttribute("src");
-  au.oncanplay=function(){$("inListen").hidden=false};
-  $("inListen").onclick=function(){au.currentTime=0;au.play().catch(function(){})};
+  var SRC="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";
+  function typed(){
+   tx.hidden=false;paint(0);tm=setInterval(function(){k+=1;paint(k);if(k>=T.length)finish()},FAST?1:32);
+   $("intro").querySelector(".in-card").onclick=function(e){if(e.target.closest("button"))return;finish()};
+   $("inGo").onclick=begin;
+   au.onerror=function(){};au.removeAttribute("src");
+   if(N===1){au.src=SRC;au.oncanplay=function(){$("inListen").hidden=false};$("inListen").onclick=function(){au.currentTime=0;au.play().catch(function(){})}}
+  }
+  /* recorded teacher voice: no transcript, the microphone speaks; if there is no recording yet, the typed text is shown instead */
+  function voice(){
+   var orb=$("inOrb"),st=$("inSt"),ok=false,fell=false,to;
+   tx.hidden=true;orb.hidden=false;st.hidden=false;st.textContent="Your teacher is getting ready";
+   function fall(){if(ok||fell)return;fell=true;clearTimeout(to);orb.hidden=true;st.hidden=true;typed()}
+   au.onerror=fall;to=setTimeout(fall,4500);
+   au.oncanplay=function(){if(fell||ok)return;ok=true;clearTimeout(to);st.textContent="Tap the microphone to listen";var p=au.play();if(p&&p.catch)p.catch(function(){orb.classList.add("wait")})};
+   au.onplaying=function(){orb.classList.remove("wait");orb.classList.add("say");st.textContent="Your teacher is speaking"};
+   au.onpause=function(){orb.classList.remove("say")};
+   au.onended=function(){orb.classList.remove("say");st.textContent="";begin()};
+   orb.onclick=function(){if(au.paused)au.play().catch(function(){})};
+   au.src=SRC;au.load();
+  }
+  if(N===1&&!FAST)voice();else typed();
  }).catch(function(){begin()});
 }
 function loadPic(){

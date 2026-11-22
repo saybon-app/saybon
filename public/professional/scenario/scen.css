@@ -59,3 +59,12 @@ body.pro-lesson{background:#0b1b16;overflow:hidden;font-family:Manrope,sans-seri
 .in-ls{border:1.5px solid #2f7f94;background:transparent;color:#2f7f94;border-radius:999px;padding:11px 20px;font:700 .85rem Manrope,sans-serif;cursor:pointer}
 @media(max-width:700px){.in-card{padding:26px 22px 22px}.in-card h1{font-size:1.45rem}.in-tx{font-size:1rem;min-height:11em}}
 body.pro-lesson #sk{background:rgba(255,255,255,.7);color:#1c3448;border-color:rgba(28,52,72,.25)}
+
+.in-orb{display:block;margin:6px auto 0;width:112px;height:112px;border-radius:50%;border:0;background:#e6f2f5;color:#2f7f94;cursor:pointer;position:relative;padding:0}
+.in-orb svg{width:62px;height:62px;position:relative;z-index:1}
+.in-orb::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #2f7f94;opacity:0}
+.in-orb.say::before,.in-orb.wait::before{animation:inPulse 1.6s ease-out infinite}
+.in-orb.say{background:#d5eaef}
+@keyframes inPulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.55);opacity:0}}
+.in-st{text-align:center;font:600 .86rem Manrope,sans-serif;color:#4a6577;margin:16px 0 0;min-height:1.3em}
+.in-orb[hidden],.in-st[hidden]{display:none}
