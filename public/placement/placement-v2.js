@@ -291,7 +291,7 @@ async function teacher(){
   var imgs=stage.querySelectorAll("img");
   txt.textContent=""; act.classList.remove("on"); T.classList.add("on");
   var words=TEACHER_TEXT.split(" "),k=0,textTimer=null,frameTimer=null,shown=false,fi=0;
-  var curF=0;/*tsmooth*/function showFrame(n){if(n===curF)return;Array.prototype.forEach.call(imgs,function(im,i){im.classList.remove("prev");if(i===curF)im.classList.add("prev");im.classList.toggle("on",i===n)});curF=n}
+  function showFrame(n){Array.prototype.forEach.call(imgs,function(im,i){im.classList.toggle("on",i===n)})}
   function reveal(){ if(shown)return; shown=true; clearInterval(textTimer); clearInterval(frameTimer); txt.textContent=TEACHER_TEXT; showFrame(imgs.length-1); act.classList.add("on") }
   var take=window.PT_TEACHER||"a";
   aud.src="/assets/audio/placement/teacher_"+take+".mp3";

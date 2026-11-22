@@ -82,9 +82,7 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 .passage.dlg{font-family:Poppins,sans-serif;font-size:15px;line-height:1.55}
 @media (max-height:700px){.passage.dlg{font-size:14px}}
 
-/* teacher: one continuous soft pulse; frames dissolve over each other with no dip */
-.t-stage{transform-origin:50% 92%;animation:tpulse 2.8s ease-in-out infinite;will-change:transform}
-@keyframes tpulse{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.028) translateY(-6px)}}
-.t-stage img{transition:opacity .8s ease-in-out;z-index:0}
-.t-stage img.prev{opacity:1;z-index:1;transition:none}
-.t-stage img.on{opacity:1;z-index:2}
+/*tpulse2*/ /* teacher: very slow soft pulse; poses swap with a quick dissolve so no old pose lingers */
+.t-stage{transform-origin:50% 95%;animation:tpulse 7s ease-in-out infinite;will-change:transform}
+@keyframes tpulse{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.012) translateY(-3px)}}
+.t-stage img{transition:opacity .28s ease-in-out}
