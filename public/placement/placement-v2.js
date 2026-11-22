@@ -33,6 +33,11 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 var STAIR=[5,9,11];
 function stageLevel(n){
   var lv=n<STAIR[0]?0:n<STAIR[1]?1:n<STAIR[2]?2:-1;
+  // strong learners move on early: three correct answers in a row at the current stage end that stage (never skipping a level)
+  while(lv>=0&&lv<2){
+    var tail=st.log.slice(-3);
+    if(tail.length===3&&tail.every(function(l){return l.ok&&l.lv>=lv&&!l.idk})&&st.log.filter(function(l){return l.lv===lv}).length>=3)lv++; else break;
+  }
   while(lv>0){
     var prev=st.log.filter(function(l){return l.lv===lv-1&&l.kind!=="speak"||l.lv===lv-1&&l.kind==="speak"});
     if(prev.length&&prev.filter(function(l){return l.ok}).length/prev.length<0.5)lv--; else break;
