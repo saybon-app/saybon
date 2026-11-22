@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var q=new URLSearchParams(location.search);if(q.get("change")==="1"||q.get("tab"))return;var s=JSON.parse(localStorage.getItem("sbpro_sel")||"null");if(s&&s.started&&s.f&&s.lv&&s.pc){document.documentElement.style.visibility="hidden";location.replace("hub.html?f="+encodeURIComponent(s.f)+"&o="+encodeURIComponent(s.f==="__other"?(s.other||""):"")+"&lv="+s.lv+"&tg="+(s.tg||s.lv)+"&pc="+encodeURIComponent(s.pc))}}catch(e){}})()</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>French for Professionals - SayBon</title>
@@ -208,7 +210,7 @@ var CHANGE=new URLSearchParams(location.search).get("change")==="1";
 var HOLD=false;try{var _s=JSON.parse(localStorage.getItem("sbpro_sel")||"null");HOLD=!TABV&&!CHANGE&&_s&&_s.started}catch(e){}
 if(HOLD){document.body.style.visibility="hidden";setTimeout(function(){document.body.style.visibility=""},3000)}
 function hubUrl(){return "hub.html?f="+encodeURIComponent(sel.f)+"&o="+encodeURIComponent(sel.f==="__other"?(sel.other||""):"")+"&lv="+sel.lv+"&tg="+sel.tg+"&pc="+encodeURIComponent(sel.pc)}
-function sv(){ls("sbpro_sel_"+(user?user.uid:"anon"),sel);ls("sbpro_sel",sel)}
+function sv(){ls("sbpro_sel_"+(user?user.uid:"anon"),sel);ls("sbpro_sel",Object.assign({uid:user?user.uid:""},sel))}
 function badges(){var a=[];if(fieldOk())a.push(fieldName());if(level())a.push(sel.lv+(sel.tg&&sel.tg!==sel.lv?" \u2192 "+sel.tg:""));if(pace())a.push(pace().name);return a.length?'<div class="bdg">'+a.map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+"</div>":""}
 var state={tab:TABV||"lessons",card:null,open:false,quiz:null,play:null};
 var user=null,progressMap={};
@@ -387,7 +389,7 @@ function plays(f,el){
  step();
 }
 
-onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null;sel=sel0();if(sv0)for(var x in sv0)sel[x]=sv0[x];sel.started=!!sel.started;if(TABV){var uq=new URLSearchParams(location.search);if(uq.get("f")&&uq.get("lv")){sel.f=uq.get("f");sel.other=uq.get("o")||"";sel.lv=uq.get("lv");sel.tg=uq.get("tg")||sel.lv;sel.pc=uq.get("pc")||sel.pc||"steady";sel.started=true}}ls("sbpro_sel",sel);document.body.style.visibility="";if(!TABV&&!CHANGE&&ready()&&sel.started){location.replace(hubUrl());return}closeDrops();updatePills();renderPlan();renderLearn();if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
+onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null;sel=sel0();if(sv0)for(var x in sv0)sel[x]=sv0[x];sel.started=!!sel.started;if(TABV){var uq=new URLSearchParams(location.search);if(uq.get("f")&&uq.get("lv")){sel.f=uq.get("f");sel.other=uq.get("o")||"";sel.lv=uq.get("lv");sel.tg=uq.get("tg")||sel.lv;sel.pc=uq.get("pc")||sel.pc||"steady";sel.started=true}}ls("sbpro_sel",Object.assign({uid:u?u.uid:""},sel));document.body.style.visibility="";if(!TABV&&!CHANGE&&ready()&&sel.started){location.replace(hubUrl());return}closeDrops();updatePills();renderPlan();renderLearn();if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
 updatePills();renderPlan();renderLearn();
 </script>
 </body></html>
