@@ -4,7 +4,7 @@
   try{history.scrollRestoration="manual";}catch(e){}
   var L=null,P=null,state=null;
 
-  var ADMIN=false,BUILT={maison:1,cuisine:1,salon:1,chambre:1,"salle-de-bains":1,"la-maison":1,boulangerie:1,supermarche:1,marche:1,patisserie:1,cafe:1,restaurant:1,"salon-de-coiffure":1,laverie:1,pharmacie:1,poste:1,"salle-de-sport":1,"station-taxis":1,parc:1,ecole:1};
+  var ADMIN=false,BUILT={"arret-de-bus":1,banque:1,maison:1,cuisine:1,salon:1,chambre:1,"salle-de-bains":1,"la-maison":1,boulangerie:1,supermarche:1,marche:1,patisserie:1,cafe:1,restaurant:1,"salon-de-coiffure":1,laverie:1,pharmacie:1,poste:1,"salle-de-sport":1,"station-taxis":1,parc:1,ecole:1};
   function unlockedCount(){
     if(ADMIN)return P.length;
     var q=new URLSearchParams(location.search).get("unlocked");

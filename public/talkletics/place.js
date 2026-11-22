@@ -311,7 +311,7 @@ function assess(blob,ref){
 var C=null,flat=[],N=0,st={idx:0,gain:0,sum:0,done:0,who:null,finished:false};
 function load(){try{var s=JSON.parse(localStorage.getItem(SAVE));if(s&&typeof s.idx==="number")st=Object.assign(st,s);}catch(e){}}
 function save(){try{localStorage.setItem(SAVE,JSON.stringify(st));}catch(e){}}
-function unlockNext(){try{var SKIP={17:1,19:1},n=CFG.order+1;while(SKIP[n])n++;var c=parseInt(localStorage.getItem("tkMapUnlocked"),10)||1;if(c<n)localStorage.setItem("tkMapUnlocked",String(n));}catch(e){}}
+function unlockNext(){try{var SKIP={},n=CFG.order+1;while(SKIP[n])n++;var c=parseInt(localStorage.getItem("tkMapUnlocked"),10)||1;if(c<n)localStorage.setItem("tkMapUnlocked",String(n));}catch(e){}}
 function setBar(){$("barFill").style.width=Math.min(100,st.gain/N*100).toFixed(1)+"%";}
 function setPhase(cls,txt){var p=document.querySelector(".mz-phase");p.className="mz-phase "+cls;$("phaseTxt").textContent=txt;}
 function dots(n,state){var d=$("listenDots").children;for(var i=0;i<3;i++)d[i].className=i<n?"done":(i===n&&state==="on"?"on":"");}
