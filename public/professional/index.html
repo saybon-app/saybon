@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French for Professionals - SayBon</title>
+<script type="module" src="/js/auth-guard.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Fraunces:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--gold:#d4af6a;--gold2:#e8c98a;--ink:#0c1016;--ink2:#151b26;--card:#171e2a;--line:rgba(212,175,106,.22);--txt:#e6e1d3;--mut:#9aa1b2;--ok:#7fcf9b;--bad:#e58a8a}
+body{font-family:"Manrope",sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 55%,#1b2230 100%) fixed;color:var(--txt);min-height:100vh;padding:64px 18px 48px}
+.w{max-width:860px;margin:0 auto}
+.ic{position:fixed;top:14px;left:14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5}
+.ic svg{width:18px;height:18px}
+.eb{font-size:.74rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.9rem,6vw,2.7rem);color:#f6f1e4;line-height:1.12;margin-bottom:10px}
+h2{font-family:"Fraunces",serif;font-weight:600;font-size:1.3rem;color:#f6f1e4;margin-bottom:8px}
+.sub{color:var(--mut);font-size:.95rem;line-height:1.55;margin-bottom:22px}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.fields{grid-template-columns:repeat(3,1fr)}}
+.f{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 16px;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:border-color .2s,transform .2s}
+.f:hover{border-color:rgba(212,175,106,.6);transform:translateY(-2px)}
+.f svg{width:30px;height:30px;color:var(--gold);margin-bottom:12px}
+.f b{display:block;font-family:"Fraunces",serif;font-size:1.05rem;color:#f6f1e4;margin-bottom:4px;font-weight:600}
+.f span{display:block;font-size:.8rem;color:var(--mut);line-height:1.4}
+.f i{display:block;font-style:normal;font-size:.72rem;color:var(--gold);margin-top:10px;font-weight:700}
+.strip{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(212,175,106,.07);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:18px;font-size:.88rem}
+.strip a{color:var(--gold);font-weight:700;text-decoration:none}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:18px;padding-bottom:4px}
+.tabs button{flex:none;background:none;border:1px solid var(--line);color:#d9d3c2;border-radius:999px;padding:9px 16px;font:700 .82rem Manrope;cursor:pointer}
+.tabs button.on{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1c1408;border-color:transparent}
+.btn{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1c1408;border:0;border-radius:999px;padding:12px 22px;font:800 .88rem Manrope;cursor:pointer}
+.btn.ghost{background:none;color:var(--gold);border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:14px}
+.flash{min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;gap:8px}
+.flash .fr{font-family:"Fraunces",serif;font-size:clamp(1.7rem,6vw,2.3rem);color:#f6f1e4}
+.flash .en{font-size:1.2rem;color:var(--gold2);font-weight:700}
+.flash .ex{font-size:.95rem;color:#cfc8b6;line-height:1.5}.flash .ex em{display:block;font-style:normal;color:var(--mut);font-size:.85rem;margin-top:2px}
+.flash .hint{font-size:.78rem;color:var(--mut)}
+.prog{font-size:.82rem;color:var(--mut);margin-bottom:10px}
+.listen{background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:6px 14px;font:700 .76rem Manrope;cursor:pointer}
+.opt{display:block;width:100%;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--txt);border-radius:14px;padding:14px 16px;font:600 .95rem Manrope;margin-top:10px;cursor:pointer;line-height:1.4}
+.opt.good{border-color:var(--ok);background:rgba(127,207,155,.12)}.opt.wrong{border-color:var(--bad);background:rgba(229,138,138,.1)}
+.bub{max-width:86%;border-radius:16px;padding:12px 15px;margin:10px 0;line-height:1.45}
+.bub.o{background:#202938;border:1px solid var(--line);border-top-left-radius:4px}
+.bub.y{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;margin-left:auto;border-top-right-radius:4px;font-weight:700}
+.bub small{display:block;color:var(--mut);font-size:.78rem;margin-top:4px;font-weight:500}
+.bub.y small{color:#5a4413}
+.goal{color:var(--gold2);font-weight:700;font-size:.9rem;margin:14px 0 2px}
+.pick{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;color:inherit;font:inherit;width:100%;text-align:left}
+.pick b{font-family:"Fraunces",serif;font-weight:600;color:#f6f1e4;font-size:1.05rem}.pick span{display:block;color:var(--mut);font-size:.82rem;margin-top:3px}
+.pick em{font-style:normal;color:var(--ok);font-size:.78rem;font-weight:700;white-space:nowrap}
+.exam b{font-family:"Fraunces",serif;color:#f6f1e4;font-size:1.1rem;font-weight:600}.exam p{font-size:.9rem;line-height:1.55;color:#cfc8b6;margin-top:6px}.exam p.us{color:var(--gold2)}
+.note{font-size:.8rem;color:var(--mut);line-height:1.55;margin-top:14px}
+.shake{animation:shk .3s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+</style></head>
+<body>
+<button class="ic" id="back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+<div class="w" id="app"></div>
+<script src="pro-data.js?v=1"></script>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+var API="https://saybonapp-server.onrender.com";
+var D=window.PRO_DATA, app=document.getElementById("app");
+var ICON={
+ bank:'<path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 21h18"/>',
+ truck:'<path d="M2 6h12v10H2z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+ cross:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+ bed:'<path d="M3 18V7"/><path d="M3 14h18v4"/><path d="M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ briefcase:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>'
+};
+function ic(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+ICON[n]+'</svg>'}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function field(id){return D.find(function(x){return x.id===id})}
+var canSpeak=("speechSynthesis" in window);
+function speak(t){if(!canSpeak)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="fr-FR";u.rate=.92;var v=speechSynthesis.getVoices().filter(function(x){return /^fr/i.test(x.lang)});if(v[0])u.voice=v[0];speechSynthesis.speak(u)}catch(e){}}
+function lbtn(t){return canSpeak?' <button class="listen" data-say="'+esc(t)+'">Listen</button>':''}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(b){e.stopPropagation();speak(b.getAttribute("data-say"))}},true);
+
+var state={view:"home",f:null,tab:"words"};
+var level=null;
+async function loadLevel(){try{var u=auth.currentUser;if(!u)return;var t=await u.getIdToken();var r=await fetch(API+"/api/level",{headers:{Authorization:"Bearer "+t}});var j=await r.json();if(j&&j.level){level=j.level;if(state.view==="home"||state.tab==="core")render()}}catch(e){}}
+auth.onAuthStateChanged&&auth.onAuthStateChanged(function(u){if(u)loadLevel()});
+
+function known(f){return ls("sbpro_known_"+f)||[]}
+function render(){
+ if(state.view==="home")return home();
+ var f=field(state.f);if(!f){state.view="home";return home()}
+ app.innerHTML='<p class="eb">'+esc(f.name)+'</p><h1>'+esc(f.name)+'</h1><p class="sub">'+esc(f.blurb)+'.</p>'
+  +'<div class="tabs">'+[["words","Words"],["plays","Role-plays"],["exams","Exam prep"],["core","Core French"]].map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
+ app.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){state.tab=b.dataset.tab;state.card=null;state.quiz=null;state.play=null;render()}});
+ ({words:words,plays:plays,exams:exams,core:core})[state.tab](f,document.getElementById("body"));
+}
+function home(){
+ app.innerHTML='<p class="eb">SayBon</p><h1>French for Professionals</h1><p class="sub">Choose your field. You keep the same core French as everyone else. Your field adds the words and situations you need at work, and a route to your exam.</p>'
+ +'<div class="strip"><span>'+(level?'Your level: <b>'+esc(level)+'</b>':'Not sure of your level yet?')+'</span><a href="'+(level?'/levels/':'/placement/')+'">'+(level?'Open core lessons':'Take the placement test')+'</a></div>'
+ +'<div class="fields">'+D.map(function(f){var k=known(f.id).length;return'<button class="f" data-f="'+f.id+'">'+ic(f.icon)+'<b>'+esc(f.name)+'</b><span>'+esc(f.blurb)+'</span><i>'+f.words.length+' words · '+f.plays.length+' role-plays'+(k?' · '+k+' known':'')+'</i></button>'}).join("")+'</div>'
+ +'<p class="note">Speaking practice uses your phone\'s own French voice, so how it sounds depends on your device.</p>';
+ app.querySelectorAll("[data-f]").forEach(function(b){b.onclick=function(){state={view:"field",f:b.dataset.f,tab:"words"};ls("sbpro_last",b.dataset.f);render();scrollTo(0,0)}});
+}
+function words(f,el){
+ var K=known(f.id),W=f.words;
+ if(state.quiz)return quiz(f,el);
+ var pool=W.map(function(w,i){return i}).filter(function(i){return K.indexOf(i)<0});
+ el.innerHTML='<p class="prog">Known: '+K.length+' of '+W.length+'</p>';
+ if(!pool.length){el.innerHTML+='<div class="panel"><h2>All '+W.length+' words known</h2><p class="sub">Test yourself with the quick quiz, or reset to go again.</p><div class="row"><button class="btn" id="q">Quick quiz</button><button class="btn ghost" id="rs">Start again</button></div></div>';
+  document.getElementById("q").onclick=function(){state.quiz={n:0,s:0,q:null};render()};document.getElementById("rs").onclick=function(){ls("sbpro_known_"+f.id,[]);render()};return}
+ if(state.card==null||pool.indexOf(state.card)<0)state.card=pool[0];
+ var w=W[state.card],open=state.open;
+ el.innerHTML+='<div class="panel flash" id="fl"><div class="fr">'+esc(w[0])+'</div>'+lbtn(w[0])
+  +(open?'<div class="en">'+esc(w[1])+'</div><div class="ex">'+esc(w[2])+'<em>'+esc(w[3])+'</em></div>':'<div class="hint">Tap the card to see the English</div>')+'</div>'
+  +'<div class="row">'+(open?'<button class="btn ghost" id="ag">Again later</button><button class="btn" id="gt">I know it</button>':'')+'<button class="btn ghost" id="q">Quick quiz</button></div>';
+ document.getElementById("fl").onclick=function(){state.open=!state.open;render()};
+ if(open){document.getElementById("gt").onclick=function(){var k=known(f.id);k.push(state.card);ls("sbpro_known_"+f.id,k);state.open=false;state.card=null;render()};
+  document.getElementById("ag").onclick=function(){var i=pool.indexOf(state.card);state.card=pool[(i+1)%pool.length];state.open=false;render()}}
+ document.getElementById("q").onclick=function(){state.quiz={n:0,s:0,q:null};render()};
+}
+function quiz(f,el){
+ var q=state.quiz,W=f.words,N=5;
+ if(q.n>=N){el.innerHTML='<div class="panel"><h2>'+q.s+' out of '+N+'</h2><p class="sub">'+(q.s===N?"Perfect. Those words are yours.":"Keep going. Missed words come back in the cards.")+'</p><div class="row"><button class="btn" id="a">Quiz again</button><button class="btn ghost" id="b">Back to cards</button></div></div>';
+  document.getElementById("a").onclick=function(){state.quiz={n:0,s:0,q:null};render()};document.getElementById("b").onclick=function(){state.quiz=null;render()};return}
+ if(!q.q){var i=Math.floor(Math.random()*W.length),opts=shuffle([i].concat(shuffle(W.map(function(_,k){return k}).filter(function(k){return k!==i})).slice(0,3)));q.q={i:i,opts:opts,done:false}}
+ var cur=q.q;
+ el.innerHTML='<p class="prog">Question '+(q.n+1)+' of '+N+'</p><div class="panel"><div class="eb">What does it mean?</div><h2 style="font-size:1.7rem">'+esc(W[cur.i][0])+lbtn(W[cur.i][0])+'</h2>'+cur.opts.map(function(k){return'<button class="opt" data-k="'+k+'">'+esc(W[k][1])+'</button>'}).join("")+'</div>';
+ el.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){if(cur.done)return;var k=+b.dataset.k;if(k===cur.i){cur.done=true;b.classList.add("good");q.s++;var K=known(f.id);if(K.indexOf(cur.i)<0){K.push(cur.i);ls("sbpro_known_"+f.id,K)}setTimeout(function(){q.n++;q.q=null;render()},700)}else{b.classList.add("wrong","shake");cur.done=true;el.querySelectorAll(".opt").forEach(function(o){if(+o.dataset.k===cur.i)o.classList.add("good")});setTimeout(function(){q.n++;q.q=null;render()},1200)}}});
+}
+function plays(f,el){
+ if(state.play==null){
+  el.innerHTML=f.plays.map(function(p,i){var d=ls("sbpro_play_"+f.id+"_"+i);return'<button class="pick" data-p="'+i+'"><div><b>'+esc(p.title)+'</b><span>'+esc(p.setting)+'</span></div>'+(d?'<em>Done</em>':'')+'</button>'}).join("")+'<p class="note">Read what the other person says, then choose your reply. If you pick a wrong one, you can try again.</p>';
+  el.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){state.play={i:+b.dataset.p,t:0,miss:0,log:[]};render()}});return}
+ var p=f.plays[state.play.i],S=state.play;
+ var h='<h2>'+esc(p.title)+'</h2><p class="sub">'+esc(p.setting)+'</p>';
+ for(var k=0;k<S.t;k++){var tn=p.turns[k];h+=tn.o?'<div class="bub o">'+esc(tn.o[0])+lbtn(tn.o[0])+'<small>'+esc(tn.o[1])+'</small></div>':'<div class="bub y">'+esc(tn.y[1])+'</div>'}
+ el.innerHTML=h+'<div id="turn"></div>';
+ var t=document.getElementById("turn");
+ function step(){
+  if(S.t>=p.turns.length){ls("sbpro_play_"+f.id+"_"+S.i,true);t.innerHTML='<div class="panel"><h2>Role-play complete</h2><p class="sub">'+(S.miss?S.miss+' wrong choice'+(S.miss>1?"s":"")+' along the way.':"No wrong choices. Well done.")+'</p><div class="row"><button class="btn" id="ag">Play again</button><button class="btn ghost" id="bk">Back</button></div></div>';
+   document.getElementById("ag").onclick=function(){state.play={i:S.i,t:0,miss:0};render()};document.getElementById("bk").onclick=function(){state.play=null;render()};return}
+  var tn=p.turns[S.t];
+  if(tn.o){var d=document.createElement("div");d.className="bub o";d.innerHTML=esc(tn.o[0])+lbtn(tn.o[0])+'<small>'+esc(tn.o[1])+'</small>';t.before(d);if(canSpeak&&!S.mute)speak(tn.o[0]);S.t++;return step()}
+  var opts=shuffle([tn.y[1],tn.y[2],tn.y[3]]);
+  t.innerHTML='<div class="goal">Your turn: '+esc(tn.y[0])+'</div>'+opts.map(function(o){return'<button class="opt" data-o="'+esc(o)+'">'+esc(o)+'</button>'}).join("");
+  t.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){if(b.dataset.o===tn.y[1]){b.classList.add("good");var y=document.createElement("div");y.className="bub y";y.textContent=tn.y[1];t.before(y);S.t++;t.innerHTML="";setTimeout(step,450)}else{b.classList.add("wrong","shake");S.miss++;b.disabled=true}}});
+ }
+ step();
+}
+var EX=[
+ {n:"DELF Pro",d:"DELF diplomas built around workplace French, from the official French education authority. Tasks follow real work situations: calls, emails, meetings, short reports.",u:"What SayBon gives you today: your field's words and role-plays, and the DELF mock exams already in SayBon.",link:["/delf/","Open DELF Prep"]},
+ {n:"DFP (Diplôme de français professionnel)",d:"A professional French diploma from the Paris Île-de-France Chamber of Commerce. It covers sectors such as business, tourism and hospitality, international relations and health.",u:"What SayBon gives you today: the vocabulary and workplace conversations that match these sectors. Check where the exam can be taken before you plan."},
+ {n:"TEF",d:"A general French test often asked for in study, immigration and recruitment. It tests listening, reading, writing and speaking.",u:"What SayBon gives you today: listening and speaking practice through the role-plays, plus core French at your level."},
+ {n:"TCF",d:"Another general French test, also used for study, immigration and recruitment, with listening, reading and language-structure sections and optional writing and speaking.",u:"What SayBon gives you today: core lessons and the listening and speaking practice in your field."}
+];
+function exams(f,el){
+ el.innerHTML=EX.map(function(x){return'<div class="panel exam"><b>'+esc(x.n)+'</b><p>'+esc(x.d)+'</p><p class="us">'+esc(x.u)+'</p>'+(x.link?'<div class="row"><a class="btn" style="text-decoration:none" href="'+x.link[0]+'">'+x.link[1]+'</a></div>':'')+'</div>'}).join("")
+ +'<p class="note">SayBon helps you prepare. It does not run, certify or accredit any of these exams. You register and sit the exam with an official exam centre. Ask your employer or ministry which exam they accept, and confirm with the centre that it offers that exam.</p>';
+}
+function core(f,el){
+ el.innerHTML='<div class="panel"><h2>Core French</h2><p class="sub">Grammar, listening and speaking for every level are the same for all learners. Work on them alongside your field.</p>'+(level?'<p class="sub">Your level: <b style="color:#f6f1e4">'+esc(level)+'</b></p>':'')+'<div class="row"><a class="btn" style="text-decoration:none" href="/levels/">Open Levels</a>'+(level?'':'<a class="btn ghost" style="text-decoration:none" href="/placement/">Find my level</a>')+'</div></div>';
+}
+document.getElementById("back").onclick=function(){if(state.view==="field"){if(state.play!=null){state.play=null;render()}else{state={view:"home"};render()}}else location.href="/dashboard/"};
+if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=function(){};
+render();
+</script>
+</body></html>

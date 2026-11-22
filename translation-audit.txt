@@ -1,0 +1,1578 @@
+SAYBON TRANSLATION SYSTEM AUDIT (read-only)
+Run: 2026-11-22T12:23:51.843Z   Live checks: on
+Pages scanned: 22   Scripts: 6
+
+SUMMARY
+  HIGH: 11   MEDIUM: 14   LOW: 74
+
+HIGH items:
+  - POST /api/createTranslationJobForPaystack: money-related route with no sign of authentication or signature check (verify by hand)
+  - public/translation/translation-desk.html: calls /api/job/ but no such route exists in the server code
+  - public/translators.html: broken reference -> /translator-test.html  (nothing at public/translator-test.html)
+  - public/admin/translation-admin.html: broken reference -> /translation-desk.html?job=  (nothing at public/translation-desk.html)
+  - public/admin/translation-admin.html: calls /api/editor/jobs but no such route exists in the server code
+  - public/admin/translation-admin.html: admin page with no admin guard in the page (server may still protect the data, verify)
+  - public/features/admin/translation-review/index.html: calls /api/adminConfirmSelection but no such route exists in the server code
+  - public/features/admin/translation-review/index.html: calls /api/adminJobSubmissions but no such route exists in the server code
+  - public/features/admin/translation-review/index.html: calls /api/adminOverrideSelection but no such route exists in the server code
+  - /api/verifyPaystackTranslation: payment verification does not appear to compare the amount paid
+  - firestore.rules: contains 'if true' rule, anyone could read or write that path
+
+MED items:
+  - POST /api/createJob: write route with no visible authentication (may rely on a job key or passkey, verify)
+  - POST /api/createTranslationJob: write route with no visible authentication (may rely on a job key or passkey, verify)
+  - public/translation/translation-desk.html: no viewport meta (renders tiny on phones)
+  - public/translation/translator-dashboard.html: no viewport meta (renders tiny on phones)
+  - public/translation/translator-login.html: no viewport meta (renders tiny on phones)
+  - public/features/translation/index.html: no viewport meta (renders tiny on phones)
+  - public/admin/translation-admin.html: no viewport meta (renders tiny on phones)
+  - Client order (features landing): index.html has no visible link or redirect to request.html
+  - Translator signup: translators.html has no visible link or redirect to translator-register.html
+  - Translator signup: translator-test.html has no visible link or redirect to translator-result.html
+  - Translator signup: translator-result.html has no visible link or redirect to translator-login.html
+  - Translator signup: translator-dashboard.html has no visible link or redirect to job-board.html
+  - Paystack: no webhook with signature check found (payments depend on the buyer's browser returning to the site)
+  - firebase.json: no long cache rule for images/audio/fonts (they re-download more often than needed)
+
+LOW items:
+  - POST /api/submitTranslation: no rate limit
+  - POST /api/createTranslationJob: no rate limit
+  - POST /api/markPayoutPaid: no rate limit
+  - POST /api/submitTranslatorTest: no rate limit
+  - POST /api/completeTranslatorApplication: no rate limit
+  - POST /api/adminInitiatePaystackPayout: no rate limit
+  - POST /api/adminFinalizePaystackPayout: no rate limit
+  - POST /api/adminMarkPayoutPaidManually: no rate limit
+  - POST /api/completeFormatting: no rate limit
+  - public/translation/admin.html: 3 script(s) in <head> block the first paint (no defer/async/module): /js/admin-fetch.js, https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js, https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js
+  - public/translation/admin.html: Google Fonts used without preconnect
+  - public/translation/admin.html: 1 image(s) without alt text
+  - public/translation/admin.html: 6 x alert() popups
+  - public/translation/admin.html: 2 field(s) with no label or placeholder
+  - public/translation/admin.html: no sign that the submit button is disabled while sending (double submissions possible)
+  - public/translation/desk.html: Google Fonts used without preconnect
+  - public/translation/editor-workspace.html: no lang attribute on <html>
+  - public/translation/editor-workspace.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js
+  - public/translation/editor-workspace.html: Google Fonts used without preconnect
+  - public/translation/editor-workspace.html: 2 x alert() popups
+  - public/translation/formatting-workspace.html: no lang attribute on <html>
+  - public/translation/formatting-workspace.html: 3 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js, https://cdn.quilljs.com/1.3.6/quill.js, https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  - public/translation/formatting-workspace.html: Google Fonts used without preconnect
+  - public/translation/index.html: Google Fonts used without preconnect
+  - public/translation/job-board.html: no lang attribute on <html>
+  - public/translation/job-board.html: Google Fonts used without preconnect
+  - public/translation/job-board.html: 1 x empty "#" links
+  - public/translation/job-board.html: 1 field(s) with no label or placeholder
+  - public/translation/payment.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://js.paystack.co/v1/inline.js
+  - public/translation/payment.html: Google Fonts used without preconnect
+  - public/translation/payment.html: 1 field(s) with no label or placeholder
+  - public/translation/request.html: 2 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js, https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+  - public/translation/request.html: Google Fonts used without preconnect
+  - public/translation/request.html: 6 x alert() popups
+  - public/translation/request.html: 1 field(s) with no label or placeholder
+  - public/translation/success.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  - public/translation/success.html: Google Fonts used without preconnect
+  - public/translation/translation-desk.html: no lang attribute on <html>
+  - public/translation/translator-dashboard.html: no lang attribute on <html>
+  - public/translation/translator-dashboard.html: 1 x alert() popups
+  - public/translation/translator-login.html: no <title>
+  - public/translation/translator-login.html: no lang attribute on <html>
+  - public/translation/translator-login.html: 1 x alert() popups
+  - public/translation/translator-payment-methods.html: Google Fonts used without preconnect
+  - public/translation/translator-payment-methods.html: 2 field(s) with no label or placeholder
+  - public/translation/translator-payment-methods.html: 2 phone field(s) without type=tel or inputmode
+  - public/translation/translator-profile.html: Google Fonts used without preconnect
+  - public/translation/translator-profile.html: 2 image(s) without alt text
+  - public/translation/translator-register.html: Google Fonts used without preconnect
+  - public/translation/translator-register.html: 1 phone field(s) without type=tel or inputmode
+  - public/translation/translator-result.html: Google Fonts used without preconnect
+  - public/translation/translator-test.html: Google Fonts used without preconnect
+  - public/translation/translator-test.html: 2 x alert() popups
+  - public/translation/translators.html: Google Fonts used without preconnect
+  - public/translation/translators.html: no sign that the submit button is disabled while sending (double submissions possible)
+  - public/features/translation/index.html: no <title>
+  - public/features/translation/index.html: no lang attribute on <html>
+  - public/admin/translation-admin.html: no lang attribute on <html>
+  - public/features/admin/translation-review/index.html: 1 script(s) in <head> block the first paint (no defer/async/module): /js/admin-fetch.js
+  - public/features/admin/translation-review/index.html: Google Fonts used without preconnect
+  - public/translation/payment.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  - public/translation/success.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  - public/translation/translation-desk.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  - public/admin/translation-admin.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  - public/features/admin/translation-review/index.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  - index.html: same file name in several folders: public/translation/index.html, public/features/translation/index.html, public/features/admin/translation-review/index.html
+  - translators.html: same file name in several folders: public/translation/translators.html, public/translators.html
+  - public/translation/jobs.json: publicly served data file, confirm it is meant to be public
+  - firestore.rules: translatorTests has no explicit rule (fine if only the server touches it, confirm)
+  - firestore.rules: feedbackSubmissions has no explicit rule (fine if only the server touches it, confirm)
+  - firestore.rules: ndaAcceptances has no explicit rule (fine if only the server touches it, confirm)
+  - firestore.rules: translatorPaymentMethods has no explicit rule (fine if only the server touches it, confirm)
+  - firestore.rules: payouts has no explicit rule (fine if only the server touches it, confirm)
+  - firestore.rules: docNda has no explicit rule (fine if only the server touches it, confirm)
+
+
+==============================================================================
+1. INVENTORY
+==============================================================================
+  public/translation/admin.html                                   20 KB  2026-10-28
+  public/translation/desk.html                                    16 KB  2026-10-28
+  public/translation/editor-workspace.html                        18 KB  2026-09-02
+  public/translation/formatting-workspace.html                   8.1 KB  2026-09-02
+  public/translation/index.html                                   11 KB  2026-10-28
+  public/translation/job-board.html                               60 KB  2026-09-02
+  public/translation/payment.html                                 13 KB  2026-09-02
+  public/translation/request.html                                 20 KB  2026-10-28
+  public/translation/success.html                                8.0 KB  2026-09-02
+  public/translation/translation-desk.html                       2.3 KB  2026-09-02
+  public/translation/translator-dashboard.html                   1.3 KB  2026-09-02
+  public/translation/translator-login.html                       0.6 KB  2026-06-16
+  public/translation/translator-payment-methods.html             9.2 KB  2026-09-02
+  public/translation/translator-profile.html                     9.5 KB  2026-09-02
+  public/translation/translator-register.html                     15 KB  2026-09-02
+  public/translation/translator-result.html                      8.2 KB  2026-09-02
+  public/translation/translator-test.html                        7.4 KB  2026-09-02
+  public/translation/translators.html                             14 KB  2026-09-02
+  public/translators.html                                        1.0 KB  2026-09-02
+  public/features/translation/index.html                         0.0 KB  2026-06-25
+  public/admin/translation-admin.html                            1.2 KB  2026-06-16
+  public/features/admin/translation-review/index.html            5.5 KB  2026-10-28
+  public/translation/createJob.js                                0.5 KB  2026-08-10
+  public/translation/job-engine.js                               0.9 KB  2026-06-16
+  public/translation/request.js                                  1.8 KB  2026-06-16
+  public/translation/segment-engine.js                           0.2 KB  2026-06-16
+  public/translation/translator-register.js                      0.7 KB  2026-06-16
+  public/translation/translator-test.js                          1.1 KB  2026-06-16
+  public/translation/jobs.json                                   0.2 KB  2026-06-16
+  public/translation/request.css                                 2.8 KB  2026-06-16
+  public/translation/translation.css                             1.8 KB  2026-06-16
+
+==============================================================================
+2. SERVER ROUTES
+==============================================================================
+Routes found (all files): 187   translation/job/payment related: 40
+  POST /api/evaluateTranslator                    server.js:152         auth:yes rateLimit:no  transaction:no
+  POST /api/verifyTranslatorKey                   server.js:231         auth:yes rateLimit:yes transaction:no
+  POST /api/createJob                             server.js:282         auth:NO  rateLimit:no  transaction:no
+  [MED] POST /api/createJob: write route with no visible authentication (may rely on a job key or passkey, verify)
+  GET /api/jobs                                   server.js:321         auth:NO  rateLimit:no  transaction:no
+  POST /api/claimJob                              server.js:358         auth:yes rateLimit:no  transaction:no
+  POST /api/submitTranslation                     server.js:399         auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/submitTranslation: no rate limit
+  GET /api/translatorStats                        server.js:452         auth:yes rateLimit:no  transaction:no
+  POST /api/createTranslationJob                  server.js:495         auth:NO  rateLimit:no  transaction:no
+  [MED] POST /api/createTranslationJob: write route with no visible authentication (may rely on a job key or passkey, verify)
+  [LOW] POST /api/createTranslationJob: no rate limit
+  POST /api/evaluateTranslatorTest                server.js:549         auth:yes rateLimit:no  transaction:no
+  GET /api/session-job                            server.js:721         auth:NO  rateLimit:no  transaction:no
+  POST /api/createTranslationRequestCheckout      server.js:949         auth:yes rateLimit:yes transaction:no
+  POST /api/acceptJobWithNda                      server.js:1030        auth:yes rateLimit:no  transaction:yes
+  POST /api/reviewSubmission                      server.js:1351        auth:yes rateLimit:no  transaction:no
+  GET /api/adminPayouts                           server.js:1434        auth:yes rateLimit:no  transaction:no
+  POST /api/markPayoutPaid                        server.js:1486        auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/markPayoutPaid: no rate limit
+  GET /api/translatorTestPassages                 server.js:1588        auth:NO  rateLimit:no  transaction:no
+  POST /api/submitTranslatorTest                  server.js:1599        auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/submitTranslatorTest: no rate limit
+  POST /api/completeTranslatorApplication         server.js:1676        auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/completeTranslatorApplication: no rate limit
+  GET /api/translatorTrackRecord                  server.js:1748        auth:yes rateLimit:yes transaction:no
+  GET /api/translatorWallet                       server.js:1827        auth:yes rateLimit:yes transaction:no
+  GET /api/translatorProfile                      server.js:1908        auth:yes rateLimit:yes transaction:no
+  POST /api/updateTranslatorProfile               server.js:1951        auth:yes rateLimit:yes transaction:no
+  GET /api/adminTranslators                       server.js:2088        auth:yes rateLimit:no  transaction:no
+  POST /api/verifyPaystackDonation                server.js:4067        auth:yes rateLimit:no  transaction:no
+  GET /api/docNda                                 server.js:4241        auth:yes rateLimit:no  transaction:no
+  POST /api/docNda                                server.js:4247        auth:yes rateLimit:no  transaction:no
+  POST /api/docNda                                server.js:4255        auth:yes rateLimit:no  transaction:no
+  POST /api/verifyPaystackDelf                    server.js:4461        auth:yes rateLimit:no  transaction:no
+  POST /api/createTranslationJobForPaystack       server.js:4561        auth:NO  rateLimit:yes transaction:no
+  [HIGH] POST /api/createTranslationJobForPaystack: money-related route with no sign of authentication or signature check (verify by hand)
+  POST /api/verifyPaystackTranslation             server.js:4595        auth:yes rateLimit:no  transaction:no
+  GET /api/adminListPayoutCandidates              server.js:4689        auth:yes rateLimit:no  transaction:no
+  POST /api/adminInitiatePaystackPayout           server.js:4739        auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/adminInitiatePaystackPayout: no rate limit
+  POST /api/adminFinalizePaystackPayout           server.js:4792        auth:yes rateLimit:no  transaction:no
+  [LOW] POST /api/adminFinalizePaystackPayout: no rate limit
+  POST /api/adminMarkPayoutPaidManually           server.js:4817        auth:yes rateLimit:no  transaction:yes
+  [LOW] POST /api/adminMarkPayoutPaidManually: no rate limit
+  GET /api/paystackBankList                       server.js:4850        auth:NO  rateLimit:no  transaction:no
+  POST /api/adminUpdateJobPrice                   server.js:4907        auth:yes rateLimit:no  transaction:yes
+  GET /api/adminPendingReviews                    server.js:4932        auth:yes rateLimit:no  transaction:no
+  GET /api/checkFormattingAccess                  server.js:4934        auth:yes rateLimit:no  transaction:no
+  POST /api/completeFormatting                    server.js:4936        auth:yes rateLimit:no  transaction:yes
+  [LOW] POST /api/completeFormatting: no rate limit
+  GET /api/jobsByEmail                            server.js:5018        auth:NO  rateLimit:yes transaction:no
+
+==============================================================================
+3. PAGE-BY-PAGE
+==============================================================================
+
+-- public/translation/admin.html  (20 KB)
+  Local files this page pulls in: 3   total about 23 KB   heaviest: admin-fetch.js 1.5 KB, admin-guard.js 1.4 KB, auth-guard.js 0.4 KB
+  [LOW] public/translation/admin.html: 3 script(s) in <head> block the first paint (no defer/async/module): /js/admin-fetch.js, https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js, https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  external: https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js
+  external: https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js
+  [LOW] public/translation/admin.html: Google Fonts used without preconnect
+  images: 1 (no alt: 1, no width/height: 1, no lazy: 1)
+  [LOW] public/translation/admin.html: 1 image(s) without alt text
+  [LOW] public/translation/admin.html: 6 x alert() popups
+  API calls: /api/adminOverview, /api/adminSubmissions, /api/reviewSubmission, /api/adminTranslators, /api/adminPayouts, /api/markPayoutPaid, /api/accessControlCheck
+  form fields: 2 (no label/placeholder: 2)
+  [LOW] public/translation/admin.html: 2 field(s) with no label or placeholder
+  [LOW] public/translation/admin.html: no sign that the submit button is disabled while sending (double submissions possible)
+
+-- public/translation/desk.html  (16 KB)
+  Local files this page pulls in: 1   total about 17 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
+  [LOW] public/translation/desk.html: Google Fonts used without preconnect
+  API calls: /api/jobsByEmail, /api/accessControlCheck
+
+-- public/translation/editor-workspace.html  (18 KB)
+  [LOW] public/translation/editor-workspace.html: no lang attribute on <html>
+  Local files this page pulls in: 1   total about 19 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/editor-workspace.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  external: https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js
+  [LOW] public/translation/editor-workspace.html: Google Fonts used without preconnect
+  [LOW] public/translation/editor-workspace.html: 2 x alert() popups
+  API calls: /api/proxyFile, /api/submitTranslation
+  form fields: 1 (no label/placeholder: 0)
+
+-- public/translation/formatting-workspace.html  (8.1 KB)
+  [LOW] public/translation/formatting-workspace.html: no lang attribute on <html>
+  Local files this page pulls in: 1   total about 8.4 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/formatting-workspace.html: 3 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js, https://cdn.quilljs.com/1.3.6/quill.js, https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  external: https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js
+  external: https://cdn.quilljs.com/1.3.6/quill.js
+  external: https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  external: https://cdn.quilljs.com/1.3.6/quill.snow.css
+  [LOW] public/translation/formatting-workspace.html: Google Fonts used without preconnect
+  API calls: /api/checkFormattingAccess, /api/completeFormatting
+
+-- public/translation/index.html  (11 KB)
+  Local files this page pulls in: 1   total about 11 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
+  [LOW] public/translation/index.html: Google Fonts used without preconnect
+  form fields: 2 (no label/placeholder: 0)
+
+-- public/translation/job-board.html  (60 KB)
+  [LOW] public/translation/job-board.html: no lang attribute on <html>
+  Local files this page pulls in: 1   total about 61 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/job-board.html: Google Fonts used without preconnect
+  [LOW] public/translation/job-board.html: 1 x empty "#" links
+  API calls: /api/acceptJobWithNda, /api/translatorWallet, /api/translatorTrackRecord
+  form fields: 3 (no label/placeholder: 1)
+  [LOW] public/translation/job-board.html: 1 field(s) with no label or placeholder
+
+-- public/translation/payment.html  (13 KB)
+  Local files this page pulls in: 1   total about 14 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/payment.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://js.paystack.co/v1/inline.js
+  external: https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&di
+  external: https://js.paystack.co/v1/inline.js
+  [LOW] public/translation/payment.html: Google Fonts used without preconnect
+  API calls: /api/convertUsdToCurrency, /api/createTranslationRequestCheckout, /api/createTranslationJobForPaystack, /api/verifyPaystackTranslation
+  form fields: 1 (no label/placeholder: 1)
+  [LOW] public/translation/payment.html: 1 field(s) with no label or placeholder
+
+-- public/translation/request.html  (20 KB)
+  Local files this page pulls in: 1   total about 21 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/request.html: 2 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js, https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+  external: https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap
+  external: https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js
+  external: https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+  [LOW] public/translation/request.html: Google Fonts used without preconnect
+  [LOW] public/translation/request.html: 6 x alert() popups
+  form fields: 2 (no label/placeholder: 1)
+  [LOW] public/translation/request.html: 1 field(s) with no label or placeholder
+
+-- public/translation/success.html  (8.0 KB)
+  Local files this page pulls in: 1   total about 8.4 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/success.html: 1 script(s) in <head> block the first paint (no defer/async/module): https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  external: https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@500;600&display=swap
+  external: https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js
+  [LOW] public/translation/success.html: Google Fonts used without preconnect
+  API calls: /api/session-job
+
+-- public/translation/translation-desk.html  (2.3 KB)
+  [MED] public/translation/translation-desk.html: no viewport meta (renders tiny on phones)
+  [LOW] public/translation/translation-desk.html: no lang attribute on <html>
+  Local files this page pulls in: 1   total about 2.7 KB   heaviest: auth-guard.js 0.4 KB
+  API calls: /api/job/
+  [HIGH] public/translation/translation-desk.html: calls /api/job/ but no such route exists in the server code
+  form fields: 1 (no label/placeholder: 0)
+
+-- public/translation/translator-dashboard.html  (1.3 KB)
+  [MED] public/translation/translator-dashboard.html: no viewport meta (renders tiny on phones)
+  [LOW] public/translation/translator-dashboard.html: no lang attribute on <html>
+  Local files this page pulls in: 1   total about 1.7 KB   heaviest: auth-guard.js 0.4 KB
+  [LOW] public/translation/translator-dashboard.html: 1 x alert() popups
+  API calls: /api/jobs, /api/claimJob
+
+-- public/translation/translator-login.html  (0.6 KB)
+  [LOW] public/translation/translator-login.html: no <title>
+  [MED] public/translation/translator-login.html: no viewport meta (renders tiny on phones)
+  [LOW] public/translation/translator-login.html: no lang attribute on <html>
+  Local files this page pulls in: 0   total about 0.6 KB
+  [LOW] public/translation/translator-login.html: 1 x alert() popups
+  API calls: /api/verifyTranslatorKey
+  form fields: 1 (no label/placeholder: 0)
+
+-- public/translation/translator-payment-methods.html  (9.2 KB)
+  Local files this page pulls in: 1   total about 9.6 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translator-payment-methods.html: Google Fonts used without preconnect
+  API calls: /api/savePaymentMethod
+  form fields: 11 (no label/placeholder: 2)
+  [LOW] public/translation/translator-payment-methods.html: 2 field(s) with no label or placeholder
+  [LOW] public/translation/translator-payment-methods.html: 2 phone field(s) without type=tel or inputmode
+
+-- public/translation/translator-profile.html  (9.5 KB)
+  Local files this page pulls in: 1   total about 9.9 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translator-profile.html: Google Fonts used without preconnect
+  images: 2 (no alt: 2, no width/height: 2, no lazy: 2)
+  [LOW] public/translation/translator-profile.html: 2 image(s) without alt text
+  API calls: /api/translatorProfile, /api/updateTranslatorProfile
+  form fields: 2 (no label/placeholder: 0)
+
+-- public/translation/translator-register.html  (15 KB)
+  Local files this page pulls in: 1   total about 16 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translator-register.html: Google Fonts used without preconnect
+  API calls: /api/completeTranslatorApplication
+  form fields: 5 (no label/placeholder: 0)
+  [LOW] public/translation/translator-register.html: 1 phone field(s) without type=tel or inputmode
+
+-- public/translation/translator-result.html  (8.2 KB)
+  Local files this page pulls in: 1   total about 8.5 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translator-result.html: Google Fonts used without preconnect
+  API calls: /api/applicationResult
+
+-- public/translation/translator-test.html  (7.3 KB)
+  Local files this page pulls in: 1   total about 7.7 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translator-test.html: Google Fonts used without preconnect
+  [LOW] public/translation/translator-test.html: 2 x alert() popups
+  API calls: /api/translatorTestPassages, /api/submitTranslatorTest
+  form fields: 2 (no label/placeholder: 0)
+
+-- public/translation/translators.html  (14 KB)
+  Local files this page pulls in: 1   total about 14 KB   heaviest: auth-guard.js 0.4 KB
+  external: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap
+  [LOW] public/translation/translators.html: Google Fonts used without preconnect
+  [LOW] public/translation/translators.html: no sign that the submit button is disabled while sending (double submissions possible)
+
+-- public/translators.html  (1.0 KB)
+  [HIGH] public/translators.html: broken reference -> /translator-test.html  (nothing at public/translator-test.html)
+  Local files this page pulls in: 0   total about 1.0 KB
+
+-- public/features/translation/index.html  (0.0 KB)
+  [LOW] public/features/translation/index.html: no <title>
+  [MED] public/features/translation/index.html: no viewport meta (renders tiny on phones)
+  [LOW] public/features/translation/index.html: no lang attribute on <html>
+  Local files this page pulls in: 0   total about 0.0 KB
+
+-- public/admin/translation-admin.html  (1.2 KB)
+  [MED] public/admin/translation-admin.html: no viewport meta (renders tiny on phones)
+  [LOW] public/admin/translation-admin.html: no lang attribute on <html>
+  [HIGH] public/admin/translation-admin.html: broken reference -> /translation-desk.html?job=  (nothing at public/translation-desk.html)
+  Local files this page pulls in: 1   total about 1.6 KB   heaviest: auth-guard.js 0.4 KB
+  API calls: /api/editor/jobs
+  [HIGH] public/admin/translation-admin.html: calls /api/editor/jobs but no such route exists in the server code
+  [HIGH] public/admin/translation-admin.html: admin page with no admin guard in the page (server may still protect the data, verify)
+
+-- public/features/admin/translation-review/index.html  (5.5 KB)
+  Local files this page pulls in: 2   total about 8.4 KB   heaviest: admin-fetch.js 1.5 KB, admin-guard.js 1.4 KB
+  [LOW] public/features/admin/translation-review/index.html: 1 script(s) in <head> block the first paint (no defer/async/module): /js/admin-fetch.js
+  external: https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&di
+  [LOW] public/features/admin/translation-review/index.html: Google Fonts used without preconnect
+  API calls: /api/adminPendingReviews, /api/adminConfirmSelection, /api/adminJobSubmissions, /api/adminOverrideSelection, /api/accessControlCheck
+  [HIGH] public/features/admin/translation-review/index.html: calls /api/adminConfirmSelection but no such route exists in the server code
+  [HIGH] public/features/admin/translation-review/index.html: calls /api/adminJobSubmissions but no such route exists in the server code
+  [HIGH] public/features/admin/translation-review/index.html: calls /api/adminOverrideSelection but no such route exists in the server code
+
+==============================================================================
+4. JOURNEYS (does each step link to the next?)
+==============================================================================
+Client order:
+  start  public/translation/index.html
+  ok     index.html -> request.html
+  ok     request.html -> payment.html
+  ok     payment.html -> success.html
+Client order (features landing):
+  start  public/features/translation/index.html
+  NO LINK index.html -> request.html
+  [MED] Client order (features landing): index.html has no visible link or redirect to request.html
+Translator signup:
+  start  public/translators.html
+  NO LINK translators.html -> translator-register.html
+  [MED] Translator signup: translators.html has no visible link or redirect to translator-register.html
+  ok     translator-register.html -> translator-test.html
+  NO LINK translator-test.html -> translator-result.html
+  [MED] Translator signup: translator-test.html has no visible link or redirect to translator-result.html
+  NO LINK translator-result.html -> translator-login.html
+  [MED] Translator signup: translator-result.html has no visible link or redirect to translator-login.html
+  ok     translator-login.html -> translator-dashboard.html
+  NO LINK translator-dashboard.html -> job-board.html
+  [MED] Translator signup: translator-dashboard.html has no visible link or redirect to job-board.html
+Translator work:
+  start  public/translation/job-board.html
+  ok     job-board.html -> editor-workspace.html
+Pages not reachable by links from the landing pages: 
+  public/translation/payment.html
+  [LOW] public/translation/payment.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  public/translation/success.html
+  [LOW] public/translation/success.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  public/translation/translation-desk.html
+  [LOW] public/translation/translation-desk.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  public/admin/translation-admin.html
+  [LOW] public/admin/translation-admin.html: no page links to it (fine for admin/private pages, wasted otherwise)
+  public/features/admin/translation-review/index.html
+  [LOW] public/features/admin/translation-review/index.html: no page links to it (fine for admin/private pages, wasted otherwise)
+
+==============================================================================
+5. DUPLICATE OR NEAR-DUPLICATE FILES
+==============================================================================
+No identical copies.
+  same name, different folders: public/translation/index.html  |  public/features/translation/index.html  |  public/features/admin/translation-review/index.html
+  [LOW] index.html: same file name in several folders: public/translation/index.html, public/features/translation/index.html, public/features/admin/translation-review/index.html
+  same name, different folders: public/translation/translators.html  |  public/translators.html
+  [LOW] translators.html: same file name in several folders: public/translation/translators.html, public/translators.html
+  related pair: public/translation/desk.html (16 KB)  vs  public/translation/translation-desk.html (2.3 KB)  -> check which one is the real one
+  related pair: public/translation/admin.html (20 KB)  vs  public/admin/translation-admin.html (1.2 KB)  -> check which one is the real one
+  related pair: public/translation/translators.html (14 KB)  vs  public/translators.html (1.0 KB)  -> check which one is the real one
+  related pair: public/translation/index.html (11 KB)  vs  public/features/translation/index.html (0.0 KB)  -> check which one is the real one
+
+==============================================================================
+6. PUBLIC DATA FILES
+==============================================================================
+  public/translation/jobs.json (0.2 KB): emails 0, phone-like numbers 0   (anyone on the internet can open this file)
+  [LOW] public/translation/jobs.json: publicly served data file, confirm it is meant to be public
+
+==============================================================================
+7. NDA, TEST, PRICING, KEY LINES
+==============================================================================
+NDA / confidentiality wording and storage:
+  public/translation/index.html:363  Get documents translated by vetted, confidentiality-bound translators - or join the pool yourself and get paid for your language skills.
+  public/translation/index.html:373  Vetted translators, NDA-protected on every job
+  public/translation/job-board.html:314  .nda-card{
+  public/translation/job-board.html:320  .nda-icon-row{ display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+  public/translation/job-board.html:321  .nda-icon-row svg{ width:19px; height:19px; color:#005C60; }
+  public/translation/job-board.html:322  .nda-icon-row h4{ margin:0; font-size:15.5px; font-weight:650; color:#102B2C; }
+  public/translation/job-board.html:323  .nda-card p{ font-size:12.5px; line-height:1.5; color:#526668; margin:0 0 16px; }
+  public/translation/job-board.html:325  .nda-accept-btn{
+  public/translation/job-board.html:330  .nda-accept-btn:hover{ background:#00484B; }
+  public/translation/job-board.html:339  /* ===== NDA MODAL ===== */
+  public/translation/job-board.html:358  .nda-terms-text{
+  public/translation/job-board.html:364  .nda-passkey-label{ font-size:11.5px; font-weight:600; color:#102B2C; display:block; margin-bottom:6px; }
+  public/translation/job-board.html:366  .nda-passkey-input{
+  public/translation/job-board.html:372  .nda-checkbox-row{
+  public/translation/job-board.html:377  .nda-checkbox-row input[type="checkbox"]{
+  public/translation/job-board.html:382  .nda-modal-error{ font-size:11.5px; color:#C94A45; min-height:16px; margin-bottom:10px; }
+  public/translation/job-board.html:505  <div class="nav-item inert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0
+  public/translation/job-board.html:608  <div class="flow-step"><div class="flow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div
+  public/translation/job-board.html:620  <div class="nda-card" id="ndaCard">
+  public/translation/job-board.html:621  <div class="nda-icon-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></
+  public/translation/job-board.html:622  <p>You must agree to SayBon's Confidentiality &amp; NDA Terms before accepting this job.</p>
+  public/translation/job-board.html:623  <button class="nda-accept-btn" id="ndaAcceptBtn" disabled>
+  public/translation/job-board.html:625  Agree to NDA &amp; Accept Job
+  public/translation/job-board.html:640  <h3>SayBon Confidentiality &amp; NDA Terms</h3>
+  public/translation/job-board.html:641  <div class="nda-terms-text">
+  public/translation/job-board.html:642  By accepting this job, you agree to keep everything you access through it strictly confidential. This includes the source document, the client's identity and information, your translation, a
+  public/translation/job-board.html:648  Violating these confidentiality terms may result in immediate removal from the SayBon translator program, forfeiture of payment for this and any other pending assignments, and disqualificati
+  public/translation/job-board.html:652  <label class="nda-passkey-label">Your Translator Passkey</label>
+  public/translation/job-board.html:653  <input type="text" id="ndaPasskeyInput" class="nda-passkey-input" placeholder="e.g. SB-XXXXXXXX" />
+  public/translation/job-board.html:654  <label class="nda-checkbox-row">
+  public/translation/job-board.html:656  <span>I have read and agree to the Confidentiality &amp; NDA Terms above, including the consequences of violation.</span>
+  public/translation/job-board.html:658  <label class="nda-checkbox-row">
+  public/translation/job-board.html:662  <div class="nda-modal-error" id="ndaModalError"></div>
+  public/translation/request.html:352  <div class="subtitle">TRANSLATED BY EXPERTS &bull; QUICK DELIVERY &bull; CONFIDENTIAL</div>
+  public/translation/request.html:471  <div class="trust-sub">We guarantee confidentiality and secure handling.</div>
+  public/translation/translators.html:190  <div class="subtitle">Join a vetted network of professional translators working on real client documents - with clear standards, fair competition, and confidentiality built into every job.</
+  public/translation/translators.html:256  <span class="acc-title">Non-Disclosure Agreements</span>
+  public/translation/translators.html:260  <p>Every job starts with a confidentiality agreement - no exceptions.</p>
+  public/translation/translators.html:262  <li>An NDA must be signed before you can access any job</li>
+  public/translation/translators.html:263  <li>You may be asked to sign more than one NDA, depending on the job type</li>
+  public/translation/translators.html:264  <li>Everything handled through SayBon is treated as confidential</li>
+  public/translation/translators.html:266  <div class="callout callout-warning">Violating confidentiality results in immediate removal from the translator pool.</div>
+  server.js:1020  // ACCEPT JOB WITH NDA (three-slot competitive model)
+  server.js:1025  // NDA acceptance audit entry.
+  server.js:1044  return res.status(400).json({error:"You must agree to the NDA terms and confirm the work will be your own"})
+NDA acceptance saved by the server?
+  server.js:1108  await db.collection("ndaAcceptances").add({
+Translator test: pass mark, timer, anti-copy, attempts:
+  public/translation/translator-test.html:103  This test must be completed entirely within this window. Copying, pasting, and cutting are disabled, and switching to another tab is tracked as part of your submission.
+  public/translation/translator-test.html:129  let timeLeft = 480; // 8 minutes
+  public/translation/translator-test.html:151  timerInterval = setInterval(()=>{
+  public/translation/translator-test.html:152  timeLeft--;
+  public/translation/translator-test.html:153  const m = Math.floor(timeLeft/60);
+  public/translation/translator-test.html:154  const s = timeLeft%60;
+  public/translation/translator-test.html:157  if(timeLeft<=0){
+  public/translation/translator-test.html:167  document.addEventListener("visibilitychange", ()=>{
+  public/translation/translator-test.html:203  const timeTakenSeconds = 480 - timeLeft;
+  public/translation/translator-test.html:236  document.addEventListener("copy", e => e.preventDefault());
+  public/translation/translator-test.html:237  document.addEventListener("paste", e => e.preventDefault());
+  public/translation/translator-result.html:200  document.getElementById("completenessValue").innerText = data.completenessOk ? "Passed" : "Incomplete";
+  public/translation/translator-result.html:205  if(data.passed){
+Server side of the test:
+  server.js:403  const {jobId,passkey,translation,keystrokeCount,timeTakenSeconds,tabSwitches,pasteAttempts}=req.body
+  server.js:436  pasteAttempts:Number(pasteAttempts)||0,submitted:new Date()}); res.json({success:true, submissionId: submissionRef.id})
+  server.js:1320  passed:data.passed!==undefined ? data.passed : null,
+  server.js:1324  pasteAttempts:data.pasteAttempts||0
+  server.js:1355  const {submissionId,rank,passed}=req.body
+  server.js:1377  const percentage=passed ? (PAYOUT_PERCENTAGES[Number(rank)]||0) : 0
+  server.js:1384  passed:passed===true
+  server.js:1399  passed:passed===true,
+  server.js:1535  source:"The system automatically encrypts all sensitive information before it is transmitted to the server. Any attempt to bypass this security protocol will be logged and reported to the co
+  server.js:1636  const passed=finalScore>=75
+  server.js:1649  passed,
+  server.js:1657  res.json({testId,accuracy,terminology,completenessOk,finalScore,passed})
+  server.js:1673  // a real passkey if the test was genuinely passed.
+  server.js:1705  const passkey=test.passed ? generateKey() : null
+  server.js:1719  passed:test.passed,
+  server.js:1736  res.json({applicationId,passed:test.passed})
+  server.js:1780  let passedCount=0
+  server.js:1787  if(doc.data().passed===true){
+  server.js:1789  passedCount++
+  server.js:1795  const passRate=totalReviewed>0 ? Math.round((passedCount/totalReviewed)*100) : 0
+  server.js:1799  passedCount,
+  server.js:1819  // waiting period after being marked passed.
+  server.js:2038  if(doc.data().passed===true){
+  server.js:2111  passed:data.passed,
+  server.js:2754  const CHAT_VIOLATION_BLOCK_THRESHOLD = 3
+  server.js:2853  const shouldBlock = newCount >= CHAT_VIOLATION_BLOCK_THRESHOLD
+  server.js:3179  const finalScore = rawScore <= 0 ? 0 : Math.min(100, Math.round(100 * Math.pow(rawScore / 100, 0.75)));
+  server.js:4930  function computeTextSimilarity(textA, textB){ var wordsA = textA.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var wordsB = textB.toLowerCase().replace(/[^\w\s]/g,"").sp
+  server.js:4932  app.get("/api/adminPendingReviews", requireAdminAuth, async(req,res)=>{ try{ var jobsSnap = await db.collection("translationJobs").where("pendingClientReview","==",true).get(); var results =
+Prices and currencies (compare these across pages):
+  public/translation/job-board.html:551  <div class="wallet-item"><span class="wl">Available Balance</span><span class="wv" id="walletAvailable">$0.00</span></div>
+  public/translation/job-board.html:552  <div class="wallet-item"><span class="wl">Pending Clearance</span><span class="wv" id="walletPending">$0.00</span><span class="wallet-note" id="walletClearanceNote"></span></div>
+  public/translation/job-board.html:553  <div class="wallet-item"><span class="wl">Total Balance</span><span class="wv" id="walletTotal">$0.00</span></div>
+  public/translation/job-board.html:554  <div class="wallet-item"><span class="wl">Paid Out to Date</span><span class="wv" id="walletPaid">$0.00</span></div>
+  public/translation/job-board.html:599  <div class="tab-content" id="content-payouts"><div class="empty-state">Your Wallet at the top of this page always shows your current balance. Earnings appear there the moment your work passe
+  public/translation/job-board.html:832  "<div class=\"payout-row\"><span>Fail (Below 85)</span><span class=\"amt\">$0.00</span></div>" +
+  public/translation/job-board.html:1241  text.innerText = data.passedCount + " passed \u00b7 " + data.passRate + "% pass rate";
+  public/translation/payment.html:120  ghsNote.textContent = "Could not load exchange rate - try Stripe instead";
+  public/translation/payment.html:123  .catch(function(){ ghsNote.textContent = "Could not load exchange rate - try Stripe instead"; });
+  public/translation/request.html:378  Pricing is based on flat-rate packages by word count &mdash; see the table for details. All documents are billed at the package covering their word count.
+  public/translation/request.html:407  <div class="quote-price" id="standardPriceLabel">STANDARD $0.00</div>
+  public/translation/request.html:416  <div class="quote-price" id="expressPriceLabel">EXPRESS $0.00</div>
+  public/translation/request.html:437  <td class="green-cell">$5.00<span class="cell-time">1-3 hrs</span></td>
+  public/translation/request.html:438  <td class="red-cell">$10.00<span class="cell-time">30-60 mins</span></td>
+  public/translation/request.html:442  <td class="green-cell">$12.50<span class="cell-time">3-6 hrs</span></td>
+  public/translation/request.html:443  <td class="red-cell">$25.00<span class="cell-time">1-3 hrs</span></td>
+  public/translation/request.html:447  <td class="green-cell">$25.00<span class="cell-time">6-12 hrs</span></td>
+  public/translation/request.html:448  <td class="red-cell">$50.00<span class="cell-time">3-6 hrs</span></td>
+  public/translation/request.html:452  <td class="green-cell">$75.00<span class="cell-time">12-24 hrs</span></td>
+  public/translation/request.html:453  <td class="red-cell">$150.00<span class="cell-time">6-12 hrs</span></td>
+  public/translation/request.html:457  <td class="green-cell">$250.00<span class="cell-time">2-4 days</span></td>
+  public/translation/request.html:458  <td class="red-cell">$500.00<span class="cell-time">24-48 hrs</span></td>
+  public/translation/success.html:197  <th>Rate</th>
+  public/translation/success.html:204  <td id="rate">-</td>
+  public/translation/success.html:279  let rate = data.plan === "express" ? 0.05 : 0.025;
+  public/translation/success.html:280  document.getElementById("rate").innerText = "$" + rate.toFixed(3);
+  public/translation/translators.html:226  <li>Corporate reports</li>
+  public/translation/translators.html:328  <p>Once your work passes quality review, payment appears in your Wallet on the Job Board right away. It becomes available to cash out <strong>3 business days</strong> after approval, and is 
+Prices and commissions in the server (translation part):
+  server.js:289  const rate=plan==="express" ? 0.05 : 0.025
+  server.js:505  price=wordCount*0.025
+  server.js:509  price=wordCount*0.05
+  server.js:1582  if(wordCount < sourceWordCount*0.5) return false
+  server.js:1795  const passRate=totalReviewed>0 ? Math.round((passedCount/totalReviewed)*100) : 0
+  server.js:3149  "Content-Type": "audio/wav; codecs=audio/pcm; samplerate=16000",
+  server.js:3178  const rawScore = accuracyScore * 0.5 + completenessScore * 0.3 + fluencyScore * 0.2;
+  server.js:4400  const rate = await getUsdToGhsRate();
+  server.js:4428  let _ghsRateCache = { rate: null, fetchedAt: 0 };
+  server.js:4449  const rate = data && data.rates && data.rates.GHS;
+  server.js:4867  const rate = await getUsdToGhsRate();
+  server.js:4893  const rate = data && data.rates && data.rates[targetCurrency];
+  server.js:4930  function computeTextSimilarity(textA, textB){ var wordsA = textA.toLowerCase().replace(/[^\w\s]/g,"").split(/\s+/).filter(Boolean); var wordsB = textB.toLowerCase().replace(/[^\w\s]/g,"").sp
+  server.js:4971  var rate = String(plan || "").toLowerCase() === "express" ? 0.05 : 0.025;
+  server.js:4996  var rate = await getUsdRateFor(cur);
+  server.js:5000  if(!(need > 0) || paidUsd < need * 0.9) return { ok: false, why: "amount too low (" + paidUsd.toFixed(2) + " < " + need + ")" };
+Deadlines, refunds, revision and dispute wording:
+  public/translation/admin.html:52  opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+  public/translation/admin.html:56  from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+  public/translation/admin.html:57  to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+  public/translation/admin.html:94  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:10px; }
+  public/translation/desk.html:68  opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+  public/translation/desk.html:72  from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
+  public/translation/desk.html:73  to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+  public/translation/desk.html:96  grid-template-columns:1fr 1fr 1fr;
+  public/translation/desk.html:103  .grid{ grid-template-columns:1fr; }
+  public/translation/desk.html:198  .deskBtn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  public/translation/desk.html:231  .job-list-item:hover{ transform:translateY(-2px); box-shadow: 0 16px 36px rgba(60,40,20,.2); }
+  public/translation/editor-workspace.html:51  .page{ max-width:1100px; margin:0 auto; opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards; }
+  public/translation/editor-workspace.html:52  @keyframes pageEnter{ from{ opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+  public/translation/editor-workspace.html:413  if(data.aiTranslationStatus === "completed" && Array.isArray(data.aiSegments) && data.aiSegments.length > 0){ segments = data.aiSegments.map(s => ({ id: s.id, source: s.source, edit: s.trans
+  public/translation/formatting-workspace.html:21  .split{display:grid;grid-template-columns:1fr 2fr;gap:20px;}
+  public/translation/formatting-workspace.html:22  @media (max-width:900px){.split{grid-template-columns:1fr;}}
+  public/translation/index.html:71  .icon-btn:hover{ transform:translateY(-2px); box-shadow: 0 12px 26px rgba(166,57,85,.5); }
+  public/translation/index.html:78  transform:translateX(-50%) translateY(-4px);
+  public/translation/index.html:99  transform:translateX(-50%);
+  public/translation/index.html:105  transform:translateX(-50%) translateY(0);
+  public/translation/index.html:140  opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px);
+  public/translation/index.html:270  .request:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(201,79,109,.5); }
+  public/translation/index.html:322  @keyframes contentEnter{ from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+  public/translation/index.html:363  Get documents translated by vetted, confidentiality-bound translators - or join the pool yourself and get paid for your language skills.
+  public/translation/index.html:369  Fast turnaround, from 30 minutes for short documents
+  public/translation/job-board.html:31  .app{ display:flex; min-height:100vh; min-height:100dvh; opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); animation: appEnter .8s cubic-bezier(.22,1,.36,1) forwards; }
+  public/translation/job-board.html:32  @keyframes appEnter{ from{ opacity:0; transform:translateY(18px) scale(.98); filter:blur(8px); } to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+  public/translation/job-board.html:266  .compact-row:hover{ background:rgba(255,255,255,.58); border-color:rgba(8,123,128,.25); transform:translateY(-1px); }
+  public/translation/job-board.html:599  <div class="tab-content" id="content-payouts"><div class="empty-state">Your Wallet at the top of this page always shows your current balance. Earnings appear there the moment your work passe
+  public/translation/job-board.html:642  By accepting this job, you agree to keep everything you access through it strictly confidential. This includes the source document, the client's identity and information, your translation, a
+
+==============================================================================
+8. PAYMENT HANDLERS (excerpts, secrets hidden)
+==============================================================================
+
+-- POST /api/delf/checkout  (delf-payment-routes.js:67)
+   checks: reference-verify=yes  amount-compared=yes  currency=yes  already-paid guard=NO  transaction=no
+   | app.post("/api/delf/checkout", express.json({ limit: "5kb" }), async function (req, res) {
+   |     var who = await uidFrom(req, res); if (!who) return;
+   |     try {
+   |       var exam = String((req.body && req.body.exam) || "").toLowerCase(), provider = String((req.body && req.body.provider) || "");
+   |       if (!PRICES_USD[exam]) return res.status(400).json({ error: "unknown exam" });
+   |       var acc = await owned(who.uid);
+   |       if (acc[exam] && acc[exam].granted) return res.status(409).json({ error: "you already have access to this level" });
+   |       var usd = PRICES_USD[exam];
+   | 
+   |       if (provider === "stripe") {
+   |         if (!process.env.STRIPE_SECRET_KEY) return res.status(500).json({ error: "card payments are not configured" });
+   |         var stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+   |         var session = await stripe.checkout.sessions.create({
+   |           mode: "payment", payment_method_types: ["card"],
+   |           customer_email: who.email || undefined,
+   |           line_items: [{ price_data: { currency: "usd", product_data: { name: LABELS[exam] + " preparation" }, unit_amount: usd * 100 }, quantity: 1 }],
+   |           metadata: { uid: who.uid, exam: exam },
+   |           success_url: SITE + "/delf/payment-success.html?session_id={CHECKOUT_SESSION_ID}",
+   |           cancel_url: SITE + "/delf/payment.html?exam=" + encodeURIComponent(exam)
+   |         });
+   |         return res.json({ url: session.url });
+   |       }
+   | 
+   |       if (provider === "paystack") {
+   |         var key = process.env.PAYSTACK_SECRET_KEY;
+   |         if (!key) return res.status(500).json({ error: "cedi payments are not configured" });
+   |         if (!who.email) return res.status(400).json({ error: "your account has no email address" });
+   |         var rate = await ghsRate(), ghs = ghsFor(usd, rate);
+   |         if (!ghs) return res.status(503).json({ error: "the cedi price is unavailable right now, please try again" });
+   |         var ref = "delf_" + who.uid.slice(0, 8) + "_" + Date.now();
+   |         var r = await fetch("https://api.paystack.co/transaction/initialize", {
+   |           method: "POST", headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
+   |           body: JSON.stringify({ email: who.email, amount: ghs * 100, currency: "GHS", reference: ref, callback_url: SITE + "/delf/payment-success.html", metadata: { uid:
+   |         });
+   |         var d = await r.json();
+   |         if (!r.ok || !d.status || !d.data || !d.data.authorization_url) { console.error("delf paystack init", r.status, JSON.stringify(d).slice(0, 200)); return res.statu
+   |         await db.collection("delfPayments").doc(ref).set({ uid: who.uid, exam: exam, currency: "GHS", amount: ghs, provider: "paystack", status: "pending", createdAt: adm
+   |         return res.json({ url: d.data.authorization_url });
+   |       }
+   |       res.status(400).json({ error: "choose card or cedis" });
+   |     } catch (e) { console.error("delf checkout", e); res.status(500).json({ error: "could not start payment" }); }
+   |   });
+   | 
+   |   async function grant(uid, exam, ref, provider, amount, currency) {
+   |     await db.collection("delfAccess").doc(uid).set(
+
+-- POST /api/verifyTranslatorKey  (server.js:231)
+   checks: reference-verify=NO  amount-compared=NO  currency=no  already-paid guard=NO  transaction=no
+   | app.post("/api/verifyTranslatorKey", rateLimit("vtk",15,600000), async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const key=req.body.key
+   | 
+   | const snapshot=await db.collection("translatorApplications")
+   | .where("passkey","==",key)
+   | .get()
+   | 
+   | if(snapshot.empty){
+   | 
+   | return res.json({valid:false})
+   | 
+   | }
+   | 
+   | res.json({valid:true})
+   | 
+   | }catch(err){
+   | 
+   | console.error(err);
+   | 
+   | res.status(500).json({valid:false})
+   | 
+   | }
+   | 
+   | })
+   | 
+   | require("./delf-mock-routes")(app, { admin: admin, db: db, express: express })
+   | 
+   | require("./activity-routes")(app,{admin:admin,db:db,express:express});
+   | require("./delf-placement-routes")(app,{admin:admin,db:db,express:express});
+   | require("./delf-tts-routes")(app,{admin:admin,db:db,express:express});
+   | require("./delf-grading-routes")(app,{admin:admin,db:db,express:express});
+   | require("./placement-clip-routes")(app,{admin:admin,db:db,express:express});
+   | require("./delf-payment-routes")(app,{admin:admin,db:db,express:express,logIncome:(typeof logAutoIncomeOnce==="function"?logAutoIncomeOnce:null)});
+   | var DELF_PRICES_CENTS={a1:1200,a2:1700,b1:2500,b2:2900,c1:3400,prim:1200,junior:1200};
+   | var DELF_LABELS={a1:"DELF A1",a2:"DELF A2",b1:"DELF B1",b2:"DELF B2",c1:"DELF C1",prim:"DELF Prim",junior:"DELF Junior"};
+   | require("./level-routes")(app,{admin:admin,db:db,express:express});
+   | require("./delf-journey-routes")(app,{admin:admin,db:db,express:express});
+   | app.listen(process.env.PORT || 3000,()=>{
+   | 
+   | console.log("Translator API running")
+   | 
+   | })
+
+-- POST /api/createCheckout  (server.js:666)
+   checks: reference-verify=NO  amount-compared=yes  currency=yes  already-paid guard=NO  transaction=no
+   | app.post("/api/createCheckout", async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const {id}=req.body
+   | 
+   | const jobDoc=await db.collection("translationJobs").doc(id).get()
+   | 
+   | if(!jobDoc.exists){
+   | 
+   | return res.status(404).json({error:"job not found"})
+   | 
+   | }
+   | 
+   | const job=jobDoc.data()
+   | const amount=Math.round(Number(job.price||0)*100)
+   | 
+   | const session=await stripe.checkout.sessions.create({
+   | 
+   | mode:"payment",
+   | payment_method_types:["card"],
+   | line_items:[{
+   | 
+   | price_data:{
+   | 
+   | currency:"usd",
+   | product_data:{name:"SayBon Translation Job"},
+   | unit_amount:amount
+   | 
+   | },
+   | quantity:1
+   | 
+   | }],
+   | metadata:{jobId:id},
+   | success_url:"https://saybonapp.com/translation/success.html?session_id={CHECKOUT_SESSION_ID}",
+   | cancel_url:"https://saybonapp.com/translation/job.html?id="+id
+   | 
+   | })
+   | 
+   | res.json({url:session.url})
+   | 
+   | }catch(err){
+   | 
+   | console.error(err);
+   | 
+
+-- POST /api/createDelfCheckout  (server.js:761)
+   checks: reference-verify=yes  amount-compared=yes  currency=yes  already-paid guard=NO  transaction=no
+   | app.post("/api/createDelfCheckout", rateLimit("cdc",20,600000), async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const {category,level,price}=req.body
+   | 
+   | const amount=Math.round(Number(price||0)*100)
+   | 
+   | const session=await stripe.checkout.sessions.create({
+   | 
+   | mode:"payment",
+   | payment_method_types:["card"],
+   | line_items:[{
+   | 
+   | price_data:{
+   | 
+   | currency:"usd",
+   | product_data:{name:"DELF "+category+" "+level},
+   | unit_amount:amount
+   | 
+   | },
+   | quantity:1
+   | 
+   | }],
+   | success_url:"https://saybonapp.com/features/delf/success.html?category="+encodeURIComponent(category)+"&level="+encodeURIComponent(level),
+   | cancel_url:"https://saybonapp.com/features/delf/payment.html?category="+encodeURIComponent(category)+"&level="+encodeURIComponent(level)+"&price="+encodeURIComponent(pric
+   | 
+   | })
+   | 
+   | res.json({url:session.url})
+   | 
+   | }catch(err){
+   | 
+   | console.error(err);
+   | 
+   | res.status(500).json({error:"delf checkout creation failed"})
+   | 
+   | }
+   | 
+   | })
+   | 
+   | // <long-token-hidden>
+   | // CREATE DONATION CHECKOUT (USD, via Stripe)
+   | // GHS donations stay on Paystack - this route only
+   | // handles the USD branch from the donate form.
+
+-- POST /api/createDonationCheckout  (server.js:808)
+   checks: reference-verify=NO  amount-compared=yes  currency=yes  already-paid guard=NO  transaction=no
+   | app.post("/api/createDonationCheckout", async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const {firstName,lastName,email,amount,message}=req.body
+   | 
+   | const cents=Math.round(Number(amount||0)*100)
+   | 
+   | if(!email || !cents || cents<=0){
+   | 
+   | return res.status(400).json({error:"invalid donation amount"})
+   | 
+   | }
+   | 
+   | const session=await stripe.checkout.sessions.create({
+   | 
+   | mode:"payment",
+   | payment_method_types:["card"],
+   | customer_email:email,
+   | line_items:[{
+   | 
+   | price_data:{
+   | 
+   | currency:"usd",
+   | product_data:{name:"SayBon Donation"},
+   | unit_amount:cents
+   | 
+   | },
+   | quantity:1
+   | 
+   | }],
+   | metadata:{
+   | 
+   | donorFirstName:firstName||"",
+   | donorLastName:lastName||"",
+   | donorMessage:message||""
+   | 
+   | },
+   | success_url:"https://saybonapp.com/support/thank-you.html?session_id={CHECKOUT_SESSION_ID}",
+   | cancel_url:"https://saybonapp.com/support/donate.html"
+   | 
+   | })
+   | 
+   | res.json({url:session.url})
+   | 
+
+-- POST /api/createTranslationRequestCheckout  (server.js:949)
+   checks: reference-verify=NO  amount-compared=yes  currency=yes  already-paid guard=yes  transaction=no
+   | app.post("/api/createTranslationRequestCheckout", rateLimit("ctrc",20,600000), async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,originalFileUrl,originalFileType}=req.body
+   | 
+   | const amountNum=serverFloorPrice(plan,wordCount,documentText,Number(price))
+   | const cents=Math.round(amountNum*100)
+   | 
+   | if(!email || !cents || cents<=0){
+   | 
+   | return res.status(400).json({error:"invalid translation request"})
+   | 
+   | }
+   | 
+   | const rand=Math.random().toString(36).substring(2,6).toUpperCase()
+   | const jobId="SB-"+Date.now()+"-"+rand
+   | 
+   | await db.collection("translationJobs").doc(jobId).set({
+   | 
+   | jobId,
+   | email,
+   | plan:plan||"standard",
+   | wordCount:Number(wordCount)||0,
+   | targetLanguage:targetLanguage||"",
+   | sourceLanguage:sourceLanguage||"",
+   | clientFile:clientFile||"Untitled document",
+   | documentText:documentText||"",originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",price:amountNum,
+   | paid:false,
+   | status:"awaiting_payment",
+   | translator:null,
+   | createdAt:new Date()
+   | 
+   | })
+   | 
+   | const session=await stripe.checkout.sessions.create({
+   | 
+   | mode:"payment",
+   | payment_method_types:["card"],
+   | customer_email:email,
+   | line_items:[{
+   | 
+   | price_data:{
+   | 
+   | currency:"usd",
+
+-- GET /api/adminPayouts  (server.js:1434)
+   checks: reference-verify=NO  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+   | app.get("/api/adminPayouts", requireAdminAuth, async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const snapshot=await db.collection("payouts").orderBy("createdAt","desc").get()
+   | 
+   | const payouts=[]
+   | 
+   | for(const doc of snapshot.docs){
+   | 
+   | const data=doc.data()
+   | 
+   | let paymentMethod=null
+   | 
+   | try{
+   | 
+   | const pmDoc=await db.collection("translatorPaymentMethods").doc(data.translatorPasskey).get()
+   | 
+   | if(pmDoc.exists){
+   | 
+   | paymentMethod=pmDoc.data()
+   | 
+   | }
+   | 
+   | }catch(e){}
+   | 
+   | payouts.push({
+   | 
+   | id:doc.id,
+   | ...data,
+   | paymentMethod
+   | 
+   | })
+   | 
+   | }
+   | 
+   | res.json(payouts)
+   | 
+   | }catch(err){
+   | 
+   | console.error(err);
+   | 
+   | res.status(500).json({error:"could not load payouts"})
+   | 
+   | }
+
+-- POST /api/markPayoutPaid  (server.js:1486)
+   checks: reference-verify=NO  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+   | app.post("/api/markPayoutPaid", requireAdminAuth, async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const {payoutId}=req.body
+   | 
+   | if(!payoutId){
+   | 
+   | return res.status(400).json({error:"Payout ID is required"})
+   | 
+   | }
+   | 
+   | await db.collection("payouts").doc(payoutId).update({
+   | 
+   | status:"paid",
+   | paidAt:new Date()
+   | 
+   | })
+   | 
+   | res.json({success:true})
+   | 
+   | }catch(err){
+   | 
+   | console.error(err);
+   | 
+   | res.status(500).json({error:"could not mark payout as paid"})
+   | 
+   | }
+   | 
+   | })
+   | 
+   | // <long-token-hidden>
+   | // TRANSLATOR TRACK RECORD (real, from reviewed submissions)
+   | // <long-token-hidden>
+   | 
+   | // <long-token-hidden>
+   | // TRANSLATOR ENTRY TEST - fixed passages, real
+   | // Azure-backed reference translation scoring.
+   | // <long-token-hidden>
+   | 
+   | const TRANSLATOR_TEST_PASSAGES={
+   | 
+   | frToEn:{
+   | source:"Toute utilisation non autorisÃ©e de ce document est strictement interdite et peut entraÃ®ner des poursuites judiciaires conformÃ©ment Ã  la lÃ©gislation en vigueu
+   | sourceLang:"fr",
+
+-- GET /api/translatorWallet  (server.js:1827)
+   checks: reference-verify=NO  amount-compared=yes  currency=no  already-paid guard=yes  transaction=no
+   | app.get("/api/translatorWallet", rateLimit("tw",40,600000), async(req,res)=>{
+   | 
+   | try{
+   | 
+   | const passkey=req.query.key
+   | 
+   | if(!passkey){
+   | 
+   | return res.status(400).json({error:"Passkey is required"})
+   | 
+   | }
+   | 
+   | const translatorSnapshot=await db.collection("translatorApplications")
+   | .where("passkey","==",passkey)
+   | .get()
+   | 
+   | if(translatorSnapshot.empty){
+   | 
+   | return res.status(400).json({error:"Invalid translator passkey"})
+   | 
+   | }
+   | 
+   | const payoutsSnapshot=await db.collection("payouts")
+   | .where("translatorPasskey","==",passkey)
+   | .get()
+   | 
+   | const now=Date.now()
+   | 
+   | let pendingClearance=0
+   | let availableBalance=0
+   | let paidOut=0
+   | 
+   | payoutsSnapshot.forEach(doc=>{
+   | 
+   | const p=doc.data()
+   | const amount=Number(p.amountOwed||0)
+   | 
+   | if(p.status==="paid"){
+   | 
+   | paidOut+=amount
+   | 
+   | }else{
+   | 
+   | const createdMs=p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now
+   | const daysElapsed=(now-createdMs)/(1000*60*60*24)
+
+-- POST /api/verifyPaystackDonation  (server.js:4067)
+   checks: reference-verify=yes  amount-compared=yes  currency=yes  already-paid guard=yes  transaction=no
+   | app.post("/api/verifyPaystackDonation", express.json(), async(req,res)=>{
+   | try{
+   | const {reference} = req.body;
+   | if(!reference) return res.status(400).json({error:"reference required"});
+   | 
+   | const secretKey = process.env.PAYSTACK_SECRET_KEY;
+   | if(!secretKey){
+   | console.error("PAYSTACK_SECRET_KEY not set");
+   | return res.status(500).json({error:"server not configured for Paystack verification"});
+   | }
+   | 
+   | const paystackData = await new Promise((resolve, reject) => {
+   | const options = {
+   | hostname: "api.paystack.co",
+   | path: "/transaction/verify/" + encodeURIComponent(reference),
+   | method: "GET",
+   | headers: { Authorization: "Bearer " + secretKey }
+   | };
+   | const request = https.request(options, (response) => {
+   | let body = "";
+   | response.on("data", (chunk) => { body += chunk; });
+   | response.on("end", () => {
+   | try{ resolve(JSON.parse(body)); }
+   | catch(e){ reject(e); }
+   | });
+   | });
+   | request.on("error", reject);
+   | request.end();
+   | });
+   | 
+   | if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+   | const amountInMainUnit = paystackData.data.amount / 100;
+   | const currency = paystackData.data.currency || "GHS";
+   | 
+   | await logAutoIncomeOnce(
+   | "paystack_donation_" + reference,
+   | amountInMainUnit,
+   | currency,
+   | "Donation",
+   | "Auto-logged Paystack donation from " + (paystackData.data.customer ? paystackData.data.customer.email : "unknown")
+   | );
+   | res.json({verified:true});
+   | }else{
+   | res.json({verified:false});
+   | }
+
+-- POST /api/verifyPaystackDelf  (server.js:4461)
+   checks: reference-verify=yes  amount-compared=yes  currency=yes  already-paid guard=yes  transaction=no
+   | app.post("/api/verifyPaystackDelf", express.json(), async(req,res)=>{ return res.status(410).json({error:"retired - use /api/delf/verify"});
+   | try{
+   | const {reference, exam, uid} = req.body;
+   | if(!reference || !exam || !uid) return res.status(400).json({error:"reference, exam, and uid are required"});
+   | 
+   | const secretKey = process.env.PAYSTACK_SECRET_KEY;
+   | if(!secretKey){
+   | console.error("PAYSTACK_SECRET_KEY not set");
+   | return res.status(500).json({error:"server not configured for Paystack verification"});
+   | }
+   | 
+   | const paystackData = await new Promise((resolve, reject) => {
+   | const options = {
+   | hostname: "api.paystack.co",
+   | path: "/transaction/verify/" + encodeURIComponent(reference),
+   | method: "GET",
+   | headers: { Authorization: "Bearer " + secretKey }
+   | };
+   | const request = https.request(options, (response) => {
+   | let body = "";
+   | response.on("data", (chunk) => { body += chunk; });
+   | response.on("end", () => {
+   | try{ resolve(JSON.parse(body)); }
+   | catch(e){ reject(e); }
+   | });
+   | });
+   | request.on("error", reject);
+   | request.end();
+   | });
+   | 
+   | if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+   | await db.collection("delfAccess").doc(uid).set({
+   | [exam]: { granted:true, sessionId: "paystack_" + reference, purchasedAt: admin.firestore.FieldValue.serverTimestamp() }
+   | }, { merge:true });
+   | 
+   | const amountInMainUnit = paystackData.data.amount / 100;
+   | const currency = paystackData.data.currency || "GHS";
+   | 
+   | await logAutoIncomeOnce(
+   | "delf_paystack_" + reference,
+   | amountInMainUnit,
+   | currency,
+   | "DELF Exam Prep",
+   | "Auto-logged DELF Paystack payment for " + (DELF_LABELS[exam] || exam)
+   | );
+
+-- POST /api/createTranslationJobForPaystack  (server.js:4561)
+   checks: reference-verify=yes  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+   | app.post("/api/createTranslationJobForPaystack", rateLimit("ctjp",20,600000), async(req,res)=>{
+   | try{
+   | const {email,plan,wordCount,targetLanguage,sourceLanguage,clientFile,documentText,price,priceGhs,originalFileUrl,originalFileType}=req.body
+   | 
+   | if(!email || !priceGhs || priceGhs<=0){
+   | return res.status(400).json({error:"invalid translation request"})
+   | }
+   | 
+   | const rand=Math.random().toString(36).substring(2,6).toUpperCase()
+   | const jobId="SB-"+Date.now()+"-"+rand
+   | 
+   | await db.collection("translationJobs").doc(jobId).set({
+   | jobId,
+   | email,
+   | plan:plan||"standard",
+   | wordCount:Number(wordCount)||0,
+   | targetLanguage:targetLanguage||"",
+   | sourceLanguage:sourceLanguage||"",
+   | clientFile:clientFile||"Untitled document",
+   | documentText:documentText||"",
+   | price:serverFloorPrice(plan,wordCount,documentText,Number(price)||0),priceGhs:Number(priceGhs),originalFileUrl:originalFileUrl||"",originalFileType:originalFileType||"",
+   | paid:false,
+   | status:"awaiting_payment",
+   | translator:null,
+   | createdAt:new Date()
+   | })
+   | 
+   | res.json({jobId})
+   | }catch(err){
+   | console.error(err);
+   | res.status(500).json({error:"could not create translation job"})
+   | }
+   | });
+   | 
+   | 
+
+-- POST /api/verifyPaystackTranslation  (server.js:4595)
+   checks: reference-verify=yes  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+  [HIGH] /api/verifyPaystackTranslation: payment verification does not appear to compare the amount paid
+   | app.post("/api/verifyPaystackTranslation", express.json(), async(req,res)=>{
+   | try{
+   | const {reference, jobId} = req.body;
+   | if(!reference || !jobId) return res.status(400).json({error:"reference and jobId are required"});
+   | 
+   | const secretKey = process.env.PAYSTACK_SECRET_KEY;
+   | if(!secretKey){
+   | console.error("PAYSTACK_SECRET_KEY not set");
+   | return res.status(500).json({error:"server not configured for Paystack verification"});
+   | }
+   | 
+   | const paystackData = await new Promise((resolve, reject) => {
+   | const options = {
+   | hostname: "api.paystack.co",
+   | path: "/transaction/verify/" + encodeURIComponent(reference),
+   | method: "GET",
+   | headers: { Authorization: "Bearer " + secretKey }
+   | };
+   | const request = https.request(options, (response) => {
+   | let body = "";
+   | response.on("data", (chunk) => { body += chunk; });
+   | response.on("end", () => {
+   | try{ resolve(JSON.parse(body)); }
+   | catch(e){ reject(e); }
+   | });
+   | });
+   | request.on("error", reject);
+   | request.end();
+   | });
+   | 
+   | if(paystackData.status && paystackData.data && paystackData.data.status === "success"){
+   | const jobDocForIncome = await db.collection("translationJobs").doc(jobId).get();
+   | const _chk = await checkPaystackTranslationPayment(jobDocForIncome, paystackData.data, reference, jobId);
+   | if(!_chk.ok){ console.warn("PAYSTACK TRANSLATION REJECTED", jobId, reference, _chk.why); return res.json({verified:false}); }
+   | if(_chk.already){ return res.json({verified:true, jobId}); }
+   | const jobPriceUsd = jobDocForIncome.exists ? (Number(jobDocForIncome.data().price) || 0) : 0;
+   | 
+   | await confirmTranslationJobPaid(
+   | jobId,
+   | "translation_paystack_" + reference,
+   | jobPriceUsd,
+   | "USD"
+   | );
+   | 
+   | res.json({verified:true, jobId});
+
+-- GET /api/adminListPayoutCandidates  (server.js:4689)
+   checks: reference-verify=yes  amount-compared=yes  currency=no  already-paid guard=yes  transaction=no
+   | app.get("/api/adminListPayoutCandidates", requireAdminAuth, async(req,res)=>{
+   | try{
+   | const paymentMethodsSnapshot = await db.collection("translatorPaymentMethods").get();
+   | const candidates = [];
+   | 
+   | for(const doc of paymentMethodsSnapshot.docs){
+   | const pm = doc.data();
+   | const passkey = pm.passkey;
+   | 
+   | const payoutsSnapshot = await db.collection("payouts").where("translatorPasskey","==",passkey).get();
+   | const now = Date.now();
+   | let availableBalance = 0;
+   | 
+   | payoutsSnapshot.forEach(pDoc => {
+   | const p = pDoc.data();
+   | if(p.status === "paid") return;
+   | const amount = Number(p.amountOwed || 0);
+   | const createdMs = p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now;
+   | const daysElapsed = (now - createdMs) / (1000*60*60*24);
+   | if(daysElapsed >= CLEARANCE_DAYS) availableBalance += amount;
+   | });
+   | 
+   | if(availableBalance >= MIN_CASH_OUT){
+   | const translatorSnap = await db.collection("translatorApplications").where("passkey","==",passkey).get();
+   | const translatorName = translatorSnap.empty ? "Unknown" : (translatorSnap.docs[0].data().name || "Unknown");
+   | 
+   | candidates.push({
+   | passkey,
+   | name: translatorName,
+   | availableBalance: Math.round(availableBalance*100)/100,
+   | method: pm.method,
+   | bankRegion: pm.bankRegion,
+   | bankName: pm.bankName,
+   | accountNumber: pm.accountNumber,
+   | accountName: pm.accountName,
+   | momoNetwork: pm.momoNetwork,
+   | momoNumber: pm.momoNumber,
+   | isGhanaAutomatable: (pm.bankRegion === "ghana" || !pm.bankRegion) && (pm.method === "bank" || pm.method === "momo")
+   | });
+   | }
+   | }
+   | 
+   | res.json(candidates);
+   | }catch(err){
+   | console.error(err);
+
+-- POST /api/adminInitiatePaystackPayout  (server.js:4739)
+   checks: reference-verify=yes  amount-compared=yes  currency=yes  already-paid guard=yes  transaction=no
+   | app.post("/api/adminInitiatePaystackPayout", express.json(), requireAdminAuth, async(req,res)=>{
+   | try{
+   | const {passkey, amount, method, bankCode, accountNumber, accountName, momoNetworkCode, momoNumber} = req.body;
+   | if(!passkey || !amount) return res.status(400).json({error:"passkey and amount are required"});
+   | 
+   | let recipientBody;
+   | if(method === "momo"){
+   | recipientBody = {
+   | type: "mobile_money",
+   | name: accountName,
+   | account_number: momoNumber,
+   | bank_code: momoNetworkCode,
+   | currency: "GHS"
+   | };
+   | } else {
+   | recipientBody = {
+   | type: "ghipss",
+   | name: accountName,
+   | account_number: accountNumber,
+   | bank_code: bankCode,
+   | currency: "GHS"
+   | };
+   | }
+   | 
+   | const recipientRes = await paystackRequest("POST", "/transferrecipient", recipientBody);
+   | if(!recipientRes.status){
+   | return res.status(400).json({error: recipientRes.message || "could not create Paystack recipient"});
+   | }
+   | const recipientCode = recipientRes.data.recipient_code;
+   | 
+   | const transferRes = await paystackRequest("POST", "/transfer", {
+   | source: "balance",
+   | amount: Math.round(amount * 100),
+   | recipient: recipientCode,
+   | reason: "SayBon translator payout"
+   | });
+   | 
+   | if(!transferRes.status){
+   | return res.status(400).json({error: transferRes.message || "could not initiate transfer"});
+   | }
+   | 
+   | res.json({
+   | transferCode: transferRes.data.transfer_code,
+   | status: transferRes.data.status,
+   | requiresOtp: transferRes.data.status === "otp"
+
+-- POST /api/adminFinalizePaystackPayout  (server.js:4792)
+   checks: reference-verify=yes  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+   | app.post("/api/adminFinalizePaystackPayout", express.json(), requireAdminAuth, async(req,res)=>{
+   | try{
+   | const {passkey, transferCode, otp} = req.body;
+   | if(!passkey || !transferCode || !otp) return res.status(400).json({error:"passkey, transferCode, and otp are required"});
+   | 
+   | const finalizeRes = await paystackRequest("POST", "/transfer/finalize_transfer", {
+   | transfer_code: transferCode,
+   | otp: otp
+   | });
+   | 
+   | if(!finalizeRes.status){
+   | return res.status(400).json({error: finalizeRes.message || "could not finalize transfer"});
+   | }
+   | 
+   | await markTranslatorPayoutsPaid(passkey);
+   | 
+   | res.json({success:true});
+   | }catch(err){
+   | console.error(err);
+   | res.status(500).json({error:"could not finalize Paystack payout"});
+   | }
+   | });
+   | 
+   | // Manual payout confirmation - for translators outside Ghana,
+   | // where SayBon wires the money directly and confirms it here.
+   | 
+
+-- POST /api/adminMarkPayoutPaidManually  (server.js:4817)
+   checks: reference-verify=yes  amount-compared=NO  currency=no  already-paid guard=yes  transaction=no
+   | app.post("/api/adminMarkPayoutPaidManually", express.json(), requireAdminAuth, async(req,res)=>{
+   | try{
+   | const {passkey} = req.body;
+   | if(!passkey) return res.status(400).json({error:"passkey is required"});
+   | 
+   | await markTranslatorPayoutsPaid(passkey);
+   | 
+   | res.json({success:true});
+   | }catch(err){
+   | console.error(err);
+   | res.status(500).json({error:"could not mark payout as paid"});
+   | }
+   | });
+   | 
+   | // Shared: marks every outstanding cleared payout record for a
+   | // translator as paid, used by both the Paystack and manual paths.
+   | async function markTranslatorPayoutsPaid(passkey){
+   | const now = Date.now();
+   | const payoutsSnapshot = await db.collection("payouts").where("translatorPasskey","==",passkey).get();
+   | 
+   | const batch = db.batch();
+   | payoutsSnapshot.forEach(doc => {
+   | const p = doc.data();
+   | if(p.status === "paid") return;
+   | const createdMs = p.createdAt && p.createdAt.toDate ? p.createdAt.toDate().getTime() : now;
+   | const daysElapsed = (now - createdMs) / (1000*60*60*24);
+   | if(daysElapsed >= CLEARANCE_DAYS){
+   | batch.update(doc.ref, { status: "paid", paidAt: admin.firestore.FieldValue.serverTimestamp() });
+   | }
+   | });
+   | await batch.commit();
+   | }
+   | 
+   | 
+
+-- GET /api/paystackBankList  (server.js:4850)
+   checks: reference-verify=yes  amount-compared=NO  currency=yes  already-paid guard=NO  transaction=no
+   | app.get("/api/paystackBankList", async(req,res)=>{
+   | try{
+   | const data = await paystackRequest("GET", "/bank?currency=GHS&country=ghana", null);
+   | if(!data.status){
+   | return res.status(400).json({error: data.message || "could not fetch bank list"});
+   | }
+   | res.json(data.data.map(b => ({ name: b.name, code: b.code, type: b.type })));
+   | }catch(err){
+   | console.error(err);
+   | res.status(500).json({error:"could not fetch Paystack bank list"});
+   | }
+   | });
+   | 
+   | 
+Paystack webhook / signature check:
+  (nothing found)
+  [MED] Paystack: no webhook with signature check found (payments depend on the buyer's browser returning to the site)
+Environment variable names the server reads: ANTHROPIC_API_KEY, AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_KEY, AZURE_OPENAI_DEPLOYMENT, AZURE_SPEECH_REGION, AZURE_SPEECH_KEY, STRIPE_SECRET_KEY, PAYSTACK_SECRET_KEY, FIREBASE_SERVICE_ACCOUNT, AZURE_TRANSLATOR_KEY, AZURE_TRANSLATOR_ENDPOINT, AZURE_TRANSLATOR_REGION, PORT
+
+==============================================================================
+9. DATABASE RULES VS TRANSLATION COLLECTIONS
+==============================================================================
+Translation-related collections used: translationJobs, jobSubmissions, translatorApplications, translatorTests, feedbackSubmissions, ndaAcceptances, translatorPaymentMethods, payouts, docNda
+  [HIGH] firestore.rules: contains 'if true' rule, anyone could read or write that path
+  translationJobs                 has its own rule
+  jobSubmissions                  has its own rule
+  translatorApplications          has its own rule
+  translatorTests                 no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: translatorTests has no explicit rule (fine if only the server touches it, confirm)
+  feedbackSubmissions             no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: feedbackSubmissions has no explicit rule (fine if only the server touches it, confirm)
+  ndaAcceptances                  no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: ndaAcceptances has no explicit rule (fine if only the server touches it, confirm)
+  translatorPaymentMethods        no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: translatorPaymentMethods has no explicit rule (fine if only the server touches it, confirm)
+  payouts                         no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: payouts has no explicit rule (fine if only the server touches it, confirm)
+  docNda                          no rule (falls back to default/wildcard)
+  [LOW] firestore.rules: docNda has no explicit rule (fine if only the server touches it, confirm)
+  rules:18  // Translation jobs - signed-in users can read (job board); only admins can change them.
+  rules:19  match /translationJobs/{jobId} {
+  rules:24  // Job submissions - read for signed-in users (My Jobs / Under Review tabs).
+  rules:25  match /jobSubmissions/{submissionId} {
+  rules:29  // Translator applications - public register + test flow, but only the fields
+  rules:31  match /translatorApplications/{appId} {
+  rules:35  .hasOnly(['englishTranslation','frenchTranslation','testCompleted','submittedAt']);
+storage.rules mention uploads/translation, check they require sign-in
+  storage:3  match /b/{bucket}/o {
+  storage:9  match /translatorDocs/{folder}/{fileName} {
+  storage:10  allow read: if signedIn();
+  storage:11  allow write: if signedIn() && request.resource.size < 10 * 1024 * 1024;
+  storage:13  match /translatorProfiles/{passkey}/{fileName} {
+  storage:14  allow read: if signedIn();
+  storage:15  allow write: if signedIn() && request.resource.size < 5 * 1024 * 1024;
+  storage:17  match /translationOriginals/{fileName} {
+  storage:18  allow read: if signedIn();
+  storage:19  allow write: if signedIn() && request.resource.size < 25 * 1024 * 1024;
+  storage:23  match /chatAvatars/{userId}/{fileName} {
+  storage:24  allow read: if signedIn();
+  storage:25  allow write: if signedIn() && request.auth.uid == userId && request.resource.size < 5 * 1024 * 1024;
+  storage:27  match /chatMedia/{roomId}/{fileName} {
+  storage:28  allow read: if signedIn();
+  storage:29  allow write: if signedIn() && request.resource.size < 150 * 1024 * 1024;
+  storage:31  match /chatVoiceNotes/{roomId}/{fileName} {
+  storage:32  allow read: if signedIn();
+  storage:33  allow write: if signedIn() && request.resource.size < 15 * 1024 * 1024;
+  storage:35  match /delfPlacements/{userId}/{fileName} {
+  storage:36  allow read: if signedIn();
+  storage:37  allow write: if signedIn() && request.auth.uid == userId && request.resource.size < 15 * 1024 * 1024;
+  storage:41  match /musicVideos/{genre}/{fileName} {
+  storage:42  allow read: if signedIn();
+  storage:43  allow write: if isAdmin() && request.resource.size < 300 * 1024 * 1024;
+  storage:45  match /musicThumbnails/{genre}/{fileName} {
+  storage:46  allow read: if signedIn();
+  storage:47  allow write: if isAdmin() && request.resource.size < 5 * 1024 * 1024;
+  storage:49  match /delfAssets/{fileName} {
+  storage:50  allow read: if signedIn();
+  storage:51  allow write: if isAdmin() && request.resource.size < 50 * 1024 * 1024;
+  storage:53  match /levelAssets/{level}/{fileName} {
+  storage:54  allow read: if signedIn();
+  storage:55  allow write: if isAdmin() && request.resource.size < 100 * 1024 * 1024;
+  storage:57  match /talkleticsLocations/{fileName} {
+  storage:58  allow read: if signedIn();
+  storage:59  allow write: if isAdmin() && request.resource.size < 10 * 1024 * 1024;
+  storage:61  match /talkleticsAssets/{fileName} {
+  storage:62  allow read: if signedIn();
+  storage:63  allow write: if isAdmin() && request.resource.size < 50 * 1024 * 1024;
+  storage:67  match /financeReceipts/{category}/{fileName} {
+  storage:68  allow read: if isAdmin();
+  storage:69  allow write: if isAdmin() && request.resource.size < 20 * 1024 * 1024;
+  storage:71  match /companyDocuments/{category}/{fileName} {
+  storage:72  allow read: if isAdmin();
+  storage:73  allow write: if isAdmin() && request.resource.size < 25 * 1024 * 1024;
+  storage:76  match /{allPaths=**} { allow read, write: if false; }
+
+==============================================================================
+10. LOADING AND HOSTING CONFIG
+==============================================================================
+  headers for **: X-Frame-Options=SAMEORIGIN; X-Content-Type-Options=nosniff; Referrer-Policy=strict-origin-when-cross-origin; Permissions-Policy=geolocation=(self), microphone=(self), camera=()
+  headers for **/*.@(html|js|css): Cache-Control=no-cache
+  [MED] firebase.json: no long cache rule for images/audio/fonts (they re-download more often than needed)
+  cleanUrls: false   rewrites: 0
+  service worker: none
+
+Page weights (local files only, before fonts/API):
+       61 KB  public/translation/job-board.html
+       23 KB  public/translation/admin.html
+       21 KB  public/translation/request.html
+       19 KB  public/translation/editor-workspace.html
+       17 KB  public/translation/desk.html
+       16 KB  public/translation/translator-register.html
+       14 KB  public/translation/translators.html
+       14 KB  public/translation/payment.html
+       11 KB  public/translation/index.html
+      9.9 KB  public/translation/translator-profile.html
+      9.6 KB  public/translation/translator-payment-methods.html
+      8.5 KB  public/translation/translator-result.html
+      8.4 KB  public/translation/formatting-workspace.html
+      8.4 KB  public/features/admin/translation-review/index.html
+      8.4 KB  public/translation/success.html
+      7.7 KB  public/translation/translator-test.html
+      2.7 KB  public/translation/translation-desk.html
+      1.7 KB  public/translation/translator-dashboard.html
+      1.6 KB  public/admin/translation-admin.html
+      1.0 KB  public/translators.html
+      0.6 KB  public/translation/translator-login.html
+      0.0 KB  public/features/translation/index.html
+
+==============================================================================
+11. LIVE SITE CHECKS (public pages only, nothing logged in)
+==============================================================================
+  200 402ms      4.7 KB  enc:br    public/admin/panel.html   cache:no-cache
+  200 454ms      1.2 KB  enc:br    public/admin/translation-admin.html   cache:no-cache
+  200 151ms      4.2 KB  enc:br    public/auth/login.html   cache:no-cache
+  200 264ms      7.4 KB  enc:br    public/dashboard/index.html   cache:no-cache
+  200 266ms      1.4 KB  enc:br    public/features/admin/auth/admin-guard.js   cache:no-cache
+  200 261ms      6.8 KB  enc:br    public/features/admin/index.html   cache:no-cache
+  200 431ms      5.5 KB  enc:br    public/features/admin/translation-review/index.html   cache:no-cache
+  200 145ms      0.0 KB  enc:none  public/features/translation/index.html   cache:no-cache
+  200 347ms      1.5 KB  enc:br    public/js/admin-fetch.js   cache:no-cache
+  200 254ms      0.4 KB  enc:br    public/js/auth-guard.js   cache:no-cache
+  200 211ms       20 KB  enc:br    public/translation/admin.html   cache:no-cache
+  200 185ms       16 KB  enc:br    public/translation/desk.html   cache:no-cache
+  200 174ms       18 KB  enc:br    public/translation/editor-workspace.html   cache:no-cache
+  200 195ms      8.1 KB  enc:br    public/translation/formatting-workspace.html   cache:no-cache
+  200 269ms       11 KB  enc:br    public/translation/index.html   cache:no-cache
+  200 186ms       60 KB  enc:br    public/translation/job-board.html   cache:no-cache
+  200 227ms       13 KB  enc:br    public/translation/payment.html   cache:no-cache
+  200 190ms       20 KB  enc:br    public/translation/request.html   cache:no-cache
+  200 178ms      8.0 KB  enc:br    public/translation/success.html   cache:no-cache
+  200 197ms      2.3 KB  enc:br    public/translation/translation-desk.html   cache:no-cache
+  200 204ms      1.3 KB  enc:br    public/translation/translator-dashboard.html   cache:no-cache
+  200 225ms      0.6 KB  enc:br    public/translation/translator-login.html   cache:no-cache
+  200 195ms      9.2 KB  enc:br    public/translation/translator-payment-methods.html   cache:no-cache
+  200 176ms      9.5 KB  enc:br    public/translation/translator-profile.html   cache:no-cache
+  200 215ms       15 KB  enc:br    public/translation/translator-register.html   cache:no-cache
+  200 187ms      8.2 KB  enc:br    public/translation/translator-result.html   cache:no-cache
+  200 190ms      7.4 KB  enc:br    public/translation/translator-test.html   cache:no-cache
+  200 229ms       14 KB  enc:br    public/translation/translators.html   cache:no-cache
+  200 183ms      1.0 KB  enc:br    public/translators.html   cache:no-cache
+Live files checked: 29   problems: 0
+
+Server wake-up and speed (Render):
+  try 1: 200 in 891ms (application/json; charset=utf-8)
+  try 2: 200 in 267ms (application/json; charset=utf-8)
+  try 3: 200 in 269ms (application/json; charset=utf-8)
+  CORS header for saybonapp.com: *

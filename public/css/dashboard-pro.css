@@ -1,0 +1,15 @@
+/* French for Professionals card: same size and shape as the others, but dark, gold and still. */
+.dash-card.card-professional{
+  background:linear-gradient(135deg,#0d131d 0%,#1a2333 100%);
+  border:1px solid rgba(212,175,106,.6);
+  box-shadow: inset 0 1px 0 rgba(212,175,106,.25), 0 16px 34px rgba(0,0,0,.5);
+  animation: dpRise .9s cubic-bezier(.22,1,.36,1) .5s backwards !important;
+}
+.dash-card.card-professional::before{ display:none; }
+.dash-card.card-professional::after{ background:linear-gradient(135deg, rgba(212,175,106,.10), transparent 55%); }
+.dash-card.card-professional:hover{ border-color:rgba(232,201,138,.95); }
+.card-professional .pro-icon{ width:34px; height:34px; color:#d4af6a; margin-bottom:14px; }
+.card-professional .pro-icon svg{ width:100%; height:100%; }
+.card-professional h3{ color:#f6f1e4; text-shadow:none; letter-spacing:.01em; }
+.card-professional span{ color:#d4af6a; }
+.card-professional .pro-tag{ position:absolute; top:16px; right:16px; font-size:10px; font-weight:800; letter-spacing:.16em; color:#1c1408; background:linear-gradient(180deg,#e8c98a,#d4af6a); border-radius:999px; padding:4px 9px; }
