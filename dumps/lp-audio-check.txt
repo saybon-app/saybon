@@ -1,0 +1,34 @@
+﻿Key set in this window: False
+Local folder exists: True
+Local mp3 count: 67
+KINTRO: KINTRO={'1-1':1,'2-1':1,'3-1':1,'4-1':1,'5-1':1,'6-1':1,'7-1':1,'8-1':1,'9-1':1,'10-1':1,'11-1':1,'12-1':1,'1-2':1}
+KDR (first 300): KDR={'1-2':'bonjour','1-3':'salut','1-4':'aurevoir','1-5':'skip','1-6':'dialogue','1-7':'skip','1-8':'skip','1-9':'skip','1-10':'skip','1-11':'skip','2-2':'cava','2-3':'cavabien','2-4':'ettoi','2-5':'dialogue','3-2':'comment','3-3':'mappelle','3-4':'enchante','3-5':'dialogue','4-2':'silteplait','4-3
+
+Lesson | local part1 (bytes) | live part1 status
+2 | 102862 | 200
+3 | 93435 | 200
+4 | 86625 | 200
+5 | 103104 | 200
+6 | 82481 | 200
+7 | 102582 | 200
+8 | 91188 | 200
+9 | 77472 | 200
+10 | 83189 | 200
+11 | 82825 | 200
+12 | 98622 | 200
+13 | MISSING | FAIL The remote server returned an error: (40
+14 | MISSING | FAIL The remote server returned an error: (40
+15 | MISSING | FAIL The remote server returned an error: (40
+16 | MISSING | FAIL The remote server returned an error: (40
+17 | MISSING | FAIL The remote server returned an error: (40
+18 | MISSING | FAIL The remote server returned an error: (40
+19 | MISSING | FAIL The remote server returned an error: (40
+20 | MISSING | FAIL The remote server returned an error: (40
+21 | MISSING | FAIL The remote server returned an error: (40
+22 | MISSING | FAIL The remote server returned an error: (40
+23 | MISSING | FAIL The remote server returned an error: (40
+24 | MISSING | FAIL The remote server returned an error: (40
+25 | MISSING | FAIL The remote server returned an error: (40
+
+Git: last commit: 8da3b044 Tout Public 4-25, Les Petits reading lessons, Banque and Arret de bus, remove duplicate bank, feedback, placement, link preview
+Git: uncommitted: 0
