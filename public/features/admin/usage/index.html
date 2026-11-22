@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/js/admin-fetch.js"></script>
+<script type="module" src="/features/admin/auth/admin-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usage and Growth - SayBon Business Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Manrope",sans-serif;background:linear-gradient(165deg,#0c1016 0%,#151b26 50%,#1b2230 100%);color:#e6e1d3;min-height:100vh;padding:60px 24px;}
+.w{max-width:1000px;margin:0 auto;}
+.ic{position:fixed;top:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(212,175,106,.32);display:flex;align-items:center;justify-content:center;color:#d4af6a;cursor:pointer;z-index:5}
+.ic svg{width:18px;height:18px}.ic.l{left:16px}.ic.r{right:16px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.eb{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#d4af6a;margin-bottom:10px}
+h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.9rem,5vw,2.6rem);color:#f6f1e4}
+.sub{color:#8b92a3;font-size:.9rem;margin-top:6px}
+.btn{background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border:0;border-radius:999px;padding:11px 20px;font:800 .82rem Manrope;cursor:pointer}
+.logo{display:none}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.k{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,106,.18);border-radius:18px;padding:20px}
+.k b{display:block;font-family:"Fraunces",serif;font-size:2.4rem;color:#d4af6a;line-height:1.1}
+.k span{display:block;font-size:.8rem;color:#8b92a3;margin-top:6px}
+.k small{display:block;font-size:.72rem;color:#6f778a;margin-top:4px}
+.p{background:rgba(255,255,255,.025);border:1px solid rgba(212,175,106,.16);border-radius:20px;padding:22px;margin-bottom:16px}
+.p h2{font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;color:#f6f1e4;margin-bottom:4px}
+.p .sub{margin:0 0 14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.row{display:flex;align-items:center;gap:12px;margin:9px 0;font-size:.86rem}
+.row .n{width:150px;flex:none;color:#d9d3c2}
+.row .t{flex:1;height:14px;background:rgba(255,255,255,.06);border-radius:7px;overflow:hidden}
+.row .t i{display:block;height:100%;background:linear-gradient(90deg,#b98f45,#e8c98a);border-radius:7px}
+.row .v{width:90px;text-align:right;font-weight:700;color:#f6f1e4;flex:none}
+svg.ch{width:100%;height:auto;display:block}
+.note{font-size:.78rem;color:#8b92a3;line-height:1.55;margin-top:10px}
+.empty{color:#8b92a3;font-size:.9rem;padding:8px 0}
+@media print{
+ @page{margin:14mm}
+ body{background:#fff;color:#1c2230;padding:0}
+ .ic,.btn{display:none!important}
+ .logo{display:block;height:34px;margin-bottom:10px}
+ .big{grid-template-columns:repeat(4,1fr);gap:8px}
+ .k{padding:12px}.k b{font-size:1.7rem}
+ .two{grid-template-columns:1fr}
+ .row .n{width:130px}
+ h1,.p h2{color:#1c2230}
+ .eb{color:#7a5c1c}
+ .k,.p{background:#fff;border:1px solid #d9d3c2;break-inside:avoid;box-shadow:none}
+ .k b{color:#7a5c1c}.k span,.k small,.sub,.note{color:#4f5666}
+ .row .n,.row .v{color:#1c2230}.row .t{background:#eee}
+ .row .t i{background:#c99a4a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head><body>
+<button class="ic l" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="ic r" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
+<div class="w">
+<img class="logo" src="/assets/home/saybon-logo.webp" alt="SayBon">
+<div class="top"><div><p class="eb">SayBon</p><h1>Usage and growth</h1><p class="sub" id="meta">Loading…</p></div><button class="btn" id="pdf">Download PDF</button></div>
+<div id="out"><p class="empty">Loading…</p></div>
+</div>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+var API="https://saybonapp-server.onrender.com";
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fmt(n){return Number(n).toLocaleString("en-GB")}
+async function tok(){return await auth.currentUser.getIdToken()}
+function nice(d){return new Date(d+"T00:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}
+function chart(s){
+ var W=900,H=260,pl=44,pr=12,pt=14,pb=28,max=Math.max.apply(null,s.map(function(x){return x.total}))||1,min=Math.min.apply(null,s.map(function(x){return x.total}));
+ if(max===min)max=min+1;
+ var X=function(i){return pl+i*(W-pl-pr)/(s.length-1)},Y=function(v){return pt+(H-pt-pb)*(1-(v-min)/(max-min))};
+ var d=s.map(function(x,i){return(i?"L":"M")+X(i).toFixed(1)+" "+Y(x.total).toFixed(1)}).join(" ");
+ var area=d+" L"+X(s.length-1)+" "+(H-pb)+" L"+X(0)+" "+(H-pb)+" Z";
+ var g="";for(var i=0;i<=3;i++){var v=min+(max-min)*i/3,y=Y(v);g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'" stroke="#8b92a3" stroke-opacity=".25"/><text x="'+(pl-8)+'" y="'+(y+4)+'" text-anchor="end" font-size="12" fill="#8b92a3">'+fmt(Math.round(v))+'</text>'}
+ var xl=[0,Math.floor(s.length/2),s.length-1].map(function(i){return'<text x="'+X(i)+'" y="'+(H-8)+'" text-anchor="'+(i===0?"start":i===s.length-1?"end":"middle")+'" font-size="12" fill="#8b92a3">'+nice(s[i].day)+'</text>'}).join("");
+ return'<svg class="ch" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Total sign-ups over the last 90 days"><defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".35"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>'+g+'<path d="'+area+'" fill="url(#ga)"/><path d="'+d+'" fill="none" stroke="#d4af6a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>'+xl+'</svg>';
+}
+function bars(rows,top){var m=Math.max.apply(null,rows.map(function(r){return r.n}))||1;return rows.map(function(r,i){var pc=top&&top>0?Math.round(r.n*100/top):null;return'<div class="row"><div class="n">'+esc(r.label)+'</div><div class="t"><i style="width:'+Math.max(2,Math.round(r.n*100/m))+'%"></i></div><div class="v">'+fmt(r.n)+(pc!==null?' · '+pc+'%':'')+'</div></div>'}).join("")}
+function draw(d){
+ var ret=d.returning,rp=ret.eligible?Math.round(ret.back*100/ret.eligible)+"%":"–";
+ $("meta").textContent="Report date "+nice(d.generated)+(d.trackingSince?" · activity tracked since "+nice(d.trackingSince):" · activity tracking has not recorded anything yet");
+ var f=d.funnel;
+ var srcRows=d.sources.map(function(s){return{label:s.src==="direct"?"Direct / unknown":s.src,n:s.n}});
+ $("out").innerHTML=
+ '<div class="big"><div class="k"><b>'+fmt(d.signupsTotal)+'</b><span>Total sign-ups</span><small>From account records</small></div>'
+ +'<div class="k"><b>'+fmt(d.activeThisMonth)+'</b><span>Active learners this month</span><small>Opened SayBon at least once</small></div>'
+ +'<div class="k"><b>'+fmt(d.lessonsTotal)+'</b><span>Lessons completed</span><small>'+fmt(d.lessonsThisMonth)+' this month · counted since tracking began</small></div>'
+ +'<div class="k"><b>'+rp+'</b><span>Come back the next week</span><small>'+(ret.eligible?ret.back+' of '+ret.eligible+' learners':'Needs learners tracked for 2+ weeks')+'</small></div></div>'
+ +'<div class="p"><h2>Growth</h2><p class="sub">Total sign-ups, last 90 days</p>'+chart(d.series)+'</div>'
+ +'<div class="two"><div class="p"><h2>Where learners get to</h2><p class="sub">From sign-up to ten lessons</p>'+bars(f.map(function(x){return{label:x.step,n:x.n}}),f[0].n)+'<p class="note">Steps after sign-up count only learners seen since tracking began, so early rows may look low.</p></div>'
+ +'<div class="p"><h2>Where sign-ups came from</h2><p class="sub">First link a learner arrived through</p>'+(srcRows.length?bars(srcRows,srcRows.reduce(function(a,b){return a+b.n},0)):'<p class="empty">No sources recorded yet. Share links ending in ?src=name, for example saybonapp.com/?src=school1.</p>')+'</div></div>'
+
+ +(d.professional&&d.professional.total?'<div class="two"><div class="p"><h2>French for Professionals: fields chosen</h2><p class="sub">'+fmt(d.professional.total)+' learners picked a field</p>'+bars(d.professional.byField.map(function(x){return{label:({banking:"Banking and finance",logistics:"Logistics and customs",health:"Health",hospitality:"Hospitality and tourism",defence:"Military and security",business:"General business",__other:"Other (typed)"})[x.field]||x.field,n:x.n}}),d.professional.total)+'</div><div class="p"><h2>Levels chosen</h2><p class="sub">Self-selected, no test</p>'+bars(d.professional.byLevel.map(function(x){return{label:x.level,n:x.n}}),d.professional.total)+(d.professional.others.length?'<p class="note"><b>Fields people typed:</b> '+d.professional.others.map(function(o){return esc(o.text)+(o.n>1?' ('+o.n+')':'')}).join(", ")+'</p>':'')+'</div></div>':'')
+ +'<div class="p"><h2>About these numbers</h2><p class="note">Every figure comes from SayBon’s own records. This page shows counts only: no names, no emails. Learners are stored as anonymous IDs. Sign-up totals come from account creation dates. Activity, lessons, funnel and sources are counted from the day tracking went live, so earlier use is not included.</p></div>';
+}
+async function load(){
+ try{var r=await fetch(API+"/api/adminUsageSummary",{headers:{Authorization:"Bearer "+await tok()}});
+  if(!r.ok)throw new Error(r.status);draw(await r.json())}
+ catch(e){$("out").innerHTML='<p class="empty">Could not load the numbers. The server may be waking up or not updated yet; refresh in a minute.</p>';$("meta").textContent=""}
+}
+$("pdf").onclick=function(){window.print()};
+load();
+</script>
+</body></html>
