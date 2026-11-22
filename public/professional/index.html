@@ -2,97 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>French for Professionals - SayBon</title>
 <script type="module" src="/js/auth-guard.js"></script>
+<link rel="preload" as="image" href="bg-desktop.webp" media="(min-width:701px)">
+<link rel="preload" as="image" href="bg-mobile.webp" media="(max-width:700px)">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Fraunces:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--gold:#b8893a;--gold-d:#8a6422;--gold2:#f0d49a;--ink:#1c2230;--bg1:#fffaf0;--bg2:#f4ecdc;--card:#ffffff;--line:#eadfca;--txt:#2a3142;--mut:#6c7385;--ok:#2f8f5b;--bad:#c0504d;--navy:#1f2a44}
-body{font-family:"Manrope",sans-serif;background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%) fixed;color:var(--txt);min-height:100vh;padding:64px 18px 56px}
-.w{max-width:820px;margin:0 auto}
-.ic{position:fixed;top:14px;left:14px;width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;box-shadow:0 4px 14px rgba(60,40,0,.08)}
-.ic svg{width:18px;height:18px}
-.eb{font-size:.74rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px}
-h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(2.1rem,7vw,3.1rem);color:var(--navy);line-height:1.1;margin-bottom:14px}
-h2{font-family:"Fraunces",serif;font-weight:600;font-size:1.3rem;color:var(--navy);margin-bottom:8px}
-.pitch{font-size:1.08rem;line-height:1.65;color:var(--txt);margin-bottom:18px}
-.free{display:inline-flex;align-items:center;gap:8px;background:#e9f6ee;color:#1f6b43;border:1px solid #bfe3cd;border-radius:999px;padding:8px 16px;font-weight:800;font-size:.84rem;margin-bottom:22px}
-.sub{color:var(--mut);font-size:.95rem;line-height:1.55;margin-bottom:18px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 14px 34px rgba(90,60,10,.08);margin-bottom:18px}
-.box label{display:block;font-weight:800;font-size:.9rem;color:var(--navy);margin:0 0 8px}
-.box label + select,.box label + input{margin-bottom:16px}
-select,input[type=text]{width:100%;font:600 1rem Manrope,sans-serif;color:var(--ink);background:#fffdf8;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;appearance:none;-webkit-appearance:none}
-select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238a6422' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:44px}
-select:focus,input:focus{outline:none;border-color:var(--gold)}
-select:disabled{opacity:.5}
+:root{--mint:#6ef0b0;--deep:#0a3d2e;--ink:#0b3d2c;--gold:#b8893a;--navy:#10382b;--line:#d5eadd;--mut:#5b7568;--ok:#1f8a55;--bad:#c0504d}
+html,body{min-height:100%}
+body{font-family:"Montserrat",sans-serif;color:#fff;background:#04382a;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:#04382a url(bg-desktop.webp) center/cover no-repeat}
+@media(max-width:700px){body::before{background-image:url(bg-mobile.webp)}}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 6vw 40px}
+.corner{position:fixed;top:clamp(16px,5.2vh,50px);width:clamp(46px,5.4vw,88px);height:clamp(46px,5.4vw,88px);border-radius:50%;border:2px solid rgba(255,255,255,.95);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20;transition:background .2s}
+.corner:hover{background:rgba(255,255,255,.14)}
+.corner.l{left:clamp(16px,4.5vw,76px)}.corner.r{right:clamp(16px,4.5vw,76px)}
+.corner svg{width:50%;height:50%}
+h1{font-weight:300;font-size:clamp(2.4rem,5.2vw,7rem);line-height:1.08;letter-spacing:-.01em;color:#f3fbf6}
+h1 b{font-weight:800;display:inline-block}
+@media(max-width:700px){h1{font-size:clamp(2rem,10.6vw,3.6rem);line-height:1.12}h1 b{display:block}.hero{justify-content:flex-start;padding-top:max(104px,15svh)}.bar{margin:16px auto 16px}}
+.bar{width:clamp(110px,16.7vw,280px);height:5px;border-radius:5px;background:var(--mint);margin:clamp(22px,4.5vh,40px) auto clamp(18px,3.6vh,34px);box-shadow:0 0 14px rgba(110,240,176,.45)}
+.tag{font-weight:500;font-size:clamp(.95rem,1.7vw,2.1rem);line-height:1.5;color:#eefaf2;max-width:60vw}
+@media(max-width:700px){.tag{font-size:clamp(.95rem,4.1vw,1.3rem);max-width:84%}}
+.pills{width:min(50vw,1000px);margin-top:clamp(34px,6.5vh,70px);display:flex;flex-direction:column;gap:clamp(16px,3.8vh,40px)}@media(max-width:700px){.pills{width:88vw;margin-top:34px;gap:18px}}
+.pill{display:flex;align-items:center;width:100%;height:clamp(64px,13.4vh,150px);border-radius:999px;cursor:pointer;font:700 clamp(1.15rem,3vw,3.6rem) "Montserrat",sans-serif;text-align:left;padding:0 clamp(22px,4vw,56px) 0 clamp(22px,4.6vw,86px);position:relative;border:0}
+@media(max-width:700px){.pill{height:17vw;max-height:84px;min-height:60px;font-size:clamp(1.05rem,5.5vw,1.6rem);padding:0 22px 0 24px}}
+.pill .ico{flex:none;width:clamp(30px,4.6vw,86px);height:clamp(30px,4.6vw,86px);display:flex;align-items:center;justify-content:center}
+@media(max-width:700px){.pill .ico{width:38px;height:38px}}
+.pill .ico svg{width:100%;height:100%}
+.pill .div{flex:none;width:2px;align-self:center;height:56%;margin:0 clamp(22px,3.8vw,60px) 0 clamp(20px,3.2vw,52px);opacity:.55}
+@media(max-width:700px){.pill .div{margin:0 20px 0 18px}}
+.pill .lab{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill .chev{flex:none;width:clamp(20px,3vw,52px);height:clamp(20px,3vw,52px)}
+.pill.light{background:linear-gradient(180deg,#f4fcf7 0%,#cfeedd 100%);color:var(--ink);box-shadow:0 16px 36px rgba(0,30,20,.45),inset 0 1px 0 #fff}
+.pill.light .div{background:var(--ink)}
+.pill.dark{background:linear-gradient(180deg,rgba(6,70,52,.78),rgba(3,52,38,.9));color:#fff;border:4px solid var(--mint);box-shadow:0 14px 32px rgba(0,25,16,.45);padding-left:calc(clamp(22px,4.6vw,86px) - 4px)}
+@media(max-width:700px){.pill.dark{padding-left:23px}}
+.pill.dark .div{background:#fff}
+.pill.dim{opacity:.9}
+.free{margin-top:clamp(18px,3vh,28px);font-weight:600;font-size:clamp(.85rem,1.2vw,1.05rem);color:rgba(238,250,242,.9)}
+.free i{font-style:normal;color:var(--mint)}
+/* ---- sheets ---- */
+.ov{position:fixed;inset:0;background:rgba(0,12,8,.62);z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
+.ov.on{display:flex}
+@media(max-width:700px){.ov{align-items:flex-end;padding:0}}
+.sheet{width:min(560px,100%);max-height:86vh;overflow:auto;background:linear-gradient(180deg,#0e5340,#06382b);border:1px solid rgba(110,240,176,.4);border-radius:28px;padding:24px 20px 20px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+@media(max-width:700px){.sheet{border-radius:28px 28px 0 0;padding-bottom:30px}}
+.sheet h3{font-weight:800;font-size:1.25rem;margin-bottom:4px;color:#fff}
+.sheet p.s{font-size:.88rem;color:rgba(238,250,242,.8);margin-bottom:14px;line-height:1.5}
+.opt2{display:flex;justify-content:space-between;align-items:center;width:100%;gap:10px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:16px;padding:15px 16px;margin-top:9px;font:600 1rem Montserrat,sans-serif;cursor:pointer}
+.opt2:hover,.opt2.sel{border-color:var(--mint);background:rgba(110,240,176,.14)}
+.opt2 small{display:block;font-weight:500;font-size:.78rem;color:rgba(238,250,242,.75);margin-top:3px}
+.opt2 svg{width:20px;height:20px;color:var(--mint);flex:none}
+.sheet input{width:100%;font:600 1rem Montserrat,sans-serif;color:var(--ink);background:#f4fcf7;border:2px solid transparent;border-radius:999px;padding:15px 20px;margin-top:6px}
+.sheet input:focus{outline:none;border-color:var(--mint)}
+.sbtn{display:inline-block;margin-top:14px;background:linear-gradient(180deg,#f4fcf7,#cfeedd);color:var(--ink);border:0;border-radius:999px;padding:13px 26px;font:800 .92rem Montserrat,sans-serif;cursor:pointer}
+.sbtn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);margin-left:8px}
+.hint{font-size:.78rem;color:rgba(238,250,242,.75);margin-top:10px;line-height:1.5}
+/* ---- lessons area ---- */
+#learn{width:min(820px,92vw);margin:0 auto;padding:0 0 70px}
 .hide{display:none!important}
-.hint{font-size:.8rem;color:var(--mut);margin:-8px 0 14px}
-.tabs{display:flex;gap:8px;margin:6px 0 16px;overflow-x:auto}
-.tabs button{flex:none;background:#fff;border:1px solid var(--line);color:var(--navy);border-radius:999px;padding:9px 18px;font:800 .82rem Manrope;cursor:pointer}
-.tabs button.on{background:linear-gradient(180deg,var(--gold2),#e2b968);border-color:transparent}
-.btn{background:linear-gradient(180deg,var(--gold2),#e2b968);color:#2a1d06;border:0;border-radius:999px;padding:12px 22px;font:800 .88rem Manrope;cursor:pointer;text-decoration:none;display:inline-block}
-.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+#learn .eb{font-size:.74rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin-bottom:6px}
+#learn h2{font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:10px}
+#learn .sub,#learn .prog,#learn .note{color:rgba(238,250,242,.85)}
+.tabs{display:flex;gap:8px;margin:8px 0 16px;overflow-x:auto}
+.tabs button{flex:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:10px 20px;font:700 .84rem Montserrat,sans-serif;cursor:pointer}
+.tabs button.on{background:linear-gradient(180deg,#f4fcf7,#cfeedd);color:var(--ink);border-color:transparent}
+.btn{background:linear-gradient(180deg,#f4fcf7,#cfeedd);color:var(--ink);border:0;border-radius:999px;padding:12px 22px;font:800 .88rem Montserrat,sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.panel .btn.ghost{color:var(--ink);border-color:var(--line)}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.panel{background:#fff;color:#1d3a2f;border-radius:22px;padding:22px;margin-bottom:14px;box-shadow:0 14px 34px rgba(0,25,16,.35)}
+#learn .panel h2{color:var(--navy);font-size:1.25rem}
+#learn .panel .sub,#learn .panel .note,#learn .panel .prog{color:var(--mut)}
+#learn .panel .eb{color:#1f8a55}
 .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 @media(min-width:560px){.grid{grid-template-columns:repeat(8,1fr)}}
-.les{aspect-ratio:1;border-radius:16px;border:1.5px solid var(--line);background:#fff;font:800 1.15rem "Fraunces",serif;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative}
-.les.u{background:linear-gradient(180deg,#fff7e0,#f4dca0);border-color:#e2b968;box-shadow:0 6px 14px rgba(160,110,20,.18)}
-.les.l{color:#b5ab97;background:#f7f2e7;cursor:default}
+.les{aspect-ratio:1;border-radius:16px;border:1.5px solid var(--line);background:#f1f8f4;font:800 1.15rem "Montserrat",sans-serif;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.les.u{background:linear-gradient(180deg,#e6fbef,#a9ecc8);border-color:#6ef0b0;box-shadow:0 6px 14px rgba(20,120,70,.22)}
+.les.l{color:#9db3a8;background:#eef4f0;cursor:default}
 .les svg{width:18px;height:18px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:14px;box-shadow:0 10px 26px rgba(90,60,10,.06)}
 .flash{min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;gap:8px}
-.flash .fr{font-family:"Fraunces",serif;font-size:clamp(1.7rem,6vw,2.3rem);color:var(--navy)}
-.flash .en{font-size:1.2rem;color:var(--gold-d);font-weight:800}
-.flash .ex{font-size:.95rem;color:var(--txt);line-height:1.5}.flash .ex em{display:block;font-style:normal;color:var(--mut);font-size:.85rem;margin-top:2px}
-.flash .hint{font-size:.78rem;color:var(--mut);margin:0}
-.prog{font-size:.82rem;color:var(--mut);margin-bottom:10px}
-.listen{background:#fff;border:1px solid var(--line);color:var(--gold-d);border-radius:999px;padding:6px 14px;font:800 .76rem Manrope;cursor:pointer}
-.opt{display:block;width:100%;text-align:left;background:#fffdf8;border:1.5px solid var(--line);color:var(--ink);border-radius:14px;padding:14px 16px;font:600 .95rem Manrope;margin-top:10px;cursor:pointer;line-height:1.4}
-.opt.good{border-color:var(--ok);background:#e9f6ee}.opt.wrong{border-color:var(--bad);background:#fbeceb}
-.bub{max-width:86%;border-radius:16px;padding:12px 15px;margin:10px 0;line-height:1.45}
-.bub.o{background:#fff;border:1px solid var(--line);border-top-left-radius:4px}
-.bub.y{background:linear-gradient(180deg,var(--gold2),#e2b968);color:#2a1d06;margin-left:auto;border-top-right-radius:4px;font-weight:700}
+.flash .fr{font-weight:800;font-size:clamp(1.6rem,6vw,2.2rem);color:var(--navy)}
+.flash .en{font-size:1.15rem;color:#1f8a55;font-weight:800}
+.flash .ex{font-size:.95rem;color:#2b4a3d;line-height:1.5}.flash .ex em{display:block;font-style:normal;color:var(--mut);font-size:.85rem;margin-top:2px}
+.flash .hint{color:var(--mut);margin:0}
+.listen{background:#fff;border:1px solid var(--line);color:#1f8a55;border-radius:999px;padding:6px 14px;font:800 .76rem Montserrat,sans-serif;cursor:pointer}
+.opt{display:block;width:100%;text-align:left;background:#f6fbf8;border:1.5px solid var(--line);color:#173328;border-radius:14px;padding:14px 16px;font:600 .95rem Montserrat,sans-serif;margin-top:10px;cursor:pointer;line-height:1.4}
+.opt.good{border-color:var(--ok);background:#e3f6ea}.opt.wrong{border-color:var(--bad);background:#fbeceb}
+.bub{max-width:88%;border-radius:16px;padding:12px 15px;margin:10px 0;line-height:1.45;font-size:.95rem}
+.bub.o{background:#fff;color:#1d3a2f;border-top-left-radius:4px}
+.bub.y{background:linear-gradient(180deg,#e6fbef,#a9ecc8);color:#0b3d2c;margin-left:auto;border-top-right-radius:4px;font-weight:700}
 .bub small{display:block;color:var(--mut);font-size:.78rem;margin-top:4px;font-weight:500}
-.bub.y small{color:#6b4d12}
-.goal{color:var(--gold-d);font-weight:800;font-size:.9rem;margin:14px 0 2px}
-.pick{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;color:inherit;font:inherit;width:100%;text-align:left}
-.pick b{font-family:"Fraunces",serif;font-weight:600;color:var(--navy);font-size:1.05rem}.pick span{display:block;color:var(--mut);font-size:.82rem;margin-top:3px}
+.bub.y small{color:#2b6a50}
+.goal{color:var(--mint);font-weight:800;font-size:.9rem;margin:14px 0 2px}
+.pick{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;color:#1d3a2f;border:0;border-radius:16px;padding:16px;margin-bottom:10px;cursor:pointer;font:inherit;width:100%;text-align:left}
+.pick b{font-weight:800;color:var(--navy);font-size:1rem}.pick span{display:block;color:var(--mut);font-size:.82rem;margin-top:3px;font-weight:500}
 .pick em{font-style:normal;color:var(--ok);font-size:.78rem;font-weight:800;white-space:nowrap}
-.note{font-size:.8rem;color:var(--mut);line-height:1.55;margin-top:14px}
+.note{font-size:.8rem;line-height:1.55;margin-top:14px}
 .shake{animation:shk .3s}@keyframes shk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#learn .opt + .goal,#turn .opt{background:#f6fbf8}
 </style></head>
 <body>
-<button class="ic" id="back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-<div class="w">
-<p class="eb">SayBon</p>
-<h1>French for Professionals</h1>
-<p class="pitch">Speak French where it counts: at work. Choose your profession and learn the French your job really needs, from your very first words to confident conversations with clients, colleagues and partners across Francophone Africa and beyond.</p>
-<div class="free">Free for everyone. No payment needed.</div>
-<div class="box">
- <label for="fsel">Select your field</label>
- <select id="fsel"></select>
- <div id="otherwrap" class="hide"><label for="oth">Type your field</label><input type="text" id="oth" maxlength="60" placeholder="For example: agriculture, law, education" autocomplete="off"><p class="hint">We use this to decide which professions to add next.</p></div>
- <label for="lsel">Select your level</label>
- <select id="lsel" disabled></select>
- <p class="hint" id="lhint">Choose a field first.</p>
-</div>
-<div id="learn" class="hide"></div>
-</div>
-<script src="pro-data.js?v=1"></script>
+<button class="corner l" id="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11L12 3.5 20.5 11"/><path d="M5.5 9.5V20h4.5v-6h4v6h4.5V9.5"/></svg></button>
+<button class="corner r" id="dash" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg></button>
+
+<main class="hero">
+ <h1>French for <b>Professionals</b></h1>
+ <div class="bar"></div>
+ <p class="tag">Build real French fluency for your work, career, and professional goals.</p>
+ <div class="pills">
+  <button class="pill light" id="pf"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5c3 1.5 6 2.2 9 2.2s6-.7 9-2.2"/><rect x="10.6" y="12.6" width="2.8" height="2.6" rx=".6" fill="currentColor" stroke="none"/></svg></span><span class="div"></span><span class="lab" id="pfl">Pick Your Field</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+  <button class="pill dark dim" id="pl"><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="14" width="4.6" height="7" rx="1.3"/><rect x="9.7" y="9" width="4.6" height="12" rx="1.3"/><rect x="16.4" y="3" width="4.6" height="18" rx="1.3"/></svg></span><span class="div"></span><span class="lab" id="pll">Select Your Level</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg></button>
+ </div>
+ <p class="free"><i>Free</i> for everyone. No payment needed.</p>
+</main>
+<section id="learn" class="hide"></section>
+
+<div class="ov" id="ov"><div class="sheet" id="sheet"></div></div>
+
+<script src="pro-data.js?v=2"></script>
 <script type="module">
 import { auth } from "/js/firebase-init.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 var API="https://saybonapp-server.onrender.com";
 var D=window.PRO_DATA;
 var LEVELS=[
- {k:"A0",name:"A0 · Starter",key:"a0-tout-public",base:"/levels/A0/tout-public/"},
- {k:"A1",name:"A1 · Beginner",key:"a1",base:"/levels/A1/"},
- {k:"A2",name:"A2 · Elementary",key:"a2",base:"/levels/A2/"},
- {k:"B1",name:"B1 · Intermediate",key:"b1",base:"/levels/B1/"},
- {k:"B2",name:"B2 · Upper intermediate",key:"b2",base:"/levels/B2/"},
- {k:"C1",name:"C1 · Advanced",key:"c1",base:"/levels/C1/"}
+ {k:"A0",name:"A0 · Starter",sub:"Complete beginner",key:"a0-tout-public",base:"/levels/A0/tout-public/"},
+ {k:"A1",name:"A1 · Beginner",sub:"First conversations",key:"a1",base:"/levels/A1/"},
+ {k:"A2",name:"A2 · Elementary",sub:"Everyday situations",key:"a2",base:"/levels/A2/"},
+ {k:"B1",name:"B1 · Intermediate",sub:"Handle most work situations",key:"b1",base:"/levels/B1/"},
+ {k:"B2",name:"B2 · Upper intermediate",sub:"Discuss and negotiate with ease",key:"b2",base:"/levels/B2/"},
+ {k:"C1",name:"C1 · Advanced",sub:"Fluent and precise",key:"c1",base:"/levels/C1/"}
 ];
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
@@ -108,28 +152,53 @@ var sel=ls("sbpro_sel")||{f:"",other:"",lv:""};
 var state={tab:"lessons",card:null,open:false,quiz:null,play:null};
 var user=null,progress=null;
 function known(f){return ls("sbpro_known_"+f)||[]}
+function level(){return LEVELS.find(function(l){return l.k===sel.lv})}
+function fieldOk(){return !!sel.f&&(sel.f!=="__other"||(sel.other||"").trim().length>=2)}
+function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var f=field(sel.f);return f?f.name:""}
 
-/* ---------- selects ---------- */
-var fsel=$("fsel"),lsel=$("lsel"),oth=$("oth");
-fsel.innerHTML='<option value="">Choose your field…</option>'+D.map(function(f){return'<option value="'+f.id+'">'+esc(f.name)+'</option>'}).join("")+'<option value="__other">My field is not listed</option>';
-lsel.innerHTML='<option value="">Choose your level…</option>'+LEVELS.map(function(l){return'<option value="'+l.k+'">'+esc(l.name)+'</option>'}).join("");
-function fieldOk(){return sel.f&&(sel.f!=="__other"||(sel.other||"").trim().length>=2)}
-function syncControls(){
- fsel.value=sel.f||"";oth.value=sel.other||"";
- $("otherwrap").classList.toggle("hide",sel.f!=="__other");
- var ok=fieldOk();lsel.disabled=!ok;lsel.value=ok?(sel.lv||""):"";
- $("lhint").textContent=ok?"Pick the level that fits you. You can change it any time.":(sel.f==="__other"?"Type your field to continue.":"Choose a field first.");
- if(ok&&sel.lv)renderLearn();else $("learn").classList.add("hide");
+/* ---------- the two pills and their pick sheets ---------- */
+var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 13 10 18 19 7"/></svg>';
+function openSheet(html){$("sheet").innerHTML=html;$("ov").classList.add("on")}
+function closeSheet(){$("ov").classList.remove("on")}
+$("ov").addEventListener("click",function(e){if(e.target.id==="ov")closeSheet()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
+function updatePills(){
+ $("pfl").textContent=fieldOk()?fieldName():"Pick Your Field";
+ $("pll").textContent=level()&&fieldOk()?level().name:"Select Your Level";
+ $("pl").classList.toggle("dim",!fieldOk());
 }
-fsel.onchange=function(){sel.f=fsel.value;if(sel.f!=="__other")sel.other="";sel.lv=ok2(sel.lv);ls("sbpro_sel",sel);state.tab="lessons";state.card=null;state.quiz=null;state.play=null;syncControls()};
-function ok2(v){return v}
-oth.oninput=function(){sel.other=oth.value;ls("sbpro_sel",sel);var ok=fieldOk();lsel.disabled=!ok;$("lhint").textContent=ok?"Pick the level that fits you. You can change it any time.":"Type your field to continue.";if(!ok){$("learn").classList.add("hide")}};
-oth.onchange=function(){if(fieldOk()&&sel.lv)save()};
-lsel.onchange=function(){sel.lv=lsel.value;ls("sbpro_sel",sel);state.tab="lessons";if(sel.lv){save();renderLearn();setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},60)}else $("learn").classList.add("hide")};
-async function save(){try{if(!user)return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv}),keepalive:true}).catch(function(){})}catch(e){}}
+function fieldSheet(){
+ openSheet('<h3>Pick your field</h3><p class="s">Choose the profession you want to become proficient in. It is free.</p>'
+  +D.map(function(f){return'<button class="opt2'+(sel.f===f.id?" sel":"")+'" data-f="'+f.id+'"><span>'+esc(f.name)+'<small>'+esc(f.blurb)+'</small></span>'+(sel.f===f.id?CHECK:"")+'</button>'}).join("")
+  +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" data-f="__other"><span>My field is not listed<small>Type your own field</small></span></button>');
+ document.querySelectorAll("#sheet [data-f]").forEach(function(b){b.onclick=function(){
+  var v=b.dataset.f;
+  if(v==="__other"){openSheet('<h3>Type your field</h3><p class="s">For example: agriculture, law, education. This helps us decide which professions to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your field" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>');
+   setTimeout(function(){var i=$("oth");i&&i.focus()},50);
+   $("bk").onclick=fieldSheet;
+   var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}pickField("__other",t)};
+   $("ok").onclick=go;$("oth").onkeydown=function(e){if(e.key==="Enter")go()};return}
+  pickField(v,"")}});
+}
+function pickField(v,other){
+ sel.f=v;sel.other=other;ls("sbpro_sel",sel);state.tab="lessons";state.card=null;state.quiz=null;state.play=null;
+ updatePills();closeSheet();
+ if(sel.lv){save();renderLearn()}else setTimeout(levelSheet,260);
+}
+function levelSheet(){
+ openSheet('<h3>Select your level</h3><p class="s">Pick the level that fits you. You can change it any time.</p>'
+  +LEVELS.map(function(l){return'<button class="opt2'+(sel.lv===l.k?" sel":"")+'" data-l="'+l.k+'"><span>'+esc(l.name)+'<small>'+esc(l.sub)+'</small></span>'+(sel.lv===l.k?CHECK:"")+'</button>'}).join(""));
+ document.querySelectorAll("#sheet [data-l]").forEach(function(b){b.onclick=function(){
+  sel.lv=b.dataset.l;ls("sbpro_sel",sel);state.tab="lessons";progress=null;updatePills();closeSheet();save();renderLearn();
+  setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},120)}});
+}
+$("pf").onclick=fieldSheet;
+$("pl").onclick=function(){if(!fieldOk())fieldSheet();else levelSheet()};
+$("home").onclick=function(){if(window.stopAppBgMusic){window.stopAppBgMusic()}location.href="/"};
+$("dash").onclick=function(){location.href="/dashboard/"};
+async function save(){try{if(!user||!fieldOk()||!sel.lv)return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv}),keepalive:true}).catch(function(){})}catch(e){}}
 
 /* ---------- lessons (same unlock rule as the level hubs) ---------- */
-function level(){return LEVELS.find(function(l){return l.k===sel.lv})}
 function maxUnlocked(){
  if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 25;
  if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 100;
@@ -148,7 +217,6 @@ function drawLessons(){
  h+='</div><p class="note">Lesson 1 is open. Finish each lesson to unlock the next.</p></div>';
  el.innerHTML=h;el.querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=l.base+"lesson"+b.dataset.n+".html"}});
 }
-function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var f=field(sel.f);return f?f.name:""}
 function renderLearn(){
  var c=$("learn"),l=level();if(!l||!fieldOk()){c.classList.add("hide");return}
  c.classList.remove("hide");
@@ -212,8 +280,8 @@ function plays(f,el){
  step();
 }
 
-$("back").onclick=function(){location.href="/dashboard/"};
 onAuthStateChanged(auth,function(u){user=u;if(u){if(sel.lv&&fieldOk()){save();loadProgress()}}else if(sel.lv)drawLessons()});
-syncControls();
+updatePills();
+if(sel.lv&&fieldOk())renderLearn();
 </script>
 </body></html>
