@@ -94,11 +94,16 @@ $("links").innerHTML=L;
 $("bk").onclick=function(){location.href="/dashboard/"};
 $("ds").onclick=function(){location.href="/dashboard/"};
 $("rs").onclick=function(){location.href="/professional/?change=1"};
+themeFor(ps[cur]);
 onAuthStateChanged(auth,async function(u){
  user=u;if(u&&saved&&saved.uid&&saved.uid!==u.uid){try{localStorage.removeItem("sbpro_sel")}catch(e){}location.replace("/professional/");return}
  if(!u){draw();return}
- await Promise.all(ps.map(async function(l){try{var r=await fetch(API+"/api/levelProgress?uid="+u.uid+"&level="+l.key);var d=await r.json();prog[l.key]=(d.completedLessons||[]).map(Number)}catch(e){prog[l.key]=[]}}));
+ var CK="sbpro_prog_"+u.uid;try{var c=JSON.parse(localStorage.getItem(CK)||"null");if(c)prog=c}catch(e){}
  draw();
+ var before=JSON.stringify(prog);
+ await Promise.all(ps.map(async function(l){try{var ac=new AbortController(),t=setTimeout(function(){ac.abort()},12000);var r=await fetch(API+"/api/levelProgress?uid="+u.uid+"&level="+l.key,{signal:ac.signal});clearTimeout(t);var d=await r.json();prog[l.key]=(d.completedLessons||[]).map(Number)}catch(e){if(!prog[l.key])prog[l.key]=[]}}));
+ try{localStorage.setItem(CK,JSON.stringify(prog))}catch(e){}
+ if(JSON.stringify(prog)!==before)draw();
 });
 </script>
 </body>
