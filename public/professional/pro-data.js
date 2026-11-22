@@ -289,30 +289,6 @@ window.PRO_LIST=[
 "kw": "airline cabin crew"
 },
 {
-"id": "soldier",
-"name": "Soldier",
-"g": "defence",
-"kw": "army military armed forces"
-},
-{
-"id": "police-officer",
-"name": "Police officer",
-"g": "defence",
-"kw": "police security"
-},
-{
-"id": "peacekeeper",
-"name": "Peacekeeper",
-"g": "defence",
-"kw": "united nations mission military"
-},
-{
-"id": "immigration-officer",
-"name": "Immigration officer",
-"g": "defence",
-"kw": "border passport"
-},
-{
 "id": "electrician",
 "name": "Electrician",
 "g": "",
@@ -439,12 +415,6 @@ window.PRO_LIST=[
 "kw": "humanitarian charity development"
 },
 {
-"id": "security-guard",
-"name": "Security guard",
-"g": "defence",
-"kw": "guard protection"
-},
-{
 "id": "pilot",
 "name": "Pilot",
 "g": "",
@@ -491,8 +461,20 @@ window.PRO_LIST=[
 "name": "Education and research",
 "g": "",
 "kw": "teacher lecturer professor academic researcher scholar school university education science"
+},
+{
+"id": "military-peacekeeping",
+"name": "Military and Peacekeeping",
+"g": "defence",
+"kw": "soldier army navy air force armed forces officer commander peacekeeper peacekeeping united nations mission defence"
+},
+{
+"id": "police-security",
+"name": "Police and Security",
+"g": "",
+"kw": "police officer policeman constable security guard immigration border officer law enforcement"
 }
 ];
-window.PRO_OLD={"nurse": "medical-professionals", "doctor": "medical-professionals", "pharmacist": "medical-professionals", "midwife": "medical-professionals", "dentist": "medical-professionals", "lawyer": "legal-professionals", "judge": "legal-professionals", "magistrate": "legal-professionals", "court-clerk": "legal-professionals", "paralegal": "legal-professionals", "legal-consultant": "legal-professionals", "notary": "legal-professionals", "consultant": "consultants-advisors", "management-consultant": "consultants-advisors", "business-advisor": "consultants-advisors", "financial-advisor": "consultants-advisors", "teacher": "education-research", "researcher": "education-research"};
+window.PRO_OLD={"nurse": "medical-professionals", "doctor": "medical-professionals", "pharmacist": "medical-professionals", "midwife": "medical-professionals", "dentist": "medical-professionals", "lawyer": "legal-professionals", "judge": "legal-professionals", "magistrate": "legal-professionals", "court-clerk": "legal-professionals", "paralegal": "legal-professionals", "legal-consultant": "legal-professionals", "notary": "legal-professionals", "consultant": "consultants-advisors", "management-consultant": "consultants-advisors", "business-advisor": "consultants-advisors", "financial-advisor": "consultants-advisors", "teacher": "education-research", "researcher": "education-research", "immigration-officer": "police-security", "police-officer": "police-security", "security-guard": "police-security", "peacekeeper": "military-peacekeeping", "soldier": "military-peacekeeping", "military-professionals": "military-peacekeeping"};
 window.proOf=function(id){id=(window.PRO_OLD||{})[id]||id;return (window.PRO_LIST||[]).find(function(x){return x.id===id})||null};
 window.proGroup=function(id){var p=window.proOf(id),g=p?p.g:id;return g?(window.PRO_DATA||[]).find(function(x){return x.id===g})||null:null};
