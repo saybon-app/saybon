@@ -1,0 +1,144 @@
+﻿SAYBON APP-WIDE DUMP  11/22/2026 08:05:40
+Read-only. Every line below was measured on this machine or the live site.
+
+=== 1. GIT ===
+Last commit: 99942534 Audio: Tout Public 4-15, Banque, Arret de bus, reading 12, Les Petits (as credits allow)
+Branch: main
+Uncommitted files: 127
+    M dumps/audio-result.txt
+   ?? dumps/work-check.txt
+   ?? public/assets/audio/lessons/L16_a0_dlg.json
+   ?? public/assets/audio/lessons/L16_a0_dlg.mp3
+   ?? public/assets/audio/lessons/L16_a0_intro.mp3
+   ?? public/assets/audio/lessons/L16_a0_q1.mp3
+   ?? public/assets/audio/lessons/L16_a0_q2.json
+   ?? public/assets/audio/lessons/L16_a0_q2.mp3
+   ?? public/assets/audio/lessons/L16_a0_s1.mp3
+   ?? public/assets/audio/lessons/L16_a0_s2.mp3
+   ?? public/assets/audio/lessons/L16_a0_s3.mp3
+   ?? public/assets/audio/lessons/L16_a0_s4.mp3
+   ?? public/assets/audio/lessons/L17_a0_dlg.json
+   ?? public/assets/audio/lessons/L17_a0_dlg.mp3
+   ?? public/assets/audio/lessons/L17_a0_intro.mp3
+   ?? public/assets/audio/lessons/L17_a0_q1.mp3
+   ?? public/assets/audio/lessons/L17_a0_q2.json
+   ?? public/assets/audio/lessons/L17_a0_q2.mp3
+   ?? public/assets/audio/lessons/L17_a0_s1.mp3
+   ?? public/assets/audio/lessons/L17_a0_s2.mp3
+
+=== 2. SIZE AND CLEAN-UP ===
+Files in public: 5039   Total size MB: 683.1
+Biggest 10 files:
+   5.6 MB  \assets\sounds\music\2.mp3
+   5.2 MB  \assets\sounds\music\7.mp3
+   4.5 MB  \assets\sounds\music\1.mp3
+   4.3 MB  \assets\sounds\music\5.mp3
+   4.3 MB  \assets\sounds\music\3.mp3
+   4.2 MB  \assets\sounds\music\6.mp3
+   3.8 MB  \assets\sounds\music\11.mp3
+   3.6 MB  \assets\sounds\music\8.mp3
+   3.6 MB  \assets\sounds\music\4.mp3
+   3.5 MB  \assets\sounds\app-wide-bg-music.mp3
+Leftover backup files: 0
+Zips in Downloads named saybon-*: 0
+
+=== 3. PAGES (html files per top folder) ===
+   (root) : 8
+   admin : 8
+   auth : 1
+   chat : 2
+   dashboard : 4
+   delf : 14
+   features : 65
+   feedback : 2
+   levels : 232
+   library : 3
+   music : 4
+   onboarding : 2
+   placement : 4
+   reveal : 1
+   support : 3
+   talkletics : 27
+   translation : 18
+
+=== 4. BROKEN LOCAL LINKS (src/href that point to a file that does not exist) ===
+Missing targets found: 4  (showing up to 60)
+   /assets/sounds/prim-test-1.mp3   <- \features\delf\tests\prim.html
+   /assets/sounds/prim-test-2.mp3   <- \features\delf\tests\prim.html
+   /assets/sounds/prim-test-3.mp3   <- \features\delf\tests\prim.html
+   /translator-test.html   <- \translators.html
+
+=== 5. LESSONS PER TRACK ===
+A0 : lessons wired in the scene design=12   build flags=14   not wired: 1,2,3,16,17,18,19,20,21,22,23,24,25
+A1 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+A2 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+B1 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+B2 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+C1 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+C2 : lessons wired in the scene design=21   build flags=21   not wired: 6,12,18,24
+Les Petits drill lessons wired: 1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,20,21,22,23,24
+Reading lessons in reading-data.json: a1-12 a1-6 a2-12 a2-6 b1-12 b1-6 b2-12 b2-6 c1-12 c1-6 c2-12 c2-6
+Les Petits reading pages switched on: 13,19,25
+Les Petits audio files: 143   Lesson audio files: 1348
+
+=== 6. TALKLETICS ===
+Places on the map: 49   Marked built: 22
+   arret-de-bus : audio 74 of 74   page=True
+   banque : audio 89 of 89   page=True
+   maison : NO config.json
+   cuisine : audio 87 of 87   page=True
+   salon : audio 73 of 73   page=True
+   chambre : audio 91 of 91   page=True
+   salle-de-bains : audio 72 of 72   page=True
+   la-maison : audio 93 of 93   page=True
+   boulangerie : audio 79 of 79   page=True
+   supermarche : audio 123 of 123   page=True
+   marche : audio 88 of 88   page=True
+   patisserie : audio 67 of 67   page=True
+   cafe : audio 74 of 74   page=True
+   restaurant : audio 113 of 113   page=True
+   salon-de-coiffure : audio 104 of 104   page=True
+   laverie : audio 81 of 81   page=True
+   pharmacie : audio 118 of 118   page=True
+   poste : audio 117 of 117   page=True
+   salle-de-sport : audio 100 of 100   page=True
+   station-taxis : audio 82 of 82   page=True
+   parc : audio 94 of 94   page=True
+   ecole : audio 91 of 91   page=True
+Not built yet: bibliotheque, cabinet-medical, hopital, station-service, gare, cinema, restaurant-2, animalerie, centre-commercial, salon-de-coiffure-2, pharmacie-2, poste-2, universite, centre-sportif, stade, cinema-2, musee, jardin-botanique, zoo, aquarium, planetarium, ferme, camping, montagne, plage, gare-2, aeroport
+
+=== 7. PLACEMENT TEST ===
+Question items (id: occurrences): 147
+Distinct images referenced: 11   missing on disk: 0
+
+=== 8. WORDS THAT SUGGEST UNFINISHED WORK (TODO, FIXME, coming soon, being built, lorem ipsum, placeholder) ===
+Matches: 8  (showing up to 40)
+   \chat\index.html:248  <button class="header-icon-btn" id="searchToggle" title="Search (coming soon)">
+   \chat\index.html:258  <input class="search-input" id="searchInput" placeholder="Search messages... (coming soon)" disabled />
+   \delf\mocks.html:37  if (!data) { box.innerHTML = ""; note.textContent = "These mock exams are coming soon."; return; }
+   \delf\placement.js:96  '<div><h3>' + lvl.label + '</h3><p>' + (lvl.hasContent ? "Ready" : "Content coming soon") + '</p></div>' +
+   \delf\placement.js:103  '<div><h3>' + lvl.label + '</h3><p>' + (lvl.hasContent ? "Ready" : "Content coming soon") + '</p></div>' +
+   \features\support\index.html:46  <div class="locked-label">Coming soon</div>
+   \features\support\index.html:56  <div class="locked-label">Coming soon</div>
+   \talkletics\map.js:52  b.onclick=open?function(){if(BUILT[p.slug])location.href=p.slug+".html";else toast(p.name+" is being built.");
+
+=== 9. LIVE SITE (HTTP status) ===
+   200   /
+   200   /start.html
+   200   /why.html
+   200   /levels/
+   200   /placement/
+   200   /talkletics/map.html
+   200   /feedback/
+   200   /library/
+   200   /pricing.html
+   200   /dashboard/
+   200   /features/admin/
+   200   /assets/home/og-saybon.jpg
+   200   /assets/audio/lp/lesson2_part1.mp3
+   200   /assets/audio/lessons/L4_a0_intro.mp3
+   200   /talkletics/banque.html
+   200   /talkletics/arret-de-bus.html
+   server: FAIL   (Render may be asleep; FAIL here can just mean it is waking up)
+
+END OF DUMP

@@ -1,0 +1,75 @@
+﻿Last commit: 99942534 Audio: Tout Public 4-15, Banque, Arret de bus, reading 12, Les Petits (as credits allow)
+Uncommitted files: 1
+
+=== TOUT PUBLIC 4-25 (flag = all audio built; wired = switched on in the lesson design) ===
+Lesson 4 : flag=True  files=8  wired=True
+Lesson 5 : flag=True  files=8  wired=True
+Lesson 6 : flag=True  files=7  wired=True
+Lesson 7 : flag=True  files=8  wired=True
+Lesson 8 : flag=True  files=7  wired=True
+Lesson 9 : flag=True  files=8  wired=True
+Lesson 10 : flag=True  files=8  wired=True
+Lesson 11 : flag=True  files=8  wired=True
+Lesson 12 : flag=True  files=8  wired=True
+Lesson 13 : flag=True  files=8  wired=True
+Lesson 14 : flag=True  files=8  wired=True
+Lesson 15 : flag=True  files=8  wired=True
+Lesson 16 : flag=False  files=0  wired=False
+Lesson 17 : flag=False  files=0  wired=False
+Lesson 18 : flag=False  files=0  wired=False
+Lesson 19 : flag=False  files=0  wired=False
+Lesson 20 : flag=False  files=0  wired=False
+Lesson 21 : flag=False  files=0  wired=False
+Lesson 22 : flag=False  files=0  wired=False
+Lesson 23 : flag=False  files=0  wired=False
+Lesson 24 : flag=False  files=0  wired=False
+Lesson 25 : flag=False  files=0  wired=False
+
+Live check (Tout Public lesson 4 intro): 
+
+=== PLACES ===
+place.js skip list: SKIP={}
+banque : audio 89 of 89  page=True  on map=True
+   live page: 200
+arret-de-bus : audio 74 of 74  page=True  on map=True
+   live page: 200
+Map places: 49  (second bank still there: False)
+
+=== READING LESSON 12 (A1-C2) ===
+a1 : clips=15
+a2 : clips=15
+b1 : clips=6
+b2 : clips=6
+c1 : clips=5
+c2 : clips=5
+reading-data entries for lesson 12: 6
+
+=== LES PETITS ===
+Lesson 2 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 3 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 4 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 5 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 6 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 7 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 8 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 9 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 10 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 11 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 12 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 13 : lesson audio=0  reading audio=6  intro wired=False  reading page on=True
+Lesson 14 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 15 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 16 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 17 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 18 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 19 : lesson audio=0  reading audio=6  intro wired=False  reading page on=True
+Lesson 20 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 21 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 22 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 23 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 24 : lesson audio=5  reading audio=0  intro wired=True  reading page on=False
+Lesson 25 : lesson audio=0  reading audio=6  intro wired=False  reading page on=True
+Shared reading clips: 8 of 8
+
+Link preview image present: True
+Business admin tile present: True
