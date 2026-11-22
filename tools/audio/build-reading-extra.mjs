@@ -5,7 +5,9 @@ fs.mkdirSync(d, { recursive: true });
 const jobs = JSON.parse(fs.readFileSync(path.join(here, "reading-extra-jobs.json"), "utf8"));
 const sleep = s => spawnSync("node", ["-e", `setTimeout(()=>{},${s * 1000})`]);
 let made = 0, kept = 0;
+const ONLY = process.argv.includes("--only") ? "R" + process.argv[process.argv.indexOf("--only") + 1] + "_" : "";
 for (const name of jobs) {
+  if (ONLY && !name.startsWith(ONLY)) continue;
   if (fs.existsSync(path.join(d, name + ".mp3"))) { kept++; continue; }
   const m = /^R(\d+)_(a1|a2|b1|b2|c1|c2)_/.exec(name); let r;
   for (let k = 1; k <= 6; k++) {

@@ -8,7 +8,8 @@ const run = (args) => { let r; for (let k = 1; k <= 8; k++) { r = spawnSync("nod
 const ma = (n, name, script, out) => run(["make-audio.mjs", "--level", "a0", "--lesson", String(n), "--name", name, "--script", `scripts/${script}.txt`, "--outdir", out, ...(process.env.SB_DRY ? ["--dry"] : [])]);
 run(["make-audio.mjs", "--level", "a0", "--lesson", "1", "--name", "L1_end", "--script", "scripts/L1_end.txt", "--outdir", t, ...(process.env.SB_DRY ? ["--dry"] : [])]);
 const CFG = JSON.parse(fs.readFileSync(path.join(here, "..", "tp-lessons.json"), "utf8"));
-for (let n = 4; n <= 25; n++) {
+const TO = process.argv.includes("--to") ? +process.argv[process.argv.indexOf("--to") + 1] : 25;
+for (let n = 4; n <= TO; n++) {
   const ns = CFG["A0-" + n].steps.length - 2;
   const p = `L${n}_a0`, flag = path.join(flags, p + ".flag");
   if (fs.existsSync(flag) && !process.argv.includes("--force")) { console.log(`${p}: already built`); continue; }
@@ -25,4 +26,4 @@ for (let n = 4; n <= 25; n++) {
   fs.writeFileSync(flag, new Date().toISOString()); fs.rmSync(st, { recursive: true, force: true });
   console.log(`${p}: built and published`);
 }
-console.log("\nALL TOUT PUBLIC LESSONS BUILT");
+console.log("\nTOUT PUBLIC LESSONS 4-" + TO + " BUILT");
