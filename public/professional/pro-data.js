@@ -247,12 +247,6 @@ window.PRO_LIST=[
 "kw": "insurance claims"
 },
 {
-"id": "customs-officer",
-"name": "Customs officer",
-"g": "logistics",
-"kw": "border port duty"
-},
-{
 "id": "freight-forwarder",
 "name": "Freight forwarder",
 "g": "logistics",
@@ -472,9 +466,17 @@ window.PRO_LIST=[
 "id": "police-security",
 "name": "Police and Security",
 "g": "",
-"kw": "police officer policeman constable security guard immigration border officer law enforcement"
+"kw": "police officer policeman constable security guard law enforcement"
+},
+{
+"id": "immigration-customs-border",
+"name": "Immigration, Customs and Border",
+"g": "border",
+"kw": "immigration customs border officer passport visa travel documents checkpoint inspection duty port airport"
 }
 ];
-window.PRO_OLD={"nurse": "medical-professionals", "doctor": "medical-professionals", "pharmacist": "medical-professionals", "midwife": "medical-professionals", "dentist": "medical-professionals", "lawyer": "legal-professionals", "judge": "legal-professionals", "magistrate": "legal-professionals", "court-clerk": "legal-professionals", "paralegal": "legal-professionals", "legal-consultant": "legal-professionals", "notary": "legal-professionals", "consultant": "consultants-advisors", "management-consultant": "consultants-advisors", "business-advisor": "consultants-advisors", "financial-advisor": "consultants-advisors", "teacher": "education-research", "researcher": "education-research", "immigration-officer": "police-security", "police-officer": "police-security", "security-guard": "police-security", "peacekeeper": "military-peacekeeping", "soldier": "military-peacekeeping", "military-professionals": "military-peacekeeping"};
+window.PRO_OLD={"nurse": "medical-professionals", "doctor": "medical-professionals", "pharmacist": "medical-professionals", "midwife": "medical-professionals", "dentist": "medical-professionals", "lawyer": "legal-professionals", "judge": "legal-professionals", "magistrate": "legal-professionals", "court-clerk": "legal-professionals", "paralegal": "legal-professionals", "legal-consultant": "legal-professionals", "notary": "legal-professionals", "consultant": "consultants-advisors", "management-consultant": "consultants-advisors", "business-advisor": "consultants-advisors", "financial-advisor": "consultants-advisors", "teacher": "education-research", "researcher": "education-research", "immigration-officer": "immigration-customs-border", "police-officer": "police-security", "security-guard": "police-security", "peacekeeper": "military-peacekeeping", "soldier": "military-peacekeeping", "military-professionals": "military-peacekeeping", "customs-officer": "immigration-customs-border"};
 window.proOf=function(id){id=(window.PRO_OLD||{})[id]||id;return (window.PRO_LIST||[]).find(function(x){return x.id===id})||null};
 window.proGroup=function(id){var p=window.proOf(id),g=p?p.g:id;return g?(window.PRO_DATA||[]).find(function(x){return x.id===g})||null:null};
+
+window.PRO_DATA.push({"id": "border", "name": "Immigration, Customs and Border", "blurb": "Passports, visas, declarations, inspections and duties", "icon": "shield", "words": [["un passeport", "passport", "Voici mon passeport.", "Here is my passport."], ["un visa", "visa", "Avez-vous un visa ?", "Do you have a visa?"], ["la frontière", "border", "La frontière ferme à minuit.", "The border closes at midnight."], ["la douane", "customs", "La douane est à droite.", "Customs is on the right."], ["les droits de douane", "customs duty", "Vous devez payer les droits de douane.", "You must pay the customs duty."], ["une déclaration", "declaration", "Remplissez la déclaration, s'il vous plaît.", "Please fill in the declaration."], ["une inspection", "inspection", "Nous faisons une inspection des bagages.", "We are carrying out a baggage inspection."], ["un permis de séjour", "residence permit", "Son permis de séjour est valide.", "His residence permit is valid."], ["un voyageur", "traveller", "Le voyageur attend au guichet.", "The traveller is waiting at the desk."], ["les marchandises", "goods", "Les marchandises sont dans le camion.", "The goods are in the truck."], ["interdit", "forbidden", "Ce produit est interdit.", "This product is forbidden."], ["le contrôle", "check, control", "Le contrôle des passeports est à gauche.", "Passport control is on the left."]], "plays": [{"title": "Passport control", "setting": "You are the officer at passport control. A traveller arrives at your desk.", "turns": [{"o": ["Bonjour. Voici mon passeport.", "Hello. Here is my passport."]}, {"y": ["Say good morning and ask the purpose of the trip.", "Bonjour. Quel est le motif de votre voyage ?", "Bonjour. Où est la gare ?", "Merci, je ne travaille pas ici."]}, {"o": ["Je viens pour affaires. Je reste une semaine.", "I am here on business. I am staying a week."]}, {"y": ["Ask where they will stay.", "Où allez-vous loger pendant votre séjour ?", "Quel est votre plat préféré ?", "Je voudrais un visa, s'il vous plaît."]}, {"o": ["À l'hôtel Atlantique, à Accra.", "At the Atlantique hotel in Accra."]}, {"y": ["Say it is all in order and wish them a good stay.", "Merci, c'est en ordre. Bon séjour !", "Merci, vous devez attendre un an.", "Merci, votre passeport est interdit."]}]}, {"title": "Customs declaration", "setting": "You are a customs officer. A traveller arrives with luggage.", "turns": [{"o": ["Bonjour. J'ai deux valises.", "Hello. I have two suitcases."]}, {"y": ["Ask if they have anything to declare.", "Avez-vous quelque chose à déclarer ?", "Où est votre voiture ?", "Je voudrais déclarer mes impôts."]}, {"o": ["Oui, j'ai des produits pour mon magasin.", "Yes, I have products for my shop."]}, {"y": ["Ask to see the goods and the invoice.", "Montrez-moi les marchandises et la facture, s'il vous plaît.", "Donnez-moi votre passeport, merci.", "Les marchandises sont interdites, au revoir."]}, {"o": ["Voici la facture.", "Here is the invoice."]}, {"y": ["Explain that customs duty must be paid.", "Vous devez payer les droits de douane.", "Vous devez payer le taxi.", "Vous n'avez pas de valise."]}]}]});
