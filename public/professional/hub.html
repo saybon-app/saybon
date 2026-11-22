@@ -75,7 +75,7 @@ function url(l,n){
  var mi=MORE[S.f&&(G[S.f]||"business")+"-"+l.k.toLowerCase()];if(mi&&mi.indexOf(n)>=0)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&n="+n+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
  return l.base+"lesson"+n+".html";
 }
-function themeFor(l){var id="th";var old=$(id);if(old)old.remove();var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=l.theme+"theme.css?v=1";document.head.appendChild(k)}
+function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
 function draw(){
  var l=ps[cur],m=unlocked(cur);themeFor(l);
  $("h1").textContent=l.name;
@@ -94,7 +94,6 @@ $("links").innerHTML=L;
 $("bk").onclick=function(){location.href="/dashboard/"};
 $("ds").onclick=function(){location.href="/dashboard/"};
 $("rs").onclick=function(){location.href="/professional/?change=1"};
-draw();
 onAuthStateChanged(auth,async function(u){
  user=u;if(u&&saved&&saved.uid&&saved.uid!==u.uid){try{localStorage.removeItem("sbpro_sel")}catch(e){}location.replace("/professional/");return}
  if(!u){draw();return}
