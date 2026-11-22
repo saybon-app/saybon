@@ -24,9 +24,10 @@ document.addEventListener("ended", function(e){
 
 var pathParts = location.pathname.split("/").filter(Boolean);
 var LEVEL;
-if(pathParts.indexOf("tout-public") !== -1){ LEVEL = "a0-tout-public"; }
+if(window.__LS_LEVEL){ LEVEL = window.__LS_LEVEL; }
+else if(pathParts.indexOf("tout-public") !== -1){ LEVEL = "a0-tout-public"; }
 else { LEVEL = pathParts[1].toLowerCase(); }
-const LESSON = parseInt((location.pathname.match(/lesson(\d+)\.html/) || [null, "1"])[1]);
+const LESSON = window.__LS_LESSON ? parseInt(window.__LS_LESSON) : parseInt((location.pathname.match(/lesson(\d+)\.html/) || [null, "1"])[1]);
 
 var root = document.getElementById("lsRoot");
 var allAssets = [];

@@ -1,98 +1,66 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Lesson 1 - French for Professionals</title>
+<html lang="en">
+<head>
 <script type="module" src="/js/auth-guard.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--mint:#6ef0b0;--ink:#0b3d2c;--line:#d5eadd;--mut:#5b7568}
-body{font-family:Montserrat,sans-serif;color:#fff;background:#04382a;min-height:100vh;position:relative}
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:#04382a url(bg-desktop.webp) center/cover no-repeat}
-body::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(0,18,11,.5)}
-@media(max-width:700px){body::before{background-image:url(bg-mobile.webp)}}
-.top{position:fixed;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;z-index:5}
-.top button{width:38px;height:38px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.top svg{width:50%;height:50%}
-main{max-width:620px;margin:0 auto;padding:78px 18px 60px}
-.eb{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mint)}
-h1{font-weight:800;font-size:1.5rem;margin:6px 0 4px}
-.bar{display:flex;gap:6px;margin:14px 0 18px}.bar i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.22)}.bar i.on{background:var(--mint)}
-.card{background:#fff;color:#1d3a2f;border-radius:20px;padding:20px;box-shadow:0 14px 34px rgba(0,25,16,.35)}
-.card h2{font-size:1.1rem;color:var(--ink);font-weight:800;margin-bottom:8px}
-.card p{font-size:.92rem;line-height:1.6;color:#2b4a3d;margin-top:8px}
-.btn{display:inline-block;background:linear-gradient(180deg,#0f6b4c,#0a4a35);color:#fff;border:0;border-radius:999px;padding:12px 24px;font:800 .88rem Montserrat,sans-serif;cursor:pointer;margin-top:16px;text-decoration:none}
-.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);margin-left:8px}
-.orb{width:84px;height:84px;border-radius:50%;margin:6px auto 12px;background:radial-gradient(circle at 35% 30%,#8cf7c4,#1f8a55);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(110,240,176,.5)}
-.orb.play{animation:pu 1.6s infinite}@keyframes pu{0%{box-shadow:0 0 0 0 rgba(110,240,176,.5)}100%{box-shadow:0 0 0 22px rgba(110,240,176,0)}}
-.orb svg{width:34px;height:34px;color:#fff}
-.tr{font-size:.85rem;color:var(--mut);margin-top:10px;line-height:1.6;display:none}.tr.on{display:block}
-.w{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:9px}
-.w b{color:var(--ink);font-size:1rem}.w span{display:block;color:#1f8a55;font-weight:700;font-size:.85rem}.w small{display:block;color:var(--mut);font-size:.78rem;margin-top:3px}
-.ls{background:#fff;border:1px solid var(--line);color:#1f8a55;border-radius:999px;padding:6px 12px;font:800 .74rem Montserrat,sans-serif;cursor:pointer;flex:none}
-.opt{display:block;width:100%;text-align:left;background:#f6fbf8;border:1.5px solid var(--line);color:#173328;border-radius:14px;padding:13px 15px;font:600 .92rem Montserrat,sans-serif;margin-top:9px;cursor:pointer}
-.opt.good{border-color:#1f8a55;background:#e3f6ea}.opt.wrong{border-color:#c0504d;background:#fbeceb}
-.bub{max-width:90%;border-radius:15px;padding:11px 14px;margin:9px 0;font-size:.92rem;line-height:1.45}
-.bub.o{background:#f1f8f4;border-top-left-radius:4px}.bub.y{background:linear-gradient(180deg,#e6fbef,#a9ecc8);margin-left:auto;border-top-right-radius:4px;font-weight:700;color:var(--ink)}
-.bub small{display:block;color:var(--mut);font-size:.75rem;margin-top:3px;font-weight:500}
-</style></head><body>
-<div class="top"><button id="back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><button id="dash" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg></button></div>
-<main><div class="eb" id="eb"></div><h1>Lesson 1</h1><div class="bar" id="bar"></div><div id="stage"></div></main>
-<script src="pro-data.js?v=2"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Lesson 1 - French for Professionals</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<link rel="stylesheet" href="/levels/lesson-tp.css?v=2" />
+<link rel="stylesheet" href="/levels/scene-paris/scene-paris.css?v=26" />
+<link rel="stylesheet" href="lesson-scene.css?v=1" />
+</head>
+<body class="pro-lesson">
+  <button class="tp-corner-icon tp-corner-back" id="proBack" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button class="tp-corner-icon tp-corner-dash" id="proDash" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>
+  </button>
+  <div id="lsRoot" class="ls-stage"></div>
+<script src="pro-data.js?v=3"></script>
 <script>
 (function(){
 var q=new URLSearchParams(location.search),F=q.get("f")||"",O=q.get("o")||"",LV=(q.get("lv")||"A0").toUpperCase(),PC=q.get("pc")||"steady";
 if(["relaxed","steady","intensive"].indexOf(PC)<0)PC="steady";
-var BASE={A0:"/levels/A0/tout-public/"};["A1","A2","B1","B2","C1"].forEach(function(k){BASE[k]="/levels/"+k+"/"});
-var CORE=(BASE[LV]||BASE.A0)+"lesson1.html";
-var fd=window.proGroup(F),pr=window.proOf(F);
+var KEY=LV==="A0"?"a0-tout-public":LV.toLowerCase();
+var pr=window.proOf&&window.proOf(F),fd=window.proGroup&&window.proGroup(F);
 var NAME=pr?pr.name:(fd?fd.name:(O||"your field"));
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function speak(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="fr-FR";u.rate=.92;var v=speechSynthesis.getVoices().filter(function(x){return /^fr/i.test(x.lang)});if(v[0])u.voice=v[0];speechSynthesis.speak(u)}catch(e){}}
-document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(b)speak(b.getAttribute("data-say"))});
-$("eb").textContent=NAME+" · "+LV;
-$("back").onclick=function(){history.length>1?history.back():location.href="/professional/"};
-$("dash").onclick=function(){location.href="/dashboard/"};
-var steps=fd?["intro","words","check","talk","go"]:["intro","go"],at=0,introText="";
-function bar(){$("bar").innerHTML=steps.map(function(_,i){return'<i class="'+(i<=at?"on":"")+'"></i>'}).join("")}
-function next(){at=Math.min(at+1,steps.length-1);show()}
-var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg>';
-function intro(){
- var st=$("stage");
- st.innerHTML='<div class="card"><div class="orb" id="orb">'+PLAY+'</div><h2>Your teacher</h2><p id="wel">Listen to a short welcome before you begin.</p><button class="btn" id="pl">Listen</button><button class="btn ghost" id="rd">Read it</button><div class="tr" id="tr"></div><audio id="au" preload="none" src="audio/intro-'+PC+'.mp3"></audio><p><button class="btn" id="nx">Continue</button></p></div>';
- var au=$("au"),tr=$("tr");
- fetch("intro-texts.json").then(function(r){return r.json()}).then(function(j){introText=j[PC]||"";tr.textContent=introText}).catch(function(){});
- au.onplay=function(){$("orb").classList.add("play")};au.onpause=au.onended=function(){$("orb").classList.remove("play")};
- $("wel").textContent="Welcome. This course is set up for your work as: "+NAME+". Listen to a short welcome before you begin.";
- $("pl").onclick=function(){au.play().catch(function(){tr.classList.add("on");tr.textContent=(introText||"")+" (The audio is not available yet. You can read the welcome here.)"})};
- $("rd").onclick=function(){tr.classList.toggle("on")};
- $("nx").onclick=function(){au.pause();next()};
+$("proBack").onclick=function(){location.href="/professional/"};
+$("proDash").onclick=function(){location.href="/dashboard/"};
+/* a different background each time the page loads (never the same one twice in a row) */
+var last=-1;try{last=+localStorage.getItem("sbpro_bg")}catch(e){}
+var th=Math.floor(Math.random()*3);if(th===last)th=(th+1+Math.floor(Math.random()*2))%3;
+try{localStorage.setItem("sbpro_bg",String(th))}catch(e){}
+q.set("theme",th);history.replaceState(null,"",location.pathname+"?"+q.toString());
+/* the level's own colours, same as that level's lessons */
+var tl=document.createElement("link");tl.rel="stylesheet";tl.href=(LV==="A0"?"/levels/A0/tout-public/":"/levels/"+LV+"/")+"theme.css?v=1";document.head.appendChild(tl);
+document.body.classList.add("ps-on");
+var scene=null,PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg>';
+var sc=document.createElement("script");sc.src="/levels/scene-paris/scene-paris.js?v=27";
+sc.onload=function(){try{scene=ParisScene.mount({mic:false,overlay:true,theme:th,start:Math.floor(Math.random()*3)})}catch(e){console.error(e)}};
+document.head.appendChild(sc);
+$("lsRoot").innerHTML='<button class="pro-orb" id="orb" aria-label="Play" style="border:0;cursor:pointer;display:none">'+PLAY+'</button><audio id="au" preload="auto" src="audio/intro-'+LV+'-'+PC+'.mp3"></audio><button class="pro-skip" id="sk">Skip</button>';
+var au=$("au"),orb=$("orb"),done=false;
+function begin(){
+ if(done)return;done=true;
+ try{au.pause()}catch(e){}
+ if(scene&&scene.destroy)scene.destroy();
+ document.body.classList.remove("ps-ready");
+ window.__LS_LEVEL=KEY;window.__LS_LESSON=1;
+ var m=document.createElement("script");m.type="module";m.src="/levels/lesson-engine-tp.js?v=65";document.body.appendChild(m);
 }
-function words(){
- var ws=fd.words;
- $("stage").innerHTML='<div class="card"><h2>Words for '+esc(NAME.toLowerCase())+'</h2><p>Tap Listen, say each word out loud, then continue.</p>'+ws.map(function(w){return'<div class="w"><div><b>'+esc(w[0])+'</b><span>'+esc(w[1])+'</span><small>'+esc(w[2])+'</small></div><button class="ls" data-say="'+esc(w[0])+'">Listen</button></div>'}).join("")+'<button class="btn" id="nx">Continue</button></div>';
- $("nx").onclick=next;
-}
-function check(){
- var ws=fd.words.slice().sort(function(){return Math.random()-.5}).slice(0,4),i=0,score=0;
- function one(){
-  if(i>=ws.length){$("stage").innerHTML='<div class="card"><h2>Well done</h2><p>You got '+score+' of '+ws.length+'. This was only a warm-up, so there is nothing to pass. Continue to your first conversation.</p><button class="btn" id="nx">Continue</button></div>';$("nx").onclick=next;return}
-  var w=ws[i],opts=fd.words.filter(function(x){return x!==w}).sort(function(){return Math.random()-.5}).slice(0,2).map(function(x){return x[1]});opts.push(w[1]);opts.sort(function(){return Math.random()-.5});
-  $("stage").innerHTML='<div class="card"><h2>What does this mean?</h2><p style="font-size:1.2rem;font-weight:800;color:#0b3d2c">'+esc(w[0])+' <button class="ls" data-say="'+esc(w[0])+'">Listen</button></p>'+opts.map(function(o){return'<button class="opt">'+esc(o)+'</button>'}).join("")+'</div>';
-  document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){if(b.classList.contains("good")||b.classList.contains("wrong"))return;var ok=b.textContent===w[1];if(ok)score++;b.classList.add(ok?"good":"wrong");document.querySelectorAll(".opt").forEach(function(x){if(x.textContent===w[1])x.classList.add("good")});setTimeout(function(){i++;one()},900)}});
- }
- one();
-}
-function talk(){
- var p=fd.plays[0];
- $("stage").innerHTML='<div class="card"><h2>'+esc(p.title)+'</h2><p>'+esc(p.setting)+'</p>'+p.turns.map(function(t){if(t.o)return'<div class="bub o">'+esc(t.o[0])+' <button class="ls" data-say="'+esc(t.o[0])+'">Listen</button><small>'+esc(t.o[1])+'</small></div>';return'<div class="bub y">'+esc(t.y[1])+' <button class="ls" data-say="'+esc(t.y[1])+'">Listen</button><small>'+esc(t.y[0])+'</small></div>'}).join("")+'<p>Read your lines out loud. You will practise this properly later.</p><button class="btn" id="nx">Continue</button></div>';
- $("nx").onclick=next;
-}
-function go(){
- $("stage").innerHTML='<div class="card"><h2>Ready for your lesson</h2><p>Next is your lesson, with your teacher guiding you step by step. Finish it to unlock lesson 2.</p><a class="btn" href="'+CORE+'">Start the lesson</a><a class="btn ghost" href="/professional/">Back to my lessons</a></div>';
-}
-function show(){bar();var s=steps[at];({intro:intro,words:words,check:check,talk:talk,go:go})[s]()}
-show();
+au.onplay=function(){orb.style.display="";orb.classList.add("on")};
+au.onpause=function(){orb.classList.remove("on")};
+au.onended=begin;
+au.onerror=begin; /* no audio file yet: go straight into the lesson */
+$("sk").onclick=begin;
+orb.onclick=function(){au.play().catch(function(){begin()})};
+/* try to start the teacher straight away; if the browser wants a tap first, show the orb */
+var p=au.play();
+if(p&&p.catch)p.catch(function(){orb.style.display="";});
 })();
 </script></body></html>
