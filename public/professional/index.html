@@ -203,9 +203,10 @@ document.addEventListener("click",function(e){var b=e.target.closest("[data-say]
 
 function sel0(){return{f:"",other:"",lv:"",tg:"",pc:"",started:false}}
 var sel=sel0();
+var TABV=new URLSearchParams(location.search).get("tab")||"";
 function sv(){ls("sbpro_sel_"+(user?user.uid:"anon"),sel);ls("sbpro_sel",sel)}
 function badges(){var a=[];if(fieldOk())a.push(fieldName());if(level())a.push(sel.lv+(sel.tg&&sel.tg!==sel.lv?" \u2192 "+sel.tg:""));if(pace())a.push(pace().name);return a.length?'<div class="bdg">'+a.map(function(x){return"<span>"+esc(x)+"</span>"}).join("")+"</div>":""}
-var state={tab:"lessons",card:null,open:false,quiz:null,play:null};
+var state={tab:TABV||"lessons",card:null,open:false,quiz:null,play:null};
 var user=null,progressMap={};
 var PACES=[{k:"relaxed",name:"Relaxed",sub:"3 lessons a week",per:3,days:"3 days a week, one lesson a day"},{k:"steady",name:"Steady",sub:"5 lessons a week",per:5,days:"5 days a week, one lesson a day"},{k:"intensive",name:"Intensive",sub:"10 lessons a week",per:10,days:"5 days a week, two lessons a day"}];
 function idx(k){return LEVELS.findIndex(function(l){return l.k===k})}
@@ -256,7 +257,7 @@ function nextOpen(){ // open the first thing still missing, in order
 function chosen(k,v){
  for(var x in v)sel[x]=v[x];
  if(k==="l"&&idx(sel.tg)<idx(sel.lv))sel.tg="";
- sel.started=false;state.tab="lessons";state.card=null;state.quiz=null;state.play=null;state.hub=0;
+ sel.started=false;if(TABV){TABV="";try{history.replaceState(null,"",location.pathname)}catch(e){}}state.tab="lessons";state.card=null;state.quiz=null;state.play=null;state.hub=0;
  sv();updatePills();
  var n=nextOpen();
  if(n){DR[n]();openDrop(n)}else{closeDrops();save()}
@@ -277,7 +278,7 @@ function renderPlan(){
   +'<p><b>Recommended routine:</b> '+esc(p.days)+'. At that pace, about '+weeks+' weeks (roughly '+months+' months) to finish '+(ps.length>1?'all '+ps.length+' levels':'your level')+'.</p>'
   +'<p class="cav">These are our recommended estimates, not a guarantee. We assume about 20 minutes a lesson. Your own practice decides how fast you go. You unlock each lesson by finishing the one before it.</p>'
   +'<button class="go" id="start">Start</button>';
- $("start").onclick=function(){sel.started=true;state.hub=0;sv();renderPlan();renderLearn();save();setTimeout(function(){$("learn").scrollIntoView({behavior:"smooth",block:"start"})},150)};
+ $("start").onclick=function(){sel.started=true;sv();save();location.href="hub.html?f="+encodeURIComponent(sel.f)+"&o="+encodeURIComponent(sel.f==="__other"?(sel.other||""):"")+"&lv="+sel.lv+"&tg="+sel.tg+"&pc="+encodeURIComponent(sel.pc)};
 }
 async function save(){try{if(!user||!ready())return;var t=await user.getIdToken();fetch(API+"/api/professionalProfile",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+t},body:JSON.stringify({field:sel.f,other:sel.f==="__other"?(sel.other||"").trim().slice(0,60):"",level:sel.lv,target:sel.tg,pace:sel.pc}),keepalive:true}).catch(function(){})}catch(e){}}
 
@@ -314,11 +315,11 @@ function drawLessons(){
  el.querySelectorAll("[data-hub]").forEach(function(b){b.onclick=function(){var i=+b.dataset.hub;if(unlockedFor(i)===0)return;state.hub=i;drawLessons()}});
 }
 function renderLearn(){
- var c=$("learn");if(!ready()||!sel.started){c.classList.add("hide");return}
+ var c=$("learn");if(!ready()||!TABV){c.classList.add("hide");return}
  c.classList.remove("hide");
- var f=field(sel.f),l=path()[0],tabs=[["lessons","Lessons"]];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);tabs.push(["scen","Scenarios"]);/*scen*/
- if(!f&&state.tab!=="scen")state.tab="lessons";
- c.innerHTML=badges()+'<p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
+ var f=field(sel.f),l=path()[0],tabs=[];if(f)tabs.push(["words","Words"],["plays","Role-plays"]);tabs.push(["scen","Scenarios"]);/*scen*/
+ if(!f)state.tab="scen";
+ c.innerHTML=badges()+'<p style="text-align:center;margin:0 0 8px"><a href="hub.html?f='+encodeURIComponent(sel.f)+'&o='+encodeURIComponent(sel.f==="__other"?(sel.other||""):"")+'&lv='+sel.lv+'&tg='+sel.tg+'&pc='+encodeURIComponent(sel.pc)+'" style="color:#0b3d2c;font-weight:800;font-size:.78rem;text-decoration:none">&larr; Back to your lessons</a></p><p class="eb">'+esc(fieldName())+' · '+esc(sel.lv)+' &rarr; '+esc(sel.tg)+'</p><h2>Your lessons</h2><div class="tabs">'+tabs.map(function(t){return'<button data-tab="'+t[0]+'" class="'+(state.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("")+'</div><div id="body"></div>';
  c.querySelectorAll("[data-tab]").forEach(function(b){b.onclick=function(){state.tab=b.dataset.tab;state.card=null;state.quiz=null;state.play=null;renderLearn()}});
  var body=$("body");
  if(state.tab==="lessons"){drawLessons();loadProgress()}
@@ -382,7 +383,7 @@ function plays(f,el){
  step();
 }
 
-onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null;sel=sel0();if(sv0)for(var x in sv0)sel[x]=sv0[x];sel.started=!!sel.started;ls("sbpro_sel",sel);closeDrops();updatePills();renderPlan();renderLearn();if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
+onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null;sel=sel0();if(sv0)for(var x in sv0)sel[x]=sv0[x];sel.started=!!sel.started;if(TABV){var uq=new URLSearchParams(location.search);if(uq.get("f")&&uq.get("lv")){sel.f=uq.get("f");sel.other=uq.get("o")||"";sel.lv=uq.get("lv");sel.tg=uq.get("tg")||sel.lv;sel.pc=uq.get("pc")||sel.pc||"steady";sel.started=true}}ls("sbpro_sel",sel);closeDrops();updatePills();renderPlan();renderLearn();if(u&&ready()){save();if(sel.started)loadProgress()}else if(sel.started)drawLessons()});
 updatePills();renderPlan();renderLearn();
 </script>
 </body></html>

@@ -32,3 +32,10 @@ body.pro-lesson{background:#0b1b16;overflow:hidden;font-family:Manrope,sans-seri
 .sc-end h2{font-family:Fraunces,Georgia,serif;font-size:1.6rem;margin-bottom:8px}.sc-end p{font-size:.88rem;line-height:1.55;color:#2b4a3d}
 .sc-end .btns{display:flex;gap:10px;margin-top:18px}.sc-end button{flex:1;border:0;border-radius:999px;padding:12px 0;font:800 .84rem Manrope,sans-serif;cursor:pointer;background:linear-gradient(180deg,#0f6b4c,#0a4a35);color:#fff}.sc-end button.alt{background:#fff;color:#0b3d2c;border:1.5px solid #9fd2b5}
 @media(max-width:700px){.sc-cap p{font-size:1rem}.sc-top{padding:12px 58px 0}}
+
+/*pc*/ .sc-bottom .pc-mic{width:70px;height:70px;transition:transform .08s}
+.sc-bottom .pc-mic.rec{transform:scale(calc(1 + var(--lv,0)*.22))}
+.sc-bottom .pc-teach{width:auto;height:auto;margin:0;pointer-events:none}
+.sc-bottom .pc-teach svg{width:54px;height:54px}
+.sc-bottom .pc-wv{width:240px;height:34px}
+.sc-state{font-family:Poppins,Manrope,sans-serif;color:#e9b04a;text-shadow:0 1px 8px rgba(20,8,0,.85)}

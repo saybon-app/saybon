@@ -82,7 +82,6 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 .passage.dlg{font-family:Poppins,sans-serif;font-size:15px;line-height:1.55}
 @media (max-height:700px){.passage.dlg{font-size:14px}}
 
-/*tpulse2*/ /* teacher: very slow soft pulse; poses swap with a quick dissolve so no old pose lingers */
-.t-stage{transform-origin:50% 95%;animation:tpulse 7s ease-in-out infinite;will-change:transform}
-@keyframes tpulse{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.012) translateY(-3px)}}
-.t-stage img{transition:opacity .28s ease-in-out}
+/*twalk*/ /* teacher walks in from the left; poses change while she moves */
+.t-stage{will-change:transform}
+.t-stage img{transition:opacity .22s ease-in-out}

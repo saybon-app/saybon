@@ -11,3 +11,7 @@ body.pro-lesson .ps-fixed,body.pro-lesson .ps-walker,body.pro-lesson .ps-bfix{di
 .pro-btn{display:inline-block;margin-top:16px;border:0;border-radius:999px;padding:13px 28px;font:800 .9rem Manrope,sans-serif;cursor:pointer;background:linear-gradient(180deg,#ffe29a,#e0a43a);color:#4a1c00}
 .pro-note{font-size:.78rem;color:#ffd98a;margin-top:8px}
 .pro-orb{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:96px;height:96px;z-index:4}.pro-skip{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;background:rgba(32,12,2,.55);border:1px solid rgba(255,230,190,.35);color:#fff;border-radius:999px;padding:8px 22px;font:700 .72rem Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+
+/*pcteach*/ button.pro-orb.pc-teach{width:auto;height:auto;border-radius:0;background:none;box-shadow:none;animation:none;margin:0;padding:0;color:#f2b93b}
+button.pro-orb.pc-teach svg{width:92px;height:92px;color:#f2b93b}
+button.pro-orb.pc-teach.on{animation:none}

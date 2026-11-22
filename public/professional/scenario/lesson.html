@@ -15,12 +15,14 @@
 <button class="sc-corner" id="bk" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
 <div class="sc-top"><div id="goal" class="sc-goal"></div><div id="sec" class="sc-sec"></div><div class="sc-prog"><i id="bar"></i></div></div>
 <div class="sc-bottom">
+ <button id="tb" class="pc-teach" aria-label="Teacher" tabindex="-1"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg></button>
  <div id="cap" class="sc-cap"><span id="who" class="who"></span><p id="txt"></p></div>
- <button id="mic" class="sc-mic" aria-label="Microphone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><i class="ring"></i></button>
+ <canvas id="wv" class="pc-wv" width="560" height="88"></canvas>
+ <button id="mic" class="pc-mic hint" aria-label="Record"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.8" width="15" height="26.4" rx="4.6"/><path d="M12.4 7.4h7.2M12.4 10.2h7.2M12.4 13h7.2"/><circle cx="16" cy="21.4" r="3.9" fill="#e5543f" stroke="none"/></svg></button>
  <p id="state" class="sc-state"></p>
  <div class="sc-tools"><button id="pz">Pause</button><button id="cc" class="on">Text</button><button id="rs">Restart</button></div>
 </div>
-<button class="pro-orb" id="orb" aria-label="Commencer" style="border:0;cursor:pointer;display:none"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg></button>
+<button class="pro-orb pc-teach" id="orb" aria-label="Teacher" style="border:0;cursor:pointer;display:none"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg></button>
 <button class="pro-skip" id="sk" style="display:none">Passer</button>
 <div id="end" class="sc-end" hidden><div class="card"><h2 id="endT">Bravo !</h2><p id="endP"></p><div class="btns"><button id="endBack">Retour</button><button id="endAgain" class="alt">Refaire</button></div></div></div>
 <audio id="au" preload="auto"></audio>

@@ -281,7 +281,7 @@ async function loadFrames(){
   var list=[];
   for(var i=1;i<=5;i++){var u="/assets/images/placement/teacher_"+i+".png";if(await check(u,"image"))list.push(u)}
   if(!list.length&&await check("/assets/images/teacher-intervention.webp","image"))list.push("/assets/images/teacher-intervention.webp");
-  tFrames=list.slice(0,1);return tFrames;/*one-pose*/
+  tFrames=list;return list;
 }
 async function teacher(){
   st.teacherShown++;
@@ -291,7 +291,7 @@ async function teacher(){
   var imgs=stage.querySelectorAll("img");
   txt.textContent=""; act.classList.remove("on"); T.classList.add("on");
   var words=TEACHER_TEXT.split(" "),k=0,textTimer=null,frameTimer=null,shown=false,fi=0;
-  function showFrame(n){Array.prototype.forEach.call(imgs,function(im,i){im.classList.toggle("on",i===n)})}
+  function showFrame(n){Array.prototype.forEach.call(imgs,function(im,i){im.classList.toggle("on",i===n)})}/*twalk*/function walk(total){var W=Math.max(5,Math.min(10,total*0.85/1000)),n=imgs.length,t0=null,raf=0,ended=false,last=0;var dist=(window.innerWidth/2)+(stage.offsetWidth||200)/2+20,bounces=Math.max(3,Math.round(W/1.4));stage.style.transform="translateX("+(-dist)+"px)";function rest(){ended=true;cancelAnimationFrame(raf);stage.style.transform="none"}function step(ts){if(ended)return;if(shown)return rest();if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/(W*1000)),e=1-Math.pow(1-t,2);var x=-dist*(1-e),s=Math.sin(Math.PI*bounces*t),y=-12*s*s*(1-t*t);stage.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";var f=Math.min(n-1,Math.floor(t*(n-1)+0.0001));if(t>=1)f=n-1;if(f!==last){last=f;fi=f;showFrame(f)}if(t>=1)return rest();raf=requestAnimationFrame(step)}raf=requestAnimationFrame(step)}/*endwalk*/
   function reveal(){ if(shown)return; shown=true; clearInterval(textTimer); clearInterval(frameTimer); txt.textContent=TEACHER_TEXT; showFrame(imgs.length-1); act.classList.add("on") }
   var take=window.PT_TEACHER||"a";
   aud.src="/assets/audio/placement/teacher_"+take+".mp3";
@@ -300,7 +300,7 @@ async function teacher(){
     var total=(dur&&isFinite(dur)?dur:words.length*0.33)*1000;
     var perWord=total/words.length;
     textTimer=setInterval(function(){k++;txt.textContent=words.slice(0,k).join(" ");if(k>=words.length)clearInterval(textTimer)},perWord);
-    if(imgs.length>1){var step=total/imgs.length;frameTimer=setInterval(function(){fi=Math.min(imgs.length-1,fi+1);showFrame(fi);if(fi>=imgs.length-1)clearInterval(frameTimer)},step)}
+    walk(total)/*w*/
   }
   var p=aud.play();
   if(p&&p.then){p.then(function(){ if(aud.readyState>=1)startShow(aud.duration); else aud.onloadedmetadata=function(){startShow(aud.duration)} }).catch(function(){startShow(0);setTimeout(reveal,words.length*330+2500)})}

@@ -77,6 +77,10 @@ function hintText(s){var w=s.fr.split(/\s+/);if(s.hint>=2)return s.fr;if(s.hint=
 
 /* the microphone: record while you speak, with the orb moving to your voice. Nothing is saved or sent. */
 function micClose(){try{if(stream)stream.getTracks().forEach(function(t){t.stop()})}catch(e){}try{if(actx)actx.close()}catch(e){}stream=null;actx=null;an=null}
+var ICREC='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.8" width="15" height="26.4" rx="4.6"/><path d="M12.4 7.4h7.2M12.4 10.2h7.2M12.4 13h7.2"/><circle cx="16" cy="21.4" r="3.9" fill="#e5543f" stroke="none"/></svg>',ICSTOP='<svg viewBox="0 0 32 32" fill="currentColor"><rect x="9" y="9" width="14" height="14" rx="3.2"/></svg>',hist=[];for(var hi=0;hi<56;hi++)hist.push(0);
+var wv=$("wv"),wg=wv.getContext("2d");
+function drawWave(v,on){hist.push(v);hist.shift();wg.clearRect(0,0,560,88);for(var j=0;j<hist.length;j++){var h=3+hist[j]*70,x=j*10+3;wg.fillStyle=on?"rgba(255,214,140,"+(.35+.65*hist[j])+")":"rgba(255,255,255,.28)";var y=44-h/2;wg.beginPath();if(wg.roundRect)wg.roundRect(x,y,5,h,2.5);else wg.rect(x,y,5,h);wg.fill()}}
+au.addEventListener("play",function(){$("tb").classList.add("on")});au.addEventListener("pause",function(){$("tb").classList.remove("on")});au.addEventListener("ended",function(){$("tb").classList.remove("on")});
 async function micInit(){
  micState=1;
  try{
@@ -88,15 +92,15 @@ function turn(s){
  return new Promise(async function(res){
   var mic=$("mic");setCap("p",hintText(s),"turn");$("state").textContent="Your turn";
   if(micState!==3)await micInit();
-  mic.classList.add("rec");
+  mic.classList.add("rec");mic.classList.remove("hint");mic.innerHTML=ICSTOP;
   var t0=Date.now(),spoke=false,quiet=0,fin=false,buf=an?new Uint8Array(an.fftSize):null,timer=null,rec=null;
-  function end(){if(fin)return;fin=true;clearInterval(timer);mic.onclick=null;mic.classList.remove("rec");mic.style.removeProperty("--lv");try{if(rec&&rec.state!=="inactive")rec.stop()}catch(e){}$("state").textContent="";micClose();res()}
+  function end(){if(fin)return;fin=true;clearInterval(timer);mic.onclick=null;mic.classList.remove("rec");mic.classList.add("hint");mic.innerHTML=ICREC;drawWave(0,false);hist.fill(0);wg.clearRect(0,0,560,88);mic.style.removeProperty("--lv");try{if(rec&&rec.state!=="inactive")rec.stop()}catch(e){}$("state").textContent="";micClose();res()}
   mic.onclick=function(){if(Date.now()-t0>900)end()};
   if(stream&&window.MediaRecorder){try{rec=new MediaRecorder(stream);rec.ondataavailable=function(){};rec.start()}catch(e){rec=null}}
   if(!stream)$("state").textContent="Microphone off: say it out loud";
   timer=setInterval(function(){
    var el=Date.now()-t0;
-   if(an){an.getByteTimeDomainData(buf);var m=0;for(var i=0;i<buf.length;i++){var v=Math.abs(buf[i]-128)/128;if(v>m)m=v}mic.style.setProperty("--lv",Math.min(1,m*3).toFixed(2));
+   if(an){an.getByteTimeDomainData(buf);var m=0;for(var i=0;i<buf.length;i++){var v=Math.abs(buf[i]-128)/128;if(v>m)m=v}mic.style.setProperty("--lv",Math.min(1,m*3).toFixed(2));drawWave(Math.min(1,m*3),true);
     if(m>0.06){spoke=true;quiet=0}else if(spoke)quiet+=70;
     if(spoke&&quiet>1500&&el>1800)end()}
    var limit=FAST?400:(stream?s.w*1000:s.w*1000*0.8);

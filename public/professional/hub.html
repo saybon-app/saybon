@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Your lessons - French for Professionals</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css" />
+<style>
+body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+.hb-chips{display:flex;gap:8px;justify-content:center;margin:-18px 0 22px;flex-wrap:wrap}
+.hb-chips button{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:7px 16px;font:700 .78rem Manrope,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
+.hb-chips button.on{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.7)}
+.hb-chips button.lk{opacity:.5;cursor:default}
+.hb-chips svg{width:12px;height:12px}
+.hb-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.hb-links a{color:rgba(255,255,255,.78);font:700 .74rem Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:3px}
+</style>
+</head>
+<body>
+<button class="tp-corner-icon tp-corner-back" id="bk" aria-label="Back">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+</button>
+<button class="tp-corner-icon tp-corner-dash" id="ds" aria-label="Dashboard">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>
+</button>
+<div class="tp-stage">
+ <header class="page-header"><p class="tp-eyebrow" id="eb">French for Professionals</p><h1 id="h1">Your lessons</h1></header>
+ <div class="hb-chips" id="chips"></div>
+ <main class="lesson-grid" id="grid"></main>
+ <div class="hb-links" id="links"></div>
+</div>
+<script src="pro-data.js?v=3"></script>
+<script type="module">
+import { auth } from "/js/firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+var API="https://saybonapp-server.onrender.com";
+var LEVELS=[
+ {k:"A0",name:"A0 - Starter",key:"a0-tout-public",base:"/levels/A0/tout-public/",theme:"/levels/A0/tout-public/"},
+ {k:"A1",name:"A1 - Beginner",key:"a1",base:"/levels/A1/",theme:"/levels/A1/"},
+ {k:"A2",name:"A2 - Elementary",key:"a2",base:"/levels/A2/",theme:"/levels/A2/"},
+ {k:"B1",name:"B1 - Intermediate",key:"b1",base:"/levels/B1/",theme:"/levels/B1/"},
+ {k:"B2",name:"B2 - Upper intermediate",key:"b2",base:"/levels/B2/",theme:"/levels/B2/"},
+ {k:"C1",name:"C1 - Advanced",key:"c1",base:"/levels/C1/",theme:"/levels/C1/"}
+];
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var q=new URLSearchParams(location.search),saved=null;
+try{saved=JSON.parse(localStorage.getItem("sbpro_sel")||"null")}catch(e){}
+var S={f:q.get("f")||(saved&&saved.f)||"",o:q.get("o")||(saved&&saved.other)||"",lv:q.get("lv")||(saved&&saved.lv)||"",tg:q.get("tg")||(saved&&saved.tg)||"",pc:q.get("pc")||(saved&&saved.pc)||"steady"};
+function idx(k){return LEVELS.findIndex(function(l){return l.k===k})}
+if(!S.f||idx(S.lv)<0){location.replace("/professional/")}
+if(idx(S.tg)<idx(S.lv))S.tg=S.lv;
+var ps=LEVELS.slice(idx(S.lv),idx(S.tg)+1),cur=0,user=null,prog={};
+var pr=window.proOf&&window.proOf(S.f),fd=window.proGroup&&window.proGroup(S.f);
+var NAME=S.f==="__other"?S.o:(pr?pr.name:(fd?fd.name:""));
+if(NAME)$("eb").textContent="French for Professionals · "+NAME;
+var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
+function mx(a){return a&&a.length?Math.max.apply(null,a):0}
+function unlocked(i){
+ if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 25;
+ if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 100;
+ if(i>0){var pv=prog[ps[i-1].key];if(!pv||new Set(pv).size<25)return 0}
+ var c=prog[ps[i].key];return c?mx(c)+1:1;
+}
+function url(l,n){
+ if(n===1)return "lesson1.html?f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+l.k+"&pc="+encodeURIComponent(S.pc);
+ return l.base+"lesson"+n+".html";
+}
+function themeFor(l){var id="th";var old=$(id);if(old)old.remove();var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=l.theme+"theme.css?v=1";document.head.appendChild(k)}
+function draw(){
+ var l=ps[cur],m=unlocked(cur);themeFor(l);
+ $("h1").textContent=l.name;
+ $("chips").innerHTML=ps.length>1?ps.map(function(x,i){var lk=unlocked(i)===0;return'<button data-i="'+i+'" class="'+(i===cur?"on ":"")+(lk?"lk":"")+'">'+(lk?LOCK:"")+x.k+'</button>'}).join(""):"";
+ $("chips").querySelectorAll("[data-i]").forEach(function(b){b.onclick=function(){var i=+b.dataset.i;if(unlocked(i)===0)return;cur=i;draw()}});
+ var h="";
+ for(var n=1;n<=25;n++){h+=n<=m?'<button class="lesson unlocked" data-n="'+n+'"><span class="tp-num">'+n+'</span></button>':'<button class="lesson locked">'+LOCK+'<span class="tp-num">'+n+'</span></button>'}
+ $("grid").innerHTML=h;
+ $("grid").querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=url(l,+b.dataset.n)}});
+}
+var G={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
+var qs="f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+S.lv+"&tg="+S.tg+"&pc="+encodeURIComponent(S.pc);
+var L='<a href="scenario/?g='+(G[S.f]||"business")+'&pc='+encodeURIComponent(S.pc)+'">Scenarios</a>';
+if(fd)L+='<a href="./?'+qs+'&tab=words">Words</a><a href="./?'+qs+'&tab=plays">Role-plays</a>';
+L+='<a href="./">Change selection</a>';
+$("links").innerHTML=L;
+$("bk").onclick=function(){location.href="/professional/"};
+$("ds").onclick=function(){location.href="/dashboard/"};
+draw();
+onAuthStateChanged(auth,async function(u){
+ user=u;if(!u){draw();return}
+ await Promise.all(ps.map(async function(l){try{var r=await fetch(API+"/api/levelProgress?uid="+u.uid+"&level="+l.key);var d=await r.json();prog[l.key]=(d.completedLessons||[]).map(Number)}catch(e){prog[l.key]=[]}}));
+ draw();
+});
+</script>
+</body>
+</html>
