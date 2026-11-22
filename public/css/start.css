@@ -243,3 +243,7 @@ body.start-page{
   .start-path h2{ font-size:19px; }
   .start-path p{ font-size:14px; }
 }
+/*startfix*/
+.start-title-text{ white-space:normal; overflow:visible; min-width:0; line-height:1.2; }
+.start-title{ width:max-content; }
+@media (max-width:800px){ .start-title{ font-size:17px; max-width:94%; } }

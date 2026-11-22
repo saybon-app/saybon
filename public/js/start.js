@@ -1,36 +1,42 @@
+/*startfix*/
 function typeTitle(el, onDone){
   if(!el) return;
   const text = el.getAttribute("data-text") || "";
-  el.textContent = "";
+  const speed = 38;
   const cursor = document.createElement("span");
   cursor.className = "start-title-cursor";
+  el.textContent = "";
   el.appendChild(cursor);
-  let i = 0;
-  const speed = 38;
-  function step(){
-    if(i < text.length){
-      cursor.insertAdjacentText("beforebegin", text.charAt(i));
-      i++;
-      setTimeout(step, speed);
-    } else {
-      setTimeout(() => {
-        cursor.remove();
-        if(typeof onDone === "function") onDone();
-      }, 900);
-    }
+  const t0 = performance.now();
+  let shown = 0, done = false;
+  function finish(){
+    if(done) return;
+    done = true;
+    el.textContent = text;
+    shell?.classList.add("start-cards-ready");
+    if(typeof onDone === "function") onDone();
   }
-  step();
+  // Time-based, so a throttled or backgrounded tab jumps to the right letter instead of freezing.
+  function tick(){
+    if(done) return;
+    const n = Math.min(text.length, Math.floor((performance.now() - t0) / speed));
+    if(n !== shown){ shown = n; cursor.previousSibling && cursor.previousSibling.remove(); cursor.insertAdjacentText("beforebegin", text.slice(0, n)); }
+    if(n >= text.length){ setTimeout(finish, 500); return; }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  document.addEventListener("visibilitychange", () => { if(!document.hidden) tick(); });
+  setTimeout(finish, text.length * speed + 1800); // safety net: always show the full line
 }
 
 const shell = document.querySelector(".start-shell");
 
 document.querySelectorAll(".start-title").forEach(titleEl => {
   const textEl = titleEl.querySelector(".start-title-text");
-  titleEl.addEventListener("animationend", (e) => {
-    if(e.target === titleEl){
-      typeTitle(textEl, () => { shell?.classList.add("start-cards-ready"); });
-    }
-  }, { once:true });
+  let started = false;
+  function go(){ if(started) return; started = true; typeTitle(textEl); }
+  titleEl.addEventListener("animationend", (e) => { if(e.target === titleEl) go(); }, { once:true });
+  setTimeout(go, 1500); // if the entrance animation never reports back, start anyway
 });
 
 document.getElementById("startHomeBtn")?.addEventListener("click", () => {
