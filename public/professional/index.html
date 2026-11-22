@@ -261,6 +261,8 @@ function chosen(k,v){
  if(n){DR[n]();openDrop(n)}else{closeDrops();save()}
  renderPlan();renderLearn();
 }
+document.addEventListener("click",function(e){var pl=document.querySelector(".pills");if(pl&&e.composedPath().indexOf(pl)<0)closeDrops()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDrops()});
 KEYS.forEach(function(k){$("p"+k).onclick=function(){if($("p"+k+"d").classList.contains("open"))closeDrops();else{DR[k]();openDrop(k)}}});
 $("home").onclick=function(){if(window.stopAppBgMusic){window.stopAppBgMusic()}location.href="/"};
 $("dash").onclick=function(){location.href="/dashboard/"};
