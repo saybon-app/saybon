@@ -1,125 +1,137 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Tell us what you think - SayBon</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#d4af6a;--ink:#f4efe6;--mute:rgba(244,239,230,.62);--line:rgba(212,175,106,.28)}
+:root{--teal:#0f8b8d;--teal2:#2aa7a4;--ink:#17323d;--mute:#52707a;--warm:#f2a272;--glass:rgba(255,255,255,.58);--line:rgba(255,255,255,.75)}
 *{box-sizing:border-box;margin:0}
-html,body{height:100%}
-body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:radial-gradient(120% 90% at 20% 0%,#1d2a44 0%,#0e1524 55%,#080c15 100%);overflow:hidden}
-.wrap{height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;max-width:640px;margin:0 auto}
-.brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.04em;color:var(--gold);margin-bottom:6px}
-.dots{display:flex;gap:6px;margin:6px 0 18px}
-.dots i{width:22px;height:3px;border-radius:2px;background:rgba(255,255,255,.14);transition:.3s}
-.dots i.on{background:var(--gold)}
-.card{display:flex;flex-direction:column;overflow:hidden;width:100%;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:20px;padding:26px 24px;backdrop-filter:blur(8px);max-height:calc(100dvh - 130px);animation:in .45s ease}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.kick{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,5.4vw,32px);line-height:1.2;margin-bottom:8px}
-p.sub{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--mute);line-height:1.35;margin-bottom:16px}
-.q{font-size:14.5px;font-weight:500;margin:14px 0 8px}
+html{scroll-behavior:smooth}
+body{font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#d9eefa 0%,#c9e9f0 38%,#bfe5e3 70%,#d6efe6 100%) fixed;-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(60% 40% at 15% 0%,rgba(255,224,200,.55),transparent 70%),radial-gradient(50% 40% at 100% 30%,rgba(42,167,164,.22),transparent 70%);pointer-events:none}
+.ico{position:fixed;top:max(16px,env(safe-area-inset-top));width:44px;height:44px;border:0;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.45));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 1px #fff,0 6px 16px rgba(20,70,90,.16);display:grid;place-items:center;cursor:pointer;z-index:20;color:var(--ink)}
+.ico svg{width:20px;height:20px}.ico.l{left:16px}.ico.r{right:16px}
+.bar{position:fixed;left:0;right:0;top:0;height:4px;background:rgba(255,255,255,.4);z-index:19}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal2),var(--warm));transition:width .3s}
+.wrap{position:relative;max-width:680px;margin:0 auto;padding:78px 16px 60px}
+.head{text-align:center;margin-bottom:22px}
+.brand{font-weight:800;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+h1{font-weight:800;font-size:clamp(26px,6vw,36px);line-height:1.15;margin:6px 0 8px}
+.head p{color:var(--mute);font-size:16px;line-height:1.5;max-width:480px;margin:0 auto}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.46));border:1px solid var(--line);border-radius:26px;padding:22px 20px 20px;margin-bottom:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px 1px #fff,0 16px 36px rgba(20,70,90,.12)}
+.card h2{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;margin-bottom:2px}
+.card h2 b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--teal2),var(--teal));color:#fff;font-size:14px;flex:none}
+.card .s{color:var(--mute);font-size:14.5px;margin:2px 0 6px 40px}
+.q{font-size:15px;font-weight:700;margin:16px 0 8px}
 .opts{display:flex;flex-wrap:wrap;gap:8px}
-.opt{border:1px solid var(--line);background:transparent;color:var(--ink);font:400 13.5px Poppins;padding:9px 14px;border-radius:999px;cursor:pointer;transition:.2s}
-.opt:hover{border-color:var(--gold)}
-.opt.sel{background:var(--gold);color:#16120a;border-color:var(--gold);font-weight:500}
-.stars{display:flex;gap:8px}
-.stars button{font-size:28px;background:none;border:0;color:rgba(255,255,255,.2);cursor:pointer;transition:.15s;padding:0}
-.stars button.on{color:var(--gold)}
-textarea,input[type=text]{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:400 14px Poppins;padding:11px 13px;resize:none;outline:none}
-textarea:focus,input:focus{border-color:var(--gold)}
-textarea{height:84px}
-::placeholder{color:rgba(244,239,230,.35)}
-.body{overflow:auto;flex:1;min-height:0;padding-right:4px}
-.nav{flex:none;display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
-.btn{font:500 14px Poppins;border-radius:999px;padding:12px 26px;border:0;cursor:pointer}
-.go{background:var(--gold);color:#16120a}
-.go:disabled{opacity:.45;cursor:default}
-.back{background:none;color:var(--mute);padding:12px 6px}
-.skip{font-size:12px;color:var(--mute);text-align:center;margin-top:10px}
-.hint{font-size:12px;color:var(--mute);margin-top:6px}
-.big{font-size:44px;color:var(--gold);font-family:'Playfair Display',serif}
+.opt{border:1px solid rgba(15,139,141,.28);background:rgba(255,255,255,.55);color:var(--ink);font:600 14px Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;padding:9px 14px;border-radius:999px;cursor:pointer;transition:.18s}
+.opt:hover{border-color:var(--teal)}
+.opt.sel{background:linear-gradient(135deg,var(--teal2),var(--teal));color:#fff;border-color:transparent;box-shadow:0 6px 14px rgba(15,139,141,.28)}
+.stars{display:flex;gap:6px}.stars button{font-size:32px;line-height:1;background:none;border:0;color:rgba(23,50,61,.18);cursor:pointer;padding:0 2px;transition:.15s}.stars button.on{color:var(--warm)}
+select,textarea,input[type=text]{width:100%;font:600 15px Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:rgba(255,255,255,.7);border:1px solid rgba(15,139,141,.28);border-radius:14px;padding:12px 14px;outline:none}
+select{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f8b8d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+textarea{height:78px;resize:vertical;font-weight:400}
+select:focus,textarea:focus,input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,139,141,.15)}
+::placeholder{color:rgba(23,50,61,.38)}
+.more{margin-top:8px}
+.send{display:block;width:100%;margin-top:8px;border:0;border-radius:999px;padding:16px;font:800 17px Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--teal2),var(--teal));box-shadow:inset 0 2px 2px rgba(255,255,255,.35),0 14px 28px rgba(15,139,141,.3)}
+.send:disabled{opacity:.6}
+.fine{text-align:center;color:var(--mute);font-size:13px;margin-top:12px}
+.thanks{text-align:center;padding:36px 14px}.thanks .big{font-size:46px;font-weight:800;color:var(--teal)}
+.thanks p{color:var(--mute);margin:8px 0 18px;font-size:16px}
+.thanks a{display:inline-block;text-decoration:none;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--teal2),var(--teal));border-radius:999px;padding:13px 26px}
 </style></head>
-<body><div class="wrap">
-<div class="brand">SayBon</div>
-<div class="dots" id="dots"></div>
-<div class="card" id="card"></div>
-</div>
+<body>
+<div class="bar"><i id="pg"></i></div>
+<button class="ico l" aria-label="Back" onclick="history.length>1?history.back():location.href='/dashboard/'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button class="ico r" aria-label="Dashboard" onclick="location.href='/dashboard/'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></button>
+<main class="wrap" id="wrap"></main>
 <script>
-var API="https://saybonapp-server.onrender.com/api/testerFeedbackSubmit";
-var A={},KEY="saybonFeedbackDraft";
-function save(){try{localStorage.setItem(KEY,JSON.stringify({A:A,i:i}))}catch(e){}}
-function clr(){try{localStorage.removeItem(KEY)}catch(e){}}
-var STEPS=[
-{k:"welcome",t:"Thank you for trying SayBon",s:"Your honest view helps us build something genuinely good. It takes about three minutes, and every question can be skipped.",
- f:[{id:"name",type:"text",q:"Your first name (optional)",ph:"e.g. Ama"},
-    {id:"device",type:"opts",q:"What are you using?",o:["Phone","Tablet","Laptop / desktop"]},
-    {id:"french",type:"opts",q:"Your French so far",o:["Complete beginner","I know a little","Fairly comfortable","Advanced"]}]},
-{k:"start",kick:"1 · The start page",t:"How did it feel to begin?",s:"The first page and the way into the platform.",
- f:[{id:"start_r",type:"stars",q:"Overall"},
-    {id:"start_clear",type:"opts",q:"Was it clear what to do next?",o:["Very clear","Mostly","I was unsure","Lost"]},
-    {id:"start_n",type:"text",q:"Anything confusing or lovely?",ta:1}]},
-{k:"placement",kick:"2 · The placement test",t:"How was the placement test?",s:"The questions that find your level.",
- f:[{id:"pl_done",type:"opts",q:"How did the test end for you?",o:["It placed me and showed my level","The teacher appeared","I left before either","It stopped working"]},
-    {id:"pl_saw",type:"opts",q:"During the test, did a teacher appear to talk to you?",o:["Yes, I saw her","No, nobody appeared","Not sure"]},
-    {id:"pl_r",type:"stars",q:"Overall"},
-    {id:"pl_n",type:"text",q:"Too long? Unclear? Anything that went wrong?",ta:1}]},
-{k:"teacher",kick:"2 · The teacher",t:"About the teacher who appeared",s:"The voice that steps in during the test.",skip:function(){return A.pl_saw!="Yes, I saw her"},
- f:[
-    {id:"pl_aud",type:"opts",q:"Could you hear her voice?",o:["Yes, clearly","Audio didn't play","Hard to hear"],if:function(){return A.pl_saw=="Yes, I saw her"}},
-    {id:"pl_feel",type:"opts",q:"How did her message make you feel?",o:["Encouraged","Neutral","Discouraged","Confused"],if:function(){return A.pl_saw=="Yes, I saw her"}},
-    {id:"pl_after",type:"opts",q:"What did you do next?",o:["Saw my level","Went back to the test","Left the site"],if:function(){return A.pl_saw=="Yes, I saw her"}},
-    {id:"pl_again",type:"opts",q:"When you went back, did she appear again?",o:["Yes, again","No","Not sure"],if:function(){return A.pl_after=="Went back to the test"}}
- ]},
-{k:"level",kick:"3 · Your level",t:"Did you land in the right place?",s:"The level you were given and the page that shows it.",
- f:[{id:"lv_fit",type:"opts",q:"The level felt",o:["Too easy","About right","Too hard","I couldn't tell"]},
-    {id:"lv_r",type:"stars",q:"The level page"},
-    {id:"lv_n",type:"text",q:"Notes",ta:1}]},
-{k:"lesson",kick:"4 · The lesson",t:"What was the lesson like?",s:"The part that matters most.",
- f:[{id:"ls_r",type:"stars",q:"Overall"},
-    {id:"ls_what",type:"multi",q:"What worked for you?",o:["The voices","Reading aloud","Feedback on my speech","The scenes","The pace","Clear instructions"]},
-    {id:"ls_n",type:"text",q:"What would make it better?",ta:1}]},
-{k:"motivation",kick:"5 · The honest one",t:"Did you want to keep going?",s:"Not to be kind. Just whether the lesson itself pulled you in.",
- f:[{id:"mo",type:"opts",q:"When the lesson ended, I felt",o:["I want more, it was interesting","I might come back","Only continued to help","I wanted to stop"]},
-    {id:"stop",type:"multi",q:"If anything held you back, what was it?",o:["Too hard","Too easy","Too slow","Boring","Confusing","Technical problem","Audio / microphone","Nothing"]},
-    {id:"mo_n",type:"text",q:"In your own words",ta:1}]},
-{k:"other",kick:"6 · Everything else",t:"Other pages and anything we missed",s:"Other pages you opened, bugs, small details.",
- f:[{id:"pages",type:"multi",q:"What else did you open?",o:["Levels","Les Petits","Tout Public","Talkletics","Music","About / pricing","Sign in"]},
-    {id:"pg_n",type:"text",q:"Page by page: what to fix or improve?",ta:1,ph:"Page name, then what you noticed"},
-    {id:"bug",type:"text",q:"Anything broken? (page, what you did, what happened)",ta:1},
-    {id:"first",type:"text",q:"If we could change just one thing first, what?",ta:1}]},
-{k:"done",t:"Merci !",s:"",last:1}
+var API="https://saybonapp-server.onrender.com/api/testerFeedbackSubmit",KEY="saybonFeedbackDraft2",A={};
+try{var D=JSON.parse(localStorage.getItem(KEY)||"null");if(D)A=D}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}}
+var IMPROVE=["Nothing, it was good","Clearer instructions","Easier","Harder / more challenge","Faster","Slower","More pictures or examples","Better sound","Louder or clearer voice","Better microphone handling","Bigger or clearer text","Fewer steps","Works better on my phone","Other (tell us below)"];
+var S=[
+{t:"About you",s:"Just so we know who we are helping.",f:[
+ {id:"name",type:"text",q:"First name (optional)",ph:"e.g. Ama"},
+ {id:"device",type:"sel",q:"What are you using?",o:["Phone","Tablet","Laptop / desktop"]},
+ {id:"french",type:"sel",q:"Your French so far",o:["Complete beginner","I know a little","Fairly comfortable","Advanced"]},
+ {id:"found",type:"sel",q:"How did you hear about SayBon?",o:["A friend or family","Social media","A teacher or school","The French Embassy / an event","Search","Other"]}]},
+{t:"The first pages",s:"The home page, “Why do you want to learn French?” and “How would you like to begin?”",f:[
+ {id:"start_r",type:"stars",q:"Overall"},
+ {id:"start_clear",type:"sel",q:"Was it clear what to do next?",o:["Very clear","Mostly clear","I was unsure","I was lost"]},
+ {id:"start_n",type:"sel",q:"Anything to improve?",o:["Nothing, it was good","Page was cut off on my phone","Buttons hard to find","Page loaded slowly","Text hard to read","Too much waiting or animation","Needed more explanation","Other (tell us below)"]},
+ {id:"start_t",type:"more"}]},
+{t:"The placement test",s:"The questions that find your level.",f:[
+ {id:"pl_done",type:"sel",q:"How did the test end for you?",o:["It showed my level","The teacher appeared and spoke to me","I left before it finished","It stopped working","I did not take it"]},
+ {id:"pl_r",type:"stars",q:"Overall"},
+ {id:"pl_len",type:"sel",q:"The length",o:["Too short","About right","A little long","Far too long"]},
+ {id:"pl_q",type:"sel",q:"The questions felt",o:["Too easy","Fair","Too hard","Some were unclear","Some were repeated"]},
+ {id:"pl_aud",type:"sel",q:"Listening and picture questions",o:["Worked well","Audio did not play","A picture was missing","Hard to hear","I did not get any"]},
+ {id:"pl_mic",type:"sel",q:"The speaking question",o:["Worked well","It could not hear me","Microphone was blocked","I skipped it","I did not get one"]},
+ {id:"pl_feel",type:"sel",q:"If the teacher spoke to you, how did it feel?",o:["Encouraging","Neutral","Discouraging","Confusing","She did not appear"]},
+ {id:"pl_n",type:"sel",q:"Anything to improve?",o:IMPROVE},
+ {id:"pl_t",type:"more"}]},
+{t:"Your level",s:"The level you were given and the page that shows it.",f:[
+ {id:"lv_fit",type:"sel",q:"The level felt",o:["Too easy","About right","Too hard","I could not tell"]},
+ {id:"lv_r",type:"stars",q:"The level page"},
+ {id:"lv_n",type:"sel",q:"Anything to improve?",o:IMPROVE},
+ {id:"lv_t",type:"more"}]},
+{t:"The lessons",s:"The part that matters most.",f:[
+ {id:"ls_tried",type:"multi",q:"Which did you try?",o:["Les Petits","Tout Public","A1","A2","B1","B2","C1","C2","Talkletics","Reading"]},
+ {id:"ls_r",type:"stars",q:"Overall"},
+ {id:"ls_what",type:"multi",q:"What worked for you?",o:["The teacher’s voice","Repeating aloud","Feedback on my speech","The scenes and pictures","The pace","Clear instructions","The music","Nothing yet"]},
+ {id:"ls_voice",type:"sel",q:"The teacher’s voice",o:["Clear and pleasant","Too fast","Too slow","Hard to understand","Audio did not play"]},
+ {id:"ls_mic",type:"sel",q:"Speaking to the microphone",o:["Worked well","Did not hear me","Marked me wrong when I was right","Microphone blocked","I did not use it"]},
+ {id:"ls_diff",type:"sel",q:"The difficulty",o:["Too easy","Just right","A bit hard","Too hard"]},
+ {id:"ls_n",type:"sel",q:"What would make it better?",o:IMPROVE},
+ {id:"ls_t",type:"more"}]},
+{t:"Talkletics and the Library",s:"Skip anything you did not open.",f:[
+ {id:"tk_r",type:"stars",q:"Talkletics"},
+ {id:"lib_r",type:"stars",q:"The Library and reading"},
+ {id:"pg_n",type:"multi",q:"What needs the most work?",o:["Home page","Placement test","Lessons","Talkletics","Library","Music","Sign in","Dashboard","Pricing","Nothing"]}]},
+{t:"Did something break?",s:"Tell us what you saw.",f:[
+ {id:"bug",type:"multi",q:"Tick anything that happened",o:["Nothing broke","A page would not load","No sound","Microphone problem","Could not sign in","Text was wrong or missing","Layout cut off","Very slow","Lost my progress"]},
+ {id:"bug_t",type:"more",ph:"Which page, and what happened?"}]},
+{t:"The honest part",s:"Not to be kind. Just what is true for you.",f:[
+ {id:"mo",type:"sel",q:"When the lesson ended, I felt",o:["I want more, it was interesting","I might come back","Only continued to help","I wanted to stop"]},
+ {id:"stop",type:"multi",q:"If anything held you back, what was it?",o:["Too hard","Too easy","Too slow","Boring","Confusing","Technical problem","Audio / microphone","Nothing"]},
+ {id:"first",type:"sel",q:"If we could change one thing first, it would be",o:["Make it easier to start","Fix sound problems","Make lessons more fun","More lessons","Better placement test","Better microphone handling","Better phone layout","Faster loading","Other (tell us below)"]},
+ {id:"mo_n",type:"more",ph:"Anything else, in your own words"}]}
 ];
-var i=0;
-try{var D=JSON.parse(localStorage.getItem(KEY)||"null");if(D&&D.A){A=D.A;i=Math.min(+D.i||0,STEPS.length-2)}}catch(e){}
 var $=function(x){return document.getElementById(x)};
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function dots(){var h="";STEPS.forEach(function(_,n){h+='<i class="'+(n<=i?'on':'')+'"></i>'});$("dots").innerHTML=h}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function field(f){
+ var h="";
+ if(f.type=="more")return '<div class="more"><textarea data-id="'+f.id+'" placeholder="'+(f.ph||"Want to add more? (optional)")+'">'+esc(A[f.id]||"")+'</textarea></div>';
+ h+='<div class="q">'+f.q+'</div>';
+ if(f.type=="text")h+='<input type="text" data-id="'+f.id+'" placeholder="'+(f.ph||"")+'" value="'+esc(A[f.id]||"")+'">';
+ if(f.type=="sel"){h+='<select data-id="'+f.id+'"><option value="">Choose one</option>';f.o.forEach(function(o){h+='<option'+(A[f.id]==o?' selected':'')+'>'+esc(o)+'</option>'});h+='</select>'}
+ if(f.type=="multi"){h+='<div class="opts">';f.o.forEach(function(o){h+='<button type="button" class="opt'+((A[f.id]||[]).indexOf(o)>-1?' sel':'')+'" data-id="'+f.id+'" data-v="'+esc(o)+'">'+esc(o)+'</button>'});h+='</div>'}
+ if(f.type=="stars"){h+='<div class="stars" data-id="'+f.id+'">';for(var s=1;s<=5;s++)h+='<button type="button" data-s="'+s+'" class="'+(A[f.id]>=s?'on':'')+'" aria-label="'+s+' stars">★</button>';h+='</div>'}
+ return h;
+}
+function progress(){var n=0,t=0;S.forEach(function(sec){sec.f.forEach(function(f){if(f.type=="more")return;t++;var v=A[f.id];if(v&&(!Array.isArray(v)||v.length))n++})});$("pg").style.width=Math.round(n/t*100)+"%"}
 function render(){
- var S=STEPS[i];save();dots();var h="";
- if(S.last){h='<div class="big">Merci</div><h1 style="margin-top:6px">Your words reached us.</h1><p class="sub">Thank you for giving SayBon your time. We read every answer.</p>';$("card").innerHTML=h;return}
- h='<div class="body">';
- if(S.kick)h+='<div class="kick">'+S.kick+'</div>';
- h+='<h1>'+S.t+'</h1><p class="sub">'+S.s+'</p>';
- S.f.forEach(function(f){
-  if(f.if&&!f.if())return;
-  h+='<div class="q">'+f.q+'</div>';
-  if(f.type=="text"){h+=f.ta?'<textarea data-id="'+f.id+'" placeholder="'+(f.ph||'Write here…')+'">'+esc(A[f.id]||"")+'</textarea>':'<input type="text" data-id="'+f.id+'" placeholder="'+(f.ph||'')+'" value="'+esc(A[f.id]||"")+'">'}
-  if(f.type=="opts"||f.type=="multi"){h+='<div class="opts">';f.o.forEach(function(o){var on=f.type=="multi"?(A[f.id]||[]).indexOf(o)>-1:A[f.id]==o;h+='<button class="opt'+(on?' sel':'')+'" data-id="'+f.id+'" data-m="'+(f.type=="multi"?1:0)+'" data-v="'+esc(o)+'">'+o+'</button>'});h+='</div>'}
-  if(f.type=="stars"){h+='<div class="stars" data-id="'+f.id+'">';for(var s=1;s<=5;s++)h+='<button data-s="'+s+'" class="'+(A[f.id]>=s?'on':'')+'">★</button>';h+='</div>'}
- });
- h+='</div><div class="nav"><button class="btn back" id="b"'+(i?'':' style="visibility:hidden"')+'>Back</button><button class="btn go" id="n">'+(i==STEPS.length-2?'Send':'Next')+'</button></div>';
- $("card").innerHTML=h;
- $("card").querySelectorAll("textarea,input").forEach(function(e){e.oninput=function(){A[e.dataset.id]=e.value;save()}});
- $("card").querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var id=b.dataset.id,v=b.dataset.v;if(b.dataset.m=="1"){var a=A[id]||[],x=a.indexOf(v);x>-1?a.splice(x,1):a.push(v);A[id]=a}else A[id]=(A[id]==v?"":v);render()}});
- $("card").querySelectorAll(".stars").forEach(function(w){w.querySelectorAll("button").forEach(function(b){b.onclick=function(){var n=+b.dataset.s;A[w.dataset.id]=A[w.dataset.id]==n?0:n;render()}})});
- $("b").onclick=function(){do{i--}while(i>0&&STEPS[i].skip&&STEPS[i].skip());render()};
- $("n").onclick=function(){if(i==STEPS.length-2)send();else{do{i++}while(STEPS[i].skip&&STEPS[i].skip());render()}};
+ var h='<div class="head"><div class="brand">SayBon</div><h1>Tell us what you think</h1><p>About three minutes. Pick from the lists, skip anything you like, and add words only if you want to.</p></div>';
+ S.forEach(function(sec,i){h+='<section class="card"><h2><b>'+(i+1)+'</b>'+sec.t+'</h2><p class="s">'+sec.s+'</p>';sec.f.forEach(function(f){h+=field(f)});h+='</section>'});
+ h+='<button class="send" id="send">Send my feedback</button><p class="fine">We read every answer. Thank you.</p>';
+ $("wrap").innerHTML=h;progress();bind();
+}
+function bind(){
+ var w=$("wrap");
+ w.querySelectorAll("textarea,input").forEach(function(e){e.oninput=function(){A[e.dataset.id]=e.value;save()}});
+ w.querySelectorAll("select").forEach(function(e){e.onchange=function(){A[e.dataset.id]=e.value;save();progress()}});
+ w.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){var id=b.dataset.id,v=b.dataset.v,a=A[id]||[],x=a.indexOf(v);x>-1?a.splice(x,1):a.push(v);A[id]=a;b.classList.toggle("sel");save();progress()}});
+ w.querySelectorAll(".stars").forEach(function(st){st.querySelectorAll("button").forEach(function(b){b.onclick=function(){var n=+b.dataset.s,id=st.dataset.id;A[id]=A[id]==n?0:n;st.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",A[id]>=+x.dataset.s)});save();progress()}})});
+ $("send").onclick=send;
 }
 function send(){
- var b=$("n");b.disabled=true;b.textContent="Sending…";
- var p={answers:A,page:"feedback",ua:navigator.userAgent.slice(0,200),w:innerWidth,h:innerHeight};
- fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json()}).then(function(d){
-  if(d&&d.success){clr();i++;render();clr()}else throw 0}).catch(function(){b.disabled=false;b.textContent="Send";alert("Could not send just now. Please try once more.")});
+ var b=$("send"),out={};
+ Object.keys(A).forEach(function(k){var v=A[k];if(v===""||v==null||(Array.isArray(v)&&!v.length)||v===0)return;out[k]=v});
+ if(!Object.keys(out).length){b.textContent="Pick at least one answer first";setTimeout(function(){b.textContent="Send my feedback"},2200);return}
+ b.disabled=true;b.textContent="Sending…";
+ fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({answers:out,page:"feedback",ua:navigator.userAgent.slice(0,200)})}).then(function(r){return r.json()}).then(function(d){
+  if(d&&d.success){try{localStorage.removeItem(KEY)}catch(e){}A={};$("pg").style.width="100%";$("wrap").innerHTML='<div class="card thanks"><div class="big">Merci</div><p>Your words reached us. We read every answer.</p><a href="/dashboard/">Back to dashboard</a></div>';scrollTo(0,0)}else throw 0
+ }).catch(function(){b.disabled=false;b.textContent="Send my feedback";alert("Could not send just now. The server may be waking up, please try once more.")});
 }
 render();
 </script></body></html>
