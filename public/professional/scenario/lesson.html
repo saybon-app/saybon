@@ -12,6 +12,7 @@
 </head>
 <body class="pro-lesson">
 <div id="pic" class="pic"><img id="pimg" alt=""><div class="shade"></div></div>
+<div id="intro" class="in" hidden><div class="in-card"><p class="in-eb">French for Professionals</p><h1 id="inT"></h1><span class="in-rule"></span><p id="inTx" class="in-tx"></p><div class="in-act"><button id="inGo" class="in-go" hidden>Begin the lesson</button><button id="inListen" class="in-ls" hidden>Listen</button></div></div></div>
 <button class="sc-corner" id="bk" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
 <div class="sc-top"><div id="goal" class="sc-goal"></div><div id="sec" class="sc-sec"></div><div class="sc-prog"><i id="bar"></i></div></div>
 <div class="sc-bottom">
@@ -23,10 +24,11 @@
  <div class="sc-tools"><button id="pz">Pause</button><button id="cc" class="on">Text</button><button id="rs">Restart</button></div>
 </div>
 <button class="pro-orb pc-teach" id="orb" aria-label="Teacher" style="border:0;cursor:pointer;display:none"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg></button>
-<button class="pro-skip" id="sk" style="display:none">Passer</button>
+<button class="pro-skip" id="sk" style="display:none">Skip</button>
 <div id="end" class="sc-end" hidden><div class="card"><h2 id="endT">Bravo !</h2><p id="endP"></p><div class="btns"><button id="endBack">Retour</button><button id="endAgain" class="alt">Refaire</button></div></div></div>
 <audio id="au" preload="auto"></audio>
 <script type="module">import { auth } from "/js/firebase-init.js";import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";window.scUid=null;onAuthStateChanged(auth,function(u){window.scUid=u?u.uid:null});</script>
+<script src="tts.js?v=1"></script>
 <script src="engine.js?v=1"></script>
 <script src="lesson.js?v=1"></script>
 </body></html>

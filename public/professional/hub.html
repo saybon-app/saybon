@@ -58,6 +58,7 @@ var pr=window.proOf&&window.proOf(S.f),fd=window.proGroup&&window.proGroup(S.f);
 var NAME=S.f==="__other"?S.o:(pr?pr.name:(fd?fd.name:""));
 if(NAME)$("eb").textContent="French for Professionals · "+NAME;
 var G={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
+var MORE={};fetch("scenario/more-index.json").then(function(r){return r.json()}).then(function(j){MORE=j}).catch(function(){});
 var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
 function mx(a){return a&&a.length?Math.max.apply(null,a):0}
 function unlocked(i){
@@ -68,6 +69,7 @@ function unlocked(i){
 }
 function url(l,n){
  if(n===1)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
+ var mi=MORE[S.f&&(G[S.f]||"business")+"-"+l.k.toLowerCase()];if(mi&&mi.indexOf(n)>=0)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&n="+n+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
  return l.base+"lesson"+n+".html";
 }
 function themeFor(l){var id="th";var old=$(id);if(old)old.remove();var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=l.theme+"theme.css?v=1";document.head.appendChild(k)}
@@ -84,9 +86,9 @@ function draw(){
 var qs="f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+S.lv+"&tg="+S.tg+"&pc="+encodeURIComponent(S.pc);
 var L='<a href="scenario/?g='+(G[S.f]||"business")+'&pc='+encodeURIComponent(S.pc)+'">Scenarios</a>';
 if(fd)L+='<a href="./?'+qs+'&tab=words">Words</a><a href="./?'+qs+'&tab=plays">Role-plays</a>';
-L+='<a href="./">Change selection</a>';
+L+='<a href="./?change=1">Change selection</a>';
 $("links").innerHTML=L;
-$("bk").onclick=function(){location.href="/professional/"};
+$("bk").onclick=function(){location.href="/dashboard/"};
 $("ds").onclick=function(){location.href="/dashboard/"};
 draw();
 onAuthStateChanged(auth,async function(u){

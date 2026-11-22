@@ -3,7 +3,7 @@ var E=window.ScenEngine;
 function $(i){return document.getElementById(i)}
 var q=new URLSearchParams(location.search),G=q.get("g")||"",LV=(q.get("lv")||"a0").toLowerCase(),PC=q.get("pc")||"steady",FORCE=q.get("force")==="1",SKIP=q.get("skip")==="1",FAST=q.get("fast")==="1";
 if(!E.PACES[PC])PC="steady";
-var KEY=G+"-"+LV+"-"+PC,au=$("au"),scene=null,started=false,paused=false,missing=0,L=null,S=[],micState=0,stream=null,actx=null,an=null,CAPON=true;
+var N=Math.max(1,parseInt(q.get("n")||"1",10)||1),KEY=G+"-"+LV+(N>1?"-"+N:"")+"-"+PC,au=$("au"),scene=null,started=false,paused=false,missing=0,L=null,S=[],micState=0,stream=null,actx=null,an=null,CAPON=true;
 function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
 var RET=q.get("ret")||"",HUB=q.get("hub")==="1";
 function back(){if(HUB&&RET.indexOf("/professional/hub.html")===0){location.href=RET;return}location.href="./?g="+encodeURIComponent(G)+"&pc="+PC}
@@ -11,21 +11,21 @@ $("bk").onclick=back;
 function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
 function notice(t,p,again){$("endT").textContent=t;$("endP").textContent=p;$("endAgain").style.display=again?"":"none";$("end").hidden=false}
 $("endBack").onclick=back;
-$("endAgain").onclick=function(){location.href=location.pathname+"?g="+G+"&lv="+LV+"&pc="+PC+"&skip=1"+(FORCE?"&force=1":"")+(HUB?"&hub=1&ret="+encodeURIComponent(RET):"")};
+$("endAgain").onclick=function(){location.href=location.pathname+"?g="+G+"&lv="+LV+(N>1?"&n="+N:"")+"&pc="+PC+"&skip=1"+(FORCE?"&force=1":"")+(HUB?"&hub=1&ret="+encodeURIComponent(RET):"")};
 $("rs").onclick=$("endAgain").onclick;
 $("cc").onclick=function(){CAPON=!CAPON;$("cc").classList.toggle("on",CAPON);$("cap").classList.toggle("off",!CAPON)};
-$("pz").onclick=function(){paused=!paused;$("pz").textContent=paused?"Resume":"Pause";$("pz").classList.toggle("on",paused);if(paused){try{au.pause()}catch(e){}}else{if(au.src&&!au.ended&&au.currentTime>0){au.play().catch(function(){})}}};
+$("pz").onclick=function(){paused=!paused;$("pz").textContent=paused?"Resume":"Pause";$("pz").classList.toggle("on",paused);if(paused){try{au.pause()}catch(e){}if(window.SBTTS)SBTTS.pause()}else{if(window.SBTTS)SBTTS.resume();if(au.src&&!au.ended&&au.currentTime>0){au.play().catch(function(){})}}};
 async function untilGo(){while(paused)await wait(120)}
 
 /* load the lesson */
 Promise.all([
- fetch("data/"+G+".json").then(function(r){if(!r.ok)throw 0;return r.json()}),
+ fetch("data/"+G+(N>1?"-more":"")+".json").then(function(r){if(!r.ok)throw 0;return r.json()}),
  fetch("ready.json?t="+Date.now()).then(function(r){return r.json()}).catch(function(){return{lessons:[]}})
 ]).then(function(a){
- var D=a[0],R=a[1];L=D.levels[LV];
+ var D=a[0],R=a[1];L=N>1?D[LV+"-"+N]:D.levels[LV];
  if(!L){notice("Not found","This lesson does not exist.",false);return}
  L=Object.assign({lv:LV},L);S=E.build(L,PC);
- if(!FORCE&&(R.lessons||[]).indexOf(KEY)<0){notice("Audio coming soon","This lesson's audio is not recorded yet. It will open as soon as it is ready.",false);return}
+ if(N===1&&!FORCE&&(R.lessons||[]).indexOf(KEY)<0){notice("Audio coming soon","This lesson's audio is not recorded yet. It will open as soon as it is ready.",false);return}
  init();
 }).catch(function(){notice("Not found","This lesson does not exist.",false)});
 
@@ -36,16 +36,23 @@ function init(){
  try{localStorage.setItem("sbpro_bg",String(th))}catch(e){}
  loadPic();
  if(SKIP){begin();return}
- document.body.classList.add("ps-on");
- var sc=document.createElement("script");sc.src="/levels/scene-paris/scene-paris.js?v=27";
- sc.onload=function(){try{scene=window.ParisScene.mount({mic:false,overlay:true,theme:th,start:Math.floor(Math.random()*3)})}catch(e){}};
- document.head.appendChild(sc);
- var orb=$("orb"),sk=$("sk");sk.style.display="";
- au.src="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";
- au.onplay=function(){orb.style.display="";orb.classList.add("on")};au.onpause=function(){orb.classList.remove("on")};
- au.onended=begin;au.onerror=begin;sk.onclick=begin;
- orb.onclick=function(){au.play().catch(function(){begin()})};
- var p=au.play();if(p&&p.catch)p.catch(function(){orb.style.display=""});
+ var sk=$("sk");sk.style.display="";sk.onclick=begin;
+ $("pic").classList.add("on","intro");
+ var NM={medical:"Medical",legal:"Legal",military:"Military and peacekeeping",police:"Police and security",border:"Border and customs",banking:"Banking",logistics:"Logistics",hospitality:"Hospitality",business:"Business",education:"Education"};
+ $("inT").textContent=(NM[G]||"Professional")+" \u00b7 "+LV.toUpperCase();
+ fetch("intros.json").then(function(r){return r.json()}).then(function(I){
+  var T=I[G+"-"+LV.toUpperCase()+(N>1?"-"+N:"")];if(!T){begin();return}
+  $("intro").hidden=false;var tx=$("inTx"),k=0,done=false,tm=null;
+  function paint(n){tx.innerHTML="";var a=document.createElement("span");a.textContent=T.slice(0,n);tx.appendChild(a);if(n<T.length){var c=document.createElement("span");c.className="caret";tx.appendChild(c);var r=document.createElement("span");r.className="rest";r.textContent=T.slice(n);tx.appendChild(r)}}
+  function finish(){if(done)return;done=true;clearInterval(tm);paint(T.length);$("inGo").hidden=false}
+  paint(0);tm=setInterval(function(){k+=1;paint(k);if(k>=T.length)finish()},FAST?1:32);
+  $("intro").querySelector(".in-card").onclick=function(e){if(e.target.closest("button"))return;finish()};
+  $("inGo").onclick=begin;
+  /* when the voice has been recorded, a Listen button appears */
+  au.src="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";au.onerror=function(){};if(N>1)au.removeAttribute("src");
+  au.oncanplay=function(){$("inListen").hidden=false};
+  $("inListen").onclick=function(){au.currentTime=0;au.play().catch(function(){})};
+ }).catch(function(){begin()});
 }
 function loadPic(){
  var tall=innerHeight>innerWidth,exts=["webp","png","jpg","jpeg"],names=tall?["tall","wide"]:["wide","tall"],list=[];
@@ -53,15 +60,13 @@ function loadPic(){
  var h=0,key=G+LV;for(var c=0;c<key.length;c++)h=(h*31+key.charCodeAt(c))%7;var gi=h+1;/* shared pictures for scenes without their own */
  if(tall)list.push("img/gen-t"+(gi===2?2:1)+".webp");list.push("img/gen-"+gi+".webp");
  list.push(tall?"../bg-mobile.webp":"../bg-desktop.webp");
- var i=0,im=$("pimg");im.onerror=function(){i++;if(i<list.length)im.src=list[i]};im.src=list[0];
+ var i=0,im=$("pimg");im.onerror=function(){i++;if(i<list.length)im.src=list[i]};im.onload=function(){$("pic").classList.toggle("soft",/\/gen-|bg-(desktop|mobile)/.test(im.src))};im.src=list[0];
 }
 function begin(){
- if(started)return;started=true;
- try{au.pause();au.onended=null;au.onerror=null;au.onplay=null;au.onpause=null}catch(e){}
- if(scene&&scene.destroy)try{scene.destroy()}catch(e){}
- document.body.classList.remove("ps-on","ps-ready");
- $("orb").style.display="none";$("sk").style.display="none";
- $("pic").classList.add("on");document.querySelector(".sc-top").classList.add("on");document.querySelector(".sc-bottom").classList.add("on");
+ if(started)return;started=true;if(window.SBTTS)SBTTS.unlock();
+ try{au.pause();au.oncanplay=null}catch(e){}
+ $("intro").hidden=true;$("orb").style.display="none";$("sk").style.display="none";
+ $("pic").classList.remove("intro");$("pic").classList.add("on");document.querySelector(".sc-top").classList.add("on");document.querySelector(".sc-bottom").classList.add("on");
  run();
 }
 
@@ -69,9 +74,10 @@ function begin(){
 function playLine(s){
  return new Promise(function(res){
   var done=false;function fin(v){if(done)return;done=true;res(v)}
-  au.onended=function(){fin("ok")};au.onerror=function(){fin("err")};
+  function voice(){if(window.SBTTS&&SBTTS.ok&&s.fr){SBTTS.speak(s.fr,s.who,PC).then(function(r){fin(r==="err"?"err":"ok")})}else fin("err")}
+  au.onended=function(){fin("ok")};au.onerror=voice;
   au.src="audio/"+s.a+".mp3";
-  var p=au.play();if(p&&p.catch)p.catch(function(){fin("err")});
+  var p=au.play();if(p&&p.catch)p.catch(voice);
  });
 }
 function whoLabel(w,kind){if(w==="c")return["L'autre personne","c"];if(w==="t")return["Le professeur","t"];return[kind==="turn"?"Vous":"Modèle","p"]}
@@ -129,7 +135,7 @@ async function run(){
  }
  tool.style.width="100%";
  var d=ls("sbpro_scen_done")||{};d[KEY]=Date.now();ls("sbpro_scen_done",d);
- if(HUB&&window.scUid&&!FAST){try{fetch("https://saybonapp-server.onrender.com/api/levelProgressComplete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({uid:window.scUid,level:LV==="a0"?"a0-tout-public":LV,lesson:1})}).catch(function(){})}catch(e){}}
+ if(HUB&&window.scUid&&!FAST){try{fetch("https://saybonapp-server.onrender.com/api/levelProgressComplete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({uid:window.scUid,level:LV==="a0"?"a0-tout-public":LV,lesson:N})}).catch(function(){})}catch(e){}}
  $("state").textContent="";
  notice("Bravo !",missing?("Done. "+missing+" line(s) had no audio yet."):"You played the whole scene. Saved on this device.",true);
 }
