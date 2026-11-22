@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Ça va ?
+
+[turn: Ça va ]
+
+[playful] How are you?
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim !
+
+[turn: J'ai faim ]
+
+[playful] I'm hungry!
+
+[pause] [pause] [slowly]
+ [excited] [playful] De l'eau, s'il te plaît !
+
+[turn: De l'eau s'il te plaît ]
+
+[playful] Water, please!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif !
+
+[turn: J'ai soif ]
+
+[playful] I'm thirsty!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil !
+
+[turn: J'ai sommeil ]
+
+[playful] I'm sleepy!
+
+[excited] [playful] Bravo, mon petit! [giggles] You can say how you feel.

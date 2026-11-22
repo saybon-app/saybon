@@ -1,0 +1,44 @@
+[excited] [playful] Now, a fast, strong animal. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le cheval means, the horse.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval
+
+[turn: Le cheval ]
+
+[excited] [playful] Great job! Le cheval [giggles]

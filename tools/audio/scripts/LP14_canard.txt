@@ -1,0 +1,44 @@
+[excited] [playful] Last, an animal that goes quack. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le canard means, the duck.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard
+
+[turn: Le canard ]
+
+[excited] [playful] Great job! Le canard [giggles]

@@ -1,0 +1,59 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Comment tu t'appelles ?
+
+[turn: Comment tu t'appelles ]
+
+[playful] What's your name?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je suis content !
+
+[turn: Je suis content ]
+
+[playful] I'm happy!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise !
+
+[turn: J'aime la fraise ]
+
+[playful] I like the strawberry!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Un, deux, trois, quatre, cinq !
+
+[turn: Un deux trois quatre cinq ]
+
+[playful] Counting!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit !
+
+[turn: Bonne nuit ]
+
+[playful] Good night!
+
+[pause] [pause] [slowly]
+ [excited] [playful] À demain !
+
+[turn: À demain ]
+
+[playful] See you tomorrow!
+
+[excited] [playful] Bravo, mon petit! [giggles] Twenty-five lessons. You are a little French speaker now. À demain!

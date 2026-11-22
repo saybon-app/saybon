@@ -1,0 +1,44 @@
+[excited] [playful] Now, a girl in the family. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La sœur means, the sister.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur
+
+[turn: La sœur ]
+
+[excited] [playful] Great job! La sœur [giggles]

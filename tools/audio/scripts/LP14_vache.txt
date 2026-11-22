@@ -1,0 +1,44 @@
+[excited] [playful] First, a big animal that says moo. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La vache means, the cow.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache
+
+[turn: La vache ]
+
+[excited] [playful] Great job! La vache [giggles]

@@ -1,0 +1,44 @@
+[excited] [playful] Last, how to say it is hot. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Il fait chaud means, it is hot.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Il fait chaud
+
+[turn: Il fait chaud ]
+
+[excited] [playful] Great job! Il fait chaud [giggles]

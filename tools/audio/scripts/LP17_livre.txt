@@ -1,0 +1,44 @@
+[excited] [playful] First, something you read. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le livre means, the book.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre
+
+[turn: Le livre ]
+
+[excited] [playful] Great job! Le livre [giggles]

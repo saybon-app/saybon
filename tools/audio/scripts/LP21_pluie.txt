@@ -1,0 +1,44 @@
+[excited] [playful] Now, drops falling from the clouds. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La pluie means, the rain.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pluie
+
+[turn: La pluie ]
+
+[excited] [playful] Great job! La pluie [giggles]

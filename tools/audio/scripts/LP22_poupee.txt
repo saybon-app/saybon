@@ -1,0 +1,44 @@
+[excited] [playful] Now, a little friend to hold. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La poupée means, the doll.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La poupée
+
+[turn: La poupée ]
+
+[excited] [playful] Great job! La poupée [giggles]

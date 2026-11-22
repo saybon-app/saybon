@@ -1,0 +1,289 @@
+﻿SAYBON READ-ONLY AUDIT  11/22/2026 00:49:57
+Nothing was changed. Counts are files found on disk.
+
+== LES PETITS (lesson page | audio files lessonN_*.mp3 in assets\audio\lp)
+L1   page=True  audio=8
+L2   page=True  audio=5
+L3   page=True  audio=5
+L4   page=True  audio=5
+L5   page=True  audio=5
+L6   page=True  audio=5
+L7   page=True  audio=5
+L8   page=True  audio=5
+L9   page=True  audio=5
+L10  page=True  audio=5
+L11  page=True  audio=5
+L12  page=True  audio=5
+L13  page=True  audio=0
+L14  page=True  audio=0
+L15  page=True  audio=0
+L16  page=True  audio=0
+L17  page=True  audio=0
+L18  page=True  audio=0
+L19  page=True  audio=0
+L20  page=True  audio=0
+L21  page=True  audio=0
+L22  page=True  audio=0
+L23  page=True  audio=0
+L24  page=True  audio=0
+L25  page=True  audio=0
+
+== TOUT PUBLIC / A0 adults (lesson page | audio A0_TP_LN_*.mp3 in assets\audio)
+L1   page=True  audio=7
+L2   page=True  audio=6
+L3   page=True  audio=5
+L4   page=True  audio=0
+L5   page=True  audio=0
+L6   page=True  audio=0
+L7   page=True  audio=0
+L8   page=True  audio=0
+L9   page=True  audio=0
+L10  page=True  audio=0
+L11  page=True  audio=0
+L12  page=True  audio=0
+L13  page=True  audio=0
+L14  page=True  audio=0
+L15  page=True  audio=0
+L16  page=True  audio=0
+L17  page=True  audio=0
+L18  page=True  audio=0
+L19  page=True  audio=0
+L20  page=True  audio=0
+L21  page=True  audio=0
+L22  page=True  audio=0
+L23  page=True  audio=0
+L24  page=True  audio=0
+L25  page=True  audio=0
+
+== A1-C2 (page | engine | scene audio LN_lv_*.mp3 | build flag | wired in scene-ui | reading data)
+-- A1
+A1-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-6   page=reading   audio=0    flag=False wired=False reading=True
+A1-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+A1-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+A1-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A1-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+A1-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+-- A2
+A2-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-6   page=reading   audio=0    flag=False wired=False reading=True
+A2-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+A2-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+A2-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+A2-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+A2-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+-- B1
+B1-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-6   page=reading   audio=0    flag=False wired=False reading=True
+B1-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+B1-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+B1-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B1-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+B1-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+-- B2
+B2-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-6   page=reading   audio=0    flag=False wired=False reading=True
+B2-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+B2-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+B2-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+B2-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+B2-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+-- C1
+C1-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-6   page=reading   audio=0    flag=False wired=False reading=True
+C1-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+C1-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+C1-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C1-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+C1-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+-- C2
+C2-1   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-2   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-3   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-4   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-5   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-6   page=reading   audio=0    flag=False wired=False reading=True
+C2-7   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-8   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-9   page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-10  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-11  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-12  page=scene/tp  audio=0    flag=False wired=False reading=False
+C2-13  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-14  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-15  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-16  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-17  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-18  page=scene/tp  audio=0    flag=False wired=False reading=False
+C2-19  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-20  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-21  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-22  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-23  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+C2-24  page=scene/tp  audio=0    flag=False wired=False reading=False
+C2-25  page=scene/tp  audio=8    flag=True  wired=True  reading=False
+
+== TALKLETICS
+Place pages in public\talkletics:
+  admin-map.html
+  boulangerie.html
+  cafe.html
+  chambre.html
+  cuisine.html
+  ecole.html
+  index.html
+  journey.html
+  la-maison.html
+  laverie.html
+  maison.html
+  map.html
+  marche.html
+  parc.html
+  patisserie.html
+  pharmacie.html
+  play.html
+  poste.html
+  restaurant.html
+  salle-de-bains.html
+  salle-de-sport.html
+  salon-de-coiffure.html
+  salon.html
+  station-taxis.html
+  supermarche.html
+Place image folders (public\assets\talkletics\places):
+  boulangerie            files=82
+  cafe                   files=77
+  chambre                files=94
+  cuisine                files=90
+  ecole                  files=94
+  la-maison              files=96
+  laverie                files=84
+  marche                 files=91
+  parc                   files=97
+  patisserie             files=70
+  pharmacie              files=121
+  poste                  files=120
+  restaurant             files=116
+  salle-de-bains         files=75
+  salle-de-sport         files=103
+  salon                  files=76
+  salon-de-coiffure      files=107
+  station-taxis          files=85
+  supermarche            files=126
+Shared maison audio clips: 187
+Anything named banque / arret / bus anywhere under public:
+  public\assets\audio\placement\a2_l_bus.mp3
+  public\assets\sounds\placement\b1_q10_bus.mp3
+  public\assets\talkletics\map\places\17-banque.webp
+  public\assets\talkletics\map\places\19-arret-de-bus.webp
+  public\assets\talkletics\map\places\35-banque-2.webp
+  public\features\admin\documents\business-plan.html
+  public\features\invest\business-plan.css
+  public\features\invest\business-plan.html
+
+== PLACEMENT
+Placement audio files: 35
+Placement images: 16
+
+== GIT
+
+edd4b3ae Feedback form: single glass page with dropdowns
+35af84ea Why page glass cards, home cut-off fix, A0 audio fix
+56e11826 Placement audio
+2aaed233 Placement: strong learners finish stages early
+b9bbcd18 Why page CSS cards, home page fits screen, A0 intro audio fix
+33286f63 Lessons 21, 22, 23, 25 for A1 to C2
+7921a92b Why page rebuilt in CSS, A0 intro audio tap fix
+c03df9ab Talkletics audio clips
+
+== BACKUP FILES (.bak / .orig) in public and tools: 0

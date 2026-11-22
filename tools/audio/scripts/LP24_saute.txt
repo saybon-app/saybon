@@ -1,0 +1,44 @@
+[excited] [playful] Now, jump up high. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Je saute means, I jump.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute
+
+[turn: Je saute ]
+
+[excited] [playful] Great job! Je saute [giggles]

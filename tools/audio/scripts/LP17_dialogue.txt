@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le livre !
+
+[turn: Le livre ]
+
+[playful] The book!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le crayon !
+
+[turn: Le crayon ]
+
+[playful] The pencil!
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école !
+
+[turn: L'école ]
+
+[playful] The school!
+
+[pause] [pause] [slowly]
+ [excited] [playful] S'il te plaît !
+
+[turn: S'il te plaît ]
+
+[playful] Please!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Goodbye!
+
+[excited] [playful] Bravo, mon petit! [giggles] Time for school, in French.

@@ -1,0 +1,44 @@
+[excited] [playful] Now, how to say what you have. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. J'ai un chat means, I have a cat.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai un chat
+
+[turn: J'ai un chat ]
+
+[excited] [playful] Great job! J'ai un chat [giggles]

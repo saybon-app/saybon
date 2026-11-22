@@ -1,0 +1,44 @@
+[excited] [playful] Now, the place where we sleep. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le lit means, the bed.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le lit
+
+[turn: Le lit ]
+
+[excited] [playful] Great job! Le lit [giggles]

@@ -1,0 +1,44 @@
+[excited] [playful] Last, what I say to you. Bravo! Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Bravo means, well done.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bravo
+
+[turn: Bravo ]
+
+[excited] [playful] Great job! Bravo [giggles]

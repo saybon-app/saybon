@@ -1,0 +1,44 @@
+[excited] [playful] First, something you wear on your head. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le chapeau means, the hat.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau
+
+[turn: Le chapeau ]
+
+[excited] [playful] Great job! Le chapeau [giggles]

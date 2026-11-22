@@ -1,0 +1,13 @@
+[calmly] Bonjour, je voudrais un thé.
+
+[pause]
+
+[calmly] Le thé est chaud.
+
+[pause]
+
+[calmly] Mon ami prend un jus d'orange.
+
+[pause]
+
+[calmly] Nous mangeons un gâteau.

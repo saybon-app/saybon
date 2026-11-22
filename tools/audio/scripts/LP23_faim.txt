@@ -1,0 +1,44 @@
+[excited] [playful] First, when your tummy rumbles. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. J'ai faim means, I am hungry.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai faim
+
+[turn: J'ai faim ]
+
+[excited] [playful] Great job! J'ai faim [giggles]

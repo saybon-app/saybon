@@ -1,0 +1,44 @@
+[excited] [playful] Now, a round, juicy fruit. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. L'orange means, the orange.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange
+
+[turn: L'orange ]
+
+[excited] [playful] Great job! L'orange [giggles]

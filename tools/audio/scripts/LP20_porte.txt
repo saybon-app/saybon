@@ -1,0 +1,44 @@
+[excited] [playful] Last, something we open and close. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La porte means, the door.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La porte
+
+[turn: La porte ]
+
+[excited] [playful] Great job! La porte [giggles]

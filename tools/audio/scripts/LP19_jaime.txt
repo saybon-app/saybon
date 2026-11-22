@@ -1,0 +1,44 @@
+[excited] [playful] First, how to say what you like. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. J'aime la fraise means, I like the strawberry.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'aime la fraise
+
+[turn: J'aime la fraise ]
+
+[excited] [playful] Great job! J'aime la fraise [giggles]

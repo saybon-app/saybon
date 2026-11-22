@@ -1,0 +1,44 @@
+[excited] [playful] First, the place where we live. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La maison means, the house.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La maison
+
+[turn: La maison ]
+
+[excited] [playful] Great job! La maison [giggles]

@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La vache !
+
+[turn: La vache ]
+
+[playful] The cow!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le cheval !
+
+[turn: Le cheval ]
+
+[playful] The horse!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le canard !
+
+[turn: Le canard ]
+
+[playful] The duck!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chat !
+
+[turn: Le chat ]
+
+[playful] The cat!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chien !
+
+[turn: Le chien ]
+
+[playful] The dog!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Goodbye!
+
+[excited] [playful] Bravo, mon petit! [giggles] You know the whole farm now.

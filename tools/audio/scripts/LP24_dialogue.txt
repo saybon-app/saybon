@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je danse !
+
+[turn: Je danse ]
+
+[playful] I dance!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je saute !
+
+[turn: Je saute ]
+
+[playful] I jump!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je chante !
+
+[turn: Je chante ]
+
+[playful] I sing!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Je suis content !
+
+[turn: Je suis content ]
+
+[playful] I'm happy!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Au revoir !
+
+[turn: Au revoir ]
+
+[playful] Goodbye!
+
+[excited] [playful] Bravo, mon petit! [giggles] You dance, jump and sing in French.

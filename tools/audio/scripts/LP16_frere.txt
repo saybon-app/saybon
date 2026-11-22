@@ -1,0 +1,44 @@
+[excited] [playful] First, a boy in the family. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le frère means, the brother.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère
+
+[turn: Le frère ]
+
+[excited] [playful] Great job! Le frère [giggles]

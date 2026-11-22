@@ -1,0 +1,44 @@
+[excited] [playful] Last, a sweet red fruit. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La fraise means, the strawberry.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise
+
+[turn: La fraise ]
+
+[excited] [playful] Great job! La fraise [giggles]

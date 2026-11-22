@@ -1,0 +1,44 @@
+[excited] [playful] Last, how to show someone. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Voici ma sœur means, this is my sister.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Voici ma sœur
+
+[turn: Voici ma sœur ]
+
+[excited] [playful] Great job! Voici ma sœur [giggles]

@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le chapeau !
+
+[turn: Le chapeau ]
+
+[playful] The hat!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures !
+
+[turn: Les chaussures ]
+
+[playful] The shoes!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le pull !
+
+[turn: Le pull ]
+
+[playful] The sweater!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Rouge !
+
+[turn: Rouge ]
+
+[playful] Red!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bleu !
+
+[turn: Bleu ]
+
+[playful] Blue!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[excited] [playful] Bravo, mon petit! [giggles] You are dressed in French now.

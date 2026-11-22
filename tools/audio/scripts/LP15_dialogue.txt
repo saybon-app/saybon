@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La pomme !
+
+[turn: La pomme ]
+
+[playful] The apple!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane !
+
+[turn: La banane ]
+
+[playful] The banana!
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'orange !
+
+[turn: L'orange ]
+
+[playful] The orange!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La fraise !
+
+[turn: La fraise ]
+
+[playful] The strawberry!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[pause] [pause] [slowly]
+ [excited] [playful] De rien !
+
+[turn: De rien ]
+
+[playful] You're welcome!
+
+[excited] [playful] Bravo, mon petit! [giggles] What a yummy lesson.

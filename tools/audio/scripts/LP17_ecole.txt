@@ -1,0 +1,44 @@
+[excited] [playful] Last, the place where we learn. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. L'école means, the school.
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] L'école
+
+[turn: L'école ]
+
+[excited] [playful] Great job! L'école [giggles]

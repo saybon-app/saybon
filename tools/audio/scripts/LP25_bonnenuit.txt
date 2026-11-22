@@ -1,0 +1,44 @@
+[excited] [playful] First, what we say before sleep. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Bonne nuit means, good night.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonne nuit
+
+[turn: Bonne nuit ]
+
+[excited] [playful] Great job! Bonne nuit [giggles]

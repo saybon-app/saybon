@@ -1,0 +1,44 @@
+[excited] [playful] First, something round to kick. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le ballon means, the ball.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le ballon
+
+[turn: Le ballon ]
+
+[excited] [playful] Great job! Le ballon [giggles]

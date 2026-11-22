@@ -1,0 +1,44 @@
+[excited] [playful] Now, when you want water. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. J'ai soif means, I am thirsty.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai soif
+
+[turn: J'ai soif ]
+
+[excited] [playful] Great job! J'ai soif [giggles]

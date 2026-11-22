@@ -1,0 +1,52 @@
+Let's chat like real friends, mon petit, with everything you know. I say it, and you say it back. Ready?
+
+[pause] [pause] [slowly]
+ [excited] [playful] Bonjour !
+
+[turn: Bonjour ]
+
+[playful] Hello!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Maman !
+
+[turn: Maman ]
+
+[playful] Mom!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Papa !
+
+[turn: Papa ]
+
+[playful] Dad!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le frère !
+
+[turn: Le frère ]
+
+[playful] The brother!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La sœur !
+
+[turn: La sœur ]
+
+[playful] The sister!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La grand-mère !
+
+[turn: La grand-mère ]
+
+[playful] The grandmother!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Merci !
+
+[turn: Merci ]
+
+[playful] Thank you!
+
+[excited] [playful] Bravo, mon petit! [giggles] You can name your whole family.

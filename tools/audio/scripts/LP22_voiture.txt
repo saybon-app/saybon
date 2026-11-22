@@ -1,0 +1,44 @@
+[excited] [playful] Last, something that goes vroom. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La voiture means, the car.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La voiture
+
+[turn: La voiture ]
+
+[excited] [playful] Great job! La voiture [giggles]

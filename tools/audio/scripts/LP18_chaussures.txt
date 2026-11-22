@@ -1,0 +1,44 @@
+[excited] [playful] Now, something you wear on your feet. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Les chaussures means, the shoes.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Les chaussures
+
+[turn: Les chaussures ]
+
+[excited] [playful] Great job! Les chaussures [giggles]

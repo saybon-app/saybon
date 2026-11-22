@@ -1,0 +1,44 @@
+[excited] [playful] First, a long yellow fruit. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. La banane means, the banana.
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] La banane
+
+[turn: La banane ]
+
+[excited] [playful] Great job! La banane [giggles]

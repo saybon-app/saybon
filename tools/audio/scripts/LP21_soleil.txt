@@ -1,0 +1,44 @@
+[excited] [playful] First, the big bright light in the sky. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. Le soleil means, the sun.
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] Le soleil
+
+[turn: Le soleil ]
+
+[excited] [playful] Great job! Le soleil [giggles]

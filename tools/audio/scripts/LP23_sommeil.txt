@@ -1,0 +1,44 @@
+[excited] [playful] Last, when your eyes are heavy. Repeat after me.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[playful] Lovely!
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[playful] Yes, just like that.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[thoughtful] [playful] Super, mon petit [giggles]. J'ai sommeil means, I am sleepy.
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[pause] [pause] [slowly]
+ [excited] [playful] J'ai sommeil
+
+[turn: J'ai sommeil ]
+
+[excited] [playful] Great job! J'ai sommeil [giggles]
