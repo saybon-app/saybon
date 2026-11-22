@@ -56,7 +56,16 @@ function init(){
   function voice(){
    var orb=$("inOrb"),st=$("inSt"),ok=false,fell=false,to;
    tx.hidden=true;orb.hidden=false;st.hidden=false;st.textContent="Your teacher is getting ready";
-   function fall(){if(ok||fell)return;fell=true;clearTimeout(to);orb.hidden=true;st.hidden=true;typed()}
+   function fall(){if(ok||fell)return;fell=true;clearTimeout(to);bvoice()}
+   /* no recording yet: the browser voice reads the intro aloud, still with no transcript */
+   function bvoice(){
+    if(!(window.SBTTS&&SBTTS.ok)){orb.hidden=true;st.hidden=true;typed();return}
+    var tries=0,busy=false;
+    function wait(){busy=false;orb.classList.remove("say");orb.classList.add("wait");st.textContent="Tap the microphone to listen"}
+    function go(){if(busy)return;busy=true;tries++;orb.classList.remove("wait");orb.classList.add("say");st.textContent="Your teacher is speaking";
+     var t0=Date.now();setTimeout(function(){if(!started&&busy&&!SBTTS.spoke){SBTTS.stop();tries++;if(tries>=3){orb.hidden=true;st.hidden=true;typed()}else wait()}},3500);SBTTS.speak(T,"t",PC,"en").then(function(r){if(started)return;if(!busy)return;if(r==="ok"&&Date.now()-t0<4000)r="err";if(r==="err"){if(tries>=2){orb.hidden=true;st.hidden=true;typed()}else wait()}else{orb.classList.remove("say");begin()}})}
+    orb.onclick=function(){SBTTS.unlock();go()};
+    go()}
    au.onerror=fall;to=setTimeout(fall,4500);
    au.oncanplay=function(){if(fell||ok)return;ok=true;clearTimeout(to);st.textContent="Tap the microphone to listen";var p=au.play();if(p&&p.catch)p.catch(function(){orb.classList.add("wait")})};
    au.onplaying=function(){orb.classList.remove("wait");orb.classList.add("say");st.textContent="Your teacher is speaking"};
@@ -78,7 +87,7 @@ function loadPic(){
 }
 function begin(){
  if(started)return;started=true;if(window.SBTTS)SBTTS.unlock();
- try{au.pause();au.oncanplay=null}catch(e){}
+ try{au.pause();au.oncanplay=null}catch(e){}try{if(window.SBTTS)SBTTS.stop()}catch(e){}
  $("intro").hidden=true;$("orb").style.display="none";$("sk").style.display="none";
  $("pic").classList.remove("intro");$("pic").classList.add("on");document.querySelector(".sc-top").classList.add("on");document.querySelector(".sc-bottom").classList.add("on");
  run();
