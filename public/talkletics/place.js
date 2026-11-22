@@ -248,7 +248,9 @@ function drawWave(){
     wctx.beginPath();if(wctx.roundRect)wctx.roundRect(x,(h-bh)/2,bw*0.6,bh,3);else wctx.rect(x,(h-bh)/2,bw*0.6,bh);wctx.fill();}
 }
 // listens until the learner has spoken and then stopped; resolves {blob} or {none:true}
-function capture(){
+function closeMic(){try{if(stream)stream.getTracks().forEach(function(t){t.stop();});}catch(e){}try{if(actx)actx.close();}catch(e){}stream=null;actx=null;analyser=null;srcNode=null;}/*volfix*/
+function capture(){return openMic().then(capture0).then(function(r){closeMic();return r;},function(e){closeMic();throw e;});}
+function capture0(){
   return new Promise(function(resolve){
     if(actx&&actx.state==="suspended")actx.resume();
     stream.getAudioTracks().forEach(function(t){t.enabled=true;});
@@ -442,7 +444,7 @@ function init(){
     // everything audio-related starts from this tap so phones allow sound and the microphone
     voice.src=SILENT;var p=voice.play();if(p&&p.catch)p.catch(function(){});
     $("goBtn").disabled=true;$("pickErr").hidden=true;
-    openMic().then(function(){$("pick").hidden=true;game();}).catch(function(e){
+    openMic().then(function(){closeMic();$("pick").hidden=true;game();}).catch(function(e){
       $("goBtn").disabled=false;$("pickErr").hidden=false;
       var n=(e&&e.name)||"",m="Talkletics needs your microphone. Please allow it in your browser, then tap again.";
       if(n==="NotAllowedError"||n==="SecurityError")m="The microphone is blocked for this site. Tap the lock icon next to the address, choose Permissions, allow Microphone, then tap Start again.";

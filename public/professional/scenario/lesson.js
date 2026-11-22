@@ -76,20 +76,21 @@ function setCap(w,text,kind){var l=whoLabel(w,kind),el=$("who");el.textContent=l
 function hintText(s){var w=s.fr.split(/\s+/);if(s.hint>=2)return s.fr;if(s.hint===1)return w.slice(0,3).join(" ")+" …";return"…"}
 
 /* the microphone: record while you speak, with the orb moving to your voice. Nothing is saved or sent. */
+function micClose(){try{if(stream)stream.getTracks().forEach(function(t){t.stop()})}catch(e){}try{if(actx)actx.close()}catch(e){}stream=null;actx=null;an=null}
 async function micInit(){
  micState=1;
  try{
   stream=await navigator.mediaDevices.getUserMedia({audio:true});
   actx=new (window.AudioContext||window.webkitAudioContext)();an=actx.createAnalyser();an.fftSize=512;actx.createMediaStreamSource(stream).connect(an);micState=2;
- }catch(e){micState=3;stream=null}
+ }catch(e){micState=3;stream=null;an=null}
 }
 function turn(s){
  return new Promise(async function(res){
   var mic=$("mic");setCap("p",hintText(s),"turn");$("state").textContent="Your turn";
-  if(micState===0)await micInit();
+  if(micState!==3)await micInit();
   mic.classList.add("rec");
   var t0=Date.now(),spoke=false,quiet=0,fin=false,buf=an?new Uint8Array(an.fftSize):null,timer=null,rec=null;
-  function end(){if(fin)return;fin=true;clearInterval(timer);mic.onclick=null;mic.classList.remove("rec");mic.style.removeProperty("--lv");try{if(rec&&rec.state!=="inactive")rec.stop()}catch(e){}$("state").textContent="";res()}
+  function end(){if(fin)return;fin=true;clearInterval(timer);mic.onclick=null;mic.classList.remove("rec");mic.style.removeProperty("--lv");try{if(rec&&rec.state!=="inactive")rec.stop()}catch(e){}$("state").textContent="";micClose();res()}
   mic.onclick=function(){if(Date.now()-t0>900)end()};
   if(stream&&window.MediaRecorder){try{rec=new MediaRecorder(stream);rec.ondataavailable=function(){};rec.start()}catch(e){rec=null}}
   if(!stream)$("state").textContent="Microphone off: say it out loud";
