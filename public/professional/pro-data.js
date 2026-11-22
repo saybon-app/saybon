@@ -225,3 +225,213 @@ window.PRO_DATA = [
    ]}
   ]}
 ];
+
+/* 34 professions. g = the shared word and role-play set it uses (empty = lessons only). kw = extra search words. */
+window.PRO_LIST=[
+{
+"id": "nurse",
+"name": "Nurse",
+"g": "health",
+"kw": "ward patient hospital clinic"
+},
+{
+"id": "doctor",
+"name": "Doctor",
+"g": "health",
+"kw": "physician medical hospital"
+},
+{
+"id": "pharmacist",
+"name": "Pharmacist",
+"g": "health",
+"kw": "pharmacy medicine drugs"
+},
+{
+"id": "midwife",
+"name": "Midwife",
+"g": "health",
+"kw": "maternity birth"
+},
+{
+"id": "dentist",
+"name": "Dentist",
+"g": "health",
+"kw": "dental teeth"
+},
+{
+"id": "banker",
+"name": "Banker or bank teller",
+"g": "banking",
+"kw": "bank finance money loans"
+},
+{
+"id": "accountant",
+"name": "Accountant",
+"g": "banking",
+"kw": "accounts audit tax finance"
+},
+{
+"id": "insurance-agent",
+"name": "Insurance agent",
+"g": "banking",
+"kw": "insurance claims"
+},
+{
+"id": "customs-officer",
+"name": "Customs officer",
+"g": "logistics",
+"kw": "border port duty"
+},
+{
+"id": "freight-forwarder",
+"name": "Freight forwarder",
+"g": "logistics",
+"kw": "shipping cargo transport"
+},
+{
+"id": "driver",
+"name": "Driver or haulier",
+"g": "logistics",
+"kw": "truck transport"
+},
+{
+"id": "hotel-receptionist",
+"name": "Hotel receptionist",
+"g": "hospitality",
+"kw": "front desk guests"
+},
+{
+"id": "chef",
+"name": "Chef or restaurant staff",
+"g": "hospitality",
+"kw": "kitchen cook waiter"
+},
+{
+"id": "tour-guide",
+"name": "Tour guide",
+"g": "hospitality",
+"kw": "tourism travel"
+},
+{
+"id": "flight-attendant",
+"name": "Flight attendant",
+"g": "hospitality",
+"kw": "airline cabin crew"
+},
+{
+"id": "soldier",
+"name": "Soldier",
+"g": "defence",
+"kw": "army military armed forces"
+},
+{
+"id": "police-officer",
+"name": "Police officer",
+"g": "defence",
+"kw": "police security"
+},
+{
+"id": "peacekeeper",
+"name": "Peacekeeper",
+"g": "defence",
+"kw": "united nations mission military"
+},
+{
+"id": "immigration-officer",
+"name": "Immigration officer",
+"g": "defence",
+"kw": "border passport"
+},
+{
+"id": "lawyer",
+"name": "Lawyer",
+"g": "",
+"kw": "law legal court"
+},
+{
+"id": "teacher",
+"name": "Teacher",
+"g": "",
+"kw": "school education lecturer"
+},
+{
+"id": "electrician",
+"name": "Electrician",
+"g": "",
+"kw": "electric electrical wiring"
+},
+{
+"id": "electrical-engineer",
+"name": "Electrical engineer",
+"g": "",
+"kw": "electric electrical power engineering"
+},
+{
+"id": "civil-engineer",
+"name": "Civil engineer",
+"g": "",
+"kw": "construction building engineering"
+},
+{
+"id": "mechanical-engineer",
+"name": "Mechanical engineer",
+"g": "",
+"kw": "machines engineering"
+},
+{
+"id": "software-developer",
+"name": "Software developer",
+"g": "",
+"kw": "programmer it tech computer"
+},
+{
+"id": "project-manager",
+"name": "Project manager",
+"g": "business",
+"kw": "management projects"
+},
+{
+"id": "sales-representative",
+"name": "Sales representative",
+"g": "business",
+"kw": "sales selling clients"
+},
+{
+"id": "entrepreneur",
+"name": "Entrepreneur or business owner",
+"g": "business",
+"kw": "business startup"
+},
+{
+"id": "office-administrator",
+"name": "Office administrator",
+"g": "business",
+"kw": "secretary admin reception"
+},
+{
+"id": "journalist",
+"name": "Journalist",
+"g": "",
+"kw": "media reporter news"
+},
+{
+"id": "diplomat",
+"name": "Diplomat or public servant",
+"g": "",
+"kw": "embassy government civil service"
+},
+{
+"id": "mining-oil-worker",
+"name": "Mining or oil and gas worker",
+"g": "",
+"kw": "mining oil gas energy"
+},
+{
+"id": "agribusiness",
+"name": "Agribusiness professional",
+"g": "",
+"kw": "farming agriculture cocoa farm"
+}
+];
+window.proOf=function(id){return (window.PRO_LIST||[]).find(function(x){return x.id===id})||null};
+window.proGroup=function(id){var p=window.proOf(id),g=p?p.g:id;return g?(window.PRO_DATA||[]).find(function(x){return x.id===g})||null:null};

@@ -49,6 +49,7 @@ h1 b{font-weight:800;display:inline-block}
 .plan p{font-size:calc(var(--u)*1.05);line-height:1.55;color:#2b4a3d;margin-top:8px}.plan p.cav{font-size:calc(var(--u)*.92);color:#5b7568}
 .plan .go{display:block;width:100%;margin-top:14px;background:linear-gradient(180deg,#0f6b4c,#0a4a35);color:#fff;border:0;border-radius:999px;padding:calc(var(--u)*1.3) 0;font:800 calc(var(--u)*1.3) Montserrat,sans-serif;cursor:pointer}
 .chips{display:flex;gap:8px;margin:0 0 12px;overflow-x:auto}.chips button{flex:none;display:flex;align-items:center;gap:6px;background:#f1f8f4;border:1.5px solid #d5eadd;color:#0b3d2c;border-radius:999px;padding:8px 14px;font:800 .8rem Montserrat,sans-serif;cursor:pointer}.chips button.on{background:linear-gradient(180deg,#e6fbef,#a9ecc8);border-color:#6ef0b0}.chips button.lk{color:#9db3a8;cursor:default}.chips svg{width:13px;height:13px}
+.flist{max-height:min(46vh,340px);overflow-y:auto;margin:8px 0 4px;padding-right:2px;-webkit-overflow-scrolling:touch}.flist::-webkit-scrollbar{width:6px}.flist::-webkit-scrollbar-thumb{background:rgba(110,240,176,.45);border-radius:6px}.drop input[type=search]{border-radius:999px}
 .drop{display:none;background:linear-gradient(180deg,rgba(6,70,52,.88),rgba(3,52,38,.94));border:1px solid rgba(110,240,176,.4);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1) calc(var(--u)*1.2) calc(var(--u)*1.3);text-align:left;margin-top:calc(var(--u)*-.4);animation:dr .25s ease}
 .drop.open{display:block}
 @keyframes dr{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
@@ -171,7 +172,7 @@ var LEVELS=[
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function field(id){return D.find(function(x){return x.id===id})}
+function field(id){return window.proGroup(id)}
 function $(i){return document.getElementById(i)}
 var canSpeak=("speechSynthesis" in window);
 function speak(t){if(!canSpeak)return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="fr-FR";u.rate=.92;var v=speechSynthesis.getVoices().filter(function(x){return /^fr/i.test(x.lang)});if(v[0])u.voice=v[0];speechSynthesis.speak(u)}catch(e){}}
@@ -189,7 +190,7 @@ function path(){return LEVELS.slice(idx(sel.lv),idx(sel.tg)+1)}
 function known(f){return ls("sbpro_known_"+f)||[]}
 function level(){return LEVELS.find(function(l){return l.k===sel.lv})}
 function fieldOk(){return !!sel.f&&(sel.f!=="__other"||(sel.other||"").trim().length>=2)}
-function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var f=field(sel.f);return f?f.name:""}
+function fieldName(){if(sel.f==="__other")return (sel.other||"").trim();var p=window.proOf(sel.f)||D.find(function(x){return x.id===sel.f});return p?p.name:""}
 
 /* ---------- the pills: each opens downward inside the page ---------- */
 var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 13 10 18 19 7"/></svg>';
@@ -204,18 +205,21 @@ function updatePills(){
 }
 function optHtml(attr,key,name,sub,on){return'<button class="opt2'+(on?" sel":"")+'" '+attr+'="'+key+'"><span>'+esc(name)+'<small>'+esc(sub)+'</small></span>'+(on?CHECK:"")+'</button>'}
 function fieldDrop(){
- var el=$("pfd");
- el.innerHTML='<p class="s">Choose the profession you want to become proficient in. It is free.</p>'
-  +D.map(function(f){return optHtml("data-f",f.id,f.name,f.blurb,sel.f===f.id)}).join("")
-  +optHtml("data-f","__other","My field is not listed","Type your own field",sel.f==="__other");
- el.querySelectorAll("[data-f]").forEach(function(b){b.onclick=function(){
-  var v=b.dataset.f;
-  if(v==="__other"){el.innerHTML='<p class="s">Type your field, for example agriculture, law or education. This helps us decide which professions to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your field" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>';
-   setTimeout(function(){var i=$("oth");i&&i.focus()},50);
-   $("bk").onclick=fieldDrop;
-   var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}chosen("f",{f:"__other",other:t})};
-   $("ok").onclick=go;$("oth").onkeydown=function(e){if(e.key==="Enter")go()};return}
-  chosen("f",{f:v,other:""})}});
+ var el=$("pfd"),L=window.PRO_LIST;
+ el.innerHTML='<p class="s">Search or scroll for your profession. It is free.</p><input type="search" id="fq" placeholder="Search, for example nurse or electric" autocomplete="off"><div class="flist" id="fl"></div>'
+  +'<button class="opt2'+(sel.f==="__other"?" sel":"")+'" id="fo"><span>My profession is not listed<small>Type your own</small></span></button>';
+ function draw(q){
+  q=(q||"").trim().toLowerCase();
+  var m=L.filter(function(p){return !q||(p.name+" "+p.kw).toLowerCase().indexOf(q)>=0});
+  $("fl").innerHTML=m.length?m.map(function(p){return optHtml("data-f",p.id,p.name,"",sel.f===p.id)}).join(""):'<p class="s">No match. You can type your own below.</p>';
+  $("fl").querySelectorAll("[data-f]").forEach(function(b){b.onclick=function(){chosen("f",{f:b.dataset.f,other:""})}});
+ }
+ draw("");$("fq").oninput=function(){draw(this.value)};
+ $("fo").onclick=function(){el.innerHTML='<p class="s">Type your profession, for example surveyor or translator. This helps us decide what to add next.</p><input type="text" id="oth" maxlength="60" placeholder="Your profession" autocomplete="off" value="'+esc(sel.f==="__other"?sel.other:"")+'"><div><button class="sbtn" id="ok">Continue</button><button class="sbtn ghost" id="bk">Back</button></div><p class="hint" id="oh"></p>';
+  setTimeout(function(){var i=$("oth");i&&i.focus()},50);
+  $("bk").onclick=fieldDrop;
+  var go=function(){var t=$("oth").value.trim();if(t.length<2){$("oh").textContent="Please type at least two letters.";return}chosen("f",{f:"__other",other:t})};
+  $("ok").onclick=go;$("oth").onkeydown=function(e){if(e.key==="Enter")go()}};
 }
 function levelDrop(){var el=$("pld");el.innerHTML='<p class="s">Where are you now? Pick the level that fits you.</p>'+LEVELS.map(function(l){return optHtml("data-l",l.k,l.name,l.sub,sel.lv===l.k)}).join("");
  el.querySelectorAll("[data-l]").forEach(function(b){b.onclick=function(){chosen("l",{lv:b.dataset.l})}})}

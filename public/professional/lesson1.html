@@ -45,8 +45,8 @@ var q=new URLSearchParams(location.search),F=q.get("f")||"",O=q.get("o")||"",LV=
 if(["relaxed","steady","intensive"].indexOf(PC)<0)PC="steady";
 var BASE={A0:"/levels/A0/tout-public/"};["A1","A2","B1","B2","C1"].forEach(function(k){BASE[k]="/levels/"+k+"/"});
 var CORE=(BASE[LV]||BASE.A0)+"lesson1.html";
-var fd=(window.PRO_DATA||[]).find(function(x){return x.id===F});
-var NAME=fd?fd.name:(O||"your field");
+var fd=window.proGroup(F),pr=window.proOf(F);
+var NAME=pr?pr.name:(fd?fd.name:(O||"your field"));
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function speak(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="fr-FR";u.rate=.92;var v=speechSynthesis.getVoices().filter(function(x){return /^fr/i.test(x.lang)});if(v[0])u.voice=v[0];speechSynthesis.speak(u)}catch(e){}}
@@ -60,10 +60,11 @@ function next(){at=Math.min(at+1,steps.length-1);show()}
 var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg>';
 function intro(){
  var st=$("stage");
- st.innerHTML='<div class="card"><div class="orb" id="orb">'+PLAY+'</div><h2>Your teacher</h2><p>Listen to a short welcome before you begin.</p><button class="btn" id="pl">Listen</button><button class="btn ghost" id="rd">Read it</button><div class="tr" id="tr"></div><audio id="au" preload="none" src="audio/intro-'+PC+'.mp3"></audio><p><button class="btn" id="nx">Continue</button></p></div>';
+ st.innerHTML='<div class="card"><div class="orb" id="orb">'+PLAY+'</div><h2>Your teacher</h2><p id="wel">Listen to a short welcome before you begin.</p><button class="btn" id="pl">Listen</button><button class="btn ghost" id="rd">Read it</button><div class="tr" id="tr"></div><audio id="au" preload="none" src="audio/intro-'+PC+'.mp3"></audio><p><button class="btn" id="nx">Continue</button></p></div>';
  var au=$("au"),tr=$("tr");
  fetch("intro-texts.json").then(function(r){return r.json()}).then(function(j){introText=j[PC]||"";tr.textContent=introText}).catch(function(){});
  au.onplay=function(){$("orb").classList.add("play")};au.onpause=au.onended=function(){$("orb").classList.remove("play")};
+ $("wel").textContent="Welcome. This course is set up for your work as: "+NAME+". Listen to a short welcome before you begin.";
  $("pl").onclick=function(){au.play().catch(function(){tr.classList.add("on");tr.textContent=(introText||"")+" (The audio is not available yet. You can read the welcome here.)"})};
  $("rd").onclick=function(){tr.classList.toggle("on")};
  $("nx").onclick=function(){au.pause();next()};

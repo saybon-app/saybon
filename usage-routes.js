@@ -59,7 +59,7 @@ module.exports = function (app, ctx) {
       if (!uid) return res.status(401).json({ error: "sign in first" });
       if (limited("pp:" + uid, 20)) return res.status(429).json({ error: "slow down" });
       var b = req.body || {}, f = String(b.field || ""), lv = String(b.level || "").toUpperCase();
-      if (PF_FIELDS.indexOf(f) < 0 || PF_LEVELS.indexOf(lv) < 0) return res.status(400).json({ error: "unknown field or level" });
+      if (!(f === "__other" || /^[a-z0-9-]{2,40}$/.test(f)) || PF_LEVELS.indexOf(lv) < 0) return res.status(400).json({ error: "unknown field or level" });
       var other = f === "__other" ? String(b.other || "").replace(/[\u0000-\u001f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, 60) : "";
       if (f === "__other" && other.length < 2) return res.status(400).json({ error: "type your field" });
       var tg = String(b.target || "").toUpperCase(), pc = String(b.pace || ""); if (PF_LEVELS.indexOf(tg) < 0 || PF_LEVELS.indexOf(tg) < PF_LEVELS.indexOf(lv)) tg = ""; if (["relaxed", "steady", "intensive"].indexOf(pc) < 0) pc = "";
