@@ -89,3 +89,7 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 /*twalk*/ /* teacher walks in from the left; poses change while she moves */
 .t-stage{will-change:transform}
 .t-stage img{transition:opacity .22s ease-in-out}
+
+/*twalk*/ /* teacher walks in from the left; poses change while she moves */
+.t-stage{will-change:transform}
+.t-stage img{transition:opacity .22s ease-in-out}

@@ -50,6 +50,8 @@ function init(){
 function loadPic(){
  var tall=innerHeight>innerWidth,exts=["webp","png","jpg","jpeg"],names=tall?["tall","wide"]:["wide","tall"],list=[];
  names.forEach(function(n){exts.forEach(function(e){list.push("img/"+G+"-"+LV+"-"+n+"."+e)})});
+ var h=0,key=G+LV;for(var c=0;c<key.length;c++)h=(h*31+key.charCodeAt(c))%7;var gi=h+1;/* shared pictures for scenes without their own */
+ if(tall)list.push("img/gen-t"+(gi===2?2:1)+".webp");list.push("img/gen-"+gi+".webp");
  list.push(tall?"../bg-mobile.webp":"../bg-desktop.webp");
  var i=0,im=$("pimg");im.onerror=function(){i++;if(i<list.length)im.src=list[i]};im.src=list[0];
 }
