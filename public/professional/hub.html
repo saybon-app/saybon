@@ -88,7 +88,7 @@ function unlocked(i){
 }
 function url(l,e){
  if(e.p)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&pn="+encodeURIComponent(PN())+"&seq=1&hub=1&ret="+RET();
- return l.base+"pro/lesson"+e.r[0]+".html?c="+e.r.join(",")+"&ret="+RET();
+ return l.base+"pro/lesson"+e.r[0]+".html?c="+e.r.join(",")+"&g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&ret="+RET();
 }
 function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
 function draw(){

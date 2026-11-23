@@ -28,3 +28,19 @@
   return of(u,o);
  };
 })();
+/* the professional picture replaces the regular scene behind the lesson */
+(function(){
+ var q=new URLSearchParams(location.search),G=q.get("g"),LV=(q.get("lv")||"").toLowerCase();if(!G)return;
+ function add(){
+  var d=document.createElement("div");d.id="probg";d.style.cssText="position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;background:#10241d";
+  var im=document.createElement("img");im.alt="";im.style.cssText="position:absolute;left:-6%;top:-6%;width:112%;height:112%;object-fit:cover";
+  var sh=document.createElement("div");sh.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.28) 35%,rgba(0,0,0,.34) 60%,rgba(0,0,0,.75))";
+  d.appendChild(im);d.appendChild(sh);document.body.appendChild(d);
+  var tall=innerHeight>innerWidth,list=[],names=tall?["tall","wide"]:["wide","tall"];
+  names.forEach(function(n){list.push("/professional/scenario/img/"+G+"-"+LV+"-"+n+".webp")});
+  var h=0,key=G+LV;for(var c=0;c<key.length;c++)h=(h*31+key.charCodeAt(c))%7;
+  if(tall)list.push("/professional/scenario/img/gen-t"+((h+1)===2?2:1)+".webp");list.push("/professional/scenario/img/gen-"+(h+1)+".webp");
+  var i=0;im.onerror=function(){i++;if(i<list.length)im.src=list[i]};im.src=list[0];
+ }
+ if(document.body)add();else document.addEventListener("DOMContentLoaded",add);
+})();
