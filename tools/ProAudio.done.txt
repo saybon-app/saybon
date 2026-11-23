@@ -23,7 +23,6 @@ t-7s3r7e7nij
 t-2euuzybiriy
 t-tex8q7rd6c
 t-kh02bj39st
-intro-medical-A0
 t-5ie1v4n85i
 c-20k783l8lxt
 p-2bofkql327k
@@ -40,7 +39,6 @@ c-lp7qfox18c
 c-16fw7i1r201
 c-1d0dtnbjiuf
 p-10t54nze5bi
-intro-military-A0
 t-28llan08trl
 p-si7cwfb2fi
 c-14bf0xol5xr
@@ -56,7 +54,6 @@ c-1skqx5rn58o
 p-jn2u2e54n0
 c-9puucvk00d
 p-15n446c8tax
-intro-border-A0
 t-1i1rx6zt3g6
 p-1bqid0dlu5l
 c-1dty4l3einy
@@ -67,7 +64,6 @@ p-1f05kmhfmrd
 c-1183em4wple
 c-njr3jzaivz
 c-216mc6el1xb
-intro-banking-A0
 t-26jr9t07epp
 c-xuzh45gu3s
 c-110iwwenk5l
@@ -80,7 +76,6 @@ c-1mstqalr7r0
 p-8e4gkofk8p
 c-gfbd32bnzq
 p-1nnlwm864i7
-intro-hospitality-A0
 t-gil349aeyc
 c-2v9v6gqaqp
 p-29ocr7sv3bh
@@ -94,7 +89,6 @@ c-rr0l8uoqqe
 c-1lpddcbgzov
 p-12cs3jpx7kz
 c-27b1t3f0ceh
-intro-legal-A0
 t-4nve8aaow9
 c-1cd5f7cxu5e
 c-10mewa8hpke
@@ -105,7 +99,6 @@ p-1lc0vfle7n4
 c-2c0tcbwzrk3
 c-qth82ou8ui
 c-1f6blbjyvcs
-intro-police-A0
 t-2f8v37vu7vm
 c-1c1aa1ybu52
 c-1vqm465vc4s
@@ -117,7 +110,6 @@ c-c7ge6ude9y
 c-v3tlvywnet
 p-p3v8qtf9eo
 c-1itrsg616xo
-intro-logistics-A0
 t-54cfnii5v4
 c-1ei2xx5o6o4
 c-k6q2vh8ulo
@@ -127,7 +119,6 @@ p-a40vw2tu6n
 c-1477a2vs8k
 c-3bti3kaavx
 c-wbz51kcbfj
-intro-business-A0
 t-2c99sstktcn
 c-1o6do994k70
 c-wy6ux562nu
@@ -137,7 +128,6 @@ p-1a3aw17pe52
 c-1nlr8g6fqkp
 c-1hml7uohcby
 c-1hlmxavx7v5
-intro-education-A0
 t-227jpcmtg60
 c-n9y5rjmfqh
 c-169cez33sla
@@ -148,7 +138,6 @@ c-1yv1rhjg75f
 c-1oxg6i73ol9
 c-1k7j6a4oreb
 c-1o885pwqt58
-intro-medical-A1
 t-95rxyowsn0
 c-644l8l1pp8
 p-vw2gzacvv
@@ -168,7 +157,6 @@ c-1t2cymbj8cr
 p-2bpskh1cdkf
 c-1nbdqu7snw0
 p-1n2a0g285we
-intro-military-A1
 t-1hrqj3hr6rx
 c-100fdtnlc06
 p-giw7nhkq62
@@ -184,7 +172,6 @@ c-xk7i0ay0oi
 c-1udy42l5xpj
 p-awu9g28ylo
 c-ns3ltkinri
-intro-border-A1
 t-maioh2wo9t
 p-nmcclhk5f0
 c-ic867tcp06
@@ -199,7 +186,6 @@ c-13p3vka8cjh
 c-2czpud6ejdt
 c-1xledpsqvli
 p-1htfbcli7tp
-intro-banking-A1
 t-eux7dm86sq
 c-1okuekq9j54
 p-vv8xld6nxa
@@ -218,7 +204,6 @@ c-1egdi6621us
 p-tm92pep5wp
 c-1yyj0foqb3z
 p-1wh6n6f4x01
-intro-hospitality-A1
 t-1yqa8d6jrso
 c-z6dvnqrjp0
 p-1zwvdy6xwrs
@@ -237,7 +222,6 @@ c-m2a1oxr73d
 p-pzri3karli
 c-1lo7p5uv1d2
 p-2fxryymfjjs
-intro-legal-A1
 t-jrl278px9j
 c-16a1r260zlh
 p-104ciutu62f
@@ -255,7 +239,6 @@ c-of2q15zlzw
 p-is23jxfa2r
 c-tsjtax1dep
 p-pp387p82bx
-intro-police-A1
 t-1zm960i21fp
 c-1gud2zwh75w
 c-mrynbdsqri
@@ -271,7 +254,6 @@ p-155nmjm6ge8
 c-1x82hh3576t
 p-32yqhuub8z
 c-o3kzs5x2wi
-intro-logistics-A1
 t-20p60628mh2
 c-3fdkhwklfp
 p-f5sp8p50vp
@@ -289,7 +271,6 @@ c-audef2p0ru
 p-8u0ksd02t4
 c-rejylbm0pt
 p-145qdd06wym
-intro-business-A1
 t-2c0wxq3kfdw
 c-1ngj8gyut7s
 p-1w7ngakjg3q
@@ -307,7 +288,6 @@ c-11upfha8ryh
 p-14eytfv9xr5
 c-8h2g739k36
 p-24n5g8l285l
-intro-education-A1
 t-cbkuitgsoa
 c-5trzxpddtf
 p-vv0sd5b44j
@@ -326,7 +306,6 @@ c-cmno7jbu1z
 p-shkbb6691i
 c-6clkqosajp
 p-1i794en5ika
-intro-medical-A2
 t-2c0h1knosaf
 p-mcxeuoqujb
 c-kpeg465rkw
@@ -344,7 +323,6 @@ p-1gsfujonmc0
 c-ql18py9qi3
 p-xltfyf8g19
 c-1urx584hjr2
-intro-military-A2
 t-28ep2k26u4c
 c-24tkrw9n7tf
 p-1fs6oiuti1r
@@ -364,7 +342,6 @@ c-lb889cmug6
 p-1kxck7lhet2
 c-isiiby61za
 p-hcz093gxg1
-intro-border-A2
 t-1ls7ndxs9nb
 c-24ci62bxslc
 p-6e9l5b23ue
@@ -384,7 +361,6 @@ c-1gwl3famib9
 p-1d7trxiwrd7
 c-1ex1k0jlevk
 p-2cwc684uhsv
-intro-banking-A2
 t-1du5fgi6gcg
 c-1lm8zimck8d
 p-7wcr5ghl2x
@@ -404,7 +380,6 @@ c-cd3e2v08hx
 p-268qcdwewnb
 c-x5h9uu63n7
 p-1hfxvm5fafc
-intro-hospitality-A2
 t-n8bdgl9it6
 c-hloyycpibp
 p-2bdi4ywen43
@@ -424,7 +399,6 @@ c-443ug8p50r
 p-ok53s2wnqn
 c-28cz8okspv8
 p-1ydw2zfkbpt
-intro-legal-A2
 t-27pdb1yluyv
 c-yhwua4spk4
 p-1vx4qc6uzi1
@@ -444,7 +418,6 @@ c-26yzsd63rwe
 p-1tofpnllhw1
 c-2354wh8inni
 p-r7boamdx36
-intro-police-A2
 t-18bujh951bt
 c-oknenvvzre
 p-1enei9mzb9f
@@ -464,7 +437,6 @@ c-2yz0prlskh
 p-1lyp9u6ogqn
 c-2ac892v368f
 p-255jgqzv87f
-intro-logistics-A2
 t-1tmtee5951i
 c-19k7spockit
 p-1f0gx8zbcyf
@@ -484,7 +456,6 @@ c-dfjwef2ge0
 p-1ufp7de3awh
 c-c4sr7u5fc0
 p-21v7lozrcxt
-intro-business-A2
 t-1qdsc2l0ikx
 c-1q6ev6vygvn
 p-1kacy0628vp
@@ -504,7 +475,6 @@ c-1e59wm8uggl
 p-1s3hc4nww80
 c-1yqt6lmsoiq
 p-o6f9ofwwcd
-intro-education-A2
 t-awvnatt171
 c-tdusjbq3x3
 p-1n1uxmi11nl
@@ -524,7 +494,6 @@ c-26plsfnb27b
 p-13zerl0kbyn
 c-u0geu69ml9
 p-bte8y2tsts
-intro-medical-B1
 t-2916bdrm1k3
 c-hh5b3r791c
 p-22kb7mivvu7
@@ -544,7 +513,6 @@ c-vh4tdhubil
 p-1m470b1dz33
 c-1w3qedu7jzu
 p-18g6hhzbk95
-intro-military-B1
 t-1rz4upstbpx
 c-1vys4pcv9s8
 p-11et6a2otot
@@ -564,7 +532,6 @@ c-1gtp5a8fiu1
 p-1f9gznprw5w
 c-1jo7vieef0n
 p-qsmjzyqo1t
-intro-border-B1
 t-28w9wlrkizx
 c-1ug39wrnie8
 p-27za0i2xrq3
@@ -583,7 +550,6 @@ c-1nsdol5upbt
 p-1cgfwal5j2i
 c-2ch4jux7fib
 p-fv6myxsx3w
-intro-banking-B1
 t-1igo0p9pxqt
 c-14esyrkgwhx
 p-2a1hqrjgqma
@@ -603,7 +569,6 @@ c-1pbiayjiafe
 p-1uz8q0yresp
 c-1kuvsacbsng
 p-98y0kwh9ru
-intro-hospitality-B1
 t-18hd2bxh6sc
 c-1ui3w129coy
 p-7rdrplptp0
@@ -623,7 +588,6 @@ c-1t3owk1k77g
 p-1c0vmydqrid
 c-ku3c2rlmzm
 p-1ha7kuaz4v4
-intro-legal-B1
 t-3a2luim8xw
 c-14l8mbqpsk9
 p-1ja88l8r7dq
@@ -643,7 +607,6 @@ c-z8srh0y0ry
 p-dzp9fy5swp
 c-23fmadouawq
 p-mx3vwqiiqu
-intro-police-B1
 t-wm7f48a00o
 c-1fnv2bqta0s
 p-15q66k9fj66
@@ -663,7 +626,6 @@ c-xpkm1i8ep0
 p-1t9ky1a3vxz
 c-2azczzvibjv
 p-h5i87c46xt
-intro-logistics-B1
 t-2fbagkia3sw
 c-1uivseawd1p
 p-12ye8b2qp74
@@ -683,7 +645,6 @@ c-hat0h3omt8
 p-1bot2d28fu4
 c-fidkbb90rs
 p-12fiyir2wm3
-intro-business-B1
 t-1xltnjryfdy
 c-5p5o6k2ixy
 p-1qy2fbgrfyc
@@ -703,7 +664,6 @@ c-n2r8e456lu
 p-u6ub06ww2q
 c-shbrxzv8m9
 p-13sr1yfmhby
-intro-education-B1
 t-239onvdmiql
 c-1v1f55erg79
 p-15ezgenxsws
@@ -723,7 +683,6 @@ c-bmfy2cblje
 p-2eccxb3kixg
 c-2jvejg3vnh
 p-19sak55mzi1
-intro-medical-B2
 t-24fq77xk54e
 c-16514d1j1vn
 p-190138pfeh3
@@ -743,7 +702,6 @@ c-1fyqkzt4gek
 p-hwf4qsnmlo
 c-jpbf60z7j4
 p-1e7t3kzjcdb
-intro-military-B2
 t-52s5c5f2gk
 c-1yyfqtz4i8m
 p-26trkpkgdn1
@@ -763,7 +721,6 @@ c-1n2lhfqr4ny
 p-28b5hct0rsb
 c-1mzwi2hpgf1
 p-28zt2u202pv
-intro-border-B2
 t-bj8tr7bo62
 c-1zluiln6md6
 p-6w2bp7eenu
@@ -783,7 +740,6 @@ c-ia43cip4sp
 p-1isuk9w85av
 c-1ooao5kdolo
 p-1uwws42u72f
-intro-banking-B2
 t-1x25paw2hff
 c-h63nnmud1d
 p-2a1960avo0t
@@ -803,7 +759,6 @@ c-1w8q009i7jv
 p-u1xcwhfyjz
 c-1wm3738df97
 p-2en0tfgchrd
-intro-hospitality-B2
 t-ifqs6l43wg
 c-1jee57x3gsh
 p-1m4muxr77m
@@ -823,7 +778,6 @@ c-2fiqy8rcnkp
 p-184x3wa3l8c
 c-1gtb603l6mu
 p-4jb0z40iuu
-intro-legal-B2
 t-1zd2myq0lv6
 c-9mcztvhe7a
 p-vjgqsf22zl
@@ -843,7 +797,6 @@ c-2fyl8njkg9m
 p-1hejge2t8s2
 c-17n3r984otu
 p-28vygnkc2px
-intro-police-B2
 t-13brtwtq2y
 c-1b2uwae9ddq
 p-h8vfa9r5d1
@@ -862,7 +815,6 @@ c-w244265f1
 p-1wliyrglo5a
 c-13r5t27guit
 p-ea2zljwudo
-intro-logistics-B2
 t-jhnbo8iata
 c-937allabqh
 p-190l1qrorqe
@@ -882,7 +834,6 @@ c-24fsokc7jky
 p-1qrgg1lteia
 c-1wzg5a3mryg
 p-1x1opzo2lmp
-intro-business-B2
 t-o97ex711bs
 c-14lljubnzj9
 p-dqfz8ivbm6
@@ -902,7 +853,6 @@ c-n3s3gr9rzp
 p-15uuz3nc1y6
 c-x71si9afbc
 p-1duq49bvvbc
-intro-education-B2
 t-25fisqpoiry
 c-7esg4nzm10
 p-1e08vfw94zq
@@ -922,7 +872,6 @@ c-1yx39191wgt
 p-1fsqa8iu8hg
 c-v12bvco83o
 p-17zgmj3dl8a
-intro-medical-C1
 t-26anfhtjiy3
 c-hokxsivli1
 p-1rsq6wyg83m
@@ -942,7 +891,6 @@ c-d833mxk86k
 p-ymwwx5kg9w
 c-13i9k1gafaz
 p-5166muxoxc
-intro-military-C1
 t-15zl739ddln
 c-avh2yc9wx6
 p-tp7jxvms22
@@ -962,7 +910,6 @@ c-1z8vw91izwv
 p-1mzcxh31psp
 c-1wdx11cruaz
 p-34kyoumktl
-intro-border-C1
 t-d3akvr9olt
 c-ki3zxsa67x
 p-1h1rxlpqbbt
@@ -982,7 +929,6 @@ c-24yhy5h4jz
 p-den3i5frr3
 c-1s4i55tukag
 p-qgbgtpzxaq
-intro-banking-C1
 t-2eog2khmbel
 c-1zhv9i9wk3t
 p-167vlwg7rqw
@@ -1001,7 +947,6 @@ c-1g466p9xk0r
 p-11tku0xo94z
 c-m6bgfq7irz
 p-7nl2v3jkp8
-intro-hospitality-C1
 t-fly5rpk7uu
 t-wj3b6iolid
 t-1u1muvmrkfx
@@ -1026,7 +971,6 @@ c-1nu44z6x7v3
 p-1a3rcicna5r
 c-wbd5kurna5
 p-ypvxlc8hkq
-intro-legal-C1
 t-27dhu2mvo6l
 c-221dzfbk4z8
 p-1m0c1f4t25l
@@ -1046,7 +990,6 @@ c-24efhfto2wf
 p-7f0yvjrueg
 c-ec3o7pyfka
 p-bgmjo8qp9i
-intro-police-C1
 t-1niv7ux1eaj
 c-4a8mr5cefo
 p-uggqibdw01
@@ -1066,7 +1009,6 @@ c-jicz0f3ghp
 p-app5nfdfvv
 c-1yigz86wncw
 p-24yqyb5zguk
-intro-logistics-C1
 t-hgh8wjj0v8
 c-15qr5h0y6to
 p-gzlfgnj5zg
@@ -1086,7 +1028,6 @@ c-eay25ywl1f
 p-1ml8tic93aj
 c-zlz603a9ll
 p-239q7b6zh0x
-intro-business-C1
 t-1yrd6vqpol0
 c-n5su7mh5lh
 p-26ap07qqtil
@@ -1104,7 +1045,6 @@ c-1qocfuj3m21
 p-1c05335nhya
 c-13yyh06mm4r
 p-rdyzi2s8x0
-intro-education-C1
 t-1t2cqxv3mqh
 c-s65ykcbeg0
 p-24rxvg6pdtb
@@ -1124,7 +1064,6 @@ c-26vyhbrckio
 p-13mfkm208n7
 c-1gxfuo4aa3q
 p-1xx88ysdmps
-intro-medical-C2
 t-4o35j4ya7u
 c-4yp559dh3v
 p-1162dquow8e
@@ -1144,7 +1083,6 @@ c-1fymt55ytsg
 p-g6l841meci
 c-es4df794w0
 p-rn3y0yy69t
-intro-military-C2
 t-2854jvxlitq
 c-mjtjd7es31
 p-1blat996g5v
@@ -1163,7 +1101,6 @@ p-1pafu89iznp
 c-iusr42volr
 p-8fs39yaoha
 p-1h3wva2zx7e
-intro-border-C2
 t-11g5zzlu81y
 c-1999g8z0ulh
 p-sfclaldi87
@@ -1183,7 +1120,6 @@ c-1leoy5xcyo1
 p-oq12iejw5h
 c-25m91nnamgu
 p-wegmt0rvxp
-intro-banking-C2
 t-g1shawa8pw
 c-1b2306qv4zs
 p-6o3ohc7dqx
@@ -1203,7 +1139,6 @@ c-68nitar4vw
 p-8fn6oih4m7
 c-e6ap04thbq
 p-9rfxtxazpw
-intro-hospitality-C2
 t-117kkdehxmj
 c-1tnrsftltgj
 p-1yjxkvbe5lg
@@ -1222,7 +1157,6 @@ c-1yokmc2ypdb
 p-u2go2p6y6f
 c-rvn3rpg7wk
 p-114u3t8p3og
-intro-legal-C2
 t-412gygxw7m
 c-20rwfl12rmg
 p-lh215owta1
@@ -1240,7 +1174,6 @@ p-aesofvmo
 c-hro2svf3cp
 p-1caepqb9m0o
 p-kkg6u6pobv
-intro-police-C2
 t-cnmjs7gcn9
 c-12y391xar4n
 p-12kt6uihhhc
@@ -1260,7 +1193,6 @@ c-1vuea1wzzkf
 p-j7ah4qpg5r
 c-wv5ey5kvao
 p-2cyskg178m5
-intro-logistics-C2
 t-ggv601fu4b
 c-1498s3zrtqr
 p-1walifzr6y8
@@ -1280,7 +1212,6 @@ c-1t1s2pq4x7m
 p-1aqj7zoodxo
 c-uyj4e43mm4
 p-uoz9fsaewh
-intro-business-C2
 t-3hgchgtnlb
 c-j07psqppkc
 p-2e9y7m6m9mz
@@ -1300,7 +1231,6 @@ c-9gy44d4kqy
 p-mrnp892ngq
 c-1tchku9hezz
 p-1k17zrbxngf
-intro-education-C2
 t-e7auby1caq
 c-22he9ebtqit
 p-22ftrpbl493
@@ -1639,3 +1569,73 @@ c-135dn9d9j08
 p-prclp1jkrr
 c-38tv0cxmle
 p-i7tme7dhyc
+intro-medical-A0
+intro-military-A0
+intro-border-A0
+intro-banking-A0
+intro-hospitality-A0
+intro-legal-A0
+intro-police-A0
+intro-logistics-A0
+intro-business-A0
+intro-education-A0
+intro-medical-A1
+intro-military-A1
+intro-border-A1
+intro-banking-A1
+intro-hospitality-A1
+intro-legal-A1
+intro-police-A1
+intro-logistics-A1
+intro-business-A1
+intro-education-A1
+intro-medical-A2
+intro-military-A2
+intro-border-A2
+intro-banking-A2
+intro-hospitality-A2
+intro-legal-A2
+intro-police-A2
+intro-logistics-A2
+intro-business-A2
+intro-education-A2
+intro-medical-B1
+intro-military-B1
+intro-border-B1
+intro-banking-B1
+intro-hospitality-B1
+intro-legal-B1
+intro-police-B1
+intro-logistics-B1
+intro-business-B1
+intro-education-B1
+intro-medical-B2
+intro-military-B2
+intro-border-B2
+intro-banking-B2
+intro-hospitality-B2
+intro-legal-B2
+intro-police-B2
+intro-logistics-B2
+intro-business-B2
+intro-education-B2
+intro-medical-C1
+intro-military-C1
+intro-border-C1
+intro-banking-C1
+intro-hospitality-C1
+intro-legal-C1
+intro-police-C1
+intro-logistics-C1
+intro-business-C1
+intro-education-C1
+intro-medical-C2
+intro-military-C2
+intro-border-C2
+intro-banking-C2
+intro-hospitality-C2
+intro-legal-C2
+intro-police-C2
+intro-logistics-C2
+intro-business-C2
+intro-education-C2

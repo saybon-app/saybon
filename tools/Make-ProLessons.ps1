@@ -18,7 +18,9 @@ try {
   Write-Host ("Key accepted. Credits left: " + ([int]$sub.character_limit - [int]$sub.character_count)) -ForegroundColor Green
 } catch { Write-Host ("ElevenLabs refused this key: " + $_.Exception.Message) -ForegroundColor Red; return }
 $credits = [int]$sub.character_limit - [int]$sub.character_count
-$data = Get-Content (Join-Path $scn "units.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+$raw = Get-Content (Join-Path $scn "units.json") -Raw -Encoding UTF8
+if ($raw -match "undefined") { Write-Host "units.json contains the word undefined. Stopping so no credits are wasted. Send the file to Claude." -ForegroundColor Red; return }
+$data = $raw | ConvertFrom-Json
 # voices
 $all = (Invoke-RestMethod -Uri "https://api.elevenlabs.io/v2/voices?page_size=100" -Headers $h).voices
 $teacher = (Invoke-RestMethod -Uri "https://api.elevenlabs.io/v2/voices?search=Eryn&page_size=50" -Headers $h).voices | Where-Object { $_.name -like "Eryn*" } | Select-Object -First 1
