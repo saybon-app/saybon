@@ -108,7 +108,7 @@ function hintText(s){var w=s.fr.split(/\s+/);if(s.hint>=2)return s.fr;if(s.hint=
 
 /* the microphone: record while you speak, with the orb moving to your voice. Nothing is saved or sent. */
 function micClose(){try{if(stream)stream.getTracks().forEach(function(t){t.stop()})}catch(e){}try{if(actx)actx.close()}catch(e){}stream=null;actx=null;an=null}
-var ICREC='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.8" width="15" height="26.4" rx="4.6"/><path d="M12.4 7.4h7.2M12.4 10.2h7.2M12.4 13h7.2"/><circle cx="16" cy="21.4" r="3.9" fill="#e5543f" stroke="none"/></svg>',ICSTOP='<svg viewBox="0 0 32 32" fill="currentColor"><rect x="9" y="9" width="14" height="14" rx="3.2"/></svg>',hist=[];for(var hi=0;hi<56;hi++)hist.push(0);
+var ICREC='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg>',ICSTOP=ICREC,hist=[];for(var hi=0;hi<56;hi++)hist.push(0);
 var wv=$("wv"),wg=wv.getContext("2d");
 function drawWave(v,on){hist.push(v);hist.shift();wg.clearRect(0,0,560,88);for(var j=0;j<hist.length;j++){var h=3+hist[j]*70,x=j*10+3;wg.fillStyle=on?"rgba(255,214,140,"+(.35+.65*hist[j])+")":"rgba(255,255,255,.28)";var y=44-h/2;wg.beginPath();if(wg.roundRect)wg.roundRect(x,y,5,h,2.5);else wg.rect(x,y,5,h);wg.fill()}}
 au.addEventListener("play",function(){$("tb").classList.add("on")});au.addEventListener("pause",function(){$("tb").classList.remove("on")});au.addEventListener("ended",function(){$("tb").classList.remove("on")});
@@ -157,7 +157,7 @@ async function run(){
  }
  tool.style.width="100%";
  var d=ls("sbpro_scen_done")||{};d[KEY]=Date.now();ls("sbpro_scen_done",d);
- if(HUB&&window.scUid&&!FAST){try{fetch("https://saybonapp-server.onrender.com/api/levelProgressComplete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({uid:window.scUid,level:LV==="a0"?"a0-tout-public":LV,lesson:N})}).catch(function(){})}catch(e){}}
+ if(HUB&&!q.get("seq")&&window.scUid&&!FAST){try{fetch("https://saybonapp-server.onrender.com/api/levelProgressComplete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({uid:window.scUid,level:LV==="a0"?"a0-tout-public":LV,lesson:N})}).catch(function(){})}catch(e){}}
  $("state").textContent="";
  notice("Bravo !",missing?("Done. "+missing+" line(s) had no audio yet."):"You played the whole scene. Saved on this device.",true);
 }

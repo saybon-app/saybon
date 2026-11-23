@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css" />
 <style>
-body{opacity:0;animation:pageEnter .18s ease-out forwards}
-@keyframes pageEnter{from{opacity:0}to{opacity:1}}
+body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 .hb-chips{display:flex;gap:8px;justify-content:center;margin:-18px 0 22px;flex-wrap:wrap}
 .hb-chips button{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:7px 16px;font:700 .78rem Manrope,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
 .hb-chips button.on{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.7)}
@@ -62,19 +62,33 @@ var NAME=S.f==="__other"?S.o:(pr?pr.name:(fd?fd.name:""));
 if(NAME)$("eb").textContent="French for Professionals · "+NAME;
 function PN(){try{var p=window.proOf&&window.proOf(S.f);return p?p.name:""}catch(e){return ""}}
 var G={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
-var MORE={};fetch("scenario/more-index.json").then(function(r){return r.json()}).then(function(j){MORE=j}).catch(function(){});
 var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
-function mx(a){return a&&a.length?Math.max.apply(null,a):0}
-function unlocked(i){
- if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 25;
- if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 100;
- if(i>0){var pv=prog[ps[i-1].key];if(!pv||new Set(pv).size<25)return 0}
- var c=prog[ps[i].key];return c?mx(c)+1:1;
+/* the lesson order for every level: r = regular lessons joined into one lesson, p = the field lesson */
+var SEQ={
+ A0:[{r:[1,2]},{r:[3,4]},{r:[5,6]},{r:[7,8]},{r:[9]},{p:1}],
+ A1:[{r:[1,2]},{r:[5,6]},{p:1}],
+ A2:[{r:[1]},{r:[2]},{r:[3]},{r:[4]},{r:[5]},{r:[6]},{r:[7]},{r:[8]},{p:1}],
+ B1:[{r:[1]},{p:1}],
+ B2:[{r:[1]},{p:1}],
+ C1:[{r:[1]},{p:1}]
+};
+function seq(l){return SEQ[l.k]||[{p:1}]}
+function RET(){return encodeURIComponent("/professional/hub.html"+location.search)}
+function scenDone(l){try{var d=JSON.parse(localStorage.getItem("sbpro_scen_done")||"{}");return !!d[(G[S.f]||"business")+"-"+l.k.toLowerCase()+"-"+S.pc]}catch(e){return false}}
+function isDone(l,e){
+ if(e.p)return scenDone(l);
+ var c=prog[l.key]||[];return e.r.every(function(n){return c.indexOf(n)>=0});
 }
-function url(l,n){
- if(n===1)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&pn="+encodeURIComponent(PN())+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
- var mi=MORE[S.f&&(G[S.f]||"business")+"-"+l.k.toLowerCase()];if(mi&&mi.indexOf(n)>=0)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&n="+n+"&pn="+encodeURIComponent(PN())+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
- return l.base+"lesson"+n+".html";
+function levelDone(i){var l=ps[i];return seq(l).every(function(e){return isDone(l,e)})}
+function unlocked(i){
+ if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 99;
+ if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 99;
+ if(i>0&&!levelDone(i-1))return 0;
+ var l=ps[i],s=seq(l),k=0;while(k<s.length&&isDone(l,s[k]))k++;return Math.min(s.length,k+1);
+}
+function url(l,e){
+ if(e.p)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&pn="+encodeURIComponent(PN())+"&seq=1&hub=1&ret="+RET();
+ return l.base+"pro/lesson"+e.r[0]+".html?c="+e.r.join(",")+"&ret="+RET();
 }
 function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
 function draw(){
@@ -82,10 +96,10 @@ function draw(){
  $("h1").textContent=l.name;
  $("chips").innerHTML=ps.length>1?ps.map(function(x,i){var lk=unlocked(i)===0;return'<button data-i="'+i+'" class="'+(i===cur?"on ":"")+(lk?"lk":"")+'">'+(lk?LOCK:"")+x.k+'</button>'}).join(""):"";
  $("chips").querySelectorAll("[data-i]").forEach(function(b){b.onclick=function(){var i=+b.dataset.i;if(unlocked(i)===0)return;cur=i;draw()}});
- var h="";
- for(var n=1;n<=25;n++){h+=n<=m?'<button class="lesson unlocked" data-n="'+n+'"><span class="tp-num">'+n+'</span></button>':'<button class="lesson locked">'+LOCK+'<span class="tp-num">'+n+'</span></button>'}
+ var h="",s=seq(l);
+ for(var n=1;n<=s.length;n++){h+=n<=m?'<button class="lesson unlocked" data-n="'+n+'"><span class="tp-num">'+n+'</span></button>':'<button class="lesson locked">'+LOCK+'<span class="tp-num">'+n+'</span></button>'}
  $("grid").innerHTML=h;
- $("grid").querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=url(l,+b.dataset.n)}});
+ $("grid").querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=url(l,seq(l)[+b.dataset.n-1])}});
 }
 var qs="f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+S.lv+"&tg="+S.tg+"&pc="+encodeURIComponent(S.pc);
 var L='<a href="scenario/?g='+(G[S.f]||"business")+'&pc='+encodeURIComponent(S.pc)+'">Scenarios</a>';
