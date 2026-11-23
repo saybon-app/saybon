@@ -1,0 +1,8 @@
+﻿local scene-ui.js: size 173822, SBFB-START count 1, ends with: tElement,{childList:true,subtree:true}); })(); /*SBFB-END*/ 
+local engine scene-ui refs: scene-ui.js?v=sf3
+local score-feel.js exists: True
+LIVE https://saybonapp.com/levels/scene-paris/scene-ui.js?v=sf3 -> 200, bytes 177103, SBFB 1, cache-control: no-cache
+LIVE https://saybonapp.com/levels/lesson-engine-tp.js -> 200, bytes 23093, SBFB 0, cache-control: no-cache
+LIVE https://saybonapp.com/audio/feedback/fr-wow-1.mp3 -> 200, bytes 30554, SBFB 0, cache-control: max-age=3600
+git last commit: Score area: one line, score first, small remark, small skip
+audio files local: 42
