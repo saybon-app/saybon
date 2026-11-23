@@ -84,6 +84,7 @@ function loadPic(){
 function begin(){
  if(started)return;started=true;if(window.SBTTS)SBTTS.unlock();
  try{au.pause();au.oncanplay=null}catch(e){}try{if(window.SBTTS)SBTTS.stop()}catch(e){}
+ try{micInit().then(micClose)}catch(e){} /* asks for the microphone once, now, so it then opens by itself on every turn */
  $("intro").hidden=true;$("orb").style.display="none";$("sk").style.display="none";
  $("pic").classList.remove("intro");$("pic").classList.add("on");document.querySelector(".sc-top").classList.add("on");document.querySelector(".sc-bottom").classList.add("on");
  run();
@@ -91,11 +92,11 @@ function begin(){
 
 /* the teacher and the characters speak */
 if(window.SBTTS){SBTTS.base=LVR*.88;SBTTS.gapx=LV==='a0'?1.6:LV==='a1'?1.3:1}
-function slow(){try{au.defaultPlaybackRate=LVR;au.playbackRate=LVR;if("preservesPitch" in au)au.preservesPitch=true}catch(e){}}
+function slow(){try{au.defaultPlaybackRate=1;au.playbackRate=1}catch(e){}} /* recordings always play at their own natural speed */
 function playLine(s){
  return new Promise(function(res){
   var done=false;function fin(v){if(done)return;done=true;res(v)}
-  function voice(){if(window.SBTTS&&SBTTS.ok&&s.fr){SBTTS.speak(s.fr,s.who,PC).then(function(r){fin(r==="err"?"err":"ok")})}else fin("err")}
+  function voice(){if(window.SBTTS&&SBTTS.ok&&s.fr){SBTTS.speak(s.fr,s.who,PC,s.lang).then(function(r){fin(r==="err"?"err":"ok")})}else fin("err")}
   au.onended=function(){fin("ok")};au.onerror=voice;
   au.src="audio/"+s.a+".mp3";slow();
   var p=au.play();if(p&&p.catch)p.catch(voice);
@@ -121,7 +122,7 @@ async function micInit(){
 function turn(s){
  return new Promise(async function(res){
   var mic=$("mic");setCap("p",hintText(s),"turn");$("state").textContent="Your turn";
-  if(micState!==3)await micInit();
+  if(!stream)await micInit();
   mic.classList.add("rec");mic.classList.remove("hint");mic.innerHTML=ICSTOP;
   var t0=Date.now(),spoke=false,quiet=0,fin=false,buf=an?new Uint8Array(an.fftSize):null,timer=null,rec=null;
   function end(){if(fin)return;fin=true;clearInterval(timer);mic.onclick=null;mic.classList.remove("rec");mic.classList.add("hint");mic.innerHTML=ICREC;drawWave(0,false);hist.fill(0);wg.clearRect(0,0,560,88);mic.style.removeProperty("--lv");try{if(rec&&rec.state!=="inactive")rec.stop()}catch(e){}$("state").textContent="";micClose();res()}
