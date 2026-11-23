@@ -1,0 +1,37 @@
+/* Sharp dashboard: no blur anywhere, no drifting cards, deep rich colour cards in the style of the Professionals card. Delete this file and its <link> to undo. */
+.dash-shell{ transform:none !important; filter:none !important; animation:dsIn .8s ease forwards !important; }
+@keyframes dsIn{ from{opacity:0} to{opacity:1} }
+.dash-streak-card,.dash-profile-card,.dash-goal-card,.dash-card{ -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+.dash-streak-card,.dash-profile-card,.dash-goal-card{ background:rgba(255,255,255,.06) !important; }
+/* cards: rise once, then stay perfectly still so the text stays crisp */
+.dash-card{ animation-name:dpRise !important; animation-iteration-count:1 !important; animation-duration:.9s !important; }
+.dash-card::before{ display:none !important; }
+.dash-card::after{ background:linear-gradient(135deg,rgba(255,255,255,.07),transparent 50%) !important; }
+.dash-card{ border-width:1px !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 16px 34px rgba(0,0,0,.5) !important; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+.dash-card:hover{ box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 22px 44px rgba(0,0,0,.55) !important; }
+.dash-card h3{ color:#f6f1e4 !important; text-shadow:none !important; letter-spacing:.01em; }
+.dash-card .emoji{ filter:none !important; }
+.dash-card span{ font-weight:600; }
+.dash-card.card-levels{ background:linear-gradient(135deg,#2a1622 0%,#5f2754 100%) !important; border-color:rgba(230,140,180,.6) !important; }
+.dash-card.card-levels span{ color:#f2b6d1 !important; }
+.dash-card.card-talkletics{ background:linear-gradient(135deg,#0d2a22 0%,#1d5c44 100%) !important; border-color:rgba(80,190,150,.6) !important; }
+.dash-card.card-talkletics span{ color:#86e2c0 !important; }
+.dash-card.card-music{ background:linear-gradient(135deg,#33190f 0%,#7b3b20 100%) !important; border-color:rgba(240,145,106,.65) !important; }
+.dash-card.card-music span{ color:#f6b794 !important; }
+.dash-card.card-library{ background:linear-gradient(135deg,#12281c 0%,#28643f 100%) !important; border-color:rgba(122,196,150,.6) !important; }
+.dash-card.card-library span{ color:#a0e2bb !important; }
+.dash-card.card-delf{ background:linear-gradient(135deg,#0c2a2a 0%,#176660 100%) !important; border-color:rgba(78,203,176,.65) !important; }
+.dash-card.card-delf span{ color:#80e8d0 !important; }
+.dash-card.card-translation{ background:linear-gradient(135deg,#2e2210 0%,#6c4e1b 100%) !important; border-color:rgba(224,169,74,.65) !important; }
+.dash-card.card-translation span{ color:#f0c67a !important; }
+.dash-card.card-chat{ background:linear-gradient(135deg,#221836 0%,#4b3492 100%) !important; border-color:rgba(147,112,201,.65) !important; }
+.dash-card.card-chat span{ color:#c6a9f0 !important; }
+.dash-card.card-feedback{ background:linear-gradient(135deg,#301424 0%,#722950 100%) !important; border-color:rgba(217,87,143,.65) !important; }
+.dash-card.card-feedback span{ color:#f391bb !important; }
+.dash-card.card-support{ background:linear-gradient(135deg,#11233a 0%,#254f8a 100%) !important; border-color:rgba(74,144,217,.65) !important; }
+.dash-card.card-support span{ color:#92c1f2 !important; }
+
+/* clear dark overlay over the photo: no teal haze, no blur */
+html,body{ background:linear-gradient(rgba(5,8,14,.58),rgba(5,8,14,.68)),url("/assets/dashboard/1.jpg") center / cover no-repeat fixed !important; }
+.dash-sidebar{ background:linear-gradient(180deg,#0e131d 0%,#0a0e16 100%) !important; }
+@media (max-width:800px){ .dash-mobile-topbar{ background:linear-gradient(180deg,#0e131d 0%,#0a0e16 100%) !important; } }

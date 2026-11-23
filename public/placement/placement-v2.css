@@ -118,3 +118,10 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 .intro3 ~ .btn{align-self:center}
 
 .iq{margin:6px 0 4px;font:300 12.5px Poppins,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.iskip{position:absolute;right:20px;bottom:16px;background:none;border:0;color:rgba(255,255,255,.55);font:400 11px Poppins,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:6px}
+.iskip:hover{color:#d4af6a}
+#card{position:relative}
+
+/* the teacher stays in the centre and changes pose gently, no walking */
+.t-stage{will-change:auto;transform:none !important}
+.t-stage img{transition:opacity .9s ease-in-out}

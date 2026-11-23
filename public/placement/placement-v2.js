@@ -95,7 +95,7 @@ function update(L,res){
 function setFill(){ $("fill").style.width=Math.min(94,(st.n/12)*100)+"%"; }
 function intro(){
   var MIC='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg>',VU="/assets/audio/placement/intro-eryn.mp3?v=3",BU="/assets/audio/lesson-jazz.mp3",bed=null,fadeT=null,voice=$("qAud"),started=false;
-  $("card").innerHTML='<div class="body intro3"><div class="kick">Placement</div><button type="button" class="pc-teach" id="introMic" aria-label="Teacher" style="display:none">'+MIC+'</button><div class="pc-hint" id="introHint">&nbsp;</div><p class="isub">Not an exam. Just a way to place you in the right spot.</p><div class="ilv"><span>A0</span><span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span></div><p class="iq">20 questions</p></div><button class="btn" id="go">Begin</button>';
+  $("card").innerHTML='<div class="body intro3"><div class="kick">Placement</div><button type="button" class="pc-teach" id="introMic" aria-label="Teacher" style="display:none">'+MIC+'</button><div class="pc-hint" id="introHint">&nbsp;</div><p class="isub">Not an exam. Just a way to place you in the right spot.</p><div class="ilv"><span>A0</span><span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span></div><p class="iq">20 questions</p></div><button class="btn" id="go">Begin</button><button type="button" class="iskip" id="introSkip">Skip</button>';
   var mic=$("introMic"),hint=$("introHint");
   function fade(el,to,ms,done){clearInterval(fadeT);if(!el)return;var from=el.volume,n=Math.max(1,Math.round(ms/50)),i=0;fadeT=setInterval(function(){i++;try{el.volume=Math.max(0,Math.min(1,from+(to-from)*i/n))}catch(e){}if(i>=n){clearInterval(fadeT);if(done)done()}},50)}
   function bedStart(){try{if(!bed){bed=new Audio(BU);bed.loop=true;bed.volume=0}bed.currentTime=Math.max(bed.currentTime,22);var p=bed.play();if(p&&p.catch)p.catch(function(){});fade(bed,0.09,1800)}catch(e){}}
@@ -108,6 +108,7 @@ function intro(){
     var pr=voice.play();if(pr&&pr.catch)pr.catch(function(){started=false;hint.textContent="tap to listen"});}
   mic.onclick=function(){if(!started||voice.ended){say();return}if(voice.paused){var q=voice.play();if(q&&q.catch)q.catch(function(){});if(bed)try{bed.play()}catch(e){}}else voice.pause()};
   fetch(VU,{method:"HEAD"}).then(function(r){var ct=(r.headers.get("content-type")||"").toLowerCase();if(!(r.ok&&ct.indexOf("audio")===0))return;mic.style.display="";say()}).catch(function(){});
+  $("introSkip").onclick=function(){$("go").click()};
   $("go").onclick=function(){
     stopAll();
     // unlock audio on this tap (mobile browsers)
@@ -175,6 +176,9 @@ function toWav16(blob){
     return new Blob([b],{type:"audio/wav"});
   });
 }
+/* the same marking curve the lessons use: kind at A0, stricter as the levels climb; a word that sounds like the right word is about 50 */
+var LENP={0:{g:.66,f:38},1:{g:.77,f:28},2:{g:.86,f:17},3:{g:.93,f:5},4:{g:.98,f:0},5:{g:1,f:0},6:{g:1,f:0}};
+function curveP(raw,lv){var L=LENP[lv]||LENP[1];raw=+raw||0;if(raw<8)return{v:0,heard:false};var v=Math.round(100*Math.pow(Math.min(100,raw)/100,L.g));v=Math.max(v,L.f);return{v:Math.min(100,v),heard:true}}
 function askSpeak(it){
   st.cur.shown=[];
   var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>'+
@@ -203,7 +207,7 @@ function askSpeak(it){
   }
   function respond(){
     if(gone)return;
-    av.classList.add("rec");say("Your turn. Answer me out loud.");
+    av.classList.add("rec");say("Your turn. Take your time, I'm listening.");
     var rec=null,ctx=null,timer=null,iv=null,done=false;
     function cleanup(){clearInterval(iv);clearTimeout(timer);try{ctx&&ctx.close()}catch(e){}}
     function stop(){ if(done||!rec)return; done=true;cleanup();av.classList.remove("rec");say("Checking…");
@@ -213,7 +217,7 @@ function askSpeak(it){
         if(x.status===400){tries++;if(tries<2){say("I didn't catch that. Say it again.");return setTimeout(respond,900)}
           say("I couldn't hear you. Tap me to try again, or skip.");av.onclick=function(){av.onclick=null;tries=0;listen()};return}
         if(!x.ok||typeof x.j.finalScore!=="number"){tries++;if(tries<2){say("One more time.");return setTimeout(respond,900)}return skip()}
-        var pass=x.j.finalScore>=SPEAK_PASS;
+        var cv=curveP(x.j.finalScore,it.lv),pass=cv.heard&&cv.v>=SPEAK_PASS;
         av.classList.add(pass?"good":"soft");say(pass?"Très bien !":"Good try, let's keep going");
         Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;b.classList.add("dim")});
         gone=true;answer(0,av,pass?"ok":"bad");
@@ -232,11 +236,11 @@ function askSpeak(it){
           an.getByteTimeDomainData(buf);var s=0;for(var i=0;i<buf.length;i++){var v=(buf[i]-128)/128;s+=v*v}
           var rms=Math.sqrt(s/buf.length),now=Date.now();
           if(now-t0<400){calib.push(rms);return}if(floor===null){var c2=calib.slice().sort(function(a,b){return a-b});floor=c2.length?c2[Math.floor(c2.length*0.3)]:0}var thr=Math.min(0.05,Math.max(0.012,floor*2.4));if(rms>thr){spoke=true;last=now}
-          if(spoke&&now-last>900)stop();
-          else if(!spoke&&now-t0>8000)stop();
+          if(spoke&&now-last>1400)stop();
+          else if(!spoke&&now-t0>25000)stop();
         },60);
       }catch(e){}
-      timer=setTimeout(stop,11000);
+      timer=setTimeout(stop,45000);
     }).catch(function(){skip()});
   }
   snd.onclick=function(){listen(1)};var sl2=$("slow2");if(sl2)sl2.onclick=function(){tries=0;listen(0.7)};
@@ -316,7 +320,7 @@ async function teacher(){
     var total=(dur&&isFinite(dur)?dur:words.length*0.33)*1000;
     var perWord=total/words.length;
     textTimer=setInterval(function(){k++;txt.textContent=words.slice(0,k).join(" ");if(k>=words.length)clearInterval(textTimer)},perWord);
-    walk(total)/*w*/
+    var nf=imgs.length;if(nf>1){var per=Math.max(2200,total/nf);frameTimer=setInterval(function(){fi=Math.min(nf-1,fi+1);showFrame(fi);if(fi>=nf-1)clearInterval(frameTimer)},per)}
   }
   var p=aud.play();
   if(p&&p.then){p.then(function(){ if(aud.readyState>=1)startShow(aud.duration); else aud.onloadedmetadata=function(){startShow(aud.duration)} }).catch(function(){startShow(0);setTimeout(reveal,words.length*330+2500)})}
