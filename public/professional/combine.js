@@ -33,8 +33,8 @@
  var q=new URLSearchParams(location.search),G=q.get("g"),LV=(q.get("lv")||"").toLowerCase();if(!G)return;
  function add(){
   var d=document.createElement("div");d.id="probg";d.style.cssText="position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;background:#10241d";
-  var im=document.createElement("img");im.alt="";im.style.cssText="position:absolute;left:-6%;top:-6%;width:112%;height:112%;object-fit:cover";
-  var sh=document.createElement("div");sh.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.28) 35%,rgba(0,0,0,.34) 60%,rgba(0,0,0,.75))";
+  var im=document.createElement("img");im.alt="";im.style.cssText="position:absolute;left:-6%;top:-6%;width:112%;height:112%;object-fit:cover;animation:sbProPan 50s ease-in-out infinite";var st=document.createElement("style");st.textContent="@keyframes sbProPan{0%{transform:scale(1.06) translateX(-4%)}40%{transform:scale(1.1) translateX(4%)}75%{transform:scale(1.08) translateX(0)}100%{transform:scale(1.06) translateX(-4%)}} body .pc{background:linear-gradient(160deg,rgba(255,255,255,.26),rgba(255,255,255,.12))!important;-webkit-backdrop-filter:blur(18px) saturate(1.3)!important;backdrop-filter:blur(18px) saturate(1.3)!important}";document.head.appendChild(st);
+  var sh=document.createElement("div");sh.style.cssText="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.66),rgba(0,0,0,.44) 35%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.84))";
   d.appendChild(im);d.appendChild(sh);document.body.appendChild(d);
   var tall=innerHeight>innerWidth,list=[],names=tall?["tall","wide"]:["wide","tall"];
   names.forEach(function(n){list.push("/professional/scenario/img/"+G+"-"+LV+"-"+n+".webp")});
