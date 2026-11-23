@@ -238,7 +238,7 @@ function wavOf(blob){
     function str(o,t){for(var i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i));}
     str(0,"RIFF");v.setUint32(4,36+n*2,true);str(8,"WAVE");str(12,"fmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
     v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);str(36,"data");v.setUint32(40,n*2,true);
-    for(var i=0;i<n;i++){var s=Math.max(-1,Math.min(1,d[i]));v.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true);}
+    var pk=0;for(var j=0;j<n;j++){var q=Math.abs(d[j]);if(q>pk)pk=q;}var G=(pk>0.004&&pk<0.7)?Math.min(40,0.85/pk):1;for(var i=0;i<n;i++){var s=Math.max(-1,Math.min(1,d[i]*G));v.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true);}
     return new Blob([v],{type:"audio/wav"});
   });
 }
@@ -267,7 +267,7 @@ function capture0(){
     var mime=window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":"";
     var rec=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream),chunks=[];
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data);};
-    var buf=new Uint8Array(analyser.fftSize),start=performance.now(),spoke=false,voiceAt=0,quietAt=0,floor=null,calib=[],ended=false;
+    var buf=new Uint8Array(analyser.fftSize),start=performance.now(),spoke=false,voiceAt=0,quietAt=0,floor=null,calib=[],ended=false,maxR=0;
     levels=[];wave.classList.add("show");
     function fin(none){
       if(ended)return;ended=true;wave.classList.remove("show");
@@ -279,15 +279,15 @@ function capture0(){
     (function tick(){
       if(ended)return;if(paused)return fin(true);
       analyser.getByteTimeDomainData(buf);var sum=0;for(var i=0;i<buf.length;i++){var x=(buf[i]-128)/128;sum+=x*x;}
-      var rms=Math.sqrt(sum/buf.length);levels.push(rms);drawWave();
+      var rms=Math.sqrt(sum/buf.length);levels.push(rms);if(rms>maxR)maxR=rms;drawWave();
       var now=performance.now(),el=now-start;
-      if(el<450){calib.push(rms);}else if(floor===null){floor=calib.reduce(function(a,b){return a+b;},0)/Math.max(1,calib.length);}
+      if(el<450){calib.push(rms);}else if(floor===null){var cs=calib.slice().sort(function(a,b){return a-b;});floor=cs.length?cs[Math.floor(cs.length*0.3)]:0;}
       if(floor!==null){
-        var thr=Math.max(0.028,floor*3.4);
+        var thr=Math.min(0.05,Math.max(0.012,floor*2.4));
         if(rms>thr){if(!voiceAt)voiceAt=now;if(now-voiceAt>140)spoke=true;quietAt=0;}
         else{voiceAt=0;if(spoke){if(!quietAt)quietAt=now;if(now-quietAt>1250)return fin(false);}}
       }
-      if(!spoke&&el>9000)return fin(true);
+      if(!spoke&&el>11000)return fin(!(maxR>Math.max(0.014,(floor||0)*1.8)));
       if(el>14000)return fin(false);
       requestAnimationFrame(tick);
     })();

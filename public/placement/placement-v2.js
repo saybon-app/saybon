@@ -94,8 +94,10 @@ function update(L,res){
 /* ---- screens ---- */
 function setFill(){ $("fill").style.width=Math.min(94,(st.n/12)*100)+"%"; }
 function intro(){
-  $("card").innerHTML='<div class="body"><div class="kick">Placement</div><h1 class="big">Let\'s find your level.</h1><p class="lead">A few short questions with pictures, sounds and sentences. There is no pass or fail, and it stops as soon as we know. Answer what you can, and guess if you are unsure.</p></div><button class="btn" id="go">Begin</button>';
+  $("card").innerHTML='<div class="body intro2"><div class="kick">Placement</div><h1 class="big">Not an exam.<br>Just a starting point.</h1><ul class="ilist"><li><b>A0 to C2</b> The levels, from the very beginning to the most advanced.</li><li><b>14 to 20 questions</b> Easier when you struggle, harder when you do well. We stop as soon as we are sure.</li><li><b>Your level is not your total.</b> It is where your answers are steady, so a few lucky ones will not lift you.</li></ul><button class="snd" id="introHear" type="button" style="display:none"><i>\u25b6</i> Listen to the teacher</button></div><button class="btn" id="go">Begin</button>';
+  (function(){var u="/assets/audio/placement/intro-eryn.mp3";fetch(u,{method:"HEAD"}).then(function(r){var ct=(r.headers.get("content-type")||"").toLowerCase();if(!(r.ok&&ct.indexOf("audio")===0))return;var h=$("introHear");if(!h)return;h.style.display="";h.onclick=function(){var a=$("qAud");try{a.pause()}catch(e){}a.defaultPlaybackRate=1;a.src=u;a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(function(){})}}).catch(function(){})})();
   $("go").onclick=function(){
+    try{var q0=$("qAud");q0.pause()}catch(e){}
     // unlock audio on this tap (mobile browsers)
     try{var a=$("qAud");a.muted=true;a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";a.play().then(function(){a.pause();a.muted=false}).catch(function(){a.muted=false})}catch(e){}
     st=fresh(); $("scoreN").textContent="0";
@@ -112,20 +114,21 @@ async function ask(){
   st.cur.shown=opts;
   var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q).replace(/« /g,'«\u00A0').replace(/ »/g,'\u00A0»')+'</h1>'+(it.h?'<p class="hint">'+esc(it.h)+'</p>':'')+(it.p?'<div class="passage">'+esc(it.p)+'</div>':'')+(it.d?'<div class="passage dlg">'+esc(it.d).replace(/\n/g,'<br>')+'</div>':'');
   if(it.img)h+='<div class="qgrid"><img class="pic" src="'+imgUrl(it)+'" alt=""><div>';
-  if(it.say)h+='<div class="avatar" id="av" role="button"><img alt="" src="/assets/images/placement/teacher_head.png"></div><p class="hint spk" id="spk">Listen…</p>';
+  if(it.say)h+='<div class="avatar" id="av" role="button"><img alt="" src="/assets/images/placement/teacher_head.png"></div><p class="hint spk" id="spk">Listen…</p><button class="snd" id="slow" type="button"><i>▶</i> Listen slower</button>';
   h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-i="'+i+'">'+esc(o.t)+'</button>'}).join("")+'<button class="opt idk" data-i="-1">I don\'t know</button></div>'+(it.img?'</div></div></div>':'</div>');
   $("card").innerHTML=h; $("card").classList.toggle("wide",!!it.img);
   if(it.say){
     var a=$("qAud");
     var av=$("av"),sp=$("spk");
-    var play=function(){
+    var play=function(rate){
+      rate=(typeof rate==="number")?rate:1;try{a.pause()}catch(e){}
       av.classList.add("talk");sp.textContent="Listen…";
       a.onended=function(){a.onended=null;av.classList.remove("talk");sp.textContent="Tap me to hear it again"};
       a.onerror=function(){a.onerror=null;av.classList.remove("talk");sp.textContent=""};
-      a.src=audUrl(it);a.currentTime=0;
+      a.defaultPlaybackRate=rate;a.src=audUrl(it);a.playbackRate=rate;try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}a.currentTime=0;
       var pr=a.play();if(pr&&pr.catch)pr.catch(function(){av.classList.remove("talk");sp.textContent="Tap me to hear it"});
     };
-    av.onclick=play; setTimeout(play,350);
+    av.onclick=function(){play(1)}; var sl=$("slow");if(sl)sl.onclick=function(){play(0.7)}; setTimeout(function(){play(1)},350);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){answer(+b.dataset.i,b)}});
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
@@ -135,7 +138,7 @@ async function ask(){
 var SPEAK_API="https://saybonapp-server.onrender.com/api/assessPronunciation", SPEAK_PASS=50, speechOff=false;
 function canRecord(){return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder&&(window.AudioContext||window.webkitAudioContext))}
 function recStart(){
-  return navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+  return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}).then(function(stream){
     var mr=new MediaRecorder(stream),chunks=[],h={mr:mr,stream:stream};
     mr.ondataavailable=function(ev){if(ev.data&&ev.data.size)chunks.push(ev.data)};
     h.done=new Promise(function(res){mr.onstop=function(){stream.getTracks().forEach(function(t){t.stop()});res(new Blob(chunks,{type:mr.mimeType||"audio/mp4"}))}});
@@ -152,11 +155,11 @@ function toWav16(blob){
       return new Promise(function(res,rej){var r=oc.startRendering();if(r&&r.then)r.then(res,rej);oc.oncomplete=function(ev){res(ev.renderedBuffer)}});
     });
   }).then(function(out){
-    var d=out.getChannelData(0),n=d.length,b=new ArrayBuffer(44+n*2),v=new DataView(b);
+    var d=out.getChannelData(0),n=d.length,b=new ArrayBuffer(44+n*2),v=new DataView(b);var pk=0;for(var j=0;j<n;j++){var q=Math.abs(d[j]);if(q>pk)pk=q}var G=(pk>0.004&&pk<0.7)?Math.min(40,0.85/pk):1;
     function s(o,t){for(var i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i))}
     s(0,"RIFF");v.setUint32(4,36+n*2,true);s(8,"WAVEfmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
     v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);s(36,"data");v.setUint32(40,n*2,true);
-    for(var i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true)}
+    for(var i=0;i<n;i++){var x=Math.max(-1,Math.min(1,d[i]*G));v.setInt16(44+i*2,x<0?x*0x8000:x*0x7FFF,true)}
     return new Blob([b],{type:"audio/wav"});
   });
 }
@@ -165,17 +168,18 @@ function askSpeak(it){
   var h='<div class="kick">Question '+(st.n+1)+'</div><div class="body"><h1>'+esc(it.q)+'</h1>'+
    '<div class="avatar" id="av"><img alt="" src="/assets/images/placement/teacher_head.png"></div>'+
    '<p class="hint spk" id="spk">&nbsp;</p>'+
-   '<button class="snd" id="snd" style="display:none"><i>▶</i> Tap to hear me</button>'+
+   '<button class="snd" id="snd" style="display:none"><i>▶</i> Tap to hear me</button>'+'<button class="snd" id="slow2" type="button"><i>▶</i> Listen slower</button>'+
    '<div class="opts"><button class="opt idk" data-i="-1">I can\'t speak now</button></div></div>';
   $("card").innerHTML=h; $("card").classList.remove("wide");
   var a=$("qAud"),av=$("av"),msg=$("spk"),snd=$("snd"),tries=0,gone=false,stopRec=null;
   function say(t){msg.textContent=t}
   function skip(){gone=true;speechOff=true;st.seen[it.id]=1;ask()}
-  function listen(){
+  function listen(rate){
+    rate=(typeof rate==="number")?rate:1;try{a.pause()}catch(e){}
     snd.style.display="none";av.classList.remove("rec");av.classList.add("talk");say("Listen…");
     a.onended=function(){a.onended=null;av.classList.remove("talk");if(!gone)respond()};
     a.onerror=function(){a.onerror=null;av.classList.remove("talk");skip()};
-    a.src=audUrl(it);a.currentTime=0;
+    a.defaultPlaybackRate=rate;a.src=audUrl(it);a.playbackRate=rate;try{a.preservesPitch=true;a.webkitPreservesPitch=true}catch(e){}a.currentTime=0;
     var pr=a.play();
     if(pr&&pr.catch)pr.catch(function(){av.classList.remove("talk");say("Tap to hear me");snd.style.display="";});
   }
@@ -196,18 +200,18 @@ function askSpeak(it){
         if(gone)return;
         if(x.status===400){tries++;if(tries<2){say("I didn't catch that. Say it again.");return setTimeout(respond,900)}
           say("I couldn't hear you. Tap me to try again, or skip.");av.onclick=function(){av.onclick=null;tries=0;listen()};return}
-        if(!x.ok||typeof x.j.finalScore!=="number")return skip();
+        if(!x.ok||typeof x.j.finalScore!=="number"){tries++;if(tries<2){say("One more time.");return setTimeout(respond,900)}return skip()}
         var pass=x.j.finalScore>=SPEAK_PASS;
         av.classList.add(pass?"good":"soft");say(pass?"Très bien !":"Good try, let's keep going");
         Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;b.classList.add("dim")});
         gone=true;answer(0,av,pass?"ok":"bad");
-      }).catch(function(){if(!gone)skip()});
+      }).catch(function(){if(gone)return;tries++;if(tries<2){say("One more time.");return setTimeout(respond,900)}skip()});
     }
     stopRec=stop;
     recStart().then(function(r){
       if(gone){r.mr.stop();return}
       rec=r;
-      var t0=Date.now(),spoke=false,last=0;
+      var t0=Date.now(),spoke=false,last=0,calib=[],floor=null;
       try{
         var AC=window.AudioContext||window.webkitAudioContext;ctx=new AC();
         var src=ctx.createMediaStreamSource(r.stream),an=ctx.createAnalyser();an.fftSize=1024;src.connect(an);
@@ -215,18 +219,18 @@ function askSpeak(it){
         iv=setInterval(function(){
           an.getByteTimeDomainData(buf);var s=0;for(var i=0;i<buf.length;i++){var v=(buf[i]-128)/128;s+=v*v}
           var rms=Math.sqrt(s/buf.length),now=Date.now();
-          if(rms>0.03){spoke=true;last=now}
+          if(now-t0<400){calib.push(rms);return}if(floor===null){var c2=calib.slice().sort(function(a,b){return a-b});floor=c2.length?c2[Math.floor(c2.length*0.3)]:0}var thr=Math.min(0.05,Math.max(0.012,floor*2.4));if(rms>thr){spoke=true;last=now}
           if(spoke&&now-last>900)stop();
-          else if(!spoke&&now-t0>6000)stop();
+          else if(!spoke&&now-t0>8000)stop();
         },60);
       }catch(e){}
-      timer=setTimeout(stop,7000);
+      timer=setTimeout(stop,11000);
     }).catch(function(){skip()});
   }
-  snd.onclick=listen;
+  snd.onclick=function(){listen(1)};var sl2=$("slow2");if(sl2)sl2.onclick=function(){tries=0;listen(0.7)};
   Array.prototype.forEach.call(document.querySelectorAll(".opt"),function(b){b.onclick=function(){gone=true;try{a.pause()}catch(e){}if(stopRec)try{stopRec()}catch(e){}answer(-1,b)}});
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
-  setTimeout(listen,500);
+  setTimeout(function(){listen(1)},500);
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 

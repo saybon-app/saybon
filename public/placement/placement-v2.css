@@ -97,3 +97,9 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 /*twalk*/ /* teacher walks in from the left; poses change while she moves */
 .t-stage{will-change:transform}
 .t-stage img{transition:opacity .22s ease-in-out}
+
+/* clearer intro */
+.intro2 .big{font-size:clamp(26px,6vw,34px);line-height:1.15}
+.ilist{list-style:none;margin:16px 0 14px;display:grid;gap:12px;padding:0}
+.ilist li{font:400 14px/1.45 Poppins,sans-serif;opacity:.85}
+.ilist b{display:block;color:var(--gold);font:600 12.5px Poppins,sans-serif;letter-spacing:.05em;margin-bottom:2px}

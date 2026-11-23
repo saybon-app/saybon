@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Find your level - SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="placement-v2.css?v=1">
+<script type="module" src="/js/usage-track.js"></script>
+</head><body>
+<div class="app">
+  <div class="top"><button class="home" id="home" aria-label="Back">←</button><div class="track"><div class="fill" id="fill"></div></div><div class="score" id="score"><span id="scoreN">0</span></div></div>
+  <div class="card" id="card"></div>
+</div>
+<div id="teacher"><div class="t-in">
+  <div class="t-stage" id="tStage"></div>
+  <p class="t-txt" id="tTxt"></p>
+  <div class="t-act" id="tAct"><button class="btn" id="tShow">Show me my level</button><button class="btn ghost" id="tKeep">Keep going</button></div>
+</div></div>
+<audio id="tAud" preload="none"></audio><audio id="qAud" preload="none"></audio>
+<script src="items.js?v=1"></script>
+<script src="placement-v2.js?v=1"></script>
+</body></html>
