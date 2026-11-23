@@ -27,7 +27,7 @@ It's only so that we can place you in the right spot, and give you the very best
 
 ...
 
-There are seven levels. Starting with ay, zero, the very beginning. Then ay, one. Ay, two. Bee, one. Bee, two. See, one. And all the way up to see, two. And there are twenty questions, at most.
+There are seven levels. Starting with A-zero, the very beginning. Then A-one. A-two. B-one. B-two. C-one. And all the way up to C-two. And there are twenty questions, at most.
 
 ...
 
@@ -43,7 +43,7 @@ So, eight right answers on easy questions tells us something different from eigh
 
 ...
 
-And if that step is ay, zero, or ay, one? That is not a low mark. [chuckles] It's simply the place where you'll feel confident, and where you'll move the fastest. Everybody starts somewhere. And you're already here.
+And if that step is A-zero, or A-one? That is not a low mark. [chuckles] It's simply the place where you'll feel confident, and where you'll move the fastest. Everybody starts somewhere. And you're already here.
 
 ...
 
