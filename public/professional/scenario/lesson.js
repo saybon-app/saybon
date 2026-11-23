@@ -3,7 +3,7 @@ var E=window.ScenEngine;
 function $(i){return document.getElementById(i)}
 var q=new URLSearchParams(location.search),G=q.get("g")||"",LV=(q.get("lv")||"a0").toLowerCase(),PC=q.get("pc")||"steady",FORCE=q.get("force")==="1",SKIP=q.get("skip")==="1",FAST=q.get("fast")==="1";
 if(!E.PACES[PC])PC="steady";
-var N=Math.max(1,parseInt(q.get("n")||"1",10)||1),KEY=G+"-"+LV+(N>1?"-"+N:"")+"-"+PC,au=$("au"),scene=null,started=false,paused=false,missing=0,L=null,S=[],micState=0,stream=null,actx=null,an=null,CAPON=true;
+var N=Math.max(1,parseInt(q.get("n")||"1",10)||1),KEY=G+"-"+LV+(N>1?"-"+N:"")+"-"+PC,au=$("au"),LVR={a0:.72,a1:.8,a2:.87,b1:.93,b2:.97,c1:1,c2:1}[LV]||.8,scene=null,started=false,paused=false,missing=0,L=null,S=[],micState=0,stream=null,actx=null,an=null,CAPON=false;
 function ls(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){}return null}
 var RET=q.get("ret")||"",HUB=q.get("hub")==="1";
 function back(){if(HUB&&RET.indexOf("/professional/hub.html")===0){location.href=RET;return}location.href="./?g="+encodeURIComponent(G)+"&pc="+PC}
@@ -45,17 +45,13 @@ function init(){
   function paint(n){tx.innerHTML="";var a=document.createElement("span");a.textContent=T.slice(0,n);tx.appendChild(a);if(n<T.length){var c=document.createElement("span");c.className="caret";tx.appendChild(c);var r=document.createElement("span");r.className="rest";r.textContent=T.slice(n);tx.appendChild(r)}}
   function finish(){if(done)return;done=true;clearInterval(tm);paint(T.length);$("inGo").hidden=false}
   var SRC="../audio/intro-"+G+"-"+LV.toUpperCase()+".mp3";
-  function typed(){
-   tx.hidden=false;paint(0);tm=setInterval(function(){k+=1;paint(k);if(k>=T.length)finish()},FAST?1:32);
-   $("intro").querySelector(".in-card").onclick=function(e){if(e.target.closest("button"))return;finish()};
-   $("inGo").onclick=begin;
-   au.onerror=function(){};au.removeAttribute("src");
-   if(N===1){au.src=SRC;au.oncanplay=function(){$("inListen").hidden=false};$("inListen").onclick=function(){au.currentTime=0;au.play().catch(function(){})}}
+  function typed(){ /* no voice available on this device: still no transcript, just the microphone and a tap to begin */
+   var orb=$("inOrb"),st=$("inSt");$("intro").classList.add("voice");tx.hidden=true;orb.hidden=false;st.hidden=false;orb.classList.remove("say","wait");st.textContent="Tap the microphone to begin";orb.onclick=begin;
   }
   /* recorded teacher voice: no transcript, the microphone speaks; if there is no recording yet, the typed text is shown instead */
   function voice(){
    var orb=$("inOrb"),st=$("inSt"),ok=false,fell=false,to;
-   tx.hidden=true;orb.hidden=false;st.hidden=false;st.textContent="Your teacher is getting ready";
+   $("intro").classList.add("voice");tx.hidden=true;orb.hidden=false;st.hidden=false;st.textContent="Your teacher is getting ready";
    function fall(){if(ok||fell)return;fell=true;clearTimeout(to);bvoice()}
    /* no recording yet: the browser voice reads the intro aloud, still with no transcript */
    function bvoice(){
@@ -63,7 +59,7 @@ function init(){
     var tries=0,busy=false;
     function wait(){busy=false;orb.classList.remove("say");orb.classList.add("wait");st.textContent="Tap the microphone to listen"}
     function go(){if(busy)return;busy=true;tries++;orb.classList.remove("wait");orb.classList.add("say");st.textContent="Your teacher is speaking";
-     var t0=Date.now();setTimeout(function(){if(!started&&busy&&!SBTTS.spoke){SBTTS.stop();tries++;if(tries>=3){orb.hidden=true;st.hidden=true;typed()}else wait()}},3500);SBTTS.speak(T,"t",PC,"en").then(function(r){if(started)return;if(!busy)return;if(r==="ok"&&Date.now()-t0<4000)r="err";if(r==="err"){if(tries>=2){orb.hidden=true;st.hidden=true;typed()}else wait()}else{orb.classList.remove("say");begin()}})}
+     var t0=Date.now();setTimeout(function(){if(!started&&busy&&!SBTTS.spoke){SBTTS.stop();tries++;if(tries>=3){orb.hidden=true;st.hidden=true;typed()}else wait()}},3500);SBTTS.speak(T,"t","relaxed","en").then(function(r){if(started)return;if(!busy)return;if(r==="ok"&&Date.now()-t0<4000)r="err";if(r==="err"){if(tries>=2){orb.hidden=true;st.hidden=true;typed()}else wait()}else{orb.classList.remove("say");begin()}})}
     orb.onclick=function(){SBTTS.unlock();go()};
     go()}
    au.onerror=fall;to=setTimeout(fall,4500);
@@ -72,7 +68,7 @@ function init(){
    au.onpause=function(){orb.classList.remove("say")};
    au.onended=function(){orb.classList.remove("say");st.textContent="";begin()};
    orb.onclick=function(){if(au.paused)au.play().catch(function(){})};
-   au.src=SRC;au.load();
+   au.src=SRC;slow();au.load();
   }
   if(N===1&&!FAST)voice();else typed();
  }).catch(function(){begin()});
@@ -94,12 +90,14 @@ function begin(){
 }
 
 /* the teacher and the characters speak */
+if(window.SBTTS){SBTTS.base=LVR*.88;SBTTS.gapx=LV==='a0'?1.6:LV==='a1'?1.3:1}
+function slow(){try{au.defaultPlaybackRate=LVR;au.playbackRate=LVR;if("preservesPitch" in au)au.preservesPitch=true}catch(e){}}
 function playLine(s){
  return new Promise(function(res){
   var done=false;function fin(v){if(done)return;done=true;res(v)}
   function voice(){if(window.SBTTS&&SBTTS.ok&&s.fr){SBTTS.speak(s.fr,s.who,PC).then(function(r){fin(r==="err"?"err":"ok")})}else fin("err")}
   au.onended=function(){fin("ok")};au.onerror=voice;
-  au.src="audio/"+s.a+".mp3";
+  au.src="audio/"+s.a+".mp3";slow();
   var p=au.play();if(p&&p.catch)p.catch(voice);
  });
 }

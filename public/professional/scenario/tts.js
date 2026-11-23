@@ -27,7 +27,7 @@ function speak(text,role,pace,lang){
  return new Promise(function(res){
   if(!synth){res("err");return}
   api.spoke=false;var my=++token,parts=chunks(text),i=0,male=role==="c",v=lang==="en"?pickEn():pick(male);
-  var base=pace==="relaxed"?0.8:pace==="intensive"?1.0:0.9;
+  var base=lang==="en"?0.82:(api.base||0.65);
   function next(){
    if(my!==token){res("ok");return}
    if(i>=parts.length){res("ok");return}
@@ -37,7 +37,7 @@ function speak(text,role,pace,lang){
    u.pitch=(male?0.82:1.04)+(end==="?"?0.14:end==="!"?0.06:0);
    u.volume=1;
    var adv=false,guard=null;
-   function after(){if(adv)return;adv=true;clearTimeout(guard);var gap=/[.!?\u2026]$/.test(p)?380:/[,;:]$/.test(p)?170:60;setTimeout(next,gap)}
+   function after(){if(adv)return;adv=true;clearTimeout(guard);var gap=Math.round((/[.!?\u2026]$/.test(p)?380:/[,;:]$/.test(p)?170:60)*(api.gapx||1));setTimeout(next,gap)}
    u.onstart=function(){api.spoke=true};u.onend=after;u.onerror=function(){if(adv)return;adv=true;clearTimeout(guard);res("err")};
    guard=setTimeout(after,Math.round(p.length*95/u.rate)+2500); /* if the browser never reports the end, move on anyway */
    try{synth.speak(u)}catch(e){res("err")}

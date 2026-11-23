@@ -3,7 +3,9 @@
 # It asks for your ElevenLabs key (typed hidden, kept only in this window, never saved).
 # It records A0 for all ten professions first, then A1, and so on. It never remakes a file that exists.
 # When your credits run out it stops cleanly. Run it again later and it carries on.
-param([int]$MaxChars = 0)   # optional cap, e.g. -MaxChars 10000 stops before spending more than that
+param([int]$MaxChars = 0,      # optional cap, e.g. -MaxChars 10000 stops before spending more than that
+      [string]$Only = "",     # record just one intro to test it, e.g. -Only business-A0
+      [switch]$Redo)           # record again even if the file exists (use with -Only first, listen, then run without -Only)
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $pro = Join-Path $root "public\professional"
@@ -21,6 +23,7 @@ try {
 $manifest = Get-Content (Join-Path $scn "manifest.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 $intros = @($manifest.lines | Where-Object { $_.id -like "intro-*" })
 $order = @("a0","a1","a2","b1","b2","c1","c2")
+if ($Only) { $intros = @($intros | Where-Object { $_.id -eq ("intro-" + $Only) }); if (-not $intros.Count) { Write-Host ("No intro called " + $Only) -ForegroundColor Red; return } }
 $intros = $intros | Sort-Object { [array]::IndexOf($order, [string]$_.tier) }
 Write-Host ("Intros in total: " + $intros.Count)
 $r = Invoke-RestMethod -Uri "https://api.elevenlabs.io/v2/voices?search=Eryn&page_size=50" -Headers $h
@@ -30,7 +33,7 @@ $audioDir = Join-Path $pro "audio"; New-Item -ItemType Directory -Force -Path $a
 $made = 0; $had = 0; $chars = 0; $stopped = $false
 foreach ($ln in $intros) {
   $file = Join-Path $pro ($ln.file -replace "/", "\")
-  if ((Test-Path $file) -and ((Get-Item $file).Length -gt 1000)) { $had++; continue }
+  if ((-not $Redo) -and (Test-Path $file) -and ((Get-Item $file).Length -gt 1000)) { $had++; continue }
   if ($MaxChars -gt 0 -and ($chars + $ln.text.Length) -gt $MaxChars) { Write-Host ("Reached your cap of " + $MaxChars + " characters.") -ForegroundColor Yellow; $stopped = $true; break }
   $tries = 0
   while ($true) {
