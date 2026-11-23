@@ -28,13 +28,13 @@ h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.9rem,5vw,2.6re
 .r{font-size:.86rem;line-height:1.55;margin:5px 0}.r em{color:#8b92a3;font-style:normal}
 .a{margin-top:12px;display:flex;gap:8px}
 .a button{background:none;border:1px solid rgba(212,175,106,.28);color:#d9d3c2;border-radius:10px;padding:6px 13px;font:700 .76rem Manrope;cursor:pointer}
-</style></head><body>
+.bar #dl{margin-left:auto;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border-color:transparent}<body>
 <button class="ic l" onclick="location.href='../'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
 <button class="ic r" onclick="location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
 <div class="w"><p class="eb">SayBon</p>
 <h1>Tester Feedback</h1><p class="sub">What testers said, page by page.</p>
 <div class="stats" id="st"></div>
-<div class="bar"><button id="f0" class="on">New</button><button id="f1">All</button></div>
+<div class="bar"><button id="f0" class="on">New</button><button id="f1">All</button><button id="dl">Download all</button></div>
 <div id="list"><p class="sub">Loading…</p></div></div>
 <script type="module">
 import { auth } from "/js/firebase-init.js";
@@ -60,6 +60,17 @@ function draw(){
 }
 document.getElementById("f0").onclick=function(){filt=0;this.className="on";document.getElementById("f1").className="";draw()};
 document.getElementById("f1").onclick=function(){filt=1;this.className="on";document.getElementById("f0").className="";draw()};
+document.getElementById("dl").onclick=function(){
+ if(!rows.length){alert("No feedback to download yet.");return}
+ var known={};L.forEach(function(p){known[p[0]]=1});
+ var out=["SAYBON TESTER FEEDBACK","Downloaded: "+new Date().toLocaleString(),"Responses: "+rows.length+" (all, new and reviewed)","Average lesson rating: "+avg("ls_r")+" / 5","Average placement rating: "+avg("pl_r")+" / 5",""];
+ rows.forEach(function(x,i){var a=x.answers||{};
+  out.push("=== "+(i+1)+". "+(a.name||"Anonymous")+" | "+(x.created||"")+" | "+(a.device||"")+" | "+(x.reviewed?"reviewed":"new")+" | id "+x.id+" ===");
+  L.forEach(function(p){var v=a[p[0]];if(Array.isArray(v))v=v.join(", ");if(v&&v!==0){if(/_r$/.test(p[0]))v=v+" / 5";out.push(p[1]+": "+v)}});
+  Object.keys(a).forEach(function(k){if(known[k]||k==="name"||k==="device")return;var v=a[k];if(Array.isArray(v))v=v.join(", ");if(v&&typeof v==="object")v=JSON.stringify(v);if(v&&v!==0)out.push(k+": "+v)});
+  out.push("")});
+ var blob=new Blob(["\ufeff"+out.join("\r\n")],{type:"text/plain;charset=utf-8"}),u=URL.createObjectURL(blob),a2=document.createElement("a");
+ a2.href=u;a2.download="saybon-tester-feedback-"+new Date().toISOString().slice(0,10)+".txt";document.body.appendChild(a2);a2.click();a2.remove();setTimeout(function(){URL.revokeObjectURL(u)},2000)};
 window.addEventListener("adminAuthorized",load);
 </script>
 </body>

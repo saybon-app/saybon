@@ -1,13 +1,9 @@
 ﻿cd C:\SayBon
-$f = "public\admin\tester-feedback.html"
+$f = "public\features\admin\tester-feedback\index.html"
 $t = [IO.File]::ReadAllText((Resolve-Path $f), [Text.Encoding]::UTF8)
-if ($t.Contains('id="dl"')) { "Already has the download icon, nothing to do." } else {
-$css = @'
-.w{position:relative}#dl{position:absolute;right:0;top:0;width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,175,106,.45);background:rgba(255,255,255,.05);color:#d4af6a;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}#dl:hover{background:#d4af6a;color:#16120a}#dl svg{width:20px;height:20px}
-'@
-$btn = @'
-<div class="w"><button id="dl" title="Download all feedback" aria-label="Download all feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></button><a class="bk" href="/admin/panel.html">
-'@
+if ($t.Contains('id="dl"')) { "Already patched, nothing to do." } else {
+$css = '.bar #dl{margin-left:auto;background:linear-gradient(180deg,#e8c98a,#d4af6a);color:#1c1408;border-color:transparent}'
+$btn = '<div class="bar"><button id="f0" class="on">New</button><button id="f1">All</button><button id="dl">Download all</button></div>'
 $js = @'
 document.getElementById("dl").onclick=function(){
  if(!rows.length){alert("No feedback to download yet.");return}
@@ -22,11 +18,13 @@ document.getElementById("dl").onclick=function(){
  a2.href=u;a2.download="saybon-tester-feedback-"+new Date().toISOString().slice(0,10)+".txt";document.body.appendChild(a2);a2.click();a2.remove();setTimeout(function(){URL.revokeObjectURL(u)},2000)};
 window.addEventListener("adminAuthorized",load);
 '@
-$a1 = '</style></head>'
-$a2 = '<div class="w"><a class="bk" href="/admin/panel.html">'
-$a3 = 'window.addEventListener("adminAuthorized",load);'
-foreach ($a in $a1,$a2,$a3) { if (([regex]::Matches($t,[regex]::Escape($a))).Count -ne 1) { throw "Cannot patch: anchor not found exactly once: $a" } }
-$t = $t.Replace($a1, $css + $a1).Replace($a2, $btn).Replace($a3, $js)
+$pairs = @(
+ @('</style></head>', $css + '</style></head>'),
+ @('<div class="bar"><button id="f0" class="on">New</button><button id="f1">All</button></div>', $btn),
+ @('window.addEventListener("adminAuthorized",load);', $js)
+)
+foreach ($p in $pairs) { if (([regex]::Matches($t,[regex]::Escape($p[0]))).Count -ne 1) { throw "Cannot patch: anchor not found exactly once: $($p[0])" } }
+foreach ($p in $pairs) { $t = $t.Replace($p[0], $p[1]) }
 [IO.File]::WriteAllText((Resolve-Path $f), $t, (New-Object Text.UTF8Encoding($false)))
 "Patched."
 explorer.exe /select,(Resolve-Path $f)
