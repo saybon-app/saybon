@@ -509,6 +509,7 @@ var busy=0;var mo=new MutationObserver(function(){if(busy)return;busy=1;try{walk
 function go(){walk(document.body);mo.observe(document.body,{childList:true,subtree:true,characterData:true})}
 if(document.body)go();else document.addEventListener('DOMContentLoaded',go)}catch(e){}})();
 
+
 ;
 /*SBFB-START score feedback: one clean word, the number kept quiet, and the teacher reacts out loud*/
 (function(){
