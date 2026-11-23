@@ -33,6 +33,7 @@ body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
  <header class="page-header"><p class="tp-eyebrow" id="eb">French for Professionals</p><h1 id="h1">Your lessons</h1></header>
  <div class="hb-chips" id="chips"></div>
  <main class="lesson-grid" id="grid"></main>
+ <div id="names" style="max-width:520px;margin:18px auto 0;padding:0 16px;color:#fff;font:14px/1.9 Poppins,system-ui,sans-serif"></div>
  <div class="hb-links" id="links"></div>
 </div>
 <script src="pro-data.js?v=3"></script>
@@ -66,8 +67,8 @@ var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentCo
 /* the lesson order for every level: r = regular lessons joined into one lesson, p = the field lesson */
 var P5=[{p:2},{p:1},{p:3},{p:4},{p:5}]; /* the five field lessons: interview, welcome, details, process, problem */
 var SEQ={
- A0:[{r:[1,2]},{r:[3,4]},{r:[5,6]},{r:[7,8]},{r:[9]}].concat(P5),
- A1:[{r:[1,2]},{r:[5,6]}].concat(P5),
+ A0:[{r:[1,2]},{r:[3,4]},{r:[5]},{r:[6]},{r:[7,8]}].concat(P5),
+ A1:[{r:[1]},{r:[2]},{r:[5]},{r:[6]}].concat(P5),
  A2:[{r:[1]},{r:[2]},{r:[3]},{r:[4]},{r:[5]},{r:[6]},{r:[7]},{r:[8]}].concat(P5),
  B1:[{r:[1]}].concat(P5),
  B2:[{r:[1]}].concat(P5),
@@ -82,6 +83,7 @@ function isDone(l,e){
 }
 function levelDone(i){var l=ps[i];return seq(l).every(function(e){return isDone(l,e)})}
 function unlocked(i){
+ if(/[?&]preview=1/.test(location.search))return 99;
  if(sessionStorage.getItem("saybon_admin_unlocked")==="true")return 99;
  if(user&&String(user.email||"").toLowerCase()==="saybon.fr@gmail.com")return 99;
  if(i>0&&!levelDone(i-1))return 0;
@@ -92,6 +94,9 @@ function url(l,e){
  return l.base+"pro/lesson"+e.r[0]+".html?c="+e.r.join(",")+"&g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&ret="+RET();
 }
 function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
+var RN={A0:{1:"Greetings",2:"My name",3:"How are you",4:"Enchanté and vous",5:"Please and thank you",6:"Reading practice",7:"Where you live",8:"Countries"}};
+var PNM={1:"Welcome",2:"Interview",3:"Taking details",4:"Explaining a process",5:"Handling a problem"};
+function nm(l,e){if(e.p)return PNM[e.p]+" ("+(PN()||"your field")+")";var a=(RN[l.k]||{}),x=e.r.map(function(n){return a[n]}).filter(Boolean);return "Core "+(e.r.length>1?"lessons "+e.r.join(" + "):"lesson "+e.r[0])+(x.length?" - "+x.join(" / "):"")}
 function draw(){
  var l=ps[cur],m=unlocked(cur);themeFor(l);
  $("h1").textContent=l.name;
@@ -100,6 +105,7 @@ function draw(){
  var h="",s=seq(l);
  for(var n=1;n<=s.length;n++){h+=n<=m?'<button class="lesson unlocked" data-n="'+n+'"><span class="tp-num">'+n+'</span></button>':'<button class="lesson locked">'+LOCK+'<span class="tp-num">'+n+'</span></button>'}
  $("grid").innerHTML=h;
+ $("names").innerHTML=s.map(function(e,i){var o=i+1<=m;return '<div style="opacity:'+(o?1:.55)+'"><b style="color:#d4af6a">'+(i+1)+'</b> &nbsp;'+nm(l,e)+'</div>'}).join("");
  $("grid").querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=url(l,seq(l)[+b.dataset.n-1])}});
 }
 var qs="f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+S.lv+"&tg="+S.tg+"&pc="+encodeURIComponent(S.pc);
