@@ -14,8 +14,39 @@ try { $sub = Invoke-RestMethod -Uri "https://api.elevenlabs.io/v1/user/subscript
 $teacher = (Invoke-RestMethod -Uri "https://api.elevenlabs.io/v2/voices?search=Eryn&page_size=50" -Headers $h).voices | Where-Object { $_.name -like "Eryn*" } | Select-Object -First 1
 if (-not $teacher) { Write-Host "No voice named Eryn in this ElevenLabs account." -ForegroundColor Red; return }
 $C = [ordered]@{
- "intro-eryn" = "Welcome. Before we begin, a quick word. This is not an exam, and nobody passes or fails. It simply helps us find the right place for you to start. The levels run from A zero, the very beginning, up to C two. You will answer between fourteen and twenty short questions. When you answer well, the questions get harder. When you struggle, they get easier. And we stop as soon as we are sure. One thing worth knowing. Your level is not your total score. You can get eight right and still start at A zero or A one, because your level is the one where your answers are steady, not where you got lucky once. So please don't guess wildly. If you don't know, just say so. You will see your score grow as you go. Ready? Let's begin."
+ "intro-eryn" = @"
+Hi. [chuckles] It's so great that you're taking the placement test.
+
+...
+
+Now, take a breath. [sighs] There's nothing to be nervous about. This is not an exam. Nobody passes, and nobody fails.
+
+...
+
+It's only so that we can place you in the right spot, and give you the very best start.
+
+...
+
+The levels go from A zero, the very beginning, all the way up to C two. You'll start with the easiest questions, and they'll grow a little harder as you go. Up to twenty questions, and we stop as soon as we are sure.
+
+...
+
+Now, here's something I want you to know. Your level is not your total score. It's about how steady you are at each level. How many you get right at A zero. How many at A one. How many at A two, and so on.
+
+...
+
+So you can get eight right, and still start at A zero or A one, if those answers are scattered. And that is completely fine. [chuckles] It simply means we've found where you'll learn best.
+
+...
+
+If you don't know an answer, just say so. No guessing, no pressure. I'm right here with you.
+
+...
+
+Ready? Whenever you are, press begin.
+"@
 }
+Remove-Item (Join-Path $out "intro-eryn.mp3") -Force -ErrorAction SilentlyContinue
 $n = 0; $chars = 0
 foreach ($id in $C.Keys) {
   $f = Join-Path $out ($id + ".mp3")

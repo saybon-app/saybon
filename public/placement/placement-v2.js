@@ -94,10 +94,22 @@ function update(L,res){
 /* ---- screens ---- */
 function setFill(){ $("fill").style.width=Math.min(94,(st.n/12)*100)+"%"; }
 function intro(){
-  $("card").innerHTML='<div class="body intro2"><div class="kick">Placement</div><h1 class="big">Not an exam.<br>Just a starting point.</h1><ul class="ilist"><li><b>A0 to C2</b> The levels, from the very beginning to the most advanced.</li><li><b>14 to 20 questions</b> Easier when you struggle, harder when you do well. We stop as soon as we are sure.</li><li><b>Your level is not your total.</b> It is where your answers are steady, so a few lucky ones will not lift you.</li></ul><button class="snd" id="introHear" type="button" style="display:none"><i>\u25b6</i> Listen to the teacher</button></div><button class="btn" id="go">Begin</button>';
-  (function(){var u="/assets/audio/placement/intro-eryn.mp3";fetch(u,{method:"HEAD"}).then(function(r){var ct=(r.headers.get("content-type")||"").toLowerCase();if(!(r.ok&&ct.indexOf("audio")===0))return;var h=$("introHear");if(!h)return;h.style.display="";h.onclick=function(){var a=$("qAud");try{a.pause()}catch(e){}a.defaultPlaybackRate=1;a.src=u;a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(function(){})}}).catch(function(){})})();
+  var MIC='<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="10.5" y="2.5" width="11" height="17" rx="5.5" fill="currentColor" stroke="none"/><path d="M11.6 7.2h8.8M11 10.4h10M11 13.6h10M11.6 16.6h8.8" stroke="rgba(40,14,0,.55)" stroke-width="1.15"/><path d="M6.6 14v1.2a9.4 9.4 0 0 0 18.8 0V14"/><path d="M16 24.6v3.4M11.2 28.4h9.6"/></svg>',VU="/assets/audio/placement/intro-eryn.mp3?v=2",BU="/assets/audio/lesson-jazz.mp3",bed=null,fadeT=null,voice=$("qAud"),started=false;
+  $("card").innerHTML='<div class="body intro3"><div class="kick">Placement</div><button type="button" class="pc-teach" id="introMic" aria-label="Teacher" style="display:none">'+MIC+'</button><div class="pc-hint" id="introHint">&nbsp;</div><p class="isub">Not an exam. Just a way to place you in the right spot.</p><div class="ilv"><span>A0</span><span>A1</span><span>A2</span><span>B1</span><span>B2</span><span>C1</span><span>C2</span></div><ul class="ilist"><li>Up to 20 questions, starting from the easiest level. Easier when you struggle, harder when you do well. We stop as soon as we are sure.</li><li>Your level is not your total. It is how steady you are at each level: how many you get right at A0, at A1, at A2, and so on.</li></ul></div><button class="btn" id="go">Begin</button>';
+  var mic=$("introMic"),hint=$("introHint");
+  function fade(el,to,ms,done){clearInterval(fadeT);if(!el)return;var from=el.volume,n=Math.max(1,Math.round(ms/50)),i=0;fadeT=setInterval(function(){i++;try{el.volume=Math.max(0,Math.min(1,from+(to-from)*i/n))}catch(e){}if(i>=n){clearInterval(fadeT);if(done)done()}},50)}
+  function bedStart(){try{if(!bed){bed=new Audio(BU);bed.loop=true;bed.volume=0}bed.currentTime=Math.max(bed.currentTime,22);var p=bed.play();if(p&&p.catch)p.catch(function(){});fade(bed,0.09,1800)}catch(e){}}
+  function bedStop(){if(!bed)return;var b=bed;fade(b,0,1600,function(){try{b.pause()}catch(e){}})}
+  function stopAll(){try{voice.pause()}catch(e){}voice.onended=null;voice.onplay=null;voice.onpause=null;mic.classList.remove("on");clearInterval(fadeT);if(bed){try{bed.pause()}catch(e){}bed=null}}
+  function say(){started=true;voice.defaultPlaybackRate=1;voice.src=VU;voice.currentTime=0;
+    voice.onplay=function(){mic.classList.add("on");hint.innerHTML="&nbsp;";bedStart()};
+    voice.onpause=function(){if(!voice.ended){mic.classList.remove("on");if(bed)try{bed.pause()}catch(e){}}};
+    voice.onended=function(){mic.classList.remove("on");bedStop()};
+    var pr=voice.play();if(pr&&pr.catch)pr.catch(function(){started=false;hint.textContent="tap to listen"});}
+  mic.onclick=function(){if(!started||voice.ended){say();return}if(voice.paused){var q=voice.play();if(q&&q.catch)q.catch(function(){});if(bed)try{bed.play()}catch(e){}}else voice.pause()};
+  fetch(VU,{method:"HEAD"}).then(function(r){var ct=(r.headers.get("content-type")||"").toLowerCase();if(!(r.ok&&ct.indexOf("audio")===0))return;mic.style.display="";say()}).catch(function(){});
   $("go").onclick=function(){
-    try{var q0=$("qAud");q0.pause()}catch(e){}
+    stopAll();
     // unlock audio on this tap (mobile browsers)
     try{var a=$("qAud");a.muted=true;a.src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";a.play().then(function(){a.pause();a.muted=false}).catch(function(){a.muted=false})}catch(e){}
     st=fresh(); $("scoreN").textContent="0";

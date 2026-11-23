@@ -98,8 +98,21 @@ p.lead{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--mute);l
 .t-stage{will-change:transform}
 .t-stage img{transition:opacity .22s ease-in-out}
 
-/* clearer intro */
-.intro2 .big{font-size:clamp(26px,6vw,34px);line-height:1.15}
-.ilist{list-style:none;margin:16px 0 14px;display:grid;gap:12px;padding:0}
-.ilist li{font:400 14px/1.45 Poppins,sans-serif;opacity:.85}
-.ilist b{display:block;color:var(--gold);font:600 12.5px Poppins,sans-serif;letter-spacing:.05em;margin-bottom:2px}
+/* intro: the lesson microphone, exactly as in the lessons (coral, beating, with halo rings) */
+.intro3{align-items:center;text-align:center}
+.intro3 .kick{align-self:flex-start;text-align:left}
+#card .pc-teach{width:auto;height:auto;border:0;background:none;box-shadow:none;border-radius:0;cursor:pointer;display:grid;place-items:center;margin:26px auto 0;padding:0;position:relative;overflow:visible;color:#ffb4a2;filter:drop-shadow(0 2px 0 rgba(70,20,10,.5)) drop-shadow(0 4px 14px rgba(20,8,0,.6))}
+#card .pc-teach svg{width:96px;height:96px}
+#card .pc-teach.on svg{animation:pcBeat 2.8s ease-in-out infinite}
+@keyframes pcBeat{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.13);opacity:1}}
+#card .pc-teach::before,#card .pc-teach::after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:2px solid rgba(255,180,162,.75);opacity:0;pointer-events:none;box-shadow:0 0 18px rgba(255,150,120,.35)}
+#card .pc-teach.on::before{animation:pcHalo 2.4s ease-out infinite}
+#card .pc-teach.on::after{animation:pcHalo 2.4s ease-out 1.2s infinite}
+@keyframes pcHalo{0%{transform:scale(.62);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+#card .pc-hint{margin-top:10px;min-height:12px;font:300 10px/1 'Poppins',system-ui,sans-serif;letter-spacing:.22em;text-transform:lowercase;color:rgba(255,255,255,.6);text-align:center}
+.isub{margin:30px 0 0;font:500 italic 19px/1.3 'Cormorant Garamond',serif;color:#f1e6cf}
+.ilv{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:16px 0 4px}
+.ilv span{font:500 10.5px Poppins,sans-serif;letter-spacing:.08em;padding:4px 8px;border:1px solid rgba(212,175,106,.4);border-radius:999px;color:#d4af6a}
+.ilist{list-style:none;margin:14px auto 6px;display:grid;gap:10px;padding:0;max-width:430px}
+.ilist li{font:300 12.5px/1.6 Poppins,sans-serif;letter-spacing:.01em;color:rgba(255,255,255,.72)}
+.intro3 ~ .btn{align-self:center}
