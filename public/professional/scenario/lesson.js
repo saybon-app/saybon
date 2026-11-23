@@ -38,7 +38,7 @@ function init(){
  var sk=$("sk");sk.style.display="";sk.onclick=begin;
  $("pic").classList.add("on","intro");
  var NM={medical:"Medical",legal:"Legal",military:"Military and peacekeeping",police:"Police and security",border:"Border and customs",banking:"Banking",logistics:"Logistics",hospitality:"Hospitality",business:"Business",education:"Education"};
- $("inT").textContent=(NM[G]||"Professional")+" \u00b7 "+LV.toUpperCase();
+ $("inT").textContent=(q.get("pn")||NM[G]||"Professional")+" \u00b7 "+LV.toUpperCase();
  fetch("intros.json").then(function(r){return r.json()}).then(function(I){
   var T=I[G+"-"+LV.toUpperCase()+(N>1?"-"+N:"")];if(!T){begin();return}
   $("intro").hidden=false;var tx=$("inTx"),k=0,done=false,tm=null;

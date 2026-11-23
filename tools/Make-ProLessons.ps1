@@ -1,13 +1,13 @@
-# Records lesson one for every field and level with ElevenLabs: the intro, the scene-setting, the conversation, the drills.
+# Records lesson one for every field and level with ElevenLabs: the scene-setting, the conversation, the drills (intros only with -WithIntros).
 #   .\tools\Make-ProLessons.ps1 -Test        records ONE intro and a short lesson sample in a test folder, so you can listen first
 #   .\tools\Make-ProLessons.ps1              records everything: A0 for all ten fields first, then A1, and so on
 # It asks for your ElevenLabs key (typed hidden, never saved). It stops cleanly when credits run out; run it again later and it carries on.
-param([switch]$Test, [string]$OtherVoice = "", [int]$MaxChars = 0, [string]$UpTo = "c2", [string]$Model = "eleven_v4")
+param([switch]$Test, [string]$OtherVoice = "", [int]$MaxChars = 0, [string]$UpTo = "c2", [string]$Model = "eleven_v4", [string]$FrenchModel = "eleven_v4", [switch]$WithIntros)
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $pro = Join-Path $root "public\professional"
 $scn = Join-Path $pro "scenario"
-$doneFile = Join-Path $PSScriptRoot "ProAudio.done.txt"
+$doneFile = Join-Path $PSScriptRoot "ProAudio2.done.txt"
 Write-Host "Paste your ElevenLabs API key and press Enter (nothing will show):" -ForegroundColor Yellow
 $sec = Read-Host -AsSecureString
 $key = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec))
@@ -29,7 +29,7 @@ if ($OtherVoice) { $other = $all | Where-Object { $_.name -like ($OtherVoice + "
 else { $other = $all | Where-Object { $_.name -notlike "Eryn*" -and $_.labels.gender -eq "male" } | Select-Object -First 1
        if (-not $other) { $other = $all | Where-Object { $_.name -notlike "Eryn*" } | Select-Object -First 1 } }
 if (-not $other) { Write-Host "No second voice found. Add one in ElevenLabs, then run again." -ForegroundColor Red; return }
-Write-Host ("Model: " + $Model)
+Write-Host ("Teacher English model: " + $Model + "    French lines model: " + $FrenchModel)
 Write-Host ("Teacher: " + $teacher.name + "    Other person: " + $other.name + "   (to use another voice: -OtherVoice ""Name"")")
 $script:noLang = $false; $script:stop = $false; $script:chars = 0
 function Speak($text, $voiceId, $model, $speed, $lang, $outFile) {
@@ -69,26 +69,32 @@ function Speak-Intro($u, $outFile) {
   foreach ($p in $parts) { $by = [IO.File]::ReadAllBytes($p); $ms.Write($by, 0, $by.Length); Remove-Item $p -Force }
   [IO.File]::WriteAllBytes($outFile, $ms.ToArray()); return $true
 }
-function Speak-Line($ln, $outFile) {
+function Speak-Line($ln, $outFile, $frModel = $FrenchModel) {
   if ($ln.lang -eq "en") { return (Speak $ln.text $teacher.voice_id $Model $null "en" $outFile) }
   $vid = if ($ln.role -eq "c") { $other.voice_id } else { $teacher.voice_id }
-  if ($Model -eq "eleven_multilingual_v2") { return (Speak $ln.text $vid $Model $ln.speed "fr" $outFile) }
+  if ($frModel -eq "eleven_multilingual_v2") { return (Speak $ln.text $vid $frModel $ln.speed "fr" $outFile) }
   # newer models have no speed setting, so the teaching pace is asked for with a delivery tag
   $tag = ""; if ($ln.speed -and $ln.speed -le 0.75) { $tag = "[speaking very slowly and clearly] " } elseif ($ln.speed -and $ln.speed -le 0.82) { $tag = "[speaking slowly and clearly] " } elseif ($ln.speed -and $ln.speed -le 0.9) { $tag = "[speaking a little slowly] " }
-  return (Speak ($tag + $ln.text) $vid $Model $null "fr" $outFile)
+  return (Speak ($tag + $ln.text) $vid $frModel $null "fr" $outFile)
 }
 # ---------- test mode ----------
 if ($Test) {
   $dir = Join-Path $pro "audio-test"; New-Item -ItemType Directory -Force -Path $dir | Out-Null
-  $u = $data.units | Where-Object { $_.key -eq "business-A0" } | Select-Object -First 1
-  Write-Host "Recording the test: intro, scene-setting and the first lines of the conversation (about 1,000 credits)..."
-  [void](Speak-Intro $u (Join-Path $dir "1-intro.mp3"))
-  $n = 2
-  foreach ($ln in ($u.lines | Select-Object -First 4)) { if ($script:stop) { break }; [void](Speak-Line $ln (Join-Path $dir ($n.ToString() + "-" + $ln.role + "-" + $ln.lang + ".mp3"))); $n++ }
-  if (-not $script:stop) { [void](Speak-Line ($data.shared | Where-Object { $_.lang -eq "en" } | Select-Object -Last 1) (Join-Path $dir "9-praise.mp3")) }
-  Write-Host ("Test done (" + $script:chars + " credits). Listen to the files in order: 1 intro, 2 scene-setting, 3 to 5 the conversation (the other voice is in 3 and 5), 9 a praise line.") -ForegroundColor Green
-  Write-Host "Nothing on the site was changed. Tell me what to adjust, or say it sounds right and run the full recording."
-  explorer.exe /select,(Join-Path $dir "1-intro.mp3"); return
+  Get-ChildItem $dir -File -ErrorAction SilentlyContinue | Remove-Item -Force
+  $u = $data.units | Where-Object { $_.key -eq "medical-A0" } | Select-Object -First 1
+  $pick = @($u.lines | Where-Object { $_.lang -ne "en" } | Select-Object -First 4)
+  $est = @($data.units | ForEach-Object { $_.lines } | Where-Object { $_.lang -ne "en" -and $_.text -match "\best\b" } | Select-Object -First 2)
+  Write-Host "Recording the test: the same French lines with two models, so you can hear which is right (about 600 credits)..."
+  $n = 1
+  foreach ($ln in ($pick + $est)) {
+    if ($script:stop) { break }
+    foreach ($m in @("eleven_multilingual_v2", "eleven_v4")) { $tag = if ($m -eq "eleven_v4") { "v4" } else { "v2" }
+      [void](Speak-Line $ln (Join-Path $dir ($n.ToString() + "-" + $ln.role + "-" + $tag + ".mp3")) $m) }
+    $n++
+  }
+  Write-Host ("Test done (" + $script:chars + " credits). Files go in pairs: number-voice-v2 then the same line as v4. 1 to 4 are the opening lines (c = the other person, p = you); 5 and 6 contain the word est.") -ForegroundColor Green
+  Write-Host "Tell me which sounds right, v2 or v4. Nothing on the site was changed."
+  explorer.exe /select,(Join-Path $dir "1-c-v2.mp3"); return
 }
 # ---------- full recording ----------
 $done = @{}; if (Test-Path $doneFile) { Get-Content $doneFile | ForEach-Object { if ($_) { $done[$_] = 1 } } }
@@ -107,7 +113,7 @@ foreach ($u in $data.units) {
   if ($script:stop) { break }
   if ([array]::IndexOf($order, $u.lv) -gt $limit) { continue }
   $todo = @($u.lines | Where-Object { -not $done.ContainsKey($_.id) })
-  $needIntro = ($u.intro -and -not $done.ContainsKey($u.intro.id))
+  $needIntro = ($WithIntros -and $u.intro -and -not $done.ContainsKey($u.intro.id))
   if (-not $needIntro -and $todo.Count -eq 0) { continue }
   $cost = ($todo | ForEach-Object { $_.text.Length } | Measure-Object -Sum).Sum + $(if ($needIntro) { $u.intro.text.Length } else { 0 })
   if ($MaxChars -gt 0 -and ($script:chars + $cost) -gt $MaxChars) { Write-Host ("Reached your cap before " + $u.key) -ForegroundColor Yellow; break }
@@ -119,7 +125,7 @@ foreach ($u in $data.units) {
     if (Speak-Line $ln (Join-Path $audioDir ($ln.id + ".mp3"))) { Mark $ln.id; $made++ }
   }
 }
-$left = ($data.units | Where-Object { [array]::IndexOf($order, $_.lv) -le $limit } | Where-Object { (($_.intro) -and -not $done.ContainsKey($_.intro.id)) -or (@($_.lines | Where-Object { -not $done.ContainsKey($_.id) }).Count -gt 0) }).Count
+$left = ($data.units | Where-Object { [array]::IndexOf($order, $_.lv) -le $limit } | Where-Object { ($WithIntros -and $_.intro -and -not $done.ContainsKey($_.intro.id)) -or (@($_.lines | Where-Object { -not $done.ContainsKey($_.id) }).Count -gt 0) }).Count
 Write-Host ""
 Write-Host ("Recorded " + $made + " files this run (" + $script:chars + " characters). Lessons still to record: " + $left + " of " + @($data.units).Count + ".") -ForegroundColor Green
 if ($left -gt 0) { Write-Host "Not finished. Run it again when credits are added. Deploy to publish what is recorded." -ForegroundColor Yellow }

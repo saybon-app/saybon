@@ -11,6 +11,7 @@ var EN={
  c1234:"Now all four together. This is a real conversation, so take your time.",
  whole:"Now the whole conversation, from the start. This time, you play your part. Ready? [chuckles] Let's go!",
  done:"[chuckles] And that's the lesson! Wow, great job today. [sighs] Ahh, I'm proud of you. See you in the next one.",
+ first:"Here is your first line. [chuckles] Listen, then say it.",next:"Here is your next line. Listen, then say it.",practice:"Now some quick practice. I speak, then you answer. [chuckles] Same sentence, small changes.",join:"Now let's join your lines together, as a little conversation.",
  praise:["[chuckles] Great job!","Wow, you're doing so well! [chuckles]","[chuckles] Brilliant! Keep going.","[chuckles] Lovely. That sounded really good.","[chuckles] Yes! Exactly like that.","[sighs] Ahh, perfect. [chuckles] You've got this."]};
 function strip(t){return String(t).replace(/<<([^>]*)>>/g,"$1").replace(/\[[^\]]*\]/g,"").replace(/\s{2,}/g," ").trim()}
 function hash(s){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
@@ -20,7 +21,43 @@ function say(role,text,lang){var o={k:"say",a:lineId(role,text),who:role,fr:stri
 function en(text){return say("t",text,"en")}
 function cue(name){return say("t",CUES[name])}
 function uniq(a){var s={},o=[];a.forEach(function(x){if(!s[x]){s[x]=1;o.push(x)}});return o}
+function buildLadder(L,pace){
+ var S=[],pi=0;
+ function praise(){S.push(en(EN.praise[pi++%EN.praise.length]))}
+ function turn(t,h){S.push({k:"turn",fr:t,w:win(t,pace),hint:h===undefined?2:h})}
+ function listenSay(t){S.push(cue("listen"));S.push(say("p",t));S.push(cue("repeat"));turn(t)}
+ if(L.goal&&(L.lv==="a0"||L.lv==="a1"))S.push({k:"goal",text:L.goal});
+ S.push({k:"sec",t:"La scène"});
+ S.push(en(L.setup||"For this lesson, you will play a short conversation. First, just listen."));
+ S.push(cue("scene"));
+ L.scene.forEach(function(x){S.push(say(x[0],x[1]))});
+ S.push(en(EN.promise));
+ var pIdx=[];L.scene.forEach(function(x,i){if(x[0]==="p")pIdx.push(i)});
+ L.ladder.forEach(function(g,k){
+  var full=L.scene[pIdx[k]][1];
+  S.push({k:"sec",t:"Phrase "+(k+1)});
+  S.push(en(k===0?EN.first:EN.next));
+  var pcs=(g.build||[]).slice();if(!pcs.length||pcs[pcs.length-1]!==full)pcs.push(full);
+  pcs.forEach(function(t){listenSay(t)});
+  praise();
+  S.push(en(EN.practice));
+  g.drills.forEach(function(d,j){
+   S.push(say("c",d.c));
+   if(j===0){S.push(cue("model"));S.push(say("p",d.p));S.push(cue("yours"))}
+   turn(d.p,j===0?2:1);
+   if(j===2||j===4)praise()});
+  if(k>0){S.push(en(EN.join));
+   for(var i=0;i<=pIdx[k];i++){var x=L.scene[i];if(x[0]==="c")S.push(say("c",x[1]));else turn(x[1],1)}
+   praise()}
+ });
+ S.push({k:"sec",t:"Une surprise"});S.push(cue("twist"));S.push(say("c",L.twist.c));turn(L.twist.p,1);
+ if(L.extra&&L.extra.length){S.push({k:"sec",t:"Les phrases"});S.push(cue("phrases"));L.extra.forEach(function(t){listenSay(t)})}
+ S.push({k:"sec",t:"À vous"});S.push(en(EN.whole));
+ L.scene.forEach(function(x){if(x[0]==="c")S.push(say("c",x[1]));else turn(x[1],1)});
+ S.push(en(EN.done));
+ return S}
 function build(L,pace){
+ if(L.ladder)return buildLadder(L,pace);
  var P=PACES[pace]||PACES.steady,S=[],pi=0;
  function praise(){S.push(en(EN.praise[pi++%EN.praise.length]))}
  function turn(t,h){S.push({k:"turn",fr:t,w:win(t,pace),hint:h===undefined?2:h})}

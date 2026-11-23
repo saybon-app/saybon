@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css" />
 <style>
-body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
-@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+body{opacity:0;animation:pageEnter .18s ease-out forwards}
+@keyframes pageEnter{from{opacity:0}to{opacity:1}}
 .hb-chips{display:flex;gap:8px;justify-content:center;margin:-18px 0 22px;flex-wrap:wrap}
 .hb-chips button{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:7px 16px;font:700 .78rem Manrope,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
 .hb-chips button.on{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.7)}
@@ -60,6 +60,7 @@ var ps=LEVELS.slice(idx(S.lv),idx(S.tg)+1),cur=0,user=null,prog={};
 var pr=window.proOf&&window.proOf(S.f),fd=window.proGroup&&window.proGroup(S.f);
 var NAME=S.f==="__other"?S.o:(pr?pr.name:(fd?fd.name:""));
 if(NAME)$("eb").textContent="French for Professionals · "+NAME;
+function PN(){try{var p=window.proOf&&window.proOf(S.f);return p?p.name:""}catch(e){return ""}}
 var G={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
 var MORE={};fetch("scenario/more-index.json").then(function(r){return r.json()}).then(function(j){MORE=j}).catch(function(){});
 var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
@@ -71,8 +72,8 @@ function unlocked(i){
  var c=prog[ps[i].key];return c?mx(c)+1:1;
 }
 function url(l,n){
- if(n===1)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
- var mi=MORE[S.f&&(G[S.f]||"business")+"-"+l.k.toLowerCase()];if(mi&&mi.indexOf(n)>=0)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&n="+n+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
+ if(n===1)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&pn="+encodeURIComponent(PN())+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
+ var mi=MORE[S.f&&(G[S.f]||"business")+"-"+l.k.toLowerCase()];if(mi&&mi.indexOf(n)>=0)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&n="+n+"&pn="+encodeURIComponent(PN())+"&pc="+encodeURIComponent(S.pc)+"&hub=1&ret="+encodeURIComponent("/professional/hub.html"+location.search);
  return l.base+"lesson"+n+".html";
 }
 function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
