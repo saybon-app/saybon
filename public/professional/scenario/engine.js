@@ -11,7 +11,7 @@ var EN={
  c1234:"Now all four together. This is a real conversation, so take your time.",
  whole:"Now the whole conversation, from the start. This time, you play your part. Ready? [chuckles] Let's go!",
  done:"[chuckles] And that's the lesson! Wow, great job today. [sighs] Ahh, I'm proud of you. See you in the next one.",
- praise:["Great job!","Wow, you're doing so well!","Brilliant! Keep going.","[chuckles] Lovely. That sounded really good.","Yes! Exactly like that.","[sighs] Ahh, perfect. You've got this."]};
+ praise:["[chuckles] Great job!","Wow, you're doing so well! [chuckles]","[chuckles] Brilliant! Keep going.","[chuckles] Lovely. That sounded really good.","[chuckles] Yes! Exactly like that.","[sighs] Ahh, perfect. [chuckles] You've got this."]};
 function strip(t){return String(t).replace(/<<([^>]*)>>/g,"$1").replace(/\[[^\]]*\]/g,"").replace(/\s{2,}/g," ").trim()}
 function hash(s){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 function lineId(role,text){return role+"-"+hash(text)}

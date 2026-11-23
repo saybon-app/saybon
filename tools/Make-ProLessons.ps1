@@ -2,7 +2,7 @@
 #   .\tools\Make-ProLessons.ps1 -Test        records ONE intro and a short lesson sample in a test folder, so you can listen first
 #   .\tools\Make-ProLessons.ps1              records everything: A0 for all ten fields first, then A1, and so on
 # It asks for your ElevenLabs key (typed hidden, never saved). It stops cleanly when credits run out; run it again later and it carries on.
-param([switch]$Test, [string]$OtherVoice = "", [int]$MaxChars = 0, [string]$UpTo = "c2")
+param([switch]$Test, [string]$OtherVoice = "", [int]$MaxChars = 0, [string]$UpTo = "c2", [string]$Model = "eleven_v4")
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $pro = Join-Path $root "public\professional"
@@ -26,6 +26,7 @@ if ($OtherVoice) { $other = $all | Where-Object { $_.name -like ($OtherVoice + "
 else { $other = $all | Where-Object { $_.name -notlike "Eryn*" -and $_.labels.gender -eq "male" } | Select-Object -First 1
        if (-not $other) { $other = $all | Where-Object { $_.name -notlike "Eryn*" } | Select-Object -First 1 } }
 if (-not $other) { Write-Host "No second voice found. Add one in ElevenLabs, then run again." -ForegroundColor Red; return }
+Write-Host ("Model: " + $Model)
 Write-Host ("Teacher: " + $teacher.name + "    Other person: " + $other.name + "   (to use another voice: -OtherVoice ""Name"")")
 $script:noLang = $false; $script:stop = $false; $script:chars = 0
 function Speak($text, $voiceId, $model, $speed, $lang, $outFile) {
@@ -33,7 +34,7 @@ function Speak($text, $voiceId, $model, $speed, $lang, $outFile) {
     $vs = @{ stability = 0.5; similarity_boost = 0.75 }
     if ($model -eq "eleven_multilingual_v2" -and $speed) { $vs.speed = [double]$speed }
     $b = @{ text = $text; model_id = $model; voice_settings = $vs }
-    if ($model -eq "eleven_v3" -and $lang -and -not $script:noLang) { $b.language_code = $lang }
+    if ($model -ne "eleven_multilingual_v2" -and $lang -and -not $script:noLang) { $b.language_code = $lang }
     $json = $b | ConvertTo-Json -Depth 5
     try {
       Invoke-WebRequest -Method Post -Uri ("https://api.elevenlabs.io/v1/text-to-speech/" + $voiceId + "?output_format=mp3_44100_128") -Headers ($h + @{ "Content-Type" = "application/json; charset=utf-8" }) -Body ([Text.Encoding]::UTF8.GetBytes($json)) -OutFile $outFile | Out-Null
@@ -58,7 +59,7 @@ function Speak-Intro($u, $outFile) {
   foreach ($sg in $u.intro.segments) {
     $tmp = $outFile + ".part" + $i; $i++
     $lang = if ($sg.fr) { "fr" } else { "en" }
-    if (-not (Speak $sg.t $teacher.voice_id "eleven_v3" $null $lang $tmp)) { foreach ($p in $parts) { Remove-Item $p -Force -ErrorAction SilentlyContinue }; return $false }
+    if (-not (Speak $sg.t $teacher.voice_id $Model $null $lang $tmp)) { foreach ($p in $parts) { Remove-Item $p -Force -ErrorAction SilentlyContinue }; return $false }
     $parts += $tmp
   }
   $ms = New-Object IO.MemoryStream
@@ -66,9 +67,12 @@ function Speak-Intro($u, $outFile) {
   [IO.File]::WriteAllBytes($outFile, $ms.ToArray()); return $true
 }
 function Speak-Line($ln, $outFile) {
-  if ($ln.lang -eq "en") { return (Speak $ln.text $teacher.voice_id "eleven_v3" $null "en" $outFile) }
+  if ($ln.lang -eq "en") { return (Speak $ln.text $teacher.voice_id $Model $null "en" $outFile) }
   $vid = if ($ln.role -eq "c") { $other.voice_id } else { $teacher.voice_id }
-  return (Speak $ln.text $vid "eleven_multilingual_v2" $ln.speed $null $outFile)
+  if ($Model -eq "eleven_multilingual_v2") { return (Speak $ln.text $vid $Model $ln.speed "fr" $outFile) }
+  # newer models have no speed setting, so the teaching pace is asked for with a delivery tag
+  $tag = ""; if ($ln.speed -and $ln.speed -le 0.75) { $tag = "[speaking very slowly and clearly] " } elseif ($ln.speed -and $ln.speed -le 0.82) { $tag = "[speaking slowly and clearly] " } elseif ($ln.speed -and $ln.speed -le 0.9) { $tag = "[speaking a little slowly] " }
+  return (Speak ($tag + $ln.text) $vid $Model $null "fr" $outFile)
 }
 # ---------- test mode ----------
 if ($Test) {
