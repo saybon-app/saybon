@@ -64,19 +64,20 @@ function PN(){try{var p=window.proOf&&window.proOf(S.f);return p?p.name:""}catch
 var G={"medical-professionals":"medical","legal-professionals":"legal","military-peacekeeping":"military","police-security":"police","immigration-customs-border":"border","banker":"banking","accountant":"banking","insurance-agent":"banking","freight-forwarder":"logistics","driver":"logistics","procurement":"logistics","hotel-receptionist":"hospitality","chef":"hospitality","tour-guide":"hospitality","flight-attendant":"hospitality","education-research":"education"};
 var LOCK='<svg class="tp-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>';
 /* the lesson order for every level: r = regular lessons joined into one lesson, p = the field lesson */
+var P5=[{p:2},{p:1},{p:3},{p:4},{p:5}]; /* the five field lessons: interview, welcome, details, process, problem */
 var SEQ={
- A0:[{r:[1,2]},{r:[3,4]},{r:[5,6]},{r:[7,8]},{r:[9]},{p:1}],
- A1:[{r:[1,2]},{r:[5,6]},{p:1}],
- A2:[{r:[1]},{r:[2]},{r:[3]},{r:[4]},{r:[5]},{r:[6]},{r:[7]},{r:[8]},{p:1}],
- B1:[{r:[1]},{p:1}],
- B2:[{r:[1]},{p:1}],
- C1:[{r:[1]},{p:1}]
+ A0:[{r:[1,2]},{r:[3,4]},{r:[5,6]},{r:[7,8]},{r:[9]}].concat(P5),
+ A1:[{r:[1,2]},{r:[5,6]}].concat(P5),
+ A2:[{r:[1]},{r:[2]},{r:[3]},{r:[4]},{r:[5]},{r:[6]},{r:[7]},{r:[8]}].concat(P5),
+ B1:[{r:[1]}].concat(P5),
+ B2:[{r:[1]}].concat(P5),
+ C1:[{r:[1]}].concat(P5)
 };
 function seq(l){return SEQ[l.k]||[{p:1}]}
 function RET(){return encodeURIComponent("/professional/hub.html"+location.search)}
-function scenDone(l){try{var d=JSON.parse(localStorage.getItem("sbpro_scen_done")||"{}");return !!d[(G[S.f]||"business")+"-"+l.k.toLowerCase()+"-"+S.pc]}catch(e){return false}}
+function scenDone(l,n){try{var d=JSON.parse(localStorage.getItem("sbpro_scen_done")||"{}");return !!d[(G[S.f]||"business")+"-"+l.k.toLowerCase()+(n>1?"-"+n:"")+"-"+S.pc]}catch(e){return false}}
 function isDone(l,e){
- if(e.p)return scenDone(l);
+ if(e.p)return scenDone(l,e.p);
  var c=prog[l.key]||[];return e.r.every(function(n){return c.indexOf(n)>=0});
 }
 function levelDone(i){var l=ps[i];return seq(l).every(function(e){return isDone(l,e)})}
@@ -87,7 +88,7 @@ function unlocked(i){
  var l=ps[i],s=seq(l),k=0;while(k<s.length&&isDone(l,s[k]))k++;return Math.min(s.length,k+1);
 }
 function url(l,e){
- if(e.p)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+"&pn="+encodeURIComponent(PN())+"&seq=1&hub=1&ret="+RET();
+ if(e.p)return "scenario/lesson.html?g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&pc="+encodeURIComponent(S.pc)+(e.p>1?"&n="+e.p:"")+"&pn="+encodeURIComponent(PN())+"&seq=1&hub=1&ret="+RET();
  return l.base+"pro/lesson"+e.r[0]+".html?c="+e.r.join(",")+"&g="+(G[S.f]||"business")+"&lv="+l.k.toLowerCase()+"&ret="+RET();
 }
 function themeFor(l){var id="th",href=l.theme+"theme.css?v=1",old=$(id);if(old&&old.getAttribute("href")===href)return;var k=document.createElement("link");k.id=id;k.rel="stylesheet";k.href=href;document.head.appendChild(k);if(old)k.onload=function(){old.remove()}}
