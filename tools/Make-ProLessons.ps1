@@ -17,6 +17,7 @@ try {
   $sub = Invoke-RestMethod -Uri "https://api.elevenlabs.io/v1/user/subscription" -Headers $h
   Write-Host ("Key accepted. Credits left: " + ([int]$sub.character_limit - [int]$sub.character_count)) -ForegroundColor Green
 } catch { Write-Host ("ElevenLabs refused this key: " + $_.Exception.Message) -ForegroundColor Red; return }
+$credits = [int]$sub.character_limit - [int]$sub.character_count
 $data = Get-Content (Join-Path $scn "units.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 # voices
 $all = (Invoke-RestMethod -Uri "https://api.elevenlabs.io/v2/voices?page_size=100" -Headers $h).voices
@@ -104,10 +105,11 @@ foreach ($u in $data.units) {
   if ($script:stop) { break }
   if ([array]::IndexOf($order, $u.lv) -gt $limit) { continue }
   $todo = @($u.lines | Where-Object { -not $done.ContainsKey($_.id) })
-  $needIntro = -not $done.ContainsKey($u.intro.id)
+  $needIntro = ($u.intro -and -not $done.ContainsKey($u.intro.id))
   if (-not $needIntro -and $todo.Count -eq 0) { continue }
   $cost = ($todo | ForEach-Object { $_.text.Length } | Measure-Object -Sum).Sum + $(if ($needIntro) { $u.intro.text.Length } else { 0 })
   if ($MaxChars -gt 0 -and ($script:chars + $cost) -gt $MaxChars) { Write-Host ("Reached your cap before " + $u.key) -ForegroundColor Yellow; break }
+  if ($cost -gt ($credits - $script:chars - 200)) { Write-Host ("CREDITS ARE OUT: not enough left to record " + $u.key + " completely, so it was skipped to keep every published lesson in one voice.") -ForegroundColor Yellow; $script:stop = $true; break }
   Write-Host ("== " + $u.key + "  (" + $cost + " characters)")
   if ($needIntro) { if (Speak-Intro $u (Join-Path $pro ($u.intro.file -replace "/", "\"))) { Mark $u.intro.id; $made++ } else { break } }
   foreach ($ln in $todo) {
@@ -115,8 +117,8 @@ foreach ($u in $data.units) {
     if (Speak-Line $ln (Join-Path $audioDir ($ln.id + ".mp3"))) { Mark $ln.id; $made++ }
   }
 }
-$left = ($data.units | Where-Object { [array]::IndexOf($order, $_.lv) -le $limit } | Where-Object { -not $done.ContainsKey($_.intro.id) -or (@($_.lines | Where-Object { -not $done.ContainsKey($_.id) }).Count -gt 0) }).Count
+$left = ($data.units | Where-Object { [array]::IndexOf($order, $_.lv) -le $limit } | Where-Object { (($_.intro) -and -not $done.ContainsKey($_.intro.id)) -or (@($_.lines | Where-Object { -not $done.ContainsKey($_.id) }).Count -gt 0) }).Count
 Write-Host ""
-Write-Host ("Recorded " + $made + " files this run (" + $script:chars + " characters). Lessons still to record: " + $left + " of 70.") -ForegroundColor Green
+Write-Host ("Recorded " + $made + " files this run (" + $script:chars + " characters). Lessons still to record: " + $left + " of " + @($data.units).Count + ".") -ForegroundColor Green
 if ($left -gt 0) { Write-Host "Not finished. Run it again when credits are added. Deploy to publish what is recorded." -ForegroundColor Yellow }
 explorer.exe /select,$audioDir
