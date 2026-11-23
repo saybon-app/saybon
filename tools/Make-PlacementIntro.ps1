@@ -27,19 +27,23 @@ It's only so that we can place you in the right spot, and give you the very best
 
 ...
 
-The levels go from A zero, the very beginning, all the way up to C two. You'll start with the easiest questions, and they'll grow a little harder as you go. Up to twenty questions, and we stop as soon as we are sure.
+There are seven levels. Starting with ay, zero, the very beginning. Then ay, one. Ay, two. Bee, one. Bee, two. See, one. And all the way up to see, two. And there are twenty questions, at most.
 
 ...
 
-Now, here's something I want you to know. Your level is not your total score. It's about how steady you are at each level. How many you get right at A zero. How many at A one. How many at A two, and so on.
+Now, there's something I want you to understand, so that you never feel cheated.
 
 ...
 
-So you can get eight right, and still start at A zero or A one, if those answers are scattered. And that is completely fine. [chuckles] It simply means we've found where you'll learn best.
+Your level is not your total score. The test follows you. When you miss a question, the next ones get a little easier. When you get one right, they get a little harder.
 
 ...
 
-If you don't know an answer, just say so. No guessing, no pressure. I'm right here with you.
+So, eight right answers on easy questions tells us something different from eight right answers on hard ones. We're not counting how many you got. We're looking for the step where your answers are steady. The step where you stop slipping.
+
+...
+
+And if that step is ay, zero, or ay, one? That is not a low mark. [chuckles] It's simply the place where you'll feel confident, and where you'll move the fastest. Everybody starts somewhere. And you're already here.
 
 ...
 
