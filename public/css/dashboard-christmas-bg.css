@@ -1,0 +1,16 @@
+﻿/* Christmas background only — preserve original dashboard design */
+html, body {
+  background: #17251b url("/assets/dashboard/dashboard-bg.webp")
+    center center / cover no-repeat fixed !important;
+}
+
+.dash-shell,
+.dash-main {
+  background: transparent !important;
+}
+
+@media (max-width: 800px) {
+  html, body {
+    background-attachment: scroll !important;
+  }
+}
