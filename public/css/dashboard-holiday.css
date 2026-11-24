@@ -54,32 +54,30 @@ body { background-attachment: fixed !important; }
   align-items: stretch;
 }
 .dash-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   min-width: 0;
   min-height: 0;
-  padding: 8px !important;
-  border-radius: 22px !important;
-  overflow: hidden;
-  background: rgba(255, 250, 239, .70) !important;
-  border: 1px solid rgba(255,255,255,.68) !important;
-  box-shadow: 0 12px 30px rgba(15,31,19,.20), inset 0 1px 0 rgba(255,255,255,.72) !important;
-  backdrop-filter: blur(15px) saturate(1.12);
-  -webkit-backdrop-filter: blur(15px) saturate(1.12);
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   text-decoration: none;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, filter .2s ease;
 }
 .dash-card::before, .dash-card::after { display: none !important; content: none !important; }
 .dash-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 17px 34px rgba(15,31,19,.25), inset 0 1px 0 rgba(255,255,255,.82) !important;
+  filter: drop-shadow(0 10px 14px rgba(15,31,19,.18));
 }
 .dash-card img {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 190px;
+  max-height: none;
   object-fit: contain;
   object-position: center;
   filter: none;
@@ -116,7 +114,7 @@ body { background-attachment: fixed !important; }
   .dash-shell { display: block; height: auto; min-height: 100vh; }
   .dash-main { height: auto; min-height: 100vh; padding: 18px 14px 60px; }
   .dash-grid { grid-template-columns: minmax(0,1fr) !important; gap: 14px !important; }
-  .dash-card { border-radius: 18px !important; padding: 6px !important; }
+  .dash-card { border-radius: 0 !important; padding: 0 !important; }
   .dash-card img { max-height: none; width: 100%; }
   .dash-mobile-topbar { left: 0; right: 0; }
 }
@@ -127,9 +125,9 @@ body { background-attachment: fixed !important; }
 
 /* Equalize the former Professionals-only visual treatment with the new image cards. */
 .dash-grid .dash-card.card-professional {
-  background: rgba(255, 250, 239, .70) !important;
-  border: 1px solid rgba(255,255,255,.68) !important;
-  box-shadow: 0 12px 30px rgba(15,31,19,.20), inset 0 1px 0 rgba(255,255,255,.72) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
   animation: none !important;
 }
 .dash-grid .dash-card.card-professional::after,
