@@ -50,12 +50,3 @@
   color:rgba(255,255,255,.9);
 }
 .dash-avatar img{ border-radius:50%; }
-
-/* C'est bon for Schools: locked card details */
-.card-schools .sch-pill{
-  display:inline-block; margin-bottom:5px; padding:3px 9px 3px 8px; border-radius:999px;
-  background:rgba(255,255,255,.26); color:#fff; font-style:normal; font-size:clamp(8.5px,1.35vh,10px); font-weight:800; letter-spacing:.14em;
-}
-.card-schools.is-locked{ cursor:not-allowed; }
-.card-schools.is-open .sch-pill{ background:#fff; color:#6a4a36; }
-.sb-toast{ max-width:90vw; text-align:center; }

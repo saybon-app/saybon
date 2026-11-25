@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>C'est bon for Schools - SayBon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/schools/schools.css?v=1" />
-  <script type="module">
-    import { schoolsReady } from "/schools/schools-guard.js";
-    schoolsReady.then(function(s){ if (s.admin) document.getElementById("scAdmin").hidden = false; });
-  </script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>French for Schools - SayBon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;min-height:100%;background:#10303e;font-family:"Nunito",system-ui,sans-serif;color:#fff}
+  main{min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center}
+  .box{max-width:460px;padding:36px 28px;border-radius:30px;background:linear-gradient(135deg,#90674a,#82593e);border:1.5px solid rgba(255,255,255,.3);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  img{width:150px;height:auto;margin-bottom:8px}
+  h1{margin:0 0 8px;font-size:30px;font-weight:900}
+  p{margin:0 0 22px;font-weight:600;line-height:1.4;opacity:.92}
+  a{display:inline-block;padding:12px 22px;border-radius:999px;background:#fff;color:#2a3a32;font-weight:800;text-decoration:none}
+</style>
 </head>
 <body>
-  <button class="sc-corner sc-back" onclick="window.location.href='/dashboard/'" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-  <button class="sc-corner sc-dash" onclick="window.location.href='/dashboard/'" aria-label="Dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></button>
-  <div class="sc-stage">
-    <header class="sc-head">
-      <p class="sc-eyebrow">C'est bon for Schools</p>
-      <h1>Choose a Level</h1>
-      <p class="sc-sub">French for preschools and primary schools, one level at a time.</p>
-      <span class="sc-admin" id="scAdmin" hidden>ADMIN ACCESS &middot; EVERYTHING OPEN</span>
-    </header>
-    <main class="sc-levels">
-    <a class="sc-tile" style="--c:#CF3A59" href="/schools/a0/"><b>A0</b><span>Absolute Beginner</span><small>25 lessons</small></a>
-    <a class="sc-tile" style="--c:#09847D" href="/schools/a1/"><b>A1</b><span>Beginner</span><small>25 lessons</small></a>
-    <a class="sc-tile" style="--c:#D14E36" href="/schools/a2/"><b>A2</b><span>Elementary</span><small>25 lessons</small></a>
-    <a class="sc-tile" style="--c:#12805A" href="/schools/b1/"><b>B1</b><span>Intermediate</span><small>25 lessons</small></a>
-    <a class="sc-tile" style="--c:#923A7A" href="/schools/b2/"><b>B2</b><span>Upper Intermediate</span><small>25 lessons</small></a>
-    </main>
+<main>
+  <div class="box">
+    <img src="/assets/dashboard/icons/icon-schools.png" alt="">
+    <h1>French for Schools</h1>
+    <p>Tailor made for Preschools, and primary and junior high schools. This area is coming soon.</p>
+    <a href="/dashboard/">Back to dashboard</a>
   </div>
+</main>
 </body>
 </html>
+
+
