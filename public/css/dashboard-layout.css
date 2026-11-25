@@ -50,8 +50,8 @@
   .dash-card.card-pro .card-text, .dash-card.card-delf .card-text, .dash-card.card-schools .card-text{ border-left-color:rgba(255,255,255,.3); }
   .dash-card .card-go{ align-self:center; }
   /* bigger text, same card size */
-  .dash-card h3{ font-size:clamp(15.5px, min(2.7vh, 1.4vw), 19.5px); line-height:1.12; }
-  .dash-card .card-text span{ font-size:clamp(11.5px, min(2vh, 1vw), 13.5px); line-height:1.28; }
+  .dash-card h3{ font-size:clamp(16px, min(3vh, 1.5vw), 21px); line-height:1.12; }
+  .dash-card .card-text span{ font-size:clamp(12px, min(2.25vh, 1.12vw), 15.5px); line-height:1.28; }
   .dash-card .card-text{ margin:clamp(10px, 2.2vh, 20px) 0; }
 }
 
