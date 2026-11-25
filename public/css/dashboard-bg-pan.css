@@ -1,0 +1,12 @@
+/* Keeps the holiday background panning slowly (the Christmas stylesheet paints the page itself and hid the panning layer).
+   The selectors are deliberately more specific than the Christmas file so load order doesn't matter.
+   Remove this file's <link> to undo. */
+html{ background:#17251b !important; }
+html body{ background:transparent !important; }
+html body::before{
+  background:url("/assets/dashboard/dashboard-bg.webp") center / cover no-repeat !important;
+}
+@media (max-width:800px){ html body{ background-attachment:scroll !important; } }
+
+#sbSnow{ position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+@media (prefers-reduced-motion: reduce){ #sbSnow{ display:none; } }
