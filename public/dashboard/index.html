@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<script type="module" src="/js/auth-guard.js"></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>LEARNER DASHBOARD - SayBon</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/dashboard.css?v=20260822152132" />
   <link rel="stylesheet" href="/css/dashboard-live.css?v=1" />
-  <link rel="stylesheet" href="/css/dashboard-polish.css?v=1" />
-  <link rel="stylesheet" href="/css/dashboard-pro.css?v=1" />
-  <link rel="stylesheet" href="/css/dashboard-sharp.css?v=1" />
-  <link rel="stylesheet" href="/css/dashboard-christmas-bg.css?v=1" />
+  <link rel="stylesheet" href="/css/dashboard-v2.css?v=20261125" />
 </head>
 <body>
 
+<!-- Slowly panning photo. No overlay on top of it. -->
+<div class="dash-bg" aria-hidden="true"></div>
+
 <div class="dash-shell">
 
-  <aside class="dash-sidebar">
+  <!-- Sidebar on desktop, slide-in drawer on phones -->
+  <aside class="dash-sidebar" id="dashSidebar">
 
-    <div class="dash-logo">
-      <span class="dash-logo-text">LEARNER<br><em>DASHBOARD</em></span>
+    <div class="dash-brand">
+      <div class="dash-brand-name">SayBon</div>
+      <div class="dash-brand-tag">your easy French buddy</div>
     </div>
 
-    <div class="dash-streak-card">
-      <span class="dash-streak-flame">🔥</span>
-      <div>
-        <div class="dash-streak-num js-streak-num">0</div>
-        <div class="dash-streak-label">Day streak</div>
-      </div>
-    </div>
-
-    <div class="dash-profile-card">
-      <div class="dash-avatar">A</div>
-      <div>
-        <div class="dash-profile-name">Learner</div>
-        <div class="dash-profile-level js-profile-level">-</div>
-      </div>
-    </div>
-
-    <nav class="dash-nav">
-      <button class="dash-nav-home-btn" onclick="goHome()" aria-label="Home">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 10.5L12 3l9 7.5"/>
-          <path d="M5 9.5V21h14V9.5"/>
-        </svg>
-      </button>
-      <a href="/dashboard/progress.html" class="dash-nav-link">My Progress</a>
-      <a href="/dashboard/achievements.html" class="dash-nav-link">Achievements</a>
-      <a href="/dashboard/settings.html" class="dash-nav-link">Settings</a>
+    <nav class="dash-nav" aria-label="Dashboard">
+      <a href="/dashboard/" class="dash-nav-link is-active" aria-current="page">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V20h14V9.5"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="/levels/" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M7.5 9h2M7.5 13h2M12.5 9h4M12.5 13h4"/></svg>
+        <span>My Lessons</span>
+      </a>
+      <a href="/dashboard/progress.html" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V5M19 20v-10"/></svg>
+        <span>My Progress</span>
+      </a>
+      <a href="/dashboard/achievements.html" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.3l1.5 3.1 3.4.4-2.5 2.3.7 3.4-3.1-1.7-3.1 1.7.7-3.4-2.5-2.3 3.4-.4z"/></svg>
+        <span>Achievements</span>
+      </a>
+      <a href="/library/" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5z"/><path d="M12 6.5v13"/></svg>
+        <span>My Library</span>
+      </a>
+      <a href="/feedback/" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20.5z"/><path d="M8 10.5h8"/></svg>
+        <span>Feedback</span>
+      </a>
+      <a href="/support/" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.6a2.6 2.6 0 1 1 3.6 2.4c-.8.4-1.1.9-1.1 1.7"/><path d="M12 17h.01"/></svg>
+        <span>Support</span>
+      </a>
+      <a href="/dashboard/settings.html" class="dash-nav-link">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span>Settings</span>
+      </a>
     </nav>
 
     <div class="dash-goal-card">
-      <div class="dash-goal-title">Daily Goal 🎉</div>
+      <div class="dash-goal-title">Daily Goal 🎯</div>
       <div class="dash-goal-ring-wrap">
         <svg class="dash-goal-ring" viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="42" class="ring-track"/>
@@ -67,159 +75,164 @@
 
   </aside>
 
+  <div class="dash-scrim" id="dashScrim"></div>
+
   <main class="dash-main">
 
-    <header class="dash-mobile-topbar">
-      <span class="dash-mobile-topbar-title dash-logo-text">LEARNER<br><em>DASHBOARD</em></span>
-      <button onclick="goHome()" class="dash-mobile-topbar-home" aria-label="Home">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 10.5L12 3l9 7.5"/>
-          <path d="M5 9.5V21h14V9.5"/>
-        </svg>
+    <!-- Phone header -->
+    <header class="dash-topbar">
+      <button type="button" class="dash-topbar-btn" id="dashMenu" aria-label="Open menu" aria-controls="dashSidebar">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
+      <div class="dash-topbar-brand">
+        <div class="dash-brand-name">SayBon</div>
+        <div class="dash-brand-tag">your easy French buddy</div>
+      </div>
+      <a href="/dashboard/achievements.html" class="dash-topbar-btn" aria-label="Achievements">
+        <svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 1 12 0c0 6.5 2.5 8 2.5 8h-17S6 15.500 6 9"/><path d="M10 20.500a2 2 0 0 0 4 0"/></svg>
+      </a>
     </header>
 
-    <div class="dash-mobile-topbar-spacer"></div>
-
-    <div class="dash-mobile-summary">
-      <div class="dash-mobile-summary-streak">
-        <span class="dash-streak-flame">🔥</span>
-        <span class="js-streak-num">0</span>
-      </div>
-      <div class="dash-mobile-summary-profile">
+    <!-- Learner + streak -->
+    <div class="dash-topline">
+      <div class="dash-pill">
         <div class="dash-avatar">A</div>
-        <div>
+        <div class="dash-pill-id">
+          <div class="dash-pill-role">Learner<span class="dash-profile-level js-profile-level"></span></div>
           <div class="dash-profile-name">Learner</div>
-          <div class="dash-profile-level js-profile-level">-</div>
+        </div>
+        <span class="dash-pill-sep"></span>
+        <div class="dash-streak">
+          <span class="dash-streak-flame">🔥</span>
+          <div>
+            <div class="dash-streak-num js-streak-num">0</div>
+            <div class="dash-streak-label">day streak</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <nav class="dash-mobile-nav-icons">
-      <a href="/dashboard/progress.html" class="dash-mobile-nav-icon">
-        <span class="dash-mobile-nav-icon-circle">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 20V10M12 20V4M18 20V14"/>
-          </svg>
+    <!-- Order matches the reference: 3 across on desktop, 2 across on phones with Schools full width -->
+    <section class="dash-grid" aria-label="Learning areas">
+
+      <a class="dash-card card-levels" href="/levels/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-levels.png" alt="" loading="eager"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Levels</b><small>A0 – C1 structured path</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
         </span>
-        <span>My Progress</span>
       </a>
-      <a href="/dashboard/achievements.html" class="dash-mobile-nav-icon">
-        <span class="dash-mobile-nav-icon-circle">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M7 4h10v3a5 5 0 0 1-10 0V4z"/>
-            <path d="M7 5H4a3 3 0 0 0 3 4"/>
-            <path d="M17 5h3a3 3 0 0 1-3 4"/>
-            <path d="M12 12v3"/>
-            <path d="M9 19h6l-1-3h-4l-1 3z"/>
-          </svg>
+
+      <a class="dash-card card-professional" href="/professional/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-professionals.png" alt="" loading="eager"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>French for Professionals</b><small>For work and career growth</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
         </span>
-        <span>Achievements</span>
       </a>
-      <a href="/dashboard/settings.html" class="dash-mobile-nav-icon">
-        <span class="dash-mobile-nav-icon-circle">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-          </svg>
+
+      <a class="dash-card card-talkletics" href="/talkletics/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-talkletics.png" alt="" loading="eager"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Talkletics</b><small>Tried and tested fluency games</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
         </span>
-        <span>Settings</span>
       </a>
-    </nav>
 
-    <div class="dash-goal-card dash-goal-card-mobile">
-      <div class="dash-goal-title">Daily Goal 🎉</div>
-      <div class="dash-goal-ring-wrap">
-        <svg class="dash-goal-ring" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" class="ring-track"/>
-          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
-        </svg>
-        <div class="dash-goal-ring-text">
-          <span class="js-goal-minutes">0</span><small>/10 min</small>
-        </div>
-      </div>
-      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
-    </div>
+      <a class="dash-card card-music" href="/music/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-music.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Music</b><small>Soak the music, get fluent</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-    <div class="dash-grid">
+      <a class="dash-card card-library" href="/library/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-library.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Library</b><small>Fluency through reading</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-      <div class="dash-card card-levels" onclick="goLevels()">
-        <div class="emoji">🎓</div>
-        <h3>Levels</h3>
-        <span>A0 → C1 structured path</span>
-      </div>
+      <a class="dash-card card-delf" href="/delf/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-delf.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>DELF Prep</b><small>Unbeatable exam preps at your own pace.</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-      <div class="dash-card card-professional" onclick="window.location.href='/professional/'">
-        <div class="pro-tag">NEW</div>
-        <div class="pro-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg></div>
-        <h3>French for Professionals</h3>
-        <span>Build real French proficiency for your work, career, and professional goals.</span>
-      </div>
+      <a class="dash-card card-translation" href="/translation/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-translation.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Translation</b><small>Affordable, accessible and expert translation services</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-      <div class="dash-card card-talkletics" onclick="goTalkletics()">
-        <div class="emoji">🧩</div>
-        <h3>Talkletics</h3>
-        <span>Skill building games</span>
-      </div>
+      <a class="dash-card card-chat" href="/chat/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-chat.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>Chat Room</b><small>A friendly French community</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-      <div class="dash-card card-music" onclick="goMusic()">
-        <div class="emoji">🎧</div>
-        <h3>Music</h3>
-        <span>Learn with rhythm</span>
-      </div>
+      <a class="dash-card card-schools" href="/schools/">
+        <span class="dash-card-body">
+        <span class="dash-card-icon"><img src="/assets/dashboard/icons/icon-schools.png" alt="" loading="lazy"></span>
+        <span class="dash-card-div"></span>
+        <span class="dash-card-text"><b>French for Schools</b><small>Tailor made for Preschools, and primary and junior high schools.</small></span>
+        <span class="dash-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
 
-      <div class="dash-card card-library" onclick="goLibrary()">
-        <div class="emoji">&#128214;</div>
-        <h3>Library</h3>
-        <span>Stories &amp; books to read</span>
-      </div>
-
-      <div class="dash-card card-delf" onclick="goDelf()">
-        <div class="emoji">📚</div>
-        <h3>DELF Prep</h3>
-        <span>Mock exams</span>
-      </div>
-
-      <div class="dash-card card-translation" onclick="goTranslation()">
-        <div class="emoji">🌍</div>
-        <h3>Translation</h3>
-        <span>Clients & translators</span>
-      </div>
-
-      <div class="dash-card card-chat" onclick="goChat()">
-        <div class="emoji">👥</div>
-        <h3>Chat Room</h3>
-        <span>Community space</span>
-      </div>
-
-      <div class="dash-card card-feedback" onclick="goFeedback()">
-        <div class="emoji">✍🏽</div>
-        <h3>Feedback</h3>
-        <span>Enquiries & suggestions</span>
-      </div>
-
-      <div class="dash-card card-support" onclick="goSupport()">
-        <div class="emoji">💚</div>
-        <h3>Support SayBon</h3>
-        <span>Donations & investors</span>
-      </div>
-
-    </div>
+    </section>
 
   </main>
 
+  <!-- Phone bottom bar -->
+  <nav class="dash-tabbar" aria-label="Main">
+    <a href="/dashboard/" class="is-active" aria-current="page">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V20h14V9.5"/></svg><span>Home</span>
+    </a>
+    <a href="/levels/">
+      <svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V5c-3-.5-6 0-8 1.5z"/><path d="M12 6.5v13"/></svg><span>My Lessons</span>
+    </a>
+    <a href="/dashboard/progress.html">
+      <svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V5M19 20v-10"/></svg><span>My Progress</span>
+    </a>
+    <a href="/dashboard/achievements.html">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.3l1.5 3.1 3.4.4-2.5 2.3.7 3.4-3.1-1.7-3.1 1.7.7-3.4-2.5-2.3 3.4-.4z"/></svg><span>Achievements</span>
+    </a>
+    <a href="/dashboard/settings.html">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span>
+    </a>
+  </nav>
+
 </div>
 
-<script src="/dashboard/dashboard.js?v=20260811f"></script>
+<script src="/dashboard/dashboard.js?v=20261125"></script>
 <script type="module" src="/dashboard/dashboard-live.js?v=1"></script>
-<script src="/dashboard/dashboard-polish.js?v=1"></script>
 <script type="module" src="/dashboard/level-sync.js?v=20261102221523"></script>
+<script>
+// Phone drawer: hamburger opens the sidebar, scrim / Esc closes it.
+(function () {
+  var b = document.body, m = document.getElementById("dashMenu"), s = document.getElementById("dashScrim");
+  function set(open) { b.classList.toggle("nav-open", open); if (m) m.setAttribute("aria-expanded", open ? "true" : "false"); }
+  if (m) m.addEventListener("click", function () { set(!b.classList.contains("nav-open")); });
+  if (s) s.addEventListener("click", function () { set(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+})();
+</script>
 </body>
 </html>
-
-
-
-
-
-
-

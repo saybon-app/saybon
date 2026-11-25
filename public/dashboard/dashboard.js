@@ -9,13 +9,13 @@ function goSupport(){ window.location.href="/support/"; }
 function goHome(){ if(window.stopAppBgMusic){ window.stopAppBgMusic(); } window.location.href="/"; }
 
 const level = sessionStorage.getItem("saybon_level");
-document.querySelectorAll(".js-profile-level").forEach(el => el.textContent = level || "Level not set");
+document.querySelectorAll(".js-profile-level").forEach(el => el.textContent = level || "");
 
 const streak = Number(localStorage.getItem("saybon_streak")) || 0;
 document.querySelectorAll(".js-streak-num").forEach(el => el.textContent = streak);
 
 const dailyMinutes = Number(localStorage.getItem("saybon_daily_minutes")) || 0;
-const goalTarget = 30;
+const goalTarget = 10;
 document.querySelectorAll(".js-goal-minutes").forEach(el => el.textContent = dailyMinutes);
 
 const circumference = 2 * Math.PI * 42;

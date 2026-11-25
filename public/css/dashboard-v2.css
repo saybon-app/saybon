@@ -1,0 +1,255 @@
+/* SayBon dashboard v2 - built from the design reference.
+   Standalone: index.html no longer loads dashboard.css / -polish / -pro / -sharp.
+   (Those files are untouched; the Progress / Achievements / Settings pages use dashboard-fun.css.)
+   Loads after dashboard-live.css and overrides its ticker sizes. */
+
+:root{
+  --dash-bg: url("/assets/dashboard/dashboard-bg.jpg");   /* swap this one line to change the photo */
+  --ink:#1d2a24;
+  --font:"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; min-height:100%; background:#10303e; font-family:var(--font); -webkit-font-smoothing:antialiased; }
+body{ color:#fff; }
+a{ color:inherit; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+svg{ fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- Background: the photo itself, no overlay, panning slowly ---------- */
+.dash-bg{
+  --w:max(118vw, 178vh);                 /* always at least as wide as the photo needs to pan */
+  position:fixed; top:0; left:0; height:100%; width:var(--w); z-index:-1;
+  background:var(--dash-bg) center / cover no-repeat;
+  animation:dashPan 80s ease-in-out infinite alternate;
+  will-change:transform; backface-visibility:hidden;
+}
+@keyframes dashPan{
+  from{ transform:translate3d(0,0,0); }
+  to  { transform:translate3d(calc(100vw - var(--w)),0,0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .dash-bg{ animation:none; width:100%; }
+}
+
+/* ---------- Shell ---------- */
+.dash-shell{ position:relative; display:flex; min-height:100vh; }
+
+/* ---------- Sidebar ---------- */
+.dash-sidebar{
+  position:sticky; top:0; flex:0 0 260px; width:260px; height:100vh; overflow-y:auto;
+  display:flex; flex-direction:column; gap:22px;
+  padding:30px 20px 22px;
+  background:linear-gradient(180deg,#16293b 0%,#102230 100%);
+  border-right:1px solid rgba(255,255,255,.08);
+  box-shadow:8px 0 30px rgba(0,0,0,.28);
+  z-index:5;
+}
+.dash-sidebar::-webkit-scrollbar{ width:6px; }
+.dash-sidebar::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.15); border-radius:10px; }
+
+.dash-brand{ padding:0 6px 4px; }
+.dash-brand-name{ font-size:36px; font-weight:900; letter-spacing:-.01em; line-height:1.05; }
+.dash-brand-tag{ margin-top:4px; font-size:15px; font-weight:600; color:rgba(255,255,255,.86); }
+
+.dash-nav{ display:flex; flex-direction:column; gap:6px; }
+.dash-nav-link{
+  display:flex; align-items:center; gap:14px; padding:11px 16px; border-radius:16px;
+  font-size:17px; font-weight:700; color:rgba(255,255,255,.92);
+  transition:background .18s ease;
+}
+.dash-nav-link svg{ width:24px; height:24px; flex:0 0 auto; }
+.dash-nav-link:hover{ background:rgba(255,255,255,.09); }
+.dash-nav-link.is-active{ background:rgba(130,160,168,.42); font-weight:800; color:#fff; }
+
+/* Daily goal (hooks used by dashboard.js / dashboard-live.js are unchanged) */
+.dash-goal-card{
+  margin-top:auto; text-align:center; padding:16px 14px 14px;
+  background:rgba(6,20,32,.5); border:1px solid rgba(255,255,255,.12); border-radius:24px;
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+}
+.dash-goal-title{ font-size:16px; font-weight:800; margin-bottom:10px; }
+.dash-goal-ring-wrap{ position:relative; width:104px; height:104px; margin:0 auto; }
+.dash-goal-ring{ width:100%; height:100%; transform:rotate(-90deg); }
+.ring-track{ fill:none; stroke:rgba(255,255,255,.16); stroke-width:9; }
+.ring-fill{ fill:none; stroke:#f0628a; stroke-width:9; stroke-linecap:round; }
+.dash-goal-ring-text{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-size:30px; font-weight:900; line-height:1;
+}
+.dash-goal-ring-text small{ margin-top:3px; font-size:13px; font-weight:700; color:rgba(255,255,255,.75); }
+.dash-goal-caption{ margin-top:12px; font-size:14px; font-weight:800; line-height:1.25; }
+.dash-goal-caption.sb-ticker{ height:44px; margin-top:12px; }
+.sb-ticker .tk-h{ font-size:15px; font-weight:800; color:#fff; }
+.sb-ticker .tk-s{ font-size:13px; font-weight:600; color:rgba(255,255,255,.78); }
+
+/* ---------- Main ---------- */
+.dash-main{ flex:1; min-width:0; padding:26px 44px 56px; }
+.dash-topbar{ display:none; }
+.dash-topline{ display:flex; justify-content:flex-end; margin-bottom:30px; }
+
+/* Learner + streak pill */
+.dash-pill{
+  display:flex; align-items:center; gap:14px; padding:10px 26px 10px 12px; border-radius:999px;
+  background:rgba(240,243,248,.88); color:#1c2b36;
+  -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.75); box-shadow:0 10px 30px rgba(8,18,28,.25);
+}
+.dash-avatar{
+  width:56px; height:56px; flex:0 0 auto; border-radius:50%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(160deg,#e0578a,#b83d70); color:#fff; font-size:22px; font-weight:900;
+  border:2px solid rgba(255,255,255,.9);
+}
+.dash-avatar img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
+.dash-pill-role{ font-size:20px; font-weight:900; line-height:1.1; }
+.dash-profile-name{ margin-top:2px; font-size:15px; font-weight:700; color:#3a4a55; line-height:1.15; }
+.dash-profile-name::before{ content:"\1F451\00a0User:\00a0"; }
+.dash-profile-level{ margin-left:8px; font-size:13px; font-weight:800; color:#2f8f6a; }
+.dash-profile-level:empty{ display:none; }
+.dash-profile-level:not(:empty)::before{ content:"\00b7\00a0"; }
+.dash-pill-sep{ width:1px; height:46px; background:rgba(28,43,54,.2); }
+.dash-streak{ display:flex; align-items:center; gap:8px; }
+.dash-streak-flame{ font-size:44px; line-height:1; }
+.dash-streak-num{ font-size:34px; font-weight:900; line-height:1; }
+.dash-streak-label{ margin-top:2px; font-size:15px; font-weight:700; color:#3a4a55; }
+
+/* ---------- Cards ---------- */
+.dash-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; max-width:1440px; }
+
+.dash-card{
+  container-type:inline-size;          /* everything inside is sized in cqi, so it scales like the mockup */
+  --t:5.3cqi; --s:3.5cqi;
+  position:relative; display:block; aspect-ratio:2.4 / 1; border-radius:30px;
+  color:var(--ink);
+  border:1.5px solid rgba(255,255,255,.6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75), inset 0 -3px 8px rgba(0,0,0,.06), 0 14px 30px rgba(8,18,28,.3);
+  transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+  animation:dashRise .8s cubic-bezier(.22,1,.36,1) backwards;
+}
+.dash-card:hover{ transform:translateY(-4px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), inset 0 -3px 8px rgba(0,0,0,.06), 0 22px 40px rgba(8,18,28,.36); }
+.dash-card:active{ transform:translateY(1px) scale(.985); }
+.dash-card:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+.dash-card:nth-child(1){ animation-delay:.05s } .dash-card:nth-child(2){ animation-delay:.10s }
+.dash-card:nth-child(3){ animation-delay:.15s } .dash-card:nth-child(4){ animation-delay:.20s }
+.dash-card:nth-child(5){ animation-delay:.25s } .dash-card:nth-child(6){ animation-delay:.30s }
+.dash-card:nth-child(7){ animation-delay:.35s } .dash-card:nth-child(8){ animation-delay:.40s }
+.dash-card:nth-child(9){ animation-delay:.45s }
+@keyframes dashRise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .dash-card{ animation:none; transition:none; } }
+
+.dash-card-body{
+  display:grid; grid-template-columns:27cqi 1px 1fr 9.5cqi; column-gap:4.2cqi; align-items:center;
+  width:100%; height:100%; padding:0 5cqi 0 4.5cqi;
+}
+.dash-card-icon{ align-self:stretch; display:flex; align-items:center; justify-content:center; }
+.dash-card-icon img{
+  display:block; max-width:100%; max-height:70%; width:auto; height:auto; object-fit:contain;
+  filter:drop-shadow(0 1cqi 1.4cqi rgba(0,0,0,.28));
+}
+.dash-card-div{ width:1px; height:46%; background:currentColor; opacity:.2; }
+.dash-card-text{ display:block; min-width:0; }
+.dash-card-text b{ display:block; font-size:var(--t); font-weight:800; line-height:1.12; letter-spacing:-.005em; }
+.dash-card-text small{ display:block; margin-top:1.1cqi; font-size:var(--s); font-weight:600; line-height:1.28; opacity:.82; }
+
+.dash-go{
+  width:9.5cqi; height:9.5cqi; border-radius:50%; display:grid; place-items:center;
+  background:var(--go-bg); color:var(--go-fg);
+  box-shadow:0 .8cqi 1.6cqi rgba(0,0,0,.18);
+}
+.dash-go svg{ width:56%; height:56%; stroke-width:2.6; }
+
+/* colours straight from the reference */
+.card-levels      { background:linear-gradient(135deg,#f2dbc2,#ebc8a6); --go-bg:#8b6a58; --go-fg:#fff; }
+.card-professional{ background:linear-gradient(135deg,#223c31,#1a3027); --go-bg:#fff; --go-fg:#2a3a32; color:#f3f1e7; border-color:rgba(255,255,255,.2); }
+.card-talkletics  { background:linear-gradient(135deg,#f7f1e5,#f1e9d9); --go-bg:#898a80; --go-fg:#fff; }
+.card-music       { background:linear-gradient(135deg,#f6d9d4,#f1cac4); --go-bg:#9b7064; --go-fg:#fff; }
+.card-library     { background:linear-gradient(135deg,#b6c59d,#a7b98f); --go-bg:#fff; --go-fg:#3c4a33; color:#1f2f1f; }
+.card-delf        { background:linear-gradient(135deg,#bd6c42,#ae623d); --go-bg:rgba(255,255,255,.5); --go-fg:#fff; color:#fff; border-color:rgba(255,255,255,.35); }
+.card-translation { background:linear-gradient(135deg,#add6ce,#9fcbc3); --go-bg:#7a8f8a; --go-fg:#fff; }
+.card-chat        { background:linear-gradient(135deg,#f6eee0,#efe5d3); --go-bg:#8a8578; --go-fg:#fff; }
+.card-schools     { background:linear-gradient(135deg,#90674a,#82593e); --go-bg:rgba(255,255,255,.55); --go-fg:#fff; color:#fff; border-color:rgba(255,255,255,.3); }
+
+/* ---------- Tablet: two across, Schools spans the row ---------- */
+@media (max-width:1180px){
+  .dash-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+  .card-schools{ grid-column:1 / -1; aspect-ratio:5.2 / 1; --t:3.9cqi; --s:2.7cqi; }
+  .card-schools .dash-card-body{ grid-template-columns:19cqi 1px 1fr 5.5cqi; column-gap:3cqi; padding:0 4cqi 0 3.5cqi; }
+  .card-schools .dash-go{ width:5.5cqi; height:5.5cqi; }
+  .card-schools .dash-card-text small{ margin-top:.6cqi; }
+  .card-schools{ border-radius:28px; }
+}
+@media (max-width:1180px) and (min-width:761px){ .dash-main{ padding:26px 30px 48px; } }
+
+/* ---------- Phone ---------- */
+.dash-scrim, .dash-tabbar{ display:none; }
+
+@media (max-width:760px){
+  .dash-shell{ display:block; }
+
+  /* sidebar becomes a drawer */
+  .dash-sidebar{
+    position:fixed; left:0; top:0; bottom:0; height:auto; width:min(300px,86vw); flex:none;
+    transform:translateX(-105%); transition:transform .32s cubic-bezier(.22,1,.36,1);
+    z-index:90; padding-top:max(30px, env(safe-area-inset-top));
+  }
+  .nav-open .dash-sidebar{ transform:none; }
+  .dash-scrim{
+    display:block; position:fixed; inset:0; background:rgba(4,12,20,.5); z-index:80;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .nav-open .dash-scrim{ opacity:1; pointer-events:auto; }
+
+  .dash-main{ padding:max(12px, env(safe-area-inset-top)) 14px calc(112px + env(safe-area-inset-bottom)); }
+
+  .dash-topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    height:76px; padding:0 14px; border-radius:28px;
+    background:linear-gradient(180deg,#17403f 0%,#0f2f31 100%);
+    border:1px solid rgba(255,255,255,.1); box-shadow:0 12px 28px rgba(0,0,0,.3);
+  }
+  .dash-topbar-btn{
+    width:46px; height:46px; flex:0 0 auto; display:grid; place-items:center; padding:0;
+    border:0; border-radius:16px; background:transparent; color:#fff; cursor:pointer;
+  }
+  .dash-topbar-btn svg{ width:28px; height:28px; stroke-width:2; }
+  .dash-topbar-brand{ text-align:center; min-width:0; }
+  .dash-topbar-brand .dash-brand-name{ font-size:30px; }
+  .dash-topbar-brand .dash-brand-tag{ margin-top:1px; font-size:13px; color:#fff; }
+
+  .dash-topline{ justify-content:center; margin:14px 0 14px; }
+  .dash-pill{ gap:10px; padding:8px 18px 8px 8px; max-width:100%; }
+  .dash-avatar{ width:46px; height:46px; font-size:18px; }
+  .dash-pill-role{ font-size:17px; }
+  .dash-profile-name{ font-size:12.5px; }
+  .dash-pill-sep{ height:38px; }
+  .dash-streak-flame{ font-size:36px; }
+  .dash-streak-num{ font-size:28px; }
+  .dash-streak-label{ font-size:12.5px; }
+
+  .dash-grid{ gap:12px; }
+  .dash-card{ --t:6.4cqi; --s:4.5cqi; aspect-ratio:2.15 / 1; border-radius:26px; }
+  .dash-card-body{ grid-template-columns:25cqi 1fr 8.5cqi; column-gap:3.5cqi; padding:0 4.5cqi 0 4cqi; }
+  .dash-card-div{ display:none; }
+  .dash-go{ width:8.5cqi; height:8.5cqi; }
+  .card-schools{ aspect-ratio:5.3 / 1; --t:4.3cqi; --s:3cqi; border-radius:24px; }
+  .card-schools .dash-card-body{ grid-template-columns:19cqi 1fr 5.5cqi; column-gap:3cqi; }
+  .card-schools .dash-card-div{ display:none; }
+
+  .dash-tabbar{
+    display:flex; position:fixed; left:12px; right:12px; bottom:max(12px, env(safe-area-inset-bottom)); z-index:70;
+    padding:8px; gap:4px; border-radius:30px;
+    background:linear-gradient(180deg,#17403f 0%,#0f2f31 100%);
+    border:1px solid rgba(255,255,255,.1); box-shadow:0 14px 30px rgba(0,0,0,.35);
+  }
+  .dash-tabbar a{
+    flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding:9px 2px 8px; border-radius:22px; color:rgba(255,255,255,.88);
+    font-size:11.5px; font-weight:700; text-align:center;
+  }
+  .dash-tabbar svg{ width:26px; height:26px; stroke-width:1.9; }
+  .dash-tabbar a.is-active{ background:rgba(120,172,160,.38); color:#fff; font-weight:800; }
+}
+@media (max-width:360px){
+  .dash-tabbar a{ font-size:10.5px; }
+  .dash-pill-sep{ display:none; }
+}
