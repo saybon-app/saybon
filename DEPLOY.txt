@@ -1,0 +1,14 @@
+SayBon update: dashboard layout + C'est bon for Schools
+
+1. Unzip over the project root (the folder that contains "public"), replacing files when asked:
+   unzip -o saybon-schools-update.zip
+
+2. Commit and push. Pushing to main deploys hosting automatically (GitHub Action):
+   git add public && git commit -m "Dashboard layout, glass avatar, locked C'est bon for Schools" && git push origin main
+
+   Or deploy straight away without GitHub:
+   firebase deploy --only hosting --project saybon-3e3c2
+
+Changed:  public/dashboard/index.html
+New:      public/css/dashboard-layout.css, public/dashboard/schools-card.js, public/schools/** (replaces the old "coming soon" page)
+Admin:    saybon.fr@gmail.com (edit public/schools/schools-config.js to invite a school later)
