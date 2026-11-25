@@ -1,12 +1,11 @@
-/* Keeps the holiday background panning slowly (the Christmas stylesheet paints the page itself and hid the panning layer).
-   The selectors are deliberately more specific than the Christmas file so load order doesn't matter.
-   Remove this file's <link> to undo. */
-html{ background:#17251b !important; }
-html body{ background:transparent !important; }
-html body::before{
-  background:url("/assets/dashboard/dashboard-bg.webp") center / cover no-repeat !important;
-}
-@media (max-width:800px){ html body{ background-attachment:scroll !important; } }
+/* Keeps the page's current background photo panning slowly.
+   snow.js adds the class "sb-pan" only when the page paints its own photo (e.g. the Christmas stylesheet) over the panning layer,
+   and passes that same photo in --sb-photo. No image is named here, so the photo never changes.
+   Remove this file's <link> (and snow.js) to undo. */
+html.sb-pan{ background:var(--sb-color,#0a1822) !important; }
+html.sb-pan body{ background:transparent !important; }
+html.sb-pan body::before{ background-image:var(--sb-photo) !important; }
+@media (max-width:800px){ html.sb-pan body{ background-attachment:scroll !important; } }
 
 #sbSnow{ position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
 @media (prefers-reduced-motion: reduce){ #sbSnow{ display:none; } }

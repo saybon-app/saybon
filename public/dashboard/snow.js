@@ -1,3 +1,16 @@
+// Background panning: if the page paints its own photo on <body> (it hides the panning layer), pan that same photo.
+(function () {
+  try {
+    var cs = getComputedStyle(document.body), img = cs.backgroundImage;
+    if (img && img !== "none") {
+      var root = document.documentElement;
+      root.style.setProperty("--sb-photo", img);
+      root.style.setProperty("--sb-color", cs.backgroundColor);
+      root.classList.add("sb-pan");
+    }
+  } catch (e) {}
+})();
+
 // Subtle snow: lots of tiny, soft flakes drifting down behind the cards. Pure canvas, no libraries.
 (function () {
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
