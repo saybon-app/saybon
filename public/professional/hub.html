@@ -3,15 +3,20 @@
 <head>
 <script>(function(){try{var q=new URLSearchParams(location.search),s=JSON.parse(localStorage.getItem("sbpro_sel")||"null");if(!(q.get("f")&&q.get("lv"))&&!(s&&s.f&&s.lv)){document.documentElement.style.visibility="hidden";location.replace("/professional/")}}catch(e){}})()</script>
 
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
 <script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Your lessons - French for Professionals</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=optional" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css" />
 <style>
 body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
-@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
 .hb-chips{display:flex;gap:8px;justify-content:center;margin:-18px 0 22px;flex-wrap:wrap}
 .hb-chips button{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:7px 16px;font:700 .78rem Manrope,sans-serif;cursor:pointer;backdrop-filter:blur(8px)}
 .hb-chips button.on{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.7)}
@@ -38,7 +43,7 @@ body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
 </div>
 <script src="pro-data.js?v=3"></script>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 var API="https://saybonapp-server.onrender.com";
 var LEVELS=[

@@ -1,6 +1,6 @@
 // Every page in /schools/ imports this. Not signed in -> login. Signed in but not invited -> dashboard.
 import "/js/usage-track.js";
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { isSchoolsAdmin, isSchoolsAllowed } from "/schools/schools-config.js";
 

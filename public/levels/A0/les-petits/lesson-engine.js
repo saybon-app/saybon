@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 (function(){try{if(!window.SayBonActivity){var t=document.createElement("script");t.src="/js/activity-tracker.js?v=1";t.setAttribute("data-type","lesson");document.head.appendChild(t);}}catch(e){}})();

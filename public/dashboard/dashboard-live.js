@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 const API = "https://saybonapp-server.onrender.com";
 const RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $$ = (s) => Array.from(document.querySelectorAll(s));
@@ -10,6 +10,11 @@ try { fetch(API + "/api/activity/ping", { mode: "no-cors" }).catch(() => {}); } 
 
 function localDay() { const d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
 function safe(f, d) { try { return f(); } catch (e) { return d; } }
+
+// A saved copy of the last numbers/profile, so the page paints once with the right values (see the inline
+// script in index.html) and the live data only animates when something actually changed.
+function readCache() { try { return JSON.parse(localStorage.getItem("sb_dash") || "null") || null; } catch (e) { return null; } }
+function writeCache(patch) { try { var c = readCache() || {}; Object.assign(c, patch); localStorage.setItem("sb_dash", JSON.stringify(c)); } catch (e) {} }
 
 function roll(el, from, to, ms) {
   if (RM || from === to) { el.textContent = to; return; }
@@ -42,14 +47,14 @@ function toast(msg) {
   setTimeout(() => { t.classList.remove("show"); setTimeout(() => t.remove(), 600); }, 3200);
 }
 
-function animateStreak(streak) {
+function animateStreak(streak, same) {
   const seen = Number(safe(() => localStorage.getItem("sb_seen_streak"), 0)) || 0;
   const flames = $$(".dash-streak-flame");
   const nums = $$(".js-streak-num");
-  nums.forEach((n) => roll(n, Math.min(seen, streak), streak, 900));
+  nums.forEach((n) => same ? (n.textContent = streak) : roll(n, Math.min(seen, streak), streak, 900));
   if (streak > 0) {
     flames.forEach((f) => {
-      if (!RM && streak !== seen) { f.classList.add("fly"); setTimeout(() => { f.classList.remove("fly"); f.classList.add("lit"); }, 950); }
+      if (!RM && !same && streak !== seen) { f.classList.add("fly"); setTimeout(() => { f.classList.remove("fly"); f.classList.add("lit"); }, 950); }
       else f.classList.add("lit");
     });
     if (streak > seen && !RM) nums.forEach((n) => setTimeout(() => n.classList.add("bump"), 900));
@@ -60,17 +65,20 @@ function animateStreak(streak) {
   safe(() => localStorage.setItem("sb_seen_streak", String(streak)));
 }
 
-function setRing(minutes, goal) {
+function setRing(minutes, goal, fromCache, cachedMin) {
   const pct = Math.min(minutes / goal, 1);
   $$(".js-goal-ring-fill").forEach((r) => {
     r.style.strokeDasharray = C;
-    r.style.strokeDashoffset = C;
-    r.getBoundingClientRect();
-    requestAnimationFrame(() => { r.style.strokeDashoffset = C * (1 - pct); });
+    if (fromCache) { r.style.strokeDashoffset = C * (1 - pct); }
+    else {
+      r.style.strokeDashoffset = C;
+      r.getBoundingClientRect();
+      requestAnimationFrame(() => { r.style.strokeDashoffset = C * (1 - pct); });
+    }
     r.classList.toggle("is-done", pct >= 1);
   });
   $$(".dash-goal-ring-wrap").forEach((w) => w.classList.toggle("is-done", pct >= 1));
-  $$(".js-goal-minutes").forEach((n) => roll(n, 0, Math.floor(minutes), 900));
+  $$(".js-goal-minutes").forEach((n) => roll(n, fromCache ? (cachedMin || 0) : 0, Math.floor(minutes), 900));
   $$(".dash-goal-ring-text small").forEach((s) => (s.textContent = "/" + goal + " min"));
 }
 
@@ -105,7 +113,7 @@ function ticker(st) {
   $$(".js-goal-caption").forEach((cap) => {
     cap.classList.add("sb-ticker"); cap.textContent = "";
     const mk = (l) => { const d = document.createElement("div"); d.className = "tk"; const h = document.createElement("span"); h.className = "tk-h"; h.textContent = l[0]; const s = document.createElement("span"); s.className = "tk-s"; s.textContent = l[1]; d.append(h, s); cap.appendChild(d); return d; };
-    let i = 0, cur = mk(L[0]); requestAnimationFrame(() => requestAnimationFrame(() => cur.classList.add("in")));
+    let i = 0, cur = mk(L[0]); cur.classList.add("in");
     cap._tk = setInterval(() => {
       const old = cur; i = (i + 1) % L.length; cur = mk(L[i]);
       requestAnimationFrame(() => requestAnimationFrame(() => cur.classList.add("in")));
@@ -127,18 +135,25 @@ let started = false;
 function render(st) {
   $$(".js-goal-caption").forEach((c) => c._tk && clearInterval(c._tk));
   const minutes = st.today.seconds / 60;
-  setRing(minutes, st.goalMinutes);
-  animateStreak(st.streak);
+  const cache = readCache();
+  const same = !!cache && cache.streak === st.streak && Math.floor(cache.minutes || 0) === Math.floor(minutes) && (cache.goal || 10) === st.goalMinutes;
+  setRing(minutes, st.goalMinutes, !!cache, cache && Math.floor(cache.minutes || 0));
+  animateStreak(st.streak, same);
   ticker(st);
+  writeCache({ streak: st.streak, minutes: minutes, goal: st.goalMinutes, cap: lines(st)[0] });
 }
 
 function applyProfile(user) {
   const name = user.displayName || "";
-  if (name) $$(".dash-profile-name").forEach((n) => (n.textContent = name));
+  if (name) $$(".dash-profile-name").forEach((n) => { if (n.textContent !== name) n.textContent = name; });
   $$(".dash-avatar").forEach((a) => {
-    if (user.photoURL) { a.textContent = ""; const i = document.createElement("img"); i.alt = ""; i.src = user.photoURL; a.appendChild(i); }
-    else if (name) a.textContent = name.charAt(0).toUpperCase();
+    if (user.photoURL) {
+      const cur = a.querySelector("img");
+      if (cur && cur.getAttribute("src") === user.photoURL) return;
+      a.textContent = ""; const i = document.createElement("img"); i.alt = ""; i.src = user.photoURL; a.appendChild(i);
+    } else if (name) { const ch = name.charAt(0).toUpperCase(); if (a.textContent !== ch) a.textContent = ch; }
   });
+  writeCache({ name: name, photo: user.photoURL || "" });
 }
 
 auth.onAuthStateChanged(async (user) => {
@@ -149,3 +164,5 @@ auth.onAuthStateChanged(async (user) => {
     if (document.visibilityState === "visible") { try { render(await load(user)); } catch (e) {} }
   });
 });
+
+

@@ -1,5 +1,5 @@
 const API_BASE = "https://saybonapp-server.onrender.com";
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 var LABEL = { a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1", c2:"C2", prim:"DELF Prim", junior:"DELF Junior" };

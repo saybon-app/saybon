@@ -28,7 +28,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
     // LOCKED BEHAVIOR:
     // Always goes directly to dashboard
-    window.location.href = "/dashboard/";
+    try{ localStorage.setItem("sb_auth","1"); }catch(e){} window.location.href = "/dashboard/";
 
   } catch (err) {
     alert("Login cancelled or failed.");
@@ -62,7 +62,7 @@ document.getElementById("emailAuthForm").addEventListener("submit", async (e) =>
     } else {
       await signInWithEmailAndPassword(auth, email, password);
     }
-    window.location.href = "/dashboard/";
+    try{ localStorage.setItem("sb_auth","1"); }catch(e){} window.location.href = "/dashboard/";
   } catch (err) {
     if (err.code === "auth/email-already-in-use") {
       errorEl.textContent = "That email is already registered. Try signing in instead.";

@@ -74,7 +74,7 @@ input:focus,select:focus,textarea:focus{border-color:#B8924A}
 <div class="card" style="align-self:start"><h2>Your books</h2><div id="list"><div class="hint">Loading&hellip;</div></div></div>
 </div>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { getFirestore, collection, getDocs, doc, getDoc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const db = getFirestore(auth.app), $ = x => document.getElementById(x);

@@ -1,5 +1,5 @@
 // Shared helpers for the Talkletics journey. Loaded as an ES module.
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 export const API = "https://saybonapp-server.onrender.com";

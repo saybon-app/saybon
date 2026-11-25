@@ -1,10 +1,8 @@
-import { auth } from "/js/firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
 window.lsCurrentUid = null;
-onAuthStateChanged(auth, function(user){
-  window.lsCurrentUid = user ? user.uid : null;
-});
+/* loaded on the side so the lesson request below is not held up by Firebase */
+import("/js/firebase-core.js").then(function(m){
+  m.onAuthStateChanged(m.auth, function(user){ window.lsCurrentUid = user ? user.uid : null; });
+}).catch(function(){});
 const API_BASE = "https://saybonapp-server.onrender.com";
 document.addEventListener("play", function(e){
   if(e.target && (e.target.tagName === "AUDIO" || e.target.tagName === "VIDEO")){
@@ -428,8 +426,16 @@ function markLessonComplete(){
   }).catch(function(err){ console.error("Could not save progress:", err); });
 }
 
-fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
-  .then(function(res){ return res.json(); })
+function sbLoadAssets(){
+  var K = "sb_la_" + LEVEL + "_" + LESSON, cached = null;
+  try{ cached = JSON.parse(localStorage.getItem(K) || "null"); }catch(e){}
+  var net = fetch(API_BASE + "/api/levelAssets?level=" + LEVEL + "&lesson=" + LESSON)
+    .then(function(res){ return res.json(); })
+    .then(function(a){ try{ if(Array.isArray(a) && a.length){ localStorage.setItem(K, JSON.stringify(a)); } }catch(e){} return a; });
+  if(cached && cached.length){ net.catch(function(){}); return Promise.resolve(cached); }   /* saved copy now, refreshed for next time */
+  return net;
+}
+sbLoadAssets()
   .then(function(assets){
     allAssets = assets || [];if(LEVEL==="a0-les-petits"&&LESSON>=2&&LESSON<=12){allAssets=[1,2,3,4,5].map(function(p){return {part:p,type:"text",content:" "};});} /*UL*/ if(allAssets.length === 0 && LESSON <= 25 && /^(a1|a2|b1|b2|c1|c2)$/.test(LEVEL)){ allAssets = [{part:1,type:"text",content:" "}]; }
     if(allAssets.length === 0 && (LESSON === 1 || LESSON === 2) && /^(a1|a2|b1|b2|c1|c2)$/.test(LEVEL)){ allAssets = [{part:1,type:"text",content:" "},{part:2,type:"text",content:" "}]; }

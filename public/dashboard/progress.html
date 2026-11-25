@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
 <script type="module" src="/js/auth-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Progress - SayBon</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=optional" rel="stylesheet">
 <link rel="stylesheet" href="/css/dashboard-fun.css?v=1">
 </head>
 <body>
@@ -29,7 +34,7 @@
 
 <script type="module">
 const API = "https://saybonapp-server.onrender.com";
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const NAMES = { "a0-les-petits":"A0 Les Petits", "a0-tout-public":"A0 Tout Public", a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1" };

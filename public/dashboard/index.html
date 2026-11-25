@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
+<script type="module" src="/js/auth-guard.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>LEARNER DASHBOARD - SayBon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=optional" rel="stylesheet">
   <link rel="stylesheet" href="/css/dashboard.css?v=20260822152132" />
   <link rel="stylesheet" href="/css/dashboard-live.css?v=1" />
   <link rel="stylesheet" href="/css/dashboard-polish.css?v=1" />
@@ -16,6 +21,7 @@
   <link rel="stylesheet" href="/css/dashboard-bg-pan.css?v=1" />
 </head>
 <body>
+<script src="/dashboard/snow-pan.js"></script>
 <div class="dash-shell">
 
   <aside class="dash-sidebar" id="dmSidebar">
@@ -171,6 +177,24 @@
     </nav>
 </aside>
 
+<script>/*sb-instant*/
+(function(){try{
+var c=JSON.parse(localStorage.getItem("sb_dash")||"null")||{};
+var q=function(s){return document.querySelectorAll(s)};
+var lv="";try{lv=sessionStorage.getItem("saybon_level")||localStorage.getItem("sb_level_cache")||""}catch(e){}
+q(".js-profile-level").forEach(function(e){e.textContent=lv});
+if(c.name)q(".dash-profile-name").forEach(function(e){e.textContent=c.name});
+q(".dash-avatar").forEach(function(a){if(c.photo){a.textContent="";var i=document.createElement("img");i.alt="";i.src=c.photo;a.appendChild(i)}else if(c.name){a.textContent=c.name.charAt(0).toUpperCase()}});
+var s=+c.streak||0,m=Math.floor(+c.minutes||0),g=+c.goal||10,C=2*Math.PI*42,p=Math.min(m/g,1);
+q(".js-streak-num").forEach(function(e){e.textContent=s});
+if(s>0)q(".dash-streak-flame").forEach(function(f){f.classList.add("lit")});
+q(".js-goal-ring-fill").forEach(function(r){r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-p);if(p>=1)r.classList.add("is-done")});
+q(".dash-goal-ring-wrap").forEach(function(w){w.classList.toggle("is-done",p>=1)});
+q(".js-goal-minutes").forEach(function(e){e.textContent=m});
+q(".dash-goal-ring-text small").forEach(function(e){e.textContent="/"+g+" min"});
+if(c.cap&&c.cap.length===2)q(".js-goal-caption").forEach(function(cap){cap.classList.add("sb-ticker");cap.textContent="";var d=document.createElement("div");d.className="tk in";var h=document.createElement("span");h.className="tk-h";h.textContent=c.cap[0];var t=document.createElement("span");t.className="tk-s";t.textContent=c.cap[1];d.appendChild(h);d.appendChild(t);cap.appendChild(d)});
+}catch(e){}})();
+</script>
 <script src="/dashboard/dashboard.js?v=20260811f"></script>
 <script type="module" src="/dashboard/dashboard-live.js?v=1"></script>
 <script src="/dashboard/dashboard-polish.js?v=1"></script>

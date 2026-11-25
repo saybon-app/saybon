@@ -1,5 +1,5 @@
 // "C'est bon for Schools" card: locked for everyone except the SayBon admin.
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { isSchoolsAdmin } from "/schools/schools-config.js";
 

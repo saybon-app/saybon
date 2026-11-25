@@ -8,7 +8,6 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
   padding-bottom:80px;
   opacity:0;
   transform:translateY(18px) scale(.97);
-  filter:blur(8px);
   animation:tkmEnter .8s cubic-bezier(.22,1,.36,1) forwards;
   overflow:hidden;
 }
@@ -87,7 +86,7 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-
 .tkm-lock{position:absolute;left:50%;top:55%;width:26%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:rgba(13,42,77,.82);display:flex;align-items:center;justify-content:center;}
 .tkm-lock svg{width:58%;height:58%;}
 @media (max-width:480px){.tkm-title-card{top:64px;max-width:calc(100vw - 28px);padding:10px 18px;}.tkm-title{font-size:1.05rem;white-space:normal;line-height:1.2;}}
-@keyframes tkmEnter{from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}}
+@keyframes tkmEnter{from{opacity:0;transform:translateY(18px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
 
 /* Before the halfway point the page is fixed: START stays at the bottom, the road simply runs off the top. */
 html.tkm-locked,html.tkm-locked body{overflow:hidden;height:100%;overscroll-behavior:none;touch-action:none}

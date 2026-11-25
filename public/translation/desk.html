@@ -1,14 +1,19 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
+<script type="module" src="/js/auth-guard.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayBon Translation Desk</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=optional" rel="stylesheet">
 
 <style>
 
@@ -55,7 +60,7 @@ z-index:50;
 
 .header-panel{
 background: rgba(255,251,246,.72);
-backdrop-filter: blur(18px);
+backdrop-
 border: 1px solid rgba(255,255,255,.7);
 border-radius:24px;
 padding:26px 30px;
@@ -65,12 +70,12 @@ text-align:center;
 margin-bottom:20px;
 box-shadow: 0 20px 50px rgba(60,40,20,.18);
 
-opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px);
+opacity:0; transform:translateY(18px) scale(.97);
 animation: header-panelEnter .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 @keyframes header-panelEnter{
-from{ opacity:0; transform:translateY(18px) scale(.97); filter:blur(8px); }
-to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+from{ opacity:0; transform:translateY(18px) scale(.97); }
+to{ opacity:1; transform:translateY(0) scale(1); }
 }
 
 .header-title{

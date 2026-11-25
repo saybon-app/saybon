@@ -1,13 +1,12 @@
+// Verifies sign-in. The page is already showing for returning users (see auth-gate.js); this only
+// redirects signed-out visitors, and reveals the page if the gate had hidden it.
 import "./usage-track.js";
-import { auth } from "./firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { auth, onAuthStateChanged } from "./firebase-core.js";
 
-document.documentElement.style.display = "none";
-
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth, function (user) {
   if (!user) {
-    window.location.href = "/auth/login.html";
+    window.location.replace("/auth/login.html");
   } else {
-    document.documentElement.style.display = "block";
+    document.documentElement.style.visibility = "";
   }
 });

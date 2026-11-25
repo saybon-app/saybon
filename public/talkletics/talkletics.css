@@ -7,12 +7,11 @@ body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow:
   height:100dvh;
   opacity:0;
   transform:translateY(18px) scale(.97);
-  filter:blur(8px);
   animation:tkEnter .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 @keyframes tkEnter{
-  from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(8px);}
-  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+  from{opacity:0;transform:translateY(18px) scale(.97);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 
 .tk-bg-picture{position:absolute;inset:0;z-index:0;}

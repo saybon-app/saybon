@@ -143,7 +143,7 @@ body{background:#021c13;color:var(--txt);font-family:"Nunito","Segoe UI",system-
 <div class="meas" id="meas"><div class="pg"><div class="in" id="minner"></div></div></div>
 <script src="/library/books.js"></script>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const db = getFirestore(auth.app);
 const id = new URLSearchParams(location.search).get("b");

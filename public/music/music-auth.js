@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 var API = "https://saybonapp-server.onrender.com";
 var nativeFetch = window.fetch.bind(window);
 function ready() {

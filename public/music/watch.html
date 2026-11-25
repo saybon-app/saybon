@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
+<script type="module" src="/js/auth-guard.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Watch - SayBon Music</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=optional" rel="stylesheet">
 
 <style>
 
@@ -66,14 +71,14 @@ animation: watchLayoutEnter .8s cubic-bezier(.22,1,.36,1) backwards;
 }
 
 @keyframes watchLayoutEnter{
-from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); }
+from{ opacity:0; transform:translateY(18px) scale(.96); }
 to{ opacity:1; transform:none; filter:none; }
 }
 
 .cascade-card{ opacity:0; animation: cascadeIn .5s cubic-bezier(.22,1,.36,1) forwards; }
 @keyframes cascadeIn{
-from{ opacity:0; transform:translateY(14px); filter:blur(4px); }
-to{ opacity:1; transform:translateY(0); filter:blur(0); }
+from{ opacity:0; transform:translateY(14px); }
+to{ opacity:1; transform:translateY(0); }
 }
 
 .main-col{ flex:2 1 560px; min-width:0; }
@@ -309,7 +314,7 @@ document.getElementById("sideToggleTab").addEventListener("click", function(){
 
 <script type="module">
 
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const API_BASE = "https://saybonapp-server.onrender.com";

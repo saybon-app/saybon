@@ -1,7 +1,6 @@
 // SayBon usage tracker (browser). Sends anonymous counts only: one "active" per day, plus "placement_open".
 // First-touch source comes from ?src=name in the link (for example saybonapp.com/?src=school1).
-import { auth } from "./firebase-init.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { auth, onAuthStateChanged } from "./firebase-core.js";
 var API = "https://saybonapp-server.onrender.com";
 function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {} return null; }
 try {

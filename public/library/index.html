@@ -214,7 +214,7 @@ body.mine .shelf{--sh:calc(100dvh - 330px)}
 </div>
 <script src="/library/books.js"></script>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { getFirestore, collection, getDocs, query, where, doc as fsDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const db = getFirestore(auth.app), $ = x => document.getElementById(x);
 const LV = ["A0","A1","A2","B1","B2","C1","C2"];

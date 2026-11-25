@@ -1,7 +1,7 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const API = "https://saybonapp-server.onrender.com";
-const show = (lv) => document.querySelectorAll(".js-profile-level").forEach((el) => { el.textContent = lv; });
+const show = (lv) => { try { localStorage.setItem("sb_level_cache", lv); } catch (e) {} document.querySelectorAll(".js-profile-level").forEach((el) => { if (el.textContent !== lv) el.textContent = lv; }); };
 function local() { try { return sessionStorage.getItem("saybon_level"); } catch (e) { return null; } }
 async function call(user, method, body, tries) {
   for (let i = 0; i < tries; i++) {

@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 /* SayBon reading lesson engine v2 (A1-C2): typed heading, rolling whiteboard, teacher reads once, automatic recorder,
    written pointers, slow line-by-line repeat, final graded reading. Config: /levels/reading-data.json keyed "<level>-<lesson>". */

@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 /* Les Petits reading lesson (13, 19, 25). Mira reads a four-line talk; the child reads each line (graded very kindly, Mira says if it was
    right or what to fix), then Mira reads it all and the child reads it all (graded). Retry or skip at every step, as often as they like. */

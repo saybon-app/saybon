@@ -6,11 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>French for Professionals - SayBon</title>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
 <script type="module" src="/js/auth-guard.js"></script>
 <link rel="preload" as="image" href="bg-desktop.webp" media="(min-width:701px)">
 <link rel="preload" as="image" href="bg-mobile.webp" media="(max-width:700px)">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=optional" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--u:min(1vw,1.7777vh);--mint:#6ef0b0;--deep:#0a3d2e;--ink:#0b3d2c;--gold:#b8893a;--navy:#10382b;--line:#d5eadd;--mut:#5b7568;--ok:#1f8a55;--bad:#c0504d}
@@ -181,7 +184,7 @@ h1 b{font-weight:800;display:inline-block}
 
 <script src="pro-data.js?v=2"></script>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 var API="https://saybonapp-server.onrender.com";
 var D=window.PRO_DATA;

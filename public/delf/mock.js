@@ -1,4 +1,4 @@
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 const API_BASE = "https://saybonapp-server.onrender.com";
 const root = document.getElementById("mkRoot");
 const bar = document.getElementById("mkBar");

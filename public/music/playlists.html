@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
-<script type='module' src='/js/auth-guard.js'></script>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://saybonapp-server.onrender.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="/js/auth-gate.js"></script>
+<script type="module" src="/js/auth-guard.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>My Playlists - SayBon Music</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=optional" rel="stylesheet">
 
 <style>
 
@@ -54,19 +59,19 @@ display:flex; align-items:center; justify-content:center; cursor:pointer; color:
 
 .page{
 max-width:760px; margin:0 auto; padding:90px 20px 60px;
-opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px);
+opacity:0; transform:translateY(18px) scale(.96);
 animation: pageEnter .8s cubic-bezier(.22,1,.36,1) forwards;
 }
 
 @keyframes pageEnter{
-from{ opacity:0; transform:translateY(18px) scale(.96); filter:blur(10px); }
-to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+from{ opacity:0; transform:translateY(18px) scale(.96); }
+to{ opacity:1; transform:translateY(0) scale(1); }
 }
 
 .cascade-card{ opacity:0; animation: cascadeIn .5s cubic-bezier(.22,1,.36,1) forwards; }
 @keyframes cascadeIn{
-from{ opacity:0; transform:translateY(14px); filter:blur(4px); }
-to{ opacity:1; transform:translateY(0); filter:blur(0); }
+from{ opacity:0; transform:translateY(14px); }
+to{ opacity:1; transform:translateY(0); }
 }
 
 header{ text-align:center; margin-bottom:24px; }
@@ -191,7 +196,7 @@ opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s eas
 <script src="/music/music-core.js?v=1"></script>
 <script type="module">
 
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const API_BASE = "https://saybonapp-server.onrender.com";

@@ -31,7 +31,7 @@ select,label{font-size:1rem}
 </div>
 </div>
 <script type="module">
-import { auth } from "/js/firebase-init.js";
+import { auth } from "/js/firebase-core.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const API = "https://saybonapp-server.onrender.com";
 const log = m => { const l = document.getElementById("log"); l.textContent += "\n" + m; l.scrollTop = l.scrollHeight; };
