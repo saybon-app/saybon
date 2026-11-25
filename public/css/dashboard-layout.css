@@ -32,10 +32,23 @@
 @media (max-width:800px){
   :root{ --m-cardw:auto; }
   .dash-main{ align-items:center; padding-bottom:40px; }
-  .dash-grid{ width:min(88%, 330px); grid-template-columns:1fr; grid-auto-rows:auto; gap:20px; margin:6px auto 0; }
+  .dash-grid{ width:min(88%, 330px); grid-template-columns:1fr; grid-auto-rows:auto; gap:30px; margin:6px auto 0; }
   .dash-card{ min-height:96px; padding:14px 16px; border-radius:26px; }
   .card-text{ padding-left:12px; }
   .dm-top{ width:100%; }
+}
+
+/* desktop: icon on the left, faint divider (not touching top or bottom), text to its right */
+@media (min-width:801px){
+  :root{ --m-ico:clamp(46px, 9.5vh, 68px); }
+  .dash-card{ display:flex; align-items:center; gap:clamp(10px, 1.2vw, 16px); }
+  .dash-card .card-ico{ align-self:center; justify-self:auto; flex:0 0 var(--m-ico); width:var(--m-ico); height:var(--m-ico); }
+  .dash-card .card-text{
+    flex:1; min-width:0; align-self:stretch; display:flex; flex-direction:column; justify-content:center;
+    margin:clamp(16px, 3.4vh, 28px) 0; padding-left:clamp(10px, 1.2vw, 16px); border-left:1.5px solid rgba(43,31,23,.2);
+  }
+  .dash-card.card-pro .card-text, .dash-card.card-delf .card-text, .dash-card.card-schools .card-text{ border-left-color:rgba(255,255,255,.3); }
+  .dash-card .card-go{ align-self:center; }
 }
 
 /* profile picture: no pink fill, just clear glass */
