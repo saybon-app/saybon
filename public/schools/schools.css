@@ -1,0 +1,45 @@
+/* C'est bon for Schools: hub styling. Same structure as the Levels hubs, brighter and rounder. */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--ink:#0B4F55;--mute:#4F666C;--cream:#FFF3EC;--lv:#CF3A59;}
+html,body{min-height:100%;}
+body{color:var(--ink);font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:url('/assets/levels/a0.webp') center / cover no-repeat;}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(255,243,236,.80);}
+
+.sc-corner{position:fixed;top:16px;width:42px;height:42px;border-radius:50%;background:#fff;border:1.5px solid rgba(11,79,85,.25);
+  display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;z-index:50;box-shadow:0 4px 14px rgba(80,35,45,.18);}
+.sc-corner svg{width:18px;height:18px;}
+.sc-back{left:16px;} .sc-dash{right:16px;}
+
+.sc-stage{max-width:760px;margin:0 auto;padding:92px 20px 64px;}
+.sc-head{text-align:center;margin-bottom:34px;}
+.sc-eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--lv);margin-bottom:10px;}
+.sc-head h1{font-family:"Baloo 2",cursive;font-weight:800;font-size:clamp(2rem,7vw,2.8rem);line-height:1.1;color:var(--ink);}
+.sc-sub{margin-top:10px;font-weight:600;color:var(--mute);}
+.sc-admin{display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.14em;}
+
+/* level chooser */
+.sc-levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;}
+.sc-tile{position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;text-decoration:none;color:#fff;
+  padding:24px 22px;border-radius:26px;border:none;background:var(--c);box-shadow:0 10px 22px rgba(80,35,45,.22);
+  transition:transform .2s ease, box-shadow .2s ease;}
+.sc-tile:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(80,35,45,.28);}
+.sc-tile:active{transform:scale(.97);}
+.sc-tile b{font-family:"Baloo 2",cursive;font-weight:800;font-size:2.4rem;line-height:1;}
+.sc-tile span{font-weight:700;font-size:.92rem;}
+.sc-tile small{margin-top:8px;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;}
+
+/* lesson hub: 25 circles */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:16px;}
+.sc-lesson{aspect-ratio:1;border-radius:50%;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;
+  box-shadow:0 10px 20px rgba(80,35,45,.22);transition:transform .15s ease;font-family:inherit;}
+.sc-lesson:active{transform:scale(.92);}
+.sc-lesson.unlocked{background:var(--lv);}
+.sc-lesson.unlocked .sc-num{font-family:"Baloo 2",cursive;font-weight:800;font-size:1.5rem;color:#fff;}
+.sc-lesson.locked{background:rgba(255,255,255,.72);border:1.5px solid rgba(11,79,85,.25);cursor:not-allowed;box-shadow:none;}
+.sc-lock{width:20px;height:20px;color:var(--mute);}
+.sc-lesson.locked .sc-num{font-weight:800;font-size:.7rem;color:var(--mute);}
+@keyframes scBounce{0%{transform:translateY(0)}10%{transform:translateY(-7px)}22%{transform:translateY(0)}34%{transform:translateY(-4px)}46%{transform:translateY(0)}58%{transform:translateY(-2px)}70%,100%{transform:translateY(0)}}
+.sc-lesson.unlocked:hover{animation:scBounce 2s ease-out 1;}
+@media (max-width:420px){.sc-stage{padding:84px 16px 50px;}.sc-grid{grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:11px;}}
+@media (prefers-reduced-motion:reduce){.sc-lesson.unlocked:hover{animation:none;}}

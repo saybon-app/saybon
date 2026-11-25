@@ -1,0 +1,61 @@
+/* Dashboard layout tune: bigger, more rectangular, well-spaced cards; glass profile circle.
+   Loaded after dashboard-mockup.css. Delete this file's <link> to undo. */
+
+:root{
+  --m-gx:clamp(16px, 2.2vw, 34px);
+  --m-gy:clamp(16px, 3.2vh, 32px);
+  --m-cardh:clamp(138px, 26vh, 196px);
+  --m-ico:clamp(52px, 12.5vh, 92px);
+  /* rectangular: about 1.75 : 1, but never wider than the window allows (sidebar 224 + padding 56) */
+  --m-cardw:min(calc(var(--m-cardh) * 1.75), calc((100vw - 224px - 56px - 2 * var(--m-gx)) / 3));
+}
+
+.dash-grid{
+  grid-template-columns:repeat(3, var(--m-cardw));
+  grid-auto-rows:var(--m-cardh);
+  gap:var(--m-gy) var(--m-gx);
+}
+.dash-card{
+  padding:clamp(14px, 2.4vh, 22px) clamp(16px, 1.6vw, 24px) clamp(14px, 2.2vh, 20px);
+  border-radius:clamp(24px, 4vh, 34px);
+}
+.dash-card h3{ font-size:clamp(15px, 2.55vh, 19px); }
+.dash-card .card-text span{ font-size:clamp(11px, 1.85vh, 13px); line-height:1.32; }
+.card-go{ flex-basis:clamp(26px, 3.4vh, 34px); width:clamp(26px, 3.4vh, 34px); height:clamp(26px, 3.4vh, 34px); }
+
+/* tablets: two columns, sidebar still showing */
+@media (max-width:1024px){
+  .dash-grid{ grid-template-columns:repeat(2, min(calc(var(--m-cardh) * 1.75), calc((100vw - 224px - 56px - var(--m-gx)) / 2))); }
+}
+
+/* phones: narrower cards, generous breathing room */
+@media (max-width:800px){
+  :root{ --m-cardw:auto; }
+  .dash-main{ align-items:center; padding-bottom:40px; }
+  .dash-grid{ width:min(88%, 330px); grid-template-columns:1fr; grid-auto-rows:auto; gap:20px; margin:6px auto 0; }
+  .dash-card{ min-height:96px; padding:14px 16px; border-radius:26px; }
+  .card-text{ padding-left:12px; }
+  .dm-top{ width:100%; }
+}
+
+/* profile picture: no pink fill, just clear glass */
+.dash-avatar,
+.dm-hi .dash-avatar,
+.dm-top .dm-hi .dash-avatar{
+  background:rgba(255,255,255,.07) !important;
+  background-image:none !important;
+  border:1.5px solid rgba(255,255,255,.38) !important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.2); backdrop-filter:blur(10px) saturate(1.2);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.35), 0 6px 16px rgba(0,0,0,.18) !important;
+  color:rgba(255,255,255,.9);
+}
+.dash-avatar img{ border-radius:50%; }
+
+/* C'est bon for Schools: locked card details */
+.card-schools .sch-pill{
+  display:inline-block; margin-bottom:5px; padding:3px 9px 3px 8px; border-radius:999px;
+  background:rgba(255,255,255,.26); color:#fff; font-style:normal; font-size:clamp(8.5px,1.35vh,10px); font-weight:800; letter-spacing:.14em;
+}
+.card-schools.is-locked{ cursor:not-allowed; }
+.card-schools.is-open .sch-pill{ background:#fff; color:#6a4a36; }
+.sb-toast{ max-width:90vw; text-align:center; }
