@@ -14,15 +14,32 @@
   <link rel="stylesheet" href="/css/dashboard-mockup.css?v=1" />
 </head>
 <body>
-
 <div class="dash-shell">
 
   <aside class="dash-sidebar" id="dmSidebar">
-    <div class="dm-brand">
-      <div class="dm-brand-name">SayBon</div>
-      <div class="dm-brand-tag">your easy French buddy</div>
+    <div class="dm-hi">
+      <div class="dash-avatar">A</div>
+      <div class="dm-hi-txt">
+        <div class="dm-hi-name">Hi <span class="dash-profile-name">Learner</span></div>
+        <div class="dm-hi-sub">Learner &middot; <span class="js-profile-level">-</span></div>
+      </div>
     </div>
-
+    <div class="dm-streak">
+      <span class="dash-streak-flame">&#128293;</span>
+      <span class="dash-streak-num js-streak-num">0</span>
+      <span class="dm-streak-label">day streak</span>
+    </div>
+    <div class="dash-goal-card">
+      <div class="dash-goal-ring-wrap">
+        <svg class="dash-goal-ring" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" class="ring-track"/>
+          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
+        </svg>
+        <div class="dash-goal-ring-text"><span class="js-goal-minutes">0</span><small>/10 min</small></div>
+      </div>
+      <div class="dash-goal-title">Daily Goal &#127919;</div>
+      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
+    </div>
     <nav class="dm-nav">
       <a href="#" class="dm-nav-link is-active" onclick="goHome();return false;"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Home</span></a>
       <a href="/levels/" class="dm-nav-link"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>My Lessons</span></a>
@@ -33,20 +50,6 @@
       <a href="/support/" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg><span>Support</span></a>
       <a href="/dashboard/settings.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
     </nav>
-
-    <div class="dash-goal-card">
-      <div class="dash-goal-title">Daily Goal &#127919;</div>
-      <div class="dash-goal-ring-wrap">
-        <svg class="dash-goal-ring" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" class="ring-track"/>
-          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
-        </svg>
-        <div class="dash-goal-ring-text">
-          <span class="js-goal-minutes">0</span><small>/10 min</small>
-        </div>
-      </div>
-      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
-    </div>
   </aside>
 
   <main class="dash-main">
@@ -55,32 +58,17 @@
       <button class="dm-top-btn" type="button" aria-label="Menu" onclick="document.body.classList.add('dm-open')">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <div class="dm-top-title">
-        <div class="dm-brand-name">SayBon</div>
-        <div class="dm-brand-tag">your easy French buddy</div>
+      <div class="dm-hi dm-hi-top">
+        <div class="dash-avatar">A</div>
+        <div class="dm-hi-txt">
+          <div class="dm-hi-name">Hi <span class="dash-profile-name">Learner</span></div>
+          <div class="dm-hi-sub">Learner &middot; <span class="js-profile-level">-</span></div>
+        </div>
       </div>
       <button class="dm-top-btn" type="button" aria-label="Notifications">
         <svg viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>
       </button>
     </header>
-
-    <div class="dm-pillrow">
-      <div class="dm-pill">
-        <div class="dash-avatar">A</div>
-        <div class="dm-pill-who">
-          <div class="dm-pill-line1">Learner<span class="dm-pill-lv"> &middot; <span class="js-profile-level">-</span></span></div>
-          <div class="dm-pill-line2"><span class="dm-crown">&#128081;</span> User: <span class="dash-profile-name">Learner</span></div>
-        </div>
-        <div class="dm-pill-sep"></div>
-        <div class="dm-pill-streak">
-          <span class="dash-streak-flame">&#128293;</span>
-          <div>
-            <div class="dash-streak-num js-streak-num">0</div>
-            <div class="dm-pill-streaklabel">day streak</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="dash-grid">
 
@@ -146,17 +134,39 @@
 
 <div class="dm-scrim" onclick="document.body.classList.remove('dm-open')"></div>
 <aside class="dm-drawer" aria-label="Menu">
-  <div class="dm-brand"><div class="dm-brand-name">SayBon</div><div class="dm-brand-tag">your easy French buddy</div></div>
+  <div class="dm-hi">
+      <div class="dash-avatar">A</div>
+      <div class="dm-hi-txt">
+        <div class="dm-hi-name">Hi <span class="dash-profile-name">Learner</span></div>
+        <div class="dm-hi-sub">Learner &middot; <span class="js-profile-level">-</span></div>
+      </div>
+    </div>
+  <div class="dm-streak">
+      <span class="dash-streak-flame">&#128293;</span>
+      <span class="dash-streak-num js-streak-num">0</span>
+      <span class="dm-streak-label">day streak</span>
+    </div>
+  <div class="dash-goal-card">
+      <div class="dash-goal-ring-wrap">
+        <svg class="dash-goal-ring" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" class="ring-track"/>
+          <circle cx="50" cy="50" r="42" class="ring-fill js-goal-ring-fill"/>
+        </svg>
+        <div class="dash-goal-ring-text"><span class="js-goal-minutes">0</span><small>/10 min</small></div>
+      </div>
+      <div class="dash-goal-title">Daily Goal &#127919;</div>
+      <div class="dash-goal-caption js-goal-caption">Start today's session</div>
+    </div>
   <nav class="dm-nav">
-    <a href="#" class="dm-nav-link is-active" onclick="goHome();return false;"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Home</span></a>
-    <a href="/levels/" class="dm-nav-link"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>My Lessons</span></a>
-    <a href="/dashboard/progress.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20V14"/></svg><span>My Progress</span></a>
-    <a href="/dashboard/achievements.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.3l1.5 3 3.3.4-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.4z"/></svg><span>Achievements</span></a>
-    <a href="/library/" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M3 5.5c2.3-1 5.5-.9 9 1 3.5-1.9 6.7-2 9-1v13c-2.3-1-5.5-.9-9 1-3.5-1.9-6.7-2-9-1z"/><path d="M12 6.5v13"/></svg><span>My Library</span></a>
-    <a href="/feedback/" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20z"/><path d="M8 9.5c1.5-1 2.5 1 4 0s2.5 1 4 0"/></svg><span>Feedback</span></a>
-    <a href="/support/" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg><span>Support</span></a>
-    <a href="/dashboard/settings.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
-  </nav>
+      <a href="#" class="dm-nav-link is-active" onclick="goHome();return false;"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Home</span></a>
+      <a href="/levels/" class="dm-nav-link"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>My Lessons</span></a>
+      <a href="/dashboard/progress.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20V14"/></svg><span>My Progress</span></a>
+      <a href="/dashboard/achievements.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.3l1.5 3 3.3.4-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.4z"/></svg><span>Achievements</span></a>
+      <a href="/library/" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M3 5.5c2.3-1 5.5-.9 9 1 3.5-1.9 6.7-2 9-1v13c-2.3-1-5.5-.9-9 1-3.5-1.9-6.7-2-9-1z"/><path d="M12 6.5v13"/></svg><span>My Library</span></a>
+      <a href="/feedback/" class="dm-nav-link"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20z"/><path d="M8 9.5c1.5-1 2.5 1 4 0s2.5 1 4 0"/></svg><span>Feedback</span></a>
+      <a href="/support/" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg><span>Support</span></a>
+      <a href="/dashboard/settings.html" class="dm-nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
+    </nav>
 </aside>
 
 <script src="/dashboard/dashboard.js?v=20260811f"></script>
