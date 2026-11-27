@@ -32,45 +32,46 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradi
 .wave{position:fixed;left:0;bottom:0;width:100%;height:21.3vh;z-index:1;pointer-events:none;display:block}
 .wave.wM{display:none}
 .hero{position:relative;z-index:3;min-height:100vh;min-height:100svh;padding:calc(var(--u)*8.2) 0 calc(var(--u)*16)}
-.cols{display:flex;align-items:flex-start;padding-left:calc(var(--u)*12.4)}
+.cols{display:flex;align-items:flex-start;padding-left:calc(var(--u)*13.5)}
 .lcol{flex:none;width:calc(var(--u)*36.9)}
 .lhead{text-align:center;padding-right:calc(var(--u)*1.9)}
 h1{font-weight:300;font-size:calc(var(--u)*4.33);line-height:1.05;letter-spacing:-.005em;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.28)}
 h1 b{display:block;font-weight:800}
 h1 .f{font-weight:300;font-size:.94em}
-.bar{width:calc(var(--u)*11.7);height:calc(var(--u)*.46);border-radius:5px;background:var(--mint);margin:calc(var(--u)*1.85) auto calc(var(--u)*1.2);box-shadow:0 0 14px rgba(110,240,176,.5)}
-.tag{font-weight:500;font-size:max(13px,calc(var(--u)*1.71));line-height:1.55;color:#fff;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.bar{width:calc(var(--u)*11.7);height:calc(var(--u)*.46);border-radius:5px;background:var(--mint);margin:calc(var(--u)*2.4) auto calc(var(--u)*1.7);box-shadow:0 0 14px rgba(110,240,176,.5)}
+.tag{font-weight:500;font-size:max(13px,calc(var(--u)*1.6));line-height:1.65;color:#fff;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .vr{flex:none;align-self:stretch;width:2px;margin:calc(var(--u)*4.7) calc(var(--u)*2.3) calc(var(--u)*1.2) calc(var(--u)*1.2);background:rgba(255,255,255,.85);border-radius:2px}
-.rcol{--pw:calc(var(--u)*37.6);flex:none;width:var(--pw);margin-top:calc(var(--u)*4.2)}
-.pills{display:flex;flex-direction:column;gap:calc(var(--pw)*.0185);width:100%}
-.pill{display:flex;align-items:center;width:100%;height:calc(var(--pw)*.156);min-height:46px;border-radius:999px;cursor:pointer;position:relative;color:#fff;text-align:left;font:700 max(14px,calc(var(--pw)*.0518)) "Montserrat",sans-serif;padding:0 calc(var(--pw)*.066) 0 calc(var(--pw)*.062);
- background:linear-gradient(90deg,rgba(255,255,255,.38),rgba(255,255,255,.23) 70%,rgba(255,255,255,.3));
- border:1.5px solid rgba(255,255,255,.5);-webkit-backdrop-filter:blur(12px) saturate(1.05);backdrop-filter:blur(12px) saturate(1.05);
- box-shadow:0 10px 26px rgba(30,15,0,.22),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.12);transition:background .2s,transform .15s}
+.rcol{--pw:calc(var(--u)*34);flex:none;width:var(--pw);margin-top:calc(var(--u)*4.6)}
+.pills{display:flex;flex-direction:column;gap:calc(var(--pw)*.036);width:100%}
+.pill{display:flex;align-items:center;width:100%;height:calc(var(--pw)*.128);min-height:40px;border-radius:999px;cursor:pointer;position:relative;color:#fff;text-align:left;font:700 max(13px,calc(var(--pw)*.0425)) "Montserrat",sans-serif;padding:0 calc(var(--pw)*.055) 0 calc(var(--pw)*.05);
+ background:linear-gradient(90deg,rgba(255,255,255,.34),rgba(255,255,255,.2) 70%,rgba(255,255,255,.27));
+ border:1.2px solid rgba(255,255,255,.45);-webkit-backdrop-filter:blur(12px) saturate(1.05);backdrop-filter:blur(12px) saturate(1.05);
+ box-shadow:0 6px 18px rgba(30,15,0,.16),inset 0 1px 0 rgba(255,255,255,.5);transition:background .2s,transform .15s}
 .pill:hover{background:linear-gradient(90deg,rgba(255,255,255,.42),rgba(255,255,255,.28) 70%,rgba(255,255,255,.34))}
 .pill:active{transform:scale(.985)}
 .pill:focus-visible,.org:focus-visible,.corner:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.pill .ico{flex:none;width:calc(var(--pw)*.132);height:calc(var(--pw)*.124);min-width:34px;min-height:32px;border-radius:calc(var(--pw)*.032);display:grid;place-items:center;background:linear-gradient(150deg,#36bc7e,#0a7b4d);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 4px 12px rgba(0,50,25,.35)}
-.pill .ico svg{width:60%;height:60%;stroke-width:2.2}
-.pill .div{flex:none;width:2px;height:50%;margin:0 calc(var(--pw)*.041) 0 calc(var(--pw)*.045);background:rgba(255,255,255,.85);border-radius:2px}
+.pill .ico{flex:none;width:calc(var(--pw)*.104);height:calc(var(--pw)*.098);min-width:30px;min-height:28px;border-radius:calc(var(--pw)*.028);display:grid;place-items:center;background:linear-gradient(150deg,#36bc7e,#0a7b4d);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 3px 9px rgba(0,50,25,.3)}
+.pill .ico svg{width:56%;height:56%;stroke-width:2.1}
+.pill .div{flex:none;width:1.5px;height:46%;margin:0 calc(var(--pw)*.038) 0 calc(var(--pw)*.04);background:rgba(255,255,255,.8);border-radius:2px}
 .pill .lab{flex:1;min-width:0;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.3)}
-.pill .chev{flex:none;width:calc(var(--pw)*.1);height:calc(var(--pw)*.1);min-width:36px;min-height:36px;margin-right:calc(var(--pw)*-.04);transition:transform .25s}
+.pill .chev{flex:none;width:calc(var(--pw)*.08);height:calc(var(--pw)*.08);min-width:26px;min-height:26px;margin-right:calc(var(--pw)*-.03);transition:transform .25s}
 .pill.open .chev{transform:rotate(90deg)}
-.free{margin-top:calc(var(--u)*1.8);text-align:center;font-size:max(14px,calc(var(--u)*1.62));line-height:1.3;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.free{margin-top:calc(var(--u)*2.5);text-align:center;font-size:max(13px,calc(var(--u)*1.45));line-height:1.3;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 .free b{font-weight:700}.free span{font-weight:400}
 .rcol .plan{width:100%;margin-top:calc(var(--u)*1.6)}
 /* organisation card (desktop) */
-.org{display:flex;align-items:center;color:#fff;text-decoration:none;text-align:left;cursor:pointer;background:linear-gradient(180deg,rgba(10,108,72,.95),rgba(4,64,43,.97));border:calc(var(--u)*.18) solid #62f0ac;box-shadow:0 0 0 1px rgba(98,240,172,.25),0 0 26px rgba(98,240,172,.22),0 14px 30px rgba(0,25,15,.4);transition:transform .15s,filter .2s}
+.org{display:flex;align-items:center;color:#fff;text-decoration:none;text-align:left;cursor:pointer;background:linear-gradient(180deg,rgba(10,108,72,.95),rgba(4,64,43,.97));border:calc(var(--u)*.16) solid #62f0ac;box-shadow:0 0 0 1px rgba(98,240,172,.25),0 0 26px rgba(98,240,172,.22),0 14px 30px rgba(0,25,15,.4);transition:transform .15s,filter .2s}
 .org:hover{filter:brightness(1.08)}.org:active{transform:scale(.99)}
-.orgD{width:100%;height:calc(var(--u)*12.1);margin-top:calc(var(--u)*1.7);border-radius:calc(var(--u)*3.9);padding:0 calc(var(--u)*1.8) 0 calc(var(--u)*1.7)}
-.orgD .bi{flex:none;width:calc(var(--u)*4.5);height:calc(var(--u)*4.5)}
-.orgD .vl{flex:none;width:2px;height:calc(var(--u)*9);margin:0 calc(var(--u)*1.4) 0 calc(var(--u)*1.2);background:rgba(255,255,255,.7);border-radius:2px}
+.org .pd{display:flex;align-items:center;gap:.5em;color:#7bf5b8;font-weight:800;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+.org .pd svg{width:1.3em;height:1.3em;flex:none;margin-top:-.1em}
+.orgD{width:100%;height:calc(var(--u)*11.4);margin-top:calc(var(--u)*5);border-radius:calc(var(--u)*3.9);padding:0 calc(var(--u)*1.2) 0 calc(var(--u)*1.7)}
+.orgD .bi{flex:none;width:calc(var(--u)*4.3);height:calc(var(--u)*4.3)}
+.orgD .vl{flex:none;width:1.5px;height:calc(var(--u)*8);margin:0 calc(var(--u)*1.2) 0 calc(var(--u)*1.2);background:rgba(255,255,255,.65);border-radius:2px}
 .orgD .tx{flex:1;min-width:0;display:block}
-.orgD .tt{display:block;font-weight:700;font-size:max(13px,calc(var(--u)*1.49));line-height:1.2}
-.orgD .pd{display:inline-flex;align-items:center;gap:calc(var(--u)*.5);margin:calc(var(--u)*.5) 0 calc(var(--u)*.5);background:#62f0ac;color:#04402b;font-weight:800;font-size:max(10px,calc(var(--u)*1.05));letter-spacing:.03em;text-transform:uppercase;line-height:1;padding:calc(var(--u)*.7) calc(var(--u)*1.3);border-radius:999px}
-.orgD .pd svg{width:calc(var(--u)*1.35);height:calc(var(--u)*1.35);flex:none;margin-top:-1px}
-.orgD .ds{display:block;font-weight:500;font-size:max(11px,calc(var(--u)*1.12));line-height:1.28;color:rgba(255,255,255,.95)}
-.orgD .go{flex:none;width:calc(var(--u)*3.8);height:calc(var(--u)*3.8);margin:0 calc(var(--u)*-1.1) 0 calc(var(--u)*-1.2)}
+.orgD .tt{display:block;font-weight:700;font-size:max(12px,calc(var(--u)*1.3));line-height:1.2;white-space:nowrap}
+.orgD .pd{font-size:max(9.5px,calc(var(--u)*.92));margin:calc(var(--u)*.8) 0 calc(var(--u)*.7)}
+.orgD .ds{display:block;font-weight:500;font-size:max(10.5px,calc(var(--u)*1.02));line-height:1.4;color:rgba(255,255,255,.95)}
+.orgD .go{flex:none;width:calc(var(--u)*2.8);height:calc(var(--u)*2.8);margin:0 0 0 calc(var(--u)*.4)}
 .orgM{display:none}
 /* top buttons: outlined home, filled dashboard */
 .corner{position:fixed;top:calc(var(--u)*1.15);width:calc(var(--u)*3.95);height:calc(var(--u)*3.95);min-width:40px;min-height:40px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20;transition:background .2s,transform .15s}
@@ -187,27 +188,27 @@ h1 .f{font-weight:300;font-size:.94em}
  .lcol{display:contents}
  .lhead{width:100%;padding:0 6vw;text-align:center}
  h1{font-size:max(min(9.2vw,3.1rem),calc(var(--m)*6.3));line-height:1.1}
- .bar{width:max(clamp(70px,22vw,120px),calc(var(--m)*14.7));height:max(4px,calc(var(--m)*.6));margin:clamp(14px,2.2svh,22px) auto clamp(12px,2svh,18px)}
+ .bar{width:max(clamp(70px,22vw,120px),calc(var(--m)*14.7));height:max(4px,calc(var(--m)*.6));margin:clamp(18px,2.8svh,28px) auto clamp(14px,2.4svh,22px)}
  .tag{font-size:max(min(3.6vw,1.02rem),calc(var(--m)*2.3));max-width:none;line-height:1.45}
  .vr,.orgD{display:none}
- .rcol{--pw:min(80vw,max(440px,51.5vw));width:100%;flex:1;display:flex;flex-direction:column;align-items:center;margin-top:clamp(20px,7svh,100px)}
- .pills{width:var(--pw)}
+ .rcol{--pw:min(74vw,400px);width:100%;flex:1;display:flex;flex-direction:column;align-items:center;margin-top:clamp(22px,5svh,72px)}
+ .pills{width:var(--pw);gap:max(11px,calc(var(--pw)*.04))}
+ .pill{height:max(42px,calc(var(--pw)*.14));font-size:max(13.5px,calc(var(--pw)*.046))}
  .pill .div{display:none}
- .pill .ico{margin-right:calc(var(--pw)*.052)}
- .free{margin-top:clamp(12px,2svh,24px);font-size:max(min(4.3vw,1.15rem),calc(var(--m)*2.4))}
- .free span{display:block;font-size:max(min(3.6vw,.98rem),calc(var(--m)*1.9));margin-top:2px}
+ .pill .ico{margin-right:calc(var(--pw)*.05)}
+ .free{margin-top:clamp(16px,3svh,30px);font-size:max(min(3.9vw,1.05rem),13px)}
+ .free span{display:block;font-size:max(min(3.4vw,.92rem),12px);margin-top:3px}
  .rcol .plan{width:var(--pw)}
- .orgM{display:flex;width:min(92vw,max(520px,64.5vw));align-self:center;position:relative;border-radius:999px;padding:clamp(10px,1.6svh,16px) clamp(14px,3.6vw,26px) clamp(10px,1.6svh,16px) clamp(12px,3.2vw,24px)}
+ .orgM{display:flex;align-items:center;width:min(88vw,460px);align-self:center;position:relative;border-radius:999px;margin-top:clamp(24px,5svh,60px);padding:12px 12px 12px 14px}
  .rcol>.pills+.free,.orgM{flex:none}
- .orgM{margin-top:clamp(16px,4svh,48px)}
- .orgM .bt{flex:none;width:max(clamp(44px,12.5vw,60px),calc(var(--m)*6.9));height:max(clamp(44px,12.5vw,60px),calc(var(--m)*6.9));border-radius:22%;display:grid;place-items:center;background:linear-gradient(150deg,#1f9a64,#06613f);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
- .orgM .bt svg{width:62%;height:62%}
- .orgM .vl{flex:none;width:1.5px;height:62%;margin:0 clamp(9px,2.6vw,16px);background:rgba(255,255,255,.6)}
+ .orgM .bt{flex:none;width:clamp(40px,11vw,52px);height:clamp(40px,11vw,52px);display:grid;place-items:center}
+ .orgM .bt svg{width:100%;height:100%}
+ .orgM .vl{flex:none;width:1.5px;height:58px;margin:0 clamp(9px,2.6vw,14px);background:rgba(255,255,255,.6)}
  .orgM .tx{flex:1;min-width:0;display:block}
- .orgM .tt{display:block;font-weight:700;font-size:max(min(3.7vw,1.02rem),calc(var(--m)*2.35));line-height:1.2}
- .orgM .ds{display:block;font-weight:500;font-size:max(min(2.8vw,.78rem),calc(var(--m)*1.6));line-height:1.3;margin-top:3px;color:rgba(255,255,255,.95)}
- .orgM .lk{flex:none;width:max(clamp(20px,5.6vw,28px),calc(var(--m)*3.4));height:max(clamp(20px,5.6vw,28px),calc(var(--m)*3.4));margin-left:clamp(6px,2vw,14px)}
- .orgM .go{flex:none;width:max(clamp(30px,8.4vw,42px),calc(var(--m)*4));height:max(clamp(30px,8.4vw,42px),calc(var(--m)*4));margin:0 -9px 0 -9px}
+ .orgM .tt{display:block;font-weight:700;font-size:max(min(3.5vw,.98rem),13px);line-height:1.2}
+ .orgM .pd{font-size:max(min(2.5vw,.7rem),9.5px);margin:5px 0 4px}
+ .orgM .ds{display:block;font-weight:500;font-size:max(min(2.9vw,.8rem),11px);line-height:1.35;color:rgba(255,255,255,.95)}
+ .orgM .go{flex:none;width:clamp(26px,7vw,34px);height:clamp(26px,7vw,34px);margin:0 -4px 0 4px}
  .org{border-width:2px}
  .corner,.corner.l,.corner.r{top:max(14px,env(safe-area-inset-top,0px) + 6px,calc(var(--m)*2.2));width:max(42px,calc(var(--m)*6.9));height:max(42px,calc(var(--m)*6.9));min-width:0;min-height:0;background:rgba(86,66,52,.38);border:1.5px solid rgba(255,255,255,.4);box-shadow:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
  .corner.l{left:max(14px,env(safe-area-inset-left,0px) + 8px,calc(var(--m)*3.2))}
@@ -237,9 +238,9 @@ h1 .f{font-weight:300;font-size:.94em}
     <p class="tag">Build real French fluency for your<br> work, career, and professional goals.</p>
    </div>
    <a class="org orgD" href="mailto:saybon.fr@gmail.com?subject=Organisation-Specific%20Training">
-    <svg class="bi" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="30" height="41" rx="2"/><path d="M19 44v-8h10v8"/><rect x="14.5" y="9" width="4" height="4" rx=".6"/><rect x="22" y="9" width="4" height="4" rx=".6"/><rect x="29.5" y="9" width="4" height="4" rx=".6"/><rect x="14.5" y="17" width="4" height="4" rx=".6"/><rect x="22" y="17" width="4" height="4" rx=".6"/><rect x="29.5" y="17" width="4" height="4" rx=".6"/><rect x="14.5" y="25" width="4" height="4" rx=".6"/><rect x="22" y="25" width="4" height="4" rx=".6"/><rect x="29.5" y="25" width="4" height="4" rx=".6"/></svg>
+    <svg class="bi" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 43h42"/><rect x="16" y="5" width="16" height="38" rx="1.6"/><path d="M5.5 43V24.5A1.5 1.5 0 0 1 7 23h9M42.5 43V24.5A1.5 1.5 0 0 0 41 23h-9"/><path d="M21.2 43v-5.2a2.8 2.8 0 0 1 5.6 0V43"/><g fill="currentColor" stroke="none"><circle cx="21" cy="12" r="1.3"/><circle cx="27" cy="12" r="1.3"/><circle cx="21" cy="18.5" r="1.3"/><circle cx="27" cy="18.5" r="1.3"/><circle cx="21" cy="25" r="1.3"/><circle cx="27" cy="25" r="1.3"/><circle cx="21" cy="31.5" r="1.3"/><circle cx="27" cy="31.5" r="1.3"/><circle cx="10.5" cy="29" r="1.2"/><circle cx="10.5" cy="35" r="1.2"/><circle cx="37.5" cy="29" r="1.2"/><circle cx="37.5" cy="35" r="1.2"/></g></svg>
     <span class="vl"></span>
-    <span class="tx"><span class="tt">Organisation-Specific Training</span><span class="pd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>Paid service</span><span class="ds">Tailor-made French training designed exclusively for your organisation and its employees.</span></span>
+    <span class="tx"><span class="tt">Organisation-Specific Training</span><span class="pd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/><circle cx="12" cy="15.7" r="1.15" fill="currentColor" stroke="none"/></svg>Paid service</span><span class="ds">Tailor-made French training designed exclusively for your organisation and its employees.</span></span>
     <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg>
    </a>
   </section>
@@ -259,10 +260,9 @@ h1 .f{font-weight:300;font-size:.94em}
    <p class="free"><b>Free for everyone.</b> <span>No payment needed.</span></p>
    <section id="plan" class="plan hide"></section>
    <a class="org orgM" href="mailto:saybon.fr@gmail.com?subject=Organisation-Specific%20Training">
-    <span class="bt"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="30" height="41" rx="2"/><path d="M19 44v-8h10v8"/><rect x="14.5" y="9" width="4" height="4" rx=".6"/><rect x="22" y="9" width="4" height="4" rx=".6"/><rect x="29.5" y="9" width="4" height="4" rx=".6"/><rect x="14.5" y="17" width="4" height="4" rx=".6"/><rect x="22" y="17" width="4" height="4" rx=".6"/><rect x="29.5" y="17" width="4" height="4" rx=".6"/><rect x="14.5" y="25" width="4" height="4" rx=".6"/><rect x="22" y="25" width="4" height="4" rx=".6"/><rect x="29.5" y="25" width="4" height="4" rx=".6"/></svg></span>
+    <span class="bt"><svg class="" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 43h42"/><rect x="16" y="5" width="16" height="38" rx="1.6"/><path d="M5.5 43V24.5A1.5 1.5 0 0 1 7 23h9M42.5 43V24.5A1.5 1.5 0 0 0 41 23h-9"/><path d="M21.2 43v-5.2a2.8 2.8 0 0 1 5.6 0V43"/><g fill="currentColor" stroke="none"><circle cx="21" cy="12" r="1.3"/><circle cx="27" cy="12" r="1.3"/><circle cx="21" cy="18.5" r="1.3"/><circle cx="27" cy="18.5" r="1.3"/><circle cx="21" cy="25" r="1.3"/><circle cx="27" cy="25" r="1.3"/><circle cx="21" cy="31.5" r="1.3"/><circle cx="27" cy="31.5" r="1.3"/><circle cx="10.5" cy="29" r="1.2"/><circle cx="10.5" cy="35" r="1.2"/><circle cx="37.5" cy="29" r="1.2"/><circle cx="37.5" cy="35" r="1.2"/></g></svg></span>
     <span class="vl"></span>
-    <span class="tx"><span class="tt">Organisation-Specific Training</span><span class="ds">Paid service &middot; Tailor-made French training designed exclusively for your organisation and its employees.</span></span>
-    <svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/><circle cx="12" cy="15.4" r="1.2" fill="currentColor"/></svg>
+    <span class="tx"><span class="tt">Organisation-Specific Training</span><span class="pd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/><circle cx="12" cy="15.7" r="1.15" fill="currentColor" stroke="none"/></svg>Paid service</span><span class="ds">Tailor-made French training designed exclusively for your organisation and its employees.</span></span>
     <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg>
    </a>
   </section>
@@ -486,3 +486,5 @@ onAuthStateChanged(auth,function(u){user=u;var sv0=u?ls("sbpro_sel_"+u.uid):null
 updatePills();renderPlan();renderLearn();
 </script>
 </body></html>
+
+
