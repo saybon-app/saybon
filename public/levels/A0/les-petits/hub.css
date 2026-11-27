@@ -1,9 +1,17 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
-html{background:#27a8f5 url('/assets/levels/petits/bg-desktop.webp') center bottom/cover no-repeat fixed}
+html{background:#27a8f5}
 body{color:#fff;font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;background:transparent}
+body::before{content:"";position:fixed;inset:-7%;z-index:-1;pointer-events:none;
+  background:#27a8f5 url('/assets/levels/petits/bg-desktop.webp') center bottom/cover no-repeat;
+  animation:lpPan 26s ease-in-out infinite alternate;will-change:transform}
+@keyframes lpPan{
+  0%{transform:scale(1.02) translate3d(-2.5%,0,0)}
+  50%{transform:scale(1.07) translate3d(0,-1.5%,0)}
+  100%{transform:scale(1.03) translate3d(2.5%,.8%,0)}
+}
 @media (max-width:700px),(max-aspect-ratio:1/1){
-  html{background-image:url('/assets/levels/petits/bg-mobile.webp')}
+  body::before{background-image:url('/assets/levels/petits/bg-mobile.webp')!important}
 }
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
@@ -16,15 +24,28 @@ body{color:#fff;font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont
 .lp-corner-back{left:14px}.lp-corner-dash{right:14px}
 
 .lp-stage{max-width:1120px;margin:0 auto;padding:0 20px 70px}
-.lp-title{display:block;margin:0 auto 18px;width:clamp(290px,36vw,520px);height:auto;
-  filter:drop-shadow(0 6px 10px rgba(0,60,110,.25))}
+.lp-title{display:block;margin:0 auto 22px;width:clamp(290px,36vw,520px);height:auto;
+  filter:drop-shadow(0 6px 10px rgba(0,60,110,.25));
+  transform-origin:50% 0;animation:lpSwing 9s ease-in-out infinite}
+@keyframes lpSwing{
+  0%{transform:rotate(0)}
+  4%{transform:rotate(6deg)}
+  10%{transform:rotate(-5deg)}
+  16%{transform:rotate(3.6deg)}
+  22%{transform:rotate(-2.4deg)}
+  28%{transform:rotate(1.5deg)}
+  34%{transform:rotate(-.8deg)}
+  40%{transform:rotate(.3deg)}
+  46%,100%{transform:rotate(0)}
+}
+@media (prefers-reduced-motion:reduce){.lp-title,body::before{animation:none}}
 
-.lesson-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:1040px;margin:0 auto}
-.lesson{position:relative;width:calc((100% - 84px)/8);aspect-ratio:1/.92;border:0;border-radius:24px;
+.lesson-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:860px;margin:0 auto}
+.lesson{position:relative;width:calc((100% - 126px)/8);aspect-ratio:1/.92;border:0;border-radius:22px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;
   font-family:"Baloo 2",sans-serif;transition:transform .12s ease}
 .lesson:active{transform:scale(.94) translateY(3px)}
-.lp-num{font-weight:800;font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1;color:#5d3f94}
+.lp-num{font-weight:800;font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1;color:#5d3f94}
 
 .locked{background:linear-gradient(180deg,#f3efff,#ddd3f8);
   box-shadow:0 5px 0 rgba(140,120,205,.55),0 10px 16px rgba(20,60,130,.22),inset 0 2px 0 #fff;cursor:default}
@@ -38,11 +59,11 @@ body{color:#fff;font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont
   box-shadow:0 2px 0 rgba(40,10,90,.4)}
 
 @media (max-width:700px){
-  .lp-stage{padding:0 16px 60px}
+  .lp-stage{padding:0 22px 60px}
   .lp-title{width:min(74vw,330px);margin-bottom:14px}
-  .lesson-grid{gap:10px}
-  .lesson{width:calc((100% - 30px)/4);border-radius:22px}
-  .lp-num{font-size:1.5rem}
+  .lesson-grid{gap:14px}
+  .lesson{width:calc((100% - 42px)/4);border-radius:20px}
+  .lp-num{font-size:1.35rem}
   .lp-corner-icon{width:44px;height:44px;top:12px}
   .lp-corner-back{left:12px}.lp-corner-dash{right:12px}
 }
