@@ -1,14 +1,20 @@
-SayBon update: dashboard layout + C'est bon for Schools
+Talkletics landing update
 
-1. Unzip over the project root (the folder that contains "public"), replacing files when asked:
-   unzip -o saybon-schools-update.zip
+1. Unzip over the project root (the folder that contains "public"), replacing files:
+   unzip -o talkletics-landing-update.zip      (Windows: right-click > Extract All, overwrite)
 
-2. Commit and push. Pushing to main deploys hosting automatically (GitHub Action):
-   git add public && git commit -m "Dashboard layout, glass avatar, locked C'est bon for Schools" && git push origin main
+2. Git + deploy (pushing to main deploys hosting through the GitHub Action):
+   PowerShell:  .\deploy.ps1
+   Bash:        bash deploy.sh
+   Or by hand:
+     git add public/talkletics
+     git commit -m "Talkletics landing: static header/button, home + dashboard buttons, smoother scenes"
+     git push origin main
+   Or deploy without GitHub:
+     firebase deploy --only hosting --project saybon-3e3c2
 
-   Or deploy straight away without GitHub:
-   firebase deploy --only hosting --project saybon-3e3c2
+Alternative to unzipping: git apply --ignore-whitespace talkletics-landing.patch
 
-Changed:  public/dashboard/index.html
-New:      public/css/dashboard-layout.css, public/dashboard/schools-card.js, public/schools/** (replaces the old "coming soon" page)
-Admin:    saybon.fr@gmail.com (edit public/schools/schools-config.js to invite a school later)
+Changed: public/talkletics/index.html (cache-bust v16/v18, Home + Dashboard buttons),
+         public/talkletics/talkletics.css, public/talkletics/talkletics.js
+After deploy, hard refresh once (Ctrl+Shift+R) so the new css/js load.

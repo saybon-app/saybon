@@ -25,6 +25,7 @@ body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
 .hb-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:26px}
 .hb-links a{color:rgba(255,255,255,.78);font:700 .74rem Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:3px}
 </style>
+<script src="/levels/bg-slideshow.js?v=1"></script>
 </head>
 <body>
 <button class="tp-corner-icon tp-corner-back" id="bk" aria-label="Back">
@@ -38,8 +39,6 @@ body{opacity:0;animation:pageEnter .8s cubic-bezier(.22,1,.36,1) forwards}
  <header class="page-header"><p class="tp-eyebrow" id="eb">French for Professionals</p><h1 id="h1">Your lessons</h1></header>
  <div class="hb-chips" id="chips"></div>
  <main class="lesson-grid" id="grid"></main>
- <div id="names" style="max-width:520px;margin:18px auto 0;padding:0 16px;color:#fff;font:14px/1.9 Poppins,system-ui,sans-serif"></div>
- <div class="hb-links" id="links"></div>
 </div>
 <script src="pro-data.js?v=3"></script>
 <script type="module">
@@ -110,14 +109,9 @@ function draw(){
  var h="",s=seq(l);
  for(var n=1;n<=s.length;n++){h+=n<=m?'<button class="lesson unlocked" data-n="'+n+'"><span class="tp-num">'+n+'</span></button>':'<button class="lesson locked">'+LOCK+'<span class="tp-num">'+n+'</span></button>'}
  $("grid").innerHTML=h;
- $("names").innerHTML=s.map(function(e,i){var o=i+1<=m;return '<div style="opacity:'+(o?1:.55)+'"><b style="color:#d4af6a">'+(i+1)+'</b> &nbsp;'+nm(l,e)+'</div>'}).join("");
  $("grid").querySelectorAll("[data-n]").forEach(function(b){b.onclick=function(){location.href=url(l,seq(l)[+b.dataset.n-1])}});
 }
 var qs="f="+encodeURIComponent(S.f)+"&o="+encodeURIComponent(S.f==="__other"?S.o:"")+"&lv="+S.lv+"&tg="+S.tg+"&pc="+encodeURIComponent(S.pc);
-var L='<a href="scenario/?g='+(G[S.f]||"business")+'&pc='+encodeURIComponent(S.pc)+'">Scenarios</a>';
-if(fd)L+='<a href="./?'+qs+'&tab=words">Words</a><a href="./?'+qs+'&tab=plays">Role-plays</a>';
-
-$("links").innerHTML=L;
 $("bk").onclick=function(){location.href="/dashboard/"};
 $("ds").onclick=function(){location.href="/dashboard/"};
 $("rs").onclick=function(){location.href="/professional/?change=1"};

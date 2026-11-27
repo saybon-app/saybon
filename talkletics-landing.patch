@@ -1,0 +1,499 @@
+diff --git a/public/talkletics/index.html b/public/talkletics/index.html
+index 1ba7c11..bf59597 100644
+--- a/public/talkletics/index.html
++++ b/public/talkletics/index.html
+@@ -13,11 +13,19 @@
+ <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="preload" as="image" href="/assets/talkletics/landing/golf-bg.webp">
+ <link rel="preload" as="image" href="/assets/talkletics/landing/golf-up.webp">
+-<link rel="stylesheet" href="talkletics.css?v=14">
++<link rel="stylesheet" href="talkletics.css?v=16">
+ </head>
+ <body>
+ <div class="tk-stage" id="tkStage">
+ 
++  <!-- Top buttons -->
++  <a class="tk-icon tk-home" href="/" aria-label="Home">
++    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1V10"/></svg>
++  </a>
++  <a class="tk-icon tk-dash" href="/dashboard/" aria-label="Dashboard">
++    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
++  </a>
++
+   <!-- Panning backgrounds -->
+   <div class="tk-bgs" aria-hidden="true">
+     <div class="tk-bg" data-scene="golf">
+@@ -72,6 +80,6 @@
+   </div>
+ 
+ </div>
+-<script src="talkletics.js?v=16"></script>
++<script src="talkletics.js?v=18"></script>
+ </body>
+ </html>
+diff --git a/public/talkletics/talkletics.css b/public/talkletics/talkletics.css
+index ecef0f2..d7e622d 100644
+--- a/public/talkletics/talkletics.css
++++ b/public/talkletics/talkletics.css
+@@ -1,16 +1,22 @@
+-/* Talkletics landing - panning sport scenes (golf -> basketball -> football) */
++/* Talkletics landing - panning sport scenes (golf -> basketball -> football)
++   Logo + Start button are STATIC (same place in every scene).
++   Characters live in the left part of the screen and can never reach the logo. */
+ *{box-sizing:border-box;margin:0;padding:0;}
+ html,body{height:100%;overflow:hidden;background:#0c2d52;}
+ body{font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
+ img{user-select:none;-webkit-user-drag:none;}
+ 
++:root{--ib:clamp(40px,7vmin,64px);--it:max(12px,calc(env(safe-area-inset-top,0px) + 8px));--is:max(12px,calc(env(safe-area-inset-left,0px) + 8px));--ie:max(12px,calc(env(safe-area-inset-right,0px) + 8px));}
+ .tk-stage{position:fixed;inset:0;overflow:hidden;opacity:0;animation:tkFade .9s ease .05s forwards;}
+ @keyframes tkFade{to{opacity:1;}}
+ 
+-/* ===== panning backgrounds ===== */
++/* ===== panning backgrounds =====
++   .on     = the scene that is fading in (on top)
++   .under  = the scene that is being covered (stays fully opaque beneath, so there is never a dark dip) */
+ .tk-bgs,.tk-bg{position:absolute;inset:0;}
+-.tk-bg{overflow:hidden;opacity:0;transition:opacity 1.3s ease;z-index:0;}
+-.tk-bg.on{opacity:1;z-index:1;}
++.tk-bg{overflow:hidden;opacity:0;z-index:0;}
++.tk-bg.under{opacity:1;z-index:1;}
++.tk-bg.on{opacity:1;z-index:2;transition:opacity 1.5s cubic-bezier(.45,0,.25,1);}
+ .tk-bg picture{display:contents;}
+ .tk-bg img{
+   position:absolute;top:0;left:0;
+@@ -19,7 +25,8 @@ img{user-select:none;-webkit-user-drag:none;}
+   will-change:transform;
+   transform:translate3d(var(--p0,0px),0,0);
+ }
+-.tk-bg.pan img{animation:tkPan var(--pan-dur,15s) cubic-bezier(.37,0,.63,1) forwards;}
++/* constant, slow drift (linear = no speed-ups) */
++.tk-bg.pan img{animation:tkPan var(--pan-dur,15s) linear forwards;}
+ @keyframes tkPan{
+   from{transform:translate3d(var(--p0,0px),0,0);}
+   to  {transform:translate3d(var(--p1,0px),0,0);}
+@@ -32,51 +39,25 @@ img{user-select:none;-webkit-user-drag:none;}
+   height:min(100dvh,56.25vw);
+   transform:translate(-50%,-50%);
+   container-type:size;
+-}
+-@media (orientation:portrait){
+-  .tk-frame{left:0;top:0;width:100%;height:100%;transform:none;}
+-}
+ 
+-/* ===== characters ===== */
+-.tk-char{
+-  position:absolute;z-index:2;pointer-events:none;
+-  left:var(--c-l);bottom:var(--c-b);
+-  height:var(--c-h);aspect-ratio:var(--ar);
+-  visibility:hidden;
++  /* STATIC logo + button (landscape) */
++  --lg-l:50%;--lg-t:16%;--lg-w:45%;
++  --bt-l:52.5%;--bt-t:61%;--bt-w:40%;--bt-ar:5.4803;
+ }
+-.tk-char.on,.tk-char.out{visibility:visible;}
+ @media (orientation:portrait){
+-  .tk-char{
+-    left:var(--c-cx);transform:translateX(-50%);
+-    height:min(var(--c-h),calc(96vw / var(--ar)));
++  .tk-frame{
++    left:0;top:0;width:100%;height:100%;transform:none;
++    /* STATIC logo + button (portrait) */
++    --lg-l:12%;--lg-w:76%;
++    --bt-l:10%;--bt-w:80cqw;--bt-ar:5.4803;
++    --btm:max(3cqh,calc(env(safe-area-inset-bottom,0px) + 8px));
+   }
+ }
+-.tk-char-in{
+-  position:absolute;inset:0;
+-  opacity:0;transform:translate3d(16%,0,0) scale(.96);
+-  transition:opacity .9s ease,transform 1.2s cubic-bezier(.22,1,.36,1);
+-}
+-.tk-char.on .tk-char-in{opacity:1;transform:none;}
+-.tk-char.out .tk-char-in{
+-  opacity:0;transform:translate3d(-16%,0,0) scale(.97);
+-  transition:opacity .8s ease,transform 1s cubic-bezier(.55,0,.8,.4);
+-}
+-.tk-bob{position:absolute;inset:0;animation:tkBob 4.4s ease-in-out infinite;}
+-@keyframes tkBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.1%);}}
+-.tk-pose{
+-  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;
+-  opacity:0;transform:translateY(1.4%) scale(.985);transform-origin:12% 100%;
+-  transition:opacity .75s ease,transform 1s cubic-bezier(.22,1,.36,1);
+-  filter:drop-shadow(0 .6vmin 1vmin rgba(0,0,0,.22));
+-}
+-.tk-pose.on{opacity:1;transform:none;}
+-.tk-char--basket .tk-pose,.tk-char--soccer .tk-pose{object-position:center bottom;transform:none;transition:none;}
+ 
+-/* ===== logo + start button (positions are set per scene, so they glide) ===== */
++/* ===== logo + start button: fixed, no gliding, no fading ===== */
+ .tk-logo{
+   position:absolute;z-index:6;
+   left:var(--lg-l);top:var(--lg-t);width:var(--lg-w);height:auto;
+-  transition:left 1.2s cubic-bezier(.65,0,.35,1),top 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1);
+   filter:drop-shadow(0 1.2cqh 2cqh rgba(20,60,110,.18));
+   pointer-events:none;
+ }
+@@ -86,7 +67,7 @@ img{user-select:none;-webkit-user-drag:none;}
+   border:0;background:url(/assets/talkletics/landing/pill.webp) center/100% 100% no-repeat;
+   cursor:pointer;container-type:inline-size;
+   display:flex;align-items:center;justify-content:center;
+-  transition:left 1.2s cubic-bezier(.65,0,.35,1),top 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1),transform .15s ease,filter .2s ease;
++  transition:transform .15s ease,filter .2s ease;
+   filter:drop-shadow(0 1cqh 1.6cqh rgba(0,60,20,.28));
+   color:#fff;
+ }
+@@ -101,55 +82,86 @@ img{user-select:none;-webkit-user-drag:none;}
+ .tk-cta:active{transform:scale(.97);}
+ .tk-cta:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:999px;}
+ @media (orientation:portrait){
+-  .tk-logo{top:calc(var(--lg-t) + env(safe-area-inset-top,0px) * .6);}
+-  .tk-cta{top:auto;bottom:max(var(--bt-b),calc(env(safe-area-inset-bottom,0px) + 8px));transition:left 1.2s cubic-bezier(.65,0,.35,1),bottom 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1),transform .15s ease,filter .2s ease;}
++  .tk-logo{top:calc(var(--it) + var(--ib) + 1.2cqh);}
++  .tk-cta{top:auto;bottom:var(--btm);}
+ }
+ 
+-/* ===== per-scene layout (measured from the reference screens) ===== */
+-
+-/* ---- golf: landscape (16:9 frame) ---- */
+-.tk-frame[data-scene="golf"]{
+-  --lg-l:34.091%;--lg-t:11.703%;--lg-w:57.798%;
+-  --bt-l:41.806%;--bt-t:61.105%;--bt-w:41.627%;--bt-ar:5.4803;
++/* ===== characters =====
++   Landscape: each one sits in the left ~41% of the frame, the logo starts at 50%,
++   so they can never touch.
++   Portrait: the character is sized to fit BETWEEN the logo (measured in JS -> --logo-bot)
++   and the Start button. */
++.tk-char{
++  position:absolute;z-index:2;pointer-events:none;
++  left:var(--c-l);bottom:var(--c-b);
++  height:var(--c-h);aspect-ratio:var(--ar);
++  visibility:hidden;
+ }
+-/* ---- golf: portrait ---- */
++.tk-char.on,.tk-char.out{visibility:visible;}
+ @media (orientation:portrait){
+-.tk-frame[data-scene="golf"]{
+-  --lg-l:6.961%;--lg-t:1.898%;--lg-w:85.984%;
+-  --bt-l:8.395%;--bt-w:83.209%;--bt-ar:5.7574;--bt-b:2.333%;
+-}}
++  .tk-char{
++    left:var(--c-cx);transform:translateX(-50%);
++    --c-b:calc(var(--btm) + var(--bt-w) / var(--bt-ar) + 2cqh);
++    height:min(var(--c-h),calc(96cqw / var(--ar)),calc(100cqh - var(--c-b) - var(--logo-bot,calc(2.5cqh + 76cqw / 3.2)) - 1.5cqh));
++  }
++}
+ 
+-/* ---- basket: landscape (16:9 frame) ---- */
+-.tk-frame[data-scene="basket"]{
+-  --lg-l:38.122%;--lg-t:12.941%;--lg-w:60.366%;
+-  --bt-l:47.249%;--bt-t:61.955%;--bt-w:44.856%;--bt-ar:5.2817;
++/* one character on screen at a time: it fully leaves (.out) before the next one enters (.on) */
++.tk-char-in{
++  position:absolute;inset:0;
++  opacity:0;transform:translate3d(0,1.2%,0);
++  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);
+ }
+-/* ---- basket: portrait ---- */
+-@media (orientation:portrait){
+-.tk-frame[data-scene="basket"]{
+-  --lg-l:8.281%;--lg-t:1.444%;--lg-w:81.790%;
+-  --bt-l:8.887%;--bt-w:81.836%;--bt-ar:5.9857;--bt-b:18.164%;
+-}}
++.tk-char.on .tk-char-in{opacity:1;transform:none;}
++.tk-char.out .tk-char-in{
++  opacity:0;transform:translate3d(0,-.8%,0);
++  transition:opacity .7s cubic-bezier(.4,0,.6,1),transform .7s cubic-bezier(.4,0,.6,1);
++}
++.tk-bob{position:absolute;inset:0;animation:tkBob 5s ease-in-out infinite;}
++@keyframes tkBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-.9%);}}
+ 
+-/* ---- soccer: landscape (16:9 frame) ---- */
+-.tk-frame[data-scene="soccer"]{
+-  --lg-l:33.684%;--lg-t:11.366%;--lg-w:59.082%;
+-  --bt-l:41.687%;--bt-t:61.743%;--bt-w:42.225%;--bt-ar:5.3083;
++/* poses of one character: the new pose fades in ON TOP of the old one, then the old one is released */
++.tk-pose{
++  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;
++  opacity:0;z-index:1;
++  transition:opacity .4s ease;
++  filter:drop-shadow(0 .6vmin 1vmin rgba(0,0,0,.22));
+ }
+-/* ---- soccer: portrait ---- */
++.tk-pose.hold{opacity:1;z-index:1;transition:none;}
++.tk-pose.on{opacity:1;z-index:2;transition:opacity .9s cubic-bezier(.4,0,.2,1);}
++.tk-pose.snap{transition:none !important;}
++.tk-char--basket .tk-pose,.tk-char--soccer .tk-pose{object-position:center bottom;}
++
++/* ===== per-character placement (all kept well left of the logo) ===== */
++/* landscape: right edge of each character stays under ~41% of the frame width */
++.tk-char--golf  {--ar:0.7418;--c-l:3%;--c-b:5.101%;--c-h:81.8%;}
++.tk-char--basket{--ar:0.4691;--c-l:9%;--c-b:1.807%;--c-h:86.6%;}
++.tk-char--soccer{--ar:0.4546;--c-l:7%;--c-b:3.188%;--c-h:85.4%;}
+ @media (orientation:portrait){
+-.tk-frame[data-scene="soccer"]{
+-  --lg-l:8.281%;--lg-t:1.444%;--lg-w:81.790%;
+-  --bt-l:8.984%;--bt-w:81.836%;--bt-ar:5.9857;--bt-b:2.083%;
+-}}
+-.tk-char--golf{--ar:0.7418;--c-l:6.459%;--c-b:5.101%;--c-h:90.882%;}
+-@media (orientation:portrait){.tk-char--golf{--ar:0.7418;--c-cx:50.000%;--c-b:12.978%;--c-h:76.775%;}}
+-.tk-char--basket{--ar:0.4691;--c-l:18.301%;--c-b:1.807%;--c-h:96.281%;}
+-@media (orientation:portrait){.tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-b:10.417%;--c-h:70.833%;}}
+-.tk-char--soccer{--ar:0.4546;--c-l:13.038%;--c-b:3.188%;--c-h:94.899%;}
+-@media (orientation:portrait){.tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-b:11.523%;--c-h:70.768%;}}
++  .tk-char--golf  {--ar:0.7418;--c-cx:50%;--c-h:69%;}
++  .tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-h:63.7%;}
++  .tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-h:63.7%;}
++}
+ @media (prefers-reduced-motion:reduce){
+   .tk-bg.pan img{animation:none;}
+   .tk-bob{animation:none;}
+   .tk-char-in,.tk-char.out .tk-char-in{transform:none;}
+ }
++
++/* ===== top buttons: Home (left) and Dashboard (right), fixed to the screen corners ===== */
++.tk-icon{
++  position:absolute;z-index:9;top:var(--it);
++  width:var(--ib);height:var(--ib);border-radius:50%;
++  display:grid;place-items:center;color:#fff;text-decoration:none;
++  background:rgba(12,45,82,.38);
++  border:1.5px solid rgba(255,255,255,.55);
++  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
++  box-shadow:0 4px 14px rgba(0,30,60,.25);
++  transition:transform .15s ease,background .2s ease;
++}
++.tk-icon svg{width:52%;height:52%;}
++.tk-home{left:var(--is);}
++.tk-dash{right:var(--ie);}
++.tk-icon:hover{background:rgba(12,45,82,.55);}
++.tk-icon:active{transform:scale(.94);}
++.tk-icon:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+diff --git a/public/talkletics/talkletics.js b/public/talkletics/talkletics.js
+index d78c100..0a1b344 100644
+--- a/public/talkletics/talkletics.js
++++ b/public/talkletics/talkletics.js
+@@ -4,6 +4,7 @@
+   var stage = document.getElementById("tkStage");
+   var frame = document.getElementById("tkFrame");
+   var startBtn = document.getElementById("tkStartBtn");
++  var logo = frame.querySelector(".tk-logo");
+   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+ 
+   startBtn.addEventListener("click", function () {
+@@ -11,15 +12,26 @@
+   });
+ 
+   /* ---------- story board ----------
+-     golf: upright -> swing -> celebrate (smooth crossfades)
+-     then basketball, then football, then back to golf. */
++     golf: upright -> swing -> celebrate, then basketball, then football, then golf again.
++     holds = how long each pose stays (ms). */
+   var SCENES = [
+-    { name: "golf",   poses: ["up", "swing", "cele"], holds: [3600, 3400, 3600], dir: 1 },
+-    { name: "basket", poses: null, holds: [5800], dir: -1 },
+-    { name: "soccer", poses: null, holds: [5800], dir: 1 }
++    { name: "golf",   poses: ["up", "swing", "cele"], holds: [3800, 3600, 3800], dir: 1 },
++    { name: "basket", poses: null, holds: [6200], dir: -1 },
++    { name: "soccer", poses: null, holds: [6200], dir: 1 }
+   ];
+-  var PAN_DUR = 15000;      // ms, slow cinematic drift
+-  var PAN_MAX_VW = 0.6;     // never drift more than 60% of the screen width
++
++  /* ---------- timing (keep in step with talkletics.css) ----------
++     A scene change is strictly one thing at a time:
++       1. the character leaves completely            (OUT)
++       2. the background crossfades, nobody on stage (BG)
++       3. the new character arrives                  (IN)
++     so a leaving and an arriving character are never visible together. */
++  var OUT = 700;          // character fade-out   (.tk-char.out)
++  var BG = 1500;          // background crossfade (.tk-bg.on)
++  var IN = 800;           // character fade-in    (.tk-char.on)
++  var GAP = 120;          // breathing room between steps
++  var POSE_FADE = 900;    // pose crossfade within the same character
++  var PAN_SPEED = 0.009;  // screen widths per second: slow, constant drift
+ 
+   var bgs = {}, chars = {};
+   SCENES.forEach(function (s) {
+@@ -27,81 +39,108 @@
+     chars[s.name] = frame.querySelector('.tk-char[data-scene="' + s.name + '"]');
+   });
+ 
++  function sum(a) { return a.reduce(function (x, y) { return x + y; }, 0); }
++
+   /* ---------- background panning ---------- */
+-  function panVars(bg, dir) {
++  function panVars(bg, dir, durMs) {
+     var img = bg.querySelector("img");
+     var ox = Math.max(0, img.offsetWidth - stage.clientWidth);
+-    var travel = Math.min(ox * 0.92, stage.clientWidth * PAN_MAX_VW);
++    var travel = Math.min(ox * 0.92, stage.clientWidth * PAN_SPEED * (durMs / 1000));
+     var mid = -ox / 2;
+     var a = mid + (dir * travel) / 2;      // dir 1: image drifts left, -1: drifts right
+     var b = mid - (dir * travel) / 2;
+     bg.style.setProperty("--p0", a.toFixed(1) + "px");
+     bg.style.setProperty("--p1", b.toFixed(1) + "px");
+-    bg.style.setProperty("--pan-dur", PAN_DUR + "ms");
++    bg.style.setProperty("--pan-dur", Math.round(durMs) + "ms");
+   }
+-  function startPan(bg, dir) {
++  function startPan(bg, dir, durMs) {
+     bg.classList.remove("pan");
+-    panVars(bg, dir);
++    panVars(bg, dir, durMs);
+     void bg.offsetWidth;                    // restart the animation
+     if (!reduce) bg.classList.add("pan");
+   }
++  // how long a scene's background is on screen: its own fade-in, the character show, then it stays under the next fade
++  function sceneSpan(s) { return BG + GAP + IN + sum(s.holds) + OUT + GAP + BG; }
++
++  /* ---------- logo clearance (portrait): characters are sized to sit below the logo ---------- */
++  function measureLogo() {
++    var fr = frame.getBoundingClientRect();
++    var r = logo.getBoundingClientRect();
++    if (r.height > 0) frame.style.setProperty("--logo-bot", (r.bottom - fr.top + 8).toFixed(1) + "px");
++  }
+ 
+   /* ---------- scene machine ---------- */
+-  var current = -1, timers = [], panCleanup = null;
++  var current = -1, timers = [], restLoaded = false;
+   function later(fn, ms) { var t = setTimeout(fn, ms); timers.push(t); return t; }
+-  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
++
++  function resetPoses(scene) {
++    if (!scene.poses) return;
++    chars[scene.name].querySelectorAll(".tk-pose").forEach(function (p) {
++      p.classList.add("snap");
++      p.classList.remove("hold");
++      p.classList.toggle("on", p.dataset.pose === scene.poses[0]);
++    });
++    void chars[scene.name].offsetWidth;
++    chars[scene.name].querySelectorAll(".tk-pose").forEach(function (p) { p.classList.remove("snap"); });
++  }
+ 
+   function setPose(scene, pose) {
+-    var box = chars[scene.name];
+-    var poses = box.querySelectorAll(".tk-pose");
++    var poses = chars[scene.name].querySelectorAll(".tk-pose");
+     var next = null, prev = null;
+     poses.forEach(function (p) {
+       if (p.dataset.pose === pose) next = p;
+       if (p.classList.contains("on")) prev = p;
+     });
+-    if (next === prev) return;
+-    next.classList.add("on");
+-    // keep the old pose visible a beat longer so the body never goes see-through
+-    if (prev) later(function () { prev.classList.remove("on"); }, 380);
++    if (!next || next === prev) return;
++    if (prev) { prev.classList.remove("on"); prev.classList.add("hold"); }   // old pose stays solid underneath
++    next.classList.add("on");                                                // new pose fades in on top
++    if (prev) later(function () { prev.classList.remove("hold"); }, POSE_FADE + 80); // then the old one is released
+   }
+ 
+   function enter(i) {
+-    var scene = SCENES[i], prev = SCENES[current];
+-    // backgrounds
++    var scene = SCENES[i], prev = SCENES[current] || null;
++    var t = 0;
++
++    // 1) the previous character leaves completely
+     if (prev) {
+-      var pbg = bgs[prev.name];
+-      pbg.classList.remove("on");
+-      later(function () { pbg.classList.remove("pan"); }, 1500);
+       var pch = chars[prev.name];
+       pch.classList.remove("on"); pch.classList.add("out");
+-      later(function () { pch.classList.remove("out"); }, 1300);
++      t += OUT + GAP;
++      later(function () { pch.classList.remove("out"); resetPoses(prev); }, OUT + 40);
+     }
+-    var bg = bgs[scene.name];
+-    startPan(bg, scene.dir);
+-    bg.classList.add("on");
+-    // layout (logo + button glide to this scene's reference position)
+-    frame.setAttribute("data-scene", scene.name);
+-    // character
+-    var ch = chars[scene.name];
+-    if (scene.poses) {
+-      ch.querySelectorAll(".tk-pose").forEach(function (p) {
+-        p.classList.toggle("on", p.dataset.pose === scene.poses[0]);
+-      });
+-    }
+-    ch.classList.remove("out");
+-    void ch.offsetWidth;
+-    later(function () { ch.classList.add("on"); }, prev ? 350 : 0);
+-    current = i;
+ 
+-    // timeline of this scene
+-    var t = prev ? 350 : 0;
++    // 2) background crossfade, with no character on stage
++    later(function () {
++      var bg = bgs[scene.name];
++      if (prev) {
++        var pbg = bgs[prev.name];
++        pbg.classList.remove("on");
++        pbg.classList.add("under");                 // stays fully opaque under the new one
++        later(function () { pbg.classList.remove("under", "pan"); }, BG + 80);
++      }
++      startPan(bg, scene.dir, sceneSpan(scene));
++      bg.classList.add("on");
++      frame.setAttribute("data-scene", scene.name);
++    }, t);
++    t += (prev ? BG : 500) + GAP;
++
++    // 3) the new character arrives
++    later(function () { chars[scene.name].classList.add("on"); }, t);
++    t += IN;
++
++    // 4) poses / hold, then on to the next scene
+     scene.holds.forEach(function (hold, k) {
+       t += hold;
+       if (scene.poses && k < scene.poses.length - 1) {
+-        (function (pose) { later(function () { setPose(scene, pose); }, t); })(scene.poses[k + 1]);
++        (function (pose, at) { later(function () { setPose(scene, pose); }, at); })(scene.poses[k + 1], t);
+       }
+     });
+-    later(function () { enter((i + 1) % SCENES.length); }, t);
++    current = i;
++    later(function next() {
++      // never start a change until the next scene's pictures are loaded (slow networks)
++      if (!restLoaded) { later(next, 300); return; }
++      enter((i + 1) % SCENES.length);
++    }, t);
+   }
+ 
+   /* ---------- boot: wait for the first scene's pixels ---------- */
+@@ -117,22 +156,28 @@
+   var fonts = (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 1200); })]) : Promise.resolve();
+ 
+   Promise.all([first, fonts]).then(function () {
+-    enter(0);
+-    // warm the cache for the next scenes
+-    ready([base + "golf-swing.webp", base + "golf-cele.webp", base + "basket.webp", base + "soccer.webp"]);
++    measureLogo();
++    // preload everything else so no scene ever pops in
+     var portrait = matchMedia("(orientation:portrait)").matches;
+-    ready([base + (portrait ? "basket-bg-mob.webp" : "basket-bg-desk.webp"), base + (portrait ? "soccer-bg-mob.webp" : "soccer-bg-desk.webp")]);
++    ready([
++      base + "golf-swing.webp", base + "golf-cele.webp", base + "basket.webp", base + "soccer.webp",
++      base + (portrait ? "basket-bg-mob.webp" : "basket-bg-desk.webp"),
++      base + (portrait ? "soccer-bg-mob.webp" : "soccer-bg-desk.webp")
++    ]).then(function () { restLoaded = true; });
++    enter(0);
+   });
++  if (logo.complete) measureLogo(); else logo.addEventListener("load", measureLogo);
+ 
+-  /* ---------- keep pan range right when the window changes ---------- */
++  /* ---------- keep pan range and logo clearance right when the window changes ---------- */
+   var rz;
+   window.addEventListener("resize", function () {
+     clearTimeout(rz);
+     rz = setTimeout(function () {
++      measureLogo();
+       if (current < 0) return;
+       var s = SCENES[current], bg = bgs[s.name];
+       var running = bg.classList.contains("pan");
+-      panVars(bg, s.dir);
++      panVars(bg, s.dir, sceneSpan(s));
+       if (running) { bg.classList.remove("pan"); void bg.offsetWidth; bg.classList.add("pan"); }
+     }, 150);
+   });
