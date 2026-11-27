@@ -15,9 +15,9 @@
      golf: upright -> swing -> celebrate, then basketball, then football, then golf again.
      holds = how long each pose stays (ms). */
   var SCENES = [
-    { name: "golf",   poses: ["up", "swing", "cele"], holds: [3800, 3600, 3800], dir: 1 },
-    { name: "basket", poses: null, holds: [6200], dir: -1 },
-    { name: "soccer", poses: null, holds: [6200], dir: 1 }
+    { name: "golf",   poses: ["up", "swing", "cele"], holds: [3600, 3400, 3600], dir: 1 },
+    { name: "basket", poses: null, holds: [5800], dir: -1 },
+    { name: "soccer", poses: null, holds: [5800], dir: 1 }
   ];
 
   /* ---------- timing (keep in step with talkletics.css) ----------
@@ -26,12 +26,13 @@
        2. the background crossfades, nobody on stage (BG)
        3. the new character arrives                  (IN)
      so a leaving and an arriving character are never visible together. */
-  var OUT = 700;          // character fade-out   (.tk-char.out)
-  var BG = 1500;          // background crossfade (.tk-bg.on)
-  var IN = 800;           // character fade-in    (.tk-char.on)
-  var GAP = 120;          // breathing room between steps
-  var POSE_FADE = 900;    // pose crossfade within the same character
-  var PAN_SPEED = 0.009;  // screen widths per second: slow, constant drift
+  var OUT = 1300;         // character fade-out   (.tk-char.out)
+  var BG = 1200;          // background crossfade (.tk-bg.on)
+  var IN = 1500;           // character fade-in    (.tk-char.on)
+  var GAP = 300;          // breathing room between steps
+  var POSE_OUT = 550;     // a pose fades out completely before the next one fades in
+  var PAN_DUR = 15000;    // original drift
+  var PAN_MAX_VW = 0.6;
 
   var bgs = {}, chars = {};
   SCENES.forEach(function (s) {
@@ -45,7 +46,7 @@
   function panVars(bg, dir, durMs) {
     var img = bg.querySelector("img");
     var ox = Math.max(0, img.offsetWidth - stage.clientWidth);
-    var travel = Math.min(ox * 0.92, stage.clientWidth * PAN_SPEED * (durMs / 1000));
+    var travel = Math.min(ox * 0.92, stage.clientWidth * PAN_MAX_VW);
     var mid = -ox / 2;
     var a = mid + (dir * travel) / 2;      // dir 1: image drifts left, -1: drifts right
     var b = mid - (dir * travel) / 2;
@@ -59,9 +60,6 @@
     void bg.offsetWidth;                    // restart the animation
     if (!reduce) bg.classList.add("pan");
   }
-  // how long a scene's background is on screen: its own fade-in, the character show, then it stays under the next fade
-  function sceneSpan(s) { return BG + GAP + IN + sum(s.holds) + OUT + GAP + BG; }
-
   /* ---------- logo clearance (portrait): characters are sized to sit below the logo ---------- */
   function measureLogo() {
     var fr = frame.getBoundingClientRect();
@@ -77,7 +75,6 @@
     if (!scene.poses) return;
     chars[scene.name].querySelectorAll(".tk-pose").forEach(function (p) {
       p.classList.add("snap");
-      p.classList.remove("hold");
       p.classList.toggle("on", p.dataset.pose === scene.poses[0]);
     });
     void chars[scene.name].offsetWidth;
@@ -92,9 +89,8 @@
       if (p.classList.contains("on")) prev = p;
     });
     if (!next || next === prev) return;
-    if (prev) { prev.classList.remove("on"); prev.classList.add("hold"); }   // old pose stays solid underneath
-    next.classList.add("on");                                                // new pose fades in on top
-    if (prev) later(function () { prev.classList.remove("hold"); }, POSE_FADE + 80); // then the old one is released
+    if (prev) prev.classList.remove("on");                                      // old pose leaves completely...
+    later(function () { next.classList.add("on"); }, prev ? POSE_OUT + 60 : 0); // ...then the new one arrives
   }
 
   function enter(i) {
@@ -118,7 +114,7 @@
         pbg.classList.add("under");                 // stays fully opaque under the new one
         later(function () { pbg.classList.remove("under", "pan"); }, BG + 80);
       }
-      startPan(bg, scene.dir, sceneSpan(scene));
+      startPan(bg, scene.dir, PAN_DUR);
       bg.classList.add("on");
       frame.setAttribute("data-scene", scene.name);
     }, t);
@@ -177,7 +173,7 @@
       if (current < 0) return;
       var s = SCENES[current], bg = bgs[s.name];
       var running = bg.classList.contains("pan");
-      panVars(bg, s.dir, sceneSpan(s));
+      panVars(bg, s.dir, PAN_DUR);
       if (running) { bg.classList.remove("pan"); void bg.offsetWidth; bg.classList.add("pan"); }
     }, 150);
   });

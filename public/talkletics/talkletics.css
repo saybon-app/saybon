@@ -1,6 +1,4 @@
-/* Talkletics landing - panning sport scenes (golf -> basketball -> football)
-   Logo + Start button are STATIC (same place in every scene).
-   Characters live in the left part of the screen and can never reach the logo. */
+/* Talkletics landing - panning sport scenes (golf -> basketball -> football) */
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;background:#0c2d52;}
 body{font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
@@ -10,13 +8,11 @@ img{user-select:none;-webkit-user-drag:none;}
 .tk-stage{position:fixed;inset:0;overflow:hidden;opacity:0;animation:tkFade .9s ease .05s forwards;}
 @keyframes tkFade{to{opacity:1;}}
 
-/* ===== panning backgrounds =====
-   .on     = the scene that is fading in (on top)
-   .under  = the scene that is being covered (stays fully opaque beneath, so there is never a dark dip) */
+/* ===== panning backgrounds ===== */
 .tk-bgs,.tk-bg{position:absolute;inset:0;}
 .tk-bg{overflow:hidden;opacity:0;z-index:0;}
 .tk-bg.under{opacity:1;z-index:1;}
-.tk-bg.on{opacity:1;z-index:2;transition:opacity 1.5s cubic-bezier(.45,0,.25,1);}
+.tk-bg.on{opacity:1;z-index:2;transition:opacity 1.2s ease;}
 .tk-bg picture{display:contents;}
 .tk-bg img{
   position:absolute;top:0;left:0;
@@ -25,8 +21,7 @@ img{user-select:none;-webkit-user-drag:none;}
   will-change:transform;
   transform:translate3d(var(--p0,0px),0,0);
 }
-/* constant, slow drift (linear = no speed-ups) */
-.tk-bg.pan img{animation:tkPan var(--pan-dur,15s) linear forwards;}
+.tk-bg.pan img{animation:tkPan var(--pan-dur,15s) cubic-bezier(.37,0,.63,1) forwards;}
 @keyframes tkPan{
   from{transform:translate3d(var(--p0,0px),0,0);}
   to  {transform:translate3d(var(--p1,0px),0,0);}
@@ -39,22 +34,52 @@ img{user-select:none;-webkit-user-drag:none;}
   height:min(100dvh,56.25vw);
   transform:translate(-50%,-50%);
   container-type:size;
-
-  /* STATIC logo + button (landscape) */
-  --lg-l:50%;--lg-t:16%;--lg-w:45%;
-  --bt-l:52.5%;--bt-t:61%;--bt-w:40%;--bt-ar:5.4803;
+  --lg-l:34.091%;--lg-t:11.703%;--lg-w:57.798%;
+  --bt-l:41.806%;--bt-t:61.105%;--bt-w:41.627%;--bt-ar:5.4803;
 }
 @media (orientation:portrait){
-  .tk-frame{
-    left:0;top:0;width:100%;height:100%;transform:none;
-    /* STATIC logo + button (portrait) */
-    --lg-l:12%;--lg-w:76%;
-    --bt-l:10%;--bt-w:80cqw;--bt-ar:5.4803;
-    --btm:max(3cqh,calc(env(safe-area-inset-bottom,0px) + 8px));
-  }
+  .tk-frame{left:0;top:0;width:100%;height:100%;transform:none;
+    --lg-l:6.961%;--lg-w:85.984%;
+    --bt-l:8.395%;--bt-w:83.209%;--bt-ar:5.7574;--bt-b:2.333%;}
 }
 
-/* ===== logo + start button: fixed, no gliding, no fading ===== */
+/* ===== characters ===== */
+.tk-char{
+  position:absolute;z-index:2;pointer-events:none;
+  left:var(--c-l);bottom:var(--c-b);
+  height:var(--c-h);aspect-ratio:var(--ar);
+  visibility:hidden;
+}
+.tk-char.on,.tk-char.out{visibility:visible;}
+@media (orientation:portrait){
+  .tk-char{
+    left:var(--c-cx);transform:translateX(-50%);
+    height:min(var(--c-h),calc(96vw / var(--ar)),calc(100cqh - var(--c-b) - var(--logo-bot,calc(var(--it) + var(--ib) + 1.2cqh + 86cqw / 3.2)) - 1.5cqh));
+  }
+}
+.tk-char-in{
+  position:absolute;inset:0;
+  opacity:0;transform:translate3d(0,1.6%,0) scale(.992);
+  transition:opacity 1.5s cubic-bezier(.45,0,.2,1),transform 1.8s cubic-bezier(.2,.6,.2,1);
+}
+.tk-char.on .tk-char-in{opacity:1;transform:none;}
+.tk-char.out .tk-char-in{
+  opacity:0;transform:translate3d(0,-1%,0) scale(.994);
+  transition:opacity 1.3s cubic-bezier(.45,0,.55,1),transform 1.3s cubic-bezier(.45,0,.55,1);
+}
+.tk-bob{position:absolute;inset:0;animation:tkBob 4.4s ease-in-out infinite;}
+@keyframes tkBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.1%);}}
+.tk-pose{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;
+  opacity:0;
+  transition:opacity .55s cubic-bezier(.45,0,.55,1);
+  filter:drop-shadow(0 .6vmin 1vmin rgba(0,0,0,.22));
+}
+.tk-pose.on{opacity:1;transition:opacity .8s cubic-bezier(.45,0,.2,1);}
+.tk-pose.snap{transition:none !important;}
+.tk-char--basket .tk-pose,.tk-char--soccer .tk-pose{object-position:center bottom;}
+
+/* ===== logo + start button (positions are set per scene, so they glide) ===== */
 .tk-logo{
   position:absolute;z-index:6;
   left:var(--lg-l);top:var(--lg-t);width:var(--lg-w);height:auto;
@@ -83,72 +108,23 @@ img{user-select:none;-webkit-user-drag:none;}
 .tk-cta:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:999px;}
 @media (orientation:portrait){
   .tk-logo{top:calc(var(--it) + var(--ib) + 1.2cqh);}
-  .tk-cta{top:auto;bottom:var(--btm);}
+  .tk-cta{top:auto;bottom:max(var(--bt-b),calc(env(safe-area-inset-bottom,0px) + 8px));}
 }
 
-/* ===== characters =====
-   Landscape: each one sits in the left ~41% of the frame, the logo starts at 50%,
-   so they can never touch.
-   Portrait: the character is sized to fit BETWEEN the logo (measured in JS -> --logo-bot)
-   and the Start button. */
-.tk-char{
-  position:absolute;z-index:2;pointer-events:none;
-  left:var(--c-l);bottom:var(--c-b);
-  height:var(--c-h);aspect-ratio:var(--ar);
-  visibility:hidden;
-}
-.tk-char.on,.tk-char.out{visibility:visible;}
-@media (orientation:portrait){
-  .tk-char{
-    left:var(--c-cx);transform:translateX(-50%);
-    --c-b:calc(var(--btm) + var(--bt-w) / var(--bt-ar) + 2cqh);
-    height:min(var(--c-h),calc(96cqw / var(--ar)),calc(100cqh - var(--c-b) - var(--logo-bot,calc(2.5cqh + 76cqw / 3.2)) - 1.5cqh));
-  }
-}
-
-/* one character on screen at a time: it fully leaves (.out) before the next one enters (.on) */
-.tk-char-in{
-  position:absolute;inset:0;
-  opacity:0;transform:translate3d(0,1.2%,0);
-  transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);
-}
-.tk-char.on .tk-char-in{opacity:1;transform:none;}
-.tk-char.out .tk-char-in{
-  opacity:0;transform:translate3d(0,-.8%,0);
-  transition:opacity .7s cubic-bezier(.4,0,.6,1),transform .7s cubic-bezier(.4,0,.6,1);
-}
-.tk-bob{position:absolute;inset:0;animation:tkBob 5s ease-in-out infinite;}
-@keyframes tkBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-.9%);}}
-
-/* poses of one character: the new pose fades in ON TOP of the old one, then the old one is released */
-.tk-pose{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;
-  opacity:0;z-index:1;
-  transition:opacity .4s ease;
-  filter:drop-shadow(0 .6vmin 1vmin rgba(0,0,0,.22));
-}
-.tk-pose.hold{opacity:1;z-index:1;transition:none;}
-.tk-pose.on{opacity:1;z-index:2;transition:opacity .9s cubic-bezier(.4,0,.2,1);}
-.tk-pose.snap{transition:none !important;}
-.tk-char--basket .tk-pose,.tk-char--soccer .tk-pose{object-position:center bottom;}
-
-/* ===== per-character placement (all kept well left of the logo) ===== */
-/* landscape: right edge of each character stays under ~41% of the frame width */
-.tk-char--golf  {--ar:0.7418;--c-l:3%;--c-b:5.101%;--c-h:81.8%;}
-.tk-char--basket{--ar:0.4691;--c-l:9%;--c-b:1.807%;--c-h:86.6%;}
-.tk-char--soccer{--ar:0.4546;--c-l:7%;--c-b:3.188%;--c-h:85.4%;}
-@media (orientation:portrait){
-  .tk-char--golf  {--ar:0.7418;--c-cx:50%;--c-h:69%;}
-  .tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-h:63.7%;}
-  .tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-h:63.7%;}
-}
+/* ===== character placement (original) ===== */
+.tk-char--golf{--ar:0.7418;--c-l:6.459%;--c-b:5.101%;--c-h:90.882%;}
+@media (orientation:portrait){.tk-char--golf{--ar:0.7418;--c-cx:50.000%;--c-b:12.978%;--c-h:76.775%;}}
+.tk-char--basket{--ar:0.4691;--c-l:18.301%;--c-b:1.807%;--c-h:96.281%;}
+@media (orientation:portrait){.tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-b:10.417%;--c-h:70.833%;}}
+.tk-char--soccer{--ar:0.4546;--c-l:13.038%;--c-b:3.188%;--c-h:94.899%;}
+@media (orientation:portrait){.tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-b:11.523%;--c-h:70.768%;}}
 @media (prefers-reduced-motion:reduce){
   .tk-bg.pan img{animation:none;}
   .tk-bob{animation:none;}
   .tk-char-in,.tk-char.out .tk-char-in{transform:none;}
 }
 
-/* ===== top buttons: Home (left) and Dashboard (right), fixed to the screen corners ===== */
+/* ===== top buttons: Home (left) and Dashboard (right) ===== */
 .tk-icon{
   position:absolute;z-index:9;top:var(--it);
   width:var(--ib);height:var(--ib);border-radius:50%;
