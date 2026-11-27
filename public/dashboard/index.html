@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/css/dashboard-mockup.css?v=1" />
   <link rel="stylesheet" href="/css/dashboard-layout.css?v=1" />
   <link rel="stylesheet" href="/css/dashboard-bg-pan.css?v=1" />
+<style>.dash-card.card-schools.is-locked{cursor:not-allowed}.dash-card.card-schools.is-locked .card-ico{opacity:.85}.dash-card.card-schools.is-locked .card-go svg{stroke-width:2.4}</style>
 </head>
 <body>
 <script src="/dashboard/snow-pan.js"></script>
@@ -128,10 +129,10 @@
         <i class="card-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></i>
       </div>
 
-      <div class="dash-card card-schools" onclick="window.location.href='/schools/'">
+      <div class="dash-card card-schools is-locked" id="schoolsCard" role="button" tabindex="0" aria-disabled="true" aria-label="French for Schools, locked" onclick="(window.goSchools||function(){})()">
         <img class="card-ico" src="/assets/dashboard/icons/schools-bus.png" alt="" />
         <div class="card-text"><h3>French for Schools</h3><span>Tailor made for schools</span></div>
-        <i class="card-go"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></i>
+        <i class="card-go"><svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg></i>
       </div>
 
     </div>
@@ -200,8 +201,7 @@ if(c.cap&&c.cap.length===2)q(".js-goal-caption").forEach(function(cap){cap.class
 <script src="/dashboard/dashboard-polish.js?v=1"></script>
 <script type="module" src="/dashboard/my-nav.js?v=1"></script>
 <script type="module" src="/dashboard/level-sync.js?v=20261102221523"></script>
+<script type="module" src="/dashboard/schools-card.js?v=1"></script>
 <script src="/dashboard/snow.js?v=1"></script>
 </body>
 </html>
-
-
