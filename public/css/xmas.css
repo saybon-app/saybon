@@ -1,0 +1,45 @@
+/* Festive layer for the homepage: garlands, faint trees, faint snowflakes, falling snow */
+.xmas-layer{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 2.6s ease}
+.xmas-layer.on{opacity:1}
+.xmas-layer img{display:block;height:auto;user-select:none;-webkit-user-drag:none}
+
+.xm-corner{position:absolute;top:-1.5%;filter:drop-shadow(0 6px 10px rgba(40,0,0,.28));
+  animation:xmGlow 5s ease-in-out infinite}
+.xm-tl{left:-2%;width:min(25vw,480px);transform-origin:0 0;animation:xmGlow 5s ease-in-out infinite,xmSwayL 9s ease-in-out infinite}
+.xm-tr{right:-2%;width:min(25vw,480px);transform-origin:100% 0;animation:xmGlow 5s ease-in-out infinite 1.4s,xmSwayR 9s ease-in-out infinite 1.2s}
+@keyframes xmGlow{0%,100%{filter:drop-shadow(0 6px 10px rgba(40,0,0,.28)) brightness(1)}50%{filter:drop-shadow(0 6px 10px rgba(40,0,0,.28)) brightness(1.13)}}
+@keyframes xmSwayL{0%,100%{transform:rotate(0)}50%{transform:rotate(.9deg)}}
+@keyframes xmSwayR{0%,100%{transform:rotate(0)}50%{transform:rotate(-.9deg)}}
+
+.xm-trees{position:absolute;right:3%;bottom:-1%;width:min(21vw,430px);opacity:.3}
+
+.xm-flake{position:absolute;opacity:.5;filter:brightness(1.25) saturate(.8);
+  animation:xmSpin 40s linear infinite,xmFloat 9s ease-in-out infinite}
+.xm-flake.f1{left:37.5%;top:4%;width:min(3.2vw,60px)}
+.xm-flake.f2{left:64%;top:25%;width:min(3.4vw,64px);animation-duration:55s,11s;opacity:.45}
+.xm-flake.f3{left:3.5%;top:33%;width:min(3.4vw,64px);animation-duration:48s,10s;opacity:.55}
+.xm-flake.f4{left:11%;top:58%;width:min(3.4vw,64px);animation-duration:60s,12s;opacity:.16}
+@keyframes xmSpin{to{rotate:360deg}}
+@keyframes xmFloat{0%,100%{translate:0 0}50%{translate:0 8px}}
+
+.xmas-snow{position:absolute;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
+
+@media (max-width:900px){
+  .xm-corner{top:-1%}
+  .xm-tl,.xm-tr{width:46vw}
+  .xm-tl{left:-4%}.xm-tr{right:-4%}
+  .xm-trees{width:66vw;right:-4%;bottom:-.5%;opacity:.28}
+  .xm-flake.f1{left:50%;top:5%;width:34px}
+  .xm-flake.f2{left:84%;top:30%;width:36px}
+  .xm-flake.f3{left:5%;top:36%;width:36px}
+  .xm-flake.f4{left:14%;top:66%;width:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  .xm-corner,.xm-flake{animation:none}
+}
+
+/* Homepage background: slow zoom in and out only (front and back), no sideways movement */
+.background-layer img{transform-origin:50% 50%;will-change:transform;
+  animation:xmZoom 24s ease-in-out 2.2s infinite alternate}
+@keyframes xmZoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+@media (prefers-reduced-motion:reduce){.background-layer img{animation:none}}
