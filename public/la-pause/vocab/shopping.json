@@ -1,0 +1,92 @@
+{
+  "activities": {
+    "fashion": {
+      "engine": "explore", "scene": "boutique",
+      "intro": { "fr": "Que voulez-vous voir ?", "en": "What would you like to see?" },
+      "rows": [
+        { "label": { "fr": "Les vêtements", "en": "Clothes" }, "items": [
+          { "fr": "la robe", "en": "the dress", "art": "dress" },
+          { "fr": "la chemise", "en": "the shirt", "art": "shirt" },
+          { "fr": "le pantalon", "en": "the trousers", "art": "trousers" },
+          { "fr": "la jupe", "en": "the skirt", "art": "skirt" }
+        ]},
+        { "label": { "fr": "Pour l'hiver", "en": "For winter" }, "items": [
+          { "fr": "la veste", "en": "the jacket", "art": "jacket" },
+          { "fr": "le manteau", "en": "the coat", "art": "coat" },
+          { "fr": "le pull", "en": "the sweater", "art": "sweater" },
+          { "fr": "l'écharpe", "en": "the scarf", "art": "scarf" }
+        ]},
+        { "label": { "fr": "Les accessoires", "en": "Accessories" }, "items": [
+          { "fr": "les chaussures", "en": "the shoes", "art": "shoes" },
+          { "fr": "le chapeau", "en": "the hat", "art": "hat" },
+          { "fr": "le sac", "en": "the bag", "art": "bag" },
+          { "fr": "la ceinture", "en": "the belt", "art": "belt" }
+        ]}
+      ]
+    },
+    "supermarket": {
+      "engine": "explore", "scene": "market",
+      "intro": { "fr": "Que voulez-vous acheter ?", "en": "What would you like to buy?" },
+      "rows": [
+        { "label": { "fr": "Les fruits", "en": "Fruit" }, "items": [
+          { "fr": "la pomme", "en": "the apple", "art": "apple" },
+          { "fr": "la banane", "en": "the banana", "art": "banana" },
+          { "fr": "l'orange", "en": "the orange", "art": "orange" },
+          { "fr": "le citron", "en": "the lemon", "art": "lemon" },
+          { "fr": "le raisin", "en": "the grapes", "art": "grapes" }
+        ]},
+        { "label": { "fr": "Les légumes", "en": "Vegetables" }, "items": [
+          { "fr": "la carotte", "en": "the carrot", "art": "carrot" },
+          { "fr": "la tomate", "en": "the tomato", "art": "tomato" }
+        ]},
+        { "label": { "fr": "Les produits du jour", "en": "Daily goods" }, "items": [
+          { "fr": "le pain", "en": "the bread", "art": "bread" },
+          { "fr": "le lait", "en": "the milk", "art": "milk" },
+          { "fr": "le fromage", "en": "the cheese", "art": "cheese" },
+          { "fr": "les œufs", "en": "the eggs", "art": "eggs" },
+          { "fr": "l'eau", "en": "the water", "art": "bottle" }
+        ]}
+      ]
+    },
+    "salon": {
+      "engine": "explore", "scene": "salon",
+      "intro": { "fr": "Bienvenue au salon !", "en": "Welcome to the salon!" },
+      "rows": [
+        { "label": { "fr": "Pour les cheveux", "en": "For the hair" }, "items": [
+          { "fr": "le peigne", "en": "the comb", "art": "comb" },
+          { "fr": "la brosse", "en": "the brush", "art": "brush" },
+          { "fr": "les ciseaux", "en": "the scissors", "art": "scissors" },
+          { "fr": "la pince à cheveux", "en": "the hair clip", "art": "clip" }
+        ]},
+        { "label": { "fr": "Les appareils", "en": "Appliances" }, "items": [
+          { "fr": "le sèche-cheveux", "en": "the hairdryer", "art": "dryer" },
+          { "fr": "le lisseur", "en": "the straightener", "art": "straightener" },
+          { "fr": "le miroir", "en": "the mirror", "art": "mirror" }
+        ]},
+        { "label": { "fr": "Au lavabo", "en": "At the basin" }, "items": [
+          { "fr": "le shampooing", "en": "the shampoo", "art": "shampoo" },
+          { "fr": "la serviette", "en": "the towel", "art": "towel" },
+          { "fr": "la chaise", "en": "the chair", "art": "chair" }
+        ]}
+      ]
+    },
+    "beauty": {
+      "engine": "explore", "scene": "beauty",
+      "intro": { "fr": "Regardez comme c'est joli !", "en": "Look how pretty it is!" },
+      "rows": [
+        { "label": { "fr": "Le maquillage", "en": "Make-up" }, "items": [
+          { "fr": "le rouge à lèvres", "en": "the lipstick", "art": "lipstick" },
+          { "fr": "le mascara", "en": "the mascara", "art": "mascara" },
+          { "fr": "la poudre", "en": "the powder", "art": "powder" },
+          { "fr": "le pinceau", "en": "the make-up brush", "art": "makeupbrush" }
+        ]},
+        { "label": { "fr": "Les soins", "en": "Care" }, "items": [
+          { "fr": "la crème", "en": "the cream", "art": "cream" },
+          { "fr": "le savon", "en": "the soap", "art": "soap" },
+          { "fr": "le parfum", "en": "the perfume", "art": "perfume" },
+          { "fr": "le vernis à ongles", "en": "the nail polish", "art": "polish" }
+        ]}
+      ]
+    }
+  }
+}

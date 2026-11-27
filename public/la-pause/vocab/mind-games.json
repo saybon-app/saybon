@@ -1,0 +1,611 @@
+{
+  "activities": {
+    "puzzles": {
+      "engine": "jigsaw",
+      "intro": {
+        "fr": "Reconstituez l'image !",
+        "en": "Put the picture together!"
+      },
+      "items": [
+        {
+          "scene": "car",
+          "fr": "la voiture",
+          "en": "the car",
+          "grid": [
+            2,
+            2
+          ]
+        },
+        {
+          "scene": "house",
+          "fr": "la maison",
+          "en": "the house",
+          "grid": [
+            3,
+            2
+          ]
+        },
+        {
+          "scene": "bridge",
+          "fr": "le pont",
+          "en": "the bridge",
+          "grid": [
+            3,
+            2
+          ]
+        },
+        {
+          "scene": "robot",
+          "fr": "le robot",
+          "en": "the robot",
+          "grid": [
+            3,
+            3
+          ]
+        },
+        {
+          "scene": "bulb",
+          "fr": "l'ampoule",
+          "en": "the light bulb",
+          "grid": [
+            3,
+            2
+          ]
+        },
+        {
+          "scene": "room",
+          "fr": "le salon",
+          "en": "the living room",
+          "grid": [
+            3,
+            3
+          ]
+        },
+        {
+          "scene": "garden",
+          "fr": "le jardin",
+          "en": "the garden",
+          "grid": [
+            4,
+            3
+          ]
+        },
+        {
+          "scene": "terrace",
+          "fr": "la terrasse",
+          "en": "the terrace",
+          "grid": [
+            4,
+            3
+          ]
+        }
+      ]
+    },
+    "memory": {
+      "engine": "memory",
+      "intro": {
+        "fr": "Trouvez les paires !",
+        "en": "Find the pairs!"
+      },
+      "done": {
+        "fr": "Bravo !",
+        "en": "Well done!"
+      },
+      "sets": [
+        {
+          "title": {
+            "fr": "Les fruits et les légumes",
+            "en": "Fruit and vegetables"
+          },
+          "pairs": [
+            {
+              "fr": "la pomme",
+              "en": "the apple",
+              "art": "apple"
+            },
+            {
+              "fr": "la banane",
+              "en": "the banana",
+              "art": "banana"
+            },
+            {
+              "fr": "l'orange",
+              "en": "the orange",
+              "art": "orange"
+            },
+            {
+              "fr": "le citron",
+              "en": "the lemon",
+              "art": "lemon"
+            },
+            {
+              "fr": "la carotte",
+              "en": "the carrot",
+              "art": "carrot"
+            },
+            {
+              "fr": "la tomate",
+              "en": "the tomato",
+              "art": "tomato"
+            }
+          ]
+        },
+        {
+          "title": {
+            "fr": "Les vêtements",
+            "en": "Clothes"
+          },
+          "pairs": [
+            {
+              "fr": "la robe",
+              "en": "the dress",
+              "art": "dress"
+            },
+            {
+              "fr": "la chemise",
+              "en": "the shirt",
+              "art": "shirt"
+            },
+            {
+              "fr": "la jupe",
+              "en": "the skirt",
+              "art": "skirt"
+            },
+            {
+              "fr": "le chapeau",
+              "en": "the hat",
+              "art": "hat"
+            },
+            {
+              "fr": "le sac",
+              "en": "the bag",
+              "art": "bag"
+            },
+            {
+              "fr": "les chaussures",
+              "en": "the shoes",
+              "art": "shoes"
+            }
+          ]
+        },
+        {
+          "title": {
+            "fr": "Le ménage",
+            "en": "Housekeeping"
+          },
+          "pairs": [
+            {
+              "fr": "le balai",
+              "en": "the broom",
+              "art": "broom"
+            },
+            {
+              "fr": "le seau",
+              "en": "the bucket",
+              "art": "bucket"
+            },
+            {
+              "fr": "l'éponge",
+              "en": "the sponge",
+              "art": "sponge"
+            },
+            {
+              "fr": "le fer à repasser",
+              "en": "the iron",
+              "art": "iron"
+            },
+            {
+              "fr": "les gants",
+              "en": "the gloves",
+              "art": "gloves"
+            },
+            {
+              "fr": "le vaporisateur",
+              "en": "the spray bottle",
+              "art": "spray"
+            }
+          ]
+        },
+        {
+          "title": {
+            "fr": "La beauté",
+            "en": "Beauty"
+          },
+          "pairs": [
+            {
+              "fr": "le rouge à lèvres",
+              "en": "the lipstick",
+              "art": "lipstick"
+            },
+            {
+              "fr": "le parfum",
+              "en": "the perfume",
+              "art": "perfume"
+            },
+            {
+              "fr": "le peigne",
+              "en": "the comb",
+              "art": "comb"
+            },
+            {
+              "fr": "le miroir",
+              "en": "the mirror",
+              "art": "mirror"
+            },
+            {
+              "fr": "le savon",
+              "en": "the soap",
+              "art": "soap"
+            },
+            {
+              "fr": "la crème",
+              "en": "the cream",
+              "art": "cream"
+            }
+          ]
+        }
+      ]
+    },
+    "words": {
+      "engine": "words",
+      "intro": {
+        "fr": "Épelez le mot !",
+        "en": "Spell the word!"
+      },
+      "items": [
+        {
+          "fr": "la pomme",
+          "en": "the apple",
+          "art": "apple"
+        },
+        {
+          "fr": "la banane",
+          "en": "the banana",
+          "art": "banana"
+        },
+        {
+          "fr": "le citron",
+          "en": "the lemon",
+          "art": "lemon"
+        },
+        {
+          "fr": "la tomate",
+          "en": "the tomato",
+          "art": "tomato"
+        },
+        {
+          "fr": "la carotte",
+          "en": "the carrot",
+          "art": "carrot"
+        },
+        {
+          "fr": "le pain",
+          "en": "the bread",
+          "art": "bread"
+        },
+        {
+          "fr": "le lait",
+          "en": "the milk",
+          "art": "milk"
+        },
+        {
+          "fr": "le fromage",
+          "en": "the cheese",
+          "art": "cheese"
+        },
+        {
+          "fr": "la robe",
+          "en": "the dress",
+          "art": "dress"
+        },
+        {
+          "fr": "la jupe",
+          "en": "the skirt",
+          "art": "skirt"
+        },
+        {
+          "fr": "le chapeau",
+          "en": "the hat",
+          "art": "hat"
+        },
+        {
+          "fr": "le manteau",
+          "en": "the coat",
+          "art": "coat"
+        },
+        {
+          "fr": "le peigne",
+          "en": "the comb",
+          "art": "comb"
+        },
+        {
+          "fr": "le miroir",
+          "en": "the mirror",
+          "art": "mirror"
+        },
+        {
+          "fr": "le savon",
+          "en": "the soap",
+          "art": "soap"
+        },
+        {
+          "fr": "la crème",
+          "en": "the cream",
+          "art": "cream"
+        },
+        {
+          "fr": "le balai",
+          "en": "the broom",
+          "art": "broom"
+        },
+        {
+          "fr": "le seau",
+          "en": "the bucket",
+          "art": "bucket"
+        },
+        {
+          "fr": "les gants",
+          "en": "the gloves",
+          "art": "gloves"
+        },
+        {
+          "fr": "la serviette",
+          "en": "the towel",
+          "art": "towel"
+        }
+      ]
+    },
+    "logic": {
+      "engine": "pattern",
+      "prompts": {
+        "next": {
+          "fr": "Qu'est-ce qui vient ensuite ?",
+          "en": "What comes next?"
+        },
+        "odd": {
+          "fr": "Lequel est différent ?",
+          "en": "Which one is different?"
+        }
+      },
+      "intro": {
+        "fr": "Regardez bien !",
+        "en": "Look carefully!"
+      },
+      "names": {
+        "circle:red": {
+          "fr": "un cercle rouge",
+          "en": "a red circle"
+        },
+        "circle:blue": {
+          "fr": "un cercle bleu",
+          "en": "a blue circle"
+        },
+        "circle:green": {
+          "fr": "un cercle vert",
+          "en": "a green circle"
+        },
+        "square:blue": {
+          "fr": "un carré bleu",
+          "en": "a blue square"
+        },
+        "square:green": {
+          "fr": "un carré vert",
+          "en": "a green square"
+        },
+        "triangle:yellow": {
+          "fr": "un triangle jaune",
+          "en": "a yellow triangle"
+        },
+        "triangle:green": {
+          "fr": "un triangle vert",
+          "en": "a green triangle"
+        },
+        "square:yellow": {
+          "fr": "un carré jaune",
+          "en": "a yellow square"
+        },
+        "star:yellow": {
+          "fr": "une étoile jaune",
+          "en": "a yellow star"
+        },
+        "heart:red": {
+          "fr": "un cœur rouge",
+          "en": "a red heart"
+        },
+        "star:red": {
+          "fr": "une étoile rouge",
+          "en": "a red star"
+        },
+        "heart:yellow": {
+          "fr": "un cœur jaune",
+          "en": "a yellow heart"
+        },
+        "triangle:red": {
+          "fr": "un triangle rouge",
+          "en": "a red triangle"
+        },
+        "heart:pink": {
+          "fr": "un cœur rose",
+          "en": "a pink heart"
+        },
+        "diamond:purple": {
+          "fr": "un losange violet",
+          "en": "a purple diamond"
+        },
+        "diamond:pink": {
+          "fr": "un losange rose",
+          "en": "a pink diamond"
+        },
+        "heart:purple": {
+          "fr": "un cœur violet",
+          "en": "a purple heart"
+        },
+        "triangle:orange": {
+          "fr": "un triangle orange",
+          "en": "an orange triangle"
+        },
+        "circle:orange": {
+          "fr": "un cercle orange",
+          "en": "an orange circle"
+        },
+        "triangle:blue": {
+          "fr": "un triangle bleu",
+          "en": "a blue triangle"
+        },
+        "star:purple": {
+          "fr": "une étoile violette",
+          "en": "a purple star"
+        },
+        "heart:green": {
+          "fr": "un cœur vert",
+          "en": "a green heart"
+        },
+        "diamond:red": {
+          "fr": "un losange rouge",
+          "en": "a red diamond"
+        },
+        "diamond:orange": {
+          "fr": "un losange orange",
+          "en": "an orange diamond"
+        }
+      },
+      "puzzles": [
+        {
+          "kind": "next",
+          "seq": [
+            "circle:red",
+            "circle:blue",
+            "circle:red",
+            "circle:blue",
+            "circle:red"
+          ],
+          "answer": "circle:blue",
+          "options": [
+            "circle:blue",
+            "circle:green",
+            "square:blue"
+          ]
+        },
+        {
+          "kind": "next",
+          "seq": [
+            "square:green",
+            "triangle:yellow",
+            "square:green",
+            "triangle:yellow"
+          ],
+          "answer": "square:green",
+          "options": [
+            "square:green",
+            "triangle:green",
+            "square:yellow"
+          ]
+        },
+        {
+          "kind": "next",
+          "seq": [
+            "star:yellow",
+            "star:yellow",
+            "heart:red",
+            "star:yellow",
+            "star:yellow"
+          ],
+          "answer": "heart:red",
+          "options": [
+            "heart:red",
+            "star:red",
+            "heart:yellow"
+          ]
+        },
+        {
+          "kind": "next",
+          "seq": [
+            "circle:red",
+            "square:blue",
+            "triangle:green",
+            "circle:red",
+            "square:blue"
+          ],
+          "answer": "triangle:green",
+          "options": [
+            "triangle:green",
+            "triangle:red",
+            "square:green"
+          ]
+        },
+        {
+          "kind": "next",
+          "seq": [
+            "heart:pink",
+            "diamond:purple",
+            "heart:pink",
+            "diamond:purple",
+            "heart:pink"
+          ],
+          "answer": "diamond:purple",
+          "options": [
+            "diamond:purple",
+            "diamond:pink",
+            "heart:purple"
+          ]
+        },
+        {
+          "kind": "next",
+          "seq": [
+            "triangle:orange",
+            "triangle:orange",
+            "circle:blue",
+            "triangle:orange",
+            "triangle:orange"
+          ],
+          "answer": "circle:blue",
+          "options": [
+            "circle:blue",
+            "circle:orange",
+            "triangle:blue"
+          ]
+        },
+        {
+          "kind": "odd",
+          "seq": [
+            "circle:blue",
+            "circle:blue",
+            "square:blue",
+            "circle:blue"
+          ],
+          "answer": "square:blue"
+        },
+        {
+          "kind": "odd",
+          "seq": [
+            "star:yellow",
+            "star:yellow",
+            "star:purple",
+            "star:yellow"
+          ],
+          "answer": "star:purple"
+        },
+        {
+          "kind": "odd",
+          "seq": [
+            "triangle:green",
+            "heart:green",
+            "triangle:green",
+            "triangle:green"
+          ],
+          "answer": "heart:green"
+        },
+        {
+          "kind": "odd",
+          "seq": [
+            "diamond:red",
+            "diamond:red",
+            "diamond:red",
+            "diamond:orange"
+          ],
+          "answer": "diamond:orange"
+        }
+      ]
+    }
+  }
+}

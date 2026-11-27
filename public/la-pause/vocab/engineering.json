@@ -1,0 +1,259 @@
+{
+  "activities": {
+    "car": {
+      "engine": "build",
+      "scene": "car",
+      "theme": "workshop",
+      "intro": {
+        "fr": "Construisons une voiture !",
+        "en": "Let's build a car!"
+      },
+      "parts": [
+        {
+          "id": "wheels",
+          "fr": "les roues",
+          "en": "the wheels"
+        },
+        {
+          "id": "body",
+          "fr": "la carrosserie",
+          "en": "the body"
+        },
+        {
+          "id": "windows",
+          "fr": "les vitres",
+          "en": "the windows"
+        },
+        {
+          "id": "door",
+          "fr": "la porte",
+          "en": "the door"
+        },
+        {
+          "id": "wheel",
+          "fr": "le volant",
+          "en": "the steering wheel"
+        },
+        {
+          "id": "lights",
+          "fr": "les phares",
+          "en": "the headlights"
+        },
+        {
+          "id": "bumper",
+          "fr": "le pare-chocs",
+          "en": "the bumper"
+        },
+        {
+          "id": "mirror",
+          "fr": "le rétroviseur",
+          "en": "the mirror"
+        }
+      ],
+      "done": {
+        "fr": "Voilà la voiture !",
+        "en": "Here is the car!"
+      }
+    },
+    "construction": {
+      "engine": "build",
+      "scene": "house",
+      "theme": "site",
+      "intro": {
+        "fr": "Construisons une maison !",
+        "en": "Let's build a house!"
+      },
+      "parts": [
+        {
+          "id": "foundation",
+          "fr": "les fondations",
+          "en": "the foundations"
+        },
+        {
+          "id": "walls",
+          "fr": "les murs",
+          "en": "the walls"
+        },
+        {
+          "id": "chimney",
+          "fr": "la cheminée",
+          "en": "the chimney"
+        },
+        {
+          "id": "roof",
+          "fr": "le toit",
+          "en": "the roof"
+        },
+        {
+          "id": "door",
+          "fr": "la porte",
+          "en": "the door"
+        },
+        {
+          "id": "windows",
+          "fr": "les fenêtres",
+          "en": "the windows"
+        },
+        {
+          "id": "steps",
+          "fr": "les marches",
+          "en": "the steps"
+        }
+      ],
+      "done": {
+        "fr": "Voilà la maison !",
+        "en": "Here is the house!"
+      }
+    },
+    "bridges": {
+      "engine": "build",
+      "scene": "bridge",
+      "theme": "lab",
+      "intro": {
+        "fr": "Construisons un pont !",
+        "en": "Let's build a bridge!"
+      },
+      "parts": [
+        {
+          "id": "piers",
+          "fr": "les piliers",
+          "en": "the piers"
+        },
+        {
+          "id": "deck",
+          "fr": "le tablier",
+          "en": "the deck"
+        },
+        {
+          "id": "road",
+          "fr": "la route",
+          "en": "the road"
+        },
+        {
+          "id": "towers",
+          "fr": "les tours",
+          "en": "the towers"
+        },
+        {
+          "id": "cables",
+          "fr": "les câbles",
+          "en": "the cables"
+        },
+        {
+          "id": "hangers",
+          "fr": "les suspentes",
+          "en": "the hangers"
+        }
+      ],
+      "done": {
+        "fr": "Voilà le pont !",
+        "en": "Here is the bridge!"
+      }
+    },
+    "robotics": {
+      "engine": "build",
+      "scene": "robot",
+      "theme": "robotics",
+      "intro": {
+        "fr": "Construisons un robot !",
+        "en": "Let's build a robot!"
+      },
+      "parts": [
+        {
+          "id": "legs",
+          "fr": "les jambes",
+          "en": "the legs"
+        },
+        {
+          "id": "arms",
+          "fr": "les bras",
+          "en": "the arms"
+        },
+        {
+          "id": "body",
+          "fr": "le corps",
+          "en": "the body"
+        },
+        {
+          "id": "screen",
+          "fr": "l'écran",
+          "en": "the screen"
+        },
+        {
+          "id": "head",
+          "fr": "la tête",
+          "en": "the head"
+        },
+        {
+          "id": "eyes",
+          "fr": "les yeux",
+          "en": "the eyes"
+        },
+        {
+          "id": "antenna",
+          "fr": "l'antenne",
+          "en": "the antenna"
+        }
+      ],
+      "done": {
+        "fr": "Voilà le robot !",
+        "en": "Here is the robot!"
+      }
+    },
+    "inventions": {
+      "engine": "build",
+      "scene": "bulb",
+      "theme": "invent",
+      "intro": {
+        "fr": "Quelle bonne idée !",
+        "en": "What a great idea!"
+      },
+      "parts": [
+        {
+          "id": "battery",
+          "fr": "la pile",
+          "en": "the battery"
+        },
+        {
+          "id": "wires",
+          "fr": "les fils",
+          "en": "the wires"
+        },
+        {
+          "id": "switch",
+          "fr": "l'interrupteur",
+          "en": "the switch"
+        },
+        {
+          "id": "gear",
+          "fr": "l'engrenage",
+          "en": "the gear"
+        },
+        {
+          "id": "base",
+          "fr": "le culot",
+          "en": "the base"
+        },
+        {
+          "id": "glass",
+          "fr": "l'ampoule",
+          "en": "the bulb"
+        },
+        {
+          "id": "filament",
+          "fr": "le filament",
+          "en": "the filament"
+        },
+        {
+          "id": "rays",
+          "fr": "la lumière",
+          "en": "the light"
+        }
+      ],
+      "done": {
+        "fr": "Ça marche !",
+        "en": "It works!"
+      }
+    }
+  }
+}

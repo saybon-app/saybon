@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/js/auth-gate.js"></script>
+<script type="module" src="/js/auth-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>La Pause · SayBon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lp.css?v=1">
+<link rel="stylesheet" href="kit.css?v=1">
+</head>
+<body>
+<div class="lp-bg"></div>
+<div class="lp-stars"></div>
+<div class="lp-ground"></div>
+<div class="lp-lights" aria-hidden="true"><svg viewBox="0 0 1000 46" preserveAspectRatio="none"><path d="M0 4 Q250 40 500 4 Q750 40 1000 4" fill="none" stroke="#caa24a" stroke-width="1.4" opacity=".7"/><g fill="#ffe9a6"><circle cx="60" cy="16.6" r="3.2"/><circle cx="120" cy="22.1" r="3.2"/><circle cx="180" cy="25.6" r="3.2"/><circle cx="240" cy="27.0" r="3.2"/><circle cx="300" cy="26.3" r="3.2"/><circle cx="360" cy="23.5" r="3.2"/><circle cx="420" cy="18.7" r="3.2"/><circle cx="480" cy="11.8" r="3.2"/><circle cx="540" cy="14.3" r="3.2"/><circle cx="600" cy="20.5" r="3.2"/><circle cx="660" cy="24.7" r="3.2"/><circle cx="720" cy="26.7" r="3.2"/><circle cx="780" cy="26.7" r="3.2"/><circle cx="840" cy="24.7" r="3.2"/><circle cx="900" cy="20.5" r="3.2"/><circle cx="960" cy="14.3" r="3.2"/></g></svg></div>
+
+<header class="lp-top">
+  <button class="lp-back" id="backBtn" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span id="backBtnLbl">Back to Talkletics</span>
+  </button>
+  <div class="lp-title"><b>La Pause</b><small>Choose where to go</small></div>
+</header>
+
+<main id="home"><div class="lp-street" id="street"></div></main>
+
+<section class="lp-hubscreen" id="hubScreen" hidden>
+  <div class="lp-hubhead"><button type="button" id="hubTitle" aria-label="Hear the name"></button></div>
+  <div class="lp-acts" id="acts"></div>
+</section>
+
+<div id="stage"></div>
+
+<script src="/music/music-core.js?v=1"></script>
+<script src="data.js?v=1"></script>
+<script src="core.js?v=1"></script>
+<script src="art.js?v=1"></script>
+<script src="scenes-eng.js?v=1"></script>
+<script src="scenes-home.js?v=1"></script>
+<script src="kit.js?v=1"></script>
+<script src="kit-games.js?v=1"></script>
+</body>
+</html>

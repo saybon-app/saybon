@@ -406,6 +406,8 @@ async function runItem(){
   }
   skipThis=false;
   st.idx++;save();
+  /* La Pause: a quiet gap between two items, nothing playing or recording */
+  if(st.idx<N&&window.laPause){try{await window.laPause.safeMoment();}catch(e){}}
 }
 var skipThis=false;
 $("skipBtn").onclick=function(){skipThis=true;stopVoice();$("skipBtn").hidden=true;};

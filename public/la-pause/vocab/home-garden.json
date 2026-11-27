@@ -1,0 +1,248 @@
+{
+  "activities": {
+    "interior": {
+      "engine": "build",
+      "scene": "room",
+      "theme": "home",
+      "intro": {
+        "fr": "Décorons le salon !",
+        "en": "Let's decorate the living room!"
+      },
+      "parts": [
+        {
+          "id": "window",
+          "fr": "la fenêtre",
+          "en": "the window"
+        },
+        {
+          "id": "curtains",
+          "fr": "les rideaux",
+          "en": "the curtains"
+        },
+        {
+          "id": "picture",
+          "fr": "le tableau",
+          "en": "the painting"
+        },
+        {
+          "id": "lamp",
+          "fr": "la lampe",
+          "en": "the lamp"
+        },
+        {
+          "id": "rug",
+          "fr": "le tapis",
+          "en": "the rug"
+        },
+        {
+          "id": "sofa",
+          "fr": "le canapé",
+          "en": "the sofa"
+        },
+        {
+          "id": "table",
+          "fr": "la table basse",
+          "en": "the coffee table"
+        },
+        {
+          "id": "plant",
+          "fr": "la plante",
+          "en": "the plant"
+        }
+      ],
+      "done": {
+        "fr": "Quel beau salon !",
+        "en": "What a lovely living room!"
+      }
+    },
+    "garden": {
+      "engine": "build",
+      "scene": "garden",
+      "theme": "garden",
+      "intro": {
+        "fr": "Jardinons !",
+        "en": "Let's do some gardening!"
+      },
+      "parts": [
+        {
+          "id": "sun",
+          "fr": "le soleil",
+          "en": "the sun"
+        },
+        {
+          "id": "fence",
+          "fr": "la clôture",
+          "en": "the fence"
+        },
+        {
+          "id": "tree",
+          "fr": "l'arbre",
+          "en": "the tree"
+        },
+        {
+          "id": "flowers",
+          "fr": "les fleurs",
+          "en": "the flowers"
+        },
+        {
+          "id": "vegetables",
+          "fr": "les légumes",
+          "en": "the vegetables"
+        },
+        {
+          "id": "watering",
+          "fr": "l'arrosoir",
+          "en": "the watering can"
+        },
+        {
+          "id": "shovel",
+          "fr": "la pelle",
+          "en": "the shovel"
+        },
+        {
+          "id": "wheelbarrow",
+          "fr": "la brouette",
+          "en": "the wheelbarrow"
+        }
+      ],
+      "done": {
+        "fr": "Quel beau jardin !",
+        "en": "What a beautiful garden!"
+      }
+    },
+    "outdoor": {
+      "engine": "build",
+      "scene": "terrace",
+      "theme": "patio",
+      "intro": {
+        "fr": "Aménageons la terrasse !",
+        "en": "Let's set up the terrace!"
+      },
+      "parts": [
+        {
+          "id": "deck",
+          "fr": "la terrasse",
+          "en": "the terrace"
+        },
+        {
+          "id": "table",
+          "fr": "la table",
+          "en": "the table"
+        },
+        {
+          "id": "chairs",
+          "fr": "les chaises",
+          "en": "the chairs"
+        },
+        {
+          "id": "parasol",
+          "fr": "le parasol",
+          "en": "the parasol"
+        },
+        {
+          "id": "barbecue",
+          "fr": "le barbecue",
+          "en": "the barbecue"
+        },
+        {
+          "id": "lights",
+          "fr": "les guirlandes",
+          "en": "the string lights"
+        },
+        {
+          "id": "pots",
+          "fr": "les pots de fleurs",
+          "en": "the flower pots"
+        }
+      ],
+      "done": {
+        "fr": "Quelle belle terrasse !",
+        "en": "What a lovely terrace!"
+      }
+    },
+    "house": {
+      "engine": "explore",
+      "scene": "chores",
+      "intro": {
+        "fr": "Faisons le ménage !",
+        "en": "Let's do the housekeeping!"
+      },
+      "rows": [
+        {
+          "label": {
+            "fr": "Pour nettoyer",
+            "en": "For cleaning"
+          },
+          "items": [
+            {
+              "fr": "le balai",
+              "en": "the broom",
+              "art": "broom"
+            },
+            {
+              "fr": "la serpillière",
+              "en": "the mop",
+              "art": "mop"
+            },
+            {
+              "fr": "l'éponge",
+              "en": "the sponge",
+              "art": "sponge"
+            },
+            {
+              "fr": "le plumeau",
+              "en": "the feather duster",
+              "art": "duster"
+            }
+          ]
+        },
+        {
+          "label": {
+            "fr": "Les appareils et le linge",
+            "en": "Machines and laundry"
+          },
+          "items": [
+            {
+              "fr": "l'aspirateur",
+              "en": "the vacuum cleaner",
+              "art": "vacuum"
+            },
+            {
+              "fr": "le fer à repasser",
+              "en": "the iron",
+              "art": "iron"
+            },
+            {
+              "fr": "le panier à linge",
+              "en": "the laundry basket",
+              "art": "basket"
+            }
+          ]
+        },
+        {
+          "label": {
+            "fr": "Les produits",
+            "en": "Supplies"
+          },
+          "items": [
+            {
+              "fr": "le seau",
+              "en": "the bucket",
+              "art": "bucket"
+            },
+            {
+              "fr": "le vaporisateur",
+              "en": "the spray bottle",
+              "art": "spray"
+            },
+            {
+              "fr": "les gants",
+              "en": "the gloves",
+              "art": "gloves"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

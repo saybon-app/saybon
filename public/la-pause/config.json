@@ -1,0 +1,14 @@
+{
+  "invite": {
+    "minPlayMinutes": 5,
+    "minItems": 6,
+    "declineCooldownMinutes": 5,
+    "afterVisitCooldownMinutes": 5,
+    "headline": "YOU'RE DOING SO WELL!",
+    "sub": "Fancy a little break?",
+    "accept": "VISIT LA PAUSE",
+    "decline": "Maybe later",
+    "spoken": "You're doing so well! I think you could use a little break. Would you like to visit La Pause?",
+    "audio": "/assets/audio/la-pause/invitation/invite_welcome.mp3"
+  }
+}
