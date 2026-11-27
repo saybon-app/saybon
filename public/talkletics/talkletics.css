@@ -114,7 +114,7 @@ img{user-select:none;-webkit-user-drag:none;}
 /* ===== character placement (original) ===== */
 .tk-char--golf{--ar:0.7418;--c-l:6.459%;--c-b:5.101%;--c-h:90.882%;}
 @media (orientation:portrait){.tk-char--golf{--ar:0.7418;--c-cx:50.000%;--c-b:12.978%;--c-h:76.775%;}}
-.tk-char--basket{--ar:0.4691;--c-l:18.301%;--c-b:1.807%;--c-h:96.281%;}
+.tk-char--basket{--ar:0.4691;--c-l:8.5%;--c-b:1.807%;--c-h:96.281%;}
 @media (orientation:portrait){.tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-b:10.417%;--c-h:70.833%;}}
 .tk-char--soccer{--ar:0.4546;--c-l:13.038%;--c-b:3.188%;--c-h:94.899%;}
 @media (orientation:portrait){.tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-b:11.523%;--c-h:70.768%;}}
