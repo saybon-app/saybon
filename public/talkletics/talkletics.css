@@ -1,163 +1,155 @@
+/* Talkletics landing - panning sport scenes (golf -> basketball -> football) */
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,sans-serif;overflow:hidden;}
+html,body{height:100%;overflow:hidden;background:#0c2d52;}
+body{font-family:"Baloo 2","Manrope",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
+img{user-select:none;-webkit-user-drag:none;}
 
-.tk-stage{
-  position:relative;
-  width:100vw;
-  height:100dvh;
-  opacity:0;
-  transform:translateY(18px) scale(.97);
-  animation:tkEnter .8s cubic-bezier(.22,1,.36,1) forwards;
-}
-@keyframes tkEnter{
-  from{opacity:0;transform:translateY(18px) scale(.97);}
-  to{opacity:1;transform:translateY(0) scale(1);}
-}
+.tk-stage{position:fixed;inset:0;overflow:hidden;opacity:0;animation:tkFade .9s ease .05s forwards;}
+@keyframes tkFade{to{opacity:1;}}
 
-.tk-bg-picture{position:absolute;inset:0;z-index:0;}
-.tk-bg-img{
-  width:100%;height:100%;
-  object-fit:cover;
-  object-position:center 20%;
-  display:block;
+/* ===== panning backgrounds ===== */
+.tk-bgs,.tk-bg{position:absolute;inset:0;}
+.tk-bg{overflow:hidden;opacity:0;transition:opacity 1.3s ease;z-index:0;}
+.tk-bg.on{opacity:1;z-index:1;}
+.tk-bg picture{display:contents;}
+.tk-bg img{
+  position:absolute;top:0;left:0;
+  height:100%;width:auto;min-width:114%;
+  object-fit:cover;object-position:center;
+  will-change:transform;
+  transform:translate3d(var(--p0,0px),0,0);
 }
-
-.tk-corner-icon{
-  width:40px;height:40px;
-  border-radius:50%;
-  background:rgba(255,255,255,.35);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.5);
-  display:flex;align-items:center;justify-content:center;
-  color:#1e3a5f;
-  cursor:pointer;
-}
-.tk-corner-icon svg{width:19px;height:19px;}
-.tk-corner-back{position:absolute;top:14px;left:14px;z-index:20;}
-.tk-corner-icon-group{position:absolute;top:14px;right:14px;display:flex;gap:8px;z-index:20;}
-
-.tk-platform{
-  position:absolute;
-  bottom:10px;left:50%;
-  transform:translateX(-50%);
-  display:flex;align-items:flex-end;
-  gap:22px;
-  z-index:10;
+.tk-bg.pan img{animation:tkPan var(--pan-dur,15s) cubic-bezier(.37,0,.63,1) forwards;}
+@keyframes tkPan{
+  from{transform:translate3d(var(--p0,0px),0,0);}
+  to  {transform:translate3d(var(--p1,0px),0,0);}
 }
 
-.tk-start-btn{
-  height:56px;
-  padding:0 30px;
-  align-self:center;
-  margin-bottom:60px;
-  background:linear-gradient(180deg,#5fbf5f,#3f9f3f);
-  color:#fff;font-weight:800;font-size:1rem;
-  border:none;border-radius:26px;
-  box-shadow:0 6px 16px rgba(0,0,0,.25);
-  cursor:pointer;
-  transition:transform .15s ease;
+/* ===== frame: 16:9 design box (landscape) / full screen (portrait) ===== */
+.tk-frame{
+  position:absolute;z-index:5;left:50%;top:50%;
+  width:min(100vw,177.7778dvh);
+  height:min(100dvh,56.25vw);
+  transform:translate(-50%,-50%);
+  container-type:size;
 }
-.tk-start-btn:active{transform:scale(.96);}
-
-.tk-guide-wrap{
-  position:relative;
-  display:flex;
-  align-items:flex-end;
-}
-.tk-guide{
-  height:min(42vh,380px);
-  object-fit:contain;
-  filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));
-  animation:tkIdleBob 4.2s ease-in-out infinite;
-}
-@keyframes tkIdleBob{
-  0%,100%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-6px) scale(1.012);}
+@media (orientation:portrait){
+  .tk-frame{left:0;top:0;width:100%;height:100%;transform:none;}
 }
 
-/* ===== speech bubble ===== */
-.tk-bubble-shape{
-  position:absolute;
-  bottom:90%;
-  left:95%;
-  width:250px;
-  aspect-ratio:320/225;
-  transform-origin:14% 90%;
-  transform:scaleX(0);
-  opacity:0;
-  z-index:15;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.25));
+/* ===== characters ===== */
+.tk-char{
+  position:absolute;z-index:2;pointer-events:none;
+  left:var(--c-l);bottom:var(--c-b);
+  height:var(--c-h);aspect-ratio:var(--ar);
+  visibility:hidden;
 }
-.tk-bubble-shape.tk-bubble-unroll{
-  transition:transform .65s cubic-bezier(.34,1.56,.64,1), opacity .45s ease;
-  transform:scaleX(1);
-  opacity:1;
-}
-.tk-bubble-shape.tk-bubble-rollaway{
-  transition:transform .5s cubic-bezier(.5,0,.75,0), opacity .4s ease .1s;
-  transform:scaleX(0);
-  opacity:0;
-}
-
-/* inner wrapper bops in sync with the guide once bubble is shown */
-.tk-bubble-bop{
-  position:relative;
-  width:100%;
-  height:100%;
-}
-.tk-bubble-shape.tk-bubble-unroll .tk-bubble-bop{
-  animation:tkIdleBob 4.2s ease-in-out infinite;
-}
-
-.tk-bubble-svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-}
-.tk-bubble-content{
-  position:absolute;
-  top:10%;
-  left:15%;
-  right:16%;
-  bottom:27%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.tk-bubble-content strong{
-  font-family:"Baloo 2",sans-serif;
-  font-weight:700;
-  font-size:1.05rem;
-  color:#c8862f;
-  margin-bottom:4px;
-}
-.tk-bubble-content p{
-  font-family:"Baloo 2",sans-serif;
-  font-weight:500;
-  font-size:.8rem;
-  color:#334049;
-  line-height:1.4;
-}
-
-@media (max-width:480px){
-  .tk-platform{bottom:40px;gap:14px;}
-  .tk-guide{height:min(38vh,300px);}
-  .tk-start-btn{height:48px;padding:0 22px;font-size:.9rem;margin-bottom:40px;}
-
-  .tk-bubble-shape{
-    width:230px;
-    left:-96%;
-    bottom:100%;
-    margin-bottom:14px;
-    transform-origin:86% 100%;
+.tk-char.on,.tk-char.out{visibility:visible;}
+@media (orientation:portrait){
+  .tk-char{
+    left:var(--c-cx);transform:translateX(-50%);
+    height:min(var(--c-h),calc(96vw / var(--ar)));
   }
-  .tk-bubble-content{left:16%;right:18%;}
-  .tk-bubble-content strong{font-size:1rem;}
-  .tk-bubble-content p{font-size:.78rem;}
-  .tk-corner-icon{width:34px;height:34px;}
-  .tk-corner-icon svg{width:16px;height:16px;}
+}
+.tk-char-in{
+  position:absolute;inset:0;
+  opacity:0;transform:translate3d(16%,0,0) scale(.96);
+  transition:opacity .9s ease,transform 1.2s cubic-bezier(.22,1,.36,1);
+}
+.tk-char.on .tk-char-in{opacity:1;transform:none;}
+.tk-char.out .tk-char-in{
+  opacity:0;transform:translate3d(-16%,0,0) scale(.97);
+  transition:opacity .8s ease,transform 1s cubic-bezier(.55,0,.8,.4);
+}
+.tk-bob{position:absolute;inset:0;animation:tkBob 4.4s ease-in-out infinite;}
+@keyframes tkBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.1%);}}
+.tk-pose{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;
+  opacity:0;transform:translateY(1.4%) scale(.985);transform-origin:12% 100%;
+  transition:opacity .75s ease,transform 1s cubic-bezier(.22,1,.36,1);
+  filter:drop-shadow(0 .6vmin 1vmin rgba(0,0,0,.22));
+}
+.tk-pose.on{opacity:1;transform:none;}
+.tk-char--basket .tk-pose,.tk-char--soccer .tk-pose{object-position:center bottom;transform:none;transition:none;}
+
+/* ===== logo + start button (positions are set per scene, so they glide) ===== */
+.tk-logo{
+  position:absolute;z-index:6;
+  left:var(--lg-l);top:var(--lg-t);width:var(--lg-w);height:auto;
+  transition:left 1.2s cubic-bezier(.65,0,.35,1),top 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1);
+  filter:drop-shadow(0 1.2cqh 2cqh rgba(20,60,110,.18));
+  pointer-events:none;
+}
+.tk-cta{
+  position:absolute;z-index:7;
+  left:var(--bt-l);top:var(--bt-t);width:var(--bt-w);aspect-ratio:var(--bt-ar);
+  border:0;background:url(/assets/talkletics/landing/pill.webp) center/100% 100% no-repeat;
+  cursor:pointer;container-type:inline-size;
+  display:flex;align-items:center;justify-content:center;
+  transition:left 1.2s cubic-bezier(.65,0,.35,1),top 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1),transform .15s ease,filter .2s ease;
+  filter:drop-shadow(0 1cqh 1.6cqh rgba(0,60,20,.28));
+  color:#fff;
+}
+.tk-cta-label{
+  display:inline-flex;align-items:center;gap:2.6cqw;
+  font-weight:700;font-size:7.4cqw;line-height:1;letter-spacing:.01em;white-space:nowrap;
+  text-shadow:0 .5cqw 0 rgba(0,70,20,.35);
+  transform:translateY(-1%);
+}
+.tk-cta-play{width:6.6cqw;height:6.6cqw;filter:drop-shadow(0 .5cqw 0 rgba(0,70,20,.35));}
+.tk-cta:hover{filter:drop-shadow(0 1cqh 1.6cqh rgba(0,60,20,.32)) brightness(1.06);}
+.tk-cta:active{transform:scale(.97);}
+.tk-cta:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:999px;}
+@media (orientation:portrait){
+  .tk-logo{top:calc(var(--lg-t) + env(safe-area-inset-top,0px) * .6);}
+  .tk-cta{top:auto;bottom:max(var(--bt-b),calc(env(safe-area-inset-bottom,0px) + 8px));transition:left 1.2s cubic-bezier(.65,0,.35,1),bottom 1.2s cubic-bezier(.65,0,.35,1),width 1.2s cubic-bezier(.65,0,.35,1),transform .15s ease,filter .2s ease;}
+}
+
+/* ===== per-scene layout (measured from the reference screens) ===== */
+
+/* ---- golf: landscape (16:9 frame) ---- */
+.tk-frame[data-scene="golf"]{
+  --lg-l:34.091%;--lg-t:11.703%;--lg-w:57.798%;
+  --bt-l:41.806%;--bt-t:61.105%;--bt-w:41.627%;--bt-ar:5.4803;
+}
+/* ---- golf: portrait ---- */
+@media (orientation:portrait){
+.tk-frame[data-scene="golf"]{
+  --lg-l:6.961%;--lg-t:1.898%;--lg-w:85.984%;
+  --bt-l:8.395%;--bt-w:83.209%;--bt-ar:5.7574;--bt-b:2.333%;
+}}
+
+/* ---- basket: landscape (16:9 frame) ---- */
+.tk-frame[data-scene="basket"]{
+  --lg-l:38.122%;--lg-t:12.941%;--lg-w:60.366%;
+  --bt-l:47.249%;--bt-t:61.955%;--bt-w:44.856%;--bt-ar:5.2817;
+}
+/* ---- basket: portrait ---- */
+@media (orientation:portrait){
+.tk-frame[data-scene="basket"]{
+  --lg-l:8.281%;--lg-t:1.444%;--lg-w:81.790%;
+  --bt-l:8.887%;--bt-w:81.836%;--bt-ar:5.9857;--bt-b:18.164%;
+}}
+
+/* ---- soccer: landscape (16:9 frame) ---- */
+.tk-frame[data-scene="soccer"]{
+  --lg-l:33.684%;--lg-t:11.366%;--lg-w:59.082%;
+  --bt-l:41.687%;--bt-t:61.743%;--bt-w:42.225%;--bt-ar:5.3083;
+}
+/* ---- soccer: portrait ---- */
+@media (orientation:portrait){
+.tk-frame[data-scene="soccer"]{
+  --lg-l:8.281%;--lg-t:1.444%;--lg-w:81.790%;
+  --bt-l:8.984%;--bt-w:81.836%;--bt-ar:5.9857;--bt-b:2.083%;
+}}
+.tk-char--golf{--ar:0.7418;--c-l:6.459%;--c-b:5.101%;--c-h:90.882%;}
+@media (orientation:portrait){.tk-char--golf{--ar:0.7418;--c-cx:50.000%;--c-b:12.978%;--c-h:76.775%;}}
+.tk-char--basket{--ar:0.4691;--c-l:18.301%;--c-b:1.807%;--c-h:96.281%;}
+@media (orientation:portrait){.tk-char--basket{--ar:0.4697;--c-cx:51.123%;--c-b:10.417%;--c-h:70.833%;}}
+.tk-char--soccer{--ar:0.4546;--c-l:13.038%;--c-b:3.188%;--c-h:94.899%;}
+@media (orientation:portrait){.tk-char--soccer{--ar:0.4554;--c-cx:48.389%;--c-b:11.523%;--c-h:70.768%;}}
+@media (prefers-reduced-motion:reduce){
+  .tk-bg.pan img{animation:none;}
+  .tk-bob{animation:none;}
+  .tk-char-in,.tk-char.out .tk-char-in{transform:none;}
 }

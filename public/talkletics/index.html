@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
@@ -10,68 +10,68 @@
 <title>Talkletics - Speak To Survive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=optional" rel="stylesheet">
-<link rel="stylesheet" href="talkletics.css?v=13">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/talkletics/landing/golf-bg.webp">
+<link rel="preload" as="image" href="/assets/talkletics/landing/golf-up.webp">
+<link rel="stylesheet" href="talkletics.css?v=14">
 </head>
 <body>
-<div class="tk-stage">
+<div class="tk-stage" id="tkStage">
 
-  <picture class="tk-bg-picture">
-    <source media="(max-width:768px)" srcset="/assets/talkletics/landing-bg-mobile.webp">
-    <img class="tk-bg-img" src="/assets/talkletics/landing-bg-desk.webp" alt="">
-  </picture>
-
-  <button class="tk-corner-icon tk-corner-back" onclick="location.href='/dashboard/'" aria-label="Back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </button>
-
-  <div class="tk-corner-icon-group">
-    <button class="tk-corner-icon" onclick="if(window.stopAppBgMusic){ window.stopAppBgMusic(); } location.href='/'" aria-label="Home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 11.5 12 4l9 7.5"></path>
-        <path d="M5.5 10v9a1 1 0 0 0 1 1H9v-6h6v6h2.5a1 1 0 0 0 1-1v-9"></path>
-      </svg>
-    </button>
-    <button class="tk-corner-icon" onclick="location.href='/dashboard/'" aria-label="Dashboard">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
-        <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
-        <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
-        <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
-      </svg>
-    </button>
-  </div>
-
-  <div class="tk-platform">
-
-    <button class="tk-start-btn" id="tkStartBtn">Start Adventure</button>
-
-    <div class="tk-guide-wrap">
-      <img class="tk-guide" src="/assets/talkletics/guide.webp" alt="Your guide">
-
-      <div class="tk-bubble-shape" id="tkSpeechBubble">
-        <div class="tk-bubble-bop">
-          <picture>
-            <source media="(max-width:768px)" srcset="/assets/talkletics/bubble-glass-flipped.svg">
-            <img src="/assets/talkletics/bubble-glass.svg" class="tk-bubble-svg" alt="">
-          </picture>
-          <div class="tk-bubble-content">
-            <strong id="tkGreetText"></strong>
-            <p id="tkTypeText"></p>
-          </div>
-        </div>
-      </div>
+  <!-- Panning backgrounds -->
+  <div class="tk-bgs" aria-hidden="true">
+    <div class="tk-bg" data-scene="golf">
+      <img src="/assets/talkletics/landing/golf-bg.webp" alt="" draggable="false">
+    </div>
+    <div class="tk-bg" data-scene="basket">
+      <picture>
+        <source media="(orientation:portrait)" srcset="/assets/talkletics/landing/basket-bg-mob.webp">
+        <img src="/assets/talkletics/landing/basket-bg-desk.webp" alt="" draggable="false">
+      </picture>
+    </div>
+    <div class="tk-bg" data-scene="soccer">
+      <picture>
+        <source media="(orientation:portrait)" srcset="/assets/talkletics/landing/soccer-bg-mob.webp">
+        <img src="/assets/talkletics/landing/soccer-bg-desk.webp" alt="" draggable="false">
+      </picture>
     </div>
   </div>
 
-</div>
-<script src="talkletics.js?v=15"></script>
+  <div class="tk-frame" id="tkFrame" data-scene="golf">
 
+    <!-- Golf: upright -> swing -> celebrate -->
+    <div class="tk-char tk-char--golf" data-scene="golf">
+      <div class="tk-char-in"><div class="tk-bob">
+        <img class="tk-pose on" data-pose="up"    src="/assets/talkletics/landing/golf-up.webp"    alt="" draggable="false">
+        <img class="tk-pose"    data-pose="swing" src="/assets/talkletics/landing/golf-swing.webp" alt="" draggable="false">
+        <img class="tk-pose"    data-pose="cele"  src="/assets/talkletics/landing/golf-cele.webp"  alt="" draggable="false">
+      </div></div>
+    </div>
+
+    <!-- Basketball -->
+    <div class="tk-char tk-char--basket" data-scene="basket">
+      <div class="tk-char-in"><div class="tk-bob">
+        <img class="tk-pose on" src="/assets/talkletics/landing/basket.webp" alt="" draggable="false">
+      </div></div>
+    </div>
+
+    <!-- Football -->
+    <div class="tk-char tk-char--soccer" data-scene="soccer">
+      <div class="tk-char-in"><div class="tk-bob">
+        <img class="tk-pose on" src="/assets/talkletics/landing/soccer.webp" alt="" draggable="false">
+      </div></div>
+    </div>
+
+    <img class="tk-logo" src="/assets/talkletics/landing/logo.webp" alt="Talkletics - Speak To Survive" draggable="false">
+
+    <button class="tk-cta" id="tkStartBtn" type="button">
+      <span class="tk-cta-label">Start Adventure
+        <svg class="tk-cta-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.6c0-1.1 1.2-1.8 2.2-1.2l11.6 8.4c.9.6.9 1.9 0 2.5L8.7 21.7c-1 .6-2.2-.1-2.2-1.2z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      </span>
+    </button>
+  </div>
+
+</div>
+<script src="talkletics.js?v=16"></script>
 </body>
 </html>
-
-
-
-
