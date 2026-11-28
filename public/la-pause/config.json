@@ -1,7 +1,7 @@
 {
   "invite": {
-    "minPlayMinutes": 5,
-    "minItems": 6,
+    "minPlayMinutes": 3,
+    "minItems": 1,
     "declineCooldownMinutes": 5,
     "afterVisitCooldownMinutes": 5,
     "headline": "YOU'RE DOING SO WELL!",

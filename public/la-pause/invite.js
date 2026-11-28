@@ -7,14 +7,14 @@
   if (window.laPause) return;
 
   var DEF = {
-    minPlayMinutes: 5, minItems: 6, declineCooldownMinutes: 25, afterVisitCooldownMinutes: 30,
+    minPlayMinutes: 3, minItems: 1, declineCooldownMinutes: 25, afterVisitCooldownMinutes: 30,
     headline: "YOU'RE DOING SO WELL!", sub: "Fancy a little break?",
     accept: "VISIT LA PAUSE", decline: "Maybe later",
     spoken: "You're doing so well! I think you could use a little break. Would you like to visit La Pause?",
     audio: "/assets/audio/la-pause/invitation/invite_welcome.mp3"
   };
   var CFG = DEF;
-  var cfgReady = fetch("/la-pause/config.json?v=1").then(function (r) { return r.json(); })
+  var cfgReady = fetch("/la-pause/config.json?v=2").then(function (r) { return r.json(); })
     .then(function (j) { CFG = Object.assign({}, DEF, j && j.invite); }).catch(function () {});
 
   var KEY = "lpState", lastCall = Date.now(), busy = false;
@@ -51,7 +51,7 @@
     l.href = "https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Cormorant+Garamond:ital,wght@1,600&family=Poppins:wght@500;600&display=swap";
     document.head.appendChild(l);
     var c = el("link");
-    c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=1";
+    c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=2";
     document.head.appendChild(c);
     return new Promise(function (res) { c.onload = c.onerror = res; setTimeout(res, 1500); });
   }
@@ -164,18 +164,38 @@
     if (busy || document.hidden || gateOpen()) return Promise.resolve(false);
     return cfgReady.then(function () {
       if (!due(s, Date.now())) return false;
-      busy = true;
-      return offer().then(function (ans) {
-        var t = Date.now(), st = load();
-        if (ans === "accept") { st.coolUntil = t + CFG.afterVisitCooldownMinutes * 60000; st.playMs = 0; st.items = 0; }
-        else { st.coolUntil = t + CFG.declineCooldownMinutes * 60000; }
-        save(st);
-        lastCall = Date.now();
-        busy = false;
-        return ans === "accept";
-      }, function () { busy = false; return false; });
+      return run();
     });
   }
+  /* shows the invitation and records the answer (used by the timer and by the side button) */
+  function run() {
+    busy = true;
+    return offer().then(function (ans) {
+      var t = Date.now(), st = load();
+      if (ans === "accept") { st.coolUntil = t + CFG.afterVisitCooldownMinutes * 60000; st.playMs = 0; st.items = 0; }
+      else { st.coolUntil = t + CFG.declineCooldownMinutes * 60000; }
+      save(st);
+      lastCall = Date.now();
+      busy = false;
+      return ans === "accept";
+    }, function () { busy = false; return false; });
+  }
+
+  /* ---------- small side button: open the invitation any time ---------- */
+  function sideButton() {
+    if (document.getElementById("lpiSide")) return;
+    var b = document.createElement("button");
+    b.id = "lpiSide"; b.type = "button"; b.className = "lpi-side";
+    b.setAttribute("aria-label", "La Pause"); b.title = "La Pause";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l2-5h14l2 5M3 9h18M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M5 12v8h14v-8M10 20v-5h4v5"/></svg>';
+    if (!document.querySelector('link[href^="/la-pause/invite.css"]')) { var c = document.createElement("link"); c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=2"; document.head.appendChild(c); }
+    b.onclick = function () {
+      if (busy || gateOpen()) return;
+      cfgReady.then(function () { if (!busy) run(); });
+    };
+    document.body.appendChild(b);
+  }
+  if (document.body) sideButton(); else document.addEventListener("DOMContentLoaded", sideButton);
 
   /* ---------- the invitation ---------- */
   function offer() {
