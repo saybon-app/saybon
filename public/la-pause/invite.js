@@ -51,7 +51,7 @@
     l.href = "https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Cormorant+Garamond:ital,wght@1,600&family=Poppins:wght@500;600&display=swap";
     document.head.appendChild(l);
     var c = el("link");
-    c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=2";
+    c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=3";
     document.head.appendChild(c);
     return new Promise(function (res) { c.onload = c.onerror = res; setTimeout(res, 1500); });
   }
@@ -188,7 +188,7 @@
     b.id = "lpiSide"; b.type = "button"; b.className = "lpi-side";
     b.setAttribute("aria-label", "La Pause"); b.title = "La Pause";
     b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l2-5h14l2 5M3 9h18M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M5 12v8h14v-8M10 20v-5h4v5"/></svg>';
-    if (!document.querySelector('link[href^="/la-pause/invite.css"]')) { var c = document.createElement("link"); c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=2"; document.head.appendChild(c); }
+    if (!document.querySelector('link[href^="/la-pause/invite.css"]')) { var c = document.createElement("link"); c.rel = "stylesheet"; c.href = "/la-pause/invite.css?v=3"; document.head.appendChild(c); }
     b.onclick = function () {
       if (busy || gateOpen()) return;
       cfgReady.then(function () { if (!busy) run(); });
